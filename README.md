@@ -2,6 +2,21 @@
 
 Private, versioned research archive for reconstructing settlements in the 2002, 2010 and 2021 Russian censuses. It preserves the legacy project as a baseline and contains a source-corrected, reproducible Karelia pilot. Neither is a validated national settlement database.
 
+## National source-selection and reviewed-link checkpoint
+
+The private release `national-reviewed-checkpoint-r1-r2-2026-09-30` contains four hash-listed bundles: source-selection R1 inputs and outputs, plus reviewed-admissions R2 inputs and outputs/reviews. Download all four bundles and `asset_manifest.json` while signed in to an account with repository access. Verify archive hashes before extraction:
+
+```sh
+mkdir -p national-assets
+gh release download national-reviewed-checkpoint-r1-r2-2026-09-30 --repo ZakBu/russian-settlements-research --dir national-assets
+python3 scripts/verify_release_assets.py --manifest national-assets/asset_manifest.json --asset-dir national-assets
+for asset in national_source_selection_r1_inputs.tar.zst national_source_selection_r1_outputs.tar.zst national_reviewed_admissions_r2_reproduction_inputs.tar.zst national_reviewed_admissions_r2_outputs.tar.zst; do
+  zstd -dc "national-assets/$asset" | tar -xf - -C .
+done
+```
+
+The bundle manifest records SHA-256 and byte length for every archived member. From a copy of the repository code and the extracted inputs, source selection can be rebuilt with `python3 research_rebuild/linkage/build_national_selection_r1.py --output /tmp/source-selection-r1-rebuilt`; R2 can be rebuilt with `python3 research_rebuild/linkage/build_national_admission_release_r2.py --output /tmp/admissions-r2-rebuilt`. The four R2 unit tests are run with `python3 -m unittest research_rebuild.tests.test_national_admission_release_r2 -v`. These releases report reviewed case coverage only, not national matching accuracy.
+
 ## Reproduce the Karelia pilot
 
 The releases are private: download them while signed in to a GitHub account with read access to this repository, or authenticate the GitHub CLI with `gh auth login`. The commands below stage the exact source and review files checked by the build. The baseline source files and forensic outputs come from separate release archives; the supplemental bundle supplies the Karelia DOCX, fixed reviews and compact processed evidence.
@@ -45,7 +60,11 @@ The 2002 Karelia selected slice exceeds its regional control by 3 people; that r
 
 ## National status and limits
 
-The national crosswalk, identity links, and coordinate coverage remain unvalidated baseline material. A present coordinate does not certify the place identity or historical applicability. Aggregate population rows must not be attached to a physical settlement. For example, an independent source check found that 2002 Table 4 row 2154 is a Moscow-plus-subordinate-settlements aggregate (10,382,754), while the nested row 2155 is the city of Moscow (10,126,424); this high-mass source-scope issue remains unresolved in the national baseline.
+Two national evidence checkpoints now sit above the preserved baseline. Source-selection R1 replaces one 2002 Moscow parent aggregate with five disjoint city/subordinate-settlement rows while preserving the parent total, and replaces the 2010 Karelia legacy slice with the corrected official-source slice (+4,784 people). The 2021 selected snapshot is unchanged. Reviewed-admissions R2 records 51 accepted same-place edges and 81 point claims with typed identity/publication dependencies. These are a small, reviewed lower bound, not a national reconstruction.
+
+Source-selection R1 contains 158,072 selected 2002 rows / 145,155,005 people; 152,313 selected 2010 rows / 142,172,038 people; and 155,414 selected 2021 rows / 147,182,123 people. These are selected-data denominators, not proof of completeness against every official census total. R2's admitted-coordinate coverage within those denominators is 0.3702% of 2002 population, 0.3532% of 2010, and 6.3558% of 2021; identity-linked population shares are 2.6615%, 0.3532%, and 2.8170%, respectively. Row coverage is reported separately in the release. Historical point uses are explicitly `inferred_continuity`; the provider-coordinate measurement date is unknown. Four direct Karelia points have an additional byte-preserved OSM attic geometry check as of 2021-10-01; OSM is not an official census boundary.
+
+The national crosswalk outside these reviewed slices remains unvalidated baseline material. A present coordinate does not certify place identity or historical applicability. Aggregate population rows must not be attached to a physical settlement. The 2002 Moscow parent issue is resolved for the new selected snapshot only: Table 4 row 2154 is the Moscow-plus-subordinate-settlements aggregate (10,382,754), while its five disjoint children include the city-only Moscow row (10,126,424); the component migration preserves the aggregate sum and does not assert cross-year identity with current administrative boundaries.
 
 The 99.9% population coverage goal has not been met or demonstrated. Coverage by population and coverage by settlement count must be reported separately; unresolved cases remain visible. Historical coordinates are inferred only when a reviewed continuity decision supports that use.
 
@@ -55,5 +74,9 @@ The 99.9% population coverage goal has not been met or demonstrated. Coverage by
 - [Data model and audit policy](METHODOLOGY.md)
 - [Source inventory and use conditions](SOURCES.md)
 - [Identity and coordinate methodology](research_rebuild/docs/LINKAGE_METHODOLOGY.md)
+- [National source-selection and reviewed-admissions checkpoint](research_rebuild/evidence/releases/national_reviewed_checkpoint_r1_r2_20260930/asset_manifest.json)
+- [Independent source-selection review](research_rebuild/evidence/reviews/national_source_selection_r1_independent_validation_20260930.json)
+- [Independent reviewed-admissions review](research_rebuild/evidence/reviews/national_reviewed_admissions_r2_independent_review_20260930.json)
+- [Karelia geometry evidence supplement](research_rebuild/evidence/reviews/geometry_refresh_r1_20260930/independent_geometry_review.json)
 
 This repository and its attached assets are private. There is no blanket license for mixed-source material; rights and reuse conditions vary by source. A private archive upload does not imply permission for public redistribution.

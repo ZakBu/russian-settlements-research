@@ -1,0 +1,256 @@
+{
+  "review_id": "national_reviewed_admissions_r2_independent_review_20260930",
+  "review_status": "accept_structural_release_with_explicit_scope_limits",
+  "manifest_path": "research_rebuild/evidence/releases/national_reviewed_admissions_r2_20260930/release_manifest.json",
+  "manifest_sha256": "fb82b38ebbf77bd6222fb880038b5f0fa09b35b60d63aa1fc33458ef62c3c967",
+  "builder_sha256": "8544ed6d8a4c48c5205e83e01d3fe6ba2433733111cf857032777518591ad7e4",
+  "parent_r1_manifest_sha256": "4875e3b060fbc31e7b98af2bf938b1cd354c6008121d801a5eff53b30ab8e9a2",
+  "output_hash_checks": {
+    "coordinate_admissions.csv": {
+      "actual_sha256": "c58c3a573ddc7878f948b69ab53696bb94583408b8368fbef34f1b385b56c07e",
+      "expected_sha256": "c58c3a573ddc7878f948b69ab53696bb94583408b8368fbef34f1b385b56c07e",
+      "bytes": 164081,
+      "expected_bytes": 164081,
+      "match": true
+    },
+    "coverage_by_year.csv": {
+      "actual_sha256": "f34abdb5253105c199840b8228d10066e43f8efd0f6aa714ade57f29d1ae191e",
+      "expected_sha256": "f34abdb5253105c199840b8228d10066e43f8efd0f6aa714ade57f29d1ae191e",
+      "bytes": 989,
+      "expected_bytes": 989,
+      "match": true
+    },
+    "identity_edges_accepted.csv": {
+      "actual_sha256": "ae630375cfb9acf72c488b3324f927f4359213e0287fdde8d7bd14362fd2874a",
+      "expected_sha256": "ae630375cfb9acf72c488b3324f927f4359213e0287fdde8d7bd14362fd2874a",
+      "bytes": 113572,
+      "expected_bytes": 113572,
+      "match": true
+    },
+    "publication_bindings.csv": {
+      "actual_sha256": "561f0c9b5cf2ec3324b7b272ec7f952ee33889d492cb020e7a79772b3f801624",
+      "expected_sha256": "561f0c9b5cf2ec3324b7b272ec7f952ee33889d492cb020e7a79772b3f801624",
+      "bytes": 4613,
+      "expected_bytes": 4613,
+      "match": true
+    },
+    "reviewed_case_axes.csv": {
+      "actual_sha256": "7a2a0d17f8be10a5e8b556ad98d29bd5276a17919410afb6dca46f6ee360de51",
+      "expected_sha256": "7a2a0d17f8be10a5e8b556ad98d29bd5276a17919410afb6dca46f6ee360de51",
+      "bytes": 9586,
+      "expected_bytes": 9586,
+      "match": true
+    },
+    "selection_checks.csv": {
+      "actual_sha256": "b0e7b19362a4ee06fc071049b085e6d86d070711e70fac40cde9e1203d2e4867",
+      "expected_sha256": "b0e7b19362a4ee06fc071049b085e6d86d070711e70fac40cde9e1203d2e4867",
+      "bytes": 219,
+      "expected_bytes": 219,
+      "match": true
+    }
+  },
+  "scope": "Independent structural review of frozen R2 joins, dependency types and denominator arithmetic; not a new review of every underlying city case source.",
+  "identity_edges": {
+    "rows": 51,
+    "same_place_only": true,
+    "year_pair_counts": {
+      "2002->2010": 24,
+      "2002->2021": 3,
+      "2010->2021": 24
+    },
+    "selected_endpoint_year_join_misses": 0,
+    "duplicate_edge_ids": 0,
+    "connected_components": 27,
+    "same_year_duplicate_components": 0,
+    "unique_observation_rows_and_population": {
+      "2002": {
+        "rows": 27,
+        "population": 3863277
+      },
+      "2010": {
+        "rows": 24,
+        "population": 502217
+      },
+      "2021": {
+        "rows": 27,
+        "population": 4146187
+      }
+    }
+  },
+  "publication_bindings": {
+    "rows": 10,
+    "relation_values": [
+      "same_census_publication_equivalence"
+    ],
+    "binding_ids_unique": true,
+    "old_publication_ids_unique": true,
+    "selected_targets_unique": true,
+    "selected_target_join_misses": 0,
+    "binding_ids_missing_from_edge_fk_refs": []
+  },
+  "coordinate_claims": {
+    "rows": 81,
+    "targets_unique": true,
+    "selected_target_year_population_mismatches": 0,
+    "direct_point_target_mismatches": 0,
+    "identity_fk_violations": [],
+    "publication_binding_fk_violations": [],
+    "publication_scalar_list_mismatches": [],
+    "publication_ids_left_in_identity_dependency_field": [],
+    "unique_target_rows_population_by_year": {
+      "2002": {
+        "rows": 24,
+        "population": 537395,
+        "claim_count": 24
+      },
+      "2010": {
+        "rows": 24,
+        "population": 502217,
+        "claim_count": 24
+      },
+      "2021": {
+        "rows": 33,
+        "population": 9354610,
+        "claim_count": 33
+      }
+    },
+    "direct_2021_rows": 33,
+    "direct_2021_population": 9354610,
+    "historical_coordinate_kinds": [
+      "inferred_continuity_from_reviewed_2021_point"
+    ],
+    "geometry_url_missing": 16,
+    "geometry_sha256_missing": 18,
+    "evidence_uri_missing": 0,
+    "evidence_sha256_missing": 0
+  },
+  "revocation_semantics_probe": {
+    "chosen_coordinate_target": "ROSSTAT2010:T5:p54:l50",
+    "binding_revoke_id": "PUBLISHED-BINDING-41b06818b3b3bbf854d9b63b",
+    "coordinate_rows_depending_on_revoked_binding": 1,
+    "identity_edge_still_present_after_binding_only_revoke": true,
+    "identity_revoke_id": "REVIEW-CASE-f0d6480c0be9ae9c4025f194",
+    "coordinate_rows_depending_on_revoked_identity_edge": 2,
+    "publication_binding_still_present_after_identity_only_revoke": true,
+    "interpretation": "The independently simulated FK cascade withdraws only claims citing the revoked assertion: a publication-binding revoke leaves the same_place edge in the identity table, while revoking a same_place decision leaves its publication binding intact."
+  },
+  "release_delta_from_r1": {
+    "shared_coordinate_columns_changed": {
+      "decision_id": 0,
+      "coordinate_claim_id": 0,
+      "target_source_record_id": 0,
+      "target_year": 0,
+      "target_population": 0,
+      "coordinate_source_record_id": 0,
+      "coordinate_kind": 0,
+      "latitude": 0,
+      "longitude": 0,
+      "coordinate_source": 0,
+      "coordinate_quality": 0,
+      "decision_status": 0,
+      "decision_class": 0,
+      "decision_rule": 0,
+      "temporal_applicability": 0,
+      "depends_on_identity_decision_ids": 34,
+      "published_record_binding_id": 10,
+      "geometry_url": 0,
+      "geometry_sha256": 0,
+      "evidence_uri": 0,
+      "evidence_sha256": 0
+    },
+    "same_place_file_hash_unchanged": true,
+    "coverage_file_hash_unchanged": true,
+    "manifest_says_decisions_changed": false
+  },
+  "case_axis_preservation": {
+    "case_rows": 14,
+    "identity_verdict_counts": {
+      "probable_temporal_continuity_inference": 11,
+      "abstain_selected_observation_scope_mismatch": 2,
+      "no_comparable_2002_2010_records_in_Russian_census_layer": 1
+    },
+    "identity_release_status_counts": {
+      "probable_continuity_not_admitted": 11,
+      "accepted_same_place_2002_to_2021_only": 3
+    },
+    "point_verdict_counts": {
+      "accept_modern_representative_point_osm_place_polygon": 9,
+      "abstain_federal_subject_aggregate_not_settlement": 3,
+      "abstain_no_named_place_geometry": 1,
+      "hold_provider_link_conflict": 1
+    },
+    "not_accepted_point_cases": [
+      {
+        "place_name": "Москва",
+        "review_population_2021": 13010112,
+        "identity_review_verdict": "abstain_selected_observation_scope_mismatch",
+        "point_review_verdict": "abstain_federal_subject_aggregate_not_settlement"
+      },
+      {
+        "place_name": "Санкт-Петербург",
+        "review_population_2021": 5601911,
+        "identity_review_verdict": "abstain_selected_observation_scope_mismatch",
+        "point_review_verdict": "abstain_federal_subject_aggregate_not_settlement"
+      },
+      {
+        "place_name": "Тольятти",
+        "review_population_2021": 684709,
+        "identity_review_verdict": "probable_temporal_continuity_inference",
+        "point_review_verdict": "abstain_no_named_place_geometry"
+      },
+      {
+        "place_name": "Махачкала",
+        "review_population_2021": 623254,
+        "identity_review_verdict": "probable_temporal_continuity_inference",
+        "point_review_verdict": "hold_provider_link_conflict"
+      },
+      {
+        "place_name": "Севастополь",
+        "review_population_2021": 547820,
+        "identity_review_verdict": "no_comparable_2002_2010_records_in_Russian_census_layer",
+        "point_review_verdict": "abstain_federal_subject_aggregate_not_settlement"
+      }
+    ]
+  },
+  "coverage_denominators": {
+    "by_year": {
+      "2002": {
+        "selected_rows": 158072,
+        "selected_population": 145155005,
+        "identity_population_pct": 2.661484,
+        "coordinate_rows": 24,
+        "coordinate_population": 537395,
+        "coordinate_population_pct": 0.370221
+      },
+      "2010": {
+        "selected_rows": 152313,
+        "selected_population": 142172038,
+        "identity_population_pct": 0.353246,
+        "coordinate_rows": 24,
+        "coordinate_population": 502217,
+        "coordinate_population_pct": 0.353246
+      },
+      "2021": {
+        "selected_rows": 155414,
+        "selected_population": 147182123,
+        "identity_population_pct": 2.817045,
+        "coordinate_rows": 33,
+        "coordinate_population": 9354610,
+        "coordinate_population_pct": 6.355806
+      }
+    },
+    "denominator_scope": "Full selected source rows; not proof that the annual table equals all official census-universe locality population."
+  },
+  "limitations": [
+    "The three national top-city links are 2002-to-2021 only; no 2010 identity edge is claimed by this release.",
+    "Eleven top14 identities remain probable but are not admitted; eight candidate cases lack accepted identity edges.",
+    "Moscow and St Petersburg aggregate-scope observations abstain. Sevastopol has no 2002/2010 rows in the Russian census layer and is outside that census universe, not a failed match.",
+    "2021 points are source-row representative points; measurement date is unspecified. Historical coordinates are inferred continuity, not historical measurements.",
+    "The 2010 Karelia +4,784 selection delta and provisional DOCX transport caveat remain attached to the underlying R6 source release.",
+    "Some claims lack dedicated geometry URL/hash fields but retain evidence URI/SHA; review dossiers are required for spatial evidence details."
+  ],
+  "overall_limits": [
+    "No national matching precision or recall is extrapolated from the purposive top14 cases.",
+    "Official total population agreement and source completeness outside reviewed layers remain unvalidated."
+  ]
+}

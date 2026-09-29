@@ -1,0 +1,137 @@
+{
+  "review_id": "karelia_four_current_points_historical_snapshot_r1",
+  "reviewed_at_local": "2026-09-30 Europe/Moscow",
+  "purpose": "Resolve dossier-only geometry evidence for four admitted Karelia direct 2021 points with captured OSM state as of census date.",
+  "method": "Raw Overpass responses were saved byte-for-byte. Each request uses the explicit Overpass [date:\"2021-10-01T00:00:00Z\"] selector and out geom. Closed way polygons or outer relation member rings are assembled with Shapely polygonize/unary_union; representative point-in-polygon tested in lon/lat.",
+  "caveats": [
+    "Overpass reports current data extract timestamp even when query uses an attic date selector; the exact query and raw response are retained for audit.",
+    "The source point measurement date and method remain unknown; this demonstrates spatial inclusion in the historical map geometry state, not a surveyed census-date coordinate.",
+    "OSM is a volunteered map source and does not define official census boundaries. Earlier-year coordinate assignments remain inferred continuity."
+  ],
+  "cases": [
+    {
+      "case": "Костомукша",
+      "stem": "kostomuksha_way_240699975_asof_2021-10-01.json",
+      "point_lon_lat": [
+        30.601536,
+        64.589091
+      ],
+      "record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:31816",
+      "osm_type": "way",
+      "osm_id": 240699975,
+      "response_path": "osm_attic/kostomuksha_way_240699975_asof_2021-10-01.json",
+      "response_bytes": 3308,
+      "response_sha256": "7499e35d0df7a069a8a28876baf73085c0a3e9ef8fc52cad537c4b2668c21ba2",
+      "request_url": "https://overpass-api.de/api/interpreter",
+      "exact_query": "[out:json][date:\"2021-10-01T00:00:00Z\"];way(240699975);out geom;",
+      "returned_osm_base": "2026-09-29T23:30:35Z",
+      "object_name": "Костомукша",
+      "place_type": "town",
+      "object_version": null,
+      "geometry_type": "Polygon",
+      "geometry_bounds_lon_lat": [
+        30.5413571,
+        64.5645175,
+        30.6602605,
+        64.6161819
+      ],
+      "polygon_parts": 1,
+      "point_inside_asof_geometry": true,
+      "distance_to_geometry_m": 0,
+      "coordinate_source_date": "unknown; coordinate is provider-derived settlement representative point from 2021 census-source dataset; this audit tests its relation to OSM geometry state requested as of 2021-10-01, not measurement provenance"
+    },
+    {
+      "case": "Петрозаводск",
+      "stem": "petrozavodsk_rel_1701311_asof_2021-10-01.json",
+      "point_lon_lat": [
+        34.3596538,
+        61.7889739
+      ],
+      "record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:31814",
+      "osm_type": "relation",
+      "osm_id": 1701311,
+      "response_path": "osm_attic/petrozavodsk_rel_1701311_asof_2021-10-01.json",
+      "response_bytes": 4408,
+      "response_sha256": "c68cc464389a895ed37eb2c5006aa0f368a95d426a2394043029ab5d0f59a67c",
+      "request_url": "https://overpass-api.de/api/interpreter",
+      "exact_query": "[out:json][date:\"2021-10-01T00:00:00Z\"];relation(1701311);out geom;",
+      "returned_osm_base": "2026-09-29T23:30:35Z",
+      "object_name": "Петрозаводск",
+      "place_type": "city",
+      "object_version": null,
+      "geometry_type": "Polygon",
+      "geometry_bounds_lon_lat": [
+        34.1848226,
+        61.7113837,
+        34.6481565,
+        61.8614425
+      ],
+      "polygon_parts": 1,
+      "point_inside_asof_geometry": true,
+      "distance_to_geometry_m": 0,
+      "coordinate_source_date": "unknown; coordinate is provider-derived settlement representative point from 2021 census-source dataset; this audit tests its relation to OSM geometry state requested as of 2021-10-01, not measurement provenance"
+    },
+    {
+      "case": "Кондопога",
+      "stem": "kondopoga_rel_3458329_asof_2021-10-01.json",
+      "point_lon_lat": [
+        34.2681816,
+        62.2059903
+      ],
+      "record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:31013",
+      "osm_type": "relation",
+      "osm_id": 3458329,
+      "response_path": "osm_attic/kondopoga_rel_3458329_asof_2021-10-01.json",
+      "response_bytes": 61452,
+      "response_sha256": "315919fd33399cae5d106518e61e179a9b4ff6319e274f34db9526c4a4a2d5f1",
+      "request_url": "https://overpass-api.de/api/interpreter",
+      "exact_query": "[out:json][date:\"2021-10-01T00:00:00Z\"];relation(3458329);out geom;",
+      "returned_osm_base": "2026-09-29T23:30:35Z",
+      "object_name": "Кондопога",
+      "place_type": "town",
+      "object_version": null,
+      "geometry_type": "Polygon",
+      "geometry_bounds_lon_lat": [
+        34.2147353,
+        62.1596427,
+        34.3467768,
+        62.2494921
+      ],
+      "polygon_parts": 1,
+      "point_inside_asof_geometry": true,
+      "distance_to_geometry_m": 0,
+      "coordinate_source_date": "unknown; coordinate is provider-derived settlement representative point from 2021 census-source dataset; this audit tests its relation to OSM geometry state requested as of 2021-10-01, not measurement provenance"
+    },
+    {
+      "case": "Сортавала",
+      "stem": "sortavala_rel_3225729_asof_2021-10-01.json",
+      "point_lon_lat": [
+        30.6917823,
+        61.7032224
+      ],
+      "record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:30934",
+      "osm_type": "relation",
+      "osm_id": 3225729,
+      "response_path": "osm_attic/sortavala_rel_3225729_asof_2021-10-01.json",
+      "response_bytes": 2174,
+      "response_sha256": "d0df58177bffa655a404fe02be4c243d42412b7c46df3b0300666b98a30b1c16",
+      "request_url": "https://overpass-api.de/api/interpreter",
+      "exact_query": "[out:json][date:\"2021-10-01T00:00:00Z\"];relation(3225729);out geom;",
+      "returned_osm_base": "2026-09-29T23:30:35Z",
+      "object_name": "Сортавала",
+      "place_type": "town",
+      "object_version": null,
+      "geometry_type": "Polygon",
+      "geometry_bounds_lon_lat": [
+        30.6580082,
+        61.6843315,
+        30.7381809,
+        61.7232274
+      ],
+      "polygon_parts": 1,
+      "point_inside_asof_geometry": true,
+      "distance_to_geometry_m": 0,
+      "coordinate_source_date": "unknown; coordinate is provider-derived settlement representative point from 2021 census-source dataset; this audit tests its relation to OSM geometry state requested as of 2021-10-01, not measurement provenance"
+    }
+  ]
+}

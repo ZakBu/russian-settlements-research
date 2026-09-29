@@ -16,9 +16,15 @@ The distribution includes a self-contained DuckDB copy of all 26 Parquet tables 
 
 ## National audit findings and remaining work
 
-The national database has not been rebuilt or independently validated. The 99.9% population-linked goal remains unproven. Candidate names, codes, population similarity, and the presence of coordinates do not independently prove place identity or coordinate applicability.
+The national database has not been fully rebuilt or independently validated. The 99.9% population-linked goal remains unproven. Candidate names, codes, population similarity, and the presence of coordinates do not independently prove place identity or coordinate applicability.
 
-A national source-scope problem is already confirmed: official 2002 Table 4 row 2154 is an aggregate for Moscow and settlements subordinate to its administration (10,382,754); its nested row 2155 is the physical city of Moscow (10,126,424). The existing selected row used the aggregate value. This needs a new versioned selection and separate aggregate claim before the national layer can be treated as a settlement-level observation.
+### Reviewed national checkpoint (2026-09-30)
+
+Source-selection R1 is a versioned population-grain repair. For 2002, it replaces the Moscow-plus-subordinate-settlements aggregate (10,382,754) with five disjoint component rows whose population and sex totals reconcile exactly to that parent; the city-only row is 10,126,424. The selected snapshot adds four rows and preserves the national dataset sum of 145,155,005. For 2010, it replaces the Karelia legacy slice with 800 official-source observations totaling 643,548, a +4,784 change and one additional row. For 2021, selected IDs and values remain unchanged. Independent review and clean reproduction are included in the checkpoint assets.
+
+Reviewed-admissions R2 contains 51 accepted temporal same-place edges and 81 point claims. Among selected snapshot denominators, admitted coordinate population is 537,395/145,155,005 (0.3702%) for 2002, 502,217/142,172,038 (0.3532%) for 2010, and 9,354,610/147,182,123 (6.3558%) for 2021. Identity-linked population shares are 2.6615%, 0.3532%, and 2.8170%; link share and coordinate share are separate measures. All historical point applications are marked `inferred_continuity`; provider-coordinate measurement date is unknown. Four direct Karelia points have captured OSM geometry responses queried as of 2021-10-01, with raw response hashes and point-in-polygon checks. OSM is not a census boundary, and these admissions do not validate a national matching rule.
+
+The 2002 Moscow row-grain problem is handled in the selected R1 snapshot, but the census-specific scope remains distinct from modern administrative boundaries and no temporal identity follows automatically from that migration.
 
 The 2010 NW workbook labels its population column `Всего`, but explicitly warns that values are confidentiality-protected. Direct candidate-key comparisons to final Rosstat Table 5 show many differences; the column remains secondary evidence only. Table 5 is non-exhaustive and has aggregate rows, and St Petersburg data have mixed municipal/locality grain; full-sheet residuals are not allocated to places.
 
