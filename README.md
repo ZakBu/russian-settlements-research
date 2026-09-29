@@ -4,11 +4,33 @@ Private, versioned research archive for reconstructing settlements in the 2002, 
 
 ## Reproduce the Karelia pilot
 
-Download and extract the private [baseline inputs](https://github.com/ZakBu/russian-settlements-research/releases/tag/baseline-2026-09-29) and [R6 pilot inputs and outputs](https://github.com/ZakBu/russian-settlements-research/releases/tag/karelia-pilot-r6-2026-09-30). The baseline supplies original census and source files; the supplemental bundle supplies the Karelia DOCX, fixed reviews and compact processed evidence. Install the pinned runtime dependencies, then run from a clean checkout:
+The releases are private: download them while signed in to a GitHub account with read access to this repository, or authenticate the GitHub CLI with `gh auth login`. The commands below stage the exact source and review files checked by the build. The baseline source files and forensic outputs come from separate release archives; the supplemental bundle supplies the Karelia DOCX, fixed reviews and compact processed evidence.
+
+```sh
+mkdir -p baseline baseline-assets r6-assets r6-inputs r6-release
+gh release download baseline-2026-09-29 --repo ZakBu/russian-settlements-research --pattern asset_manifest.json --dir baseline-assets
+gh release download baseline-2026-09-29 --repo ZakBu/russian-settlements-research --pattern raw_interim_20260929.tar.zst --dir baseline-assets
+gh release download baseline-2026-09-29 --repo ZakBu/russian-settlements-research --pattern forensic_outputs_20260929.tar.zst --dir baseline-assets
+python3 scripts/verify_release_assets.py --manifest baseline-assets/asset_manifest.json --asset-dir baseline-assets --asset raw_interim_20260929.tar.zst --asset forensic_outputs_20260929.tar.zst
+zstd -dc baseline-assets/raw_interim_20260929.tar.zst | tar -xf - -C baseline
+zstd -dc baseline-assets/forensic_outputs_20260929.tar.zst | tar -xf - -C baseline
+mkdir -p baseline/research_audit/evidence baseline/research_audit/output
+mv baseline/evidence/* baseline/research_audit/evidence/
+mv baseline/output/* baseline/research_audit/output/
+rmdir baseline/evidence baseline/output
+gh release download karelia-pilot-r6-2026-09-30 --repo ZakBu/russian-settlements-research --pattern asset_manifest.json --dir r6-assets
+gh release download karelia-pilot-r6-2026-09-30 --repo ZakBu/russian-settlements-research --pattern karelia_pilot_inputs_r6.tar.xz --dir r6-assets
+gh release download karelia-pilot-r6-2026-09-30 --repo ZakBu/russian-settlements-research --pattern karelia_pilot_release_r6.tar.xz --dir r6-assets
+python3 scripts/verify_release_assets.py --manifest r6-assets/asset_manifest.json --asset-dir r6-assets --asset karelia_pilot_inputs_r6.tar.xz --asset karelia_pilot_release_r6.tar.xz
+tar -xJf r6-assets/karelia_pilot_inputs_r6.tar.xz -C r6-inputs
+tar -xJf r6-assets/karelia_pilot_release_r6.tar.xz -C r6-release
+```
+
+After confirming the downloaded release assets against their SHA-256 entries in each `asset_manifest.json`, install the pinned runtime dependencies and run from a clean checkout:
 
 ```sh
 python3 -m pip install -r requirements-pilot.txt
-python3 scripts/reproduce_karelia_pilot.py --data-root /path/to/baseline --inputs-root /path/to/karelia-r6-inputs --output-root /path/to/new-output
+python3 scripts/reproduce_karelia_pilot.py --data-root ./baseline --inputs-root ./r6-inputs/inputs-r6b --output-root ./new-output
 ```
 
 The output directory must be new or empty. The runner extracts the official 2010 rural DOCX and the actual Rosstat Volume 1 Table 5 PDF, builds the pilot, then validates it again from outside the checkout. It stops on absent or altered inputs, broken observation bindings, or output integrity failures. Source and code hashes are recorded in the manifests. It also writes `linkage_review_portable.duckdb`, a materialized copy of the Parquet tables with a sidecar manifest that checks every table's typed contents and queries the copied database from another directory. Use that portable database when sharing the results; the builder's `linkage_review.duckdb` contains local Parquet-backed views.
