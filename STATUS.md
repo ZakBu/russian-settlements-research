@@ -2,7 +2,7 @@
 
 ## Baseline preserved
 
-- The existing project contains approximately 3.2 GB across raw, interim and processed data. The baseline asset release is intended to preserve the raw/interim source snapshot and both the legacy and forensic DuckDB databases.
+- The existing project contains approximately 3.2 GB across raw, interim and processed data. The private release preserves 7,054 raw/interim files, both the legacy and forensic DuckDB databases, and forensic output/evidence tables. Each uploaded asset's GitHub SHA-256 digest matches the locally computed manifest.
 - The legacy database and tables are research inputs, not the final reference system.
 - The current audit release has no reviewed coordinate certifications. This means the certification procedure has not yet been applied; it does not mean every existing point is wrong.
 

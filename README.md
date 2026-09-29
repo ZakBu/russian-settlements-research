@@ -12,9 +12,9 @@ No public license is applied to this mixed-source repository. Refer to the origi
 
 ## Baseline assets
 
-Large baseline inputs are attached to the private GitHub Release `baseline-2026-09-29`, not stored as Git blobs. Its asset manifest records names, byte sizes and SHA-256 digests. The original project remains the working source; release assets are an immutable comparison snapshot.
+Large baseline inputs are attached to the [private GitHub Release `baseline-2026-09-29`](https://github.com/ZakBu/russian-settlements-research/releases/tag/baseline-2026-09-29), not stored as Git blobs. It contains the 7,054 raw/interim source files (excluding local `.DS_Store` metadata), the legacy DuckDB, the forensic DuckDB, and the forensic output/evidence tables. The release asset manifest records byte sizes and SHA-256 digests; GitHub's asset digest API was checked against those values. The input archive's file list and hashes were checked against the forensic build manifest.
 
-The asset bundle is being assembled and verified. Until the release appears here with its manifest, treat the snapshot as incomplete.
+These assets preserve the working baseline for comparison. The original project remains the working source; neither database is represented as the validated final reference system.
 
 ## Reproduction and future releases
 
