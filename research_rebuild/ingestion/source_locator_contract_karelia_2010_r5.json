@@ -1,0 +1,29 @@
+{
+  "contract_version": "karelia-2010-source-locators-r5",
+  "locators": {
+    "rural_docx": "evidence/ingestion/source/karelia_2010_rural_settlements.docx",
+    "urban_table5_pdf": "data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf"
+  },
+  "expected_inputs": {
+    "rural_docx": {
+      "sha256": "dcc79b64b15dc44d62f12868293f8f8dfa124c2d14b2f5f08167b9faefe06a59",
+      "bytes": 3807779,
+      "role": "official_regional_2010_rural_census_publication"
+    },
+    "urban_table5_pdf": {
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "bytes": 15230814,
+      "role": "official_rosstat_volume_1_table_5_source_pdf"
+    }
+  },
+  "related_publications_not_used_for_table5_extraction": [
+    {
+      "locator": "data/raw/2010_official_tom11/pub-11-1-4.pdf",
+      "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+      "bytes": 657985,
+      "role": "Rosstat_volume_11_table_1_4_city_population_companion_reference",
+      "relationship": "Companion city-population table; not the Volume 1 Table 5 source parsed for settlement rows."
+    }
+  ],
+  "meaning": "Stable logical locators within the portable research bundle. Physical input paths are run-environment details recorded separately. Exact bytes and SHA-256 are mandatory before extraction."
+}

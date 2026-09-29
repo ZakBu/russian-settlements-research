@@ -1,0 +1,142 @@
+{
+  "manifest_version": "karelia-r4b-fresh-primary-release-v1",
+  "status": "frozen_after_fresh_source_run_and_integration_tests",
+  "logical_source_locators": {
+    "rural_docx": "evidence/ingestion/source/karelia_2010_rural_settlements.docx",
+    "urban_table5_pdf": "data/raw/2010_official_tom11/pub-11-1-4.pdf"
+  },
+  "input_sources": [
+    {
+      "path": "research_rebuild/evidence/ingestion/sources/karelia_2010_rural_settlements.docx",
+      "sha256": "dcc79b64b15dc44d62f12868293f8f8dfa124c2d14b2f5f08167b9faefe06a59",
+      "bytes": 3807779,
+      "role": "primary_regional_census_docx"
+    },
+    {
+      "path": "data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "bytes": 15230814,
+      "role": "primary_rosstat_table5_pdf"
+    }
+  ],
+  "extractor_code": [
+    {
+      "path": "research_rebuild/ingestion/extract_karelia_rural_2010_docx.py",
+      "sha256": "2b33cb3618e8e4c03dfc3530386845c42b173d82ea1ffdeb5b15c2fb39897876",
+      "bytes": 20148,
+      "role": "extractor_or_source_parser"
+    },
+    {
+      "path": "research_audit/extract_official_2010_reference.py",
+      "sha256": "bb89b15fb881abf47a5b87565c6ce7d0400cf948d7920601325d0d24630b2cec",
+      "bytes": 12560,
+      "role": "extractor_or_source_parser"
+    },
+    {
+      "path": "research_rebuild/ingestion/build_karelia_2010_fresh_primary.py",
+      "sha256": "fb182e3322433908b71501efc3808110be246f2f0b2baa6e13689ac7b59d7516",
+      "bytes": 11778,
+      "role": "extractor_or_source_parser"
+    },
+    {
+      "path": "research_rebuild/ingestion/source_locator_contract_karelia_2010.json",
+      "sha256": "0fc755b056ab734479e84cc137cf2a0d6b046ebd1800d408654bb83c2e2f96ab",
+      "bytes": 396,
+      "role": "extractor_or_source_parser"
+    }
+  ],
+  "validation_tests": [
+    {
+      "path": "research_rebuild/tests/test_ingestion_fresh_primary.py",
+      "sha256": "8d53cb292c15936d99724c070442f7a1dbd865e2a6a0949d8c27b0410591781d",
+      "bytes": 3664,
+      "role": "integration_test"
+    }
+  ],
+  "validated_outputs": [
+    {
+      "path": "research_rebuild/evidence/ingestion/karelia_2010_fresh_source_reproduction_r4b_final/karelia_2010_fresh_primary_observations.csv",
+      "sha256": "b773f507f53873059101026c5ad8cdd6af3e5a201bb17275570297a903933bab",
+      "bytes": 586667
+    },
+    {
+      "path": "research_rebuild/evidence/ingestion/karelia_2010_fresh_source_reproduction_r4b_final/karelia_2010_fresh_primary_observations.parquet",
+      "sha256": "0f47888b4e6246fb9e336c9fcbb0998030ed16ba69265ba224f6b441f16a793e",
+      "bytes": 65511
+    },
+    {
+      "path": "research_rebuild/evidence/ingestion/karelia_2010_fresh_source_reproduction_r4b_final/karelia_2010_fresh_primary_summary.json",
+      "sha256": "63e308381631cf005ca1323026dec5fea98fd2d89d5c044e53c32b291801eae6",
+      "bytes": 21131
+    },
+    {
+      "path": "research_rebuild/evidence/ingestion/karelia_2010_fresh_source_reproduction_r4b_final/rural_source_extraction/karelia_2010_docx_all_cell_text_audit.csv",
+      "sha256": "bf3c0fd60829347fafcdee6729fed41d0636b685017711615b09e3b20ca91ca3",
+      "bytes": 50803519
+    },
+    {
+      "path": "research_rebuild/evidence/ingestion/karelia_2010_fresh_source_reproduction_r4b_final/rural_source_extraction/karelia_2010_rural_district_controls.csv",
+      "sha256": "441cd550aef1acb02dfff9c5f20776973f4093077a24799a7ecd69641eb19261",
+      "bytes": 2425
+    },
+    {
+      "path": "research_rebuild/evidence/ingestion/karelia_2010_fresh_source_reproduction_r4b_final/rural_source_extraction/karelia_2010_rural_docx_source_facts.json",
+      "sha256": "584363ba387b89ff81da1aaab4b8718b0ea80a3487b7f30ae49cdcf93275a796",
+      "bytes": 18076
+    },
+    {
+      "path": "research_rebuild/evidence/ingestion/karelia_2010_fresh_source_reproduction_r4b_final/rural_source_extraction/karelia_2010_rural_docx_source_rows.csv",
+      "sha256": "6e6e04ba5bdb014b8a3e24c53721c264a7f457642ac1258e25dcbfb1e81716d0",
+      "bytes": 4924984
+    },
+    {
+      "path": "research_rebuild/evidence/ingestion/karelia_2010_fresh_source_reproduction_r4b_final/rural_source_extraction/karelia_2010_rural_official_observations.csv",
+      "sha256": "68092ac34fcd26eb4aa0458b74f131349dcfcb271a7506b69409dd90f710ad69",
+      "bytes": 445472
+    },
+    {
+      "path": "research_rebuild/evidence/ingestion/karelia_2010_fresh_source_reproduction_r4b_final/table5_source_extraction/official_2010_table5_lines.parquet",
+      "sha256": "a836e7ca10c9aff1b50cfce0086b01cc366b673d29e70f00e5da1a1ee14c1be4",
+      "bytes": 346797
+    },
+    {
+      "path": "research_rebuild/evidence/ingestion/karelia_2010_fresh_source_reproduction_r4b_final/table5_source_extraction/official_2010_table5_reference.parquet",
+      "sha256": "4132937862e5285d44e407350013e487823e9ff734554a6090ff71184911f012",
+      "bytes": 933423
+    },
+    {
+      "path": "research_rebuild/evidence/ingestion/karelia_2010_fresh_source_reproduction_r4b_final/table5_source_extraction/official_2010_table5_unparsed.parquet",
+      "sha256": "9150b4651ab111aabf01155afcf583574a38aa0fc9d74a562fe2008499df9a9c",
+      "bytes": 14072
+    }
+  ],
+  "run_receipt": {
+    "path": "research_rebuild/evidence/ingestion/karelia_2010_fresh_source_reproduction_r4b_final/run_receipt.json",
+    "sha256": "2bb0250ad1320fed9730d4f46f7c2e83c58a24e54dbf93a6ae48aeb53c392a8f",
+    "bytes": 4144,
+    "sidecar_path": "research_rebuild/evidence/ingestion/karelia_2010_fresh_source_reproduction_r4b_final/run_receipt.json.sha256",
+    "sidecar_sha256": "2ae7a7bb77f64f9c4369d08a09ea3fe24e57bdc80112b8a8dad12a1be598a3fa"
+  },
+  "canonical_table_content_sha256": "311aab369179fec034ef0abee81740f8c76e029cb99c7ea3dc6f79e59f11ee83",
+  "binary_parquet_sha256": "0f47888b4e6246fb9e336c9fcbb0998030ed16ba69265ba224f6b441f16a793e",
+  "controls": {
+    "rows": 800,
+    "population": 643548,
+    "urban_rows": 24,
+    "urban_population": 502217,
+    "rural_rows": 776,
+    "rural_population": 141331,
+    "rural_zero_population_rows": 109,
+    "all_row_sex_sums_match": true,
+    "rural_district_controls_all_match": true
+  },
+  "known_limitations": [
+    "Official DOCX retrieval had an initial TLS verification-chain failure; source origin, publication facts, bytes, and content controls are recorded in source facts.",
+    "The 2010 Table 5 urban parser was rerun from original PDF but is not an independently authored parser implementation.",
+    "This output establishes source populations and coverage, not cross-census place identity."
+  ],
+  "runtime": {
+    "python": "3.9.6",
+    "pandas": "2.3.3"
+  }
+}
