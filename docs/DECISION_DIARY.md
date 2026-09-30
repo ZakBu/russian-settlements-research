@@ -30,6 +30,7 @@
 ## Проверяемые ориентиры в репозитории
 
 - [Статус и ограничения выпусков](../STATUS.md)
+- [Уроки аудита парсеров: что сохранять, что менять и как проверять следующую итерацию](PARSER_LESSONS.md)
 - [Полная методика связи мест и координат](../research_rebuild/docs/LINKAGE_METHODOLOGY.md)
 - [Проверка строк источника 2010 года и сохранение тире как отдельного признака](../research_audit/extract_official_2010_reference.py)
 - [Исправленный DOCX-парсер Карелии](../research_rebuild/ingestion/extract_karelia_rural_2010_docx.py)

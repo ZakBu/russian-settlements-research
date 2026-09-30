@@ -1,0 +1,1823 @@
+{
+  "review_id": "kaliningrad_2010_r2_independent_review_20260930",
+  "verdict": "PASS_POPULATION_DASH_ZERO_INTERPRETATION_AND_ADDITIVE_PLACE_SLICE; SOURCE_LINEAGE_PROVENANCE_LIMIT",
+  "status": "accepted_for_primary_observation_migration_with_source_lineage_note",
+  "source": {
+    "title": "Том 1 «Численность и размещение населения Калининградской области»",
+    "official_landing_page": "https://39.rosstat.gov.ru/National_Population_Census_2010",
+    "archived_landing_capture": "https://web.archive.org/web/20250529044003id_/https://39.rosstat.gov.ru/National_Population_Census_2010",
+    "asset_href": "/storage/mediabank/Итоги+ВПН-2010_том1.xlsx",
+    "archived_asset_url": "https://web.archive.org/web/20250619171623id_/https://39.rosstat.gov.ru/storage/mediabank/%D0%98%D1%82%D0%BE%D0%B3%D0%B8+%D0%92%D0%9F%D0%9D-2010_%D1%82%D0%BE%D0%BC1.xlsx",
+    "asset_path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+    "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+    "bytes": 306344,
+    "provenance_limit": "Workbook hash and official Rosstat landing/archived URL linkage verified; no standalone local asset transport receipt was present in this release directory. This limits transport audit detail, not the cell-level source content reproduced here."
+  },
+  "independent_checks": {
+    "raw_cached_A_to_D_cell_comparison": {
+      "rows": 1257,
+      "cells_compared": 10056,
+      "mismatches": 0
+    },
+    "place_universe": {
+      "rows": 1099,
+      "by_form": {
+        "city": 22,
+        "urban_type_settlement": 4,
+        "rural_locality": 1073
+      }
+    },
+    "dash_population": {
+      "count": 18,
+      "all_rural": true,
+      "all_three_person_cells_dash": true,
+      "interpretation": "The volume-wide legend in Предисловие!A63:A64 states dash = “явление отсутствует”; accept zero interpretation for these 18 raw population dashes while retaining original dash. Table 3 reports 18 rural localities with no population, corroborating count but not identifying rows."
+    },
+    "controls": {
+      "city_and_urban_type_population_sum": 730778,
+      "rural_population_sum": 211095,
+      "region_sum": 941873,
+      "published_table4_controls": {
+        "urban": 730778,
+        "rural": 211095,
+        "region": 941873
+      },
+      "nested_parent_checks": {
+        "published_reconciliation_rows": 111,
+        "independently_recomputed_administrative_parent_rows": 110,
+        "independent_passes": 110,
+        "recomputed_plus_region_control": 111
+      },
+      "sex_control_caveat": "19 positive-P rows contain one sex dash (total P mass 23); the same volume-wide legend supports zero semantics for the raw dash, and summing observed sex cells with dash as zero matches all sex totals. Preserve raw dashes and store derived interpretation separately."
+    }
+  },
+  "migration_policy": "Import 1,099 named-place census observations; represent 18 population dashes as source-legend-derived zero in a separate interpreted value while preserving raw “-”. Do not import any nested administrative/urban-rural control rows as population observations. Population values are additive at named-place grain: 941,873 = urban 730,778 + rural 211,095. Identity and coordinates were not reviewed here.",
+  "limitations": [
+    "This is a one-region source review, not national validation.",
+    "Source workbook is linked to official Rosstat landing/archive metadata, but no separate asset retrieval receipt was in the frozen candidate folder.",
+    "Sex dash zero interpretation is supported by same volume-wide legend; keep it as interpreted value, not raw source replacement.",
+    "No settlement identity matching, coordinate accuracy, or cross-census comparability claim."
+  ],
+  "independent_parent_checks": [
+    {
+      "source_row": 12,
+      "label": "г. Ладушкин с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 3,
+      "published": {
+        "population": 3877,
+        "men": 1823,
+        "women": 2054
+      },
+      "recomputed": {
+        "population": 3877,
+        "men": 1823,
+        "women": 2054
+      },
+      "pass": true
+    },
+    {
+      "source_row": 16,
+      "label": "Сельские населенные пункты, подчиненные администрации г. Ладушкин",
+      "descendant_rows": 2,
+      "published": {
+        "population": 90,
+        "men": 41,
+        "women": 49
+      },
+      "recomputed": {
+        "population": 90,
+        "men": 41,
+        "women": 49
+      },
+      "pass": true
+    },
+    {
+      "source_row": 19,
+      "label": "г. Мамоново с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 5,
+      "published": {
+        "population": 7957,
+        "men": 3807,
+        "women": 4150
+      },
+      "recomputed": {
+        "population": 7957,
+        "men": 3807,
+        "women": 4150
+      },
+      "pass": true
+    },
+    {
+      "source_row": 23,
+      "label": "Сельские населенные пункты, подчиненные администрации г. Мамоново",
+      "descendant_rows": 4,
+      "published": {
+        "population": 196,
+        "men": 97,
+        "women": 99
+      },
+      "recomputed": {
+        "population": 196,
+        "men": 97,
+        "women": 99
+      },
+      "pass": true
+    },
+    {
+      "source_row": 29,
+      "label": "г. Светлый с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 11,
+      "published": {
+        "population": 27622,
+        "men": 12685,
+        "women": 14937
+      },
+      "recomputed": {
+        "population": 27622,
+        "men": 12685,
+        "women": 14937
+      },
+      "pass": true
+    },
+    {
+      "source_row": 33,
+      "label": "Сельские населенные пункты, подчиненные администрации г. Светлого",
+      "descendant_rows": 10,
+      "published": {
+        "population": 6247,
+        "men": 3018,
+        "women": 3229
+      },
+      "recomputed": {
+        "population": 6247,
+        "men": 3018,
+        "women": 3229
+      },
+      "pass": true
+    },
+    {
+      "source_row": 45,
+      "label": "пгт Янтарный с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 3,
+      "published": {
+        "population": 6410,
+        "men": 2986,
+        "women": 3424
+      },
+      "recomputed": {
+        "population": 6410,
+        "men": 2986,
+        "women": 3424
+      },
+      "pass": true
+    },
+    {
+      "source_row": 49,
+      "label": "Сельские населенные пункты, подчиненные администрации пгт Янтарного",
+      "descendant_rows": 2,
+      "published": {
+        "population": 886,
+        "men": 448,
+        "women": 438
+      },
+      "recomputed": {
+        "population": 886,
+        "men": 448,
+        "women": 438
+      },
+      "pass": true
+    },
+    {
+      "source_row": 52,
+      "label": "Багратионовский район",
+      "descendant_rows": 88,
+      "published": {
+        "population": 32352,
+        "men": 15858,
+        "women": 16494
+      },
+      "recomputed": {
+        "population": 32352,
+        "men": 15858,
+        "women": 16494
+      },
+      "pass": true
+    },
+    {
+      "source_row": 56,
+      "label": "Сельские округа Багратионовского района",
+      "descendant_rows": 87,
+      "published": {
+        "population": 25952,
+        "men": 12906,
+        "women": 13046
+      },
+      "recomputed": {
+        "population": 25952,
+        "men": 12906,
+        "women": 13046
+      },
+      "pass": true
+    },
+    {
+      "source_row": 57,
+      "label": "Гвардейский сельский округ",
+      "descendant_rows": 31,
+      "published": {
+        "population": 5957,
+        "men": 3355,
+        "women": 2602
+      },
+      "recomputed": {
+        "population": 5957,
+        "men": 3355,
+        "women": 2602
+      },
+      "pass": true
+    },
+    {
+      "source_row": 89,
+      "label": "Долгоруковский сельский округ",
+      "descendant_rows": 18,
+      "published": {
+        "population": 4407,
+        "men": 2167,
+        "women": 2240
+      },
+      "recomputed": {
+        "population": 4407,
+        "men": 2167,
+        "women": 2240
+      },
+      "pass": true
+    },
+    {
+      "source_row": 108,
+      "label": "Нивенский сельский округ",
+      "descendant_rows": 13,
+      "published": {
+        "population": 8250,
+        "men": 3906,
+        "women": 4344
+      },
+      "recomputed": {
+        "population": 8250,
+        "men": 3906,
+        "women": 4344
+      },
+      "pass": true
+    },
+    {
+      "source_row": 122,
+      "label": "Пограничный сельский округ",
+      "descendant_rows": 25,
+      "published": {
+        "population": 7338,
+        "men": 3478,
+        "women": 3860
+      },
+      "recomputed": {
+        "population": 7338,
+        "men": 3478,
+        "women": 3860
+      },
+      "pass": true
+    },
+    {
+      "source_row": 148,
+      "label": "Балтийский район",
+      "descendant_rows": 12,
+      "published": {
+        "population": 36047,
+        "men": 19199,
+        "women": 16848
+      },
+      "recomputed": {
+        "population": 36047,
+        "men": 19199,
+        "women": 16848
+      },
+      "pass": true
+    },
+    {
+      "source_row": 151,
+      "label": "г. Балтийск с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 3,
+      "published": {
+        "population": 33202,
+        "men": 17725,
+        "women": 15477
+      },
+      "recomputed": {
+        "population": 33202,
+        "men": 17725,
+        "women": 15477
+      },
+      "pass": true
+    },
+    {
+      "source_row": 153,
+      "label": "Сельские населенные пункты, подчиненные администрации г. Балтийск",
+      "descendant_rows": 2,
+      "published": {
+        "population": 505,
+        "men": 348,
+        "women": 157
+      },
+      "recomputed": {
+        "population": 505,
+        "men": 348,
+        "women": 157
+      },
+      "pass": true
+    },
+    {
+      "source_row": 157,
+      "label": "Сельские округа Балтийского района",
+      "descendant_rows": 8,
+      "published": {
+        "population": 889,
+        "men": 485,
+        "women": 404
+      },
+      "recomputed": {
+        "population": 889,
+        "men": 485,
+        "women": 404
+      },
+      "pass": true
+    },
+    {
+      "source_row": 158,
+      "label": "Дивный сельский округ ",
+      "descendant_rows": 8,
+      "published": {
+        "population": 889,
+        "men": 485,
+        "women": 404
+      },
+      "recomputed": {
+        "population": 889,
+        "men": 485,
+        "women": 404
+      },
+      "pass": true
+    },
+    {
+      "source_row": 167,
+      "label": "Гвардейский район",
+      "descendant_rows": 62,
+      "published": {
+        "population": 29926,
+        "men": 15408,
+        "women": 14518
+      },
+      "recomputed": {
+        "population": 29926,
+        "men": 15408,
+        "women": 14518
+      },
+      "pass": true
+    },
+    {
+      "source_row": 170,
+      "label": "г. Гвардейск с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 2,
+      "published": {
+        "population": 14130,
+        "men": 7427,
+        "women": 6703
+      },
+      "recomputed": {
+        "population": 14130,
+        "men": 7427,
+        "women": 6703
+      },
+      "pass": true
+    },
+    {
+      "source_row": 172,
+      "label": "Сельские населенные пункты, подчиненные администрации г. Гвардейск",
+      "descendant_rows": 1,
+      "published": {
+        "population": 231,
+        "men": 110,
+        "women": 121
+      },
+      "recomputed": {
+        "population": 231,
+        "men": 110,
+        "women": 121
+      },
+      "pass": true
+    },
+    {
+      "source_row": 174,
+      "label": "Сельские округа Гвардейского района",
+      "descendant_rows": 60,
+      "published": {
+        "population": 15796,
+        "men": 7981,
+        "women": 7815
+      },
+      "recomputed": {
+        "population": 15796,
+        "men": 7981,
+        "women": 7815
+      },
+      "pass": true
+    },
+    {
+      "source_row": 175,
+      "label": "Знаменский сельский округ",
+      "descendant_rows": 10,
+      "published": {
+        "population": 5147,
+        "men": 2532,
+        "women": 2615
+      },
+      "recomputed": {
+        "population": 5147,
+        "men": 2532,
+        "women": 2615
+      },
+      "pass": true
+    },
+    {
+      "source_row": 186,
+      "label": "Зоринский сельский округ",
+      "descendant_rows": 16,
+      "published": {
+        "population": 2844,
+        "men": 1390,
+        "women": 1454
+      },
+      "recomputed": {
+        "population": 2844,
+        "men": 1390,
+        "women": 1454
+      },
+      "pass": true
+    },
+    {
+      "source_row": 203,
+      "label": "Озерковский сельский округ",
+      "descendant_rows": 14,
+      "published": {
+        "population": 4810,
+        "men": 2482,
+        "women": 2328
+      },
+      "recomputed": {
+        "population": 4810,
+        "men": 2482,
+        "women": 2328
+      },
+      "pass": true
+    },
+    {
+      "source_row": 218,
+      "label": "Славинский сельский округ",
+      "descendant_rows": 20,
+      "published": {
+        "population": 2995,
+        "men": 1577,
+        "women": 1418
+      },
+      "recomputed": {
+        "population": 2995,
+        "men": 1577,
+        "women": 1418
+      },
+      "pass": true
+    },
+    {
+      "source_row": 239,
+      "label": "Гурьевский район",
+      "descendant_rows": 147,
+      "published": {
+        "population": 52988,
+        "men": 25540,
+        "women": 27448
+      },
+      "recomputed": {
+        "population": 52988,
+        "men": 25540,
+        "women": 27448
+      },
+      "pass": true
+    },
+    {
+      "source_row": 243,
+      "label": "Сельские округа Гурьевского района",
+      "descendant_rows": 146,
+      "published": {
+        "population": 40557,
+        "men": 19810,
+        "women": 20747
+      },
+      "recomputed": {
+        "population": 40557,
+        "men": 19810,
+        "women": 20747
+      },
+      "pass": true
+    },
+    {
+      "source_row": 244,
+      "label": "Большеисаковский сельский округ",
+      "descendant_rows": 3,
+      "published": {
+        "population": 10257,
+        "men": 4841,
+        "women": 5416
+      },
+      "recomputed": {
+        "population": 10257,
+        "men": 4841,
+        "women": 5416
+      },
+      "pass": true
+    },
+    {
+      "source_row": 248,
+      "label": "Добринский сельский округ",
+      "descendant_rows": 36,
+      "published": {
+        "population": 4092,
+        "men": 1974,
+        "women": 2118
+      },
+      "recomputed": {
+        "population": 4092,
+        "men": 1974,
+        "women": 2118
+      },
+      "pass": true
+    },
+    {
+      "source_row": 285,
+      "label": "Кутузовский сельский округ",
+      "descendant_rows": 13,
+      "published": {
+        "population": 4734,
+        "men": 2273,
+        "women": 2461
+      },
+      "recomputed": {
+        "population": 4734,
+        "men": 2273,
+        "women": 2461
+      },
+      "pass": true
+    },
+    {
+      "source_row": 299,
+      "label": "Луговской сельский округ",
+      "descendant_rows": 8,
+      "published": {
+        "population": 3843,
+        "men": 1917,
+        "women": 1926
+      },
+      "recomputed": {
+        "population": 3843,
+        "men": 1917,
+        "women": 1926
+      },
+      "pass": true
+    },
+    {
+      "source_row": 308,
+      "label": "Низовский сельский округ",
+      "descendant_rows": 30,
+      "published": {
+        "population": 4409,
+        "men": 2148,
+        "women": 2261
+      },
+      "recomputed": {
+        "population": 4409,
+        "men": 2148,
+        "women": 2261
+      },
+      "pass": true
+    },
+    {
+      "source_row": 339,
+      "label": "Новомосковский сельский округ",
+      "descendant_rows": 18,
+      "published": {
+        "population": 5844,
+        "men": 2811,
+        "women": 3033
+      },
+      "recomputed": {
+        "population": 5844,
+        "men": 2811,
+        "women": 3033
+      },
+      "pass": true
+    },
+    {
+      "source_row": 358,
+      "label": "Храбровский сельский округ",
+      "descendant_rows": 38,
+      "published": {
+        "population": 7378,
+        "men": 3846,
+        "women": 3532
+      },
+      "recomputed": {
+        "population": 7378,
+        "men": 3846,
+        "women": 3532
+      },
+      "pass": true
+    },
+    {
+      "source_row": 397,
+      "label": "Гусевский район",
+      "descendant_rows": 41,
+      "published": {
+        "population": 37142,
+        "men": 17683,
+        "women": 19459
+      },
+      "recomputed": {
+        "population": 37142,
+        "men": 17683,
+        "women": 19459
+      },
+      "pass": true
+    },
+    {
+      "source_row": 400,
+      "label": "г. Гусев с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 9,
+      "published": {
+        "population": 29942,
+        "men": 14202,
+        "women": 15740
+      },
+      "recomputed": {
+        "population": 29942,
+        "men": 14202,
+        "women": 15740
+      },
+      "pass": true
+    },
+    {
+      "source_row": 402,
+      "label": "Сельские населенные пункты, подчиненные администрации г. Гусев",
+      "descendant_rows": 8,
+      "published": {
+        "population": 1682,
+        "men": 753,
+        "women": 929
+      },
+      "recomputed": {
+        "population": 1682,
+        "men": 753,
+        "women": 929
+      },
+      "pass": true
+    },
+    {
+      "source_row": 411,
+      "label": "Сельские округа Гусевского района",
+      "descendant_rows": 32,
+      "published": {
+        "population": 7200,
+        "men": 3481,
+        "women": 3719
+      },
+      "recomputed": {
+        "population": 7200,
+        "men": 3481,
+        "women": 3719
+      },
+      "pass": true
+    },
+    {
+      "source_row": 412,
+      "label": "Калининский сельский округ",
+      "descendant_rows": 6,
+      "published": {
+        "population": 2033,
+        "men": 1002,
+        "women": 1031
+      },
+      "recomputed": {
+        "population": 2033,
+        "men": 1002,
+        "women": 1031
+      },
+      "pass": true
+    },
+    {
+      "source_row": 419,
+      "label": "Кубановский сельский округ",
+      "descendant_rows": 12,
+      "published": {
+        "population": 2483,
+        "men": 1173,
+        "women": 1310
+      },
+      "recomputed": {
+        "population": 2483,
+        "men": 1173,
+        "women": 1310
+      },
+      "pass": true
+    },
+    {
+      "source_row": 432,
+      "label": "Маяковский сельский округ",
+      "descendant_rows": 6,
+      "published": {
+        "population": 934,
+        "men": 450,
+        "women": 484
+      },
+      "recomputed": {
+        "population": 934,
+        "men": 450,
+        "women": 484
+      },
+      "pass": true
+    },
+    {
+      "source_row": 439,
+      "label": "Михайловский сельский округ",
+      "descendant_rows": 8,
+      "published": {
+        "population": 1750,
+        "men": 856,
+        "women": 894
+      },
+      "recomputed": {
+        "population": 1750,
+        "men": 856,
+        "women": 894
+      },
+      "pass": true
+    },
+    {
+      "source_row": 448,
+      "label": "Зеленоградский район",
+      "descendant_rows": 112,
+      "published": {
+        "population": 32271,
+        "men": 15479,
+        "women": 16792
+      },
+      "recomputed": {
+        "population": 32271,
+        "men": 15479,
+        "women": 16792
+      },
+      "pass": true
+    },
+    {
+      "source_row": 452,
+      "label": "Сельские округа Зеленоградского района",
+      "descendant_rows": 111,
+      "published": {
+        "population": 19245,
+        "men": 9592,
+        "women": 9653
+      },
+      "recomputed": {
+        "population": 19245,
+        "men": 9592,
+        "women": 9653
+      },
+      "pass": true
+    },
+    {
+      "source_row": 453,
+      "label": "Ковровский сельский округ",
+      "descendant_rows": 53,
+      "published": {
+        "population": 7847,
+        "men": 3867,
+        "women": 3980
+      },
+      "recomputed": {
+        "population": 7847,
+        "men": 3867,
+        "women": 3980
+      },
+      "pass": true
+    },
+    {
+      "source_row": 507,
+      "label": "Красноторовский сельский округ",
+      "descendant_rows": 36,
+      "published": {
+        "population": 3396,
+        "men": 1766,
+        "women": 1630
+      },
+      "recomputed": {
+        "population": 3396,
+        "men": 1766,
+        "women": 1630
+      },
+      "pass": true
+    },
+    {
+      "source_row": 544,
+      "label": "Куршский сельский округ",
+      "descendant_rows": 3,
+      "published": {
+        "population": 1309,
+        "men": 608,
+        "women": 701
+      },
+      "recomputed": {
+        "population": 1309,
+        "men": 608,
+        "women": 701
+      },
+      "pass": true
+    },
+    {
+      "source_row": 548,
+      "label": "Переславский сельский округ",
+      "descendant_rows": 19,
+      "published": {
+        "population": 6693,
+        "men": 3351,
+        "women": 3342
+      },
+      "recomputed": {
+        "population": 6693,
+        "men": 3351,
+        "women": 3342
+      },
+      "pass": true
+    },
+    {
+      "source_row": 568,
+      "label": "Краснознаменский район",
+      "descendant_rows": 55,
+      "published": {
+        "population": 12905,
+        "men": 6115,
+        "women": 6790
+      },
+      "recomputed": {
+        "population": 12905,
+        "men": 6115,
+        "women": 6790
+      },
+      "pass": true
+    },
+    {
+      "source_row": 571,
+      "label": "г. Краснознаменск с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 3,
+      "published": {
+        "population": 3893,
+        "men": 1773,
+        "women": 2120
+      },
+      "recomputed": {
+        "population": 3893,
+        "men": 1773,
+        "women": 2120
+      },
+      "pass": true
+    },
+    {
+      "source_row": 573,
+      "label": "Сельские населенные пункты, подчиненные администрации г. Краснознаменск",
+      "descendant_rows": 2,
+      "published": {
+        "population": 371,
+        "men": 185,
+        "women": 186
+      },
+      "recomputed": {
+        "population": 371,
+        "men": 185,
+        "women": 186
+      },
+      "pass": true
+    },
+    {
+      "source_row": 576,
+      "label": "Сельские округа Краснознаменского района",
+      "descendant_rows": 52,
+      "published": {
+        "population": 9012,
+        "men": 4342,
+        "women": 4670
+      },
+      "recomputed": {
+        "population": 9012,
+        "men": 4342,
+        "women": 4670
+      },
+      "pass": true
+    },
+    {
+      "source_row": 577,
+      "label": "Алексеевский сельский округ",
+      "descendant_rows": 21,
+      "published": {
+        "population": 2871,
+        "men": 1369,
+        "women": 1502
+      },
+      "recomputed": {
+        "population": 2871,
+        "men": 1369,
+        "women": 1502
+      },
+      "pass": true
+    },
+    {
+      "source_row": 599,
+      "label": "Весновский сельский округ",
+      "descendant_rows": 12,
+      "published": {
+        "population": 2001,
+        "men": 957,
+        "women": 1044
+      },
+      "recomputed": {
+        "population": 2001,
+        "men": 957,
+        "women": 1044
+      },
+      "pass": true
+    },
+    {
+      "source_row": 612,
+      "label": "Добровольский сельский округ",
+      "descendant_rows": 19,
+      "published": {
+        "population": 4140,
+        "men": 2016,
+        "women": 2124
+      },
+      "recomputed": {
+        "population": 4140,
+        "men": 2016,
+        "women": 2124
+      },
+      "pass": true
+    },
+    {
+      "source_row": 632,
+      "label": "Неманский район",
+      "descendant_rows": 50,
+      "published": {
+        "population": 20132,
+        "men": 9158,
+        "women": 10974
+      },
+      "recomputed": {
+        "population": 20132,
+        "men": 9158,
+        "women": 10974
+      },
+      "pass": true
+    },
+    {
+      "source_row": 635,
+      "label": "г. Неман с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 20,
+      "published": {
+        "population": 15379,
+        "men": 6910,
+        "women": 8469
+      },
+      "recomputed": {
+        "population": 15379,
+        "men": 6910,
+        "women": 8469
+      },
+      "pass": true
+    },
+    {
+      "source_row": 637,
+      "label": "Сельские населенные пункты, подчиненные администрации г. Неман",
+      "descendant_rows": 19,
+      "published": {
+        "population": 3581,
+        "men": 1655,
+        "women": 1926
+      },
+      "recomputed": {
+        "population": 3581,
+        "men": 1655,
+        "women": 1926
+      },
+      "pass": true
+    },
+    {
+      "source_row": 657,
+      "label": "Сельские округа Неманского района",
+      "descendant_rows": 30,
+      "published": {
+        "population": 4753,
+        "men": 2248,
+        "women": 2505
+      },
+      "recomputed": {
+        "population": 4753,
+        "men": 2248,
+        "women": 2505
+      },
+      "pass": true
+    },
+    {
+      "source_row": 658,
+      "label": "Жилинский сельский округ",
+      "descendant_rows": 18,
+      "published": {
+        "population": 2733,
+        "men": 1295,
+        "women": 1438
+      },
+      "recomputed": {
+        "population": 2733,
+        "men": 1295,
+        "women": 1438
+      },
+      "pass": true
+    },
+    {
+      "source_row": 677,
+      "label": "Лунинский сельский округ",
+      "descendant_rows": 12,
+      "published": {
+        "population": 2020,
+        "men": 953,
+        "women": 1067
+      },
+      "recomputed": {
+        "population": 2020,
+        "men": 953,
+        "women": 1067
+      },
+      "pass": true
+    },
+    {
+      "source_row": 690,
+      "label": "Нестеровский район",
+      "descendant_rows": 54,
+      "published": {
+        "population": 16213,
+        "men": 7575,
+        "women": 8638
+      },
+      "recomputed": {
+        "population": 16213,
+        "men": 7575,
+        "women": 8638
+      },
+      "pass": true
+    },
+    {
+      "source_row": 694,
+      "label": "Сельские округа Нестеровского района",
+      "descendant_rows": 53,
+      "published": {
+        "population": 11618,
+        "men": 5520,
+        "women": 6098
+      },
+      "recomputed": {
+        "population": 11618,
+        "men": 5520,
+        "women": 6098
+      },
+      "pass": true
+    },
+    {
+      "source_row": 695,
+      "label": "Илюшинский сельский округ",
+      "descendant_rows": 16,
+      "published": {
+        "population": 4378,
+        "men": 2094,
+        "women": 2284
+      },
+      "recomputed": {
+        "population": 4378,
+        "men": 2094,
+        "women": 2284
+      },
+      "pass": true
+    },
+    {
+      "source_row": 712,
+      "label": "Пригородный сельский округ",
+      "descendant_rows": 18,
+      "published": {
+        "population": 4933,
+        "men": 2340,
+        "women": 2593
+      },
+      "recomputed": {
+        "population": 4933,
+        "men": 2340,
+        "women": 2593
+      },
+      "pass": true
+    },
+    {
+      "source_row": 731,
+      "label": "Чистопрудненский сельский округ",
+      "descendant_rows": 19,
+      "published": {
+        "population": 2307,
+        "men": 1086,
+        "women": 1221
+      },
+      "recomputed": {
+        "population": 2307,
+        "men": 1086,
+        "women": 1221
+      },
+      "pass": true
+    },
+    {
+      "source_row": 751,
+      "label": "Озерский район",
+      "descendant_rows": 102,
+      "published": {
+        "population": 15316,
+        "men": 7272,
+        "women": 8044
+      },
+      "recomputed": {
+        "population": 15316,
+        "men": 7272,
+        "women": 8044
+      },
+      "pass": true
+    },
+    {
+      "source_row": 754,
+      "label": "г. Озерск с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 2,
+      "published": {
+        "population": 4865,
+        "men": 2203,
+        "women": 2662
+      },
+      "recomputed": {
+        "population": 4865,
+        "men": 2203,
+        "women": 2662
+      },
+      "pass": true
+    },
+    {
+      "source_row": 756,
+      "label": "Сельские населенные пункты, подчиненные администрации г. Озерск",
+      "descendant_rows": 1,
+      "published": {
+        "population": 125,
+        "men": 58,
+        "women": 67
+      },
+      "recomputed": {
+        "population": 125,
+        "men": 58,
+        "women": 67
+      },
+      "pass": true
+    },
+    {
+      "source_row": 758,
+      "label": "Сельские округа Озерского района",
+      "descendant_rows": 100,
+      "published": {
+        "population": 10451,
+        "men": 5069,
+        "women": 5382
+      },
+      "recomputed": {
+        "population": 10451,
+        "men": 5069,
+        "women": 5382
+      },
+      "pass": true
+    },
+    {
+      "source_row": 759,
+      "label": "Гавриловский сельский округ",
+      "descendant_rows": 30,
+      "published": {
+        "population": 2907,
+        "men": 1388,
+        "women": 1519
+      },
+      "recomputed": {
+        "population": 2907,
+        "men": 1388,
+        "women": 1519
+      },
+      "pass": true
+    },
+    {
+      "source_row": 790,
+      "label": "Красноярский сельский округ",
+      "descendant_rows": 31,
+      "published": {
+        "population": 3557,
+        "men": 1710,
+        "women": 1847
+      },
+      "recomputed": {
+        "population": 3557,
+        "men": 1710,
+        "women": 1847
+      },
+      "pass": true
+    },
+    {
+      "source_row": 822,
+      "label": "Новостроевский сельский округ",
+      "descendant_rows": 39,
+      "published": {
+        "population": 3987,
+        "men": 1971,
+        "women": 2016
+      },
+      "recomputed": {
+        "population": 3987,
+        "men": 1971,
+        "women": 2016
+      },
+      "pass": true
+    },
+    {
+      "source_row": 862,
+      "label": "Полесский район",
+      "descendant_rows": 67,
+      "published": {
+        "population": 19205,
+        "men": 9116,
+        "women": 10089
+      },
+      "recomputed": {
+        "population": 19205,
+        "men": 9116,
+        "women": 10089
+      },
+      "pass": true
+    },
+    {
+      "source_row": 865,
+      "label": "г. Полесск с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 3,
+      "published": {
+        "population": 7865,
+        "men": 3624,
+        "women": 4241
+      },
+      "recomputed": {
+        "population": 7865,
+        "men": 3624,
+        "women": 4241
+      },
+      "pass": true
+    },
+    {
+      "source_row": 867,
+      "label": "Сельские населенные пункты, подчиненные администрации г. Полесск",
+      "descendant_rows": 2,
+      "published": {
+        "population": 284,
+        "men": 123,
+        "women": 161
+      },
+      "recomputed": {
+        "population": 284,
+        "men": 123,
+        "women": 161
+      },
+      "pass": true
+    },
+    {
+      "source_row": 870,
+      "label": "Сельские округа Полесского района",
+      "descendant_rows": 64,
+      "published": {
+        "population": 11340,
+        "men": 5492,
+        "women": 5848
+      },
+      "recomputed": {
+        "population": 11340,
+        "men": 5492,
+        "women": 5848
+      },
+      "pass": true
+    },
+    {
+      "source_row": 871,
+      "label": "Головкинский сельский округ",
+      "descendant_rows": 7,
+      "published": {
+        "population": 1304,
+        "men": 614,
+        "women": 690
+      },
+      "recomputed": {
+        "population": 1304,
+        "men": 614,
+        "women": 690
+      },
+      "pass": true
+    },
+    {
+      "source_row": 879,
+      "label": "Залесовский сельский округ",
+      "descendant_rows": 17,
+      "published": {
+        "population": 2117,
+        "men": 1005,
+        "women": 1112
+      },
+      "recomputed": {
+        "population": 2117,
+        "men": 1005,
+        "women": 1112
+      },
+      "pass": true
+    },
+    {
+      "source_row": 897,
+      "label": "Саранский сельский округ",
+      "descendant_rows": 17,
+      "published": {
+        "population": 4025,
+        "men": 1998,
+        "women": 2027
+      },
+      "recomputed": {
+        "population": 4025,
+        "men": 1998,
+        "women": 2027
+      },
+      "pass": true
+    },
+    {
+      "source_row": 915,
+      "label": "Тургеневский сельский округ",
+      "descendant_rows": 23,
+      "published": {
+        "population": 3894,
+        "men": 1875,
+        "women": 2019
+      },
+      "recomputed": {
+        "population": 3894,
+        "men": 1875,
+        "women": 2019
+      },
+      "pass": true
+    },
+    {
+      "source_row": 939,
+      "label": "Правдинский район",
+      "descendant_rows": 117,
+      "published": {
+        "population": 19061,
+        "men": 8970,
+        "women": 10091
+      },
+      "recomputed": {
+        "population": 19061,
+        "men": 8970,
+        "women": 10091
+      },
+      "pass": true
+    },
+    {
+      "source_row": 942,
+      "label": "г. Правдинск с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 33,
+      "published": {
+        "population": 7980,
+        "men": 3705,
+        "women": 4275
+      },
+      "recomputed": {
+        "population": 7980,
+        "men": 3705,
+        "women": 4275
+      },
+      "pass": true
+    },
+    {
+      "source_row": 944,
+      "label": "Сельские населенные пункты, подчиненные администрации г. Правдинск",
+      "descendant_rows": 32,
+      "published": {
+        "population": 3657,
+        "men": 1740,
+        "women": 1917
+      },
+      "recomputed": {
+        "population": 3657,
+        "men": 1740,
+        "women": 1917
+      },
+      "pass": true
+    },
+    {
+      "source_row": 977,
+      "label": "пгт Железнодорожный с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 31,
+      "published": {
+        "population": 5919,
+        "men": 2788,
+        "women": 3131
+      },
+      "recomputed": {
+        "population": 5919,
+        "men": 2788,
+        "women": 3131
+      },
+      "pass": true
+    },
+    {
+      "source_row": 979,
+      "label": "Сельские населенные пункты, подчиненные администрации пгт Железнодорожный",
+      "descendant_rows": 30,
+      "published": {
+        "population": 3152,
+        "men": 1530,
+        "women": 1622
+      },
+      "recomputed": {
+        "population": 3152,
+        "men": 1530,
+        "women": 1622
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1010,
+      "label": "Сельские округа Правдинского района",
+      "descendant_rows": 53,
+      "published": {
+        "population": 5162,
+        "men": 2477,
+        "women": 2685
+      },
+      "recomputed": {
+        "population": 5162,
+        "men": 2477,
+        "women": 2685
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1011,
+      "label": "Домновский сельский округ",
+      "descendant_rows": 28,
+      "published": {
+        "population": 2859,
+        "men": 1372,
+        "women": 1487
+      },
+      "recomputed": {
+        "population": 2859,
+        "men": 1372,
+        "women": 1487
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1040,
+      "label": "Мозырьский сельский округ",
+      "descendant_rows": 25,
+      "published": {
+        "population": 2303,
+        "men": 1105,
+        "women": 1198
+      },
+      "recomputed": {
+        "population": 2303,
+        "men": 1105,
+        "women": 1198
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1066,
+      "label": "Светлогорский район",
+      "descendant_rows": 7,
+      "published": {
+        "population": 14875,
+        "men": 7060,
+        "women": 7815
+      },
+      "recomputed": {
+        "population": 14875,
+        "men": 7060,
+        "women": 7815
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1070,
+      "label": "пгт Донское с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 4,
+      "published": {
+        "population": 2953,
+        "men": 1555,
+        "women": 1398
+      },
+      "recomputed": {
+        "population": 2953,
+        "men": 1555,
+        "women": 1398
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1072,
+      "label": "Сельские населенные пункты, подчиненные администрации пгт Донское",
+      "descendant_rows": 3,
+      "published": {
+        "population": 29,
+        "men": 13,
+        "women": 16
+      },
+      "recomputed": {
+        "population": 29,
+        "men": 13,
+        "women": 16
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1076,
+      "label": "пгт Приморье с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 2,
+      "published": {
+        "population": 1150,
+        "men": 622,
+        "women": 528
+      },
+      "recomputed": {
+        "population": 1150,
+        "men": 622,
+        "women": 528
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1078,
+      "label": "Сельские населенные пункты, подчиненные администрации пгт Приморье",
+      "descendant_rows": 1,
+      "published": {
+        "population": 196,
+        "men": 95,
+        "women": 101
+      },
+      "recomputed": {
+        "population": 196,
+        "men": 95,
+        "women": 101
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1080,
+      "label": "Славский район",
+      "descendant_rows": 58,
+      "published": {
+        "population": 21015,
+        "men": 10191,
+        "women": 10824
+      },
+      "recomputed": {
+        "population": 21015,
+        "men": 10191,
+        "women": 10824
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1083,
+      "label": "г. Славск с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 7,
+      "published": {
+        "population": 6266,
+        "men": 2869,
+        "women": 3397
+      },
+      "recomputed": {
+        "population": 6266,
+        "men": 2869,
+        "women": 3397
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1085,
+      "label": "Сельские населенные пункты, подчиненные администрации г. Славск",
+      "descendant_rows": 6,
+      "published": {
+        "population": 1652,
+        "men": 760,
+        "women": 892
+      },
+      "recomputed": {
+        "population": 1652,
+        "men": 760,
+        "women": 892
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1092,
+      "label": "Сельские округа Славского района",
+      "descendant_rows": 51,
+      "published": {
+        "population": 14749,
+        "men": 7322,
+        "women": 7427
+      },
+      "recomputed": {
+        "population": 14749,
+        "men": 7322,
+        "women": 7427
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1093,
+      "label": "Большаковский сельский округ",
+      "descendant_rows": 18,
+      "published": {
+        "population": 6464,
+        "men": 3224,
+        "women": 3240
+      },
+      "recomputed": {
+        "population": 6464,
+        "men": 3224,
+        "women": 3240
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1112,
+      "label": "Тимирязевский сельский округ",
+      "descendant_rows": 16,
+      "published": {
+        "population": 3926,
+        "men": 1919,
+        "women": 2007
+      },
+      "recomputed": {
+        "population": 3926,
+        "men": 1919,
+        "women": 2007
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1129,
+      "label": "Ясновский сельский округ",
+      "descendant_rows": 17,
+      "published": {
+        "population": 4359,
+        "men": 2179,
+        "women": 2180
+      },
+      "recomputed": {
+        "population": 4359,
+        "men": 2179,
+        "women": 2180
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1147,
+      "label": "Черняховский район",
+      "descendant_rows": 102,
+      "published": {
+        "population": 51936,
+        "men": 24101,
+        "women": 27835
+      },
+      "recomputed": {
+        "population": 51936,
+        "men": 24101,
+        "women": 27835
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1150,
+      "label": "г. Черняховск с подчиненными его администрации населенными пунктами",
+      "descendant_rows": 6,
+      "published": {
+        "population": 41073,
+        "men": 18907,
+        "women": 22166
+      },
+      "recomputed": {
+        "population": 41073,
+        "men": 18907,
+        "women": 22166
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1152,
+      "label": "Сельские населенные пункты, подчиненные администрации г. Черняховск",
+      "descendant_rows": 5,
+      "published": {
+        "population": 624,
+        "men": 291,
+        "women": 333
+      },
+      "recomputed": {
+        "population": 624,
+        "men": 291,
+        "women": 333
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1158,
+      "label": "Сельские округа Черняховского района",
+      "descendant_rows": 96,
+      "published": {
+        "population": 10863,
+        "men": 5194,
+        "women": 5669
+      },
+      "recomputed": {
+        "population": 10863,
+        "men": 5194,
+        "women": 5669
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1159,
+      "label": "Калужский сельский округ",
+      "descendant_rows": 34,
+      "published": {
+        "population": 4117,
+        "men": 1957,
+        "women": 2160
+      },
+      "recomputed": {
+        "population": 4117,
+        "men": 1957,
+        "women": 2160
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1194,
+      "label": "Каменский сельский округ",
+      "descendant_rows": 27,
+      "published": {
+        "population": 2349,
+        "men": 1160,
+        "women": 1189
+      },
+      "recomputed": {
+        "population": 2349,
+        "men": 1160,
+        "women": 1189
+      },
+      "pass": true
+    },
+    {
+      "source_row": 1222,
+      "label": "Свободненский сельский округ",
+      "descendant_rows": 35,
+      "published": {
+        "population": 4397,
+        "men": 2077,
+        "women": 2320
+      },
+      "recomputed": {
+        "population": 4397,
+        "men": 2077,
+        "women": 2320
+      },
+      "pass": true
+    }
+  ]
+}

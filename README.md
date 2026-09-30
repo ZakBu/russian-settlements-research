@@ -117,6 +117,8 @@ The 99.9% population coverage goal has not been met or demonstrated. Coverage by
 ## Research documents and provenance
 
 - [Current status](STATUS.md)
+- [Parser lessons for the next research stages](docs/PARSER_LESSONS.md)
+- [Decision diary](docs/DECISION_DIARY.md)
 - [Data model and audit policy](METHODOLOGY.md)
 - [Source inventory and use conditions](SOURCES.md)
 - [Identity and coordinate methodology](research_rebuild/docs/LINKAGE_METHODOLOGY.md)

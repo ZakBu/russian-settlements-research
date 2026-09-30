@@ -1,0 +1,107 @@
+{
+  "review_id": "murmansk_2010_candidate_r1_independent_review_20260930",
+  "status": "PASS_SOURCE_OBSERVATION_SLICE_AND_ZERO_BIN_CLOSURE; HOLD_CROSS_CENSUS_IDENTITY",
+  "verdict": "Accept 140 named 2010 observations as a non-duplicated population slice. The 14 rural population dashes may be represented as zero in a separate derived interpretation because an independent same-year grouping table reports exactly 14 zeros among exactly 112 rural localities, while the population-by-sex roster lists exactly 112 rural places, has exactly 14 dashes, and all other 98 printed rural P values are positive. This supports the zero assignment as a closed-universe complement inference, not as a printed per-name zero. Preserve every original dash. Cross-census identity and coordinates are outside this review.",
+  "source": {
+    "population_doc_title": "Численность населения по полу по муниципальным образованиям Мурманской области на 14 октября 2010 года по данным Всероссийской переписи населения",
+    "official_landing_page": "https://51.rosstat.gov.ru/folder/72892",
+    "archived_landing_page": "https://web.archive.org/web/20240614053124id_/https://51.rosstat.gov.ru/folder/72892",
+    "population_asset_url": "https://51.rosstat.gov.ru/storage/mediabank/14(1).doc",
+    "population_archived_asset_url": "https://web.archive.org/web/20240718144234id_/https://51.rosstat.gov.ru/storage/mediabank/14(1).doc",
+    "population_sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+    "population_bytes": 384000,
+    "grouping_asset_url": "https://51.rosstat.gov.ru/storage/mediabank/02(2).doc",
+    "grouping_archived_asset_url": "https://web.archive.org/web/20240718144159id_/https://51.rosstat.gov.ru/storage/mediabank/02(2).doc",
+    "grouping_sha256": "2ea4bfc26203662fc7d000936d385a85e06f4a023bbc29ff75efb1908548c418",
+    "grouping_bytes": 70656,
+    "scope_basis": "Population-by-sex title and printed 2010-10-14 date; companion rural grouping table explicitly reports 2002 and 2010 census populations."
+  },
+  "findings": {
+    "population_rows": 140,
+    "unique_source_ids": 140,
+    "forms": {
+      "city": 16,
+      "urban_type_settlement": 12,
+      "rural_locality": 112
+    },
+    "population_controls": {
+      "population": 795409,
+      "men": 379560,
+      "women": 415849,
+      "urban_population": 738382,
+      "rural_population": 57027
+    },
+    "population_dashes": {
+      "n": 14,
+      "all_rural": true,
+      "grouping_2010_rural_total": 112,
+      "grouping_2010_zero_bin": 14,
+      "other_rural_rows": 98,
+      "all_other_rural_values_positive": true,
+      "interpretation": "derived zero by exact universe/bin closure; raw dash preserved"
+    },
+    "sex_dashes": {
+      "n": 9,
+      "P_mass": 46,
+      "P_equals_other_reported_sex_count_for_each": true,
+      "interpretation": "derived zero only; raw dash preserved"
+    },
+    "independent_extraction": {
+      "full_cell_exact_rows": 223,
+      "mismatches": 0,
+      "top_control_numeric_cells_checked": true
+    }
+  },
+  "limitations": [
+    "Grouping table provides bin counts, not names; zero assignment is an exhaustive-set complement inference and depends on both tables covering the same census-date locality universe.",
+    "Source row identity is not cross-census settlement identity.",
+    "No coordinates admitted."
+  ],
+  "inputs": {
+    "manifest": {
+      "path": "research_rebuild/evidence/ingestion/murmansk_2010_population_by_sex_candidate_r1/source_manifest_murmansk_2010_candidate_r1.json",
+      "sha256": "a5a89e40b49a087e719e87b12eb5f24b0889cae3a96aaf6b222bb9a9ef935220",
+      "bytes": 6375
+    },
+    "population_doc": {
+      "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+      "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+      "bytes": 384000
+    },
+    "grouping_doc": {
+      "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_grouped_settlements_by_population.doc",
+      "sha256": "2ea4bfc26203662fc7d000936d385a85e06f4a023bbc29ff75efb1908548c418",
+      "bytes": 70656
+    },
+    "candidates": {
+      "path": "research_rebuild/evidence/ingestion/murmansk_2010_population_by_sex_candidate_r1/murmansk_2010_settlement_population_candidates.csv",
+      "sha256": "cb5b3d96db07ce984353d1c1d224c998bd23cf8758dc676e43a551873b549b55",
+      "bytes": 43732
+    },
+    "full_ledger": {
+      "path": "research_rebuild/evidence/ingestion/murmansk_2010_population_by_sex_candidate_r1/murmansk_2010_population_by_sex_full_table_ledger.csv",
+      "sha256": "d773db68c5f8ea96f91b3ad124a6a790a75b4a5ce98b0d61a8219214eb078270",
+      "bytes": 71195
+    },
+    "controls": {
+      "path": "research_rebuild/evidence/ingestion/murmansk_2010_population_by_sex_candidate_r1/murmansk_2010_population_controls.json",
+      "sha256": "41f0c7f7bd83f3a081b1b496dbfc561e2b2e0917549b721e06cfbe964344554c",
+      "bytes": 1836
+    },
+    "extractor_comparison": {
+      "path": "research_rebuild/evidence/ingestion/murmansk_2010_population_by_sex_candidate_r1/murmansk_2010_independent_extraction_comparison.json",
+      "sha256": "ab7d4fccb770442c7d513d95a5e45fe289989f6dfe72f6f2c1381277fda282b9",
+      "bytes": 1128
+    }
+  },
+  "outputs": {
+    "rural_population_dash_closure.csv": {
+      "sha256": "6c313a38928976eb1288bcf1435668a3d8c23e0e58d5faf06a7ac74eb6c45e82",
+      "bytes": 5599
+    },
+    "sex_dash_derived_values.csv": {
+      "sha256": "7f2bade6591bba2de8a3e5fc343146e75b7ce94791ebe57470c7ce601c0c82ec",
+      "bytes": 1938
+    }
+  }
+}
