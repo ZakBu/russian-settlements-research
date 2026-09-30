@@ -17,6 +17,31 @@ done
 
 The bundle manifest records SHA-256 and byte length for every archived member. From a copy of the repository code and the extracted inputs, source selection can be rebuilt with `python3 research_rebuild/linkage/build_national_selection_r1.py --output /tmp/source-selection-r1-rebuilt`; R2 can be rebuilt with `python3 research_rebuild/linkage/build_national_admission_release_r2.py --output /tmp/admissions-r2-rebuilt`. The four R2 unit tests are run with `python3 -m unittest research_rebuild.tests.test_national_admission_release_r2 -v`. These releases report reviewed case coverage only, not national matching accuracy.
 
+## National identity-bridge checkpoint R4
+
+The private release `national-reviewed-checkpoint-r4-2026-09-30` publishes the reviewed identity bridge through R4. R4 is a metadata-only correction to R3: 952 selected Volume 11 endpoint locators are now represented as explicit JSON nulls with an explanation; 13 existing Karelia endpoints retain their separate Volume 1 Table 5 locators. The identity edges, populations, coverage, and coordinate claims are unchanged from R3.
+
+The release contains a minimal input bundle (the R3 parent outputs and the selected R1 observations needed for the metadata correction) and the R4 output bundle. From a fresh checkout, download and verify both bundles while signed in to the private repository:
+
+```sh
+mkdir -p national-r4-assets
+gh release download national-reviewed-checkpoint-r4-2026-09-30 --repo ZakBu/russian-settlements-research --pattern asset_manifest.json --dir national-r4-assets
+gh release download national-reviewed-checkpoint-r4-2026-09-30 --repo ZakBu/russian-settlements-research --pattern national_reviewed_admissions_r4_inputs.tar.zst --dir national-r4-assets
+gh release download national-reviewed-checkpoint-r4-2026-09-30 --repo ZakBu/russian-settlements-research --pattern national_reviewed_admissions_r4_outputs.tar.zst --dir national-r4-assets
+python3 scripts/verify_release_assets.py --manifest national-r4-assets/asset_manifest.json --asset-dir national-r4-assets
+zstd -dc national-r4-assets/national_reviewed_admissions_r4_inputs.tar.zst | tar -xf - -C .
+zstd -dc national-r4-assets/national_reviewed_admissions_r4_outputs.tar.zst | tar -xf - -C .
+python3 -m pip install -r requirements-pilot.txt
+python3 research_rebuild/linkage/build_national_reviewed_admissions_r4_metadata.py --output /tmp/national-admissions-r4-rebuilt
+python3 -m unittest research_rebuild.tests.test_national_reviewed_admissions_r4_metadata -v
+```
+
+The built R4 artifact is an identity-coverage checkpoint, not spatial coverage. It has 1,003 accepted temporal same-place edges: 952 newly applied 2002–2010 bridges and 13 supporting decisions for pairs already present. Among selected R1 denominators, unique linked population is 76,546,921/145,155,005 (52.7346%) in 2002, 76,695,785/142,172,038 (53.9458%) in 2010, and 4,146,187/147,182,123 (2.8170%) in 2021. This release adds no coordinates; R2 coordinate claims are unchanged.
+
+The 965 rule-eligible candidates comprise 952 newly admitted edges and 13 supporting decisions for pairs already represented. This rule-defined subset is not a probability sample of all settlements. The fixed 24-case review checked endpoint and source bindings across population bands; it does not estimate national matching precision. The matching rule uses an official Table 1.4 row with both census counts, exact selected endpoint bindings for both years, and an exact 2010 Table 5 settlement row. Held competitor, footnote, type-change and federal-city cases remain excluded. Census-year populations remain year-specific; same-place edges do not harmonize boundaries or population scope.
+
+A Table 5 hierarchy limitation remains explicit: all 965 rows are `row_kind=settlement` and `aggregate_scope=atomic_settlement`, but the parser's broader `hierarchy_level` label is `subject_settlement_or_subject_aggregate`; 21 rows have only layout-level parent controls. This checkpoint preserves that evidence rather than treating parent layout as identity proof. The independent R4 review is in [the review record](research_rebuild/evidence/reviews/national_reviewed_admissions_r4_independent_validation_20260930/review.json), and the exact release hashes are in [the asset manifest](research_rebuild/evidence/releases/national_reviewed_checkpoint_r4_20260930/asset_manifest.json).
+
 ## Reproduce the Karelia pilot
 
 The releases are private: download them while signed in to a GitHub account with read access to this repository, or authenticate the GitHub CLI with `gh auth login`. The commands below stage the exact source and review files checked by the build. The baseline source files and forensic outputs come from separate release archives; the supplemental bundle supplies the Karelia DOCX, fixed reviews and compact processed evidence.
@@ -60,7 +85,7 @@ The 2002 Karelia selected slice exceeds its regional control by 3 people; that r
 
 ## National status and limits
 
-Two national evidence checkpoints now sit above the preserved baseline. Source-selection R1 replaces one 2002 Moscow parent aggregate with five disjoint city/subordinate-settlement rows while preserving the parent total, and replaces the 2010 Karelia legacy slice with the corrected official-source slice (+4,784 people). The 2021 selected snapshot is unchanged. Reviewed-admissions R2 records 51 accepted same-place edges and 81 point claims with typed identity/publication dependencies. These are a small, reviewed lower bound, not a national reconstruction.
+National source-selection R1 and reviewed-admissions R2 remain the parent checkpoint. Reviewed-admissions R4 adds a rule-defined official comparative-table identity bridge: 1,003 unique temporal edges, with 952 new 2002–2010 pairs and 13 already-represented pairs. The release reports unique identity-linked population by year separately from the unchanged R2 coordinate claims. It is a partial lower bound, not a national reconstruction or 99.9% spatial linkage.
 
 Source-selection R1 contains 158,072 selected 2002 rows / 145,155,005 people; 152,313 selected 2010 rows / 142,172,038 people; and 155,414 selected 2021 rows / 147,182,123 people. These are selected-data denominators, not proof of completeness against every official census total. R2's admitted-coordinate coverage within those denominators is 0.3702% of 2002 population, 0.3532% of 2010, and 6.3558% of 2021; identity-linked population shares are 2.6615%, 0.3532%, and 2.8170%, respectively. Row coverage is reported separately in the release. Historical point uses are explicitly `inferred_continuity`; the provider-coordinate measurement date is unknown. Four direct Karelia points have an additional byte-preserved OSM attic geometry check as of 2021-10-01; OSM is not an official census boundary.
 
@@ -74,7 +99,9 @@ The 99.9% population coverage goal has not been met or demonstrated. Coverage by
 - [Data model and audit policy](METHODOLOGY.md)
 - [Source inventory and use conditions](SOURCES.md)
 - [Identity and coordinate methodology](research_rebuild/docs/LINKAGE_METHODOLOGY.md)
-- [National source-selection and reviewed-admissions checkpoint](research_rebuild/evidence/releases/national_reviewed_checkpoint_r1_r2_20260930/asset_manifest.json)
+- [National source-selection and reviewed-admissions checkpoint R1/R2](research_rebuild/evidence/releases/national_reviewed_checkpoint_r1_r2_20260930/asset_manifest.json)
+- [National reviewed-admissions checkpoint R4](research_rebuild/evidence/releases/national_reviewed_checkpoint_r4_20260930/asset_manifest.json)
+- [Independent R4 review](research_rebuild/evidence/reviews/national_reviewed_admissions_r4_independent_validation_20260930/review.json)
 - [Independent source-selection review](research_rebuild/evidence/reviews/national_source_selection_r1_independent_validation_20260930.json)
 - [Independent reviewed-admissions review](research_rebuild/evidence/reviews/national_reviewed_admissions_r2_independent_review_20260930.json)
 - [Karelia geometry evidence supplement](research_rebuild/evidence/reviews/geometry_refresh_r1_20260930/independent_geometry_review.json)

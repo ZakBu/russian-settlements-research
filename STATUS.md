@@ -18,6 +18,14 @@ The distribution includes a self-contained DuckDB copy of all 26 Parquet tables 
 
 The national database has not been fully rebuilt or independently validated. The 99.9% population-linked goal remains unproven. Candidate names, codes, population similarity, and the presence of coordinates do not independently prove place identity or coordinate applicability.
 
+### Reviewed national identity bridge R4 (2026-09-30)
+
+R4 is a metadata-only correction to the deterministic R3 bridge release. Its selected endpoint provenance now records missing Volume 11 `source_locator` values as typed JSON nulls with an explicit reason and keeps the actual page/line native ID and PDF hash resolvable. All scientific outputs, populations, coordinate claims, and coverage values are unchanged from R3. An independent review verified the pinned source/output hashes, all 965 candidate-to-endpoint bindings, all 965 exact Table 5 settlement-grain bindings, no same-year collisions in connected components, and deduplicated coverage.
+
+The combined identity graph has 1,003 unique temporal edges. R4 added 952 new 2002–2010 pairs and recorded 13 eligible pairs already represented in the parent graph without double-counting them. Identity-linked selected population is 76,546,921/145,155,005 (52.7346%) in 2002; 76,695,785/142,172,038 (53.9458%) in 2010; and 4,146,187/147,182,123 (2.8170%) in 2021. These are identity-linked population shares, not spatial coverage. Coordinate claims are unchanged from R2; this release adds none.
+
+The 965-rule subset is not a probability sample, and the 24-case review validates source-binding implementation rather than estimating national precision. Footnote, competitor, federal-city and other exceptional rows remain held. Table 5 records each matched line as a settlement row with atomic-settlement scope; its broader hierarchy label remains `subject_settlement_or_subject_aggregate`, and 21 rows have layout-only parent context. Those limitations are retained in the review record. See the R4 asset manifest and independent review linked from README.
+
 ### Reviewed national checkpoint (2026-09-30)
 
 Source-selection R1 is a versioned population-grain repair. For 2002, it replaces the Moscow-plus-subordinate-settlements aggregate (10,382,754) with five disjoint component rows whose population and sex totals reconcile exactly to that parent; the city-only row is 10,126,424. The selected snapshot adds four rows and preserves the national dataset sum of 145,155,005. For 2010, it replaces the Karelia legacy slice with 800 official-source observations totaling 643,548, a +4,784 change and one additional row. For 2021, selected IDs and values remain unchanged. Independent review and clean reproduction are included in the checkpoint assets.

@@ -1,0 +1,60 @@
+{
+  "review_id": "national_reviewed_admissions_r4_independent_validation_20260930",
+  "reviewed_release_manifest_sha256": "93801f54ae9e56838a79b614494e0bfdd5b8c09b9585231bd634c13689d4d92e",
+  "reviewed_parent_r3_manifest_sha256": "0a6494cd149e334a60951538222519d595a3fd6d4fcd6f7a50b106f7b8b65ada",
+  "reviewer_role": "independent release reviewer",
+  "scope": "metadata correction integrity, all source endpoints and typed Table 5 bindings, graph uniqueness, deduplicated identity coverage",
+  "checks": {
+    "r4_pinned_input_hashes_checked": 2,
+    "r4_output_hashes_checked": 7,
+    "eligible_bridge_rows": 965,
+    "candidate_preview_row_alignment": "all 965 evidence source IDs match the frozen eligible preview exactly; all rule predicate flags are eligible; no footnote, same-region competitor, or federal-city hold is present",
+    "endpoint_binding": "all selected 2002/2010 endpoint IDs resolve in source-selection R1 with matching year, name, type, region, and population",
+    "table5_binding": "all 965 Table 5 reference IDs resolve uniquely to 2010 settlement rows with aggregate_scope=atomic_settlement and matching region/name/type/population",
+    "decision_actions": {
+      "new_edges": 952,
+      "already_represented_pairs": 13
+    },
+    "new_edge_population_mass": {
+      "2002": 76009526,
+      "2010": 76193568
+    },
+    "final_graph_edges": 1003,
+    "same_census_component_collision": "none found by independent union-find traversal",
+    "deduplicated_identity_linked_coverage": {
+      "2002": {
+        "rows": 976,
+        "population": 76546921,
+        "share_percent": 52.734607
+      },
+      "2010": {
+        "rows": 976,
+        "population": 76695785,
+        "share_percent": 53.945759
+      },
+      "2021": {
+        "rows": 27,
+        "population": 4146187,
+        "share_percent": 2.817045
+      }
+    },
+    "coordinate_claims": "unchanged from R2; this release adds no coordinates and is not spatial-coverage evidence",
+    "scientific_content_unchanged_from_r3": true,
+    "metadata_fix": "952 selected Volume 11 endpoint locator fields are explicit JSON null with a reason; selected source native IDs/page rows plus the pinned Table 11 source hash resolve them. Thirteen existing Karelia endpoints retain distinct Volume 1 Table 5 locators and hash.",
+    "metadata_edge_case": "selected R1 source_sha256/source_locator are null for the 952 Volume 11 observations; their source_file/source_sheet/source_row/source_native_id composite resolves to the pinned Volume 11 PDF. The Table 5 binding remains a separate evidence object."
+  },
+  "source_hashes": {
+    "r4_builder_sha256": "94ee2dcd8b22cf88c843a8196db4cc254d3c70f28f26fa0b38d8bc56e98e7288",
+    "selected_observations_parquet_sha256": "dd8d437c1a1f5cebf2b45c55e7a6e2015f3c1a295cade827a71bb76189a485df",
+    "volume_11_tom11_pdf_sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+    "volume_1_table5_pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+  },
+  "limitations": [
+    "Identity coverage only; not coordinate coverage or a 99.9% spatial-link claim.",
+    "Coverage denominators are the selected R1 snapshots; national census completeness is a separate question.",
+    "The 965-row rule-defined candidate set is not a probability sample. The fixed 24-case review checked rule/source binding, not national precision.",
+    "All exact Table 5 rows carry hierarchy_level=subject_settlement_or_subject_aggregate; row_kind=settlement and aggregate_scope=atomic_settlement were independently confirmed. Twenty-one rows have only layout-level parent controls, so the parser hierarchy caveat should remain visible.",
+    "Same-place edges do not harmonize population scope across census-year administrative boundaries."
+  ],
+  "test_result": "python3 -m unittest research_rebuild.tests.test_national_reviewed_admissions_r4_metadata -v: 3 tests passed"
+}
