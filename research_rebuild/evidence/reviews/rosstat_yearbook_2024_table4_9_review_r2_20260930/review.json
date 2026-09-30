@@ -1,0 +1,79 @@
+{
+  "review_id": "rosstat_yearbook_2024_table4_9_review_r2_20260930",
+  "status": "PASS_RULE_FAMILY_WITH_HELD_EXCEPTIONS",
+  "verdict": "Accept the deterministic direct-publication continuity rule for the 163 ordinary unique endpoint pairs, conditional on exact name/type/region bindings, exact selected-record IDs and values within the published thousand-person compatibility interval. This supports same-city identity continuity 2010↔2021; it does not admit coordinates or assert harmonized population scope.",
+  "sample": {
+    "n": 24,
+    "design": "Fixed stratified review: six each from 2010 display bands <200, 200-499, 500-999, 1000+ thousand persons; cases fixed before verdict; raw Table 4.9 page/line and selected source endpoints checked.",
+    "band_counts": {
+      "<200": 6,
+      "200-499": 6,
+      "500-999": 6,
+      "1000+": 6
+    },
+    "result": "24/24 direct row and unique endpoint bindings agree; city type, year, normalized region and published-thousand compatibility checks pass; no footnote markers."
+  },
+  "rule_population": {
+    "candidate_pairs": 163,
+    "2010_population": 53739147,
+    "2021_population": 56462398,
+    "selected_endpoint_uniqueness": "163/163 unique source record in each year; no duplicate endpoints",
+    "region_type": "163/163 same normalized region and city type across selected endpoints"
+  },
+  "held_cases": {
+    "count": 9,
+    "policy": "No automatic admission: boundary-change/federal-city cases held; blank stays missing; Russian-census ellipsis for Crimea/Sevastopol is outside that census universe, not an unresolved matching failure or zero."
+  },
+  "source_method": "Printed page 90 identifies cities with population ≥100,000 and units thousand persons. Footnote 1 explicitly distinguishes census-date columns 2002-10-09, 2010-10-14, 2021-10-01 from Jan 1 estimates. Footnotes 2–3 disclose Balashikha 2015 and Moscow 2012 boundary changes. Exact census observations remain in separate selected sources.",
+  "rounding_limit": "Publication gives values in thousands but does not specify rounding convention in cited note. Nearest-thousand ±500 compatibility is an operational check, not an asserted official rounding rule.",
+  "coordinates": "No coordinate claims reviewed or admitted.",
+  "source_provenance": "Archived official Rosstat yearbook PDF retrieved from Wayback Memento 2025-02-03 with normal TLS verification. This verifies archive retrieval and official URL lineage, not contemporaneous TLS at Rosstat origin.",
+  "inputs": {
+    "yearbook_pdf": {
+      "path": "research_rebuild/evidence/discovery/official_sources_2010_2021_r2_yearbook/raw/rosstat_russian_statistical_yearbook_2024.pdf",
+      "sha256_expected": "bac43b438869d7b11ca595acd121726833d2bf2e54004351db825cade4c29da7",
+      "sha256_verified": "bac43b438869d7b11ca595acd121726833d2bf2e54004351db825cade4c29da7",
+      "bytes": 26704568
+    },
+    "retrieval_receipt": {
+      "path": "research_rebuild/evidence/discovery/official_sources_2010_2021_r2_yearbook/retrieval_receipt.json",
+      "sha256_expected": "6aeb580c4b9ed3ab70a8abd46f7cf49e554b102139a42684299d669fe971773d",
+      "sha256_verified": "6aeb580c4b9ed3ab70a8abd46f7cf49e554b102139a42684299d669fe971773d",
+      "bytes": 1076
+    },
+    "candidate_manifest": {
+      "path": "research_rebuild/evidence/discovery/yearbook_table49_2010_2021_candidates_r2_20260930/manifest.json",
+      "sha256_expected": "c02e2dd0b596c8e22a3c4441fbcbcd2e65e2405dfed5ee930f9e49f2ec72592b",
+      "sha256_verified": "c02e2dd0b596c8e22a3c4441fbcbcd2e65e2405dfed5ee930f9e49f2ec72592b",
+      "bytes": 5134
+    },
+    "candidate_rows": {
+      "path": "research_rebuild/evidence/discovery/yearbook_table49_2010_2021_candidates_r2_20260930/bridge_candidates_2010_2021.csv",
+      "sha256_expected": "c158e203a8600010acb5a2feef82e7cc158633145924a3ceba1cc91e1cc23ac4",
+      "sha256_verified": "c158e203a8600010acb5a2feef82e7cc158633145924a3ceba1cc91e1cc23ac4",
+      "bytes": 238861
+    },
+    "method_notes": {
+      "path": "research_rebuild/evidence/discovery/yearbook_table49_2010_2021_candidates_r2_20260930/table49_method_notes.json",
+      "sha256_expected": "1ec46e7383a60575c08af03bfcd8d50d7fe4d5c5ca1fdb1f8e89da3cc85e3f78",
+      "sha256_verified": "1ec46e7383a60575c08af03bfcd8d50d7fe4d5c5ca1fdb1f8e89da3cc85e3f78",
+      "bytes": 3450
+    },
+    "selected_observations": {
+      "path": "research_rebuild/evidence/releases/national_source_selection_r1_20260930/selected_observations.parquet",
+      "sha256_expected": "dd8d437c1a1f5cebf2b45c55e7a6e2015f3c1a295cade827a71bb76189a485df",
+      "sha256_verified": "dd8d437c1a1f5cebf2b45c55e7a6e2015f3c1a295cade827a71bb76189a485df",
+      "bytes": 37070618
+    }
+  },
+  "outputs": {
+    "ordinary_bridge_fixed_sample.csv": {
+      "sha256": "daf4f810593b373514b6dc52da7ac5cc2411565f4411b146e8f56d81f60eaffb",
+      "bytes": 29402
+    },
+    "held_scope_cases.csv": {
+      "sha256": "3e4ffcf02752174ce79747370c0f93868e784dacc643ac20e564fd92e24f0844",
+      "bytes": 3075
+    }
+  }
+}

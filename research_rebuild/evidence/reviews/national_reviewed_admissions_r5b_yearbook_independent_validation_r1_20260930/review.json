@@ -1,0 +1,154 @@
+{
+  "review_id": "national_reviewed_admissions_r5b_yearbook_independent_validation_r1_20260930",
+  "status": "PASS_IDENTITY_ADMISSION_RELEASE",
+  "release_manifest_sha256": "0bf4c442df7e1e3a0c9148c08c7cde2f43235ebde6ca608b762891d8ee26093c",
+  "checks": {
+    "163_candidates_join_exactly_one_pair_decision": true,
+    "163_source_endpoint_pairs_unique_each_year": true,
+    "both_selected_observations_membership_population_verified": 326,
+    "yearbook_source_hash_exact_all": true,
+    "sample_rule_scope_and_eligibility_predicate": true,
+    "new_edges": 159,
+    "already_connected_supporting_only": 4,
+    "held_exceptions": 9,
+    "parent_edges_preserved": 1003,
+    "graph_edges_total": 1162,
+    "component_count": 982,
+    "same_year_component_collisions": 0,
+    "coordinate_admissions_byte_identical_to_parent": true,
+    "publication_bindings_byte_identical_to_parent": true
+  },
+  "masses": {
+    "eligible_candidate_population_2010": 53739147,
+    "eligible_candidate_population_2021": 56462398,
+    "new_edge_endpoint_mass_2010": 50109180,
+    "new_edge_endpoint_mass_2021": 52504994
+  },
+  "coverage_by_year": [
+    {
+      "year": "2002",
+      "selected_rows_denominator": "158072",
+      "selected_population_denominator": "145155005",
+      "identity_linked_unique_rows": "976",
+      "identity_linked_unique_population": "76546921",
+      "identity_row_share_percent": "0.61744",
+      "identity_population_share_percent": "52.734607",
+      "interpretation": "certified lower bound among selected observations connected by accepted same_place edges; no extrapolation; yearbook bridge does not establish equal boundaries/population scope or coordinates"
+    },
+    {
+      "year": "2010",
+      "selected_rows_denominator": "152313",
+      "selected_population_denominator": "142172038",
+      "identity_linked_unique_rows": "982",
+      "identity_linked_unique_population": "77708004",
+      "identity_row_share_percent": "0.644725",
+      "identity_population_share_percent": "54.657727",
+      "interpretation": "certified lower bound among selected observations connected by accepted same_place edges; no extrapolation; yearbook bridge does not establish equal boundaries/population scope or coordinates"
+    },
+    {
+      "year": "2021",
+      "selected_rows_denominator": "155414",
+      "selected_population_denominator": "147182123",
+      "identity_linked_unique_rows": "186",
+      "identity_linked_unique_population": "56651181",
+      "identity_row_share_percent": "0.11968",
+      "identity_population_share_percent": "38.490531",
+      "interpretation": "certified lower bound among selected observations connected by accepted same_place edges; no extrapolation; yearbook bridge does not establish equal boundaries/population scope or coordinates"
+    }
+  ],
+  "limitations": [
+    "This admission establishes published same-city continuity for eligible endpoints only; no boundary/population harmonization or coordinate admission.",
+    "Nearest-thousand ±500 remains only an operational compatibility check because the table does not state rounding convention.",
+    "The 24-case stratified review is rule validation, not a national precision estimate.",
+    "Nine exceptions remain held; coordinate and spatial 99.9% coverage are unchanged."
+  ],
+  "inputs": {
+    "release_manifest": {
+      "path": "research_rebuild/evidence/releases/national_reviewed_admissions_r5b_yearbook_20260930/release_manifest.json",
+      "sha256": "0bf4c442df7e1e3a0c9148c08c7cde2f43235ebde6ca608b762891d8ee26093c",
+      "bytes": 5847
+    },
+    "candidate_manifest": {
+      "path": "research_rebuild/evidence/discovery/yearbook_table49_2010_2021_candidates_r2_20260930/manifest.json",
+      "sha256": "c02e2dd0b596c8e22a3c4441fbcbcd2e65e2405dfed5ee930f9e49f2ec72592b",
+      "bytes": 5134
+    },
+    "candidate_pairs": {
+      "path": "research_rebuild/evidence/discovery/yearbook_table49_2010_2021_candidates_r2_20260930/bridge_candidates_2010_2021.csv",
+      "sha256": "c158e203a8600010acb5a2feef82e7cc158633145924a3ceba1cc91e1cc23ac4",
+      "bytes": 238861
+    },
+    "selected_observations": {
+      "path": "research_rebuild/evidence/releases/national_source_selection_r1_20260930/selected_observations.parquet",
+      "sha256": "dd8d437c1a1f5cebf2b45c55e7a6e2015f3c1a295cade827a71bb76189a485df",
+      "bytes": 37070618
+    },
+    "yearbook_review_manifest": {
+      "path": "research_rebuild/evidence/reviews/rosstat_yearbook_2024_table4_9_review_r2_20260930/manifest.json",
+      "sha256": "9bdc8f9055896514a53955e55784157c277bec79a1d71e578675a9bf05343c60",
+      "bytes": 1143
+    },
+    "parent_release_manifest": {
+      "path": "research_rebuild/evidence/releases/national_reviewed_admissions_r4_metadata_20260930/release_manifest.json",
+      "sha256": "93801f54ae9e56838a79b614494e0bfdd5b8c09b9585231bd634c13689d4d92e",
+      "bytes": 3890
+    },
+    "parent_identity_edges": {
+      "path": "research_rebuild/evidence/releases/national_reviewed_admissions_r4_metadata_20260930/identity_edges_accepted.csv",
+      "sha256": "8b206d9ab4680904c36461cfae5e3f3d7eeb0e43ecb5e4492c5b11f10e830f70",
+      "bytes": 714584
+    },
+    "parent_coordinate_admissions": {
+      "path": "research_rebuild/evidence/releases/national_reviewed_admissions_r4_metadata_20260930/coordinate_admissions.csv",
+      "sha256": "c58c3a573ddc7878f948b69ab53696bb94583408b8368fbef34f1b385b56c07e",
+      "bytes": 164081
+    }
+  },
+  "outputs": {
+    "accepted_and_deduplicated_yearbook_pairs.csv": {
+      "sha256": "3b76aa6cd2af70bc3ec6b343bcfa5659ebf1a34392f40eaa2b8a995d02d320dd",
+      "bytes": 95151,
+      "rows": 163
+    },
+    "coordinate_admissions.csv": {
+      "sha256": "c58c3a573ddc7878f948b69ab53696bb94583408b8368fbef34f1b385b56c07e",
+      "bytes": 164081,
+      "rows": 81
+    },
+    "coverage_by_year.csv": {
+      "sha256": "8575bad5f7407d54bf0cd9297f16b69f27d9dd9752608774b9bf725d3006fb9f",
+      "bytes": 937,
+      "rows": 3
+    },
+    "identity_edges_accepted.csv": {
+      "sha256": "bb9d967cf04c7875578e73fe40b15efbe1e81c58681cc3e222823b161356a2ae",
+      "bytes": 817601,
+      "rows": 1162
+    },
+    "publication_bindings.csv": {
+      "sha256": "561f0c9b5cf2ec3324b7b272ec7f952ee33889d492cb020e7a79772b3f801624",
+      "bytes": 4613,
+      "rows": 10
+    },
+    "reviewed_case_axes.csv": {
+      "sha256": "7a2a0d17f8be10a5e8b556ad98d29bd5276a17919410afb6dca46f6ee360de51",
+      "bytes": 9586,
+      "rows": 14
+    },
+    "tom11_bridge_decisions.csv": {
+      "sha256": "f551b4f5e86f2d7d54e7f07aee92e216f82ad89eb8adb4dfaa1090e302ca475e",
+      "bytes": 2881336,
+      "rows": 965
+    },
+    "yearbook_bridge_decisions.csv": {
+      "sha256": "511dd1af42f29ec0a3addc5c9c88f851097bd35f0fb5faa67a01d31b3bf50f92",
+      "bytes": 126043,
+      "rows": 163
+    },
+    "yearbook_new_identity_edges.csv": {
+      "sha256": "00b4c26448df0b66d03dcf4b7052f29e8baffbebdb85ee1af9276d42de470913",
+      "bytes": 103291,
+      "rows": 159
+    }
+  }
+}

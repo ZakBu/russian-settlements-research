@@ -1,5 +1,15 @@
 # Research status at 2026-09-30
 
+## Latest national state: reviewed R5b over the current R2 source snapshot
+
+R5b is an independently reviewed Yearbook 4.9 identity bridge over the selected R1 endpoints. It contains 1,162 graph edges: 159 new 2010–2021 edges and four supporting decisions for pairs already connected in R4. Its coordinates and publication bindings are byte-identical to R4; it adds no point claims. Nine Yearbook exceptions remain held. The 24-case check validates the rule family and does not estimate national matching precision.
+
+Regional source-selection R2 is the current 2010 population snapshot and supersedes R1 for current endpoint selection. It selects 152,314 rows and 142,202,712 people for 2010, compared with 152,313 rows and 142,172,038 people in R1. Its endpoint projection leaves 1,108 identity edges active and holds 54 pre-existing edges attached to displaced 2010 endpoints. An independent review accepts 50 replacement publication bindings for those 54 edges, making them eligible for migration; that migration has not been integrated into a published graph. Do not count those edges as restored or active.
+
+The archived R5b graph remains a verified R1-based checkpoint. Its 2010/2021 bridge is not represented as the current R2 graph until the endpoint migration is integrated and independently checked. Experimental point candidates, including the 8-point component, remain quarantined and are not coordinate admissions. The 99.9% population-linked goal remains unproven.
+
+The private release `national-reviewed-checkpoint-r5b-r2-selection-2026-09-30` carries R5b evidence, the full R2 selection/projection output, and an experimental current research code/docs snapshot. See the [release asset manifest](research_rebuild/evidence/releases/national_reviewed_checkpoint_r5b_r2_20260930/asset_manifest.json) and [snapshot inventory](research_rebuild/evidence/releases/research_code_docs_snapshot_20260930/source_snapshot_manifest.json). The snapshot excludes raw data, evidence, generated outputs, and caches while listing each omitted file with its size and hash; prior baseline bundles are referenced instead of duplicated.
+
 ## Preserved baseline
 
 The private baseline snapshot contains 7,054 raw and interim files, legacy and forensic DuckDB databases, and original audit outputs. These are retained as comparison inputs. The historic crosswalk and coordinates remain hypotheses, not a validated national identity or spatial database. Files in each asset are verified against SHA-256 manifests.

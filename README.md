@@ -2,6 +2,27 @@
 
 Private, versioned research archive for reconstructing settlements in the 2002, 2010 and 2021 Russian censuses. It preserves the legacy project as a baseline and contains a source-corrected, reproducible Karelia pilot. Neither is a validated national settlement database.
 
+## Current national checkpoints: reviewed R5b and source-selection R2
+
+The private release `national-reviewed-checkpoint-r5b-r2-selection-2026-09-30` contains three SHA-256-listed assets: reviewed R5b outputs and their Yearbook evidence, the current R2 regional 2010 selection and endpoint projections, and an experimental snapshot of current research code and documentation. The source snapshot inventories omitted evidence, outputs, raw inputs, and caches by path, byte length, and SHA-256. Baseline data remain available in the earlier releases listed in the snapshot manifest; they are not duplicated in this release. Frozen review records retain their original absolute source paths as provenance; archive member paths and source snapshot inventory paths are relative to their declared roots.
+
+R5b is an independently reviewed identity checkpoint built on selected R1 endpoints. It adds 159 2010–2021 same-city edges and records four already-connected pairs as supporting decisions, for 1,162 graph edges total. Nine exceptions remain held. R5b adds no coordinates and does not harmonize boundaries or population scope. The 24-case review validates the rule family; it is not a national precision estimate. R5b’s 2010 endpoints are superseded by the current source-selection R2 snapshot, so the R5b graph must not be described as the current active graph.
+
+Source-selection R2 is the current selected population snapshot. Its endpoint projection has 1,108 active edges and holds 54 pre-existing edges whose 2010 endpoints were displaced. A separate independent review accepts 50 unique publication bindings covering those 54 edges and finds them eligible for migration, but that migration has not been integrated into a graph release. Treat the 54 edges as held until such an integration is published. The experimental 8-point component remains quarantined and is not an admitted coordinate release.
+
+To download and verify the assets while signed in to an account with access to the private repository:
+
+```sh
+mkdir -p national-r5b-r2-assets
+gh release download national-reviewed-checkpoint-r5b-r2-selection-2026-09-30 --repo ZakBu/russian-settlements-research --dir national-r5b-r2-assets
+python3 scripts/verify_release_assets.py --manifest research_rebuild/evidence/releases/national_reviewed_checkpoint_r5b_r2_20260930/asset_manifest.json --asset-dir national-r5b-r2-assets
+for asset in national_reviewed_admissions_r5b_yearbook_20260930.tar.zst national_source_selection_r2_regional_2010_20260930.tar.zst research_source_snapshot_2026-09-30.tar.zst; do
+  zstd -dc "national-r5b-r2-assets/$asset" | tar -xf - -C .
+done
+```
+
+The R5b checkpoint and independent review are documented in [the release manifest](research_rebuild/evidence/releases/national_reviewed_admissions_r5b_yearbook_20260930/release_manifest.json) and [the review record](research_rebuild/evidence/reviews/national_reviewed_admissions_r5b_yearbook_independent_validation_r1_20260930/review.json). Current R2 selection and the endpoint-binding review are documented in [the R2 manifest](research_rebuild/evidence/releases/national_source_selection_r2_regional_2010_20260930/release_manifest.json) and [the binding review](research_rebuild/evidence/reviews/national_source_selection_r2_publication_binding_review_r1_20260930/review.json). The [asset manifest](research_rebuild/evidence/releases/national_reviewed_checkpoint_r5b_r2_20260930/asset_manifest.json) records archive hashes and bundle members; the [source snapshot manifest](research_rebuild/evidence/releases/research_code_docs_snapshot_20260930/source_snapshot_manifest.json) records included and omitted files.
+
 ## National source-selection and reviewed-link checkpoint
 
 The private release `national-reviewed-checkpoint-r1-r2-2026-09-30` contains four hash-listed bundles: source-selection R1 inputs and outputs, plus reviewed-admissions R2 inputs and outputs/reviews. Download all four bundles and `asset_manifest.json` while signed in to an account with repository access. Verify archive hashes before extraction:
@@ -85,7 +106,7 @@ The 2002 Karelia selected slice exceeds its regional control by 3 people; that r
 
 ## National status and limits
 
-National source-selection R1 and reviewed-admissions R2 remain the parent checkpoint. Reviewed-admissions R4 adds a rule-defined official comparative-table identity bridge: 1,003 unique temporal edges, with 952 new 2002–2010 pairs and 13 already-represented pairs. The release reports unique identity-linked population by year separately from the unchanged R2 coordinate claims. It is a partial lower bound, not a national reconstruction or 99.9% spatial linkage.
+The current selected snapshot is source-selection R2, while the latest fully reviewed identity bridge is R5b built on R1 endpoints. R5b adds 159 2010–2021 same-city edges and four supporting decisions. In the R2 projection, 54 edges with replaced 2010 endpoints are held pending integration; the separate 50-binding review has not itself migrated them. The R2 snapshot does not add coordinate admissions. This remains a partial, rule-defined identity lower bound, not a national reconstruction or 99.9% spatial linkage.
 
 Source-selection R1 contains 158,072 selected 2002 rows / 145,155,005 people; 152,313 selected 2010 rows / 142,172,038 people; and 155,414 selected 2021 rows / 147,182,123 people. These are selected-data denominators, not proof of completeness against every official census total. R2's admitted-coordinate coverage within those denominators is 0.3702% of 2002 population, 0.3532% of 2010, and 6.3558% of 2021; identity-linked population shares are 2.6615%, 0.3532%, and 2.8170%, respectively. Row coverage is reported separately in the release. Historical point uses are explicitly `inferred_continuity`; the provider-coordinate measurement date is unknown. Four direct Karelia points have an additional byte-preserved OSM attic geometry check as of 2021-10-01; OSM is not an official census boundary.
 
@@ -101,6 +122,9 @@ The 99.9% population coverage goal has not been met or demonstrated. Coverage by
 - [Identity and coordinate methodology](research_rebuild/docs/LINKAGE_METHODOLOGY.md)
 - [National source-selection and reviewed-admissions checkpoint R1/R2](research_rebuild/evidence/releases/national_reviewed_checkpoint_r1_r2_20260930/asset_manifest.json)
 - [National reviewed-admissions checkpoint R4](research_rebuild/evidence/releases/national_reviewed_checkpoint_r4_20260930/asset_manifest.json)
+- [Current reviewed R5b and source-selection R2 checkpoint assets](research_rebuild/evidence/releases/national_reviewed_checkpoint_r5b_r2_20260930/asset_manifest.json)
+- [Experimental code and documentation snapshot inventory](research_rebuild/evidence/releases/research_code_docs_snapshot_20260930/source_snapshot_manifest.json)
+- [Decision diary](docs/DECISION_DIARY.md)
 - [Independent R4 review](research_rebuild/evidence/reviews/national_reviewed_admissions_r4_independent_validation_20260930/review.json)
 - [Independent source-selection review](research_rebuild/evidence/reviews/national_source_selection_r1_independent_validation_20260930.json)
 - [Independent reviewed-admissions review](research_rebuild/evidence/reviews/national_reviewed_admissions_r2_independent_review_20260930.json)

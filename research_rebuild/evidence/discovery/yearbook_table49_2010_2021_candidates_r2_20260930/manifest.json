@@ -1,0 +1,114 @@
+{
+  "release_id": "yearbook_table49_2010_2021_candidates_r2_20260930",
+  "status": "candidate_only_not_admitted",
+  "source_pdf": {
+    "path": "research_rebuild/evidence/discovery/official_sources_2010_2021_r2_yearbook/raw/rosstat_russian_statistical_yearbook_2024.pdf",
+    "sha256": "bac43b438869d7b11ca595acd121726833d2bf2e54004351db825cade4c29da7",
+    "bytes": 26704568,
+    "retrieval_receipt_sha256": "6aeb580c4b9ed3ab70a8abd46f7cf49e554b102139a42684299d669fe971773d",
+    "retrieval_receipt": {
+      "requested_archive_url": "https://web.archive.org/web/20250203035917id_/https://rosstat.gov.ru/storage/mediabank/Ejegodnik_2024.pdf",
+      "final_url": "https://web.archive.org/web/20250203035917id_/https://rosstat.gov.ru/storage/mediabank/Ejegodnik_2024.pdf",
+      "original_url": "https://rosstat.gov.ru/storage/mediabank/Ejegodnik_2024.pdf",
+      "archive": "Internet Archive Wayback Machine",
+      "memento_datetime": "Mon, 03 Feb 2025 03:59:17 GMT",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "tls_certificate_validation": "requests default verification enabled; no verify override",
+      "source_note": "Archived capture of official Rosstat PDF; original publisher TLS chain was not captured or independently verified by this retrieval, so provenance is archive-to-official-URL, not a contemporary direct-origin capture.",
+      "file": "research_rebuild/evidence/discovery/official_sources_2010_2021_r2_yearbook/raw/rosstat_russian_statistical_yearbook_2024.pdf",
+      "bytes": 26704568,
+      "sha256": "bac43b438869d7b11ca595acd121726833d2bf2e54004351db825cade4c29da7"
+    },
+    "table_pages": [
+      {
+        "pdf_page_1based": 91,
+        "printed_page": 90,
+        "line_count": 85,
+        "raw_text_sha256": "8dd8fee503f795994cddcc7b517066ffe8618901e9ad48fd1a354cfb17ab2461"
+      },
+      {
+        "pdf_page_1based": 92,
+        "printed_page": 91,
+        "line_count": 84,
+        "raw_text_sha256": "926d95f918ed0384fbf35d0f825ae54a82839a98c72018af554b43203e9175a3"
+      },
+      {
+        "pdf_page_1based": 93,
+        "printed_page": 92,
+        "line_count": 87,
+        "raw_text_sha256": "5fb248e352e889ad7f41d04463f5a514bcccbbf3daa53752cb27c34cc4627ec5"
+      }
+    ],
+    "table4_9_pdf_locator": "PDF pages 91-93; printed pages 90-92; page line numbers are 1-based pypdf layout extraction lines"
+  },
+  "selection_input": {
+    "release_manifest_sha256": "37b4bf695087032e13baac88e7c432849bf3aa4543e40bcd2a5df6e8429242f6",
+    "selected_observations_sha256": "dd8d437c1a1f5cebf2b45c55e7a6e2015f3c1a295cade827a71bb76189a485df"
+  },
+  "endpoint_source_files": {
+    "data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": {
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "bytes": 15230814
+    },
+    "data/raw/2010_official_tom11/pub-11-1-4.pdf": {
+      "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+      "bytes": 657985
+    },
+    "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": {
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    }
+  },
+  "extraction": {
+    "method": "pypdf extract_text(layout), split on repeated column whitespace; two explicitly blank 2002/2010 cells preserved for Zelenodolsk and Khanty-Mansiysk; wrapped Blagoveshchensk label joins next-line region qualifier",
+    "row_count": 172,
+    "page_row_counts": {
+      "91": 33,
+      "92": 77,
+      "93": 62
+    }
+  },
+  "candidate_metrics": {
+    "rows": 172,
+    "status_counts": {
+      "candidate_for_independent_review": 163,
+      "2010_endpoint_not_unique;yearbook_2010_value_ellipsis": 3,
+      "yearbook_2010_value_blank": 2,
+      "boundary_change_footnote_hold": 1,
+      "boundary_change_footnote_hold;federal_city_scope_hold": 1,
+      "federal_city_scope_hold": 1,
+      "2010_endpoint_not_unique;federal_city_scope_hold;yearbook_2010_value_ellipsis": 1
+    },
+    "candidate_rows": 163,
+    "candidate_population_mass_2010": 53739147,
+    "candidate_population_mass_2021": 56462398
+  },
+  "builder_sha256": "f3473d26a64a7971195075993199a8199fcef3042ff6744b0d9e4941a956f789",
+  "outputs": {
+    "bridge_candidates_2010_2021.csv": {
+      "sha256": "c158e203a8600010acb5a2feef82e7cc158633145924a3ceba1cc91e1cc23ac4",
+      "bytes": 238861
+    },
+    "raw_pages/pdf_page_91.txt": {
+      "sha256": "8dd8fee503f795994cddcc7b517066ffe8618901e9ad48fd1a354cfb17ab2461",
+      "bytes": 10902
+    },
+    "raw_pages/pdf_page_92.txt": {
+      "sha256": "926d95f918ed0384fbf35d0f825ae54a82839a98c72018af554b43203e9175a3",
+      "bytes": 13135
+    },
+    "raw_pages/pdf_page_93.txt": {
+      "sha256": "5fb248e352e889ad7f41d04463f5a514bcccbbf3daa53752cb27c34cc4627ec5",
+      "bytes": 13278
+    },
+    "table49_method_notes.json": {
+      "sha256": "1ec46e7383a60575c08af03bfcd8d50d7fe4d5c5ca1fdb1f8e89da3cc85e3f78",
+      "bytes": 3450
+    },
+    "table49_source_rows.csv": {
+      "sha256": "43d97c7d655c7e48d23d742191a063b92e56892431c38604bad8e8951ed77688",
+      "bytes": 57125
+    }
+  }
+}

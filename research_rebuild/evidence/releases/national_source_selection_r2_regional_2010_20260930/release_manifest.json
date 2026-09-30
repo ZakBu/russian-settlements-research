@@ -1,0 +1,228 @@
+{
+  "release_id": "national_source_selection_r2_regional_2010_20260930",
+  "status": "reviewed_population_source_selection_only_identity_coordinate_claims_projected_only_to_selected_endpoints",
+  "builder_sha256": "1ab37caf4d97371bad11514ee20e07f1a6b1d50b6c9e94fc37ba2ddeb1f0006e",
+  "verified_inputs": {
+    "research_rebuild/evidence/releases/2010_nw_primary_source_selection_proposals_r4_20260930/murmansk_2010_primary_population_selection_proposal.csv": {
+      "sha256": "9dbdda25da3a40153eec246cb8da75df4a3b628637095040065bb8bbf9e5edcb",
+      "bytes": 197682,
+      "role": "murmansk"
+    },
+    "research_rebuild/evidence/releases/2010_nw_primary_source_selection_proposals_r4_20260930/kaliningrad_2010_primary_population_selection_proposal.csv": {
+      "sha256": "dcacb3c41807a7a81323783badcca65d28574a1acf029694ae4fbbaffc447132",
+      "bytes": 1365989,
+      "role": "kaliningrad"
+    },
+    "research_rebuild/evidence/releases/arkhangelsk_2010_primary_selection_component_r1_20260930/arkhangelsk_2010_primary_selection_component.csv": {
+      "sha256": "96857bb4943b2a66f1fedd018a7087fc884210f77afacd797fe97357ff9ae4fa",
+      "bytes": 3412675,
+      "role": "ark"
+    },
+    "research_rebuild/evidence/releases/national_source_selection_r1_20260930/selected_observations.parquet": {
+      "sha256": "dd8d437c1a1f5cebf2b45c55e7a6e2015f3c1a295cade827a71bb76189a485df",
+      "bytes": 37070618,
+      "role": "r1_selected"
+    },
+    "research_rebuild/evidence/releases/national_source_selection_r1_20260930/excluded_source_rows.csv": {
+      "sha256": "86778134f7b9fb3c3af43788d9007c6c8a0d3350d17fc2653d45c224172776ad",
+      "bytes": 1403,
+      "role": "r1_archive"
+    },
+    "research_rebuild/evidence/releases/national_source_selection_r1_20260930/component_ledger.csv": {
+      "sha256": "f733c9ff8c63acc98fa87ba52568d52eca3b393dda711c15e6ad8fdcc4363226",
+      "bytes": 75396,
+      "role": "r1_components"
+    },
+    "research_rebuild/evidence/releases/national_source_selection_r1_20260930/source_selection_assertions.csv": {
+      "sha256": "7abd4faf10b404e0571cc778363a76603cd6708aa578922ddf966ab836b6a081",
+      "bytes": 483464,
+      "role": "r1_assertions"
+    },
+    "research_audit/output/audited_census_snapshots.parquet": {
+      "sha256": "b42a1230519c8303079ce2465bb28d3c4af357ece5dbdd26e4f5de2c3de02c2b",
+      "bytes": 37277025,
+      "role": "baseline"
+    },
+    "research_rebuild/evidence/releases/national_reviewed_admissions_r5b_yearbook_20260930/identity_edges_accepted.csv": {
+      "sha256": "bb9d967cf04c7875578e73fe40b15efbe1e81c58681cc3e222823b161356a2ae",
+      "bytes": 817601,
+      "role": "r5b_edges"
+    },
+    "research_rebuild/evidence/releases/national_reviewed_admissions_r5b_yearbook_20260930/coordinate_admissions.csv": {
+      "sha256": "c58c3a573ddc7878f948b69ab53696bb94583408b8368fbef34f1b385b56c07e",
+      "bytes": 164081,
+      "role": "r5b_coords"
+    },
+    "research_rebuild/evidence/releases/national_reviewed_admissions_r5b_yearbook_20260930/publication_bindings.csv": {
+      "sha256": "561f0c9b5cf2ec3324b7b272ec7f952ee33889d492cb020e7a79772b3f801624",
+      "bytes": 4613,
+      "role": "r5b_bindings"
+    },
+    "data/raw/2010_official_tom11/pub-11-1-4.pdf": {
+      "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+      "bytes": 657985,
+      "role": "tom11_pdf"
+    },
+    "research_rebuild/evidence/releases/2010_nw_primary_source_selection_proposals_r4_20260930/source_manifest_2010_nw_selection_proposals_r4.json": {
+      "sha256": "6cd2e9563f93487ecc673a2ff58bf8463543d0022795db120cd2073f2fdba3ad",
+      "bytes": 12265
+    },
+    "research_rebuild/evidence/releases/arkhangelsk_2010_primary_selection_component_r1_20260930/manifest.json": {
+      "sha256": "b57b744e418c2bd7216514deac719e4ae614200ecc0d5da64e0be162f587caf2",
+      "bytes": 3274
+    },
+    "research_rebuild/evidence/releases/national_source_selection_r1_20260930/release_manifest.json": {
+      "sha256": "37b4bf695087032e13baac88e7c432849bf3aa4543e40bcd2a5df6e8429242f6",
+      "bytes": 43605
+    },
+    "research_rebuild/evidence/releases/national_reviewed_admissions_r5b_yearbook_20260930/release_manifest.json": {
+      "sha256": "0bf4c442df7e1e3a0c9148c08c7cde2f43235ebde6ca608b762891d8ee26093c",
+      "bytes": 5847
+    }
+  },
+  "supersedes": "national_source_selection_r1_20260930",
+  "superseded_mutable_input_incident": "NW R3 manifest was amended in place; R4 is the immutable reviewed replacement and sole input here.",
+  "components": [
+    {
+      "component_id": "murmansk_2010_primary_source_r4",
+      "year": 2010,
+      "operation": "replace_full_regional_slice_with_independently_reviewed_primary_population_source",
+      "removed_rows": 140,
+      "added_rows": 140,
+      "row_delta": 0,
+      "removed_known_population": 782878,
+      "added_known_population": 795409,
+      "known_population_delta": 12531,
+      "added_null_population_rows": 0,
+      "evidence_manifest_sha256": "6cd2e9563f93487ecc673a2ff58bf8463543d0022795db120cd2073f2fdba3ad",
+      "identity_or_coordinate_claims": "none"
+    },
+    {
+      "component_id": "kaliningrad_2010_primary_source_r4",
+      "year": 2010,
+      "operation": "replace_full_regional_slice_with_independently_reviewed_primary_population_source",
+      "removed_rows": 1099,
+      "added_rows": 1099,
+      "row_delta": 0,
+      "removed_known_population": 936068,
+      "added_known_population": 941873,
+      "known_population_delta": 5805,
+      "added_null_population_rows": 0,
+      "evidence_manifest_sha256": "6cd2e9563f93487ecc673a2ff58bf8463543d0022795db120cd2073f2fdba3ad",
+      "identity_or_coordinate_claims": "none"
+    },
+    {
+      "component_id": "arkhangelsk_nao_2010_primary_source_r1",
+      "year": 2010,
+      "operation": "replace_disjoint_arkhangelsk_exclusive_plus_nao_slice_with_reviewed_primary_slice",
+      "removed_rows": 4003,
+      "added_rows": 4004,
+      "row_delta": 1,
+      "removed_known_population": 1215288,
+      "added_known_population": 1227626,
+      "known_population_delta": 12338,
+      "added_null_population_rows": 1,
+      "evidence_manifest_sha256": "b57b744e418c2bd7216514deac719e4ae614200ecc0d5da64e0be162f587caf2",
+      "identity_or_coordinate_claims": "none"
+    }
+  ],
+  "annual_controls": {
+    "2002": {
+      "census_year": 2002,
+      "r1_selected_rows": 158072,
+      "r2_selected_rows": 158072,
+      "row_delta": 0,
+      "r1_nonnull_population_sum": 145155005,
+      "r2_nonnull_population_sum": 145155005,
+      "known_population_delta": 0,
+      "r2_population_null_rows": 0,
+      "selected_ids_sha256": "51c99b7080910ceb68c40c1fe669130a18d58e6284c2b480ef0d6d5bc3652681"
+    },
+    "2010": {
+      "census_year": 2010,
+      "r1_selected_rows": 152313,
+      "r2_selected_rows": 152314,
+      "row_delta": 1,
+      "r1_nonnull_population_sum": 142172038,
+      "r2_nonnull_population_sum": 142202712,
+      "known_population_delta": 30674,
+      "r2_population_null_rows": 1,
+      "selected_ids_sha256": "263a804d29a052334d573404a5f4a9a2dfd67706ad78cd3a31aec136339d8546"
+    },
+    "2021": {
+      "census_year": 2021,
+      "r1_selected_rows": 155414,
+      "r2_selected_rows": 155414,
+      "row_delta": 0,
+      "r1_nonnull_population_sum": 147182123,
+      "r2_nonnull_population_sum": 147182123,
+      "known_population_delta": 0,
+      "r2_population_null_rows": 0,
+      "selected_ids_sha256": "f32213c4a9f7bd1d4fba1a60283be78af7b6903783277fe1bdeaaf2d7200ca50"
+    }
+  },
+  "binding_migration": {
+    "candidate_rows": 10811,
+    "accepted": 0,
+    "status": "all pending independent publication-equivalence review",
+    "affected_accepted_identity_edges": 54,
+    "unique_displaced_2010_endpoint_ids": 50,
+    "affected_edge_packet_rows": 54,
+    "affected_edge_candidate_rows": 54,
+    "affected_edge_unmapped_rows": 0,
+    "strict_unique_population_match_candidates": 54
+  },
+  "identity_claims": {
+    "input_release": "national_reviewed_admissions_r5b_yearbook_20260930",
+    "accepted_edges_in_source_ledger": 1162,
+    "active_in_r2": 1108,
+    "held_due_to_displaced_or_unselected_endpoint": 54
+  },
+  "coordinate_claims": {
+    "source_rows": 81,
+    "active_in_r2": 81,
+    "held_due_to_displaced_or_unselected_endpoint": 0
+  },
+  "outputs": {
+    "affected_identity_edges_publication_binding_review_packet.csv": {
+      "sha256": "a6abf610ad86d8eb870be9df24efe5d100e01f494fe2bcd72092c048d966ac00",
+      "bytes": 86841
+    },
+    "annual_controls.csv": {
+      "sha256": "fe9264b221c57e54bffb4259a79adf55d4dd6305f9941dc8df0481b3a39af372",
+      "bytes": 509
+    },
+    "archived_source_observations.csv": {
+      "sha256": "80df0bb51124a3cb091c066fd8c9ad46ff228a827fb8d2881adeea44f6f74d47",
+      "bytes": 3406273
+    },
+    "component_ledger.csv": {
+      "sha256": "926cc21cfd661d3615f5610a72233bf711672b57aaff850e8c0924b1f5a8ffbe",
+      "bytes": 893
+    },
+    "coordinate_claim_selection_projection.csv": {
+      "sha256": "f8c110e86bd6166596a59021bdf59ea88aa21b5f2427567df78cf914bf964418",
+      "bytes": 166215
+    },
+    "identity_edge_selection_projection.csv": {
+      "sha256": "a063c6fe26a8299cb9cd37f2efa92dd67c58403b1ad43a12498c8a3456f3e390",
+      "bytes": 849407
+    },
+    "publication_binding_migration_candidates_pending_review.csv": {
+      "sha256": "4f8c7822e6cc14555b8e4f51b4e735eb4723858932091c9aa252cf57b1f7b377",
+      "bytes": 11286968
+    },
+    "scope_controls.json": {
+      "sha256": "75fc51d8e001e951845f653a1b2a901b1b85759cdc781db61f7d982c1bef1333",
+      "bytes": 550
+    },
+    "selected_observations.parquet": {
+      "sha256": "524e706daa32a69cac9b3e67b3bb8f9113fe2d851f10cdf42e93ba4efa5d72bf",
+      "bytes": 37131425
+    },
+    "source_selection_assertions.csv": {
+      "sha256": "9005f9ca2407c29aca7762fa520c338b85f386b5f98a1b33a6fc5f66947bed05",
+      "bytes": 4008146
+    }
+  }
+}
