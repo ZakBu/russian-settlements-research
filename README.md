@@ -1,16 +1,18 @@
 # Russian settlement census research archive
 
-Private, versioned research archive for reconstructing settlements in the 2002, 2010 and 2021 Russian censuses. It preserves the legacy project as a baseline and contains a source-corrected, reproducible Karelia pilot. Neither is a validated national settlement database.
+Versioned research archive for reconstructing settlements in the 2002, 2010 and 2021 Russian censuses. The owner made the repository public on 2026-10-02. It preserves the legacy project as a baseline and contains a source-corrected, reproducible Karelia pilot. Neither is a validated national settlement database.
+
+The current working branch is adding independently checked mass rules, additional observed years, and dated identifiers. See [the active run](docs/ACTIVE_RESEARCH_RUN.md) and [the decision diary](docs/DECISION_DIARY.md). It has restored the 54 previously reviewed publication endpoints and added 516 official rounded annual observations for 2022–2024. Working results and frozen published checkpoints have separate receipts; national coordinate candidates are not automatically admitted.
 
 ## Current national checkpoints: reviewed R5b and source-selection R2
 
-The private release `national-reviewed-checkpoint-r5b-r2-selection-2026-09-30` contains three SHA-256-listed assets: reviewed R5b outputs and their Yearbook evidence, the current R2 regional 2010 selection and endpoint projections, and an experimental snapshot of current research code and documentation. The source snapshot inventories omitted evidence, outputs, raw inputs, and caches by path, byte length, and SHA-256. Baseline data remain available in the earlier releases listed in the snapshot manifest; they are not duplicated in this release. Frozen review records retain their original absolute source paths as provenance; archive member paths and source snapshot inventory paths are relative to their declared roots.
+The release `national-reviewed-checkpoint-r5b-r2-selection-2026-09-30` contains three SHA-256-listed assets: reviewed R5b outputs and their Yearbook evidence, the current R2 regional 2010 selection and endpoint projections, and an experimental snapshot of current research code and documentation. The source snapshot inventories omitted evidence, outputs, raw inputs, and caches by path, byte length, and SHA-256. Baseline data remain available in the earlier releases listed in the snapshot manifest; they are not duplicated in this release. Frozen review records retain their original absolute source paths as provenance; archive member paths and source snapshot inventory paths are relative to their declared roots.
 
 R5b is an independently reviewed identity checkpoint built on selected R1 endpoints. It adds 159 2010–2021 same-city edges and records four already-connected pairs as supporting decisions, for 1,162 graph edges total. Nine exceptions remain held. R5b adds no coordinates and does not harmonize boundaries or population scope. The 24-case review validates the rule family; it is not a national precision estimate. R5b’s 2010 endpoints are superseded by the current source-selection R2 snapshot, so the R5b graph must not be described as the current active graph.
 
 Source-selection R2 is the current selected population snapshot. Its endpoint projection has 1,108 active edges and holds 54 pre-existing edges whose 2010 endpoints were displaced. A separate independent review accepts 50 unique publication bindings covering those 54 edges and finds them eligible for migration, but that migration has not been integrated into a graph release. Treat the 54 edges as held until such an integration is published. The experimental 8-point component remains quarantined and is not an admitted coordinate release.
 
-To download and verify the assets while signed in to an account with access to the private repository:
+To download and verify the public assets:
 
 ```sh
 mkdir -p national-r5b-r2-assets
