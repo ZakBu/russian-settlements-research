@@ -118,3 +118,13 @@ coordinate-family checks, source-context application, then observed historical
 years and dated identifier claims. At most three workers run concurrently.
 Additional queued tasks retain their scoped instructions and do not duplicate
 active work. The root retains integration, receipts, diary and Git ownership.
+
+## Accepted identity application (2026-10-02 23:58 UTC)
+
+`identity/accepted_ordinary_v4` is the active working graph: 128,569 edges,
+251,312 linked observations, 124,681 components, 1,950 complete census chains.
+Independent application review and per-axis coverage are committed under
+`evidence/reviews/mass_identity_application_20261002`. Only identity is admitted.
+Coordinates, population quality and boundary comparability remain separate.
+Raw GeoKLADR verification supports reuse of dated source claims; it does not
+automatically accept historical code-to-place bindings or legal intervals.

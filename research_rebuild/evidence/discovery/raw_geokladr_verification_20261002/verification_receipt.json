@@ -1,0 +1,236 @@
+{
+  "verification_version": "geokladr-okato-2011-raw-vs-legacy-r1",
+  "status": "PASS",
+  "raw_source": {
+    "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+    "size_bytes": 59991330,
+    "record_count": 151875,
+    "header_length": 705,
+    "record_length": 395,
+    "fields": [
+      {
+        "name": "TER",
+        "type": "C",
+        "width": 2,
+        "decimals": 0,
+        "offset": 1
+      },
+      {
+        "name": "KOD1",
+        "type": "C",
+        "width": 3,
+        "decimals": 0,
+        "offset": 3
+      },
+      {
+        "name": "KOD2",
+        "type": "C",
+        "width": 3,
+        "decimals": 0,
+        "offset": 6
+      },
+      {
+        "name": "KOD3",
+        "type": "C",
+        "width": 3,
+        "decimals": 0,
+        "offset": 9
+      },
+      {
+        "name": "RAZDEL",
+        "type": "C",
+        "width": 1,
+        "decimals": 0,
+        "offset": 12
+      },
+      {
+        "name": "NAME1",
+        "type": "C",
+        "width": 160,
+        "decimals": 0,
+        "offset": 13
+      },
+      {
+        "name": "POPULATION",
+        "type": "N",
+        "width": 13,
+        "decimals": 0,
+        "offset": 173
+      },
+      {
+        "name": "CITY",
+        "type": "N",
+        "width": 12,
+        "decimals": 0,
+        "offset": 186
+      },
+      {
+        "name": "VILLAGE",
+        "type": "N",
+        "width": 12,
+        "decimals": 0,
+        "offset": 198
+      },
+      {
+        "name": "SCOKATO",
+        "type": "C",
+        "width": 25,
+        "decimals": 0,
+        "offset": 210
+      },
+      {
+        "name": "KOD_SCO",
+        "type": "N",
+        "width": 10,
+        "decimals": 0,
+        "offset": 235
+      },
+      {
+        "name": "KLADRCODE",
+        "type": "C",
+        "width": 13,
+        "decimals": 0,
+        "offset": 245
+      },
+      {
+        "name": "KOD_T_ST",
+        "type": "C",
+        "width": 3,
+        "decimals": 0,
+        "offset": 258
+      },
+      {
+        "name": "CENTRUM",
+        "type": "C",
+        "width": 60,
+        "decimals": 0,
+        "offset": 261
+      },
+      {
+        "name": "NOMAKT",
+        "type": "C",
+        "width": 3,
+        "decimals": 0,
+        "offset": 321
+      },
+      {
+        "name": "STATUS",
+        "type": "N",
+        "width": 20,
+        "decimals": 5,
+        "offset": 324
+      },
+      {
+        "name": "DATA_UPD",
+        "type": "C",
+        "width": 10,
+        "decimals": 0,
+        "offset": 344
+      },
+      {
+        "name": "TYPE_NP",
+        "type": "C",
+        "width": 1,
+        "decimals": 0,
+        "offset": 354
+      },
+      {
+        "name": "OKTMO",
+        "type": "C",
+        "width": 8,
+        "decimals": 0,
+        "offset": 355
+      },
+      {
+        "name": "LONG",
+        "type": "N",
+        "width": 16,
+        "decimals": 6,
+        "offset": 363
+      },
+      {
+        "name": "LAT",
+        "type": "N",
+        "width": 16,
+        "decimals": 6,
+        "offset": 379
+      }
+    ],
+    "trailing_bytes": 0,
+    "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "sha256_input_manifest": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "sha256_expected_pinned": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+  },
+  "legacy_database": {
+    "path": "/workspace/settlements-assets/baseline/legacy_database_20260929.duckdb",
+    "sha256": "26a2fe5b2ce05119d919a196beb57cd655a49ffffb0ff8f194762aa78e6b5b64",
+    "sha256_expected_pinned": "26a2fe5b2ce05119d919a196beb57cd655a49ffffb0ff8f194762aa78e6b5b64",
+    "table": "historical_geokladr_coordinates_2011",
+    "record_count": 151875,
+    "columns": [
+      "historical_okato",
+      "name_raw",
+      "name_norm",
+      "settlement_type_raw",
+      "kladr",
+      "oktmo_2011_raw",
+      "population_source_value",
+      "source_status",
+      "source_updated_at",
+      "latitude",
+      "longitude",
+      "coordinate_valid_russia_bbox",
+      "historical_okato_unique",
+      "source_page",
+      "source_archive_url",
+      "source_snapshot_date"
+    ]
+  },
+  "comparison": {
+    "raw_records": 151875,
+    "legacy_records": 151875,
+    "full_outer_join_rows": 151875,
+    "exact_code_matches": 151875,
+    "raw_unmatched_codes": 0,
+    "legacy_unmatched_codes": 0,
+    "duplicate_raw_code_groups": 0,
+    "duplicate_legacy_code_groups": 0,
+    "field_mismatches": {
+      "name": 0,
+      "type": 0,
+      "kladr": 0,
+      "oktmo": 0,
+      "updated_at": 0,
+      "longitude": 0,
+      "latitude": 0,
+      "status": 0
+    },
+    "empty_raw_equals_legacy_null_counts": {
+      "kladr": 16299,
+      "oktmo": 44459
+    },
+    "deleted_record_count": 0,
+    "deleted_markers_preserved_in_export": true,
+    "coordinates_checked_without_crossing_fields": {
+      "DBF_LONG_vs_legacy_longitude": 0,
+      "DBF_LAT_vs_legacy_latitude": 0
+    }
+  },
+  "status_distribution_legacy": {
+    "0.0": 112396,
+    "2.0": 9346,
+    "3.0": 30133
+  },
+  "interpretation": "This verifies a dated OKATO/GeoKLADR snapshot only. OKTMO values are retained as 2011 raw administrative codes, not legal place events or modern settlement identifiers. No population value is joined to census observations; STATUS semantics remain unknown.",
+  "output": {
+    "path": "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet",
+    "rows": 151875,
+    "size_bytes": 9630813,
+    "sha256": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f"
+  },
+  "raw_source_updated_at_distribution": {
+    "2011/06/20": 150785,
+    "2011/10/11": 1090
+  },
+  "verifier_sha256": "d087390aa267bbc305dbef4d17b47274f5cf26e10f5f22bbe449239f74113d7a"
+}
