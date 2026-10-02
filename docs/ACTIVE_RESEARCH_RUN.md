@@ -11,7 +11,7 @@ source grain, territorial scope or unresolved historical transformations.
 ## Current authoritative inputs
 
 - Current population/source selection: published R2 selected observations.
-- Identity decisions: R5b ledger, projected onto R2 endpoints (1,108 active; 54 held).
+- Identity decisions: published R2 has 1,108 active / 54 held; the independently accepted working migration restores all 1,162 original edges.
 - Coordinates: 81 existing admitted point uses; large baseline candidates remain separate.
 - Additional candidates: baseline forensic outputs and raw/interim archive, SHA verified.
 - Baseline row/population and R2 metrics were recomputed during onboarding.
@@ -84,3 +84,35 @@ Outputs: `WORK_ROOT/sources/annual-yearbook-accepted`. Reviews:
 `research_rebuild/evidence/reviews/annual_yearbook_20261002`. Replay the candidate
 builder, then pass the committed `review_annual_scope.json` to the acceptance
 builder. The acceptance builder checks the review and frozen input hashes.
+
+## Mass candidate and coordinate inventory checkpoint (23:05 UTC)
+
+- `candidates/optimized_run`: 627,422 ledger rows; 538,535 unique-key pair
+  rows across overlapping families, 47,199 ambiguous groups and no admissions.
+  95.66 seconds, sampled peak RSS 3,085,772 KiB; source evidence is stored once.
+- `candidates/graph_checks_release`: conflict-constrained hypothetical graphs;
+  these are scenario diagnostics, not accepted coverage. The independent rule
+  review supports scoped ordinary rules and states its 36-example limitation.
+- `coordinates/ledger`: all 155,414 current 2021 rows reconciled to original
+  source locators. 152,248 provider points exist; 140,541 rows pass the strict
+  named-object candidate screens. Provider scores are not admission evidence.
+- `wikidata/wide_v5`: the wider cached code/point/claim inventory; overlaps between
+  TSV, truthy claims and module points remain one Wikidata lineage. Exact
+  source/provider code equality plus object/uniqueness screens yield 99,377
+  candidates carrying 96,519,604 recorded people. City FIAS-level-4 rows with
+  absent settlement-specific name fields are a separate checked-rule proposal.
+- `sources/admin_context_recovery_national_approved_subset`: 57,474 source
+  assertions pending independent structural review. Raw blanks and inherited
+  context remain separate; mismatched regions, labels and placeholders are held.
+- `coverage/migrated_baseline_inventory.json`: reusable per-axis census receipt.
+  Exact current-source point availability does not equal the entire legacy
+  geocoding inventory: replacement records need explicit source bindings.
+- `sources/federal_scope_probe`: 2021 federal-city-region aggregates remain
+  outside settlement-point admission. Municipal sums alone do not establish
+  physical city cores; this blocks an honest nationwide 99.9% claim.
+
+The current implementation queue is ordinary identity admission, independent
+coordinate-family checks, source-context application, then observed historical
+years and dated identifier claims. At most three workers run concurrently.
+Additional queued tasks retain their scoped instructions and do not duplicate
+active work. The root retains integration, receipts, diary and Git ownership.
