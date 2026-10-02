@@ -13,3 +13,17 @@ Conditions below summarize the working project's source register and documentati
 | Rosstat municipal indicators / FIAS-GAR | Administrative context | Official publication/register; object levels and validity dates differ | Do not expand municipal values to settlements or treat address validity as a legal settlement event |
 
 The existing project has no root `LICENSE` file. The owner made the repository public on 2026-10-02; older manifests retain their original visibility as historical metadata. Public visibility does not assign a common license to the combined data. Source-specific attribution and redistribution conditions remain applicable to any new artifact.
+
+## Added context source on 2026-10-02
+
+GeoBoundaries gbOpen ADM1 release `9469f09` for RUS and UKR supplies a modern
+physical-region contradiction screen. The source identifies its geometries as
+OpenStreetMap/Wambacher, boundary year represented 2017, under Open Data Commons
+Open Database License 1.0. Metadata, exact URLs and SHA-256 receipts are in
+`research_rebuild/evidence/discovery/modern_region_point_screen_20261002`.
+The source and its derivative diagnostic layer retain these distinct conditions;
+no common merged-data license is assigned. RUS uses the simplified geometry,
+so border-near points remain uncertain. Crimea and Sevastopol are mapped to the
+explicit UKR geometry codes for physical context, independently of the recorded
+Russian census-2021 territorial scope. This source neither proves historical
+settlement boundaries nor converts territorial totals into settlement points.

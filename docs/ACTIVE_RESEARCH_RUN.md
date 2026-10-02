@@ -101,9 +101,11 @@ builder. The acceptance builder checks the review and frozen input hashes.
   source/provider code equality plus object/uniqueness screens yield 99,377
   candidates carrying 96,519,604 recorded people. City FIAS-level-4 rows with
   absent settlement-specific name fields are a separate checked-rule proposal.
-- `sources/admin_context_recovery_national_approved_subset`: 57,474 source
-  assertions pending independent structural review. Raw blanks and inherited
-  context remain separate; mismatched regions, labels and placeholders are held.
+- `sources/admin_context_recovery_national_approved_subset`: 57,474 candidate source
+  assertions FAILED independent structural review: broad forward-fill crosses
+  actual districts. Do not use this artifact for admissions or enhanced keys.
+  Its historical directory name `approved_subset` refers only to row-cell
+  reconciliation, not scientific acceptance. Raw sources remain unchanged.
 - `coverage/migrated_baseline_inventory.json`: reusable per-axis census receipt.
   Exact current-source point availability does not equal the entire legacy
   geocoding inventory: replacement records need explicit source bindings.

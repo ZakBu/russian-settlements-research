@@ -1,0 +1,139 @@
+{
+  "role": "diagnostic_only_no_admission",
+  "builder_sha256": "a9293262663010001c82b9aaa19421e16b8adb81f713759e912d3787d9e1aad2",
+  "geometry_source_year": 2017,
+  "inputs": {
+    "RUS_ADM1_simplified.geojson": {
+      "sha256": "47179a0b1f30097226bc057921e674d83a9ac9e2a44023e687351355cdb7fc1b",
+      "bytes": 9726812
+    },
+    "UKR_ADM1.geojson": {
+      "sha256": "b2f9f4ad2e9be5888523219c0bb46a24332ead16b46305409098048fd361a2d6",
+      "bytes": 3919902
+    },
+    "selected_observations.parquet": {
+      "sha256": "524e706daa32a69cac9b3e67b3bb8f9113fe2d851f10cdf42e93ba4efa5d72bf",
+      "bytes": 37131425
+    }
+  },
+  "output": {
+    "file": "region_point_screen.parquet",
+    "sha256": "6c27e8c077808421ae6c202ba95ab4f1aeb58ac1b48d054f5208958b76ac765a",
+    "rows": 155414
+  },
+  "mapping": {
+    "адыгея": "RU-AD",
+    "алтай": "RU-AL",
+    "алтайский": "RU-ALT",
+    "амурская": "RU-AMU",
+    "архангельская": "RU-ARK",
+    "астраханская": "RU-AST",
+    "башкортостан": "RU-BA",
+    "белгородская": "RU-BEL",
+    "брянская": "RU-BRY",
+    "бурятия": "RU-BU",
+    "владимирская": "RU-VLA",
+    "волгоградская": "RU-VGG",
+    "вологодская": "RU-VLG",
+    "воронежская": "RU-VOR",
+    "дагестан": "RU-DA",
+    "еврейская": "RU-YEV",
+    "забайкальский": "RU-ZAB",
+    "ивановская": "RU-IVA",
+    "ингушетия": "RU-IN",
+    "иркутская": "RU-IRK",
+    "калининградская": "RU-KGD",
+    "калмыкия": "RU-KL",
+    "калужская": "RU-KLU",
+    "камчатский": "RU-KAM",
+    "карелия": "RU-KR",
+    "кемеровская": "RU-KEM",
+    "кировская": "RU-KIR",
+    "коми": "RU-KO",
+    "костромская": "RU-KOS",
+    "краснодарский": "RU-KDA",
+    "красноярский": "RU-KYA",
+    "крым": "UA-43",
+    "курганская": "RU-KGN",
+    "курская": "RU-KRS",
+    "ленинградская": "RU-LEN",
+    "липецкая": "RU-LIP",
+    "магаданская": "RU-MAG",
+    "мордовия": "RU-MO",
+    "москва": "RU-MOW",
+    "московская": "RU-MOS",
+    "мурманская": "RU-MUR",
+    "ненецкий": "RU-NEN",
+    "нижегородская": "RU-NIZ",
+    "новгородская": "RU-NGR",
+    "новосибирская": "RU-NVS",
+    "омская": "RU-OMS",
+    "оренбургская": "RU-ORE",
+    "орловская": "RU-ORL",
+    "пензенская": "RU-PNZ",
+    "пермский": "RU-PER",
+    "приморский": "RU-PRI",
+    "псковская": "RU-PSK",
+    "ростовская": "RU-ROS",
+    "рязанская": "RU-RYA",
+    "самарская": "RU-SAM",
+    "саратовская": "RU-SAR",
+    "сахалинская": "RU-SAK",
+    "свердловская": "RU-SVE",
+    "севастополь": "UA-40",
+    "смоленская": "RU-SMO",
+    "ставропольский": "RU-STA",
+    "тамбовская": "RU-TAM",
+    "татарстан": "RU-TA",
+    "тверская": "RU-TVE",
+    "томская": "RU-TOM",
+    "тульская": "RU-TUL",
+    "тыва": "RU-TY",
+    "тюменская": "RU-TYU",
+    "удмуртская": "RU-UD",
+    "ульяновская": "RU-ULY",
+    "хабаровский": "RU-KHA",
+    "хакасия": "RU-KK",
+    "челябинская": "RU-CHE",
+    "чеченская": "RU-CE",
+    "чувашская": "RU-CU",
+    "чукотский": "RU-CHU",
+    "ярославская": "RU-YAR",
+    "кабардино балкарская": "RU-KB",
+    "карачаево черкесская": "RU-KC",
+    "марий эл": "RU-ME",
+    "санкт петербург": "RU-SPE",
+    "саха якутия": "RU-SA",
+    "северная осетия алания": "RU-SE",
+    "ханты мансийский югра": "RU-KHM",
+    "ямало ненецкий": "RU-YAN"
+  },
+  "statuses": [
+    {
+      "status": "border_near_or_simplification_uncertain",
+      "rows": 16,
+      "known_population": 2843
+    },
+    {
+      "status": "inside_expected_modern_region",
+      "rows": 152229,
+      "known_population": 147040560
+    },
+    {
+      "status": "outside_expected_region_requires_review",
+      "rows": 3,
+      "known_population": 544
+    },
+    {
+      "status": "point_missing_or_invalid",
+      "rows": 3166,
+      "known_population": 138176
+    }
+  ],
+  "limitations": [
+    "2017 ADM1 context is not a census-date settlement polygon.",
+    "Simplified borders and source geometry may differ from legal boundaries.",
+    "Outside distance is an estimate to a longitude/latitude nearest boundary point; targeted review is required.",
+    "Crimea/Sevastopol source country labels are independent of explicit census-2021 coverage."
+  ]
+}
