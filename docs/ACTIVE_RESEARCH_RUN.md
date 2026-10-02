@@ -71,3 +71,16 @@ The committed review is
 `research_rebuild/evidence/reviews/mass_publication_migration_20261002/review.json`.
 The separate verifier checks original evidence columns, reviewed replacement
 fields, source hashes, exact endpoint transfers, and graph components using DFS.
+## Accepted additional observations
+
+`annual_yearbook.py` reuses the pinned official 2024 yearbook table 4.9. It
+recovers 516 January-1 estimates across 2022–2024 with explicit thousand-person
+precision. `accept_annual_yearbook.py` applies the independent annual-scope review:
+507 settlement links and nine federal-city-region aggregate links. Aggregate
+links stay outside the ordinary settlement graph. No coordinates or boundary
+harmonization are admitted by these modules.
+
+Outputs: `WORK_ROOT/sources/annual-yearbook-accepted`. Reviews:
+`research_rebuild/evidence/reviews/annual_yearbook_20261002`. Replay the candidate
+builder, then pass the committed `review_annual_scope.json` to the acceptance
+builder. The acceptance builder checks the review and frozen input hashes.

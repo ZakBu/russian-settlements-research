@@ -1,0 +1,216 @@
+{
+  "review_id": "annual_yearbook_2021_to_annual_scope_independent_review_20261002",
+  "status": "PASS_WITH_ENTITY_GRAIN_QUALIFIERS",
+  "rule_reviewed": "2021 census observation to annual 2022, 2023, 2024 observations within the same official Rosstat table 4.9 publication row; does not require a 2010 endpoint.",
+  "verdict": {
+    "source_rows_with_unique_selected_2021_targets": 172,
+    "all_rows_have_single_direct_2021_candidate": true,
+    "new_settlement_grain_rows_supported_among_prior_9_holds": 6,
+    "new_federal_city_region_aggregate_rows_for_separate_aggregate_identity_review": 3,
+    "annual_identity_edges_supported_if_rule_adopted": 516,
+    "settlement_grain_edges_supported_for_all_rows_including_six_new_rows": 507,
+    "federal_city_region_aggregate_edges_not_in_settlement_edge_family": 9,
+    "new_coordinate_admissions": 0,
+    "population_or_boundary_harmonization": false
+  },
+  "all_172_binding_checks": {
+    "candidate_csv_rows": 172,
+    "unique_publication_row_ids": 172,
+    "unique_2021_target_ids": 172,
+    "target_ids_in_frozen_selected_observations": 172,
+    "all_target_observation_years_2021": true,
+    "candidate_2021_match_count_one": 172,
+    "selected_city_type_matches_candidate_type": 172,
+    "selected_region_matches_candidate_region": 172,
+    "selected_settlement_name_matches_after_e_to_yo_normalization": 172,
+    "only_name_spelling_variants_before_normalization": [
+      {
+        "source_row": "ROSSTAT2024:YB4.9:pdf_page_92:line_35",
+        "table": "Королев",
+        "selected": "Королёв"
+      },
+      {
+        "source_row": "ROSSTAT2024:YB4.9:pdf_page_92:line_80",
+        "table": "Орел",
+        "selected": "Орёл"
+      },
+      {
+        "source_row": "ROSSTAT2024:YB4.9:pdf_page_93:line_62",
+        "table": "Щелково",
+        "selected": "Щёлково"
+      }
+    ],
+    "nearest_thousand_compatibility": {
+      "matches": 172,
+      "role": "supporting consistency check only; reviewed together with direct named row, target name/type/region, unique selected record, and matching entity grain"
+    },
+    "table_row_grain_counts_in_selected_2021_data": {
+      "settlement": 169,
+      "federal_city_region": 3
+    },
+    "all_2021_endpoints_are_unique_even_when_2010_is_blank_or_ellipsis": true
+  },
+  "newly_supported_settlement_grain_rows": [
+    {
+      "publication_row_id": "ROSSTAT2024:YB4.9:pdf_page_91:line_59",
+      "table_name": "Балашиха",
+      "footnote": "2; the 2015 boundary change is documented in the series. It precedes the 2021 and 2022–2024 observation dates; it does not break same-city continuity between those later observations.",
+      "2021_target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:65202",
+      "2021_source_name_raw": "г. Балашиха",
+      "2021_source_native_id": "46704000001",
+      "2021_selected_grain": "settlement",
+      "2021_region": "Московская область",
+      "2021_population": 520962,
+      "annual_raw_thousands": {
+        "2022": "518",
+        "2023": "527",
+        "2024": "530"
+      },
+      "recommended_identity_scope": "same named settlement; retain the published boundary-change note and year-specific counts"
+    },
+    {
+      "publication_row_id": "ROSSTAT2024:YB4.9:pdf_page_92:line_9",
+      "table_name": "Евпатория",
+      "2010_status": "ellipsis/no selected Russian-2010 endpoint; no value inferred",
+      "2021_target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50483",
+      "2021_source_name_raw": "г. Евпатория",
+      "2021_source_native_id": "35712000001",
+      "2021_selected_grain": "settlement",
+      "2021_region": "Республика Крым",
+      "2021_population": 107877,
+      "annual_raw_thousands": {
+        "2022": "108",
+        "2023": "107",
+        "2024": "106"
+      }
+    },
+    {
+      "publication_row_id": "ROSSTAT2024:YB4.9:pdf_page_92:line_15",
+      "table_name": "Зеленодольск",
+      "2010_status": "blank; no value inferred",
+      "2021_target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:131327",
+      "2021_source_name_raw": "г. Зеленодольск",
+      "2021_source_native_id": "92628101001",
+      "2021_selected_grain": "settlement",
+      "2021_region": "Республика Татарстан",
+      "2021_population": 99137,
+      "annual_raw_thousands": {
+        "2022": "100",
+        "2023": "99",
+        "2024": "99"
+      }
+    },
+    {
+      "publication_row_id": "ROSSTAT2024:YB4.9:pdf_page_92:line_28",
+      "table_name": "Керчь",
+      "2010_status": "ellipsis/no selected Russian-2010 endpoint; no value inferred",
+      "2021_target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50488",
+      "2021_source_name_raw": "г. Керчь",
+      "2021_source_native_id": "35715000001",
+      "2021_selected_grain": "settlement",
+      "2021_region": "Республика Крым",
+      "2021_population": 154621,
+      "annual_raw_thousands": {
+        "2022": "151",
+        "2023": "153",
+        "2024": "152"
+      }
+    },
+    {
+      "publication_row_id": "ROSSTAT2024:YB4.9:pdf_page_93:line_32",
+      "table_name": "Симферополь",
+      "2010_status": "ellipsis/no selected Russian-2010 endpoint; no value inferred",
+      "2021_target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50442",
+      "2021_source_name_raw": "г. Симферополь",
+      "2021_source_native_id": "35701000001",
+      "2021_selected_grain": "settlement",
+      "2021_region": "Республика Крым",
+      "2021_population": 340540,
+      "annual_raw_thousands": {
+        "2022": "335",
+        "2023": "338",
+        "2024": "337"
+      }
+    },
+    {
+      "publication_row_id": "ROSSTAT2024:YB4.9:pdf_page_93:line_53",
+      "table_name": "Ханты-Мансийск",
+      "2010_status": "blank; no value inferred",
+      "2021_target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:155196",
+      "2021_source_name_raw": "г. Ханты-Мансийск",
+      "2021_source_native_id": "71871000001",
+      "2021_selected_grain": "settlement",
+      "2021_region": "Ханты-Мансийский автономный округ — Югра",
+      "2021_population": 107473,
+      "annual_raw_thousands": {
+        "2022": "106",
+        "2023": "110",
+        "2024": "112"
+      }
+    }
+  ],
+  "federal_city_region_rows_require_separate_aggregate_identity_edges": [
+    {
+      "publication_row_id": "ROSSTAT2024:YB4.9:pdf_page_92:line_49",
+      "table_name": "Москва",
+      "footnote": "3; boundary change effective 2012-07-01, prior to the 2021–2024 observations.",
+      "2021_target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748",
+      "2021_source_name_raw": "Москва",
+      "2021_source_native_id": "45000000",
+      "2021_selected_grain": "federal_city_region",
+      "2021_population": 13010112,
+      "annual_raw_thousands": {
+        "2022": "12 635",
+        "2023": "13 104",
+        "2024": "13 150"
+      },
+      "treatment": "Preserve annual aggregate observations. Any identity edge must explicitly connect federal_city_region aggregates; do not treat as an atomic settlement or assign NP coordinates."
+    },
+    {
+      "publication_row_id": "ROSSTAT2024:YB4.9:pdf_page_93:line_25",
+      "table_name": "Санкт-Петербург",
+      "2021_target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+      "2021_source_name_raw": "Санкт-Петербург",
+      "2021_source_native_id": "40000000",
+      "2021_selected_grain": "federal_city_region",
+      "2021_population": 5601911,
+      "annual_raw_thousands": {
+        "2022": "5 378",
+        "2023": "5 600",
+        "2024": "5 598"
+      },
+      "treatment": "Preserve annual aggregate observations. Any identity edge must explicitly connect federal_city_region aggregates; do not treat as an atomic settlement or assign NP coordinates."
+    },
+    {
+      "publication_row_id": "ROSSTAT2024:YB4.9:pdf_page_93:line_28",
+      "table_name": "Севастополь",
+      "2010_status": "ellipsis/no selected Russian-2010 endpoint; no value inferred",
+      "2021_target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+      "2021_source_name_raw": "Севастополь",
+      "2021_source_native_id": "67000000",
+      "2021_selected_grain": "federal_city_region",
+      "2021_population": 547820,
+      "annual_raw_thousands": {
+        "2022": "522",
+        "2023": "558",
+        "2024": "561"
+      },
+      "treatment": "Although its 2010 cell is out of the Russian census universe, the direct 2021–2024 row supports continuity only for the federal_city_region aggregate. Do not treat as an atomic settlement or assign NP coordinates."
+    }
+  ],
+  "independent_source_review": {
+    "annual_source_data": "The already reviewed official PDF and Poppler extraction establish the raw 2022–2024 cells and the January 1 footnote for every publication row.",
+    "prior_gate_correction": "The R5b release’s 163 row bindings are valid for the 2010–2021 census bridge, but requiring those 2010 bindings for 2021–2024 annual continuity was overrestrictive. Annual continuity is directly expressed by the same official table row and can be assessed with the exact selected 2021 target independently of 2010 availability.",
+    "2010_missingness": "Ellipses and blanks remain distinct missing states. They do not prevent a direct later 2021–2024 comparison and are never converted to zero.",
+    "annual_measurement": "2021 is the census date 2021-10-01; 2022–2024 are estimates as of January 1. The reported unit is thousand persons and counts are rounded; no exact count/error interval is inferred.",
+    "scope": "Table 4.9 lists cities at/above 100,000 and is not a national settlement denominator.",
+    "coordinates": "No coordinate admission follows from identity. Existing selected coordinates for exception targets are not refreshed, reassigned, or approved by this rule."
+  },
+  "pinned_inputs": {
+    "candidate_2010_2021_bridge_csv_sha256": "c158e203a8600010acb5a2feef82e7cc158633145924a3ceba1cc91e1cc23ac4",
+    "source_rows_csv_sha256": "43d97c7d655c7e48d23d742191a063b92e56892431c38604bad8e8951ed77688",
+    "selected_observations_r2_sha256": "524e706daa32a69cac9b3e67b3bb8f9113fe2d851f10cdf42e93ba4efa5d72bf",
+    "official_pdf_sha256": "bac43b438869d7b11ca595acd121726833d2bf2e54004351db825cade4c29da7",
+    "annual_builder_sha256": "86d503dcbdfe9fe54111661806c290eadf1f1a4acb557805797d903d8e747f2d"
+  }
+}
