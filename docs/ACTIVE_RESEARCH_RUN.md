@@ -52,3 +52,22 @@ are not copied into Git. Frozen review files keep their original provenance path
 
 See `docs/DECISION_DIARY.md` for decisions; each scientific increment also receives
 a machine-readable receipt with inputs, outputs, quality status and unresolved mass.
+# Working migration accepted on 2026-10-02
+
+The published R2 snapshot still has 1,108 active / 54 held edges. The new working
+projection restores the 54 held endpoints using 50 previously reviewed
+same-census publication bindings. It has 1,162 active edges, 982 components,
+180 complete census chains, and zero same-year component collisions. Coordinates
+remain the original 81 claims. This is not a new GitHub Release.
+
+Replay with the pinned release data root:
+
+```sh
+python -m research_rebuild.mass_linkage.migrate_publication_bindings --data-root DATA_ROOT --output-root WORK_ROOT/migration
+python -m research_rebuild.mass_linkage.validate_migration --data-root DATA_ROOT --migration-root WORK_ROOT/migration --receipt WORK_ROOT/independent_acceptance.json
+```
+
+The committed review is
+`research_rebuild/evidence/reviews/mass_publication_migration_20261002/review.json`.
+The separate verifier checks original evidence columns, reviewed replacement
+fields, source hashes, exact endpoint transfers, and graph components using DFS.

@@ -1,0 +1,140 @@
+{
+  "status": "accepted_reviewed_publication_endpoint_migration",
+  "scope": "50 same-census publication bindings; 54 existing identity edges restored; no new identity or coordinate evidence",
+  "migration_audit_sha256": "1f6429562172c5b20a819699764c91d84ee9bacac8fa4b9f04b0add1596d4bc2",
+  "outputs": {
+    "reviewed_publication_bindings.csv": {
+      "sha256": "0dd87c11efd1e99f3d9550aa87d53989f688f32b7672908ded76151f064256aa",
+      "bytes": 53219,
+      "rows": 50
+    },
+    "migrated_identity_edges.csv": {
+      "sha256": "ac2d0addaa016387f5f8265130c2803812aa1dfe68171b59061ca341289d2beb",
+      "bytes": 970488,
+      "rows": 1162
+    }
+  },
+  "inputs": {
+    "selected_observations": {
+      "path": "research_rebuild/evidence/releases/national_source_selection_r2_regional_2010_20260930/selected_observations.parquet",
+      "input_root_role": "data_root",
+      "sha256": "524e706daa32a69cac9b3e67b3bb8f9113fe2d851f10cdf42e93ba4efa5d72bf",
+      "bytes": 37131425
+    },
+    "identity_edge_projection": {
+      "path": "research_rebuild/evidence/releases/national_source_selection_r2_regional_2010_20260930/identity_edge_selection_projection.csv",
+      "input_root_role": "data_root",
+      "sha256": "a063c6fe26a8299cb9cd37f2efa92dd67c58403b1ad43a12498c8a3456f3e390",
+      "bytes": 849407
+    },
+    "coordinate_claim_projection": {
+      "path": "research_rebuild/evidence/releases/national_source_selection_r2_regional_2010_20260930/coordinate_claim_selection_projection.csv",
+      "input_root_role": "data_root",
+      "sha256": "f8c110e86bd6166596a59021bdf59ea88aa21b5f2427567df78cf914bf964418",
+      "bytes": 166215
+    },
+    "review": {
+      "path": "research_rebuild/evidence/reviews/national_source_selection_r2_publication_binding_review_r1_20260930/review.json",
+      "input_root_role": "data_root",
+      "sha256": "d752719a701d920f573ae3e8009fb88217f1133a121774cdc534bc7244362361",
+      "bytes": 130697
+    },
+    "review_sha256_sidecar": {
+      "path": "research_rebuild/evidence/reviews/national_source_selection_r2_publication_binding_review_r1_20260930/review.json.sha256",
+      "input_root_role": "data_root",
+      "sha256": "31ef9666ccbba3707f8a9ab47aee8baf7489f18466ca46d277eff584ee63fdf2",
+      "bytes": 78
+    },
+    "r2_release_manifest": {
+      "path": "research_rebuild/evidence/releases/national_source_selection_r2_regional_2010_20260930/release_manifest.json",
+      "input_root_role": "data_root",
+      "sha256": "19beeaaf0caab6dbb79c04046b43abc6fcc0884ff6c37668406344643ab9630f",
+      "bytes": 9859
+    },
+    "r5b_release_manifest": {
+      "path": "research_rebuild/evidence/releases/national_reviewed_admissions_r5b_yearbook_20260930/release_manifest.json",
+      "input_root_role": "data_root",
+      "sha256": "0bf4c442df7e1e3a0c9148c08c7cde2f43235ebde6ca608b762891d8ee26093c",
+      "bytes": 5847
+    },
+    "r5b_identity_edges": {
+      "path": "research_rebuild/evidence/releases/national_reviewed_admissions_r5b_yearbook_20260930/identity_edges_accepted.csv",
+      "input_root_role": "data_root",
+      "sha256": "bb9d967cf04c7875578e73fe40b15efbe1e81c58681cc3e222823b161356a2ae",
+      "bytes": 817601
+    },
+    "r5b_coordinate_claims": {
+      "path": "research_rebuild/evidence/releases/national_reviewed_admissions_r5b_yearbook_20260930/coordinate_admissions.csv",
+      "input_root_role": "data_root",
+      "sha256": "c58c3a573ddc7878f948b69ab53696bb94583408b8368fbef34f1b385b56c07e",
+      "bytes": 164081
+    }
+  },
+  "independent_verifier": {
+    "path": "research_rebuild/mass_linkage/validate_migration.py",
+    "sha256": "7e7ecc6bb76c5324f09445c4dafe590eed4790c21332ec73981035af39ff1f13"
+  },
+  "graph": {
+    "edges": 1162,
+    "changed_edges": 54,
+    "vertices": 2144,
+    "components": 982,
+    "full_chains": 180,
+    "same_year_collisions": 0
+  },
+  "coordinate_claims_changed": 0,
+  "coverage": {
+    "2002": {
+      "selected_rows": 158072,
+      "selected_known_population": 145155005,
+      "linked_rows": 976,
+      "linked_population": 76546921,
+      "full_chain_rows": 180,
+      "full_chain_population": 52011263,
+      "linked_population_fraction": 0.527346067054319,
+      "linked_record_fraction": 0.0061744015385394,
+      "full_chain_population_fraction": 0.3583153264332842,
+      "full_chain_record_fraction": 0.0011387215952224302
+    },
+    "2010": {
+      "selected_rows": 152314,
+      "selected_known_population": 142202712,
+      "linked_rows": 982,
+      "linked_population": 77708004,
+      "full_chain_rows": 180,
+      "full_chain_population": 52967158,
+      "linked_population_fraction": 0.5464593671040535,
+      "linked_record_fraction": 0.006447207741901598,
+      "full_chain_population_fraction": 0.3724764264692786,
+      "full_chain_record_fraction": 0.0011817692398597634
+    },
+    "2021": {
+      "selected_rows": 155414,
+      "selected_known_population": 147182123,
+      "linked_rows": 186,
+      "linked_population": 56651181,
+      "full_chain_rows": 180,
+      "full_chain_population": 55592109,
+      "linked_population_fraction": 0.3849053121757185,
+      "linked_record_fraction": 0.001196803376787162,
+      "full_chain_population_fraction": 0.37770965567604975,
+      "full_chain_record_fraction": 0.0011581968162456407
+    }
+  },
+  "replacement_fields_checked": [
+    "name",
+    "type",
+    "region",
+    "population_2010",
+    "source_sha256"
+  ],
+  "representation_variations": [
+    {
+      "source_record_id": "ROSSTAT2010:T5:p58:l12",
+      "field": "name_norm",
+      "selected_value": "г. архангельск",
+      "review_value": "архангельск",
+      "rule": "remove separate literal city abbreviation г. with following space; not a word-prefix filter"
+    }
+  ]
+}
