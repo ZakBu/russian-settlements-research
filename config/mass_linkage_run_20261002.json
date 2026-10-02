@@ -1,0 +1,51 @@
+{
+  "run_id": "mass_linkage_20261002",
+  "started_at_utc": "2026-10-02T21:34:36Z",
+  "requested_delivery_horizon_utc": "2026-10-03T05:34:36Z",
+  "base_commit": "244483b552e7c37c05717ea69dadb12b35c99654",
+  "target_reliable_population_fraction": 0.999,
+  "target_is_not_an_acceptance_rule": true,
+  "population_controls_from_preserved_audit": {
+    "2002": 145166731,
+    "2010": 142856536,
+    "2021": 147182123
+  },
+  "control_provenance_status": "preserved_audit_controls_pending_primary_source_reverification",
+  "axes": [
+    "coordinate_availability",
+    "coordinate_admission_quality",
+    "population_source_quality",
+    "identity_link_to_any_other_observed_year",
+    "census_2002_2010_2021_chain",
+    "historical_event_coverage",
+    "population_scope_comparability",
+    "dated_oktmo_binding_and_history"
+  ],
+  "statuses": ["individual_review_accepted", "checked_rule_accepted", "candidate", "conflict", "unresolved", "outside_census_scope"],
+  "denominator_rules": [
+    "Report row and known-population denominators separately for each year and source scope.",
+    "Retain official control gaps and unknown populations; do not fill residuals.",
+    "Do not count territorial aggregates as physical-locality points.",
+    "Show selected-source coverage separately from nationwide completeness.",
+    "No annual nationwide coverage claim from a city-only or partial source.",
+    "Crimea and Sevastopol are outside Russian census scope in 2002 and 2010."
+  ],
+  "hard_blocks": ["duplicate_count", "aggregate_instead_of_locality", "same_name_competitor", "wrong_region_or_physical_object", "invalid_coordinates", "unexplained_identifier_contradiction", "ambiguous_merger_or_split"],
+  "soft_gaps": ["missing_provider_query_receipt", "missing_historical_polygon", "unknown_provider_measurement_date"],
+  "loop": {
+    "order": ["diagnose", "choose_highest_population_or_systemic_risk_action", "implement_bounded_change", "run_invariants", "independent_check", "measure_all_axes", "append_diary_and_result", "commit_checkpoint"],
+    "promotion": "Only source-backed accepted rules or reviewed decisions enter reliable coverage.",
+    "rejection": "Keep failed/rejected attempts with evidence; do not weaken quality gates.",
+    "plateau": "If coverage stalls, investigate the measured residual rather than rerunning identical checks.",
+    "deadline": "Report achieved coverage and unresolved mass honestly; elapsed time does not authorize weak links."
+  },
+  "efficiency": {
+    "agent_model": "gpt-6-luna",
+    "active_worker_cap": 3,
+    "delegation": "short task context, assigned write zones, original evidence paths, compact JSON handoffs",
+    "data_processing": "columnar Arrow/Parquet and DuckDB; batch deterministic checks; do not reason over every row with an LLM",
+    "durable_state": "run receipts, append-only diary/results and artifact index",
+    "actual_token_usage_available": false,
+    "no_claimed_token_savings_without_measurement": true
+  }
+}
