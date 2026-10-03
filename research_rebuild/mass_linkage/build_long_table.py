@@ -32,6 +32,7 @@ ACCEPTED_EDGE_STATUSES = {
 ACCEPTED_PROJECTION_STATUSES = {"active_endpoints_selected", "active_after_reviewed_publication_binding_migration"}
 ACCEPTED_COORDINATE_STATUSES = {"reviewed_rule_accepted", "frozen_r5b_reviewed_baseline_preserved",
                                 "reviewed_extension_rule_accepted", "reviewed_case_accepted"}
+CENSUS_REFERENCE_DATES = {2002: "2002-10-09", 2010: "2010-10-14", 2021: "2021-10-01"}
 
 
 class UnionFind:
@@ -128,6 +129,10 @@ def _build_entity_map(census: pd.DataFrame, edges: pd.DataFrame, aggregate_ids: 
 
 
 def _coordinate_scientific_quality(point: dict[str, Any]) -> str:
+    # Individual review of a carrier point is not individual review of every
+    # historical use reached through a checked graph-continuity rule.
+    if point.get('coordinate_application_family') == 'R_graph_accepted_2021_carrier_continuity':
+        return "automatically_accepted_checked_rule"
     rule = str(point.get("admission_rule") or "")
     reviewed_prefixes = ("independent_", "reviewed_", "national_top14_review")
     if point.get("coordinate_admission_status") in {"frozen_r5b_reviewed_baseline_preserved", "reviewed_case_accepted"} or rule.startswith(reviewed_prefixes):
@@ -149,6 +154,7 @@ def _accepted_coordinate_map(coordinates: pd.DataFrame) -> dict[str, dict[str, A
 
 
 def _coordinate_columns(point: dict[str, Any], temporal_basis: str) -> dict[str, Any]:
+    graph_reuse = point.get('coordinate_application_family') == 'R_graph_accepted_2021_carrier_continuity'
     return {
         "latitude": point.get("latitude"), "longitude": point.get("longitude"),
         "coordinate_quality": _coordinate_scientific_quality(point),
@@ -159,11 +165,13 @@ def _coordinate_columns(point: dict[str, Any], temporal_basis: str) -> dict[str,
         "direct_historical_coordinate_measurement": point.get("direct_historical_coordinate_measurement"),
         "coordinate_measurement_date_unknown": point.get("coordinate_measurement_date_unknown"),
         "boundary_comparability_asserted": point.get("boundary_comparability_asserted"),
+        "population_scope_comparability_asserted": point.get("population_scope_comparability_asserted"),
         "coordinate_source": point.get("coordinate_source"),
         "coordinate_source_record_id": point.get("coordinate_source_record_id"),
         "coordinate_provider": point.get("coordinate_provider"),
         "coordinate_provider_id": point.get("coordinate_provider_id"),
-        "coordinate_admission_rule": point.get("admission_rule"),
+        "coordinate_admission_rule": 'R_graph_accepted_2021_carrier_continuity' if graph_reuse else point.get("admission_rule"),
+        "coordinate_carrier_admission_rule": point.get("admission_rule") if graph_reuse else (point.get('supporting_carrier_admission_rule') or point.get('supporting_carrier_point_admission_rule')),
         "coordinate_provenance": point.get("coordinate_provenance"),
         "point_source_file": point.get("point_origin_file") or point.get("point_claim_artifact_file") or point.get("source_file"),
         "point_source_sha256": point.get("point_origin_sha256") or point.get("point_claim_artifact_sha256") or point.get("source_sha256"),
@@ -272,7 +280,9 @@ def build_long_table(
             "observation_id": f"census:{source_id}", "record_type": "census", "entity_id": entity_id,
             "associated_census_entity_id": None, "association_status": "accepted_same_place_component" if linked else "unknown_no_link",
             "spatial_identity_status": "accepted_same_place_component" if linked else "unknown_no_link",
-            "observation_year": yr, "reference_date": None, "source_record_id": source_id,
+            "observation_year": yr, "reference_date": CENSUS_REFERENCE_DATES[yr],
+            "reference_date_basis": "selected_census_reference_date; not_coordinate_measurement_date",
+            "source_record_id": source_id,
             "source_publication_row_id": None, "source_name_raw": _none(row.source_name_raw),
             "settlement_name": _none(row.settlement_name), "settlement_type": _none(row.settlement_type),
             "region_raw": _none(row.region_raw), "district_raw": _none(row.district_raw),
@@ -350,6 +360,7 @@ def build_long_table(
             d.update(_coordinate_columns(point, "modern_rep_point_spatial_continuity_inference_dateunknown"))
             d["coordinate_measurement_date_unknown"] = True
             d["boundary_comparability_asserted"] = False
+            d["population_scope_comparability_asserted"] = False
         records.append(d)
 
     if wiki_path:

@@ -4,6 +4,16 @@ import pytest
 from research_rebuild.mass_linkage.build_long_table import build_long_table, _bind_source_hashes, _coordinate_columns
 
 
+def test_graph_reuse_does_not_inherit_individual_carrier_review_as_application_review():
+    point = {"coordinate_application_family": "R_graph_accepted_2021_carrier_continuity",
+             "admission_rule": "national_top14_review_r2",
+             "coordinate_admission_status": "reviewed_extension_rule_accepted"}
+    cols = _coordinate_columns(point, "historical_continuity_inference")
+    assert cols["coordinate_quality"] == "automatically_accepted_checked_rule"
+    assert cols["coordinate_admission_rule"] == "R_graph_accepted_2021_carrier_continuity"
+    assert cols["coordinate_carrier_admission_rule"] == "national_top14_review_r2"
+
+
 def test_point_event_candidates_do_not_certify_boundary_or_identifier_history():
     point={"latitude":50,"longitude":40,"coordinate_admission_status":"reviewed_extension_rule_accepted",
            "admission_rule":"historical_city_typed_code_and_accepted_modern_point_1km_v1",
@@ -85,6 +95,9 @@ def test_components_anchor_deterministically_and_unlinked_rows_stay_unknown(tmp_
     census = table[table.record_type.eq("census")].set_index("source_record_id")
     assert census.loc["r2002", "entity_id"] == census.loc["r2010", "entity_id"] == census.loc["r2021", "entity_id"]
     assert census.loc["r2002", "entity_id"] == "settlement:r2021"
+    assert census.loc["r2002", "reference_date"] == "2002-10-09"
+    assert census.loc["r2010", "reference_date"] == "2010-10-14"
+    assert census.loc["r2021", "reference_date"] == "2021-10-01"
     assert bool(census.loc["r2002", "census_full_chain"])
     assert census.loc["lonely", "association_status"] == "unknown_no_link"
     assert census.loc["lonely", "entity_id"] != census.loc["r2021", "entity_id"]
@@ -200,6 +213,9 @@ def test_canonical_point_origin_is_used_and_duplicate_uses_fail(tmp_path):
     frame["point_origin_kind"] = "historical_raw_point"
     frame["application_inference_kind"] = "representative_point_spatial_continuity_inference"
     frame["coordinate_admission_status"] = "reviewed_extension_rule_accepted"
+    frame["admission_rule"] = "stable_city_retrospective_accepted_2021_representative_point_reuse_v1"
+    frame["supporting_carrier_admission_rule"] = "C_wikidata_named_city_point"
+    frame["population_scope_comparability_asserted"] = False
     frame.to_parquet(coords, index=False)
     table, _ = build_long_table(census, edges, coords, annual, tmp_path / "origin.parquet", wiki)
     row = table[table.source_record_id.eq("r2021")].iloc[0]
@@ -207,6 +223,9 @@ def test_canonical_point_origin_is_used_and_duplicate_uses_fail(tmp_path):
     assert row.point_source_sha256 == "raw-point-hash"
     assert row.point_source_locator == "record:71"
     assert row.coordinate_temporal_basis == "representative_point_spatial_continuity_inference"
+    assert row.coordinate_admission_rule == "stable_city_retrospective_accepted_2021_representative_point_reuse_v1"
+    assert row.coordinate_carrier_admission_rule == "C_wikidata_named_city_point"
+    assert not bool(row.population_scope_comparability_asserted)
     pd.concat([frame, frame]).to_parquet(coords, index=False)
     with pytest.raises(ValueError, match="duplicate target"):
         build_long_table(census, edges, coords, annual, tmp_path / "duplicate.parquet", wiki)

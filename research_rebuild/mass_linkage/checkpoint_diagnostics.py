@@ -7,6 +7,7 @@ import argparse
 import json
 import pandas as pd
 from .coverage import identity_sets, sha
+from .build_long_table import _coordinate_scientific_quality
 
 
 def build(selected_path, graph_path, points_path, output):
@@ -18,7 +19,11 @@ def build(selected_path, graph_path, points_path, output):
     linked, full, components = identity_sets(selected, graph)
     if points.target_source_record_id.duplicated().any():
         raise ValueError('Duplicate point targets')
-    d = selected.merge(points[['target_source_record_id', 'coordinate_quality', 'coordinate_admission_status']],
+    points = points.copy()
+    points['coordinate_scientific_quality'] = [
+        _coordinate_scientific_quality(row) for row in points.to_dict('records')]
+    d = selected.merge(points[['target_source_record_id', 'coordinate_quality',
+                               'coordinate_scientific_quality', 'coordinate_admission_status']],
                        left_on='source_record_id', right_on='target_source_record_id',
                        how='left', validate='one_to_one', suffixes=('_source', '_admitted'))
     d['coordinate_admitted'] = d.target_source_record_id.notna()
@@ -33,9 +38,13 @@ def build(selected_path, graph_path, points_path, output):
                            unknown_population_rows=('population', lambda s: s.isna().sum())).reset_index()
     cross.to_csv(output / 'population_quality_and_linkage.csv', index=False)
     point_quality = d[d.coordinate_admitted].groupby(
-        ['census_year', 'coordinate_quality_admitted', 'coordinate_admission_status'], dropna=False
+        ['census_year', 'coordinate_scientific_quality', 'coordinate_admission_status'], dropna=False
     ).agg(records=('source_record_id', 'size'), known_recorded_population=('population', 'sum')).reset_index()
     point_quality.to_csv(output / 'coordinate_quality_breakdown.csv', index=False)
+    provider_quality = d[d.coordinate_admitted].groupby(
+        ['census_year', 'coordinate_quality_admitted'], dropna=False
+    ).agg(records=('source_record_id', 'size'), known_recorded_population=('population', 'sum')).reset_index()
+    provider_quality.to_csv(output / 'coordinate_provider_labels_inventory.csv', index=False)
     cols = ['source_record_id', 'census_year', 'region_raw', 'district_raw', 'settlement_name',
             'settlement_type', 'population', 'population_value_quality', 'population_scope',
             'coordinate_admitted', 'identity_linked', 'full_census_chain', 'oktmo', 'okato']

@@ -1,5 +1,30 @@
 # Active research run: 2026-10-02
 
+## Current continuation checkpoint, 2026-10-03
+
+The user requested continuing the work after the first eight-hour delivery.
+Current authoritative working selected population/evidence/graph:
+`/workspace/settlements-work/continuation_20261003/primary_population_application_v1`.
+Current points:
+`/workspace/settlements-work/continuation_20261003/accepted_after_podlipkovsky_hold_v1/accepted_point_uses.parquet`.
+Current long-table delivery:
+`/workspace/settlements-delivery/continuation-20261003`.
+These supersede the first working outputs for new calculations; the published
+archives, first delivery and historical review files remain byte-preserved.
+
+There are316262 accepted point uses,175448 edges and44758 full census chains;
+564 primary2010 publication replacements are applied. See
+[continuation result](CONTINUATION_RESULT_20261003.md) for all metric axes,
+source-quality constraints, residual priorities and the next loop. New source-only
+federal-city rows,25k own-point diagnostics and named-code residual candidates
+are not admitted by their existence. The99.9% target remains unmet.
+
+The continuation uses `config/mass_linkage_continuation_20261003.json`, which
+references direct primary verification of the same national controls. The original
+fixed run config is unchanged. Root integrates; up to three economical agents own
+disjoint tasks. Source/model changes enter the documented loop before admission.
+The remaining text records the earlier run and its preserved intermediate states.
+
 The user authorized implementation after the onboarding audit, with an eight-hour
 delivery horizon (2026-10-03 05:34:36 UTC), observed population years beyond censuses,
 dated OKTMO bindings/history, Git maintenance and economical agents.
