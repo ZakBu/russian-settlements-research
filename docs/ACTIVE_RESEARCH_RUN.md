@@ -2,17 +2,25 @@
 
 ## Current authoritative working checkpoint — 2026-10-03
 
-The current accepted working state is described in
+The latest accepted point extension is described in
+[the direct historical point loop](DIRECT_HISTORICAL_POINT_LOOP_20261003.md).
+Current points: `/workspace/settlements-work/continuation_20261003/accepted_direct_historical_point_2021_delta_v2/accepted_point_uses.parquet`.
+Current coverage: `coverage_after_direct_historical_2021_v1.json` in the same continuation work directory.
+The new long-table export is `/workspace/settlements-delivery/direct-historical-2021-delta-20261003`; its narrow delta export review is pending.
+Selected records465800, accepted edges176568, accepted census point uses332005,
+full three-census chains44758. The selected population, source evidence and identity graph remain those of the frozen mass-loop package below.
+
+The preceding frozen working state is described in
 [the mass-loop result](MASS_LOOP_RESULT_20261003.md) and
 [its manifest](../research_rebuild/evidence/mass_linkage_loop_20261003/checkpoint_manifest.json).
-Selected records465800, accepted edges176568, accepted census point uses327430,
-full three-census chains44758. The earlier sections below are historical
-checkpoints, not current pointers. Frozen archives remain unchanged.
+That package has327430 accepted census point uses and does not include the next4575.
+The earlier sections below are historical checkpoints, not current pointers.
+Frozen archives remain unchanged.
 99.9% has not been reached; source population, point quality, identity, events
 and boundary comparability stay separate.
 
 
-## Current continuation checkpoint, 2026-10-03
+## Historical continuation checkpoint, 2026-10-03
 
 The user requested continuing the work after the first eight-hour delivery.
 Current authoritative working selected population/evidence/graph:

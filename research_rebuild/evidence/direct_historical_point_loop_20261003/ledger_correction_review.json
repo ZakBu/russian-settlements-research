@@ -1,0 +1,134 @@
+{
+  "artifact": "direct_historical_point_2021_ledger_correction_check_v1",
+  "verdict": "PASS_CORRECTED_ADMISSION_FLAGS_ONLY",
+  "scope": "Read-only comparison of original admitted delta v1 and corrected immutable delta v2; no export review or new admission.",
+  "approved_target_count": 4575,
+  "base_row_count": 327430,
+  "accepted_after_count": 332005,
+  "approved_target_source_record_ids_sha256": "abdc7df6b7b595d246a68e199cc714c2a7c9dfed311773e944848714c0efe64b",
+  "input_sha256": {
+    "base": "18865bc7a8a9fb181c71c49dbaca35775f6f2ec3925afa5ec35e21d04be01b77",
+    "v1": "8718f30c78682ef0a50d4c8a398fab7445721454c299a4a4905d218621889e53",
+    "v2": "fd877f16e1adc1cf7a7927fc27396a5bba67d0873f48e53170a1537afce7ff33",
+    "v1_receipt": "627ebe3252cdaad47d1e0060083383ecbc217b1ab9b74a692dffa6576b16d7a3",
+    "v2_receipt": "5b14556aa20c3c2d44e298d11dc8c8ce987a6b95adb0086ad4c1f10d95ce4684",
+    "stage": "92af0a73c18c6bde8e6fe416cbb9df084e19cbc903f3f727e490258590a262b6",
+    "application_review": "12aaa4a7b2562e0bdab242b412157cf735301f9113314f11916498cceddc95a8"
+  },
+  "checks": {
+    "base_row_ids_preserved": true,
+    "all_base_columns_exactly_preserved": true,
+    "newly_added_columns_null_on_base": true,
+    "existing_base_rows_unchanged_between_v1_v2": true,
+    "exact_reviewed_stage_ids_are_v2_tail": true,
+    "only_two_optional_flags_changed_v1_to_v2": true,
+    "all_4575_optional_flags_true_v2": true,
+    "all_coordinates_and_point_science_fields_equal_frozen_stage": true,
+    "all_other_assertion_flags_remain_false": true,
+    "v2_acceptance_receipt_pins_original_review_stage_and_base": true,
+    "v2_acceptance_counts_match_scope": true
+  },
+  "validation": {
+    "v1_to_v2_changed_columns_and_counts": {
+      "coordinate_admitted": 4575,
+      "point_admitted": 4575
+    },
+    "base_common_columns_compared": 133,
+    "base_common_column_differences": [],
+    "new_columns_null_on_base": [
+      "historical_measurement_claimed",
+      "inference_path_source_to_target_decision_ids_json",
+      "inference_path_source_to_target_source_record_ids_json",
+      "modern_geonames_concordance_status",
+      "modern_geonames_distance_km_diagnostic_only",
+      "modern_geonames_geonameid_diagnostic",
+      "modern_geonames_is_independent_measurement",
+      "native_id_binding_asserted",
+      "source_point_use_admission_rule",
+      "source_point_use_status",
+      "source_point_use_target_source_record_id",
+      "source_point_use_target_year"
+    ],
+    "new_columns_nonnull_counts_on_base": {
+      "historical_measurement_claimed": 0,
+      "inference_path_source_to_target_decision_ids_json": 0,
+      "inference_path_source_to_target_source_record_ids_json": 0,
+      "modern_geonames_concordance_status": 0,
+      "modern_geonames_distance_km_diagnostic_only": 0,
+      "modern_geonames_geonameid_diagnostic": 0,
+      "modern_geonames_is_independent_measurement": 0,
+      "native_id_binding_asserted": 0,
+      "source_point_use_admission_rule": 0,
+      "source_point_use_status": 0,
+      "source_point_use_target_source_record_id": 0,
+      "source_point_use_target_year": 0
+    },
+    "stage_fields_compared": [
+      "latitude",
+      "longitude",
+      "coordinate_source_record_id",
+      "coordinate_source_file",
+      "coordinate_source_sha256",
+      "coordinate_source_locator",
+      "coordinate_source_date",
+      "coordinate_provenance",
+      "coordinate_uncertainty_flags_json",
+      "direct_historical_coordinate_measurement",
+      "coordinate_measurement_date_unknown",
+      "boundary_comparability_asserted",
+      "population_scope_comparability_asserted",
+      "coordinate_provider_id",
+      "fias_identifier_binding_claimed",
+      "native_id_binding_asserted",
+      "identity_edge_admitted",
+      "historical_propagation_allowed"
+    ],
+    "stage_field_mismatches": [],
+    "new_target_flag_value_counts": {
+      "coordinate_admitted": [
+        {
+          "values": true,
+          "counts": 4575
+        }
+      ],
+      "point_admitted": [
+        {
+          "values": true,
+          "counts": 4575
+        }
+      ],
+      "admission_allowed": [
+        {
+          "values": true,
+          "counts": 4575
+        }
+      ]
+    },
+    "other_assertion_flags_true_counts": {
+      "identity_edge_admitted": 0,
+      "historical_propagation_allowed": 0,
+      "native_id_binding_asserted": 0,
+      "fias_identifier_binding_claimed": 0,
+      "boundary_comparability_asserted": 0,
+      "population_scope_comparability_asserted": 0,
+      "direct_historical_coordinate_measurement": 0,
+      "census_date_point_measurement_proven": 0,
+      "historical_measurement_claimed": 0,
+      "upstream_independent_lineage_proven": 0,
+      "source_lineage_independence_proven": 0
+    },
+    "v2_acceptance_receipt": {
+      "status": "bounded_reviewed_point_delta_accepted",
+      "review_sha256": "12aaa4a7b2562e0bdab242b412157cf735301f9113314f11916498cceddc95a8",
+      "builder_sha256": "0adf6bc3742252cb2cebe7a3544724643d39726f21b3018fdd75647ece55208e",
+      "accepted_before": 327430,
+      "accepted_added": 4575,
+      "accepted_after": 332005,
+      "base_values_unchanged": true,
+      "output": {
+        "path": "/workspace/settlements-work/continuation_20261003/accepted_direct_historical_point_2021_delta_v2/accepted_point_uses.parquet",
+        "sha256": "fd877f16e1adc1cf7a7927fc27396a5bba67d0873f48e53170a1537afce7ff33"
+      }
+    }
+  }
+}

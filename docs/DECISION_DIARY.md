@@ -727,3 +727,85 @@ all canonical point origins/uncertainty JSON,1344 cumulative publication
 bindings and780 restrictive evidence addenda. All axis numerators reconcile
 to full national controls. Diagnostics cross-tabs sum to the same point counts
 and year populations. Final package has not been remotely published.
+
+### 2026-10-03, 15:04 UTC — verified package and exact write-access limit
+
+Archive at e10c6ce:333994078 bytes, SHA256
+572eeca8203c506378c33f29a70fcbc68aa5c55483ca555ca942fad11e4d940c.
+All112 payload files/467569951 bytes were read back and hash-checked in17.660s;
+verified Git bundle records complete history. Prior archives remain unchanged.
+CLI push dry-run again403. The GitHub connector can read public repository
+metadata (owner role lists push=true), but actual isolated research-branch
+creation failed403 Resource not accessible by integration. Repository-role
+permissions do not prove the integration has Contents write. No remote branch
+was created or modified and no Release published. This is an integration access
+limit, not automatic approval-review rejection.
+
+Next scientific rule approved exact4575 candidate2021 uses/1007691 population
+from direct accepted2011 GeoKLADR points via existing graph.105 cases held for
+84 spatial screens,1 event role,20 explicit shared-code/grain ambiguity.
+Candidates remain unadmitted pending separate application stage/review. The
+first rule-review draft read producer inputs before final pins; preserved
+supersededv1 and final-pinnedv2 document this. Future reviewers wait for final
+producer-ready signal rather than reading a moving draft. A separate immutable
+label addendum corrects probe inventory wording:310386 older selected rows,
+201542 older point rows,108844 unpointed;108849 eligible direct GeoKLADR points
+versus340+22 excluded derived/corroborated origins. No gain counts or candidate
+ledger were changed.
+
+### 2026-10-03, 15:22 UTC — direct historical points applied to 2021
+
+Independent application verdict APPROVE_BOUNDED_POINT_DELTA pins exact4575
+IDs, staged92af0a73…, base18865bc7…, raw origins, current native identifiers
+and single accepted paths source→target. Root appended4575 uses/1007691pop;
+accepted ledger332005, SHA8718f30c…. All327430 prior row values preserved.
+National coordinate weights83.081300%/71.606581%/81.685925%; row shares
+77.120553%/52.284097%/83.945462%. Graph176568 edges/44758 full chains and
+population source selection unchanged.105 scientific holds and quarantines
+remain excluded. No legal ID, measurement-date or boundary claim added.
+
+Producer cache Path/string mismatch and reversed source→target path labels
+were caught before admission; discardedv1 retained, finalv2 has one raw-file
+hash and4.857s preparation. Export rebuild is separate from frozen e10c
+package; its narrow independent delta check remains pending at this entry.
+
+The new rural2010 diagnostic found1329 candidates/gross141699pop delta,
+not admitted.22 older uniqueness holds are zero raw-key matches caused by
+hyphen normalization, not duplicate matches. Dagestan profile read ethnicity
+column9 instead of declared settlement columns6/7 and district4. A bounded
+56-row source-binding stage is being prepared from unchanged raw workbook
+and primary Table5, with full current/raw key and actual row checks.
+
+### 2026-10-03, 15:38 UTC — admission metadata correction and structural ceilings
+
+Self-check found candidate coordinate_admitted/point_admitted flags remained
+false after status/admission_allowed changed. Fixed generic admission helper
+only for new approved rows; identity/provider/scope flags untouched. Seven
+related tests pass, including regression of this observed defect. Reapplied
+same original base/stage/independent review into immutable v2: SHAfd877f16…,
+332005 uses, prior327430values unchanged. v1/export remain preserved; their
+scientific geometry/population values are unchanged by this flag repair.
+
+Unchanged selected-source grain imposes theoretical point ceilings96.780981%
+2002/99.653456%2010/86.982221%2021: cannot attach a settlement point to
+federal territorial totals.2021 federal aggregate population19159843 must
+be resolved from real atomic publication rows/territory scopes, without
+municipal-population allocation or arbitrary urban-center subtraction.
+An uncached2025 official-yearbook HEAD request returned503 with TLS enabled;
+no source downloaded/promoted and no repeated retry loop.
+
+### 2026-10-03, 15:40 UTC — corrected ledger independently verified
+
+Correction check SHA1cb737e7… verifies both optional flags changed only for
+4575newtargets.327430base rows match all133originalcolumns;12newapplication
+columns stay null for baseline rows. Coordinates/canonical origins/scientific
+claims equal approved stage; all non-admission assertions remain false.
+Current accepted point ledger is v2fd877f16…; prior export scientific values
+remain valid but its manifest pins v1, so consolidated final export is pending.
+
+Independent Dagestan same-census approval completed for56exactbindings,
+311050→312599(+1549), including actual printed PDF district headers across
+pagebreaks and rawxls columns4/6/7/8. Applicationcompatible verdict is frozen.
+Root will apply after pending1139source-specific alias identity review, so
+one combined export reflects both updates; neither candidate existence nor
+source-binding approval is counted as applied population/identity coverage.

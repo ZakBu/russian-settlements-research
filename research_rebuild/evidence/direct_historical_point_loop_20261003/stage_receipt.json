@@ -1,0 +1,105 @@
+{
+  "artifact": "direct_historical_point_2021_stage_v1",
+  "status": "application_stage_only_pending_separate_independent_review",
+  "rule_review_sha256": "f0e4d89bee24f1ead2f1f62f4abb87644e459d9cca61caa84c0e9cd1c3938a77",
+  "approved_id_manifest_sha256": "abdc7df6b7b595d246a68e199cc714c2a7c9dfed311773e944848714c0efe64b",
+  "approved_target_count": 4575,
+  "staged_count": 4575,
+  "held_count": 0,
+  "staged_population_2021": 1007691,
+  "staged_source_year_counts": {
+    "2002": 4453,
+    "2010": 122
+  },
+  "method": "Exact reviewer-approved 4,575 targets only. Copy the accepted direct GeoKLADR2011 representative point from its most recent accepted historical same_place endpoint; no averaging. Deterministic shortest accepted same_place path IDs retained.",
+  "assertions": {
+    "admission_allowed": false,
+    "identity_edges_created": false,
+    "native_or_fias_identifier_binding": false,
+    "census_date_measurement": false,
+    "population_scope_comparability": false,
+    "boundary_comparability": false,
+    "point_origin_is_2011_source_update": true,
+    "measurement_date_unknown": true,
+    "geonames_used_as_independent_measurement": false,
+    "source_grain_or_identity_reassessed": false
+  },
+  "origin_files_hashed_once": {
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": {
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+      "bytes": 59991330
+    }
+  },
+  "origin_file_hash_call_count": 1,
+  "path_summary": {
+    "unique_path_edge_counts": {
+      "1": 4575
+    },
+    "all_paths_use_accepted_same_place_edges": true
+  },
+  "inputs": {
+    "/workspace/settlements-work/continuation_20261003/direct_historical_point_2021_rule_review_v2/review.json": {
+      "sha256": "f0e4d89bee24f1ead2f1f62f4abb87644e459d9cca61caa84c0e9cd1c3938a77",
+      "bytes": 352211
+    },
+    "/workspace/settlements-work/continuation_20261003/direct_historical_point_2021_rule_review_v2/approved_rule_candidate_ids.txt": {
+      "sha256": "abdc7df6b7b595d246a68e199cc714c2a7c9dfed311773e944848714c0efe64b",
+      "bytes": 304302
+    },
+    "/workspace/settlements-work/continuation_20261003/direct_historical_point_to_2021_gain_probe_v1/candidate_gain_ledger.parquet": {
+      "sha256": "16db10c080114b1eb5c5c5a3d339033a31fa54048f3c51d8f5c29f2c80051b68",
+      "bytes": 689853
+    },
+    "/workspace/settlements-delivery/continuation-loop-20261003/settlements_long.manifest.json": {
+      "sha256": "a5a914825bce607684aac4625e9f6bc460a11a4e2452f381eea1b3abeafaf085",
+      "bytes": 3146
+    },
+    "/workspace/settlements-delivery/continuation-loop-20261003/selected_observations.parquet": {
+      "sha256": "94ae62cfa8a37820db09416b1fd63cc43cac4aae371b5d26ca2fb14f68163356",
+      "bytes": 37364895
+    },
+    "/workspace/settlements-delivery/continuation-loop-20261003/accepted_identity_edges.parquet": {
+      "sha256": "98741f9b695283f390355c34077ca4fd090ecdbb576e9bae323292a585220622",
+      "bytes": 34501240
+    },
+    "/workspace/settlements-delivery/continuation-loop-20261003/accepted_point_uses.parquet": {
+      "sha256": "18865bc7a8a9fb181c71c49dbaca35775f6f2ec3925afa5ec35e21d04be01b77",
+      "bytes": 52322804
+    },
+    "/workspace/settlements-delivery/continuation-loop-20261003/source_evidence.parquet": {
+      "sha256": "612f84c3de4030ad192046cbd597a1446684b9275a93037af0d2c71017ab78a2",
+      "bytes": 131223002
+    },
+    "/workspace/settlements-delivery/continuation-loop-20261003/accepted_publication_bindings.parquet": {
+      "sha256": "f96fd6ae2e53e587fc5a60041ad1c7531cbc56b6c11246b62e03e8f900461ed1",
+      "bytes": 96846
+    },
+    "/workspace/settlements-work/sources/historical_identifiers/observed_v1/lineage_event_candidates.json": {
+      "sha256": "1f6b6066ada348e160ccd5c898adb7d40cac9a50336da9788f211eb1ab466622",
+      "bytes": 29526
+    }
+  },
+  "outputs": {
+    "staged_point_uses.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/direct_historical_point_2021_stage_v2/staged_point_uses.parquet",
+      "sha256": "92af0a73c18c6bde8e6fe416cbb9df084e19cbc903f3f727e490258590a262b6",
+      "bytes": 3079886
+    },
+    "source_path_ledger.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/direct_historical_point_2021_stage_v2/source_path_ledger.parquet",
+      "sha256": "d7197051eb921602f38dd65ee3271d01c0ce37a486dc43a91822afa489ada27b",
+      "bytes": 458459
+    },
+    "held_candidates.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/direct_historical_point_2021_stage_v2/held_candidates.parquet",
+      "sha256": "7118a68c9e136001d8f430d0b491a138891e3a616048de24f3dfd52ffed4d1f8",
+      "bytes": 1618
+    },
+    "approved_target_source_record_ids.txt": {
+      "path": "/workspace/settlements-work/continuation_20261003/direct_historical_point_2021_stage_v2/approved_target_source_record_ids.txt",
+      "sha256": "abdc7df6b7b595d246a68e199cc714c2a7c9dfed311773e944848714c0efe64b",
+      "bytes": 304302
+    }
+  },
+  "runtime_seconds": 4.857
+}

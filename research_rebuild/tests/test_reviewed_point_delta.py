@@ -35,6 +35,25 @@ def test_postreview_changed_candidate_is_rejected(tmp_path):
     with pytest.raises(ValueError,match='Review input hash'):admit(base,staged,review,tmp_path/'accepted')
 
 
+def test_admission_updates_optional_point_flags_without_promoting_identity(tmp_path):
+    base,staged,review,_=fixture(tmp_path)
+    d=pd.read_parquet(staged)
+    d['coordinate_admitted']=False
+    d['point_admitted']=False
+    d['identity_edge_admitted']=False
+    d['native_identifier_binding_asserted']=False
+    d.to_parquet(staged,index=False)
+    r=json.loads(review.read_text());r['staged_point_uses_sha256']=sha(staged)
+    review.write_text(json.dumps(r))
+    receipt=admit(base,staged,review,tmp_path/'accepted')
+    new=pd.read_parquet(receipt['output']['path']).iloc[-1]
+    assert bool(new.coordinate_admitted) and bool(new.point_admitted)
+    assert not bool(new.identity_edge_admitted)
+    assert not bool(new.native_identifier_binding_asserted)
+    assert not bool(new.boundary_comparability_asserted)
+    assert not bool(new.population_scope_comparability_asserted)
+
+
 def test_changed_raw_origin_rejected_even_when_candidate_unchanged(tmp_path):
     base,staged,review,raw=fixture(tmp_path);raw.write_bytes(b'changed source')
     with pytest.raises(ValueError,match='Raw origin hash'):admit(base,staged,review,tmp_path/'accepted')

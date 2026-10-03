@@ -53,6 +53,12 @@ def admit(base: Path, staged: Path, review_path: Path, output: Path):
     delta['coordinate_admission_status']='reviewed_extension_rule_accepted'
     delta['coordinate_quality']='automatically_accepted_checked_rule'
     delta['admission_allowed']=True
+    # Optional candidate-stage point flags describe this same use, rather than
+    # an independent identity/provider/boundary claim. Keep them consistent with
+    # the accepted status; all other scientific assertion flags remain intact.
+    for column in ['coordinate_admitted','point_admitted']:
+        if column in delta:
+            delta[column]=True
     delta['application_gate_status']='accepted_after_independent_bounded_application_review'
     delta['coordinate_application_review_sha256']=sha(review_path)
     delta['review_id']=review.get('review_id') or review_path.stem
