@@ -4,13 +4,15 @@ import pytest
 from research_rebuild.mass_linkage.build_long_table import build_long_table, _bind_source_hashes, _coordinate_columns
 
 
-def test_graph_reuse_does_not_inherit_individual_carrier_review_as_application_review():
-    point = {"coordinate_application_family": "R_graph_accepted_2021_carrier_continuity",
+@pytest.mark.parametrize('family', ['R_graph_accepted_2021_carrier_continuity',
+                                  'R_reviewed_same_place_sourced_point_continuity_20261004'])
+def test_graph_reuse_does_not_inherit_individual_carrier_review_as_application_review(family):
+    point = {"coordinate_application_family": family,
              "admission_rule": "national_top14_review_r2",
              "coordinate_admission_status": "reviewed_extension_rule_accepted"}
     cols = _coordinate_columns(point, "historical_continuity_inference")
     assert cols["coordinate_quality"] == "automatically_accepted_checked_rule"
-    assert cols["coordinate_admission_rule"] == "R_graph_accepted_2021_carrier_continuity"
+    assert cols["coordinate_admission_rule"] == family
     assert cols["coordinate_carrier_admission_rule"] == "national_top14_review_r2"
 
 

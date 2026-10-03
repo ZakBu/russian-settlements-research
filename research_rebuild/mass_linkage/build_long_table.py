@@ -131,7 +131,10 @@ def _build_entity_map(census: pd.DataFrame, edges: pd.DataFrame, aggregate_ids: 
 def _coordinate_scientific_quality(point: dict[str, Any]) -> str:
     # Individual review of a carrier point is not individual review of every
     # historical use reached through a checked graph-continuity rule.
-    if point.get('coordinate_application_family') == 'R_graph_accepted_2021_carrier_continuity':
+    if point.get('coordinate_application_family') in {
+        'R_graph_accepted_2021_carrier_continuity',
+        'R_reviewed_same_place_sourced_point_continuity_20261004',
+    }:
         return "automatically_accepted_checked_rule"
     rule = str(point.get("admission_rule") or "")
     reviewed_prefixes = ("independent_", "reviewed_", "national_top14_review")
@@ -154,7 +157,10 @@ def _accepted_coordinate_map(coordinates: pd.DataFrame) -> dict[str, dict[str, A
 
 
 def _coordinate_columns(point: dict[str, Any], temporal_basis: str) -> dict[str, Any]:
-    graph_reuse = point.get('coordinate_application_family') == 'R_graph_accepted_2021_carrier_continuity'
+    graph_reuse = point.get('coordinate_application_family') in {
+        'R_graph_accepted_2021_carrier_continuity',
+        'R_reviewed_same_place_sourced_point_continuity_20261004',
+    }
     return {
         "latitude": point.get("latitude"), "longitude": point.get("longitude"),
         "coordinate_quality": _coordinate_scientific_quality(point),
@@ -171,7 +177,7 @@ def _coordinate_columns(point: dict[str, Any], temporal_basis: str) -> dict[str,
         "coordinate_source_record_id": point.get("coordinate_source_record_id"),
         "coordinate_provider": point.get("coordinate_provider"),
         "coordinate_provider_id": point.get("coordinate_provider_id"),
-        "coordinate_admission_rule": 'R_graph_accepted_2021_carrier_continuity' if graph_reuse else point.get("admission_rule"),
+        "coordinate_admission_rule": point.get('coordinate_application_family') if graph_reuse else point.get("admission_rule"),
         "coordinate_carrier_admission_rule": point.get("admission_rule") if graph_reuse else (point.get('supporting_carrier_admission_rule') or point.get('supporting_carrier_point_admission_rule')),
         "coordinate_provenance": point.get("coordinate_provenance"),
         "point_source_file": point.get("point_origin_file") or point.get("point_claim_artifact_file") or point.get("source_file"),

@@ -1,0 +1,28 @@
+{
+  "status": "applied_separate_typed_territorial_layer",
+  "territory_points": 6,
+  "three_census_city_chains": 2,
+  "outside_older_census_city": 1,
+  "source_file_hashes": {
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0139.jsonl.gz": "4eda3174ad7792f797be69edb4081f31674f9a68b00bbfae11e366a70be9e1c3",
+    "/workspace/settlements-raw/data/raw/2010_official_tom11/pub-11-1-4.pdf": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+    "/workspace/settlements-raw/data/raw/rosstat_2021/Tom1_tab-5_VPN-2020.xlsx": "0b232b3d2ab5daa231568acc719ac6fda4fb0979a01a0da6bacc69be6f252474",
+    "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0140.jsonl.gz": "b30d775ee3c44b36949efb8299b9be996ea3cc395dbc782cc5128a7382439886"
+  },
+  "atomic_point_uses_or_edges_modified": false,
+  "additivity": "parent territory replaces covered children in operational metric; NP metrics stay separate",
+  "script_sha256": "5c80e14adc83b0110c1615e9365db13e48039b333544bff674ab99f79ff72e5e",
+  "inputs": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+  },
+  "stage_inputs": {
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/federal_territory_reference_bindings.csv": "3c4e032a6b8067da6df9afaa49d4db0feba61170494f10459ad4811634eb993e",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/federal_territorial_chain_coverage_ids.csv": "2e84e3c69ff8ba6f407c2d37a7fa09a6a19a8d47470caffaad7c98ea01fe3fa2"
+  },
+  "outputs": {
+    "accepted_territory_reference_points.parquet": "3b366d9a513b0396e90813f03c4e3af1cd0b1caef92379a9ae95cae43451d6e3",
+    "accepted_typed_city_continuity.parquet": "ee5898e3e5495d691f230e18fce08191fcc287ed35e06d969140bb05df75c695"
+  }
+}
