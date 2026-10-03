@@ -24,6 +24,14 @@ def _validate_review(review):
         if not _approved_pairs(original) or _approved_pairs(review) != _approved_pairs(original):
             raise ValueError('Schema projection changes independently approved pairs')
 
+
+def mark_admitted_metadata(edges, mask):
+    """Keep optional current-state fields consistent without extra claims."""
+    for column,value in [('candidate_status','accepted_after_independent_application_review'),
+                         ('admission_status','checked_rule_accepted'),('candidate_only',False)]:
+        if column in edges:
+            edges.loc[mask,column]=value
+
 def promote(staging, review, output):
     if output.exists():raise FileExistsError('New immutable output required')
     decision=json.loads(review.read_text());receipt=json.loads((staging/'receipt.json').read_text())
@@ -42,6 +50,9 @@ def promote(staging, review, output):
     if 'approved_pairs' in decision and actual != approved:
         raise ValueError('Pending pairs differ from exact reviewed endpoint set')
     edges.loc[pending,'decision_status']='checked_rule_accepted'
+    # These optional fields describe the edge's current application state.
+    # Leaving candidate flags behind would contradict the accepted decision.
+    mark_admitted_metadata(edges,pending)
     edges.loc[pending,'independent_application_review_sha256']=_sha(review)
     output.mkdir(parents=True)
     path=output/'accepted_identity_edges.parquet';edges.to_parquet(path,index=False)

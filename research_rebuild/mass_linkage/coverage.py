@@ -12,6 +12,7 @@ import json
 from collections import defaultdict
 from pathlib import Path
 import pandas as pd
+import pyarrow.parquet as pq
 
 
 def sha(path: Path) -> str:
@@ -24,6 +25,22 @@ def sha(path: Path) -> str:
 
 def read_table(path: Path) -> pd.DataFrame:
     return pd.read_parquet(path) if path.suffix == '.parquet' else pd.read_csv(path)
+
+
+def grain_aggregate_ids(path: Path, selected_ids: set[str]) -> set[str]:
+    """Read authoritative grain evidence without changing source scope labels."""
+    seen, aggregates = set(), set()
+    for batch in pq.ParquetFile(path).iter_batches(
+            columns=['source_record_id','source_evidence_json'], batch_size=65536):
+        for sid, payload in zip(batch.column(0).to_pylist(), batch.column(1).to_pylist()):
+            if sid in seen:
+                raise ValueError('Duplicate source grain evidence ID')
+            seen.add(sid)
+            if json.loads(payload).get('is_federal_aggregate') is True:
+                aggregates.add(sid)
+    if seen != selected_ids:
+        raise ValueError('Source grain evidence must match exact selected ID set')
+    return aggregates
 
 
 def identity_sets(selected: pd.DataFrame, edges: pd.DataFrame):
@@ -83,12 +100,15 @@ def measure(selected: pd.DataFrame, legacy: pd.DataFrame, edges: pd.DataFrame,
         raise ValueError('point-use endpoint absent from selected source layer')
     if point_uses.target_source_record_id.duplicated().any():
         raise ValueError('accepted point uses must be resolved to one point per source record')
+    aggregate_mask=selected.population_scope.eq('federal_city_region')
+    if 'is_federal_aggregate_from_grain_evidence' in selected:
+        aggregate_mask=aggregate_mask | selected.is_federal_aggregate_from_grain_evidence.fillna(False).astype(bool)
+    aggregate_ids=set(selected.loc[aggregate_mask,'source_record_id'])
     if not point_uses.empty:
         lat = pd.to_numeric(point_uses.latitude,errors='coerce')
         lon = pd.to_numeric(point_uses.longitude,errors='coerce')
         if not (lat.between(-90,90)&lon.between(-180,180)).all():
             raise ValueError('invalid accepted WGS84 point')
-        aggregate_ids=set(selected.loc[selected.population_scope.eq('federal_city_region'),'source_record_id'])
         if set(point_uses.target_source_record_id)&aggregate_ids:
             raise ValueError('federal territorial aggregate cannot receive a settlement point use')
     linked, full, components=identity_sets(selected,edges)
@@ -119,6 +139,12 @@ def measure(selected: pd.DataFrame, legacy: pd.DataFrame, edges: pd.DataFrame,
                for k,v in g.groupby('population_value_quality',dropna=False)],
            'retained_federal_city_aggregate':{'rows':int(g.population_scope.eq('federal_city_region').sum()),
                'known_population':int(g.loc[g.population_scope.eq('federal_city_region'),'population'].sum())},
+           'recognized_federal_territorial_aggregate':metric(g,aggregate_ids,control),
+           'theoretical_point_ceiling_with_current_source_grain':{
+               'known_population':int(g.loc[~g.source_record_id.isin(aggregate_ids),'population'].sum()),
+               'official_control_population_fraction':int(g.loc[~g.source_record_id.isin(aggregate_ids),'population'].sum())/control,
+               'grain_evidence_supplied':'is_federal_aggregate_from_grain_evidence' in selected,
+               'interpretation':'An upper bound on known selected nonaggregate population, not attained or validated coverage.'},
            'historical_event_coverage':{'status':'not_measured','reason':'an event ledger and a defined applicable denominator are required'},
            'population_boundary_comparability':{'status':'not_measured','reason':'same-place identity alone does not harmonize population boundaries'},
            'dated_oktmo_history':{'status':'not_measured','reason':'observed code snapshots are distinct from verified validity intervals'},
@@ -136,8 +162,13 @@ def measure(selected: pd.DataFrame, legacy: pd.DataFrame, edges: pd.DataFrame,
 def main():
     p=argparse.ArgumentParser()
     for key in ['selected','legacy-quality','edges','points','policy','output']:p.add_argument('--'+key,required=True,type=Path)
+    p.add_argument('--grain-evidence',type=Path,help='Exact selected source-evidence layer; scope labels alone may hide federal aggregates')
     a=p.parse_args(); paths={'selected':a.selected,'legacy_quality':a.legacy_quality,'edges':a.edges,'points':a.points,'policy':a.policy}
     selected=pd.read_parquet(a.selected,columns=['source_record_id','census_year','population','latitude','longitude','population_scope','population_value_quality','settlement_id'])
+    if a.grain_evidence:
+        flags=grain_aggregate_ids(a.grain_evidence,set(selected.source_record_id))
+        selected['is_federal_aggregate_from_grain_evidence']=selected.source_record_id.isin(flags)
+        paths['grain_evidence']=a.grain_evidence
     legacy=pd.read_parquet(a.legacy_quality,columns=['source_record_id','any_legacy_point_available','settlement_id'])
     edges=read_table(a.edges); points=read_table(a.points)
     if 'selection_projection_status' in points:points=points[points.selection_projection_status.eq('active_endpoints_selected')]

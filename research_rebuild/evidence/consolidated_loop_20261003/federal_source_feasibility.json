@@ -1,0 +1,198 @@
+{
+  "report_id": "federal_atomic_scope_feasibility_v2",
+  "status": "bounded_cached_source_feasibility_complete_no_population_selection_no_coordinate_or_identity_admission",
+  "as_of": "2026-10-03",
+  "question": "Can the 2021 federal-city aggregate selection be replaced by primary additive physical populated-place rows that include an evidenced city core, without residual allocation or municipal-centre substitution?",
+  "answer": "Not completely for any of the three cities in 2021 on current source evidence. Primary Table 5 supports additive place-level observations for 29 Saint Petersburg places and three Sevastopol places (878,643 total); it does not publish an explicit single-core total or boundary proof. Moscow has no approved direct physical-NP row in the reviewed source; its 293 reported locality values are secondary and not individually verified. Keep all federal roots as aggregate controls and retain all child rows at their source grain. The only older explicitly separated core candidate is Moscow 2002 row 2155 (10,126,424), distinct from its broader row 2154 parent (10,382,754).",
+  "ceiling_context": {
+    "2021_federal_aggregate_total": 19159843,
+    "theoretical_point_ceiling_percent_as_supplied_by_root": 96.780981,
+    "2002_federal_aggregate_total": 4661219,
+    "2010_status": "no current 2010 federal aggregate selection; expose unresolved city-vs-subject scope as source-quality status, not as coverage failure or point ceiling"
+  },
+  "atomic_status_2021": {
+    "approved_named_primary_np_rows": 32,
+    "approved_population_total": 878643,
+    "saint_petersburg": {
+      "rows": 29,
+      "population": 822633
+    },
+    "sevastopol": {
+      "rows": 3,
+      "population": 56010
+    },
+    "moscow": {
+      "approved_direct_primary_rows": 0,
+      "secondary_named_locality_values": 293,
+      "secondary_population_sum": 644544,
+      "not_primary_certified": true
+    },
+    "held_kronstadt": {
+      "source_row": "ROSSTAT2021:T5:таб. 5:r7615",
+      "label": "Кронштадтский район - г. Кронштадт",
+      "population": 44399,
+      "reason": "composite district-and-city line; not an isolated physical settlement count"
+    }
+  },
+  "city_year_inventory": "city_year_inventory.csv",
+  "source_rows": 9,
+  "inputs": {
+    "prior_federal_scope_inventory": {
+      "path": "/workspace/settlements-work/continuation_20261003/federal_scope/source_inventory.json",
+      "sha256": "2e9b7c05324116763303852a55de02f354a013b956da1bc1cf3a9e60ebd2b6eb"
+    },
+    "prior_federal_scope_findings": {
+      "path": "/workspace/settlements-work/continuation_20261003/federal_scope/findings.md",
+      "sha256": "cb261497105899317ab563eaa528aa3115c125fda6848a5abd3898d686871d70"
+    },
+    "2021_source_probe_report": {
+      "path": "/workspace/settlements-work/sources/federal_scope_probe/report.json",
+      "sha256": "61de477f4be02c442e0e37cdfa9ee7a3c41a0ff5983706986a551888ac907098"
+    },
+    "2021_source_probe_notes": {
+      "path": "/workspace/settlements-work/sources/federal_scope_probe/notes.md",
+      "sha256": "2f85f88c6db0b81516aab881ecc89dda4d425e861329a7e6283baf31b34cc982"
+    },
+    "2021_named_np_review": {
+      "path": "/workspace/settlements-work/continuation_20261003/federal_named_np_primary_review_v1/review.json",
+      "sha256": "fcaa8194eb41d2d2a65d1d14b672f8f0f9480d2395633d52e739a3a0d488f012"
+    },
+    "2021_named_np_rows_csv": {
+      "path": "/workspace/settlements-work/continuation_20261003/federal_named_np_primary_review_v1/rows.csv",
+      "sha256": "8a7ff38a63b3b475ed30bad97888de9e81f0a095c71e633037df753468e28f75"
+    },
+    "2021_staging_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261003/federal_named_population_stage_v1/receipt.json",
+      "sha256": "369b07aeb93fb65db7cad974765b146b7dfdb5c784f194c6aefbd24ac24341d2"
+    },
+    "rosstat_2002_table4": {
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "source_url": "http://www.perepis2002.ru/ct/doc/1_TOM_01_04.xls",
+      "transport_note": "HTTP-only URL; use cached verified bytes; no redownload"
+    },
+    "rosstat_2010_tom11_table1_4": {
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom11/pub-11-1-4.pdf",
+      "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+      "source_url": "https://rosstat.gov.ru/free_doc/new_site/perepis2010/croc/Documents/Vol11/pub-11-1-4.pdf",
+      "transport_note": "TLS GET returned HTTP 503 2026-10-03; no retry; cached verified bytes"
+    },
+    "rosstat_2021_table5": {
+      "path": "/workspace/settlements-raw/data/raw/rosstat_2021/Tom1_tab-5_VPN-2020.xlsx",
+      "sha256": "0b232b3d2ab5daa231568acc719ac6fda4fb0979a01a0da6bacc69be6f252474",
+      "source_url": null,
+      "transport_note": "Cached official workbook; exact URL absent from local registry"
+    },
+    "lingvarium_moscow_2021_secondary": {
+      "path": "/workspace/settlements-raw/data/raw/2021/042_b9d5297a2e_Москва_45_lg.xlsx",
+      "sha256": "1257269cfcdd1550ad4bfbecdfe4ed6b49ee2930181c0872790839c7ab1e0bd5"
+    }
+  },
+  "hierarchy_diagnosis": {
+    "2021_moscow": {
+      "root": 13010112,
+      "municipal_units": {
+        "rows": 125,
+        "population": 12365568,
+        "zelenograd_rows": 5,
+        "zelenograd_population": 256775,
+        "other_unit_rows": 120,
+        "other_unit_population": 12108793
+      },
+      "secondary_locality_values": {
+        "rows": 293,
+        "population": 644544
+      },
+      "closure": "These values sum to root but combine administrative units with unverified secondary locality figures. They do not establish a physical-core count or exhaustive disjoint physical-NP partition."
+    },
+    "2021_spb": {
+      "root": 5601911,
+      "named_primary_NP_rows": {
+        "rows": 29,
+        "population": 822633
+      },
+      "held_kronstadt_mixed_row": 44399,
+      "municipal_units": {
+        "rows": 81,
+        "population": 4734879
+      },
+      "closure": "Full arithmetic closes only when the held mixed Kronstadt row and municipal units are included; published children do not identify the physical core boundary."
+    },
+    "2021_sevastopol": {
+      "root": 547820,
+      "named_primary_NP_rows": {
+        "rows": 3,
+        "population": 56010
+      },
+      "urban_only_district_rows": {
+        "rows": 3,
+        "population": 449467,
+        "candidate_core_not_proven": true
+      },
+      "rural_aggregate": 42343,
+      "closure": "Named rows + urban-only district aggregates + rural aggregate close the root (56,010 + 449,467 + 42,343); source arithmetic is not proof district units coextensively partition the physical city core."
+    },
+    "2002_moscow": {
+      "parent_row": 2154,
+      "parent_label": "г. Москва и подчиненные его администрации населенные пункты - городское население",
+      "parent_population": 10382754,
+      "child_row": 2155,
+      "child_label": "г. Москва",
+      "child_population": 10126424,
+      "status": "explicitly separated city-level count candidate; does not by itself settle later identity/boundary comparability"
+    },
+    "2010_moscow_and_spb": {
+      "moscow": {
+        "population": 11503501,
+        "equals_federal_subject_control": true
+      },
+      "saint_petersburg": {
+        "population": 4879566,
+        "equals_federal_subject_control": true
+      },
+      "status": "published city labels, but no table note that the values exclude other localities; row headers/blank subject cell insufficient for ordinary physical-NP promotion"
+    },
+    "2002_spb": {
+      "population": 4661219,
+      "equals_federal_subject_control": true,
+      "status": "city-labeled urban root with subordinate administrative-district/municipal hierarchy; no separate physical-centre count"
+    }
+  },
+  "minimal_evidence_to_unlock": {
+    "Москва": "Primary Rosstat Table 5 row or official census-area counts, plus census-date (2021-10-01) legal/populated-place boundary and authoritative crosswalk separating pre-2012 Moscow core from annexed territory. Avoid subtracting the 293 secondary values unless independently source-verified and proven a complete nonoverlapping boundary partition.",
+    "Санкт-Петербург": "Official census-date register/map identifying the physical city place separately from satellite places (especially Kronstadt), plus direct core count or official census-unit crosswalk to that boundary. Do not treat 81 municipal units as the core by their sum.",
+    "Севастополь": "Primary census-date boundary/map establishing whether three urban-only municipal districts exhaustively and disjointly cover the physical core while excluding Balaklava, Inkerman, and Kacha, or a direct core census tabulation. Do not add rural aggregate to the city.",
+    "2002/2010 harmonization": "For any change of historical count grain, obtain a Rosstat note/codebook or source crosswalk directly explaining the Table 1.4 row population scope; preserve published 2010 city labels with unresolved scope until that is available."
+  },
+  "prescribed_source_quality_and_selection_plan": [
+    "Keep the 2021 federal-subject rows as nonadditive aggregate controls; do not expose their subject total as the ordinary physical NP population.",
+    "Add only approved primary named NP rows at their exact source grain when selections are otherwise justified: 29 SPb rows and three Sevastopol rows are available from the Table 5 review; exclude held Kronstadt; do not promote Moscow secondary locality figures as verified primary counts.",
+    "Represent unreported remainder and municipal/district/rural totals as aggregate holds with population retained and coordinates absent. Do not manufacture a residual “core” or distribute it to candidate points.",
+    "For 2002, row 2155 Moscow is a source-distinct city count candidate under a separate larger urban parent. Keep it separate from 2010 and 2021 pending independent boundary/identity comparability review.",
+    "Keep SPb 2002/2010 and Moscow 2010 as city-labeled observations with unresolved source grain; not ordinary NP point counts.",
+    "For Sevastopol 2002/2010, retain out-of-scope status, not zero or match-failure."
+  ],
+  "bounded_search_record": {
+    "no_new_downloads": true,
+    "2025_yearbook_root_HEAD": "HTTP 503 reported by parent/root; do not retry",
+    "2021_official_table_exact_url_in_registry": false,
+    "regional_rosstat_folder_pages_are_not_boundary_evidence": true,
+    "no_candidate_census_date_core_register_or_spatial_crosswalk_located_in_prior_inventory": true
+  },
+  "nonclaims": [
+    "No city-core boundary or population crosswalk is newly established.",
+    "No parent-minus-child or arithmetic residual is treated as population evidence.",
+    "No geographic point, identity edge, population selection, or model/Git change was made.",
+    "Point ceiling percentages are carried as given from the parent task and not recomputed in this source-only diagnostic."
+  ],
+  "output_artifacts": {
+    "city_year_inventory.csv": {
+      "path": "/workspace/settlements-work/continuation_20261003/federal_atomic_scope_feasibility_v2/city_year_inventory.csv",
+      "sha256": "b2b113b33d51e0485e9009f354a79e907ca811b665c21f39cbbb21b85c451d53"
+    },
+    "review.md": {
+      "path": "/workspace/settlements-work/continuation_20261003/federal_atomic_scope_feasibility_v2/review.md",
+      "sha256": "5872ea4ace370e9c382fbc475b3f1197c2d754173ba7a26610e52cfad47b8dda"
+    }
+  }
+}

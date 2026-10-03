@@ -1,0 +1,59 @@
+{
+  "status": "read_only_source_priority_diagnostic",
+  "year": 2010,
+  "r4_selected_rows": 152314,
+  "r4_selected_population": 142361475,
+  "national_official_control": 142856536,
+  "current_measured_gap": 495061,
+  "disjoint_control_rows": 80,
+  "sum_disjoint_controls": 142856536,
+  "sum_r4_selected_after_nested_fold": 142361475,
+  "sum_regional_gaps": 495061,
+  "pending_dagestan": {
+    "stage": "primary_rural_dagestan_stage_v2",
+    "rows": 56,
+    "delta": 1549,
+    "status": "pending; not applied to selected totals or regional gaps",
+    "receipt_sha256": "6ed6038093fe660a94d61e2999f6a2252ba93baa843ebf64055cf1acb66615c9"
+  },
+  "pins": {
+    "r4_selected": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/selected_observations.parquet",
+      "sha256": "94ae62cfa8a37820db09416b1fd63cc43cac4aae371b5d26ca2fb14f68163356",
+      "bytes": 37364895
+    },
+    "official_regional_controls": {
+      "path": "/workspace/settlements-raw/data/raw/2010_official_controls/rosstat_population2010_by_region.csv",
+      "sha256": "8be9f1afb4a9f7f41b049fa86a642194d026430c1a28260e000a2e3bff3666d7",
+      "bytes": 14040
+    },
+    "r2_control_baseline": {
+      "path": "/workspace/settlements-work/continuation_20261003/population2010/regional_control_gaps_2010.csv",
+      "sha256": "d0475b3c78cf3a9496ad939c10efb8fe7f8a5fd2c601540436258dc2bf4e4622",
+      "bytes": 11505
+    },
+    "r4_publication_bindings": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/accepted_publication_bindings.parquet",
+      "sha256": "f96fd6ae2e53e587fc5a60041ad1c7531cbc56b6c11246b62e03e8f900461ed1",
+      "bytes": 96846
+    }
+  },
+  "runtime_seconds": 0.411,
+  "regions_below_control": 74,
+  "regions_equal_control": 6,
+  "regions_above_control": 0,
+  "dagestan_current_gap": 1312,
+  "dagestan_pending_delta": 1549,
+  "dagestan_arithmetic_gap_if_pending_applied": -237,
+  "national_arithmetic_gap_if_pending_applied": 493512,
+  "current_R4_protected_population_rows": 143892,
+  "current_R4_protected_population": 35450280,
+  "cached_T5_remaining_unique_candidate_rows_after_1344_bindings": 1492,
+  "cached_T5_remaining_unique_candidate_rural_rows": 1329,
+  "cached_T5_remaining_unique_rural_gross_delta": 141699,
+  "cached_T5_candidate_status_note": "Identity and same-census publication binding remain distinct; full T5 coverage is limited to listed urban, rural district centres, and rural settlements >=3,000; missing Table 5 rows do not imply zero.",
+  "nw_prior_proof_availability": "The prior NW audit output/page-evidence file is absent in this checkout. Audit source and test exist, but executing the test failed at its stale hardcoded raw-data path before parsing; its numeric assertions were not rerun.",
+  "nested_control_logic": "Official control table has 83 regional rows incl three autonomous children; current aggregation has 83 R4 region keys. Disjoint sum uses 80 official subjects; selected Nenets rows are folded into Arkhangelsk and Khanty-Mansi/Yamal-Nenets rows into Tyumen because parent official controls include them.",
+  "pending_region_warning": "Dagestan stage +1,549 would lower national arithmetic gap by that amount and place Dagestan comparison 237 above its regional control. This is a diagnostic; do not force regional reconciliation or infer row-level truth from a control.",
+  "top_regional_priority_csv_sha256": "8f73b6db96df231b01e21096c5c066c5b91680987033c278b83c5877e3f3fd22"
+}

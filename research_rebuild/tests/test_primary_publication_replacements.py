@@ -88,3 +88,28 @@ def test_population_review_adapter_cannot_swap_pair_or_primary_count(tmp_path):
     changed.loc[0, 'proposed_primary_population'] = 76
     with pytest.raises(ValueError, match='reviewed population'):
         verify_review_projection(review, changed)
+
+
+def test_application_preserves_the_replacement_id_inside_source_evidence(tmp_path, monkeypatch):
+    from research_rebuild.mass_linkage import apply_primary_publication_replacements as module
+    selected, proposals = data()
+    pdf=tmp_path/'primary.pdf';pdf.write_bytes(b'fixture primary publication')
+    monkeypatch.setattr(module,'PRIMARY',pdf)
+    proposals['primary_source_sha256']=sha(pdf)
+    paths={name:tmp_path/(name+'.parquet') for name in ['selected','graph','points','evidence','proposals']}
+    selected.to_parquet(paths['selected'],index=False)
+    pd.DataFrame(columns=['from_source_record_id','to_source_record_id','decision_status']).to_parquet(paths['graph'],index=False)
+    pd.DataFrame(columns=['target_source_record_id']).to_parquet(paths['points'],index=False)
+    pd.DataFrame([{'source_record_id':'old','source_evidence_json':json.dumps({'source_record_id':'old'})}]).to_parquet(paths['evidence'],index=False)
+    proposals.to_parquet(paths['proposals'],index=False)
+    review=tmp_path/'review.json'
+    review.write_text(json.dumps({'verdict':'APPROVE_BOUNDED_PRIMARY_PUBLICATION_REPLACEMENTS',
+        'selected_sha256':sha(paths['selected']),'proposals_sha256':sha(paths['proposals']),
+        'primary_pdf_sha256':sha(pdf),'approved_replacement_source_record_ids':proposals.replacement_source_record_id.tolist()}))
+    out=tmp_path/'accepted'
+    module.apply(paths['selected'],paths['graph'],paths['points'],paths['evidence'],paths['proposals'],review,out)
+    evidence=pd.read_parquet(out/'source_evidence.parquet').iloc[0]
+    value=json.loads(evidence.source_evidence_json)
+    assert value['source_record_id']==evidence.source_record_id=='ROSSTAT2010:T5:p1:l4'
+    assert value['publication_binding_old_source_record_id']=='old'
+    assert value['population']==75

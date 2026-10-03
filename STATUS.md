@@ -2,22 +2,26 @@
 
 ## Local working checkpoint, 2026-10-03
 
-The new local checkpoint contains465800 selected census records,175448 accepted
-identity edges,44758 full census chains and316262 accepted census point uses.
-564 independently reviewed2010 publication replacements are now applied; the
-known2010 sum is142263636,592900 below the primary national control. The original
+The current local checkpoint contains465800 selected census records,177707 accepted
+identity edges,44758 full census chains and332005 accepted census point uses.
+1400 independently reviewed2010 publication replacements are applied; the
+known2010 sum is142363024,493512 below the primary national control. The original
 published R2/R5b snapshots below remain preserved and have not been republished.
 
 Accepted point coverage weighted by recorded population and divided by verified
-national controls is82.683718%/71.513238%/79.079842% for2002/2010/2021. The99.9%
+national controls is83.081300%/71.607647%/81.685925% for2002/2010/2021. The99.9%
 target remains unmet. Coordinate availability, identity, full chains, source-count
 quality and comparability are separate. The final working long table has500320
 observations, including516 official2022–2024 observations and34004 literal
 Wikipedia assertions that have no accepted historical coordinates.
 
-See [continuation result](docs/CONTINUATION_RESULT_20261003.md),
+See [consolidated result](docs/CONSOLIDATED_LOOP_RESULT_20261003.md),
 [active run](docs/ACTIVE_RESEARCH_RUN.md) and [decision diary](docs/DECISION_DIARY.md).
-Large outputs are under `/workspace/settlements-delivery/continuation-20261003`.
+Large outputs are under `/workspace/settlements-delivery/continuation-consolidated-20261003`.
+The actual execution manifest and an independently checked metadata-correction
+manifest are distinct; the latter claims no re-execution. The federal aggregate
+grain guard caps current-source point coverage below99.9% in every year.
+Legacy optional status/nested-ID limitations are disclosed in the final review.
 GitHub is public and readable; branch pushes last returned403, so new work is
 recorded locally and supplied as a Git bundle. The following2026-09-30 sections
 describe preserved published states and their then-current limitations.

@@ -809,3 +809,42 @@ pagebreaks and rawxls columns4/6/7/8. Applicationcompatible verdict is frozen.
 Root will apply after pending1139source-specific alias identity review, so
 one combined export reflects both updates; neither candidate existence nor
 source-binding approval is counted as applied population/identity coverage.
+
+### 2026-10-03, 16:31 UTC — consolidated loop independently checked
+
+Applied1139 exact six-profile aliases to176568 graph:177707edges,306780
+linkedvertices,131011components,44758fullchains unchanged. Applied56 primary
+Dagestan replacements:+1549 population,45edgeendpoints/49pointtargets and
+one structural path-from migrated.1400 cumulative publication bindings.
+Known2010 population142363024; nationalgap493512; Dagestanexceedsregional
+control237, with remaining protected values retained and no allocation.
+Coordinate weights83.081300%/71.607647%/81.685925%;332005census+495annualpoints.
+
+Coverage now unions original scope labels and explicit grain evidence; two
+2010 federal aggregates were mislabeledsettlement in source scope, but never
+received acceptedpoints. Proper current ceilings96.780981%/88.186345%/
+86.982221%; previous scope-only2010ceiling corrected by immutable addendum.
+
+Independent application caught nestedsource_record_id=null on new56rows:
+set_index had dropped the column. Fixedgeneric adapter(drop=False/native
+JSONscalar conversion), added realapply regression;7tests pass. Immutable
+correctione915df1c… changes only56nestedIDs; all465744otherrows/allotherJSON
+values exact. Prior1344nestednullIDs remain a disclosedoptional limitation,
+with top-levelIDs authoritative. Graphoptionalcandidateflags also remained
+staged aftercanonicalpromotion; fixedfuturepromoter(4tests pass) and changed
+onlynew1139optionalstatusfields intoe9f402c2…; baseline176568rows untouched.
+Prior1120legacy optionalflags remain disclosed; decision_status is canonical.
+
+FinalexportPASS4833ff4b… pins preservedexecutedmanifest and derivativecorrected
+inputs manifest04db07eb…. Builderconsumes same scientificgraphfields/grain
+flags, so verifiedmetadatacorrections require no newexportexecution. Original
+manifest/outputshashes remain unchanged; derivativeexplicitlystatesnoactual
+rebuild. Counts,uniqueIDs,annual/Wikibaseparity/native2021codes and fullcontrol
+axes checked; no population/coordinate/boundary/sourceprecision upgrade.
+
+Legacyinventory projection contained466131rows,6048missingcurrentselected/
+6379extraunselectedrows beforethisbatch; it isnot the selected-source layer.
+Firstauxiliarypreparation incorrectlyrequiredsetequality and stopped before
+acceptinginventory. v2 preserves those discrepancies exactly and renames only
+56approved IDs,allotherlegacyvalues unchanged. No candidates promoted bythat
+projection. Nationalqualitytarget and additional-years completeness unmet.

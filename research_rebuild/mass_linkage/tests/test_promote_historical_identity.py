@@ -56,3 +56,22 @@ def test_exact_review_promotes_without_changing_endpoints(tmp_path):
     assert result['new_accepted_pairs'] == 1
     assert rows[['from_source_record_id', 'to_source_record_id']].iloc[0].tolist() == ['a', 'b']
     assert rows.decision_status.tolist() == ['checked_rule_accepted']
+
+
+def test_promoted_edge_cannot_retain_optional_candidate_only_status(tmp_path):
+    staging, decision = stage(tmp_path)
+    path=staging/'staged_identity_edges.parquet'
+    rows=pd.read_parquet(path)
+    rows['candidate_status']='candidate_pending_independent_application_review'
+    rows['admission_status']='not_admitted'
+    rows['candidate_only']=True
+    rows['coordinate_admitted']=False
+    rows.to_parquet(path,index=False)
+    decision['pins']['staged_identity_edges_sha256']=_sha(path)
+    review=tmp_path/'review.json';review.write_text(json.dumps(decision))
+    promote(staging,review,tmp_path/'out')
+    new=pd.read_parquet(tmp_path/'out/accepted_identity_edges.parquet').iloc[0]
+    assert new.admission_status=='checked_rule_accepted'
+    assert new.candidate_status=='accepted_after_independent_application_review'
+    assert not bool(new.candidate_only)
+    assert not bool(new.coordinate_admitted)

@@ -1,0 +1,80 @@
+{
+  "status": "reviewed_primary_2010_replacements_applied",
+  "inputs": {
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/selected_observations.parquet",
+      "sha256": "94ae62cfa8a37820db09416b1fd63cc43cac4aae371b5d26ca2fb14f68163356"
+    },
+    "graph": {
+      "path": "/workspace/settlements-work/continuation_20261003/accepted_shared_named_point_region_alias_delta_v1/accepted_identity_edges.parquet",
+      "sha256": "6b005a8c88200849f313f612b62cb48bc3c9aed3d8e170fc23d52574e966043e"
+    },
+    "points": {
+      "path": "/workspace/settlements-work/continuation_20261003/accepted_direct_historical_point_2021_delta_v2/accepted_point_uses.parquet",
+      "sha256": "fd877f16e1adc1cf7a7927fc27396a5bba67d0873f48e53170a1537afce7ff33"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/source_evidence.parquet",
+      "sha256": "612f84c3de4030ad192046cbd597a1446684b9275a93037af0d2c71017ab78a2"
+    },
+    "proposals": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_stage_v2/replacement_proposals.csv",
+      "sha256": "94ffae6db9b2251b559e03a32b32ee6b5f11835e525ad0d6adaee18df28c9f49"
+    },
+    "review": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_review_v1/review_verdict.json",
+      "sha256": "fc1ab0fc110e58534b857e8e696b8970276a6a6fd550a47bff8d10b4d73a0e8d"
+    },
+    "primary_pdf": {
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+    }
+  },
+  "builder_sha256": "491dd49c623a58ab1db7549169074775e7fe9b00b632e405906768935a49686e",
+  "bindings": 56,
+  "selected_rows_before": 465800,
+  "selected_rows_after": 465800,
+  "2010_known_population_before": 142361475,
+  "2010_known_population_after": 142363024,
+  "primary_population_delta": 1549,
+  "migrated_edge_endpoints": 45,
+  "migrated_point_targets": 49,
+  "identity_decisions_and_point_origins_unchanged": true,
+  "outputs": {
+    "selected_observations.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_v1/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "rows": 465800
+    },
+    "accepted_identity_edges.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_v1/accepted_identity_edges.parquet",
+      "sha256": "a30c25916ac73507edb2a67a2b3c249be93517f467bbff19fe527ba6c80a8126",
+      "rows": 177707
+    },
+    "accepted_point_uses.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_v1/accepted_point_uses.parquet",
+      "sha256": "a2087db421629ea66fe8c32de05b0aa68a3fff3c6ff3c7deb1cbcd1f286f3ae8",
+      "rows": 332005
+    },
+    "source_evidence.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_v1/source_evidence.parquet",
+      "sha256": "66ab5e5c34143a994de5e3dbb44942da9e2c451266ad1435a011d31a0a4118f7",
+      "rows": 465800
+    },
+    "accepted_publication_bindings.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_v1/accepted_publication_bindings.parquet",
+      "sha256": "45d8497bc2cf571736a3693ad9c083d83e3ae89270eac6a80b07aed8fff7b447",
+      "rows": 56
+    },
+    "displaced_population_assertions.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_v1/displaced_population_assertions.parquet",
+      "sha256": "e4c82d34c6335cab42a33e373caa3105437fe4b2398ba17aac05c95ec79b894d",
+      "rows": 56
+    }
+  },
+  "limits": [
+    "No regional residual allocation or extra cross-year identity proof.",
+    "Old population assertions preserved with original source quality.",
+    "Unreplaced protected values retain their old tag separately; exact scope and precision remain unverified."
+  ]
+}

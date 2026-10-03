@@ -1,0 +1,170 @@
+{
+  "addendum_id": "federal_atomic_scope_ceiling_grain_correction_v1",
+  "status": "immutable_additive_correction_no_population_or_point_admission",
+  "purpose": "Correct 2010 theoretical point ceiling where selected.population_scope says settlement but source_evidence hard-blocks federal aggregates. Keep federal_atomic_scope_feasibility_v2 unchanged.",
+  "calculation": {
+    "source_scope_only": "Numerator is the selected population whose selected.population_scope field is treated as point-eligible by the legacy scope-only rule (notably, `settlement` is accepted); divide by official population control. For 2010 both federal aggregates have `settlement`, so the rule incorrectly admits them. For 2002 and 2021 the federal aggregates are tagged `federal_city_region` and excluded.",
+    "grain_guard": "(selected known population - sum of selected rows with source_evidence.is_federal_aggregate=true OR grain_review_flag=federal_aggregate_hard_block) divided by official population control. Applies source-evidence union once per source_record_id. This is only a theoretical ceiling adjustment; it does not assert that all remaining populations have verified physical-settlement scope or points."
+  },
+  "current_state": "Post-Dagestan 56-row replacement; accepted point/identity datasets were not changed by this addendum.",
+  "outputs": {
+    "flagged_records_csv": "aggregate_flagged_records.csv"
+  },
+  "inputs": {
+    "pre_dagestan_selected": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/selected_observations.parquet",
+      "sha256": "94ae62cfa8a37820db09416b1fd63cc43cac4aae371b5d26ca2fb14f68163356"
+    },
+    "pre_dagestan_source_evidence": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/source_evidence.parquet",
+      "sha256": "612f84c3de4030ad192046cbd597a1446684b9275a93037af0d2c71017ab78a2"
+    },
+    "post_dagestan_selected": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_v1/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "post_dagestan_source_evidence": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_v1/source_evidence.parquet",
+      "sha256": "66ab5e5c34143a994de5e3dbb44942da9e2c451266ad1435a011d31a0a4118f7"
+    },
+    "post_dagestan_application_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_v1/acceptance_receipt.json",
+      "sha256": "a3ea2c09045151227d898e6c37a556c04726db26454865a86f8e0e7fe47ca03e"
+    },
+    "official_control_and_prior_coverage": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/coverage.json",
+      "sha256": "eeadcfc43ed7319a8d934dab1b218ed4a3688f421cd781115f1cd842d16c1940"
+    },
+    "base_feasibility_inventory": {
+      "path": "/workspace/settlements-work/continuation_20261003/federal_atomic_scope_feasibility_v2/inventory.json",
+      "sha256": "274c0c118b93a494d51861266b2e8d31b3b5d4cd7f951a6f93cd810b47fd8065"
+    }
+  },
+  "aggregate_flagged_records": [
+    {
+      "census_year": 2002,
+      "source_record_id": "2002:1_TOM_01_04.xls:0:3218",
+      "population": 4661219,
+      "selected_population_scope": "federal_city_region",
+      "is_federal_aggregate": true,
+      "grain_review_flag": "federal_aggregate_hard_block",
+      "source_label": "г. Санкт-Петербург - городское население",
+      "interpretation": "Held; source scope and grain both reject ordinary NP core-point ceiling."
+    },
+    {
+      "census_year": 2010,
+      "source_record_id": "2010:pub-11-1-4.pdf:pdf_page_11:41",
+      "population": 11503501,
+      "selected_population_scope": "settlement",
+      "is_federal_aggregate": true,
+      "grain_review_flag": "federal_aggregate_hard_block",
+      "source_label": "Москва",
+      "interpretation": "Scope-field-only calculation incorrectly admits this city label. Source evidence marks it as aggregate; keep out of ordinary NP ceiling."
+    },
+    {
+      "census_year": 2010,
+      "source_record_id": "2010:pub-11-1-4.pdf:pdf_page_15:39",
+      "population": 4879566,
+      "selected_population_scope": "settlement",
+      "is_federal_aggregate": true,
+      "grain_review_flag": "federal_aggregate_hard_block",
+      "source_label": "Санкт-Петербург",
+      "interpretation": "Scope-field-only calculation incorrectly admits this city label. Source evidence marks it as aggregate; keep out of ordinary NP ceiling."
+    },
+    {
+      "census_year": 2021,
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+      "population": 547820,
+      "selected_population_scope": "federal_city_region",
+      "is_federal_aggregate": true,
+      "grain_review_flag": "federal_aggregate_hard_block",
+      "source_label": "Севастополь",
+      "interpretation": "Held federal-city aggregate."
+    },
+    {
+      "census_year": 2021,
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+      "population": 5601911,
+      "selected_population_scope": "federal_city_region",
+      "is_federal_aggregate": true,
+      "grain_review_flag": "federal_aggregate_hard_block",
+      "source_label": "Санкт-Петербург",
+      "interpretation": "Held federal-city aggregate."
+    },
+    {
+      "census_year": 2021,
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748",
+      "population": 13010112,
+      "selected_population_scope": "federal_city_region",
+      "is_federal_aggregate": true,
+      "grain_review_flag": "federal_aggregate_hard_block",
+      "source_label": "Москва",
+      "interpretation": "Held federal-city aggregate."
+    }
+  ],
+  "year_metrics": [
+    {
+      "year": 2002,
+      "selected_known_population": 145155005,
+      "official_population_control": 145166731,
+      "source_scope_only_ceiling_pct": 96.780981,
+      "grain_evidence_aggregate_population": 4661219,
+      "grain_evidence_aggregate_ids": [
+        "2002:1_TOM_01_04.xls:0:3218"
+      ],
+      "grain_guard_ceiling_pct": 96.780981,
+      "source_scope_only_eligible_population": 140493786
+    },
+    {
+      "year": 2010,
+      "selected_known_population_before": 142361475,
+      "selected_known_population_after": 142363024,
+      "official_population_control": 142856536,
+      "source_scope_only_ceiling_pct_before": 99.653456,
+      "source_scope_only_ceiling_pct_after": 99.65454,
+      "grain_evidence_aggregate_population": 16383067,
+      "grain_evidence_aggregate_ids": [
+        "2010:pub-11-1-4.pdf:pdf_page_11:41",
+        "2010:pub-11-1-4.pdf:pdf_page_15:39"
+      ],
+      "grain_guard_eligible_selected_population_before": 125978408,
+      "grain_guard_eligible_selected_population_after": 125979957,
+      "grain_guard_ceiling_pct_before": 88.18526,
+      "grain_guard_ceiling_pct_after": 88.186345,
+      "source_scope_mismatch": "Both aggregate rows have population_scope=settlement, so the prior scope-only rule treated them as point-eligible; source_evidence marks each is_federal_aggregate=true and grain_review_flag=federal_aggregate_hard_block.",
+      "source_scope_only_eligible_population_before": 142361475,
+      "source_scope_only_eligible_population_after": 142363024
+    },
+    {
+      "year": 2021,
+      "selected_known_population": 147182123,
+      "official_population_control": 147182123,
+      "source_scope_only_ceiling_pct": 86.982221,
+      "grain_evidence_aggregate_population": 19159843,
+      "grain_evidence_aggregate_ids": [
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748"
+      ],
+      "grain_guard_ceiling_pct": 86.982221,
+      "source_scope_only_eligible_population": 128022280
+    }
+  ],
+  "important_nonaggregate_control": {
+    "source_record_id": "ROSSTAT2002:T1:T4:sheet01-04:excel_row02155",
+    "population": 10126424,
+    "selected_population_scope": "physical_settlement_city_only",
+    "is_federal_aggregate": false,
+    "grain_review_flag": "grain_explicit",
+    "finding": "Retained as separately reviewed Moscow city-only source record; not caught by federal aggregate hard-block. Same-name settlements in other regions are distinct IDs and were not included in this aggregate union."
+  },
+  "unchanged_artifact": "/workspace/settlements-work/continuation_20261003/federal_atomic_scope_feasibility_v2; its hashes are pinned above and it is not rewritten.",
+  "output_artifacts": {
+    "aggregate_flagged_records.csv": {
+      "sha256": "3a2d9360a7b96953036299c56c69633bdcf90a6c0e132b2c3c647f1a72d829dc"
+    },
+    "correction.md": {
+      "sha256": "5fb4c0bfa1bcfb90b374334aab23a0ea4ad5aa1d5abd757b63d99f853af23d29"
+    }
+  }
+}

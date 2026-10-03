@@ -33,6 +33,18 @@ def test_aggregate_point_and_unvalidated_extra_year_fail():
     with pytest.raises(ValueError,match='annual'):measure(s,l,e,p,c)
 
 
+def test_grain_evidence_blocks_a_federal_aggregate_mislabeled_settlement():
+    s,l,e,p,c=inputs()
+    s['is_federal_aggregate_from_grain_evidence']=[False,True,False,False]
+    r=measure(s,l,e,p,c)
+    year=r['census_metrics'][1]
+    assert year['retained_federal_city_aggregate']['known_population']==0
+    assert year['recognized_federal_territorial_aggregate']['known_population']==95
+    assert year['theoretical_point_ceiling_with_current_source_grain']['known_population']==0
+    p.loc[len(p)]=['b',55,37]
+    with pytest.raises(ValueError,match='aggregate'):measure(s,l,e,p,c)
+
+
 def test_legacy_place_pointer_only_increases_candidate_inventory():
     s,l,e,p,c=inputs();s['settlement_id']=['X','Y','Z','X'];l['settlement_id']=['X','Y']
     r=measure(s,l,e,p,c);y=r['census_metrics'][2]

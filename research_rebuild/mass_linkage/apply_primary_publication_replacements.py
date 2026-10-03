@@ -160,7 +160,9 @@ def apply(selected_path,graph_path,points_path,evidence_path,proposals_path,revi
     evidence=pd.read_parquet(evidence_path);new_evidence=evidence.copy()
     new_evidence['source_record_id']=evidence.source_record_id.map(lambda rid:mapping.get(rid,rid))
     fresh=result[result.displaced_source_record_id.notna()].set_index('displaced_source_record_id')
-    current=result.set_index('source_record_id')
+    # The evidence overlay below copies source_record_id too. Retain it as a
+    # column; dropping it silently wrote null into every replacement JSON.
+    current=result.set_index('source_record_id',drop=False)
     protected=set(selected.loc[selected.population_value_quality.eq('confidentiality_perturbed_within_ten'),'source_record_id'])
     for i,old in zip(evidence.index,evidence.source_record_id):
         if old not in mapping and old not in protected:continue
@@ -175,7 +177,8 @@ def apply(selected_path,graph_path,points_path,evidence_path,proposals_path,revi
         for c in ['source_record_id','source_file','source_path','source_sha256','source_locator','source_sheet','source_row',
                   'source_native_id','source_name_raw','source_population_raw','population','population_value_quality',
                   'district_raw','population_scope','entity_grain_status','source_selection_component','men','women','source_raw_line']:
-            v=r.get(c);e[c]=None if pd.isna(v) else v
+            v=r.get(c)
+            e[c]=None if pd.isna(v) else (v.item() if hasattr(v,'item') else v)
         e.update({'publication_binding_old_source_record_id':old,'publication_binding_review_sha256':pins['review']['sha256'],
                   'legacy_quality_join_status':'inherited_via_reviewed_same_census_publication_binding','grain_explicit':True,
                   'grain_review_flag':'primary_atomic_settlement_reviewed'})

@@ -2,11 +2,23 @@
 
 ## Current authoritative working checkpoint — 2026-10-03
 
-The latest accepted point extension is described in
+The latest consolidated state is described in
+[the consolidated result](CONSOLIDATED_LOOP_RESULT_20261003.md).
+Current table: `/workspace/settlements-delivery/continuation-consolidated-20261003`;
+use its explicit corrected-input manifest alongside the preserved execution manifest.
+Selected population and points: `primary_rural_dagestan_application_v1` in the continuation work directory.
+Current identity graph: `shared_named_point_region_alias_metadata_correction_v1/accepted_identity_edges.parquet`.
+Current source evidence: `primary_rural_dagestan_evidence_id_correction_v1/source_evidence.parquet`.
+These two corrections change optional metadata only; original scientific input layers remain intact.
+Selected records465800, accepted edges177707, census point uses332005,
+full three-census chains44758;1400 same-census publication bindings.
+Final export QA passes with the corrected-input manifest and explicit legacy metadata limitations.
+
+The preceding accepted point extension is described in
 [the direct historical point loop](DIRECT_HISTORICAL_POINT_LOOP_20261003.md).
 Current points: `/workspace/settlements-work/continuation_20261003/accepted_direct_historical_point_2021_delta_v2/accepted_point_uses.parquet`.
 Current coverage: `coverage_after_direct_historical_2021_v1.json` in the same continuation work directory.
-The new long-table export is `/workspace/settlements-delivery/direct-historical-2021-delta-20261003`; its narrow delta export review is pending.
+Its export is `/workspace/settlements-delivery/direct-historical-2021-delta-20261003`; the later consolidated export supersedes it.
 Selected records465800, accepted edges176568, accepted census point uses332005,
 full three-census chains44758. The selected population, source evidence and identity graph remain those of the frozen mass-loop package below.
 
