@@ -1,0 +1,94 @@
+{
+  "status": "reviewed_modern_point_uses_finalized_with_frozen_baseline",
+  "run_version": "accepted_modern_coordinates_v1",
+  "staging_manifest": {
+    "path": "/workspace/settlements-work/coordinates/admission_staging_v1/manifest.json",
+    "sha256": "8c0e5da620f428ebeb4cdcb599a8f4f9b57c33cb8fd7985c132584890387f5c2"
+  },
+  "independent_review": {
+    "review_id": "independent_coordinate_admission_rule_review_20261003_v1",
+    "review_json": "/workspace/settlements-work/coordinates/independent_review_v1/review.json",
+    "review_json_sha256": "f8081527bd7d555ffe91069f2f4ec1af0459cf112a80befbe5d27587869f8726",
+    "notes": "/workspace/settlements-work/coordinates/independent_review_v1/notes.md",
+    "notes_sha256": "e8cf2e38230083250ef4e8a395e3db8d957fc4f47994824eb74da34f0c2a8576"
+  },
+  "source_input_hashes": {
+    "coordinate_proposals.parquet": "8c237a19756b642d8080b5f61bb9dd6bceeafb96723ddbcbdf34e46027f9ef99",
+    "coordinate_point_evidence.parquet": "b34c6a6a0fc5a3f354e72f47cab03c3ffe57d6ffcdbe0bc415c6c497bd0b2faa",
+    "frozen_r5b_coordinate_assertions.parquet": "4d3de7adf59b933e14be01a0aca76f76eafeaa84a9038c18a8921c6654e7f1ca",
+    "frozen_r5b_coordinate_admissions.csv": "c58c3a573ddc7878f948b69ab53696bb94583408b8368fbef34f1b385b56c07e"
+  },
+  "admission_policy": {
+    "precedence": [
+      "frozen_r5b_individual_assertion",
+      "reviewed_physical_wikidata_city_point",
+      "reviewed_exact_provider_rural_point"
+    ],
+    "A_rural": "accept reviewed 96,342 row rule; provider FIAS binding remains a distinct claim; query receipt and measurement date unavailable",
+    "B_strict": "reviewed subset of A rural; no extra coordinate family or source rows",
+    "C_city": "accept 903 eligible rows; hold five multiple-P625 rows and unresolved Mezhgorye/Ust-Kut coordinate choices",
+    "A_city": "654 eligible rows overlap C city and do not create a second point use",
+    "city_old_provider_distance_flags": "11 GeoKLADR-corroborated flags are resolved per review; only two unresolved rows held",
+    "mixed_P31": "physical P31/P279 path qualifies despite co-occurring administrative P31 class",
+    "provider_identifier_binding": "separate from coordinate correctness; Wikidata QID never treated as FIAS ID",
+    "baseline": "81 frozen assertions preserved as individual uses from immutable source CSV",
+    "retrospective_propagation": "not admitted; candidate temporal-continuity propagation remains pending separate review",
+    "scope": "representative points only; no aggregate points, city footprints, or boundary equivalence claims"
+  },
+  "metrics": {
+    "staged_2021_source_rows": 97252,
+    "A_rural_review_eligible_sources": 96342,
+    "B_strict_subset_of_A_sources": 9941,
+    "C_city_review_eligible_sources": 903,
+    "A_city_review_eligible_sources": 654,
+    "C_A_city_source_overlap": 659,
+    "baseline_source_id_overlap_with_modern_candidates": 25,
+    "baseline_2021_source_id_overlap_with_city_candidates": 18,
+    "unresolved_city_coordinate_holds": 2,
+    "multiple_eligible_p625_holds": 5,
+    "accepted_point_uses": 97301,
+    "accepted_2021_point_uses": 97253,
+    "accepted_historical_frozen_baseline_uses": 48,
+    "retrospective_candidate_propagations_admitted": 0,
+    "accepted_uses_by_rule_in_final_output": {
+      "baseline": 81,
+      "wikidata_C_city": 885,
+      "dadata_A_rural": 96335
+    }
+  },
+  "output": {
+    "path": "/workspace/settlements-work/coordinates/accepted_modern_v1/accepted_point_uses.parquet",
+    "sha256": "9c62cd23c7f21a2870a0e880a884b7b8caa28109e997cbdc348d729ae2cfe554",
+    "rows": 97301,
+    "columns": [
+      "target_source_record_id",
+      "target_year",
+      "latitude",
+      "longitude",
+      "coordinate_quality",
+      "coordinate_source",
+      "coordinate_source_record_id",
+      "coordinate_provider",
+      "coordinate_provider_id",
+      "source_name",
+      "source_type",
+      "source_region",
+      "source_file",
+      "source_row",
+      "source_sha256",
+      "source_locator",
+      "coordinate_provenance",
+      "admission_rule",
+      "provider_binding_status",
+      "provider_fias_binding_status",
+      "coordinate_admission_status",
+      "coordinate_measurement_date_unknown",
+      "boundary_comparability_asserted",
+      "coordinate_provider_family",
+      "source_oktmo_raw",
+      "source_okato_raw",
+      "provider_query_receipt_missing",
+      "coordinate_uncertainty_flags_json"
+    ]
+  }
+}

@@ -38,6 +38,11 @@ class AnnualModuleRecoveryTest(unittest.TestCase):
         self.assertEqual(rows[1]["source_text_raw"], "reference -- literal")
         self.assertEqual(rows[0]["entry_title_comment_raw"], "Берёзовка — тест")
         self.assertEqual(rows[0]["exact_population_status"], "unknown")
+        self.assertEqual(rows[0]["source_locator"], "line:3")
+        self.assertEqual(rows[1]["source_locator"], "line:4")
+        for row in rows:
+            line = source.splitlines()[int(row["source_locator"].split(":")[1]) - 1]
+            self.assertIn("['" + row["source_key_raw"] + "']", line)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,116 @@
+{
+  "review_version": "annual-module-source-series-independent-review-r1",
+  "review_status": "conditional_acceptance_with_explicit_source_quality_limits",
+  "reviewed_at_utc": "2026-10-03",
+  "reviewed_inputs": {
+    "annual_module_recovery_manifest": "/workspace/settlements-work/sources/annual_module_recovery/manifest.json",
+    "annual_module_recovery_raw_population_assertions_sha256": "8a161cb362c86f183ed8abfc3baa8c4aab4ef7246a73f2d1ab0502c4fa65f363",
+    "annual_module_bindings_manifest": "/workspace/settlements-work/sources/annual_module_bindings_v1/manifest.json",
+    "possible_module_entry_bindings_sha256": "d7dfd774a0d9da6e5f2a4ed377db4c1c224250321eb4a5ece8a65dcce8aff3eb",
+    "annual_assertion_binding_candidates_sha256": "018f4a129d98a505de0a00462dcce05b6eb3749bcb2d83ad531ee29186163975",
+    "staging_manifest": "/workspace/settlements-work/sources/annual_module_series_staging_v1/staging_manifest.json",
+    "staged_annual_module_series_sha256": "0225f300c95428822be6f92a229c6fe8c9265991f3ae6d9dd467edb6ae1ed196",
+    "census_comparisons_and_diagnostics_sha256": "019a6641f1b4b5a0184e05f5aebdfa3e378e38368f9951ea5801136b5bcf83e5",
+    "held_conflicting_annual_assertions_sha256": "37a39c85ad4a78f88331dbf5b794733c9640d40ef6f33679dd6700d6bd6dc5ca",
+    "binding_code_sha256": "468892057668e31759930b0b3c946fa2c0b9675b8873346431bc495a706c5f0a",
+    "staging_code_sha256": "27fc33cdaea46f202146907eda61a42b396873aa6df5efd80e9cfce56e16c2a5"
+  },
+  "counts": {
+    "raw_secondary_population_assertions": 61192,
+    "exact_article_qid_current_2021_source_binding_candidates": 7716,
+    "staged_named_history_series_assertions": 34004,
+    "staged_observed_years": 241,
+    "observed_year_min": 1150,
+    "observed_year_max": 2025,
+    "held_conflicting_annual_assertions": 6,
+    "accepted_place_identity_or_population_admissions": 0,
+    "diagnostics_accepted_2021_graph_endpoints_2002_2010": 1535,
+    "diagnostics_unique_normalized_name_type_region_only": 5544,
+    "diagnostics_ambiguous_name_type_region_only": 2263,
+    "diagnostics_same_2021_current_source_record": 992,
+    "diagnostic_rows_with_confidentiality_perturbation_status": 3706,
+    "diagnostic_rows_with_published_value_difference_status": 562
+  },
+  "decision": {
+    "literal_assertion_transcription": "conditionally_accepted_as_transcription_of_frozen_lua_rows",
+    "source_entry_binding": "conditionally_accepted_as_source_named_history_series_association_for_the_current_named_ru_wikipedia_np_article_and_current_2021_code",
+    "historical_physical_site_continuity": "not_accepted_or_certified",
+    "cited_source_support_for_each_number": "not_reviewed; all primary_or_secondary_citations_unfetched",
+    "population_scope_boundary_precision_and_exactness": "unknown_unless_individually_established_elsewhere; no admission",
+    "official_census_replacement_or_annual_series_interpolation": "not_permitted_by_this_review"
+  },
+  "sample_checks": [
+    {
+      "locator": "RUS-AAA.lua.gz line 563",
+      "assertion": "Уфа, 1650, raw value 700, key 2010K",
+      "check": "literal year/value and source key match the recovered row; exact title Уфа, cached raw API revision 154619969, Q911 article URL and P764/OKTMO 80701000001 agree with current source name/type/region Уфа/город/Республика Башкортостан",
+      "scope": "The cited 2010 document was not fetched; its support for this 1650 assertion is unverified."
+    },
+    {
+      "locator": "RUS-AAA.lua.gz line 8842",
+      "assertion": "Томск, 1646, raw value 1045, key 1563B",
+      "check": "literal year/value match; title/article revision, Q976, article URL, P764 69701000001, and current source metadata agree",
+      "scope": "Keyed citation dictionary text is retained, but the sample's source_locator points at the dictionary header rather than the keyed row; this exposes a locator-quality issue for this item. The source itself remains unfetched."
+    },
+    {
+      "locator": "RUS-LEN.lua.gz line 25175; source dictionary line 15",
+      "assertion": "Ликовское, 1862, raw value 131, key 1862F",
+      "check": "literal year/value, keyed citation title and locator match; exact article revision 154091616, Q18787626, and P764/OKTMO 41642436231 agree with current source metadata",
+      "scope": "Bibliographic reference transcription checked; the 1864 work and specific settlement row were not fetched."
+    },
+    {
+      "locator": "RUS-AAA.lua.gz line 7054; source dictionary line 140",
+      "assertion": "Новосибирск, 1926, raw value 117863, key 1937PER",
+      "check": "literal value/key and dictionary text match; title/article revision 154686734, Q883, P764/OKTMO 50701000001 and current source metadata agree",
+      "scope": "Reference title itself names a 1937 census compilation although the asserted year is 1926; whether the cited page/table substantiates this number is unverified."
+    },
+    {
+      "locator": "RUS-AAA.lua.gz line 7102; source dictionary line 306",
+      "assertion": "Новосибирск, 2021, raw value 1633595, key 2021RU",
+      "check": "literal assertion and source note (census as of 1 October 2021) match; current source comparator is numerically equal",
+      "scope": "Numerical equality does not certify reference support, population scope, or boundary equivalence."
+    },
+    {
+      "locator": "RUS-ZAB.lua.gz line 4785; source dictionary line 58",
+      "assertion": "Шонуй, 2021, raw value 76, key 2021RE",
+      "check": "literal value/key and cited register description match; article revision 153510386, Q28514017, P764/OKTMO 76622455111 and current source metadata agree",
+      "scope": "Comparator differs from the selected official 2021 value (25); do not replace either source based on this review."
+    },
+    {
+      "locator": "RUS-AAA.lua.gz line 1482",
+      "assertion": "Сыктывкар, 1825, raw value 2258, inline source text",
+      "check": "literal year/value and inline bibliographic text match; current named article binding is mechanically consistent",
+      "scope": "Historic urban naming/object boundaries and actual source support are unresolved."
+    },
+    {
+      "locator": "RUS-LEN.lua.gz line 6502",
+      "assertion": "Сорокино (Волховский район), 1997, raw value 10, empty source field",
+      "check": "literal year/value and empty citation state match; exact-title current article/QID/P764/code binding is consistent",
+      "scope": "Uncited value has no source support visible in the raw row."
+    },
+    {
+      "locator": "RUS-YAR.lua.gz line 12326",
+      "assertion": "Диево-Городище, 1897, raw value 768, unresolved source key 1897D",
+      "check": "literal year/value/key match; current article/QID/P764/code binding is consistent",
+      "scope": "Citation resolution failed in the frozen extraction; retain as citation-unresolved/low provenance, not supported population."
+    },
+    {
+      "locator": "RUS-LEN.lua.gz lines 742 and 744",
+      "assertion": "Красный Броневик, 1997, conflicting values 100 and 10",
+      "check": "Both conflicting literal rows preserved in held table; neither is in staged series."
+    },
+    {
+      "locator": "RUS-LEN.lua.gz lines 8514 and 8515",
+      "assertion": "Лаврики, 2019, conflicting values 863 and 864",
+      "check": "Both conflicting literal rows preserved in held table; neither is in staged series."
+    }
+  ],
+  "additional_holds_and_limits": [
+    "Do not treat the 3,924 empty-source rows, 2 unresolved-source-key rows, or any unresolved keyed citation as having verified source support; preserve their raw source status.",
+    "Keep the 6 conflicting module-key/year assertions held.",
+    "Exact normalized name/type/region fallback diagnostics (5,544 rows) and ambiguous diagnostics (2,263 rows) are not identity evidence; the comparison code correctly marks identity_admission false.",
+    "The 3,706 confidentiality-perturbed comparison rows remain protected differences, not evidence of module error. Other published-value differences remain unresolved source/date/scope/boundary questions.",
+    "No Moscow, Saint Petersburg, or Sevastopol candidate appeared in the 7,716-row candidate binding sample; aggregate and unrepresented units receive no inference from this review.",
+    "This bounded review does not independently evaluate every article binding, every transcription, or any cited primary work. The candidate rules support a conditional series association review, not universal factual certification."
+  ]
+}

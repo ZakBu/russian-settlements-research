@@ -92,7 +92,9 @@ def _source_refs(source: str) -> dict[str, dict[str, Any]]:
             "source_key": key,
             "source_text_raw": values[0] if values else None,
             "source_date_note_raw": values[1] if len(values) > 1 else None,
-            "source_locator": f"line:{line_base + body.count(chr(10), 0, m.start()) + 1}",
+            # The regex's leading whitespace can consume the previous newline.
+            # Locate the dictionary key itself, rather than the match boundary.
+            "source_locator": f"line:{line_base + body.count(chr(10), 0, m.start(1)) + 1}",
         }
     return found
 
