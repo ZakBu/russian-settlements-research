@@ -1,0 +1,80 @@
+{
+  "review_type": "independent_final_table_integration_check",
+  "status": "pass_with_source_unknown_origin_scope_note",
+  "table": {
+    "path": "/workspace/settlements-delivery/final/settlements_long.parquet",
+    "sha256": "a7ee64251283841578f34065808fdb45cbbee4ce7866fb1f3bda062ec4ef560a",
+    "rows": 500320
+  },
+  "pinned_inputs": {
+    "selected_r2": {
+      "path": "/workspace/settlements-data/research_rebuild/evidence/releases/national_source_selection_r2_regional_2010_20260930/selected_observations.parquet",
+      "sha256": "524e706daa32a69cac9b3e67b3bb8f9113fe2d851f10cdf42e93ba4efa5d72bf"
+    },
+    "accepted_final_coordinates": {
+      "path": "/workspace/settlements-work/coordinates/accepted_final_v1/accepted_point_uses.parquet",
+      "sha256": "15e608770ed8d98abbd9b1e75074a4b8e267793f40cc806a4b8b24a8856566e3",
+      "rows": 305175
+    },
+    "accepted_identity_graph": {
+      "path": "/workspace/settlements-work/identity/accepted_historical_v2/accepted_identity_edges.parquet",
+      "sha256": "751114e16845a5fdd37d5f28c2fe9f81751f51198823e4c50d754c38cde1f5d1",
+      "rows": 175448
+    }
+  },
+  "counts": {
+    "census_rows": 465800,
+    "annual_official_rows": 516,
+    "wiki_literal_series_rows": 34004,
+    "coordinate_rows_by_record_type": {
+      "census": 305175,
+      "annual_official": 495,
+      "wiki_literal_series": 0
+    },
+    "statistical_aggregate_rows": 15,
+    "aggregate_rows_with_coordinates": 0,
+    "full_chain_entities": 44758,
+    "full_chain_census_rows": 134274,
+    "same_entity_year_collisions": 0,
+    "final_point_ledger_rows": 305175,
+    "canonical_origin_assets_verified": 54,
+    "unknown_population_rows_retained": 1
+  },
+  "checks": {
+    "record_counts_and_census_id_set_match_r2": true,
+    "census_names_and_types_match_r2": true,
+    "census_populations_match_r2_including_same_unknown_null": true,
+    "native_2021_oktmo_values_match_r2_exactly_without_padding": true,
+    "every_census_source_sha256_present": true,
+    "census_coordinate_targets_lat_lon_and_admission_status_match_final_ledger": true,
+    "annual_coordinates_match_current_2021_entity_point": true,
+    "15_aggregate_rows_have_zero_coordinates": true,
+    "all_34004_wiki_rows_have_zero_coordinates_and_no_census_entity_association": true,
+    "all_wiki_historical_physical_identity_statuses_are_unknown_not_admitted": true,
+    "all_516_annual_dates_are_january_1": true,
+    "all_annual_values_use_1000_multiplier_and_unspecified_publication_rounding": true,
+    "all_annual_person_values_equal_reported_thousands_times_1000": true,
+    "no_per_entity_same_year_collisions": true,
+    "full_chain_entity_count_is_44758": true,
+    "identity_edge_and_coordinate_admission_statuses_known_and_nonmissing": true,
+    "all_54_distinct_canonical_origin_or_claim_artifact_assets_hash_match": true,
+    "81_original_frozen_source_unknown_assertions_are_labeled_reviewed_frozen_assertion": true
+  },
+  "source_unknown_point_origins": {
+    "original_frozen_assertions": 81,
+    "additional_reviewed_extension_uses_inheriting_these_unknown_origins": 15,
+    "total_final_ledger_uses_with_blank_point_origin_file": 96,
+    "interpretation": "The original 81 claims preserve an unknown measurement source and cite the frozen review CSV as claim evidence. Fifteen later extension uses inherit one of those point claims; the CSV is supporting assertion evidence, not a primary geospatial measurement."
+  },
+  "retained_unknown_population": {
+    "source_record_id": "ARK2010:archive20131022:html_table1_tr4365",
+    "table_population_value": null,
+    "r2_population": null,
+    "interpretation": "Unknown remains null in the final table and matches the selected R2 row."
+  },
+  "limitations": [
+    "This verifies table integration and pinned provenance, not national coordinate accuracy or the scientific precision of individual point applications.",
+    "Final table has no separate table manifest; table and input hashes above were computed directly from the final artifact and pinned inputs."
+  ],
+  "changes_made": []
+}

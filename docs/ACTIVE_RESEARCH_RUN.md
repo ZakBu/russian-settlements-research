@@ -128,3 +128,13 @@ Independent application review and per-axis coverage are committed under
 Coordinates, population quality and boundary comparability remain separate.
 Raw GeoKLADR verification supports reuse of dated source claims; it does not
 automatically accept historical code-to-place bindings or legal intervals.
+
+## Final working checkpoint within the requested eight-hour horizon
+
+Authoritative working graph:accepted_historical_v2 (175448 edges,44758 chains).
+Authoritative point ledger:accepted_final_v1 (305175 uses). Final table, coverage,
+source snapshot candidates, event candidates and independent integration review:
+/workspace/settlements-delivery/final. Detailed result/limitations/next iterations:
+docs/MASS_LINKAGE_RESULT_20261003.md. The99.9% target was not reached;
+no scope changes or candidate upgrades were used to claim it. Git write endpoint
+remains403; the local branch and Git bundle retain all commits.

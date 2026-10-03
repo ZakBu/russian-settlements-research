@@ -30,7 +30,8 @@ ACCEPTED_EDGE_STATUSES = {
     "case_review_accepted", "independent_case_review_accepted", "accepted_case_specific",
 }
 ACCEPTED_PROJECTION_STATUSES = {"active_endpoints_selected", "active_after_reviewed_publication_binding_migration"}
-ACCEPTED_COORDINATE_STATUSES = {"reviewed_rule_accepted", "frozen_r5b_reviewed_baseline_preserved"}
+ACCEPTED_COORDINATE_STATUSES = {"reviewed_rule_accepted", "frozen_r5b_reviewed_baseline_preserved",
+                                "reviewed_extension_rule_accepted", "reviewed_case_accepted"}
 
 
 class UnionFind:
@@ -129,7 +130,7 @@ def _build_entity_map(census: pd.DataFrame, edges: pd.DataFrame, aggregate_ids: 
 def _coordinate_scientific_quality(point: dict[str, Any]) -> str:
     rule = str(point.get("admission_rule") or "")
     reviewed_prefixes = ("independent_", "reviewed_", "national_top14_review")
-    if point.get("coordinate_admission_status") == "frozen_r5b_reviewed_baseline_preserved" or rule.startswith(reviewed_prefixes):
+    if point.get("coordinate_admission_status") in {"frozen_r5b_reviewed_baseline_preserved", "reviewed_case_accepted"} or rule.startswith(reviewed_prefixes):
         return "individually_reviewed"
     return "automatically_accepted_checked_rule"
 
@@ -140,6 +141,8 @@ def _accepted_coordinate_map(coordinates: pd.DataFrame) -> dict[str, dict[str, A
     unknown = set(coordinates.coordinate_admission_status.dropna().astype(str)) - ACCEPTED_COORDINATE_STATUSES
     if coordinates.coordinate_admission_status.isna().any() or unknown:
         raise ValueError(f"coordinate input has unrecognized/missing admission status: {sorted(unknown)}")
+    if coordinates.target_source_record_id.astype(str).duplicated().any():
+        raise ValueError("coordinate input has duplicate target source record IDs")
     coord = coordinates[coordinates.coordinate_admission_status.isin(ACCEPTED_COORDINATE_STATUSES)]
     coord = coord.sort_values(["target_year", "target_source_record_id", "coordinate_admission_status"], kind="stable")
     return {str(row.target_source_record_id): _row_dict(pd.Series(row._asdict())) for row in coord.itertuples(index=False)}
@@ -151,7 +154,9 @@ def _coordinate_columns(point: dict[str, Any], temporal_basis: str) -> dict[str,
         "coordinate_quality": _coordinate_scientific_quality(point),
         "coordinate_provider_quality_raw": point.get("coordinate_quality"),
         "coordinate_admission_status": point.get("coordinate_admission_status"),
-        "coordinate_temporal_basis": temporal_basis,
+        "coordinate_temporal_basis": point.get("application_inference_kind") or temporal_basis,
+        "coordinate_source_date": point.get("coordinate_source_date"),
+        "direct_historical_coordinate_measurement": point.get("direct_historical_coordinate_measurement"),
         "coordinate_measurement_date_unknown": point.get("coordinate_measurement_date_unknown"),
         "boundary_comparability_asserted": point.get("boundary_comparability_asserted"),
         "coordinate_source": point.get("coordinate_source"),
@@ -160,8 +165,13 @@ def _coordinate_columns(point: dict[str, Any], temporal_basis: str) -> dict[str,
         "coordinate_provider_id": point.get("coordinate_provider_id"),
         "coordinate_admission_rule": point.get("admission_rule"),
         "coordinate_provenance": point.get("coordinate_provenance"),
-        "point_source_file": point.get("source_file"), "point_source_sha256": point.get("source_sha256"),
-        "point_source_locator": point.get("source_locator"),
+        "point_source_file": point.get("point_origin_file") or point.get("point_claim_artifact_file") or point.get("source_file"),
+        "point_source_sha256": point.get("point_origin_sha256") or point.get("point_claim_artifact_sha256") or point.get("source_sha256"),
+        "point_source_locator": point.get("point_origin_locator") or point.get("source_locator"),
+        "point_source_kind": point.get("point_origin_kind"),
+        "point_claim_artifact_file": point.get("point_claim_artifact_file"),
+        "point_claim_artifact_sha256": point.get("point_claim_artifact_sha256"),
+        "coordinate_identity_path_decision_ids_json": point.get("inference_identity_path_decision_ids_json"),
         "provider_binding_status": point.get("provider_binding_status"),
         "provider_fias_binding_status": point.get("provider_fias_binding_status"),
     }

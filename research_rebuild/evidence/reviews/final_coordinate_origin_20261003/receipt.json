@@ -1,0 +1,110 @@
+{
+  "status": "point_origin_provenance_normalized_no_admissions",
+  "input": {
+    "path": "/workspace/settlements-work/coordinates/extension_application_v2/staged_proposed_point_uses.parquet",
+    "sha256": "091982265a3e9300aa3c850f6d5d6ae6ecacde2789778957eb92d2400ee38427",
+    "rows": 290346
+  },
+  "accepted_modern": {
+    "path": "/workspace/settlements-work/coordinates/accepted_modern_v1/accepted_point_uses.parquet",
+    "sha256": "9c62cd23c7f21a2870a0e880a884b7b8caa28109e997cbdc348d729ae2cfe554",
+    "rows": 97301
+  },
+  "frozen_baseline": {
+    "path": "/workspace/settlements-work/coordinates/admission_staging_v1/frozen_r5b_coordinate_admissions.csv",
+    "sha256": "c58c3a573ddc7878f948b69ab53696bb94583408b8368fbef34f1b385b56c07e",
+    "rows": 81
+  },
+  "output": {
+    "path": "/workspace/settlements-work/coordinates/normalized_extension_v2/normalized_point_uses.parquet",
+    "sha256": "e34517a008ee93b2156c4fc25867527c9e7927d2288b35a95009b48f9dc0c273",
+    "rows": 290346
+  },
+  "original_columns_unchanged": true,
+  "canonical_source_assets": {
+    "geokladr_raw_dbf": {
+      "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+    },
+    "geokladr_aux_parsed_artifact": {
+      "path": "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet",
+      "sha256": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f"
+    },
+    "tochno_2021_raw_parquet": {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+    },
+    "wikidata_batches": {
+      "batch_0000.jsonl.gz": "a0d98a1ceb49a64e9e51c11c56ac88a5c4d38fbc1952327e23c339c74051ac1d",
+      "batch_0001.jsonl.gz": "941e5c97fc6532d164c633997d6c97eec4339775363cd476ef18e1f7d4cf57ff",
+      "batch_0004.jsonl.gz": "8bfe4b88cd9052808428199b8852e7b6544a8f0da703f3ddaa58228a597a5997",
+      "batch_0006.jsonl.gz": "1e70018733ade66f7436c1ae042f91e40e931ca867f4fa8d616ac328e1053af9",
+      "batch_0008.jsonl.gz": "14e5efee5e0106aef3014c77102cd8cc80a4c6f799887e204539e3ea3d4ff9a5",
+      "batch_0009.jsonl.gz": "41d493b916f614bd005965b34320dd289ac8830bd2ae74d6bac0c4ea0177be41",
+      "batch_0010.jsonl.gz": "e4e5403529844f834a805b0bc0b45021f31641f2b4a08e99676139fd7ab91d1a",
+      "batch_0011.jsonl.gz": "14510a223c6d6d7ae76dc688757e57c24ec6383c14227c72ba6c4185f7aa7951",
+      "batch_0012.jsonl.gz": "25216db47b2236eb9313ad99883e8db7620b65c70086a8b2aaa93e6069221384",
+      "batch_0013.jsonl.gz": "ee1029e46461eb16600d356799df3ec509ea09ed68c5ad0b64900da720f1dcf6",
+      "batch_0014.jsonl.gz": "71a98f81773a7647adc71dd2b9cb0d7a8b182e04418bb81f30ab4e04a0e5f374",
+      "batch_0015.jsonl.gz": "cad3745110d3760ec8e3d104b2e364923c0b43ea952dce9f5367ee2fbd6b74d2",
+      "batch_0016.jsonl.gz": "117cd0c52ae6ed67a3dc281fd782bc4544421cb42c6e97034f2b9c260b58e486",
+      "batch_0017.jsonl.gz": "a51724e0fad51b388739f0da2b37460f100de8efdbf0d19bbfbc6f34d1951a8b",
+      "batch_0018.jsonl.gz": "783cbe79280cb55a5d329a3fd3eb5edaf0343cdbe0081ca77486d2fc43814590",
+      "batch_0019.jsonl.gz": "fefa32a581471f6c74f260c88c5d8ee944d9281bd83de7df4d8c44dafd801468",
+      "batch_0023.jsonl.gz": "ed5b03ceaf88582f6bd86bbf9facb2f73b24c17e4f8483979d12c5e18c15d003",
+      "batch_0024.jsonl.gz": "e67ab56a7469ae292ae02ff84161fa3b0365a474ffc1a27a0ead6a42a9e794b9",
+      "batch_0025.jsonl.gz": "32817b7d6ab8cb97f4d946182162e99858800f6a9fb76801fea53e1fa066c504",
+      "batch_0026.jsonl.gz": "20ddf0efa76a5cbaced8fa03c8c38110632bea326a2c22cee4b5cfd8964316c1",
+      "batch_0028.jsonl.gz": "421d7aa3565abbfd72e461b6686b34a23eac809d7212ec05f269242da7757f33",
+      "batch_0048.jsonl.gz": "db7bee6220721c59fb398f3bfe45cb8b9510974d0f945920d125e3860acb439a",
+      "batch_0049.jsonl.gz": "4de4466ad22e250d8fd9d9734cd421233aa55473a88a2d010ce741c5b3eb9e03",
+      "batch_0050.jsonl.gz": "b66c1e9ce7ffda12a287b73af7f2561b5c2555269cec34630d4b8a24591aa569",
+      "batch_0051.jsonl.gz": "15e85972cdc7b2d2a48b63307f03e481b2aaab8e999e3325384ba2df1a0a08d4",
+      "batch_0052.jsonl.gz": "8937460b6990d5f52486b78e8cd2ebd8b3af4f1e59a2b6b6c7aa8db7691cd83d",
+      "batch_0053.jsonl.gz": "c7cff99bfcb0e037a6b06f827bab0358b67e514657ac34303a33ff33c5b88616",
+      "batch_0054.jsonl.gz": "f9b2a518ca21d6d67ace85a0ab24934687ce960ad74b3bae03666bd33c01241a",
+      "batch_0055.jsonl.gz": "e6ddcbc0bf23e1a51581e3ad6f62d23964213522e745fcc54bcc358eadeafb25",
+      "batch_0056.jsonl.gz": "934242b320a9584dd22213023798d4d18197de2cfd99e5c12ec8c3cadb763df7",
+      "batch_0057.jsonl.gz": "9f2a9fd23fc935121e9f08b515aac6c2ef4c5507663ffe87e3664a9ffa9befbc",
+      "batch_0059.jsonl.gz": "1c4a8a02d2df933e12e327ec6536a2c7cbbd7011da0193735835ad5ed8e12fb7",
+      "batch_0060.jsonl.gz": "718fc115151431ddf4f0618f6108bfd2b7efbe56a93e1572663adf2152e8afd6",
+      "batch_0061.jsonl.gz": "f77097f31f569b965640c35741189fb906c3d9768ce3e2c31d5878ac8c4764a5",
+      "batch_0069.jsonl.gz": "b96bf07567d0bff8bb59a10299a179cb880f759d094030697ad5d7f80bf49f8b",
+      "batch_0076.jsonl.gz": "615aed356b036c932d01b451561322b393d5c2fb9e2980b1cd864c7e81bd33bb",
+      "batch_0079.jsonl.gz": "071e938c94664f12945b1b184e6dd81917dadd51395be95e71eff72135cff19b",
+      "batch_0082.jsonl.gz": "7ae03839d7ad734f6080ee22fdb5a07a75772c221ff1f16e2f379f25f6a57ea1",
+      "batch_0083.jsonl.gz": "4d6dd45befcd459e827db12bd39f931851d7df8cbe29ba2cb91e4d243e333a22",
+      "batch_0091.jsonl.gz": "a544b8bddff2a68e597db903b33a898c83d9a0daf11263cad500eb468b71f9f2",
+      "batch_0095.jsonl.gz": "f8e478e3306320367e4e9213a6fedee69f6b4d0aabf72e19f60f68ee17c4d371",
+      "batch_0099.jsonl.gz": "21244a434b4a309f7802ed5d2dd0932d92baf262a510bb1e8272367113096e5b",
+      "batch_0105.jsonl.gz": "ad1189aa1f6cc0e5140f75eaf4e77ce2d405a797fdcd1d8fa34dd2f9e026895a",
+      "batch_0106.jsonl.gz": "1673983e37393130e75aedbeac054fc936c12d62095ac2a7c078d0a6750b4f91",
+      "batch_0116.jsonl.gz": "3b234abbff8416463efd9044f050cb4f67d2a1762d62dc8310b9c8f4d8549946",
+      "batch_0120.jsonl.gz": "ecd97eebeb21099599bcc6463ccc5ad8aed79c166b9fd64aebe8d7f3f69a4f95",
+      "batch_0135.jsonl.gz": "d914db54f8a44b45d380b6822fed22f5a3f6da59ef074da58e2060c1c1b20bb7",
+      "batch_0138.jsonl.gz": "d394a627f3eaa7ea24c694640519d0722100f9f550f3fc44e91f33bec65c2a8d",
+      "batch_0139.jsonl.gz": "4eda3174ad7792f797be69edb4081f31674f9a68b00bbfae11e366a70be9e1c3",
+      "batch_0140.jsonl.gz": "b30d775ee3c44b36949efb8299b9be996ea3cc395dbc782cc5128a7382439886"
+    }
+  },
+  "rows_by_point_origin_kind": {
+    "geokladr_2011_raw_dbf_coordinate": 109009,
+    "tochno_2021_dadata_raw_parquet_point": 96335,
+    "retrospective_continuity_from_tochno_2021_dadata_raw_parquet_point": 82433,
+    "retrospective_continuity_from_wikidata_truthy_p625_raw_claim": 1602,
+    "wikidata_truthy_p625_raw_claim": 886,
+    "reviewed_frozen_assertion": 81
+  },
+  "source_rows_verified": {
+    "geokladr_raw_record_coordinates": 109009,
+    "tochno_raw_provider_rows": 96335,
+    "wikidata_exact_p625_claims": 886,
+    "frozen_reviewed_assertions": 81
+  },
+  "limitations": [
+    "Frozen R5b original point source remains unknown; CSV row and review proof are preserved as an assertion artifact.",
+    "Wikidata measurement/query date is unknown and is not inferred.",
+    "Retrospective rows link to accepted modern carriers and make no historical measurement claim.",
+    "Legacy source_file/source_sha256 and coordinate_source_* fields were preserved unchanged."
+  ]
+}

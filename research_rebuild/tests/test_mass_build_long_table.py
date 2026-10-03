@@ -177,3 +177,24 @@ def test_source_evidence_legacy_aggregate_changes_category_and_blocks_points(tmp
     assert row.entity_category == "statistical_aggregate"
     assert row.entity_id.startswith("statisticalaggregate:")
     assert pd.isna(row.latitude) and pd.isna(row.longitude)
+
+
+def test_canonical_point_origin_is_used_and_duplicate_uses_fail(tmp_path):
+    census, edges, coords, annual, wiki = _inputs(tmp_path)
+    frame = pd.read_parquet(coords)
+    frame["point_origin_file"] = "raw/point-source.dbf"
+    frame["point_origin_sha256"] = "raw-point-hash"
+    frame["point_origin_locator"] = "record:71"
+    frame["point_origin_kind"] = "historical_raw_point"
+    frame["application_inference_kind"] = "representative_point_spatial_continuity_inference"
+    frame["coordinate_admission_status"] = "reviewed_extension_rule_accepted"
+    frame.to_parquet(coords, index=False)
+    table, _ = build_long_table(census, edges, coords, annual, tmp_path / "origin.parquet", wiki)
+    row = table[table.source_record_id.eq("r2021")].iloc[0]
+    assert row.point_source_file == "raw/point-source.dbf"
+    assert row.point_source_sha256 == "raw-point-hash"
+    assert row.point_source_locator == "record:71"
+    assert row.coordinate_temporal_basis == "representative_point_spatial_continuity_inference"
+    pd.concat([frame, frame]).to_parquet(coords, index=False)
+    with pytest.raises(ValueError, match="duplicate target"):
+        build_long_table(census, edges, coords, annual, tmp_path / "duplicate.parquet", wiki)
