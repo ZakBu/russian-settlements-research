@@ -1,5 +1,15 @@
 # Research status
 
+## User decisions after the audit — 2026-10-03, 23:49 MSK
+
+[Scope and working-series decisions](docs/FEDERAL_CITIES_AND_WORKING_SERIES_DECISIONS_20261003.md)
+allow federal-territory reference points in the primary spatial measure, with
+exclusive parent-or-child counting and separate atomic-NP coverage. Dated
+Wikidata secondary observations may be displayed before independent primary
+verification, with quality flags and no replacement of exact census values.
+These decisions alone add no accepted points/edges or validated coverage.
+The frozen scientific checkpoint and prior audit below remain unchanged.
+
 ## Rule audit and revised priority, 2026-10-03 evening MSK
 
 [The audited 99% plan](docs/AUDIT_AND_PLAN_99_20261003.md) keeps the scientific

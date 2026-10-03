@@ -1,5 +1,14 @@
 # Active research run: 2026-10-02
 
+## Adopted scope and display decisions — 2026-10-03, 23:49 MSK
+
+Use [the post-audit decisions](FEDERAL_CITIES_AND_WORKING_SERIES_DECISIONS_20261003.md).
+Federal-territory reference points now belong in the primary operational spatial
+measure under an exclusive hierarchy; atomic-NP coverage remains separate.
+Dated secondary Wikidata observations may enter the working display with
+explicit quality/scope limits. Implement these decisions without changing frozen
+ledgers, reclassifying source grain, or asserting new historical identity.
+
 ## Active next phase — 2026-10-03 evening MSK
 
 Use [AUDIT_AND_PLAN_99_20261003.md](AUDIT_AND_PLAN_99_20261003.md) and proposed
