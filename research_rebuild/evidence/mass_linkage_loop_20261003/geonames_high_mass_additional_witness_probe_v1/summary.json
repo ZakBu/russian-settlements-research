@@ -1,0 +1,101 @@
+{
+  "status": "BOUNDED_CANDIDATE_ONLY_NO_ADMISSION_NO_NEW_RULE",
+  "input_candidate_inventory_rows_unique_name_region": 11863,
+  "failed_strict_own_provider_or_1km_rows": 2370,
+  "failed_strict_population": 3118680,
+  "strict_screen_hardhold_rows": 449,
+  "strict_screen_hardhold_population": 179696,
+  "union_rows": 2819,
+  "union_population": 3298376,
+  "proper_2021_additive_unaccepted_rows_in_union": 2819,
+  "current_points_snapshot_rows": 325306,
+  "current_unaccepted_candidate_rows": 2819,
+  "top100_scope": "100 highest-population city/PGT rows among the union; all match unique literal Cyrillic GeoNames name+ADM1 region candidate and remain absent from the named current point snapshot.",
+  "top100_rows": 100,
+  "top100_population": 1745061,
+  "top100_type_counts": {
+    "пгт": 86,
+    "город": 14
+  },
+  "raw_2009_2011": {
+    "exact_code_rows": 2,
+    "unique_code_rows": 2,
+    "direct_exact_name_type_region_point_witnesses": 0,
+    "conflicting_exact_code_hits": 2
+  },
+  "wikidata": {
+    "cached_exact_2021_source_row_qid_rows": 67,
+    "exact_native_OKTMO": 67,
+    "exact_Russian_name_label": 63,
+    "literal_region_admin_label": 4,
+    "physical_P31_lineage": 67,
+    "one_distinct_valid_point": 58,
+    "all_exact_code_name_region_physical_type_unique_point_gates": 2,
+    "scope_limit": "QID binds current 2021 source row only. Wikidata has no direct GeoNames ID link in these fields; source and GeoNames share a unique literal name/ADM1 candidate only, so it remains a candidate-level GN association."
+  },
+  "events": {
+    "rows_with_cached_exact_native_oktmo_event_hits": 0,
+    "note": "Checked only the previously reviewed exact-native-OKTMO event-hit ledger; absence there is not a universal no-event claim."
+  },
+  "input_sha256": {
+    "/workspace/settlements-work/continuation_20261003/geonames_named_point_probe_v1/named_point_candidates.parquet": "9da8d5a1e3d5d234536ed71ad80ceaaa7872c604340f6b516dd09b846190d820",
+    "/workspace/settlements-work/continuation_20261003/urban_primary_population_application_v1/selected_observations.parquet": "94ae62cfa8a37820db09416b1fd63cc43cac4aae371b5d26ca2fb14f68163356",
+    "/workspace/settlements-work/continuation_20261003/urban_primary_population_application_v1/accepted_point_uses.parquet": "57a3a45c1b4a7c4d8ec241a334260ffeec02bea132f4fb9d3ec16109a2012c94",
+    "/workspace/settlements-work/continuation_20261003/geonames_named_point_rule_review_v1/scored_candidate_rows.parquet": "7288e34b597b007edd0d101f71bdf6fe39c8cface7e772f99a9784580f93fef9",
+    "/workspace/settlements-work/continuation_20261003/geonames_named_point_rule_review_v1/conditional_point_use_candidates.parquet": "d2be3a350bb5163086a1696d51cd5ce8737b54ad96ed51b01e3143b54a20ea64",
+    "/workspace/settlements-work/candidates/historical_spatial_v1/all_historical_object_context.parquet": "cf8f8cca6923532095cc59af1acf294cafb50cbc72df0a5bb70d0802c55f81ea",
+    "/workspace/settlements-work/wikidata/wide_v5/wide_point_bindings.parquet": "f59e2a1f26b7165ffccca2d118e04f8507f1c346b27ccf2e82d4c65879c33143",
+    "/workspace/settlements-work/continuation_20261003/residual_modern_point_review_v1/exact_native_oktmo_lineage_event_hits.csv": "5aed79216dc2e3aa74f8470c77c006a61476f7387fb6ff4049cfcb88a10e1266",
+    "/workspace/settlements-work/coordinates/validation_packet/wikidata_type_hierarchy_v1/ancestry_metadata.json": "2c7971afa183285909e068c2ba9ac3ac7f95df1c71b3ada716e867c103b0ebda",
+    "/workspace/settlements-work/coordinates/validation_packet/run_20261002_04/wikidata_p31_type_frequency.csv": "b0eaf6bf54e8ac67e974f85cf8679eea18e01a6f5f644384c3cad4d79300145a",
+    "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "/workspace/settlements-raw/data/raw/historical_classifiers/okato_142_2009/dump-142_2009.sql": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+    "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+    "/workspace/settlements-work/sources/raw_okato_2009_verification_v1/raw_classifier.parquet": "343c0f5af1f52b9276699d9fe8d883b58def5aeabdd904063389606d29bc2b81"
+  },
+  "raw_source_notes": {
+    "GeoNames": "Cached RU.txt candidate fields/locator + pinned zip/member SHA; no zip decompression/full raw-line audit in this bounded pass.",
+    "historical": "Pre-parsed 2009/2011 records are exact source-code joins; rows carry both raw source file SHA and line/record-byte locators.",
+    "wikidata": "Cached wide_v5 exact 2021 source rows; exact OKTMO string, QID, ru labels/admin labels, P31 claim batch/line and point claim batch/line retained."
+  },
+  "wikidata_truthy_claim_batch_pins": {
+    "batch_0000.jsonl.gz": "a0d98a1ceb49a64e9e51c11c56ac88a5c4d38fbc1952327e23c339c74051ac1d",
+    "batch_0005.jsonl.gz": "4c24fb0757d882905a063cb56caa27990489043498ab80811f3646f3af6ca107",
+    "batch_0012.jsonl.gz": "25216db47b2236eb9313ad99883e8db7620b65c70086a8b2aaa93e6069221384",
+    "batch_0023.jsonl.gz": "ed5b03ceaf88582f6bd86bbf9facb2f73b24c17e4f8483979d12c5e18c15d003",
+    "batch_0025.jsonl.gz": "32817b7d6ab8cb97f4d946182162e99858800f6a9fb76801fea53e1fa066c504",
+    "batch_0048.jsonl.gz": "db7bee6220721c59fb398f3bfe45cb8b9510974d0f945920d125e3860acb439a",
+    "batch_0051.jsonl.gz": "15e85972cdc7b2d2a48b63307f03e481b2aaab8e999e3325384ba2df1a0a08d4",
+    "batch_0054.jsonl.gz": "f9b2a518ca21d6d67ace85a0ab24934687ce960ad74b3bae03666bd33c01241a",
+    "batch_0061.jsonl.gz": "f77097f31f569b965640c35741189fb906c3d9768ce3e2c31d5878ac8c4764a5",
+    "batch_0066.jsonl.gz": "2e2ee2775509faba2f27c778d4ad011b93a3c3203995163c424d4a71e2b5c8fc",
+    "batch_0069.jsonl.gz": "b96bf07567d0bff8bb59a10299a179cb880f759d094030697ad5d7f80bf49f8b",
+    "batch_0073.jsonl.gz": "b6f916cfdd8b57886b590c6f3c2a44e251a69680bca130bba87702ceb3c45f3d",
+    "batch_0083.jsonl.gz": "4d6dd45befcd459e827db12bd39f931851d7df8cbe29ba2cb91e4d243e333a22",
+    "batch_0091.jsonl.gz": "a544b8bddff2a68e597db903b33a898c83d9a0daf11263cad500eb468b71f9f2",
+    "batch_0093.jsonl.gz": "7bc8b0139ca939dd5daa24cf34e412a7a3346ca5f3fb9f625c44aabcd62eff3e",
+    "batch_0095.jsonl.gz": "f8e478e3306320367e4e9213a6fedee69f6b4d0aabf72e19f60f68ee17c4d371",
+    "batch_0105.jsonl.gz": "ad1189aa1f6cc0e5140f75eaf4e77ce2d405a797fdcd1d8fa34dd2f9e026895a",
+    "batch_0106.jsonl.gz": "1673983e37393130e75aedbeac054fc936c12d62095ac2a7c078d0a6750b4f91",
+    "batch_0109.jsonl.gz": "8d3db8169c04c41f54843d8d63622150e8e0192656d246386dea175a0ed5a0ed",
+    "batch_0121.jsonl.gz": "9f4b12cf08ba33f3c387ea4f99742f67050a4fea7717540e92d0704e532bb589",
+    "batch_0122.jsonl.gz": "f0524f7703904d4f49e4c0b972225689f3424c52f7fe3264f18bf8e498cb38e2",
+    "batch_0123.jsonl.gz": "c49187762fc52261e4c93722a4c05121c7a1f12c14362f4e5e029afacb2ea4ea",
+    "batch_0125.jsonl.gz": "f97e92d43bd178f5c312b7b38de35a30756b3e41b9026fed87bce32f39f021ad",
+    "batch_0126.jsonl.gz": "5a2b6597725f8840411412d50c3b920d29a42195fbec94ac57e00824f996dff3",
+    "batch_0131.jsonl.gz": "40cb5a7a963cb8d7ff81a4ac4e8a904aee1005828e15a44011778cf6d860dd7b",
+    "batch_0132.jsonl.gz": "c72e56fddd6c782c6b7f9feffaf276e95b7458236f18a98f69e258523b46e65c",
+    "batch_0133.jsonl.gz": "3087731aec0d0a72fb81e1f7c3913770dcc51ebbbc6e0711e5094d01ac505f3f",
+    "batch_0136.jsonl.gz": "8170d6960035f311778292764d8d2f6423c93708a92f68f1c3f27d946242a2d0",
+    "batch_0138.jsonl.gz": "d394a627f3eaa7ea24c694640519d0722100f9f550f3fc44e91f33bec65c2a8d",
+    "batch_0139.jsonl.gz": "4eda3174ad7792f797be69edb4081f31674f9a68b00bbfae11e366a70be9e1c3",
+    "batch_0140.jsonl.gz": "b30d775ee3c44b36949efb8299b9be996ea3cc395dbc782cc5128a7382439886"
+  },
+  "outputs": {
+    "top100_urban_high_population_evidence.csv": "39c60667f813e6fea7a216bbb421fc16cc15fad2fe3d3af109c22e17c6bc7e95",
+    "summary.json": "2ea7d67aa6de4d30b2cdf95665bf0a1ad14953f765b2585c3cb17d2dd577a846",
+    "report.md": "914771d1d70578eb80c5a8282ba6ea093c8527336c1bc01febc47d780a29eb56"
+  },
+  "runtime_seconds": 9.119
+}

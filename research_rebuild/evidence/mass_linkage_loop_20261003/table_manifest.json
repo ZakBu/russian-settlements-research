@@ -1,0 +1,79 @@
+{
+  "builder": "build_long_table.py",
+  "inputs": {
+    "annual": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/annual_official_observations.parquet",
+      "sha256": "3f2b0878e547c192470875e6d57355c00738a24da39d6d8206e7e4d7089bf94a"
+    },
+    "census": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/selected_observations.parquet",
+      "sha256": "94ae62cfa8a37820db09416b1fd63cc43cac4aae371b5d26ca2fb14f68163356"
+    },
+    "coordinates": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/accepted_point_uses.parquet",
+      "sha256": "18865bc7a8a9fb181c71c49dbaca35775f6f2ec3925afa5ec35e21d04be01b77"
+    },
+    "identity": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/accepted_identity_edges.parquet",
+      "sha256": "98741f9b695283f390355c34077ca4fd090ecdbb576e9bae323292a585220622"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/source_evidence.parquet",
+      "sha256": "612f84c3de4030ad192046cbd597a1446684b9275a93037af0d2c71017ab78a2"
+    },
+    "source_manifest": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/input_manifest.parquet",
+      "sha256": "15c03537ad7050138ebda5a198198784d41c776c12cbe6222a0fb76194124a97"
+    },
+    "wiki": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/wiki_literal_associations.parquet",
+      "sha256": "04672327ef9717dfdc8aa628f921b5589c6813b11d410b28717a223fccbbbece"
+    }
+  },
+  "outputs": {
+    "csv_gzip": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/settlements_long.csv.gz",
+      "sha256": "99ecb4190f87a1094a97e75fb2f7119f094413e9f74eb366152b9c41951a2752"
+    },
+    "parquet": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/settlements_long.parquet",
+      "sha256": "a9f902a66745326f199db7f8447eaa40a42319aab0011b8b29866cceda4ce92f"
+    }
+  },
+  "summary": {
+    "association_status_counts": {
+      "accepted_same_place_component": 304502,
+      "accepted_target_2021_same_place": 507,
+      "current_named_article_association_only": 34004,
+      "separate_statistical_aggregate": 9,
+      "unknown_no_link": 161298
+    },
+    "census_linked_record_count": 304502,
+    "census_record_count": 465800,
+    "census_singleton_unknown_no_link_count": 161298,
+    "coordinate_admission_status_counts": {
+      "frozen_r5b_reviewed_baseline_preserved": 111,
+      "reviewed_case_accepted": 1,
+      "reviewed_extension_rule_accepted": 230173,
+      "reviewed_rule_accepted": 97640
+    },
+    "coordinate_count": 327925,
+    "coordinate_count_by_record_type": {
+      "annual_official": 495,
+      "census": 327430
+    },
+    "duplicate_observation_id_count": 0,
+    "entity_category_counts": {
+      "settlement": 466301,
+      "statistical_aggregate": 15,
+      "wiki_named_series_association": 34004
+    },
+    "record_type_counts": {
+      "annual_official": 516,
+      "census": 465800,
+      "wiki_literal_series": 34004
+    },
+    "row_count": 500320,
+    "wiki_rows_have_coordinates": 0
+  }
+}

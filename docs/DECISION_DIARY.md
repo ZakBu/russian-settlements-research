@@ -622,3 +622,108 @@ venv pytest found two obsolete fixture failures (missing code-join field).
 The producer was asked to repair and run those tests and pin the hardened
 code separately. Preliminary assertions do not replace running the tests.
 This code change does not authorize rewriting the frozen candidate artifacts.
+
+### 2026-10-03, 14:07 UTC — bounded identity, GeoNames and primary-publication loop
+
+Applied exactly1120 shared literal Geo2011 named-object2002–2010 pairs from
+2319 candidates, after separate source/application review and a fixed60-pair
+sample. Graph176568,304502 linked source records,129872 components,44758 full
+three-census chains, zero same-year collisions. Independent root-application
+review confirms every prior175448 row unchanged and the exact approved delta.
+1199 candidates remain held, including raw regional abbreviation profiles,
+unsupported source families and source-specific dash interpretation. Coordinates
+or numerical similarity are not identity witnesses.
+
+GeoNames RU20260907 already existed in the preserved raw cache; no repeat
+download. Physical populated-place classes, literal Cyrillic alias/type/region
+uniqueness, own-provider named physical row, concordance, conflict/event and
+geometry screens yielded9044 approved2021 point uses /2827998 recorded people.
+Independent application review reopened all9044 raw GeoNames lines and bound
+exact target IDs and input hashes. Ledger316262→325306. Raw GeoNames coordinates
+are used, provider coordinates remain concordance context. Alias dates and
+upstream measurement lineage are unknown; concordance is not independent
+measurement. Legal FIAS binding, historical measurement and boundary/population
+comparability remain unasserted. GeoNames source README CC BY4.0 retained; this
+is not a project-wide licensing conclusion.
+
+Applied780 independently reviewed2010 urban-type publication bindings:
+4801715 secondary-protected values→4899554 exact primary values, +97839.
+Known selected2010 total142361475; national-control gap495061, still one
+unknown-count row.67 identity endpoints and52 point targets migrated, no new
+cross-year evidence. Previous564 bindings preserved separately and combined
+with780 into an immutable1344-row cumulative mapping; old source assertions
+remain available. Read-only independent application verification is running.
+
+Self-critique and fixes: repeat-pass replacement previously reset all prior
+quality/provenance fields; now it initializes only absent columns. Root review
+adapters now verify exact independently approved endpoint pairs and population
+values, rather than accepting equal counts. A scientific review handoff had a
+false check evaluated over held cases; corrected review f273b88f… is preserved
+and pinned. Original d417… bytes were not retained before the reviewer rewrote
+that experimental draft; the explicit correction note documents this gap.
+The urban candidate producer also rewrote an unaccepted draft; final hashes
+and a raw-source-hash addendum are pinned. Neither incident altered frozen
+releases or accepted baseline data. Future nonempty artifact directories remain
+immutable. Do not describe unretained draft bytes as reproducible history.
+
+Native pandas CSV parsing segfaulted on the approved780 mapping; literal stdlib
+CSV reading avoids that dependency and identifier type inference. Nine relevant
+primary/promotion regressions pass. Thirteen candidate/staging/propagation tests
+pass. Historical reuse staging exposed omitted GeoNames uncertainty fields;
+optional source flags now survive alongside point origins without changing
+admission gates or requiring columns in older ledgers. The long-table exporter
+now preserves coordinate_uncertainty_flags_json. Twenty propagation/export
+tests pass; subsequent two exact omitted false-claim fields covered by eight
+propagation tests. These finite checks are not national statistical calibration.
+
+Coverage before historical GeoNames propagation: admitted coordinates at national
+controls82.683718%/71.515881%/81.001269% (2002/2010/2021). Both row and population
+shares for all axes are in coverage_after_geonames_and_urban_primary_v1.json.
+The existing frozen continuation archive at816d91e remains unchanged and does
+not contain this later delta.99.9% is not attained. No new Release or remote
+branch publication has occurred; the last Git write check returned403.
+
+### 2026-10-03, 14:36 UTC — graph reuse, export and linear diagnostics
+
+Exactly2124 historical GeoNames uses were independently approved and applied:
+2044 records2002/577157 population;80 records2010/129570 population. Canonical
+raw origins, explicit source/date/identifier uncertainty and accepted paths
+survive. Eight quarantined targets stay blocked. Ledger327430; no new identity
+or population/boundary-comparability claims. A repeated per-target whole-graph
+scan would cost about647million operations. Root interrupted the read-only
+scratch scan; reviewer rebuilt a component→carrier index once, preserving
+the same test in O(V+S). Diagnostics also read only required quality columns
+instead of materializing large point evidence payloads.
+
+The780-row adapter's unverified inherited district context is explicitly
+retained as three restrictive source-evidence metadata keys, without changing
+any original JSON values or selected rows. Original application evidence is
+unchanged; the addendum has its own receipt and replay recipe. This prevents
+exact population acceptance from silently promoting district context to
+historical administrative identity evidence.
+
+Export500320 rows,327430 census coordinates+495 annual coordinates, zero Wiki
+coordinates and zero duplicate observation IDs. National admitted-coordinate
+weights83.081300%/71.606581%/81.001269%. All axis numerators and record shares
+recomputed; residual lists prioritize population. Full export integration
+verification is separate and still pending at this diary entry.
+
+The bounded top100 urban-candidate probe ran9.119s, covering1745061 population
+from2819 unaccepted GN candidates/3298376 population. It admitted nothing.
+Two historical exact-code hits conflict; two Wikidata objects have additional
+physical/code/name/region witnesses. A GeoNames ID property is not present
+in the cached projection; this is neither proof the supplier lacks it nor
+a universal admission veto. Next gain probe uses already accepted direct
+historical points and graph components for missing2021 point uses, excluding
+modern graph-derived circular witnesses. No individual settlement dossier
+campaign, extra downloads or new Release was started.
+
+### 2026-10-03, 14:48 UTC — independent loop export check passed
+
+PASS_DATA_ONLY_EXPORT_INTEGRATION verifies all scientific input/output pins,
+500320 unique observation IDs, ordered CSV/Parquet keys,327430 census points
+and495 annual points, zero Wiki coordinates, exact native OKTMO strings,
+all canonical point origins/uncertainty JSON,1344 cumulative publication
+bindings and780 restrictive evidence addenda. All axis numerators reconcile
+to full national controls. Diagnostics cross-tabs sum to the same point counts
+and year populations. Final package has not been remotely published.

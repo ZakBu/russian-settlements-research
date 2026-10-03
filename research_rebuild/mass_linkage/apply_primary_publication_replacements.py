@@ -6,6 +6,7 @@ origins. Publication equivalence adds no cross-year identity evidence.
 """
 from __future__ import annotations
 import argparse
+import csv
 import json
 from pathlib import Path
 import pandas as pd
@@ -13,6 +14,36 @@ from .coverage import identity_sets, sha
 from .propagate_accepted_points import STATUS_OK
 
 PRIMARY=Path('/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf')
+
+def verify_review_projection(review, proposals):
+    """A format adapter may not alter independently approved pairs or counts."""
+    if review.get('decision_author')!='primary_agent_after_independent_validation':
+        return
+    path=Path(review['independent_review_path'])
+    if sha(path)!=review['independent_review_sha256']:
+        raise ValueError('Independent population binding review changed')
+    original=json.loads(path.read_text())
+    if not original.get('verdict','').lower().startswith('approve'):
+        raise ValueError('Independent population binding rule not approved')
+    mapping_path=path.parent/original['mapping_csv']
+    if sha(mapping_path)!=original['mapping_sha256']:
+        raise ValueError('Independently approved binding mapping changed')
+    # Preserve source identifiers literally and avoid the native CSV parser
+    # dependency; this small approved mapping needs no type inference.
+    with mapping_path.open(newline='', encoding='utf-8') as stream:
+        mapping=pd.DataFrame(list(csv.DictReader(stream)))
+    approved={(r.r2_source_record_id,r.reference_id) for r in mapping.itertuples(index=False)}
+    allowed=review.get('approved_replacement_source_record_ids',[])
+    projected=proposals[proposals.replacement_source_record_id.isin(allowed)]
+    actual=set(zip(projected.r2_source_record_id,projected.replacement_source_record_id))
+    if len(mapping)!=original['approved_pairs'] or len(projected)!=len(mapping) or actual!=approved:
+        raise ValueError('Schema projection changes independently approved publication pairs')
+    expected=mapping.set_index('r2_source_record_id')
+    for row in projected.itertuples(index=False):
+        source=expected.loc[row.r2_source_record_id]
+        if (float(row.old_population_r2)!=float(source.population)
+                or float(row.proposed_primary_population)!=float(source.table5_population)):
+            raise ValueError('Schema projection changes independently reviewed population')
 
 
 def replace_selected(selected, proposals, approved_ids, primary_sha):
@@ -31,16 +62,21 @@ def replace_selected(selected, proposals, approved_ids, primary_sha):
     indexed=selected.set_index('source_record_id',drop=False)
     if not set(old_ids).issubset(indexed.index):raise ValueError('Displaced source ID not selected')
     if not indexed.loc[old_ids,'census_year'].eq(2010).all():raise ValueError('Publication replacement must remain within 2010')
-    result=selected.copy();result['population_value_quality_original_tag']=selected.population_value_quality
-    result['population_quality_limitation']=None
+    result=selected.copy()
+    if 'population_value_quality_original_tag' not in result:
+        result['population_value_quality_original_tag']=selected.population_value_quality
+    if 'population_quality_limitation' not in result:
+        result['population_quality_limitation']=None
     protected=result.population_value_quality.eq('confidentiality_perturbed_within_ten')
     # Keep the legacy classification explicitly, while removing a now-refuted
     # universal precision interpretation from the current scientific quality.
     result.loc[protected,'population_value_quality']='secondary_confidentiality_protected_value_exact_scope_unverified'
     result.loc[protected,'population_quality_limitation']='Legacy within-ten tag retained separately; observed official-primary differences can exceed ten; protection and source-population scope effects not disentangled'
-    result['displaced_source_record_id']=None
-    result['publication_binding_basis']=None
-    result['source_raw_line']=None
+    # A second bounded publication batch must preserve provenance and quality
+    # assessments from earlier accepted replacements and unreplaced sources.
+    for column in ['displaced_source_record_id','publication_binding_basis','source_raw_line']:
+        if column not in result:
+            result[column]=None
     row_index={rid:i for i,rid in zip(result.index,result.source_record_id)}
     bindings=[]
     for r in rows.itertuples(index=False):
@@ -103,6 +139,7 @@ def apply(selected_path,graph_path,points_path,evidence_path,proposals_path,revi
         if review.get(k+'_sha256')!=pins[k]['sha256']:raise ValueError('Review input hash differs: '+k)
     selected=pd.read_parquet(selected_path)
     proposals=pd.read_csv(proposals_path) if proposals_path.suffix=='.csv' else pd.read_parquet(proposals_path)
+    verify_review_projection(review,proposals)
     result,bindings=replace_selected(selected,proposals,review.get('approved_replacement_source_record_ids',[]),pins['primary_pdf']['sha256'])
     mapping=dict(zip(bindings.old_source_record_id,bindings.new_source_record_id))
     graph=pd.read_parquet(graph_path);migrated=graph.copy()

@@ -1,0 +1,177 @@
+{
+  "status": "continuation_graph_point_uses_staged_pending_root_review",
+  "input_hashes": {
+    "accepted": {
+      "path": "/workspace/settlements-work/continuation_20261003/urban_primary_population_application_v1/accepted_point_uses.parquet",
+      "sha256": "57a3a45c1b4a7c4d8ec241a334260ffeec02bea132f4fb9d3ec16109a2012c94"
+    },
+    "carrier_delta": {
+      "path": "/workspace/settlements-work/continuation_20261003/geonames_graph_point_reuse_stage_v1/approved_geonames_carrier_ids.parquet",
+      "sha256": "6ba8cc0c5d566b468e289de4c317b2f3976a13d5b1a56aa9b52a404c36b49e70"
+    },
+    "graph": {
+      "path": "/workspace/settlements-work/continuation_20261003/urban_primary_population_application_v1/accepted_identity_edges.parquet",
+      "sha256": "98741f9b695283f390355c34077ca4fd090ecdbb576e9bae323292a585220622"
+    },
+    "selected": {
+      "path": "/workspace/settlements-work/continuation_20261003/urban_primary_population_application_v1/selected_observations.parquet",
+      "sha256": "94ae62cfa8a37820db09416b1fd63cc43cac4aae371b5d26ca2fb14f68163356"
+    },
+    "evidence": {
+      "path": "/workspace/settlements-work/continuation_20261003/urban_primary_population_application_v1/source_evidence.parquet",
+      "sha256": "c31625f10f3fc71a3088d686a03ac3418afbda7c17c8c166af8ec0e16983ddae"
+    },
+    "events": {
+      "path": "/workspace/settlements-work/sources/historical_identifiers/observed_v1/lineage_event_candidates.json",
+      "sha256": "1f6b6066ada348e160ccd5c898adb7d40cac9a50336da9788f211eb1ab466622"
+    },
+    "blocked_targets": {
+      "path": "/workspace/settlements-work/continuation_20261003/geonames_graph_point_reuse_stage_v1/blocked_point_reuse_targets_v3.json",
+      "sha256": "4f631b418b097fdbafc20d0d020e92905b7ea371a5d383af43eb9c0868a568bd"
+    }
+  },
+  "accepted_rows": 325306,
+  "accepted_graph_rows": 176568,
+  "accepted_same_place_edges_used": 176568,
+  "explicit_carrier_delta_ids": 9044,
+  "accepted_2021_carriers_in_delta": 9044,
+  "explicit_blocked_target_ids": 32,
+  "selected_missing_2002_2010_targets": 110968,
+  "staged_rows": 2124,
+  "held_rows": 108844,
+  "staged_by_year": {
+    "2002": 2044,
+    "2010": 80
+  },
+  "held_reasons": {
+    "target_not_in_accepted_same_place_graph": 97091,
+    "legacy_identity_conflict": 50774,
+    "component_does_not_have_exactly_one_delta_accepted_2021_carrier": 108844,
+    "legacy_same_year_collision": 2190,
+    "explicit_blocked_target_id": 11,
+    "source_is_federal_aggregate": 3,
+    "source_name_or_type_missing": 103
+  },
+  "staged_admission_allowed_all_false": true,
+  "every_staged_origin_copied_from_exact_accepted_carrier": true,
+  "every_staged_source_row_restored_from_exact_selected_evidence": true,
+  "raw_origin_assets_hashed_once": {
+    "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+    "/workspace/settlements-work/continuation_20261003/geonames_named_point_rule_review_v1/conditional_point_use_candidates.parquet": "d2be3a350bb5163086a1696d51cd5ce8737b54ad96ed51b01e3143b54a20ea64"
+  },
+  "outputs": {
+    "staged_point_uses": {
+      "path": "/workspace/settlements-work/continuation_20261003/geonames_graph_point_reuse_stage_v2/staged_point_uses.parquet",
+      "rows": 2124,
+      "sha256": "ccedf346b815943c340e8d63520cb8cf7dc05250ff952e314f7b7e5f96cc9880"
+    },
+    "held_targets": {
+      "path": "/workspace/settlements-work/continuation_20261003/geonames_graph_point_reuse_stage_v2/held_targets.parquet",
+      "rows": 108844,
+      "sha256": "d90edbc1a4e48c2a5f1768494ce2633050b7a20c0451ce523b9b993341091fc7"
+    }
+  },
+  "limits": [
+    "This output is candidate staging only; it does not admit or publish coordinates.",
+    "Modern representative-point reuse is a retrospective continuity inference, not a historical measurement.",
+    "Measurement date, population boundary comparability, and population-scope equivalence remain unasserted.",
+    "All blocked target IDs and exact-native event roles remain held."
+  ],
+  "independent_stage_validation": {
+    "staged_rows": 2124,
+    "staged_by_year": {
+      "2002": 2044,
+      "2010": 80
+    },
+    "staged_population_sum_by_year": {
+      "2002": 577157,
+      "2010": 129570
+    },
+    "staged_population_sum_total": 706727,
+    "held_rows": 108844,
+    "hold_reason_counts": {
+      "target_not_in_accepted_same_place_graph": 97091,
+      "legacy_identity_conflict": 50774,
+      "component_does_not_have_exactly_one_delta_accepted_2021_carrier": 108844,
+      "legacy_same_year_collision": 2190,
+      "explicit_blocked_target_id": 11,
+      "source_is_federal_aggregate": 3,
+      "source_name_or_type_missing": 103
+    },
+    "current_quarantined_exact_ids": [
+      "2002:022_862ad8a69d_02c_Vologodskaya.xls:2C:5142",
+      "2002:038_218ac665d8_02c_Astraxanskaja.xls:Sheet1:395",
+      "2002:045_9dc3ed048e_02c__Udmurtia.xls:Sheet1:1916",
+      "2010:004_486e984bdc_12._20Астр_Волгог_Ростов.xls:Южный:240",
+      "2010:011_040325482b_3._20Ryaz_Smol_Tambov_Tula_Jaroslavl_20L1_20ethn_2010.xls:Data Sheet:10952",
+      "2010:012_5c339c0d0e_4._20Vologod_pskov_2010.xls:Data Sheet:4806",
+      "2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:11904",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:149473"
+    ],
+    "current_historical_quarantines_held": [
+      "2002:022_862ad8a69d_02c_Vologodskaya.xls:2C:5142",
+      "2002:038_218ac665d8_02c_Astraxanskaja.xls:Sheet1:395",
+      "2002:045_9dc3ed048e_02c__Udmurtia.xls:Sheet1:1916",
+      "2010:004_486e984bdc_12._20Астр_Волгог_Ростов.xls:Южный:240",
+      "2010:011_040325482b_3._20Ryaz_Smol_Tambov_Tula_Jaroslavl_20L1_20ethn_2010.xls:Data Sheet:10952",
+      "2010:012_5c339c0d0e_4._20Vologod_pskov_2010.xls:Data Sheet:4806",
+      "2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:11904"
+    ],
+    "all_target_carrier_paths_chain": true,
+    "all_canonical_origin_and_provider_metadata_equal_carrier": true,
+    "staged_coordinates_copy_raw_carrier_coordinates": true,
+    "preserved_GN_source_flags": [
+      "source_lineage_independence_proven",
+      "upstream_independent_lineage_proven",
+      "census_date_point_measurement_proven",
+      "fias_identifier_binding_claimed",
+      "geonames_alias_language_or_validity_date_proven",
+      "geonames_alias_current_date_proven"
+    ],
+    "all_these_flags_false": true,
+    "geonames_source_metadata_columns_preserved": [
+      "geonames_alias_language_or_validity_date_proven",
+      "geonames_alias_current_date_proven",
+      "geonames_source_file",
+      "geonames_source_sha256",
+      "geonames_ru_member_sha256",
+      "geonames_geonameid",
+      "geonames_record_locator",
+      "geonames_source_name_raw",
+      "geonames_ascii_name_raw",
+      "geonames_alias_raw",
+      "geonames_alias_literal_in_raw_member",
+      "geonames_feature_class",
+      "geonames_feature_code",
+      "geonames_country_code",
+      "geonames_admin1_raw",
+      "geonames_admin2_raw",
+      "geonames_admin1_alias_source",
+      "geonames_modification_date_raw",
+      "geonames_raw_line_sha256",
+      "geonames_conditional_rule_review_sha256",
+      "geonames_conditional_rule_receipt_sha256"
+    ],
+    "coordinate_provenance_retains_carrier_source_and_appends_historical_use_note": true,
+    "license_attribution_fields_in_accepted_carrier_schema": [],
+    "sample_path": "/workspace/settlements-work/continuation_20261003/geonames_graph_point_reuse_stage_v2/stage_review_sample.csv",
+    "top25_path": "/workspace/settlements-work/continuation_20261003/geonames_graph_point_reuse_stage_v2/top_population_staged_targets.csv"
+  },
+  "builder_sha256": "2dddbfebba9eb7ac6136bb4edb4d50e87e63abd7b3edfcd9be876cf351d71d26",
+  "primary_application_receipt_sha256": "f2495d242ff2fac402a3b57979c1529f7f390114d86cef9cbc8420c67159faed",
+  "carrier_approval_review_sha256": "54cb373d47141ef38952503170bc6a0e1286cec124ba7c3f71d1009fe7ccc1d0",
+  "carrier_approved_id_manifest_sha256": "1ee867ea2fa25a843c172dbe82e1c7345ff69d61c1d215471f3ad05625db6fb3",
+  "blocklist_sha256": "4f631b418b097fdbafc20d0d020e92905b7ea371a5d383af43eb9c0868a568bd",
+  "validation_outputs": {
+    "stage_review_sample.csv": {
+      "path": "/workspace/settlements-work/continuation_20261003/geonames_graph_point_reuse_stage_v2/stage_review_sample.csv",
+      "sha256": "24d4253b514837b792d3bdf68f18e1578a8c0a96c029b8bb80561fe7a4024c18",
+      "bytes": 7612
+    },
+    "top_population_staged_targets.csv": {
+      "path": "/workspace/settlements-work/continuation_20261003/geonames_graph_point_reuse_stage_v2/top_population_staged_targets.csv",
+      "sha256": "4da62807d1a0a075b3ea2dfb74fe0676830dfce8a00e92526f0224a7dd9439ad",
+      "bytes": 4843
+    }
+  }
+}

@@ -6,6 +6,7 @@ from pathlib import Path
 import argparse
 import json
 import pandas as pd
+import pyarrow.parquet as pq
 from .coverage import identity_sets, sha
 from .build_long_table import _coordinate_scientific_quality
 
@@ -15,7 +16,13 @@ def build(selected_path, graph_path, points_path, output):
         raise FileExistsError('New immutable diagnostic output required')
     selected = pd.read_parquet(selected_path)
     graph = pd.read_parquet(graph_path)
-    points = pd.read_parquet(points_path)
+    # Diagnostics use quality labels, not the potentially large raw evidence
+    # payloads carried by each point. Optional older-ledger fields stay optional.
+    schema = set(pq.read_schema(points_path).names)
+    fields = ['target_source_record_id', 'coordinate_quality',
+              'coordinate_admission_status']
+    fields += [c for c in ['coordinate_application_family', 'admission_rule'] if c in schema]
+    points = pd.read_parquet(points_path, columns=fields)
     linked, full, components = identity_sets(selected, graph)
     if points.target_source_record_id.duplicated().any():
         raise ValueError('Duplicate point targets')

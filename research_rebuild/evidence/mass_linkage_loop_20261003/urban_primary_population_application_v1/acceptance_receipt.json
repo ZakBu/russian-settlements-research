@@ -1,0 +1,80 @@
+{
+  "status": "reviewed_primary_2010_replacements_applied",
+  "inputs": {
+    "selected": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_population_application_v1/selected_observations.parquet",
+      "sha256": "cc247f3f474b2801251d556a39f90773b42541feda0845d7f1362637d8185c88"
+    },
+    "graph": {
+      "path": "/workspace/settlements-work/continuation_20261003/accepted_shared_named_object_identity_delta_v1/accepted_identity_edges.parquet",
+      "sha256": "dd8832e9b85fbca8dc11a5000b146cc78b258e8af5373a2acb817d4c5280bb35"
+    },
+    "points": {
+      "path": "/workspace/settlements-work/continuation_20261003/accepted_geonames_point_delta_v1/accepted_point_uses.parquet",
+      "sha256": "2c21e8f486fe7216a40cdfb4d8849759d92065e12422e093217e053767567d5c"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_population_application_v1/source_evidence.parquet",
+      "sha256": "aaaab02b2699c8e5426855c67747291c7b4d9739779429d0f3f8b479828788eb"
+    },
+    "proposals": {
+      "path": "/workspace/settlements-work/continuation_20261003/urban_primary_application_proposal_adapter_v3/replacement_proposals.parquet",
+      "sha256": "d6c8d5c74f77aa8246cf1447701996d9fda6e90c8bdabb7067a39f710ca339e6"
+    },
+    "review": {
+      "path": "/workspace/settlements-work/continuation_20261003/urban_primary_application_proposal_adapter_v3/review_projection.json",
+      "sha256": "fd4c3d6f709f0bbc9ef2e9d2e1c86d9b3bf42aaac6c3fd232284fe2060ace1dc"
+    },
+    "primary_pdf": {
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+    }
+  },
+  "builder_sha256": "491dd49c623a58ab1db7549169074775e7fe9b00b632e405906768935a49686e",
+  "bindings": 780,
+  "selected_rows_before": 465800,
+  "selected_rows_after": 465800,
+  "2010_known_population_before": 142263636,
+  "2010_known_population_after": 142361475,
+  "primary_population_delta": 97839,
+  "migrated_edge_endpoints": 67,
+  "migrated_point_targets": 52,
+  "identity_decisions_and_point_origins_unchanged": true,
+  "outputs": {
+    "selected_observations.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/urban_primary_population_application_v1/selected_observations.parquet",
+      "sha256": "94ae62cfa8a37820db09416b1fd63cc43cac4aae371b5d26ca2fb14f68163356",
+      "rows": 465800
+    },
+    "accepted_identity_edges.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/urban_primary_population_application_v1/accepted_identity_edges.parquet",
+      "sha256": "98741f9b695283f390355c34077ca4fd090ecdbb576e9bae323292a585220622",
+      "rows": 176568
+    },
+    "accepted_point_uses.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/urban_primary_population_application_v1/accepted_point_uses.parquet",
+      "sha256": "57a3a45c1b4a7c4d8ec241a334260ffeec02bea132f4fb9d3ec16109a2012c94",
+      "rows": 325306
+    },
+    "source_evidence.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/urban_primary_population_application_v1/source_evidence.parquet",
+      "sha256": "c31625f10f3fc71a3088d686a03ac3418afbda7c17c8c166af8ec0e16983ddae",
+      "rows": 465800
+    },
+    "accepted_publication_bindings.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/urban_primary_population_application_v1/accepted_publication_bindings.parquet",
+      "sha256": "44abbba304e8de5e213d3946c9e6c1264d878f76f40c7e907c910cb9a208ecd3",
+      "rows": 780
+    },
+    "displaced_population_assertions.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/urban_primary_population_application_v1/displaced_population_assertions.parquet",
+      "sha256": "77c4523687a016cddea50f12696a01e05f897be92543f5b5f15676548d16d509",
+      "rows": 780
+    }
+  },
+  "limits": [
+    "No regional residual allocation or extra cross-year identity proof.",
+    "Old population assertions preserved with original source quality.",
+    "Unreplaced protected values retain their old tag separately; exact scope and precision remain unverified."
+  ]
+}

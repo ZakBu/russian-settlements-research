@@ -1,5 +1,17 @@
 # Active research run: 2026-10-02
 
+## Current authoritative working checkpoint — 2026-10-03
+
+The current accepted working state is described in
+[the mass-loop result](MASS_LOOP_RESULT_20261003.md) and
+[its manifest](../research_rebuild/evidence/mass_linkage_loop_20261003/checkpoint_manifest.json).
+Selected records465800, accepted edges176568, accepted census point uses327430,
+full three-census chains44758. The earlier sections below are historical
+checkpoints, not current pointers. Frozen archives remain unchanged.
+99.9% has not been reached; source population, point quality, identity, events
+and boundary comparability stay separate.
+
+
 ## Current continuation checkpoint, 2026-10-03
 
 The user requested continuing the work after the first eight-hour delivery.

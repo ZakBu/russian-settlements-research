@@ -16,6 +16,7 @@ from collections import Counter, defaultdict, deque
 from pathlib import Path
 
 import pandas as pd
+import pyarrow.parquet as pq
 
 STATUS_OK = {
     'checked_rule_accepted',
@@ -233,7 +234,22 @@ def build(accepted_path: Path, carrier_delta_path: Path, graph_path: Path,
     if output_path.exists() and any(output_path.iterdir()):
         raise FileExistsError(f'output path is not empty: {output_path}')
 
-    accepted = pd.read_parquet(paths['accepted'], columns=ACCEPTED_COLUMNS)
+    # Keep optional gazetteer claims and their explicit uncertainty alongside
+    # the copied point origin. Older ledgers need not contain these fields.
+    optional_origin_fields = [
+        name for name in pq.read_schema(paths['accepted']).names
+        if name.startswith('geonames_') or name in {
+            'source_lineage_independence_proven',
+            'upstream_independent_lineage_proven',
+            'coordinate_measurement_at_census_date_proven',
+            'census_identifier_binding_proven',
+            'census_date_point_measurement_proven',
+            'fias_identifier_binding_claimed',
+            'coordinate_source_license', 'coordinate_source_attribution',
+        }
+    ]
+    accepted = pd.read_parquet(paths['accepted'], columns=list(dict.fromkeys(
+        ACCEPTED_COLUMNS + optional_origin_fields)))
     if accepted.target_source_record_id.astype(str).duplicated().any():
         raise ValueError('accepted target_source_record_id values must be unique')
     accepted_ids = set(accepted.target_source_record_id.astype(str))

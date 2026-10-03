@@ -216,6 +216,7 @@ def test_canonical_point_origin_is_used_and_duplicate_uses_fail(tmp_path):
     frame["admission_rule"] = "stable_city_retrospective_accepted_2021_representative_point_reuse_v1"
     frame["supporting_carrier_admission_rule"] = "C_wikidata_named_city_point"
     frame["population_scope_comparability_asserted"] = False
+    frame["coordinate_uncertainty_flags_json"] = '["alias validity date unknown", "upstream coordinate lineage unknown"]'
     frame.to_parquet(coords, index=False)
     table, _ = build_long_table(census, edges, coords, annual, tmp_path / "origin.parquet", wiki)
     row = table[table.source_record_id.eq("r2021")].iloc[0]
@@ -226,6 +227,7 @@ def test_canonical_point_origin_is_used_and_duplicate_uses_fail(tmp_path):
     assert row.coordinate_admission_rule == "stable_city_retrospective_accepted_2021_representative_point_reuse_v1"
     assert row.coordinate_carrier_admission_rule == "C_wikidata_named_city_point"
     assert not bool(row.population_scope_comparability_asserted)
+    assert row.coordinate_uncertainty_flags_json == frame.coordinate_uncertainty_flags_json.iloc[0]
     pd.concat([frame, frame]).to_parquet(coords, index=False)
     with pytest.raises(ValueError, match="duplicate target"):
         build_long_table(census, edges, coords, annual, tmp_path / "duplicate.parquet", wiki)

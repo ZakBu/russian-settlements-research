@@ -202,6 +202,25 @@ class ContinuationPointStageTests(unittest.TestCase):
                          'not_asserted_for_historical_target_by_graph_continuity')
         self.assertTrue(receipt['staged_admission_allowed_all_false'])
 
+    def test_optional_gazetteer_limitations_survive_historical_reuse(self):
+        frame = pd.read_parquet(self.paths['accepted'])
+        frame['geonames_alias_current_date_proven'] = False
+        frame['source_lineage_independence_proven'] = False
+        frame['upstream_independent_lineage_proven'] = False
+        frame['census_date_point_measurement_proven'] = False
+        frame['fias_identifier_binding_claimed'] = False
+        frame['coordinate_source_license'] = 'CC BY 4.0'
+        frame.to_parquet(self.paths['accepted'], index=False)
+        self.run_build()
+        row = pd.read_parquet(self.output / 'staged_point_uses.parquet').iloc[0]
+        self.assertFalse(row['geonames_alias_current_date_proven'])
+        self.assertFalse(row['source_lineage_independence_proven'])
+        self.assertFalse(row['upstream_independent_lineage_proven'])
+        self.assertFalse(row['census_date_point_measurement_proven'])
+        self.assertFalse(row['fias_identifier_binding_claimed'])
+        self.assertEqual(row['coordinate_source_license'], 'CC BY 4.0')
+        self.assertFalse(row['admission_allowed'])
+
     def test_explicit_quarantine_or_prior_conflict_id_is_held(self):
         self.write_inputs(blocked=[self.target_id])
         receipt = self.run_build()
