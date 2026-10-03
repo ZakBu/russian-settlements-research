@@ -591,3 +591,34 @@ source objects у этих привязок, а не совпадение коо
 тип/имя/admin и уникальность по годам. Графовые inferred points не могут служить
 новым доказательством того же графа. Новое правило пока не принято; кандидаты
 и потенциальные циклы доказательства проверяются отдельно до приложения.
+
+### 2026-10-03, 12:56 UTC — frozen package and bounded next loop
+
+Continuation archive at commit816d91e:300957620 bytes,
+SHA256 f69b0a57db77315d31dd2c8c7508adc2b238ab442d2d77ff41391f790eef3bb1.
+All134 archived payload files were independently read and hash-checked in13.261s.
+The frozen package and previous package are preserved; no repeat Release was made.
+Git public read works, the current write check remains403. Full Git history at
+the frozen checkpoint is included as a verified bundle. Details and relative
+artifact names are recorded in CONTINUATION_PACKAGE_20261003.md.
+
+Region-key residual probe corrected an overly broad priority label: among55975
+rows/7033540 population,53309/5655341 already have same-region name/type
+comparators but lack an admissible rule;2666/1378199 have none. The latter
+produce no supported regional-alias batch. Same names in different regions,
+including outside-census-scope Crimea, are not identity proof.
+
+The shared-literal-source probe froze2319 candidate2002–2010 pairs,4638
+endpoints:764677 population2002 and735772 population2010. An independent
+18-check review approved only candidate generation. Exact Geo2011 DBF
+object/locator and accepted direct endpoint bindings supply a new witness;
+coordinate equality and legal persistence of OKATO are not the rule. Events,
+known conflicts, nonsettlement grains, signature-year multiplicity and graph
+competition are excluded. A separate staging/sample/admission review follows;
+none of these2319 pairs are yet admitted or counted in coverage.
+
+Self-critique: after the producer strengthened the classifier proof, actual
+venv pytest found two obsolete fixture failures (missing code-join field).
+The producer was asked to repair and run those tests and pin the hardened
+code separately. Preliminary assertions do not replace running the tests.
+This code change does not authorize rewriting the frozen candidate artifacts.
