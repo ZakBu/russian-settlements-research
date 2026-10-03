@@ -38,3 +38,14 @@ def test_legacy_place_pointer_only_increases_candidate_inventory():
     r=measure(s,l,e,p,c);y=r['census_metrics'][2]
     assert y['axes']['coordinate_inventory_including_unaccepted_legacy_place_pointers']['rows']==2
     assert y['axes']['coordinate_admitted']['rows']==1
+
+
+def test_pending_candidates_cannot_be_reported_as_admitted_coverage():
+    s,l,e,p,c=inputs()
+    p['coordinate_admission_status']='candidate_only_pending_root_review'
+    with pytest.raises(ValueError,match='Unadmitted point'):
+        measure(s,l,e,p,c)
+    p['coordinate_admission_status']='reviewed_rule_accepted'
+    e['decision_status']='pending_independent_application_review'
+    with pytest.raises(ValueError,match='Unadmitted identity'):
+        measure(s,l,e,p,c)

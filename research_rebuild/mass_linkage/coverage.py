@@ -70,6 +70,15 @@ def measure(selected: pd.DataFrame, legacy: pd.DataFrame, edges: pd.DataFrame,
     if not set(selected.census_year).issubset({2002,2010,2021}):
         raise ValueError('census calculator does not assign national denominators to annual observations')
     ids = set(selected.source_record_id)
+    accepted_edges={'checked_rule_accepted','checked_rule_accepted_redundant_graph_connectivity_effect',
+                    'accepted_rule_family_after_independent_sample_review','case_specific_independent_review_accepted',
+                    'case_review_accepted','independent_case_review_accepted','accepted_case_specific'}
+    if 'decision_status' in edges and (edges.decision_status.isna().any() or not edges.decision_status.isin(accepted_edges).all()):
+        raise ValueError('Unadmitted identity edges cannot enter coverage')
+    accepted_points={'reviewed_rule_accepted','frozen_r5b_reviewed_baseline_preserved',
+                     'reviewed_extension_rule_accepted','reviewed_case_accepted'}
+    if 'coordinate_admission_status' in point_uses and (point_uses.coordinate_admission_status.isna().any() or not point_uses.coordinate_admission_status.isin(accepted_points).all()):
+        raise ValueError('Unadmitted point candidates cannot enter coverage')
     if not set(point_uses.target_source_record_id).issubset(ids):
         raise ValueError('point-use endpoint absent from selected source layer')
     if point_uses.target_source_record_id.duplicated().any():

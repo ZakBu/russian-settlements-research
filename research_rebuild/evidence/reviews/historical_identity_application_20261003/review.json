@@ -1,0 +1,105 @@
+{
+  "review_id": "historical_spatial_application_review_2026-10-03_v1",
+  "verdict": "APPROVE the 45,465 `staged_checked_rule_application` pairs for promotion as identity-only same_place rule edges, subject to root promotion preserving the pinned baseline and all staged source holds. Keep 1,950 rows held and 64 existing-pair corroborations as no-op evidence.",
+  "scope": {
+    "application_directory": "/workspace/settlements-work/identity/historical_spatial_application_v2",
+    "rule_review_id": "historical_spatial_rule_review_2026-10-03_v2",
+    "candidate_rows": 47479,
+    "staged_new_pairs": 45465,
+    "existing_exact_pair_corroborations": 64,
+    "held": 1950,
+    "promoted_or_accepted_by_this_review": false,
+    "reason": "The application is immutable staged output pending root-owned promotion; this review approves eligibility but does not rewrite application or accepted graph."
+  },
+  "full_frame_checks": {
+    "candidate_predicate_true_every_row": true,
+    "candidate_ids_unique": true,
+    "application_rows_aligned_to_candidate_order_and_ids": false,
+    "new_staged_endpoints_exactly_equal_positive_candidate_pairs": true,
+    "all_new_staged_edges_pending_independent_application_review": true,
+    "raw_source_check_on_every_new_or_corroborated_pair": true,
+    "all_243_legacy_identity_conflicts_held": true,
+    "legacy_same_year_collision_flags_in_frame": 0,
+    "matched_code_keyed_events": 0,
+    "replayed_graph_collisions": 0,
+    "replayed_graph_effects": {
+      "proposed_component_merge": 45465,
+      "already_connected_exact_baseline_pair": 64
+    },
+    "new_pairs_have_unique_candidate_ids": true,
+    "baseline_edge_count": 128569,
+    "baseline_edge_values_preserved_in_staged_prefix": true,
+    "staged_only_fields_on_baseline_rows_null": [
+      "rule_review_sha256",
+      "source_application_check_json",
+      "population_quality_changed",
+      "coordinate_admitted",
+      "boundary_comparability_asserted"
+    ],
+    "staged_new_rows_changed_population_coordinate_or_boundary_admission": false,
+    "active_endpoints_selected_for_all_new_rows": true
+  },
+  "source_row_application": {
+    "raw_row_status_counts": {
+      "raw_row_exact_label_population_region_verified": 45756,
+      "held_raw_label_mismatch": 1458,
+      "held_raw_region_mismatch": 171,
+      "held_raw_row_outside_profile": 1,
+      "held_source_family_not_yet_applied": 20,
+      "held_karelia_raw_mismatch": 73
+    },
+    "raw_source_rows_exactly_verified": 45756,
+    "profiled_primary_family_coverage": "The applied XLS profiles include reviewed profiles from recover_admin_context.py and explicit source profiles for 010, 011 and 013, plus explicitly constant-region files; 19 XLS source families and the Arkhangelsk HTML and Karelia DOCX received source-row handling. No district carry was used.",
+    "held_unapplied_families": {
+      "Kaliningrad official XLSX": 11,
+      "Murmansk official DOC": 9
+    },
+    "karelia_xml_grid_holds": 73,
+    "raw_source_population_rule": "Exact numeric count from same publication row required. No ±10 tolerance. Raw dash/suppression remains held unless a source-specific reviewed interpretation applies; this application has no global dash waiver.",
+    "separate_metadata_correction": "Karelia source_name_raw metadata is preserved; raw DOCX label verification is separate. The 73 physical XML-cell mismatch cases remain held for a source-layout interpretation."
+  },
+  "bounded_independent_reread": {
+    "design": "20 deterministic hash-ranked staged-positive source rows, selected with seed application-review-2026-10-03 and distinct from the previous 120-row rule review; plus one representative for each source_file × held raw-check class.",
+    "positive_rows_reopened": 20,
+    "positive_exact_typed_label": 20,
+    "positive_exact_same_row_population": 20,
+    "positive_exact_source_region_context": 20,
+    "held_risk_representatives_reopened": 21,
+    "held_risk_representatives_not_parsed_due_unapplied_family": 2,
+    "reopened_source_extractions_matched_root_literal_row_values": true,
+    "artifact": "raw_row_reread_sample.csv",
+    "limitations": "This is a bounded corroboration sample. It does not replace the builder’s full source-row pass; unapplied Kaliningrad/Murmansk records and all mismatches remain held."
+  },
+  "hold_breakdown": {
+    "held_rows": 1950,
+    "raw_label_mismatch": 1458,
+    "raw_region_mismatch": 171,
+    "karelia_raw_xml_mismatch": 73,
+    "source_family_not_yet_applied": 20,
+    "raw_row_outside_profile": 1,
+    "legacy_identity_conflict_flag": 243,
+    "overlap_between_source_and_legacy_holds": 16,
+    "legacy_same_year_collision_flag": 0,
+    "note": "Counts overlap: 13 label holds and 3 region holds also have legacy conflict flags. No hold is promoted by this review."
+  },
+  "pins": {
+    "application_receipt_sha256": "33da3826d9aff749dc3fd97bbae0f6e231a52ed440b8422d3124a41939d968cd",
+    "application_builder_sha256": "9be5beb19f0b29362f9ed10aea115ced7c4ebaf4b5ceefd468225071595983fe",
+    "application_checks_sha256": "ba82b8417f20314e56d27f7dafb2b872c3a979cb11ad09b3cba4d04e5557dd2b",
+    "source_row_checks_sha256": "bdce3fd0740d80c975401f895c1d3bbf7e931504bb1d0747c2f3b1c4c1966fc3",
+    "staged_identity_edges_sha256": "57609d3a86782ec74b7d95ca9f2c485111e4adddf4dc7edb0749f025f489f0f7",
+    "frozen_rule_review_sha256": "57fa4c770f4074679c1562d6c3bd8fa71ee1a5dd8891ed7657185d52eff4e749",
+    "frozen_candidate_receipt_sha256": "767b41a4a3615ef01555f187a374390cc737d928d4d1b12a86b39f52b8a46846",
+    "frozen_candidate_output_sha256": "2e22815e3a638a6964e3ed5dc33df1e8d70eb60588597466d77da0fa4f355a82",
+    "frozen_selected_source_sha256": "524e706daa32a69cac9b3e67b3bb8f9113fe2d851f10cdf42e93ba4efa5d72bf",
+    "accepted_graph_input_sha256": "ef034c0282fa877ba8820c3706f069a740ce5d4330bc80cba3e44f9898780eef",
+    "bounded_reread_script_sha256": "6b9efd49f8b7bc1e339b7ec7182af4cca41154386e18892b2265e74cf565b242",
+    "bounded_reread_csv_sha256": "72db550157dcb411200c601f88cf6187c7d47ff5f0192f81e32a458a3bc5b5fa"
+  },
+  "promotion_conditions": [
+    "Promote only the 45,465 pending rows from this exact pinned staging output; preserve the 128,569-edge accepted baseline unchanged.",
+    "Keep all 1,950 application holds and 64 existing-pair corroborations out of new-edge additions.",
+    "Keep identity edges separate from population quality, coordinate admission and boundary comparability; the staged fields show those admissions unchanged/false.",
+    "Preserve the application receipt and staged hashes in the root-owned promotion receipt."
+  ]
+}
