@@ -1,7 +1,19 @@
 import pandas as pd
 import pytest
 
-from research_rebuild.mass_linkage.build_long_table import build_long_table, _bind_source_hashes
+from research_rebuild.mass_linkage.build_long_table import build_long_table, _bind_source_hashes, _coordinate_columns
+
+
+def test_point_event_candidates_do_not_certify_boundary_or_identifier_history():
+    point={"latitude":50,"longitude":40,"coordinate_admission_status":"reviewed_extension_rule_accepted",
+           "admission_rule":"historical_city_typed_code_and_accepted_modern_point_1km_v1",
+           "lineage_event_roles_json":'[{'+'"event_id":"child_absorption","event_evidence_status":"legacy_candidate_not_newly_verified"'+'}]',
+           "corroborating_modern_point_distance_km":0.7,"boundary_comparability_asserted":False}
+    cols=_coordinate_columns(point,'historical_continuity_inference')
+    assert cols['coordinate_lineage_event_candidates_json']==point['lineage_event_roles_json']
+    assert cols['coordinate_corroborating_modern_point_distance_km']==0.7
+    assert cols['boundary_comparability_asserted'] is False
+    assert cols['coordinate_quality']=='automatically_accepted_checked_rule'
 
 
 def test_exact_source_manifest_binding_preserves_original_and_blocks_conflicts(tmp_path):
