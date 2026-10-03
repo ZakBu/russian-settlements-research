@@ -1,5 +1,14 @@
 # Active research run: 2026-10-02
 
+## Active next phase — 2026-10-03 evening MSK
+
+Use [AUDIT_AND_PLAN_99_20261003.md](AUDIT_AND_PLAN_99_20261003.md) and proposed
+`config/research_rule_audit_20261003.json`. Prioritize large places>=2000 in any
+observed year, reliable dated series/interyear identity, then remaining population
+to99%. Candidate audits and extracted Wikidata statements are outside the frozen
+scientific ledgers. New rules need their scoped independent pilot before admission.
+Do not confuse optional old stage flags with canonical `decision_status`.
+
 ## Current authoritative working checkpoint — 2026-10-03
 
 The latest consolidated state is described in

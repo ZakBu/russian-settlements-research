@@ -1,0 +1,125 @@
+{
+  "status": "bounded_current_candidate_profile_no_admissions",
+  "frozen_delivery": "/workspace/settlements-delivery/continuation-consolidated-20261003",
+  "current_files": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/accepted_point_uses.parquet": "a2087db421629ea66fe8c32de05b0aa68a3fff3c6ff3c7deb1cbcd1f286f3ae8",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/accepted_identity_edges.parquet": "e9f402c2bda189561d56a4adcee5ecd2fa4d5ed52610b45011eab9f8bc14f075",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/legacy_availability_projected_r5.parquet": "3c21c2edbc7ab0813929775c1d5100d5e15bb25b6c5cdb31d3fe46edd80270d5"
+  },
+  "candidate_evidence": {
+    "/workspace/settlements-work/coordinates/historical_named_candidates_v4/historical_named_point_candidates.parquet": "cb4449d3f0fec3c833eae1ee7d6e29183aabf1668bad5b8d8edf82bad7b121f8"
+  },
+  "physical_population_anchor": {
+    "2002": {
+      "rows": 36165,
+      "population": 19887379
+    },
+    "2010": {
+      "rows": 72676,
+      "population": 23683753
+    }
+  },
+  "observed_physical_population_anchor": {
+    "2002": {
+      "rows": 36165,
+      "population": 19887379
+    },
+    "2010": {
+      "rows": 72676,
+      "population": 23683753
+    }
+  },
+  "excluded_rows": [
+    {
+      "source_record_id": "2002:1_TOM_01_04.xls:0:3218",
+      "census_year": 2002,
+      "settlement_name": "Санкт-Петербург",
+      "population": 4661219.0
+    },
+    {
+      "source_record_id": "2010:pub-11-1-4.pdf:pdf_page_11:41",
+      "census_year": 2010,
+      "settlement_name": "Москва",
+      "population": 11503501.0
+    },
+    {
+      "source_record_id": "2010:pub-11-1-4.pdf:pdf_page_15:39",
+      "census_year": 2010,
+      "settlement_name": "Санкт-Петербург",
+      "population": 4879566.0
+    }
+  ],
+  "year_profiles": [
+    {
+      "year": 2002,
+      "physical_missing_point_rows": 36165,
+      "physical_missing_point_population": 19887379,
+      "legacy_route_available_rows": 30874,
+      "legacy_route_available_population": 16839264,
+      "legacy_route_unavailable_rows": 5287,
+      "legacy_route_unknown_rows": 4,
+      "exact_historical_point_candidates": 1689,
+      "exact_historical_candidate_population": 8344574,
+      "one_current_accepted_2021_carrier_rows": 8,
+      "one_carrier_population": 536953,
+      "multiple_current_accepted_2021_carriers_rows": 0,
+      "multiple_carrier_population": 0,
+      "historical_exact_code_witness_rows": 4363,
+      "historical_provider_code_exact_or_numeric_match_rows": 0,
+      "possible_unlocated_historical_competitor_rows": 2871,
+      "current_legacy_coordinate_conflict_hold_rows": 2,
+      "missing_legacy_and_no_historical_candidate_rows": 5250
+    },
+    {
+      "year": 2010,
+      "physical_missing_point_rows": 72676,
+      "physical_missing_point_population": 23683753,
+      "legacy_route_available_rows": 68443,
+      "legacy_route_available_population": 22383645,
+      "legacy_route_unavailable_rows": 1253,
+      "legacy_route_unknown_rows": 2980,
+      "exact_historical_point_candidates": 1444,
+      "exact_historical_candidate_population": 2866202,
+      "one_current_accepted_2021_carrier_rows": 5,
+      "one_carrier_population": 471642,
+      "multiple_current_accepted_2021_carriers_rows": 0,
+      "multiple_carrier_population": 0,
+      "historical_exact_code_witness_rows": 12902,
+      "historical_provider_code_exact_or_numeric_match_rows": 0,
+      "possible_unlocated_historical_competitor_rows": 10891,
+      "current_legacy_coordinate_conflict_hold_rows": 2,
+      "missing_legacy_and_no_historical_candidate_rows": 4149
+    }
+  ],
+  "source_identifier_profile": {
+    "2002": {
+      "rows": 36165,
+      "source_native_id_nonnull": 36165,
+      "source_native_id_distinct": 17826,
+      "selected_okato_nonnull": 0,
+      "selected_oktmo_nonnull": 0,
+      "source_path_nonnull": 4,
+      "source_sha256_nonnull": 4,
+      "source_locator_nonnull": 4
+    },
+    "2010": {
+      "rows": 72676,
+      "source_native_id_nonnull": 72676,
+      "source_native_id_distinct": 21707,
+      "selected_okato_nonnull": 0,
+      "selected_oktmo_nonnull": 0,
+      "source_path_nonnull": 3921,
+      "source_sha256_nonnull": 3921,
+      "source_locator_nonnull": 3921
+    }
+  },
+  "definitions": {
+    "legacy_route_available": "R5 projected legacy point availability; indicates a coordinate inventory route, not point admission or same-location identity",
+    "legacy_route_unknown": "source row absent from R5 projection; not treated as unavailable",
+    "exact_historical_point_candidate": "v4 unique regional typed raw 2009/2011 classifier/GeoKLADR join with exact name and type, explicit source additive row, and no known unlocated competitor; candidate only",
+    "actual_conflict": "multiple distinct currently accepted 2021 point carriers in a connected accepted same_place component; candidate disagreement and soft metadata gaps are reported separately",
+    "raw_source_codes": "all source OKATO/OKTMO values are preserved as literal strings; no padding or reserialization is applied by this audit"
+  },
+  "runtime_seconds": null
+}

@@ -1,5 +1,18 @@
 # Research status
 
+## Rule audit and revised priority, 2026-10-03 evening MSK
+
+[The audited 99% plan](docs/AUDIT_AND_PLAN_99_20261003.md) keeps the scientific
+checkpoint below unchanged. The user prioritizes reliable interyear series and
+places >=2000 people, then the remaining population needed for99%. That threshold
+covers81.984502%/83.173177%/85.291474% of the full census controls, not95%.
+A Wikidata rule-extension candidate pool has12803rows/3320225people after
+preserving known city holds. Historical8/11digit urban-code bridges and1138
+candidate2021continuations of accepted older pairs require scoped review.
+No new coordinate/identity admissions are claimed by this audit. Federal-territory
+representation remains a separately labeled spatial metric. Cached dated Wikidata
+population claims are being extracted with full statement and source provenance.
+
 ## Local working checkpoint, 2026-10-03
 
 The current local checkpoint contains465800 selected census records,177707 accepted

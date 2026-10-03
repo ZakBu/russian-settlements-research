@@ -1,0 +1,45 @@
+{
+  "review_id": "target99_plan_final_scope_sampling_check_v1",
+  "status": "revision_required_one_precision_overstatement",
+  "scope": "Bounded final review of requested scope/PPS corrections and newly added pilot/history statements only; no repeated data audit and no admissions.",
+  "final_report": {
+    "path": "/workspace/russian-settlements-research/docs/AUDIT_AND_PLAN_99_20261003.md",
+    "sha256": "0c676ee0a007ce13fb536604655c77e3251dcd1861c5b4eab612429957f504fe"
+  },
+  "findings": [
+    {
+      "id": "observed_year_and_annual_denominator_scope",
+      "status": "pass",
+      "evidence": "The opening now says 99%/99.9% are targets rather than a confirmed forecast for the three census years, and that national denominators for other years are undefined. The later completion criterion says to report 99% only for years with a defined nonoverlapping denominator.",
+      "impact": "The earlier implication that attainability was assessed for all years except 2010 is removed."
+    },
+    {
+      "id": "territory_and_city_identity_scope",
+      "status": "pass",
+      "evidence": "The federal-city section keeps territory-reference points separate from populated-place points, prohibits parent-plus-child summation, limits pre-2012 Moscow boundary work to requested harmonization, and says boundary change does not itself negate city identity or block coordinates. The historical-city section allows reliable city links with incomparable population scope, does not require an individual historical polygon for ordinary stable cases, and keeps boundary comparability as a separate status.",
+      "impact": "The territory metric is not presented as atomic physical-place 99% coverage."
+    },
+    {
+      "id": "pilot_351_and_sampling_frame_separation",
+      "status": "pass",
+      "evidence": "The 351-place / 2,068,453-person group is explicitly a pilot not yet geographically checked. It distinguishes 300 PPS draws from 178 unique random records and 61 targeted records, reports the 200-record union, excludes targeted checks from the probability estimate, and calls seed/weight reproduction an integrity check rather than independent geographic validation.",
+      "impact": "These counts are framed as a review workload, not achieved coverage or certified precision."
+    },
+    {
+      "id": "historical_population_claim_scope",
+      "status": "pass",
+      "evidence": "The 64,483 statement is called a raw assertion inventory, separates 64,466 normal/preferred from 17 deprecated, preserves but excludes deprecated rows from the rank-eligible candidate layer, identifies four date-variant holds, says the 4,984 full-entity statements are already included, and states candidates are not added to the frozen 500,320-row table.",
+      "impact": "No historical coverage or accepted population claim is implied by these inventory counts."
+    },
+    {
+      "id": "pps_duplicate_sentence_claims_99_9_accuracy",
+      "status": "fail",
+      "location": "Independent-check section immediately before the corrected PPS bound; repeated paragraph begins `Для отдельной оценки доли населения с ошибочной привязкой...`.",
+      "issue": "The final draft contains a stray duplicated sentence: `600 независимых выборочных извлечений при нуле найденных ошибок дают точность 99,9%.` This is false at the stated one-sided 95% confidence level and conflicts with the immediately repeated corrected bound of about 0.498% error for n=600. Six hundred zero-error draws imply a 95% upper error bound of about 0.498% (a corresponding lower accuracy bound about 99.502%), not 99.9%.",
+      "recommended_edit": "Delete the stray sentence ending `дают точность 99,9%.` Retain the following corrected statement that n=600 gives a one-sided 95% error upper bound near 0.498%, while n=2,995 is needed for 0.1% under the stated conditions.",
+      "impact": "The later PPS frame limitation is correctly applied, but the duplicate sentence currently overstates precision and must be removed before the draft is treated as internally consistent."
+    }
+  ],
+  "recommendation": "Remove the single 99.9%-accuracy sentence. The requested scope clarification, frozen-frame PPS limitation, and new pilot/history framing otherwise pass this bounded review.",
+  "no_admissions": true
+}

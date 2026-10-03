@@ -1,0 +1,101 @@
+{
+  "status": "proposed_after_audit_not_an_admission_policy",
+  "base_scientific_commit": "c9abecf7bebd918101d32784e8c4077178d11a79",
+  "report": "docs/AUDIT_AND_PLAN_99_20261003.md",
+  "scope": "three census controls; other annual denominators undefined",
+  "target": {
+    "population_fraction": 0.99,
+    "denominator": "full official census control by year",
+    "separate_operational_denominator": "known selected nonaggregate physical settlement population",
+    "territory_reference_point_metric": "supplementary explicit source scope, exclusive parent-or-child hierarchy; never substitute for atomic settlement coverage"
+  },
+  "wikidata_primary_extension": {
+    "status": "requires_rule_specific_independent_pilot_review_before_staging",
+    "reuse": "reviewed C physical-city semantics, extend applicability to PGT/rural types",
+    "candidate_core_before_known_hold_resolution": {
+      "rows": 12805,
+      "recorded_population": 3372840
+    },
+    "gates": [
+      "physical source grain",
+      "exact native code to unique QID",
+      "exact name or separately reviewed name variant",
+      "documented physical P31/P279 path",
+      "valid representative P625",
+      "noncontradictory source-region context",
+      "no competing identity or unhandled place event"
+    ],
+    "not_universal_prerequisites": [
+      "second coordinate source",
+      "FIAS ID binding",
+      "literal P131 label equals ADM1 label",
+      "within 1 km of another provider point",
+      "historical measurement for each census",
+      "census-date settlement polygon"
+    ],
+    "region_context": "P625 expected ADM1 check is coarse consistency evidence; copied source_region is not independent evidence",
+    "mixed_type_lineage": "check actual physical meaning; neither blanket acceptance nor blanket administrative-class veto",
+    "multiple_points": "retain alternatives; select a sourced point only through reviewed rule or specific resolution; do not average",
+    "known_holds": "preserve and exclude from application unless separately resolved; distance alone is a risk flag, not proof of wrong object",
+    "claim_limits": [
+      "modern representative point and explicit spatial continuity",
+      "no census-date measurement claim",
+      "no legal code-validity claim",
+      "no harmonized population boundary claim",
+      "no upgrade of external-provider ID binding"
+    ],
+    "candidate_core_after_preserving_known_city_holds": {
+      "rows": 12803,
+      "recorded_population": 3320225
+    }
+  },
+  "historical_urban_code_bridge": {
+    "status": "proposed scope extension only",
+    "candidate_rows_including_shared_point_holds": 1258,
+    "population_by_year": {
+      "2002": 8108248,
+      "2010": 2447592
+    },
+    "conditions": [
+      "retain raw 8-digit classifier code",
+      "retain raw 11-digit GeoKLADR code",
+      "literal DBF KOD3 equals 000",
+      "compatible raw code blocks",
+      "exact physical name/type/region and unique candidate",
+      "verified census row association",
+      "no unexplained within-year shared point"
+    ],
+    "not_a_generic_code_repair": true,
+    "not_official_census_native_identifiers": true,
+    "source_update_date_is_not_coordinate_measurement_date": true
+  },
+  "hard_holds": [
+    "double count",
+    "administrative total as physical settlement",
+    "wrong geographic object or region",
+    "invalid point",
+    "unexplained code contradiction",
+    "real competing homonymous places",
+    "unresolved merger/split",
+    "unresolved previously quarantined case"
+  ],
+  "sampling": {
+    "pilot": "fixed probability/stratified sample plus separately labeled targeted risk and high-population checks",
+    "population_error_estimation": "separate frozen PPS with replacement; preserve draw multiplicities",
+    "zero_errors_600_draws_upper95": 0.004980443380361299,
+    "zero_error_draws_for_upper95_below_0_001": 2995,
+    "confidence_limits_conditional_on_review_labels_and_recorded_population_weights": true,
+    "no_pooling_with_targeted_samples": true
+  },
+  "new_point_admissions_in_this_audit": 0,
+  "new_identity_admissions_in_this_audit": 0,
+  "work_priority": {
+    "population_threshold_first": 2000,
+    "comparison": ">=",
+    "retain_previously_accepted_small_places": true,
+    "small_exception_work": "only as needed for 99% population or system-risk resolution",
+    "no_individual_dossier_for_each_small_place": true,
+    "temporal_identity_and_real_observed_series_are_separate_delivery_objectives": true,
+    "wikidata_history": "all nondeprecated P1082 statements from full entities, with P585 precision, qualifiers, ranks, references; no primary-census replacement"
+  }
+}
