@@ -848,3 +848,19 @@ Firstauxiliarypreparation incorrectlyrequiredsetequality and stopped before
 acceptinginventory. v2 preserves those discrepancies exactly and renames only
 56approved IDs,allotherlegacyvalues unchanged. No candidates promoted bythat
 projection. Nationalqualitytarget and additional-years completeness unmet.
+
+### 2026-10-03, 16:44 UTC — consolidated package frozen; next bounded loops
+
+Created one new archive of scientific checkpoint c9abecf; earlier archives
+unchanged. Complete Git bundle verified. Full archive readback verifies all
+65 payload files/410249156 bytes; archive293136640 bytes, SHA4d06b7dc….
+Package creation12.566s/readback plusarchivehash2.094s. No remote publication:
+write403 remains unresolved. Details inCONSOLIDATED_PACKAGE_20261003.md.
+
+Next tasks are candidate-only, with disjoint agent outputs: extend additional
+cached physical Wikidata witnesses from top100 to all2819 unaccepted GeoNames
+candidates; scope the next remaining rural2010 primary-publication cohort;
+assess what existing dated classifier sources can actually establish about
+OKTMO assignments/events. Accepted package frozen; no blanket admissions or
+claims that classifier snapshot dates are legal effect dates. Root integrates
+only after rule-specific independent checks. Nationaltarget unmet.
