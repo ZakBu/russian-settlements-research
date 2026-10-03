@@ -44,3 +44,19 @@ def test_approval_cannot_silently_cover_another_target(tmp_path):
     base,staged,review,_=fixture(tmp_path)
     d=json.loads(review.read_text());d['approved_target_source_record_ids']=['unreviewed'];review.write_text(json.dumps(d))
     with pytest.raises(ValueError,match='absent'):admit(base,staged,review,tmp_path/'accepted')
+
+
+def test_disagreeing_review_id_aliases_rejected(tmp_path):
+    base,staged,review,_=fixture(tmp_path)
+    d=json.loads(review.read_text());d['approved_source_record_ids']=['other'];review.write_text(json.dumps(d))
+    with pytest.raises(ValueError,match='lists disagree'):admit(base,staged,review,tmp_path/'accepted')
+
+
+def test_schema_projection_cannot_change_independent_approved_targets(tmp_path):
+    base,staged,review,_=fixture(tmp_path)
+    independent=tmp_path/'independent.json'
+    independent.write_text(json.dumps({'decision':'APPROVE_BOUNDED_POINT_DELTA','approved_source_record_ids':['other']}))
+    d=json.loads(review.read_text());d.update({'decision_author':'primary_agent_after_independent_validation',
+        'independent_review_path':str(independent),'independent_review_sha256':sha(independent)})
+    review.write_text(json.dumps(d))
+    with pytest.raises(ValueError,match='changes independently approved'):admit(base,staged,review,tmp_path/'accepted')

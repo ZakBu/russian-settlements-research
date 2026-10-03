@@ -17,10 +17,20 @@ def admit(base: Path, staged: Path, review_path: Path, output: Path):
         independent=Path(review['independent_review_path'])
         if sha(independent)!=review['independent_review_sha256']:
             raise ValueError('Independent validation artifact changed')
+        source_review=json.loads(independent.read_text())
+        if source_review.get('decision',source_review.get('verdict')) not in {
+            'APPROVE_BOUNDED_POINT_DELTA','APPROVE_BOUNDED_CURRENT_CITY_HISTORICAL_POINT_DELTA'}:
+            raise ValueError('Schema projection lacks explicit independent point approval')
+        original_ids=source_review.get('approved_target_source_record_ids',source_review.get('approved_source_record_ids',[]))
+        projected_ids=review.get('approved_target_source_record_ids',review.get('approved_source_record_ids',[]))
+        if not original_ids or set(original_ids)!=set(projected_ids):
+            raise ValueError('Schema projection changes independently approved target set')
     for key,p in [('base_point_uses_sha256',base),('staged_point_uses_sha256',staged)]:
         if review.get(key)!=sha(p):raise ValueError('Review input hash differs: '+key)
     original=pd.read_parquet(base);candidates=pd.read_parquet(staged)
-    allowed=review.get('approved_target_source_record_ids',[])
+    allowed=review.get('approved_target_source_record_ids',review.get('approved_source_record_ids',[]))
+    if 'approved_target_source_record_ids' in review and 'approved_source_record_ids' in review and set(review['approved_target_source_record_ids'])!=set(review['approved_source_record_ids']):
+        raise ValueError('Review target/source ID lists disagree')
     if not allowed or len(allowed)!=len(set(allowed)):
         raise ValueError('Nonempty unique explicit reviewed target list required')
     if not set(allowed).issubset(set(candidates.target_source_record_id)):
