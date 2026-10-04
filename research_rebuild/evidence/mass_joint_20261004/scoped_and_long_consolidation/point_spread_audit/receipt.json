@@ -1,0 +1,166 @@
+{
+  "status": "read_only_diagnostic_complete_no_canonical_changes",
+  "reviewed_at_utc": "2026-10-04T12:38:22Z",
+  "baseline": {
+    "graph": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_tenth_reviewed1117/accepted_identity_edges.parquet",
+      "sha256": "19861c11048f191a540aba453f11194a540934fbe350f553e37a42908393d013",
+      "rows": 348281
+    },
+    "points": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_tenth_reviewed1117/accepted_point_uses.parquet",
+      "sha256": "870ccd0af86889e5c8e2c01bddd1d3c53401ccba216d7ce77624e5f848f724cc",
+      "rows": 415744
+    },
+    "point_continuity_holds": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_tenth_reviewed1117/point_continuity_holds.csv",
+      "sha256": "b27f6ef633ce37c8afbf8b336d4d58aa1d7895e7f70f7ff529282e00d06f5ed6",
+      "rows": 41,
+      "spread_over_5km": 36,
+      "event_or_global_block": 5
+    },
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+    }
+  },
+  "inputs": {
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_tenth_reviewed1117/point_continuity_holds.csv": {
+      "sha256": "b27f6ef633ce37c8afbf8b336d4d58aa1d7895e7f70f7ff529282e00d06f5ed6",
+      "bytes": 9742
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_tenth_reviewed1117/accepted_identity_edges.parquet": {
+      "sha256": "19861c11048f191a540aba453f11194a540934fbe350f553e37a42908393d013",
+      "bytes": 66346787
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_tenth_reviewed1117/accepted_point_uses.parquet": {
+      "sha256": "870ccd0af86889e5c8e2c01bddd1d3c53401ccba216d7ce77624e5f848f724cc",
+      "bytes": 42360707
+    },
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet": {
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327",
+      "bytes": 132412248
+    },
+    "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet": {
+      "sha256": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+      "bytes": 9630813
+    },
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": {
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+      "bytes": 59991330
+    },
+    "/workspace/settlements-raw/data/raw/historical_classifiers/okato_142_2009/dump-142_2009.sql": {
+      "sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+      "bytes": 24684035
+    },
+    "/workspace/settlements-raw/data/raw/2002/070_48ec6f4a77_Irkut_obl_new.xls": {
+      "sha256": "53cc4d5dc967f6f5d5ee5c5802b25f72314284c4fc21efa285f0115b0c22e28d",
+      "bytes": 378880
+    },
+    "/workspace/settlements-raw/data/raw/2010/008_342f3c208b_16._20Сиб_ФО_2010.xls": {
+      "sha256": "960feadeb50c27be2d8a2084112349fb0c22ae608929716bcafed5a140c84d0e",
+      "bytes": 10963456
+    },
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": {
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    }
+  },
+  "outputs": {
+    "top10_spread_conflicts.csv": {
+      "sha256": "c050ed61427bab76405c6d4a81d62fb5d2c43f24d66a9b9212fba9c78a505696",
+      "rows": 10
+    },
+    "five_event_global_holds.csv": {
+      "sha256": "2b559171ef2df94d824ffdb0e7cab487acb803be7b2a600ab8c132c1afe17fcb",
+      "rows": 5
+    },
+    "taezhny_oldpoint_binding_audit.json": {
+      "sha256": "ba0909bbb673fbba38119c46185ee509a1262a73f22145e30919cfb55249819e"
+    },
+    "build_diagnostic.py": {
+      "sha256": "be978adfb99a5bef5e2572128abc0f66a1709f48d8dfedc0d3c38e071414de57"
+    }
+  },
+  "findings": {
+    "top10_ranked_by_current_population": [
+      {
+        "rank": 1,
+        "name": "Бобровский",
+        "population_context_only": 5945.0,
+        "spread_km": 174.45941401957626
+      },
+      {
+        "rank": 2,
+        "name": "Юмагузино",
+        "population_context_only": 4633.0,
+        "spread_km": 36.447797842078955
+      },
+      {
+        "rank": 3,
+        "name": "Амзя",
+        "population_context_only": 4214.0,
+        "spread_km": 16.751772513722067
+      },
+      {
+        "rank": 4,
+        "name": "Капустин Яр",
+        "population_context_only": 4098.0,
+        "spread_km": 19.4738883875706
+      },
+      {
+        "rank": 5,
+        "name": "Красный Ключ",
+        "population_context_only": 2275.0,
+        "spread_km": 27.795305122097954
+      },
+      {
+        "rank": 6,
+        "name": "Шафраново",
+        "population_context_only": 1888.0,
+        "spread_km": 5.727979863700262
+      },
+      {
+        "rank": 7,
+        "name": "Уптар",
+        "population_context_only": 1701.0,
+        "spread_km": 16.609720442055426
+      },
+      {
+        "rank": 8,
+        "name": "Иванищи",
+        "population_context_only": 1633.0,
+        "spread_km": 88.48285096385969
+      },
+      {
+        "rank": 9,
+        "name": "Лопандино",
+        "population_context_only": 1247.0,
+        "spread_km": 12.172970728449393
+      },
+      {
+        "rank": 10,
+        "name": "Аккермановка",
+        "population_context_only": 1214.0,
+        "spread_km": 6.472867011330907
+      }
+    ],
+    "taezhny_point_uses_flagged_for_quarantine_only": [
+      "2002:070_48ec6f4a77_Irkut_obl_new.xls:Sheet1:1623",
+      "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:4924"
+    ],
+    "current_points_preserved": [
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25538",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:24744"
+    ]
+  },
+  "execution": "narrow DuckDB column projections, raw XLS rows reopened with xlrd, native DBF row verified against the local parsed raw-row index and source-byte pin; no full national scans and no output written outside this folder."
+}
