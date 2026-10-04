@@ -1,0 +1,544 @@
+{
+  "status": "independent_pre_event_review_complete_candidate_only",
+  "decision": {
+    "2002_to_2010_same_place_pair": "supported_for_scoped_root_review",
+    "2011_point_use_for_2002_and_2010": "supported_as_separate_spatial_continuity_candidate",
+    "old_city_to_2021_balashikha_same_place": "not_supported; preserve successor as a separate dated transformation candidate"
+  },
+  "scope": "Only former Zheleznodorozhny source IDs listed below and the cached point/event evidence version. No graph, point, population, or event ledger changed. No general clearing of legacy flags.",
+  "approved_scope_candidate": {
+    "from_source_record_id": "2002:1_TOM_01_04.xls:0:1020",
+    "to_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:11",
+    "relation_if_root_applies": "same_place pre-event city continuity, between the actual 2002 and 2010 census rows only",
+    "exact_source_hashes": {
+      "2002:1_TOM_01_04.xls:0:1020": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "2010:pub-11-1-4.pdf:pdf_page_6:11": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500"
+    },
+    "classifier_row_sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+    "geokladr_row_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "point_event_receipt_sha256": "f8d51767e090b7f1c4e8ba47eca0f30b02ed5c66adcd0777a779042250e161d0"
+  },
+  "published_city_observations": [
+    {
+      "source_record_id": "2002:1_TOM_01_04.xls:0:1020",
+      "observation_year": 2002,
+      "reference_date": "2002-10-09",
+      "source_name_raw": "г. Железнодорожный",
+      "settlement_name": "Железнодорожный",
+      "settlement_type": "город",
+      "region_raw": "московская",
+      "district_raw": null,
+      "municipality_raw": null,
+      "population_value": 103931.0,
+      "population_raw": null,
+      "population_value_quality": "direct_published_census_value",
+      "population_value_quality_original_tag": "direct_published_census_value",
+      "population_scope": "settlement",
+      "source_path": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "source_row": 1020.0,
+      "source_native_id": "table4:1020",
+      "source_sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "association_status": "unknown_no_link",
+      "entity_id": "settlement:2002:1_TOM_01_04.xls:0:1020",
+      "census_full_chain": false,
+      "latitude": null,
+      "longitude": null,
+      "coordinate_admission_status": null,
+      "coordinate_measurement_date_unknown": null,
+      "boundary_comparability_asserted": null
+    },
+    {
+      "source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:11",
+      "observation_year": 2010,
+      "reference_date": "2010-10-14",
+      "source_name_raw": "Железнодорожный Московская область 103931 131257",
+      "settlement_name": "Железнодорожный",
+      "settlement_type": "город",
+      "region_raw": "московская",
+      "district_raw": null,
+      "municipality_raw": null,
+      "population_value": 131257.0,
+      "population_raw": null,
+      "population_value_quality": "direct_official_city_value",
+      "population_value_quality_original_tag": "direct_official_city_value",
+      "population_scope": "settlement",
+      "source_path": "data/raw/2010_official_tom11/pub-11-1-4.pdf",
+      "source_row": 11.0,
+      "source_native_id": "table1.4:p6:l11",
+      "source_sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+      "association_status": "unknown_no_link",
+      "entity_id": "settlement:2010:pub-11-1-4.pdf:pdf_page_6:11",
+      "census_full_chain": false,
+      "latitude": null,
+      "longitude": null,
+      "coordinate_admission_status": null,
+      "coordinate_measurement_date_unknown": null,
+      "boundary_comparability_asserted": null
+    }
+  ],
+  "name_and_type_uniqueness": [
+    {
+      "year": 2002,
+      "all_same_name_rows": 2,
+      "city_count": 1,
+      "city_source_record_ids": "2002:1_TOM_01_04.xls:0:1020",
+      "all_source_rows_by_type": "посёлок:2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:4639 | город:2002:1_TOM_01_04.xls:0:1020"
+    },
+    {
+      "year": 2010,
+      "all_same_name_rows": 2,
+      "city_count": 1,
+      "city_source_record_ids": "2010:pub-11-1-4.pdf:pdf_page_6:11",
+      "all_source_rows_by_type": "посёлок:2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:12190 | город:2010:pub-11-1-4.pdf:pdf_page_6:11"
+    },
+    {
+      "year": 2021,
+      "all_same_name_rows": 1,
+      "city_count": 0,
+      "city_source_record_ids": null,
+      "all_source_rows_by_type": "посёлок:2021:data_allsettlements_anon_156_v20251217.parquet:parquet:69296"
+    }
+  ],
+  "publisher_evidence": {
+    "2002_source_title": "official 2002 census Tom 1 Table 4; selected native record is explicit `г. Железнодорожный` city row with population 103,931.",
+    "2010_source_title": "official 2010 census results, Table 1.4; PDF page 6 lists `Город | Наименование субъекта` and one row `Железнодорожный | Московская область | 103931 | 131257`. This exact row binds both years to the same official city entry and gives population 131,257 for 2010.",
+    "2010_exact_raw_text": "Железнодорожный Московская область 103931 131257",
+    "qualification": "Structured grain flags are unresolved for the 2002/2010 rows, but the raw publisher table and row type explicitly identify a city; the source evidence confirms additive settlement scope and nonaggregate for both."
+  },
+  "source_flags": {
+    "2002:1_TOM_01_04.xls:0:1020": {
+      "entity_grain_status": null,
+      "grain_explicit": false,
+      "grain_review_flag": "grain_unresolved_or_not_recorded",
+      "is_additive_settlement_record": true,
+      "is_federal_aggregate": false,
+      "population_scope": "settlement",
+      "district_raw": null,
+      "municipality_raw": null,
+      "legacy_identity_status": "quarantined",
+      "legacy_identity_conflict": true,
+      "legacy_identity_reasons": "[\"depends_on_quarantined_target\"]",
+      "legacy_match_method": "unique_region_name_type_no_district"
+    },
+    "2010:pub-11-1-4.pdf:pdf_page_6:11": {
+      "entity_grain_status": null,
+      "grain_explicit": false,
+      "grain_review_flag": "grain_unresolved_or_not_recorded",
+      "is_additive_settlement_record": true,
+      "is_federal_aggregate": false,
+      "population_scope": "settlement",
+      "district_raw": null,
+      "municipality_raw": null,
+      "legacy_identity_status": "quarantined",
+      "legacy_identity_conflict": true,
+      "legacy_identity_reasons": "[\"legacy_not_accepted\"]",
+      "legacy_match_method": "no_candidate"
+    }
+  },
+  "historical_city_identity_and_point": {
+    "2009_classifier": {
+      "okato2009_raw": "46424000",
+      "name_raw": "Железнодорожный",
+      "name": "Железнодорожный",
+      "status": "город",
+      "name_full": "город Железнодорожный",
+      "is_settlement_raw": "t",
+      "line_1based": 102389,
+      "row_sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+      "snapshot_version": "142/2009",
+      "valid_from": null,
+      "valid_to": null
+    },
+    "2011_GeoKLADR": {
+      "okato2011_raw": "46424000000",
+      "dbf_record_1based": 77135,
+      "byte_offset_0based": 30468635,
+      "deleted_marker_raw": " ",
+      "is_deleted": false,
+      "TER": "46",
+      "KOD1": "424",
+      "KOD2": "000",
+      "KOD3": "000",
+      "name_raw": "Железнодорожный",
+      "SCOKATO_raw": "г                        ",
+      "type_raw": "г",
+      "KLADR_raw": "5000000400000",
+      "OKTMO_raw": "46724000",
+      "DATA_UPD_raw": "2011/06/20",
+      "source_updated_at": "2011/06/20",
+      "longitude": 38.014103,
+      "latitude": 55.74842,
+      "row_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+    },
+    "corroborating_named_point_witnesses": [
+      {
+        "candidate_place": "Former physical city Zheleznodorozhny, Moscow Oblast",
+        "source_family": "GeoKLADR/OKATO 2011 source DBF",
+        "source_record_locator": "okato.dbf record 77135; byte offset 30468635",
+        "raw_identifier": "OKATO11 46424000000; KLADR 5000000400000; raw OKTMO 46724000",
+        "raw_name": "Железнодорожный",
+        "type_or_feature": "TYPE_NP=2; SCOKATO=г",
+        "region_or_admin": "Moscow Oblast TER 46",
+        "latitude": "55.748420",
+        "longitude": "38.014103",
+        "coordinate_semantics": "2011 GeoKLADR representative point, not a census date centroid",
+        "source_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+        "identity_relation": "Exact 2009 official classifier OKATO 46424000 / unique city-name/type/region match; exact 2011 DBF historic code-name row.",
+        "notes": "DBF row independently reopened and decoded. Published source population 128520 is excluded."
+      },
+      {
+        "candidate_place": "Former physical city Zheleznodorozhny, Moscow Oblast",
+        "source_family": "GeoNames RU cached gazetteer",
+        "source_record_locator": "RU.txt line 2957",
+        "raw_identifier": "GeoNames ID 463355; admin1 code 47",
+        "raw_name": "Zheleznodorozhnyy; alternate names Obiralovka,Zheleznodorozhny,Zheleznodorozhnyj,Zheleznodorozhnyy,Zjeleznodorozjnyj,Железнодорожный",
+        "type_or_feature": "P / PPL",
+        "region_or_admin": "Moscow Oblast, admin1=47",
+        "latitude": "55.744",
+        "longitude": "38.01684",
+        "coordinate_semantics": "Gazetteer representative point, not a census date centroid",
+        "source_sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+        "identity_relation": "RU PPL; exact Cyrillic alias plus historical alias Obiralovka; 0.520 km from historic GeoKLADR point",
+        "notes": "GeoNames population field excluded."
+      },
+      {
+        "candidate_place": "Former physical city Zheleznodorozhny, Moscow Oblast",
+        "source_family": "Wikidata EntityData API response (retrieved 2026-10-04)",
+        "source_record_locator": "Q136023 P625 claim q136023$0A933500-E8A0-4442-8B75-201869C4ED54",
+        "raw_identifier": "Q136023",
+        "raw_name": "Железнодорожный",
+        "type_or_feature": "Description says former city 1952–2015; P31 city claim has 2015 end qualifier",
+        "region_or_admin": "P131 successor Balashikha Q104557, date-qualified 2015-01-22",
+        "latitude": "55.75",
+        "longitude": "38.016666666667",
+        "coordinate_semantics": "Wikidata representative coordinate, precision 0.016666666666667; not census date centroid",
+        "source_sha256": "e2461a0b5fe3dbb795a2f71bbd01d88a20d6d7026ccd4640c4c46defc0fed8c3",
+        "identity_relation": "P1366 successor Balashikha; point is 0.238 km from GeoKLADR point",
+        "notes": "Secondary Wikidata evidence; cannot independently establish statutory effective date or population scope."
+      }
+    ],
+    "point_recommendation": "The 2011 GeoKLADR representative point (55.748420,38.014103) is eligible as a historical city spatial-continuity point for these two old-city IDs under a separately accepted point-use rule. GeoNames (ID 463355) and Wikidata Q136023 coordinates corroborate the locality cluster. Preserve the 2011 update date as source snapshot metadata, not measurement date; census-coordinate measurement date remains unknown."
+  },
+  "successor_event": {
+    "event_candidate": {
+      "event_id": "zheleznodorozhny_balashikha_2015",
+      "event_type": "merged_into_city",
+      "legacy_asserted_year": "2015",
+      "old_entity_key": "RU-HIST-95915cab190e3bac",
+      "successor_entity_key": "RU-OKTMO-46704000001",
+      "source_url": "https://ru.wikipedia.org/wiki/Железнодорожный_(Балашиха)",
+      "cached_event_note": "The former city of Zheleznodorozhny was merged into Balashikha; its 2002 and 2010 census rows remain attached to the historical entity",
+      "evidence_tier": "secondary direct WD entity statements Q136023 P1366/P31/P131 plus legacy event pointer",
+      "review_status": "working_event_candidate_for_parent_review",
+      "date_treatment": "P31 end qualifier is year precision 2015; P131 Balashikha start qualifier is 2015-01-22; P1366 successor has no date. Treat precise date as secondary pending official act.",
+      "2021_successor_population_reassigned": "False"
+    },
+    "WD_entity_data_sha256": "e2461a0b5fe3dbb795a2f71bbd01d88a20d6d7026ccd4640c4c46defc0fed8c3",
+    "WD_relevant_claims": {
+      "P1366": [
+        {
+          "id": "Q136023$fdc0fba7-4ebe-47fa-d001-06ee9abb1010",
+          "value": {
+            "entity-type": "item",
+            "numeric-id": 104557,
+            "id": "Q104557"
+          }
+        }
+      ],
+      "P131": [
+        {
+          "claim_id": "Q136023$99a937b5-4518-dcc2-c866-e992a6b66baf",
+          "value": {
+            "entity-type": "item",
+            "numeric-id": 1697,
+            "id": "Q1697"
+          },
+          "qualifiers": {
+            "P582": [
+              {
+                "time": "+2015-01-22T00:00:00Z",
+                "timezone": 0,
+                "before": 0,
+                "after": 0,
+                "precision": 11,
+                "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+              }
+            ],
+            "P580": [
+              {
+                "time": "+1960-12-10T00:00:00Z",
+                "timezone": 0,
+                "before": 0,
+                "after": 0,
+                "precision": 11,
+                "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+              }
+            ]
+          }
+        },
+        {
+          "claim_id": "Q136023$8845d654-4663-2609-d899-a746721f90fd",
+          "value": {
+            "entity-type": "item",
+            "numeric-id": 104557,
+            "id": "Q104557"
+          },
+          "qualifiers": {
+            "P580": [
+              {
+                "time": "+2015-01-22T00:00:00Z",
+                "timezone": 0,
+                "before": 0,
+                "after": 0,
+                "precision": 11,
+                "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+              }
+            ]
+          }
+        },
+        {
+          "claim_id": "Q136023$7a13d90a-4af7-a3d2-ad8a-fdb58dc8d925",
+          "value": {
+            "entity-type": "item",
+            "numeric-id": 10737463,
+            "id": "Q10737463"
+          },
+          "qualifiers": {
+            "P582": [
+              {
+                "time": "+1960-12-10T00:00:00Z",
+                "timezone": 0,
+                "before": 0,
+                "after": 0,
+                "precision": 11,
+                "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+              }
+            ],
+            "P580": [
+              {
+                "time": "+1929-07-12T00:00:00Z",
+                "timezone": 0,
+                "before": 0,
+                "after": 0,
+                "precision": 11,
+                "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+              }
+            ]
+          }
+        }
+      ],
+      "P31": [
+        {
+          "claim_id": "q136023$386B5F43-EDC3-4CC5-80AD-4481543BC266",
+          "value": {
+            "entity-type": "item",
+            "numeric-id": 515,
+            "id": "Q515"
+          },
+          "qualifiers": {
+            "P580": [
+              {
+                "time": "+1952-00-00T00:00:00Z",
+                "timezone": 0,
+                "before": 0,
+                "after": 0,
+                "precision": 9,
+                "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+              }
+            ],
+            "P582": [
+              {
+                "time": "+2015-00-00T00:00:00Z",
+                "timezone": 0,
+                "before": 0,
+                "after": 0,
+                "precision": 9,
+                "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+              }
+            ]
+          }
+        },
+        {
+          "claim_id": "Q136023$06F6855D-76DD-4ECB-8AF0-246FA81E0B26",
+          "value": {
+            "entity-type": "item",
+            "numeric-id": 192287,
+            "id": "Q192287"
+          },
+          "qualifiers": {}
+        },
+        {
+          "claim_id": "Q136023$3eae0a76-411d-5224-b5ea-ba7bdb448355",
+          "value": {
+            "entity-type": "item",
+            "numeric-id": 486972,
+            "id": "Q486972"
+          },
+          "qualifiers": {
+            "P580": [
+              {
+                "time": "+1573-00-00T00:00:00Z",
+                "timezone": 0,
+                "before": 0,
+                "after": 0,
+                "precision": 9,
+                "calendarmodel": "http://www.wikidata.org/entity/Q1985786"
+              }
+            ]
+          }
+        },
+        {
+          "claim_id": "Q136023$4292ABE2-10F0-49F5-9BA6-BA1445C83D43",
+          "value": {
+            "entity-type": "item",
+            "numeric-id": 123705,
+            "id": "Q123705"
+          },
+          "qualifiers": {
+            "P580": [
+              {
+                "time": "+2015-00-00T00:00:00Z",
+                "timezone": 0,
+                "before": 0,
+                "after": 0,
+                "precision": 9,
+                "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "scope": "Secondary evidence supports an event in calendar 2015: the former-city P31 end is year precision 2015; a Balashikha P131 start is 2015-01-22; P1366 names Balashikha but has no date. No primary legal act was verified. Both source census reference dates (2002-10-09 and 2010-10-14) precede any event in 2015, so the old-old pair is pre-event even at year precision. Keep exact legal effective date unknown; do not connect the 2021 Balashikha population row by ordinary same_place."
+  },
+  "legacy_flag_and_existing_hold_review": {
+    "old2002_flags": {
+      "entity_grain_status": null,
+      "grain_explicit": false,
+      "grain_review_flag": "grain_unresolved_or_not_recorded",
+      "is_additive_settlement_record": true,
+      "is_federal_aggregate": false,
+      "population_scope": "settlement",
+      "district_raw": null,
+      "municipality_raw": null,
+      "legacy_identity_status": "quarantined",
+      "legacy_identity_conflict": true,
+      "legacy_identity_reasons": "[\"depends_on_quarantined_target\"]",
+      "legacy_match_method": "unique_region_name_type_no_district"
+    },
+    "old2010_flags": {
+      "entity_grain_status": null,
+      "grain_explicit": false,
+      "grain_review_flag": "grain_unresolved_or_not_recorded",
+      "is_additive_settlement_record": true,
+      "is_federal_aggregate": false,
+      "population_scope": "settlement",
+      "district_raw": null,
+      "municipality_raw": null,
+      "legacy_identity_status": "quarantined",
+      "legacy_identity_conflict": true,
+      "legacy_identity_reasons": "[\"legacy_not_accepted\"]",
+      "legacy_match_method": "no_candidate"
+    },
+    "known_legacy_hold_row": {
+      "decision_id": "legacy-temporal-2002-2e46cd6e5986fa4ab4",
+      "relation": "same_place_temporal_continuity",
+      "from_source_record_id": "2002:1_TOM_01_04.xls:0:1020",
+      "from_year": 2002,
+      "to_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:11",
+      "to_year": 2021,
+      "decision_status": "held_for_review",
+      "decision_rule": "legacy_pointer_plus_unique_exact_name_type_region_and_available_district_plus_unique_preferred_additive_source_row; stable ordinary-place continuity assumed",
+      "decision_class": "legacy_crosswalk_pointer_candidate_only",
+      "legacy_source_record_id": "2002:1_TOM_01_04.xls:0:1020",
+      "legacy_settlement_id_candidate": "RU-HIST-95915cab190e3bac",
+      "legacy_matched_to_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:11",
+      "legacy_match_method": "unique_region_name_type_no_district",
+      "legacy_match_quality_flag": "auto_high_admin_not_available",
+      "legacy_match_score": 0.9,
+      "legacy_entity_year_record_count": 1,
+      "legacy_preferred_year_row": true,
+      "legacy_additive_source_grain": true,
+      "historical_verified_successor_id": "RU-OKTMO-46704000001",
+      "name_exact": null,
+      "type_exact": null,
+      "region_exact": null,
+      "district_exact": null,
+      "district_available": null,
+      "independent_exact_anchor_multiplicity": null,
+      "independent_region_name_type_anchor_multiplicity": null,
+      "population_scope_metadata_unknown_no_global_veto": false,
+      "from_population": 103931.0,
+      "to_population": null,
+      "from_population_quality": "direct_published_census_value",
+      "to_population_quality": null,
+      "from_entity_grain_status": null,
+      "to_entity_grain_status": null,
+      "to_current_latitude": null,
+      "to_current_longitude": null,
+      "to_current_coordinate_source": null,
+      "to_current_coordinate_quality": null,
+      "from_source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "from_source_sheet": "0",
+      "from_source_row": 1020.0,
+      "from_source_locator": null,
+      "from_source_sha256": null,
+      "hold_reasons_json": "[\"exact_2021_anchor_unresolved\", \"verified_successor_event_excluded_from_ordinary_rule\"]",
+      "continuity_claim": "inferred stable continuity under ordinary-place assumption; not independently proven historical continuity",
+      "graph_add_status": null,
+      "base_graph_edge_count": 177707
+    },
+    "interpretation": "Current source evidence quarantines 2002 as depends_on_quarantined_target and 2010 as legacy_not_accepted; both rows remain additive, nonaggregate and settlement scope. The legacy-temporal candidate also carries verified_successor_event_excluded_from_ordinary_rule and exact_2021_anchor_unresolved. That hold concerns use of the former-city legacy pointer toward the 2021 successor, not an independently reviewed pre-event 2002↔2010 city pair. The candidate hold row incorrectly labels the 2010 source endpoint `to_year=2021`; preserve it as a hold only, not as pair evidence. Any exception must be exactly scoped to these two old city IDs and the pinned publication/code/point witnesses; do not waive unrelated legacy conflicts or admit an ordinary city→Balashikha edge."
+  },
+  "current_graph_check": {
+    "accepted_identity_edge_touch_count_for_old_ids": 0,
+    "accepted_direct_point_touch_count_for_old_ids": 0,
+    "existing_2021_homonym_note": "The same Moscow Oblast also has a distinct small `посёлок Железнодорожный` in the Podolsk district (2002/2010/2021, separate source IDs); 2021 selected data contains that village, not a 2021 city row. Do not confuse it with former city or Balashikha successor."
+  },
+  "nonclaims": {
+    "statutory_event_date_verified": false,
+    "census_date_point_measurement": false,
+    "2021_successor_same_place": false,
+    "population_boundary_comparability": false,
+    "population_mutated": false,
+    "graph_admission_applied": false
+  },
+  "input_pins": {
+    "review_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/temporal_transformation_path_recovery/former_city_point_and_event_review/receipt.json",
+      "sha256": "f8d51767e090b7f1c4e8ba47eca0f30b02ed5c66adcd0777a779042250e161d0"
+    },
+    "historical_point_witness_csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/temporal_transformation_path_recovery/former_city_point_and_event_review/historical_old_city_point_witnesses.csv",
+      "sha256": "30f53e649ba57baf28d6c74de669a5553e5c541b42711b5b403e06e71c52aa41"
+    },
+    "event_candidates_csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/temporal_transformation_path_recovery/former_city_point_and_event_review/dated_transformation_event_candidates.csv",
+      "sha256": "02a3e449899e0cca1b8d6df67c24f7a57331f94d0dfa7fe8fe198d6e5035f924"
+    },
+    "Q136023_EntityData": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/temporal_transformation_path_recovery/former_city_point_and_event_review/Q136023_entitydata_20261004.json",
+      "sha256": "e2461a0b5fe3dbb795a2f71bbd01d88a20d6d7026ccd4640c4c46defc0fed8c3"
+    },
+    "legacy_database": {
+      "path": "/workspace/settlements-assets/baseline/legacy_database_20260929.duckdb",
+      "sha256": "26a2fe5b2ce05119d919a196beb57cd655a49ffffb0ff8f194762aa78e6b5b64"
+    },
+    "GeoKLADR_DBf": {
+      "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+    },
+    "GeoNames_RU_zip": {
+      "path": "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip",
+      "sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4"
+    },
+    "selected_observations_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "source_evidence_sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+  },
+  "read_only_artifacts": {
+    "current_long": "/workspace/settlements-work/continuation_20261004/accepted_mass_batch/settlements_long.parquet",
+    "current_identity_edges": "/workspace/settlements-work/continuation_20261004/accepted_mass_followup/accepted_identity_edges.parquet",
+    "current_points": "/workspace/settlements-work/continuation_20261004/accepted_mass_followup/accepted_point_uses.parquet",
+    "legacy_temporal_holds": "/workspace/settlements-work/continuation_20261004/legacy_temporal/legacy_temporal_edges_and_holds.csv"
+  }
+}

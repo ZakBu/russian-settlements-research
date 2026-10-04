@@ -1,0 +1,258 @@
+{
+  "status": "independent_review_complete_candidate_only",
+  "candidate_edge_id": "URBH-554b7bb4c19eb6fb1e",
+  "from_source_record_id": "ROSSTAT2010:T5:p183:l40",
+  "to_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:24238",
+  "decision": "identity_bridge_is_supported_for_root_review; retain admin-label warning and do not claim boundary/population comparability. It can safely join the existing 2002–2021 component under current disjoint-year mask check. Do not infer a 2010 coordinate from this edge alone.",
+  "scope": "one candidate, Listvyanka urban record only; no canonical or producer writes; no admissions made",
+  "producer_evidence": {
+    "staged_file_sha256": "09bf119172fe9a5e66e0dc3d22273e83f7caa49e78aecc1b89f954667ceac95a",
+    "summary_sha256": "8ca0d027e1a2ec38c73be4bdcaea69a8639cae79e21150ea4b6be3cb230f0ccb",
+    "baseline_matches_coverage_receipt": true,
+    "current_conditional_gain_if_identity_edge_only": {
+      "2002": {
+        "baseline": {
+          "rows": 106338,
+          "population": 118469878.0
+        },
+        "conditional_after": {
+          "rows": 106339,
+          "population": 118471623.0
+        },
+        "marginal_rows": 1,
+        "marginal_population": 1745.0
+      },
+      "2010": {
+        "baseline": {
+          "rows": 106315,
+          "population": 115950288.0
+        },
+        "conditional_after": {
+          "rows": 106315,
+          "population": 115950288.0
+        },
+        "marginal_rows": 0,
+        "marginal_population": 0.0
+      },
+      "2021": {
+        "baseline": {
+          "rows": 106344,
+          "population": 116748967.0
+        },
+        "conditional_after": {
+          "rows": 106345,
+          "population": 116750903.0
+        },
+        "marginal_rows": 1,
+        "marginal_population": 1936.0
+      }
+    },
+    "component_year_masks_before": {
+      "2010_source": 2,
+      "2002+2021_endpoint": 5
+    },
+    "existing_2002_bridge": {
+      "source_record_id": "2002:1_TOM_01_04.xls:0:8948",
+      "already_connected_to_2021": true
+    }
+  },
+  "2010_source": {
+    "source_record_id": "ROSSTAT2010:T5:p183:l40",
+    "source_file": "data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+    "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+    "native_id": "ROSSTAT2010:T5:p183:l40",
+    "locator": {
+      "pdf_page_1based": 183,
+      "printed_page": 182,
+      "raw_district": "Иркутский район",
+      "raw_label": "пгт Листвянка",
+      "table": "5",
+      "text_line_end_1based": 40,
+      "text_line_start_1based": 40
+    },
+    "population": 1882,
+    "quality": "reviewed_primary_reported_value",
+    "raw_type_name": "пгт Листвянка",
+    "flags": {
+      "entity_grain_status": "atomic_physical_settlement_primary_table5_reviewed",
+      "grain_explicit": true,
+      "grain_review_flag": "primary_atomic_settlement_reviewed",
+      "is_additive_settlement_record": true,
+      "is_federal_aggregate": false,
+      "population_scope": "settlement",
+      "legacy_identity_status": "quarantined",
+      "legacy_identity_conflict": true,
+      "legacy_identity_reasons": "[\"administrative_conflict\"]",
+      "legacy_match_method": "unique_region_name_type_district_conflict",
+      "district_raw": "Иркутский район",
+      "municipality_raw": null
+    },
+    "note": "Primary 2010 Table 5 row is atomic physical settlement reviewed and additive, settlement scope. Original quality tag is confidentiality_perturbed_within_ten. Raw source county is Иркутский район; evidence retains legacy administrative_conflict against the 2021 label; do not declare an administrative alias or boundary continuity."
+  },
+  "2021_source": {
+    "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:24238",
+    "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+    "source_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "source_row_1based": 24238,
+    "population": 1936,
+    "raw_type_name": "пгт Листвянка рп",
+    "selected_evidence_flags": {
+      "entity_grain_status": null,
+      "grain_explicit": false,
+      "grain_review_flag": "grain_unresolved_or_not_recorded",
+      "is_additive_settlement_record": true,
+      "is_federal_aggregate": false,
+      "population_scope": "settlement",
+      "district_raw": "Иркутское районное муниципальное образование",
+      "municipality_raw": "Листвянское городское поселение"
+    },
+    "raw_source_row": {
+      "object_level": "Населенный пункт",
+      "object_name": "пгт Листвянка рп",
+      "oktmo": "25612160051",
+      "region": "Иркутская область",
+      "mun_upper": "Иркутское районное муниципальное образование",
+      "mun_lower": "Листвянское городское поселение",
+      "settlement": "пгт Листвянка рп",
+      "population": 1936,
+      "settlement_type_full_dadata": "рабочий поселок",
+      "settlement_with_type_dadata": "рп Листвянка",
+      "settlement_type_dadata": "рп",
+      "settlement_dadata": "Листвянка",
+      "fias_id": "89c8ee1c-7264-4bf9-8daa-c47c18b816dc",
+      "fias_level": "6",
+      "okato_dadata": "25212560000.0",
+      "latitude_dadata": 51.859983,
+      "longitude_dadata": 104.863181,
+      "qc_geo_dadata": 3
+    },
+    "note": "Selected grain flag is unresolved, but exact source-native row classifies as Населенный пункт, with its own raw OKTMO and population. County raw is Иркутское районное муниципальное образование; municipality raw is Листвянское городское поселение."
+  },
+  "physical_disambiguation": {
+    "typed_code_history": {
+      "2009_okato_raw": 25212560,
+      "2009_status": "поселок городского типа",
+      "2009_classifier_sha256": "343c0f5af1f52b9276699d9fe8d883b58def5aeabdd904063389606d29bc2b81",
+      "2009_line_1based": 52594,
+      "2009_row_sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+      "2011_okato_raw": 25212560000,
+      "2011_geokladr_sha256": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+      "2011_dbf_record_1based": 37675,
+      "2011_byte_offset": 14881935,
+      "2011_row_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+    },
+    "historic_typed_point": [
+      51.867244,
+      104.837955
+    ],
+    "current_accepted_point": [
+      51.853611,
+      104.869167
+    ],
+    "historic_current_distance_km": 2.625283461609219,
+    "urban_name_unique_2010_2021": {
+      "2010": 1,
+      "2021": 1
+    },
+    "all_type_name_counts_2010_2021": [
+      2,
+      2
+    ],
+    "same_name_rural_competitor": [
+      {
+        "accepted_point": [
+          54.2363876,
+          101.7389984
+        ],
+        "component_source_record_ids": [
+          "2002:070_48ec6f4a77_Irkut_obl_new.xls:Sheet1:726",
+          "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:4249",
+          "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:24562"
+        ],
+        "distance_to_urban_point_km": 337.5478107637509,
+        "distinct_typed_historical_rows": [
+          {
+            "distance_to_own_point_km": 0.08426694297173522,
+            "okato_2009": "25222825003",
+            "point": [
+              54.23565,
+              101.739296
+            ],
+            "record_number_1based": 37933,
+            "source_line_1based": 52996,
+            "status": "деревня"
+          }
+        ],
+        "representative_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:24562",
+        "representative_year": 2021,
+        "type": "деревня"
+      }
+    ]
+  },
+  "point_propagation": {
+    "direct_accepted_point_uses_for_2002_2010_2021": [
+      {
+        "target_source_record_id": "2002:1_TOM_01_04.xls:0:8948",
+        "target_year": 2002,
+        "latitude": 51.867244,
+        "longitude": 104.837955,
+        "coordinate_admission_status": "reviewed_extension_rule_accepted",
+        "admission_rule": "GeoKLADR DATA_UPD raw date is a 2011 source update, not a census-date coordinate measurement; typed urban 2009 raw 8-digit OKATO + exact DBF KOD3=000 => 2011 raw 11-digit GeoKLADR point association; no census identifier rewrite",
+        "coordinate_source": "raw named typed GeoKLADR 2011 representative point",
+        "coordinate_source_record_id": "",
+        "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+        "source_sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+        "source_locator": "selected_source_file=data/raw/2002_official_tom1/1_TOM_01_04.xls;sheet=0;row=8948.0;source_native_id=table4:8948",
+        "coordinate_application_family": "reviewed_ordinary_direct_point_extension_20261004",
+        "application_inference_kind": null,
+        "coordinate_measurement_date_unknown": true,
+        "boundary_comparability_asserted": false,
+        "population_scope_comparability_asserted": false
+      },
+      {
+        "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:24238",
+        "target_year": 2021,
+        "latitude": 51.853611,
+        "longitude": 104.869167,
+        "coordinate_admission_status": "reviewed_extension_rule_accepted",
+        "admission_rule": "WD exact source P764 + exact Russian label + raw physical source row + unique QID/source binding + P31/P279 path to physical-settlement anchor + one P625 + expected ADM1; Wikidata point is a representative point for this linked locality; no exact monument/centroid, FIAS binding, census-date measurement or population-boundary equivalence is claimed",
+        "coordinate_source": "Wikidata P625 representative point",
+        "coordinate_source_record_id": "Q335422",
+        "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+        "source_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+        "source_locator": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet#row=24238.0",
+        "coordinate_application_family": "reviewed_ordinary_direct_point_extension_20261004",
+        "application_inference_kind": null,
+        "coordinate_measurement_date_unknown": true,
+        "boundary_comparability_asserted": false,
+        "population_scope_comparability_asserted": false
+      }
+    ],
+    "2010_has_direct_accepted_point_use": false,
+    "materializer_behavior": "build_long_table assigns point data by exact target_source_record_id (coord_by_id.get(source_id)); an identity edge only changes entity component. Thus 2010 remains coordinate-null unless a separate accepted same-place coordinate continuity use is admitted for the 2010 source ID.",
+    "coordinate_date_boundary_limit": "Current representative point can be used as spatial continuity only under a separately reviewed accepted rule; do not date it to 2010 or assert census-coordinate measurement or boundary equivalence."
+  },
+  "raw_source_county_and_grain": {
+    "2010_county": "Иркутский район",
+    "2021_county": "Иркутское районное муниципальное образование",
+    "2021_municipality": "Листвянское городское поселение",
+    "interpretation": "County labels differ; matching only their shared stem is not evidence. Physical identity is instead supported by exact urban name/type, exact typed historical OKATO/GeoKLADR line and nearby point, current accepted proper point, and a separately typed/name-matched rural homonym 337.55 km away. Preserve legacy administrative conflict as warning; no boundary claim."
+  },
+  "input_artifact_pins": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327",
+    "/workspace/settlements-work/coordinates/historical_named_candidates_v4/all_historical_named_objects.parquet": "e2e6a2401050f88199db65f8a26afe410b4a47c3fb9b0e694f7ce7dccd878186",
+    "/workspace/settlements-work/sources/raw_okato_2009_verification_v1/raw_classifier.parquet": "343c0f5af1f52b9276699d9fe8d883b58def5aeabdd904063389606d29bc2b81",
+    "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_followup/accepted_point_uses.parquet": "d1c7cbe3d83088fb3e48bd5bc25825fcbab6d5309476a56e81e9a848724a45cc",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_followup/accepted_identity_edges.parquet": "615711d99f35f6b2dd476d35ef0ffe9c4bb9e162a6d55cdb60acc9fd7fb81eb0",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_followup/coverage.json": "547de44bd114a25df96dfafffda1a0b0f0465e460769c844d285da315f52b433"
+  },
+  "reviewed_outputs": {
+    "candidate_edge": "/workspace/settlements-work/continuation_20261004/R4/urban_typed_homonym_bridge_recovery/staged_identity_edges.csv",
+    "canonical_mass_long": "/workspace/settlements-work/continuation_20261004/accepted_mass_batch/settlements_long.parquet",
+    "canonical_current_points": "/workspace/settlements-work/continuation_20261004/accepted_mass_followup/accepted_point_uses.parquet",
+    "raw_2021_source": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet"
+  }
+}

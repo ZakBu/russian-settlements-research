@@ -68,3 +68,32 @@ def test_reviewed_point_cannot_claim_different_raw_origin_hash(tmp_path):
             'approved_columns': {'target': 'target', 'latitude': 'latitude', 'longitude': 'longitude'}}
     with pytest.raises(ValueError, match='recorded hash differs'):
         app.load_direct_points({'point_sources': [spec]})
+
+
+def valid_point_spec(tmp_path, latitude='55'):
+    origin, receipt, extra = [tmp_path / name for name in ('origin.json', 'review.json', 'scope.json')]
+    for path in (origin, receipt, extra):
+        path.write_text('{}')
+    candidate, approved = [tmp_path / name for name in ('points.csv', 'approved.csv')]
+    table(candidate, [{'target': 'source1', 'latitude': latitude, 'longitude': '37', 'locator': 'row=1'}])
+    table(approved, [{'target': 'source1', 'latitude': latitude, 'longitude': '37'}])
+    return {'candidate': pin(candidate), 'approved': pin(approved), 'review_receipt': pin(receipt),
+            'additional_review_receipts': [pin(extra)], 'origin': pin(origin),
+            'candidate_columns': {'target': 'target', 'latitude': 'latitude', 'longitude': 'longitude', 'origin_locator': 'locator'},
+            'approved_columns': {'target': 'target', 'latitude': 'latitude', 'longitude': 'longitude'}}
+
+
+def test_point_scope_supplement_is_pinned_and_recorded(tmp_path):
+    spec = valid_point_spec(tmp_path)
+    result, inputs = app.load_direct_points({'point_sources': [spec]})
+    assert len(result) == 1
+    assert inputs['point:0']['additional_review_receipts'] == spec['additional_review_receipts']
+    (tmp_path / 'scope.json').write_text('{"decision":"changed"}')
+    with pytest.raises(ValueError, match='checksum mismatch'):
+        app.load_direct_points({'point_sources': [spec]})
+
+
+def test_independently_listed_impossible_point_cannot_be_applied(tmp_path):
+    spec = valid_point_spec(tmp_path, latitude='91')
+    with pytest.raises(ValueError, match='impossible reviewed coordinates'):
+        app.load_direct_points({'point_sources': [spec]})

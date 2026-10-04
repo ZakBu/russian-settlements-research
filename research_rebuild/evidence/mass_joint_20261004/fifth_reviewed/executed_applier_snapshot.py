@@ -74,20 +74,6 @@ def preserve_nullable_booleans(frame, columns):
     return frame
 
 
-def lazy_point_carriers(points):
-    """Materialize complete carrier evidence only for components needing a point."""
-    ids = points.target_source_record_id.astype(str).tolist()
-    if len(ids) != len(set(ids)):
-        raise ValueError('duplicate carrier targets')
-    positions = {sid: position for position, sid in enumerate(ids)}
-    cache = {}
-    def get_carrier(sid):
-        if sid not in cache:
-            cache[sid] = points.iloc[positions[sid]].to_dict()
-        return cache[sid]
-    return set(positions), get_carrier
-
-
 def key_from(row, fields):
     return tuple(str(row[f]).strip() for f in fields)
 
@@ -259,11 +245,7 @@ def load_identity(manifest):
             row['from_source_record_id'] = k[0]
             row['to_source_record_id'] = k[1]
             row['integration_rule_family'] = k[2]
-            source_relation = str(r.get(canonical.get('relation','relation'), r.get('decision_relation','same_place')))
-            if source_relation not in {'same_place', 'same_place_candidate'}:
-                raise ValueError(f'unsupported reviewed identity relation: {source_relation}')
-            row['source_candidate_relation_before_application'] = source_relation
-            row['relation'] = 'same_place'
+            row['relation'] = str(r.get(canonical.get('relation','relation'), r.get('decision_relation','same_place')))
             row['decision_class'] = str(r.get(canonical.get('decision_class','decision_class'), k[2]))
             row['integration_layer'] = 'reviewed_extension_candidate'
             row['integration_source'] = str(r.get(canonical.get('source',''), 'independent_review_eligible_list'))
@@ -445,7 +427,8 @@ def run(manifest_path: Path, output: Path):
         direct['reviewed_at']=manifest['_reviewed_at']
         points=pd.concat([points,direct],ignore_index=True,sort=False)
     if points.target_source_record_id.astype(str).duplicated().any(): raise ValueError('duplicate point targets after direct extensions')
-    point_ids, get_point_carrier = lazy_point_carriers(points)
+    point_by_id={str(r.target_source_record_id):r._asdict() for r in points.itertuples(index=False)}
+    point_ids=set(point_by_id)
     # One source-evidence scan for all newly reviewed point targets, edge
     # endpoints, and unpointed component members. This checks authoritative
     # source flags rather than trusting candidate convenience columns.
@@ -489,10 +472,9 @@ def run(manifest_path: Path, output: Path):
         adjacency[str(r.to_source_record_id)].append((str(r.from_source_record_id),str(r.decision_id)))
     propagated,holds=[],[]
     for members in components:
+        seeds=[point_by_id[sid] for sid in members if sid in point_by_id and sid not in blocked_for_application]
         missing=members-point_ids
-        if not missing: continue
-        seeds=[get_point_carrier(sid) for sid in members if sid in point_ids and sid not in blocked_for_application]
-        if not seeds: continue
+        if not seeds or not missing: continue
         spread=max((distance(x,y) for x,y in itertools.combinations(seeds,2)),default=0)
         if spread>5:
             holds.append({'members_json':json.dumps(sorted(members)),'hold':'accepted_point_witness_spread_over_5km','spread_km':spread}); continue
@@ -512,8 +494,6 @@ def run(manifest_path: Path, output: Path):
             while node!=origin:
                 node,did=pred[node]; path.append(did)
             row=stage_point_use(target_rows.loc[target],e,carrier,origin,e,path)
-            row['source_candidate_only_before_application'] = row.get('candidate_only')
-            row['candidate_only'] = False
             row.update(coordinate_admission_status='reviewed_extension_rule_accepted',
                 coordinate_quality='automatically_accepted_checked_rule',
                 coordinate_application_family='R_reviewed_same_place_sourced_point_continuity_20261004',

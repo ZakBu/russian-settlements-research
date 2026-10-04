@@ -1,0 +1,41 @@
+{
+  "status": "observed_identifier_snapshot_export_complete",
+  "interpretation": "Observed source snapshots only. 2021 native OKTMO literals are linked to 2021 population observations; source snapshot release/version does not establish code validity. GeoKLADR-2011 OKTMO values are a separate municipal-context observation attached through accepted point origin and target source record; they are not native-code bindings or identifier changes.",
+  "inputs": {
+    "final_core_path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/fifth_canonical_long_v2/source_preserving_core.parquet",
+    "final_core_sha256": "60999c53cf457b45bcb41e18bb4c4a618459dcd43bfd548564a7e19fddf55ffe",
+    "accepted_point_ledger_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifth_canonical_v3/accepted_point_uses.parquet",
+    "accepted_point_ledger_sha256": "d4cbdd0dff5360392f3ed0aa03158c7a47a6f75b7f239ccad3971fbe201b15ca",
+    "population_layer_path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+    "population_layer_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "config_path": "config/mass_joint_20261004.json",
+    "config_sha256": "c75b1d8968c91063b7750e452f1d46510a23e62a05eb71a2e9e438f42744cf29",
+    "snapshot_version": "v20251217",
+    "accepted_point_statuses": [
+      "frozen_r5b_reviewed_baseline_preserved",
+      "reviewed_case_accepted",
+      "reviewed_extension_rule_accepted",
+      "reviewed_rule_accepted"
+    ],
+    "source_registry_path": "/workspace/russian-settlements-research/SOURCES.md",
+    "source_registry_sha256": "2da34940f4b45076c153aaba71d15ded199258c6454199c1f454cbe84ff04ce8"
+  },
+  "counts": {
+    "native_2021_rows": 155414,
+    "native_2021_distinct_entities": 155414,
+    "native_2021_missing_code_rows": 0,
+    "native_2021_unverified_format_rows": 6945,
+    "geo_2011_context_rows_after_provenance_dedup": 0,
+    "geo_2011_context_distinct_entities": 0,
+    "accepted_point_rows_without_raw_geo_2011_code": 395636,
+    "code_validity_intervals_asserted": 0,
+    "identifier_transitions_asserted": 0
+  },
+  "outputs": {
+    "2021_native_oktmo_snapshot.parquet": "431c9ac8c7f4ef8a80a107624e5eae4446216bf0439c96e7aeb1cc1cd5d2afa4",
+    "2021_native_oktmo_snapshot.csv": "f63afa51de3a227928e2ca5a6f7ba0af69e8d9df39231e6308b48910f56a588c",
+    "geo_2011_point_origin_context.parquet": "af5bb03caead10834344e11ef914b6b466a94e880c5ef56ae36df2bfe5419e84",
+    "geo_2011_point_origin_context.csv": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "geo_2011_point_origin_holds.csv": "50bb66dac7eb0aeb3fe570b9113b429538bf78e4ea93776b21951801049dd8e4"
+  }
+}

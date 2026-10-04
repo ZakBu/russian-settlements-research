@@ -1,0 +1,76 @@
+{
+  "counts": {
+    "QID_sourced_points_not_independent_corroboration": 12,
+    "accepted_2021_point_use": 59,
+    "eligible_current_source_qid_bindings": 59,
+    "one_active_exact_P764": 59,
+    "physical_P31_lineage": 59,
+    "producer_wrapper_grain_flag": 17,
+    "raw_native_code_unique_whole_parquet": 59,
+    "raw_object_level_exact_NP": 59,
+    "raw_source_Dadata_coordinates_missing": 1,
+    "raw_source_Dadata_coordinates_present": 58,
+    "reviewed": 59,
+    "source_name_and_region_match": 59,
+    "wrapper_flag_qid_label_or_alias_matches_name": 12
+  },
+  "hierarchy": {
+    "admin_only_anchors": [
+      "Q15642541",
+      "Q56061"
+    ],
+    "entity_count": 458,
+    "physical_anchors": [
+      "Q10354598",
+      "Q486972",
+      "Q515",
+      "Q532",
+      "Q7930989"
+    ],
+    "sha256": "2c7971afa183285909e068c2ba9ac3ac7f95df1c71b3ada716e867c103b0ebda"
+  },
+  "input_sha256": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "/workspace/settlements-work/continuation_20261004/R4/native_physical_corridor_scope_audit/current_qid_false_gate_review/review_outputs/receipt.json": "4ca08b9ffabc102485e23f07bc6dd2df7ef88e1ef366358c4204b32aac4f97ff",
+    "/workspace/settlements-work/continuation_20261004/R4/native_physical_corridor_scope_audit/current_qid_false_gate_review/review_outputs/top200_false_gate_adjudication.csv": "97638846f1c107ac48efff11c172c9e2b1da13f9f89da315aa8d2b040274ffd3",
+    "/workspace/settlements-work/continuation_20261004/R4/native_physical_corridor_scope_audit/current_qid_false_gate_review/review_outputs/top200_raw_claims_P31_P131_P764_P721_P625_P1082.jsonl": "b7ab92c28792b8788ba72ce6b80708c65518247ce9c7c2c60d1b4cdd0d59a423",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_extensions/accepted_point_uses.parquet": "9271f132beb9c9a836c280826007ef19c8039cca85e49eb5bda21198910dac90",
+    "/workspace/settlements-work/coordinates/validation_packet/wikidata_type_hierarchy_v1/ancestry_metadata.json": "2c7971afa183285909e068c2ba9ac3ac7f95df1c71b3ada716e867c103b0ebda"
+  },
+  "interpretation": [
+    "The 59 native 11-digit P764 values match exactly one current 2021 raw source row each. Each raw row is object_level=Населенный пункт, its normalized object name matches the publisher name core, and its literal region matches the selected current row.",
+    "All QIDs have active P31 statements with a lineage to a reviewed physical settlement anchor. Admin-class ancestry, if present, is retained and does not substitute for physical lineage.",
+    "All 59 source IDs have an accepted 2021 canonical point use. For QID-sourced point uses, point proximity to P625 is circular and was not counted as independent; the native source code, source row grain/name/region, P764, and physical P31 are independent binding evidence.",
+    "17 rows carry a wrapper-grain heuristic flag. These remain eligible only for current source→QID association because native code is exact and NP-level in the source; possible QID/source aggregation differences remain explicit. P721 municipality codes are preserved separately from P764 native settlement codes. Do not infer historical population grain from these bindings.",
+    "P131 statements and full time qualifiers remain in the pinned raw statement inventory. Only 5 QIDs have an exact current-source-region label P131 claim in the producer audit. Historical or lower-level P131 links are not treated as present-day region contradictions.",
+    "57 QIDs have a precision-9 P585 2021 P1082 exactly matching the selected population. Two do not. P1082 is only secondary corroboration; it neither replaces selected population nor establishes historical identity or grain."
+  ],
+  "outputs": {
+    "build_review.py": "55cb4f9f0743f9619485f1a4a0409c1b876916c6ba89a6cf9dcc06f858f02bc0",
+    "current_source_qid_review_keys.csv": "16af62359f92acc0449eec2b4d2a644f79869d7bb3d22c06cc90979e7b85e3ba"
+  },
+  "p1082_secondary_only": {
+    "qids_exact_selected_population": 57,
+    "qids_with_2021_year_precision9": 59
+  },
+  "p131": {
+    "active_undated_or_no_end_claims": 63,
+    "claims_with_end_before_2021": 86,
+    "qids_with_any_active_P131": 59,
+    "qids_with_exact_current_region_label_P131": 5
+  },
+  "point_source_counts": {
+    "GeoKLADR 2011 dated named physical-city point; exact checked code/name/type candidate": 10,
+    "GeoKLADR 2011 named physical-point source; reused by accepted same_place continuity inference": 5,
+    "GeoNames RU named-place source point; current snapshot coordinates, measurement date unknown": 1,
+    "Named typed GeoKLADR 2011 city point; accepted 2010–2021 same-place edge and current provider concordance within 1 km": 2,
+    "Wikidata P625 representative point": 5,
+    "raw named typed GeoKLADR 2011 representative point": 1,
+    "tochno_dadata": 28,
+    "wikidata_p625": 7
+  },
+  "review_key_semantics": "SHA256(source_record_id|QID|native 2021 code) first 24 hex; exact source/QID/code pinned in each row.",
+  "scope": "59 current 2021 source→QID pairs held by historical/admin/name gate; no historic identity, historical coordinate, population admission, or boundary assertion.",
+  "status": "independent_current_source_to_qid_binding_review_ready_for_secondary_history_only"
+}

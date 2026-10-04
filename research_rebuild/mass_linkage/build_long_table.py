@@ -34,6 +34,29 @@ ACCEPTED_COORDINATE_STATUSES = {"reviewed_rule_accepted", "frozen_r5b_reviewed_b
                                 "reviewed_extension_rule_accepted", "reviewed_case_accepted"}
 CENSUS_REFERENCE_DATES = {2002: "2002-10-09", 2010: "2010-10-14", 2021: "2021-10-01"}
 
+IDENTITY_REQUIRED_COLUMNS = (
+    "from_source_record_id", "to_source_record_id", "from_year", "to_year",
+    "relation", "decision_status", "selection_projection_status",
+)
+COORDINATE_REQUIRED_COLUMNS = (
+    "target_source_record_id", "target_year", "coordinate_admission_status",
+)
+COORDINATE_OPTIONAL_COLUMNS = (
+    "latitude", "longitude", "coordinate_application_family", "admission_rule",
+    "coordinate_quality", "application_inference_kind", "coordinate_source_date",
+    "direct_historical_coordinate_measurement", "coordinate_measurement_date_unknown",
+    "coordinate_uncertainty_flags_json", "boundary_comparability_asserted",
+    "population_scope_comparability_asserted", "coordinate_source",
+    "coordinate_source_record_id", "coordinate_provider", "coordinate_provider_id",
+    "supporting_carrier_admission_rule", "supporting_carrier_point_admission_rule",
+    "coordinate_provenance", "point_origin_file", "point_claim_artifact_file",
+    "source_file", "point_origin_sha256", "point_claim_artifact_sha256", "source_sha256",
+    "point_origin_locator", "source_locator", "point_origin_kind",
+    "inference_identity_path_decision_ids_json", "lineage_event_roles_json",
+    "corroborating_modern_point_distance_km", "provider_binding_status",
+    "provider_fias_binding_status",
+)
+
 
 class UnionFind:
     def __init__(self, values: Iterable[str]):
@@ -72,8 +95,20 @@ def _none(value: Any) -> Any:
     return value
 
 
-def _row_dict(row: pd.Series) -> dict[str, Any]:
-    return {key: _none(value) for key, value in row.items()}
+def _read_parquet_projection(
+    path: str | Path,
+    required_columns: Iterable[str],
+    optional_columns: Iterable[str] = (),
+) -> pd.DataFrame:
+    """Read a small, validated field projection from a wide Parquet ledger."""
+    required = tuple(required_columns)
+    optional = tuple(optional_columns)
+    available = set(pq.ParquetFile(path).schema_arrow.names)
+    missing = set(required) - available
+    if missing:
+        raise ValueError(f"Parquet input is missing required columns: {sorted(missing)}")
+    columns = list(required) + [name for name in optional if name in available and name not in required]
+    return pd.read_parquet(path, columns=columns)
 
 
 def _build_entity_map(census: pd.DataFrame, edges: pd.DataFrame, aggregate_ids: set[str] | None = None) -> tuple[dict[str, str], set[str], dict[str, set[int]]]:
@@ -153,7 +188,13 @@ def _accepted_coordinate_map(coordinates: pd.DataFrame) -> dict[str, dict[str, A
         raise ValueError("coordinate input has duplicate target source record IDs")
     coord = coordinates[coordinates.coordinate_admission_status.isin(ACCEPTED_COORDINATE_STATUSES)]
     coord = coord.sort_values(["target_year", "target_source_record_id", "coordinate_admission_status"], kind="stable")
-    return {str(row.target_source_record_id): _row_dict(pd.Series(row._asdict())) for row in coord.itertuples(index=False)}
+    columns = list(coord.columns)
+    target_index = columns.index("target_source_record_id")
+    result: dict[str, dict[str, Any]] = {}
+    for values in coord.itertuples(index=False, name=None):
+        target_id = str(values[target_index])
+        result[target_id] = {name: _none(value) for name, value in zip(columns, values)}
+    return result
 
 
 def _coordinate_columns(point: dict[str, Any], temporal_basis: str) -> dict[str, Any]:
@@ -247,8 +288,10 @@ def build_long_table(
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
     census = pd.read_parquet(census_path)
     census = _bind_source_hashes(census, source_manifest_path)
-    edges = pd.read_parquet(identity_path)
-    coordinates = pd.read_parquet(coordinates_path)
+    edges = _read_parquet_projection(identity_path, IDENTITY_REQUIRED_COLUMNS)
+    coordinates = _read_parquet_projection(
+        coordinates_path, COORDINATE_REQUIRED_COLUMNS, COORDINATE_OPTIONAL_COLUMNS,
+    )
     annual = pd.read_parquet(annual_path)
     wiki = pd.read_parquet(wiki_path) if wiki_path else pd.DataFrame()
     census_ids = set(census.source_record_id.astype(str))
@@ -258,6 +301,7 @@ def build_long_table(
     entity_category_by_id = {source_id: "statistical_aggregate" if entity_id.startswith("statisticalaggregate:") else "settlement"
                              for source_id, entity_id in entity_map.items()}
     coord_by_id = _accepted_coordinate_map(coordinates)
+    del edges, coordinates
     oktmo_by_entity: dict[str, str | None] = {}
     current_region_by_entity: dict[str, str] = {}
     for row in census.itertuples(index=False):
@@ -370,6 +414,9 @@ def build_long_table(
             d["population_scope_comparability_asserted"] = False
         records.append(d)
 
+    census_record_count = len(census)
+    census_linked_record_count = len(linked_ids)
+    del coord_by_id, census, annual, entity_map, linked_ids, entity_years, aggregate_ids, entity_category_by_id, current_region_by_entity
     if wiki_path:
         for row in wiki.itertuples(index=False):
             # A current article/module association is carried as a separate link.
@@ -404,6 +451,7 @@ def build_long_table(
                 "source_association_status": _none(row.source_association_status),
                 "historical_physical_identity_status": _none(row.historical_physical_identity_status),
             })
+    del wiki
 
     table = pd.DataFrame.from_records(records)
     output = Path(output_path)
@@ -421,8 +469,8 @@ def build_long_table(
         "entity_category_counts": dict(Counter(table.entity_category)),
         "association_status_counts": dict(Counter(table.association_status)),
         "coordinate_admission_status_counts": dict(Counter(table.coordinate_admission_status.dropna())),
-        "census_record_count": len(census), "census_linked_record_count": len(linked_ids),
-        "census_singleton_unknown_no_link_count": len(census) - len(linked_ids),
+        "census_record_count": census_record_count, "census_linked_record_count": census_linked_record_count,
+        "census_singleton_unknown_no_link_count": census_record_count - census_linked_record_count,
         "coordinate_count": int(table.latitude.notna().sum()),
         "coordinate_count_by_record_type": {str(k): int(v) for k, v in table.loc[table.latitude.notna()].groupby("record_type").size().items()},
         "wiki_rows_have_coordinates": int(table.loc[table.record_type.eq("wiki_literal_series"), "latitude"].notna().sum()),
