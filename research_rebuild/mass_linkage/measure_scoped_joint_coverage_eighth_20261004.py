@@ -7,16 +7,37 @@ B=C/'accepted_mass_eighth_reviewed';SELECTED=Path('/workspace/settlements-delive
 def sha(p):
  with Path(p).open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
 
-def run(points=None, supplemental=None, output=None, residual_output=None):
+def exclusive_official_source_projection(populations, year, observations, partition_ids):
+ """Choose one official assertion per place/year, retaining alternatives elsewhere."""
+ projected=populations.copy();removed={};excluded=set()
+ if year==2002:
+  excluded.update(partition_ids)
+  for sid in partition_ids:
+   if sid in projected:removed[sid]=projected.pop(sid)
+ selected=[r for r in observations if int(r['census_year'])==year]
+ for r in selected:
+  sid=r['source_record_id'];aliases=set(json.loads(r['same_census_source_alias_record_ids']))
+  counterpart=r['preferred_same_census_alternate_selected_source_record_id']
+  if counterpart:aliases.add(counterpart)
+  excluded.update(aliases-{sid})
+  for alt in aliases:
+   if alt in projected:removed[alt]=projected.pop(alt)
+  projected[sid]=int(r['population'])
+ return projected,removed,excluded,selected
+
+def run(points=None, supplemental=None, output=None, residual_output=None, graph=None, official_scope=None):
  global O
  pointpath=Path(points) if points else B/'accepted_point_uses.parquet'
+ graphpath=Path(graph) if graph else B/'accepted_identity_edges.parquet'
+ graphreceipt=graphpath.parent/'receipt.json'
+ assert graphreceipt.is_file(), 'Accepted graph requires its application receipt'
  if output:O=Path(output)
  assert not O.exists(), 'Measurement receipts are immutable; choose a new output'
  con=duckdb.connect(config={'threads':1,'memory_limit':'512MB'})
  con.read_parquet(str(SELECTED)).create_view('sel')
  from collections import defaultdict
  adj=defaultdict(set)
- for a,b in con.execute('select from_source_record_id,to_source_record_id from read_parquet(?)',[str(B/'accepted_identity_edges.parquet')]).fetchall():adj[a].add(b);adj[b].add(a)
+ for a,b in con.execute('select from_source_record_id,to_source_record_id from read_parquet(?)',[str(graphpath)]).fetchall():adj[a].add(b);adj[b].add(a)
  yrs=dict(con.execute('select source_record_id,census_year from sel').fetchall());seen=set();full=set()
  for start in adj:
   if start in seen:continue
@@ -52,6 +73,25 @@ def run(points=None, supplemental=None, output=None, residual_output=None):
   assert not {r[0] for r in supplement_rows}&{r[0] for r in scoped}
   for sid,pop,known in supplement_rows:assert all_source[sid]==pop
   additional_pins=[receiptpath,obs,edge]
+ official_rows=[];official_exclusions=[]
+ if official_scope:
+  import pyarrow.parquet as pq
+  folder=Path(official_scope);receiptpath=folder/'application_receipt.json';receipt=json.loads(receiptpath.read_text())
+  assert receipt['status']=='applied_reviewed_official_primary_three_place_scoped_trajectories'
+  obs=folder/'accepted_scoped_trajectory_projection.parquet';edge=folder/'accepted_scoped_continuity_links.parquet'
+  assert sha(obs)==receipt['outputs'][obs.name] and sha(edge)==receipt['outputs'][edge.name]
+  official_rows=pq.read_table(obs).to_pylist();links=pq.read_table(edge).to_pylist()
+  assert len(official_rows)==9 and len(links)==6
+  assert {(r['place'],int(r['census_year'])) for r in official_rows}=={(p,y) for p in receipt['places'] for y in [2002,2010,2021]}
+  assert all(r['decision_status']=='accepted_scoped_physical_trajectory_projection' and r['coordinate_admission_status'] in ACCEPTED_COORDINATE_STATUSES for r in official_rows)
+  assert all(r['applied_scoped_decision_status']=='accepted_scoped_physical_continuity' for r in links)
+  carrier_ids=sorted({r['current_2021_source_record_id'] for r in official_rows})
+  carriers={r[0]:(r[1],r[2]) for r in con.execute('select target_source_record_id,latitude,longitude from points where target_source_record_id in(select unnest(?))',[carrier_ids]).fetchall()};assert len(carriers)==3
+  for r in official_rows:
+   assert carriers[r['current_2021_source_record_id']]==(float(r['latitude']),float(r['longitude']))
+   if int(r['census_year'])==2021:assert all_source[r['source_record_id']]==int(r['population'])
+  official_exclusions=receipt['excluded_partition_source_record_ids'];assert len(official_exclusions)==2 and sum(all_source[s] for s in official_exclusions)==29533
+  additional_pins.extend([receiptpath,obs,edge])
  # Accepted annual territorial edges provide real 2021->2022/23/24 paths for
  # Sevastopol; do not pretend it appeared in Russian censuses2002 or2010.
  annualpath=T/'accepted_annual_federal9_territorial_edges.csv';e=con.execute("select * from read_csv(?,all_varchar=true)",[str(annualpath)]).fetchdf();sev=[r for r in chains if r[0]=='Севастополь'];assert len(sev)==1;sevid=json.loads(sev[0][2])[0];assert len(e[e.from_observation_id==sevid])==3
@@ -70,6 +110,10 @@ def run(points=None, supplemental=None, output=None, residual_output=None):
     if sid in scop:assert scop[sid]==pop
     else:scop[sid]=pop
    if supplement_rows:extra.append({'kind':'accepted_supplemental_2014_source_identity_and_point_paths','rows':len(supplement_rows),'current2021_population':sum(r[1] for r in supplement_rows),'known_numeric2014_observations':sum(r[2] for r in supplement_rows),'literal_dash2014_population_remains_unknown':sum(not r[2] for r in supplement_rows),'current2021_population_whose_2014_numeric_population_unknown':sum(r[1] for r in supplement_rows if not r[2])})
+  if official_rows:
+   before=sum(scop.values());scop,removed,new_exclusions,scoped_year=exclusive_official_source_projection(scop,y,official_rows,official_exclusions)
+   excluded_ids.update(new_exclusions)
+   extra.append({'kind':'accepted_exclusive_official_primary_three_place_trajectory_projection','places':len(scoped_year),'official_population':sum(int(r['population']) for r in scoped_year),'removed_already_counted_alias_counterpart_or_partition_population':sum(removed.values()),'net_joint_population_change':sum(scop.values())-before,'protected_alternates_remain_in_frozen_selection':True,'boundary_comparability_not_asserted':True})
   covered_ids.update(scop)
   a=sum(strict.values());b=sum(scop.values());result[y]={'control_population':controls[y],'strict_NP_joint_population':sum(npmap[y].values()),'strict_NP_joint_rows':len(npmap[y]),'strict_with_existing_federal_typed_three_census_population':a,'strict_with_federal_percent':100*a/controls[y],'available_scope_joint_population':b,'available_scope_joint_percent':100*b/controls[y],'remaining_population_to_99':max(0,__import__('math').ceil(.99*controls[y])-b),'scope_adjustments':extra}
  if residual_output:
@@ -78,7 +122,9 @@ def run(points=None, supplemental=None, output=None, residual_output=None):
   residual=con.execute("select s.source_record_id,s.census_year,s.settlement_name,s.settlement_type,s.region_norm,s.district_raw,s.population,s.population_value_quality,s.source_file,s.source_sheet,s.source_row,s.okato,s.oktmo,s.settlement_id,p.latitude accepted_latitude,p.longitude accepted_longitude,p.coordinate_admission_status,f.sid is not null accepted_full_three_census_chain,case when f.sid is null and p.latitude is null then 'identity_and_point' when f.sid is null then 'identity_path' else 'point' end missing_joint_axis from sel s left join full_ids f on s.source_record_id=f.sid left join points p on s.source_record_id=p.target_source_record_id left join joint_covered_or_excluded_ids j on s.source_record_id=j.sid where j.sid is null").fetch_arrow_table()
   import pyarrow.parquet as pq
   pq.write_table(residual,dest,compression='zstd')
- r={'status':'eighth_graph_with_reviewed_point_and_scoped_increments_joint_measurement_target99_not_reached','results':result,'definition':'Ordinary accepted coordinate+full Russian3 chain; separate federal territorial chains; replace2002 Moscow childpartition by exactpublishedparent exclusively; Crimea actual2014->21 identity/presence paths (unknown numeric population remains unknown); Sevastopolactual2021->22/23/24 paths. No invented oldRussianrecords. This scope-aware metric is separate from strict3.','input_pins':{str(p):sha(p) for p in [SELECTED,B/'accepted_identity_edges.parquet',pointpath,B/'receipt.json',F,S,T/'application_receipt.json',T/'accepted_moscow2002_territorial_override.json',annualpath]+additional_pins},'script_sha256':sha(Path(__file__))};O.write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n');print(json.dumps(result,ensure_ascii=False))
+ r={'status':'accepted_graph_with_reviewed_point_and_scoped_increments_joint_measurement','target99_reached_each_year':all(x['remaining_population_to_99']==0 for x in result.values()),'results':result,'definition':'Ordinary accepted coordinate+full Russian3 chain; separate federal territorial chains; replace2002 Moscow childpartition by exactpublishedparent exclusively; Crimea actual2014->21 identity/presence paths (unknown numeric population remains unknown); Sevastopolactual2021->22/23/24 paths; optional reviewed exclusive official-source three-date trajectories preserve alternate values and flags. No invented oldRussianrecords. This scope-aware metric is separate from canonical strict3.','input_pins':{str(p):sha(p) for p in [SELECTED,graphpath,pointpath,graphreceipt,F,S,T/'application_receipt.json',T/'accepted_moscow2002_territorial_override.json',annualpath]+additional_pins},'script_sha256':sha(Path(__file__))}
+ if residual_output:r['residual_diagnostic']={'path':str(dest),'sha256':sha(dest),'rows':residual.num_rows}
+ O.write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n');print(json.dumps(result,ensure_ascii=False))
 if __name__=='__main__':
  import argparse
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--points');p.add_argument('--supplemental');p.add_argument('--output');p.add_argument('--residual-output');a=p.parse_args();run(a.points,a.supplemental,a.output,a.residual_output)
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--points');p.add_argument('--supplemental');p.add_argument('--output');p.add_argument('--residual-output');p.add_argument('--graph');p.add_argument('--official-scope');a=p.parse_args();run(a.points,a.supplemental,a.output,a.residual_output,a.graph,a.official_scope)
