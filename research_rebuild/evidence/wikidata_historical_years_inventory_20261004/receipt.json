@@ -1,0 +1,30 @@
+{
+  "status": "secondary_history_inventory_no_admissions_or_coverage_gain",
+  "input": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/eleventh_full_long_rebuild/final/long_865395_with_309_current_subject_context.parquet",
+    "sha256": "5dd988334a5855c9a42bf6ad97af1cc31f34bddf3aeb6d215da9a385d6b39f30"
+  },
+  "counts": {
+    "claims": 364032,
+    "qids": 106716,
+    "first_year": 1678,
+    "last_year": 2026,
+    "claims_before_2002": 86707,
+    "qids_before_2002": 30040,
+    "date_eligible_claims_before_2002": 86689,
+    "date_eligible_qids_before_2002": 30035
+  },
+  "limitations": [
+    "Working-export inventory, not an exhaustive Wikidata query.",
+    "Secondary values; dated-year eligibility does not admit historical identity or boundaries.",
+    "Different values for the same QID/year are excluded from sums; repeated equal values count once.",
+    "Different QIDs may describe overlapping objects or territories: sums are not national coverage.",
+    "Current point context does not establish a historical coordinate or census boundary.",
+    "Candidate current associations remain candidates; their inclusion here is inventory only."
+  ],
+  "outputs": {
+    "wikidata_by_year.csv": {
+      "sha256": "305c0cbc99d72bc29a4bd664028db124d48ae21514956613503bb387d6a94adb"
+    }
+  }
+}
