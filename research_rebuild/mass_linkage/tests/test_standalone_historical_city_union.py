@@ -22,3 +22,19 @@ def test_missing_parent_does_not_waive_other_locality_or_receiving_city_guards()
         apply_scoped_inclusion_reference({},2010,r,represented_current_receivers={'receiving-city'})
     with pytest.raises(ValueError):
         apply_scoped_inclusion_reference({},2010,city(),represented_current_receivers=set())
+
+
+def test_individual_moskovsky_locality_inclusion_never_transfers_federal_population():
+    r=dict(year=2002,source_record_id='moskovsky-2002',population=15563,
+           source_type='посёлок',old_same_year_city_proper_source_record_id=None,
+           standalone_historical_settlement_reference=True,
+           independent_source_grain_kind='individual_named_locality',
+           current_2021_receiver_source_record_id='moscow-territory',
+           current_receiver_grain='federal_territory')
+    out=apply_scoped_inclusion_reference({},2002,r,represented_current_receivers={'moscow-territory'})
+    assert out=={'moskovsky-2002':15563}
+    assert apply_scoped_inclusion_reference(out,2002,r,represented_current_receivers={'moscow-territory'})==out
+    assert apply_scoped_inclusion_reference({},2021,r,represented_current_receivers={'moscow-territory'})=={}
+    r['independent_source_grain_kind']='municipal_total'
+    with pytest.raises(ValueError):
+        apply_scoped_inclusion_reference({},2002,r,represented_current_receivers={'moscow-territory'})

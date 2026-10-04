@@ -221,9 +221,14 @@ def run(points=None, supplemental=None, output=None, residual_output=None, graph
    assert not row['population_additive'] and not row['ordinary_same_place_claim'] and not row['current_child_population_asserted']
    p=row['point_row'];assert p['coordinate_admission_status'] in ACCEPTED_COORDINATE_STATUSES
    assert p['target_source_record_id']==sid and -90<=float(p['latitude'])<=90 and -180<=float(p['longitude'])<=180
-   assert row['current_2021_receiver_source_record_id'] in npmap[2021], 'Receiving city must already have coordinates and a full trajectory'
+   receiver=row['current_2021_receiver_source_record_id']
+   if row.get('current_receiver_grain')=='federal_territory':
+    assert receiver in feds[2021], 'Federal receiving territory must already have its own reviewed territorial point and chain'
+   else:
+    assert receiver in npmap[2021], 'Receiving city must already have coordinates and a full trajectory'
    assert all_source[row['current_2021_receiver_source_record_id']]==row['current_receiver_population_context_only']
-   assert con.execute("select population_scope,is_additive_settlement_record from sel where source_record_id=?",[sid]).fetchone()==('settlement',True)
+   grain=con.execute("select population_scope,is_additive_settlement_record from sel where source_record_id=?",[sid]).fetchone()
+   assert grain==('settlement',True) or (grain==(None,True) and row.get('independent_source_grain_kind')=='individual_named_locality' and row.get('standalone_historical_settlement_reference') is True)
   reported_references.extend(group);additional_pins.extend([receiptpath,path,point])
  assert len({x['source_record_id'] for x in reported_references})==len(reported_references)
  partition_rows=[]
@@ -349,7 +354,8 @@ def run(points=None, supplemental=None, output=None, residual_output=None, graph
    from research_rebuild.mass_linkage.load_reviewed_inclusion_scope_20261004 import apply_scoped_inclusion_reference
    before=sum(scop.values())
    for row in reported_references:
-    scop=apply_scoped_inclusion_reference(scop,y,row,represented_current_receivers=set(npmap[2021]))
+    receivers=set(feds[2021]) if row.get('current_receiver_grain')=='federal_territory' else set(npmap[2021])
+    scop=apply_scoped_inclusion_reference(scop,y,row,represented_current_receivers=receivers)
    delta=sum(scop.values())-before;inclusion_net_added+=delta
    extra.append({'kind':'reviewed_secondary_reported_large_inclusion_references','old_primary_population_net_added':delta,'current_parent_or_child_population_added':0,'legal_acts_independently_verified':False,'ordinary_NP_three_census_chain':False,'modern_boundary_harmonized':False,'boundary_comparability':'unknown'})
   for row in partition_rows:

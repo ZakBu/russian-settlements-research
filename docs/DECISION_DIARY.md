@@ -1711,3 +1711,25 @@ Fullgraph11 export remains marked stale; consolidated rebuild pending currentbat
 Evidence/code/config bytes frozen before further changes; no remote upload claimed.
 
 Focused verification after graph15 integration:31 relevant regression tests pass (0.36s pytest reported); not full-repository validation.
+
+### 2026-10-05: graph16 actual state, restrictions and maximum-coverage continuation
+
+Graph16 has 348643 edges/132842 ordinary primary-three components/428151 point uses.
+Four Anapskaya/Plekhanovo edges, 4953 direct points and 2057 continuity uses were applied;
+old scientific fields unchanged. Actual mixed joint 97.224912366/97.576211004/98.276981641%;
+gaps to99 are 2576837/2033976/1064154. Gornyak1 and Moskovsky/Ozheryelye4 are separate
+typed inclusion references, not ordinary identity chains or modern-boundary reconstructions.
+31 current-coordinate collision rows and one Strugi successor-flag interpretation held.
+
+Documentation and configuration coverage/readback pointers refreshed to graph16; executed
+bytes frozen. Full865395 export remains graph11; growth audit graph15 explicitly retained.
+Continuation checks a finite persistent-city administrative-flag interpretation rule, not
+a global event waiver. Exact source quantities and earlier independent reviews are preserved.
+User requests maximal coverage toward100; 99 remains the next measurable milestone.
+
+GitHub creation attempt failed403 Resource not accessible by integration. A credentialless
+API user request still uses the configured GitHub App identity, so injecting a personal
+token in a command did not establish independent PAT authorization. No remote creation,
+write or permission grant is claimed. No credentials stored in research files.
+
+Focused graph16 verification: 32 relevant regression tests passed (0.38s pytest reported); no full-repository validation claim.

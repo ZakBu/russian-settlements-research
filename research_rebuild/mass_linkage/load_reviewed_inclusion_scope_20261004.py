@@ -399,8 +399,12 @@ def apply_scoped_inclusion_reference(
         raise ValueError(f"current receiver is not represented: {receiver_id}")
     parent_id = row["old_same_year_city_proper_source_record_id"]
     if parent_id is None:
-        if not row.get('standalone_historical_city_reference') or row.get('source_type') != 'город':
-            raise ValueError('Missing parent requires an explicitly reviewed standalone historical city')
+        reviewed_city = row.get('standalone_historical_city_reference') and row.get('source_type') == 'город'
+        reviewed_locality = (row.get('standalone_historical_settlement_reference') is True and
+            row.get('independent_source_grain_kind') == 'individual_named_locality' and
+            row.get('source_type') in {'город', 'посёлок', 'пгт'})
+        if not (reviewed_city or reviewed_locality):
+            raise ValueError('Missing parent requires an explicitly reviewed individual historical locality')
     elif str(parent_id) not in out:
         raise ValueError(f"same-year city-proper parent is not represented: {parent_id}")
     source_id = str(row["source_record_id"])
