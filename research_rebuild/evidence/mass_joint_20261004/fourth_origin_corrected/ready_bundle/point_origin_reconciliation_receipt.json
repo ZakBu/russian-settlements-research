@@ -1,0 +1,69 @@
+{
+  "status": "origin_corrected_application_adapters_ready_no_application",
+  "created_at_utc": "2026-10-04T01:51:26Z",
+  "prior_manifest": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/fourth_20261004/future_v3_ready_bundle/fourth_application_manifest.json",
+    "sha256": "0cb35e52bc77f0301b8249f73166e3e63e7c3b35075effd238fd03369d67f8a9",
+    "status": "superseded point provenance mapping; identity rows/base pins reused, point_sources replaced"
+  },
+  "approved_target_counts": {
+    "total": 107,
+    "actual_raw_tochno": 79,
+    "actual_geonames_ppl": 28
+  },
+  "all_274_reviewed_point_claims_origin_verified": {
+    "raw_tochno_rows": 207,
+    "actual_geonames_ppl_rows": 67
+  },
+  "origin_files": {
+    "tochno": {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+    },
+    "geonames_zip": {
+      "path": "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip",
+      "sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+      "member": "RU.txt",
+      "member_sha256": "3ef8f69d9c6b8adbd53afc35f6dc774b1d01b04f566622e1892a6d2f00d2f4d0"
+    }
+  },
+  "raw_source_review": {
+    "candidate_path": "/workspace/settlements-work/continuation_20261004/R4/wikidata_points/extensions/geonames_two_pass_v7/staged_point_uses.csv",
+    "candidate_sha256": "7b70cc5491baa575144ac9abcc9e24b7ace1e3b405890fffd664be3614233f11",
+    "eligible_274_path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_two_pass_v7_independent_eligible_274.csv",
+    "eligible_274_sha256": "5d5e37b8119eb271765f775ba73358fb206e72bc26522499638af43483b22185",
+    "eligibility_receipt_sha256": "0d6dc14df5b34377557e11e1dd8171fd99beb7c2f63d63401311f106b660f5e1",
+    "independent_review_receipt_sha256": "439b2d90213f82d2265a39bc86d04f92e34eeaa1efafc442d860d4a11cf477a2"
+  },
+  "coordinate_origins": {
+    "Tochno": "all 207 candidate rows have selected-record to raw Parquet source-row joins, payload-SHA matches and exact coordinate matches",
+    "GeoNames": "all 67 candidate rows have unique reviewed PPL witness joins to exact RU.txt line number, byte offsets, line SHA, geonameid, feature code, and exact coordinates"
+  },
+  "application_eligible_outputs": {
+    "tochno_candidate": {
+      "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/fourth_origin_corrected_20261004/ready_bundle/tochno_207_origin_corrected_candidate_points.csv",
+      "sha256": "12223ec73d39eeb9107b901277a6723575310c3a351581d237dad0479366205e",
+      "rows": 207
+    },
+    "geonames_candidate": {
+      "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/fourth_origin_corrected_20261004/ready_bundle/geonames_67_origin_corrected_candidate_points.csv",
+      "sha256": "e66cb53621f175173e0e3e4f1c2a1ca4b9fecaa5a95307b553cc0ba9824e7c33",
+      "rows": 67
+    },
+    "tochno_approved": {
+      "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/fourth_origin_corrected_20261004/ready_bundle/tochno_79_origin_corrected_approved_points.csv",
+      "sha256": "81c6a0f1166bb7391a71a3e2299ac4893e885bd939188d67f8778bbca1854cce",
+      "rows": 79
+    },
+    "geonames_approved": {
+      "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/fourth_origin_corrected_20261004/ready_bundle/geonames_28_origin_corrected_approved_points.csv",
+      "sha256": "5b71a27dece93749e990e63294baad9246c267f9b3beb6ce327a26eaab143786",
+      "rows": 28
+    }
+  },
+  "all_274_origin_validation_rows": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/fourth_origin_corrected_20261004/ready_bundle/v7_point_origin_native_join_checks_274.csv",
+    "sha256": "5f4ba77dcfae33c3f799aadc5a638a0ded11471308e7520cd7f357d9758fb910",
+    "rows": 274
+  }
+}
