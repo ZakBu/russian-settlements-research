@@ -10,6 +10,7 @@ from research_rebuild.mass_linkage.build_long_table import (
     _accepted_coordinate_map,
     _coordinate_columns,
     _read_parquet_projection,
+    _build_entity_map,
 )
 
 
@@ -89,6 +90,38 @@ def test_parquet_projection_requires_consumed_key_columns(tmp_path):
     pd.DataFrame([{"from_source_record_id": "a", "to_source_record_id": "b"}]).to_parquet(path, index=False)
     with pytest.raises(ValueError, match="missing required columns"):
         _read_parquet_projection(path, IDENTITY_REQUIRED_COLUMNS)
+
+
+def test_legacy_null_edge_year_metadata_uses_exact_selected_source_years():
+    census = pd.DataFrame([
+        {"source_record_id":"a", "census_year":2002},
+        {"source_record_id":"b", "census_year":2010},
+    ])
+    edges = pd.DataFrame([{
+        "from_source_record_id":"a", "to_source_record_id":"b",
+        "from_year":None, "to_year":2010, "relation":"same_place",
+        "decision_status":"checked_rule_accepted",
+        "selection_projection_status":"active_endpoints_selected", "decision_id":"edge-1",
+    }])
+    entity_map, linked, entity_years = _build_entity_map(census, edges)
+    assert entity_map["a"] == entity_map["b"]
+    assert linked == {"a", "b"}
+    assert entity_years[entity_map["a"]] == {2002, 2010}
+
+
+def test_explicit_legacy_edge_year_conflict_still_fails():
+    census = pd.DataFrame([
+        {"source_record_id":"a", "census_year":2002},
+        {"source_record_id":"b", "census_year":2010},
+    ])
+    edges = pd.DataFrame([{
+        "from_source_record_id":"a", "to_source_record_id":"b",
+        "from_year":2010, "to_year":2010, "relation":"same_place",
+        "decision_status":"checked_rule_accepted",
+        "selection_projection_status":"active_endpoints_selected", "decision_id":"edge-1",
+    }])
+    with pytest.raises(ValueError, match="endpoint-year mismatch"):
+        _build_entity_map(census, edges)
 def test_serialized_false_stays_false_and_unknown_stays_unknown():
     from research_rebuild.mass_linkage.build_long_table import _optional_boolean
     assert _optional_boolean('False') is False
