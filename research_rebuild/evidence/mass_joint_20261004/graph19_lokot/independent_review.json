@@ -1,0 +1,472 @@
+{
+  "review_id": "bryansk_lokot_graph18_review_20261005_v1",
+  "review_date": "2026-10-05",
+  "scope": "Read-only audit of selected census rows for settlement Локоть, Bryansk Oblast, against Graph18; no canonical changes.",
+  "status": "recommend_identity_chain_acceptance_and_direct_2021_point_review; no application in this package",
+  "current_graph18_state": {
+    "application_receipt_sha256": "38751119893dace982e6a65ae4a4d7e383bb3bc2e51cf668c01375e3c4d0ce1e",
+    "target_2021_row_is_residual": true,
+    "accepted_identity_edges_touching_any_target": [],
+    "accepted_point_uses_for_targets": [
+      {
+        "target_source_record_id": "2002:1_TOM_01_04.xls:0:133",
+        "target_year": "2002.0",
+        "latitude": 52.573368,
+        "longitude": 34.568384,
+        "coordinate_source": "Raw named typed GeoKLADR 2011 point under scoped exact code bridge; point-only retrospective use assumption",
+        "coordinate_admission_status": "reviewed_extension_rule_accepted",
+        "admission_rule": "old_census_typed_urban_code_bridge_point_only_recovery_candidate_v1",
+        "source_name": "Локоть",
+        "source_type": "пгт",
+        "source_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+        "source_locator": "DBF_record_1based=13156;DBF_byte_offset_0based=5196930;OKATO2011_raw=15204551000;KOD3_raw=000",
+        "coordinate_measurement_date_unknown": true,
+        "provider_binding_status": null,
+        "point_origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+        "point_origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+        "point_origin_locator": "DBF_record_1based=13156;DBF_byte_offset_0based=5196930;OKATO2011_raw=15204551000",
+        "historical_classifier2009_locator": "line_1based=21324;OKATO2009_raw=15204551",
+        "historical_okato_comparison_basis": null,
+        "point_origin_kind": "raw_named_typed_geo2011_object"
+      }
+    ]
+  },
+  "selected_census_rows": [
+    {
+      "census_year": 2002,
+      "source_record_id": "2002:1_TOM_01_04.xls:0:133",
+      "source_name_raw": "Городское население - пгт Локоть (рц)",
+      "settlement_name": "Локоть",
+      "settlement_type": "пгт",
+      "region_raw": "брянская",
+      "district_raw": null,
+      "municipality_raw": null,
+      "population": 12094.0,
+      "population_value_quality": "direct_published_census_value",
+      "population_value_quality_original_tag": "direct_published_census_value",
+      "population_scope": "settlement",
+      "is_additive_settlement_record": true,
+      "latitude": NaN,
+      "longitude": NaN,
+      "coordinate_source": null,
+      "coordinate_quality": null,
+      "fias_id": null,
+      "okato": null,
+      "oktmo": null,
+      "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "source_sheet": "0",
+      "source_row": 133.0,
+      "source_native_id": "table4:133"
+    },
+    {
+      "census_year": 2010,
+      "source_record_id": "ROSSTAT2010:T5:p15:l48",
+      "source_name_raw": "Городское население - пгт Локоть рп (рц)",
+      "settlement_name": "Локоть",
+      "settlement_type": "пгт",
+      "region_raw": "брянская",
+      "district_raw": "Брасовский район",
+      "municipality_raw": null,
+      "population": 10028.0,
+      "population_value_quality": "reviewed_primary_reported_value",
+      "population_value_quality_original_tag": "confidentiality_perturbed_within_ten",
+      "population_scope": "settlement",
+      "is_additive_settlement_record": true,
+      "latitude": NaN,
+      "longitude": NaN,
+      "coordinate_source": null,
+      "coordinate_quality": null,
+      "fias_id": null,
+      "okato": null,
+      "oktmo": null,
+      "source_file": "data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "source_sheet": "pdf_page_15",
+      "source_row": 48.0,
+      "source_native_id": "ROSSTAT2010:T5:p15:l48"
+    },
+    {
+      "census_year": 2021,
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:173506",
+      "source_name_raw": "посёлок Локоть",
+      "settlement_name": "Локоть",
+      "settlement_type": "посёлок",
+      "region_raw": "Брянская область",
+      "district_raw": "Брасовский муниципальный район",
+      "municipality_raw": "Локотское городское поселение",
+      "population": 8469.0,
+      "population_value_quality": "direct_published_census_value",
+      "population_value_quality_original_tag": "direct_published_census_value",
+      "population_scope": "settlement",
+      "is_additive_settlement_record": true,
+      "latitude": 52.5609693,
+      "longitude": 34.576992,
+      "coordinate_source": "DaData via Tochno 2021 CC BY 4.0",
+      "coordinate_quality": "3",
+      "fias_id": "c2be7e89-98a8-4af5-8941-5826a19b9dc2",
+      "okato": "15204551000",
+      "oktmo": "15604151051",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_sheet": "parquet",
+      "source_row": 173506.0,
+      "source_native_id": "15604151051"
+    }
+  ],
+  "same_name_competitor_counts_selected_layer": {
+    "2002": 1,
+    "2010": 1,
+    "2021": 1
+  },
+  "2021_selected_rows_with_same_OKATO": [
+    [
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:173506",
+      "Локоть",
+      "посёлок",
+      8469.0,
+      "15204551000",
+      "15604151051",
+      "c2be7e89-98a8-4af5-8941-5826a19b9dc2"
+    ]
+  ],
+  "2002_raw_primary_hierarchy": {
+    "row_1based": 133,
+    "raw_cells": [
+      "    Городское население - пгт Локоть (рц)",
+      12094.0,
+      6135.0,
+      5959.0,
+      50.7,
+      49.3
+    ],
+    "parent_district_row_1based": 132,
+    "parent_district_raw": [
+      "  Брасовский район",
+      24972.0,
+      12156.0,
+      12816.0,
+      48.7,
+      51.3
+    ],
+    "following_rural_total_row_1based": 134,
+    "following_rural_total_raw": [
+      "    Сельское население",
+      12878.0,
+      6021.0,
+      6857.0,
+      46.8,
+      53.2
+    ]
+  },
+  "2010_official_table5_reference": [
+    {
+      "reference_id": "ROSSTAT2010:T5:p15:l48",
+      "census_year": 2010,
+      "pdf_page": 15,
+      "printed_page": 14,
+      "text_line_start": 48,
+      "text_line_end": 48,
+      "label_raw": "Городское население - пгт Локоть рп (рц)",
+      "raw_lines": "[{\"pdf_page\": 15, \"printed_page\": 14, \"text_line\": 48, \"raw_line\": \"Городское население - пгт Локоть рп (рц) 10028  4433  5595  44,2  55,8  \"}]",
+      "region_raw": "Брянская область",
+      "district_raw": "Брасовский район",
+      "row_kind": "settlement",
+      "population": 10028,
+      "men": 4433,
+      "women": 5595,
+      "total_equals_sexes": true,
+      "dash_in_counts": false,
+      "settlement_type": "пгт",
+      "settlement_name": "Локоть",
+      "reference_status": "extracted_reference",
+      "hierarchy_status": "sequential_pdf_context_not_identity_proof"
+    }
+  ],
+  "2021_raw_Tochno_DaData_row": [
+    {
+      "object_level": "Населенный пункт",
+      "object_name": "посёлок Локоть",
+      "oktmo": "15604151051",
+      "region": "Брянская область",
+      "mun_upper": "Брасовский муниципальный район",
+      "mun_lower": "Локотское городское поселение",
+      "settlement": "посёлок Локоть",
+      "population": 8469,
+      "settlement_fias_id_dadata": "c2be7e89-98a8-4af5-8941-5826a19b9dc2",
+      "settlement_with_type_dadata": "рп Локоть",
+      "settlement_type_dadata": "рп",
+      "settlement_type_full_dadata": "рабочий поселок",
+      "settlement_dadata": "Локоть",
+      "fias_id_dadata": "c2be7e89-98a8-4af5-8941-5826a19b9dc2",
+      "fias_level_dadata": "6",
+      "okato_dadata": "15204551000",
+      "oktmo_dadata": "15604151051",
+      "qc_geo_dadata": 3,
+      "qc_dadata": 0,
+      "latitude_dadata": 52.5609693,
+      "longitude_dadata": 34.576992
+    }
+  ],
+  "okato_2009_exact_classifier_rows": [
+    {
+      "line_1based": 21324,
+      "raw": "15204551\tЛокоть\tЛокоть\tпоселок городского типа\tпоселок городского типа Локоть\tt"
+    },
+    {
+      "line_1based": 21325,
+      "raw": "15204551000\tСельские населенные пункты, подчиненные Администрации рп Локоть/\t\t\tСельские населенные пункты, подчиненные Администрации рабочий поселок Локоть/\tf"
+    }
+  ],
+  "geokladr_2011_raw_record": {
+    "record_1based": 13156,
+    "byte_offset_0based": 5196930,
+    "record_length_bytes": 395,
+    "header_length_bytes": 705,
+    "fields": {
+      "TER": "15",
+      "KOD1": "204",
+      "KOD2": "551",
+      "KOD3": "000",
+      "RAZDEL": "1",
+      "NAME1": "Локоть",
+      "SCOKATO": "пгт",
+      "TYPE_NP": "3",
+      "OKTMO": "15604151",
+      "LONG": "34.568384",
+      "LAT": "52.573368",
+      "DATA_UPD": "2011/06/20",
+      "POPULATION": "11977"
+    },
+    "global_exact_NAME1_Lokоть_count": 1
+  },
+  "wikidata_current_entity": {
+    "qid": "Q2374909",
+    "same_entity_rows_in_wikidata_oktmo_entities": [
+      {
+        "line_1based": 242384,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t\"15204551000\"\tPOINT(34.558333 52.555556)\t\"Локоть\"@ru\t<https://ru.wikipedia.org/wiki/%D0%9B%D0%BE%D0%BA%D0%BE%D1%82%D1%8C_(%D0%91%D1%80%D1%8F%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C)>\t<http://www.wikidata.org/entity/Q4265968>\t\"Локотское городское поселение\"@ru"
+      },
+      {
+        "line_1based": 242385,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t\"15204551000\"\tPOINT(34.577600 52.565000)\t\"Локоть\"@ru\t<https://ru.wikipedia.org/wiki/%D0%9B%D0%BE%D0%BA%D0%BE%D1%82%D1%8C_(%D0%91%D1%80%D1%8F%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C)>\t<http://www.wikidata.org/entity/Q4265968>\t\"Локотское городское поселение\"@ru"
+      },
+      {
+        "line_1based": 242386,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t\"15204551000\"\tPOINT(34.577600 52.565000)\t\"Локоть\"@ru\t<https://ru.wikipedia.org/wiki/%D0%9B%D0%BE%D0%BA%D0%BE%D1%82%D1%8C_(%D0%91%D1%80%D1%8F%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C)>\t<http://www.wikidata.org/entity/Q4265968>\t\"Локотское городское поселение\"@ru"
+      },
+      {
+        "line_1based": 242387,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t\"15204551000\"\tPOINT(34.558333 52.555556)\t\"Локоть\"@ru\t<https://ru.wikipedia.org/wiki/%D0%9B%D0%BE%D0%BA%D0%BE%D1%82%D1%8C_(%D0%91%D1%80%D1%8F%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C)>\t<http://www.wikidata.org/entity/Q4265968>\t\"Локотское городское поселение\"@ru"
+      }
+    ],
+    "population_claims": [
+      {
+        "line_1based": 755437,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-19C4A48F-FB2F-43B8-8977-D0ECA39CAB01>\t12094.0\t2002-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755438,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-19C4A48F-FB2F-43B8-8977-D0ECA39CAB01>\t12094.0\t2002-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755439,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-1C04E46C-B508-4FF8-9322-7596044758A9>\t9492.0\t2017-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755440,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-1C04E46C-B508-4FF8-9322-7596044758A9>\t9492.0\t2017-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755441,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-2DDF91D6-836C-4825-8239-863947C9DC0D>\t11191.0\t1989-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755442,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-2DDF91D6-836C-4825-8239-863947C9DC0D>\t11191.0\t1989-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755443,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-32410B60-6862-4A8D-B86A-E9E2BF0D6763>\t7450.0\t1959-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755444,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-32410B60-6862-4A8D-B86A-E9E2BF0D6763>\t7450.0\t1959-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755445,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-3978212E-9C69-430B-8EA5-0208A9FCA9CE>\t9369.0\t2018-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755446,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-3978212E-9C69-430B-8EA5-0208A9FCA9CE>\t9369.0\t2018-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755447,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-54F0BA54-DAE6-4B32-A9ED-2D7EA736CCE1>\t9703.0\t2014-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755448,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-54F0BA54-DAE6-4B32-A9ED-2D7EA736CCE1>\t9703.0\t2014-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755449,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-55D08F2C-EF46-424C-BE51-01CF79157129>\t10028.0\t2010-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755450,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-55D08F2C-EF46-424C-BE51-01CF79157129>\t10028.0\t2010-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755451,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-6278C017-9111-4833-93D8-890B7BEBEAEB>\t9911.0\t2012-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755452,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-6278C017-9111-4833-93D8-890B7BEBEAEB>\t9911.0\t2012-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755453,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-95289A88-4DA2-49EA-AFFE-A72877B18E00>\t10229.0\t1979-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755454,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-95289A88-4DA2-49EA-AFFE-A72877B18E00>\t10229.0\t1979-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755455,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-97374888-02B8-40B7-BBF8-8D5233F4B596>\t9243.0\t2020-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755456,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-97374888-02B8-40B7-BBF8-8D5233F4B596>\t9243.0\t2020-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755457,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-980ABBDA-A518-4ACC-8D85-304F233BFC81>\t12005.0\t2009-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755458,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-980ABBDA-A518-4ACC-8D85-304F233BFC81>\t12005.0\t2009-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755459,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-9cf0f606-4151-0827-ba50-9c2cfa93872e>\t8284.0\t2025-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755460,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-9cf0f606-4151-0827-ba50-9c2cfa93872e>\t8284.0\t2025-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755461,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-A8E967A3-93A4-493C-A965-1E61413BEA4D>\t9824.0\t2013-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755462,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-A8E967A3-93A4-493C-A965-1E61413BEA4D>\t9824.0\t2013-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755463,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-BE933521-8716-4B39-A8D4-AB054DB3D11E>\t6001.0\t1939-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755464,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-BE933521-8716-4B39-A8D4-AB054DB3D11E>\t6001.0\t1939-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755465,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-BF1D883B-2E29-473A-9E80-FAB42DBB3B35>\t9548.0\t2016-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755466,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-BF1D883B-2E29-473A-9E80-FAB42DBB3B35>\t9548.0\t2016-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755467,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-D52359F3-FC17-42A6-A535-40F92C8326A1>\t8469.0\t2021-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755468,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-D52359F3-FC17-42A6-A535-40F92C8326A1>\t8469.0\t2021-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755469,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-DA72E629-4F21-410F-99C7-FEF40D88FFF1>\t9557.0\t2015-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755470,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-DA72E629-4F21-410F-99C7-FEF40D88FFF1>\t9557.0\t2015-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755471,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-F3CF2524-D652-4AC8-BFEE-9826DE23B07D>\t9243.0\t2019-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755472,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-F3CF2524-D652-4AC8-BFEE-9826DE23B07D>\t9243.0\t2019-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755473,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-FE1FC0A6-A1F6-4619-A2A2-F1F6A9593D93>\t10005.0\t1970-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      },
+      {
+        "line_1based": 755474,
+        "raw": "<http://www.wikidata.org/entity/Q2374909>\t\"15604151051\"\t<http://www.wikidata.org/entity/statement/Q2374909-FE1FC0A6-A1F6-4619-A2A2-F1F6A9593D93>\t10005.0\t1970-01-01T00:00:00Z\t<http://wikiba.se/ontology#NormalRank>"
+      }
+    ]
+  },
+  "geonames_candidate": {
+    "line_1based": 73643,
+    "raw": "534413\tLokot’\tLokot'\tLokot,Lokot',Lokot’,Локоть\t52.57472\t34.57673\tP\tPPLA2\tRU\t\t10\t\t\t\t11853\t\t231\tEurope/Moscow\t2022-03-11"
+  },
+  "point_spread_km_from_DaData_2021": {
+    "GeoKLADR2011 accepted point (2002 target)": 1.496,
+    "2021 direct DaData row": 0.0,
+    "Wikidata P625 A": 1.398,
+    "Wikidata P625 B": 0.45,
+    "GeoNames PPLA2 ID 534413": 1.529
+  },
+  "population_counting_and_grain": {
+    "2002": {
+      "population": 12094,
+      "grain": "explicit pgt locality inside Brasovsky district",
+      "row_context": "district control 24,972; separate rural aggregate row 12,878 follows, so neither should be added into this locality row"
+    },
+    "2010": {
+      "population": 10028,
+      "grain": "Table 5 explicit pgt row, not district total",
+      "row_context": "district control 21,471; separate rural aggregate row 11,443 follows"
+    },
+    "2021": {
+      "population": 8469,
+      "grain": "Tochno row object_level Населенный пункт, FIAS level 6; municipality is separate field and not population grain"
+    },
+    "Wikidata": "same three dated values exist on matching OKTMO QID but are secondary and duplicate rows; corroboration only, not an independent census count or extra population."
+  },
+  "identity_assessment": {
+    "evidence": [
+      "exact unique selected settlement name in Bryansk for all three years",
+      "2002 row type пгт and location nested under Брасовский район",
+      "2010 official Table5 exact primary row: пгт Локоть рп (рц), with explicit Брасовский район hierarchy",
+      "2021 settlement row in Брасовский municipal district and Локотское городское поселение",
+      "2021 DaData name/type reads рп Локоть / рабочий поселок, reconciling the broad census label посёлок with historical пгт",
+      "2009 physical locality code 15204551 identifies п Локоть as пгт; 2021 OKATO long form 15204551000 and OKTMO 15604151051 occur on only one selected census locality row",
+      "GeoKLADR2011 raw record 13156 is itself typed/name-specific: KOD3=551, SCOKATO=пгт, NAME=Локоть, coordinates, and OKTMO prefix 15604151. The same numeric OKATO 15204551000 also labels a distinct administrative child-rural-settlement bucket in 2009 SQL, so that code alone is not a stable atomic ID; typed DBF record and distinct OKTMO/FIAS/current row disambiguate."
+    ],
+    "competitors": [
+      "Other exact-name classifier rows exist in Altai, Kursk and Pskov, but not in Bryansk with the target region/type. In 2009 Bryansk has the pgt locality row plus the rural-subordinates administrative bucket (not a second physical locality).",
+      "GeoKLADR2011 DBF exact NAME1=Локоть count is one across the file."
+    ],
+    "recommendation": "Accept a one-to-one same-place path 2002↔2010↔2021 for identity review, preserving any regional type/status change as metadata; no basis here to assert boundary equivalence or exact population comparability beyond row grain."
+  },
+  "coordinate_assessment": {
+    "existing_admission": "2002 endpoint already has an admitted GeoKLADR2011 point at 52.573368,34.568384; source point is a named typed pgt record. 2010 and 2021 have no accepted point use in Graph18; 2010 is linked to the same locality only if identity path is admitted.",
+    "2021_candidate": "Tochno row embeds DaData point 52.5609693,34.576992 with same settlement FIAS UUID c2be7e89-98a8-4af5-8941-5826a19b9dc2, FIAS level 6, OKATO 15204551000, OKTMO 15604151051, name Локоть, DaData type рабочий поселок. Recommend this as direct 2021 point candidate after point-use review; provider result/point identity binding is separate from coordinate correctness.",
+    "other_sources": "GeoNames PPLA2 candidate at 52.57472,34.57673. Wikidata P625 has two distinct values at 52.555556,34.558333 and 52.565,34.577600 (each duplicated in the derived entity table). These candidates differ by ~0.45–1.53km from DaData; the two Wikidata values differ by ~1.67km. All lie within the same small settlement area and no >5km competing-location evidence was found.",
+    "recommendation": "Do not average source coordinates or treat all P625 values as simultaneous canonical points. Select direct 2021 DaData point if its raw feature response can be pinned; retain GeoKLADR point as separate 2002 representative point. For 2010, reuse one accepted representative point only with explicit spatial-continuity inference after identity acceptance, not as a 2010 measured point."
+  },
+  "prior_hold_reassessment": "Earlier bounded packet held because long OKATO 15204551000 also denotes rural settlements subordinate to the settlement administration. Raw GeoKLADR row readback resolves most of this: the exact candidate row is a named typed pgt with KOD3=551, while 2009 separately describes the rural bucket. Keep a code-semantics caution, but the former categorical hard hold is not supported by the raw typed point row.",
+  "limitations": [
+    "Wikidata Q2374909 and its P1082 values appear to reuse census-derived numbers; treat as corroboration, not independence.",
+    "No legal date or source on an administrative-status change was reviewed; do not invent a transition year.",
+    "Coordinate spread is plausible within the town but does not prove boundary comparability or historical centroid.",
+    "No changes were written to Graph18 or source population values."
+  ]
+}
