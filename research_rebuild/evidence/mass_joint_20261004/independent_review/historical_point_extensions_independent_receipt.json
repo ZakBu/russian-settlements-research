@@ -1,0 +1,94 @@
+{
+  "status": "independent_historical_recovery_point_only_rule_review_no_admissions",
+  "inputs": {
+    "original_bridge_gate_ledger_sha256": "6d9cb25c16dc961b7057d3914a76e7030a77ad41379d6a3fcb038a1386907aa7",
+    "recovery_candidate_sha256": "bb548cd8d5a49e3bfd02dbcdfb5c43b4e22ec1cb52f9a6c9dc78ad2496fe7420",
+    "recovery_receipt_sha256": "4a4d11d498ec0a415451c3da15e41f40a554e67bef54ecbaed8c22373a833e42",
+    "name_extension_candidate_sha256": "94efa9a91519c6095516dfc788ce5040da500b1a5b8ae4f1bda3c4d16f82348f",
+    "name_extension_receipt_sha256": "8fd5e884b5206185e4f8c5b99654d59f28b21ce9920578991084b6a454efafc6",
+    "sql_sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+    "dbf_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "selected_observations_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+  },
+  "historical_recovery": {
+    "eligible_point_only_rows": 123,
+    "population": 598590,
+    "eligible_source_ids_sha256": "3231a051f84c76b904aa3df3bed7227ccdde44c914c9909af7ca90b0c2908cf8",
+    "raw_sql_dbf_coordinate_source_and_point_collision_checks_pass": 123,
+    "raw_source_rows_pass": 123,
+    "local_source_assets": {
+      "data/raw/2002_official_tom1/1_TOM_01_04.xls": {
+        "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+        "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+        "matches_selected_source_hash": true
+      },
+      "data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls": {
+        "sha256": "cf5b5d57327bf0d32723a7f49bb58db503a201af83a6e2bda4b874986f864167",
+        "path": "/workspace/settlements-raw/data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls",
+        "matches_selected_source_hash": true
+      },
+      "research_rebuild/evidence/ingestion/arkhangelsk_2010_archived_page_audit_r2_region_join/arkhangelsk_2010_archived_original.html": {
+        "sha256": "729fecf5845bd9f1e049c85b2659bfd077dfd2d2a01fecbc9d21cb83b7b9e486",
+        "path": "/workspace/settlements-work/sources/r2-missing/arkhangelsk_2010_archived_original.html",
+        "matches_selected_source_hash": true
+      },
+      "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx": {
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "path": "/workspace/settlements-work/sources/r2-missing/kaliningrad_tom1.xlsx",
+        "matches_selected_source_hash": true
+      },
+      "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc": {
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "path": "/workspace/settlements-work/sources/r2-missing/murmansk_population.doc",
+        "matches_selected_source_hash": true
+      }
+    },
+    "type_transition_relation_only_exception_rows": 92,
+    "hard_quarantines_preserved": 2,
+    "same_year_point_collisions_admitted": 0
+  },
+  "strict_name_key_extension": {
+    "eligible_point_only_rows": 10,
+    "population": 992457,
+    "eligible_source_ids_sha256": "da5738a31e194758556b2ea40efd8b6b7dd678c293b7f7382b4d198cc98959d7",
+    "all_10_reopened_source_and_sql_dbf_checks_pass": 10,
+    "source_ids": [
+      "2002:1_TOM_01_04.xls:0:10105",
+      "2002:1_TOM_01_04.xls:0:4184",
+      "2002:1_TOM_01_04.xls:0:8444",
+      "2002:1_TOM_01_04.xls:0:8680",
+      "2002:1_TOM_01_04.xls:0:9966",
+      "2010:pub-11-1-4.pdf:pdf_page_16:26",
+      "2010:pub-11-1-4.pdf:pdf_page_16:58",
+      "2010:pub-11-1-4.pdf:pdf_page_6:37",
+      "2010:pub-11-1-4.pdf:pdf_page_7:30",
+      "2010:pub-11-1-4.pdf:pdf_page_8:45"
+    ],
+    "different_region_competitor_rows": 2,
+    "Zelenogorsk_competitor_scope": "For both years, exact raw SQL has 04537000 with TER 04 / Красноярский край and 40281509 with TER 40 / Saint Petersburg federal city. Only the expected Krasnoyarsk source row and point-region agree; city name equality does not join the Saint Petersburg object."
+  },
+  "interpretation": [
+    "These are point-only point associations to a named typed 2011 GeoKLADR object under an explicit retrospective spatial-use assumption; no exact census-date measurement, official historical OKTMO, modern-provider identity binding, temporal continuity, boundary comparability, or population comparability is inferred.",
+    "All 92 undocumented_type_transition cases remain conflict-warning/hold history for identity edges. New point association resolves only the exact same-year typed raw source object and 2011 object, not the legacy temporal conflict.",
+    "All source-event/quarantine/aggregate/shared-point holds remain held; prior target quarantines preserved.",
+    "All rows remain candidates; independent review does not publish/admit."
+  ],
+  "outputs": {
+    "historical_point_recovery_eligible_123.csv": {
+      "sha256": "c0cade2ff36c24ad5824fae59febe72267419645cbaf5f9443df8cfa9cb166c4",
+      "bytes": 245704
+    },
+    "historical_point_recovery_raw_checks_123.csv": {
+      "sha256": "5dcb94db706a3bbd4d3870417f4c147fb5bef9cd8e50d87f44eaedc87a5af2c3",
+      "bytes": 35409
+    },
+    "historical_name_key_extension_eligible_10.csv": {
+      "sha256": "87e5993def5aa3161627e0c90c1a2a1728d2bcd426f8ea4215b708a9efbb38cd",
+      "bytes": 17503
+    },
+    "historical_name_key_extension_raw_checks_10.csv": {
+      "sha256": "49edab7533d27d63f81fc188a4f205b527de3bab066c78f7ee517ddb80fa3243",
+      "bytes": 1582
+    }
+  }
+}

@@ -1,0 +1,219 @@
+{
+  "review": "bounded independent review receipt for the separate raw-admin temporal extension; candidate eligibility only, root still controls integration/admission",
+  "extension_sha256": "795a5351288e068b81698705be199650c973b142768fd2ee46c92b3eb7c52b1a",
+  "eligible_edge_list": "/workspace/settlements-work/continuation_20261004/independent_review/raw_admin_extension_eligible_edge_ids.csv",
+  "eligible_edge_list_sha256": "34f4207a17790704e83f14d6bde3d3059a0d05fad69e07bfacaf52ecbdd0b7e4",
+  "candidate_edge_count": 9915,
+  "rule_families": [
+    {
+      "rule_family": "R_F_unique_legacy_RU_OKTMO_id_plus_region_and_name_or_point_2010_2021",
+      "candidate_edges": 2549,
+      "candidate_edge_id_list_sha256": "5a589337fac593b3aff7b2556a6c82351e9ac57159ff9f16dce00613518d342a",
+      "distinct_endpoint_ids": 5098,
+      "both endpoints additive": true,
+      "federal_observations": 0,
+      "population_scope_comparable_claimed": false,
+      "boundary_comparable_claimed": false,
+      "candidate_rule_admission": "eligible only under described source-backed ordinary continuity rule; hard conflicts/graph errors remain held"
+    },
+    {
+      "rule_family": "R_G_unique_exact_name_type_region_district_2002_2010",
+      "candidate_edges": 6319,
+      "candidate_edge_id_list_sha256": "11146b8ff3e6b806d96789635665fe90ff3778837103405899f4c6556e88d467",
+      "distinct_endpoint_ids": 12638,
+      "both endpoints additive": true,
+      "federal_observations": 0,
+      "population_scope_comparable_claimed": false,
+      "boundary_comparable_claimed": false,
+      "candidate_rule_admission": "eligible only under described source-backed ordinary continuity rule; hard conflicts/graph errors remain held"
+    },
+    {
+      "rule_family": "R_H_raw_blank_2010_district_exact_triplet_and_independent_point_anchor_2002_2010",
+      "candidate_edges": 731,
+      "candidate_edge_id_list_sha256": "adc0c19ae8974dbfdec04aca651c63789be775323439eb5772f37f0d8bc575f1",
+      "distinct_endpoint_ids": 1462,
+      "both endpoints additive": true,
+      "federal_observations": 0,
+      "population_scope_comparable_claimed": false,
+      "boundary_comparable_claimed": false,
+      "candidate_rule_admission": "eligible only under described source-backed ordinary continuity rule; hard conflicts/graph errors remain held"
+    },
+    {
+      "rule_family": "R_H_raw_blank_2010_district_exact_triplet_and_independent_point_anchor_2010_2021",
+      "candidate_edges": 316,
+      "candidate_edge_id_list_sha256": "e510cd7d3c6008243034f65b38f8a92bb6c00c5848e207af747788013ade39f8",
+      "distinct_endpoint_ids": 632,
+      "both endpoints additive": true,
+      "federal_observations": 0,
+      "population_scope_comparable_claimed": false,
+      "boundary_comparable_claimed": false,
+      "candidate_rule_admission": "eligible only under described source-backed ordinary continuity rule; hard conflicts/graph errors remain held"
+    }
+  ],
+  "checks": {
+    "pinned_source_and_point_assets": {
+      "files": 64,
+      "all_hashes_match": true,
+      "sha256_of_asset_receipt": "5d32db8d615105407affa11af882f4ac11edae833f34ab698fe0a4c4ef9fc61c"
+    },
+    "R_F": {
+      "edges": 2549,
+      "independently_checked_pass": 2549,
+      "fail": 0,
+      "criteria": "unique original-record projected literal RU-OKTMO on both years; no ordinal route or acceptance signal; no existing legacy conflict/collision; same-region exact normalized name/type or point <=1 km; selected 2021 source-native OKTMO equals literal."
+    },
+    "R_G": {
+      "edges": 6319,
+      "independently_checked_pass": 6319,
+      "fail": 0,
+      "criteria": "unique normalized name/type/region/district key in both years (municipality tie-break only when flagged); additive endpoints; no aggregate/federal; existing >25 km point and unresolved legacy/event holds remain excluded."
+    },
+    "R_H": {
+      "edges": 1047,
+      "distinct_2010_raw_rows": 734,
+      "raw_source_hash_name_population_direct_cell_checks_all_pass": true,
+      "merged_ranges_overlapping_district_cell": 0,
+      "source_block_context_conflicts_against_nonblank_selected_district": 0,
+      "historic_to_2021_point_checks": {
+        "r_h_distinct_2002_2021_point_pairs": 734,
+        "dbf_raw_file_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+        "tochno_raw_file_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+        "dbf_records_and_offsets_resolve": true,
+        "all_distances_match_support_4dp": true,
+        "all_distances_le_5km": true,
+        "max_distance_km": 4.479293683904956,
+        "point_claim_limit": "actual GeoKLADR 2011 DBF and Tochno 2021 raw points; representative locality positions for continuity, no probability/precision claim"
+      },
+      "criteria": "unique exact normalized typed settlement signature across 2002/2010/2021 plus accepted raw GeoKLADR 2011 to raw Tochno 2021 point continuity <=5km; direct blank cell not interpreted as proof no district was published; preserve all source/selected block district context."
+    },
+    "fixed_risk_samples": {
+      "all_three_are_not_staged_edge_endpoints": true,
+      "rows": [
+        {
+          "source_record_id": "2010:009_81f8a0e73c_17._20ДВ_ФО_2010.xls:ДВ:481",
+          "source_file_sha256": "a8fd7aa55513e73a205ebff1da2ce35fd8ca0f61c286e54491cf49c6132470c4",
+          "raw_cells_first_8": "[476.0, \"\", \"Приморский край\", \"\", \"с. Черниговка\", 12534.0, \"\", \"\"]",
+          "frozen_district": "Хасанский",
+          "frozen_population": 12534.0,
+          "current_frozen_selected_observation": true,
+          "staged_candidate_endpoint_occurrences": 0
+        },
+        {
+          "source_record_id": "2010:009_81f8a0e73c_17._20ДВ_ФО_2010.xls:ДВ:565",
+          "source_file_sha256": "a8fd7aa55513e73a205ebff1da2ce35fd8ca0f61c286e54491cf49c6132470c4",
+          "raw_cells_first_8": "[560.0, \"\", \"Приморский край\", \"\", \"поселок Трудовое\", 18495.0, \"\", \"\"]",
+          "frozen_district": "Хасанский",
+          "frozen_population": 18495.0,
+          "current_frozen_selected_observation": true,
+          "staged_candidate_endpoint_occurrences": 0
+        },
+        {
+          "source_record_id": "2010:006_9b114a55c0_14._20Адыгея.xls:адыг:147",
+          "source_file_sha256": "eb93ae0ce34aead0d465f23957f0873a9422af50490041175558567108d49bbe",
+          "raw_cells_first_8": "[142.0, \"Адыгея\", \"\", \"пгт Яблоновский\", 26165.0, \"адй\", 12.574049302503344, \"адй\"]",
+          "frozen_district": NaN,
+          "frozen_population": NaN,
+          "current_frozen_selected_observation": false,
+          "staged_candidate_endpoint_occurrences": 0
+        }
+      ]
+    },
+    "independent_graph_dfs": {
+      "current_main_graph_path": "/workspace/settlements-work/continuation_20261004/root/R4/working_application/merged_identity_edges.parquet",
+      "extension_path": "/workspace/settlements-work/continuation_20261004/temporal_mass/raw_admin_extension_freeze_v1/staged_identity_edges.csv",
+      "base_rows": 311516,
+      "extension_rows": 9915,
+      "baseline_collision_attempts": 0,
+      "endpoint_year_identity_conflicts": 0,
+      "linked_multi_year_before": {
+        "2002": {
+          "distinct_linked_observation_ids": 133533,
+          "known_numeric_population_sum": 122398936.0,
+          "unknown_population_count": 0
+        },
+        "2010": {
+          "distinct_linked_observation_ids": 115629,
+          "known_numeric_population_sum": 119333590.0,
+          "unknown_population_count": 0
+        },
+        "2021": {
+          "distinct_linked_observation_ids": 141563,
+          "known_numeric_population_sum": 123394759.0,
+          "unknown_population_count": 0
+        }
+      },
+      "linked_multi_year_after": {
+        "2002": {
+          "distinct_linked_observation_ids": 134358,
+          "known_numeric_population_sum": 122666301.0,
+          "unknown_population_count": 0
+        },
+        "2010": {
+          "distinct_linked_observation_ids": 116153,
+          "known_numeric_population_sum": 119616420.0,
+          "unknown_population_count": 0
+        },
+        "2021": {
+          "distinct_linked_observation_ids": 142020,
+          "known_numeric_population_sum": 123660257.0,
+          "unknown_population_count": 0
+        }
+      },
+      "newly_multi_year_observation_ids": {
+        "2002": {
+          "distinct_linked_observation_ids": 825,
+          "known_numeric_population_sum": 267365.0,
+          "unknown_population_count": 0
+        },
+        "2010": {
+          "distinct_linked_observation_ids": 524,
+          "known_numeric_population_sum": 282830.0,
+          "unknown_population_count": 0
+        },
+        "2021": {
+          "distinct_linked_observation_ids": 457,
+          "known_numeric_population_sum": 265498.0,
+          "unknown_population_count": 0
+        }
+      },
+      "independent_extension_counts": {
+        "R_F_unique_legacy_RU_OKTMO_id_plus_region_and_name_or_point_2010_2021": {
+          "added": 170,
+          "redundant": 2379
+        },
+        "R_G_unique_exact_name_type_region_district_2002_2010": {
+          "added": 145,
+          "redundant": 6174
+        },
+        "R_H_raw_blank_2010_district_exact_triplet_and_independent_point_anchor_2002_2010": {
+          "added": 726,
+          "redundant": 5
+        },
+        "R_H_raw_blank_2010_district_exact_triplet_and_independent_point_anchor_2010_2021": {
+          "added": 300,
+          "redundant": 16
+        }
+      },
+      "total_extension_adds": 1341,
+      "total_extension_redundant": 8574,
+      "total_extension_year_collisions": 0,
+      "extension_result_id_list_sha256": "665c4d79d60ec425be494c891d64813dbcf4894acf11dd32fae7e05836f61f58"
+    }
+  },
+  "interpretation": "The families provide bounded candidate eligibility for ordinary same-place continuity. No point precision probability or population/boundary comparability is asserted. Explicit source contradictions, federal/aggregate grain, same-year physical alternatives, exact-code contradictions, unresolved successors and other producer holds stay quarantined. The graph count separates newly connecting edges from redundant same-place evidence; redundant edges do not add observations/population.",
+  "review_artifacts": {
+    "raw_admin_R_F_independent_code_checks.csv": "72e6716c411e20bb08c35911407ed7ae8bf4ebcd6cda0cf2819693a0baf987ca",
+    "raw_admin_R_G_independent_key_checks.csv": "865ecc7ed381c6ad781196e226f0689ddc13239d4ac4ffbfe8d7c4a68a7a31b8",
+    "raw_admin_R_H_all_2010_raw_row_checks.csv": "32dccc3528534809538e332d9a61659063ea5df74d037f26e0a8b7c930a4dbb9",
+    "raw_admin_R_H_independent_point_checks.csv": "bc32c0d3c7c0d89187ddfbb1fa93bd2f7de3102a0b8923cd029c89623ddd908f",
+    "raw_admin_R_H_independent_point_receipt.json": "7973d2eef833d003b6d57c8cf5be4c111d372b92e387580bdded0ee4c39838b4",
+    "raw_admin_extension_all_reviewed_pairs.csv": "cac0e1bc878373929c6f26d21a8afb443e862c4d8988d0b2d152423108ca7330",
+    "raw_admin_extension_eligible_edge_ids.csv": "34f4207a17790704e83f14d6bde3d3059a0d05fad69e07bfacaf52ecbdd0b7e4",
+    "raw_admin_extension_family_counts.csv": "b5a8f1a2a17ba7a47a5b18adab03937dc29fae9d2bb172df01eeabcd1ac33cff",
+    "raw_admin_extension_independent_DFS.csv": "40d64b1dd647a69ae35bf266902f49435ebfaabc97af02e124bec27ad859833a",
+    "raw_admin_extension_independent_DFS_receipt.json": "34b08063e31bff04880bf6c918528f4931fc9a309a66ac9db4f9699820e22da9",
+    "raw_admin_extension_independent_review_receipt.json": "c8d3d1c5116aeb953a36b02651a27075f9ae74d48f5d102f9a1cf4afe7c82888",
+    "raw_admin_extension_pinned_asset_hashes.csv": "5d32db8d615105407affa11af882f4ac11edae833f34ab698fe0a4c4ef9fc61c",
+    "raw_admin_fixed_risk_samples.csv": "4dd39bcaf71827612ca77dad5785a177a85de26420a7f2d086ddfbb25ea4da4b"
+  }
+}

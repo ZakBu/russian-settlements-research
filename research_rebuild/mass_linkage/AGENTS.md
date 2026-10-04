@@ -19,3 +19,13 @@ Git maintenance and bounded delegation on 2026-10-02. Continue the existing rese
 - Agents write only their assigned files. Root owns commits, diary, run policy and integration.
 - Return compact findings with evidence paths, test results, unresolved risks and next action.
 - Never claim 99.9% from a restricted denominator or unaccepted candidates.
+
+Current accepted ledgers are named by `config/mass_joint_20261004.json` (pin their
+paths and byte hashes at job start). An accepted ledger must load in full after
+validating canonical `decision_status` / `coordinate_admission_status`; use the
+status sets in `build_long_table.py`. Never discard accepted rows because optional
+legacy `candidate_only`, `admission_status` or `admission_allowed` is stale/null.
+Narrow direct-origin point requirements apply to new evidence, not baseline coverage.
+Before reporting marginal coverage, reproduce the current `coverage.json` per-year
+full and joint counts/populations. A baseline mismatch blocks gain claims. Freeze
+reviewed input bytes; expanded output needs a new directory and exact new review.

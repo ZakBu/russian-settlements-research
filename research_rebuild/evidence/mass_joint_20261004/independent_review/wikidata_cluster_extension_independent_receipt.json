@@ -1,0 +1,90 @@
+{
+  "status": "independent_bounded_cluster_rule_review_candidate_only",
+  "inputs": {
+    "extension_review_summary_sha256": "688068b5b5775baad22dd47d6afa19e3d689623042d91dd5134683ff9d7476d5",
+    "API_batches_sha256": "ea11d7f3f438835fe242a24da69981550f62b4f34edd83cbe52a79c56a01e2bf",
+    "stage_candidates_sha256": "ea53055f68d3e83ed04421c408fd3db80288d76148107b131d5523fcb72494cb",
+    "rank_review_sha256": "f6cca38499cd0d744fba40dace5629ccd661e1e4af52ce72331dbd8dc68cbb4b",
+    "selected_observations_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "raw_2021_source_parquet_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "truthy_claims_directory": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims",
+    "hierarchy_sha256": "2c7971afa183285909e068c2ba9ac3ac7f95df1c71b3ada716e867c103b0ebda",
+    "region_screen_sha256": "6c27e8c077808421ae6c202ba95ab4f1aeb58ac1b48d054f5208958b76ac765a"
+  },
+  "eligible_candidate_rows": 58,
+  "eligible_candidate_population": 121356,
+  "eligible_ids_sha256": "62c82c4bf755158a8dfa1ebab04629b91a56c4ea9c11080e8a53221f9cc3303c",
+  "all_126_source_rows_raw_verified": 126,
+  "source_rows_pass": 126,
+  "truthy_raw_claim_lines_checked": 168,
+  "all_truthy_p764_p31_lines_match_raw": true,
+  "physical_p31_dfs_pass": 58,
+  "api_qid_payload_rows_checked": 58,
+  "api_entity_p625_statements_match_payload": 58,
+  "point_cluster_rows_pass": 58,
+  "point_rule": "Every nondeprecated, valid Earth P625 claim used as a candidate is within 500 m of every other and all points inside expected ADM1; select an actual claim coordinate that is a medoid (minimum total distance), lexical statement-GUID only breaks tied medoids; retain every P625 statement/spread; this is a bounded locality representative point, not precision or chosen-best-point.",
+  "holds": {
+    "preserved_known_holds": 2,
+    "known_hold_rows": [
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50511",
+        "known_hold_reason": "Feodosia: multiple distinct eligible P625 coordinates",
+        "bounded_500m_locality_cluster_rule_pass": "True",
+        "review_status": "preserve_known_hold"
+      },
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:155218",
+        "known_hold_reason": "Pokachi: multiple distinct eligible P625 coordinates",
+        "bounded_500m_locality_cluster_rule_pass": "False",
+        "review_status": "preserve_known_hold"
+      }
+    ],
+    "unresolved_cluster_or_ADM1_points_held": 67,
+    "large_city_no_binding_holds": 4,
+    "large_city_target_rows": [
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:159492",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:46199",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49254",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:100150"
+    ]
+  },
+  "admissions": 0,
+  "outputs": {
+    "wikidata_cluster_extension_eligible_candidates.csv": {
+      "sha256": "2f2c316cb20c966e767116805df41c32ac64440bf504b50827c9a2286b42d0ce",
+      "bytes": 120880
+    },
+    "wikidata_cluster_extension_all_126_dispositions.csv": {
+      "sha256": "f6cca38499cd0d744fba40dace5629ccd661e1e4af52ce72331dbd8dc68cbb4b",
+      "bytes": 231450
+    },
+    "wikidata_cluster_extension_preserved_known_holds.csv": {
+      "sha256": "6e7613150980dc63f4c6bcad24a710d48d0aa47227e1d51a7a191b45066360bb",
+      "bytes": 380
+    },
+    "wikidata_cluster_extension_raw_source_checks.csv": {
+      "sha256": "0c9e1f57ba00d64b4dff55ff1f3131a48bc9d91679ac29308cf78a722a3239be",
+      "bytes": 15914
+    },
+    "wikidata_cluster_extension_raw_claim_checks.csv": {
+      "sha256": "fe171a3743f287488cfde091d231df8590d9710ed64c215d14138e932277016b",
+      "bytes": 21038
+    },
+    "wikidata_cluster_extension_p31_dfs.csv": {
+      "sha256": "b20de222be060e53834740256e35de97eae1802479c25fcdfc3ab6809635dc4a",
+      "bytes": 7182
+    },
+    "wikidata_cluster_extension_api_payload_checks.csv": {
+      "sha256": "17f750d294a6a289a140aa50dc77969f1755e26e9795f6747d55304fbb778cdd",
+      "bytes": 5285
+    },
+    "wikidata_cluster_extension_point_cluster_checks.csv": {
+      "sha256": "bd94fc78e15d8659f830874bc6e41a6aa9a850fc5e46ffe7686e0b2643d4e5bf",
+      "bytes": 15314
+    },
+    "wikidata_cluster_extension_city_point_holds.csv": {
+      "sha256": "1c9ba4644ba17dbab2425bf0ecf19285ef8f0dc6bf5d059571a04c5012eeddfb",
+      "bytes": 1479
+    }
+  }
+}
