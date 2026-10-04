@@ -1,0 +1,75 @@
+{
+  "review_date": "2026-10-04",
+  "purpose": "Bounded selected settlement population comparison with publisher region and upper-municipality totals; no identity or coordinate edits.",
+  "selected_observations": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+  "selected_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+  "publisher_parquet": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+  "publisher_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+  "source_evidence_parquet": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+  "source_evidence_sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327",
+  "source_evidence_join": {
+    "selected_2021_rows": 155414,
+    "matched_source_record_ids": 155414,
+    "evidence_scope_settlement_rows": 155411,
+    "evidence_scope_federal_city_parent_rows": 3
+  },
+  "comparison_classification": "2021 controls are embedded in the same Tochno/Rosstat-derived publisher parquet as selected observations; these checks are internal consistency checks, not independent external validation.",
+  "2021_region": {
+    "publisher_control_rows": 82,
+    "matched_exact_region_controls": 82,
+    "unmatched_or_unresolved_groups": 0,
+    "selected_settlement_population_matched": 128022280,
+    "publisher_control_population_matched": 128022280,
+    "sum_absolute_discrepancy": 0,
+    "maximum_absolute_discrepancy": 0,
+    "max_discrepancy_region": null
+  },
+  "2021_upper_municipality": {
+    "comparison_tier": "Муниципалитет верхнего уровня",
+    "uniquely_matched_exact_region_name_keys": 2304,
+    "matched_selected_population": 125919904,
+    "matched_control_population": 125919904,
+    "sum_absolute_discrepancy": 0,
+    "maximum_absolute_discrepancy": 0,
+    "ambiguous_duplicate_name_keys": 2,
+    "selected_population_on_ambiguous_keys": 342638,
+    "selected_groups_without_exact_control_key": 29,
+    "selected_population_without_exact_control_key": 1759738,
+    "control_only_or_other_unmatched_rows": 29,
+    "ranking_policy": "Only one-to-one exact-name controls receive a numeric discrepancy; ambiguous/unmatched keys retain null discrepancy."
+  },
+  "2021_federal_city": {
+    "selected_parent_rows": 3,
+    "sum_selected_parent_population": 19159843,
+    "sum_publisher_parent_population": 19159843,
+    "sum_parent_discrepancy": 0,
+    "separate_municipal_territory_population_sum": 19159843,
+    "note": "Federal-city parent totals and внутригородские municipal-territory totals are separate grains; neither is classified as a settlement NP."
+  },
+  "older_years": {
+    "2010": {
+      "status": "existing parsed Rosstat regional/municipal controls and prior reconciliations found; active selected extract not re-keyed in this bounded run. Current-year-specific maximum discrepancy remains not measured here.",
+      "control_file": "/workspace/settlements-raw/data/raw/2010_official_controls/rosstat_population2010_by_region.csv",
+      "control_sha256": "8be9f1afb4a9f7f41b049fa86a642194d026430c1a28260e000a2e3bff3666d7",
+      "prior_control_receipt": "/workspace/settlements-work/continuation_20261003/population2010/r2_2010_regional_control_receipt.json",
+      "latest_prior_control_receipt": "/workspace/settlements-work/continuation_20261003/population_2010_control_gap_priority_v1/receipt.json",
+      "prior_release_scope": "R2 reported 80 disjoint subject controls totaling 142,856,536 versus its selected total 142,202,712 (gap 653,824). R4 reports the same 80 controls versus 142,361,475 (gap 495,061). Active selected 2010 rows in this delivery sum to 142,363,024, 1,549 above R4; the row-level control mapping was not rebuilt here, so current-snapshot regional maximum discrepancy is not measured. The receipts document confidentiality perturbation and unresolved residual; no gap is allocated."
+    },
+    "2002": {
+      "status": "not measured; searched inventoried raw and work paths for parsed regional-control tables and found no regional table; a national total exists but does not localize discrepancies.",
+      "known_existing_national_control": 145166731
+    }
+  },
+  "non_actions": [
+    "No identity edits",
+    "No point/coordinate edits",
+    "No census-observation edits",
+    "No forced residual allocation"
+  ],
+  "outputs": [
+    "region_control_comparison_2021.csv",
+    "upper_municipality_control_comparison_2021.csv",
+    "federal_city_parent_vs_municipal_scope_2021.csv",
+    "selected_observation_year_scope.csv"
+  ]
+}

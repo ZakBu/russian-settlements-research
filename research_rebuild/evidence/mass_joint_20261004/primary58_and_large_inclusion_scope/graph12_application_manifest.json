@@ -1,0 +1,334 @@
+{
+  "manifest_version": "combined_primary_58_identity_plus_current_point19_20261004_candidate_only",
+  "reviewed_at_utc": "2026-10-04T17:20:04Z",
+  "frozen": {
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+    },
+    "legacy_availability": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/legacy_availability_projected_r5.parquet",
+      "sha256": "3c21c2edbc7ab0813929775c1d5100d5e15bb25b6c5cdb31d3fe46edd80270d5"
+    }
+  },
+  "base": {
+    "graph": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_eleventh_reviewed28_point2/accepted_identity_edges.parquet",
+      "sha256": "a03fe3df05cf1a03bec7cf0f5e602240ccdfc85b907f5568561fdd4e7b032555"
+    },
+    "points": {
+      "path": "/workspace/settlements-work/continuation_20261004/root/accepted_taezhny_point_quarantine/accepted_point_uses.parquet",
+      "sha256": "d5a93cdbfaf02faa139d6925b2d2abdeb29f3cde02b91d0217127ec0edda9a95"
+    }
+  },
+  "identity_sources": [
+    {
+      "candidate": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/twelfth_bothmissing8_oldpoint32/oldpoint32_identity_candidate_adapter.csv",
+        "sha256": "3f0a415d32d6f5700c9c027a149b4cd56e3088e1842730f2ed132f9601a33028"
+      },
+      "eligible": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/twelfth_bothmissing8_oldpoint32/oldpoint32_eligible_identity_keys.csv",
+        "sha256": "0e9d97f0cf773f8608286139bc0dbc5db1b678c5d917041f7357ea90455543d1"
+      },
+      "review_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/oldpoint_corridor36_review/review_receipt.json",
+        "sha256": "4b7af9cb534ce7c1fe6db8766acbeebdc1a1393d89d24d3ba09c37fbd3334853"
+      },
+      "candidate_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "integration_rule_family",
+        "id": "decision_id",
+        "status": "integration_layer",
+        "collision": "candidate_same_year_collision",
+        "event": "candidate_verified_successor_event",
+        "global_block": "candidate_global_block"
+      },
+      "eligible_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "family"
+      },
+      "accepted_candidate_statuses": [
+        "staged_candidate_pending_independent_review"
+      ],
+      "canonical_columns": {
+        "relation": "relation",
+        "decision_class": "integration_rule_family",
+        "source": "reviewed_edge_status"
+      },
+      "additional_review_receipts": [],
+      "exclude_if_true": [
+        "collision",
+        "event",
+        "global_block"
+      ]
+    },
+    {
+      "candidate": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/twelfth_bothmissing8_oldpoint32/bothmissing8_identity_candidate_adapter.csv",
+        "sha256": "1a594d4cfc752ed75668860addf8c043f4727cd6749fe4b42e81282d418c2797"
+      },
+      "eligible": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/twelfth_bothmissing8_oldpoint32/bothmissing8_eligible_identity_keys.csv",
+        "sha256": "80d54177dda56cedaafed2631408beb411ad659da61122636d3eaaea67242f3e"
+      },
+      "review_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/both_missing8_corridor_review/review_receipt.json",
+        "sha256": "40500c73f68085779a5d07b4dd4bfd635ae0914d10b44df082764acc160df3a2"
+      },
+      "candidate_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "integration_rule_family",
+        "id": "decision_id",
+        "status": "integration_layer",
+        "collision": "candidate_same_year_collision",
+        "event": "candidate_verified_successor_event",
+        "global_block": "candidate_global_block"
+      },
+      "eligible_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "family"
+      },
+      "accepted_candidate_statuses": [
+        "staged_candidate_pending_independent_review"
+      ],
+      "canonical_columns": {
+        "relation": "relation",
+        "decision_class": "integration_rule_family",
+        "source": "reviewed_edge_status"
+      },
+      "additional_review_receipts": [],
+      "exclude_if_true": [
+        "collision",
+        "event",
+        "global_block"
+      ]
+    },
+    {
+      "candidate": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/combined_primary_reviewed_stage/large_old_primary9_tsiolkovsky_identity_candidate_adapter.csv",
+        "sha256": "ad105b413f37b285081e6b07c18688ea091cb8edae636fc3d18ccfd796018064"
+      },
+      "eligible": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/combined_primary_reviewed_stage/large_old_primary9_tsiolkovsky_eligible_identity_keys.csv",
+        "sha256": "0a01fbc2f79e41319b254148399f5584080bbe5dec4d68232cbad74a10945af3"
+      },
+      "review_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/R4/independent_review/large_old_primary_routes_review/review_receipt.json",
+        "sha256": "15ae355fc5ad3db2884a1edba9372f38b084f41e45eb94236b17745f9936613c"
+      },
+      "additional_review_receipts": [
+        {
+          "path": "/workspace/settlements-work/continuation_20261004/R4/independent_review/large_old_primary_routes_review/review_top72_primary_identity.py",
+          "sha256": "139eb09326f35e321f9595d8b9f74c509ccb9adeffb34fa5662f3b5dc10d11da"
+        }
+      ],
+      "candidate_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "integration_rule_family",
+        "id": "decision_id",
+        "status": "integration_layer",
+        "candidate_value": "candidate_value",
+        "collision": "same_year_collision",
+        "event": "verified_successor_event",
+        "global_block": "global_block"
+      },
+      "eligible_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "family"
+      },
+      "accepted_candidate_statuses": [
+        "staged_candidate_pending_independent_review"
+      ],
+      "canonical_columns": {
+        "relation": "relation",
+        "decision_class": "integration_rule_family",
+        "source": "reviewed_edge_status"
+      },
+      "exclude_if_true": [
+        "collision",
+        "event",
+        "global_block"
+      ]
+    }
+  ],
+  "point_sources": [
+    {
+      "candidate": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/combined_primary_point19_final/current_point19_wikidata_literal_origin_candidate_adapter.csv",
+        "sha256": "4e805eed723bbb9c25aeab1fd20e8500b016fcc1a1477040fafe1dbaaa150fd4"
+      },
+      "approved": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/current_point19_review/eligible_current_points.csv",
+        "sha256": "d033067e64a900248b5d6b6bf9626fbf534c1068f36490aefd06bbffeb8bd06a"
+      },
+      "review_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/current_point19_review/review_receipt.json",
+        "sha256": "3cff94ee901628b38382dd4a2f6923b76afe27e221ce4b9cab4d2b4fb56fdfb6"
+      },
+      "additional_review_receipts": [
+        {
+          "path": "/workspace/settlements-work/continuation_20261004/independent_review/current_point19_review/current_point19_alternative_coordinates.csv",
+          "sha256": "2f07f91aae565c0a8282b34fede9df383e6f7453b69919f3b354ff2b4acf8881"
+        },
+        {
+          "path": "/workspace/settlements-work/continuation_20261004/independent_review/current_point19_review/review_current_point19.py",
+          "sha256": "b578dcd7835f7e9783ef6d3124c8c4f7c3a0139f99a32ba01ccaa17599e35bac"
+        },
+        {
+          "path": "/workspace/settlements-work/continuation_20261004/R4/fullchain_point_only_native_route_20261004/candidate_v2/candidate_receipt.json",
+          "sha256": "c538a76b07dc5198c89ecc1b0541eaf14d1acb41dcfe2d57061a275caba7cb3b"
+        }
+      ],
+      "candidate_columns": {
+        "target": "target_source_record_id",
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "origin_file": "point_origin_file",
+        "origin_sha256": "point_origin_sha256",
+        "origin_locator": "point_origin_locator"
+      },
+      "approved_columns": {
+        "target": "source_record_id",
+        "latitude": "latitude",
+        "longitude": "longitude"
+      },
+      "origin": {
+        "path": "/workspace/settlements-work/continuation_20261004/R4/fullchain_point_only_native_route_20261004/fetch/wikidata_full_entities_22.json",
+        "sha256": "7d0a44bd06a15f0709f241c3c4304d4d77569dc3f7db2114201dcf166e53c59f"
+      },
+      "output_values": {
+        "point_origin_kind": "wikidata_P625_point_claim",
+        "coordinate_provider_family": "wikidata_P625",
+        "direct_historical_coordinate_measurement": false,
+        "native_id_binding_asserted": false,
+        "provider_binding_status": "not_admitted",
+        "coordinate_measurement_date_unknown": true,
+        "boundary_comparability_asserted": false,
+        "population_scope_comparability_asserted": false
+      }
+    }
+  ],
+  "blocked_targets": {
+    "path": "/workspace/settlements-work/continuation_20261003/blocked_point_reuse_targets_v1.json",
+    "sha256": "7a715254f965d996541001d08d3422828299f5c300dfae4cbe78b79f9a5b0e70"
+  },
+  "federal_points": {
+    "path": "/workspace/settlements-work/continuation_20261004/federal_application/accepted_territory_reference_points.parquet",
+    "sha256": "3b366d9a513b0396e90813f03c4e3af1cd0b1caef92379a9ae95cae43451d6e3"
+  },
+  "federal_chains": {
+    "path": "/workspace/settlements-work/continuation_20261004/federal_application/accepted_typed_city_continuity.parquet",
+    "sha256": "ee5898e3e5495d691f230e18fce08191fcc287ed35e06d969140bb05df75c695"
+  },
+  "legacy_collision_resolution_reviews": [],
+  "review_context_inputs": [
+    {
+      "role": "oldpoint36_independent_receipt",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/oldpoint_corridor36_review/review_receipt.json",
+      "sha256": "4b7af9cb534ce7c1fe6db8766acbeebdc1a1393d89d24d3ba09c37fbd3334853"
+    },
+    {
+      "role": "oldpoint32_scoped_admin_flag_resolutions_pair_specific_no_waiver",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/oldpoint_corridor36_review/scoped_legacy_admin_flag_resolutions.csv",
+      "sha256": "6cd2bee817b5e519eb68e162fd60ae2c1fd6f45b173a15931a84ba6b531c148f"
+    },
+    {
+      "role": "oldpoint36_held_rows_not_eligible",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/oldpoint_corridor36_review/held_edges.csv",
+      "sha256": "bcb0c6d9f667a87af84a32354449024aaf89eac16229e19bc31955e7b9763d6b"
+    },
+    {
+      "role": "bothmissing8_producer_receipt",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/both_missing_classifier_parent_corridor_20261004/receipt_v3.json",
+      "sha256": "b9c49a0500b15d39de4487c2a6e66be096779281f21a4e5308c5f79d7f6ec5e2"
+    },
+    {
+      "role": "bothmissing8_independent_review_receipt",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/both_missing8_corridor_review/review_receipt.json",
+      "sha256": "40500c73f68085779a5d07b4dd4bfd635ae0914d10b44df082764acc160df3a2"
+    },
+    {
+      "role": "bothmissing8_held_rows_empty_within_bounded_review",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/both_missing8_corridor_review/held_edges.csv",
+      "sha256": "c29ade0add8d92709a3ac9cae44625031e477ba99d0911204d341ee071bd31b9"
+    },
+    {
+      "role": "large_old_primary_independent_review_receipt",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/independent_review/large_old_primary_routes_review/review_receipt.json",
+      "sha256": "15ae355fc5ad3db2884a1edba9372f38b084f41e45eb94236b17745f9936613c"
+    },
+    {
+      "role": "large_old_primary_reviewed_72_rows",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/independent_review/large_old_primary_routes_review/reviewed_72_primary_candidates.csv",
+      "sha256": "31d329fb2170486c81953a22a7c2d6ba499c3b4482a016f3d4d3cdf5ed14387d"
+    },
+    {
+      "role": "large_old_primary_reviewed_mapping_alternatives",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/independent_review/large_old_primary_routes_review/reviewed_72_mapping_alternatives.csv",
+      "sha256": "297324b74aa95c27f088c5f1e26d8b91b9cbf1d607e8d4108ab2e5e92580e851"
+    },
+    {
+      "role": "tsiolkovsky_direct_published_transition_candidate",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/independent_review/large_old_primary_routes_review/tsiolkovsky_published_transition_candidate.csv",
+      "sha256": "c1ae4f3bf75791d5109251e7108dd334a08228349aaf739a4f16fd3afaf07040"
+    },
+    {
+      "role": "large_old_primary_review_script",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/independent_review/large_old_primary_routes_review/review_top72_primary_identity.py",
+      "sha256": "139eb09326f35e321f9595d8b9f74c509ccb9adeffb34fa5662f3b5dc10d11da"
+    },
+    {
+      "role": "current_point19_independent_review_receipt",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/current_point19_review/review_receipt.json",
+      "sha256": "3cff94ee901628b38382dd4a2f6923b76afe27e221ce4b9cab4d2b4fb56fdfb6"
+    },
+    {
+      "role": "current_point19_exact_eligible_targets",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/current_point19_review/eligible_current_points.csv",
+      "sha256": "d033067e64a900248b5d6b6bf9626fbf534c1068f36490aefd06bbffeb8bd06a"
+    },
+    {
+      "role": "current_point19_all_literal_P625_alternatives",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/current_point19_review/current_point19_alternative_coordinates.csv",
+      "sha256": "2f07f91aae565c0a8282b34fede9df383e6f7453b69919f3b354ff2b4acf8881"
+    },
+    {
+      "role": "current_point19_regional_rosstat_support_context_not_point_origin",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/current_point19_review/regional_rosstat_support_rows.csv",
+      "sha256": "bc18b3b988093b9cd7c2c19bee06a3645777328dfc561d4d5826cb35368ef51f"
+    },
+    {
+      "role": "current_point19_candidate_producer_receipt",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/fullchain_point_only_native_route_20261004/candidate_v2/candidate_receipt.json",
+      "sha256": "c538a76b07dc5198c89ecc1b0541eaf14d1acb41dcfe2d57061a275caba7cb3b"
+    },
+    {
+      "role": "current_point19_frozen_current_source_alternate_coordinates",
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+    },
+    {
+      "role": "corrected_quarantine_quality_axes_baseline",
+      "path": "/workspace/settlements-work/continuation_20261004/root/quality_axes_eleventh_quarantined.json",
+      "sha256": "7c697eb240a17f2400d445a64bb2a209f35e06e459c229a6ad1ea6269873eec2"
+    },
+    {
+      "role": "current_mixed_joint_baseline",
+      "path": "/workspace/settlements-work/continuation_20261004/root/scoped_joint_eleventh_norilsk2_krasnodar2_secondary2.json",
+      "sha256": "17438c12e741984c64350acacced7f5c3973ab69e72aa71c45a59f23114fba3e"
+    }
+  ],
+  "application_scope": "Candidate-only manifest preparation; do not apply without root review. 32 independently reviewed oldpoint corridor edges plus 16 independently reviewed both-missing classifier-parent edges. No direct points are proposed. Preserve oldpoint legacy administrative flags with only pair-scoped reviewer interpretation recorded as context; no global flag waiver. The 8-target family retains raw-current coordinate disagreement fields, does not overwrite coordinates or claim provider binding. Producer 272 year-collision holds remain excluded. Population fields are source context only; no census boundary or population comparability claim. Add 9 independently eligible large-old-primary source rows and the independently eligible Tsiolkovsky 2002-2010-2021 published name/type-transition path as candidate-only edges; retain source-grain/hard flags, preserve populations and code/coordinate assertions, and make no historical coordinate, legal date, or boundary comparability claim. Pair-level legacy interpretations are contextual and do not globally waive legacy flags.",
+  "current_user_goal_population_fraction": 1.0
+}

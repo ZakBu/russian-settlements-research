@@ -48,8 +48,20 @@ def add_typed_scope_old_city(populations, year, old_city, parent_source_id):
  projected[sid]=value
  return projected
 
-def run(points=None, supplemental=None, output=None, residual_output=None, graph=None, official_scope=None, secondary_scope=None, typed_scope=None, inclusion_scope=None):
+def union_complete_observed_partition(populations, observation, source_populations):
+ """Represent a reviewed whole union, retaining each member population once."""
+ result=populations.copy();ids=json.loads(observation['component_source_record_ids_json']);values=json.loads(observation['component_populations_json'])
+ assert len(ids)==len(values)==len(set(ids))==2
+ assert int(observation['population'])==sum(int(v) for v in values)
+ for sid,value in zip(ids,values):
+  assert source_populations[sid]==int(value), 'Partition member source population changed'
+  if sid in result:assert result[sid]==int(value)
+  result[sid]=int(value)
+ return result
+
+def run(points=None, supplemental=None, output=None, residual_output=None, graph=None, official_scope=None, secondary_scope=None, typed_scope=None, inclusion_scope=None, target_fraction=.99, complete_partition_scope=None, reported_inclusion_reference_scope=None):
  global O
+ assert 0 < target_fraction <= 1, 'Target fraction must be in (0,1]'
  pointpath=Path(points) if points else B/'accepted_point_uses.parquet'
  graphpath=Path(graph) if graph else B/'accepted_identity_edges.parquet'
  graphreceipt=graphpath.parent/'receipt.json'
@@ -195,6 +207,42 @@ def run(points=None, supplemental=None, output=None, residual_output=None, graph
    assert sha(Path(x['point_origin_file']))==x['point_origin_sha256']
   inclusion_layers.append({'observations':observations,'parentid':parentid,'oldparents':oldparents,'folder':str(folder)})
   additional_pins.extend([receiptpath,obs,edge,point,parents])
+ reported_references=[]
+ for scope in reported_inclusion_reference_scope or []:
+  folder=Path(scope);receiptpath=folder/'application_receipt.json';receipt=json.loads(receiptpath.read_text())
+  assert receipt['status']=='applied_reviewed_secondary_reported_large_inclusion_references'
+  path=folder/'accepted_scoped_inclusion_references.json';point=folder/'accepted_scoped_point_uses.json'
+  assert sha(path)==receipt['outputs'][path.name] and sha(point)==receipt['outputs'][point.name]
+  group=json.loads(path.read_text());assert len(group)==9 and len({x['source_record_id'] for x in group})==9
+  for row in group:
+   sid=row['source_record_id'];assert yrs[sid]==int(row['year']) and all_source[sid]==int(row['population'])
+   assert row['status']=='secondary_reported_inclusion_context_only'
+   assert not row['population_additive'] and not row['ordinary_same_place_claim'] and not row['current_child_population_asserted']
+   p=row['point_row'];assert p['coordinate_admission_status'] in ACCEPTED_COORDINATE_STATUSES
+   assert p['target_source_record_id']==sid and -90<=float(p['latitude'])<=90 and -180<=float(p['longitude'])<=180
+   assert row['current_2021_receiver_source_record_id'] in npmap[2021], 'Receiving city must already have coordinates and a full trajectory'
+   assert all_source[row['current_2021_receiver_source_record_id']]==row['current_receiver_population_context_only']
+   assert con.execute("select population_scope,is_additive_settlement_record from sel where source_record_id=?",[sid]).fetchone()==('settlement',True)
+  reported_references.extend(group);additional_pins.extend([receiptpath,path,point])
+ assert len({x['source_record_id'] for x in reported_references})==len(reported_references)
+ partition_rows=[]
+ for scope in complete_partition_scope or []:
+  import pyarrow.parquet as pq
+  folder=Path(scope);receiptpath=folder/'application_receipt.json';receipt=json.loads(receiptpath.read_text())
+  assert receipt['status']=='applied_independently_reviewed_complete_numbered_partition_series'
+  path=folder/'accepted_complete_partition_observations.parquet';assert sha(path)==receipt['outputs'][path.name]
+  group=pq.read_table(path).to_pylist();assert len(group)==3 and {int(x['observation_year']) for x in group}=={2002,2010,2021}
+  assert len({x['subject_qid'] for x in group})==1 and len({(x['latitude'],x['longitude']) for x in group})==1
+  for row in group:
+   assert row['projection_status']=='accepted_complete_observed_numbered_partition_projection'
+   assert row['population_is_derived_sum'] and not row['modern_boundary_harmonized'] and not row['boundary_comparability_asserted']
+   assert not row['ordinary_NP_three_census_identity_asserted'] and not row['individual_part_coordinate_admission'] and not row['native_code_binding_asserted']
+   assert sha(Path(row['point_origin_file']))==row['point_origin_sha256']
+   ids=json.loads(row['component_source_record_ids_json']);assert all(yrs[sid]==int(row['observation_year']) for sid in ids)
+   assert set(ids)<=full, 'Each numbered part must already have its accepted temporal component'
+   assert len(con.execute("select source_record_id from sel where source_record_id in(select unnest(?)) and settlement_type='село' and is_additive_settlement_record and (population_scope is null or population_scope='settlement')",[ids]).fetchall())==2
+   union_complete_observed_partition({},row,all_source)
+  partition_rows.extend(group);additional_pins.extend([receiptpath,path])
  # Accepted annual territorial edges provide real 2021->2022/23/24 paths for
  # Sevastopol; do not pretend it appeared in Russian censuses2002 or2010.
  annualpath=T/'accepted_annual_federal9_territorial_edges.csv';e=con.execute("select * from read_csv(?,all_varchar=true)",[str(annualpath)]).fetchdf();sev=[r for r in chains if r[0]=='Севастополь'];assert len(sev)==1;sevid=json.loads(sev[0][2])[0];assert len(e[e.from_observation_id==sevid])==3
@@ -234,10 +282,23 @@ def run(points=None, supplemental=None, output=None, residual_output=None, graph
    if y==2021:assert layer['parentid'] in scop
    delta=sum(scop.values())-before;inclusion_net_added+=delta
    extra.append({'kind':'secondary_reported_inclusion_spatial_paths','old_primary_population_net_added':delta,'current_receiving_parent_or_child_population_added':0,'legal_act_independently_verified':False,'current_child_population_observed':False,'ordinary_NP_three_census_chain':False,'boundary_and_population_grain_comparability':'unknown'})
+  if reported_references:
+   from research_rebuild.mass_linkage.load_reviewed_inclusion_scope_20261004 import apply_scoped_inclusion_reference
+   before=sum(scop.values())
+   for row in reported_references:
+    scop=apply_scoped_inclusion_reference(scop,y,row,represented_current_receivers=set(npmap[2021]))
+   delta=sum(scop.values())-before;inclusion_net_added+=delta
+   extra.append({'kind':'reviewed_secondary_reported_large_inclusion_references','old_primary_population_net_added':delta,'current_parent_or_child_population_added':0,'legal_acts_independently_verified':False,'ordinary_NP_three_census_chain':False,'modern_boundary_harmonized':False,'boundary_comparability':'unknown'})
+  for row in partition_rows:
+   if int(row['observation_year'])!=y:continue
+   before=sum(scop.values());scop=union_complete_observed_partition(scop,row,all_source)
+   extra.append({'kind':'accepted_complete_observed_numbered_partition_union','place':row['place'],'derived_population':int(row['population']),'net_joint_population_change':sum(scop.values())-before,'individual_part_points_admitted':False,'modern_boundary_harmonized':False,'population_boundary_comparability':'unknown','source_population_quality_preserved':True})
   covered_ids.update(scop)
   a=sum(strict.values());b=sum(scop.values());result[y]={'control_population':controls[y],'strict_NP_joint_population':sum(npmap[y].values()),'strict_NP_joint_rows':len(npmap[y]),'strict_with_existing_federal_typed_three_census_population':a,'strict_with_federal_percent':100*a/controls[y],'available_scope_joint_population':b,'available_scope_joint_percent':100*b/controls[y],'remaining_population_to_99':max(0,__import__('math').ceil(.99*controls[y])-b),'scope_adjustments':extra}
   result[y]['available_scope_joint_without_secondary_supported_paths_population']=b-secondary_net_added
   result[y]['available_scope_joint_without_secondary_supported_or_secondary_reported_relations_population']=b-secondary_net_added-inclusion_net_added
+  result[y]['remaining_population_to_target']=max(0,__import__('math').ceil(target_fraction*controls[y])-b)
+  result[y]['remaining_population_to_100']=max(0,controls[y]-b)
  if residual_output:
   dest=Path(residual_output);assert not dest.exists()
   con.register('joint_covered_or_excluded_ids',pa.table({'sid':sorted(covered_ids|excluded_ids)}))
@@ -245,6 +306,11 @@ def run(points=None, supplemental=None, output=None, residual_output=None, graph
   import pyarrow.parquet as pq
   pq.write_table(residual,dest,compression='zstd')
  r={'status':'accepted_graph_with_reviewed_point_and_scoped_increments_joint_measurement','target99_reached_each_year':all(x['remaining_population_to_99']==0 for x in result.values()),'results':result,'definition':'Ordinary accepted coordinate+full Russian3 chain; separate federal territorial chains; replace2002 Moscow childpartition by exactpublishedparent exclusively; Crimea actual2014->21 identity/presence paths (unknown numeric population remains unknown); Sevastopolactual2021->22/23/24 paths; optional reviewed exclusive official-source three-date trajectories preserve alternate values and flags. No invented oldRussianrecords. This scope-aware metric is separate from canonical strict3.','input_pins':{str(p):sha(p) for p in [SELECTED,graphpath,pointpath,graphreceipt,F,S,T/'application_receipt.json',T/'accepted_moscow2002_territorial_override.json',annualpath]+additional_pins},'script_sha256':sha(Path(__file__))}
+ r['current_user_goal_population_fraction']=target_fraction
+ r['target_reached_each_year']=all(x['remaining_population_to_target']==0 for x in result.values())
+ if partition_rows:
+  r['definition']+=' Independently reviewed complete numbered-part unions use one representative point for the whole locality across its actual observed dates. Member source populations are unioned exactly once; derived sums are not additional population. Individual part points, modern-boundary harmonization, source-value exactness for protected2010, and ordinary NP graph unions are not asserted.'
+  r['accepted_complete_partition_scope_layers']=[str(x) for x in complete_partition_scope]
  if secondary_rows:
   r['definition']+=' Two reviewed physical-place trajectories use actual primary old census rows and dated secondary Wikidata2021 assertions. Their old primary population is counted once; their current secondary child population is not added to the already represented Moscow territory. This proves spatial identity continuity, not comparable census boundaries or independently verified secondary population.'
   r['secondary_supported_scope']={'places':['Троицк','Щербинка'],'current_population_quality':'secondary_wikidata_claim_only','current_atomic_source_binding':False,'current_secondary_population_added':0,'population_boundary_comparability':'unknown'}
@@ -254,8 +320,11 @@ def run(points=None, supplemental=None, output=None, residual_output=None, graph
  if inclusion_layers:
   r['definition']+=' Two historical PGT source rows use independently reviewed secondary-reported inclusion paths into the represented Krasnodar city. Only the existing2002 primary settlement rows are unioned once; no current child population is observed or assigned, no parent population is transferred, and the cited legal act remains unverified. These secondary-reported event paths are reported separately from official primary scoped trajectories and ordinary NP3.'
   r['secondary_reported_inclusion_scope_layers']=[x['folder'] for x in inclusion_layers]
+ if reported_references:
+  r['definition']+=' Additional reviewed historical inclusion references count existing old source populations once, conditional on separately represented old city-proper rows and current receiving cities. Historical named-place points are admitted only in this scoped sidecar; receiving-city population is neither transferred nor added. Secondary-reported transformation, exact legal date unknown, no modern-boundary reconstruction or ordinary NP3 claim.'
+  r['accepted_reported_inclusion_reference_scopes']=[str(x) for x in reported_inclusion_reference_scope]
  if residual_output:r['residual_diagnostic']={'path':str(dest),'sha256':sha(dest),'rows':residual.num_rows}
  O.write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n');print(json.dumps(result,ensure_ascii=False))
 if __name__=='__main__':
  import argparse
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--points');p.add_argument('--supplemental');p.add_argument('--output');p.add_argument('--residual-output');p.add_argument('--graph');p.add_argument('--official-scope');p.add_argument('--secondary-scope');p.add_argument('--typed-scope',action='append');p.add_argument('--inclusion-scope',action='append');a=p.parse_args();run(a.points,a.supplemental,a.output,a.residual_output,a.graph,a.official_scope,a.secondary_scope,a.typed_scope,a.inclusion_scope)
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--points');p.add_argument('--supplemental');p.add_argument('--output');p.add_argument('--residual-output');p.add_argument('--graph');p.add_argument('--official-scope');p.add_argument('--secondary-scope');p.add_argument('--typed-scope',action='append');p.add_argument('--inclusion-scope',action='append');p.add_argument('--target-fraction',type=float,default=.99);p.add_argument('--complete-partition-scope',action='append');p.add_argument('--reported-inclusion-reference-scope',action='append');a=p.parse_args();run(a.points,a.supplemental,a.output,a.residual_output,a.graph,a.official_scope,a.secondary_scope,a.typed_scope,a.inclusion_scope,a.target_fraction,a.complete_partition_scope,a.reported_inclusion_reference_scope)
