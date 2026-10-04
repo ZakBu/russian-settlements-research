@@ -519,6 +519,9 @@ def load_direct_points(manifest):
 def run(manifest_path: Path, output: Path):
     manifest_path = Path(manifest_path)
     manifest = json.loads(manifest_path.read_text())
+    target_fraction = float(manifest.get('current_user_goal_population_fraction', .99))
+    if not 0 < target_fraction <= 1:
+        raise ValueError('current_user_goal_population_fraction must be in (0,1]')
     requested = datetime.fromisoformat(manifest['reviewed_at_utc'].replace('Z','+00:00'))
     if requested.tzinfo is None: raise ValueError('reviewed_at_utc must include timezone')
     manifest['_reviewed_at'] = min(requested, datetime.now(timezone.utc)).isoformat()
@@ -710,12 +713,13 @@ def run(manifest_path: Path, output: Path):
     for r in fed_chains.itertuples():
         if r.chain_status=='continuing_city_three_observed_censuses_changing_population_scope': fed_full.update(json.loads(r.source_record_ids_json))
     mixed_joint=(full|fed_full)&(set(points.target_source_record_id.astype(str))|federal_ids)
-    coverage['current_user_target_fraction']=.99
+    coverage['current_user_target_fraction']=target_fraction
     coverage['mixed_scope_joint_coordinate_and_three_observed_censuses']=[]
     for year,g in selected.groupby('census_year'):
         control={2002:145166731,2010:142856536,2021:147182123}[int(year)]
         covered=g.source_record_id.astype(str).isin(mixed_joint); population=int(g.loc[covered,'population'].sum())
         coverage['mixed_scope_joint_coordinate_and_three_observed_censuses'].append({'year':int(year),'rows':int(covered.sum()),'row_fraction':float(covered.mean()),'known_population':population,'official_control_population_fraction':population/control,'remaining_population_to_99':max(0,math.ceil(control*.99)-population),'scope':'physical NP plus separately accepted continuing federal-city identity with changing observation grain','parent_child_rule':'exclusive parent; no federal children added in current selected layer','boundary_population_comparability_asserted':False})
+        coverage['mixed_scope_joint_coordinate_and_three_observed_censuses'][-1]['remaining_population_to_target']=max(0,math.ceil(control*target_fraction)-population)
     for r in coverage['census_metrics']: r['original_quality_target_fraction']=.999
     (output/'coverage.json').write_text(json.dumps(coverage,ensure_ascii=False,indent=2))
     selected.assign(joint_full=selected.source_record_id.astype(str).isin(full & set(points.target_source_record_id.astype(str)))).query('not joint_full').sort_values('population',ascending=False).to_parquet(output/'joint_residual.parquet',index=False)
