@@ -150,9 +150,18 @@ def _build_entity_map(census: pd.DataFrame, edges: pd.DataFrame, aggregate_ids: 
     same_year = [e for e in accepted.itertuples(index=False) if years[str(e.from_source_record_id)] == years[str(e.to_source_record_id)]]
     if same_year:
         raise ValueError(f"identity input has {len(same_year)} same-year edge(s)")
-    year_mismatches = [e for e in accepted.itertuples(index=False)
-                       if str(years[str(e.from_source_record_id)]) != str(e.from_year)
-                       or str(years[str(e.to_source_record_id)]) != str(e.to_year)]
+    # Older accepted evidence can have null year metadata while its exact source
+    # IDs remain present in the canonical selected census. Use those selected
+    # years in-memory for validation/entity construction; never rewrite evidence.
+    # Any explicit year must still match its actual selected endpoint.
+    year_mismatches = []
+    for edge in accepted.itertuples(index=False):
+        expected_from = int(years[str(edge.from_source_record_id)])
+        expected_to = int(years[str(edge.to_source_record_id)])
+        for field, expected in (("from_year", expected_from), ("to_year", expected_to)):
+            value = getattr(edge, field)
+            if pd.notna(value) and int(float(value)) != expected:
+                year_mismatches.append((edge.decision_id, field, value, expected))
     if year_mismatches:
         raise ValueError(f"identity input has {len(year_mismatches)} endpoint-year mismatch(es)")
     for edge in accepted.itertuples(index=False):
