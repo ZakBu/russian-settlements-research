@@ -1,0 +1,202 @@
+{
+  "status": "read_only_current_joint_residual_route_diagnostic_no_admissions",
+  "residual_definition": "2021 selected settlement-scope census row with canonical accepted point and no full 2002-2010-2021 UF chain; exact final canonical long-v2 statuses; ordinary excludes 2002/2010 outside_russian_census_scope",
+  "residual_all_count": 34692,
+  "residual_all_population": 7464467,
+  "outside_old_coverage_count": 1017,
+  "outside_old_coverage_population": 1929893,
+  "ordinary_count": 33675,
+  "ordinary_current_population": 5534574,
+  "period_pattern_counts": [
+    {
+      "cohort": "current_only__both_old_years_missing",
+      "rows": 6085,
+      "current_population": 1176750
+    },
+    {
+      "cohort": "missing_2002__2010_2021_present",
+      "rows": 4000,
+      "current_population": 1593216
+    },
+    {
+      "cohort": "missing_2010__2002_2021_present",
+      "rows": 23590,
+      "current_population": 2764608
+    }
+  ],
+  "top_review_set_definition": "highest current population: overall top200 plus top200 within each of three missing-period patterns; rows may repeat across sample strata",
+  "top_review_rows": 800,
+  "all_source_route_funnel": [
+    {
+      "route_or_rejection_family": "all_ordinary_residual",
+      "rows": 33675,
+      "current_population_sum": 5534574,
+      "missing_2010_rows": 23590,
+      "missing_2002_rows": 4000,
+      "current_only_rows": 6085
+    },
+    {
+      "route_or_rejection_family": "unique_old_key_for_all_missing_years",
+      "rows": 2178,
+      "current_population_sum": 711914,
+      "missing_2010_rows": 862,
+      "missing_2002_rows": 1220,
+      "current_only_rows": 96
+    },
+    {
+      "route_or_rejection_family": "unique_key_and_any_exact_legacy_pointer",
+      "rows": 1535,
+      "current_population_sum": 622629,
+      "missing_2010_rows": 307,
+      "missing_2002_rows": 1185,
+      "current_only_rows": 43
+    },
+    {
+      "route_or_rejection_family": "unique_key_and_old_current_identifier_match",
+      "rows": 0,
+      "current_population_sum": 0,
+      "missing_2010_rows": 0,
+      "missing_2002_rows": 0,
+      "current_only_rows": 0
+    },
+    {
+      "route_or_rejection_family": "unique_key_and_exact_current_WIDE_P764_binding",
+      "rows": 968,
+      "current_population_sum": 203302,
+      "missing_2010_rows": 470,
+      "missing_2002_rows": 434,
+      "current_only_rows": 64
+    },
+    {
+      "route_or_rejection_family": "unique_key_and_any_prior_candidate_table_reference",
+      "rows": 211,
+      "current_population_sum": 120890,
+      "missing_2010_rows": 135,
+      "missing_2002_rows": 63,
+      "current_only_rows": 13
+    },
+    {
+      "route_or_rejection_family": "not_current_key_unique",
+      "rows": 26688,
+      "current_population_sum": 3127431,
+      "missing_2010_rows": 21348,
+      "missing_2002_rows": 257,
+      "current_only_rows": 5083
+    },
+    {
+      "route_or_rejection_family": "ambiguous_old_counterpart",
+      "rows": 26004,
+      "current_population_sum": 3081840,
+      "missing_2010_rows": 20589,
+      "missing_2002_rows": 404,
+      "current_only_rows": 5011
+    },
+    {
+      "route_or_rejection_family": "no_exact_old_counterpart",
+      "rows": 5493,
+      "current_population_sum": 1740820,
+      "missing_2010_rows": 2139,
+      "missing_2002_rows": 2376,
+      "current_only_rows": 978
+    }
+  ],
+  "baseline_graph_sha256": "dd6ba7df48155941a3061490e2d208d1723bacda720b1ddd6e3fcb889cb70c29",
+  "baseline_point_sha256": "d4cbdd0dff5360392f3ed0aa03158c7a47a6f75b7f239ccad3971fbe201b15ca",
+  "baseline_coverage_reproduced": true,
+  "inputs": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet": {
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327",
+      "bytes": 132412248
+    },
+    "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/fifth_canonical_long_v2/source_preserving_core.parquet": {
+      "sha256": "60999c53cf457b45bcb41e18bb4c4a618459dcd43bfd548564a7e19fddf55ffe",
+      "bytes": 66508730
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_fifth_canonical_v3/accepted_identity_edges.parquet": {
+      "sha256": "dd6ba7df48155941a3061490e2d208d1723bacda720b1ddd6e3fcb889cb70c29",
+      "bytes": 22535722
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_fifth_canonical_v3/accepted_point_uses.parquet": {
+      "sha256": "d4cbdd0dff5360392f3ed0aa03158c7a47a6f75b7f239ccad3971fbe201b15ca",
+      "bytes": 39405818
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_fifth_canonical_v3/coverage.json": {
+      "sha256": "33139ceab4cea4d9dbf94c57bc618a09c10aadd0cf93819de4c3bf4c86d4116e",
+      "bytes": 16684
+    },
+    "/workspace/settlements-work/wikidata/wide_v5/wide_point_bindings.parquet": {
+      "sha256": "f59e2a1f26b7165ffccca2d118e04f8507f1c346b27ccf2e82d4c65879c33143",
+      "bytes": 46381067
+    },
+    "/workspace/settlements-work/wikidata/point_bindings.parquet": {
+      "sha256": "426b48a5dc7e6c05b115ddfd89f7b510db2f4ec09ac4d433be9ab868a8180264",
+      "bytes": 375905
+    },
+    "/workspace/settlements-work/wikidata/claims.parquet": {
+      "sha256": "136ea2532f7a93f74c575a98460303e36c028d50c12c7692bfaf32e268822643",
+      "bytes": 747927
+    },
+    "/workspace/settlements-work/continuation_20261004/R4/legacy_spatial_homonym_reserve/legacy_spatial_homonym_candidate_register.csv": {
+      "sha256": "171d13968c7ca5d5676c333d5c4eb1c977b086f2cfd11b2887401289c61630bb",
+      "bytes": 5134406
+    },
+    "/workspace/settlements-work/continuation_20261004/R4/source_district_context_physical_identity_recovery_20261004_v1/candidate_edges.csv": {
+      "sha256": "511acdb35d8c33a810dcece36b596adf3837cc9bc2e73f66ed8a0ee427499f34",
+      "bytes": 12823592
+    },
+    "/workspace/settlements-work/continuation_20261004/R4/source_district_annotation_recovery_20261004/candidate_edges.csv": {
+      "sha256": "6f8e974da7d36df1c38f17b8071bfdacb530de094948c5ee4b2fef9d804daf28",
+      "bytes": 4409316
+    },
+    "/workspace/settlements-work/continuation_20261004/R4/native_point_absent_unique_sourcekey_recovery_20261004/candidate_endpoint_ledger.csv": {
+      "sha256": "6ae7bf442805a2bdc07fc2a8290eea5768e28d99ae2a8b9316cf5de67d2167a0",
+      "bytes": 54411702
+    },
+    "/workspace/settlements-work/continuation_20261004/R4/typed_native_physical_corridor_v2_rerunfinal/residual_year_vertex_candidates.csv": {
+      "sha256": "69413cda0c13a02dfabe8605a473fe97af1e259cb0ecf4563ad8ad1933bd88be",
+      "bytes": 871943
+    },
+    "/workspace/settlements-work/continuation_20261004/R4/top_population_joint_recovery/top200_residual_by_year_scope.csv": {
+      "sha256": "2dcd1d209e93a0bf0082d8909cb0d9dd2530b5c04e6fcdb34646923cc396291b",
+      "bytes": 371885
+    },
+    "/workspace/settlements-work/continuation_20261004/R4/remaining_joint_rule_funnel_20261004/top811_rows_with_exact_crossyear_funnel.csv": {
+      "sha256": "194fd55fa5283a9e8cd4f97288b455f71eaf5cf73483f0dbd5f73d7a2bbe1f5c",
+      "bytes": 739298
+    }
+  },
+  "outputs": {
+    "all_in_scope_residual_route_classification.csv": {
+      "sha256": "6e0c783802020265ab0b5e07ae88802a089dcbc65e99df3d43ee07088eeb6155",
+      "bytes": 71029047
+    },
+    "cohort_counts_population.csv": {
+      "sha256": "55f683321f57ee9655a19fc967608bcfc42a2420fe0758b9bbe21975257e589f",
+      "bytes": 172
+    },
+    "current_identifier_route_inventory_by_cohort.csv": {
+      "sha256": "f583621cb3db474a34f9f441cde7fe94e7fde3d6ab31918940282773ce08e8c8",
+      "bytes": 2827
+    },
+    "source_route_rejection_weighted_funnel.csv": {
+      "sha256": "f1307a0dd5bae83678e5702e7dcef60cd8a55f1f860d706387d1d599e33cc2ee",
+      "bytes": 639
+    },
+    "top200_candidate_historical_source_rows.csv": {
+      "sha256": "14e5137874535f6cf8c7b0483087f5d9153f57afaf24a92282f550d462050135",
+      "bytes": 952535
+    },
+    "top200_existing_candidate_table_rows_unfiltered.csv": {
+      "sha256": "ace0d0274a9776cf684b7ee51c95ce895f570077015ba46cc4f25b0625bc200c",
+      "bytes": 408581
+    },
+    "top200_residual_overall_and_by_period_pattern.csv": {
+      "sha256": "3cb2baf9592619ed2ace33753984d25d1795288a43984e2f9d106c77a3e17b28",
+      "bytes": 1457315
+    }
+  }
+}

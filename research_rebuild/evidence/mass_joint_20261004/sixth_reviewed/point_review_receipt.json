@@ -1,0 +1,239 @@
+{
+  "status": "independent_candidate_only_raw_point_review_no_admissions",
+  "review_rule": "accept point-only association only when raw 2009 SQL and 2011 DBF row/code/name/type re-open exactly, raw region/name/type key unique, current raw publisher native OKTMO is unique and matches selected physical name/region/object level, endpoints already share an accepted full-chain component with no source-evidence hard event, and DBF point is within 5 km of current source Dadata spatial witness (helper retained as helper, not native code). Existing accepted component point distance when available must also be <=5km. No identity, date, boundary, population, or external-provider binding inference.",
+  "input_pins": {
+    "freeze_candidates": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_reprojection_20261004/freeze_v4/projected_point_candidates.csv",
+      "sha256": "954fd28516093fe469cc68a0de75a4dd49cefa487f06598a85dbe832a68b4e23"
+    },
+    "freeze_holds": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_reprojection_20261004/freeze_v4/disjoint_holds.csv",
+      "sha256": "65e9f8f1f2fec0546e0c0b20bbf0d9ae17c2ed6e679c40535db43edb16bcba5b"
+    },
+    "freeze_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_reprojection_20261004/freeze_v4/receipt.json",
+      "sha256": "b162c35fd60fce7d81579aac676b22071fd65fe5f4a8396dbd519b5a7ae18fd1"
+    },
+    "freeze_source_congruence": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_reprojection_20261004/freeze_v4/source_congruence_audit.csv",
+      "sha256": "a56fbaaf5cab1546911b8ce2bcc8ff02c304ac2139dde5f0be41c4d135999b33"
+    },
+    "historical_candidates": {
+      "path": "/workspace/settlements-work/coordinates/historical_named_candidates_v4/historical_named_point_candidates.parquet",
+      "sha256": "cb4449d3f0fec3c833eae1ee7d6e29183aabf1668bad5b8d8edf82bad7b121f8"
+    },
+    "classifier_sql": {
+      "path": "/workspace/settlements-raw/data/raw/historical_classifiers/okato_142_2009/dump-142_2009.sql",
+      "sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db"
+    },
+    "geokladr_dbf": {
+      "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+    },
+    "current_raw_parquet": {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+    },
+    "accepted_graph": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifth_canonical_v3/accepted_identity_edges.parquet",
+      "sha256": "dd6ba7df48155941a3061490e2d208d1723bacda720b1ddd6e3fcb889cb70c29"
+    },
+    "accepted_points": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifth_canonical_v3/accepted_point_uses.parquet",
+      "sha256": "d4cbdd0dff5360392f3ed0aa03158c7a47a6f75b7f239ccad3971fbe201b15ca"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+    },
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    }
+  },
+  "input_hashes_unchanged_after_review": true,
+  "candidate_count": 324,
+  "candidate_population": 138793,
+  "eligible_count": 193,
+  "eligible_population": 70427,
+  "held_count": 131,
+  "held_population": 68366,
+  "eligible_by_year": [
+    {
+      "target_year": 2002,
+      "rows": 65,
+      "population": 27788
+    },
+    {
+      "target_year": 2010,
+      "rows": 64,
+      "population": 18016
+    },
+    {
+      "target_year": 2021,
+      "rows": 64,
+      "population": 24623
+    }
+  ],
+  "distance_screen": {
+    "within_5km": 193,
+    "over_5km": 128,
+    "missing": 3,
+    "median_km": 2.1166855371805497,
+    "max_km": 212.99650856081453
+  },
+  "eligible_population_not_additive_unique_place_claim": "Targets repeat named point objects across census years and already-linked current components; sum is staged target population, not additive estimate.",
+  "hard_holds_preserved": {
+    "frozen_prior_hold_rows": 7,
+    "known_wrong_coordinate_negative_controls": 5
+  },
+  "known_wrong_coordinate_controls": [
+    {
+      "control_name": "Afipsky",
+      "dbf_record_1based": 2700,
+      "dbf_byte_offset_0based": 1066810,
+      "dbf_raw_code": "03243552000",
+      "dbf_raw_name": "Афипский",
+      "dbf_raw_type": "пгт",
+      "dbf_lat_raw": "44.598688",
+      "dbf_lon_raw": "38.588292",
+      "dbf_updated_raw": "2011/06/20",
+      "expected_code_match": true,
+      "expected_coordinates_match": true,
+      "distance_to_current_proper_point_km": 39.32882283796403,
+      "interpretation": "direct raw DBF label/code and coordinates match supplied record locator; spatial discrepancy shows coordinates cannot be assumed correct from code/name/type alone"
+    },
+    {
+      "control_name": "Verkhovye",
+      "dbf_record_1based": 85942,
+      "dbf_byte_offset_0based": 33947400,
+      "dbf_raw_code": "54208551000",
+      "dbf_raw_name": "Верховье",
+      "dbf_raw_type": "пгт",
+      "dbf_lat_raw": "53.312442",
+      "dbf_lon_raw": "35.303273",
+      "dbf_updated_raw": "2011/06/20",
+      "expected_code_match": true,
+      "expected_coordinates_match": true,
+      "distance_to_current_proper_point_km": 140.16500451477074,
+      "interpretation": "direct raw DBF label/code and coordinates match supplied record locator; spatial discrepancy shows coordinates cannot be assumed correct from code/name/type alone"
+    },
+    {
+      "control_name": "Dolgoe",
+      "dbf_record_1based": 86264,
+      "dbf_byte_offset_0based": 34074590,
+      "dbf_raw_code": "54215551000",
+      "dbf_raw_name": "Долгое",
+      "dbf_raw_type": "пгт",
+      "dbf_lat_raw": "52.804060",
+      "dbf_lon_raw": "37.217607",
+      "dbf_updated_raw": "2011/06/20",
+      "expected_code_match": true,
+      "expected_coordinates_match": true,
+      "distance_to_current_proper_point_km": 85.70498841550567,
+      "interpretation": "direct raw DBF label/code and coordinates match supplied record locator; spatial discrepancy shows coordinates cannot be assumed correct from code/name/type alone"
+    },
+    {
+      "control_name": "Pokrovskoye",
+      "dbf_record_1based": 87889,
+      "dbf_byte_offset_0based": 34716465,
+      "dbf_raw_code": "54250551000",
+      "dbf_raw_name": "Покровское",
+      "dbf_raw_type": "пгт",
+      "dbf_lat_raw": "53.400296",
+      "dbf_lon_raw": "36.183854",
+      "dbf_updated_raw": "2011/06/20",
+      "expected_code_match": true,
+      "expected_coordinates_match": true,
+      "distance_to_current_proper_point_km": 99.38654446984974,
+      "interpretation": "direct raw DBF label/code and coordinates match supplied record locator; spatial discrepancy shows coordinates cannot be assumed correct from code/name/type alone"
+    },
+    {
+      "control_name": "Zmievka",
+      "dbf_record_1based": 88054,
+      "dbf_byte_offset_0based": 34781640,
+      "dbf_raw_code": "54252551000",
+      "dbf_raw_name": "Змиевка",
+      "dbf_raw_type": "пгт",
+      "dbf_lat_raw": "52.346035",
+      "dbf_lon_raw": "35.676735",
+      "dbf_updated_raw": "2011/06/20",
+      "expected_code_match": true,
+      "expected_coordinates_match": true,
+      "distance_to_current_proper_point_km": 59.219792042060135,
+      "interpretation": "direct raw DBF label/code and coordinates match supplied record locator; spatial discrepancy shows coordinates cannot be assumed correct from code/name/type alone"
+    }
+  ],
+  "limitations": [
+    "Current-source spatial fields are Dadata helpers, not the publisher native OKTMO or an independent survey; they provide a spatial consistency check, not proof of exact locality boundary or coordinate truth.",
+    "The five negative controls directly demonstrate erroneous coordinates can coexist with correct DBF name/type/code.",
+    "Within-5km screening is a bounded candidate rule. It does not certify every point globally; broader source-wide conflict QA remains necessary.",
+    "The 324 rows are attached to existing accepted identity components only; no new identity edge or temporal boundary inference is made."
+  ],
+  "counts_by_decision": {
+    "independently_eligible_point_only": 193,
+    "held_point_only": 131
+  },
+  "counts_by_hold_reason": {
+    "raw_DBf_point_over_5km_from_current_source_spatial_witness": 128,
+    "no_current_source_coordinate_for_spatial_crosscheck": 3
+  },
+  "builder_script_sha256": "0c8070cca453930af80eee31d1eb2e15960ea2bad730ed5d48e3124f620f2548",
+  "builder_script_path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_independent_review_20261004_final_v2/review_324_builder.py",
+  "independently_rechecked_full_chain": {
+    "target_modern_same_component": 324,
+    "each_component_exactly_one_selected_observation_in_2002_2010_2021": 324,
+    "new_identity_edges_proposed": 0,
+    "scope": "The canonical fifth accepted graph, all accepted statuses; exactly one selected row per census year in each component."
+  },
+  "systemic_coordinate_quality_finding": {
+    "source": "five separately reopened DBF negative controls",
+    "result": "all five direct record locators and bytes match, with correct literal name/type/OKATO and 2011/06/20 update date, while coordinates are 39.33–140.17 km from the scoped current physical locality points; therefore literal DBF object keys do not establish coordinate correctness."
+  },
+  "review_outputs": {
+    "full_324_raw_replay_and_disposition.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_independent_review_20261004_final_v2/full_324_raw_replay_and_disposition.csv",
+      "sha256": "b18137073053582e6be47fcf1d4317b910f41058bb5019a882cfd0fb4b88d1f4"
+    },
+    "eligible_point_candidate_ids.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_independent_review_20261004_final_v2/eligible_point_candidate_ids.csv",
+      "sha256": "0e2a28c94a85e83c0770e4c89b664593e20233d450ae6a1ae43554b243b3475e"
+    },
+    "held_point_candidate_ids.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_independent_review_20261004_final_v2/held_point_candidate_ids.csv",
+      "sha256": "b9f390661179151287e7c32104e10a5116fb58513f72caee03529158a0e3a4ce"
+    },
+    "deterministic_stratified_spatial_sample.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_independent_review_20261004_final_v2/deterministic_stratified_spatial_sample.csv",
+      "sha256": "2558d6660244eda24eda62acc35bf802b245eda793b7596f907e78c405a4269a"
+    },
+    "five_wrong_coordinate_negative_controls.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_independent_review_20261004_final_v2/five_wrong_coordinate_negative_controls.csv",
+      "sha256": "568e72ab7764421ff3476047bbb7c79cf72e9ab0e24b36b30d37147761d960a0"
+    },
+    "frozen_prior_holds_copy.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_independent_review_20261004_final_v2/frozen_prior_holds_copy.csv",
+      "sha256": "ed1da47e8320074a1228685e71243da390dab34112552e639b826abf7e45d86e"
+    },
+    "frozen_prior_holds_raw_reopened.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_independent_review_20261004_final_v2/frozen_prior_holds_raw_reopened.csv",
+      "sha256": "875db5b36356ef067b574827a144238e237140d068c3d56dba94085dbd44e285"
+    },
+    "supplemental_negative_control_receipt.json": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_independent_review_20261004_final_v2/supplemental_negative_control_receipt.json",
+      "sha256": "fd560ae53b939813f53ea6040890e066dfce323ea924548aca35f5ea96919e39"
+    },
+    "five_negative_controls_current_raw_replay.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_independent_review_20261004_final_v2/five_negative_controls_current_raw_replay.csv",
+      "sha256": "90e4db1255e31f51ee17df458ff7e240cd8b207c130e0018ab7b365f9c87fccb"
+    },
+    "five_negative_controls_current_raw_replay_receipt.json": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_native_point_fifth_independent_review_20261004_final_v2/five_negative_controls_current_raw_replay_receipt.json",
+      "sha256": "bafd84b54c711770af52f7f06dc8053f0e73daa196f6f873e44726306ed9514d"
+    }
+  },
+  "supplemental_replay_scripts": {
+    "reopen_frozen_holds.py": "05dd06ff24e705032c1286f96cee8138f5182d8d2baf71a94993ba96f5985189",
+    "reopen_wrong_coordinate_current_rows.py": "dacee6cbf8e8c81ba9b581935b23687cdfeeb2fe2b8265e9035c34bb4c21bc7e"
+  }
+}
