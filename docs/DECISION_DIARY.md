@@ -1733,3 +1733,33 @@ token in a command did not establish independent PAT authorization. No remote cr
 write or permission grant is claimed. No credentials stored in research files.
 
 Focused graph16 verification: 32 relevant regression tests passed (0.38s pytest reported); no full-repository validation claim.
+
+
+### 2026-10-05: second inclusion references and stale successor-flag audit
+
+Independent sample review of two large 2002 inclusion references verified 26 pins,
+source row/sex sums, distinct old city parent rows, current receivers with existing
+full trajectories/points, exact P625 claim GUIDs and frozen Wikipedia revisions.
+Applied two nonadditive secondary spatial refs/points. Their old selected populations
+sum37756 and are current-residual rows; 2002 mixed metric changes from141138227 to
+141175983 (97.224912%→97.250921%). 2010/21 remain139393995/144646148 and97.576211%/
+98.276982%. No ordinary full3 metric, population, graph, or ordinary point metric changes;
+exact legal acts/dates and boundary comparability remain unknown. Independent/replay
+receipts at graph16_skhodnya_nikolskoe_inclusion2; residual parquet stays outside Git.
+
+Self-correction: Sochi/Baksan were sent out as missing persistent-city pairs based on
+an old held-flag table. Direct exact edge readback showed all four proposed adjacent
+edges already active, all six source/current endpoints point-covered, and both 2021
+cities absent from the current residual. The apparent 744808 population opportunity
+is zero net for this baseline. Stale holds lost authority to canonical accepted ledgers;
+prepared finite code/tests were moved outside the production source tree and never applied.
+Top residual diagnostic finds 3 full3 point-only current rows /11325; and among207 current
+proper settlement rows >2000 (897267 context), 735506 identity gaps,150436 identity+point
+and11325 point-only. These are sorted source tasks, not assured gains. Need a new point
+review for the first three; an accepted ownpoint inventory has no direct candidates.
+
+The accepted population value change on existing graph16 remains0. Focused regression
+tests: 32 baseline+14 finite proposed-override tests passed; the override suite was never
+integrated and does not count as current production validation. The current accepted
+coverage calculation reran successfully from all scopes; strict ordinary/primary 3-year
+coverage did not change.
