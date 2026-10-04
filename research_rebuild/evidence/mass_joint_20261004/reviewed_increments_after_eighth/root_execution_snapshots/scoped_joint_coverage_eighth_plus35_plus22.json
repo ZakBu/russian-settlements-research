@@ -1,0 +1,78 @@
+{
+  "status": "eighth_graph_with_reviewed_point_and_scoped_increments_joint_measurement_target99_not_reached",
+  "results": {
+    "2002": {
+      "control_population": 145166731,
+      "strict_NP_joint_population": 123710297,
+      "strict_NP_joint_rows": 128885,
+      "strict_with_existing_federal_typed_three_census_population": 138497940,
+      "strict_with_federal_percent": 95.40611615756505,
+      "available_scope_joint_population": 138754270,
+      "available_scope_joint_percent": 95.58269242833607,
+      "remaining_population_to_99": 4960794,
+      "scope_adjustments": [
+        {
+          "kind": "exclusive_Moscow2002_published_parent_instead_of_all_children",
+          "removed_already_counted_population": 10126424,
+          "parent_population": 10382754
+        }
+      ]
+    },
+    "2010": {
+      "control_population": 142856536,
+      "strict_NP_joint_population": 121009692,
+      "strict_NP_joint_rows": 128913,
+      "strict_with_existing_federal_typed_three_census_population": 137392759,
+      "strict_with_federal_percent": 96.17533985284369,
+      "available_scope_joint_population": 137392759,
+      "available_scope_joint_percent": 96.17533985284369,
+      "remaining_population_to_99": 4035212,
+      "scope_adjustments": []
+    },
+    "2021": {
+      "control_population": 147182123,
+      "strict_NP_joint_population": 121491353,
+      "strict_NP_joint_rows": 128918,
+      "strict_with_existing_federal_typed_three_census_population": 140103376,
+      "strict_with_federal_percent": 95.19048451285079,
+      "available_scope_joint_population": 142573223,
+      "available_scope_joint_percent": 96.86857350195989,
+      "remaining_population_to_99": 3137079,
+      "scope_adjustments": [
+        {
+          "kind": "accepted_scope2014_to2021_crimea_NP_paths",
+          "rows": 993,
+          "population": 1711601
+        },
+        {
+          "kind": "accepted_Sevastopol2021_to2022_2023_2024_territorial_path",
+          "population": 547820
+        },
+        {
+          "kind": "accepted_supplemental_2014_source_identity_and_point_paths",
+          "rows": 22,
+          "current2021_population": 210426,
+          "known_numeric2014_observations": 11,
+          "literal_dash2014_population_remains_unknown": 11,
+          "current2021_population_whose_2014_numeric_population_unknown": 68
+        }
+      ]
+    }
+  },
+  "definition": "Ordinary accepted coordinate+full Russian3 chain; separate federal territorial chains; replace2002 Moscow childpartition by exactpublishedparent exclusively; Crimea actual2014->21 identity/presence paths (unknown numeric population remains unknown); Sevastopolactual2021->22/23/24 paths. No invented oldRussianrecords. This scope-aware metric is separate from strict3.",
+  "input_pins": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_eighth_reviewed/accepted_identity_edges.parquet": "c0f276db44f524845bd9c4d973ce8294f372d942cad292028b3b3984024bf011",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_large_point_increment_35_v2/accepted_point_uses.parquet": "78089d67b5b4556e44f8c23eec1e689430f8d5b9074d73ebf153c476cc06ecb8",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_eighth_reviewed/receipt.json": "11ca42568e0c0f173a899b9a002af7a9f556da60ee478fd03e1818a59e11263b",
+    "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/federal_typed_city_continuity.parquet": "ee5898e3e5495d691f230e18fce08191fcc287ed35e06d969140bb05df75c695",
+    "/workspace/settlements-work/continuation_20261004/root/scoped2014_applied/accepted_scoped_observations_2014.parquet": "042a991650054c5a1ad99935474b25201cae61640986fc8f2d12368e4c654a20",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_territorial_scope_layers_seventh/application_receipt.json": "dd61fe3283416afbcf9a8b0d5fa087fc2effaa7e7ab95f16afff52dd325fe89f",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_territorial_scope_layers_seventh/accepted_moscow2002_territorial_override.json": "577274fd777c7a0a12c3df771fe78695b6d4e06cc185bf934dadead0422438b5",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_territorial_scope_layers_seventh/accepted_annual_federal9_territorial_edges.csv": "bbe5d70756a8a290cc596a0850231bfb4c3c3cb6bf705c85f392856ec8c3cdc1",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_scoped_crimea22/application_receipt.json": "ee39b4c85f169a3ef8ee0cd61b33834c018e3bc1cad6c438c7a90ff5bff9fc61",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_scoped_crimea22/accepted_scoped_observations.parquet": "8d8988531a495510bfb63a3e72d67f976be7935fb7803f22bcfc5eaf8a6a1812",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_scoped_crimea22/accepted_scoped_identity_links.parquet": "6215f23afc28f13d8e4d73c46ea502e3367323d83e6090aa5b2e33cffc63807b"
+  },
+  "script_sha256": "96a5c075a72781446ad6f3e2785b05f66b3c13e7b09c361c5c1dc68311012c74"
+}

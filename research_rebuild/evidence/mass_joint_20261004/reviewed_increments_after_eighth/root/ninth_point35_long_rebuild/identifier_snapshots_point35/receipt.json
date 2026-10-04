@@ -1,0 +1,45 @@
+{
+  "status": "observed_identifier_snapshot_export_complete",
+  "interpretation": "Observed source snapshots only. 2021 native OKTMO literals are linked to 2021 population observations; source snapshot release/version does not establish code validity. GeoKLADR-2011 OKTMO values are a separate municipal-context observation attached through accepted point origin and target source record; they are not native-code bindings or identifier changes.",
+  "inputs": {
+    "final_core_path": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/base_retry/source_preserving_core.parquet",
+    "final_core_sha256": "29d356de1bece84e8552f919ea08058d6983b8226e8a78a12aade324672974e0",
+    "accepted_point_ledger_path": "/workspace/settlements-work/continuation_20261004/root/accepted_large_point_increment_35_v2/accepted_point_uses.parquet",
+    "accepted_point_ledger_sha256": "78089d67b5b4556e44f8c23eec1e689430f8d5b9074d73ebf153c476cc06ecb8",
+    "population_layer_path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+    "population_layer_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "config_path": "/workspace/russian-settlements-research/config/mass_joint_20261004.json",
+    "config_sha256": "ab35d3a71d1ec542a30733299d9e2eaf34b6a0005f6ad57549da1b62f5688c4d",
+    "snapshot_version": "v20251217",
+    "raw_geo_2011_dbf_path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+    "raw_geo_2011_dbf_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "accepted_point_statuses": [
+      "frozen_r5b_reviewed_baseline_preserved",
+      "reviewed_case_accepted",
+      "reviewed_extension_rule_accepted",
+      "reviewed_rule_accepted"
+    ],
+    "source_registry_path": "/workspace/russian-settlements-research/SOURCES.md",
+    "source_registry_sha256": "2da34940f4b45076c153aaba71d15ded199258c6454199c1f454cbe84ff04ce8"
+  },
+  "counts": {
+    "native_2021_rows": 155414,
+    "native_2021_distinct_entities": 155414,
+    "native_2021_missing_code_rows": 0,
+    "native_2021_unverified_format_rows": 6945,
+    "geo_2011_context_rows_after_provenance_dedup": 81226,
+    "geo_2011_context_distinct_entities": 81223,
+    "accepted_point_rows_without_raw_geo_2011_code": 298773,
+    "geo_2011_context_rows_with_missing_OKTMO_literal": 21704,
+    "geo_2011_context_rows_recovered_from_pinned_origin_dbf": 81226,
+    "code_validity_intervals_asserted": 0,
+    "identifier_transitions_asserted": 0
+  },
+  "outputs": {
+    "2021_native_oktmo_snapshot.parquet": "df57aec5586e5ea1f0d83cdf4ab5b44319bdf54270f5fff5ed2125f7c5bbe361",
+    "2021_native_oktmo_snapshot.csv": "f01870c72741c3a09ae4220cec07325b1c30aedf541583f5142a3ffdaabd6246",
+    "geo_2011_point_origin_context.parquet": "b5f358fd5eb89939ee77a613d5ec4374f3062886d522c1d65e6b460ad4eb4a4b",
+    "geo_2011_point_origin_context.csv": "4baabfb8f40f1e69e0422d4ca08beb42c7a4bc7d6c032438d4acbd773ddb292b",
+    "geo_2011_point_origin_holds.csv": "0b4e099ab3496bfc899e0c3231afac8f3aca2f2b37316f6e6b628a9d08699336"
+  }
+}

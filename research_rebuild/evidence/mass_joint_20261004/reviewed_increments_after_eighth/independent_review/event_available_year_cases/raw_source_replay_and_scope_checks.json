@@ -1,0 +1,580 @@
+{
+  "status": "raw_source_and_partition_replay",
+  "inputs_sha256": {
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/historical_event_population_impact_review/event_aware_source_observations.csv": "4bedcd2d4fd250af4721a8bc0287ba15b652fcdb274ee9fe611a52323390df97",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/historical_event_population_impact_review/review_receipt.json": "8c13cb909076e8e36b246963ea915ca83543e12cc2502087575a4329bcf34b97",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_seventh_reviewed/accepted_identity_edges.parquet": "18bf1edd259808c9e881ac11fa40be26c88be4fb27e1ac735c59e083d6dcd312",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_seventh_reviewed/accepted_point_uses.parquet": "2215702e772417bb512da8c0a6c0d31ad9783c6a5345d4c0bbfe18403e11ad22",
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": "50aaf5c73289383df757321871e617e6aafe31ed8a0235e05b213e72dc218c29",
+    "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+    "/workspace/settlements-raw/data/raw/2010_official_tom11/pub-11-1-4.pdf": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+    "/workspace/settlements-raw/data/raw/rosstat_2021/Tom1_tab-5_VPN-2020.xlsx": "0b232b3d2ab5daa231568acc719ac6fda4fb0979a01a0da6bacc69be6f252474",
+    "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+  },
+  "zheleznodorozhny": {
+    "2002_selected_id": "2002:1_TOM_01_04.xls:0:1020",
+    "2002_selected_row": {
+      "source_record_id": "2002:1_TOM_01_04.xls:0:1020",
+      "census_year": 2002,
+      "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "source_row": 1020.0,
+      "source_name_raw": "г. Железнодорожный",
+      "settlement_name": "Железнодорожный",
+      "settlement_type": "город",
+      "region_raw": "московская",
+      "district_raw": null,
+      "municipality_raw": null,
+      "population": 103931.0,
+      "population_scope": "settlement",
+      "is_additive_settlement_record": true,
+      "oktmo": null,
+      "okato": null,
+      "source_sha256": null,
+      "source_locator": null
+    },
+    "2010_selected_id": "2010:pub-11-1-4.pdf:pdf_page_6:11",
+    "2010_selected_row": {
+      "source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:11",
+      "census_year": 2010,
+      "source_file": "data/raw/2010_official_tom11/pub-11-1-4.pdf",
+      "source_row": 11.0,
+      "source_name_raw": "Железнодорожный Московская область 103931 131257",
+      "settlement_name": "Железнодорожный",
+      "settlement_type": "город",
+      "region_raw": "московская",
+      "district_raw": null,
+      "municipality_raw": null,
+      "population": 131257.0,
+      "population_scope": "settlement",
+      "is_additive_settlement_record": true,
+      "oktmo": null,
+      "okato": null,
+      "source_sha256": null,
+      "source_locator": null
+    },
+    "2002_T4_raw_sheet0_row1020": [
+      "      г. Железнодорожный",
+      103931.0,
+      47040.0,
+      56891.0,
+      45.3,
+      54.7
+    ],
+    "2002_T4_raw_sheet0_row8696_Kayerkan": [
+      "      г. Кайеркан",
+      27116.0,
+      13741.0,
+      13375.0,
+      50.7,
+      49.3
+    ],
+    "2002_T4_raw_sheet0_row8697_Talnakh": [
+      "      г. Талнах",
+      58654.0,
+      29321.0,
+      29333.0,
+      50.0,
+      50.0
+    ],
+    "2010_Tom11_p6_literal_line": "Железнодорожный | Московская область | 103931 | 131257",
+    "2011_GeoKLADR_raw_dbf_row": {
+      "TER": "46",
+      "KOD1": "424",
+      "KOD2": "000",
+      "KOD3": "000",
+      "RAZDEL": "1",
+      "NAME1": "Железнодорожный",
+      "POPULATION": "128520",
+      "CITY": "128520",
+      "VILLAGE": "0",
+      "SCOKATO": "г",
+      "KOD_SCO": "6",
+      "KLADRCODE": "5000000400000",
+      "KOD_T_ST": "",
+      "CENTRUM": "",
+      "NOMAKT": "000",
+      "STATUS": "0.00000",
+      "DATA_UPD": "2011/06/20",
+      "TYPE_NP": "2",
+      "OKTMO": "46724000",
+      "LONG": "38.014103",
+      "LAT": "55.748420",
+      "record_1based": 77135,
+      "byte_offset_0based": 30468635
+    },
+    "accepted_pre_event_graph_edge": {
+      "decision_id": "PRE_EVENT_ZH-2002-2010-EXACT-01",
+      "relation": "same_place",
+      "from_source_record_id": "2002:1_TOM_01_04.xls:0:1020",
+      "from_year": "2002",
+      "to_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:11",
+      "to_year": "2010",
+      "decision_status": "checked_rule_accepted",
+      "decision_rule": null,
+      "boundary_comparability_asserted": null,
+      "population_scope_interpretation": null,
+      "graph_connectivity_effect": null
+    },
+    "point_use_rows": [
+      {
+        "target_source_record_id": "2002:1_TOM_01_04.xls:0:1020",
+        "target_year": "2002.0",
+        "latitude": 55.74842,
+        "longitude": 38.014103,
+        "coordinate_admission_status": "reviewed_extension_rule_accepted",
+        "coordinate_source": null,
+        "point_origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+        "point_origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+        "point_origin_locator": "dbf_record_1based=77135;byte_offset_0based=30468635;OKATO=46424000000;name=Железнодорожный;type=г",
+        "coordinate_measurement_date_unknown": true,
+        "boundary_comparability_asserted": false
+      },
+      {
+        "target_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:11",
+        "target_year": "2010.0",
+        "latitude": 55.74842,
+        "longitude": 38.014103,
+        "coordinate_admission_status": "reviewed_extension_rule_accepted",
+        "coordinate_source": null,
+        "point_origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+        "point_origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+        "point_origin_locator": "dbf_record_1based=77135;byte_offset_0based=30468635;OKATO=46424000000;name=Железнодорожный;type=г",
+        "coordinate_measurement_date_unknown": true,
+        "boundary_comparability_asserted": false
+      }
+    ],
+    "legacy_flags_kept": {
+      "2002:1_TOM_01_04.xls:0:1020": {
+        "census_year": 2002,
+        "district_norm": "",
+        "district_raw": null,
+        "entity_grain_status": null,
+        "extraction_version": null,
+        "fias_id": null,
+        "grain_explicit": false,
+        "grain_review_flag": "grain_unresolved_or_not_recorded",
+        "is_additive_settlement_record": true,
+        "is_federal_aggregate": false,
+        "legacy_accepted": true,
+        "legacy_district_raw": null,
+        "legacy_entity_year_record_count": 1,
+        "legacy_identity_certified": false,
+        "legacy_identity_conflict": true,
+        "legacy_identity_reasons": "[\"depends_on_quarantined_target\"]",
+        "legacy_identity_status": "quarantined",
+        "legacy_match_method": "unique_region_name_type_no_district",
+        "legacy_match_score": 0.9,
+        "legacy_matched_to_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:11",
+        "legacy_municipality_raw": null,
+        "legacy_ordinal_route_present": false,
+        "legacy_population": 103931,
+        "legacy_population_confidentiality_perturbed": false,
+        "legacy_population_scope": "settlement",
+        "legacy_quality_flag": "auto_high_admin_not_available",
+        "legacy_quality_join_status": "matched_by_exact_source_record_id",
+        "legacy_region_raw": "московская",
+        "legacy_route_is_acceptance_signal": false,
+        "legacy_same_year_collision": false,
+        "legacy_settlement_name": "Железнодорожный",
+        "legacy_settlement_type": "город",
+        "legacy_source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+        "legacy_source_name_raw": "г. Железнодорожный",
+        "legacy_source_row": 1020,
+        "legacy_source_sheet": "0",
+        "legacy_verified_successor_settlement_id": "RU-OKTMO-46704000001",
+        "municipality_raw": null,
+        "name_norm": "железнодорожный",
+        "okato": null,
+        "oktmo": null,
+        "population": 103931.0,
+        "population_confidentiality_perturbed": false,
+        "population_scope": "settlement",
+        "population_value_quality": "direct_published_census_value",
+        "region_norm": "московская",
+        "region_raw": "московская",
+        "settlement_name": "Железнодорожный",
+        "settlement_type": "город",
+        "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+        "source_locator": null,
+        "source_name_raw": "г. Железнодорожный",
+        "source_native_id": "table4:1020",
+        "source_path": null,
+        "source_population_raw": null,
+        "source_record_id": "2002:1_TOM_01_04.xls:0:1020",
+        "source_row": 1020.0,
+        "source_selection_component": null,
+        "source_sha256": null,
+        "source_sheet": "0",
+        "type_norm": "город"
+      },
+      "2010:pub-11-1-4.pdf:pdf_page_6:11": {
+        "census_year": 2010,
+        "district_norm": "",
+        "district_raw": null,
+        "entity_grain_status": null,
+        "extraction_version": null,
+        "fias_id": null,
+        "grain_explicit": false,
+        "grain_review_flag": "grain_unresolved_or_not_recorded",
+        "is_additive_settlement_record": true,
+        "is_federal_aggregate": false,
+        "legacy_accepted": false,
+        "legacy_district_raw": null,
+        "legacy_entity_year_record_count": 1,
+        "legacy_identity_certified": false,
+        "legacy_identity_conflict": true,
+        "legacy_identity_reasons": "[\"legacy_not_accepted\"]",
+        "legacy_identity_status": "quarantined",
+        "legacy_match_method": "no_candidate",
+        "legacy_match_score": 0.0,
+        "legacy_matched_to_source_record_id": null,
+        "legacy_municipality_raw": null,
+        "legacy_ordinal_route_present": false,
+        "legacy_population": 131257,
+        "legacy_population_confidentiality_perturbed": false,
+        "legacy_population_scope": "settlement",
+        "legacy_quality_flag": "unmatched",
+        "legacy_quality_join_status": "matched_by_exact_source_record_id",
+        "legacy_region_raw": "московская",
+        "legacy_route_is_acceptance_signal": false,
+        "legacy_same_year_collision": false,
+        "legacy_settlement_name": "Железнодорожный",
+        "legacy_settlement_type": "город",
+        "legacy_source_file": "data/raw/2010_official_tom11/pub-11-1-4.pdf",
+        "legacy_source_name_raw": "Железнодорожный Московская область 103931 131257",
+        "legacy_source_row": 11,
+        "legacy_source_sheet": "pdf_page_6",
+        "legacy_verified_successor_settlement_id": "RU-OKTMO-46704000001",
+        "municipality_raw": null,
+        "name_norm": "железнодорожный",
+        "okato": null,
+        "oktmo": null,
+        "population": 131257.0,
+        "population_confidentiality_perturbed": false,
+        "population_scope": "settlement",
+        "population_value_quality": "direct_official_city_value",
+        "region_norm": "московская",
+        "region_raw": "московская",
+        "settlement_name": "Железнодорожный",
+        "settlement_type": "город",
+        "source_file": "data/raw/2010_official_tom11/pub-11-1-4.pdf",
+        "source_locator": null,
+        "source_name_raw": "Железнодорожный Московская область 103931 131257",
+        "source_native_id": "table1.4:p6:l11",
+        "source_path": null,
+        "source_population_raw": null,
+        "source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:11",
+        "source_row": 11.0,
+        "source_selection_component": null,
+        "source_sha256": null,
+        "source_sheet": "pdf_page_6",
+        "type_norm": "город"
+      }
+    },
+    "current_successor_binding": {
+      "source_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:65202",
+      "current_native_OKTMO": "46704000001",
+      "current_population": 520962.0,
+      "qid": "Q104557",
+      "p764_exact_current_code": "True",
+      "old_entity_event_statement_count": {
+        "P1366": 1,
+        "P131_to_Q104557": 1,
+        "P31_city_non_deprecated": 1
+      }
+    },
+    "event_claims_secondary": {
+      "P1366_statement": {
+        "mainsnak": {
+          "snaktype": "value",
+          "property": "P1366",
+          "hash": "d29e6569c2c3c9d4a60fc4e62c088d5bd515f200",
+          "datavalue": {
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 104557,
+              "id": "Q104557"
+            },
+            "type": "wikibase-entityid"
+          },
+          "datatype": "wikibase-item"
+        },
+        "type": "statement",
+        "id": "Q136023$fdc0fba7-4ebe-47fa-d001-06ee9abb1010",
+        "rank": "normal"
+      },
+      "P131_statement": {
+        "mainsnak": {
+          "snaktype": "value",
+          "property": "P131",
+          "hash": "d94140cb5e9bb5efb801182cb8fc9cbba08674c0",
+          "datavalue": {
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 104557,
+              "id": "Q104557"
+            },
+            "type": "wikibase-entityid"
+          },
+          "datatype": "wikibase-item"
+        },
+        "type": "statement",
+        "qualifiers": {
+          "P580": [
+            {
+              "snaktype": "value",
+              "property": "P580",
+              "hash": "836d9981fbea7993078ace548ebc7a5c4579de77",
+              "datavalue": {
+                "value": {
+                  "time": "+2015-01-22T00:00:00Z",
+                  "timezone": 0,
+                  "before": 0,
+                  "after": 0,
+                  "precision": 11,
+                  "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                },
+                "type": "time"
+              },
+              "datatype": "time"
+            }
+          ]
+        },
+        "qualifiers-order": [
+          "P580"
+        ],
+        "id": "Q136023$8845d654-4663-2609-d899-a746721f90fd",
+        "rank": "preferred"
+      },
+      "P31_city_statements": [
+        {
+          "mainsnak": {
+            "snaktype": "value",
+            "property": "P31",
+            "hash": "1d2d976b06b7bb208fadcff54975cc04295b93c0",
+            "datavalue": {
+              "value": {
+                "entity-type": "item",
+                "numeric-id": 515,
+                "id": "Q515"
+              },
+              "type": "wikibase-entityid"
+            },
+            "datatype": "wikibase-item"
+          },
+          "type": "statement",
+          "qualifiers": {
+            "P580": [
+              {
+                "snaktype": "value",
+                "property": "P580",
+                "hash": "74fa02fb61dfe8d8879a3cbac1560048be31f9a5",
+                "datavalue": {
+                  "value": {
+                    "time": "+1952-00-00T00:00:00Z",
+                    "timezone": 0,
+                    "before": 0,
+                    "after": 0,
+                    "precision": 9,
+                    "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                  },
+                  "type": "time"
+                },
+                "datatype": "time"
+              }
+            ],
+            "P582": [
+              {
+                "snaktype": "value",
+                "property": "P582",
+                "hash": "85ebf02f8b80826a7e6dc78230ef266087006d1f",
+                "datavalue": {
+                  "value": {
+                    "time": "+2015-00-00T00:00:00Z",
+                    "timezone": 0,
+                    "before": 0,
+                    "after": 0,
+                    "precision": 9,
+                    "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                  },
+                  "type": "time"
+                },
+                "datatype": "time"
+              }
+            ]
+          },
+          "qualifiers-order": [
+            "P580",
+            "P582"
+          ],
+          "id": "q136023$386B5F43-EDC3-4CC5-80AD-4481543BC266",
+          "rank": "normal",
+          "references": [
+            {
+              "hash": "288ab581e7d2d02995a26dfa8b091d96e78457fc",
+              "snaks": {
+                "P143": [
+                  {
+                    "snaktype": "value",
+                    "property": "P143",
+                    "hash": "6a164248fc96bfa583bbb495cb63ae6401ec203c",
+                    "datavalue": {
+                      "value": {
+                        "entity-type": "item",
+                        "numeric-id": 206855,
+                        "id": "Q206855"
+                      },
+                      "type": "wikibase-entityid"
+                    },
+                    "datatype": "wikibase-item"
+                  }
+                ]
+              },
+              "snaks-order": [
+                "P143"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "tables": {
+    "2002_T5_page237_excerpt": [
+      "г. Норильск с подчиненными его администрации",
+      "г. Норильск                                     134832      67316      67516        49,9           50,1",
+      "г. Кайеркан                                      27116      13741      13375        50,7           49,3",
+      "г. Талнах                                        58654      29321      29333        50,0           50,0",
+      "пгт Снежногорск                                   1306        658        648        50,4           49,6"
+    ],
+    "2010_T5_page178_excerpt": [
+      "г. Норильск с подчиненными его администрации",
+      "г. Норильск                                       175365      87570      87795        49,9           50,1",
+      "Кайеркан                                    22338      11345      10993        50,8           49,2",
+      "Талнах                                      47307      23807      23500        50,3           49,7",
+      "Центральный                                105720      52418      53302        49,6           50,4",
+      "пгт Снежногорск рп                                   887        437        450        49,3           50,7"
+    ],
+    "2021_T5_rows": {
+      "22435": [
+        "район Кайеркан",
+        21193,
+        10468,
+        10725,
+        49.4,
+        50.6
+      ],
+      "22436": [
+        "район Талнах",
+        47216,
+        23731,
+        23485,
+        50.3,
+        49.7
+      ],
+      "22437": [
+        "Центральный район",
+        106044,
+        52593,
+        53451,
+        49.6,
+        50.4
+      ],
+      "22438": [
+        "пгт Снежногорск гп",
+        784,
+        386,
+        398,
+        49.2,
+        50.8
+      ]
+    },
+    "sum_checks": {
+      "2002_norilsk_group": {
+        "parent_total": 221908,
+        "norilsk_city": 134832,
+        "kayerkan": 27116,
+        "talnakh": 58654,
+        "snezhnogorsk": 1306
+      },
+      "2010_norilsk_city": {
+        "parent_total": 175365,
+        "kayerkan": 22338,
+        "talnakh": 47307,
+        "central": 105720
+      },
+      "2010_outer_norilsk_group": {
+        "parent_total": 176252,
+        "norilsk_city": 175365,
+        "snezhnogorsk": 887
+      },
+      "2021_norilsk_city": {
+        "parent_total": 174453,
+        "kayerkan": 21193,
+        "talnakh": 47216,
+        "central": 106044
+      }
+    }
+  },
+  "talnakh_geonames": {
+    "line_1based": 165231,
+    "byte_start_0based": 24274186,
+    "byte_end_0based_exclusive": 24274301,
+    "line_sha256": "69dc546550a26fd9bd55ebafb135e484195cec4ef2f34032495a448871a406fe",
+    "geonameid": "1490256",
+    "name": "Talnakh",
+    "alternatenames": "Talnakh,Талнах",
+    "latitude": "69.4865",
+    "longitude": "88.3972",
+    "feature_class": "P",
+    "feature_code": "PPL",
+    "admin1_code": "91",
+    "population_field_not_used": "59051",
+    "modification_date": "2012-01-17"
+  },
+  "kayerkan_geonames_options": [
+    {
+      "line_1based": 178983,
+      "byte_start_0based": 26420310,
+      "byte_end_0based_exclusive": 26420443,
+      "line_sha256": "dcd6660dbd811783019089fbc7d72e5b5a19fa67ea1b5c2d68c81ad3c20c25b4",
+      "geonameid": "1504084",
+      "name": "Kayyerkan",
+      "alternatenames": "Kajerkan,Kayyerkan,Кайеркан",
+      "latitude": "69.35333",
+      "longitude": "87.76722",
+      "feature_class": "P",
+      "feature_code": "PPL",
+      "admin1_code": "91",
+      "population_field_not_used": "0",
+      "modification_date": "2012-08-04"
+    },
+    {
+      "line_1based": 179037,
+      "byte_start_0based": 26427554,
+      "byte_end_0based_exclusive": 26427708,
+      "line_sha256": "7cd052d79ccbccd1b9fba6c274883d6bbc02258502cf2985caba6c5a95f34b0e",
+      "geonameid": "1504139",
+      "name": "Kayyerkan",
+      "alternatenames": "Kajerkam,Kajerkan,Kayerkan,Kayyerkan,Кайеркан",
+      "latitude": "69.37861",
+      "longitude": "87.74389",
+      "feature_class": "P",
+      "feature_code": "PPL",
+      "admin1_code": "91",
+      "population_field_not_used": "27295",
+      "modification_date": "2012-08-04"
+    }
+  ],
+  "limitations": [
+    "Talnakh point is a named-place P/PPL representative point from a 2012-updated GN snapshot, not a census-date measurement, point-provider identity link, or centroid.",
+    "District boundary and population equivalence across 2002/2010/2021 are not asserted.",
+    "Talnakh 2021 auxiliary row is already included in selected Norilsk city 174453; do not add it to a joint parent count.",
+    "Kayerkan remains held because 2 exact P/PPL alias points in ADM1 91 and no independent tie-breaker.",
+    "Zheleznodorozhny event claims are secondary and legal event date is unverified. Do not same_place-link old city to Balashikha or transfer 2021 Balashikha 520962."
+  ]
+}

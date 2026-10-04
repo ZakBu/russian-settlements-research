@@ -1,0 +1,347 @@
+{
+  "artifacts": {
+    "afip_candidates": {
+      "bytes": 2095,
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/afipsky_point_supersession_review/reviewed_point_supersession_candidates.csv",
+      "role": "two reviewed Afipsky point candidates",
+      "rows": 2,
+      "sha256": "68b20016f842c79ac69a31f42e8a149221d30647d68a8f4b7e6bcbdf55a4a3ae",
+      "status": "candidate-only"
+    },
+    "afip_review": {
+      "bytes": 9590,
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/afipsky_point_supersession_review/independent_point_review_receipt.json",
+      "role": "Afipsky point review; two candidate recommendations, not applied",
+      "sha256": "5dce72a6ae6c9f4cf887ab4528118c5089bc94b61b8ff138a4fd347b047eec83",
+      "status": "candidate-only pending application/supersession"
+    },
+    "base_long35": {
+      "bytes": 93462936,
+      "columns": 247,
+      "path": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/base_retry/settlements_long_with_secondary_history.parquet",
+      "role": "core plus separate secondary history before scoped rows and 309 display adapter",
+      "rows": 864352,
+      "sha256": "1d657e9b1f828b455edfaa94554bda107a464fd3739d38b5f5c6d21a5e1c2662",
+      "status": "projected_current"
+    },
+    "config": {
+      "bytes": 5366,
+      "path": "/workspace/russian-settlements-research/config/mass_joint_20261004.json",
+      "role": "current mass joint config; contains stale full-long pointer and point35 ledger pointer",
+      "sha256": "7c11618479eff15c92c7e849b7828931fb9818236d9cfbf9910452ebff565da1",
+      "status": "configuration to update after next projection"
+    },
+    "core35": {
+      "bytes": 68886030,
+      "columns": 94,
+      "path": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/base_retry/source_preserving_core.parquet",
+      "role": "500320 source-preserving core from config and point35",
+      "rows": 500320,
+      "sha256": "29d356de1bece84e8552f919ea08058d6983b8226e8a78a12aade324672974e0",
+      "status": "projected_current"
+    },
+    "full_long35": {
+      "bytes": 97608821,
+      "columns": 327,
+      "path": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/long_with_1016_scoped2014_current309.parquet",
+      "role": "latest full projection with graph8 + point35, 1016 scoped rows, 309 current-subject display contexts",
+      "rows": 865368,
+      "sha256": "7d462dd442d395cd26844971ef1df6688c8c7718c4b72a9475c5412e235a532c",
+      "status": "projected_current"
+    },
+    "geo2011": {
+      "bytes": 8452853,
+      "columns": 49,
+      "path": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/identifier_snapshots_point35/geo_2011_point_origin_context.parquet",
+      "role": "GeoKLADR-2011 code context recovered from accepted point origins",
+      "rows": 81226,
+      "sha256": "b5f358fd5eb89939ee77a613d5ec4374f3062886d522c1d65e6b460ad4eb4a4b",
+      "status": "observed-only context"
+    },
+    "geo2011_holds": {
+      "bytes": 158330450,
+      "path": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/identifier_snapshots_point35/geo_2011_point_origin_holds.csv",
+      "role": "accepted point rows without a raw GeoKLADR-2011 code",
+      "rows": 298773,
+      "sha256": "0b4e099ab3496bfc899e0c3231afac8f3aca2f2b37316f6e6b628a9d08699336",
+      "status": "hold/context export"
+    },
+    "graph8": {
+      "bytes": 65397896,
+      "columns": 744,
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_eighth_reviewed/accepted_identity_edges.parquet",
+      "role": "accepted identity graph; unchanged by point increments",
+      "rows": 346962,
+      "sha256": "c0f276db44f524845bd9c4d973ce8294f372d942cad292028b3b3984024bf011",
+      "status": "accepted"
+    },
+    "long_receipt": {
+      "bytes": 6563,
+      "path": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/completion_receipt.json",
+      "role": "completion receipt for full35 reprojection and native snapshots",
+      "sha256": "2371fdb7ea2d6fe55da69044481ef3d95dbf950566b2a3ec9aa187cbfb9ffa17",
+      "status": "validated output"
+    },
+    "mezh3_additions": {
+      "bytes": 158199,
+      "columns": 440,
+      "path": "/workspace/settlements-work/continuation_20261004/root/accepted_reviewed_mezhgorye_points3/point_use_additions.parquet",
+      "role": "three accepted Mezhgorye point additions",
+      "rows": 3,
+      "sha256": "68ebb55dd9fb7f5dfcf8da08c22e03dd885019a6fb375aa52495dfb403dac53c",
+      "status": "accepted"
+    },
+    "mezh3_points": {
+      "bytes": 53326178,
+      "columns": 440,
+      "path": "/workspace/settlements-work/continuation_20261004/root/accepted_reviewed_mezhgorye_points3/accepted_point_uses.parquet",
+      "role": "latest accepted point ledger at inventory time; adds 3 rows after point35",
+      "rows": 414863,
+      "sha256": "1650a8d149ecea31a2f1b6a32515554029c9af84bb710225d6a15ecb55685789",
+      "status": "accepted, not yet projected into full long"
+    },
+    "mezh3_receipt": {
+      "bytes": 2995,
+      "path": "/workspace/settlements-work/continuation_20261004/root/accepted_reviewed_mezhgorye_points3/application_receipt.json",
+      "role": "application receipt for three exact Mezhgorye point uses",
+      "sha256": "28d4861272c148ca045ca4a6797aa8e84d628fc050e99da2d1ef8bcf07b94765",
+      "status": "accepted"
+    },
+    "native2021": {
+      "bytes": 10297315,
+      "columns": 36,
+      "path": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/identifier_snapshots_point35/2021_native_oktmo_snapshot.parquet",
+      "role": "2021 observed native OKTMO strings, not validity intervals",
+      "rows": 155414,
+      "sha256": "df57aec5586e5ea1f0d83cdf4ab5b44319bdf54270f5fff5ed2125f7c5bbe361",
+      "status": "observed-only snapshot"
+    },
+    "native_receipt": {
+      "bytes": 3142,
+      "path": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/identifier_snapshots_point35/receipt.json",
+      "role": "observed identifier export status and aggregate counts",
+      "sha256": "5d0cb8a650408e91713d72d1735b018643e52e3ea848b516bf2e4997c30c6de6",
+      "status": "observed-only snapshot"
+    },
+    "old_config_long": {
+      "bytes": 93719429,
+      "columns": 327,
+      "path": "/workspace/settlements-work/continuation_20261004/root/accepted_scoped_crimea22/eighth_full_long_with_1016scoped2014_current309.parquet",
+      "role": "currently configured full-long path; older than full35 projection",
+      "rows": 865368,
+      "sha256": "f4193409dd3abc9d7894baa94e2122e629d68835f62e676b7cf802a8321fd6ab",
+      "status": "obsolete config target"
+    },
+    "points35": {
+      "bytes": 53320575,
+      "columns": 440,
+      "path": "/workspace/settlements-work/continuation_20261004/root/accepted_large_point_increment_35_v2/accepted_point_uses.parquet",
+      "role": "point ledger actually used to build full35; 414860 rows",
+      "rows": 414860,
+      "sha256": "78089d67b5b4556e44f8c23eec1e689430f8d5b9074d73ebf153c476cc06ecb8",
+      "status": "accepted projection input, subsequently superseded by Mezh3 acceptance"
+    },
+    "receipt35": {
+      "bytes": 5396,
+      "path": "/workspace/settlements-work/continuation_20261004/root/accepted_large_point_increment_35_v2/application_receipt.json",
+      "role": "35-point application receipt including recovery/readback notes",
+      "sha256": "46dcbcdae9513f7f7ee7b7f2de51ec65b181630fb5941d0f19649c2c5e98cbac",
+      "status": "accepted"
+    },
+    "reprojection_receipt": {
+      "bytes": 24463,
+      "path": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/point35_full_long_reprojection_receipt.json",
+      "role": "detailed 994/993 mapping checks and 309 adapter receipt",
+      "sha256": "1c3ee5ddc249fb83fc97505f8afe63884780b69d2607ea40da3099fa996196f9",
+      "status": "validated output"
+    },
+    "scoped22_links": {
+      "bytes": 15143,
+      "columns": 18,
+      "path": "/workspace/settlements-work/continuation_20261004/root/accepted_scoped_crimea22/accepted_scoped_identity_links.parquet",
+      "role": "22 scoped identity links, separate from the main Russian graph",
+      "rows": 22,
+      "sha256": "6215f23afc28f13d8e4d73c46ea502e3367323d83e6090aa5b2e33cffc63807b",
+      "status": "accepted scoped supplemental"
+    },
+    "scoped22_obs": {
+      "bytes": 94723,
+      "columns": 85,
+      "path": "/workspace/settlements-work/continuation_20261004/root/accepted_scoped_crimea22/accepted_scoped_observations.parquet",
+      "role": "22 scoped 2014 observations included in full long",
+      "rows": 22,
+      "sha256": "8d8988531a495510bfb63a3e72d67f976be7935fb7803f22bcfc5eaf8a6a1812",
+      "status": "accepted"
+    },
+    "scoped22_points": {
+      "bytes": 21758,
+      "columns": 23,
+      "path": "/workspace/settlements-work/continuation_20261004/root/accepted_scoped_crimea22/accepted_scoped_point_uses.parquet",
+      "role": "22 scoped point-use rows",
+      "rows": 22,
+      "sha256": "3b6573aef3f3dda7f617e8abfc526810500ba7d134475520ab6cb0f273c661df",
+      "status": "accepted scoped supplemental"
+    },
+    "scoped22_receipt": {
+      "bytes": 3056,
+      "path": "/workspace/settlements-work/continuation_20261004/root/accepted_scoped_crimea22/application_receipt.json",
+      "role": "receipt for accepted 22-row scoped supplement",
+      "sha256": "ee39b4c85f169a3ef8ee0cd61b33834c018e3bc1cad6c438c7a90ff5bff9fc61",
+      "status": "accepted"
+    },
+    "scoped994_carriers": {
+      "bytes": 1566986,
+      "path": "/workspace/settlements-work/continuation_20261004/root/scoped2014_applied/point_provenance_reconciled/accepted_scoped_retrospective_point_uses_2014_actual_carrier_origins.csv",
+      "role": "reconciled actual point carrier origins for 993 of 994 2014 observations",
+      "rows": 993,
+      "sha256": "8d951a7ef1c4516b6e82b3fbfc26bd43a437a1073cab8c9e48af6ad6c3b0ddbf",
+      "status": "accepted provenance"
+    },
+    "scoped994_obs": {
+      "bytes": 413034,
+      "columns": 95,
+      "path": "/workspace/settlements-work/continuation_20261004/root/scoped2014_applied/accepted_scoped_observations_2014.parquet",
+      "role": "994 previously accepted scoped 2014 observations included in full long",
+      "rows": 994,
+      "sha256": "042a991650054c5a1ad99935474b25201cae61640986fc8f2d12368e4c654a20",
+      "status": "accepted"
+    }
+  },
+  "config_pointer_audit": {
+    "actual_current_full_long_sha256": "f4193409dd3abc9d7894baa94e2122e629d68835f62e676b7cf802a8321fd6ab",
+    "config_path": "/workspace/russian-settlements-research/config/mass_joint_20261004.json",
+    "config_sha256": "7c11618479eff15c92c7e849b7828931fb9818236d9cfbf9910452ebff565da1",
+    "current_full_long": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/long_with_1016_scoped2014_current309.parquet",
+    "current_full_long_export_status": "graph8 full865368 includes35point increment and1016scoped2014;additional3Mezhgorye points accepted in ledger and jointmeasurement;full projection of those3 pending",
+    "current_full_long_sha256_expected_from_22_receipt": "f4193409dd3abc9d7894baa94e2122e629d68835f62e676b7cf802a8321fd6ab",
+    "current_point_ledger": "/workspace/settlements-work/continuation_20261004/root/accepted_reviewed_mezhgorye_points3/accepted_point_uses.parquet",
+    "current_point_ledger_sha256": "1650a8d149ecea31a2f1b6a32515554029c9af84bb710225d6a15ecb55685789",
+    "exact_replacement_proposal_for_full35_snapshot": {
+      "working_full_long": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/long_with_1016_scoped2014_current309.parquet",
+      "working_full_long_export_status": "full long projected with graph8 + 35-point ledger and 1016 accepted scoped observations; 309 current-subject display contexts; latest 35-point projection, older than Mezhgorye+3 accepted point ledger",
+      "working_full_long_sha256": "7d462dd442d395cd26844971ef1df6688c8c7718c4b72a9475c5412e235a532c"
+    },
+    "exact_replacement_proposal_for_next_post_supersession_snapshot": {
+      "working_full_long": "must be rebuilt after pending Afipsky supersession against the final accepted point ledger; do not pair this newer point path with current full35 output",
+      "working_full_long_export_status": "pending next accepted point-ledger application and full projection refresh",
+      "working_point_uses": "/workspace/settlements-work/continuation_20261004/root/accepted_reviewed_mezhgorye_points3/accepted_point_uses.parquet",
+      "working_point_uses_sha256": "1650a8d149ecea31a2f1b6a32515554029c9af84bb710225d6a15ecb55685789"
+    },
+    "status": "obsolete; predates point35 projection",
+    "status_current_point_ledger": "matches point35 projection, but older than later accepted Mezhgorye +3 ledger"
+  },
+  "created_at_utc": "2026-10-04T10:16:25.353387+00:00",
+  "latest_snapshot_interpretation": {
+    "afipsky": "independent review is candidate-only; supersession not applied; old point remains retained pending the next point application",
+    "columns": 327,
+    "difference": "3 additional accepted Mezhgorye points; full35 has not been reprojected through this ledger",
+    "full_long": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/long_with_1016_scoped2014_current309.parquet",
+    "graph": "/workspace/settlements-work/continuation_20261004/accepted_mass_eighth_reviewed/accepted_identity_edges.parquet",
+    "native_snapshots": "generated from point35, before accepted Mezhgorye +3 point refresh; regenerate after the next applied point ledger to match the eventual refreshed long",
+    "newer_accepted_point_ledger": "/workspace/settlements-work/continuation_20261004/root/accepted_reviewed_mezhgorye_points3/accepted_point_uses.parquet",
+    "point_ledger_used_by_this_long": "/workspace/settlements-work/continuation_20261004/root/accepted_large_point_increment_35_v2/accepted_point_uses.parquet",
+    "rows": 414863,
+    "scoped22": "22 accepted 2014 observation, identity-link and point-use rows; included in full35 long as part of total 1016 scoped rows",
+    "sha256": "1650a8d149ecea31a2f1b6a32515554029c9af84bb710225d6a15ecb55685789"
+  },
+  "manifest_path": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/delivery_inventory_manifest.json",
+  "minimal_hardlinked_delivery_layout_proposal": {
+    "files": [
+      {
+        "role": "current full35 projected long",
+        "sha256": "7d462dd442d395cd26844971ef1df6688c8c7718c4b72a9475c5412e235a532c",
+        "source": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/long_with_1016_scoped2014_current309.parquet",
+        "target": "long/settlements_long.parquet"
+      },
+      {
+        "role": "accepted graph8",
+        "sha256": "c0f276db44f524845bd9c4d973ce8294f372d942cad292028b3b3984024bf011",
+        "source": "/workspace/settlements-work/continuation_20261004/accepted_mass_eighth_reviewed/accepted_identity_edges.parquet",
+        "target": "identity/accepted_identity_edges.parquet"
+      },
+      {
+        "role": "point ledger used for this full35 projection",
+        "sha256": "78089d67b5b4556e44f8c23eec1e689430f8d5b9074d73ebf153c476cc06ecb8",
+        "source": "/workspace/settlements-work/continuation_20261004/root/accepted_large_point_increment_35_v2/accepted_point_uses.parquet",
+        "target": "points/projected_point_uses_35.parquet"
+      },
+      {
+        "role": "later accepted point state, not represented in full35; preserve as separate version",
+        "sha256": "1650a8d149ecea31a2f1b6a32515554029c9af84bb710225d6a15ecb55685789",
+        "source": "/workspace/settlements-work/continuation_20261004/root/accepted_reviewed_mezhgorye_points3/accepted_point_uses.parquet",
+        "target": "points/latest_accepted_point_uses_mezh3.parquet"
+      },
+      {
+        "role": "22 accepted scoped observations",
+        "sha256": "8d8988531a495510bfb63a3e72d67f976be7935fb7803f22bcfc5eaf8a6a1812",
+        "source": "/workspace/settlements-work/continuation_20261004/root/accepted_scoped_crimea22/accepted_scoped_observations.parquet",
+        "target": "scoped/accepted_scoped_crimea22_observations.parquet"
+      },
+      {
+        "role": "scoped supplemental links",
+        "sha256": "6215f23afc28f13d8e4d73c46ea502e3367323d83e6090aa5b2e33cffc63807b",
+        "source": "/workspace/settlements-work/continuation_20261004/root/accepted_scoped_crimea22/accepted_scoped_identity_links.parquet",
+        "target": "scoped/accepted_scoped_crimea22_identity_links.parquet"
+      },
+      {
+        "role": "scoped supplemental points",
+        "sha256": "3b6573aef3f3dda7f617e8abfc526810500ba7d134475520ab6cb0f273c661df",
+        "source": "/workspace/settlements-work/continuation_20261004/root/accepted_scoped_crimea22/accepted_scoped_point_uses.parquet",
+        "target": "scoped/accepted_scoped_crimea22_point_uses.parquet"
+      },
+      {
+        "role": "observed native codes; no validity intervals",
+        "sha256": "df57aec5586e5ea1f0d83cdf4ab5b44319bdf54270f5fff5ed2125f7c5bbe361",
+        "source": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/identifier_snapshots_point35/2021_native_oktmo_snapshot.parquet",
+        "target": "identifiers/2021_native_oktmo_snapshot.parquet"
+      },
+      {
+        "role": "point-origin code context; no transition claims",
+        "sha256": "b5f358fd5eb89939ee77a613d5ec4374f3062886d522c1d65e6b460ad4eb4a4b",
+        "source": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/identifier_snapshots_point35/geo_2011_point_origin_context.parquet",
+        "target": "identifiers/geo_2011_point_origin_context.parquet"
+      },
+      {
+        "role": "full35 projection and export receipt",
+        "sha256": "2371fdb7ea2d6fe55da69044481ef3d95dbf950566b2a3ec9aa187cbfb9ffa17",
+        "source": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/completion_receipt.json",
+        "target": "receipts/completion_receipt.json"
+      },
+      {
+        "role": "scoped supplement receipt",
+        "sha256": "ee39b4c85f169a3ef8ee0cd61b33834c018e3bc1cad6c438c7a90ff5bff9fc61",
+        "source": "/workspace/settlements-work/continuation_20261004/root/accepted_scoped_crimea22/application_receipt.json",
+        "target": "receipts/scoped22_application_receipt.json"
+      },
+      {
+        "role": "later accepted point increment receipt",
+        "sha256": "28d4861272c148ca045ca4a6797aa8e84d628fc050e99da2d1ef8bcf07b94765",
+        "source": "/workspace/settlements-work/continuation_20261004/root/accepted_reviewed_mezhgorye_points3/application_receipt.json",
+        "target": "receipts/mezhgorye3_application_receipt.json"
+      },
+      {
+        "role": "candidate-only review; not applied",
+        "sha256": "5dce72a6ae6c9f4cf887ab4528118c5089bc94b61b8ff138a4fd347b047eec83",
+        "source": "/workspace/settlements-work/continuation_20261004/independent_review/afipsky_point_supersession_review/independent_point_review_receipt.json",
+        "target": "reviews/afipsky_point_supersession_review.json"
+      },
+      {
+        "role": "this inventory",
+        "sha256": "self-hash recorded in sidecar after freeze",
+        "source": "/workspace/settlements-work/continuation_20261004/root/ninth_point35_long_rebuild/delivery_inventory_manifest.json",
+        "target": "manifest/delivery_inventory_manifest.json"
+      }
+    ],
+    "hardlinks_created": false,
+    "note": "Proposal only. Link on delivery only after the post-Afipsky point ledger and full projection are finalized; all listed source artifacts remain immutable.",
+    "target_root": "/workspace/settlements-delivery/continuation-consolidated-20261004/"
+  },
+  "nonclaims": {
+    "afipsky_supersession_not_applied": true,
+    "full35_is_not_current_after_mezh3_point_additions": true,
+    "identifier_snapshots_are_observations_not_validity_or_transition_claims": true,
+    "no_99_percent_coverage_claim": true,
+    "scoped_rows_not_substituted_for_core_census_counts": true
+  },
+  "status": "read_only_full35_delivery_inventory"
+}

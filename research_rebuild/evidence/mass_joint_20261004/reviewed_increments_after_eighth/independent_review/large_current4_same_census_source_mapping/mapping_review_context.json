@@ -1,0 +1,60 @@
+{
+  "status": "same_census_source_mapping_review_candidate_only",
+  "edge_candidate_sha256": "1102f3be2e6675caad3e710451081a2d0f79d38ab5541dc32fb896f387a14663",
+  "prior_independent_edge_review_sha256": "18c2d6e73951eb23392fd048638583719b79764ec94f61f2c18690452980b491",
+  "source_observations_csv_sha256": "e57131766d4406ddb415d9111422ad4f802b466b56dfa13cc57fa3f1c0302eb7",
+  "candidate_edges_csv_sha256": "1102f3be2e6675caad3e710451081a2d0f79d38ab5541dc32fb896f387a14663",
+  "official_source_rows": {
+    "2002_table4_sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "2010_table5_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+    "raw_moscow2002_comparator_sha256": "f2d9f7fba8c898e5e201e8b57e872a9323a1b37c3819434ae7d78e2a8db76147",
+    "raw_lingvarium2010_moscow_sha256": "cf5b5d57327bf0d32723a7f49bb58db503a201af83a6e2bda4b874986f864167",
+    "raw_lingvarium2010_primorye_sha256": "a8fd7aa55513e73a205ebff1da2ce35fd8ca0f61c286e54491cf49c6132470c4",
+    "raw_krasnodar_parts_sha256": "9588f5aa5f8de40a290739a880e624a6d34ea566377b9a7f4df1674f1cf99121"
+  },
+  "old_kalin2002_conflict": {
+    "selected_source_id": "2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:3723",
+    "legacy_identity_conflict": true,
+    "legacy_identity_reasons": [
+      "undocumented_type_transition"
+    ],
+    "source_value": 23873,
+    "literal_old_publisher_row": [
+      "3723",
+      "посёлок Калининец",
+      "23873",
+      "русские",
+      "89"
+    ],
+    "old_raw_parent": "Петровский сельский округ row 3715; source selected district Naro-Fominsky",
+    "official_new_2002_parent": "Naro-Fominsky district; rural population; official row “п. Калининец”, 23,873, official Table4 row1212",
+    "official_2010_parent": "Naro-Fominsky district; urban population; official row “пгт Калининец рп”, 21,774, Table5 p36",
+    "scoped_resolution": "Physical continuity of this named source observation is supported by two official census rows across adjacent periods, same province and locality name, administrative hierarchy remaining Naro-Fominsky, 2010 PGT and current PGT, and independently unique historical OKATO/type/point context. Keep raw flag; only exact pair/target resolution, never global legacy-flag clearing. Q1125953 conflicting native codes remain unresolved and unused."
+  },
+  "trud2010_old_admin_conflict": {
+    "selected_source_id": "2010:009_81f8a0e73c_17._20ДВ_ФО_2010.xls:ДВ:565",
+    "legacy_identity_conflict": true,
+    "legacy_identity_reasons": [
+      "administrative_conflict"
+    ],
+    "old_selected_admin": "Хасанский (legacy field)",
+    "official_2010_parent": "г. Владивосток с подчиненными его администрации населенными пунктами → Сельское население → поселок Трудовое",
+    "current_admin": "Владивостокский городской округ",
+    "scoped_resolution": "National Table5 actual parent hierarchy ties the exact named NP record to Vladivostok, consistent with current official publisher admin row. This resolves only this selected-versus-official source assertion; retain legacy flag as history and do not infer historical boundary comparability or clear other flags."
+  },
+  "kush_partition": {
+    "part1_id": "2002:036_81b258bc42_02c_Krasnodarski-krai.xls:11:1276",
+    "part1_admin": "Кущевский сельский округ",
+    "part1_population": 22680,
+    "part2_id": "2002:036_81b258bc42_02c_Krasnodarski-krai.xls:11:1332",
+    "part2_admin": "Степнянский сельский округ",
+    "part2_population": 6853,
+    "official_whole_id": "ROSSTAT2002:T4:01-04:r4338",
+    "official_whole_population": 29533,
+    "sum_equals": true,
+    "rule": "Projection/partition relation only. Do not identity-merge the separately administered parts and do not add the whole-row population on top of part counts in an additive cross-section."
+  },
+  "unmatched_vlasikha_2002": "Official Table4 contains no Moscow-region pgt Vlasikha; the only exact-label hit is Altai Krai village (4724), different region/type. Moscow 2002 remains unknown/missing.",
+  "source_display_rule": "Official Table4/Table5 values take primary publication status, while earlier regional selected rows and protected values remain archived alternatives. A publication preference is a source-selection/provenance relation, not an extra physical settlement, additive count, or code/QID binding.",
+  "identity_scope": "Only listed exact same-place candidate pairs; legal type dates, measured historical coordinates and boundary comparability remain unknown/false."
+}
