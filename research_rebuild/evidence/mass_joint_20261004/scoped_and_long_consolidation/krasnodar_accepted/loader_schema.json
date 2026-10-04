@@ -1,0 +1,48 @@
+{
+  "schema_version": "talnakh_scoped_layer_v1",
+  "layer": "accepted_krasnodar_inclusion_scope",
+  "files": {
+    "observations": "scoped_primary_observations.parquet",
+    "point_uses": "scoped_point_uses.parquet",
+    "scope_edges": "accepted_typed_scope_edges.parquet"
+  },
+  "join_keys": {
+    "observations": "observation_id",
+    "points": "target_observation_id",
+    "edges": [
+      "from_observation_id",
+      "to_observation_id"
+    ]
+  },
+  "edge_destination_context": {
+    "context_file": "current_parent_context_references.csv",
+    "context_key": "context_id",
+    "note": "The edge to_observation_id points to a context reference, not a fabricated population observation; join to_source_record_id to the existing current whole-city row only through this sidecar."
+  },
+  "old_2002_union_hooks": [
+    {
+      "source_record_id": "2002:1_TOM_01_04.xls:0:4119",
+      "action": "join to existing selected canonical 2002 source row by exact source_record_id; do not append a duplicate population observation",
+      "old_primary_value": 34152
+    },
+    {
+      "source_record_id": "2002:1_TOM_01_04.xls:0:4120",
+      "action": "join to existing selected canonical 2002 source row by exact source_record_id; do not append a duplicate population observation",
+      "old_primary_value": 43077
+    }
+  ],
+  "current_parent_context": {
+    "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:46712",
+    "population": 1099344,
+    "action": "display context only; never assign parent value to either former PGT/microdistrict"
+  },
+  "guards": {
+    "all_observations_national_additive": false,
+    "point_is_historical_measurement": false,
+    "current_child_entity_ids_created": false,
+    "ordinary_NP3_claimed": false,
+    "boundary_comparability_asserted": false,
+    "population_parent_transfers": false,
+    "inclusion_is_secondary_reported_not_legal_act_verified": true
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "status": "independent_krasnodar_included_places_review_complete_candidate_only",
+  "decision": "Both 2002 source observations and both secondary-reported typed inclusion trajectories are eligible for a scoped historical display. Point uses are separately scoped, with differing evidence strength. No strict 2002-to-2021 same-grain/population chain, no legal-act verification, no inherited 2021 local counts, and no canonical mutation.",
+  "candidate_directory": "/workspace/settlements-work/continuation_20261004/federal_and_history/krasnodar_large_included_places",
+  "expected_candidate_receipt_sha256": "db3ddec3bba62cf8235da8d5c2ac3c6eb8771491db40be7171543675b7d08409",
+  "actual_candidate_receipt_sha256": "db3ddec3bba62cf8235da8d5c2ac3c6eb8771491db40be7171543675b7d08409",
+  "input_file_sha256": {
+    "candidate_receipt.json": "db3ddec3bba62cf8235da8d5c2ac3c6eb8771491db40be7171543675b7d08409",
+    "schema_self_readback.json": "a5e6111daf0dcbb51ab4f7e658fe77d4ae11399d1b8f03b5c783a9cbe0163db7",
+    "wikipedia_redirect_resolution.json": "3524eb48b277ddef9708650900b791afba0d54bbfa9b2d9915a055ab2f1e4056",
+    "wikipedia_article_revisions.json": "59d7086d7c9ec2db656fdeed53c6b469d685b7872bfbc19b57003477143a713e",
+    "wikidata_Kalinino_Pashkovsky_wbgetentities.json": "5515b62b4ba7a64095b3e5deba78920f00d2c3c9957dee0b4d8060cfed9978b3",
+    "wikipedia_pageprops_response.json": "a8524c92737078fa510d5ad4e44d324794dd69b791e3f58fb5ef5f53f92a4747",
+    "population_claims_all.csv": "5fe9608cb339ca433a4d211000573c9aba09b5d35fdb1b8562f8995ff14e5f4b",
+    "wikidata_pashkovsky_search_response.json": "604de2a51967ba8f8c5b1766121bc7e11c9605cf3239f24637773678cf4a94ee",
+    "wikipedia_pashkovsky_article_revision.json": "49cd1194e29af9bc370b2395e6dc6cce235cd32004b067ea60e90d55d5480f5d",
+    "wikipedia_kalinino_article_revision.json": "95c9745f9a8f8ff82961569f6878a1ca75fc47b55bb57b9ca5adff82e1ca172e",
+    "point_candidate_evidence.csv": "d46a92bf10b551b8b128c8e690c00d7072757963049b067feca1310240730aeb",
+    "point_comparison.json": "5eeebf8e24203b82eed109532efc04c69f1b928e59ff485613b46db8e31df1a5",
+    "no_fabricated_2021_controls.csv": "737e94cd9edc9ce8f080fb6273f2ee7b146b63ca0ed53395d382e0648deeeb32",
+    "typed_inclusion_candidates.csv": "ba4bc96b56bb648d0bef0535db7767c4ccd362388398b81fb5f33d117c68abdb",
+    "wikidata_current_district_parents.json": "bbbf9dfbe673b0ad8eae933b6d80825a29cb9f1fa5b0da43f680fff66915cddb",
+    "wikidata_pashkovsky_search_response_v2.json": "01e475c2ded1e81b75e53c8c8ab3004210c6feb47181bc1670593a6b9d7da269",
+    "population_observation_candidates.csv": "127cb98848e44f3d831fc5af293c6a5a9241c445feea43e6f1503f133e21e90f"
+  },
+  "raw_source_pins": {
+    "2002_xls": {
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3"
+    },
+    "GN_RU_zip": {
+      "path": "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip",
+      "sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4"
+    }
+  },
+  "direct_checks": {
+    "2002_rows": "xlrd replay of rows 4119 and 4120 confirms name/type, counts, male/female values and exact sums.",
+    "WD": "Fetched raw entities confirm both historical items are PGT (P31 Q486972), both have P625; Pashkovsky P1566=512382, Kalinino has no P1566. Both entity P131 lists contain Krasnodar Q3646 among multiple administrative contexts. P1082 values match the 2002 rows.",
+    "GN_line_hashes": {
+      "51725": {
+        "raw_line_sha256_including_LF": "36047f2c2dfbefce24c03096ec7f7e153c304ed2970e2981b8bd513db36196f3",
+        "line": "512382\tPashkovskiy\tPashkovskiy\tPachksowskaja,Paschkowskaja,Pashkovskaya,Pashkovskij,Pashkovskiy,Pasjkovskij,Пашковский\t45.02366\t39.10436\tP\tPPLX\tRU\t\t38\t\t\t\t43634\t\t29\tEurope/Moscow\t2013-04-03"
+      },
+      "157638": {
+        "raw_line_sha256_including_LF": "62204529339641d297b3e11c096f1291f55a9f9920b86141a377b37d9dde9e3b",
+        "line": "872130\tKalinino\tKalinino\tKalinino,Калинино\t45.1084\t38.93929\tP\tPPL\tRU\t\t38\t\t\t\t0\t\t28\tEurope/Moscow\t2013-04-05"
+      }
+    },
+    "article_revisions": {
+      "Kalinino": "page 554278 revision 153088704 dated 2026-05-12; says inclusion in Krasnodar city boundary as a microdistrict in 2003, citing 155-P (2003-04-24).",
+      "Pashkovsky": "page 200022 revision 154586605 dated 2026-08-22; says the same, citing the same act."
+    },
+    "official_act_fetch": "Read-only HTTPS fetch of cited https://base.garant.ru/23944414/ timed out after 12s with zero document bytes; no act verification claimed."
+  },
+  "risk_and_limits": [
+    "The source 2002 rows are primary and exact; current inclusion/history is represented at secondary-source quality, not verified legal-act quality.",
+    "Both current items have no 2021 P1082. Krasnodar 2021 whole-city population 1,099,344 is a parent context and cannot be inherited/transferred to either place.",
+    "No 2010/2021 distinct local observation is supplied by this packet. Do not describe this as a strict three-census chain or population continuity.",
+    "Kalinino GN point is an unbound exact-name local corroborant to its WD P625, not a QID-provider binding. Pashkovsky point is explicitly linked by P1566, while multiple P625 assertions remain; GN population is unused.",
+    "Territorial boundary equality and inclusion effective date are not established independently. No population transfer or present-day component count is asserted."
+  ],
+  "outputs": {
+    "eligible_point_scope.csv": "a94b5f505f358ea31a7e501bb0db2f2ef88fc4d84e18f674318fa15133d10d71",
+    "eligible_2002_observations.csv": "71b2c5d2656f856db9f2ff2fa359d1477cf344050bd277f032c309346ce82652",
+    "eligible_secondary_trajectory_relations.csv": "652bb75b9cf6624fc68c93bb831cc46ff83ac00a691a56607f6937e32b3009bc"
+  }
+}

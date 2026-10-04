@@ -1,0 +1,48 @@
+{
+  "status": "bounded_independent_source_order_parser_diagnostic_complete",
+  "fixed_controls": 10,
+  "old_and_new_control_rows_replayed": 20,
+  "current_exact_producer_parser_targets": 20,
+  "local_block_raw_token_counts": {
+    "old_2002": {
+      "count_1": 10,
+      "count_0": 0,
+      "count_gt_1": 0
+    },
+    "new_2010": {
+      "count_1": 10,
+      "count_0": 0,
+      "count_gt_1": 0
+    }
+  },
+  "historical_summary_flags": {
+    "old_raw_pair_not_unique": 10,
+    "new_raw_pair_not_unique": 10,
+    "stored_numeric_counts": false
+  },
+  "bug_found": "Separate type/name-column prefix cleanup fails if the name cell also contains its type prefix; this layout was absent in the 20 fixed control rows.",
+  "candidate_scan_run": false,
+  "identity_admissions": 0,
+  "canonical_mutations": 0,
+  "inputs": {
+    "/workspace/settlements-work/continuation_20261004/R4/source_order_anchor_bracketed_localdistrict_final_20261004/summary.json": "sha256 input pinned in frozen summary; immutable",
+    "/workspace/settlements-work/continuation_20261004/R4/source_order_anchor_bracketed_localdistrict_final_20261004/raw_source_pins.csv": "0adae2917ba96eb14ff83c0adbc9bf2714b44dcaf98f4383c005be6a50696868",
+    "/workspace/settlements-work/continuation_20261004/root/R4/source_order_context_all_residual_2010_20261004/supplemental_raw_context_index_20261004/seven_row_source_context.csv": "ee825b55067449c6216680754fe1486681dc6cd640ff11c6981c71f5cff3a03a",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_sixth_reviewed/accepted_identity_edges.parquet": "cc62fc8d3184c43f6ce09cea0ce71618077347ea4dee0f53ad9709f5c20a8241",
+    "/workspace/settlements-work/continuation_20261004/root/R4/source_order_context_all_residual_2010_20261004_independent_review_reconciled_20261004/reconciled_eligible_source_order_identity_edges.csv": "e5dcb33730bba239e76f11614aadb98b04f42bed856daabbc5c914f60abc5a05",
+    "/workspace/russian-settlements-research/research_rebuild/mass_linkage/stage_anchor_bracketed_source_block_20261004.py": "819d6c3230ca8d866626dd371b92dcdecb733efa858081199f3e6f53144d847e"
+  },
+  "outputs": {
+    "diagnostic_summary.json": "b0e5782ad95fa87cb5608bba8fdedf40ffbeef1b4e51480b570f8ff884af3d7d",
+    "control_row_summary.csv": "ca58ab6ef2741fb020d085d9ae4eda613b9fd02c825d395cf18e16ba3190c264",
+    "control_rows.jsonl": "039714cfaccbc30c903e3fa4466defe426d2ea329b41ee56a1d2a494141a8888",
+    "replayed_bracket_counts.json": "2a7a6ef75652186855ebcf2d456ecc2efb80b35be34b3d514d52970e0b2de9fc",
+    "exact_producer_function_replay.json": "e8177dec2d6d3eb2778059ff050fcb22093a60c760c9d92c6de7d9c3f628b0ad",
+    "parser_separate_column_reproduction.json": "b9c03971d8f4836a7eeed67836ef9e518024ff39986c5b1170f3cd82ac21c027",
+    "successor_scan_proposal.json": "141ea89d6f46b8ccd1f14a016392158ed57aa5d731d785d5d1fbd717cdf4876f",
+    "diagnose_controls.py": "6e6cc27952ad99c54ed22539d3471d7d74666270dfcd6eeb8a9eac6530ce4db9",
+    "replay_brackets.py": "0dca05517a193ebbd4cf457e5c4520642c10594dc047312c5570c762b34455ec",
+    "exact_producer_function_replay.py": "ba1121d14b3cb91fcde33f32e7f5403a93002e991e88232658222dd97aa92df4"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "status": "independent_kayerkan_scope_review_complete_candidate_only",
+  "decision": "approved for scoped observation/typed continuity/representative-point application, subject to scoped field meanings below; no canonical mutation",
+  "scope": "Kayerkan 2002 separate city source row -> 2010 and 2021 Norilsk intracity district observations, plus one explicitly selected named representative point. Does not create an ordinary census-grain identity edge.",
+  "input_candidate_directory": "/workspace/settlements-work/continuation_20261004/federal_and_history/kayerkan_verified_scope_candidate",
+  "input_candidate_file_sha256": {
+    "candidate_receipt.json": "9624641e3ed8e76670be75d1c0c1b1bba00387573876fa8522c96d34b74a2539",
+    "entity_point_identity_claims.csv": "72b0e1ad4846efb6891c301f043db52f9b8b547bde8df8b05a9ff383abad7c67",
+    "geonames_candidate_comparison.csv": "050a0549d82377c2ca00cc127e6d83f058eba31229e8d461a70c1eb2765ae80d",
+    "point_candidate.json": "40104169070c1421b2334df648c45831d139068a1e763c3215600b7fd1b0cd02",
+    "population_claims.csv": "2a2539a03924b980a17418c7b3ddaf30a7582bde86530403d5fed70d7554d9ba",
+    "scoped_population_observation_candidates.csv": "2ae584eddb1eb2e4e731d333a9b81bb22fed76d3ed29423088f62ae04f3375cd",
+    "typed_scope_relation_candidates.csv": "415f65dfdf09dd51b706ea8ccfa2cec1bfc72e963f2d6959cad2c1def53bdfa0",
+    "wikidata_Q1020918_wbgetentities.json": "3a0902f401edffb29e7e82ed19eba789593b12f647bd8cb99ddbb5fd84514366",
+    "wikidata_admin_and_type_entities.json": "aa8c311d4ee83fd506dca7986eab0bc6727f17670ce9c1c1132be69ca943db3d",
+    "wikipedia_article_revision.json": "63c255a586828f837a368f0acc7d3e063555b68a3be280ab863cf54db968d7d0",
+    "wikipedia_pageprops_response.json": "95710aba52571e6d1f1a3d600f54e8804995752b3ce7883fac1cdfeffd824bd2"
+  },
+  "producer_candidate_receipt_expected_sha256": "9624641e3ed8e76670be75d1c0c1b1bba00387573876fa8522c96d34b74a2539",
+  "raw_publication_pins": {
+    "2002_xls": {
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3"
+    },
+    "2010_pdf": {
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+    },
+    "2021_xlsx": {
+      "path": "/workspace/settlements-raw/data/raw/rosstat_2021/Tom1_tab-5_VPN-2020.xlsx",
+      "sha256": "0b232b3d2ab5daa231568acc719ac6fda4fb0979a01a0da6bacc69be6f252474"
+    },
+    "geonames_zip": {
+      "path": "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip",
+      "sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4"
+    }
+  },
+  "wd_entity_sha256": "3a0902f401edffb29e7e82ed19eba789593b12f647bd8cb99ddbb5fd84514366",
+  "independent_point_byte_check": {
+    "zip_sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+    "member": "RU.txt",
+    "line_number": 179037,
+    "byte_start": 26427554,
+    "raw_line_sha256_including_LF": "7cd052d79ccbccd1b9fba6c274883d6bbc02258502cf2985caba6c5a95f34b0e",
+    "candidate_declared_sha256": "7cd052d79ccbccd1b9fba6c274883d6bbc02258502cf2985caba6c5a95f34b0e",
+    "line_matches_candidate_raw_hash": true,
+    "parsed_coordinates": [
+      69.37861,
+      87.74389
+    ],
+    "parsed_geonameid": "1504139"
+  },
+  "source_review_findings": [
+    "2002 XLS Table 4 row 8696 is literal city Kayerkan, 27,116, sexes 13,741+13,375.",
+    "2010 Table 5 printed p.177/PDF p.178 identifies Kayerkan as a Norilsk intracity district, 22,338, sexes 11,345+10,993.",
+    "2021 Table 5 sheet таб.5 row 22435 identifies district Kayerkan, 21,193, sexes 10,468+10,725.",
+    "All three selected values agree with the corresponding exact-year Q1020918 P1082 claim, but claims are not treated as independent population validation.",
+    "Raw parent partitions are arithmetically exact; see parent_partition_checks.csv."
+  ],
+  "scope_constraints": [
+    "Population year precision is year-only (9); QID claims have no finer census date precision.",
+    "2002-to-2010 is a typed city-to-district scope transition, not same-grain row continuity. Effective date is unknown; secondary Wikipedia chronology (2004/2005) is not independent legal-act proof.",
+    "No census-boundary equivalence, strict three-census comparable population chain, or population transfer to Norilsk parent is claimed.",
+    "2010 and 2021 Kayerkan district populations are children of selected Norilsk city parent; never add them to those parent totals. 2002 Kayerkan is a child within Norilsk subordinate-city group; do not count group parent and city children together.",
+    "GN population 27,295 is unused; alternative GN 1504084 remains unselected; P764 absent; P721 is not continuity evidence. The chosen point is a named physical-place representative point, not a centroid or census-date geometry.",
+    "Old boundary/code/identity status and accepted canonical source/point ledgers were not modified."
+  ],
+  "output_hashes": {
+    "eligible_point_use.csv": "d9b504c7f739edadd4e991b7663cc0f244000cb96d7c0c55d6f307a0a2f64555",
+    "eligible_scoped_observations.csv": "3c6adefc6b2f5f7abf59804302342a14dd29def740d102043431cbabbb4c33f7",
+    "eligible_typed_relations.csv": "1c7094931fecd81d1a679386ed07466377dfbf8080f3df740583524dbd441683",
+    "parent_partition_checks.csv": "d4ec2d6cf8e5b6bac238058b7e27526871baf99ec01e473ea90e6235639132e1"
+  },
+  "outputs_status": "candidate-only adapters for root review/application",
+  "producer_csv_issue": "Producer scoped_population_observation_candidates.csv header/data are structurally misaligned: third parsed field year_precision contains population; following values shift. Independent adapter files use explicit correct columns; producer inputs left unchanged.",
+  "producer_receipt_actual_sha256": "9624641e3ed8e76670be75d1c0c1b1bba00387573876fa8522c96d34b74a2539"
+}

@@ -1,0 +1,117 @@
+{
+  "status": "materialized_accepted_separate_scoped_layer",
+  "layer": "accepted_kayerkan_typed_scope",
+  "root_approval_basis": {
+    "independent_review_receipt_sha256": "86f5322cde458d983567941dd7fa4dde56eff65847d1a10f67440c6678ba5584",
+    "status": "approved_by_root_for_separate_scoped_layer"
+  },
+  "counts": {
+    "primary_source_observations": 3,
+    "point_uses": 3,
+    "typed_scope_edges": 2,
+    "canonical_graph_edges_added": 0,
+    "canonical_population_rows_added": 0,
+    "current_entity_ids_created": 0,
+    "national_additive_values": 0
+  },
+  "input_pins": {
+    "/workspace/settlements-work/continuation_20261004/independent_review/kayerkan_scope_review/review_receipt.json": "86f5322cde458d983567941dd7fa4dde56eff65847d1a10f67440c6678ba5584",
+    "/workspace/settlements-work/continuation_20261004/independent_review/kayerkan_scope_review/eligible_scoped_observations.csv": "3c6adefc6b2f5f7abf59804302342a14dd29def740d102043431cbabbb4c33f7",
+    "/workspace/settlements-work/continuation_20261004/independent_review/kayerkan_scope_review/eligible_point_use.csv": "d9b504c7f739edadd4e991b7663cc0f244000cb96d7c0c55d6f307a0a2f64555",
+    "/workspace/settlements-work/continuation_20261004/independent_review/kayerkan_scope_review/eligible_typed_relations.csv": "1c7094931fecd81d1a679386ed07466377dfbf8080f3df740583524dbd441683",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/kayerkan_verified_scope_candidate/wikidata_Q1020918_wbgetentities.json": "3a0902f401edffb29e7e82ed19eba789593b12f647bd8cb99ddbb5fd84514366",
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+    "/workspace/settlements-raw/data/raw/rosstat_2021/Tom1_tab-5_VPN-2020.xlsx": "0b232b3d2ab5daa231568acc719ac6fda4fb0979a01a0da6bacc69be6f252474",
+    "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_talnakh_typed_scope/loader_schema.json": "2c5dff04b5dfb31760f9096d9b2558df08a248fb3b19084b2b2e4df22045aa6c"
+  },
+  "statement_provenance": {
+    "subject_qid": "Q1020918",
+    "raw_entity_sha256": "3a0902f401edffb29e7e82ed19eba789593b12f647bd8cb99ddbb5fd84514366",
+    "p1082_claim_guids_by_actual_year": {
+      "2002": "Q1020918$8C86F1AE-3840-4328-A87E-50198610DEFF",
+      "2010": "Q1020918$78A5AC67-E32B-4659-8E5B-2E5485DB2B08",
+      "2021": "Q1020918$11DCC3FE-45C6-498A-BE0B-44787EC75ACE"
+    },
+    "raw_statement_json_in_observations": true,
+    "references_preserved": true,
+    "actual_date_precision": "year-only precision 9; no synthetic day or month"
+  },
+  "point_provenance": {
+    "provider": "GeoNames RU dump",
+    "provider_id": "1504139",
+    "raw_zip_path": "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip",
+    "raw_zip_sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+    "member": "RU.txt",
+    "line_number": 179037,
+    "byte_start": 26427554,
+    "line_sha256_including_LF": "7cd052d79ccbccd1b9fba6c274883d6bbc02258502cf2985caba6c5a95f34b0e",
+    "coordinates": [69.37861, 87.74389],
+    "point_role": "named physical-place representative point; retrospective scoped context, not a historical measurement",
+    "current_native_identifier_binding": false
+  },
+  "parent_controls": {
+    "status": "nonadditive_partition_context_only",
+    "2002_parent_total": 221908,
+    "2002_parent_partition": {
+      "Norilsk physical city": 134832,
+      "Kayerkan city": 27116,
+      "Talnakh city": 58654,
+      "Snezhnogorsk": 1306
+    },
+    "2002_action": "Kayerkan source row is joined once by exact source_record_id; separate Norilsk city 134832 is not a recipient and neither parent nor child is duplicated.",
+    "2010_parent_selected_city_total": 175365,
+    "2010_child_partition": {
+      "Kayerkan district": 22338,
+      "Talnakh district": 47307,
+      "Central district": 105720
+    },
+    "2021_parent_selected_city_total": 174453,
+    "2021_child_partition": {
+      "Kayerkan district": 21193,
+      "Talnakh district": 47216,
+      "Central district": 106044
+    },
+    "action": "District observations are nested in selected Norilsk city rows and remain nonadditive; no population transfer to parent."
+  },
+  "guard_results": {
+    "loader_schema_matches_accepted_talnakh_types_and_field_order": "passed",
+    "actual_year_guid_amount_reference_and_precision_replay": "passed",
+    "parent_partition_nonadditivity": "passed for 2002, 2010, 2021 exact arithmetic",
+    "old2002_union_no_duplicate": "passed; exact source_record_id join hook, no canonical population append",
+    "no_current_qid_or_native_code_binding_claim": "passed",
+    "no_historical_point_measurement_claim": "passed",
+    "no_ordinary_same_grain_census_identity_or_boundary_equivalence": "passed"
+  },
+  "scope_limits": [
+    "2002 Kayerkan city row is already a component of the 2002 Norilsk subordinate-city parent total 221908; join exact source record once and keep the Norilsk city count 134832 separate.",
+    "2010 and 2021 Kayerkan intracity-district rows are auxiliary scoped observations inside Norilsk city totals; never add them to parent totals.",
+    "The 2002-to-2010 relation is a typed place/scope transition with effective date unknown, bounded by actual observations after 2002 and by 2010; no legal date asserted.",
+    "No census-boundary equality, population comparability, transfer to Norilsk, or current native code binding is claimed.",
+    "The selected point is a GeoNames named-place representative point with exact archive line provenance, not a census-date coordinate measurement.",
+    "This is a separate scoped layer and does not modify the canonical graph, configuration, selected population rows, or current identity bindings."
+  ],
+  "outputs": {
+    "scoped_primary_observations.parquet": "41db94472e332617c174dcf19a5af81ea11f6c539bc8f9b1f3204b474dbe5071",
+    "scoped_primary_observations.csv": "910d865854f24f24ec0d9765de9906d5959e6a3048fac061ff4c31d0090c89bc",
+    "scoped_point_uses.parquet": "56680c66114d33890acfbb87893aa45955932adc414f95fa209626bc424be857",
+    "scoped_point_uses.csv": "eb64772bfe992e0d518c3ddd9751f88f44b9f878e447986b45317c95f57d2b4e",
+    "accepted_typed_scope_edges.parquet": "3f44dbd550e31c477a465ad87bcad54822cf715384729531a2663b532c4ff2a7",
+    "accepted_typed_scope_edges.csv": "b54c6fc3d7551d234fe2275c2f6e6e03bca0895c7bfe80cef12249ec7216c3a1",
+    "loader_schema.json": "d47c4c0ee083eb8873b94617a8bbab01add051352652d5c0d0767e8d2b292e3e",
+    "nonadditive_parent_partition_context.json": "36bd0929e91a555d27874bb7124e5e5e0251de3ce2e765d7aeb1c694deb8036f",
+    "test_kayerkan_nonadditive_guards.py": "4a87d507626523bad79f785f2c52946cb2ef0d0468167601833a8949307eb159"
+  },
+  "regression_tests": {
+    "test_file": "test_kayerkan_nonadditive_guards.py",
+    "sha256": "4a87d507626523bad79f785f2c52946cb2ef0d0468167601833a8949307eb159",
+    "command": "python -m unittest test_kayerkan_nonadditive_guards.py -v",
+    "passed": 3,
+    "cases": [
+      "test_schema_and_actual_year_source_ids",
+      "test_parent_partitions_are_nonadditive_and_exact",
+      "test_representative_point_is_not_historical_measurement_or_native_binding"
+    ]
+  }
+}

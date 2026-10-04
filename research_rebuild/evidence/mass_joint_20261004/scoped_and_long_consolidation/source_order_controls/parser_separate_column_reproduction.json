@@ -1,0 +1,19 @@
+{
+  "status": "isolated_parser_bug_reproduction_only",
+  "current_producer_logic": {
+    "separate_type_column_literal": "село",
+    "name_column_literal": "село Березовка",
+    "source_text_selected_by_typed_raw_rows": "село",
+    "type_prefix_match_suffix": "",
+    "fallback_name_value": "село Березовка",
+    "secondary_strip_pattern_source": "TYPE_PREFIX.values() with re.escape()",
+    "current_parsed_name": "село березовка",
+    "expected_name": "березовка",
+    "result": "confirmed false mismatch for this separate-column-plus-prefixed-name layout"
+  },
+  "proper_prefix_normalization": {
+    "method": "Apply the same compiled TYPE_RE to the name cell and remove the matched literal prefix by match.end().",
+    "normalized_name": "березовка"
+  },
+  "fixed_control_relevance": "No such profile occurs among the fixed controls in the current seven_row_source_context.csv replay: all 20 control rows have type_col null and one raw name column containing both type prefix and place name."
+}

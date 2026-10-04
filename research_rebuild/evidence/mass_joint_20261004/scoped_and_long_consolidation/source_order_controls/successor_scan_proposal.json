@@ -1,0 +1,22 @@
+{
+  "status": "proposal_only_not_run",
+  "new_output_folder": "/workspace/settlements-work/continuation_20261004/root/source_order_anchor_bracketed_localdistrict_corrected_successor_20261004",
+  "preflight_gate": {
+    "fixed_controls": 10,
+    "expected_old_block_raw_pairs": "exactly one for each control",
+    "expected_new_block_raw_pairs": "exactly one for each control",
+    "current_replay_passed": true,
+    "run_candidate_generator_only_after_gate": true
+  },
+  "parser_change": "For separate type/name columns, remove a recognized type prefix from the raw name cell by slicing with a match from TYPE_RE; do not re.escape() TYPE_PREFIX regex patterns. Preserve raw cells and source locators unchanged.",
+  "required_input_pins": [
+    "source_order parser source bytes",
+    "current seven-row raw-label profile index bytes",
+    "selected observations bytes",
+    "accepted identity graph bytes",
+    "accepted coordinate ledger bytes",
+    "raw workbook bytes for each source group"
+  ],
+  "scope": "Candidate-only rerun. No identity edge, source value, selected observation, coordinate or accepted ledger may be modified by the scan.",
+  "identity_admission": false
+}

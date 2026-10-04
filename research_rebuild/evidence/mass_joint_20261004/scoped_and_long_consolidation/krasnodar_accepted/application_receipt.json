@@ -1,0 +1,128 @@
+{
+  "status": "materialized_accepted_separate_scoped_layer",
+  "layer": "accepted_krasnodar_inclusion_scope",
+  "root_approval_basis": {
+    "independent_review_receipt_sha256": "f9740680d1a26dbe0d1eea2537d785a6620b29947955e6a93c854c8a37b5b1c1",
+    "status": "approved_by_root_with_limits_for_secondary_reported_inclusion_scope"
+  },
+  "counts": {
+    "primary_source_observations": 2,
+    "point_uses": 2,
+    "secondary_reported_inclusion_links": 2,
+    "current_parent_context_references": 2,
+    "canonical_graph_edges_added": 0,
+    "canonical_population_rows_added": 0,
+    "current_child_entity_ids_created": 0,
+    "current_child_population_values_added": 0
+  },
+  "old_2002_union_hooks": [
+    {
+      "source_record_id": "2002:1_TOM_01_04.xls:0:4119",
+      "name": "пгт Калинино",
+      "population": 34152,
+      "action": "join to the existing selected 2002 source row by exact source_record_id; do not append a duplicate population row"
+    },
+    {
+      "source_record_id": "2002:1_TOM_01_04.xls:0:4120",
+      "name": "пгт Пашковский",
+      "population": 43077,
+      "action": "join to the existing selected 2002 source row by exact source_record_id; do not append a duplicate population row"
+    }
+  ],
+  "current_parent_context": {
+    "destination_area_qid": "Q3646",
+    "context_file": "current_parent_context_references.csv",
+    "old_2002_selected_krasnodar_city": {
+      "source_record_id": "2002:1_TOM_01_04.xls:0:4113",
+      "population": 646175,
+      "relationship": "separate selected city source row; not asserted as an aggregate containing either PGT row"
+    },
+    "current_2021_krasnodar_city": {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:46712",
+      "population": 1099344,
+      "oktmo": "3701000001",
+      "relationship": "receiving whole-city context only; do not assign this value to Kalinino or Pashkovsky"
+    }
+  },
+  "input_pins": {
+    "/workspace/settlements-work/continuation_20261004/independent_review/krasnodar_included_places_review/review_receipt.json": "f9740680d1a26dbe0d1eea2537d785a6620b29947955e6a93c854c8a37b5b1c1",
+    "/workspace/settlements-work/continuation_20261004/independent_review/krasnodar_included_places_review/eligible_2002_observations.csv": "71b2c5d2656f856db9f2ff2fa359d1477cf344050bd277f032c309346ce82652",
+    "/workspace/settlements-work/continuation_20261004/independent_review/krasnodar_included_places_review/eligible_point_scope.csv": "a94b5f505f358ea31a7e501bb0db2f2ef88fc4d84e18f674318fa15133d10d71",
+    "/workspace/settlements-work/continuation_20261004/independent_review/krasnodar_included_places_review/eligible_secondary_trajectory_relations.csv": "652bb75b9cf6624fc68c93bb831cc46ff83ac00a691a56607f6937e32b3009bc",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/krasnodar_large_included_places/candidate_receipt.json": "db3ddec3bba62cf8235da8d5c2ac3c6eb8771491db40be7171543675b7d08409",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/krasnodar_large_included_places/wikidata_Kalinino_Pashkovsky_wbgetentities.json": "5515b62b4ba7a64095b3e5deba78920f00d2c3c9957dee0b4d8060cfed9978b3",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/krasnodar_large_included_places/wikipedia_kalinino_article_revision.json": "95c9745f9a8f8ff82961569f6878a1ca75fc47b55bb57b9ca5adff82e1ca172e",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/krasnodar_large_included_places/wikipedia_pashkovsky_article_revision.json": "49cd1194e29af9bc370b2395e6dc6cce235cd32004b067ea60e90d55d5480f5d",
+    "/workspace/settlements-delivery/mass-joint-sixth-point-corrected-20261004/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_talnakh_typed_scope/loader_schema.json": "2c5dff04b5dfb31760f9096d9b2558df08a248fb3b19084b2b2e4df22045aa6c"
+  },
+  "secondary_source_evidence": {
+    "reported_event": "Both current Russian Wikipedia article revisions say the former pgt was included in Krasnodar city limits and described as a microdistrict in 2003, citing Krasnodar Legislative Assembly resolution 155-P dated 2003-04-24.",
+    "official_act_status": "cited Garant URL request timed out with zero document bytes; act content and exact legal effective date remain unverified",
+    "article_evidence_file": "secondary_article_evidence.json",
+    "raw_wikitext_and_revision_ids_retained": true
+  },
+  "point_provenance": {
+    "Pashkovsky": {
+      "provider": "GeoNames RU dump",
+      "provider_id": "512382",
+      "coordinates": [
+        45.02366,
+        39.10436
+      ],
+      "origin_locator": "RU.txt line 51725; byte start 7411730",
+      "raw_line_sha256_including_LF": "36047f2c2dfbefce24c03096ec7f7e153c304ed2970e2981b8bd513db36196f3",
+      "Wikidata_P1566_statement": "Q4347629$A3DB1ACC-B32A-438C-BE78-DF239BB962DE",
+      "current_native_settlement_id_binding": false
+    },
+    "Kalinino": {
+      "provider": "Wikidata P625",
+      "coordinates": [
+        45.1025,
+        38.934583333333
+      ],
+      "origin_locator": "entities.Q4209579.claims.P625[Q4209579$39490560-44b8-21a1-5b40-638dbfb0aef8]",
+      "GeoNames_alternate": "872130 at 45.1084,38.93929; same ADM1/name corroboration within approximately 753 m; no P1566 binding",
+      "current_native_settlement_id_binding": false
+    },
+    "point_role": "scoped representative point context, not a census-date coordinate measurement or polygon/centroid"
+  },
+  "guard_results": {
+    "loader_column_names_and_types_match_accepted_talnakh_schema": "passed",
+    "old_2002_exact_source_rows_and_sex_sums": "passed",
+    "P1082_guid_amount_year_precision_and_raw_references": "passed for both actual 2002 statements",
+    "distinct_point_evidence_strength_preserved": "passed; Pashkovsky exact P1566-backed GeoNames point, Kalinino selected WD P625 without external identifier binding",
+    "no_current_child_population_or_2021_inheritance": "passed",
+    "no_legal_act_or_boundary_equivalence_claim": "passed"
+  },
+  "scope_limits": [
+    "These are two actual 2002 primary urban-settlement source rows, already present in the selected population source; join by exact source_record_id and do not append duplicate canonical rows.",
+    "Their 2003 inclusion/microdistrict status is an accepted secondary-reported scope path only; the cited legal resolution was not retrieved or verified.",
+    "The 2002 Krasnodar city source row (646175) is a separate observation, not asserted to be a parent aggregate of these former PGT values.",
+    "The 2021 Krasnodar city value (1099344) is a receiving-area context reference only; no subplace 2021 population is asserted or transferred.",
+    "No strict 2002-to-2021 same-grain population continuity, boundary equality, current child native code/QID binding, ordinary NP3 chain, or population transfer is claimed.",
+    "The point uses differ in evidence: Pashkovsky has a P1566-linked GeoNames point; Kalinino uses its P625 point with nearby exact-name/ADM1 GeoNames corroboration but no P1566 binding."
+  ],
+  "outputs": {
+    "scoped_primary_observations.parquet": "9d58cfeaa0244afe71518c673cd96f1255750ea10262e1f2a576d3c8eb2d41ef",
+    "scoped_primary_observations.csv": "dcb5d2081f3926f7660777a2eae8433edc52ed0c45b9795a00c7f626205d4680",
+    "scoped_point_uses.parquet": "cebd0e5725e3aa0106931e66a0b79fa29ea60b6c79909e675c5de6384d727c00",
+    "scoped_point_uses.csv": "38f9dba9888689860c41f3dd5cb107423dd1fac21325f4885a72573636683114",
+    "accepted_typed_scope_edges.parquet": "f746163f755101e6bc30dcab5301229bf6ecc67db46cb891c1e916afaa2fc1f4",
+    "accepted_typed_scope_edges.csv": "6d8bf72ceca9cf5f42f1d914ceaf421e59ca582bab400ec2a1cc4435da04ebba",
+    "loader_schema.json": "9e819306217720cba595fb09eb78103205d5dbed49c0e1f19123d1e5b40ef206",
+    "current_parent_context_references.csv": "ecc5bd0ecab6813edfb3372eaf1c781b5a34cfff1c87c1f6a107b263dfde0682",
+    "source_headers_and_rows.json": "28887751a7773804afd5a57514dc0806344d8f1aaad9524fd08e4093642a7109",
+    "secondary_article_evidence.json": "23229ab1215bd33796fc4b9ba928baa531c98255c2229972136a115e5d705eff",
+    "test_krasnodar_scope_guards.py": "82275ce72d7dd04d9875b80528db01cf15172e7dfee1e9f36f4c361e4b61fea0",
+    "build_accepted_krasnodar_scope.py": "0d38999bacfa6bb0498f0a3639e96724e7ec680e52ed081afc555e54a81530f5"
+  },
+  "regression_tests": {
+    "test_file": "test_krasnodar_scope_guards.py",
+    "sha256": "82275ce72d7dd04d9875b80528db01cf15172e7dfee1e9f36f4c361e4b61fea0",
+    "command": "python -m unittest test_krasnodar_scope_guards.py -v",
+    "passed": 4
+  }
+}
