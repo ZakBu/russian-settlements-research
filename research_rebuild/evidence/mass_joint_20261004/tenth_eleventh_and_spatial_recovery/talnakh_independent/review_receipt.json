@@ -1,0 +1,67 @@
+{
+  "status": "independently_reviewed_eligible_scoped_named_point_and_two_typed_scope_relations; candidate_only_until_parent_application",
+  "review_scope": "Talnakh only; no canonical graph or population mutation",
+  "candidate_receipt_sha256": "abb6c453ced5eaa06ecf9e8dee9e34f90955d913631d2c28454d80e8a1d8e69c",
+  "source_observation_count": 3,
+  "eligible_point_count": 1,
+  "eligible_typed_scope_relation_count": 2,
+  "verified_raw_source_rows": {
+    "2002": {
+      "source_id": "2002:1_TOM_01_04.xls:0:8697",
+      "population": 58654,
+      "source_sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "row_locator": "sheet 01-04 row8697"
+    },
+    "2010": {
+      "source_id": "aux:2010:rosstat_tom1_table5:pdfpage178:talnakh",
+      "population": 47307,
+      "source_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "row_locator": "Table 5 PDF page178; Talnakh listed under Norilsk intracity districts"
+    },
+    "2021": {
+      "source_id": "aux:2021:rosstat_tom1_table5:sheettab5:row22436",
+      "population": 47216,
+      "source_sha256": "0b232b3d2ab5daa231568acc719ac6fda4fb0979a01a0da6bacc69be6f252474",
+      "row_locator": "worksheet таб. 5 row22436"
+    }
+  },
+  "checks": {
+    "P1082_direct_claims": "all three raw GUIDs/value/year/P585 precision 9/rank/P248 replayed and equal official source observations",
+    "2002_officialcityrow": "verified literal г. Талнах city row; part of Norilsk Table 4 parent 221908 (not separately transferred)",
+    "2010_hierarchy": "verified 22338+47307+105720=175365 Norilsk city-row partition; 175365+887 Snezhnogorsk=176252 urban group",
+    "2021_hierarchy": "verified 21193+47216+106044=174453 Norilsk city partition; 174453+784 Snezhnogorsk=175237 urban group; Talnakh already included in Norilsk selected parent",
+    "GeoNames_point": "direct RU.txt line165231 reproduced from pinned ZIP, line SHA and exact P/PPL+RU+name+coordinates checked; P1566=1490256 exact",
+    "WD_P625": "coarse arcminute point 69.5,88.4 only corroborates precise GN point; not adopted as admitted coordinate",
+    "native_code_binding": "none; P721 04429365 remains unbound; P764 absent; P131 unqualified not used as historical/municipal boundary evidence"
+  },
+  "scope_limits": [
+    "2002 city row and 2010/2021 intracity district rows are different publication grains; this is a typed scope transition, not an ordinary three-census same-grain identity chain.",
+    "2010/2021 district measurement boundary comparability remains unknown even though the published row types match.",
+    "No exact legal status-change/effective date or boundary polygon equivalence is asserted; cited Wikipedia article claim of 2004/2005 status dates is secondary context only.",
+    "No Norilsk parent population transfer or addition is authorized; 2010/2021 Talnakh values are included in parent partition.",
+    "GeoNames point is a named physical-place representative point, not a historical measurement or census-date coordinate.",
+    "No current official settlement-code binding is asserted."
+  ],
+  "input_pins": {
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/talnakh_verified_point_fetch_20261004/candidate_receipt.json": "abb6c453ced5eaa06ecf9e8dee9e34f90955d913631d2c28454d80e8a1d8e69c",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/talnakh_verified_point_fetch_20261004/wikidata_Q1010995_wbgetentities.json": "86b4cb28aa3e850a1d3d811836492c8d0122a4f4597d06b876ef5f3928e7fac3",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/talnakh_verified_point_fetch_20261004/typed_scope_relation_candidates_corrected.csv": "153929edeb007c49192eb15ee37c4a2f79ba682fb775fd4b2ed1750725bfb07a",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/talnakh_verified_point_fetch_20261004/point_candidate.json": "b6f884fbcfc6c6bf0149d9325ae4a7ec16769c0c23e05d200adfca35722b0d46",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+    "/workspace/settlements-raw/data/raw/rosstat_2021/Tom1_tab-5_VPN-2020.xlsx": "0b232b3d2ab5daa231568acc719ac6fda4fb0979a01a0da6bacc69be6f252474",
+    "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/talnakh_verified_point_fetch_20261004/wikipedia_article_revision.json": "9a9e41471503683534dd3f5a2e72376aaf3d6a1504bd0cf7824196f7678c1b31",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/talnakh_verified_point_fetch_20261004/wikidata_admin_and_type_entities.json": "23f10abcf2459ed6781e5d304218218496bb4da07d241fead39b5c792acf80ae",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/talnakh_verified_point_fetch_20261004/wikidata_identifier_property_labels.json": "3b6d9c401af9e6a313de3a29a0c749b2c57c26919d672974300ed3fc5094b525"
+  },
+  "outputs": {
+    "talnakh_scoped_observations.csv": "f7e30e88547f664c9b03c71486993798f7ceaf506252da206e371e14f2f33d02",
+    "talnakh_scoped_observations.parquet": "8b5d908d8d8cd8e2c97a234c4b5e24a27a00ef9ece8d80526dc015f4b98a5c15",
+    "talnakh_eligible_point.csv": "e9c3d9307bc9517455692785e4ab28da4821b478c2ae4ec4e007f2688b62b9d8",
+    "talnakh_eligible_point.parquet": "2424f53b10be583e2224bb0ae626a4aef3e2c73f5ebe544ba0bcd987ddda9272",
+    "talnakh_typed_scope_edges.csv": "63401174e1a34bc36bc174e73ccafee4dc2db87879cd0d349a9da08a3aca08f4",
+    "talnakh_typed_scope_edges.parquet": "8312b1a01c156a54175b1463f8d26aa628ae98520257858e4746b9db39165790"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "status": "applied_to_separate_immutable_secondary_supported_layer",
+  "layer": "accepted_secondary_supported_troitsk_shcherbinka_trajectories",
+  "counts": {
+    "observations": 6,
+    "old_official_observations": 4,
+    "secondary_2021_claims": 2,
+    "scoped_continuity_edges": 4,
+    "selected_2021_atomic_rows_created": 0,
+    "native_2021_bindings_created": 0,
+    "national_2021_additive_claims": 0
+  },
+  "root_approval": {
+    "status": "approved_scoped_physical_continuity_for_separate_secondary_supported_layer",
+    "basis_receipt_path": "/workspace/settlements-work/continuation_20261004/independent_review/troitsk_shcherbinka_secondary_trajectory/review_receipt.json",
+    "basis_receipt_sha256": "f7dbb0aeabfa7509fc2d4ec6d851adf728d887c5aa188ff09c8fb9d6cf3b1234",
+    "canonical_graph_mutation": false
+  },
+  "input_pins": {
+    "/workspace/settlements-work/continuation_20261004/independent_review/troitsk_shcherbinka_secondary_trajectory/review_receipt.json": "f7dbb0aeabfa7509fc2d4ec6d851adf728d887c5aa188ff09c8fb9d6cf3b1234",
+    "/workspace/settlements-work/continuation_20261004/independent_review/troitsk_shcherbinka_secondary_trajectory/six_observation_review.parquet": "7b0494de0ec337256b36cd3c884f418b91a8ac0fe156febf480f83cf73a986e9",
+    "/workspace/settlements-work/continuation_20261004/independent_review/troitsk_shcherbinka_secondary_trajectory/eligible_physical_trajectory_decisions.csv": "32695b27883f1ea318057349d673b941a01f8e21bdedf907fc555c45872ee576",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_old_city_points5_applied/accepted_point_uses.parquet": "55d48c286527d8ba367b4f2b7df7646724df246d592d8e3e62d49779cd798ede",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/large_historical_transformation_deepening_20261004/wbgetentities_old_current_6.json": "8451e40e4c55479b23ece090bf7486a851779002e3cde21606d0a4651c0ae932",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/large_historical_transformation_deepening_20261004/wbgetentities_troitsk_qids.json": "6f52e7c3ff975cfdc005946092292df67ab16865f844f629f15c6e1fb496aa98",
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "/workspace/settlements-raw/data/raw/2010_official_tom11/pub-11-1-4.pdf": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500"
+  },
+  "outputs": {
+    "scoped_trajectory_observations.parquet": "13c618b7428710258470cda6362cf5ea2455cb1e7f874c6340e2baf0a4faa89e",
+    "scoped_trajectory_observations.csv": "0d1561f4ce5a53d2f9894b7873525be4f6d5e4d120760c580acfe792809a617f",
+    "accepted_scoped_physical_continuity_edges.parquet": "ef308f6327446f8845de228254745b9dbb1d22edfd118a15f95bc10d77bca806",
+    "accepted_scoped_physical_continuity_edges.csv": "85b1b7ecb911e211b09491f197c755a16268ff3a5009679693bd4aeafef1642b",
+    "zheleznodorozhny_event_candidate_evidence.json": "270e6dda84cac25cef49751e20c50d447499a5549e34f4da87ed0dc3408bf141",
+    "test_secondary_trajectory_invariants.py": "5f8ed8d7140292d96ad0695d19efa946b756b44d69b404d9f7a4f0836ab3b48a"
+  },
+  "guard_results": {
+    "regression_year_precision": "passed: P585 precision 9 retained, no day/month/date inferred",
+    "regression_nonadditive_secondary": "passed: both 2021 observations secondary only, national_2021_additive=false, no source_record_id/native binding",
+    "old_source_values_points": "passed: all four old source IDs/populations and current accepted point coordinates match source ledgers"
+  },
+  "scope_limits": [
+    "2021 Wikidata values are secondary direct claims, not primary source observations.",
+    "No selected 2021 atomic row/current native-code binding was created.",
+    "All source-boundary and population-grain comparability remains unknown.",
+    "2021 Troitsk/Shcherbinka values are not nationally additive because Moscow territory population already covers the current federal territory; do not sum child values with Moscow.",
+    "Four 2002/2010 rows are preserved as old primary source observations, not overwritten by 2021 claims.",
+    "Zheleznodorozhny P1366 remains separate secondary event evidence only; no temporal path edge or same-place link added."
+  ],
+  "regression_tests": {
+    "test_file": "test_secondary_trajectory_invariants.py",
+    "sha256": "5f8ed8d7140292d96ad0695d19efa946b756b44d69b404d9f7a4f0836ab3b48a",
+    "command": "python -m unittest test_secondary_trajectory_invariants.py -v",
+    "passed": 2,
+    "cases": [
+      "test_year_precision_stays_year_only",
+      "test_secondary_rows_never_promote_or_add_to_national_2021"
+    ]
+  }
+}
