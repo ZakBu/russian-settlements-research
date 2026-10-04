@@ -1734,6 +1734,60 @@ write or permission grant is claimed. No credentials stored in research files.
 
 Focused graph16 verification: 32 relevant regression tests passed (0.38s pytest reported); no full-repository validation claim.
 
+### 2026-10-04: Graph17 Нижний Нойбер and full-long refresh
+
+Adopted one independently reviewed 2002↔2021 `same_place` edge for Нижний Нойбер.
+The 2002 census row (6806) is an exact settlement-grain source row; Wikidata Q4319175
+has the same 2002 value with a Rosstat census-bulletin reference and a P764 OKTMO
+matching the unique 2021 Нижний-Нойбер source row. Верхний Нойбер has a separate
+code. The accepted 2021 point is inherited for 2002 as `inferred_continuity`; it is
+not a date-specific coordinate observation. No boundary comparability is claimed.
+The selected 2010 row remains held (protected value 6784 vs secondary claim 6780;
+rayon unresolved); no value was replaced or imputed. Evidence and independent report:
+`regions/chechnya_top_residual_graph16_recheck_20261005/independent_primary_review/`
+under the continuation work root; Graph17 edge SHA-256
+`33e2035a6c09cb0d194429d2688900527f95d9427f24513b7ea5ce17b0cf3c0e`.
+
+Two retrospective point uses were also applied to the already linked Biofabriki
+2002/2010 records from the accepted 2021 point. This did not add identity edges or
+change population. The bounded application reports 348644 graph edges and 428155
+point uses. Its independent exact-row/population readback passed. The available-scope
+joint metric is 97.251390% / 97.577769% / 98.279225%; residual to 99% is
+2538400 / 2031751 / 1060852. Strict ordinary settlement point+full-three-census
+chain remains 86.117061% / 85.608582% / 83.450901%. These are distinct axes; 99%
+is not attained.
+
+Rebuilt the full 865395-row long projection from Graph17 core/secondary output by
+exact `observation_id`, preserving all 2469 old-only records (1426 Wikidata display
+rows and 1043 scoped 2001/2014 rows). No refreshed IDs were missing; the 2021 anchors
+were unchanged; selected census rows and sum (465800 / 434700152) were preserved.
+Parquet SHA-256: `e88aa7b91ed8f689508db4bccf415c8304a18f138d45d830568d517f487ebfd6`.
+The separate analysis CSV remains stale. A first bounded DuckDB run failed at 256 MiB;
+the SQL anti-join required more hash memory than that limit. Retrying single-threaded
+at a 2 GiB cap passed; there was no partial scientific output or source change.
+
+Self-critique: an initial experimental batch also proposed Mamontovo from a name/source
+candidate. Point witness audit showed the accepted 2010 point and current-source point
+are 61.8489 km apart, with the old point closer to a different homonymous settlement.
+That edge was not adopted and the experiment is explicitly marked `NOT_ADOPTED`.
+The conflicting witness should be resolved as an upstream point/identifier issue before
+any trajectory acceptance. Prior residual audits also corrected a NaN distance bug in
+the Chechnya readback; the purported 20015 km conflict was not real. Candidate queues
+must test coordinates for finite numeric values, not only nullness.
+
+Next batch prioritizes confirmed unlinked population mass, applies only source-pinned
+rules with unique identities and valid point witnesses, and measures point/identity/
+full-chain/scope-aware axes separately. Remaining active candidates include Русский
+(2002 candidate to existing 2010→2021 path, but 2010 protected-value discrepancy),
+Сибирский (point-only candidate pending exact 2010 source resolution), and larger
+unresolved Moscow/Krasnodar/Altai cases documented in regional packets. No additional
+regional case from those packets was accepted in this iteration.
+
+Focused checks executed: Graph17 exact-edge/point/population readback plus long refresh
+guards. The initial OOM retry sequence, all hashes, and current full-long path are in
+the config and `COVERAGE_LIMITS_AND_NEXT_BATCH_20261005.md`. Local GitHub repository
+write remains blocked by the integration's 403; this change is for a local commit only.
+
 
 ### 2026-10-05: second inclusion references and stale successor-flag audit
 
@@ -1810,3 +1864,55 @@ scripts прошли AST syntax check; полный repository suite не зап
 точки и full-long экспорт прошли SHA/readback checks. Remote GitHub запись всё ещё
 не доступна. Локальная ветка зафиксировала проверку построителя в `ff020fe`, а точку,
 полную long-выгрузку и текущие документы — в `46e6617`; рабочее дерево чистое.
+
+### 2026-10-04: Graph18 Русский 2002–2010–2021
+
+Независимый reviewer одобрил точную связь выбранной строки 2002 «пгт Русский»
+(5204) со строкой 2010 «поселок Русский» (4428). Источники: уникальные одноимённые
+строки; в таблице 2002 строка 9926 следует под заголовком «г. Владивосток с
+подчиненными его администрации населенными пунктами»; официальная таблица Росстата
+за 2010 год также печатает Русский в контексте Владивостока. Ячейка района в исходном
+XLS 2010 пуста, поэтому выбранное значение «Хасанский» — спорное метаданное. Связь
+2010↔2021 уже принята по уникальному маршруту OKATO/OKATO. Независимая проверка:
+`regions/primorye_top_residual_graph16_recheck_20261005/independent_primary_review/russky_2002_2010_2021_identity_review.md`,
+SHA-256 `e7025868df9d97292c6376281cc981e7f881653f8b3360d549a82e9b23c0566f`.
+
+Применена ровно одна связь same_place 2002↔2010 и одно inferred continuity point
+для 2002 года. Выбранное значение 2010 года 4428 и официальное значение Table 5
+4703 сохранены отдельно; ни одно число не подменялось. Ранее принятые точки 2010
+и 2021 расходятся на 2.022931 км. Строке 2002 присвоена современная точка
+(43.0224, 131.8601) как пространственная преемственность, не измерение даты переписи;
+центр места и сопоставимость границ неизвестны. Квитанция Graph18 в
+`accepted_graph18_russky_only_20261005/`; хеш графа
+`43088dc7e4a15d283ca35dfaa5164adeb530c88319afe531777dd49e0d21548b`, хеш таблицы
+точек `5924bb3751bdb868e533f443a802e7184d3dd9865c61a880f20abd4c0917aa95`.
+
+Совместное покрытие scope-aware доступных лет изменилось на +5204/+4428/+10424
+(2002/2010/2021): последние две записи уже имели координаты, но не имели полной
+трёхпереписной цепочки. Graph18 содержит 348645 связей, 132843 обычных полных
+цепочки и 428156 применений точек. Joint: 97.254975% / 97.580868% / 98.286308%;
+остаток до99%: 2533196 / 2027323 / 1050428. Строгая обычная НП-точка плюс полная
+трёхпереписная первичная цепь: 86.120646% / 85.611682% / 83.457984%. Смешанную
+scope-aware ось не смешивать со строгим показателем НП.
+
+Полный long обновлён по точным трём observation ID; остальные 865392 строки взяты
+из полной Graph17 выгрузки без изменений. Итог: 865395 строк, 465800 переписных
+строк, сумма выбранного населения 434700152. SHA-256 `32ed77b69ecc9522b55924545b1cdc01b72fac87b0ad199097ce00d98dad2e0e`.
+Отдельный analysis CSV остаётся устаревшим. Независимое чтение проверило связь,
+точку, суммы источника, покрытие и три строки Русского.
+
+Самокритика и ресурсы: первая кандидатная Parquet таблица хранила годы как целые,
+тогда как канонический граф использует текст; Arrow отказал до записи научного слоя.
+Исправил схему и повторил запуск. Ограничение DuckDB 512 MiB не вместило фильтр
+полного графа; один поток и лимит 2 GiB прошли. Полную пересборку long сначала
+попробовал как вариант, затем остановил до формирования файлов, потому что она
+дублировала бы сотни мегабайт. Вместо этого заново построил только три census rows
+из выбранного слоя, активного графа и ledger точек и заменил эти observation IDs
+в полной выгрузке. Контрольные суммы точных дубликатов двух исторических CSV были
+сверены перед объединением hardlinks; сохранены все пути и SHA-256, освобождено
+около 136 MB повторных байтов.
+
+Релевантные регрессионные тесты: 15 passed за 0.41s. Применение Graph18, scoped
+coverage, exact-row patch guards и независимое чтение прошли. Полный suite проекта
+не запускался. Запись в GitHub по-прежнему заблокирована интеграцией; работа пока
+зафиксирована только локальным Git-коммитом.
