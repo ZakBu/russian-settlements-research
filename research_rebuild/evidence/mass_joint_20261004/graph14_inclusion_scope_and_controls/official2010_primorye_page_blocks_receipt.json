@@ -1,0 +1,49 @@
+{
+  "purpose": "Read-only source hierarchy reconstruction; diagnostics only.",
+  "inputs": [
+    {
+      "path": "/workspace/settlements-raw/data/raw/2010/009_81f8a0e73c_17._20ДВ_ФО_2010.xls",
+      "sha256": "a8fd7aa55513e73a205ebff1da2ce35fd8ca0f61c286e54491cf49c6132470c4",
+      "bytes": 2249728,
+      "role": "read_input"
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "bytes": 15230814,
+      "role": "source_provenance"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+      "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+      "bytes": 928249,
+      "role": "read_input"
+    },
+    {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137,
+      "role": "read_input"
+    }
+  ],
+  "raw_source_sheet": "ДВ",
+  "sheet_dimensions": [
+    2980,
+    162
+  ],
+  "sheet_merged_range_count": 32,
+  "source_heading_count": 16,
+  "official_control_order_match": true,
+  "protected_rows_scoped": 603,
+  "verified_early_block_rows": 361,
+  "protected_rows_held_or_not_grouped": 242,
+  "script_sha256": "4d3943a07035048d95d98487773063b77ef1e8da086bbd25acc563651f4d8ada",
+  "evidence_artifacts": [
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2010_primorye_page_blocks_v2/official_tom1_2010_primorye_pages_physical_200_202.txt",
+      "sha256": "bc1802b6bceac5cbd5af257743a9b24699bf34a4c727b8eadf5bf2227b4239be",
+      "bytes": 21874,
+      "role": "extracted_pdf_page_excerpt"
+    }
+  ]
+}

@@ -1,0 +1,2355 @@
+{
+  "status": "applied_scoped_primary_auxiliary_date_trajectories",
+  "scope": "16 exact official 2010 Tom 1 Table 5 settlement rows between already-selected accepted 2002 and 2021 endpoints",
+  "trajectories": [
+    {
+      "trajectory_id": "AUX2010:2002:023_38d853be37_02c_Kaliningrad.xls:Sheet1:226->ROSSTAT2010:T5:p63:l16->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25819",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:023_38d853be37_02c_Kaliningrad.xls:Sheet1:226",
+          "selected_population": 4236.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002/023_38d853be37_02c_Kaliningrad.xls",
+          "source_sheet": "Sheet1",
+          "source_row": 226.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:023_38d853be37_02c_Kaliningrad.xls:Sheet1:226",
+            "target_year": 2002,
+            "latitude": 54.7435734,
+            "longitude": 20.5827163,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "retrospective_continuity_from_tochno_2021_dadata_raw_parquet_point",
+            "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+            "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+            "origin_locator": "carrier_target_source_record_id=2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25819;parquet_row_1based=25819;latitude_dadata,longitude_dadata",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p63:l16",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 4527,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p63:l16",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "посѐлок Васильково",
+            "typed_name": "Васильково",
+            "typed_type": "поселок",
+            "region_as_published": "Калининградская область",
+            "historical_rayon_as_published": "Гурьевский район",
+            "pdf_page": 63,
+            "printed_page": 62,
+            "text_line_start": 16,
+            "text_line_end": 16,
+            "raw_lines": "[{\"pdf_page\": 63, \"printed_page\": 62, \"text_line\": 16, \"raw_line\": \"посѐлок Васильково 4527  2095  2432  46,3  53,7  \"}]",
+            "total": 4527,
+            "men": 2095,
+            "women": 2432,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 63
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25819",
+          "selected_population": 8667.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 25819.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25819",
+            "target_year": 2021,
+            "latitude": 54.7435734,
+            "longitude": 20.5827163,
+            "status": "reviewed_rule_accepted",
+            "origin_kind": "tochno_2021_dadata_raw_parquet_point",
+            "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+            "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+            "origin_locator": "parquet_row_1based=25819;latitude_dadata,longitude_dadata",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": null,
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": [
+          "KAL2010:TOM1:S4:R0246",
+          "KAL2010:TOM1:S4:R0458"
+        ]
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002/023_38d853be37_02c_Kaliningrad.xls",
+          "sha256": "07e5adfad955af5bdfd1e81d5dccb92867a7cbde73dc6cc71e8b78c7621fa765",
+          "source_sheet": "Sheet1",
+          "source_row": 226.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+          "locator": "carrier_target_source_record_id=2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25819;parquet_row_1based=25819;latitude_dadata,longitude_dadata"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p63:l16"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 63
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:1_TOM_01_04.xls:0:589->ROSSTAT2010:T5:p24:l39->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:21264",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:1_TOM_01_04.xls:0:589",
+          "selected_population": 8314.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "source_sheet": "0",
+          "source_row": 589.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:1_TOM_01_04.xls:0:589",
+            "target_year": 2002,
+            "latitude": 56.775677,
+            "longitude": 40.887327,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "raw_named_typed_geo2011_object",
+            "origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+            "origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+            "origin_locator": "DBF_record_1based=35392;DBF_byte_offset_0based=13980150;OKATO2011_raw=24214551000",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p24:l39",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 8034,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p24:l39",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "Городское население - пгт Лежнево (рц)",
+            "typed_name": "Лежнево",
+            "typed_type": "пгт",
+            "region_as_published": "Ивановская область",
+            "historical_rayon_as_published": "Лежневский район",
+            "pdf_page": 24,
+            "printed_page": 23,
+            "text_line_start": 39,
+            "text_line_end": 39,
+            "raw_lines": "[{\"pdf_page\": 24, \"printed_page\": 23, \"text_line\": 39, \"raw_line\": \"Городское население - пгт Лежнево (рц) 8034  3584  4450  44,6  55,4  \"}]",
+            "total": 8034,
+            "men": 3584,
+            "women": 4450,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 196
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:21264",
+          "selected_population": 7297.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 21264.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:21264",
+            "target_year": 2021,
+            "latitude": 56.775,
+            "longitude": 40.891667,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "wikidata_P625_point_claim",
+            "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0139.jsonl.gz",
+            "origin_sha256": "4eda3174ad7792f797be69edb4081f31674f9a68b00bbfae11e366a70be9e1c3",
+            "origin_locator": "{\"line_number\": 13639, \"locator\": \"batch_0139.jsonl.gz#line=13639\", \"retrieved_at_utc\": \"2026-08-31T21:00:02.290898+00:00\", \"source_file\": \"batch_0139.jsonl.gz\", \"value_raw\": \"POINT(40.891667 56.775000)\"}",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": "checked_rule_accepted",
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": []
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+          "source_sheet": "0",
+          "source_row": 589.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+          "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+          "locator": "DBF_record_1based=35392;DBF_byte_offset_0based=13980150;OKATO2011_raw=24214551000"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p24:l39"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 24
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:041_4b428edd23_Bashkiria_new.xls:Sheet1:5874->ROSSTAT2010:T5:p112:l29->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:148613",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:041_4b428edd23_Bashkiria_new.xls:Sheet1:5874",
+          "selected_population": 3958.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002/041_4b428edd23_Bashkiria_new.xls",
+          "source_sheet": "Sheet1",
+          "source_row": 5874.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:041_4b428edd23_Bashkiria_new.xls:Sheet1:5874",
+            "target_year": 2002,
+            "latitude": 54.8411725,
+            "longitude": 56.0035268,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "retrospective_continuity_from_tochno_2021_dadata_raw_parquet_point",
+            "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+            "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+            "origin_locator": "carrier_target_source_record_id=2021:data_allsettlements_anon_156_v20251217.parquet:parquet:148613;parquet_row_1based=148613;latitude_dadata,longitude_dadata",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p112:l29",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 4611,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p112:l29",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "деревня Алексеевка",
+            "typed_name": "Алексеевка",
+            "typed_type": "деревня",
+            "region_as_published": "Республика Башкортостан",
+            "historical_rayon_as_published": "Уфимский район",
+            "pdf_page": 112,
+            "printed_page": 111,
+            "text_line_start": 29,
+            "text_line_end": 29,
+            "raw_lines": "[{\"pdf_page\": 112, \"printed_page\": 111, \"text_line\": 29, \"raw_line\": \"деревня Алексеевка 4611  2073  2538  45,0  55,0  \"}]",
+            "total": 4611,
+            "men": 2073,
+            "women": 2538,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 141
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:148613",
+          "selected_population": 5469.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 148613.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:148613",
+            "target_year": 2021,
+            "latitude": 54.8411725,
+            "longitude": 56.0035268,
+            "status": "reviewed_rule_accepted",
+            "origin_kind": "tochno_2021_dadata_raw_parquet_point",
+            "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+            "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+            "origin_locator": "parquet_row_1based=148613;latitude_dadata,longitude_dadata",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": null,
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": [
+          "2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:1143",
+          "2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:2579",
+          "2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:3288",
+          "2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:3811",
+          "2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:427",
+          "2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:448",
+          "2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:4547",
+          "2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:805",
+          "2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:992"
+        ]
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002/041_4b428edd23_Bashkiria_new.xls",
+          "sha256": "5e4cd874bbc5ad5c1c7bb996011052a076d9b0813a1f00b12df6ff8b5779f51a",
+          "source_sheet": "Sheet1",
+          "source_row": 5874.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+          "locator": "carrier_target_source_record_id=2021:data_allsettlements_anon_156_v20251217.parquet:parquet:148613;parquet_row_1based=148613;latitude_dadata,longitude_dadata"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p112:l29"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 112
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:066_76aa869929_Altai_krai1.xls:Sheet1:1586->ROSSTAT2010:T5:p172:l42->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:40227",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:066_76aa869929_Altai_krai1.xls:Sheet1:1586",
+          "selected_population": 6104.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002/066_76aa869929_Altai_krai1.xls",
+          "source_sheet": "Sheet1",
+          "source_row": 1586.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:066_76aa869929_Altai_krai1.xls:Sheet1:1586",
+            "target_year": 2002,
+            "latitude": 52.6175621,
+            "longitude": 81.2213718,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "retrospective_continuity_from_tochno_2021_dadata_raw_parquet_point",
+            "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+            "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+            "origin_locator": "carrier_target_source_record_id=2021:data_allsettlements_anon_156_v20251217.parquet:parquet:40227;parquet_row_1based=40227;latitude_dadata,longitude_dadata",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p172:l42",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 5624,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p172:l42",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "село Романово (рц)",
+            "typed_name": "Романово",
+            "typed_type": "село",
+            "region_as_published": "Алтайский край",
+            "historical_rayon_as_published": "Романовский район",
+            "pdf_page": 172,
+            "printed_page": 171,
+            "text_line_start": 42,
+            "text_line_end": 42,
+            "raw_lines": "[{\"pdf_page\": 172, \"printed_page\": 171, \"text_line\": 42, \"raw_line\": \"село Романово (рц) 5624  2624  3000  46,7  53,3  \"}]",
+            "total": 5624,
+            "men": 2624,
+            "women": 3000,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 219
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:40227",
+          "selected_population": 5109.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 40227.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:40227",
+            "target_year": 2021,
+            "latitude": 52.6175621,
+            "longitude": 81.2213718,
+            "status": "reviewed_rule_accepted",
+            "origin_kind": "tochno_2021_dadata_raw_parquet_point",
+            "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+            "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+            "origin_locator": "parquet_row_1based=40227;latitude_dadata,longitude_dadata",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": null,
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": [
+          "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:1405",
+          "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:462",
+          "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:786",
+          "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:942"
+        ]
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002/066_76aa869929_Altai_krai1.xls",
+          "sha256": "125d9d9dd5f089c0e610f2cb4ec9b77c204aebda058730bb08292e3060e6097a",
+          "source_sheet": "Sheet1",
+          "source_row": 1586.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+          "locator": "carrier_target_source_record_id=2021:data_allsettlements_anon_156_v20251217.parquet:parquet:40227;parquet_row_1based=40227;latitude_dadata,longitude_dadata"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p172:l42"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 172
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:4826->ROSSTAT2010:T5:p37:l45->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:69128",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:4826",
+          "selected_population": 3726.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002/010_3e630cc803_02c_Moskovskaya-oblast.xls",
+          "source_sheet": "Sheet1",
+          "source_row": 4826.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:4826",
+            "target_year": 2002,
+            "latitude": 55.9594601,
+            "longitude": 37.8588024,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "retrospective_continuity_from_tochno_2021_dadata_raw_parquet_point",
+            "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+            "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+            "origin_locator": "carrier_target_source_record_id=2021:data_allsettlements_anon_156_v20251217.parquet:parquet:69128;parquet_row_1based=69128;latitude_dadata,longitude_dadata",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p37:l45",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 4053,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p37:l45",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "посѐлок Лесные Поляны",
+            "typed_name": "Лесные Поляны",
+            "typed_type": "поселок",
+            "region_as_published": "Московская область",
+            "historical_rayon_as_published": "Пушкинский район",
+            "pdf_page": 37,
+            "printed_page": 36,
+            "text_line_start": 45,
+            "text_line_end": 45,
+            "raw_lines": "[{\"pdf_page\": 37, \"printed_page\": 36, \"text_line\": 45, \"raw_line\": \"посѐлок Лесные Поляны 4053  1818  2235  44,9  55,1  \"}]",
+            "total": 4053,
+            "men": 1818,
+            "women": 2235,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 237
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:69128",
+          "selected_population": 4848.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 69128.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:69128",
+            "target_year": 2021,
+            "latitude": 55.9594601,
+            "longitude": 37.8588024,
+            "status": "reviewed_rule_accepted",
+            "origin_kind": "tochno_2021_dadata_raw_parquet_point",
+            "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+            "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+            "origin_locator": "parquet_row_1based=69128;latitude_dadata,longitude_dadata",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": null,
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": [
+          "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:12193",
+          "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:12374",
+          "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:14205"
+        ]
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002/010_3e630cc803_02c_Moskovskaya-oblast.xls",
+          "sha256": "f2d9f7fba8c898e5e201e8b57e872a9323a1b37c3819434ae7d78e2a8db76147",
+          "source_sheet": "Sheet1",
+          "source_row": 4826.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+          "locator": "carrier_target_source_record_id=2021:data_allsettlements_anon_156_v20251217.parquet:parquet:69128;parquet_row_1based=69128;latitude_dadata,longitude_dadata"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p37:l45"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 37
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:1_TOM_01_04.xls:0:616->ROSSTAT2010:T5:p25:l11->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:22315",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:1_TOM_01_04.xls:0:616",
+          "selected_population": 6349.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "source_sheet": "0",
+          "source_row": 616.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:1_TOM_01_04.xls:0:616",
+            "target_year": 2002,
+            "latitude": 56.590697,
+            "longitude": 41.216232,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "raw_named_typed_geo2011_object",
+            "origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+            "origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+            "origin_locator": "DBF_record_1based=36354;DBF_byte_offset_0based=14360140;OKATO2011_raw=24225551000",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p25:l11",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 5507,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p25:l11",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "Городское население - пгт Савино (рц)",
+            "typed_name": "Савино",
+            "typed_type": "пгт",
+            "region_as_published": "Ивановская область",
+            "historical_rayon_as_published": "Савинский район",
+            "pdf_page": 25,
+            "printed_page": 24,
+            "text_line_start": 11,
+            "text_line_end": 11,
+            "raw_lines": "[{\"pdf_page\": 25, \"printed_page\": 24, \"text_line\": 11, \"raw_line\": \"Городское население - пгт Савино (рц) 5507  2370  3137  43,0  57,0  \"}]",
+            "total": 5507,
+            "men": 2370,
+            "women": 3137,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 33
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:22315",
+          "selected_population": 4722.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 22315.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:22315",
+            "target_year": 2021,
+            "latitude": 56.590556,
+            "longitude": 41.213056,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "wikidata_P625_point_claim",
+            "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0106.jsonl.gz",
+            "origin_sha256": "1673983e37393130e75aedbeac054fc936c12d62095ac2a7c078d0a6750b4f91",
+            "origin_locator": "{\"line_number\": 14886, \"locator\": \"batch_0106.jsonl.gz#line=14886\", \"retrieved_at_utc\": \"2026-08-31T20:59:18.070573+00:00\", \"source_file\": \"batch_0106.jsonl.gz\", \"value_raw\": \"POINT(41.213056 56.590556)\"}",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": "checked_rule_accepted",
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": []
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+          "source_sheet": "0",
+          "source_row": 616.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+          "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+          "locator": "DBF_record_1based=36354;DBF_byte_offset_0based=14360140;OKATO2011_raw=24225551000"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p25:l11"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 25
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:1_TOM_01_04.xls:0:596->ROSSTAT2010:T5:p24:l45->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:21533",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:1_TOM_01_04.xls:0:596",
+          "selected_population": 5814.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "source_sheet": "0",
+          "source_row": 596.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:1_TOM_01_04.xls:0:596",
+            "target_year": 2002,
+            "latitude": 56.8012,
+            "longitude": 41.8636,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "raw_named_typed_geo2011_object",
+            "origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+            "origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+            "origin_locator": "DBF_record_1based=35641;DBF_byte_offset_0based=14078505;OKATO2011_raw=24217551000",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p24:l45",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 5337,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p24:l45",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "Городское население - пгт Палех (рц)",
+            "typed_name": "Палех",
+            "typed_type": "пгт",
+            "region_as_published": "Ивановская область",
+            "historical_rayon_as_published": "Палехский район",
+            "pdf_page": 24,
+            "printed_page": 23,
+            "text_line_start": 45,
+            "text_line_end": 45,
+            "raw_lines": "[{\"pdf_page\": 24, \"printed_page\": 23, \"text_line\": 45, \"raw_line\": \"Городское население - пгт Палех (рц) 5337  2377  2960  44,5  55,5  \"}]",
+            "total": 5337,
+            "men": 2377,
+            "women": 2960,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 232
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:21533",
+          "selected_population": 4633.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 21533.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:21533",
+            "target_year": 2021,
+            "latitude": 56.8,
+            "longitude": 41.85,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "wikidata_P625_point_claim",
+            "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0000.jsonl.gz",
+            "origin_sha256": "a0d98a1ceb49a64e9e51c11c56ac88a5c4d38fbc1952327e23c339c74051ac1d",
+            "origin_locator": "{\"line_number\": 15010, \"locator\": \"batch_0000.jsonl.gz#line=15010\", \"retrieved_at_utc\": \"2026-08-31T20:56:56.149914+00:00\", \"source_file\": \"batch_0000.jsonl.gz\", \"value_raw\": \"POINT(41.850000 56.800000)\"}",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": "checked_rule_accepted",
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": []
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+          "source_sheet": "0",
+          "source_row": 596.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+          "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+          "locator": "DBF_record_1based=35641;DBF_byte_offset_0based=14078505;OKATO2011_raw=24217551000"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p24:l45"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 24
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:1_TOM_01_04.xls:0:551->ROSSTAT2010:T5:p24:l11->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:19958",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:1_TOM_01_04.xls:0:551",
+          "selected_population": 5797.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "source_sheet": "0",
+          "source_row": 551.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:1_TOM_01_04.xls:0:551",
+            "target_year": 2002,
+            "latitude": 57.265753,
+            "longitude": 41.879079,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "raw_named_typed_geo2011_object",
+            "origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+            "origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+            "origin_locator": "DBF_record_1based=34166;DBF_byte_offset_0based=13495880;OKATO2011_raw=24201560000",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p24:l11",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 5325,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p24:l11",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "пгт Старая Вичуга",
+            "typed_name": "Старая Вичуга",
+            "typed_type": "пгт",
+            "region_as_published": "Ивановская область",
+            "historical_rayon_as_published": "Вичугский район",
+            "pdf_page": 24,
+            "printed_page": 23,
+            "text_line_start": 11,
+            "text_line_end": 11,
+            "raw_lines": "[{\"pdf_page\": 24, \"printed_page\": 23, \"text_line\": 11, \"raw_line\": \"пгт Старая Вичуга 5325  2318  3007  43,5  56,5  \"}]",
+            "total": 5325,
+            "men": 2318,
+            "women": 3007,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 33
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:19958",
+          "selected_population": 4568.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 19958.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:19958",
+            "target_year": 2021,
+            "latitude": 57.268333,
+            "longitude": 41.878611,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "wikidata_P625_point_claim",
+            "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0106.jsonl.gz",
+            "origin_sha256": "1673983e37393130e75aedbeac054fc936c12d62095ac2a7c078d0a6750b4f91",
+            "origin_locator": "{\"line_number\": 14860, \"locator\": \"batch_0106.jsonl.gz#line=14860\", \"retrieved_at_utc\": \"2026-08-31T20:59:18.070573+00:00\", \"source_file\": \"batch_0106.jsonl.gz\", \"value_raw\": \"POINT(41.878611 57.268333)\"}",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": "checked_rule_accepted",
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": []
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+          "source_sheet": "0",
+          "source_row": 551.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+          "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+          "locator": "DBF_record_1based=34166;DBF_byte_offset_0based=13495880;OKATO2011_raw=24201560000"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p24:l11"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 24
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:1557->ROSSTAT2010:T5:p38:l29->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:66666",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:1557",
+          "selected_population": 20.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002/010_3e630cc803_02c_Moskovskaya-oblast.xls",
+          "source_sheet": "Sheet1",
+          "source_row": 1557.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:1557",
+            "target_year": 2002,
+            "latitude": 56.5222273,
+            "longitude": 38.0839774,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "tochno_2021_dadata_raw_parquet_point",
+            "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+            "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+            "origin_locator": "parquet_row_1based=66666;latitude_dadata,longitude_dadata",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p38:l29",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 4362,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p38:l29",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "село Шеметово",
+            "typed_name": "Шеметово",
+            "typed_type": "село",
+            "region_as_published": "Московская область",
+            "historical_rayon_as_published": "Сергиево-Посадский район",
+            "pdf_page": 38,
+            "printed_page": 37,
+            "text_line_start": 29,
+            "text_line_end": 29,
+            "raw_lines": "[{\"pdf_page\": 38, \"printed_page\": 37, \"text_line\": 29, \"raw_line\": \"село Шеметово 4362  2002  2360  45,9  54,1  \"}]",
+            "total": 4362,
+            "men": 2002,
+            "women": 2360,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 141
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:66666",
+          "selected_population": 4024.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 66666.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:66666",
+            "target_year": 2021,
+            "latitude": 56.5222273,
+            "longitude": 38.0839774,
+            "status": "reviewed_rule_accepted",
+            "origin_kind": "tochno_2021_dadata_raw_parquet_point",
+            "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+            "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+            "origin_locator": "parquet_row_1based=66666;latitude_dadata,longitude_dadata",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": "checked_rule_accepted",
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": [
+          "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:10272",
+          "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:9457"
+        ]
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002/010_3e630cc803_02c_Moskovskaya-oblast.xls",
+          "sha256": "f2d9f7fba8c898e5e201e8b57e872a9323a1b37c3819434ae7d78e2a8db76147",
+          "source_sheet": "Sheet1",
+          "source_row": 1557.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+          "locator": "parquet_row_1based=66666;latitude_dadata,longitude_dadata"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p38:l29"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 38
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:1_TOM_01_04.xls:0:549->ROSSTAT2010:T5:p24:l9->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:19952",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:1_TOM_01_04.xls:0:549",
+          "selected_population": 4269.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "source_sheet": "0",
+          "source_row": 549.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:1_TOM_01_04.xls:0:549",
+            "target_year": 2002,
+            "latitude": 57.390048,
+            "longitude": 41.795626,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "raw_named_typed_geo2011_object",
+            "origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+            "origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+            "origin_locator": "DBF_record_1based=34162;DBF_byte_offset_0based=13494300;OKATO2011_raw=24201554000",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p24:l9",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 3981,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p24:l9",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "пгт Каменка",
+            "typed_name": "Каменка",
+            "typed_type": "пгт",
+            "region_as_published": "Ивановская область",
+            "historical_rayon_as_published": "Вичугский район",
+            "pdf_page": 24,
+            "printed_page": 23,
+            "text_line_start": 9,
+            "text_line_end": 9,
+            "raw_lines": "[{\"pdf_page\": 24, \"printed_page\": 23, \"text_line\": 9, \"raw_line\": \"пгт Каменка 3981  1736  2245  43,6  56,4  \"}]",
+            "total": 3981,
+            "men": 1736,
+            "women": 2245,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 21
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:19952",
+          "selected_population": 3689.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 19952.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:19952",
+            "target_year": 2021,
+            "latitude": 57.392222,
+            "longitude": 41.793889,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "wikidata_P625_point_claim",
+            "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0106.jsonl.gz",
+            "origin_sha256": "1673983e37393130e75aedbeac054fc936c12d62095ac2a7c078d0a6750b4f91",
+            "origin_locator": "{\"line_number\": 14465, \"locator\": \"batch_0106.jsonl.gz#line=14465\", \"retrieved_at_utc\": \"2026-08-31T20:59:18.070573+00:00\", \"source_file\": \"batch_0106.jsonl.gz\", \"value_raw\": \"POINT(41.793889 57.392222)\"}",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": "checked_rule_accepted",
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": []
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+          "source_sheet": "0",
+          "source_row": 549.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+          "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+          "locator": "DBF_record_1based=34162;DBF_byte_offset_0based=13494300;OKATO2011_raw=24201554000"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p24:l9"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 24
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:1_TOM_01_04.xls:0:599->ROSSTAT2010:T5:p24:l48->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:21662",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:1_TOM_01_04.xls:0:599",
+          "selected_population": 4319.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "source_sheet": "0",
+          "source_row": 599.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:1_TOM_01_04.xls:0:599",
+            "target_year": 2002,
+            "latitude": 56.707486,
+            "longitude": 42.668566,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "raw_named_typed_geo2011_object",
+            "origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+            "origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+            "origin_locator": "DBF_record_1based=35764;DBF_byte_offset_0based=14127090;OKATO2011_raw=24219551000",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p24:l48",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 4028,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p24:l48",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "Городское население - пгт Пестяки (рц)",
+            "typed_name": "Пестяки",
+            "typed_type": "пгт",
+            "region_as_published": "Ивановская область",
+            "historical_rayon_as_published": "Пестяковский район",
+            "pdf_page": 24,
+            "printed_page": 23,
+            "text_line_start": 48,
+            "text_line_end": 48,
+            "raw_lines": "[{\"pdf_page\": 24, \"printed_page\": 23, \"text_line\": 48, \"raw_line\": \"Городское население - пгт Пестяки (рц) 4028  1794  2234  44,5  55,5  \"}]",
+            "total": 4028,
+            "men": 1794,
+            "women": 2234,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 250
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:21662",
+          "selected_population": 3097.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 21662.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:21662",
+            "target_year": 2021,
+            "latitude": 56.7125,
+            "longitude": 42.673889,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "wikidata_P625_point_claim",
+            "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0106.jsonl.gz",
+            "origin_sha256": "1673983e37393130e75aedbeac054fc936c12d62095ac2a7c078d0a6750b4f91",
+            "origin_locator": "{\"line_number\": 14588, \"locator\": \"batch_0106.jsonl.gz#line=14588\", \"retrieved_at_utc\": \"2026-08-31T20:59:18.070573+00:00\", \"source_file\": \"batch_0106.jsonl.gz\", \"value_raw\": \"POINT(42.673889 56.712500)\"}",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": "checked_rule_accepted",
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": []
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+          "source_sheet": "0",
+          "source_row": 599.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+          "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+          "locator": "DBF_record_1based=35764;DBF_byte_offset_0based=14127090;OKATO2011_raw=24219551000"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p24:l48"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 24
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:469->ROSSTAT2010:T5:p34:l17->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:66069",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:469",
+          "selected_population": 3409.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002/010_3e630cc803_02c_Moskovskaya-oblast.xls",
+          "source_sheet": "Sheet1",
+          "source_row": 469.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:469",
+            "target_year": 2002,
+            "latitude": 56.43346,
+            "longitude": 37.161685,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "geokladr_2011_raw_dbf_coordinate",
+            "origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+            "origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+            "origin_locator": "raw_dbf_record_number_1based=71355;byte_offset_0based=28185535",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p34:l17",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 3379,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p34:l17",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "село Рогачево",
+            "typed_name": "Рогачево",
+            "typed_type": "село",
+            "region_as_published": "Московская область",
+            "historical_rayon_as_published": "Дмитровский район",
+            "pdf_page": 34,
+            "printed_page": 33,
+            "text_line_start": 17,
+            "text_line_end": 17,
+            "raw_lines": "[{\"pdf_page\": 34, \"printed_page\": 33, \"text_line\": 17, \"raw_line\": \"село Рогачево 3379  1548  1831  45,8  54,2  \"}]",
+            "total": 3379,
+            "men": 1548,
+            "women": 1831,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 69
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:66069",
+          "selected_population": 2896.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 66069.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:66069",
+            "target_year": 2021,
+            "latitude": 56.43346,
+            "longitude": 37.161685,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "geokladr_2011_raw_dbf_coordinate",
+            "origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+            "origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+            "origin_locator": "raw_dbf_record_number_1based=71355;byte_offset_0based=28185535",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": null,
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": [
+          "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:8597"
+        ]
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002/010_3e630cc803_02c_Moskovskaya-oblast.xls",
+          "sha256": "f2d9f7fba8c898e5e201e8b57e872a9323a1b37c3819434ae7d78e2a8db76147",
+          "source_sheet": "Sheet1",
+          "source_row": 469.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+          "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+          "locator": "raw_dbf_record_number_1based=71355;byte_offset_0based=28185535"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p34:l17"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 34
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:1_TOM_01_04.xls:0:593->ROSSTAT2010:T5:p24:l42->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:21402",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:1_TOM_01_04.xls:0:593",
+          "selected_population": 3268.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "source_sheet": "0",
+          "source_row": 593.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:1_TOM_01_04.xls:0:593",
+            "target_year": 2002,
+            "latitude": 57.009405,
+            "longitude": 42.256597,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "raw_named_typed_geo2011_object",
+            "origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+            "origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+            "origin_locator": "DBF_record_1based=35517;DBF_byte_offset_0based=14029525;OKATO2011_raw=24215551000",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p24:l42",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 3024,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p24:l42",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "Городское население - пгт Лух (рц)",
+            "typed_name": "Лух",
+            "typed_type": "пгт",
+            "region_as_published": "Ивановская область",
+            "historical_rayon_as_published": "Лухский район",
+            "pdf_page": 24,
+            "printed_page": 23,
+            "text_line_start": 42,
+            "text_line_end": 42,
+            "raw_lines": "[{\"pdf_page\": 24, \"printed_page\": 23, \"text_line\": 42, \"raw_line\": \"Городское население - пгт Лух (рц) 3024  1370  1654  45,3  54,7  \"}]",
+            "total": 3024,
+            "men": 1370,
+            "women": 1654,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 214
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:21402",
+          "selected_population": 2572.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 21402.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:21402",
+            "target_year": 2021,
+            "latitude": 57.0,
+            "longitude": 42.25,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "wikidata_P625_point_claim",
+            "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0106.jsonl.gz",
+            "origin_sha256": "1673983e37393130e75aedbeac054fc936c12d62095ac2a7c078d0a6750b4f91",
+            "origin_locator": "{\"line_number\": 14594, \"locator\": \"batch_0106.jsonl.gz#line=14594\", \"retrieved_at_utc\": \"2026-08-31T20:59:18.070573+00:00\", \"source_file\": \"batch_0106.jsonl.gz\", \"value_raw\": \"POINT(42.250000 57.000000)\"}",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": "checked_rule_accepted",
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": []
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+          "source_sheet": "0",
+          "source_row": 593.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+          "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+          "locator": "DBF_record_1based=35517;DBF_byte_offset_0based=14029525;OKATO2011_raw=24215551000"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p24:l42"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 24
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:1_TOM_01_04.xls:0:629->ROSSTAT2010:T5:p25:l18->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:22706",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:1_TOM_01_04.xls:0:629",
+          "selected_population": 3013.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "source_sheet": "0",
+          "source_row": 629.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:1_TOM_01_04.xls:0:629",
+            "target_year": 2002,
+            "latitude": 56.7054,
+            "longitude": 41.3398,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "raw_named_typed_geo2011_object",
+            "origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+            "origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+            "origin_locator": "DBF_record_1based=36704;DBF_byte_offset_0based=14498390;OKATO2011_raw=24233554000",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p25:l18",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 2451,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p25:l18",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "Городское население - пгт Колобово",
+            "typed_name": "Колобово",
+            "typed_type": "пгт",
+            "region_as_published": "Ивановская область",
+            "historical_rayon_as_published": "Шуйский район",
+            "pdf_page": 25,
+            "printed_page": 24,
+            "text_line_start": 18,
+            "text_line_end": 18,
+            "raw_lines": "[{\"pdf_page\": 25, \"printed_page\": 24, \"text_line\": 18, \"raw_line\": \"Городское население - пгт Колобово 2451  1044  1407  42,6  57,4  \"}]",
+            "total": 2451,
+            "men": 1044,
+            "women": 1407,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 75
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:22706",
+          "selected_population": 2387.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 22706.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:22706",
+            "target_year": 2021,
+            "latitude": 56.701944,
+            "longitude": 41.341667,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "wikidata_P625_point_claim",
+            "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0106.jsonl.gz",
+            "origin_sha256": "1673983e37393130e75aedbeac054fc936c12d62095ac2a7c078d0a6750b4f91",
+            "origin_locator": "{\"line_number\": 14431, \"locator\": \"batch_0106.jsonl.gz#line=14431\", \"retrieved_at_utc\": \"2026-08-31T20:59:18.070573+00:00\", \"source_file\": \"batch_0106.jsonl.gz\", \"value_raw\": \"POINT(41.341667 56.701944)\"}",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": "checked_rule_accepted",
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": []
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+          "source_sheet": "0",
+          "source_row": 629.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+          "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+          "locator": "DBF_record_1based=36704;DBF_byte_offset_0based=14498390;OKATO2011_raw=24233554000"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p25:l18"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 25
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:007_acff9aa32d_02c_Kostromskaja.xls:Sheet1:2058->ROSSTAT2010:T5:p28:l35->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:41258",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:007_acff9aa32d_02c_Kostromskaja.xls:Sheet1:2058",
+          "selected_population": 2816.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002/007_acff9aa32d_02c_Kostromskaja.xls",
+          "source_sheet": "Sheet1",
+          "source_row": 2058.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:007_acff9aa32d_02c_Kostromskaja.xls:Sheet1:2058",
+            "target_year": 2002,
+            "latitude": 58.7323715,
+            "longitude": 45.0285279,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "retrospective_continuity_from_tochno_2021_dadata_raw_parquet_point",
+            "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+            "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+            "origin_locator": "carrier_target_source_record_id=2021:data_allsettlements_anon_156_v20251217.parquet:parquet:41258;parquet_row_1based=41258;latitude_dadata,longitude_dadata",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p28:l35",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 2513,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p28:l35",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "село Георгиевское (рц)",
+            "typed_name": "Георгиевское",
+            "typed_type": "село",
+            "region_as_published": "Костромская область",
+            "historical_rayon_as_published": "Межевской район",
+            "pdf_page": 28,
+            "printed_page": 27,
+            "text_line_start": 35,
+            "text_line_end": 35,
+            "raw_lines": "[{\"pdf_page\": 28, \"printed_page\": 27, \"text_line\": 35, \"raw_line\": \"село Георгиевское (рц) 2513  1176  1337  46,8  53,2  \"}]",
+            "total": 2513,
+            "men": 1176,
+            "women": 1337,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 177
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:41258",
+          "selected_population": 2024.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 41258.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:41258",
+            "target_year": 2021,
+            "latitude": 58.7323715,
+            "longitude": 45.0285279,
+            "status": "reviewed_rule_accepted",
+            "origin_kind": "tochno_2021_dadata_raw_parquet_point",
+            "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+            "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+            "origin_locator": "parquet_row_1based=41258;latitude_dadata,longitude_dadata",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": null,
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": [
+          "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:1800"
+        ]
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002/007_acff9aa32d_02c_Kostromskaja.xls",
+          "sha256": "d671072378d41dc0e1ab1388db5a64e7601ff3e44f5e1e8e9d16591f0b1f134b",
+          "source_sheet": "Sheet1",
+          "source_row": 2058.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+          "locator": "carrier_target_source_record_id=2021:data_allsettlements_anon_156_v20251217.parquet:parquet:41258;parquet_row_1based=41258;latitude_dadata,longitude_dadata"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p28:l35"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 28
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    },
+    {
+      "trajectory_id": "AUX2010:2002:1_TOM_01_04.xls:0:622->ROSSTAT2010:T5:p25:l14->2021:data_allsettlements_anon_156_v20251217.parquet:parquet:22445",
+      "status": "accepted_scoped_primary_auxiliary_date_trajectory",
+      "observations": [
+        {
+          "year": 2002,
+          "source_record_id": "2002:1_TOM_01_04.xls:0:622",
+          "selected_population": 2373.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "source_sheet": "0",
+          "source_row": 622.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2002:1_TOM_01_04.xls:0:622",
+            "target_year": 2002,
+            "latitude": 56.658334,
+            "longitude": 40.385871,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "raw_named_typed_geo2011_object",
+            "origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+            "origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+            "origin_locator": "DBF_record_1based=36475;DBF_byte_offset_0based=14407935;OKATO2011_raw=24229554000",
+            "measurement_date_unknown": true
+          }
+        },
+        {
+          "year": 2010,
+          "source_record_id": "ROSSTAT2010:T5:p25:l14",
+          "source_membership_in_selected_observations": false,
+          "population_source_value": 2052,
+          "population_role": "auxiliary source observation only; not additive population credit",
+          "source": {
+            "citation": "Rosstat, 2010 Census, Volume 1, Table 5",
+            "reference_id": "ROSSTAT2010:T5:p25:l14",
+            "parsed_reference_file": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+            "parsed_reference_sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+            "reference_status": "extracted_reference",
+            "row_kind": "settlement",
+            "raw_label": "Городское население - пгт Нерль",
+            "typed_name": "Нерль",
+            "typed_type": "пгт",
+            "region_as_published": "Ивановская область",
+            "historical_rayon_as_published": "Тейковский район",
+            "pdf_page": 25,
+            "printed_page": 24,
+            "text_line_start": 14,
+            "text_line_end": 14,
+            "raw_lines": "[{\"pdf_page\": 25, \"printed_page\": 24, \"text_line\": 14, \"raw_line\": \"Городское население - пгт Нерль 2052  878  1174  42,8  57,2  \"}]",
+            "total": 2052,
+            "men": 878,
+            "women": 1174,
+            "total_equals_sexes": true,
+            "pdf_path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+            "pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+            "literal_page_row_verified": true,
+            "literal_page_text_line_index_0based": 51
+          }
+        },
+        {
+          "year": 2021,
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:22445",
+          "selected_population": 2016.0,
+          "population_quality": "direct_published_census_value",
+          "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "source_sheet": "parquet",
+          "source_row": 22445.0,
+          "source_sha256_expected": null,
+          "point_carrier": {
+            "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:22445",
+            "target_year": 2021,
+            "latitude": 56.662778,
+            "longitude": 40.389445,
+            "status": "reviewed_extension_rule_accepted",
+            "origin_kind": "wikidata_P625_point_claim",
+            "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0106.jsonl.gz",
+            "origin_sha256": "1673983e37393130e75aedbeac054fc936c12d62095ac2a7c078d0a6750b4f91",
+            "origin_locator": "{\"line_number\": 14505, \"locator\": \"batch_0106.jsonl.gz#line=14505\", \"retrieved_at_utc\": \"2026-08-31T20:59:18.070573+00:00\", \"source_file\": \"batch_0106.jsonl.gz\", \"value_raw\": \"POINT(40.389445 56.662778)\"}",
+            "measurement_date_unknown": true
+          }
+        }
+      ],
+      "existing_accepted_02_to_21_identity": {
+        "relation": "same_place",
+        "from_year": 2002,
+        "to_year": 2021,
+        "decision_status": "checked_rule_accepted",
+        "admission_status": "checked_rule_accepted",
+        "rule_family": null
+      },
+      "selected_membership_check": {
+        "checked_against_all_selected_observations_2010_ids": true,
+        "auxiliary_2010_source_id_already_selected": false,
+        "selected_matching_name_type_alternates_retained_unbound": []
+      },
+      "identity_and_population_limits": {
+        "2010_identity_edge_added": false,
+        "ordinary_graph_union": false,
+        "2010_population_credit": false,
+        "population_transfer": false,
+        "national_2010_gain_claim": false,
+        "boundary_comparability": "unknown/not asserted",
+        "legal_or_statutory_continuity": "unknown/not asserted",
+        "2010_coordinates_measured": false,
+        "old_F2010_homonym_exclusion_applied": false,
+        "protected_F2010_source_row_bound_or_guessed": false
+      },
+      "source_pins": {
+        "selected_observations": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "2002_publisher": {
+          "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+          "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+          "source_sheet": "0",
+          "source_row": 622.0
+        },
+        "2021_raw_point_carrier": {
+          "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+          "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+          "locator": "DBF_record_1based=36475;DBF_byte_offset_0based=14407935;OKATO2011_raw=24229554000"
+        },
+        "official_2010_reference": {
+          "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+          "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+          "reference_id": "ROSSTAT2010:T5:p25:l14"
+        },
+        "official_2010_pdf": {
+          "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+          "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+          "page": 25
+        },
+        "accepted_graph15": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet",
+          "sha256": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a",
+          "accepted_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_point_uses.parquet",
+          "accepted_point_uses_sha256": "06e8562a24200d646a1f83f21e3277d853a4cee9a4ce50821efb27c702502e84"
+        }
+      },
+      "ordinary_primary_NP3": false,
+      "boundary_comparability_asserted": false,
+      "selected_2010_source_binding_asserted": false,
+      "national_auxiliary_2010_population_credit": false
+    }
+  ]
+}

@@ -397,8 +397,11 @@ def apply_scoped_inclusion_reference(
     receiver_id = str(row["current_2021_receiver_source_record_id"])
     if receiver_id not in represented_current_receivers:
         raise ValueError(f"current receiver is not represented: {receiver_id}")
-    parent_id = str(row["old_same_year_city_proper_source_record_id"])
-    if parent_id not in out:
+    parent_id = row["old_same_year_city_proper_source_record_id"]
+    if parent_id is None:
+        if not row.get('standalone_historical_city_reference') or row.get('source_type') != 'город':
+            raise ValueError('Missing parent requires an explicitly reviewed standalone historical city')
+    elif str(parent_id) not in out:
         raise ValueError(f"same-year city-proper parent is not represented: {parent_id}")
     source_id = str(row["source_record_id"])
     pop = int(row["population"])
