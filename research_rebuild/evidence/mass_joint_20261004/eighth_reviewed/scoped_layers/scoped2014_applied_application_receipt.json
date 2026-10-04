@@ -1,0 +1,112 @@
+{
+  "inputs": {
+    "full_long": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/settlements_long_with_secondary_history.parquet",
+      "sha256": "3c24c7162e23f24e32745c064a5c311390c8a4df1c4c31789b5bb837ccff17c0"
+    },
+    "identity_edges_csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/crimea2014_scoped/eligible_2014_to_2021_identity_edges.csv",
+      "sha256": "268f7f9e7958a34e63cac1816bb53cfed965cf2eeda4c002db97a9060a38706e"
+    },
+    "identity_graph": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_seventh_reviewed/accepted_identity_edges.parquet",
+      "sha256": "18bf1edd259808c9e881ac11fa40be26c88be4fb27e1ac735c59e083d6dcd312"
+    },
+    "observations_csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/crimea2014_scoped/eligible_2014_observations.csv",
+      "sha256": "b66bc22e0d174314a0ee9c7e7c76ba09239cb43d3127eaa5d96f7e196e68caab"
+    },
+    "point_ledger": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_seventh_reviewed/accepted_point_uses.parquet",
+      "sha256": "2215702e772417bb512da8c0a6c0d31ad9783c6a5345d4c0bbfe18403e11ad22"
+    },
+    "retrospective_points_csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/crimea2014_scoped/eligible_2014_retrospective_point_uses.csv",
+      "sha256": "b1f8aeb1e13613659234862ef17c59fb0d943610050cb1339356e3997451fb0e"
+    },
+    "review_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/crimea2014_scoped/review_receipt.json",
+      "sha256": "356e93e3bed9ec86e5f421cd659987e6306315d4818fbf5ff0f7d3ad2723e951"
+    },
+    "selected_population": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "source_fetch_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/federal_and_history/crimea_2001_source_claim_review_20261004/official_tls_source/gks_2014_get_receipt.json",
+      "sha256": "d5e79b77b06147d936a8e34e8a57255fd39d736817ea90ae36b63c4344c6dbca"
+    },
+    "source_workbook": {
+      "path": "/workspace/settlements-work/continuation_20261004/federal_and_history/crimea_2001_source_claim_review_20261004/official_tls_source/gks_2014_perepis_krim_pub-01-03_wayback_20150924.xlsx",
+      "sha256": "35e6acf1e5ecb66c23355591a0ddf630a70eefbedfca0ba470d6b0004baba06e"
+    }
+  },
+  "long_append": {
+    "input_record_type_counts": {
+      "annual_official": 516,
+      "census": 465800,
+      "wiki_literal_series": 398036
+    },
+    "input_rows": 864352,
+    "original_columns_null_safe_equal": true,
+    "output_record_type_counts": {
+      "annual_official": 516,
+      "census": 465800,
+      "scoped_official_observation": 994,
+      "wiki_literal_series": 398036
+    },
+    "output_rows": 865346
+  },
+  "official_source_workbook_sha256": "35e6acf1e5ecb66c23355591a0ddf630a70eefbedfca0ba470d6b0004baba06e",
+  "outputs": {
+    "accepted_scoped_identity_edges_2014_2021.csv": {
+      "bytes": 462065,
+      "path": "/workspace/settlements-work/continuation_20261004/root/scoped2014_applied/accepted_scoped_identity_edges_2014_2021.csv",
+      "sha256": "257b295ec69d2d07f52e8c844db22a6a7939f876d6a8c8fa3bc55e17c4e8d2c3"
+    },
+    "accepted_scoped_observations_2014.csv": {
+      "bytes": 5468240,
+      "path": "/workspace/settlements-work/continuation_20261004/root/scoped2014_applied/accepted_scoped_observations_2014.csv",
+      "sha256": "865acaaeeef6eba2e1995697605df3a602489cd3c05eccfdf81dfaa9107b071b"
+    },
+    "accepted_scoped_observations_2014.parquet": {
+      "bytes": 413034,
+      "path": "/workspace/settlements-work/continuation_20261004/root/scoped2014_applied/accepted_scoped_observations_2014.parquet",
+      "sha256": "042a991650054c5a1ad99935474b25201cae61640986fc8f2d12368e4c654a20"
+    },
+    "accepted_scoped_retrospective_point_uses_2014.csv": {
+      "bytes": 1078638,
+      "path": "/workspace/settlements-work/continuation_20261004/root/scoped2014_applied/accepted_scoped_retrospective_point_uses_2014.csv",
+      "sha256": "f7a39664b940b83593ff0b1b45c77010a7dfa2cd44c25e77441fbf6724b5efb2"
+    },
+    "seventh_long_with_scoped2014.parquet": {
+      "bytes": 92916907,
+      "path": "/workspace/settlements-work/continuation_20261004/root/scoped2014_applied/seventh_long_with_scoped2014.parquet",
+      "sha256": "be04c25f2cdcc1614e2c17865ca8a96593e4308f36ad344281062c37c7bd6360"
+    }
+  },
+  "review_receipt_sha256": "356e93e3bed9ec86e5f421cd659987e6306315d4818fbf5ff0f7d3ad2723e951",
+  "rows": {
+    "identity_edges": 994,
+    "male_female_numeric_rows_checked": 993,
+    "male_female_numeric_sum_matches": true,
+    "observations": 994,
+    "observations_without_point": 1,
+    "population_sum": 1671942,
+    "retrospective_point_uses": 993
+  },
+  "semantics": {
+    "2014_native_OKATO_or_OKTMO_binding_asserted": false,
+    "2014_population_boundary_comparability_to_2021_asserted": false,
+    "canonical_2002_2010_2021_graph_modified": false,
+    "exact_census_date_asserted": false,
+    "held_identity_rows_not_applied": 15,
+    "held_missing_point_identity_row_preserved_without_coordinate": "2014:Q127387785:pub-01-03:733",
+    "modern_point_is_2014_measurement": false,
+    "population_value_source": "literal total cell from hash-pinned archived official Rosstat workbook row",
+    "same_physical_place_identity_to_reviewed_2021_target": true,
+    "strict_Russian_2002_2010_2021_chain_contribution": 0,
+    "unresolved_gender_cells": "retained raw; never coerced from dash/blank to zero"
+  },
+  "status": "applied_independently_reviewed_scoped_2014_observations_candidate_population_layer_only"
+}

@@ -1,0 +1,50 @@
+{
+  "status": "cancelled_noncanonical_display_projection_disk_spill",
+  "reason": "wide TEMP TABLE and full ORDER BY spilled 5.5GiB on 32GiB filesystem; display context optimization needs direct streaming join",
+  "completed_output": false,
+  "canonical_sources_changed": false,
+  "spill_files": [
+    {
+      "name": "duckdb_temp_storage_DEFAULT-1.tmp",
+      "bytes": 1998061568
+    },
+    {
+      "name": "duckdb_temp_storage_S32K-2.tmp",
+      "bytes": 338165760
+    },
+    {
+      "name": "duckdb_temp_storage_S224K-0.tmp",
+      "bytes": 8716288
+    },
+    {
+      "name": "duckdb_temp_storage_S64K-0.tmp",
+      "bytes": 66650112
+    },
+    {
+      "name": "duckdb_temp_storage_S192K-0.tmp",
+      "bytes": 22020096
+    },
+    {
+      "name": "duckdb_temp_storage_S160K-0.tmp",
+      "bytes": 21299200
+    },
+    {
+      "name": "duckdb_temp_storage_S128K-0.tmp",
+      "bytes": 20971520
+    },
+    {
+      "name": "duckdb_temp_storage_S32K-1.tmp",
+      "bytes": 280690688
+    },
+    {
+      "name": "duckdb_temp_storage_S96K-0.tmp",
+      "bytes": 44040192
+    },
+    {
+      "name": "duckdb_temp_storage_DEFAULT-2.tmp",
+      "bytes": 3045851136
+    }
+  ],
+  "incomplete_staging_bytes": 72246597,
+  "action": "process SIGTERM confirmed exited; delete only this invocation private spill and incomplete staging, preserve invocation/stdout/stderr"
+}

@@ -1,0 +1,154 @@
+{
+  "candidate_only": true,
+  "checks": {
+    "2014_literal_source_rows_replayed": 997,
+    "2014_population_P1082_literal_source_matches": 997,
+    "2014_source_rows_exact_name_population_unique": 997,
+    "P1082_raw_year_precision_9_normal_rank_all_rows": true,
+    "associated_current_2021_population_sum": 1712594,
+    "candidate_rows": 1009,
+    "current_2021_pairs_raw_replayed": 1009,
+    "current_2021_raw_native_source_rows_match": 1009,
+    "current_binding_11_predicate_review_all_true": 1009,
+    "current_qid_P764_unique_exact_code_matches": 1009,
+    "eligible_2014_population_sum": 1671942,
+    "eligible_identity_edges": 994,
+    "eligible_identity_observations": 994,
+    "eligible_retrospective_point_uses": 993,
+    "fixed_risk_sample_actual_workbook_rows_checked": 48,
+    "fixed_risk_sample_size": 60,
+    "held_identity_rows": 15,
+    "held_point_uses_due_missing_canonical_current_point": 1,
+    "point_use_missing_current_target": {
+      "current_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49854",
+      "historical_source_record_id": "2014:Q127387785:pub-01-03:733",
+      "point_row_count": 0,
+      "qid": "Q4183005",
+      "reason": "no unique canonical accepted 2021 point row in corrected ledger"
+    },
+    "population_assertion_added_or_changed": 0,
+    "raw_entity_payload_hash_matches": 1009,
+    "source_status_counts": {
+      "candidate_2014_to_current_physical_place_review": 994,
+      "hold_known_entity_relation_needs_scoped_review": 3,
+      "hold_no_exact_official_source_row": 7,
+      "hold_official_source_value_conflict": 5
+    },
+    "strict_Russian_2002_2010_2021_chain_contribution": 0
+  },
+  "created_at_utc": "2026-10-04T07:50:01+00:00",
+  "holds": {
+    "coordinate_only_hold": [
+      {
+        "current_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49854",
+        "historical_source_record_id": "2014:Q127387785:pub-01-03:733",
+        "point_row_count": 0,
+        "qid": "Q4183005",
+        "reason": "no unique canonical accepted 2021 point row in corrected ledger"
+      }
+    ],
+    "current_P1365_P155_relation": [
+      "Q46001",
+      "Q33345",
+      "Q158491"
+    ],
+    "official_source_name_population_conflict": [
+      "Q4451743",
+      "Q3920802",
+      "Q4154256",
+      "Q4220334",
+      "Q4394022"
+    ],
+    "official_source_row_not_found": [
+      "Q4396684",
+      "Q3915431",
+      "Q4380180",
+      "Q4123792",
+      "Q4499190",
+      "Q12073911",
+      "Q4135759"
+    ]
+  },
+  "inputs": {
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": {
+      "rows": 176232,
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_sixth_point_corrected/accepted_point_uses.parquet": {
+      "sha256": "07ecad72f4919ee60a3ae5b715b4b4ad20437d6ecd0026182abbe311f3383e71"
+    },
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/crimea_2001_source_claim_review_20261004/official_tls_source/gks_2014_perepis_krim_pub-01-03_wayback_20150924.xlsx": {
+      "rows": 1378,
+      "sha256": "35e6acf1e5ecb66c23355591a0ddf630a70eefbedfca0ba470d6b0004baba06e",
+      "sheet": "pub-01-03"
+    },
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/crimea_2001_source_claim_review_20261004/scoped_2014_trajectory_review/candidate_replay_receipt.json": {
+      "sha256": "8da8adca0b889695a63a86f060ab31f4e20482360615452f491de916411de2c1"
+    },
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/crimea_2001_source_claim_review_20261004/scoped_2014_trajectory_review/crimea_2014_current_place_continuity_candidates.csv": {
+      "rows": 1009,
+      "sha256": "3986f15b3a6c60e4f56a2175ed08f68928394324e0e32e3fa3987cf9ad1eaaeb"
+    },
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/crimea_scope_trajectory_audit_20261004/crimea_candidate_trajectories_unadmitted.csv": {
+      "rows": 1009,
+      "sha256": "2283a0ef8753eb3be7ac35653483b710cd8a7093cd42374211b8309125be8972"
+    },
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/wikidata_secondary_full_history.csv": {
+      "sha256": "bda06fb1bf298d24417b855b934453bc45110d1ec9d8ad80a314d416e75086f0"
+    }
+  },
+  "limitations": [
+    "The workbook is the cited 2014 Rosstat Excel publication retrieved from a TLS-validated Internet Archive capture because the live GKS URL returned 503; exact workbook bytes are pinned.",
+    "Workbook rows contain no native settlement identifier. The identity is a bounded current native code/QID match plus exact unique dated publication name/type/population row; no historical OKATO/OKTMO or provider-ID association is inferred.",
+    "Administrative headings are preserved as literal publication hierarchy, not treated as legal boundary dates. Population comparability between 2014 and 2021 remains unknown and is explicitly false for application.",
+    "The 2021 accepted point is modern/current context. Coordinates have no asserted 2014 measurement date, precision, or historical boundary. One identity-eligible target lacks a unique canonical accepted point in the corrected ledger and receives no point-use row.",
+    "Three current QIDs with P1365/P155 relations stay held for separate event resolution; source row value/name matches do not override these holds. The five source value conflicts and seven unmatched 2014 claims stay held.",
+    "These are Crimea Federal District observations, not Russian 2002/2010 endpoints. Contribution to strict 2002→2010→2021 chain metrics is zero."
+  ],
+  "not_an_admission_or_population_overlay_receipt": true,
+  "outputs": {
+    "eligible_2014_observations.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/crimea2014_scoped/eligible_2014_observations.csv",
+      "rows": 994,
+      "sha256": "b66bc22e0d174314a0ee9c7e7c76ba09239cb43d3127eaa5d96f7e196e68caab"
+    },
+    "eligible_2014_retrospective_point_uses.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/crimea2014_scoped/eligible_2014_retrospective_point_uses.csv",
+      "rows": 993,
+      "sha256": "b1f8aeb1e13613659234862ef17c59fb0d943610050cb1339356e3997451fb0e"
+    },
+    "eligible_2014_to_2021_identity_edges.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/crimea2014_scoped/eligible_2014_to_2021_identity_edges.csv",
+      "rows": 994,
+      "sha256": "268f7f9e7958a34e63cac1816bb53cfed965cf2eeda4c002db97a9060a38706e"
+    },
+    "fixed_risk_sample_60.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/crimea2014_scoped/fixed_risk_sample_60.csv",
+      "rows": 60,
+      "sha256": "ee28f67adc5a2237486e01b158e8a9a4f135319c39797ddad76022c7a4d54989"
+    },
+    "held_2014_candidate_rows.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/crimea2014_scoped/held_2014_candidate_rows.csv",
+      "rows": 15,
+      "sha256": "b0650926af7b671c3853d0eeb1dca6ce2edacb44d1d3417b4472d716d26d6c11"
+    },
+    "held_2014_coordinate_uses.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/crimea2014_scoped/held_2014_coordinate_uses.csv",
+      "rows": 1,
+      "sha256": "f43f6a2b871a577c9b8931930c3a63bac0e025f94c68123034f0e2adf89aa537"
+    },
+    "independent_current_binding_replay.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/crimea2014_scoped/independent_current_binding_replay.csv",
+      "rows": 1009,
+      "sha256": "df93d0deb59c2e71ffb42dbce127756a6abce0caf15bb72c9360e11d906e194f"
+    },
+    "independent_workbook_row_replay.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/crimea2014_scoped/independent_workbook_row_replay.csv",
+      "rows": 1009,
+      "sha256": "ce21622a6663c83c0942ca8d8dea98fb9b3e78831de89dece23ad9746425ea04"
+    }
+  },
+  "rule_approved_for_scoped_application": "Exact unique 2014 official workbook physical settlement row (literal source caption/type/admin heading and integer population) plus current 2021 selected native source row/QID exact code/name/type/region, source code and QID uniqueness, clear native competition and reviewed physical P31 lineage. This permits same physical-place identity with unknown date-specific boundary comparability. Current accepted point may be reused retrospectively only as a modern representative point, never as a 2014 measurement.",
+  "scope": "2014 Republic of Crimea literal settlement-row source observations linked to reviewed 2021 current physical NP bindings. No 2002 or 2010 claims are inferred.",
+  "status": "independent_scoped_2014_crimea_current_place_review_complete_candidate_only"
+}

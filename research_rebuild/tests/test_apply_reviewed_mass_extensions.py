@@ -31,6 +31,16 @@ def table(path, rows):
         writer.writeheader(); writer.writerows(rows)
 
 
+def test_complete_large_source_block_witness_is_read(tmp_path):
+    # The independently reviewed anchor-block packet exceeded the default
+    # 128 KiB CSV field limit. Its raw witness must survive without truncation.
+    path = tmp_path / 'reviewed_block.csv'
+    witness = 'Строка исходной таблицы\n' * 10000
+    table(path, [{'source_record_id': '2010:publication:row', 'raw_block': witness}])
+    assert app.read_csv_rows(path) == [{'source_record_id': '2010:publication:row',
+                                       'raw_block': witness}]
+
+
 def test_identity_source_hashing_is_bounded_per_file(tmp_path, monkeypatch):
     # A real failed run rehashed the whole candidate CSV for each admitted row.
     rows = [{'from': f'a{i}', 'to': f'b{i}', 'family': 'exact_rule',

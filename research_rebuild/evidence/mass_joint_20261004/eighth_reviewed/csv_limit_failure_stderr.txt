@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/workspace/russian-settlements-research/research_rebuild/mass_linkage/apply_reviewed_mass_extensions_20261004.py", line 734, in <module>
+    run(Path(args.manifest),Path(args.output))
+  File "/workspace/russian-settlements-research/research_rebuild/mass_linkage/apply_reviewed_mass_extensions_20261004.py", line 538, in run
+    new_graph, graph_inputs = load_identity(manifest)
+                              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/russian-settlements-research/research_rebuild/mass_linkage/apply_reviewed_mass_extensions_20261004.py", line 348, in load_identity
+    for r in read_csv_rows(elig_path)}
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/russian-settlements-research/research_rebuild/mass_linkage/apply_reviewed_mass_extensions_20261004.py", line 112, in read_csv_rows
+    return list(csv.DictReader(stream))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/csv.py", line 116, in __next__
+    row = next(self.reader)
+          ^^^^^^^^^^^^^^^^^
+_csv.Error: field larger than field limit (131072)
