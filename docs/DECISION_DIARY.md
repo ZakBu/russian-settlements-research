@@ -1564,3 +1564,43 @@ WD утверждений сохранены как вторичные альт�
 
 28 относящихся к текущему этапу тестов прошли за49.96сек; это не проверка
 всей национальной базы или всех экспериментальных скриптов.
+
+### Управление следующими массовыми пакетами
+
+177-точечное приложение сначала выбрало GeoNames-свидетеля вместо явно
+одобренной исходной координаты Tochno. Родительская проверка буквального
+coordinate_use_scope обнаружила это до изменения конфигурации/процентов.
+Первый результат сохранён как неприменённый эксперимент; новый неизменяемый
+результат выбирает исходные Tochno координаты/происхождение и сохраняет GN
+только как свидетель. Добавлен отрицательный тест, где эти точки различаются.
+177 прямых применений и181 переноса, all-column baseline414890 сохранён;
+после фактического пересчёта95.837750/96.460734/97.139648%. Нельзя выводить
+выбранную точку из наличия координат у любого свидетеля: выбор — часть
+review-контракта, отдельно от доказательства пространственного согласия.
+
+Самокритика делегирования: send_message завершившему агенту не запускает
+новый рабочий turn. Из-за этого ожидание1545review ошибочно трактовалось
+как работа, хотя статус оставался completed. Проверка списка агентов выявила
+пробел; review действительно запущен followup_task. После завершения/компакции
+проверять фактический статус; pending сообщение не означает running работу.
+Независимая проверка1545 ограничена векторными жёсткими проверками всей
+партии, фиксированной стратифицированной сырой выборкой и фактическими
+неоднозначностями, а не повторным тотальным досье.
+
+### 2026-10-04: tenth actual batch and secondary-supported physical continuity
+
+Applied 1,117 independently reviewed new cross-census edges and 496 retrospective point uses in 50.934 seconds (peak RSS 13,006,012 KiB). Current graph: 348,281 edges, SHA256 19861c11048f191a540aba453f11194a540934fbe350f553e37a42908393d013; current point ledger: 418,254 uses, SHA256 870ccd0af86889e5c8e2c01bddd1d3c53401ccba216d7ce77624e5f848f724cc. The independently reviewed 177 direct source points, 834 district-disambiguated direct source points, and eight historical city points are retained. Scientific readback found no changed baseline graph endpoints/status or baseline point coordinates/status/origin metadata. This is not a claim that every auxiliary convenience flag is unchanged.
+
+Actual scope-aware joint result before secondary-supported paths: 139,664,674 / 138,278,104 / 143,483,292 people (96.209836% / 96.795084% / 97.486902%). Independently accepted Troitsk and Shcherbinka physical-place trajectories connect actual primary old rows to actual dated secondary Wikidata 2021 claims. The current secondary child populations are NOT additive to the Moscow territory, and boundary/population-grain comparability remains unknown. After actual union measurement: 139,725,370 / 138,350,427 / 143,483,292 people (96.251647% / 96.845710% / 97.486902%); to 99%: 3,989,694 / 3,077,544 / 2,227,010. Ordinary strict NP three-census figures remain separate and unchanged by this scoped overlay.
+
+Audit criticism: an accepted historical point can still be wrongly bound to a census row. The Taezhny candidate has explicit old Shelekhovsky versus current Nizhneudinsky context, although legacy accepted points agree with the current point. Its two identity candidates remain held; a proper current point does not rescue an unresolved old-row binding. Ivanisovo differs: the actual 2009 classifier hierarchy explicitly supplies the old Noginsky parent and supports observed administrative continuity to the modern source context without asserting an exact legal date.
+
+The 865,368-row long export still represents the earlier graph8/35-point state; it is not presented as the current canonical graph10 export. A consolidated export is pending. GitHub write remains blocked by HTTP403; local Git and a verified bundle are available, not remote publication.
+
+### 2026-10-04: eleventh batch and Talnakh exclusive scope measurement
+
+The eleventh actual application added28 reviewed edges and2 chosen current GN points in52.608seconds, peak child RSS12006492KiB. No historical Gostagaevskaya/Supsekh point was duplicated. Readback found0 changed prior scientific point fields or graph endpoints/status. Twelve observed type-transition trios are admitted; the Taezhny two edges remain held. The type review used a narrow evidence extraction, while the application independently checked42 exact endpoints against canonical frozen F source evidence; this difference is recorded, not hidden.
+
+Talnakh has three independently replayed primary observations58654/47307/47216 and a proper GN representative point. The national union counts only the existing2002 city row, once, alongside the separate Norilsk city134832; the old urban group221908 is not introduced. Later district populations remain within the already represented Norilsk city175365/174453. No ordinary NP3, precise legal transition date or boundary equivalence is invented. Actual scoped result after batch11 and this overlay:96.309675%/96.864276%/97.515496%; remaining3905457/3051022/2184924 people.
+
+Self-criticism: convenience flags and whole-sheet name repeats are not reliable vetoes, but resolving them did not automatically unlock every target. A repeated-source-key audit found10 nonhard-flag province-disambiguated cases already connected (zero new gain), one successor hold and260 remaining same-region/unknown/parser cases. A Kayerkan producer CSV later showed shifted fields; independent raw replay detected it, frozen bytes were preserved, and corrected typed adapters are required before any application.

@@ -1,0 +1,31 @@
+{
+  "status": "append_and_stream_readback_passed",
+  "baseline_path": "/workspace/settlements-work/continuation_20261004/root/accepted_admin_homonym_834_source_points_scope_reconciled/accepted_point_uses.parquet",
+  "baseline_sha256": "d48bfe071c3563ed51566f2952c7e57c28ced761826abc053fb739a9c269656a",
+  "baseline_rows": 417750,
+  "delta_path": "/workspace/settlements-work/continuation_20261004/root/accepted_old_city_points5/accepted_point_uses_delta.parquet",
+  "delta_sha256": "d61e03f1dd668f59d6f5a60c7827d21a2c67eee015f7b2a1a7431a5da6c778a4",
+  "delta_rows": 8,
+  "successor_path": "/workspace/settlements-work/continuation_20261004/root/accepted_old_city_points5_applied/accepted_point_uses.parquet",
+  "successor_sha256": "55d48c286527d8ba367b4f2b7df7646724df246d592d8e3e62d49779cd798ede",
+  "successor_rows": 417758,
+  "successor_bytes": 42252573,
+  "baseline_prefix_validation": {
+    "method": "Apache Arrow streaming RecordBatch equality, all 440 columns, batches=8192 rows; no full-wide intermediate dataframes",
+    "equal_base_rows": 417750,
+    "batches_compared": 51,
+    "all_rows_identical_in_prefix_order": true
+  },
+  "delta_validation": {
+    "final_8_row_tail_equals_delta_by_streamed_arrow_record_batch": true,
+    "exact_reviewed_origin_and_coordinate_tuples_checked": 8,
+    "existing_Zheleznodorozhny_rows_unchanged": true
+  },
+  "runtime_seconds": 1.76,
+  "no_other_mutations": {
+    "graph_mutated": false,
+    "source_population_mutated": false,
+    "provider_binding_claimed": false,
+    "historical_boundary_or_censusdate_coordinate_claimed": false
+  }
+}

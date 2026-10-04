@@ -1,0 +1,85 @@
+{
+  "status": "root_authorized_raw_source_point_application_complete_scope_reconciled",
+  "review_receipt_sha256": "e78eb3fe677d61d6a3088ef97616ef0d71e8d235597028d0537fd4dfdc7be14b",
+  "input_pins": {
+    "independent_review_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/admin_homonym_834_point_review/independent_review_receipt.json",
+      "sha256": "e78eb3fe677d61d6a3088ef97616ef0d71e8d235597028d0537fd4dfdc7be14b"
+    },
+    "eligible_seeds": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/admin_homonym_834_point_review/eligible_point_seedlist.csv",
+      "sha256": "43877a13a11bb3b66cd13c68eb1eab2f482b25b4b497e08ea320b535639848c4"
+    },
+    "baseline_source_points": {
+      "path": "/workspace/settlements-work/continuation_20261004/root/accepted_type_false_zero_177_source_points/accepted_point_uses.parquet",
+      "sha256": "3aa163bad676aa71c94083da0853a3c01b2b48bb6b33432666fcf447c9021287"
+    },
+    "accepted_graph": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_ninth_reviewed_legacy202/accepted_identity_edges.parquet",
+      "sha256": "a9fec4648d24afc7345ae23fca9f45058c0962e8fd41d9124deaf01839ef58b6"
+    },
+    "selected_observations": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+    },
+    "raw_tochno": {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+    },
+    "geonames_corroboration": {
+      "path": "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip",
+      "sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4"
+    },
+    "blocklist": {
+      "path": "/workspace/settlements-work/continuation_20261003/blocked_point_reuse_targets_v1.json",
+      "sha256": "7a715254f965d996541001d08d3422828299f5c300dfae4cbe78b79f9a5b0e70"
+    }
+  },
+  "reviewed_seed_rows": 834,
+  "eligible_seed_population": 100507.0,
+  "baseline_seed_targets_already_pointed": 0,
+  "appended_direct_source_point_rows": 834,
+  "appended_retrospective_transfer_rows": 1668,
+  "appended_point_rows": 2502,
+  "baseline_rows": 415248,
+  "output_rows": 417750,
+  "baseline_prefix_all_columns_equal": true,
+  "baseline_prefix_rows_verified": 415248,
+  "added_point_rows_and_population_by_year": {
+    "2002": {
+      "rows": 834,
+      "population": 120253.0
+    },
+    "2010": {
+      "rows": 834,
+      "population": 110553.0
+    },
+    "2021": {
+      "rows": 834,
+      "population": 100507.0
+    }
+  },
+  "transfer_holds": 0,
+  "historical_scope_reconciliations": 834,
+  "historical_scope_reconciliation_rule": "For exact independently replayed 2002 physical rows only, allow a NULL optional population_scope field when selected row is additive and the pinned independent receipt confirms raw name/type/population replay. Preserve the original unknown scope value; explicit federal/nonadditive/collision/successor/aggregate flags remain holds.",
+  "first_diagnostic_attempt": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/accepted_admin_homonym_834_source_points/accepted_point_uses.parquet",
+    "disposition": "unconsumed; 2002 transfers held because optional source-evidence population_scope was NULL"
+  },
+  "graph_mutated": false,
+  "selected_population_mutated": false,
+  "source_point_choice": "exact raw Tochno/DaData coordinates; GeoNames coordinates are corroboration only",
+  "provider_ID_binding_asserted": false,
+  "historical_measurement_asserted": false,
+  "boundary_comparability_asserted": false,
+  "gain_semantics": "Appended-record populations are not net joint-coverage gain; root must recompute against final canonical graph/current point config.",
+  "code_sha256": "16fbc0c37db0f6906ec06c4791a19affe58017d8abe3e34d5927302da8d73e6c",
+  "output_path": "/workspace/settlements-work/continuation_20261004/root/accepted_admin_homonym_834_source_points_scope_reconciled/accepted_point_uses.parquet",
+  "output_sha256": "d48bfe071c3563ed51566f2952c7e57c28ced761826abc053fb739a9c269656a",
+  "transfer_summary_sha256": "6ed9f6d2a4cb339ec7b8cf1a3fe07d6a85602804cb18c75c7c755b1eab33fe40",
+  "elapsed_seconds": 11.724
+}

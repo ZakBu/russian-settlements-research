@@ -1,0 +1,112 @@
+{
+  "status": "materialized_accepted_separate_scoped_layer",
+  "layer": "accepted_talnakh_typed_scope",
+  "root_approval_basis": {
+    "independent_review_receipt_sha256": "b46532bef91bae17495217919ad87383734b0a389ab9eabcb739a23d7e2fbf0c",
+    "status": "approved_by_root_for_separate_scoped_layer"
+  },
+  "counts": {
+    "primary_source_observations": 3,
+    "point_uses": 3,
+    "typed_scope_edges": 2,
+    "canonical_graph_edges_added": 0,
+    "canonical_population_rows_added": 0,
+    "current_entity_ids_created": 0,
+    "national_additive_values": 0
+  },
+  "input_pins": {
+    "/workspace/settlements-work/continuation_20261004/independent_review/talnakh_scope_transition/review_receipt.json": "b46532bef91bae17495217919ad87383734b0a389ab9eabcb739a23d7e2fbf0c",
+    "/workspace/settlements-work/continuation_20261004/independent_review/talnakh_scope_transition/talnakh_scoped_observations.parquet": "8b5d908d8d8cd8e2c97a234c4b5e24a27a00ef9ece8d80526dc015f4b98a5c15",
+    "/workspace/settlements-work/continuation_20261004/independent_review/talnakh_scope_transition/talnakh_eligible_point.parquet": "2424f53b10be583e2224bb0ae626a4aef3e2c73f5ebe544ba0bcd987ddda9272",
+    "/workspace/settlements-work/continuation_20261004/independent_review/talnakh_scope_transition/talnakh_typed_scope_edges.parquet": "8312b1a01c156a54175b1463f8d26aa628ae98520257858e4746b9db39165790",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/talnakh_verified_point_fetch_20261004/candidate_receipt.json": "abb6c453ced5eaa06ecf9e8dee9e34f90955d913631d2c28454d80e8a1d8e69c",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/talnakh_verified_point_fetch_20261004/wikidata_Q1010995_wbgetentities.json": "86b4cb28aa3e850a1d3d811836492c8d0122a4f4597d06b876ef5f3928e7fac3",
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+    "/workspace/settlements-raw/data/raw/rosstat_2021/Tom1_tab-5_VPN-2020.xlsx": "0b232b3d2ab5daa231568acc719ac6fda4fb0979a01a0da6bacc69be6f252474",
+    "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4"
+  },
+  "outputs": {
+    "scoped_primary_observations.parquet": "12a113078d52ef059fca2dc95d0ef246b844128a7ed4b3af448cb908e0211fe3",
+    "scoped_primary_observations.csv": "55c6b6306378e58ab25c20bf464887346039e8cc4284b59855d932487e59139e",
+    "scoped_point_uses.parquet": "f515f9febcda28d14774eb2d0c49e13f842c0e3086d6217bdb0bd96c7f2d60e5",
+    "scoped_point_uses.csv": "93cf383afae62c76785c5f89d26f7c7c028c4825be2655ba1ce6f55c17e7697d",
+    "accepted_typed_scope_edges.parquet": "69c8a838075125b1f0afac3c2f485270072139206edc344baf6212e3506e21e6",
+    "accepted_typed_scope_edges.csv": "3bfcfb1c1a20af507028be53a19442063e3a7998e192bbb6df43f424a581bd4b",
+    "loader_schema.json": "2c5dff04b5dfb31760f9096d9b2558df08a248fb3b19084b2b2e4df22045aa6c",
+    "nonadditive_parent_partition_context.json": "2c78807de81692b4d5bf3b79d52456bdf79c287c6564a770d0facc7a2ad12696",
+    "test_talnakh_nonadditive_guards.py": "fc285ee065e7de8e31f088f60bf92eeaa939e8886a5f5809ceaf29ec9392a40c"
+  },
+  "root_old2002_union_hook": {
+    "source_record_id": "2002:1_TOM_01_04.xls:0:8697",
+    "action": "join to existing canonical old census row by exact source_record_id; do not append a duplicate population observation",
+    "old_primary_value": 58654,
+    "add_point_context_from": "scoped_point_uses.parquet",
+    "identity_edge_from": "accepted_typed_scope_edges.parquet"
+  },
+  "parent_controls": {
+    "status": "nonadditive_partition_context_only",
+    "observations": [
+      {
+        "year": 2002,
+        "parent": "г. Норильск с подчиненными его администрации населенными пунктами - городское население",
+        "parent_total": 221908,
+        "children_sum": 221908,
+        "Talnakh": 58654,
+        "separate_Norilsk_city": 134832,
+        "source_locator": "2002 Table 4 worksheet 01-04 rows 8694-8698",
+        "action": "Talnakh is included in parent partition; no parent or child population transferred."
+      },
+      {
+        "year": 2010,
+        "parent": "г. Норильск с подчиненными его администрации населенными пунктами - городское население",
+        "parent_total": 176252,
+        "Norilsk_city_partition": 175365,
+        "districts": {
+          "Кайеркан": 22338,
+          "Талнах": 47307,
+          "Центральный": 105720
+        },
+        "separate_Snezhnogorsk": 887,
+        "action": "Talnakh intracity district is included in Norilsk city partition; no parent or child population transferred."
+      },
+      {
+        "year": 2021,
+        "parent": "Городской округ город Норильск - городское население",
+        "parent_total": 175237,
+        "Norilsk_city_partition": 174453,
+        "districts": {
+          "район Кайеркан": 21193,
+          "район Талнах": 47216,
+          "Центральный район": 106044
+        },
+        "separate_Snezhnogorsk": 784,
+        "action": "Talnakh intracity district is included in Norilsk city partition; no parent or child population transferred."
+      }
+    ]
+  },
+  "guard_results": {
+    "parent_partition_no_double_count": "passed for 2002, 2010, 2021 exact arithmetic",
+    "old2002_union_no_duplicate": "passed; old selected source ID is unique and loader says join only",
+    "no_current_identity_or_population_transfer": "passed",
+    "ordinary_NP3_not_claimed": "passed"
+  },
+  "scope_limits": [
+    "2002 Talnakh city row remains distinct from Norilsk city row 134832 and is already inside the 2002 parent population 221908.",
+    "2010/2021 are official intracity district rows but are auxiliary scoped rows, not canonical selected settlement records; values are already within Norilsk city population partitions.",
+    "No exact legal transition date, boundary equivalence, historical/native code binding, or current atomic settlement ID asserted.",
+    "Point is a GeoNames named physical-place representative point, not a census-date measurement.",
+    "No population transfer or change to canonical graph, config, or population ledger."
+  ],
+  "regression_tests": {
+    "test_file": "test_talnakh_nonadditive_guards.py",
+    "sha256": "fc285ee065e7de8e31f088f60bf92eeaa939e8886a5f5809ceaf29ec9392a40c",
+    "command": "python -m unittest test_talnakh_nonadditive_guards.py -v",
+    "passed": 2,
+    "cases": [
+      "test_child_rows_remain_inside_norilsk_parent_partitions",
+      "test_2002_core_union_joins_existing_id_without_duplicate_or_new_current_id"
+    ]
+  }
+}

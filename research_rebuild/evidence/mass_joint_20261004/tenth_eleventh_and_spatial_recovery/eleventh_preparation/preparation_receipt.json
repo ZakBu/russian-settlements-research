@@ -1,0 +1,78 @@
+{
+  "status": "prepared_only_candidate_batch_not_applied",
+  "batch_scope": {
+    "type_transition_edges": 24,
+    "gost_sup_edges": 4,
+    "total_identity_edges": 28,
+    "direct_current_point_uses": 2,
+    "historical_gost_sup_point_rows_already_in_baseline": 4,
+    "reviewed_holds_not_included": 2
+  },
+  "baseline": {
+    "graph": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_tenth_reviewed1117/accepted_identity_edges.parquet",
+      "sha256": "19861c11048f191a540aba453f11194a540934fbe350f553e37a42908393d013"
+    },
+    "points": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_tenth_reviewed1117/accepted_point_uses.parquet",
+      "sha256": "870ccd0af86889e5c8e2c01bddd1d3c53401ccba216d7ce77624e5f848f724cc"
+    },
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+    }
+  },
+  "independent_reviews": {
+    "type_transition_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/type_transition_13_review_final/review_receipt.json",
+      "sha256": "374006cb726fb8c9cf35d73b0ffc074cfa08693d41e6ffc9549a45913dffe514"
+    },
+    "type_transition_eligible": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/type_transition_13_review_final/eligible_type_transition_edges.csv",
+      "sha256": "add7569ee4a7bf148fff3c5d2185db3426b1c4cf7885e3a2106bb3d204a4b90e"
+    },
+    "type_transition_receipt_source_evidence_sha256": "18487cfb13f7238cf8de404899d33b9310de722877b00a439606a1c00759af34",
+    "gost_sup_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/gostagaevskaya_classifier_point_review_v2/independent_review_receipt.json",
+      "sha256": "e6cdc2b0b6103402f502f279c06a51f504345a9407c4c7d49158f78eadefcb5c"
+    },
+    "gost_sup_edge_csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/gostagaevskaya_classifier_point_review_v2/eligible_identity_edges.csv",
+      "sha256": "11e9983b854d0760ab92e161dda92e33277f8a6b136fe5458e9e1b0df659a6cc"
+    },
+    "gost_sup_point_csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/gostagaevskaya_classifier_point_review_v2/eligible_point_uses.csv",
+      "sha256": "186c013ee81acb351fcd35b1249449d1eabe20fd529a9d63337fd311b930778c"
+    }
+  },
+  "preflight": {
+    "endpoint_count": 42,
+    "all_source_hard_flags_clear": true,
+    "all_years_verified_against_selected": true,
+    "point_targets_missing_from_baseline_and_not_globally_blocked": true,
+    "only_reviewed_type_eligible_rows_included": true,
+    "holds_excluded": 2,
+    "point_choices_are_geonames_ppl_and_binding_unasserted": true
+  },
+  "derived_adapter": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/eleventh_gostsup_type12/gost_sup_identity_candidate_adapter.csv",
+    "sha256": "dfe5cd717a5b4daa61742e5a8ce14d38014a504e160b59cc576644e70303f055"
+  },
+  "manifest": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/eleventh_gostsup_type12/eleventh_application_manifest.json",
+    "sha256": "5a58502010943faf2130b77634c1fe09ebbe9f7e9fb58be738720080aa9fa4ee"
+  },
+  "hard_flag_preflight": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/eleventh_gostsup_type12/canonical_endpoint_hard_flag_preflight.json",
+    "sha256": "1b758250609ea23e090257f077fb1b95bee0011cefb041a767e5053f23bb82f1"
+  },
+  "app_script": {
+    "path": "/workspace/russian-settlements-research/research_rebuild/mass_linkage/apply_reviewed_mass_extensions_20261004.py",
+    "sha256": "c6bdff633c55004d1046e239536523eb77af2e13caaa4ea5305640d57e6e2b39"
+  },
+  "application_run": "not performed; root controls memory slot and final invocation"
+}

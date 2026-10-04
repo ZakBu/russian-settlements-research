@@ -1,0 +1,149 @@
+{
+  "status": "independent_2021_historical_missing_identity_review_complete_candidate_only",
+  "decision": "approve exact reviewed identity edges only: full source-row typed-key unique + exact selected name/type/province and accepted other-year anchor; strict classifier subset additionally has raw 2009/2011 code/name/type+physical point evidence. Hold actual legacy same-year collision, verified successor, full-source typed-key repeats/unresolved, and graph9 year-overlap.",
+  "candidate_artifact": {
+    "path": "/workspace/settlements-work/continuation_20261004/R4/2021_historical_missing_identity_rank_20261004/latest_official3_single_missing_year_candidate_edges.csv",
+    "sha256": "70f226476d438dc93da37466c87aece22117253e57bbdad02d56383e20cf0bd7",
+    "rows": 1545
+  },
+  "producer_preflight": {
+    "path": "/workspace/settlements-work/continuation_20261004/R4/known_source_flags_1545_20261004/preflight_receipt.json",
+    "sha256": "d9e6572cad3c0c949dfb1000c6d8f310f87c3438d8fb9fa2f097dbc8ba193108",
+    "source_flags_path": "/workspace/settlements-work/continuation_20261004/R4/known_source_flags_1545_20261004/candidate_endpoint_source_flags.csv",
+    "source_flags_sha256": "488cd8777409586904adb26877d605e4ca5415fb75643ccbd3c0abebf5e215e5",
+    "raw_mapped_endpoints": 3090,
+    "rows_with_full_source_typed_key_unique_rule_eligible": 1267
+  },
+  "graph9": {
+    "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_ninth_reviewed_legacy202/accepted_identity_edges.parquet",
+    "sha256": "a9fec4648d24afc7345ae23fca9f45058c0962e8fd41d9124deaf01839ef58b6",
+    "rows": 347164,
+    "base_union_operations": 274612,
+    "authoritative_accepted_rows_included": 347164
+  },
+  "current_accepted_points": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/accepted_old_city_points5_applied/accepted_point_uses.parquet",
+    "sha256": "55d48c286527d8ba367b4f2b7df7646724df246d592d8e3e62d49779cd798ede",
+    "targets_checked": 1545,
+    "matched_current_2021_point_rows": 1545,
+    "point_origin_kind_counts": {
+      "geonames_ru_txt_named_place_point": 312,
+      "geokladr_2011_raw_dbf_coordinate": 507,
+      "raw_named_typed_2011_rural_geo_object": 21,
+      "None": 14,
+      "tochno_2021_dadata_raw_parquet_point": 599,
+      "geonames_ru_archive_physical_PPL_point": 9,
+      "wikidata_P625_point_claim": 76,
+      "raw_2021_own_provider_named_point": 7
+    },
+    "optional_coordinate_admission_false_but_admission_allowed_true": [
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:41153",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:46943"
+    ]
+  },
+  "review_counts": {
+    "input_candidate_edges": 1545,
+    "source_gate_eligible_before_graph9": 1267,
+    "source_gate_held": 278,
+    "graph9_new_union_edges": 1114,
+    "graph9_already_connected_confirmations": 152,
+    "graph9_year_collision_holds": 1,
+    "eligible_strong_classifier_rule_edges": 820,
+    "eligible_broad_typed_key_rule_edges": 446
+  },
+  "rule_counts": {
+    "strong_native_classifier_point": 820,
+    "broad_exact_typed_key_plus_current_code_point": 446
+  },
+  "old_endpoint_preflight_type_key_rows": {
+    "1": 1274,
+    "3": 13,
+    "2": 243,
+    "0": 1,
+    "4": 4,
+    "5": 6,
+    "13": 1,
+    "6": 2,
+    "9": 1
+  },
+  "old_endpoint_hard_flags_all_input": {
+    "legacy_same_year_collision": 227,
+    "verified_successor_flag": 3,
+    "legacy_administrative_conflict_preserved": 1511,
+    "old_federal_aggregate": 0
+  },
+  "current_endpoint_hard_flags_all_input": {
+    "legacy_identity_conflict": 0,
+    "legacy_same_year_collision": 0,
+    "verified_successor_flag": 3,
+    "federal_aggregate": 0
+  },
+  "strong_classifier_replay": {
+    "candidate_strong_rows_reviewed": 820,
+    "raw_2009_rows_replayed": 820,
+    "raw_2011_rows_replayed": 820,
+    "mismatches": 0,
+    "same_source_hash_as_current_accepted_point_rows": 494,
+    "distance_independence_claimed": false
+  },
+  "conditional_net_gain": {
+    "new_full3_components": 1114,
+    "population_2002": 325203,
+    "population_2010": 339292,
+    "population_2021": 374284,
+    "boundary_comparability_asserted": false,
+    "population_quality_changed": false,
+    "conditional_only": true
+  },
+  "fixed_raw_review_sample": {
+    "rows": 84,
+    "seed": 20261004,
+    "draw": "all 31 mapped special formats with a unique typed key and no hard flag, top 5 current-pop rows and 8 seeded risk rows per eligible rule×old-year stratum, plus top 15 excluded repeated/collision/successor controls; XLS cells and every preflight-listed same-name competitor were reopened. Special formats were checked against their complete source-table ledger/witness hashes. Risk-stratified only, not a prevalence estimate."
+  },
+  "limitations": [
+    "Old source administrative-conflict warnings are preserved in eligible rows; this ordinary identity review does not assert historical district continuity or excuse a same-period explicit contradiction.",
+    "Old 2010 population quality is retained exactly as published/protected; no population equality or ±10 rule used for identity.",
+    "Full-source uniqueness means unique typed-key row within the mapped source workbook/table plus unique selected-year key; it does not claim unsearched alternate publications or omitted raw assets are absent.",
+    "Strong classifier point proximity is not claimed as independent when the current point uses the same GeoKLADR source family; exact 2009/2011 typed code/name/type keys remain source corroboration.",
+    "The 710 broad candidates receive no independent historic code/point claim; their approved rule relies on unique actual publisher typed row + unique current native source key/accepted point + existing accepted other-year anchor, with no hard source event/collision.",
+    "Current coordinate measurement date and census-boundary comparability remain unknown/false; no cross-system code binding is asserted."
+  ],
+  "output_files": {
+    "eligible_identity_edges.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/year_missing_1545_review_final_v3/eligible_identity_edges.csv",
+      "sha256": "dc0cb55b2885824930fbeff49fe93f734a6a071528c9ebe099a470e5a539ebc9",
+      "bytes": 3612176,
+      "rows": 1114
+    },
+    "same_component_confirmations.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/year_missing_1545_review_final_v3/same_component_confirmations.csv",
+      "sha256": "63ea27770203469914b1c01acaad34417a3e46ac3c76e2c62a963f4678b1f2ae",
+      "bytes": 541131,
+      "rows": 152
+    },
+    "held_candidates.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/year_missing_1545_review_final_v3/held_candidates.csv",
+      "sha256": "296374d62147f415c5ca1bffb00381c3a5581dfea0b68ca5559d9e03abfe55b9",
+      "bytes": 360213,
+      "rows": 279
+    },
+    "fixed_raw_source_review_sample.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/year_missing_1545_review_final_v3/fixed_raw_source_review_sample.csv",
+      "sha256": "d9f0235819f12ec1a02e98ec49a9366e0a6a806810d8b524127a7957396fc1db",
+      "bytes": 94082,
+      "rows": 84
+    },
+    "conditional_new_full3_components.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/year_missing_1545_review_final_v3/conditional_new_full3_components.csv",
+      "sha256": "c2a134a2dd5e24a9040cd0781e58bd028d3f4ac37f17a78d9d816ab1c8a60990",
+      "bytes": 39599,
+      "rows": 1114
+    },
+    "reviewed_candidate_rows.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/year_missing_1545_review_final_v3/reviewed_candidate_rows.csv",
+      "sha256": "81fa58440f0d2bd5832483b8f0327e1bb9696095160818f040c26ca5640a3795",
+      "bytes": 4151411,
+      "rows": 1266
+    }
+  }
+}
