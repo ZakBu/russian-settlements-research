@@ -1808,5 +1808,5 @@ actual selected parquet исправила ожидание на434700152 без
 отвергаются. 9 focused regression tests passed (0.36s). Два новых application
 scripts прошли AST syntax check; полный repository suite не запускался. Применение
 точки и full-long экспорт прошли SHA/readback checks. Remote GitHub запись всё ещё
-не доступна. Локальная ветка содержит предыдущий commit `ff020fe`; новые application
-scripts, config/docs и эта запись ожидают отдельного локального commit.
+не доступна. Локальная ветка зафиксировала проверку построителя в `ff020fe`, а точку,
+полную long-выгрузку и текущие документы — в `46e6617`; рабочее дерево чистое.
