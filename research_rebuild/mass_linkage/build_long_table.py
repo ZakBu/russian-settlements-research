@@ -55,6 +55,10 @@ COORDINATE_OPTIONAL_COLUMNS = (
     "inference_identity_path_decision_ids_json", "lineage_event_roles_json",
     "corroborating_modern_point_distance_km", "provider_binding_status",
     "provider_fias_binding_status",
+    "point_supersession_kind", "point_supersession_review_sha256",
+    "point_supersession_predecessor_ledger_sha256", "point_supersession_old_latitude",
+    "point_supersession_old_longitude", "point_supersession_old_origin_sha256",
+    "point_supersession_old_origin_locator", "point_supersession_carrier_provider_id",
 )
 
 
@@ -93,6 +97,19 @@ def _none(value: Any) -> Any:
     if pd.isna(value):
         return None
     return value
+
+
+def _optional_boolean(value: Any) -> bool | None:
+    """Decode known serialized flags without making the string False truthy."""
+    value = _none(value)
+    if value is None or str(value).strip() == '':
+        return None
+    literal = str(value).strip().lower()
+    if literal in {'true', '1', '1.0'}:
+        return True
+    if literal in {'false', '0', '0.0'}:
+        return False
+    raise ValueError(f'Unexpected serialized boolean flag: {value!r}')
 
 
 def _read_parquet_projection(
@@ -209,11 +226,11 @@ def _coordinate_columns(point: dict[str, Any], temporal_basis: str) -> dict[str,
         "coordinate_admission_status": point.get("coordinate_admission_status"),
         "coordinate_temporal_basis": point.get("application_inference_kind") or temporal_basis,
         "coordinate_source_date": point.get("coordinate_source_date"),
-        "direct_historical_coordinate_measurement": point.get("direct_historical_coordinate_measurement"),
-        "coordinate_measurement_date_unknown": point.get("coordinate_measurement_date_unknown"),
+        "direct_historical_coordinate_measurement": _optional_boolean(point.get("direct_historical_coordinate_measurement")),
+        "coordinate_measurement_date_unknown": _optional_boolean(point.get("coordinate_measurement_date_unknown")),
         "coordinate_uncertainty_flags_json": point.get("coordinate_uncertainty_flags_json"),
-        "boundary_comparability_asserted": point.get("boundary_comparability_asserted"),
-        "population_scope_comparability_asserted": point.get("population_scope_comparability_asserted"),
+        "boundary_comparability_asserted": _optional_boolean(point.get("boundary_comparability_asserted")),
+        "population_scope_comparability_asserted": _optional_boolean(point.get("population_scope_comparability_asserted")),
         "coordinate_source": point.get("coordinate_source"),
         "coordinate_source_record_id": point.get("coordinate_source_record_id"),
         "coordinate_provider": point.get("coordinate_provider"),
@@ -232,6 +249,7 @@ def _coordinate_columns(point: dict[str, Any], temporal_basis: str) -> dict[str,
         "coordinate_corroborating_modern_point_distance_km": point.get("corroborating_modern_point_distance_km"),
         "provider_binding_status": point.get("provider_binding_status"),
         "provider_fias_binding_status": point.get("provider_fias_binding_status"),
+        **{name: point.get(name) for name in COORDINATE_OPTIONAL_COLUMNS if name.startswith('point_supersession_')},
     }
 
 

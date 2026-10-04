@@ -415,6 +415,11 @@ def run(manifest_path: Path, output: Path):
             raise ValueError('accepted identity graph contains a same-year union-find collision')
     points = pd.read_parquet(base['points'])
     boolean_point_columns = set(points.select_dtypes(include=['bool', 'boolean']).columns)
+    # Physical Arrow bool columns can retain old pandas object metadata after a
+    # canonical projection, so dtype inference alone misses these known flags.
+    boolean_point_columns.update({'boundary_comparability_asserted',
+        'population_scope_comparability_asserted', 'direct_historical_coordinate_measurement',
+        'coordinate_measurement_date_unknown'})
     # The third application serialized this particular false/unknown flag as
     # VARCHAR. Recover its type explicitly without promoting unknown to false.
     if 'census_date_point_measurement_proven' in points:

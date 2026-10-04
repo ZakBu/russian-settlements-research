@@ -89,3 +89,11 @@ def test_parquet_projection_requires_consumed_key_columns(tmp_path):
     pd.DataFrame([{"from_source_record_id": "a", "to_source_record_id": "b"}]).to_parquet(path, index=False)
     with pytest.raises(ValueError, match="missing required columns"):
         _read_parquet_projection(path, IDENTITY_REQUIRED_COLUMNS)
+def test_serialized_false_stays_false_and_unknown_stays_unknown():
+    from research_rebuild.mass_linkage.build_long_table import _optional_boolean
+    assert _optional_boolean('False') is False
+    assert _optional_boolean(None) is None
+    assert _optional_boolean('True') is True
+    import pytest
+    with pytest.raises(ValueError, match='Unexpected serialized boolean'):
+        _optional_boolean('unrecognized')

@@ -114,7 +114,8 @@ def remap_secondary_history(history: pd.DataFrame, final_census_long: pd.DataFra
     """Refresh current-place context while preserving each secondary observation."""
     if len(history) != expected_rows:
         raise ValueError(f"secondary history row count changed: expected {expected_rows}, got {len(history)}")
-    if (~history.record_type.isin({"wiki_literal_series", "wiki_literal_series_candidate_current_binding_review"})).any():
+    if (~history.record_type.isin({"wiki_literal_series", "wiki_literal_series_candidate_current_binding_review",
+                                 "candidate_current_binding_review"})).any():
         raise ValueError("secondary-history input has unexpected record_type")
     if history.wikidata_statement_id.isna().any():
         raise ValueError("secondary-history rows must retain their statement GUID")
@@ -305,9 +306,17 @@ def main() -> None:
     if config.get("working_point_uses_sha256"):
         verify_hash(points, config["working_point_uses_sha256"], "configured final point ledger")
     history_receipt = json.loads(args.secondary_receipt.read_text(encoding="utf-8"))
-    expected_history_hash = history_receipt["outputs"]["reviewed_secondary_history_observations.parquet"]["sha256"]
+    history_output = history_receipt["outputs"]["reviewed_secondary_history_observations.parquet"]
+    if isinstance(history_output, str):
+        if history_receipt.get("status") != "secondary_display_append_applied_no_historical_identity_or_census_admission":
+            raise ValueError("Unexpected secondary append receipt format/status")
+        verify_hash(Path(history_receipt['manifest_path']), history_receipt['manifest_sha256'], 'secondary append manifest')
+        expected_history_hash = history_output
+        history_rows = history_receipt['result_rows']
+    else:
+        expected_history_hash = history_output["sha256"]
+        history_rows = history_receipt["observations"]["observations"]
     history_hash = verify_hash(args.secondary_history, expected_history_hash, "reviewed secondary-history input")
-    history_rows = history_receipt["observations"]["observations"]
     if int(history_rows) != args.expected_history_rows:
         raise ValueError(f"history receipt row count mismatch: {history_rows}")
     federal_points = Path(config["federal_points"])

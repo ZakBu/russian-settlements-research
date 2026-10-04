@@ -1,0 +1,48 @@
+{
+  "status": "diagnostic_only_exact_point_disagreement_no_admission_changes",
+  "threshold_km": 5,
+  "exact_haversine": true,
+  "disagreeing_components": 1064,
+  "over_20km_components": 713,
+  "metrics": [
+    {
+      "census_year": 2002,
+      "affected_source_rows": 971,
+      "affected_recorded_population": 535526.0,
+      "affected_joint_rows": 941,
+      "affected_joint_population": 502212.0,
+      "joint_NP_population_without_point_disagreement": 120370433,
+      "joint_NP_fraction_without_point_disagreement": 0.829187460314168
+    },
+    {
+      "census_year": 2010,
+      "affected_source_rows": 1056,
+      "affected_recorded_population": 533552.0,
+      "affected_joint_rows": 934,
+      "affected_joint_population": 327636.0,
+      "joint_NP_population_without_point_disagreement": 117972474,
+      "joint_NP_fraction_without_point_disagreement": 0.825810826044389
+    },
+    {
+      "census_year": 2021,
+      "affected_source_rows": 1064,
+      "affected_recorded_population": 491729.0,
+      "affected_joint_rows": 963,
+      "affected_joint_population": 437172.0,
+      "joint_NP_population_without_point_disagreement": 118647665,
+      "joint_NP_fraction_without_point_disagreement": 0.8061282347449221
+    }
+  ],
+  "config_sha256": "5fc663ce2f1c7a973e24ea8b35bd120a1778d031e1654aff62e6f265062d6d37",
+  "core_sha256": "a86401feb1ede3cb786741d52d374beb86fc1c705e146ec3f0f0831eac4593f7",
+  "script_sha256": "8834f7fb0b106a0c99912cf41f66f9abba26294cbb974adac6d36b7e5761b424",
+  "outputs": {
+    "/workspace/settlements-work/continuation_20261004/root/sixth_corrected_point_disagreement_audit/disagreeing_point_pairs.parquet": "33fc1573b55cb7179e7a2d77240be8d58c02c246d6158f177f2d4ba9212cf866",
+    "/workspace/settlements-work/continuation_20261004/root/sixth_corrected_point_disagreement_audit/affected_census_point_records.parquet": "d21d4f547ba195c7a6328e5ace7a015ca3cc786cf6a8d69c905a635996ce98a5"
+  },
+  "limitations": [
+    "Distance threshold is a contradiction screen, not automatic evidence of wrong identity or point; large/polycentric settlements need scope review.",
+    "Named and coded raw GeoKLADR 2011 records may still carry erroneous coordinates; raw row provenance alone does not establish coordinate correctness.",
+    "Existing immutable admission ledgers retained; dispute decisions and source-specific corrections require reviewed witnesses."
+  ]
+}

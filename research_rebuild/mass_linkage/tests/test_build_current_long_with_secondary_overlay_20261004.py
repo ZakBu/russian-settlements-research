@@ -149,14 +149,15 @@ def test_analysis_display_preserves_point_roles_and_historical_unknowns():
     assert pd.isna(out.loc[2, "latitude"])
 
 
-def test_reviewed_current_binding_source_tag_is_preserved_without_historical_admission():
-    history = _history().assign(record_type='wiki_literal_series_candidate_current_binding_review')
+@pytest.mark.parametrize('source_tag', ['wiki_literal_series_candidate_current_binding_review', 'candidate_current_binding_review'])
+def test_reviewed_current_binding_source_tag_is_preserved_without_historical_admission(source_tag):
+    history = _history().assign(record_type=source_tag)
     out = remap_secondary_history(history, _current_core(), expected_rows=1)
     assert out.record_type.iloc[0] == 'wiki_literal_series'
-    assert out.source_record_type_before_display_projection.iloc[0] == 'wiki_literal_series_candidate_current_binding_review'
+    assert out.source_record_type_before_display_projection.iloc[0] == source_tag
     assert out.historical_identity_admitted.iloc[0] == False
     assert pd.isna(out.latitude.iloc[0])
-    assert history.record_type.iloc[0] == 'wiki_literal_series_candidate_current_binding_review'
+    assert history.record_type.iloc[0] == source_tag
     bad = history.assign(record_type='unknown_unreviewed_source')
     with pytest.raises(ValueError, match='unexpected record_type'):
         remap_secondary_history(bad, _current_core(), expected_rows=1)
