@@ -50,6 +50,30 @@ def truth(v) -> bool:
     return str(v).strip().lower() in {'true', '1', 'yes', 'y'}
 
 
+def preserve_nullable_booleans(frame, columns):
+    """Keep false/unknown flags typed after heterogeneous source concatenation.
+
+    DuckDB may infer VARCHAR for object columns containing both boolean and
+    missing values. In particular, the string 'False' is truthy in Python.
+    Unknown values stay unknown; unexpected literals fail before writing.
+    """
+    for column in columns:
+        if column not in frame:
+            continue
+        values = []
+        for value in frame[column]:
+            if value is None or pd.isna(value) or str(value).strip() == '':
+                values.append(pd.NA)
+            elif str(value).strip().lower() in {'true', '1', '1.0'}:
+                values.append(True)
+            elif str(value).strip().lower() in {'false', '0', '0.0'}:
+                values.append(False)
+            else:
+                raise ValueError(f'invalid boolean source flag {column}: {value!r}')
+        frame[column] = pd.array(values, dtype='boolean')
+    return frame
+
+
 def key_from(row, fields):
     return tuple(str(row[f]).strip() for f in fields)
 
@@ -298,6 +322,11 @@ def run(manifest_path: Path, output: Path):
         if len(component_years)!=len(set(component_years)):
             raise ValueError('accepted identity graph contains a same-year union-find collision')
     points = pd.read_parquet(base['points'])
+    boolean_point_columns = set(points.select_dtypes(include=['bool', 'boolean']).columns)
+    # The third application serialized this particular false/unknown flag as
+    # VARCHAR. Recover its type explicitly without promoting unknown to false.
+    if 'census_date_point_measurement_proven' in points:
+        boolean_point_columns.add('census_date_point_measurement_proven')
     if points.target_source_record_id.astype(str).duplicated().any(): raise ValueError('base points contain duplicate targets')
     base_point_ids = set(points.target_source_record_id.astype(str))
     blocked=read_blocked_targets(blocked_path)
@@ -394,6 +423,7 @@ def run(manifest_path: Path, output: Path):
             propagated.append(row)
     if propagated: points=pd.concat([points,pd.DataFrame(propagated)],ignore_index=True,sort=False)
     if points.target_source_record_id.astype(str).duplicated().any(): raise ValueError('duplicate point target after continuity')
+    points = preserve_nullable_booleans(points, boolean_point_columns)
     # Outputs are written only after all application gates above pass.
     output.mkdir(parents=True,exist_ok=True)
     graph.to_parquet(output/'accepted_identity_edges.parquet',index=False)

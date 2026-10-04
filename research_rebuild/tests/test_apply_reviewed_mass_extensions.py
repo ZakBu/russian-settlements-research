@@ -2,7 +2,23 @@
 import csv
 from collections import Counter
 import pytest
+import pandas as pd
+import duckdb
 from research_rebuild.mass_linkage import apply_reviewed_mass_extensions_20261004 as app
+
+
+def test_false_measurement_flag_remains_boolean_after_append(tmp_path):
+    frame = pd.DataFrame({'census_date_point_measurement_proven': [False, 'False', None]})
+    app.preserve_nullable_booleans(frame, ['census_date_point_measurement_proven'])
+    con = duckdb.connect()
+    con.register('points', frame)
+    assert con.execute('select census_date_point_measurement_proven from points').fetchall() == [(False,), (False,), (None,)]
+    assert con.execute('describe points').fetchone()[1] == 'BOOLEAN'
+
+
+def test_unknown_boolean_literal_blocks_output():
+    with pytest.raises(ValueError, match='invalid boolean source flag'):
+        app.preserve_nullable_booleans(pd.DataFrame({'flag': ['not checked']}), ['flag'])
 
 
 def pin(path):
