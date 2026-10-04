@@ -1,0 +1,115 @@
+{
+  "current_user_goal_population_fraction": 0.99,
+  "frozen": {
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+    },
+    "legacy_availability": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/legacy_availability_projected_r5.parquet",
+      "sha256": "3c21c2edbc7ab0813929775c1d5100d5e15bb25b6c5cdb31d3fe46edd80270d5"
+    }
+  },
+  "base": {
+    "graph": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph18_russky_only_20261005/accepted_identity_edges.parquet",
+      "sha256": "43088dc7e4a15d283ca35dfaa5164adeb530c88319afe531777dd49e0d21548b"
+    },
+    "points": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph18_russky_only_20261005/accepted_point_uses.parquet",
+      "sha256": "5924bb3751bdb868e533f443a802e7184d3dd9865c61a880f20abd4c0917aa95"
+    }
+  },
+  "identity_sources": [
+    {
+      "candidate": {
+        "path": "/workspace/russian-settlements-research/research_rebuild/evidence/mass_joint_20261004/graph19_lokot/candidate_edges.csv",
+        "sha256": "df43588581cd8fc8205bee641b02d73a6d1ceea19378a1f6378eb262dae2e237"
+      },
+      "eligible": {
+        "path": "/workspace/russian-settlements-research/research_rebuild/evidence/mass_joint_20261004/graph19_lokot/eligible_edges.csv",
+        "sha256": "c802695781899238fa4b42d27ad1c542f8a14dd7e4d406be8ebd190b33fa40b4"
+      },
+      "review_receipt": {
+        "path": "/workspace/russian-settlements-research/research_rebuild/evidence/mass_joint_20261004/graph19_lokot/identity_review_receipt.json",
+        "sha256": "3203ed69864784e5275a4b76fadfcc833be334792da054f84c833e8396110c57"
+      },
+      "candidate_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "integration_rule_family",
+        "id": "decision_id",
+        "status": "integration_layer",
+        "collision": "same_year_collision",
+        "event": "verified_successor_event",
+        "global_block": "global_block"
+      },
+      "eligible_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "rule_family"
+      },
+      "accepted_candidate_statuses": [
+        "staged_candidate_pending_independent_review"
+      ],
+      "exclude_if_true": [
+        "collision",
+        "event",
+        "global_block"
+      ]
+    }
+  ],
+  "point_sources": [
+    {
+      "candidate": {
+        "path": "/workspace/russian-settlements-research/research_rebuild/evidence/mass_joint_20261004/graph19_lokot/point_candidate.parquet",
+        "sha256": "fbff2e676301242a9eb7d4cff8e1c54e55afeb99784377bbb6ba31e74250ec88"
+      },
+      "approved": {
+        "path": "/workspace/russian-settlements-research/research_rebuild/evidence/mass_joint_20261004/graph19_lokot/approved_points.csv",
+        "sha256": "bf4ef42048f507b5a4829c2597030be397346a247c7c3329ad0e17ec11c8e303"
+      },
+      "review_receipt": {
+        "path": "/workspace/russian-settlements-research/research_rebuild/evidence/mass_joint_20261004/graph19_lokot/point_review_receipt.json",
+        "sha256": "9785c67c94ca4663b6d72f39e2d7238ac5c04d5f458c26f3b73de1e1fc58e481"
+      },
+      "candidate_columns": {
+        "target": "target_source_record_id",
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "origin_file": "point_origin_file",
+        "origin_sha256": "point_origin_sha256",
+        "origin_locator": "point_origin_locator"
+      },
+      "approved_columns": {
+        "target": "target_source_record_id",
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "origin_file": "origin_file",
+        "origin_sha256": "origin_sha256",
+        "origin_locator": "origin_locator"
+      },
+      "origin": {
+        "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+        "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+      }
+    }
+  ],
+  "blocked_targets": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/eao71_point879_manifest_preparation/blocked_point_reuse_targets.json",
+    "sha256": "20882fa230288f20904f3fd2e670fc18f9ad8cd5bdc8e7a883b436c389f56b5d"
+  },
+  "federal_points": {
+    "path": "/workspace/settlements-work/continuation_20261004/federal_application/accepted_territory_reference_points.parquet",
+    "sha256": "3b366d9a513b0396e90813f03c4e3af1cd0b1caef92379a9ae95cae43451d6e3"
+  },
+  "federal_chains": {
+    "path": "/workspace/settlements-work/continuation_20261004/federal_application/accepted_typed_city_continuity.parquet",
+    "sha256": "ee5898e3e5495d691f230e18fce08191fcc287ed35e06d969140bb05df75c695"
+  },
+  "reviewed_at_utc": "2026-10-05T00:00:00Z"
+}
