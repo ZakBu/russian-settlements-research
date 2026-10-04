@@ -1,0 +1,170 @@
+{
+  "candidate_only": true,
+  "checks": {
+    "89_source_record_id_and_exact_from_to_pairs_joined_to_prior_independent_pair_review": 89,
+    "all_76_distinct_current_targets_have_accepted_2021_points_in_corrected_ledger": true,
+    "baseline_graph_recomputed": false,
+    "current_targets_in_89_endpoint_review": 76,
+    "event_or_aggregate_evidence_added": false,
+    "legacy_competing_source_rows_reopened": 248,
+    "population_admission_or_assertion_change": false,
+    "raw_source_files_and_pdf_pages": 48,
+    "raw_source_row_mismatches": 0,
+    "raw_source_row_name_population_matches": 248,
+    "same_name_type_region_exact_2002_signature_unique": 74,
+    "same_name_type_region_protected_or_direct_2010_signature_unique": 15,
+    "source_endpoint_decisions": 89,
+    "source_endpoint_holds": 0
+  },
+  "created_at_utc": "2026-10-04T07:33:33+00:00",
+  "current_resolution_subset_only": true,
+  "does_not_disable_legacy_flags_globally": true,
+  "eligible_csv_sha256": "ff06b0838fdf5f39066b976462d5b26f67c56372f6a2d3e348959dfd818dccea",
+  "eligible_endpoint_count": 89,
+  "frozen_source_evidence_sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327",
+  "inputs": {
+    "current_corrected_accepted_point_ledger": {
+      "all_2021_points_present": true,
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_sixth_point_corrected/accepted_point_uses.parquet",
+      "sha256": "07ecad72f4919ee60a3ae5b715b4b4ad20437d6ecd0026182abbe311f3383e71",
+      "statuses": "reviewed_rule_accepted or reviewed_extension_rule_accepted",
+      "target_count_in_89_requests": 76
+    },
+    "frozen_selected_observations_parquet": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "rows": 465800,
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "frozen_source_evidence_parquet": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+      "rows": 465800,
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+    },
+    "independently_reviewed_eligible_pair_inputs": [
+      {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/wd_population_signatures_final923/eligible_qid_source_pairs.csv",
+        "rows": 923,
+        "sha256": "cd43b3bf4abe881a7e2ad378e3e40c2ad5bd5cf4fe00cc0d15ca62cf812ce99a"
+      },
+      {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/review_wd_signature_delta_post2000_1951/eligible_qid_source_pairs_final.csv",
+        "rows": 1584,
+        "sha256": "20fe7d81de1f15a705d18aa4f11d5556aaf7f9f5128d1053ea1aee65debf2dcf"
+      }
+    ],
+    "legacy_collision_request_csv": {
+      "expected_sha256": "29f789ba8109a3fb964b1ee5eae8054c578794031f212a27d643411b5f012c96",
+      "path": "/workspace/settlements-work/continuation_20261004/root/seventh_legacy_collision_flagged_endpoint_review_requests.csv",
+      "rows": 89,
+      "sha256": "29f789ba8109a3fb964b1ee5eae8054c578794031f212a27d643411b5f012c96"
+    },
+    "official_2010_table5_pdf": {
+      "expected_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+    },
+    "prior_1951_independent_pair_review": {
+      "fixed_raw_review_summary_path": "/workspace/settlements-work/continuation_20261004/independent_review/review_wd_signature_delta_post2000_1951/fixed_raw_source_review_v2_summary.json",
+      "fixed_raw_review_summary_sha256": "f3700d8bf08312a307cfbed2f75688a3dbda65b9e718441b5b0ead5d32c33399",
+      "pair_csv_path": "/workspace/settlements-work/continuation_20261004/independent_review/review_wd_signature_delta_post2000_1951/eligible_qid_source_pairs_final.csv",
+      "pair_csv_sha256": "20fe7d81de1f15a705d18aa4f11d5556aaf7f9f5128d1053ea1aee65debf2dcf",
+      "review_receipt_path": "/workspace/settlements-work/continuation_20261004/independent_review/review_wd_signature_delta_post2000_1951/final_independent_review_receipt.json",
+      "review_receipt_sha256": "dde402879491275c18101ebee36ba1e16554bd23b726d0fa81728653deec140a"
+    },
+    "prior_923_independent_pair_review": {
+      "pair_csv_path": "/workspace/settlements-work/continuation_20261004/independent_review/wd_population_signatures_final923/eligible_qid_source_pairs.csv",
+      "pair_csv_sha256": "cd43b3bf4abe881a7e2ad378e3e40c2ad5bd5cf4fe00cc0d15ca62cf812ce99a",
+      "review_receipt_path": "/workspace/settlements-work/continuation_20261004/independent_review/wd_population_signatures_final923/independent_review_receipt.json",
+      "review_receipt_sha256": "e6794a13054e4d040c0bbc7da66ce7562314e6666a59703e2d3e2c350ad2a95d",
+      "review_vector_path": "/workspace/settlements-work/continuation_20261004/independent_review/wd_population_signatures_final923/all_pair_independent_review.json",
+      "review_vector_sha256": "a03268c1afb888413de9303fe0cb4b5b6dfa9b31e6b5d9c41f137d5e941511eb"
+    },
+    "prior_fixed_raw_review": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/review_wd_signature_delta_post2000_1951/fixed_raw_source_review_v2.csv",
+      "rows": 182,
+      "sha256": "582ee096d12cdd3254eff010de844068fff4d626b7ad3b4ec0f14e4f07094457"
+    }
+  },
+  "limitations": [
+    "This scoped correction evaluates only the legacy fuzzy/collision pointer using independently reviewed unique two-year source signatures and exact raw source rows. It does not prove independent population accuracy, legal boundary continuity, or a universal one-to-one old-crosswalk mapping.",
+    "2010 protected values remain tagged protected and are used as identity support only within the previously reviewed ±10 source-quality condition; no primary count claim is made.",
+    "The frozen legacy_same_year_collision/legacy_identity_conflict fields are not rewritten; unrelated collisions remain quarantined.",
+    "Current points remain modern/current context and are not claimed as historical measurements.",
+    "No population assertion is added, removed, or altered."
+  ],
+  "outputs": {
+    "eligible_csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/wd_collision_resolution_89/eligible_legacy_collision_resolutions.csv",
+      "rows": 89,
+      "sha256": "ff06b0838fdf5f39066b976462d5b26f67c56372f6a2d3e348959dfd818dccea"
+    },
+    "held_csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/wd_collision_resolution_89/held_legacy_collision_resolutions.csv",
+      "rows": 0,
+      "sha256": "4cd7005bb177ffe66cb27283576a93db8e79a27947b0ba2e9e3cab5f3b394733"
+    },
+    "raw_reopen_csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/wd_collision_resolution_89/raw_collision_source_reopens.csv",
+      "rows": 248,
+      "sha256": "aba8f1b6f957093d9d79d0a7d7ae25f1d17794feda88c528db1ba06caa4d9972"
+    }
+  },
+  "raw_reopen_method_counts": {
+    "pdftotext_layout_page_127_line_15; candidate_locator_p127_l14": 1,
+    "pdftotext_layout_page_42_line_31; candidate_locator_p42_l30": 1,
+    "xlrd_literal_row_name_population": 246
+  },
+  "raw_reopen_source_asset_sha256s": {
+    "/workspace/settlements-raw/data/raw/2002/003_308406b0ed_02c_Vladimirskaja.xls": "7a2ed9fb0b156c9bdac0417fa495e21cb1868a69b993f0ac6abe6608e115cc50",
+    "/workspace/settlements-raw/data/raw/2002/004_f58b08b4f6_02c_Voronezhskaja.xls": "dff030ae28c445ccdf274e9b46fef0072ae68dacb5dfc581076dcf8dc1f8c1cf",
+    "/workspace/settlements-raw/data/raw/2002/005_14871cc62a_02c_Ivanovskaja.xls": "7558c25096c1da4947c6a155d2ab4368186c5ddb920a28b5260acc983f81e13f",
+    "/workspace/settlements-raw/data/raw/2002/006_1916564aaa_02c_Kaluzhskaja.xls": "1905de841b770b36eeecd4a1284edf8f541d0e6be7feb8d538a3ef1f327eb194",
+    "/workspace/settlements-raw/data/raw/2002/008_d607cc2b0d_02c_Kurskaja.xls": "a36a2d3c17fb0b7cab8bebc5e8eccc0312b2ba24851f4cbe16aaaf4fe55c3588",
+    "/workspace/settlements-raw/data/raw/2002/010_3e630cc803_02c_Moskovskaya-oblast.xls": "f2d9f7fba8c898e5e201e8b57e872a9323a1b37c3819434ae7d78e2a8db76147",
+    "/workspace/settlements-raw/data/raw/2002/011_f46bbaadfd_02c_Orlovskaja.xls": "62db545028449664bc22fae08d95e9478a4eb3c9b79ba8ae35e4f8606bb578d0",
+    "/workspace/settlements-raw/data/raw/2002/014_32646337ea_02c_Tambovskaja.xls": "5ee9f5ec18c00611eb626d238bf1559610aae00e0caac2bbc9a0ce2c00272cce",
+    "/workspace/settlements-raw/data/raw/2002/016_3aa889d669_02c_Tulskaja.xls": "d252915e50ff311f4d695e1a2f8a38da624c6b34774dc799418cf3f8d487a59f",
+    "/workspace/settlements-raw/data/raw/2002/022_862ad8a69d_02c_Vologodskaya.xls": "1402de3a7bdd0ac4bf4dcd7bbeaddb1719db7d8d338e76605c9b6ff347adcc1c",
+    "/workspace/settlements-raw/data/raw/2002/027_25f0f7433c_02c_Pskovskaja.xls": "af2a2f8811df411ac66dafab372b0140c4376c88d49c2aba9431423f77feab19",
+    "/workspace/settlements-raw/data/raw/2002/028_df43ade2a7_02c_Adygea.xls": "3ab8fdae33ceaa6b1185714792aa48f72115092cbd1de7b6cf87e2e2cf114cdc",
+    "/workspace/settlements-raw/data/raw/2002/029_fe8710371d_02c_Dagestan.xls": "f82771ae6557f50b112cf12c12dc2f6fd4a8e2f893a1fb443834cad3310b80e6",
+    "/workspace/settlements-raw/data/raw/2002/034_e4218f10b9_02c_N.Osetia.xls": "3fcd7bd8e7efc8283e4842f51afdb6f2c21534a470632b008f9cdbea5f870757",
+    "/workspace/settlements-raw/data/raw/2002/035_e1bf1fa87f_02c_Chechnya.xls": "9b886dbed7f94debcfeabd564e1fec2160f9eddfd8795eec7f47e358e55a4a9e",
+    "/workspace/settlements-raw/data/raw/2002/040_95a4475637_02c_Rostov_obl.xls": "e3a53acc1324b165ab7a8bbaa424541322a437c4b79951b8dc7c8841d33ff422",
+    "/workspace/settlements-raw/data/raw/2002/041_4b428edd23_Bashkiria_new.xls": "5e4cd874bbc5ad5c1c7bb996011052a076d9b0813a1f00b12df6ff8b5779f51a",
+    "/workspace/settlements-raw/data/raw/2002/042_9ff652dedd_02c_Marii-El_new.xls": "80f9cd4ede39118186bcf9ffc1580d8e557843c029af90681a9de647233918f4",
+    "/workspace/settlements-raw/data/raw/2002/048_4f024587eb_02c_Nizhegorod_obl_new.xls": "32aa9a5b76b281d8e27c5a2cba32066ba8830d98e4577b300e4e401d49589cc5",
+    "/workspace/settlements-raw/data/raw/2002/050_a0dc3f856b_penzen_obl.xls": "a9114d3359cfed2089bcc52af9b800c52ae991dd166177905523e61a38c5e440",
+    "/workspace/settlements-raw/data/raw/2002/053_f7f2b62d26_Samarskaja_new.xls": "aec3c2eb441ef3e9fee87e63f6ca3d56457e2fa94331f7a1240f1b54130d85d4",
+    "/workspace/settlements-raw/data/raw/2002/054_0d77ecf40f_Saratovskaja1.xls": "c9703ee4fdb0b8a9885c2a5ae702773e71fc6b5b43ea4f10975a39f1f6831410",
+    "/workspace/settlements-raw/data/raw/2002/056_6e9d0d52b3_Kurgan.xls": "881eb114af33965c108b0c6e7932cef59688eb79206bfefd7d6ff8faa8c393ae",
+    "/workspace/settlements-raw/data/raw/2002/057_9b18a354f1_02c_Sverdlovskaja_oblast.xls": "dea4fe001913b253b90e1a3e5be611c6a6f6810f5d9a4ded7c9ea45500232864",
+    "/workspace/settlements-raw/data/raw/2002/058_a73d73c7dd_02c-Tyumen_obl_new.xls": "c33c44b40c4f8872b6c1cd442dd2e19ff7ae7da186f64f28f885ffd7fb035200",
+    "/workspace/settlements-raw/data/raw/2002/061_e177b0a77d_Chel_abinskaja1.xls": "0ffd4853815474209972fef66ad1704eb74deb756f869c967620a39e8caeb5f5",
+    "/workspace/settlements-raw/data/raw/2002/063_3ec7f8316e_buriatia1.xls": "ea4947af01e071b726fd3a14588d0d5134bcdbf815169e0f01d839cb4872dbd8",
+    "/workspace/settlements-raw/data/raw/2002/070_48ec6f4a77_Irkut_obl_new.xls": "53cc4d5dc967f6f5d5ee5c5802b25f72314284c4fc21efa285f0115b0c22e28d",
+    "/workspace/settlements-raw/data/raw/2002/071_a3fee31a3e_Ust-Ordynsky.xls": "7e721530b4a43323a5ac692df157ca1a520bb5d142e91da481c9e12c686533f9",
+    "/workspace/settlements-raw/data/raw/2002/073_f153ba2c6b_Novosib.xls": "8ca6422c2eca0135a7146a9f0fc9c00721a568a1d5c660a0d345c858e6edcb25",
+    "/workspace/settlements-raw/data/raw/2002/075_ad45d4f1e5_Tomskaya.xls": "59de93f4b2cfc9fece999f198647988cd10a59b539d05dab1ddc0a1a0e7f4dd0",
+    "/workspace/settlements-raw/data/raw/2002/084_d31366f857_Magadan.xls": "d4b19d2b2df37b6453df6397faa87d08cc27cc1c264f0496e3365631e48a90dd",
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "/workspace/settlements-raw/data/raw/2010/002_027be52979_10._20СевКаз_ФО_20(без_20Даг)_202010.xls": "b27bfc884f38aeebd62e49036bb549bc53e447e978a0db2265654c280a77f69c",
+    "/workspace/settlements-raw/data/raw/2010/003_eb441570b1_11._20Урал_ФО_2010.xls": "042e8e141831b431d8b7addd9674959625ddbdf6fa79986e81e968d941ab1156",
+    "/workspace/settlements-raw/data/raw/2010/004_486e984bdc_12._20Астр_Волгог_Ростов.xls": "5d6b65cf4a7df4021c2e7191aa23b5cf8bf965cbaa25e0a28dde6e83182c6ca8",
+    "/workspace/settlements-raw/data/raw/2010/006_9b114a55c0_14._20Адыгея.xls": "eb93ae0ce34aead0d465f23957f0873a9422af50490041175558567108d49bbe",
+    "/workspace/settlements-raw/data/raw/2010/008_342f3c208b_16._20Сиб_ФО_2010.xls": "960feadeb50c27be2d8a2084112349fb0c22ae608929716bcafed5a140c84d0e",
+    "/workspace/settlements-raw/data/raw/2010/009_81f8a0e73c_17._20ДВ_ФО_2010.xls": "a8fd7aa55513e73a205ebff1da2ce35fd8ca0f61c286e54491cf49c6132470c4",
+    "/workspace/settlements-raw/data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls": "cf5b5d57327bf0d32723a7f49bb58db503a201af83a6e2bda4b874986f864167",
+    "/workspace/settlements-raw/data/raw/2010/011_040325482b_3._20Ryaz_Smol_Tambov_Tula_Jaroslavl_20L1_20ethn_2010.xls": "a3c69e68dfa35bfb0964a15f0f46b258500fab3e61ff3271ef9584e055d6efca",
+    "/workspace/settlements-raw/data/raw/2010/012_5c339c0d0e_4._20Vologod_pskov_2010.xls": "8f86eaaf6c47fb0d13ce5af84aaba3f1f937ba639e73e436e502c0d453ad28f2",
+    "/workspace/settlements-raw/data/raw/2010/013_f60b2d2bcf_5._20Belg_Bryan_Vlad_Voron_Ivanov_Kalug_20L1_ethn_2010.xls": "52a7cd38f32d03b79c20b256dfd4019e49a0f7a4bab9d96abc57cbf16e2b90ac",
+    "/workspace/settlements-raw/data/raw/2010/014_5ca759eea0_5._20Nizheg_Kirov_202010.xls": "c286aa10e8ebd8a4594b5623affa0ca1aacb6b69ac09a4a9288eeb754aa81c27",
+    "/workspace/settlements-raw/data/raw/2010/016_802d308e41_8._20Or_Penz_Perm_Samar_Saratov_Uly_2010.xls": "754aae620807b1275e59fc7bf8ce086ca91e7ec863d4d304f5a0a8b228a8d990",
+    "/workspace/settlements-raw/data/raw/2010/017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls": "0ad9f5527c60819aa6e298bc78c5a19e7d3b09ad7f541064a8d922595854177a",
+    "/workspace/settlements-raw/data/raw/2010/018_8eadc2d6b9_7._20Dag_2010.xls": "25191e97c087116199eca56d0a618b50aa2374fff214eac2941aa14d50607338",
+    "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+  },
+  "scope": "89 exact legacy_same_year_collision endpoint requests from the seventh packet; decisions are scoped to exact source_record_id/from→to pair only",
+  "scope_interpretation": "An independently reviewed dated population signature and exact raw source row can resolve this one selected endpoint against stale legacy-collision pointer rows when the current physical source binding and source-pair review pass. Flags in the frozen source_evidence remain unchanged.",
+  "status": "independent_legacy_collision_resolution_review_complete_candidate_only"
+}

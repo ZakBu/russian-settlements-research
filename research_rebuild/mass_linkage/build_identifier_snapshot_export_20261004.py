@@ -44,6 +44,18 @@ def _missing(value: Any) -> bool:
         return False
 
 
+def _parse_point_target_year(value: Any, source_id: str) -> int:
+    """Parse an integral census year without truncating fractional values."""
+    raw = str(value).strip()
+    match = re.fullmatch(r"(\d{4})(?:\.0+)?", raw)
+    if not match:
+        raise ValueError(f"accepted point target_year is not a finite integral year for {source_id}: {value!r}")
+    year = int(match.group(1))
+    if not 1800 <= year <= 2200:
+        raise ValueError(f"accepted point target_year is outside the supported year domain for {source_id}: {value!r}")
+    return year
+
+
 def raw_string(value: Any, field: str) -> str | None:
     """Return an exact lexical source string, refusing numeric coercion/padding."""
     if _missing(value):
@@ -329,10 +341,7 @@ def build_snapshot_rows(
         authoritative_year = int(year_by_source[source_id])
         raw_point_target_year = getattr(row, "target_year", None)
         if raw_point_target_year is not None and not pd.isna(raw_point_target_year):
-            try:
-                point_target_year = int(raw_point_target_year)
-            except (TypeError, ValueError, OverflowError) as exc:
-                raise ValueError(f"accepted point target_year is not an integer for {source_id}: {raw_point_target_year!r}") from exc
+            point_target_year = _parse_point_target_year(raw_point_target_year, source_id)
             if point_target_year != authoritative_year:
                 raise ValueError(
                     f"accepted point target_year disagrees with final-core census year for {source_id}: "

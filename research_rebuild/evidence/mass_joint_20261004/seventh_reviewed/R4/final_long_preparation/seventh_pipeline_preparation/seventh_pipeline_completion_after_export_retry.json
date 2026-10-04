@@ -1,0 +1,155 @@
+{
+  "status": "seventh_long_pipeline_completed_after_identifier_export_retry",
+  "created_at_utc": "2026-10-04T07:46:06.219526+00:00",
+  "base_ledgers": {
+    "identity_graph_sha256": "18bf1edd259808c9e881ac11fa40be26c88be4fb27e1ac735c59e083d6dcd312",
+    "point_ledger_sha256": "2215702e772417bb512da8c0a6c0d31ad9783c6a5345d4c0bbfe18403e11ad22"
+  },
+  "prepared_pipeline": {
+    "plan_path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_pipeline_preparation/pipeline_plan.json",
+    "plan_sha256": "359142dd111b659df025e6ec4a4848c9f2f388f5ecdfad7f44603309c67977e1",
+    "helper_path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_pipeline_preparation/run_seventh_pipeline.py",
+    "helper_sha256": "f9148419c3521ce7848292d6508c3dd4267eced2722a3f123361d9242a167ef0",
+    "first_attempt_failure_receipt": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_pipeline_preparation/seventh_pipeline_initial_export_failure.json",
+    "first_attempt_failure_receipt_sha256": "3d996392518001d25878f7f480ea398c7ff66668a9a385f9f76590d8adf9712b"
+  },
+  "export_retry": {
+    "scope": "reran only build_identifier_snapshot_export_20261004.py against immutable seventh core after initial helper completed long build, audit and annotations",
+    "initial_exporter_sha256": "21bf62a270cf4533c330d3c97c7614eaf54587e26ec5bd6938acf981a20b6b3d",
+    "corrected_exporter_path": "/workspace/russian-settlements-research/research_rebuild/mass_linkage/build_identifier_snapshot_export_20261004.py",
+    "corrected_exporter_sha256": "ecc13347f65864ef6a9a4bc6d7d4700f9a46f61dc9c17ca3742678ac77daafc5",
+    "regression_test_path": "/workspace/russian-settlements-research/research_rebuild/mass_linkage/tests/test_identifier_snapshot_export_20261004.py",
+    "regression_test_sha256": "56452dcee4c94cc9e2e146b6aa60df7fcf3198e4750d80c3e5c01e5837bed5e2",
+    "regression_tests": "19 passed; accepts integral year strings/floats, rejects fractional/malformed/out-of-domain values, and preserves mismatch rejection against actual core year",
+    "semantics": "accepts only four-digit integral year serialization with optional zero-only decimal fraction; requires 1800–2200 domain and exact match to selected core census year"
+  },
+  "actual_counts": {
+    "source_preserving_core_rows": 500320,
+    "secondary_history_rows": 364032,
+    "combined_display_rows": 864352,
+    "census_rows": 465800,
+    "secondary_history_identity_or_coordinate_admissions": 0,
+    "population_replacements": 0,
+    "accepted_point_rows": 404709,
+    "disagreeing_components_over_5km": 1072,
+    "disagreeing_components_over_20km": 721,
+    "native_2021_identifier_rows": 155414,
+    "geo_2011_context_rows": 81234,
+    "geo_2011_context_rows_recovered_from_pinned_origin_dbf": 81234,
+    "geo_2011_context_rows_with_missing_oktmo_literal": 21708,
+    "accepted_points_without_raw_geo_2011_code": 288115,
+    "federal_reference_point_rows_separate": 6,
+    "federal_typed_city_continuity_rows_separate": 3
+  },
+  "disagreement_by_year": [
+    {
+      "year": 2002,
+      "affected_source_rows": 987,
+      "affected_recorded_population": 554523,
+      "affected_joint_rows": 949,
+      "affected_joint_population": 507811
+    },
+    {
+      "year": 2010,
+      "affected_source_rows": 1064,
+      "affected_recorded_population": 539524,
+      "affected_joint_rows": 950,
+      "affected_joint_population": 346147
+    },
+    {
+      "year": 2021,
+      "affected_source_rows": 1072,
+      "affected_recorded_population": 499421,
+      "affected_joint_rows": 979,
+      "affected_joint_population": 456597
+    }
+  ],
+  "artifacts": {
+    "long_run_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/run_receipt.json",
+      "sha256": "569c78eddf469dc707ab41d9c17621d827a7e02eebe1887decfcda58d74ef7af",
+      "bytes": 10586
+    },
+    "long_parquet": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/settlements_long_with_secondary_history.parquet",
+      "sha256": "3c24c7162e23f24e32745c064a5c311390c8a4df1c4c31789b5bb837ccff17c0",
+      "bytes": 92701473
+    },
+    "core_parquet": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/source_preserving_core.parquet",
+      "sha256": "101c133fee04289b628bbd1c9dec93e36b9591c9031dd6026b2d83756d157c53",
+      "bytes": 67578924
+    },
+    "secondary_overlay": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/secondary_history_overlay.parquet",
+      "sha256": "7c1d67b7268090379be4e77531cdc9d58a2847467e6e54ca46a429872af9e677",
+      "bytes": 101414969
+    },
+    "federal_points": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/federal_territory_reference_points.parquet",
+      "sha256": "3b366d9a513b0396e90813f03c4e3af1cd0b1caef92379a9ae95cae43451d6e3",
+      "bytes": 28512
+    },
+    "federal_continuity": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/federal_typed_city_continuity.parquet",
+      "sha256": "ee5898e3e5495d691f230e18fce08191fcc287ed35e06d969140bb05df75c695",
+      "bytes": 9217
+    },
+    "analysis_csv_gzip": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/settlements_analysis_view.csv.gz",
+      "sha256": "446c8694827dc00d0f154bc69d882428c9854e1a8e76f138daa55d8166e64a6e",
+      "bytes": 56165239
+    },
+    "point_disagreement_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_point_disagreement_audit/receipt.json",
+      "sha256": "abef02ec2c74d40bd50d8a447c1c4121eaff9ef4371e89aa8bd4cb07f7b793cb",
+      "bytes": 2420
+    },
+    "disagreeing_point_pairs": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_point_disagreement_audit/disagreeing_point_pairs.parquet",
+      "sha256": "60cf5ee291852a7567c9baa36be67d98f5135dc3d1d6176da4c7f3c3211c9308",
+      "bytes": 34994
+    },
+    "affected_point_records": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_point_disagreement_audit/affected_census_point_records.parquet",
+      "sha256": "448bb33f7535dc1dad07c411c303e52ac28f0464d7f5e6d8e54ec8eeea694c2f",
+      "bytes": 340808
+    },
+    "coordinate_annotation_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_coordinate_dispute_annotations/receipt.json",
+      "sha256": "fbc15742e740e540d70157b4109e1cc561a06dc0cb6fcab341383bc09028fc96",
+      "bytes": 826
+    },
+    "coordinate_annotation_csv_gzip": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_coordinate_dispute_annotations/settlements_analysis_with_coordinate_disputes.csv.gz",
+      "sha256": "e47c89a1dc851f0b8d984574b90311c0908358ca2553f95f50c3820b49d4b733",
+      "bytes": 63342501
+    },
+    "identifier_export_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_identifier_snapshots/receipt.json",
+      "sha256": "8f09f86813522e665c27cf1a51dcba2f4d66055c54007d5e60daac2bd6c7af19",
+      "bytes": 3137
+    },
+    "native_2021_parquet": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_identifier_snapshots/2021_native_oktmo_snapshot.parquet",
+      "sha256": "d043c1c3eaae04b7ad5df78094e07a994506e83839916c82a0d5650896ce908c",
+      "bytes": 10297343
+    },
+    "geo_2011_context_parquet": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_identifier_snapshots/geo_2011_point_origin_context.parquet",
+      "sha256": "78dd80940e7ca2b265c43c1ce44536916ff8460101cb550a8eed131b82bd9ed9",
+      "bytes": 8451371
+    },
+    "geo_2011_holds_csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_identifier_snapshots/geo_2011_point_origin_holds.csv",
+      "sha256": "04ed6b163b0528aeb04b707992791824d42ef85eb9056aef4d1c98eca2bb1bc2",
+      "bytes": 152731154
+    }
+  },
+  "notes": [
+    "The original prepared helper receipt was not rewritten after the exporter code fix. This completion receipt records the actual successful first three stages and the separately rerun identifier export.",
+    "All 364,032 P1082 rows remain a separate secondary overlay; no historical identity/coordinate or primary-population admissions were made.",
+    "Disagreement annotation is display-only and does not change accepted identity or point ledgers.",
+    "Identifier outputs describe 2021 observed OKTMO literals and 2011 point-origin municipal context only; no validity intervals or identifier transitions are asserted."
+  ]
+}

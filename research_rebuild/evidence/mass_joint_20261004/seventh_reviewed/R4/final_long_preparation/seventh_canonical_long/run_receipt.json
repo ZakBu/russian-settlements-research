@@ -1,0 +1,205 @@
+{
+  "analysis_display_coordinates_do_not_override_scientific_coordinate_status": true,
+  "analysis_display_point_roles": {
+    "admitted_NP_point_use": 404709,
+    "reviewed_federal_territory_reference; NP_coverage_separate": 6,
+    "secondary_subject_current_reference_context; historical_point_not_admitted": 362573
+  },
+  "census_identity_or_population_admissions": 0,
+  "config": {
+    "path": "/workspace/russian-settlements-research/config/mass_joint_20261004.json",
+    "sha256": "28cf2b9cca5ba5fc22d70f25a4f2e5286e37522bf259c01996a76a32a2669e30"
+  },
+  "core_builder": {
+    "census_rows": 465800,
+    "census_values_preserved": true,
+    "manifest": {
+      "builder": "build_long_table.py",
+      "inputs": {
+        "annual": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/annual_official_observations.parquet",
+          "sha256": "3f2b0878e547c192470875e6d57355c00738a24da39d6d8206e7e4d7089bf94a"
+        },
+        "census": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+          "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+        },
+        "coordinates": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_seventh_reviewed/accepted_point_uses.parquet",
+          "sha256": "2215702e772417bb512da8c0a6c0d31ad9783c6a5345d4c0bbfe18403e11ad22"
+        },
+        "identity": {
+          "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_seventh_reviewed/accepted_identity_edges.parquet",
+          "sha256": "18bf1edd259808c9e881ac11fa40be26c88be4fb27e1ac735c59e083d6dcd312"
+        },
+        "source_evidence": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+          "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+        },
+        "source_manifest": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/input_manifest.parquet",
+          "sha256": "15c03537ad7050138ebda5a198198784d41c776c12cbe6222a0fb76194124a97"
+        },
+        "wiki": {
+          "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/wiki_literal_associations.parquet",
+          "sha256": "04672327ef9717dfdc8aa628f921b5589c6813b11d410b28717a223fccbbbece"
+        }
+      },
+      "outputs": {
+        "csv_gzip": {
+          "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/source_preserving_core.csv.gz",
+          "sha256": "10fd39d4f0dbb4bbad31b7c337c5534c8e45f6d35a030c82fb30dbbb5fe48995"
+        },
+        "parquet": {
+          "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/source_preserving_core.parquet",
+          "sha256": "101c133fee04289b628bbd1c9dec93e36b9591c9031dd6026b2d83756d157c53"
+        }
+      },
+      "summary": {
+        "association_status_counts": {
+          "accepted_same_place_component": 406773,
+          "accepted_target_2021_same_place": 507,
+          "current_named_article_association_only": 34004,
+          "separate_statistical_aggregate": 9,
+          "unknown_no_link": 59027
+        },
+        "census_linked_record_count": 406773,
+        "census_record_count": 465800,
+        "census_singleton_unknown_no_link_count": 59027,
+        "coordinate_admission_status_counts": {
+          "frozen_r5b_reviewed_baseline_preserved": 111,
+          "reviewed_case_accepted": 1,
+          "reviewed_extension_rule_accepted": 306957,
+          "reviewed_rule_accepted": 97640
+        },
+        "coordinate_count": 404709,
+        "coordinate_count_by_record_type": {
+          "annual_official": 507,
+          "census": 404202
+        },
+        "duplicate_observation_id_count": 0,
+        "entity_category_counts": {
+          "settlement": 466301,
+          "statistical_aggregate": 15,
+          "wiki_named_series_association": 34004
+        },
+        "record_type_counts": {
+          "annual_official": 516,
+          "census": 465800,
+          "wiki_literal_series": 34004
+        },
+        "row_count": 500320,
+        "wiki_rows_have_coordinates": 0
+      }
+    },
+    "module": "build_long_table.py",
+    "published_supplement_layers_preserved": true,
+    "record_type_counts": {
+      "annual_official": 516,
+      "census": 465800,
+      "wiki_literal_series": 34004
+    }
+  },
+  "federal_overlay": {
+    "continuity_output_sha256": "ee5898e3e5495d691f230e18fce08191fcc287ed35e06d969140bb05df75c695",
+    "point_rows": 6,
+    "points_output_sha256": "3b366d9a513b0396e90813f03c4e3af1cd0b1caef92379a9ae95cae43451d6e3",
+    "receipt": "/workspace/settlements-work/continuation_20261004/federal_application/receipt.json",
+    "receipt_sha256": "6459a7970420a20a04a1d67f7701443da6f07cdd0110e9001c15db52563523eb",
+    "separate_from_census_and_secondary_long_table": true,
+    "typed_continuity_rows": 3
+  },
+  "historical_secondary_identity_or_coordinate_admissions": 0,
+  "limitations": [
+    "Secondary P1082 rows remain source-scoped secondary observations; this overlay does not assert census identity, exact census date, or population-boundary comparability.",
+    "No secondary population sums, year totals, or national totals are computed; duplicate statement GUID rows are retained and flagged.",
+    "Federal territory reference points and typed-city continuity stay in separate files and are not inserted as atomic census same_place edges."
+  ],
+  "outputs": {
+    "federal_territory_reference_points.parquet": {
+      "bytes": 28512,
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/federal_territory_reference_points.parquet",
+      "sha256": "3b366d9a513b0396e90813f03c4e3af1cd0b1caef92379a9ae95cae43451d6e3"
+    },
+    "federal_typed_city_continuity.parquet": {
+      "bytes": 9217,
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/federal_typed_city_continuity.parquet",
+      "sha256": "ee5898e3e5495d691f230e18fce08191fcc287ed35e06d969140bb05df75c695"
+    },
+    "secondary_history_overlay.parquet": {
+      "bytes": 101414969,
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/secondary_history_overlay.parquet",
+      "sha256": "7c1d67b7268090379be4e77531cdc9d58a2847467e6e54ca46a429872af9e677"
+    },
+    "settlements_analysis_view.csv.gz": {
+      "bytes": 56165239,
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/settlements_analysis_view.csv.gz",
+      "sha256": "446c8694827dc00d0f154bc69d882428c9854e1a8e76f138daa55d8166e64a6e"
+    },
+    "settlements_long_with_secondary_history.parquet": {
+      "bytes": 92701473,
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/settlements_long_with_secondary_history.parquet",
+      "sha256": "3c24c7162e23f24e32745c064a5c311390c8a4df1c4c31789b5bb837ccff17c0"
+    },
+    "source_preserving_core.parquet": {
+      "bytes": 67578924,
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/source_preserving_core.parquet",
+      "sha256": "101c133fee04289b628bbd1c9dec93e36b9591c9031dd6026b2d83756d157c53"
+    }
+  },
+  "pinned_inputs": {
+    "final_identity_graph": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_seventh_reviewed/accepted_identity_edges.parquet",
+      "sha256": "18bf1edd259808c9e881ac11fa40be26c88be4fb27e1ac735c59e083d6dcd312"
+    },
+    "final_point_uses": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_seventh_reviewed/accepted_point_uses.parquet",
+      "sha256": "2215702e772417bb512da8c0a6c0d31ad9783c6a5345d4c0bbfe18403e11ad22"
+    },
+    "published_supplement_layers": {
+      "annual_official_observations.parquet": {
+        "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/annual_official_observations.parquet",
+        "sha256": "3f2b0878e547c192470875e6d57355c00738a24da39d6d8206e7e4d7089bf94a"
+      },
+      "input_manifest.parquet": {
+        "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/input_manifest.parquet",
+        "sha256": "15c03537ad7050138ebda5a198198784d41c776c12cbe6222a0fb76194124a97"
+      },
+      "wiki_literal_associations.parquet": {
+        "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/wiki_literal_associations.parquet",
+        "sha256": "04672327ef9717dfdc8aa628f921b5589c6813b11d410b28717a223fccbbbece"
+      }
+    },
+    "secondary_history": {
+      "path": "/workspace/settlements-work/continuation_20261004/root/secondary_history_with_309_reviewed_display/reviewed_secondary_history_observations.parquet",
+      "rows": 364032,
+      "sha256": "e160e875454e66eb7bf96e21a55bc1a9167ca07952f919c2aeced744320caf9b"
+    },
+    "secondary_history_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/root/secondary_history_with_309_reviewed_display/receipt.json",
+      "sha256": "88013f594f651c10ad11f19c5f4f97fa1e21ec42afa9b06373a38c1d24e69b91"
+    },
+    "selected_observations": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+    }
+  },
+  "secondary_overlay": {
+    "coordinate_context": "from final core census row populated by canonical accepted point ledger; no historical coordinate copied",
+    "current_place_mapping": "final current_source_record_id -> 2021 census entity_id",
+    "duplicate_statement_guid_rows_retained_and_flagged": 0,
+    "historical_identity_admitted_false": true,
+    "historical_latitude_longitude_null": true,
+    "history_series_entity_ids_preserved": true,
+    "rows": 364032,
+    "source_observation_population_values_modified": false,
+    "unique_current_source_rows": 106716,
+    "unique_observation_ids": 364032
+  },
+  "secondary_population_year_or_national_sums_emitted": false,
+  "status": "staged_final_config_long_plus_separate_secondary_history_overlay"
+}
