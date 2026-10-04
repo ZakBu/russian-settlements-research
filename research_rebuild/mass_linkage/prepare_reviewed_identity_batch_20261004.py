@@ -40,6 +40,9 @@ def write_csv(path, rows):
 
 
 def run(specification, output):
+    # A reviewed bounded block can exceed the stdlib's 128 KiB default.
+    # Preserve the original proof fields with an explicit finite upper bound.
+    csv.field_size_limit(100_000_000)
     specification = Path(specification)
     spec = json.loads(specification.read_text())
     template = json.loads(pinned(spec['template']).read_text())

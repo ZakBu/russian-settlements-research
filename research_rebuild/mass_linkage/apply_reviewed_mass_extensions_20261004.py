@@ -108,6 +108,9 @@ def read_table(path: Path):
 
 
 def read_csv_rows(path: Path):
+    # Reviewed source-block witnesses can exceed the CSV module's 128 KiB
+    # default. Preserve the complete evidence rather than truncating fields.
+    csv.field_size_limit(100_000_000)
     with path.open(newline='', encoding='utf-8-sig') as stream:
         return list(csv.DictReader(stream))
 
