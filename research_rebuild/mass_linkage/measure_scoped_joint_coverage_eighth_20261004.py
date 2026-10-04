@@ -59,7 +59,7 @@ def union_complete_observed_partition(populations, observation, source_populatio
   result[sid]=int(value)
  return result
 
-def run(points=None, supplemental=None, output=None, residual_output=None, graph=None, official_scope=None, secondary_scope=None, typed_scope=None, inclusion_scope=None, target_fraction=.99, complete_partition_scope=None, reported_inclusion_reference_scope=None):
+def run(points=None, supplemental=None, output=None, residual_output=None, graph=None, official_scope=None, secondary_scope=None, typed_scope=None, inclusion_scope=None, target_fraction=.99, complete_partition_scope=None, reported_inclusion_reference_scope=None, combined_temporal_scope=None, event_aware_selected_scope=None, auxiliary_primary_temporal_scope=None):
  global O
  assert 0 < target_fraction <= 1, 'Target fraction must be in (0,1]'
  pointpath=Path(points) if points else B/'accepted_point_uses.parquet'
@@ -213,7 +213,8 @@ def run(points=None, supplemental=None, output=None, residual_output=None, graph
   assert receipt['status']=='applied_reviewed_secondary_reported_large_inclusion_references'
   path=folder/'accepted_scoped_inclusion_references.json';point=folder/'accepted_scoped_point_uses.json'
   assert sha(path)==receipt['outputs'][path.name] and sha(point)==receipt['outputs'][point.name]
-  group=json.loads(path.read_text());assert len(group)==9 and len({x['source_record_id'] for x in group})==9
+  group=json.loads(path.read_text());assert 0<len(group)==int(receipt['observation_references'])
+  assert len({x['source_record_id'] for x in group})==len(group)
   for row in group:
    sid=row['source_record_id'];assert yrs[sid]==int(row['year']) and all_source[sid]==int(row['population'])
    assert row['status']=='secondary_reported_inclusion_context_only'
@@ -243,6 +244,68 @@ def run(points=None, supplemental=None, output=None, residual_output=None, graph
    assert len(con.execute("select source_record_id from sel where source_record_id in(select unnest(?)) and settlement_type='село' and is_additive_settlement_record and (population_scope is null or population_scope='settlement')",[ids]).fetchall())==2
    union_complete_observed_partition({},row,all_source)
   partition_rows.extend(group);additional_pins.extend([receiptpath,path])
+ combined_references=[];combined_layers=[]
+ for scope in combined_temporal_scope or []:
+  folder=Path(scope);receiptpath=folder/'application_receipt.json';receipt=json.loads(receiptpath.read_text())
+  assert receipt['status']=='applied_reviewed_combined_primary_secondary_temporal_scope'
+  assert receipt['old_secondary_population_nationally_added']==0 and not receipt['population_values_modified'] and not receipt['ordinary_primary_NP3_modified']
+  paths=[folder/name for name in receipt['outputs']]
+  for path in paths:assert sha(path)==receipt['outputs'][path.name]
+  trajectories=json.loads((folder/'accepted_scoped_trajectories.json').read_text());refs=json.loads((folder/'accepted_existing_primary_credit_references.json').read_text())
+  assert len(trajectories)==receipt['trajectories'] and len(refs)==receipt['credit_references']
+  bycurrent={r['current_source_record_id']:r for r in trajectories};assert len(bycurrent)==len(trajectories)
+  refids=[r['source_record_id'] for r in refs];assert len(refids)==len(set(refids))
+  refpoints={sid:(lat,lon,status) for sid,lat,lon,status in con.execute('select target_source_record_id,latitude,longitude,coordinate_admission_status from points where target_source_record_id in(select unnest(?))',[refids]).fetchall()}
+  for r in trajectories:
+   assert r['decision_status']=='accepted_scoped_primary_secondary_date_union' and not r['ordinary_primary_NP3'] and not r['boundary_comparability_asserted']
+   assert {2021}|{int(o['year']) for o in r['observations']}=={2002,2010,2021}
+   for o in r['observations']:
+    if o['source_class']=='secondary_dated_wikidata_P1082':assert o['source_record_id'] is None and not o['national_additive']
+    else:assert yrs[o['source_record_id']]==int(o['year']) and all_source[o['source_record_id']]==int(o['population'])
+  for r in refs:
+   sid=r['source_record_id'];assert yrs[sid]==int(r['year']) and all_source[sid]==int(r['population'])
+   assert r['current_source_record_id'] in bycurrent
+   use=refpoints.get(sid)
+   assert use and use[2] in ACCEPTED_COORDINATE_STATUSES and use[:2]==(r['coordinate_latitude'],r['coordinate_longitude'])
+  combined_references.extend(refs);combined_layers.append({'path':str(folder),'trajectories':len(trajectories),'credit_references':len(refs),'held_old_point_references':receipt['held_old_point_references']})
+  additional_pins.extend([receiptpath]+paths)
+ event_references=[];event_layers=[]
+ for folder in event_aware_selected_scope or []:
+  folder=Path(folder);rp=folder/'application_receipt.json';receipt=json.loads(rp.read_text())
+  assert receipt['status']=='applied_separate_event_aware_existing_selected_village_trajectory'
+  path=folder/'accepted_scoped_trajectory.json';assert sha(path)==receipt['outputs'][path.name]
+  layer=json.loads(path.read_text());obs=layer['observations'];assert len(obs)==3 and {int(r['year']) for r in obs}=={2002,2010,2021}
+  assert not receipt['ordinary_NP_graph_modified'] and not receipt['source_population_values_modified'] and not receipt['legacy_flags_modified']
+  pp={r['target_source_record_id']:r for r in layer['points']}
+  for row in obs:
+   sid=row['source_record_id'];assert yrs[sid]==int(row['year']) and all_source[sid]==int(row['population'])
+   assert row['decision_status']=='accepted_event_aware_physical_village_trajectory' and not row['ordinary_NP3'] and not row['boundary_comparability_asserted']
+   point=pp[sid];assert point['status']=='accepted_scoped_representative_point_use' and not point['historical_coordinate_measurement_asserted']
+   carrier=point['inference_from_accepted_current_source_record_id']
+   use=con.execute('select latitude,longitude,coordinate_admission_status from points where target_source_record_id=?',[carrier]).fetchall()
+   assert len(use)==1 and use[0][2] in ACCEPTED_COORDINATE_STATUSES and use[0][:2]==(point['latitude'],point['longitude'])
+  ordered=sorted(obs,key=lambda r:int(r['year']))
+  assert {(r['from_source_record_id'],r['to_source_record_id']) for r in layer['links']}=={(ordered[0]['source_record_id'],ordered[1]['source_record_id']),(ordered[1]['source_record_id'],ordered[2]['source_record_id'])}
+  event_references.extend(obs);event_layers.append(str(folder));additional_pins.extend([rp,path])
+ auxiliary_references=[];auxiliary_layers=[]
+ for folder in auxiliary_primary_temporal_scope or []:
+  folder=Path(folder);rp=folder/'application_receipt.json';receipt=json.loads(rp.read_text())
+  assert receipt['status']=='applied_scoped_primary_auxiliary_date_trajectories'
+  assert receipt['auxiliary_2010_population_nationally_added']==0 and not receipt['ordinary_graph_modified']
+  assert not receipt['source_population_values_modified'] and not receipt['ambiguous_selected_2010_counterparts_excluded']
+  path=folder/'accepted_trajectories.json';refpath=folder/'accepted_existing_primary_credit_references.json'
+  assert sha(path)==receipt['outputs'][path.name] and sha(refpath)==receipt['outputs'][refpath.name]
+  layer=json.loads(path.read_text());refs=json.loads(refpath.read_text())
+  assert len(layer['trajectories'])==receipt['trajectories'] and len(refs)==receipt['existing_primary_credit_references']
+  for trajectory in layer['trajectories']:
+   assert trajectory['status']=='accepted_scoped_primary_auxiliary_date_trajectory' and not trajectory['ordinary_primary_NP3'] and not trajectory['boundary_comparability_asserted']
+   aux=[o for o in trajectory['observations'] if int(o['year'])==2010];assert len(aux)==1
+   assert aux[0]['source_record_id'] not in yrs and not aux[0]['source_membership_in_selected_observations']
+  for row in refs:
+   sid=row['source_record_id'];assert int(row['year']) in (2002,2021) and yrs[sid]==int(row['year']) and all_source[sid]==int(row['population'])
+   p=row['point_carrier'];use=con.execute('select latitude,longitude,coordinate_admission_status from points where target_source_record_id=?',[sid]).fetchall()
+   assert len(use)==1 and use[0]==(p['latitude'],p['longitude'],p['status']) and p['status'] in ACCEPTED_COORDINATE_STATUSES
+  auxiliary_references.extend(refs);auxiliary_layers.append(str(folder));additional_pins.extend([rp,path,refpath])
  # Accepted annual territorial edges provide real 2021->2022/23/24 paths for
  # Sevastopol; do not pretend it appeared in Russian censuses2002 or2010.
  annualpath=T/'accepted_annual_federal9_territorial_edges.csv';e=con.execute("select * from read_csv(?,all_varchar=true)",[str(annualpath)]).fetchdf();sev=[r for r in chains if r[0]=='Севастополь'];assert len(sev)==1;sevid=json.loads(sev[0][2])[0];assert len(e[e.from_observation_id==sevid])==3
@@ -293,6 +356,31 @@ def run(points=None, supplemental=None, output=None, residual_output=None, graph
    if int(row['observation_year'])!=y:continue
    before=sum(scop.values());scop=union_complete_observed_partition(scop,row,all_source)
    extra.append({'kind':'accepted_complete_observed_numbered_partition_union','place':row['place'],'derived_population':int(row['population']),'net_joint_population_change':sum(scop.values())-before,'individual_part_points_admitted':False,'modern_boundary_harmonized':False,'population_boundary_comparability':'unknown','source_population_quality_preserved':True})
+  if combined_references:
+   before=sum(scop.values())
+   for row in combined_references:
+    if int(row['year'])!=y:continue
+    sid=row['source_record_id'];assert sid not in excluded_ids, 'Cannot count an excluded child alongside its territorial parent'
+    if sid in scop:assert scop[sid]==int(row['population'])
+    scop[sid]=int(row['population'])
+   delta=sum(scop.values())-before;secondary_net_added+=delta
+   extra.append({'kind':'reviewed_existing_primary_plus_referenced_secondary_date_union','existing_primary_population_net_added':delta,'secondary_population_nationally_added':0,'ordinary_primary_NP3':False,'population_boundary_comparability':'unknown'})
+  if event_references:
+   before=sum(scop.values())
+   for row in event_references:
+    if int(row['year'])!=y:continue
+    sid=row['source_record_id'];assert sid not in excluded_ids
+    if sid in scop:assert scop[sid]==int(row['population'])
+    scop[sid]=int(row['population'])
+   extra.append({'kind':'reviewed_separate_event_aware_selected_village_paths','existing_primary_population_net_added':sum(scop.values())-before,'ordinary_NP3':False,'legacy_flags_modified':False,'population_boundary_comparability':'unknown'})
+  if auxiliary_references:
+   before=sum(scop.values())
+   for row in auxiliary_references:
+    if int(row['year'])!=y:continue
+    sid=row['source_record_id'];assert sid not in excluded_ids
+    if sid in scop:assert scop[sid]==int(row['population'])
+    scop[sid]=int(row['population'])
+   extra.append({'kind':'reviewed_auxiliary_primary_2010_date_on_existing_2002_2021_place_path','existing_selected_population_net_added':sum(scop.values())-before,'auxiliary_2010_population_nationally_added':0,'ambiguous_selected_2010_counterparts_excluded':False,'ordinary_NP3':False,'boundary_comparability':'unknown'})
   covered_ids.update(scop)
   a=sum(strict.values());b=sum(scop.values());result[y]={'control_population':controls[y],'strict_NP_joint_population':sum(npmap[y].values()),'strict_NP_joint_rows':len(npmap[y]),'strict_with_existing_federal_typed_three_census_population':a,'strict_with_federal_percent':100*a/controls[y],'available_scope_joint_population':b,'available_scope_joint_percent':100*b/controls[y],'remaining_population_to_99':max(0,__import__('math').ceil(.99*controls[y])-b),'scope_adjustments':extra}
   result[y]['available_scope_joint_without_secondary_supported_paths_population']=b-secondary_net_added
@@ -323,8 +411,17 @@ def run(points=None, supplemental=None, output=None, residual_output=None, graph
  if reported_references:
   r['definition']+=' Additional reviewed historical inclusion references count existing old source populations once, conditional on separately represented old city-proper rows and current receiving cities. Historical named-place points are admitted only in this scoped sidecar; receiving-city population is neither transferred nor added. Secondary-reported transformation, exact legal date unknown, no modern-boundary reconstruction or ordinary NP3 claim.'
   r['accepted_reported_inclusion_reference_scopes']=[str(x) for x in reported_inclusion_reference_scope]
+ if combined_layers:
+  r['definition']+=' Reviewed native-code physical-place bindings support primary/secondary date unions: only existing selected primary source IDs with accepted points count nationally once; secondary amounts stay nonadditive and retain source-verification limits. Ordinary primary NP3 and boundary equivalence are not asserted.'
+  r['accepted_combined_temporal_scope_layers']=combined_layers
+ if event_layers:
+  r['definition']+=' Separately reviewed event-aware village trajectories retain nonterminal historical inclusion flags and existing primary census rows; present-day representative points are retrospectively inferred. They do not assert ordinary NP3, unchanged census boundaries or exact legal event dates.'
+  r['accepted_event_aware_selected_scope_layers']=event_layers
+ if auxiliary_layers:
+  r['definition']+=' Independently bound auxiliary official2010 settlement observations supply a third primary observed date to existing accepted2002/2021 place paths. Only those existing selected endpoints with accepted points count nationally once; auxiliary2010 values remain nonadditive, unresolved selected2010 homonyms remain unbound, and no boundary harmonization or ordinary NP3 union is asserted.'
+  r['accepted_auxiliary_primary_temporal_scope_layers']=auxiliary_layers
  if residual_output:r['residual_diagnostic']={'path':str(dest),'sha256':sha(dest),'rows':residual.num_rows}
  O.write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n');print(json.dumps(result,ensure_ascii=False))
 if __name__=='__main__':
  import argparse
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--points');p.add_argument('--supplemental');p.add_argument('--output');p.add_argument('--residual-output');p.add_argument('--graph');p.add_argument('--official-scope');p.add_argument('--secondary-scope');p.add_argument('--typed-scope',action='append');p.add_argument('--inclusion-scope',action='append');p.add_argument('--target-fraction',type=float,default=.99);p.add_argument('--complete-partition-scope',action='append');p.add_argument('--reported-inclusion-reference-scope',action='append');a=p.parse_args();run(a.points,a.supplemental,a.output,a.residual_output,a.graph,a.official_scope,a.secondary_scope,a.typed_scope,a.inclusion_scope,a.target_fraction,a.complete_partition_scope,a.reported_inclusion_reference_scope)
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--points');p.add_argument('--supplemental');p.add_argument('--output');p.add_argument('--residual-output');p.add_argument('--graph');p.add_argument('--official-scope');p.add_argument('--secondary-scope');p.add_argument('--typed-scope',action='append');p.add_argument('--inclusion-scope',action='append');p.add_argument('--target-fraction',type=float,default=.99);p.add_argument('--complete-partition-scope',action='append');p.add_argument('--reported-inclusion-reference-scope',action='append');p.add_argument('--combined-temporal-scope',action='append');p.add_argument('--event-aware-selected-scope',action='append');p.add_argument('--auxiliary-primary-temporal-scope',action='append');a=p.parse_args();run(a.points,a.supplemental,a.output,a.residual_output,a.graph,a.official_scope,a.secondary_scope,a.typed_scope,a.inclusion_scope,a.target_fraction,a.complete_partition_scope,a.reported_inclusion_reference_scope,a.combined_temporal_scope,a.event_aware_selected_scope,a.auxiliary_primary_temporal_scope)

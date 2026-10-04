@@ -1645,3 +1645,69 @@ Population QC checked143104 identity components and408526 dated pairs, flagging6
 Self-criticism/corrections: the national2021 Table5 has total/male/female and percentages, NOT a2010 comparison column. ROSSTAT2010:T5 locators come from Tom1 Table5 PDF SHA42cb939d..., not Tom11 Table1.4; versioned source-inventory errata preserve the earlier claim. New application preflights caught an import/signature mismatch and a256MB broad-point read; fixed to the real loader contract and eight narrow point columns before any output.22 relevant partition/inclusion/typed/exclusive regression tests pass.
 
 Next efficiency change: a uniquely identified additional official2010 settlement row can supply dated primary identity evidence for already-bound2002/2021 observations without guessing its ambiguous protected F counterpart. Such a candidate projection must add NO2010 national count, exclude NO unresolved F homonym, retain the official2010 row as a nonadditive alternate, and undergo independent review. This does not replace the selected population layer or create a partial modern-boundary reconstruction. Mass current-code aliases and large named-place candidates are under bounded independent review; ready35 small links will be combined with them instead of a separate full run.
+
+
+### 2026-10-04: graph13/14, date unions and complete2021 municipal readback
+
+Applied graph13(179edges/79points), then graph14(22edges/20continuity uses).
+Current348568edges/132769primaryfull3/418435points; existing scientific
+fields preserved. Applied892native-bound primary/secondary date unions,
+Tula4, Moscow4, absorbed8, correctedSomovo2010 and separateDygulybgey village
+paths. Actual mixed joint coverage96.970682628/97.433441197/98.117481972%;
+remaining2945894/2237932/1298909to99. No ordinary NP3 or modern-boundary
+reconstruction is implied by typed/scoped paths. Secondary quantities remain
+explicitly limited and no unresolved F-counterpart is guessed from equality.
+
+Official2021municipal union:2294+42 unique disjoint comparisons,128022280
+population,0differences, covering all82ordinary regions. Three federal totals
+are separately checked. The41previously held groups resolve through explicit
+ZATO aliases or native municipality codes, including the Smolensk/Desnogorsk
+split. National2002/2010 shortfalls remain11726/493512. Primorye early16rayon
+blocks assign361protected rows and hold242; ten exact official NP candidates
+have4859printed-minus-protected difference, unapplied.
+
+Corrections: Somovo2010ROSSTAT ID is already an additive selected source;
+source-ID prefix is not a grain classification. Its cited old parent p20:l13
+is a district aggregate, actual city proper is p20:l12 and selected Table11
+city889680. Separate corrective scope receipt fixes references, not numbers.
+Independent readback initially failed on10pre-existing nullable year fields;
+canonical selected source membership validates their dates while explicit
+contradictions and same-year edges still fail. Three regression tests pass.
+Dygulybgey preflights fixed literal numeric-string XLS cells and sheet name
+`таб. 5`; no failed-run output was admitted. GeoNames origin hashes distinguish
+trimmed line versus raw bytes. Candidate generation and acceptance remain
+separate, including prepared879new current carriers. No secondary annualJan1
+statement is silently changed into a census date.
+
+Efficiency critique: stopped a stale2-hour openpyxl per-row scan. Some bounded
+agent runs exceeded512MiB; completed valid results are retained with honest
+RSS rather than repeating science only for memory optimization. Heavy graph14
+run62.794s/14730152KiB; avoid concurrent wide reads. Ready batches are applied
+in consolidated groups. Big865395-row export stillgraph11 pendingone refresh.
+GitHub403 persists; localGit is maintained without claiming remote upload.
+
+### 2026-10-04: graph15 and sixteen primary auxiliary-date trajectories
+
+Applied EAO71 plus879current own-locality points and1827 retrospective uses.
+Graph348639edges/132840full3/421141points; old scientific fields unchanged.
+Two old EAO points exceed5km and remain held despite accepted identities.
+Run60.11847263seconds/15186312KiB; subsequent growth diagnostic flags6554pairs,
+3124protected, not asserted errors. Koltsovo/Lyangasovo27756old02 scoped references
+applied separately, with exact source lines and old/receiver city-proper checks.
+
+Sixteen independently reviewed official2010 supplementary observations provide
+dated evidence for existing02/21 places and their accepted points. All16 IDs
+are absent from selected2010;68808additional population stays nonadditive.
+No F-counterpart inferred by equality, no selectedprotected row excluded.
+Actual mixed joint97.178428575/97.536515935/98.258304101%; gaps2644316/2090683/
+1091644to99. Strict primaryNP3 remains separately measured and lower.
+
+Review efficiency: new currentpoint4984 packet awaits independent review; mostly
+point-only improvement, not completed temporal links. National geographic candidates
+must count reciprocal uniqueness perOLDcensusyear, otherwise a valid02and10 pair
+competes with itself. Printed2010 rayon headings in Altai/Chechen do not bound
+unlabelled intervals, so those21 rows are held rather than guessed by nearest heading.
+Fullgraph11 export remains marked stale; consolidated rebuild pending currentbatch.
+Evidence/code/config bytes frozen before further changes; no remote upload claimed.
+
+Focused verification after graph15 integration:31 relevant regression tests pass (0.36s pytest reported); not full-repository validation.

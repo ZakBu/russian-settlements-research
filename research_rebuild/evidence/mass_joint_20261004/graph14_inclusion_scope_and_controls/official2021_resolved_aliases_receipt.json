@@ -1,0 +1,218 @@
+{
+  "status": "bounded_official_2021_unmatched_upper_municipality_alias_probe",
+  "frozen_v2_receipt_sha256": "1b97575e2651953f568a4cbc2c18ca5f46a37960afe19d6e83003f065823a270",
+  "frozen_v2_baseline_csv_sha256": "06279e62cce281b83ad8c9600632b7e51b06837c0d6e32df80a287fb2706346b",
+  "inputs": {
+    "/workspace/settlements-work/continuation_20261004/independent_review/official2021_all_upper_municipal_controls_v2/all_upper_municipality_control_matches_2021.csv": {
+      "sha256": "06279e62cce281b83ad8c9600632b7e51b06837c0d6e32df80a287fb2706346b",
+      "bytes": 1082121
+    },
+    "/workspace/settlements-work/continuation_20261004/independent_review/official2021_all_upper_municipal_controls_v2/unbound_eligible_official_rows_2021.csv": {
+      "sha256": "c167b538aa892ce13f6d789e5be27f35dd63b9b7041c55eb33eae5fd862e575a",
+      "bytes": 20221
+    },
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": {
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    "/workspace/settlements-raw/data/raw/rosstat_2021/Tom1_tab-5_VPN-2020.xlsx": {
+      "sha256": "0b232b3d2ab5daa231568acc719ac6fda4fb0979a01a0da6bacc69be6f252474",
+      "bytes": 1658676
+    }
+  },
+  "source_join": {
+    "selected_census_year": 2021,
+    "selected_population_scope": "settlement",
+    "selected_rows": 87,
+    "selected_unique_source_native_ids": 87,
+    "raw_publisher_native_id_join": "selected source_native_id == raw object_level Населенный пункт oktmo exact",
+    "joined_raw_publisher_rows": 87,
+    "all_source_rows_joined": true,
+    "native_parent_rule": "Unique longest current Tochno/Rosstat Муниципалитет верхнего уровня oktmo prefix of the selected 2021 physical settlement source_native_id; all eligible source object labels and codes are recorded.",
+    "file_path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+    "row_locator": "source_record_id values name source parquet row ordinal; xlsx controls retain exact sheet row number."
+  },
+  "coverage": {
+    "baseline_unmatched_selected_groups": 41,
+    "selected_population_total": 1551780,
+    "supported_official_control_match_rows": 42,
+    "matched_baseline_group_count": 41,
+    "remaining_unresolved_group_count": 0,
+    "remaining_unresolved_selected_population": 0,
+    "supported_selected_population_sum": 1551780,
+    "supported_official_population_sum": 1551780,
+    "supported_nonzero_control_differences": 0,
+    "supported_sum_absolute_difference": 0,
+    "supported_max_absolute_difference": 0,
+    "control_row_count_by_match_basis": {
+      "literal_typed_parent_label_after_removing_explicit_zato_designation": 38,
+      "native_upper_code_plus_exact_city_name_and_official_upper_tier": 4
+    },
+    "literal_zato_alias_control_rows": 38,
+    "native_code_city_name_control_rows": 4,
+    "smolensk_native_code_split": [
+      {
+        "native_upper_code": "66701000",
+        "selected_settlement_names": "Смоленск",
+        "selected_population": 316570,
+        "official_raw_label": "Городской округ - город Смоленск - городское население - г. Смоленск",
+        "official_2021_population": 316570,
+        "official_minus_selected_population": 0
+      },
+      {
+        "native_upper_code": "66710000",
+        "selected_settlement_names": "Десногорск|Сосновка",
+        "selected_population": 25414,
+        "official_raw_label": "Городской округ - город Десногорск",
+        "official_2021_population": 25414,
+        "official_minus_selected_population": 0
+      }
+    ],
+    "largest_supported_controls": [
+      {
+        "region": "Смоленская область",
+        "original_selected_control_key": "Городской округ",
+        "native_upper_code": "66701000",
+        "selected_population": 316570,
+        "official_raw_label": "Городской округ - город Смоленск - городское население - г. Смоленск",
+        "official_2021_population": 316570,
+        "official_minus_selected_population": 0,
+        "match_basis": "native_upper_code_plus_exact_city_name_and_official_upper_tier"
+      },
+      {
+        "region": "Томская область",
+        "original_selected_control_key": "Городской округ \"Город Северск\" (ЗАТО)",
+        "native_upper_code": "69741000",
+        "selected_population": 112971,
+        "official_raw_label": "Городской округ \"Город Северск\"",
+        "official_2021_population": 112971,
+        "official_minus_selected_population": 0,
+        "match_basis": "literal_typed_parent_label_after_removing_explicit_zato_designation"
+      },
+      {
+        "region": "Нижегородская область",
+        "original_selected_control_key": "Городской округ город Саров (ЗАТО)",
+        "native_upper_code": "22704000",
+        "selected_population": 93357,
+        "official_raw_label": "Городской округ город Саров - городское население - г. Саров",
+        "official_2021_population": 93357,
+        "official_minus_selected_population": 0,
+        "match_basis": "literal_typed_parent_label_after_removing_explicit_zato_designation"
+      },
+      {
+        "region": "Красноярский край",
+        "original_selected_control_key": "Городской округ город Железногорск (ЗАТО)",
+        "native_upper_code": "4735000",
+        "selected_population": 90290,
+        "official_raw_label": "Городской округ город Железногорск",
+        "official_2021_population": 90290,
+        "official_minus_selected_population": 0,
+        "match_basis": "literal_typed_parent_label_after_removing_explicit_zato_designation"
+      },
+      {
+        "region": "Челябинская область",
+        "original_selected_control_key": "Озерский городской округ (ЗАТО)",
+        "native_upper_code": "75743000",
+        "selected_population": 87182,
+        "official_raw_label": "Озерский городской округ",
+        "official_2021_population": 87182,
+        "official_minus_selected_population": 0,
+        "match_basis": "literal_typed_parent_label_after_removing_explicit_zato_designation"
+      },
+      {
+        "region": "Свердловская область",
+        "original_selected_control_key": "Новоуральский городской округ (ЗАТО)",
+        "native_upper_code": "65752000",
+        "selected_population": 81053,
+        "official_raw_label": "Новоуральский городской округ",
+        "official_2021_population": 81053,
+        "official_minus_selected_population": 0,
+        "match_basis": "literal_typed_parent_label_after_removing_explicit_zato_designation"
+      },
+      {
+        "region": "Республика Алтай",
+        "original_selected_control_key": "Городское население - г. Горно-Алтайск",
+        "native_upper_code": "84701000",
+        "selected_population": 65342,
+        "official_raw_label": "Горно-Алтайский городской округ - городское население - г. Горно-Алтайск",
+        "official_2021_population": 65342,
+        "official_minus_selected_population": 0,
+        "match_basis": "native_upper_code_plus_exact_city_name_and_official_upper_tier"
+      },
+      {
+        "region": "Пензенская область",
+        "original_selected_control_key": "Городской округ город Заречный (ЗАТО)",
+        "native_upper_code": "56734000",
+        "selected_population": 58510,
+        "official_raw_label": "Городской округ город Заречный - городское население - г. Заречный",
+        "official_2021_population": 58510,
+        "official_minus_selected_population": 0,
+        "match_basis": "literal_typed_parent_label_after_removing_explicit_zato_designation"
+      },
+      {
+        "region": "Красноярский край",
+        "original_selected_control_key": "Городской округ город Зеленогорск (ЗАТО)",
+        "native_upper_code": "4737000",
+        "selected_population": 54279,
+        "official_raw_label": "Городской округ город Зеленогорск - городское население - г. Зеленогорск",
+        "official_2021_population": 54279,
+        "official_minus_selected_population": 0,
+        "match_basis": "literal_typed_parent_label_after_removing_explicit_zato_designation"
+      },
+      {
+        "region": "Челябинская область",
+        "original_selected_control_key": "Снежинский городской округ (ЗАТО)",
+        "native_upper_code": "75746000",
+        "selected_population": 50814,
+        "official_raw_label": "Снежинский городской округ",
+        "official_2021_population": 50814,
+        "official_minus_selected_population": 0,
+        "match_basis": "literal_typed_parent_label_after_removing_explicit_zato_designation"
+      }
+    ],
+    "unresolved_groups": []
+  },
+  "non_actions": [
+    "No observation, source row, identity association, or score changed.",
+    "No population value was used to choose among candidate official labels.",
+    "ZATO is removed only as a literal administrative designation where all remaining parent label tokens match exactly in the same region and one eligible upper-level workbook row exists.",
+    "Generic Smolensk/Voronezh keys are split or resolved only with exact 2021 native upper-code prefixes plus same-city names/types; no city assignment is inferred from a regional match alone.",
+    "All v2 receipt bytes remain untouched."
+  ],
+  "outputs": [
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_municipal_unmatched_aliases_v3/README.md",
+      "sha256": "c73ddd71c5a1042b518eccb341d5a76884e10e704f841fa70271ff9f4614c596",
+      "bytes": 2396
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_municipal_unmatched_aliases_v3/all_41_group_route_status_2021.csv",
+      "sha256": "1bb12f5455cdac0270a1390d91c516db2c4343b7b76d3e71e21203a29958fb4a",
+      "bytes": 8702
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_municipal_unmatched_aliases_v3/build_review.py",
+      "sha256": "27332196110afd8d01d12a5141fdcb3cdf33b6cde5403d5820d6d8b6beccb6b0",
+      "bytes": 21094
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_municipal_unmatched_aliases_v3/remaining_unresolved_groups_2021.csv",
+      "sha256": "9bc1a6f287f73ffbcb6a28197a3288776d5b74a67f3371956369a238701a73d5",
+      "bytes": 58
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_municipal_unmatched_aliases_v3/source_native_parent_row_evidence_2021.csv",
+      "sha256": "327174b653c3e11dde96c9dc66ad1036a3a2a941aae95a9caee8ed840437b3ba",
+      "bytes": 68595
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_municipal_unmatched_aliases_v3/supported_unmatched_alias_control_matches_2021.csv",
+      "sha256": "ee89693de3e52e16dcf5cdadb12a46fd3c8d8c4563b3001a768caddb2a94aa84",
+      "bytes": 24152
+    }
+  ]
+}

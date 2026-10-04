@@ -20,6 +20,8 @@ from pathlib import Path
 
 import duckdb
 import pandas as pd
+import pyarrow as pa
+import pyarrow.parquet as pq
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from research_rebuild.mass_linkage.coverage import identity_sets, measure
@@ -540,6 +542,8 @@ def run(manifest_path: Path, output: Path):
     manifest['_legacy_collision_resolutions'] = collision_resolutions
     manifest['_legacy_collision_resolution_review_records'] = collision_review_records
     graph = pd.read_parquet(base['graph'])
+    boolean_graph_columns = {field.name for field in pq.read_schema(base['graph'])
+                             if pa.types.is_boolean(field.type)}
     base_graph_n = len(graph)
     new_graph, graph_inputs = load_identity(manifest)
     if not new_graph.empty:
@@ -699,6 +703,7 @@ def run(manifest_path: Path, output: Path):
     if points.target_source_record_id.astype(str).duplicated().any(): raise ValueError('duplicate point target after continuity')
     points = preserve_nullable_booleans(points, boolean_point_columns)
     # Outputs are written only after all application gates above pass.
+    graph = preserve_nullable_booleans(graph, boolean_graph_columns)
     output.mkdir(parents=True,exist_ok=True)
     graph.to_parquet(output/'accepted_identity_edges.parquet',index=False)
     con.register('final_points',points)

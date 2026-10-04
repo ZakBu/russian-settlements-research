@@ -12,6 +12,17 @@ def sha(path):
         return hashlib.file_digest(handle, 'sha256').hexdigest()
 
 
+def validated_endpoint_years(years, source_a, source_b, stored_a, stored_b):
+    """Selected source membership controls dates; retain nullable legacy metadata."""
+    a, b = years[source_a], years[source_b]
+    assert a != b, 'Accepted identity edge joins two observations of one census'
+    if stored_a is not None:
+        assert a == int(stored_a), 'Explicit endpoint year contradicts selected source'
+    if stored_b is not None:
+        assert b == int(stored_b), 'Explicit endpoint year contradicts selected source'
+    return a, b
+
+
 def run(application, output):
     application = Path(application)
     receipt = json.loads(application.read_text())
@@ -47,8 +58,10 @@ def run(application, output):
     # DFS is independent of the admission driver's union/find component construction.
     years = dict(con.execute('select source_record_id,census_year from selected').fetchall())
     adjacency = defaultdict(set)
+    nullable_year_edges = 0
     for a, b, ay, by in con.execute('select from_source_record_id,to_source_record_id,from_year,to_year from graph').fetchall():
-        assert years[a] == int(ay) and years[b] == int(by) and int(ay) != int(by)
+        validated_endpoint_years(years, a, b, ay, by)
+        nullable_year_edges += ay is None or by is None
         adjacency[a].add(b)
         adjacency[b].add(a)
     admitted = {r[0] for r in con.execute('select target_source_record_id from points').fetchall()}
@@ -89,6 +102,7 @@ def run(application, output):
               'script_sha256': sha(__file__), 'full_census_components': components,
               'NP_joint_counts': dict(counts), 'baseline_checks': checks,
               'point_targets_unique_finite_geographic_range': True,
+              'legacy_edges_with_nullable_year_metadata_checked_against_selected_source_ids': nullable_year_edges,
               'scope': 'Scientific fields listed in code compared; arbitrary optional proof columns are not exhaustively compared. Federal typed continuity remains separately reviewed.'}
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps(result, ensure_ascii=False))
