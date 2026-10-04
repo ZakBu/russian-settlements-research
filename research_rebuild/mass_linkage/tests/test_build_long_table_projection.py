@@ -97,3 +97,16 @@ def test_serialized_false_stays_false_and_unknown_stays_unknown():
     import pytest
     with pytest.raises(ValueError, match='Unexpected serialized boolean'):
         _optional_boolean('unrecognized')
+
+
+def test_reviewed_mass_rule_does_not_promote_explicit_automatic_point_quality():
+    from research_rebuild.mass_linkage.build_long_table import _coordinate_scientific_quality
+    assert _coordinate_scientific_quality({
+        "coordinate_quality": "automatically_accepted_checked_rule",
+        "coordinate_admission_status": "reviewed_extension_rule_accepted",
+        "admission_rule": "reviewed_current_city_direct_named_geokladr2011",
+    }) == "automatically_accepted_checked_rule"
+    assert _coordinate_scientific_quality({
+        "coordinate_quality": "3",
+        "coordinate_admission_status": "frozen_r5b_reviewed_baseline_preserved",
+    }) == "individually_reviewed"

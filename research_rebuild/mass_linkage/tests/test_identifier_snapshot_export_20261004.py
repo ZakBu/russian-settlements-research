@@ -8,12 +8,27 @@ import pandas as pd
 import pytest
 
 from research_rebuild.mass_linkage.build_identifier_snapshot_export_20261004 import (
+    _parse_point_target_year,
     build_snapshot_rows,
     code_role_2021,
     code_role_geo2011,
     load_inputs,
     recover_geokladr_origin_rows,
 )
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [(2002, 2002), ("2002.0", 2002), ("2010.000", 2010), (2021.0, 2021)],
+)
+def test_target_year_accepts_only_integral_numeric_serializations(raw, expected):
+    assert _parse_point_target_year(raw, "source") == expected
+
+
+@pytest.mark.parametrize("raw", ["2002.5", "nan", "inf", "not-a-year", "99999", True])
+def test_target_year_rejects_fractional_malformed_and_out_of_domain_values(raw):
+    with pytest.raises(ValueError, match="target_year"):
+        _parse_point_target_year(raw, "source")
 
 
 def test_2021_raw_codes_preserve_leading_zeroes_short_literals_and_federal_scope():
@@ -180,6 +195,30 @@ def test_null_point_target_year_uses_authoritative_core_source_year_for_2011_con
             core, population, wrong_year, population_layer_sha256="layer-sha",
             accepted_points_sha256="points-sha", final_core_sha256="core-sha",
         )
+
+
+def test_integral_float_string_point_year_matches_selected_census_year():
+    core = pd.DataFrame([
+        {"record_type": "census", "entity_id": "settlement:old", "source_record_id": "2002:source", "census_year": 2002},
+    ])
+    population = pd.DataFrame(columns=[
+        "source_record_id", "census_year", "oktmo", "source_native_id", "population",
+        "source_file", "source_sheet", "source_row", "population_scope",
+    ])
+    points = pd.DataFrame([{
+        "target_source_record_id": "2002:source",
+        "target_year": "2002.0",
+        "coordinate_admission_status": "reviewed_rule_accepted",
+        "raw_geo_oktmo_2011": "00123456",
+    }])
+    native, context, holds = build_snapshot_rows(
+        core, population, points, population_layer_sha256="layer-sha",
+        accepted_points_sha256="points-sha", final_core_sha256="core-sha",
+    )
+    assert native.empty
+    assert context.target_year.tolist() == [2002]
+    assert context.point_target_year_raw.tolist() == [2002]
+    assert holds.empty
 
 
 def test_null_convenience_geo_fields_replay_exact_pinned_dbf_origin_and_keep_empty_oktmo_missing(tmp_path):

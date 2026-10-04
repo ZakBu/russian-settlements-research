@@ -188,6 +188,10 @@ def _coordinate_scientific_quality(point: dict[str, Any]) -> str:
         'R_reviewed_same_place_sourced_point_continuity_20261004',
     }:
         return "automatically_accepted_checked_rule"
+    # A review of a mass rule does not turn each admitted point into a case
+    # review. Preserve the explicit scientific tag before legacy rule prefixes.
+    if point.get("coordinate_quality") == "automatically_accepted_checked_rule":
+        return "automatically_accepted_checked_rule"
     rule = str(point.get("admission_rule") or "")
     reviewed_prefixes = ("independent_", "reviewed_", "national_top14_review")
     if point.get("coordinate_admission_status") in {"frozen_r5b_reviewed_baseline_preserved", "reviewed_case_accepted"} or rule.startswith(reviewed_prefixes):
