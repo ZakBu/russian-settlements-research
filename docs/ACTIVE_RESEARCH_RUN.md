@@ -469,14 +469,14 @@ Each increment preserves the earlier selected layer and ordinary identity graph.
 
 | Census year | Strict three-census chain + point | Current event-aware representation | To 99% in event-aware measure |
 | --- | ---: | ---: | ---: |
-| 2002 | 96.588162% | 97.031057% | 2,858,251 |
-| 2010 | 97.192033% | 97.474365% | 2,179,469 |
+| 2002 | 96.588162% | 97.055349% | 2,822,987 |
+| 2010 | 97.192033% | 97.487176% | 2,161,169 |
 | 2021* | 97.869881% | 97.942134% | 1,530,730 |
 
 *2021 denominator is the available three-census geography; Crimea and Sevastopol
 are excluded because they were outside the 2002/2010 Russian census coverage.
 
-The event-aware numerator adds 228,828 / 110,328 / 104,549 people to the earlier
+The event-aware numerator adds 264,092 / 128,628 / 104,549 people to the earlier
 event-aware checkpoint for 2002 / 2010 / 2021 respectively. It includes different
 relation types: stable-place trajectories, a two-year observed path, exclusive
 whole-to-part source projection, and reported historical territorial inclusion.
@@ -493,6 +493,21 @@ checksums and replay scripts are in `research_rebuild/evidence/` folders named
 `kushchevskaya_partition_chain_20261005`, `dygulybgey_event_path_20261005`, and
 `two_historical_city_inclusions_20261005`, and
 `accepted_national_inclusions_20261005`.
+
+The latest update also adds the two official pre-inclusion Pridonskoy observations
+(17,133 in 2002 and 18,300 in 2010) at a scoped retrospective point. Voronezh
+Oblast Law No. 136-OZ lists Pridonskoy as joined to Voronezh effective for legal
+relations from 2011-01-01. The 2021 Voronezh total is already represented and is
+not added again; no child population is invented. The law text, primary census
+locators, coordinate-source comparison, replay script and checksums are in
+`research_rebuild/evidence/pridonskoy_voronezh_inclusion_20261005`.
+
+It now also includes the official 2002 Kosaya Gora row (18,131) at a distinct
+representative point. Tula Oblast Law No. 594-ZTO names Kosaya Gora among the
+settlements joined to Tula in 2005; the exact effective date is unresolved.
+Selected Tula totals in 2010 and 2021 remain receiver context and are not added.
+Evidence and replay files are in
+`research_rebuild/evidence/kosaya_gora_tula_inclusion_20261005`.
 
 Most recent local commits include `0af8500`, `8cee94e`, `f1fa2fc`, `31ac10c`,
 `a8c30b5`, and the current national inclusion batch. These are local commits; no
