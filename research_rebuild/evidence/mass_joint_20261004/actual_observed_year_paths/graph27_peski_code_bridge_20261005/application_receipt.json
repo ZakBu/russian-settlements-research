@@ -1,0 +1,93 @@
+{
+  "status": "bounded_peski_2002_2010_identity_and_point_uses_applied",
+  "inputs": {
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "graph26": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_identity_edges.parquet",
+      "sha256": "1cc307f2855d15c7503dd226a278c49bdab72f178f5e2564c5e20fa4195a7d1a"
+    },
+    "points26": {
+      "path": "/tmp/graph26_gaikodzor_continuity_20261005/accepted_point_uses.parquet",
+      "sha256": "5e153f1864471421d29d3edfa0ccfee4297f5e0a4e9e0cda20c4682c5471f3c8"
+    },
+    "cohort": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/historical_urban_code_bridge_1258_audit_v1/cohort.csv",
+      "sha256": "2f60214f1b52acc4883effbcc4d2f10fb4e1e6e8c614b43c1c4e5469701389f4"
+    },
+    "raw_okato": {
+      "path": "/workspace/settlements-raw/data/raw/historical_classifiers/okato_142_2009/dump-142_2009.sql",
+      "sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db"
+    },
+    "raw_geo": {
+      "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+    },
+    "source2002": {
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3"
+    },
+    "source2010": {
+      "path": "/workspace/settlements-raw/data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls",
+      "sha256": "cf5b5d57327bf0d32723a7f49bb58db503a201af83a6e2bda4b874986f864167"
+    }
+  },
+  "new_identity_edge": {
+    "decision_id": "GRAPH27-PESKI-2002-2010-HISTORICAL-CODE-BRIDGE",
+    "from": "2002:1_TOM_01_04.xls:0:1143",
+    "to": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:10189",
+    "relation": "same_place",
+    "status": "independent_case_review_accepted",
+    "population_comparability_asserted": false
+  },
+  "new_point_uses": [
+    {
+      "source_record_id": "2002:1_TOM_01_04.xls:0:1143",
+      "year": 2002,
+      "latitude": 55.211577,
+      "longitude": 38.773192,
+      "status": "reviewed_case_accepted",
+      "population": 3736
+    },
+    {
+      "source_record_id": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:10189",
+      "year": 2010,
+      "latitude": 55.211577,
+      "longitude": 38.773192,
+      "status": "reviewed_case_accepted",
+      "population": 3847
+    }
+  ],
+  "selected_population_values_changed": false,
+  "same_year_graph_collisions": 0,
+  "point_origin": {
+    "file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+    "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "dbf_record_1based": 73090,
+    "byte_offset_0based": 28870860,
+    "okato2009": "46222554",
+    "geokladr2011": "46222554000",
+    "latitude": "55.211577",
+    "longitude": "38.773192"
+  },
+  "limitations": [
+    "Point edition is 2011 GeoKLADR; physical measurement date is unknown and it is not a census-date measurement.",
+    "2010 selected population remains secondary confidentiality-protected with exact scope unverified.",
+    "No 2021 identity edge is admitted: nearby 2021 settlement changes from pgt to rural type and requires a separate event/source witness.",
+    "Population boundary comparability is not asserted."
+  ],
+  "outputs": {
+    "accepted_identity_edges.parquet": {
+      "path": "/tmp/graph27_peski_code_bridge_20261005/accepted_identity_edges.parquet",
+      "sha256": "607347a69514a3f0b83d0681520bd642a7973d08d7dc1418723cb0050867d914",
+      "rows": 348667
+    },
+    "accepted_point_uses.parquet": {
+      "path": "/tmp/graph27_peski_code_bridge_20261005/accepted_point_uses.parquet",
+      "sha256": "c24a596af84094f119c9ded8a07dbb22b98b1be2c0384698c455300baf17263f",
+      "rows": 428174
+    }
+  }
+}
