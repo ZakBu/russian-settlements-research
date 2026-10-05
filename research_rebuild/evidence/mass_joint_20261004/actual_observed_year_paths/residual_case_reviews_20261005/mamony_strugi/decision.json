@@ -1,0 +1,229 @@
+{
+  "status": "bounded_independent_proposals_only_no_application",
+  "created_utc": "2026-10-05",
+  "scope": "Read-only independent follow-up for Мамоны and Струги Красные; no canonical graph/config/coverage mutation.",
+  "source_pins": [
+    {
+      "name": "selected_observations",
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    {
+      "name": "official_2002_table4",
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "bytes": 1819648
+    },
+    {
+      "name": "mamony_2002_regional_workbook",
+      "path": "/workspace/settlements-raw/data/raw/2002/070_48ec6f4a77_Irkut_obl_new.xls",
+      "sha256": "53cc4d5dc967f6f5d5ee5c5802b25f72314284c4fc21efa285f0115b0c22e28d",
+      "bytes": 378880
+    },
+    {
+      "name": "official_2010_table5",
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "bytes": 15230814
+    },
+    {
+      "name": "legacy_2010_pskov_workbook",
+      "path": "/workspace/settlements-raw/data/raw/2010/012_5c339c0d0e_4._20Vologod_pskov_2010.xls",
+      "sha256": "8f86eaaf6c47fb0d13ce5af84aaba3f1f937ba639e73e436e502c0d453ad28f2",
+      "bytes": 7793664
+    },
+    {
+      "name": "official_2021_table5",
+      "path": "/workspace/settlements-raw/data/raw/rosstat_2021/Tom1_tab-5_VPN-2020.xlsx",
+      "sha256": "0b232b3d2ab5daa231568acc719ac6fda4fb0979a01a0da6bacc69be6f252474",
+      "bytes": 1658676
+    },
+    {
+      "name": "current_2021_source_rows",
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    {
+      "name": "classifier_okato_2009",
+      "path": "/workspace/settlements-raw/data/raw/historical_classifiers/okato_142_2009/dump-142_2009.sql",
+      "sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+      "bytes": 24684035
+    },
+    {
+      "name": "geokladr_okato_2011",
+      "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+      "bytes": 59991330
+    },
+    {
+      "name": "accepted_identity_edges_graph24_snapshot",
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph24_anapa_20261005/accepted_identity_edges.parquet",
+      "sha256": "31773a37a3d48488c955bb84d644f24b434fadcc4dc587400c9ba1db20597fc3",
+      "bytes": 66704912
+    },
+    {
+      "name": "accepted_point_uses_graph24_snapshot",
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph24_anapa_20261005/accepted_point_uses.parquet",
+      "sha256": "c3970a406c45b0478d012150e5597e1f008ef86b7fe3ba866e311a9a0ae62e63",
+      "bytes": 44290279
+    },
+    {
+      "name": "mamony_point_crosscheck_review",
+      "path": "/workspace/settlements-work/continuation_20261004/wikidata_points/fixed_high_mass_independent_check_sample.csv",
+      "sha256": "bf99c253a1eb2535183526147fba0d84b580f5d2d4ef0a9f4e6320e76aef2a63",
+      "bytes": 4504608
+    },
+    {
+      "name": "strugi_frozen_adjudication",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/strugi_krasnye_successor_flag_adjudication_v1/adjudication.json",
+      "sha256": "768934b87aed4de39fa2c582e23970c4eb8c322ef1d9907c70609969769c3e79",
+      "bytes": 5185
+    },
+    {
+      "name": "strugi_frozen_source_pins",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/strugi_krasnye_successor_flag_adjudication_v1/source_pins.json",
+      "sha256": "e7b12bcd9f2ba2a51ff7f5f66a0873814787467464dc1d32c5c03bf90bc7a3e9",
+      "bytes": 3986
+    }
+  ],
+  "cases": [
+    {
+      "place": "Мамоны",
+      "region": "Иркутская область",
+      "qid_secondary_context": "Q16017022",
+      "identity_disposition": "propose_same_place_edges",
+      "edge_proposals": [
+        {
+          "relation": "same_place",
+          "from_source_record_id": "2002:070_48ec6f4a77_Irkut_obl_new.xls:Sheet1:393",
+          "to_source_record_id": "ROSSTAT2010:T5:p183:l43"
+        },
+        {
+          "relation": "same_place",
+          "from_source_record_id": "ROSSTAT2010:T5:p183:l43",
+          "to_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:24325"
+        }
+      ],
+      "observations": [
+        {
+          "year": 2002,
+          "population": 1642,
+          "record_id": "2002:070_48ec6f4a77_Irkut_obl_new.xls:Sheet1:393",
+          "locator": "workbook Sheet1 row 393"
+        },
+        {
+          "year": 2010,
+          "population": 3154,
+          "record_id": "ROSSTAT2010:T5:p183:l43",
+          "locator": "Rosstat Table 5 PDF page 183 line 43; Иркутский район"
+        },
+        {
+          "year": 2021,
+          "population": 7272,
+          "record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:24325",
+          "locator": "selected parquet row 24325; official 2021 Table 5 row 23262"
+        }
+      ],
+      "identity_basis": [
+        "exact typed named locality across years",
+        "2002 and 2010 source district context is Иркутский район",
+        "unique 2009 OKATO/2011 GeoKLADR typed physical object with same point for old endpoints",
+        "current row exact OKTMO 25612439101 and FIAS6 0f28160c-c82a-4d9c-9cc2-ac5509cad23c",
+        "old/current accepted points about 0.52 km apart; no same-region same-type competing object"
+      ],
+      "identifier_context": {
+        "historical_classifier": "OKATO 25212811001",
+        "current_okato": "25212000044",
+        "current_oktmo": "25612439101",
+        "note": "Historical code is an OKATO/GeoKLADR association, not claimed as historical OKTMO or a formal code-conversion record."
+      },
+      "population_comparability": "unasserted; retain exact published counts separately; no dated boundary source explaining growth or proving fixed boundaries found in bounded review.",
+      "point_disposition": "No new point proposal; Graph24 already has accepted old and current point uses. Do not use Wikidata P625 (~53.84 km from current own-source point); GeoNames and FIAS/DaData align near accepted historical point.",
+      "application_performed": false
+    },
+    {
+      "place": "Струги Красные",
+      "region": "Псковская область",
+      "identity_disposition": "propose_same_place_path",
+      "edge_proposals": [
+        {
+          "relation": "same_place",
+          "from_source_record_id": "2002:1_TOM_01_04.xls:0:3213",
+          "to_source_record_id": "ROSSTAT2010:T5:p71:l47"
+        },
+        {
+          "relation": "same_place",
+          "from_source_record_id": "ROSSTAT2010:T5:p71:l47",
+          "to_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:108423"
+        }
+      ],
+      "observations": [
+        {
+          "year": 2002,
+          "population": 8762,
+          "record_id": "2002:1_TOM_01_04.xls:0:3213",
+          "locator": "official Table 4 row 3213"
+        },
+        {
+          "year": 2010,
+          "population": 8447,
+          "record_id": "ROSSTAT2010:T5:p71:l47",
+          "locator": "Rosstat Table 5 PDF page 71 line 47; Струго-Красненский район"
+        },
+        {
+          "year": 2021,
+          "population": 4871,
+          "record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:108423",
+          "locator": "selected parquet row 108423; official 2021 Table 5 row 7545"
+        }
+      ],
+      "identity_basis": [
+        "exact pgt name/type and region in primary rows",
+        "2009/2011 classifier separates pgt from Владимирский Лагерь",
+        "current OKATO 58256551000 and OKTMO 58656151051 bind pgt row",
+        "frozen successor-flag adjudication resolves legacy 58656151111 to the separate coexisting Владимирский Лагерь locality, not a physical replacement"
+      ],
+      "population_comparability": "unasserted; retain all three published pgt counts separately. Official 2021 Table 5 row 7544 is urban-settlement aggregate 6450; row 7545 is pgt 4871; row 7546 is rural component 1579. Do not replace pgt count with aggregate. Cause of decline not established.",
+      "point_only_proposal": {
+        "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:108423",
+        "latitude": 58.2699884,
+        "longitude": 29.1074674,
+        "measurement_date": "unknown",
+        "source": "current own-locality provider row with exact FIAS6 binding per frozen adjudication",
+        "distance_to_accepted_2002_point_km": 0.241,
+        "disposition": "separate current-record point-only proposal; do not select either normal-ranked Wikidata P625 claim; no historical point inference."
+      },
+      "current_identifier_context": {
+        "okato": "58256551000",
+        "oktmo": "58656151051",
+        "fias6": "3d1be85a-9689-4213-899d-974fb642fffe",
+        "other_2021_current_rows": [
+          {
+            "record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:108425",
+            "name": "Владимирский Лагерь",
+            "type": "местечко",
+            "population": 1575,
+            "oktmo": "58656151111",
+            "fias6": "7349c8fb-1556-4c83-ab9b-15ec25c0f847"
+          },
+          {
+            "record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:108424",
+            "name": "Орлова Гора",
+            "type": "местечко",
+            "population": 4,
+            "oktmo": "58656151106",
+            "fias6": "d8598c7c-ec22-40b3-9dc1-8b2e55695a5b"
+          }
+        ]
+      },
+      "frozen_adjudication_reference": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/strugi_krasnye_successor_flag_adjudication_v1/adjudication.json",
+        "sha256": "768934b87aed4de39fa2c582e23970c4eb8c322ef1d9907c70609969769c3e79",
+        "note": "Reused for scoped successor-code and current-point adjudication; detailed audit not duplicated."
+      },
+      "application_performed": false
+    }
+  ]
+}

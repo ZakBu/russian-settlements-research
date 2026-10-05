@@ -1,0 +1,47 @@
+{
+  "baseline_graph": "Graph24 accepted_identity_edges.parquet",
+  "baseline_edges_for_three_targets": 0,
+  "candidate_targets": [
+    "2002:1_TOM_01_04.xls:0:1080",
+    "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:8353",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:65692"
+  ],
+  "same_place_2002_to_2010": "Supported for Horlovo named locality identity, with an explicit absorbed-Fosforitny event and population_scope_comparability=false.",
+  "same_place_2010_to_2021": "Supported for Horlovo named locality identity, with explicit restoration/separation of Fosforitny and population_scope_comparability=false.",
+  "three_date_population_series": "Do not read selected 2002/2010/2021 Horlovo row values as a like-for-like population trajectory. 2002 Horlovo is 3,884 and Fosforitny is separate at 4,193; official 2010 Table 5 Horlovo is 7,875 and lineage note says it includes Fosforitny under Horlovo boundary; 2021 Horlovo is 3,714 and restored Fosforitny is separate at 3,883. Boundary-matched totals are 8,077 (2002), 7,875 (2010), 7,597 (2021), based on year-level historical-event evidence; legal-day/polygon equivalence is not asserted.",
+  "selected_2010_value": "The selected secondary row is 7,850 and is tagged protected/perturbed with exact scope unverified. Its source XLS row reproduces 7,850, but official Rosstat Table 5 directly publishes 7,875 (difference 25); preserve the selected value and quality tag, do not claim 7,850 as the exact published census total.",
+  "candidate_new_edges": [
+    {
+      "from": "2002:1_TOM_01_04.xls:0:1080",
+      "to": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:8353",
+      "relation": "same_place",
+      "scope_note": "identity only; no population boundary comparability"
+    },
+    {
+      "from": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:8353",
+      "to": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:65692",
+      "relation": "same_place",
+      "scope_note": "identity only; no population boundary comparability"
+    }
+  ],
+  "population_context_union_totals": {
+    "2002": {
+      "Horlovo": 3884,
+      "Fosforitny": 4193,
+      "union": 8077
+    },
+    "2010": {
+      "Horlovo_Tom1_Table5_including_Fosforitny_scope": 7875
+    },
+    "2021": {
+      "Horlovo": 3714,
+      "Fosforitny": 3883,
+      "union": 7597
+    }
+  },
+  "holds_or_limits": [
+    "2004 and 2019 event years are carried by a local lineage-event note/Wikipedia revision source; no primary legal act or exact effective dates were reopened in this bounded review.",
+    "Graph24 currently has no identity edge on any of the three target IDs. Point uses already exist for the historical GeoKLADR point (2002 and 2010) and the current Tochno point (2021).",
+    "The 2010 selected value remains protected/uncertain; the official primary Table 5 value is a separate source row and was not substituted in this review."
+  ]
+}

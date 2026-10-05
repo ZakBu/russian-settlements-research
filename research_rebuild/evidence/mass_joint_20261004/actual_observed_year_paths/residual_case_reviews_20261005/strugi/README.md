@@ -1,0 +1,11 @@
+# Strugi Krasnye successor-flag adjudication
+
+This bounded review concerns only current record `2021:data_allsettlements_anon_156_v20251217.parquet:parquet:108423` (Струги Красные, пгт, Pskov Oblast; population 4,871) and legacy flag `RU-OKTMO-58656151111`. It does not change a graph, configuration, source row, or the prior 4,984-candidate review.
+
+The flag code resolves to a different current locality: Владимирский Лагерь, a `местечко` with its own 2021 row, OKTMO, FIAS6 ID, population 1,575, and coordinates. The pgt Струги Красные remains a distinct current `пгт` with another code and FIAS6 ID. Official 2021 Rosstat Table 5 reports both the urban-settlement total (6,450) and the pgt component (4,871). The two other same-municipal-context locality records, Владимирский Лагерь (1,575) and Орлова Гора (4), sum to the official rural complement of 1,579. Historical 2009 OKATO and 2011 Geokladr classifiers also list Strugi pgt and Vladimirsky Lager as separate objects.
+
+The flag has no attached dated legal/physical event evidence in the frozen legacy row. In this exact case it describes an administrative/classifier or stale code association to a coexisting subordinate locality, not a physical replacement of the pgt. This is a case-specific interpretation only; it does not waive other successor flags.
+
+The current own-row point is source-supported: exact current row, named proper locality grain, source-native OKTMO, FIAS level 6 same-ID, and finite coordinates; the 2021 official pgt row independently matches its population. Recommendation: the point may be staged as a current point-only candidate with measurement date unknown. The exact 2002, 2010, and 2021 official pgt rows also support a separate three-date same-place candidate, but no identity edge or population update is applied by this review. Preserve each census value as its source-specific observation and make no boundary-comparability claim.
+
+`evidence_ledger.csv` records raw locators and interpretation limits. `source_pins.json` records hashes for the primary, classifier, current-provider, Wikidata snapshot, and prior review artifacts. `adjudication.json` separates point disposition from historical identity assessment. The current direct coordinate is 58.2699884, 29.1074674; measurement date is unknown. The 2011 classifier coordinate is context only.

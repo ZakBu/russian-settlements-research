@@ -1,0 +1,147 @@
+{
+  "status": "strict_additive_full_three_census_chain_coverage_reproduced",
+  "definition": "Selected additive census observations with an accepted WGS84 point and an admitted same_place component containing one selected record in each of 2002, 2010, and 2021. This is distinct from the two-or-more-observed-year and reviewed-scope metric.",
+  "inputs": {
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "graph25_identity_edges": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_identity_edges.parquet",
+      "sha256": "1cc307f2855d15c7503dd226a278c49bdab72f178f5e2564c5e20fa4195a7d1a"
+    },
+    "graph25_point_uses": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_point_uses.parquet",
+      "sha256": "cc2a7cf67d7c25eec2de7f962c49478dd275646138f1303ae3410bf2a6922d23"
+    },
+    "graph26_point_uses": {
+      "path": "/tmp/graph26_gaikodzor_continuity_20261005/accepted_point_uses.parquet",
+      "sha256": "5e153f1864471421d29d3edfa0ccfee4297f5e0a4e9e0cda20c4682c5471f3c8"
+    }
+  },
+  "reconstruction": {
+    "base_graph24_semantically_reconstructed_from_graph25": true,
+    "removed_graph25_decision_ids": [
+      "GRAPH25-HORLOVO-2002-2010",
+      "GRAPH25-HORLOVO-2010-2021",
+      "GRAPH25-MAMONY-2002-2010",
+      "GRAPH25-MAMONY-2010-2021",
+      "GRAPH25-STRUGI-2002-2010",
+      "GRAPH25-STRUGI-2010-2021"
+    ],
+    "removed_graph25_strugi_point_use_ids": [
+      "graph25-strugi-continuity:ROSSTAT2010:T5:p71:l47",
+      "graph25-strugi-current:2021:data_allsettlements_anon_156_v20251217.parquet:parquet:108423"
+    ],
+    "graph26_gaikodzor_point_use_ids": [
+      "graph26-gaikodzor-continuity:2002:036_81b258bc42_02c_Krasnodarski-krai.xls:11:354",
+      "graph26-gaikodzor-continuity:2010:005_888282bccc_13._20Краснодарский_край_2010.xls:КК:52"
+    ]
+  },
+  "results": {
+    "reconstructed_graph24": {
+      "2002": {
+        "strict_full_2002_2010_2021_identity_chain_population": 125232428,
+        "identity_chain_control_percent": 86.26799483416073,
+        "strict_full_2002_2010_2021_same_place_chain_with_accepted_point_population": 125066350,
+        "official_control_population": 145166731,
+        "control_percent": 86.1535898331967,
+        "selected_additive_rows": 158072,
+        "strict_joint_rows": 132272,
+        "remaining_to_99_percent": 18648714
+      },
+      "2010": {
+        "strict_full_2002_2010_2021_identity_chain_population": 122467187,
+        "identity_chain_control_percent": 85.72739506997426,
+        "strict_full_2002_2010_2021_same_place_chain_with_accepted_point_population": 122348197,
+        "official_control_population": 142856536,
+        "control_percent": 85.64410171614409,
+        "selected_additive_rows": 152314,
+        "strict_joint_rows": 132303,
+        "remaining_to_99_percent": 19079774
+      },
+      "2021": {
+        "strict_full_2002_2010_2021_identity_chain_population": 122993130,
+        "identity_chain_control_percent": 83.565264240685,
+        "strict_full_2002_2010_2021_same_place_chain_with_accepted_point_population": 122886477,
+        "official_control_population": 147182123,
+        "control_percent": 83.49280095654008,
+        "selected_additive_rows": 155414,
+        "strict_joint_rows": 132309,
+        "remaining_to_99_percent": 22823825
+      }
+    },
+    "graph25": {
+      "2002": {
+        "strict_full_2002_2010_2021_identity_chain_population": 125246716,
+        "identity_chain_control_percent": 86.277837309707,
+        "strict_full_2002_2010_2021_same_place_chain_with_accepted_point_population": 125080638,
+        "official_control_population": 145166731,
+        "control_percent": 86.16343230874297,
+        "selected_additive_rows": 158072,
+        "strict_joint_rows": 132275,
+        "remaining_to_99_percent": 18634426
+      },
+      "2010": {
+        "strict_full_2002_2010_2021_identity_chain_population": 122486638,
+        "identity_chain_control_percent": 85.741010827814,
+        "strict_full_2002_2010_2021_same_place_chain_with_accepted_point_population": 122367648,
+        "official_control_population": 142856536,
+        "control_percent": 85.65771747398382,
+        "selected_additive_rows": 152314,
+        "strict_joint_rows": 132306,
+        "remaining_to_99_percent": 19060323
+      },
+      "2021": {
+        "strict_full_2002_2010_2021_identity_chain_population": 123008987,
+        "identity_chain_control_percent": 83.57603796760019,
+        "strict_full_2002_2010_2021_same_place_chain_with_accepted_point_population": 122902334,
+        "official_control_population": 147182123,
+        "control_percent": 83.50357468345527,
+        "selected_additive_rows": 155414,
+        "strict_joint_rows": 132312,
+        "remaining_to_99_percent": 22807968
+      }
+    },
+    "graph26": {
+      "2002": {
+        "strict_full_2002_2010_2021_identity_chain_population": 125246716,
+        "identity_chain_control_percent": 86.277837309707,
+        "strict_full_2002_2010_2021_same_place_chain_with_accepted_point_population": 125083555,
+        "official_control_population": 145166731,
+        "control_percent": 86.16544172231859,
+        "selected_additive_rows": 158072,
+        "strict_joint_rows": 132276,
+        "remaining_to_99_percent": 18631509,
+        "marginal_vs_reconstructed_graph24": 17205
+      },
+      "2010": {
+        "strict_full_2002_2010_2021_identity_chain_population": 122486638,
+        "identity_chain_control_percent": 85.741010827814,
+        "strict_full_2002_2010_2021_same_place_chain_with_accepted_point_population": 122370619,
+        "official_control_population": 142856536,
+        "control_percent": 85.65979718281844,
+        "selected_additive_rows": 152314,
+        "strict_joint_rows": 132307,
+        "remaining_to_99_percent": 19057352,
+        "marginal_vs_reconstructed_graph24": 22422
+      },
+      "2021": {
+        "strict_full_2002_2010_2021_identity_chain_population": 123008987,
+        "identity_chain_control_percent": 83.57603796760019,
+        "strict_full_2002_2010_2021_same_place_chain_with_accepted_point_population": 122902334,
+        "official_control_population": 147182123,
+        "control_percent": 83.50357468345527,
+        "selected_additive_rows": 155414,
+        "strict_joint_rows": 132312,
+        "remaining_to_99_percent": 22807968,
+        "marginal_vs_reconstructed_graph24": 15857
+      }
+    }
+  },
+  "limitations": [
+    "This strict calculation covers selected additive settlement rows only. Separately reviewed territorial and event-aware scope layers remain reported in the existing scope-aware metric.",
+    "A same_place identity chain does not assert comparable population boundaries.",
+    "No missing census-year observation is imputed."
+  ]
+}

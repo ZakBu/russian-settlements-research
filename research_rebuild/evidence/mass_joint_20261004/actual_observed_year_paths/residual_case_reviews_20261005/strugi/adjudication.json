@@ -1,0 +1,78 @@
+{
+  "status": "independent_source_adjudication_complete_proposal_only_no_application",
+  "target": {
+    "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:108423",
+    "name": "Струги Красные",
+    "type": "пгт",
+    "region": "Псковская область",
+    "population": 4871,
+    "native_oktmo": "58656151051",
+    "fias6_id": "3d1be85a-9689-4213-899d-974fb642fffe",
+    "point": {
+      "latitude": 58.2699884,
+      "longitude": 29.1074674,
+      "origin": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "raw_row_1based": 108423,
+      "measurement_date": "unknown"
+    }
+  },
+  "point_only_disposition": {
+    "status": "eligible_current_own_locality_point_candidate",
+    "basis": [
+      "exact current raw row is object_level Населенный пункт with named pgt/type/region",
+      "literal source OKTMO 58656151051 is unique in the reviewed selected current layer and differs from the legacy flag code",
+      "raw FIAS level 6 IDs agree (3d1be85a-9689-4213-899d-974fb642fffe)",
+      "direct finite own-row coordinates are present",
+      "official 2021 Rosstat Table 5 pgt row is exact name/type and population 4871",
+      "no distinct accepted graph15 current point is within 1 m; nearest accepted point is Marьино at 2.058518 km from prior independent packet"
+    ],
+    "proposal_scope": "current direct point only; retain provider identity proof and coordinate origin; no historic point reuse, no population addition, no boundary claim"
+  },
+  "legacy_flag_adjudication": {
+    "flag": "RU-OKTMO-58656151111",
+    "source_record_id_on_legacy_side": "2010:012_5c339c0d0e_4._20Vologod_pskov_2010.xls:Data Sheet:16135",
+    "prior_hold_ids": [
+      "PCE-a40dd6e225aba21e594b",
+      "PCE-80f7c9dff1a5dd2f6e74"
+    ],
+    "finding": "For this exact candidate, flag code 58656151111 resolves to a coexisting current locality, местечко Владимирский Лагерь (2021 row 108425, population 1575, FIAS6 UUID 7349c8fb-1556-4c83-ab9b-15ec25c0f847), while current pgt Strugi is separately present (row 108423, code 58656151051, FIAS6 UUID 3d1be85a-9689-4213-899d-974fb642fffe). The 2009 and 2011 classifiers list the pgt and Vladimirsky Lager as separate entries; the 2011 classifier gives separate named coordinates. Official 2021 Table 5 reports pgt Strugi 4871 and urban settlement total 6450; the current separate subordinate locality rows 1575+4 reconcile the 1579 rural complement. No dated legal/physical event source is attached to the legacy flag; it is an administrative/classifier or stale successor-code association for this pair, not evidence that pgt Strugi was physically replaced by Vladimirsky Lager.",
+    "scope_guard": "This adjudicates only the exact legacy flag on this pgt candidate. It does not waive successor flags globally and does not assert that OKTMO alone proves physical identity."
+  },
+  "historical_identity_assessment": {
+    "status": "source_supported_three_date_same_place_candidate; do not apply from this packet",
+    "source_observations": [
+      {
+        "year": 2002,
+        "id": "2002:1_TOM_01_04.xls:0:3213",
+        "label": "Городское население - пгт Струги Красные (рц)",
+        "population": 8762,
+        "locator": "official table4 sheet 01-04 row 3213"
+      },
+      {
+        "year": 2010,
+        "id": "ROSSTAT2010:T5:p71:l47",
+        "label": "Городское население - пгт Струги Красные (рц)",
+        "population": 8447,
+        "locator": "official table5 PDF page71 line47"
+      },
+      {
+        "year": 2021,
+        "id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:108423",
+        "label": "Городское население - пгт Струги Красные",
+        "population": 4871,
+        "locator": "official Rosstat Table5 sheet таб. 5 row7545; current direct provider row108423"
+      }
+    ],
+    "interpretation": "Exact named/type 2002/2010/2021 pgt rows, current continuing pgt enumeration, classifier-separated Vladimirsky Lager and code distinction support same physical pgt trajectory. Population values remain source-specific observations; no boundary/population-comparability claim is made. Legacy flag should not veto this scoped interpretation because its code identifies a coexisting subordinate current locality.",
+    "hold_conditions": "No identity graph edge is applied here. Any later temporal inclusion still needs the standard accepted graph/canonical collision and publication-binding review; do not use this candidate to overwrite protected counts."
+  },
+  "nonclaims": [
+    "no legal effective date for the legacy OKTMO flag is asserted",
+    "2011 classifier coordinates are not historical census measurement coordinates",
+    "Wikidata is corroboration, not the primary point source",
+    "no current or historical population boundary equivalence asserted",
+    "no graph/config/source application or mutation performed"
+  ],
+  "source_pins_file": "source_pins.json",
+  "evidence_ledger_file": "evidence_ledger.csv"
+}

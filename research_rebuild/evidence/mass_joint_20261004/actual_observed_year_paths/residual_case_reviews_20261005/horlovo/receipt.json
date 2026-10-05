@@ -1,0 +1,154 @@
+{
+  "task": "Bounded read-only Khorlovo three-census identity and population-boundary review",
+  "scope": "Only the specified 2002, 2010 and 2021 Khorlovo rows, direct official 2010 Table 5 counterpart, and local available classifier/point/event evidence. No canonical records changed.",
+  "source_pins": {
+    "selected_observations": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "2002_primary_xls": {
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "bytes": 1819648
+    },
+    "2010_secondary_xls": {
+      "path": "/workspace/settlements-raw/data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls",
+      "sha256": "cf5b5d57327bf0d32723a7f49bb58db503a201af83a6e2bda4b874986f864167",
+      "bytes": 12517888
+    },
+    "2010_official_primary_pdf": {
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "bytes": 15230814
+    },
+    "2010_parsed_primary_reference": {
+      "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+      "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+      "bytes": 928249
+    },
+    "2021_Tochno_raw": {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    "OKATO_2009_classifier": {
+      "path": "/workspace/settlements-raw/data/raw/historical_classifiers/okato_142_2009/dump-142_2009.sql",
+      "sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+      "bytes": 24684035
+    },
+    "GeoKLADR_2011_DBf": {
+      "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+      "bytes": 59991330
+    },
+    "Wikidata_OKTMO_points": {
+      "path": "/workspace/settlements-raw/data/raw/wikimedia/wikidata_oktmo_entities.tsv",
+      "sha256": "580e20042d6dfdcc6dd29d5d7fbde59593145b97abbb37e7760e89b567b36d36",
+      "bytes": 136480270
+    },
+    "RCSI_locality_points": {
+      "path": "/workspace/settlements-raw/data/raw/coordinate_candidates/rcsi_github_settlements.csv",
+      "sha256": "50317de1174e35fca893f5c8d965d9c7f40d6a60a06149b96672bb1a134268d0",
+      "bytes": 42029940
+    },
+    "GeoNames_RU_zip": {
+      "path": "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip",
+      "sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+      "bytes": 15244170
+    },
+    "legacy_event_candidate_note": {
+      "path": "/workspace/settlements-work/sources/historical_identifiers/observed_v1/lineage_event_candidates.json",
+      "sha256": "1f6b6066ada348e160ccd5c898adb7d40cac9a50336da9788f211eb1ab466622",
+      "bytes": 29526
+    },
+    "Graph24_identity_edges": {
+      "path": "/tmp/graph24_anapa_application_20261005/accepted_identity_edges.parquet",
+      "sha256": "31773a37a3d48488c955bb84d644f24b434fadcc4dc587400c9ba1db20597fc3",
+      "bytes": 66704912
+    },
+    "Graph24_accepted_point_uses": {
+      "path": "/tmp/graph24_anapa_application_20261005/accepted_point_uses.parquet",
+      "sha256": "c3970a406c45b0478d012150e5597e1f008ef86b7fe3ba866e311a9a0ae62e63",
+      "bytes": 44290279
+    }
+  },
+  "key_locators": {
+    "2002_raw": "1_TOM_01_04.xls sheet 01-04 row 1080; parent Воскресенский район; raw label пгт Хорлово; population 3884.",
+    "2010_selected_raw": "010_...xls Data Sheet row 8353; raw region Моск.обл.; raw label пгт Хорлово рп; population 7850.",
+    "2010_primary": "official Tom 1 PDF page 33, printed page 32, Table 5; пгт Хорлово рп 7875, men 3512, women 4363, parent Воскресенский район. Parsed reference ID ROSSTAT2010:T5:p33:l46.",
+    "2021_raw": "data_allsettlements_anon_156_v20251217.parquet row 65692; пгт Хорлово рп, 3714; Moscow oblast, Voskresensk urban okrug; OKATO/OKTMO/FIAS listed in report.",
+    "2009_OKATO": "dump-142_2009.sql line 95491: 46206567, Horlovo, settlement type pgt.",
+    "2011_GeoKLADR": "okato.dbf record 71249, byte offset 28143665, OKATO 46206567000, KOD3 000, OKTMO 46606167, lat 55.330969, lon 38.807070.",
+    "event": "lineage_event_candidates.json event_id fosforitny_reestablished_2019; candidate note asserts inclusion in 2004/restoration in 2019 and 2010 population under Horlovo boundary; precise legal date not verified."
+  },
+  "decision": {
+    "baseline_graph": "Graph24 accepted_identity_edges.parquet",
+    "baseline_edges_for_three_targets": 0,
+    "candidate_targets": [
+      "2002:1_TOM_01_04.xls:0:1080",
+      "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:8353",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:65692"
+    ],
+    "same_place_2002_to_2010": "Supported for Horlovo named locality identity, with an explicit absorbed-Fosforitny event and population_scope_comparability=false.",
+    "same_place_2010_to_2021": "Supported for Horlovo named locality identity, with explicit restoration/separation of Fosforitny and population_scope_comparability=false.",
+    "three_date_population_series": "Do not read selected 2002/2010/2021 Horlovo row values as a like-for-like population trajectory. 2002 Horlovo is 3,884 and Fosforitny is separate at 4,193; official 2010 Table 5 Horlovo is 7,875 and lineage note says it includes Fosforitny under Horlovo boundary; 2021 Horlovo is 3,714 and restored Fosforitny is separate at 3,883. Boundary-matched totals are 8,077 (2002), 7,875 (2010), 7,597 (2021), based on year-level historical-event evidence; legal-day/polygon equivalence is not asserted.",
+    "selected_2010_value": "The selected secondary row is 7,850 and is tagged protected/perturbed with exact scope unverified. Its source XLS row reproduces 7,850, but official Rosstat Table 5 directly publishes 7,875 (difference 25); preserve the selected value and quality tag, do not claim 7,850 as the exact published census total.",
+    "candidate_new_edges": [
+      {
+        "from": "2002:1_TOM_01_04.xls:0:1080",
+        "to": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:8353",
+        "relation": "same_place",
+        "scope_note": "identity only; no population boundary comparability"
+      },
+      {
+        "from": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:8353",
+        "to": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:65692",
+        "relation": "same_place",
+        "scope_note": "identity only; no population boundary comparability"
+      }
+    ],
+    "population_context_union_totals": {
+      "2002": {
+        "Horlovo": 3884,
+        "Fosforitny": 4193,
+        "union": 8077
+      },
+      "2010": {
+        "Horlovo_Tom1_Table5_including_Fosforitny_scope": 7875
+      },
+      "2021": {
+        "Horlovo": 3714,
+        "Fosforitny": 3883,
+        "union": 7597
+      }
+    },
+    "holds_or_limits": [
+      "2004 and 2019 event years are carried by a local lineage-event note/Wikipedia revision source; no primary legal act or exact effective dates were reopened in this bounded review.",
+      "Graph24 currently has no identity edge on any of the three target IDs. Point uses already exist for the historical GeoKLADR point (2002 and 2010) and the current Tochno point (2021).",
+      "The 2010 selected value remains protected/uncertain; the official primary Table 5 value is a separate source row and was not substituted in this review."
+    ]
+  },
+  "outputs": {
+    "README.md": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/horlovo_boundary_population_identity_review_v1/README.md",
+      "sha256": "fae7396ab89df864da6704f6170f484e398bab864c1dfbe28d3c6c08f4a6b5e1",
+      "bytes": 4255
+    },
+    "population_identity_rows.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/horlovo_boundary_population_identity_review_v1/population_identity_rows.csv",
+      "sha256": "91770a7faee71f073f794ff3dd36ed363fa471181990aa0828130623222a2ab3",
+      "bytes": 1784
+    },
+    "point_sources.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/horlovo_boundary_population_identity_review_v1/point_sources.csv",
+      "sha256": "a32ac255e7185b85efcb0e60c2d6839442eb43aaf4d13311ff24f32980b7f8d0",
+      "bytes": 2101
+    },
+    "decision.json": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/horlovo_boundary_population_identity_review_v1/decision.json",
+      "sha256": "f802e06ffd797b959be5b86a6734ae738d9443bdef1ee8e581ece0a4b46aa15f",
+      "bytes": 3012
+    }
+  }
+}
