@@ -1,0 +1,126 @@
+{
+  "status": "three_bounded_2002_2010_historical_code_bridges_and_six_points_applied",
+  "inputs": {
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "graph27": {
+      "path": "/tmp/graph27_peski_code_bridge_20261005/accepted_identity_edges.parquet",
+      "sha256": "607347a69514a3f0b83d0681520bd642a7973d08d7dc1418723cb0050867d914"
+    },
+    "points27": {
+      "path": "/tmp/graph27_peski_code_bridge_20261005/accepted_point_uses.parquet",
+      "sha256": "c24a596af84094f119c9ded8a07dbb22b98b1be2c0384698c455300baf17263f"
+    },
+    "cohort": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/historical_urban_code_bridge_1258_audit_v1/cohort.csv",
+      "sha256": "2f60214f1b52acc4883effbcc4d2f10fb4e1e6e8c614b43c1c4e5469701389f4"
+    },
+    "raw_okato": {
+      "path": "/workspace/settlements-raw/data/raw/historical_classifiers/okato_142_2009/dump-142_2009.sql",
+      "sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db"
+    },
+    "raw_geo": {
+      "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+    },
+    "source2002": {
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3"
+    },
+    "source2010_moscow": {
+      "path": "/workspace/settlements-raw/data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls",
+      "sha256": "cf5b5d57327bf0d32723a7f49bb58db503a201af83a6e2bda4b874986f864167"
+    },
+    "source2010_perm": {
+      "path": "/workspace/settlements-raw/data/raw/2010/016_802d308e41_8._20Or_Penz_Perm_Samar_Saratov_Uly_2010.xls",
+      "sha256": "754aae620807b1275e59fc7bf8ce086ca91e7ec863d4d304f5a0a8b228a8d990"
+    }
+  },
+  "independent_review": "same bounded pair-only 2002↔2010 rule used for Graph27 Peski; no 2021 endpoint is required or asserted",
+  "new_pairs": [
+    {
+      "name": "Пироговский",
+      "type": "пгт",
+      "region": "московская",
+      "2002_id": "2002:1_TOM_01_04.xls:0:1198",
+      "2010_id": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:11126",
+      "populations": {
+        "2002": 6260,
+        "2010": 6676
+      },
+      "code_2009_okato": "46234562",
+      "code_2011_geokladr": "46234562000",
+      "dbf_record_1based": 73988,
+      "dbf_offset_0based": 29225570,
+      "latitude": 55.981716,
+      "longitude": 37.741212,
+      "boundary_comparability_asserted": false,
+      "population_comparability_asserted": false,
+      "2021_identity_edge_admitted": false
+    },
+    {
+      "name": "Львовский",
+      "type": "пгт",
+      "region": "московская",
+      "2002_id": "2002:1_TOM_01_04.xls:0:1268",
+      "2010_id": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:12103",
+      "populations": {
+        "2002": 11906,
+        "2010": 10856
+      },
+      "code_2009_okato": "46246554",
+      "code_2011_geokladr": "46246554000",
+      "dbf_record_1based": 74968,
+      "dbf_offset_0based": 29612670,
+      "latitude": 55.31483,
+      "longitude": 37.523598,
+      "boundary_comparability_asserted": false,
+      "population_comparability_asserted": false,
+      "2021_identity_edge_admitted": false
+    },
+    {
+      "name": "Юбилейный",
+      "type": "пгт",
+      "region": "пермский",
+      "2002_id": "2002:1_TOM_01_04.xls:0:6671",
+      "2010_id": "2010:016_802d308e41_8._20Or_Penz_Perm_Samar_Saratov_Uly_2010.xls:!!!:7832",
+      "populations": {
+        "2002": 1698,
+        "2010": 1099
+      },
+      "code_2009_okato": "57412558",
+      "code_2011_geokladr": "57412558000",
+      "dbf_record_1based": 93412,
+      "dbf_offset_0based": 36898050,
+      "latitude": 58.780733,
+      "longitude": 57.77917,
+      "boundary_comparability_asserted": false,
+      "population_comparability_asserted": false,
+      "2021_identity_edge_admitted": false
+    }
+  ],
+  "selected_population_values_changed": false,
+  "added_identity_edges": 3,
+  "added_point_uses": 6,
+  "same_year_graph_collisions": 0,
+  "final_accepted_edge_count": 348670,
+  "final_point_use_count": 428180,
+  "outputs": {
+    "accepted_identity_edges.parquet": {
+      "path": "/tmp/graph28_three_code_bridge_20261005/accepted_identity_edges.parquet",
+      "sha256": "583364c80cddc4fbed00dd06527f734242b1983c268f83a78a38946a811ede1d"
+    },
+    "accepted_point_uses.parquet": {
+      "path": "/tmp/graph28_three_code_bridge_20261005/accepted_point_uses.parquet",
+      "sha256": "e4c8de5891a179057356d357e564e5928e0d0113519e8b9e8f1152df8ef479fb"
+    }
+  },
+  "limitations": [
+    "GeoKLADR is a 2011 representative point; measurement date and positional uncertainty are unknown.",
+    "The 2010 values remain secondary confidentiality-protected values with exact scope unverified.",
+    "No 2021 endpoint is connected; any 2021 homonym, type transition, or potential successor requires separate evidence.",
+    "Identity and coordinates do not imply comparable population boundaries."
+  ]
+}

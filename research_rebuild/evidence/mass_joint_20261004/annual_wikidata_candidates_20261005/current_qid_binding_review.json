@@ -1,0 +1,1991 @@
+{
+  "receipt_type": "independent_read_only_current_QID_binding_review",
+  "created_date_utc": "2026-10-05",
+  "cohort_qids": [
+    "Q13648847",
+    "Q13648848",
+    "Q13648850",
+    "Q13648853",
+    "Q13648854",
+    "Q13648856",
+    "Q16267030",
+    "Q18787321",
+    "Q18801985",
+    "Q24484253",
+    "Q24484426",
+    "Q2752956",
+    "Q28525985",
+    "Q28525996",
+    "Q4162801",
+    "Q4244672",
+    "Q4250662"
+  ],
+  "decision_rule": "Accept current binding iff exact selected native OKTMO has truthy exact P764; physical source-type-compatible P31 lineage; exact RU label/name/type/region; unique source row/code/QID; no code or same name/type/region competition; no contradictory admin region. Coordinates do not gate binding.",
+  "decision_summary": {
+    "accepted_current_QID_binding_only": 17,
+    "held": 0,
+    "historical_identity_admitted": 0,
+    "population_claims_promoted_to_primary": 0,
+    "historical_coordinates_admitted": 0
+  },
+  "examined_files": {
+    "candidate_parquet": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/fetched_full_entity_secondary_history_20261004/new_claim_current_qid_binding_candidates.parquet",
+      "sha256": "45a65af213b5acc018d139be0d23b5cdceefe9dc65f6dcf3722285fd2d9eb757"
+    },
+    "novel_claim_inventory_parquet": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/fetched_full_entity_secondary_history_20261004/new_subject_guid_claim_candidates.parquet",
+      "sha256": "42d01e3216027c92e727d95c29dbaaeb4fade0b06d3878af9cfd601b8babfc42"
+    },
+    "selected_2021_source_parquet": {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+    },
+    "truthy_claim_batches": {
+      "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0010.jsonl.gz": {
+        "sha256": "e4e5403529844f834a805b0bc0b45021f31641f2b4a08e99676139fd7ab91d1a",
+        "source_file": "batch_0010.jsonl.gz"
+      },
+      "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0023.jsonl.gz": {
+        "sha256": "ed5b03ceaf88582f6bd86bbf9facb2f73b24c17e4f8483979d12c5e18c15d003",
+        "source_file": "batch_0023.jsonl.gz"
+      },
+      "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0037.jsonl.gz": {
+        "sha256": "70d52fd3f3e9d0d04e72a826f0dd84f30ab1beb4c84cb78a9931a7ccd3430ace",
+        "source_file": "batch_0037.jsonl.gz"
+      },
+      "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0044.jsonl.gz": {
+        "sha256": "cb4029c914d88a4cb030c76ff3f2c1861b5209e1dd902519f1998d604725eb07",
+        "source_file": "batch_0044.jsonl.gz"
+      },
+      "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0091.jsonl.gz": {
+        "sha256": "a544b8bddff2a68e597db903b33a898c83d9a0daf11263cad500eb468b71f9f2",
+        "source_file": "batch_0091.jsonl.gz"
+      },
+      "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0096.jsonl.gz": {
+        "sha256": "f9fb312fe8b5f72b02abc779f710eebca0e1c0316db663951341054efd388818",
+        "source_file": "batch_0096.jsonl.gz"
+      },
+      "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0101.jsonl.gz": {
+        "sha256": "f2c41696c01f5fea7af1c318c8d3ec59e83c1c3741be62fe5bc438e1850118ab",
+        "source_file": "batch_0101.jsonl.gz"
+      },
+      "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0113.jsonl.gz": {
+        "sha256": "44d54bed86ae49d995bad6e9e1c3e9a2a16fb1e7835452d2a41b542cb2b56c37",
+        "source_file": "batch_0113.jsonl.gz"
+      },
+      "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0120.jsonl.gz": {
+        "sha256": "ecd97eebeb21099599bcc6463ccc5ad8aed79c166b9fd64aebe8d7f3f69a4f95",
+        "source_file": "batch_0120.jsonl.gz"
+      }
+    },
+    "raw_full_entity_batches": {
+      "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_05.json": {
+        "sha256_actual": "2bea4af4a8e874a4c30434a413537a25fe49700736e673b6ddfa73aa184d1e6e",
+        "sha256_expected_from_claim_inventory": "2bea4af4a8e874a4c30434a413537a25fe49700736e673b6ddfa73aa184d1e6e",
+        "hash_verified_inventory_flag": true,
+        "recorded_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_05.json"
+      },
+      "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_06.json": {
+        "sha256_actual": "d883d66b3eb7d76bf74f630794998c0571b7504236ae3f6f41e22557fd93d848",
+        "sha256_expected_from_claim_inventory": "d883d66b3eb7d76bf74f630794998c0571b7504236ae3f6f41e22557fd93d848",
+        "hash_verified_inventory_flag": true,
+        "recorded_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_06.json"
+      },
+      "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_03.json": {
+        "sha256_actual": "b8a337c339b83d996164c444d6ef39a546b64509a0fa543b544db11f2499381b",
+        "sha256_expected_from_claim_inventory": "b8a337c339b83d996164c444d6ef39a546b64509a0fa543b544db11f2499381b",
+        "hash_verified_inventory_flag": true,
+        "recorded_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_03.json"
+      },
+      "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_02.json": {
+        "sha256_actual": "e77d8ae9571daf2cee68e8563a44d44a0c83a49433b8c14d5a7d8856829d951e",
+        "sha256_expected_from_claim_inventory": "e77d8ae9571daf2cee68e8563a44d44a0c83a49433b8c14d5a7d8856829d951e",
+        "hash_verified_inventory_flag": true,
+        "recorded_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_02.json"
+      },
+      "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_01.json": {
+        "sha256_actual": "f9915678c087a7dd6c9e0347ed2ea753208d091b10e93e6f74a1b64827807634",
+        "sha256_expected_from_claim_inventory": "f9915678c087a7dd6c9e0347ed2ea753208d091b10e93e6f74a1b64827807634",
+        "hash_verified_inventory_flag": true,
+        "recorded_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_01.json"
+      },
+      "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_07.json": {
+        "sha256_actual": "e0a8933b4593ce21b48c8ed7482506a890d643f1d9ae489f58942d61266e1e1f",
+        "sha256_expected_from_claim_inventory": "e0a8933b4593ce21b48c8ed7482506a890d643f1d9ae489f58942d61266e1e1f",
+        "hash_verified_inventory_flag": true,
+        "recorded_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_07.json"
+      },
+      "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_04.json": {
+        "sha256_actual": "5a288d05afa286a0831c5b396a7f4306734d77b1e5199209c9c599bc5009c1ba",
+        "sha256_expected_from_claim_inventory": "5a288d05afa286a0831c5b396a7f4306734d77b1e5199209c9c599bc5009c1ba",
+        "hash_verified_inventory_flag": true,
+        "recorded_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_04.json"
+      }
+    },
+    "local_GeoNames_evidence": {
+      "path": "/workspace/settlements-work/continuation_20261003/geonames_wikidata_full_witness_probe_v2/full_2819_witness_evidence.csv",
+      "sha256": "f071c8fe53962b3fcc00a6d30aed9f667da29088851ffe4b491f1f1b395d1180"
+    }
+  },
+  "per_qid_review": [
+    {
+      "qid": "Q13648847",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:23704",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "25602158106",
+      "source_name": "Светлый",
+      "source_type": "посёлок",
+      "source_region": "Иркутская область",
+      "entity_ru_label": "Светлый",
+      "entity_ru_description": "посёлок в Бодайбинском районе Иркутской области России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_05.json",
+      "entity_batch_sha256": "2bea4af4a8e874a4c30434a413537a25fe49700736e673b6ddfa73aa184d1e6e",
+      "truthy_P764": {
+        "truthy_file": "batch_0010.jsonl.gz",
+        "line_number": 10270,
+        "value": "25602158106",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0010.jsonl.gz",
+        "truthy_batch_sha256": "e4e5403529844f834a805b0bc0b45021f31641f2b4a08e99676139fd7ab91d1a"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0010.jsonl.gz",
+          "line_number": 6626,
+          "value_qid": "Q2514025"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q2514025",
+        "Q532"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "25602158106"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q13648847"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 1939,
+          "precision": 9,
+          "statement_guid": "Q13648847$3CE2C49F-9D0D-4D9C-8BE2-BDD09A8F6F63",
+          "population_value_raw": "+5455",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1939-00-00T00:00:00Z"
+        },
+        {
+          "year": 1959,
+          "precision": 9,
+          "statement_guid": "Q13648847$39973E1C-1F67-4ABF-80F3-676F120DA312",
+          "population_value_raw": "+744",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1959-00-00T00:00:00Z"
+        },
+        {
+          "year": 2002,
+          "precision": 9,
+          "statement_guid": "Q13648847$4DB7FD21-A111-40B3-99E4-A2397651B66E",
+          "population_value_raw": "+73",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2002-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q13648847$AB84631B-B054-46EB-A9B2-C7AA63D4D9AD",
+          "population_value_raw": "+41",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        },
+        {
+          "year": 2011,
+          "precision": 9,
+          "statement_guid": "Q13648847$FF568EBE-D8A0-49E0-8630-F5AA4F76C4BD",
+          "population_value_raw": "+41",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2011-00-00T00:00:00Z"
+        },
+        {
+          "year": 2012,
+          "precision": 9,
+          "statement_guid": "Q13648847$3D0BD49F-41B6-412C-9EBD-1DEE64ECF1B2",
+          "population_value_raw": "+37",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2012-00-00T00:00:00Z"
+        },
+        {
+          "year": 2014,
+          "precision": 9,
+          "statement_guid": "Q13648847$809D2ECF-B738-4988-80A7-2127FBEE0FB6",
+          "population_value_raw": "+34",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2014-00-00T00:00:00Z"
+        },
+        {
+          "year": 2016,
+          "precision": 9,
+          "statement_guid": "Q13648847$ADA63120-A63A-4420-A148-CDA5A4BC7634",
+          "population_value_raw": "+33",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2016-00-00T00:00:00Z"
+        },
+        {
+          "year": 2017,
+          "precision": 9,
+          "statement_guid": "Q13648847$1525B093-DB7C-48B0-AC4C-8F766A590A02",
+          "population_value_raw": "+33",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2017-00-00T00:00:00Z"
+        },
+        {
+          "year": 2021,
+          "precision": 9,
+          "statement_guid": "Q13648847$3AF2B984-4E67-435C-9BEC-FEEBE78B56FE",
+          "population_value_raw": "+6",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2021-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q13648848",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:23693",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "25602101106",
+      "source_name": "Нерпо",
+      "source_type": "село",
+      "source_region": "Иркутская область",
+      "entity_ru_label": "Нерпо",
+      "entity_ru_description": "село в Бодайбинском районе Иркутской области России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_06.json",
+      "entity_batch_sha256": "d883d66b3eb7d76bf74f630794998c0571b7504236ae3f6f41e22557fd93d848",
+      "truthy_P764": {
+        "truthy_file": "batch_0010.jsonl.gz",
+        "line_number": 10271,
+        "value": "25602101106",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0010.jsonl.gz",
+        "truthy_batch_sha256": "e4e5403529844f834a805b0bc0b45021f31641f2b4a08e99676139fd7ab91d1a"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0010.jsonl.gz",
+          "line_number": 6595,
+          "value_qid": "Q532"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q532"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "25602101106"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q13648848"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 2002,
+          "precision": 9,
+          "statement_guid": "Q13648848$DA977D58-6BC7-47ED-B70D-CA2E6F9538F0",
+          "population_value_raw": "+65",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2002-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q13648848$CB1C9D20-1583-4BC2-8034-B34618147FDD",
+          "population_value_raw": "+18",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        },
+        {
+          "year": 2011,
+          "precision": 9,
+          "statement_guid": "Q13648848$F990902E-72BA-4CAE-B4AD-271BB96F2F8C",
+          "population_value_raw": "+18",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2011-00-00T00:00:00Z"
+        },
+        {
+          "year": 2012,
+          "precision": 9,
+          "statement_guid": "Q13648848$579D0168-225F-42C6-BB52-35FE80E8DB3A",
+          "population_value_raw": "+9",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2012-00-00T00:00:00Z"
+        },
+        {
+          "year": 2014,
+          "precision": 9,
+          "statement_guid": "Q13648848$56E504F7-49DA-4194-BA54-45EC2BF90792",
+          "population_value_raw": "+6",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2014-00-00T00:00:00Z"
+        },
+        {
+          "year": 2016,
+          "precision": 9,
+          "statement_guid": "Q13648848$BAB9D0C4-2131-4161-94E0-75BBF1A6EC87",
+          "population_value_raw": "+7",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2016-00-00T00:00:00Z"
+        },
+        {
+          "year": 2017,
+          "precision": 9,
+          "statement_guid": "Q13648848$B16D4852-5564-4827-A2BA-1893F8D43DF8",
+          "population_value_raw": "+6",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2017-00-00T00:00:00Z"
+        },
+        {
+          "year": 2021,
+          "precision": 9,
+          "statement_guid": "Q13648848$FE83CCCB-A15D-4243-B716-ECEF7C53ADAE",
+          "population_value_raw": "+0",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2021-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q13648850",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:23700",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "25602156106",
+      "source_name": "Васильевский",
+      "source_type": "посёлок",
+      "source_region": "Иркутская область",
+      "entity_ru_label": "Васильевский",
+      "entity_ru_description": "посёлок в Бодайбинском районе Иркутской области России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_03.json",
+      "entity_batch_sha256": "b8a337c339b83d996164c444d6ef39a546b64509a0fa543b544db11f2499381b",
+      "truthy_P764": {
+        "truthy_file": "batch_0010.jsonl.gz",
+        "line_number": 10276,
+        "value": "25602156106",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0010.jsonl.gz",
+        "truthy_batch_sha256": "e4e5403529844f834a805b0bc0b45021f31641f2b4a08e99676139fd7ab91d1a"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0010.jsonl.gz",
+          "line_number": 6581,
+          "value_qid": "Q2514025"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q2514025",
+        "Q532"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "25602156106"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q13648850"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 2002,
+          "precision": 9,
+          "statement_guid": "Q13648850$C8D3674D-41CF-4E7D-A083-FCB14A11F0CF",
+          "population_value_raw": "+394",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2002-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q13648850$CBD91DB6-06F0-407B-8534-79AD55968004",
+          "population_value_raw": "+154",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        },
+        {
+          "year": 2011,
+          "precision": 9,
+          "statement_guid": "Q13648850$A674AAB5-4C5B-4B43-82D0-04962A0B0901",
+          "population_value_raw": "+152",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2011-00-00T00:00:00Z"
+        },
+        {
+          "year": 2012,
+          "precision": 9,
+          "statement_guid": "Q13648850$1B98623C-3341-47BD-BF08-2EB1A911B384",
+          "population_value_raw": "+134",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2012-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q13648853",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:23701",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "25602156111",
+      "source_name": "Кяхтинский",
+      "source_type": "посёлок",
+      "source_region": "Иркутская область",
+      "entity_ru_label": "Кяхтинский",
+      "entity_ru_description": "посёлок в Бодайбинском районе Иркутской области России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_05.json",
+      "entity_batch_sha256": "2bea4af4a8e874a4c30434a413537a25fe49700736e673b6ddfa73aa184d1e6e",
+      "truthy_P764": {
+        "truthy_file": "batch_0010.jsonl.gz",
+        "line_number": 10287,
+        "value": "25602156111",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0010.jsonl.gz",
+        "truthy_batch_sha256": "e4e5403529844f834a805b0bc0b45021f31641f2b4a08e99676139fd7ab91d1a"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0010.jsonl.gz",
+          "line_number": 6499,
+          "value_qid": "Q2514025"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q2514025",
+        "Q532"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "25602156111"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q13648853"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 2002,
+          "precision": 9,
+          "statement_guid": "Q13648853$407DA493-D9AB-42F9-BB90-E976AE822F2E",
+          "population_value_raw": "+89",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2002-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q13648853$E6DABA6A-CBE2-42CE-B965-497C22ABB6F2",
+          "population_value_raw": "+24",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        },
+        {
+          "year": 2011,
+          "precision": 9,
+          "statement_guid": "Q13648853$D8564625-BDAB-4D4C-AA4F-F3122BF9465F",
+          "population_value_raw": "+24",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2011-00-00T00:00:00Z"
+        },
+        {
+          "year": 2012,
+          "precision": 9,
+          "statement_guid": "Q13648853$29F90FAE-3F45-4167-B238-1AC0881FC586",
+          "population_value_raw": "+21",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2012-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q13648854",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:23697",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "25602155111",
+      "source_name": "Маракан",
+      "source_type": "посёлок",
+      "source_region": "Иркутская область",
+      "entity_ru_label": "Маракан",
+      "entity_ru_description": "посёлок в Бодайбинском районе Иркутской области России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_02.json",
+      "entity_batch_sha256": "e77d8ae9571daf2cee68e8563a44d44a0c83a49433b8c14d5a7d8856829d951e",
+      "truthy_P764": {
+        "truthy_file": "batch_0010.jsonl.gz",
+        "line_number": 10150,
+        "value": "25602155111",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0010.jsonl.gz",
+        "truthy_batch_sha256": "e4e5403529844f834a805b0bc0b45021f31641f2b4a08e99676139fd7ab91d1a"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0010.jsonl.gz",
+          "line_number": 6527,
+          "value_qid": "Q2514025"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q2514025",
+        "Q532"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "25602155111"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q13648854"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 2002,
+          "precision": 9,
+          "statement_guid": "Q13648854$424DC149-5769-4382-8F2F-B55F1748F333",
+          "population_value_raw": "+630",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2002-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q13648854$492C78C4-335E-43EC-9B07-EAD07BFF7985",
+          "population_value_raw": "+389",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        },
+        {
+          "year": 2011,
+          "precision": 9,
+          "statement_guid": "Q13648854$32CF30DB-4ECE-4D5E-A86C-3E53D06C813C",
+          "population_value_raw": "+386",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2011-00-00T00:00:00Z"
+        },
+        {
+          "year": 2012,
+          "precision": 9,
+          "statement_guid": "Q13648854$13576A06-7329-4C6C-AA3A-604B67D53DA4",
+          "population_value_raw": "+378",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2012-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q13648856",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:23708",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "25602402101",
+      "source_name": "Перевоз",
+      "source_type": "посёлок",
+      "source_region": "Иркутская область",
+      "entity_ru_label": "Перевоз",
+      "entity_ru_description": "посёлок в Бодайбинском районе Иркутской области России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_01.json",
+      "entity_batch_sha256": "f9915678c087a7dd6c9e0347ed2ea753208d091b10e93e6f74a1b64827807634",
+      "truthy_P764": {
+        "truthy_file": "batch_0010.jsonl.gz",
+        "line_number": 10152,
+        "value": "25602402101",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0010.jsonl.gz",
+        "truthy_batch_sha256": "e4e5403529844f834a805b0bc0b45021f31641f2b4a08e99676139fd7ab91d1a"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0010.jsonl.gz",
+          "line_number": 6519,
+          "value_qid": "Q2514025"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q2514025",
+        "Q532"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "25602402101"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q13648856"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 2002,
+          "precision": 9,
+          "statement_guid": "Q13648856$ED40D6EB-08F1-4371-8C63-4A1892123302",
+          "population_value_raw": "+1311",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2002-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q13648856$A536F07B-8335-42C6-9A5D-92194C781602",
+          "population_value_raw": "+869",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        },
+        {
+          "year": 2011,
+          "precision": 9,
+          "statement_guid": "Q13648856$7DBC39F8-4639-4E2C-8FC5-78BB72320EF5",
+          "population_value_raw": "+861",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2011-00-00T00:00:00Z"
+        },
+        {
+          "year": 2012,
+          "precision": 9,
+          "statement_guid": "Q13648856$FD4930AB-61E6-487B-9333-9FF0832C3DFA",
+          "population_value_raw": "+842",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2012-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q16267030",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25376",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "25648405116",
+      "source_name": "Козлова",
+      "source_type": "деревня",
+      "source_region": "Иркутская область",
+      "entity_ru_label": "Козлова",
+      "entity_ru_description": "деревня в Черемховском районе Иркутской области России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_03.json",
+      "entity_batch_sha256": "b8a337c339b83d996164c444d6ef39a546b64509a0fa543b544db11f2499381b",
+      "truthy_P764": {
+        "truthy_file": "batch_0023.jsonl.gz",
+        "line_number": 13325,
+        "value": "25648405116",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0023.jsonl.gz",
+        "truthy_batch_sha256": "ed5b03ceaf88582f6bd86bbf9facb2f73b24c17e4f8483979d12c5e18c15d003"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0023.jsonl.gz",
+          "line_number": 9707,
+          "value_qid": "Q5084"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q5084"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "25648405116"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q16267030"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 2002,
+          "precision": 9,
+          "statement_guid": "Q16267030$C254B32B-E8FB-4B11-A378-BC54270EC592",
+          "population_value_raw": "+245",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2002-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q16267030$046617C2-9005-4E20-BA01-DA3BF7DD8FE6",
+          "population_value_raw": "+257",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        },
+        {
+          "year": 2011,
+          "precision": 9,
+          "statement_guid": "Q16267030$1388DD84-17EB-4119-8E49-C9CBC4AED5E5",
+          "population_value_raw": "+256",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2011-00-00T00:00:00Z"
+        },
+        {
+          "year": 2012,
+          "precision": 9,
+          "statement_guid": "Q16267030$353B68D0-95CD-4613-A88B-323997F0BCF4",
+          "population_value_raw": "+251",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2012-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q18787321",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:44725",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "34714000356",
+      "source_name": "Ледина",
+      "source_type": "деревня",
+      "source_region": "Костромская область",
+      "entity_ru_label": "Ледина",
+      "entity_ru_description": "деревня в Мантуровском районе Костромской области России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_07.json",
+      "entity_batch_sha256": "e0a8933b4593ce21b48c8ed7482506a890d643f1d9ae489f58942d61266e1e1f",
+      "truthy_P764": {
+        "truthy_file": "batch_0037.jsonl.gz",
+        "line_number": 9011,
+        "value": "34714000356",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0037.jsonl.gz",
+        "truthy_batch_sha256": "70d52fd3f3e9d0d04e72a826f0dd84f30ab1beb4c84cb78a9931a7ccd3430ace"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0037.jsonl.gz",
+          "line_number": 5942,
+          "value_qid": "Q5084"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q5084"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "34714000356"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q18787321"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 2008,
+          "precision": 9,
+          "statement_guid": "Q18787321$5D51A54E-2BDB-42D1-965B-E9C477B077BC",
+          "population_value_raw": "+16",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2008-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q18787321$9020495F-3758-433D-B2D2-7028A99ADD79",
+          "population_value_raw": "+11",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        },
+        {
+          "year": 2014,
+          "precision": 9,
+          "statement_guid": "Q18787321$51259E1C-DBD8-4F8E-B4D8-5646AA7DFB8C",
+          "population_value_raw": "+8",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2014-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q18801985",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:76451",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "22758000336",
+      "source_name": "станции Зубанья",
+      "source_type": "посёлок",
+      "source_region": "Нижегородская область",
+      "entity_ru_label": "станции Зубанья",
+      "entity_ru_description": "посёлок станции в городском округе город Шахунья Нижегородской области России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_05.json",
+      "entity_batch_sha256": "2bea4af4a8e874a4c30434a413537a25fe49700736e673b6ddfa73aa184d1e6e",
+      "truthy_P764": {
+        "truthy_file": "batch_0044.jsonl.gz",
+        "line_number": 9777,
+        "value": "22758000336",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0044.jsonl.gz",
+        "truthy_batch_sha256": "cb4029c914d88a4cb030c76ff3f2c1861b5209e1dd902519f1998d604725eb07"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0044.jsonl.gz",
+          "line_number": 6517,
+          "value_qid": "Q1782540"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q486972",
+        "Q1782540"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "22758000336"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q18801985"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 1999,
+          "precision": 9,
+          "statement_guid": "Q18801985$BA10D7DF-FF10-461E-83E3-8005EF951830",
+          "population_value_raw": "+97",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1999-00-00T00:00:00Z"
+        },
+        {
+          "year": 2002,
+          "precision": 9,
+          "statement_guid": "Q18801985$F6F40B72-03AA-4158-98E5-3D491A119714",
+          "population_value_raw": "+86",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2002-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q18801985$6DD26518-CC60-4393-900E-BCCBF74347C0",
+          "population_value_raw": "+55",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q24484253",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:5791",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "18720000126",
+      "source_name": "Арчединская",
+      "source_type": "станица",
+      "source_region": "Волгоградская область",
+      "entity_ru_label": "Арчединская",
+      "entity_ru_description": "станица в городском округе город Михайловка Волгоградской области России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_01.json",
+      "entity_batch_sha256": "f9915678c087a7dd6c9e0347ed2ea753208d091b10e93e6f74a1b64827807634",
+      "truthy_P764": {
+        "truthy_file": "batch_0091.jsonl.gz",
+        "line_number": 10913,
+        "value": "18720000126",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0091.jsonl.gz",
+        "truthy_batch_sha256": "a544b8bddff2a68e597db903b33a898c83d9a0daf11263cad500eb468b71f9f2"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0091.jsonl.gz",
+          "line_number": 7835,
+          "value_qid": "Q748331"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q748331"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "18720000126"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q24484253"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 2004,
+          "precision": 9,
+          "statement_guid": "Q24484253$da398920-4836-5452-52c2-247991b0fa1d",
+          "population_value_raw": "+1380",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2004-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q24484253$981E1C9D-90C0-47D9-B57D-3C1817196369",
+          "population_value_raw": "+1344",
+          "rank": "preferred",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        },
+        {
+          "year": 1859,
+          "precision": 9,
+          "statement_guid": "Q24484253$721bc81e-413d-066d-7db9-77e2c4a71d72",
+          "population_value_raw": "+2869",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1859-00-00T00:00:00Z"
+        },
+        {
+          "year": 1873,
+          "precision": 9,
+          "statement_guid": "Q24484253$ad0dd17c-48af-7fdf-f202-61e3bd602c2b",
+          "population_value_raw": "+2065",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1873-00-00T00:00:00Z"
+        },
+        {
+          "year": 1897,
+          "precision": 9,
+          "statement_guid": "Q24484253$a719b4e2-4a51-ce46-1c52-8db07b133351",
+          "population_value_raw": "+2560",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1897-00-00T00:00:00Z"
+        },
+        {
+          "year": 1915,
+          "precision": 9,
+          "statement_guid": "Q24484253$980e1771-4a6c-1c6f-4e6e-57e1a3906d1b",
+          "population_value_raw": "+3111",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1915-00-00T00:00:00Z"
+        },
+        {
+          "year": 2021,
+          "precision": 9,
+          "statement_guid": "Q24484253$7c6fbde1-442e-0043-8a0f-977a7e770e7b",
+          "population_value_raw": "+1142",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2021-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q24484426",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:5820",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "18720000271",
+      "source_name": "Отруба",
+      "source_type": "хутор",
+      "source_region": "Волгоградская область",
+      "entity_ru_label": "Отруба",
+      "entity_ru_description": "хутор в городском округе город Михайловка Волгоградской области России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_03.json",
+      "entity_batch_sha256": "b8a337c339b83d996164c444d6ef39a546b64509a0fa543b544db11f2499381b",
+      "truthy_P764": {
+        "truthy_file": "batch_0091.jsonl.gz",
+        "line_number": 11238,
+        "value": "18720000271",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0091.jsonl.gz",
+        "truthy_batch_sha256": "a544b8bddff2a68e597db903b33a898c83d9a0daf11263cad500eb468b71f9f2"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0091.jsonl.gz",
+          "line_number": 8011,
+          "value_qid": "Q2023000"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q2023000"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "18720000271"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q24484426"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 1987,
+          "precision": 9,
+          "statement_guid": "Q24484426$d93ae897-4fe5-45a6-8ed0-38d99b6428ec",
+          "population_value_raw": "+200",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1987-00-00T00:00:00Z"
+        },
+        {
+          "year": 2004,
+          "precision": 9,
+          "statement_guid": "Q24484426$fe8f2925-4fc4-cc2e-8d13-e7d505206ac6",
+          "population_value_raw": "+230",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2004-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q24484426$EDA9569D-BB0F-48C6-B4A9-888168D1DC09",
+          "population_value_raw": "+255",
+          "rank": "preferred",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [
+        {
+          "observed_year": 2002,
+          "precision": 11,
+          "date_value_literal": "+2002-10-09T00:00:00Z",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "statement_guid": "Q24484426$686e438f-4f46-07da-5654-a4e1b9131b28"
+        }
+      ],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q2752956",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:23696",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "25602155106",
+      "source_name": "Апрельск",
+      "source_type": "посёлок",
+      "source_region": "Иркутская область",
+      "entity_ru_label": "Апрельск",
+      "entity_ru_description": "посёлок в Бодайбинском районе Иркутской области России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_04.json",
+      "entity_batch_sha256": "5a288d05afa286a0831c5b396a7f4306734d77b1e5199209c9c599bc5009c1ba",
+      "truthy_P764": {
+        "truthy_file": "batch_0096.jsonl.gz",
+        "line_number": 9757,
+        "value": "25602155106",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0096.jsonl.gz",
+        "truthy_batch_sha256": "f9fb312fe8b5f72b02abc779f710eebca0e1c0316db663951341054efd388818"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0096.jsonl.gz",
+          "line_number": 6600,
+          "value_qid": "Q2514025"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q2514025",
+        "Q532"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "25602155106"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q2752956"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 1939,
+          "precision": 9,
+          "statement_guid": "Q2752956$DA2E7354-A412-480B-98FE-5FA8E0834D09",
+          "population_value_raw": "+8061",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1939-00-00T00:00:00Z"
+        },
+        {
+          "year": 1959,
+          "precision": 9,
+          "statement_guid": "Q2752956$A015EA00-2733-41DC-8BBD-505C9E476A39",
+          "population_value_raw": "+3421",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1959-00-00T00:00:00Z"
+        },
+        {
+          "year": 1970,
+          "precision": 9,
+          "statement_guid": "Q2752956$EB8A087B-2408-424E-9B59-B97CD377C62A",
+          "population_value_raw": "+1217",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1970-00-00T00:00:00Z"
+        },
+        {
+          "year": 2002,
+          "precision": 9,
+          "statement_guid": "Q2752956$6DBE0520-55CD-4A9C-A310-DB2B97303D24",
+          "population_value_raw": "+148",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2002-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q2752956$48D25890-A4E8-4E70-90D5-FCFB3BB9472D",
+          "population_value_raw": "+96",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        },
+        {
+          "year": 2011,
+          "precision": 9,
+          "statement_guid": "Q2752956$5AD2A0FC-2FA2-43D0-8B34-C7BCEE010112",
+          "population_value_raw": "+95",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2011-00-00T00:00:00Z"
+        },
+        {
+          "year": 2012,
+          "precision": 9,
+          "statement_guid": "Q2752956$B8955CEE-3D5A-4F40-94E5-0E0F2F85C179",
+          "population_value_raw": "+87",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2012-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q28525985",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:97857",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "57708000386",
+      "source_name": "Вогулка",
+      "source_type": "посёлок",
+      "source_region": "Пермский край",
+      "entity_ru_label": "Вогулка",
+      "entity_ru_description": "посёлок в Усольском районе Пермского края",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_03.json",
+      "entity_batch_sha256": "b8a337c339b83d996164c444d6ef39a546b64509a0fa543b544db11f2499381b",
+      "truthy_P764": {
+        "truthy_file": "batch_0101.jsonl.gz",
+        "line_number": 9153,
+        "value": "57708000386",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0101.jsonl.gz",
+        "truthy_batch_sha256": "f2c41696c01f5fea7af1c318c8d3ec59e83c1c3741be62fe5bc438e1850118ab"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0101.jsonl.gz",
+          "line_number": 5978,
+          "value_qid": "Q486972"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q486972"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "57708000386"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q28525985"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 1926,
+          "precision": 9,
+          "statement_guid": "Q28525985$F3199870-C70E-4956-AA8E-F3EBBEF84935",
+          "population_value_raw": "+197",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1926-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q28525985$B67E6699-585F-468D-A9A6-7FCFC700259D",
+          "population_value_raw": "+229",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        },
+        {
+          "year": 2013,
+          "precision": 9,
+          "statement_guid": "Q28525985$16753F3B-7CEC-443C-AA47-C671867E5609",
+          "population_value_raw": "+211",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2013-00-00T00:00:00Z"
+        },
+        {
+          "year": 2014,
+          "precision": 9,
+          "statement_guid": "Q28525985$38533CA2-7064-4DBD-B77F-E0EE259F3B2E",
+          "population_value_raw": "+214",
+          "rank": "preferred",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2014-00-00T00:00:00Z"
+        },
+        {
+          "year": 2021,
+          "precision": 9,
+          "statement_guid": "Q28525985$0492e858-417e-56d1-ec2b-057d1633cd68",
+          "population_value_raw": "+86",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2021-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q28525996",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:97856",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "57708000381",
+      "source_name": "Белая Пашня",
+      "source_type": "деревня",
+      "source_region": "Пермский край",
+      "entity_ru_label": "Белая Пашня",
+      "entity_ru_description": "деревня в Пермском крае России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_04.json",
+      "entity_batch_sha256": "5a288d05afa286a0831c5b396a7f4306734d77b1e5199209c9c599bc5009c1ba",
+      "truthy_P764": {
+        "truthy_file": "batch_0101.jsonl.gz",
+        "line_number": 9194,
+        "value": "57708000381",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0101.jsonl.gz",
+        "truthy_batch_sha256": "f2c41696c01f5fea7af1c318c8d3ec59e83c1c3741be62fe5bc438e1850118ab"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0101.jsonl.gz",
+          "line_number": 6036,
+          "value_qid": "Q5084"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q5084"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "57708000381"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q28525996"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 1926,
+          "precision": 9,
+          "statement_guid": "Q28525996$87054A4F-66C6-48ED-B71E-48F2F94B6FD3",
+          "population_value_raw": "+312",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1926-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q28525996$E063BF23-71E0-4E0D-B034-C342F42F0FC0",
+          "population_value_raw": "+151",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        },
+        {
+          "year": 2013,
+          "precision": 9,
+          "statement_guid": "Q28525996$F7B2CDF0-A20E-4C1A-B37A-11EE4610D554",
+          "population_value_raw": "+154",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2013-00-00T00:00:00Z"
+        },
+        {
+          "year": 2014,
+          "precision": 9,
+          "statement_guid": "Q28525996$95D09481-ACC0-4D59-A0A6-B0E767BE796F",
+          "population_value_raw": "+154",
+          "rank": "preferred",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2014-00-00T00:00:00Z"
+        },
+        {
+          "year": 2021,
+          "precision": 9,
+          "statement_guid": "Q28525996$200f6ad3-4f6c-4bec-be8a-520534226416",
+          "population_value_raw": "+129",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2021-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q4162801",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:3866",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "17735000111",
+      "source_name": "Дмитриевская Слобода",
+      "source_type": "село",
+      "source_region": "Владимирская область",
+      "entity_ru_label": "Дмитриевская Слобода",
+      "entity_ru_description": "село в городском округе Муром Владимирской области России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_01.json",
+      "entity_batch_sha256": "f9915678c087a7dd6c9e0347ed2ea753208d091b10e93e6f74a1b64827807634",
+      "truthy_P764": {
+        "truthy_file": "batch_0113.jsonl.gz",
+        "line_number": 12732,
+        "value": "17735000111",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0113.jsonl.gz",
+        "truthy_batch_sha256": "44d54bed86ae49d995bad6e9e1c3e9a2a16fb1e7835452d2a41b542cb2b56c37"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0113.jsonl.gz",
+          "line_number": 8853,
+          "value_qid": "Q532"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q532"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "17735000111"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q4162801"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 1859,
+          "precision": 9,
+          "statement_guid": "Q4162801$5838EAA3-DB2C-4389-B0A5-51947E9E4E8A",
+          "population_value_raw": "+695",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1859-00-00T00:00:00Z"
+        },
+        {
+          "year": 1897,
+          "precision": 9,
+          "statement_guid": "Q4162801$117275AD-A246-4C00-A18A-A6EBAE0B886D",
+          "population_value_raw": "+1681",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1897-00-00T00:00:00Z"
+        },
+        {
+          "year": 1905,
+          "precision": 9,
+          "statement_guid": "Q4162801$5C576CF5-B9A4-480B-B6FB-C3F376AA3762",
+          "population_value_raw": "+982",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1905-00-00T00:00:00Z"
+        },
+        {
+          "year": 1926,
+          "precision": 9,
+          "statement_guid": "Q4162801$C71C5DB8-C874-4457-B2BC-DF1041DF36BA",
+          "population_value_raw": "+1628",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1926-00-00T00:00:00Z"
+        },
+        {
+          "year": 2002,
+          "precision": 9,
+          "statement_guid": "Q4162801$6A1BA75A-6691-4502-91C2-9D12ADBF7249",
+          "population_value_raw": "+1263",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2002-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q4162801$E2B642AE-37EC-4AFB-934E-4C5FFE21ACAC",
+          "population_value_raw": "+1381",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        },
+        {
+          "year": 2021,
+          "precision": 9,
+          "statement_guid": "Q4162801$10BA12E8-7305-4395-AAA4-92FA0C94820B",
+          "population_value_raw": "+1197",
+          "rank": "preferred",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2021-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q4244672",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:75113",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "22701000176",
+      "source_name": "Кудьма",
+      "source_type": "посёлок",
+      "source_region": "Нижегородская область",
+      "entity_ru_label": "Кудьма",
+      "entity_ru_description": "посёлок в Богородском районе Нижегородской области России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_01.json",
+      "entity_batch_sha256": "f9915678c087a7dd6c9e0347ed2ea753208d091b10e93e6f74a1b64827807634",
+      "truthy_P764": {
+        "truthy_file": "batch_0120.jsonl.gz",
+        "line_number": 12219,
+        "value": "22701000176",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0120.jsonl.gz",
+        "truthy_batch_sha256": "ecd97eebeb21099599bcc6463ccc5ad8aed79c166b9fd64aebe8d7f3f69a4f95"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0120.jsonl.gz",
+          "line_number": 8194,
+          "value_qid": "Q2514025"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q2514025"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "22701000176"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q4244672"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 1999,
+          "precision": 9,
+          "statement_guid": "Q4244672$636727D2-818B-4608-8397-C2CBF1EA9C12",
+          "population_value_raw": "+2559",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+1999-00-00T00:00:00Z"
+        },
+        {
+          "year": 2002,
+          "precision": 9,
+          "statement_guid": "Q4244672$AE3974FA-8A89-4F13-8CC3-A26E9BFE9267",
+          "population_value_raw": "+2457",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2002-00-00T00:00:00Z"
+        },
+        {
+          "year": 2010,
+          "precision": 9,
+          "statement_guid": "Q4244672$6CAC4E66-39C6-48FE-8E77-3D6E32552307",
+          "population_value_raw": "+2421",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2010-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    },
+    {
+      "qid": "Q4250662",
+      "decision": "accepted_current_QID_binding_only_under_narrow_exact_code_plus_typed_identity_rule",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:153203",
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_native_code_exact_digits": "93625422101",
+      "source_name": "Кызыл-Хая",
+      "source_type": "село",
+      "source_region": "Республика Тыва",
+      "entity_ru_label": "Кызыл-Хая",
+      "entity_ru_description": "село в Монгун-Тайгинском кожууне Республики Тывы России",
+      "entity_batch_path": "/workspace/settlements-work/continuation_20261004/R4/wide_qid_homonym_full_entity_retrieval_20261004/entity_fetch_and_replay/raw_entity_batch_01.json",
+      "entity_batch_sha256": "f9915678c087a7dd6c9e0347ed2ea753208d091b10e93e6f74a1b64827807634",
+      "truthy_P764": {
+        "truthy_file": "batch_0120.jsonl.gz",
+        "line_number": 13098,
+        "value": "93625422101",
+        "truthy_batch_path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0120.jsonl.gz",
+        "truthy_batch_sha256": "ecd97eebeb21099599bcc6463ccc5ad8aed79c166b9fd64aebe8d7f3f69a4f95"
+      },
+      "truthy_P31": [
+        {
+          "truthy_file": "batch_0120.jsonl.gz",
+          "line_number": 8825,
+          "value_qid": "Q532"
+        }
+      ],
+      "full_entity_nondeprecated_P31_values": [
+        "Q532",
+        "Q192287",
+        "Q486972"
+      ],
+      "full_entity_nondeprecated_P764_values": [
+        "93625422101"
+      ],
+      "competition_and_identity_checks": {
+        "selected_exact_OKTMO_matches_WIDE_code": true,
+        "truthy_exact_P764_matches_native_code": true,
+        "current_ru_label_exact": true,
+        "current_source_name_exact": true,
+        "current_source_type_exact": true,
+        "current_source_region_exact": true,
+        "physical_P31_lineage": true,
+        "source_row_QID_unique": true,
+        "source_code_unique_QID": true,
+        "QID_unique_current_source_code": true,
+        "native_competition_clear": true,
+        "no_contradictory_admin_region": true
+      },
+      "candidate_wide_qid_values": [
+        "Q4250662"
+      ],
+      "candidate_source_record_wide_row_count": 1,
+      "candidate_binding_status_before_review": "scoped_secondary_history_binding_candidate_pending_independent_review",
+      "candidate_hold_reasons": [],
+      "novel_year_precision_p1082_claims": [
+        {
+          "year": 2025,
+          "precision": 9,
+          "statement_guid": "Q4250662$ee05ddfa-4924-45bc-bfaa-2319b85052fb",
+          "population_value_raw": "+1414",
+          "rank": "normal",
+          "snapshot_status": "new_subject_GUID_candidate_not_in_frozen_history_overlay",
+          "date_value_literal": "+2025-00-00T00:00:00Z"
+        }
+      ],
+      "excluded_non_year_precision_or_non_novel_claims": [],
+      "scope_exclusions": [
+        "P1082 is secondary only, not primary population evidence",
+        "No historical identity, population scope/grain transfer, administrative-boundary continuity, or historical coordinates asserted",
+        "P625 not used for QID binding or coordinate attribution"
+      ]
+    }
+  ],
+  "coordinate_warnings_not_used_for_identity": [
+    {
+      "qid": "Q24484253",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:5791",
+      "dadata_current_selected_point_lat_lon": [
+        50.0708708,
+        43.2401092
+      ],
+      "wikidata_P625_lat_lon": [
+        49.893056,
+        43.1125
+      ],
+      "geonames_id": 581202,
+      "geonames_name": "Archedinskaya",
+      "geonames_lat_lon": [
+        49.89065,
+        43.11825
+      ],
+      "geonames_source_line_1based": 120116,
+      "warning": "Wikidata P625 and local GeoNames point agree within 1 km; both are about 21.8 km from current DaData point. Warning only."
+    },
+    {
+      "qid": "Q28525985",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:97857",
+      "dadata_current_selected_point_lat_lon": [
+        59.4079119,
+        56.8039179
+      ],
+      "wikidata_P625_lat_lon": [
+        59.1265,
+        56.774
+      ],
+      "geonames_id": 472914,
+      "geonames_name": "Vogulka",
+      "geonames_lat_lon": [
+        59.1265,
+        56.7732
+      ],
+      "geonames_source_line_1based": 12473,
+      "warning": "Wikidata P625 and local GeoNames point agree within 0.05 km; both are about 31.3 km from current DaData point. Warning only."
+    }
+  ],
+  "limitations": [
+    "Current selected-source→QID association only.",
+    "P1082 stays secondary; source-specific historical scope is unknown.",
+    "No historical identity, population scope/grain transfer, boundaries, census comparability, or coordinates are asserted.",
+    "P625/GeoNames/DaData comparisons are diagnostics only, not identity or coordinate assignments.",
+    "Q24484426 has a novel 2002-10-09 precision-11 claim excluded from annual year list."
+  ]
+}
