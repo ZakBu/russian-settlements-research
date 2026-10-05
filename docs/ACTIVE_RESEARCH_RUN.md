@@ -519,6 +519,124 @@ separate 2021 child count or duplicate Moscow territory population is added.
 Evidence is in
 `research_rebuild/evidence/moskovskiy_leninsky_moscow_inclusion_20261005`.
 
+## Mass exact-name/region bridge and current coverage (2026-10-05)
+
+A second batch expanded the previous exact-name/type/region and shared-point
+rule. It now permits observed type changes when normalized name and region are
+exact and unique in each paired census year. A reviewed point must exist for at
+least one endpoint; if both endpoints have points they must be within 5 km. A
+same-year coordinate collision or a repeated year inside the full graph keeps
+a candidate out. A one-sided point is inherited along the accepted same-place
+edge with an explicit retrospective status. Population ratios are recorded as
+separate comparability flags; they do not block an otherwise strong identity
+link.
+
+The full graph replay found 736 new identity edges and 644 point uses, including
+465 observed type transitions. It found no duplicate-year conflicts and no
+same-year coordinate collisions after point inheritance. The candidate pool
+contained 302,688 pairs after the distance/collision screen; 188 new edges have
+a positive population ratio over 2, 155 have a zero/nonpositive endpoint, and
+six are over 20x. These links retain a separate population-comparability flag;
+none of these counts was changed.
+
+The growth screen over the accepted ordinary graph found 1,346 positive
+year-pairs with a population ratio over 20, plus 42,551 zero/nonpositive-endpoint
+pairs. Of the positive outliers, 119 have at least one endpoint above 1,000;
+none has both endpoints above 1,000. Some are plausible rapid-growth suburbs
+(for example, Kудрово and Мисайлово); some need population-source or event review.
+Two newly accepted high-ratio examples are Тарманы 5,515→39 and Эбелях 988→35;
+both have the same accepted source point across years, but the 2010 values need
+scope scrutiny and are not claimed comparable. The flagged rows are in
+`current_available_year_path_20261005/extreme_population_ratio_over_2000pct.csv`.
+
+| Measure | 2002 | 2010 | 2021 |
+| --- | ---: | ---: | ---: |
+| Strict ordinary-NP 2002→2010→2021 chain + point, selected denominator | 96.381593% | 97.371081% | 97.715963% |
+| Strict chain + point with federal city territory layer, national / available denominator | 96.748792% | 97.336193% | 98.009748% |
+| Point + accepted path across the census years actually present, with federal territory layer | 97.541853% | 98.241451% | 99.138533% |
+| Additional population needed for 99% on the preceding available-year measure | 2,116,744 | 1,083,637 | 0 |
+
+The 2021 available-year denominator is 144,699,673; it excludes Crimea and
+Sevastopol because neither was in the Russian 2002/2010 census geography. The
+2021 99% result applies only to that defined comparison scope. It does not mean
+that every settlement has a three-census chain: the strict measure is still
+below 99% in all years. Federal city territory observations remain their own
+spatial layer and are not counted again as child settlements.
+
+## Accepted event-aware paths reconciled with the ordinary path (2026-10-05)
+
+I reconciled current ordinary point-plus-actual-year coverage against every
+accepted `accepted_series.csv` / `event_aware_coverage.json` pair under the
+2026-10-05 evidence folders. An event row is counted only when its source ID
+and population exactly match the selected census row, the accepted artifact
+provides a point marked approved/reviewed/accepted, and that same scoped series
+contains at least two selected records from distinct census years. Rows already
+covered by the ordinary graph are not counted again. Event relations remain
+their own scope; this does not mutate the ordinary identity graph.
+
+| Ordinary path + new accepted event path + separate federal territory | 2002 | 2010 | 2021 |
+| --- | ---: | ---: | ---: |
+| Population represented | 141,665,293 | 140,393,605 | 143,453,133 |
+| Denominator | 145,166,731 | 142,856,536 | 144,699,673 |
+| Coverage | 97.587989% | 98.275941% | 99.138533% |
+| Additional population to 99% | 2,049,771 | 1,034,366 | 0 |
+
+The event union adds only 4 selected 2002 rows / 66,973 residents and 3 selected
+2010 rows / 49,271 residents; all eligible 2021 rows were already in ordinary
+coverage. The exact rows and input hashes are in
+`research_rebuild/evidence/event_aware_path_union_20261005/`. This union is a
+diagnostic combined spatial axis, not a replacement for the strict full
+three-census-chain measure.
+
+The remaining ordinary available-year residual is 3,556,685 people in 2002 and
+2,018,690 in 2010 before adding the federal territory layer; current priority
+lists are `research_rebuild/evidence/current_available_year_path_20261005/`.
+Some rows in that ordinary graph residual already have scoped event treatment
+elsewhere (for example, historical settlement inclusion); do not count or
+process those as ordinary same-place rows a second time. Selected population
+still falls short of national controls by 11,726 in 2002 and 493,512 in 2010;
+the 2021 selected sum matches its control, which alone does not validate each
+row.
+
+The route audit explains why the remaining gap cannot be closed by merely
+accepting every old point route. The fresh Graph29 inventory has 714 residual
+2002 rows / 199,645 people and 896 residual 2010 rows / 178,139 people already
+inside accepted multi-year components that need only an accepted point. Across
+the full residual, old R5 routes are marked available for 1,442,193 / 1,593,126
+people, but the mounted route projection lacks provider attribution and point
+object evidence. Exact named GeoKLADR candidates form only a 91,880 / 13,448
+population ceiling before review; shared coordinates and city-code bridges are
+the dominant holds. These are diagnostic ceilings, not guaranteed gains. Thus
+the most valuable next operation is to recover and classify point provenance
+for the component-linked portion, then separately review high-population
+no-point/no-path rows. The 2010 selected counts also miss the official regional
+control total by 493,512, which must remain a population-quality issue.
+
+A Student-t ±5% interval is not an appropriate substitute: these are census
+records, not a probability sample, and the intervals would not validate record
+identity, coordinates, or boundaries.
+
+The scripts and receipts are
+`research_rebuild/mass_linkage/apply_exact_name_proximity_batch_20261005.py`,
+`apply_unique_name_region_coordinate_bridge_20261005.py`,
+`report_joint_residual_after_unique_name_region_bridge_20261005.py`, and
+`measure_current_available_year_path_20261005.py`, and
+`measure_event_aware_path_union_20261005.py`. Inputs are checksum-pinned,
+but the large selected, graph and point ledgers are mounted outside this Git
+checkout; a clean clone needs those exact external artifacts to replay. These
+are local research outputs; no GitHub push has been confirmed.
+
+Self-critique: permitting a one-sided coordinate inheritance is a useful way to
+use the accepted point for a unique exact name/region trajectory, but it does
+not independently prove the old locality occupied that exact point on the
+census date. The output marks this as retrospective, not a dated measurement.
+Ignoring population change for identity reduces false negatives for unique,
+spatially anchored names, but it risks treating a boundary reclassification as
+a stable settlement series. High-ratio rows remain explicitly flagged and
+population comparability stays unknown. The next pass should resolve the
+highest-population flagged rows and missing-point/missing-path rows, while
+subtracting already accepted event-aware scopes before selecting cases.
+
 Most recent local commits include `0af8500`, `8cee94e`, `f1fa2fc`, `31ac10c`,
 `a8c30b5`, and the current national inclusion batch. These are local commits; no
 GitHub push is recorded. Next priority is
