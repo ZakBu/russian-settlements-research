@@ -1,0 +1,95 @@
+{
+  "status": "diagnostic_separate_axis_not_added_to_scope_aware_total",
+  "definition": "Selected locality row has an admitted point and belongs to an accepted identity component containing exactly two distinct observed census years among 2002, 2010, 2021.",
+  "unobserved_third_year": "unknown/no selected row; never imputed as zero or treated as outside-scope without a separate status",
+  "component_year_masks": {
+    "2002|2010": 3,
+    "2002|2021": 5,
+    "2010|2021": 6
+  },
+  "totals": {
+    "2002": {
+      "rows": 6830,
+      "population": 571533,
+      "official_control": 145166731,
+      "official_control_share": 0.003937079770708621,
+      "population_quality": {
+        "direct_published_census_value": {
+          "rows": 6830,
+          "population": 571533
+        }
+      }
+    },
+    "2010": {
+      "rows": 2448,
+      "population": 746014,
+      "official_control": 142856536,
+      "official_control_share": 0.00522212018356654,
+      "population_quality": {
+        "secondary_confidentiality_protected_value_exact_scope_unverified": {
+          "rows": 2383,
+          "population": 663660
+        },
+        "reviewed_primary_reported_value": {
+          "rows": 33,
+          "population": 51682
+        },
+        "fresh_primary_r5_source": {
+          "rows": 20,
+          "population": 3074
+        },
+        "direct_official_city_value": {
+          "rows": 3,
+          "population": 20936
+        },
+        "reviewed_primary_source_value_or_null": {
+          "rows": 9,
+          "population": 6662
+        }
+      }
+    },
+    "2021": {
+      "rows": 9267,
+      "population": 1227900,
+      "official_control": 147182123,
+      "official_control_share": 0.008342725155554388,
+      "population_quality": {
+        "direct_published_census_value": {
+          "rows": 9267,
+          "population": 1227900
+        }
+      }
+    }
+  },
+  "combined_with_scope_aware_total": false,
+  "reason_not_combined": "Source-ID overlap against all accepted scope-aware layers has not been reconciled; these records may already contribute through another supported representation.",
+  "inputs_sha256": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-work/continuation_20261004/accepted_graph22_krasnodar_20261005/accepted_identity_edges.parquet": "36cf7cc785108ce198558f3347a02f7b75e6bdd667a8c4142cd537b0c324115c",
+    "/workspace/settlements-work/continuation_20261004/accepted_graph22_krasnodar_20261005/accepted_point_uses.parquet": "22acb1205a70d36df44954539069362ce29f296c94664255d1edb8ffc12e4020",
+    "/workspace/settlements-work/continuation_20261004/coverage_graph20_solnechny_20261005/joint_residual.parquet": "7f91749f966c4a8c7f354ec07dd2fc86cdbc3209515f160a7709e514354d4bee",
+    "/workspace/settlements-work/continuation_20261004/accepted_graph22_krasnodar_20261005/coverage.json": "eccdcacaf4812fb2c9429f175f96735b8449e73e8b3072533652d1b93f9a9288"
+  },
+  "point_ledger_row_level_check": "exact target ID set, accepted point status, and exact latitude/longitude agreement",
+  "edge_filter": [
+    "checked_rule_accepted",
+    "checked_rule_accepted_redundant_graph_connectivity_effect",
+    "accepted_rule_family_after_independent_sample_review",
+    "case_specific_independent_review_accepted",
+    "case_review_accepted",
+    "independent_case_review_accepted",
+    "accepted_case_specific"
+  ],
+  "point_filter": [
+    "reviewed_rule_accepted",
+    "frozen_r5b_reviewed_baseline_preserved",
+    "reviewed_extension_rule_accepted",
+    "reviewed_case_accepted"
+  ],
+  "script_sha256": "d4ecb6fe65651903a82fd60bf0b662b628b728cba145de6951b0ad19fb4f3ec1",
+  "row_proof": {
+    "path": "exact_two_year_point_rows.csv.gz",
+    "rows": 18545,
+    "sha256": "ca96c34d766b541cc98e3cc7cf750911635933872291ed37793fb000f6f36e52"
+  }
+}
