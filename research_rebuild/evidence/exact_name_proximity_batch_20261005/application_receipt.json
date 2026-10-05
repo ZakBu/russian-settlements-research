@@ -1,0 +1,86 @@
+{
+  "status": "applied_after_full_graph_replay; no duplicate-year conflicts",
+  "rule": "Exact normalized name/type/region, unique one-to-one year-pair, accepted coordinates within 1 km, no same-year point collision, no duplicate census year after union; positive population ratios above 2x held, exact shared coordinate origins may connect zero-value rows with population comparability unasserted.",
+  "input_candidate_rows": 773,
+  "accepted_identity_edges": 447,
+  "held_candidates": 87,
+  "already_connected_redundant_candidates": 239,
+  "edge_pairs_by_year": {
+    "2002-2010": 447
+  },
+  "held_by_reason": {
+    "hold_population_change_over_2x": 72,
+    "hold_zero_or_unknown_population_without_exact_shared_point_origin": 15
+  },
+  "accepted_positive_population_ratio_gt_2x": 0,
+  "identity_conflicts": 0,
+  "population_values_modified": false,
+  "coverage_before": {
+    "2002": {
+      "rows": 158066,
+      "population": 130111032,
+      "joint_rows": 132350,
+      "joint_population": 125169905
+    },
+    "2010": {
+      "rows": 152312,
+      "population": 125979957,
+      "joint_rows": 132380,
+      "joint_population": 122462104
+    },
+    "2021": {
+      "rows": 154392,
+      "population": 126087650,
+      "joint_rows": 132385,
+      "joint_population": 123005375
+    }
+  },
+  "coverage_after": {
+    "2002": {
+      "rows": 158066,
+      "population": 130111032,
+      "joint_rows": 132353,
+      "joint_population": 125173474
+    },
+    "2010": {
+      "rows": 152312,
+      "population": 125979957,
+      "joint_rows": 132383,
+      "joint_population": 122465233
+    },
+    "2021": {
+      "rows": 154392,
+      "population": 126087650,
+      "joint_rows": 132388,
+      "joint_population": 123005755
+    }
+  },
+  "joint_chain_population_gain_by_year": {
+    "2002": 3569,
+    "2010": 3129,
+    "2021": 380
+  },
+  "inputs": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "/tmp/graph28_three_code_bridge_20261005/accepted_identity_edges.parquet": {
+      "sha256": "583364c80cddc4fbed00dd06527f734242b1983c268f83a78a38946a811ede1d",
+      "bytes": 30858517
+    },
+    "/tmp/graph29_ozherele_points_20261005/accepted_point_uses.parquet": {
+      "sha256": "c4b6a79741c36bbc092d4f2390bd743dd55b982fc9c671f1d1ed6660b7f4f8e3",
+      "bytes": 53105876
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/coordinate_proximity_audit_20261005/new_component_compatible_pairs_within1km.csv": {
+      "sha256": "d41c34ffada3c9d7d02c24f35b734cd2e29fe9c256c5ab0e4fdac6759a05dd9a",
+      "bytes": 263629
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_joint_residual_priority_20261005/summary.json": {
+      "sha256": "bd8573dbb360477d4d5c0972c799db6460a2e548f2a22e29807560ace6861a6f",
+      "bytes": 5192
+    }
+  },
+  "status_scope_note": "This batch adds identity edges to the separate graph delta. It does not adjust census counts or claim boundary/population comparability; 2x population outliers stay held."
+}
