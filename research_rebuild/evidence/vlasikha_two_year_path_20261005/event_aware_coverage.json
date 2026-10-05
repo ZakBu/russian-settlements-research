@@ -1,0 +1,97 @@
+{
+  "scope": "Adds Vlasikha's already root-approved 2010–2021 physical-place path to the event-aware measure that accepts connected observed census years. The official source review found no Moscow-region Vlasikha row in 2002; the missing year remains absent, not zero or imputed.",
+  "series": [
+    {
+      "place": "Власиха",
+      "year": "2010",
+      "population_used": "26359",
+      "population_source_status": "official_Rosstat_Table5_primary",
+      "source_record_id": "ROSSTAT2010:T5:p33:l120",
+      "source_file": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "source_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "source_locator": "pdf_page=33; Table 5 literal row: пгт Власиха | 26359",
+      "selected_alternate_population": "25394",
+      "selected_alternate_quality": "secondary_confidentiality_protected_value_exact_scope_unverified",
+      "latitude": "55.685",
+      "longitude": "37.191667",
+      "coordinate_source_record_id": "Wikidata:Q1009953:P625",
+      "coordinate_source_sha256": "a0d98a1ceb49a64e9e51c11c56ac88a5c4d38fbc1952327e23c339c74051ac1d",
+      "coordinate_source_locator": "Wikidata P625 Q1009953; raw POINT(37.191667 55.685000); retrieved 2026-08-31",
+      "coordinate_status": "reviewed_extension_rule_accepted_current_representative_point_used_retrospectively",
+      "scoped_chain_status": "root_approved_scoped_physical_continuity",
+      "oktmo": "46773000051",
+      "oktmo_year": "2021",
+      "oktmo_history_status": "historical_code_transformations_not_asserted",
+      "ordinary_identity_graph_mutated": "False",
+      "historical_coordinate_measurement": "False",
+      "population_boundary_comparability": "unknown"
+    },
+    {
+      "place": "Власиха",
+      "year": "2021",
+      "population_used": "28240",
+      "population_source_status": "direct_published_census_value",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:70219",
+      "source_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "source_locator": "parquet_row_1based=70219; population and OKTMO",
+      "selected_alternate_population": "",
+      "selected_alternate_quality": "",
+      "latitude": "55.685",
+      "longitude": "37.191667",
+      "coordinate_source_record_id": "Wikidata:Q1009953:P625",
+      "coordinate_source_sha256": "a0d98a1ceb49a64e9e51c11c56ac88a5c4d38fbc1952327e23c339c74051ac1d",
+      "coordinate_source_locator": "Wikidata P625 Q1009953; raw POINT(37.191667 55.685000); retrieved 2026-08-31",
+      "coordinate_status": "reviewed_extension_rule_accepted_current_representative_point",
+      "scoped_chain_status": "root_approved_scoped_physical_continuity",
+      "oktmo": "46773000051",
+      "oktmo_year": "2021",
+      "oktmo_history_status": "current_code_only; historical transformations not asserted",
+      "ordinary_identity_graph_mutated": "False",
+      "historical_coordinate_measurement": "False",
+      "population_boundary_comparability": "unknown"
+    }
+  ],
+  "by_year": {
+    "2002": {
+      "denominator": 145166731,
+      "prior_event_aware_population": 140651858,
+      "vlasikha_two_year_path_population_added": 0,
+      "event_aware_population": 140651858,
+      "event_aware_percent": 96.88987072389196,
+      "gap_to_99_percent": 3063206,
+      "population_source_status": null,
+      "note": "No Vlasikha observation is admitted for this census year."
+    },
+    "2010": {
+      "denominator": 142856536,
+      "prior_event_aware_population": 139159948,
+      "vlasikha_two_year_path_population_added": 26359,
+      "event_aware_population": 139186307,
+      "event_aware_percent": 97.43082878616069,
+      "gap_to_99_percent": 2241664,
+      "population_source_status": "official_Rosstat_Table5_primary",
+      "note": "Vlasikha remains a separate ZATO locality in Moscow Oblast; current OKTMO is 46773000051; boundaries and population scope are not asserted comparable across years."
+    },
+    "2021": {
+      "denominator": 144699673,
+      "prior_event_aware_population": 141642480,
+      "vlasikha_two_year_path_population_added": 28240,
+      "event_aware_population": 141670720,
+      "event_aware_percent": 97.90673127505961,
+      "gap_to_99_percent": 1581957,
+      "population_source_status": "direct_published_census_value",
+      "note": "Vlasikha remains a separate ZATO locality in Moscow Oblast; current OKTMO is 46773000051; boundaries and population scope are not asserted comparable across years."
+    }
+  },
+  "guardrails": {
+    "ordinary_identity_graph_mutated": false,
+    "2002_observation_created": false,
+    "historical_coordinate_measurement_asserted": false,
+    "historical_coordinate_provider_binding_asserted": false,
+    "population_boundary_comparability_asserted": false,
+    "2010_protected_alternate_25394_promoted": false
+  },
+  "approval_source": "research_rebuild/evidence/mass_joint_20261004/ninth_reviewed_and_scoped_history/official3/application_receipt.json",
+  "approval_status": "root-approved scoped 2010–2021 physical continuity; not a three-census full chain"
+}
