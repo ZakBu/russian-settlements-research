@@ -1,0 +1,168 @@
+{
+  "task": "Read-only review of four exact Krasnodar Krai 2002/2010/2021 locality triads; exclude Ленина and Цибанобалка.",
+  "graph_version": "Graph20 Solnechny",
+  "graph_sha256": "3f96825a311d641172cde6d4985c2caa80bd97cdf94c52f6ec66a82983eb5f44",
+  "point_uses_sha256": "22acb1205a70d36df44954539069362ce29f296c94664255d1edb8ffc12e4020",
+  "review_status": "independent_exact_triads_review_candidate_only",
+  "identity_summary": {
+    "2002_to_2010": "Accept edge candidates for all four: literal name/type rows agree, same historical Anapa rayon, and unique 2009 classifier locality identity; for Джигинка/Юровка/Сукко the direct official Table 5 row is the selected 2010 primary source. For Гай-Кодзор the provided 2010 regional XLS row is unique name/type/rayon but confidentiality perturbed (do not reinterpret its exact population). No active graph edges exist for these source IDs.",
+    "2010_to_2021": "Hold all four edges. They move from Anapa rayon to Anapa urban okrug; the 2021 Tochno/DaData locality coordinate and FIAS/helper codes are demonstrably the same city-level values on 40 Krasnodar rows, so they cannot spatially bind these distinct localities. Current raw OKTMO per locality is distinct, but no independently sourced crosswalk establishes its historical identity from that alone.",
+    "direct_2002_to_2021": "Not recommended as a bypass around the 2010→2021 hold."
+  },
+  "point_summary": {
+    "Джигинка": "Retain existing GeoKLADR 2011 source point only for the historical 2002/2010 targets; coordinates are plausible, not census-date measurement. Hold 2021 DaData point.",
+    "Юровка": "Retain existing GeoKLADR 2011 source point only for historical 2002/2010 targets; coordinates are plausible, not census-date measurement. Hold 2021 DaData point.",
+    "Сукко": "Retain existing GeoKLADR 2011 source point only for historical 2002/2010 targets; coordinates are plausible, not census-date measurement. Hold 2021 DaData point.",
+    "Гай-Кодзор": "Hold GeoKLADR 2011 point due severe geographic disagreement (44.268617,40.878162; ~290.5km from the shared Anapa geocoder point). Hold 2021 DaData point due city-level point reuse. No point admission."
+  },
+  "no_boundary_or_population_comparability_claim": true,
+  "population_values_unchanged": true,
+  "canonical_files_modified": false,
+  "residual_presence": [
+    {
+      "name": "Джигинка",
+      "current_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:46764",
+      "residual_match_count": 1
+    },
+    {
+      "name": "Юровка",
+      "current_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:46798",
+      "residual_match_count": 1
+    },
+    {
+      "name": "Гай-Кодзор",
+      "current_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:46762",
+      "residual_match_count": 1
+    },
+    {
+      "name": "Сукко",
+      "current_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:46788",
+      "residual_match_count": 1
+    }
+  ],
+  "current_coordinate_collision_count_at_44_8948984_37_3162896": 40,
+  "shared_coordinate_competitor_examples": [
+    {
+      "object_name": "г. Анапа",
+      "population": 81863,
+      "oktmo": "3703000001"
+    },
+    {
+      "object_name": "станица Гостагаевская",
+      "population": 16438,
+      "oktmo": "3703000181"
+    },
+    {
+      "object_name": "село Супсех",
+      "population": 15736,
+      "oktmo": "3703000311"
+    },
+    {
+      "object_name": "станица Анапская",
+      "population": 15593,
+      "oktmo": "3703000106"
+    },
+    {
+      "object_name": "село Цибанобалка",
+      "population": 7923,
+      "oktmo": "3703000336"
+    },
+    {
+      "object_name": "село Джигинка",
+      "population": 5516,
+      "oktmo": "3703000186"
+    },
+    {
+      "object_name": "село Юровка",
+      "population": 4430,
+      "oktmo": "3703000356"
+    },
+    {
+      "object_name": "село Сукко",
+      "population": 3939,
+      "oktmo": "3703000306"
+    },
+    {
+      "object_name": "село Гай-Кодзор",
+      "population": 3248,
+      "oktmo": "3703000176"
+    },
+    {
+      "object_name": "село Варваровка",
+      "population": 2666,
+      "oktmo": "3703000131"
+    },
+    {
+      "object_name": "посёлок Пятихатки",
+      "population": 2228,
+      "oktmo": "3703000286"
+    },
+    {
+      "object_name": "хутор Красный",
+      "population": 2222,
+      "oktmo": "3703000221"
+    }
+  ],
+  "source_pins": [
+    {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2002/036_81b258bc42_02c_Krasnodarski-krai.xls",
+      "sha256": "9588f5aa5f8de40a290739a880e624a6d34ea566377b9a7f4df1674f1cf99121",
+      "bytes": 724480
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2010/005_888282bccc_13._20Краснодарский_край_2010.xls",
+      "sha256": "79b2bad35f37ae813877fb7eee86afa9bfe6bea840b3dcd0482787eecac02ed8",
+      "bytes": 2130944
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "bytes": 15230814
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/historical_classifiers/okato_142_2009/dump-142_2009.sql",
+      "sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+      "bytes": 24684035
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+      "bytes": 59991330
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph20_solnechny_20261005/accepted_identity_edges.parquet",
+      "sha256": "3f96825a311d641172cde6d4985c2caa80bd97cdf94c52f6ec66a82983eb5f44",
+      "bytes": 67116627
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph20_solnechny_20261005/accepted_point_uses.parquet",
+      "sha256": "22acb1205a70d36df44954539069362ce29f296c94664255d1edb8ffc12e4020",
+      "bytes": 44288091
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/root/joint_residual_graph16_skhodnya_nikolskoe_inclusion2.parquet",
+      "sha256": "f6ff633d08cfb6a1fb3f59c2f3068d01020236e7f9a63890b6000d3eb61886a2",
+      "bytes": 1503106
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/regions/krasnodar_large_recovery/top25_typed_path_candidates.csv",
+      "sha256": "36fad75d056ba62bfabb60ee247d94a76e0d3056e90befcaf5df90b1c74437b0",
+      "bytes": 71648
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/coverage_graph20_solnechny_20261005/scoped_joint_coverage.json",
+      "sha256": "28d4bc4b2db228f05a1fcf7eae6fb45bc0b7999299df2d0f86a161617595c8d7",
+      "bytes": 35475
+    }
+  ]
+}
