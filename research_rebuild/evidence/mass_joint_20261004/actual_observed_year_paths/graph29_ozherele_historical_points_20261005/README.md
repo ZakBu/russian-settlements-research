@@ -14,4 +14,4 @@ The revised metric receipt is `coverage_graph29_corrected.json`. It retains the 
 
 ## Reproduction
 
-Run `research_rebuild/mass_linkage/apply_graph29_ozherele_historical_points_20261005.py` against the pinned selected layer, Graph28 ledgers and raw sources. Then run `research_rebuild/mass_linkage/measure_actual_observed_year_path_coverage_v2_20261005.py` with `/tmp/mass_joint_graph29.json` and the frozen Graph24 residual to reproduce the broad residual-axis receipt. The temporary config changes only the configured working point-ledger path to the Graph29 output. National working Parquet inputs are not copied into Git.
+Run `research_rebuild/mass_linkage/apply_graph29_ozherele_historical_points_20261005.py` against the pinned selected layer, Graph28 ledgers and raw sources. Then run `research_rebuild/mass_linkage/measure_actual_observed_year_path_coverage_v2_20261005.py` with `config_graph29.json` and the frozen Graph24 residual to reproduce the broad residual-axis receipt. The minimal config pins hashes for the exact selected, identity, point, residual and scope-baseline inputs. National working Parquet inputs are not copied into Git.
