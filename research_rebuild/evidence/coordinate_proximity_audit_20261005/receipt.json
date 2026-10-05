@@ -1,0 +1,546 @@
+{
+  "status": "read_only_audit_no_point_or_identity_admissions",
+  "input_files": {
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "points": {
+      "path": "/tmp/graph29_ozherele_points_20261005/accepted_point_uses.parquet",
+      "sha256": "c4b6a79741c36bbc092d4f2390bd743dd55b982fc9c671f1d1ed6660b7f4f8e3",
+      "bytes": 53105876
+    },
+    "edges": {
+      "path": "/tmp/graph28_three_code_bridge_20261005/accepted_identity_edges.parquet",
+      "sha256": "583364c80cddc4fbed00dd06527f734242b1983c268f83a78a38946a811ede1d",
+      "bytes": 30858517
+    },
+    "raw2021": {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    "historical_objects": {
+      "path": "/workspace/settlements-work/coordinates/historical_named_candidates_v4/all_historical_named_objects.parquet",
+      "sha256": "e2e6a2401050f88199db65f8a26afe410b4a47c3fb9b0e694f7ce7dccd878186",
+      "bytes": 23274554
+    },
+    "anapa_reviewed_points": {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/mass_joint_20261004/graph24_anapa_four_localities/approved_points.csv",
+      "sha256": "ba749ceed2141c16c62364abaa5b097da79c7bc80ac2a292d19acbfc395344b0",
+      "bytes": 1327
+    },
+    "prior_current_point_review": {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/mass_joint_20261004/graph16_points_and_large_paths/current_point_review_review_summary.json",
+      "sha256": "9c169dfd6abc1d3987c506823592be354025716ad0c953693d16690e88fcfbf6",
+      "bytes": 3484
+    },
+    "prior_current_point_eligible_rows": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/current_point4984_review_v1/eligible_candidate_rows.csv",
+      "sha256": "833eb4d2ee26f35c618ac170b0056969b22ccd8d1e679bb357484fedf9a59f39",
+      "bytes": 5397282
+    },
+    "prior_current_point_review_code": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/current_point4984_review_v1/independent_replay.py",
+      "sha256": "97cff63ffc108a7f19a383b76043df66dfe47b40e6b966dfb1df091e9c7099dd",
+      "bytes": 27782
+    }
+  },
+  "script_sha256": "63fe7f8d2783f183b1c403e4241a18cc13cf0e185344fa4956dcd3f7b882896c",
+  "status_source_script_sha256": "61e421d2c75a0b8ba7a6bf94287f6baff02fbdd87ebc8a549c991c4d36a2ed2d",
+  "edge_status_allowlist": [
+    "accepted_case_specific",
+    "accepted_rule_family_after_independent_sample_review",
+    "case_review_accepted",
+    "case_specific_independent_review_accepted",
+    "checked_rule_accepted",
+    "checked_rule_accepted_redundant_graph_connectivity_effect",
+    "independent_case_review_accepted"
+  ],
+  "point_status_allowlist": [
+    "frozen_r5b_reviewed_baseline_preserved",
+    "reviewed_case_accepted",
+    "reviewed_extension_rule_accepted",
+    "reviewed_rule_accepted"
+  ],
+  "cardinality": {
+    "selected_rows": 465800,
+    "point_uses": 428182,
+    "unique_point_targets": 428182,
+    "matched_point_uses": 428182,
+    "invalid_wgs84": 0,
+    "target_year_mismatches": 0
+  },
+  "accepted_same_place_edges": 348670,
+  "graph_component_count": 189683,
+  "graph_components_with_duplicate_years": 0,
+  "accepted_point_year_profile": [
+    {
+      "census_year": 2002,
+      "accepted_point_rows": 140660,
+      "selected_population": 136475577.0,
+      "unknown_measurement_date": 140660,
+      "direct_historical_measurement": 0,
+      "explicit_retrospective_or_accepted_path_reuse_rows": 108234,
+      "explicit_reuse_population": 116780126.0
+    },
+    {
+      "census_year": 2010,
+      "accepted_point_rows": 135833,
+      "selected_population": 123859129.0,
+      "unknown_measurement_date": 135833,
+      "direct_historical_measurement": 0,
+      "explicit_retrospective_or_accepted_path_reuse_rows": 58491,
+      "explicit_reuse_population": 97293982.0
+    },
+    {
+      "census_year": 2021,
+      "accepted_point_rows": 151689,
+      "selected_population": 127631218.0,
+      "unknown_measurement_date": 151689,
+      "direct_historical_measurement": 0,
+      "explicit_retrospective_or_accepted_path_reuse_rows": 1102,
+      "explicit_reuse_population": 2123448.0
+    }
+  ],
+  "accepted_same_year_collisions": [
+    {
+      "census_year": 2002,
+      "collision_groups": 53,
+      "affected_rows": 118,
+      "selected_population": 73480.0,
+      "max_group_size": 6,
+      "different_name_groups": 26,
+      "identical_name_and_type_groups": 0,
+      "different_source_native_id_groups": 53,
+      "multiple_positive_population_groups": 45,
+      "different_graph_component_groups": 53
+    },
+    {
+      "census_year": 2010,
+      "collision_groups": 43,
+      "affected_rows": 99,
+      "selected_population": 65918.0,
+      "max_group_size": 6,
+      "different_name_groups": 26,
+      "identical_name_and_type_groups": 1,
+      "different_source_native_id_groups": 43,
+      "multiple_positive_population_groups": 29,
+      "different_graph_component_groups": 43
+    },
+    {
+      "census_year": 2021,
+      "collision_groups": 863,
+      "affected_rows": 1860,
+      "selected_population": 454422.0,
+      "max_group_size": 15,
+      "different_name_groups": 44,
+      "identical_name_and_type_groups": 802,
+      "different_source_native_id_groups": 863,
+      "multiple_positive_population_groups": 482,
+      "different_graph_component_groups": 863
+    }
+  ],
+  "raw2021_selected_binding_integrity": {
+    "selected_raw_rows": 155414,
+    "population_mismatches": 0,
+    "valid_source_points": 152248
+  },
+  "raw2021_selected_point_collisions": {
+    "collision_groups": 2228,
+    "affected_rows": 6074,
+    "selected_population": 5508664.0,
+    "max_group_size": 225,
+    "different_name_groups": 250,
+    "identical_name_and_type_groups": 1857,
+    "different_native_code_groups": 2228
+  },
+  "raw_collision_quality_labels": [
+    {
+      "qc_geo_dadata": 3,
+      "fias_level_dadata": "6",
+      "row_count": 4631,
+      "selected_population": 549646.0
+    },
+    {
+      "qc_geo_dadata": 4,
+      "fias_level_dadata": "4",
+      "row_count": 1164,
+      "selected_population": 4189182.0
+    },
+    {
+      "qc_geo_dadata": 4,
+      "fias_level_dadata": "6",
+      "row_count": 164,
+      "selected_population": 12598.0
+    },
+    {
+      "qc_geo_dadata": 4,
+      "fias_level_dadata": "7",
+      "row_count": 33,
+      "selected_population": 32160.0
+    },
+    {
+      "qc_geo_dadata": 2,
+      "fias_level_dadata": "7",
+      "row_count": 32,
+      "selected_population": 27110.0
+    },
+    {
+      "qc_geo_dadata": 4,
+      "fias_level_dadata": "65",
+      "row_count": 20,
+      "selected_population": 214315.0
+    },
+    {
+      "qc_geo_dadata": 3,
+      "fias_level_dadata": "7",
+      "row_count": 10,
+      "selected_population": 4777.0
+    },
+    {
+      "qc_geo_dadata": 3,
+      "fias_level_dadata": "65",
+      "row_count": 6,
+      "selected_population": 168307.0
+    },
+    {
+      "qc_geo_dadata": 4,
+      "fias_level_dadata": "3",
+      "row_count": 4,
+      "selected_population": 309775.0
+    },
+    {
+      "qc_geo_dadata": 5,
+      "fias_level_dadata": "6",
+      "row_count": 4,
+      "selected_population": 64.0
+    },
+    {
+      "qc_geo_dadata": 2,
+      "fias_level_dadata": "65",
+      "row_count": 4,
+      "selected_population": 717.0
+    },
+    {
+      "qc_geo_dadata": 0,
+      "fias_level_dadata": "8",
+      "row_count": 2,
+      "selected_population": 13.0
+    }
+  ],
+  "historical_named_point_collisions": {
+    "historical_named_rows": 139362,
+    "named_codes": 139362,
+    "collision_groups": 11411,
+    "codes_in_collision": 25934,
+    "max_group_codes": 10
+  },
+  "prior_current_point_batch_internal_collision_review": {
+    "eligible_rows": 4953,
+    "internal_exact_point_collision_groups": 808,
+    "affected_rows": 1710,
+    "affected_selected_population": 91349.0,
+    "different_literal_name_groups": 7,
+    "max_group_size": 15,
+    "same_cohort_current_collision_rows": 1710,
+    "same_cohort_current_collision_population": 91349.0,
+    "prior_review_compared_to_existing_graph15_points_only": true,
+    "interpretation": "Internal batch sharing was omitted from the collision hold; source replay and FIAS level alone do not establish point accuracy."
+  },
+  "new_pair_batch_preflight": {
+    "candidate_pairs": 773,
+    "ordinary_graph_components_with_duplicate_years_after_simulated_batch": 0,
+    "pairs_with_same_year_coordinate_sharing_at_either_endpoint": 0,
+    "unique_endpoint_summary": [
+      {
+        "year": 2002,
+        "distinct_endpoint_records": 753,
+        "selected_endpoint_population_not_gain": 116725.0
+      },
+      {
+        "year": 2010,
+        "distinct_endpoint_records": 736,
+        "selected_endpoint_population_not_gain": 101993.0
+      },
+      {
+        "year": 2021,
+        "distinct_endpoint_records": 36,
+        "selected_endpoint_population_not_gain": 13621.0
+      }
+    ],
+    "admissions": 0,
+    "known_events_and_source_hold_review_performed": false
+  },
+  "exact_name_proximity_experiment": [
+    {
+      "from_year": 2002,
+      "to_year": 2010,
+      "radius_m": 0.001,
+      "candidate_pairs": 85089,
+      "already_connected_pairs": 84360,
+      "ordinary_one_to_one_year_conflict_pairs": 0,
+      "new_component_compatible_candidates": 729,
+      "reciprocal_unique_pairs": 85089,
+      "new_reciprocal_unique_compatible_candidates": 729,
+      "continuity_dependent_pairs": 54867,
+      "same_origin_pairs": 51411
+    },
+    {
+      "from_year": 2002,
+      "to_year": 2021,
+      "radius_m": 0.001,
+      "candidate_pairs": 112538,
+      "already_connected_pairs": 112504,
+      "ordinary_one_to_one_year_conflict_pairs": 34,
+      "new_component_compatible_candidates": 0,
+      "reciprocal_unique_pairs": 112471,
+      "new_reciprocal_unique_compatible_candidates": 0,
+      "continuity_dependent_pairs": 107416,
+      "same_origin_pairs": 29004
+    },
+    {
+      "from_year": 2010,
+      "to_year": 2021,
+      "radius_m": 0.001,
+      "candidate_pairs": 64050,
+      "already_connected_pairs": 64046,
+      "ordinary_one_to_one_year_conflict_pairs": 2,
+      "new_component_compatible_candidates": 2,
+      "reciprocal_unique_pairs": 64046,
+      "new_reciprocal_unique_compatible_candidates": 2,
+      "continuity_dependent_pairs": 59042,
+      "same_origin_pairs": 62542
+    },
+    {
+      "from_year": 2002,
+      "to_year": 2010,
+      "radius_m": 100.0,
+      "candidate_pairs": 98337,
+      "already_connected_pairs": 97590,
+      "ordinary_one_to_one_year_conflict_pairs": 17,
+      "new_component_compatible_candidates": 730,
+      "reciprocal_unique_pairs": 98305,
+      "new_reciprocal_unique_compatible_candidates": 730,
+      "continuity_dependent_pairs": 68115,
+      "same_origin_pairs": 51411
+    },
+    {
+      "from_year": 2002,
+      "to_year": 2021,
+      "radius_m": 100.0,
+      "candidate_pairs": 121826,
+      "already_connected_pairs": 121731,
+      "ordinary_one_to_one_year_conflict_pairs": 82,
+      "new_component_compatible_candidates": 13,
+      "reciprocal_unique_pairs": 121668,
+      "new_reciprocal_unique_compatible_candidates": 13,
+      "continuity_dependent_pairs": 107461,
+      "same_origin_pairs": 29004
+    },
+    {
+      "from_year": 2010,
+      "to_year": 2021,
+      "radius_m": 100.0,
+      "candidate_pairs": 86685,
+      "already_connected_pairs": 86630,
+      "ordinary_one_to_one_year_conflict_pairs": 50,
+      "new_component_compatible_candidates": 5,
+      "reciprocal_unique_pairs": 86590,
+      "new_reciprocal_unique_compatible_candidates": 5,
+      "continuity_dependent_pairs": 59088,
+      "same_origin_pairs": 62542
+    },
+    {
+      "from_year": 2002,
+      "to_year": 2010,
+      "radius_m": 1000.0,
+      "candidate_pairs": 128475,
+      "already_connected_pairs": 127691,
+      "ordinary_one_to_one_year_conflict_pairs": 52,
+      "new_component_compatible_candidates": 732,
+      "reciprocal_unique_pairs": 128375,
+      "new_reciprocal_unique_compatible_candidates": 732,
+      "continuity_dependent_pairs": 98253,
+      "same_origin_pairs": 51411
+    },
+    {
+      "from_year": 2002,
+      "to_year": 2021,
+      "radius_m": 1000.0,
+      "candidate_pairs": 136421,
+      "already_connected_pairs": 136242,
+      "ordinary_one_to_one_year_conflict_pairs": 152,
+      "new_component_compatible_candidates": 27,
+      "reciprocal_unique_pairs": 136123,
+      "new_reciprocal_unique_compatible_candidates": 27,
+      "continuity_dependent_pairs": 107529,
+      "same_origin_pairs": 29004
+    },
+    {
+      "from_year": 2010,
+      "to_year": 2021,
+      "radius_m": 1000.0,
+      "candidate_pairs": 131191,
+      "already_connected_pairs": 131057,
+      "ordinary_one_to_one_year_conflict_pairs": 120,
+      "new_component_compatible_candidates": 14,
+      "reciprocal_unique_pairs": 130964,
+      "new_reciprocal_unique_compatible_candidates": 14,
+      "continuity_dependent_pairs": 59155,
+      "same_origin_pairs": 62542
+    },
+    {
+      "from_year": 2002,
+      "to_year": 2010,
+      "radius_m": 5000.0,
+      "candidate_pairs": 130308,
+      "already_connected_pairs": 129482,
+      "ordinary_one_to_one_year_conflict_pairs": 94,
+      "new_component_compatible_candidates": 732,
+      "reciprocal_unique_pairs": 130124,
+      "new_reciprocal_unique_compatible_candidates": 732,
+      "continuity_dependent_pairs": 100086,
+      "same_origin_pairs": 51411
+    },
+    {
+      "from_year": 2002,
+      "to_year": 2021,
+      "radius_m": 5000.0,
+      "candidate_pairs": 137086,
+      "already_connected_pairs": 136853,
+      "ordinary_one_to_one_year_conflict_pairs": 206,
+      "new_component_compatible_candidates": 27,
+      "reciprocal_unique_pairs": 136682,
+      "new_reciprocal_unique_compatible_candidates": 27,
+      "continuity_dependent_pairs": 107582,
+      "same_origin_pairs": 29004
+    },
+    {
+      "from_year": 2010,
+      "to_year": 2021,
+      "radius_m": 5000.0,
+      "candidate_pairs": 133583,
+      "already_connected_pairs": 133395,
+      "ordinary_one_to_one_year_conflict_pairs": 172,
+      "new_component_compatible_candidates": 16,
+      "reciprocal_unique_pairs": 133254,
+      "new_reciprocal_unique_compatible_candidates": 16,
+      "continuity_dependent_pairs": 59207,
+      "same_origin_pairs": 62542
+    }
+  ],
+  "same_year_near_name_profile": {
+    "different_name_same_type_fuzzy85_distinct_point_pairs_within_3km": 432,
+    "diagnostic_near_fuzzy_or_qualifier_pairs": 1327,
+    "exact_name_same_type_pairs_within_3km": 1387,
+    "exact_name_same_type_pairs_same_point": 966,
+    "exact_name_same_type_distinct_point_pairs_within_1km": 395,
+    "different_name_same_type_fuzzy85_distinct_point_pairs_within_1km": 181,
+    "different_name_same_type_pairs_same_point": 171
+  },
+  "anapa_verified_examples": [
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:46764",
+      "name": "Джигинка",
+      "population": 5516.0,
+      "raw_latitude": 44.8948984,
+      "raw_longitude": 37.3162896,
+      "reviewed_latitude": 45.1319444444444,
+      "reviewed_longitude": 37.3408333333333,
+      "distance_from_raw_point_km": 26.429,
+      "reviewed_origin_locator": "line_1based=81047;RCSI_id=81045;OKTMO_literal=03703000186",
+      "reviewed_origin_sha256": "50317de1174e35fca893f5c8d965d9c7f40d6a60a06149b96672bb1a134268d0"
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:46798",
+      "name": "Юровка",
+      "population": 4430.0,
+      "raw_latitude": 44.8948984,
+      "raw_longitude": 37.3162896,
+      "reviewed_latitude": 45.1144444444444,
+      "reviewed_longitude": 37.4133333333333,
+      "distance_from_raw_point_km": 25.577,
+      "reviewed_origin_locator": "line_1based=106380;RCSI_id=106378;OKTMO_literal=03703000356",
+      "reviewed_origin_sha256": "50317de1174e35fca893f5c8d965d9c7f40d6a60a06149b96672bb1a134268d0"
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:46762",
+      "name": "Гай-Кодзор",
+      "population": 3248.0,
+      "raw_latitude": 44.8948984,
+      "raw_longitude": 37.3162896,
+      "reviewed_latitude": 44.8544444444444,
+      "reviewed_longitude": 37.4377777777778,
+      "distance_from_raw_point_km": 10.577,
+      "reviewed_origin_locator": "line_1based=67247;RCSI_id=67245;OKTMO_literal=03703000176",
+      "reviewed_origin_sha256": "50317de1174e35fca893f5c8d965d9c7f40d6a60a06149b96672bb1a134268d0"
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:46788",
+      "name": "Сукко",
+      "population": 3939.0,
+      "raw_latitude": 44.8948984,
+      "raw_longitude": 37.3162896,
+      "reviewed_latitude": 44.7913888888889,
+      "reviewed_longitude": 37.4022222222222,
+      "distance_from_raw_point_km": 13.356,
+      "reviewed_origin_locator": "line_1based=46788;RCSI_id=46786;OKTMO_literal=03703000306",
+      "reviewed_origin_sha256": "50317de1174e35fca893f5c8d965d9c7f40d6a60a06149b96672bb1a134268d0"
+    }
+  ],
+  "independent_sql_python_collision_counts_match": true,
+  "all_inputs_unchanged": true,
+  "output_files": {
+    "accepted_point_origin_profile.csv": {
+      "bytes": 29310,
+      "sha256": "734ac5dcdac70a4d2d6e454f5f3e36015ea3fa5da4f6f9653b8c8ca499bdb8a9"
+    },
+    "accepted_same_year_collision_records.csv": {
+      "bytes": 1110231,
+      "sha256": "a15a3a2b1df0996877022b33e14b86b7cba6cff9509d2bc4205b232fbdd55e5c"
+    },
+    "anapa_verified_fallback_examples.csv": {
+      "bytes": 1270,
+      "sha256": "8e3d3edc431d3589c5cbee21bc78b352330350e379edc673a8851fdbcaf93e53"
+    },
+    "exact_name_proximity_experiment.csv": {
+      "bytes": 955,
+      "sha256": "432a561f0d55978cb6fca1552fc4f207b1dc44a1544e6c5a5f719ba66aec603f"
+    },
+    "new_component_compatible_pairs_within1km.csv": {
+      "bytes": 263629,
+      "sha256": "d41c34ffada3c9d7d02c24f35b734cd2e29fe9c256c5ab0e4fdac6759a05dd9a"
+    },
+    "new_pair_candidates_top100.csv": {
+      "bytes": 22845,
+      "sha256": "8d584c86453e934d99d13e87b45991cbe8e4dba447c43bb0507442579e6441d3"
+    },
+    "raw2021_same_point_records.csv": {
+      "bytes": 3058235,
+      "sha256": "707d52e2595e8c7bb8a579b0678fadbc0b8178ffcf43f9d8c5b565512e2785aa"
+    },
+    "same_year_identical_name_distinct_point_examples.csv": {
+      "bytes": 13736,
+      "sha256": "61c10f8301812ba8bbc4373f88de14c94082ce59fe4fa162b182f44eb137a174"
+    },
+    "same_year_similar_name_distinct_point_examples.csv": {
+      "bytes": 34510,
+      "sha256": "bd52be0a0eac230d5394ec50705c5d02dd6bdd8cc8da959eb17c2e251f0dfe68"
+    }
+  },
+  "elapsed_seconds": 15.879,
+  "limitations": [
+    "Exact coordinate sharing is an anomaly, not proof that every participating point or identity is wrong.",
+    "Affected populations are sums of selected observations, not numbers of incorrectly located people.",
+    "Source-native codes are preserved literally; distinct codes alone do not prove distinct physical places.",
+    "source_native_id for 2002/2010 can be an opaque publication row identifier, not an official geographic code; the raw 2021 field is native OKTMO.",
+    "Exact-name proximity counts are candidate pairs, not accepted links or expected population gain.",
+    "Previously accepted connectivity is a comparison baseline, not independent matching ground truth.",
+    "Explicit reuse counts rely on recorded inference kinds and are not a complete source-lineage audit.",
+    "Same-year nearby pairs are distinct source records, possibly source duplicates; their true identity is not resolved here.",
+    "All adopted coordinates are representative-point uses; unknown measurement dates and zero historical-measurement flags preclude asserting exact census-date measurements.",
+    "The old coordinate-availability layer is not used as if it contained coordinates."
+  ]
+}
