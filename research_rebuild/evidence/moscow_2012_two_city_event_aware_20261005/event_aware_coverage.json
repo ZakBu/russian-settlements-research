@@ -1,0 +1,115 @@
+{
+  "scope": "Event-aware spatial series for two former Moscow Oblast cities included in Moscow on 2012-07-01; physical continuity and territory membership are separate from census-row identity and population-boundary comparability.",
+  "input_base_scope": "selected additive census population; federal-city regional rows are replaced by one territory observation for spatial metrics; child NP counts are kept in a separate layer and not double-counted",
+  "cities": {
+    "Троицк": {
+      "observations": [
+        {
+          "year": 2002,
+          "population": 32653,
+          "population_source_status": "official_selected_census_observation",
+          "source_record_id": "2002:1_TOM_01_04.xls:0:1049"
+        },
+        {
+          "year": 2010,
+          "population": 39873,
+          "population_source_status": "official_selected_census_observation",
+          "source_record_id": "2010:pub-11-1-4.pdf:pdf_page_18:13"
+        },
+        {
+          "year": 2021,
+          "population": 65043,
+          "population_source_status": "secondary_wikidata_claim_only",
+          "source_record_id": null
+        }
+      ],
+      "coordinate": {
+        "latitude": 55.485,
+        "longitude": 37.307222222222,
+        "status": "accepted scoped representative point; retrospective use, not census-date measurement"
+      },
+      "territorial_event": {
+        "date": "2012-07-01",
+        "relation": "included into federal city of Moscow",
+        "post_event_current_oktmo": "45931000",
+        "oktmo_grain": "current intracity municipal district; not a historical locality code"
+      }
+    },
+    "Щербинка": {
+      "observations": [
+        {
+          "year": 2002,
+          "population": 28043,
+          "population_source_status": "official_selected_census_observation",
+          "source_record_id": "2002:1_TOM_01_04.xls:0:1052"
+        },
+        {
+          "year": 2010,
+          "population": 32450,
+          "population_source_status": "official_selected_census_observation",
+          "source_record_id": "2010:pub-11-1-4.pdf:pdf_page_20:14"
+        },
+        {
+          "year": 2021,
+          "population": 56531,
+          "population_source_status": "secondary_wikidata_claim_only",
+          "source_record_id": null
+        }
+      ],
+      "coordinate": {
+        "latitude": 55.49972,
+        "longitude": 37.55972,
+        "status": "accepted scoped representative point; retrospective use, not census-date measurement"
+      },
+      "territorial_event": {
+        "date": "2012-07-01",
+        "relation": "included into federal city of Moscow",
+        "post_event_current_oktmo": "45932000",
+        "oktmo_grain": "current intracity municipal district; not a historical locality code"
+      }
+    }
+  },
+  "by_year": {
+    "2002": {
+      "denominator": 145166731,
+      "baseline_federal_territory_plus_ordinary_full_chain_population": 140213878,
+      "baseline_percent": 96.58816247642856,
+      "eligible_old_city_observation_population_added_via_accepted_scoped_event_path": 60696,
+      "event_aware_population": 140274574,
+      "event_aware_percent": 96.62997370933427,
+      "gap_to_99_percent": 3440490,
+      "official_census_control": 145166731,
+      "note": "2021 leaves the numerator unchanged: city-level P1082 claims are secondary and already lie within the official Moscow territory total."
+    },
+    "2010": {
+      "denominator": 142856536,
+      "baseline_federal_territory_plus_ordinary_full_chain_population": 138845171,
+      "baseline_percent": 97.19203257175437,
+      "eligible_old_city_observation_population_added_via_accepted_scoped_event_path": 72323,
+      "event_aware_population": 138917494,
+      "event_aware_percent": 97.24265888681495,
+      "gap_to_99_percent": 2510477,
+      "official_census_control": 142856536,
+      "note": "2021 leaves the numerator unchanged: city-level P1082 claims are secondary and already lie within the official Moscow territory total."
+    },
+    "2021": {
+      "denominator": 144699673,
+      "baseline_federal_territory_plus_ordinary_full_chain_population": 141617398,
+      "baseline_percent": 97.8698811572297,
+      "eligible_old_city_observation_population_added_via_accepted_scoped_event_path": 0,
+      "event_aware_population": 141617398,
+      "event_aware_percent": 97.8698811572297,
+      "gap_to_99_percent": 1635279,
+      "official_census_control": 147182123,
+      "note": "2021 leaves the numerator unchanged: city-level P1082 claims are secondary and already lie within the official Moscow territory total."
+    }
+  },
+  "guardrails": {
+    "ordinary_identity_graph_mutated": false,
+    "official_population_rows_mutated": false,
+    "national_census_controls_mutated": false,
+    "2021_Wikidata_values_added_to_national_totals": false,
+    "population_boundary_comparability_asserted": false,
+    "geographic_event": "Moscow territory expanded; these two city territories were transferred, without claiming the entirety of Moscow's later territory is represented by these city rows."
+  }
+}
