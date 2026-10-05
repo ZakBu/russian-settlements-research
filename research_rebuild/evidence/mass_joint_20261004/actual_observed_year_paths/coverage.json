@@ -1,6 +1,6 @@
 {
   "status": "actual_observed_census_year_path_coverage_measured",
-  "definition": "A selected additive census record counts when it has an accepted point and belongs to an accepted same_place component with at least two distinct selected census years. All selected records in its component are connected, duplicate source rows per year fail closed, and only actually observed years are used. This supplements the existing scope-aware full-2002-2010-2021 metric; it does not impute missing census observations, accept candidates, harmonize boundaries, or include federal aggregates in the ordinary graph.",
+  "definition": "A selected additive census record counts on this supplemental axis when it has an accepted point and belongs to an accepted same_place component with at least two distinct selected census years. All selected records represented in that accepted component are connected; duplicate source rows per year fail closed. The axis does not claim that the component exhausts every source row that might correspond to the place in other years; any unlinked third-year row remains uncovered. This supplements the existing scope-aware full-2002-2010-2021 metric; it does not impute missing census observations, accept candidates, harmonize boundaries, or include federal aggregates in the ordinary graph.",
   "edge_statuses_used": [
     "accepted_case_specific",
     "accepted_rule_family_after_independent_sample_review",
