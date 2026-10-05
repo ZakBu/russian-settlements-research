@@ -1,0 +1,50 @@
+{
+  "review_id": "graph20_solnechny_root_adoption_20261005_v1",
+  "status": "independent_review_recommendations_adopted_for_exact_scope",
+  "independent_review_sha256": "c16101dcb9421aa677c694cd9c882806813cda2e2aa1c6419b9fe3e1fb7189ec",
+  "independent_review_csv_sha256": "43a7a30c35f7f8241d435f2ecb8b696d9f98dd1658fa6cfd81cf2f1216ae5cbe",
+  "independent_review_receipt_sha256": "3c2b1dc4e0494f42e4d49fb1229ebbc19666593f9ae7a3c250187f958d5c8521",
+  "decisions": {
+    "identity_edges": [
+      {
+        "from": "2002:1_TOM_01_04.xls:0:8707",
+        "to": "ROSSTAT2010:T5:p178:l51",
+        "relation": "same_place",
+        "decision": "accept",
+        "boundary_and_population_comparability": "not asserted"
+      },
+      {
+        "from": "ROSSTAT2010:T5:p178:l51",
+        "to": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49262",
+        "relation": "same_place",
+        "decision": "accept",
+        "boundary_and_population_comparability": "not asserted"
+      }
+    ],
+    "point": {
+      "target": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49262",
+      "decision": "accept direct 2021 point only",
+      "coordinate": [
+        55.2799566,
+        89.825436
+      ],
+      "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "source_locator": "physical_parquet_row_49262; object_level=Населенный пункт; name=Солнечный; population=8428; FIAS=145152c6-d2a1-4de4-bbe3-bf73f70898f1; FIAS_level=4; OKATO=04580000000; OKTMO=4780000051",
+      "quality": "DaData quality code 4; nearby GeoNames locality and ZATO features corroborate local cluster"
+    },
+    "held_historical_points": {
+      "targets": [
+        "2002:1_TOM_01_04.xls:0:8707",
+        "ROSSTAT2010:T5:p178:l51"
+      ],
+      "decision": "hold; prohibit point propagation",
+      "reason": "2011 GeoKLADR exact-code point is 481.5 km from modern local cluster; no date-specific historical point"
+    }
+  },
+  "populations_retained": {
+    "2002": 10809,
+    "2010": 10384,
+    "2021": 8428
+  },
+  "population_boundary_comparability": "unknown; never infer from physical identity"
+}
