@@ -469,14 +469,14 @@ Each increment preserves the earlier selected layer and ordinary identity graph.
 
 | Census year | Strict three-census chain + point | Current event-aware representation | To 99% in event-aware measure |
 | --- | ---: | ---: | ---: |
-| 2002 | 96.588162% | 97.055349% | 2,822,987 |
-| 2010 | 97.192033% | 97.487176% | 2,161,169 |
+| 2002 | 96.588162% | 97.066069% | 2,807,424 |
+| 2010 | 97.192033% | 97.499332% | 2,143,803 |
 | 2021* | 97.869881% | 97.942134% | 1,530,730 |
 
 *2021 denominator is the available three-census geography; Crimea and Sevastopol
 are excluded because they were outside the 2002/2010 Russian census coverage.
 
-The event-aware numerator adds 264,092 / 128,628 / 104,549 people to the earlier
+The event-aware numerator adds 279,655 / 145,994 / 104,549 people to the earlier
 event-aware checkpoint for 2002 / 2010 / 2021 respectively. It includes different
 relation types: stable-place trajectories, a two-year observed path, exclusive
 whole-to-part source projection, and reported historical territorial inclusion.
@@ -508,6 +508,16 @@ settlements joined to Tula in 2005; the exact effective date is unresolved.
 Selected Tula totals in 2010 and 2021 remain receiver context and are not added.
 Evidence and replay files are in
 `research_rebuild/evidence/kosaya_gora_tula_inclusion_20261005`.
+
+The former settlement Moskovskiy (Leninsky district) contributes its published
+2002/2010 observations, 15,563 / 17,366, at a point cross-checked between
+GeoNames and Wikidata within 16 metres. The Moscow-Moscow Oblast agreement sets
+the boundary change to 2012-07-01. Its map appendix was not saved; the specific
+place inclusion is therefore scoped using the agreement plus the present-day
+administrative identification, with boundary comparability left unknown. No
+separate 2021 child count or duplicate Moscow territory population is added.
+Evidence is in
+`research_rebuild/evidence/moskovskiy_leninsky_moscow_inclusion_20261005`.
 
 Most recent local commits include `0af8500`, `8cee94e`, `f1fa2fc`, `31ac10c`,
 `a8c30b5`, and the current national inclusion batch. These are local commits; no
