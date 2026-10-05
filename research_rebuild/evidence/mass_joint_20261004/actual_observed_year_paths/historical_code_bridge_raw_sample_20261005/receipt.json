@@ -1,0 +1,230 @@
+{
+  "task": "Bounded independent raw-source replay sample for the 1,167 clear historical bridge rows",
+  "sample_method": "Top 20 by population (ties ordered by source_record_id), plus 40 random rows from remaining clear cohort; deterministic Python random.Random(20261005), stratified by census year, city/PGT class and exact selected source file path; one per available stratum then proportional allocation.",
+  "inputs": {
+    "cohort": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/historical_urban_code_bridge_1258_audit_v1/cohort.csv",
+      "sha256": "2f60214f1b52acc4883effbcc4d2f10fb4e1e6e8c614b43c1c4e5469701389f4",
+      "bytes": 389896
+    },
+    "bridge_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/historical_urban_code_bridge_1258_audit_v1/receipt.json",
+      "sha256": "cf6acd6f5c20311cf1ddcdbf65e97f7395bb56f71947180c2088a4cd39cd4467",
+      "bytes": 6234
+    },
+    "selected_observations": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "selected_source_manifest_assets": {
+      "path": "/workspace/settlements-work/continuation_20261003/audit_99_20261003/older_years/selected_source_manifest_assets.csv",
+      "sha256": "e9bc13946232faaf5984dcfba22691f1844f1087255975791e10f24133110d92",
+      "bytes": 15252
+    },
+    "graph24_accepted_point_uses": {
+      "path": "/tmp/graph24_anapa_application_20261005/accepted_point_uses.parquet",
+      "sha256": "c3970a406c45b0478d012150e5597e1f008ef86b7fe3ba866e311a9a0ae62e63",
+      "bytes": 44290279
+    },
+    "classifier_sql": {
+      "path": "/workspace/settlements-raw/data/raw/historical_classifiers/okato_142_2009/dump-142_2009.sql",
+      "sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+      "bytes": 24684035
+    },
+    "geokladr_dbf": {
+      "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+      "bytes": 59991330
+    },
+    "source_file:/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": {
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "bytes": 1819648
+    },
+    "source_file:/workspace/settlements-raw/data/raw/2010/001_723371ec84_1._20NW_2010.xls": {
+      "path": "/workspace/settlements-raw/data/raw/2010/001_723371ec84_1._20NW_2010.xls",
+      "sha256": "03569e7513579700cb0216869ecbe16712e0fe684f0340517f11484612fab382",
+      "bytes": 9754624
+    },
+    "source_file:/workspace/settlements-raw/data/raw/2010/004_486e984bdc_12._20Астр_Волгог_Ростов.xls": {
+      "path": "/workspace/settlements-raw/data/raw/2010/004_486e984bdc_12._20Астр_Волгог_Ростов.xls",
+      "sha256": "5d6b65cf4a7df4021c2e7191aa23b5cf8bf965cbaa25e0a28dde6e83182c6ca8",
+      "bytes": 5334528
+    },
+    "source_file:/workspace/settlements-raw/data/raw/2010/009_81f8a0e73c_17._20ДВ_ФО_2010.xls": {
+      "path": "/workspace/settlements-raw/data/raw/2010/009_81f8a0e73c_17._20ДВ_ФО_2010.xls",
+      "sha256": "a8fd7aa55513e73a205ebff1da2ce35fd8ca0f61c286e54491cf49c6132470c4",
+      "bytes": 2249728
+    },
+    "source_file:/workspace/settlements-raw/data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls": {
+      "path": "/workspace/settlements-raw/data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls",
+      "sha256": "cf5b5d57327bf0d32723a7f49bb58db503a201af83a6e2bda4b874986f864167",
+      "bytes": 12517888
+    },
+    "source_file:/workspace/settlements-raw/data/raw/2010/011_040325482b_3._20Ryaz_Smol_Tambov_Tula_Jaroslavl_20L1_20ethn_2010.xls": {
+      "path": "/workspace/settlements-raw/data/raw/2010/011_040325482b_3._20Ryaz_Smol_Tambov_Tula_Jaroslavl_20L1_20ethn_2010.xls",
+      "sha256": "a3c69e68dfa35bfb0964a15f0f46b258500fab3e61ff3271ef9584e055d6efca",
+      "bytes": 9839104
+    },
+    "source_file:/workspace/settlements-raw/data/raw/2010/014_5ca759eea0_5._20Nizheg_Kirov_202010.xls": {
+      "path": "/workspace/settlements-raw/data/raw/2010/014_5ca759eea0_5._20Nizheg_Kirov_202010.xls",
+      "sha256": "c286aa10e8ebd8a4594b5623affa0ca1aacb6b69ac09a4a9288eeb754aa81c27",
+      "bytes": 4552192
+    },
+    "source_file:/workspace/settlements-raw/data/raw/2010/015_847d50d091_6._20Komi_2010.xls": {
+      "path": "/workspace/settlements-raw/data/raw/2010/015_847d50d091_6._20Komi_2010.xls",
+      "sha256": "cf5005c9931c908ec644ad289de14afa0edb45862ad97bfd639953eb181cdda8",
+      "bytes": 1236992
+    },
+    "source_file:/workspace/settlements-raw/data/raw/2010/016_802d308e41_8._20Or_Penz_Perm_Samar_Saratov_Uly_2010.xls": {
+      "path": "/workspace/settlements-raw/data/raw/2010/016_802d308e41_8._20Or_Penz_Perm_Samar_Saratov_Uly_2010.xls",
+      "sha256": "754aae620807b1275e59fc7bf8ce086ca91e7ec863d4d304f5a0a8b228a8d990",
+      "bytes": 10336768
+    },
+    "source_file:/workspace/settlements-raw/data/raw/2010_official_tom11/pub-11-1-4.pdf": {
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom11/pub-11-1-4.pdf",
+      "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+      "bytes": 657985
+    },
+    "source_file:/workspace/settlements-work/sources/r2-missing/arkhangelsk_2010_archived_original.html": {
+      "path": "/workspace/settlements-work/sources/r2-missing/arkhangelsk_2010_archived_original.html",
+      "sha256": "729fecf5845bd9f1e049c85b2659bfd077dfd2d2a01fecbc9d21cb83b7b9e486",
+      "bytes": 5947561
+    }
+  },
+  "summary": {
+    "sample_n": 60,
+    "top20_n": 20,
+    "stratified_n": 40,
+    "strata": [
+      {
+        "year": 2002,
+        "urban_class": "city",
+        "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+        "sample_n": 11
+      },
+      {
+        "year": 2002,
+        "urban_class": "pgt",
+        "source_file": "data/raw/2002_official_tom1/1_TOM_01_04.xls",
+        "sample_n": 25
+      },
+      {
+        "year": 2010,
+        "urban_class": "city",
+        "source_file": "data/raw/2010_official_tom11/pub-11-1-4.pdf",
+        "sample_n": 11
+      },
+      {
+        "year": 2010,
+        "urban_class": "pgt",
+        "source_file": "data/raw/2010/001_723371ec84_1._20NW_2010.xls",
+        "sample_n": 1
+      },
+      {
+        "year": 2010,
+        "urban_class": "pgt",
+        "source_file": "data/raw/2010/004_486e984bdc_12._20Астр_Волгог_Ростов.xls",
+        "sample_n": 1
+      },
+      {
+        "year": 2010,
+        "urban_class": "pgt",
+        "source_file": "data/raw/2010/009_81f8a0e73c_17._20ДВ_ФО_2010.xls",
+        "sample_n": 2
+      },
+      {
+        "year": 2010,
+        "urban_class": "pgt",
+        "source_file": "data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls",
+        "sample_n": 2
+      },
+      {
+        "year": 2010,
+        "urban_class": "pgt",
+        "source_file": "data/raw/2010/011_040325482b_3._20Ryaz_Smol_Tambov_Tula_Jaroslavl_20L1_20ethn_2010.xls",
+        "sample_n": 1
+      },
+      {
+        "year": 2010,
+        "urban_class": "pgt",
+        "source_file": "data/raw/2010/014_5ca759eea0_5._20Nizheg_Kirov_202010.xls",
+        "sample_n": 1
+      },
+      {
+        "year": 2010,
+        "urban_class": "pgt",
+        "source_file": "data/raw/2010/015_847d50d091_6._20Komi_2010.xls",
+        "sample_n": 1
+      },
+      {
+        "year": 2010,
+        "urban_class": "pgt",
+        "source_file": "data/raw/2010/016_802d308e41_8._20Or_Penz_Perm_Samar_Saratov_Uly_2010.xls",
+        "sample_n": 2
+      },
+      {
+        "year": 2010,
+        "urban_class": "pgt",
+        "source_file": "research_rebuild/evidence/ingestion/arkhangelsk_2010_archived_page_audit_r2_region_join/arkhangelsk_2010_archived_original.html",
+        "sample_n": 2
+      }
+    ],
+    "source_rows": {
+      "opened": 60,
+      "hash_matches_manifest": 58,
+      "manifest_pin_available": 58,
+      "raw_name_present": 60,
+      "raw_type_present": 60,
+      "raw_population_present": 60,
+      "raw_region_context_present": 60
+    },
+    "classifier": {
+      "raw_code_match_exact_one": 60,
+      "raw_name_present": 60,
+      "multiple_or_missing_code_rows": 0
+    },
+    "geokladr_dbf": {
+      "raw_okato_matches": 60,
+      "literal_kod3_000_matches": 60,
+      "lat_long_match": 60,
+      "deleted_record": 0
+    },
+    "current2021": {
+      "exact_name_type_region_unique": 50,
+      "exact_tuple_missing_or_ambiguous": 10,
+      "distance_n": 50,
+      "distance_median_km": 0.13368250851826788,
+      "distance_max_km": 2.1650939129185245,
+      "over_25km": 0,
+      "over_100km": 0,
+      "coordinate_admission_counts": {
+        "reviewed_extension_rule_accepted": 44,
+        "reviewed_rule_accepted": 6
+      }
+    }
+  },
+  "outputs": {
+    "sample_replay.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/historical_urban_code_bridge_1258_audit_v1/raw_sample_replay_20261005/sample_replay.csv",
+      "sha256": "b7089d8b839e0499e81f760b4d932480d07f5f97eb43c57175bfeda49c539033",
+      "bytes": 264038
+    },
+    "sample_findings.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/historical_urban_code_bridge_1258_audit_v1/raw_sample_replay_20261005/sample_findings.csv",
+      "sha256": "d0b42db89b370f221efdfcbc33c1b5ca4921031a3222f2d8923398491c0295ad",
+      "bytes": 64912
+    },
+    "replay_sample.py": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/historical_urban_code_bridge_1258_audit_v1/raw_sample_replay_20261005/replay_sample.py",
+      "sha256": "3ae721140e60ea7a9fdf3929d4977c97a16ecf0bba600825d1258d05da54fbda",
+      "bytes": 26582
+    },
+    "README.md": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/historical_urban_code_bridge_1258_audit_v1/raw_sample_replay_20261005/README.md",
+      "sha256": "d8e5ca275e09c344a5e3b85ae5c64885f5cd257bfe1a706f82866a7d718c122a",
+      "bytes": 3888
+    }
+  }
+}

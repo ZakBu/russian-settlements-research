@@ -1,0 +1,81 @@
+{
+  "status": "read_only_current_graph24_overlap_measured",
+  "canonical_ledgers_changed": false,
+  "candidate_cohort_rows": 1258,
+  "candidate_cohort_sha256": "2f60214f1b52acc4883effbcc4d2f10fb4e1e6e8c614b43c1c4e5469701389f4",
+  "current_scope_aware_residual_sha256": "669d2755db4c13504024d8d80cd899013886587bd7dad10d5759954c5d59750f",
+  "current_actual_observed_year_additions_sha256": "314946dd2305b25f997c8ece7740b7a587f904769095f1b56b326ee05ebc40ee",
+  "results_by_year": {
+    "2002": {
+      "bridge_candidates": 1075,
+      "bridge_candidate_population": 8108248,
+      "structurally_clear_no_collision_source_present": 1007,
+      "structurally_clear_population": 7535789,
+      "already_in_scope_aware_base_absent_from_residual": 1041,
+      "already_in_scope_aware_base_population": 7963972,
+      "current_scope_aware_residual_rows": 34,
+      "current_scope_aware_residual_population": 144276,
+      "already_counted_in_actual_observed_year_path_additions": 6,
+      "already_counted_in_actual_observed_year_path_population": 36404,
+      "clear_residual_not_yet_in_actual_year_additions": 26,
+      "clear_residual_not_yet_in_actual_year_population": 102887,
+      "residual_axis_counts": {
+        "identity_and_point": {
+          "rows": 24,
+          "population": 91507
+        },
+        "identity_path": {
+          "rows": 10,
+          "population": 52769
+        }
+      }
+    },
+    "2010": {
+      "bridge_candidates": 183,
+      "bridge_candidate_population": 2447592,
+      "structurally_clear_no_collision_source_present": 160,
+      "structurally_clear_population": 2229227,
+      "already_in_scope_aware_base_absent_from_residual": 171,
+      "already_in_scope_aware_base_population": 2363465,
+      "current_scope_aware_residual_rows": 12,
+      "current_scope_aware_residual_population": 84127,
+      "already_counted_in_actual_observed_year_path_additions": 4,
+      "already_counted_in_actual_observed_year_path_population": 41454,
+      "clear_residual_not_yet_in_actual_year_additions": 6,
+      "clear_residual_not_yet_in_actual_year_population": 32910,
+      "residual_axis_counts": {
+        "identity_and_point": {
+          "rows": 5,
+          "population": 23545
+        },
+        "identity_path": {
+          "rows": 7,
+          "population": 60582
+        }
+      }
+    }
+  },
+  "readback": {
+    "residual_candidate_rows": 46,
+    "residual_candidate_population": 228403,
+    "already_counted_actual_year_rows": 10,
+    "already_counted_actual_year_population": 77858,
+    "potential_clear_uncovered_rows": 32,
+    "potential_clear_uncovered_population": 135797
+  },
+  "outputs": {
+    "historical_code_bridge_graph24_overlap.csv": {
+      "bytes": 8008,
+      "sha256": "504d22d64c1d57cc51b44926331f2408daffc7387915ccf503f8c6b8b3a1c711"
+    },
+    "measure_historical_code_bridge_increment_20261005.py": {
+      "bytes": 7995,
+      "sha256": "83faa798619b3dd04d6691870dfce04327bb80ba7c64451be3bdbbed8f9fb628"
+    }
+  },
+  "limitations": [
+    "The 1,167 structurally clear bridge rows are candidate-level coordinates, not accepted graph changes.",
+    "Absence from the current residual means the exact source row is already included in the Graph24 scope-aware joint base.",
+    "The clear residual population is only an upper bound before identity-component and coordinate admission review."
+  ]
+}
