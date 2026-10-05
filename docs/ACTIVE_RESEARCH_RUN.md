@@ -463,19 +463,20 @@ remains403; the local branch and Git bundle retain all commits.
 The older “Final working checkpoint” above records the state at its original date.
 The local branch now also contains five subsequent accepted event-aware coverage
 increments: Kalininets, Vlasikha, Kuschchevskaya, Dygulybgey, and the 2002
-historical-city inclusion references for Skhodnya and Nikolsko-Arkhangelsky.
+historical-city inclusion references for Skhodnya and Nikolsko-Arkhangelsky,
+then the eight accepted national historic-city references and Somovo 2010.
 Each increment preserves the earlier selected layer and ordinary identity graph.
 
 | Census year | Strict three-census chain + point | Current event-aware representation | To 99% in event-aware measure |
 | --- | ---: | ---: | ---: |
-| 2002 | 96.588162% | 96.950245% | 2,975,562 |
-| 2010 | 97.192033% | 97.464842% | 2,193,074 |
+| 2002 | 96.588162% | 97.031057% | 2,858,251 |
+| 2010 | 97.192033% | 97.474365% | 2,179,469 |
 | 2021* | 97.869881% | 97.942134% | 1,530,730 |
 
 *2021 denominator is the available three-census geography; Crimea and Sevastopol
 are excluded because they were outside the 2002/2010 Russian census coverage.
 
-The event-aware numerator adds 111,517 / 96,723 / 104,549 people to the earlier
+The event-aware numerator adds 228,828 / 110,328 / 104,549 people to the earlier
 event-aware checkpoint for 2002 / 2010 / 2021 respectively. It includes different
 relation types: stable-place trajectories, a two-year observed path, exclusive
 whole-to-part source projection, and reported historical territorial inclusion.
@@ -490,10 +491,12 @@ not replace the strict metric. Full calculation chain, source rows, event limits
 checksums and replay scripts are in `research_rebuild/evidence/` folders named
 `kalininets_scoped_chain_20261005`, `vlasikha_two_year_path_20261005`,
 `kushchevskaya_partition_chain_20261005`, `dygulybgey_event_path_20261005`, and
-`two_historical_city_inclusions_20261005`.
+`two_historical_city_inclusions_20261005`, and
+`accepted_national_inclusions_20261005`.
 
-Most recent local commits are `0af8500`, `8cee94e`, `f1fa2fc`, `31ac10c`, and
-`a8c30b5`. These are local commits; no GitHub push is recorded. Next priority is
+Most recent local commits include `0af8500`, `8cee94e`, `f1fa2fc`, `31ac10c`,
+`a8c30b5`, and the current national inclusion batch. These are local commits; no
+GitHub push is recorded. Next priority is
 remaining high-population residuals and applying approved multi-year paths as a
 batch, keeping one output per supported event scope and tracking the remaining
 population by year.
