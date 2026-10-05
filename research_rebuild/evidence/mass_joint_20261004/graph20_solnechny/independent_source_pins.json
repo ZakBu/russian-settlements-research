@@ -1,0 +1,79 @@
+{
+  "review_scope": "read-only targeted review; no canonical graph or point mutation",
+  "identity_edge_decisions": {
+    "2002:1_TOM_01_04.xls:0:8707 -> ROSSTAT2010:T5:p178:l51": "accept physical identity; no population boundary comparability claim",
+    "ROSSTAT2010:T5:p178:l51 -> 2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49262": "accept physical identity independently of coordinate evidence",
+    "2002:1_TOM_01_04.xls:0:8707 -> 2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49262": "accept via the two identity edges above"
+  },
+  "point_decisions": {
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49262": "accept current-source point for 2021 observation only: 55.2799566,89.825436",
+    "2002:1_TOM_01_04.xls:0:8707": "hold point; do not use 2011 GeoKLADR coordinate",
+    "ROSSTAT2010:T5:p178:l51": "hold point; no date-specific point source found"
+  },
+  "pins": [
+    {
+      "role": "canonical_config_baseline",
+      "path": "/workspace/russian-settlements-research/config/mass_joint_20261004.json",
+      "sha256": "e9c2ea62fe4585a94f1fb9a1dd7ab8320a025db5c49e22981d3963b07b83b3a9"
+    },
+    {
+      "role": "graph19_accepted_identity_edges_baseline",
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph19_lokot_20261005/accepted_identity_edges.parquet",
+      "sha256": "5b47783a3fa2d211a77af7ee05d88b06918a16bd07fc774c65cc5a4b3c5aca09"
+    },
+    {
+      "role": "graph19_accepted_point_uses_baseline",
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph19_lokot_20261005/accepted_point_uses.parquet",
+      "sha256": "7b0f16bb38bfdd526c75206f5ea39995d398c096d3c12bf4efe0c6b4547a3de1"
+    },
+    {
+      "role": "selected_observations",
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    {
+      "role": "official_2002_Tom1_Table4",
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "locator": "sheet 0, row 8707 (1-based); pgt Solnechny, 10,809; immediately follows Sharypovo subordinates block"
+    },
+    {
+      "role": "official_2010_Tom1_Table5",
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "locator": "PDF page 178; printed page 177; pgt Solnechny rp, 10,384; under Sharypovo with subordinated settlements"
+    },
+    {
+      "role": "2021_Tochno_current_source",
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "locator": "physical parquet row 49262; settlement Solnechny; population 8,428; OKATO 4580000000.0; OKTMO 4780000051.0; FIAS ID 145152c6-d2a1-4de4-bbe3-bf73f70898f1, level 4; point 55.2799566, 89.825436"
+    },
+    {
+      "role": "2009_OKATO_classifier",
+      "path": "/workspace/settlements-raw/data/raw/historical_classifiers/okato_142_2009/dump-142_2009.sql",
+      "sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+      "locator": "line 10175; OKATO 04580000, Solnechny, urban-type settlement; unique typed entry under federally administered Krasnoyarsk urban places"
+    },
+    {
+      "role": "2011_GeoKLADR_OKATO_DB_F",
+      "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+      "sha256": "d1c8b983f248972a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+      "locator": "exact 2011 code 04580000000, typed pgt Solnechny; point 56.7383, 97.1236; 481.5 km from current-source coordinate. Candidate extraction cache hash e2e6a2401050f88199db65f8a26afe410b4a47c3fb9b0e694f7ce7dccd878186"
+    },
+    {
+      "role": "GeoNames_RU_archive",
+      "path": "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip",
+      "sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+      "entry": "RU.txt",
+      "entry_sha256": "3ef8f69d9c6b8adbd53afc35f6dc774b1d01b04f566622e1892a6d2f00d2f4d0",
+      "locator": "GeoNames 13097877 Solnechnyy PPLA2 at 55.28538, 89.82829; 13097878 ZATO Solnechnyy ADM2 at 55.28547, 89.82285; both ~0.63 km from 2021 source point"
+    },
+    {
+      "role": "Wikidata_OKTMO_entities_lookup",
+      "path": "/workspace/settlements-raw/data/raw/wikimedia/wikidata_oktmo_entities.tsv",
+      "sha256": "580e20042d6dfdcc6dd29d5d7fbde59593145b97abbb37e7760e89b567b36d36",
+      "result": "No Krasnoyarsk Solnechny/target-code point row found"
+    }
+  ]
+}

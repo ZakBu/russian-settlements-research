@@ -1,0 +1,92 @@
+{
+  "status": "full_long_exact_census_observation_patch_passed",
+  "base_long": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/long_graph19_lokot_patch_20261005/settlements_long_refreshed.parquet",
+    "sha256": "7f955d3310c247467037a380855d97bb2edd48d347c80839ff6aa12915b87b21",
+    "rows": 865395
+  },
+  "selected": {
+    "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+    "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+  },
+  "graph": {
+    "path": "/workspace/settlements-work/continuation_20261004/accepted_graph20_solnechny_20261005/accepted_identity_edges.parquet",
+    "sha256": "3f96825a311d641172cde6d4985c2caa80bd97cdf94c52f6ec66a82983eb5f44"
+  },
+  "point_uses": {
+    "path": "/workspace/settlements-work/continuation_20261004/accepted_graph20_solnechny_20261005/accepted_point_uses.parquet",
+    "sha256": "22acb1205a70d36df44954539069362ce29f296c94664255d1edb8ffc12e4020"
+  },
+  "exact_source_ids": [
+    "2002:1_TOM_01_04.xls:0:8707",
+    "ROSSTAT2010:T5:p178:l51",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49262"
+  ],
+  "exact_observation_ids_replaced": 3,
+  "base_only_rows_preserved": 865392,
+  "final_rows": 865395,
+  "census_rows": 465800,
+  "selected_census_population_sum": 434700152.0,
+  "population_values_modified": false,
+  "readback": [
+    {
+      "observation_id": "census:2002:1_TOM_01_04.xls:0:8707",
+      "entity_id": "settlement:2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49262",
+      "latitude": NaN,
+      "longitude": NaN,
+      "census_full_chain": true,
+      "census_2002_status": "observed",
+      "census_2010_status": "observed",
+      "census_2021_status": "observed"
+    },
+    {
+      "observation_id": "census:ROSSTAT2010:T5:p178:l51",
+      "entity_id": "settlement:2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49262",
+      "latitude": NaN,
+      "longitude": NaN,
+      "census_full_chain": true,
+      "census_2002_status": "observed",
+      "census_2010_status": "observed",
+      "census_2021_status": "observed"
+    },
+    {
+      "observation_id": "census:2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49262",
+      "entity_id": "settlement:2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49262",
+      "latitude": 55.2799566,
+      "longitude": 89.825436,
+      "census_full_chain": true,
+      "census_2002_status": "observed",
+      "census_2010_status": "observed",
+      "census_2021_status": "observed"
+    }
+  ],
+  "final": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/long_graph20_solnechny_patch_20261005/settlements_long_refreshed.parquet",
+    "sha256": "619408fa1130dcf295886f46241eb759a69deca6999f328df6e486a6a50a2cab",
+    "bytes": 94856399
+  },
+  "patch_builder_summary": {
+    "row_count": 3,
+    "record_type_counts": {
+      "census": 3
+    },
+    "entity_category_counts": {
+      "settlement": 3
+    },
+    "association_status_counts": {
+      "accepted_same_place_component": 3
+    },
+    "coordinate_admission_status_counts": {
+      "reviewed_extension_rule_accepted": 1
+    },
+    "census_record_count": 3,
+    "census_linked_record_count": 3,
+    "census_singleton_unknown_no_link_count": 0,
+    "coordinate_count": 1,
+    "coordinate_count_by_record_type": {
+      "census": 1
+    },
+    "wiki_rows_have_coordinates": 0,
+    "duplicate_observation_id_count": 0
+  }
+}
