@@ -14,6 +14,7 @@ DELTA=REPO/'research_rebuild/evidence/top60_and_proximity_review_20261005/simple
 CODE=REPO/'research_rebuild/evidence/top100_classifier_bridge_20261005'
 HIST=REPO/'research_rebuild/evidence/historical_urban_code_residual_20261005'
 HCLASS=REPO/'research_rebuild/evidence/historical_classifier_bridge_batch_20261005'
+SHARED=REPO/'research_rebuild/evidence/shared_locality_point_novaya_usman_20261005'
 CONTROLS={2002:145166731,2010:142856536,2021:147182123}
 
 def sha(p):
@@ -38,7 +39,7 @@ def axes(use_deltas:bool):
  if use_deltas:
   for p,cols in [(DELTA/'accepted_identity_edge_delta.csv',('from_id','to_id')),(DELTA/'top60_identity_edge_delta.csv',('from_id','to_id')),(CODE/'accepted_classifier_bridge_delta.csv',('source_record_id_old','source_record_id_current')),(HCLASS/'accepted_identity_edge_delta.csv',('from_source_record_id','to_source_record_id'))]:
    d=pd.read_csv(p);delta_edges.extend((str(a),str(b)) for a,b in d[list(cols)].itertuples(index=False,name=None))
-  for p in [DELTA/'top60_point_use_delta.csv',CODE/'old_point_use_delta.csv',HIST/'accepted_point_use_delta.csv',HCLASS/'accepted_retrospective_point_use_delta.csv']:
+  for p in [DELTA/'top60_point_use_delta.csv',CODE/'old_point_use_delta.csv',HIST/'accepted_point_use_delta.csv',HCLASS/'accepted_retrospective_point_use_delta.csv',SHARED/'accepted_shared_locality_point_uses.csv']:
    d=pd.read_csv(p);delta_points.extend(d.target_source_record_id.astype(str).tolist())
   for a,b in delta_edges:merge(a,b,check=True)
  comp_years={}

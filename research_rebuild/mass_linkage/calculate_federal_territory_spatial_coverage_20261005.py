@@ -13,6 +13,7 @@ DELTA=ROOT/'research_rebuild/evidence/top60_and_proximity_review_20261005/simple
 CODE=ROOT/'research_rebuild/evidence/top100_classifier_bridge_20261005'
 HIST=ROOT/'research_rebuild/evidence/historical_urban_code_residual_20261005'
 HCLASS=ROOT/'research_rebuild/evidence/historical_classifier_bridge_batch_20261005'
+SHARED=ROOT/'research_rebuild/evidence/shared_locality_point_novaya_usman_20261005'
 TERR=ROOT/'research_rebuild/evidence/federal_territory_spatial_overlay_20261005/federal_territory_observations.csv'
 OUT=ROOT/'research_rebuild/evidence/federal_territory_spatial_overlay_20261005/coverage_overlay.json'
 CONTROLS={2002:145166731,2010:142856536,2021:147182123}
@@ -36,7 +37,7 @@ def main():
   if {2002,2010,2021}.issubset(ysets[uf.find(sid)]):full.add(sid)
  pp=c.execute('select target_source_record_id from read_parquet(?) where coordinate_admission_status in (select unnest(?))',[str(POINTS),sorted(ACCEPTED_COORDINATE_STATUSES)]).fetchnumpy()['target_source_record_id']
  point=set(map(str,pp))
- for p in [DELTA/'top60_point_use_delta.csv',CODE/'old_point_use_delta.csv',HIST/'accepted_point_use_delta.csv',HCLASS/'accepted_retrospective_point_use_delta.csv']:
+ for p in [DELTA/'top60_point_use_delta.csv',CODE/'old_point_use_delta.csv',HIST/'accepted_point_use_delta.csv',HCLASS/'accepted_retrospective_point_use_delta.csv',SHARED/'accepted_shared_locality_point_uses.csv']:
   d=pd.read_csv(p);point.update(d.target_source_record_id.astype(str))
  o['sid']=o.source_record_id.astype(str);o['point']=o.sid.isin(point);o['full']=o.sid.isin(full);o['joint']=o.point&o.full
  terr=pd.read_csv(TERR); regions=set(terr.region_norm)
@@ -68,7 +69,7 @@ def main():
  base21['available_three_census_chain_denominator']=den
  base21['spatial_point_plus_full_chain_percent_available_scope']=100*base21['spatial_point_plus_full_chain_population']/den
  base21['gap_to_99_joint_available_scope']=max(0,int(.99*den+0.999999)-base21['spatial_point_plus_full_chain_population'])
- summary['inputs']={'selected_rows':len(o),'federal_territory_rows':len(terr),'accepted_identity_delta_edges':sum(len(pd.read_csv(p)) for p,_ in edge_deltas),'accepted_point_delta_rows':sum(len(pd.read_csv(p)) for p in [DELTA/'top60_point_use_delta.csv',CODE/'old_point_use_delta.csv',HIST/'accepted_point_use_delta.csv',HCLASS/'accepted_retrospective_point_use_delta.csv'])}
+ summary['inputs']={'selected_rows':len(o),'federal_territory_rows':len(terr),'accepted_identity_delta_edges':sum(len(pd.read_csv(p)) for p,_ in edge_deltas),'accepted_point_delta_rows':sum(len(pd.read_csv(p)) for p in [DELTA/'top60_point_use_delta.csv',CODE/'old_point_use_delta.csv',HIST/'accepted_point_use_delta.csv',HCLASS/'accepted_retrospective_point_use_delta.csv',SHARED/'accepted_shared_locality_point_uses.csv'])}
  summary['limitations']=['Territory continuity is a separate overlay and does not alter the physical-settlement identity graph.','Boundary and population comparability remain unasserted; Moscow 2012 territorial expansion is explicitly noted in the territory layer.','Spatial points mark the territory by its named city location; they are not polygon centroids.','The 2021 available-scope denominator removes selected Crimea and Sevastopol populations because they are outside the 2002/2010 Russian census geography.']
  OUT.write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n');print(json.dumps(summary,ensure_ascii=False,indent=2))
 if __name__=='__main__':main()
