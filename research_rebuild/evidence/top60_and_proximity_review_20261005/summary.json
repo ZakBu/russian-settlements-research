@@ -1,0 +1,211 @@
+{
+  "purpose": "source-pinned top60 and proximity audit plus a simple accepted additive delta; baseline ledgers remain immutable",
+  "source_hashes": {
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "points": {
+      "path": "/tmp/graph29_ozherele_points_20261005/accepted_point_uses.parquet",
+      "sha256": "c4b6a79741c36bbc092d4f2390bd743dd55b982fc9c671f1d1ed6660b7f4f8e3",
+      "bytes": 53105876
+    },
+    "edges": {
+      "path": "/tmp/graph28_three_code_bridge_20261005/accepted_identity_edges.parquet",
+      "sha256": "583364c80cddc4fbed00dd06527f734242b1983c268f83a78a38946a811ede1d",
+      "bytes": 30858517
+    },
+    "historical": {
+      "path": "/workspace/settlements-work/coordinates/historical_named_candidates_v4/historical_named_point_candidates.parquet",
+      "sha256": "cb4449d3f0fec3c833eae1ee7d6e29183aabf1668bad5b8d8edf82bad7b121f8",
+      "bytes": 74463718
+    },
+    "wikidata": {
+      "path": "/workspace/settlements-work/wikidata/point_bindings.parquet",
+      "sha256": "426b48a5dc7e6c05b115ddfd89f7b510db2f4ec09ac4d433be9ab868a8180264",
+      "bytes": 375905
+    },
+    "wikidata_wide": {
+      "path": "/workspace/settlements-work/wikidata/wide_v5/wide_point_bindings.parquet",
+      "sha256": "f59e2a1f26b7165ffccca2d118e04f8507f1c346b27ccf2e82d4c65879c33143",
+      "bytes": 46381067
+    },
+    "coordinate_screen": {
+      "path": "/workspace/settlements-work/coordinates/ledger/coordinate_screen.parquet",
+      "sha256": "a6dfce862364dbae57c7b81d3dded1ae449f014254a74c453dfe2d09e39763a7",
+      "bytes": 80798323
+    },
+    "raw2021": {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    "top20_csvs": {
+      "2002": {
+        "path": "/workspace/russian-settlements-research/research_rebuild/evidence/unpointed_top20_20261005/top20_2002_direct_point_missing.csv",
+        "sha256": "1ebabe94647cf9b0fc159d5a900245b98af780c2368254c69298088e14f86f95",
+        "bytes": 5263
+      },
+      "2010": {
+        "path": "/workspace/russian-settlements-research/research_rebuild/evidence/unpointed_top20_20261005/top20_2010_direct_point_missing.csv",
+        "sha256": "9acfc1ab6d2144b4a5a20f83cf7544634b6f832be7766d8b49013ba2f20dbebb",
+        "bytes": 6987
+      },
+      "2021": {
+        "path": "/workspace/russian-settlements-research/research_rebuild/evidence/unpointed_top20_20261005/top20_2021_direct_point_missing.csv",
+        "sha256": "c660250af717b81d0e2e85030467f62da7d2f2bd85e4fa57c9c2d75836ee9893",
+        "bytes": 10172
+      }
+    }
+  },
+  "top60": {
+    "distinct_rows": 60,
+    "by_year": [
+      {
+        "census_year": 2002,
+        "record_count": 20,
+        "population": 652403.0,
+        "raw_provider_point_rows": 0,
+        "historical_candidate_rows": 1,
+        "accepted_point_rows": 0
+      },
+      {
+        "census_year": 2010,
+        "record_count": 20,
+        "population": 231780.0,
+        "raw_provider_point_rows": 0,
+        "historical_candidate_rows": 2,
+        "accepted_point_rows": 0
+      },
+      {
+        "census_year": 2021,
+        "record_count": 20,
+        "population": 123470.0,
+        "raw_provider_point_rows": 18,
+        "historical_candidate_rows": 5,
+        "accepted_point_rows": 0
+      }
+    ]
+  },
+  "top60_existing_accepted_point_carriers": [
+    {
+      "year": 2010,
+      "candidate_carrier_pairs": 21,
+      "target_records_with_carrier": 7,
+      "target_and_carrier_full_key_unique_pairs": 2,
+      "target_population_not_gain": 72587.0
+    },
+    {
+      "year": 2021,
+      "candidate_carrier_pairs": 20,
+      "target_records_with_carrier": 9,
+      "target_and_carrier_full_key_unique_pairs": 3,
+      "target_population_not_gain": 47258.0
+    }
+  ],
+  "accepted_coordinate_collisions": [
+    {
+      "census_year": 2002,
+      "collision_groups": 53,
+      "affected_rows": 118.0,
+      "collision_population": 73480.0,
+      "different_name_groups": 26,
+      "different_typed_name_groups": 38
+    },
+    {
+      "census_year": 2010,
+      "collision_groups": 43,
+      "affected_rows": 99.0,
+      "collision_population": 65918.0,
+      "different_name_groups": 26,
+      "different_typed_name_groups": 26
+    },
+    {
+      "census_year": 2021,
+      "collision_groups": 863,
+      "affected_rows": 1860.0,
+      "collision_population": 454422.0,
+      "different_name_groups": 44,
+      "different_typed_name_groups": 41
+    }
+  ],
+  "exact_name_region_5km_pairs": [
+    {
+      "from_year": 2002,
+      "to_year": 2010,
+      "candidate_pairs": 133787,
+      "already_connected": 131486,
+      "new_component_compatible": 789,
+      "reciprocal_unique_new_component_compatible": 782,
+      "same_year_point_collision_endpoint": 170,
+      "new_pair_same_year_point_collision_endpoint": 0,
+      "same_recorded_point_origin": 51903,
+      "new_pair_same_recorded_point_origin": 729,
+      "continuity_dependent": 58217,
+      "new_pairs_pop_scope_or_event_reviewed": 0
+    },
+    {
+      "from_year": 2002,
+      "to_year": 2021,
+      "candidate_pairs": 140652,
+      "already_connected": 138851,
+      "new_component_compatible": 114,
+      "reciprocal_unique_new_component_compatible": 111,
+      "same_year_point_collision_endpoint": 260,
+      "new_pair_same_year_point_collision_endpoint": 0,
+      "same_recorded_point_origin": 30772,
+      "new_pair_same_recorded_point_origin": 0,
+      "continuity_dependent": 31534,
+      "new_pairs_pop_scope_or_event_reviewed": 0
+    },
+    {
+      "from_year": 2010,
+      "to_year": 2021,
+      "candidate_pairs": 135634,
+      "already_connected": 133905,
+      "new_component_compatible": 34,
+      "reciprocal_unique_new_component_compatible": 31,
+      "same_year_point_collision_endpoint": 160,
+      "new_pair_same_year_point_collision_endpoint": 0,
+      "same_recorded_point_origin": 62966,
+      "new_pair_same_recorded_point_origin": 2,
+      "continuity_dependent": 64138,
+      "new_pairs_pop_scope_or_event_reviewed": 0
+    }
+  ],
+  "limitations": [
+    "Exact normalized name and region within 5 km is candidate generation; settlement-type changes are retained as metadata and do not imply boundary/population comparability.",
+    "Shared point origins and continuity-derived points are dependent evidence.",
+    "The graph-year gate excludes duplicate-year components but does not by itself resolve event, split/merge, source-scope, or source-hold questions.",
+    "Raw provider coordinates and historical/Wikidata claims remain candidate fields, not accepted point uses.",
+    "Exact-name/type/region rows with existing point carriers are candidate pairs only; full-year key uniqueness does not resolve population scope, events, or alternate spellings.",
+    "Accepted decisions are stored as additive CSV deltas; baseline full point and edge ledgers were not rewritten in this step."
+  ],
+  "simple_rule_application": {
+    "rule": "exact normalized name and region; mutual nearest accepted-point pair within 5 km; population ratio no greater than 2 when both values are positive; full-graph component union must not duplicate a census year",
+    "accepted_identity_edge_delta_rows": 340,
+    "automatic_5km_identity_edges": 336,
+    "top60_carrier_identity_edges": 4,
+    "top60_accepted_point_uses": 4,
+    "top60_target_population_with_points_by_year": {
+      "2002": 0,
+      "2010": 29170,
+      "2021": 10940
+    },
+    "population_pairs_over_2x_held": 117,
+    "population_pairs_over_20x_held": 10,
+    "accepted_population_values_modified": false,
+    "boundary_or_population_comparability_asserted": false,
+    "post_union_same_year_conflicts": 0,
+    "exact_same_year_coordinate_collisions_at_four_new_points": 0,
+    "full_ledger_materialized": false,
+    "delta_paths": [
+      "simple_rule_application/accepted_identity_edge_delta.csv",
+      "simple_rule_application/top60_identity_edge_delta.csv",
+      "simple_rule_application/top60_point_use_delta.csv"
+    ],
+    "confidence_interval": "not claimed; the full rule cohort is enumerated, but no independent labeled truth sample exists to estimate false-match rate",
+    "validation_receipt": "simple_rule_application/graph_union_and_new_point_check.json"
+  }
+}
