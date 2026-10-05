@@ -1,0 +1,94 @@
+{
+  "scope": "selected additive census population; federal-city regional rows are replaced by one territory observation for spatial metrics; child NP counts are kept in a separate layer and not double-counted",
+  "territory_population_reconciliation": [
+    {
+      "year": 2002,
+      "selected_additive_population_federal_regions": 15043973,
+      "territory_layer_population": 15043973,
+      "difference": 0,
+      "official_control": 145166731
+    },
+    {
+      "year": 2010,
+      "selected_additive_population_federal_regions": 16383067,
+      "territory_layer_population": 16383067,
+      "difference": 0,
+      "official_control": 142856536
+    },
+    {
+      "year": 2021,
+      "selected_additive_population_federal_regions": 19159843,
+      "territory_layer_population": 19159843,
+      "difference": 0,
+      "official_control": 147182123
+    }
+  ],
+  "by_year": {
+    "2002": {
+      "official_control": 145166731,
+      "selected_additive_population": 145155005,
+      "ordinary_point_population_before_replacement": 136538808,
+      "federal_region_point_population_before_replacement": 10126424,
+      "territory_population_represented": 15043973,
+      "spatial_point_population_after_replacement": 141456357,
+      "spatial_point_percent_official_control": 97.44406037496292,
+      "gap_to_99_spatial_point": 2258707,
+      "ordinary_full_chain_coordinate_population_before_replacement": 125147429,
+      "federal_region_full_chain_coordinate_population_before_replacement": 0,
+      "territory_full_chain_population_added": 15043973,
+      "spatial_point_plus_full_chain_population": 140191402,
+      "spatial_point_plus_full_chain_percent_official_control": 96.57267959006393,
+      "gap_to_99_joint_official_control": 3523662
+    },
+    "2010": {
+      "official_control": 142856536,
+      "selected_additive_population": 142363024,
+      "ordinary_point_population_before_replacement": 123888883,
+      "federal_region_point_population_before_replacement": 0,
+      "territory_population_represented": 16383067,
+      "spatial_point_population_after_replacement": 140271950,
+      "spatial_point_percent_official_control": 98.19078211444243,
+      "gap_to_99_spatial_point": 1156021,
+      "ordinary_full_chain_coordinate_population_before_replacement": 122432832,
+      "federal_region_full_chain_coordinate_population_before_replacement": 0,
+      "territory_full_chain_population_added": 16383067,
+      "spatial_point_plus_full_chain_population": 138815899,
+      "spatial_point_plus_full_chain_percent_official_control": 97.17154208471078,
+      "gap_to_99_joint_official_control": 2612072
+    },
+    "2021": {
+      "official_control": 147182123,
+      "selected_additive_population": 147182123,
+      "ordinary_point_population_before_replacement": 127642158,
+      "federal_region_point_population_before_replacement": 0,
+      "territory_population_represented": 19159843,
+      "spatial_point_population_after_replacement": 146802001,
+      "spatial_point_percent_official_control": 99.74173357996746,
+      "gap_to_99_spatial_point": 0,
+      "ordinary_full_chain_coordinate_population_before_replacement": 122968835,
+      "federal_region_full_chain_coordinate_population_before_replacement": 0,
+      "territory_full_chain_population_added": 18612023,
+      "spatial_point_plus_full_chain_population": 141580858,
+      "spatial_point_plus_full_chain_percent_official_control": 96.19433061174148,
+      "gap_to_99_joint_official_control": 4129444,
+      "out_of_scope_2002_2010_regions_2021_population_selected": 2482450,
+      "selected_2021_crimea_population": 1934630,
+      "selected_2021_sevastopol_population": 547820,
+      "available_three_census_chain_denominator": 144699673,
+      "spatial_point_plus_full_chain_percent_available_scope": 97.84462885413708,
+      "gap_to_99_joint_available_scope": 1671819
+    }
+  },
+  "inputs": {
+    "selected_rows": 465800,
+    "federal_territory_rows": 7,
+    "accepted_identity_delta_edges": 365,
+    "accepted_point_delta_rows": 33
+  },
+  "limitations": [
+    "Territory continuity is a separate overlay and does not alter the physical-settlement identity graph.",
+    "Boundary and population comparability remain unasserted; Moscow 2012 territorial expansion is explicitly noted in the territory layer.",
+    "Spatial points mark the territory by its named city location; they are not polygon centroids.",
+    "The 2021 available-scope denominator removes selected Crimea and Sevastopol populations because they are outside the 2002/2010 Russian census geography."
+  ]
+}
