@@ -1,0 +1,77 @@
+{
+  "status": "actual_observed_census_year_path_coverage_measured",
+  "definition": "A selected additive census record counts when it has an accepted point and belongs to an accepted same_place component with at least two distinct selected census years. All selected records in its component are connected, duplicate source rows per year fail closed, and only actually observed years are used. This supplements the existing scope-aware full-2002-2010-2021 metric; it does not impute missing census observations, accept candidates, harmonize boundaries, or include federal aggregates in the ordinary graph.",
+  "edge_statuses_used": [
+    "accepted_case_specific",
+    "accepted_rule_family_after_independent_sample_review",
+    "case_review_accepted",
+    "case_specific_independent_review_accepted",
+    "checked_rule_accepted",
+    "checked_rule_accepted_redundant_graph_connectivity_effect",
+    "independent_case_review_accepted"
+  ],
+  "point_statuses_used": [
+    "frozen_r5b_reviewed_baseline_preserved",
+    "reviewed_case_accepted",
+    "reviewed_extension_rule_accepted",
+    "reviewed_rule_accepted"
+  ],
+  "accepted_edges": 348660,
+  "accepted_point_uses": 428168,
+  "components_with_two_selected_census_years": 10405,
+  "two_census_path_endpoint_rows": 20810,
+  "ordinary_actual_path_rows_in_current_scope_residual": 18537,
+  "current_three_census_full_chain_ids": 398553,
+  "residual_input_rows": 66345,
+  "existing_scope_aware_result_sha256": "73e25a33332225b1a63a7c84b1b2e15b4ffebc9f89dc1d0aeb358f6a004d162f",
+  "input_paths": {
+    "selected": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+    "identity_graph": "/workspace/settlements-work/continuation_20261004/accepted_graph24_anapa_20261005/accepted_identity_edges.parquet",
+    "point_uses": "/workspace/settlements-work/continuation_20261004/accepted_graph24_anapa_20261005/accepted_point_uses.parquet",
+    "scope_aware_residual": "/workspace/settlements-work/continuation_20261004/accepted_graph24_anapa_20261005/scoped_joint_residual.parquet",
+    "scope_aware_coverage": "/workspace/russian-settlements-research/research_rebuild/evidence/mass_joint_20261004/graph24_anapa_four_localities/scoped_joint_coverage.json"
+  },
+  "component_exclusions": {},
+  "results": {
+    "2002": {
+      "official_control_population": 145166731,
+      "selected_known_population": 145155005,
+      "existing_scope_aware_full_three_year_and_reviewed_scope_population": 141229691,
+      "additional_ordinary_rows_with_complete_actual_observed_year_path_and_accepted_point": 554957,
+      "additional_rows": 6826,
+      "additional_two_selected_census_year_path_population": 554957,
+      "coordinate_and_actual_observed_year_path_population": 141784648,
+      "control_fraction_percent": 97.67020792112484,
+      "selected_population_fraction_percent": 97.67809797533333,
+      "remaining_to_99_percent": 1930416,
+      "remaining_to_100_percent": 3382083
+    },
+    "2010": {
+      "official_control_population": 142856536,
+      "selected_known_population": 142363024,
+      "existing_scope_aware_full_three_year_and_reviewed_scope_population": 139446962,
+      "additional_ordinary_rows_with_complete_actual_observed_year_path_and_accepted_point": 734960,
+      "additional_rows": 2445,
+      "additional_two_selected_census_year_path_population": 734960,
+      "coordinate_and_actual_observed_year_path_population": 140181922,
+      "control_fraction_percent": 98.12776224673402,
+      "selected_population_fraction_percent": 98.46792942526986,
+      "remaining_to_99_percent": 1246049,
+      "remaining_to_100_percent": 2674614
+    },
+    "2021": {
+      "official_control_population": 147182123,
+      "selected_known_population": 147182123,
+      "existing_scope_aware_full_three_year_and_reviewed_scope_population": 144711119,
+      "additional_ordinary_rows_with_complete_actual_observed_year_path_and_accepted_point": 1217093,
+      "additional_rows": 9266,
+      "additional_two_selected_census_year_path_population": 1217093,
+      "coordinate_and_actual_observed_year_path_population": 145928212,
+      "control_fraction_percent": 99.14805482184816,
+      "selected_population_fraction_percent": 99.14805482184816,
+      "remaining_to_99_percent": 0,
+      "remaining_to_100_percent": 1253911
+    }
+  },
+  "additions_csv": "research_rebuild/evidence/mass_joint_20261004/actual_observed_year_paths/additions.csv"
+}
