@@ -1,0 +1,143 @@
+{
+  "status": "read_only_no_admissions",
+  "script_sha256": "5e2a13d393972284f84115cca0ecb0cb58842b74704a27f474339e13152d091d",
+  "config_sha256": "e490a64c5d86c4e8e03c616cdbb5a3b0c6ada50f3fc1734b7ea42c45e833d37f",
+  "inputs": {
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "points": {
+      "path": "/tmp/graph29_ozherele_points_20261005/accepted_point_uses.parquet",
+      "sha256": "c4b6a79741c36bbc092d4f2390bd743dd55b982fc9c671f1d1ed6660b7f4f8e3"
+    },
+    "scope_residual": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph24_anapa_20261005/scoped_joint_residual.parquet",
+      "sha256": "669d2755db4c13504024d8d80cd899013886587bd7dad10d5759954c5d59750f"
+    }
+  },
+  "accepted_point_status_allowlist": [
+    "frozen_r5b_reviewed_baseline_preserved",
+    "reviewed_case_accepted",
+    "reviewed_extension_rule_accepted",
+    "reviewed_rule_accepted"
+  ],
+  "accepted_point_uses": 428182,
+  "summary": [
+    {
+      "census_year": 2002,
+      "all_selected_rows_without_direct_point": 17412,
+      "all_selected_population_without_direct_point": 8679428.0,
+      "np_rows_without_direct_point": 17411,
+      "np_population_without_direct_point": 4018209.0,
+      "np_unpointed_rows_in_scope_residual": 17373,
+      "np_unpointed_population_in_scope_residual": 3145414.0,
+      "np_unpointed_rows_ge10000": 55,
+      "np_unpointed_rows_ge2000": 382,
+      "np_unpointed_zero_population_rows": 3392,
+      "np_unpointed_unknown_population_rows": 0
+    },
+    {
+      "census_year": 2010,
+      "all_selected_rows_without_direct_point": 16481,
+      "all_selected_population_without_direct_point": 18503895.0,
+      "np_rows_without_direct_point": 16479,
+      "np_population_without_direct_point": 2120828.0,
+      "np_unpointed_rows_in_scope_residual": 16473,
+      "np_unpointed_population_in_scope_residual": 2022057.0,
+      "np_unpointed_rows_ge10000": 10,
+      "np_unpointed_rows_ge2000": 167,
+      "np_unpointed_zero_population_rows": 3629,
+      "np_unpointed_unknown_population_rows": 1
+    },
+    {
+      "census_year": 2021,
+      "all_selected_rows_without_direct_point": 3725,
+      "all_selected_population_without_direct_point": 19550905.0,
+      "np_rows_without_direct_point": 3722,
+      "np_population_without_direct_point": 391062.0,
+      "np_unpointed_rows_in_scope_residual": 3720,
+      "np_unpointed_population_in_scope_residual": 354522.0,
+      "np_unpointed_rows_ge10000": 3,
+      "np_unpointed_rows_ge2000": 33,
+      "np_unpointed_zero_population_rows": 962,
+      "np_unpointed_unknown_population_rows": 0
+    }
+  ],
+  "accepted_point_target_year_missing_or_conflicting": [
+    {
+      "source_record_id": "2010:005_888282bccc_13._20Краснодарский_край_2010.xls:КК:1701",
+      "census_year": 2010,
+      "settlement_name": "Вардане-Верино",
+      "population": 297.0,
+      "target_year": null
+    },
+    {
+      "source_record_id": "2010:005_888282bccc_13._20Краснодарский_край_2010.xls:КК:1717",
+      "census_year": 2010,
+      "settlement_name": "Орел-Изумруд",
+      "population": 5167.0,
+      "target_year": null
+    },
+    {
+      "source_record_id": "2010:005_888282bccc_13._20Краснодарский_край_2010.xls:КК:1747",
+      "census_year": 2010,
+      "settlement_name": "Татьяновка",
+      "population": 24.0,
+      "target_year": null
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:173506",
+      "census_year": 2021,
+      "settlement_name": "Локоть",
+      "population": 8469.0,
+      "target_year": null
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49262",
+      "census_year": 2021,
+      "settlement_name": "Солнечный",
+      "population": 8428.0,
+      "target_year": null
+    }
+  ],
+  "all_inputs_unchanged": true,
+  "definition": "Absence of a canonical accepted direct point use on the exact selected census source-record ID. Source year comes from selected, not optional point target_year. Federal subject/city totals are reported separately; 2010 totals identified by matching federal city name and region because their scope tag is settlement.",
+  "limitations": [
+    "Counts are source observations, not unique settlements across years.",
+    "No direct point does not mean no candidate, no point in another source, or no separate accepted territorial/event/partition representation.",
+    "Frozen scope residual membership profiles the quoted broad metric, not independently established coordinate correctness.",
+    "2010 source population quality is retained, including protected secondary values.",
+    "Source names and numbered parts are retained literally, not silently merged or repaired."
+  ],
+  "outputs": {
+    "federal_aggregate_rows_without_direct_point.csv": {
+      "bytes": 2120,
+      "sha256": "014be87c5e49cfc60730dbeb71e4315d94bbf662f5ed17fc987ea5c4a1e8ba9b"
+    },
+    "top20_2002_direct_point_missing.csv": {
+      "bytes": 5263,
+      "sha256": "1ebabe94647cf9b0fc159d5a900245b98af780c2368254c69298088e14f86f95"
+    },
+    "top20_2002_scope_residual_direct_point_missing.csv": {
+      "bytes": 4973,
+      "sha256": "3869a163cfa7573a739aa27dda0d7a7bec68edd17cc74319f426898cff9ee32f"
+    },
+    "top20_2010_direct_point_missing.csv": {
+      "bytes": 6987,
+      "sha256": "9acfc1ab6d2144b4a5a20f83cf7544634b6f832be7766d8b49013ba2f20dbebb"
+    },
+    "top20_2010_scope_residual_direct_point_missing.csv": {
+      "bytes": 6976,
+      "sha256": "5c57db104cf0a4246d9c3d715f985360f73f66bef93ae69f8ef85ad45c055c01"
+    },
+    "top20_2021_direct_point_missing.csv": {
+      "bytes": 10172,
+      "sha256": "c660250af717b81d0e2e85030467f62da7d2f2bd85e4fa57c9c2d75836ee9893"
+    },
+    "top20_2021_scope_residual_direct_point_missing.csv": {
+      "bytes": 10140,
+      "sha256": "c888eb6bf28c728fa2b9af89845e886415e3c483df0020498a9fa50203cd90c8"
+    }
+  }
+}
