@@ -13,8 +13,8 @@ from build_long_table import ACCEPTED_COORDINATE_STATUSES, ACCEPTED_EDGE_STATUSE
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "research_rebuild/evidence/joint_residual_after_unique_name_region_bridge_20261005"
 SELECTED = Path("/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet")
-EDGES = Path("/tmp/graph28_three_code_bridge_20261005/accepted_identity_edges.parquet")
-POINTS = Path("/tmp/graph29_ozherele_points_20261005/accepted_point_uses.parquet")
+EDGES = Path("/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_identity_edges.parquet")
+POINTS = Path("/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_point_uses.parquet")
 BASE = ROOT / "research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application"
 CODE = ROOT / "research_rebuild/evidence/top100_classifier_bridge_20261005"
 HIST = ROOT / "research_rebuild/evidence/historical_urban_code_residual_20261005"
@@ -58,6 +58,9 @@ def main() -> None:
         union(a, b)
     edge_deltas = [
         (ROOT / "research_rebuild/evidence/unique_name_region_coordinate_bridge_20261005/accepted_identity_edge_delta.csv", "from_source_record_id", "to_source_record_id"),
+        (ROOT / "research_rebuild/evidence/unique_exact_historical_code_point_batch_20261005/accepted_identity_edge_delta.csv", "from_source_record_id", "to_source_record_id"),
+        (ROOT / "research_rebuild/evidence/kudryashovsky_three_census_chain_20261006/accepted_identity_edge_delta.csv", "from_source_record_id", "to_source_record_id"),
+        (ROOT / "research_rebuild/evidence/current_2021_fias_exact_name_bridge_20261006/accepted_identity_edge_delta.csv", "from_source_record_id", "to_source_record_id"),
         (ROOT / "research_rebuild/evidence/exact_name_proximity_batch_20261005/accepted_identity_edge_delta.csv", "from_source_record_id", "to_source_record_id"),
         (BASE / "accepted_identity_edge_delta.csv", "from_id", "to_id"),
         (BASE / "top60_identity_edge_delta.csv", "from_id", "to_id"),
@@ -72,7 +75,8 @@ def main() -> None:
         "select target_source_record_id from read_parquet(?) where coordinate_admission_status in (select unnest(?))",
         [str(POINTS), STATUSES],
     ).fetchnumpy()["target_source_record_id"]))
-    for path in [BASE / "top60_point_use_delta.csv", CODE / "old_point_use_delta.csv", HIST / "accepted_point_use_delta.csv", HCLASS / "accepted_retrospective_point_use_delta.csv", SHARED / "accepted_shared_locality_point_uses.csv", ROOT / "research_rebuild/evidence/unique_name_region_coordinate_bridge_20261005/accepted_point_use_delta.csv"]:
+    point_paths = [BASE / "top60_point_use_delta.csv", CODE / "old_point_use_delta.csv", HIST / "accepted_point_use_delta.csv", HCLASS / "accepted_retrospective_point_use_delta.csv", SHARED / "accepted_shared_locality_point_uses.csv", ROOT / "research_rebuild/evidence/unique_name_region_coordinate_bridge_20261005/accepted_point_use_delta.csv", ROOT / "research_rebuild/evidence/unique_exact_historical_code_point_batch_20261005/accepted_point_use_delta.csv", ROOT / "research_rebuild/evidence/current_residual_ownlocality_points_20261005/accepted_point_use_delta.csv.gz", ROOT / "research_rebuild/evidence/kudryashovsky_three_census_chain_20261006/accepted_point_use_delta.csv", ROOT / "research_rebuild/evidence/current_2021_fias_exact_name_bridge_20261006/accepted_retrospective_point_use_delta.csv"]
+    for path in point_paths:
         point_ids.update(pd.read_csv(path).target_source_record_id.astype(str))
     obs["source_record_id"] = obs.source_record_id.astype(str)
     obs["component_years"] = obs.source_record_id.map(lambda sid: ",".join(map(str, sorted(year_sets[uf.find(sid)]))))
@@ -91,7 +95,7 @@ def main() -> None:
         residual.sort_values(["population", "source_record_id"], ascending=[False, True]).head(100).to_csv(OUT / f"top100_uncovered_{year}.csv", index=False)
         parts = residual.groupby("residual_reason").population.agg(["size", "sum"]).to_dict("index")
         summary["by_year"][str(year)] = {"selected_additive_rows_in_chain_scope": int(len(d)), "selected_additive_population_in_chain_scope": int(d.population.sum()), "joint_covered_population": int(d.loc[d.joint_covered, "population"].sum()), "uncovered_rows": int(len(residual)), "uncovered_population": int(residual.population.sum()), "uncovered_by_reason": parts}
-    summary["inputs"] = {str(p): {"sha256": sha(p), "bytes": p.stat().st_size} for p in [SELECTED, EDGES, POINTS] + [p for p, _, _ in edge_deltas] + [BASE / "top60_point_use_delta.csv", CODE / "old_point_use_delta.csv", HIST / "accepted_point_use_delta.csv", HCLASS / "accepted_retrospective_point_use_delta.csv", SHARED / "accepted_shared_locality_point_uses.csv"]}
+    summary["inputs"] = {str(p): {"sha256": sha(p), "bytes": p.stat().st_size} for p in [SELECTED, EDGES, POINTS] + [p for p, _, _ in edge_deltas] + point_paths}
     summary["limitation"] = "This additive settlement residual excludes the separate federal-territory spatial overlay and does not imply every uncovered record existed in all three census years."
     (OUT / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (OUT / "README.md").write_text(

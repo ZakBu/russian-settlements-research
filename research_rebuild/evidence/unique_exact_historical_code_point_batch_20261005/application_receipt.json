@@ -1,0 +1,80 @@
+{
+  "status": "exact_historical_code_unique_named_point_case_batch_applied",
+  "rule": "Exact raw 2009/2011 historical code mapping; exact name/type; additive row; unique selected source key; valid WGS84 named-point coordinate; no shared point for distinct coded objects in that census year; no unlocated competitor. Coordinate is retrospective representative point. Population and boundary comparability are not inferred.",
+  "candidate_rows": 5,
+  "accepted_point_rows": 2,
+  "held_point_rows": 3,
+  "accepted_edge_rows": 1,
+  "population_by_year": {
+    "2002": 0,
+    "2010": 0
+  },
+  "inputs": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "/workspace/settlements-work/coordinates/historical_named_candidates_v4/historical_named_point_candidates.parquet": {
+      "sha256": "cb4449d3f0fec3c833eae1ee7d6e29183aabf1668bad5b8d8edf82bad7b121f8",
+      "bytes": 74463718
+    },
+    "/tmp/graph29_ozherele_points_20261005/accepted_point_uses.parquet": {
+      "sha256": "c4b6a79741c36bbc092d4f2390bd743dd55b982fc9c671f1d1ed6660b7f4f8e3",
+      "bytes": 53105876
+    },
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": {
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+      "bytes": 59991330
+    },
+    "/workspace/settlements-raw/data/raw/2002/022_862ad8a69d_02c_Vologodskaya.xls": {
+      "sha256": "1402de3a7bdd0ac4bf4dcd7bbeaddb1719db7d8d338e76605c9b6ff347adcc1c",
+      "bytes": 1122304
+    },
+    "/workspace/settlements-raw/data/raw/2002/038_218ac665d8_02c_Astraxanskaja.xls": {
+      "sha256": "c9196dc84c407381a40939e432b0a525bfe47b6c80ec29a0e2aa1b740cb9eb99",
+      "bytes": 220672
+    },
+    "/workspace/settlements-raw/data/raw/2002/045_9dc3ed048e_02c__Udmurtia.xls": {
+      "sha256": "2b1bfc7e0cd8567e1e0eba093660d29ddcede9b8d83fc4dfe15b4c53fe6a7128",
+      "bytes": 486400
+    },
+    "/workspace/settlements-raw/data/raw/2002/070_48ec6f4a77_Irkut_obl_new.xls": {
+      "sha256": "53cc4d5dc967f6f5d5ee5c5802b25f72314284c4fc21efa285f0115b0c22e28d",
+      "bytes": 378880
+    },
+    "/workspace/settlements-raw/data/raw/2010/008_342f3c208b_16._20Сиб_ФО_2010.xls": {
+      "sha256": "960feadeb50c27be2d8a2084112349fb0c22ae608929716bcafed5a140c84d0e",
+      "bytes": 10963456
+    }
+  },
+  "selected_source_file_hashes": {
+    "data/raw/2002/022_862ad8a69d_02c_Vologodskaya.xls": "1402de3a7bdd0ac4bf4dcd7bbeaddb1719db7d8d338e76605c9b6ff347adcc1c",
+    "data/raw/2002/038_218ac665d8_02c_Astraxanskaja.xls": "c9196dc84c407381a40939e432b0a525bfe47b6c80ec29a0e2aa1b740cb9eb99",
+    "data/raw/2002/045_9dc3ed048e_02c__Udmurtia.xls": "2b1bfc7e0cd8567e1e0eba093660d29ddcede9b8d83fc4dfe15b4c53fe6a7128",
+    "data/raw/2002/070_48ec6f4a77_Irkut_obl_new.xls": "53cc4d5dc967f6f5d5ee5c5802b25f72314284c4fc21efa285f0115b0c22e28d",
+    "data/raw/2010/008_342f3c208b_16._20Сиб_ФО_2010.xls": "960feadeb50c27be2d8a2084112349fb0c22ae608929716bcafed5a140c84d0e"
+  },
+  "outputs": {
+    "reviewed_candidates.csv": {
+      "sha256": "a10b30ad533ee663b00bd1f698e895136827944c725ac41e1ae71ea377328ed0",
+      "bytes": 1632
+    },
+    "held_coordinate_collisions.csv": {
+      "sha256": "66414984b3000513588b7edaa43722af54d2cc97d15c6c3e5504c927b8bfd770",
+      "bytes": 830
+    },
+    "accepted_point_use_delta.csv": {
+      "sha256": "2924d3fe5c43588f1012222b35d115e0cb848dc2a54f6d4f1111a26a66f683c0",
+      "bytes": 3609
+    },
+    "accepted_identity_edge_delta.csv": {
+      "sha256": "f7b58558253596eaaa64a9e000cea404a442225a01c9495c78fbbf0e724706ed",
+      "bytes": 384
+    }
+  },
+  "limitations": [
+    "Five-row candidate stratum only; do not extrapolate to route-available rows with unknown provider/object provenance.",
+    "Three point collisions are held; Taezhny pair has zero population in both selected rows; its edge adds continuity but no resident coverage.",
+    "No population values changed; no census-date coordinate measurement is claimed."
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "status": "applied_exact_name_type_region_bridge_from_current_fias6_point",
+  "rule": "Exact normalized name/type/region; unique in each compared year; population ratio <=2; target's current direct point is FIAS level 6; accepted graph replay has no repeated-year conflict; any existing historical point is unique and within 5km. Historical coordinates are inherited as representative-point continuity only.",
+  "input_candidate_rows": 200,
+  "accepted_edge_rows": 14,
+  "already_connected_or_conflicting_or_spatially_held": 186,
+  "accepted_retrospective_points": 13,
+  "accepted_old_year_population_by_year": {
+    "2002": 4597,
+    "2010": 11872
+  },
+  "accepted_2021_population_by_link_year": {
+    "2002": 4496,
+    "2010": 11197
+  },
+  "outputs": {
+    "accepted_identity_edge_delta.csv": {
+      "sha256": "cddd636154adf28e84f8d4165ec46821a68499c26118218dd91cee7d0b98e778",
+      "bytes": 5751
+    },
+    "accepted_retrospective_point_use_delta.csv": {
+      "sha256": "75b92b5bc06564041fcfa92e00277b500a8da95651a5a337b21599fea4d6414a",
+      "bytes": 19997
+    },
+    "held_candidates.csv": {
+      "sha256": "5cfab6d49c7c847feae30d0a40869fba585ee0c2f40b8d8074c3af197ce64ddf",
+      "bytes": 50636
+    }
+  },
+  "inputs": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_identity_edges.parquet": {
+      "sha256": "1cc307f2855d15c7503dd226a278c49bdab72f178f5e2564c5e20fa4195a7d1a",
+      "bytes": 30857418
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_point_uses.parquet": {
+      "sha256": "cc2a7cf67d7c25eec2de7f962c49478dd275646138f1303ae3410bf2a6922d23",
+      "bytes": 53104666
+    },
+    "/workspace/settlements-work/continuation_20261004/regions/current_residual_own_locality_points_v1/current_point_candidates.csv": {
+      "sha256": "57392465bccdec62508f2bbb44378372ca155b80c78f3db2f7bfce8e3f964034",
+      "bytes": 7515059
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_residual_ownlocality_points_20261005/accepted_point_use_delta.csv.gz": {
+      "sha256": "dd882ec334d07408d16ecf1e3a67f2eb03d1b13ff85cca12f8d32df1c0aabab3",
+      "bytes": 402347
+    }
+  },
+  "limitations": [
+    "No population values are changed.",
+    "Population comparability and census-date coordinate accuracy are not asserted.",
+    "2010 confidentiality-protected population flags remain unchanged."
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "status": "applied_exact_source_row_current_FIAS6_points_with_same_year_coordinate_collision_holds",
+  "rule": "A selected 2021 additive settlement row's own current point is accepted where its exact native OKTMO, source ordinal, name, type, region, population, FIAS level-6 identity, raw point and selected point agree. Retrospective dates and cross-year identity are not asserted.",
+  "candidate_rows": 4984,
+  "candidate_population": 525347,
+  "accepted_rows": 3243,
+  "accepted_population": 433388,
+  "held_rows": 1741,
+  "held_population": 91959,
+  "same_year_coordinate_collisions_in_candidate_batch": 1741,
+  "selected_2021_population_denominator": 147182123,
+  "selected_2021_population_after_direct_points": 433388,
+  "joint_axis_gain_only_for_existing_identity_path": 3245,
+  "point_only_marginal_population": 430143,
+  "inputs": {
+    "/workspace/settlements-work/continuation_20261004/regions/current_residual_own_locality_points_v1/current_point_candidates.csv": {
+      "sha256": "57392465bccdec62508f2bbb44378372ca155b80c78f3db2f7bfce8e3f964034",
+      "bytes": 7515059
+    },
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "/tmp/graph29_ozherele_points_20261005/accepted_point_uses.parquet": {
+      "sha256": "c4b6a79741c36bbc092d4f2390bd743dd55b982fc9c671f1d1ed6660b7f4f8e3",
+      "bytes": 53105876
+    }
+  },
+  "outputs": {
+    "accepted_point_use_delta.csv.gz": {
+      "sha256": "dd882ec334d07408d16ecf1e3a67f2eb03d1b13ff85cca12f8d32df1c0aabab3",
+      "bytes": 402347
+    },
+    "held_coordinate_collisions.csv.gz": {
+      "sha256": "dd68e32179696f036c17adbe0f47db9f2faa97dc9c95a4a3c6cb5fd57d5757e9",
+      "bytes": 192239
+    }
+  },
+  "limitations": [
+    "This is 2021 coordinate-axis gain; it does not add same_place edges or census population values.",
+    "Population/boundary comparability is not inferred.",
+    "Any same-year coordinate shared with another candidate or accepted source row is held."
+  ]
+}
