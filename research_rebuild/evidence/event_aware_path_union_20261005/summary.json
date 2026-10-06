@@ -1,42 +1,48 @@
 {
   "status": "diagnostic_union_of_current_ordinary_path_and_accepted_scoped_event_paths",
-  "definition": "Rows added only when an accepted_series artifact contains at least two selected, distinct-year source records for a place, each population exactly matches the selected observation and each point status is marked accepted/reviewed/approved. Ordinary covered rows are not counted twice. This remains a mixed scope-aware spatial coverage axis, not a canonical same_place graph or proof of population boundary comparability.",
+  "definition": "Rows added only when an accepted_series artifact contains at least two selected, distinct-year source records for a place, each population exactly matches the selected observation and each point status is marked accepted/reviewed/approved. An approved primary whole-row source may project to selected same-year parts only when every part value matches and the part sum exactly equals the whole. Ordinary covered rows are not counted twice. This remains a mixed scope-aware spatial coverage axis, not a canonical same_place graph or proof of population boundary comparability.",
   "event_series_artifacts": 13,
-  "selected_event_path_rows_before_dedup": 19,
-  "selected_event_path_unique_rows_after_conflict_removal": 19,
+  "selected_event_path_rows_before_dedup": 22,
+  "selected_event_path_unique_rows_after_conflict_removal": 22,
   "event_record_assignment_conflicts_excluded": [],
-  "event_rows_overlapping_ordinary_coverage": 12,
-  "additional_event_rows": 7,
+  "event_rows_overlapping_ordinary_coverage": 13,
+  "additional_event_rows": 9,
+  "exact_selected_partition_projection_rows": 2,
+  "exact_selected_partition_projection_population_by_year": {
+    "2002": 29533,
+    "2010": 0,
+    "2021": 0
+  },
   "by_year": {
     "2002": {
-      "ordinary_available_year_path_population": 126554347,
-      "new_accepted_event_path_population": 66973,
+      "ordinary_available_year_path_population": 126525300,
+      "new_accepted_event_path_population": 96506,
       "separate_federal_territory_population": 15043973,
-      "combined_spatial_population": 141665293,
+      "combined_spatial_population": 141665779,
       "denominator": 145166731,
-      "coverage_percent": 97.58798866938734,
-      "gap_to_99_percent": 2049771,
-      "new_event_rows": 4,
+      "coverage_percent": 97.58832345683943,
+      "gap_to_99_percent": 2049285,
+      "new_event_rows": 6,
       "population_quality_caveat": "Selected population quality preserved row-by-row; no source values are overwritten."
     },
     "2010": {
-      "ordinary_available_year_path_population": 123961267,
+      "ordinary_available_year_path_population": 123941779,
       "new_accepted_event_path_population": 49271,
       "separate_federal_territory_population": 16383067,
-      "combined_spatial_population": 140393605,
+      "combined_spatial_population": 140374117,
       "denominator": 142856536,
-      "coverage_percent": 98.27594097619726,
-      "gap_to_99_percent": 1034366,
+      "coverage_percent": 98.2622993182475,
+      "gap_to_99_percent": 1053854,
       "new_event_rows": 3,
       "population_quality_caveat": "Selected population quality preserved row-by-row; no source values are overwritten."
     },
     "2021": {
-      "ordinary_available_year_path_population": 124841110,
+      "ordinary_available_year_path_population": 124849083,
       "new_accepted_event_path_population": 0,
       "separate_federal_territory_population": 18612023,
-      "combined_spatial_population": 143453133,
+      "combined_spatial_population": 143461106,
       "denominator": 144699673,
-      "coverage_percent": 99.13853295300812,
+      "coverage_percent": 99.14404298619252,
       "gap_to_99_percent": 0,
       "new_event_rows": 0,
       "population_quality_caveat": "Selected population quality preserved row-by-row; no source values are overwritten."
@@ -47,6 +53,7 @@
     "This may include exact selected population values carrying secondary source quality; source quality remains as in the selected layer.",
     "Full chain (all three census years), actual-year path (at least two years), and historical event path are distinct metrics.",
     "No 2010 census total discrepancy is repaired by this spatial union.",
+    "Partition projection only substitutes exact source-whole rows with the selected constituent rows already included in the denominator; it never adds whole and parts together.",
     "Federal territory rows are added separately; ordinary NP rows are excluded from these federal subjects to avoid double-counting."
   ],
   "inputs": {
@@ -54,13 +61,13 @@
       "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
       "bytes": 37372137
     },
-    "/tmp/graph28_three_code_bridge_20261005/accepted_identity_edges.parquet": {
-      "sha256": "583364c80cddc4fbed00dd06527f734242b1983c268f83a78a38946a811ede1d",
-      "bytes": 30858517
+    "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_identity_edges.parquet": {
+      "sha256": "1cc307f2855d15c7503dd226a278c49bdab72f178f5e2564c5e20fa4195a7d1a",
+      "bytes": 30857418
     },
-    "/tmp/graph29_ozherele_points_20261005/accepted_point_uses.parquet": {
-      "sha256": "c4b6a79741c36bbc092d4f2390bd743dd55b982fc9c671f1d1ed6660b7f4f8e3",
-      "bytes": 53105876
+    "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_point_uses.parquet": {
+      "sha256": "cc2a7cf67d7c25eec2de7f962c49478dd275646138f1303ae3410bf2a6922d23",
+      "bytes": 53104666
     },
     "/workspace/russian-settlements-research/research_rebuild/evidence/federal_territory_spatial_overlay_20261005/coverage_overlay.json": {
       "sha256": "6e9a92df7cd812b460f1e6f5dfd9fdbf6730e5f0c285aaf59f1d6c00891e8abd",
@@ -90,6 +97,18 @@
       "sha256": "056eda9836b9468d2ecd04abc726e395662c93c7068a9633800366f707d5d5f7",
       "bytes": 6249
     },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_exact_historical_code_point_batch_20261005/accepted_identity_edge_delta.csv": {
+      "sha256": "f7b58558253596eaaa64a9e000cea404a442225a01c9495c78fbbf0e724706ed",
+      "bytes": 384
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/kudryashovsky_three_census_chain_20261006/accepted_identity_edge_delta.csv": {
+      "sha256": "4db3f2b42c92139860e757c6711101e812cc4314e1d856f2e6ecdfe287f14732",
+      "bytes": 647
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_2021_fias_exact_name_bridge_20261006/accepted_identity_edge_delta.csv": {
+      "sha256": "cddd636154adf28e84f8d4165ec46821a68499c26118218dd91cee7d0b98e778",
+      "bytes": 5751
+    },
     "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/top60_point_use_delta.csv": {
       "sha256": "2ff53b8ab3865e971f00794cad21a1c9fd9a40fdf948c0801befc034ae091783",
       "bytes": 2815
@@ -113,6 +132,22 @@
     "/workspace/russian-settlements-research/research_rebuild/evidence/unique_name_region_coordinate_bridge_20261005/accepted_point_use_delta.csv": {
       "sha256": "c1e7b1eea77978b4ae4374d6945118d0140c026611be890a95931c817dcef88f",
       "bytes": 320256
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_exact_historical_code_point_batch_20261005/accepted_point_use_delta.csv": {
+      "sha256": "2924d3fe5c43588f1012222b35d115e0cb848dc2a54f6d4f1111a26a66f683c0",
+      "bytes": 3609
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_residual_ownlocality_points_20261005/accepted_point_use_delta.csv.gz": {
+      "sha256": "dd882ec334d07408d16ecf1e3a67f2eb03d1b13ff85cca12f8d32df1c0aabab3",
+      "bytes": 402347
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/kudryashovsky_three_census_chain_20261006/accepted_point_use_delta.csv": {
+      "sha256": "5674072d18ae65a06f0c73ec112a8bbb0b83d490b5e62eb6e9df75362c0424df",
+      "bytes": 2852
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_2021_fias_exact_name_bridge_20261006/accepted_retrospective_point_use_delta.csv": {
+      "sha256": "75b92b5bc06564041fcfa92e00277b500a8da95651a5a337b21599fea4d6414a",
+      "bytes": 19997
     },
     "/workspace/russian-settlements-research/research_rebuild/evidence/accepted_national_inclusions_20261005/accepted_series.csv": {
       "sha256": "553c186d908d2eb9b688d64dd59beaee9fdffa0e921ee2d9809ed959867adcf2",

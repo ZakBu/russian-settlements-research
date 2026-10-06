@@ -17,8 +17,8 @@ from build_long_table import ACCEPTED_COORDINATE_STATUSES, ACCEPTED_EDGE_STATUSE
 
 OUT = ROOT / "research_rebuild/evidence/current_available_year_path_20261005"
 SELECTED = Path("/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet")
-EDGES = Path("/tmp/graph28_three_code_bridge_20261005/accepted_identity_edges.parquet")
-POINTS = Path("/tmp/graph29_ozherele_points_20261005/accepted_point_uses.parquet")
+EDGES = Path("/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_identity_edges.parquet")
+POINTS = Path("/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_point_uses.parquet")
 FEDERAL = ROOT / "research_rebuild/evidence/federal_territory_spatial_overlay_20261005/coverage_overlay.json"
 EVIDENCE = ROOT / "research_rebuild/evidence"
 EDGE_DELTAS = [
@@ -28,6 +28,9 @@ EDGE_DELTAS = [
     (EVIDENCE / "top60_and_proximity_review_20261005/simple_rule_application/top60_identity_edge_delta.csv", "from_id", "to_id"),
     (EVIDENCE / "top100_classifier_bridge_20261005/accepted_classifier_bridge_delta.csv", "source_record_id_old", "source_record_id_current"),
     (EVIDENCE / "historical_classifier_bridge_batch_20261005/accepted_identity_edge_delta.csv", "from_source_record_id", "to_source_record_id"),
+    (EVIDENCE / "unique_exact_historical_code_point_batch_20261005/accepted_identity_edge_delta.csv", "from_source_record_id", "to_source_record_id"),
+    (EVIDENCE / "kudryashovsky_three_census_chain_20261006/accepted_identity_edge_delta.csv", "from_source_record_id", "to_source_record_id"),
+    (EVIDENCE / "current_2021_fias_exact_name_bridge_20261006/accepted_identity_edge_delta.csv", "from_source_record_id", "to_source_record_id"),
 ]
 POINT_DELTAS = [
     EVIDENCE / "top60_and_proximity_review_20261005/simple_rule_application/top60_point_use_delta.csv",
@@ -36,6 +39,10 @@ POINT_DELTAS = [
     EVIDENCE / "historical_classifier_bridge_batch_20261005/accepted_retrospective_point_use_delta.csv",
     EVIDENCE / "shared_locality_point_novaya_usman_20261005/accepted_shared_locality_point_uses.csv",
     EVIDENCE / "unique_name_region_coordinate_bridge_20261005/accepted_point_use_delta.csv",
+    EVIDENCE / "unique_exact_historical_code_point_batch_20261005/accepted_point_use_delta.csv",
+    EVIDENCE / "current_residual_ownlocality_points_20261005/accepted_point_use_delta.csv.gz",
+    EVIDENCE / "kudryashovsky_three_census_chain_20261006/accepted_point_use_delta.csv",
+    EVIDENCE / "current_2021_fias_exact_name_bridge_20261006/accepted_retrospective_point_use_delta.csv",
 ]
 
 
