@@ -39,6 +39,7 @@ POINT_DELTAS = [
     EVIDENCE / "current_residual_ownlocality_points_20261005/accepted_point_use_delta.csv.gz",
     EVIDENCE / "kudryashovsky_three_census_chain_20261006/accepted_point_use_delta.csv",
     EVIDENCE / "current_2021_fias_exact_name_bridge_20261006/accepted_retrospective_point_use_delta.csv",
+    EVIDENCE / "typed_city_geokladr_code_width_points_20261006/accepted_point_use_delta.csv",
 ]
 
 
