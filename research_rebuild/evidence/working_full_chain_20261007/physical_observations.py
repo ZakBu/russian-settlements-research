@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import pyarrow.parquet as pq
 
-def build(E,W,OUT,selected_joint_ids,overlay_ids,common_controls):
+def build(E,W,OUT,selected_joint_ids,overlay_ids,common_controls,secondary_frames=()):
     records=[]
     def add(scope,trajectory,year,pop,sid,quality,grain,nonadditive):
         records.append({'scope':scope,'trajectory_id':trajectory,'year':int(year),'population_source_value':int(pop),'source_record_id':sid,'population_quality':quality,'grain':grain,'nonadditive_observation':nonadditive,'ordinary_NP3_asserted':False,'accepted_physical_three_observed_census_year_path':True,'accepted_scoped_representative_point':True,'already_in_ordinary_joint':sid in selected_joint_ids if sid else False,'already_in_joint_partition_union':sid in overlay_ids if sid else False})
@@ -34,6 +34,11 @@ def build(E,W,OUT,selected_joint_ids,overlay_ids,common_controls):
         event['already_in_ordinary_joint']=event.source_record_id.isin(selected_joint_ids)
         event['already_in_joint_partition_union']=event.source_record_id.isin(overlay_ids)
         frame=pd.concat([frame,event],ignore_index=True)
+    for secondary in secondary_frames:
+        secondary=secondary.copy()
+        secondary['already_in_ordinary_joint']=secondary.source_record_id.isin(selected_joint_ids)
+        secondary['already_in_joint_partition_union']=secondary.source_record_id.isin(overlay_ids)
+        frame=pd.concat([frame,secondary],ignore_index=True)
     assert not frame[['scope','trajectory_id','year']].duplicated().any()
     for _,g in frame.groupby(['scope','trajectory_id']): assert set(g.year)=={2002,2010,2021}
     frame.to_csv(OUT/'qualified_physical_observations.csv',index=False)

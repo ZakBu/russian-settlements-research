@@ -1,0 +1,9 @@
+# Native 2002 original-subdivision context candidates
+
+18 pending-review identity candidates, each completing native 2002/2010/2021 component coverage with an accepted own point on the 2021 place. Simulated full-three-year population gain: 6,371 (2002), 6,556 (2010), 11,664 (2021). These are potential gains only; no accepted graph/point ledger has changed.
+
+Rule: exact normalized name, type and region; original 2002 source file, sheet, printed district and municipality group; at least three already accepted 2002/current anchors agreeing on one current county; target strictly between two anchors within 20 physical source rows. Current county is inferred from accepted anchors, never asserted to be printed in 2002. Full selected native old and current competitor sets include already-complete components; unresolved old same-name context blocks. Current point must be bound to its own current record, not tagged retrospective/continuity/representative; shared current point, accepted-point disagreement, raw-coordinate contradiction, event endpoints and repeated census year block. Existing populations are unchanged.
+
+The fixed 15 and top 5 overlap: 15 distinct physical workbook checks, all literal source names verified; original population cells and nearby printed subdivision headings are retained verbatim. Candidate source SHA256 values are calculated from the staged raw workbooks. Candidate admission still needs independent review of context inference and the accepted own-point provenance; historical coordinate reuse is representative-point continuity, not a historical measurement or boundary comparability assertion.
+
+This bounded route is small, not a mass solution: 4,820 old context duplicates, 1,243 unresolved same-name competitors, and 276 rows lacking a complete native-year triplet remain blocked. No new downloads or accepted input edits.
