@@ -57,6 +57,9 @@ def main(stage=7):
         if stage==13:
             assert sm[str(y)]['covered_population']==dict(zip(YEARS,(125948693,123187272,123734052)))[y], (y,sm)
             assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(134822,134850,134854)))[y], (y,sm)
+        if stage==14:
+            assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126150476,123382596,123960048)))[y], (y,sm)
+            assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(136847,136875,136879)))[y], (y,sm)
         assert sm[str(y)]['denominator_selected_ordinary_population']==DENOM[y]
     expected={y:sm[str(y)]['covered_population'] for y in YEARS}
     obs=state.obs.copy()
