@@ -21,7 +21,7 @@ PARTITION_MEMBERS = E / "complete_numbered_partition_batch_20261007/accepted_exc
 PARTITION_SERIES = E / "complete_numbered_partition_batch_20261007/accepted_three_census_whole_place_series.csv"
 
 
-def load(stage=15):
+def load(stage=17):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -36,6 +36,8 @@ def load(stage=15):
     13: source-backed former names, with railway-feature candidates withheld.
     14: selected secondary 2010 XLS rows, two-sided accepted source context.
     15: eight complete triplets with printed historical county and source context.
+    16: native missing-year links and independently sourced external own points.
+    17: restricted name variants with unique independent own points within 5 km.
     """
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
@@ -68,4 +70,8 @@ def load(stage=15):
         state.add_deltas([E/"secondary_2010_county_context_application_20261007/accepted_identity_edge_delta.csv"], [E/"secondary_2010_county_context_application_20261007/accepted_point_use_delta.csv"])
     if stage >= 15:
         state.add_deltas([E/"secondary_2010_new_triplets_application_20261007/accepted_identity_edge_delta.csv"], [E/"secondary_2010_new_triplets_application_20261007/accepted_point_use_delta.csv"])
+    if stage >= 16:
+        state.add_deltas([E/"own_year_and_corrected_points_application_20261007/accepted_identity_edge_delta.csv"], [E/"own_year_and_corrected_points_application_20261007/accepted_point_use_delta.csv"])
+    if stage >= 17:
+        state.add_deltas([E/"near_name_coordinate_application_20261007/accepted_identity_edge_delta.csv"], [E/"near_name_coordinate_application_20261007/accepted_point_use_delta.csv"])
     return state

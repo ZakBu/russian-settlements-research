@@ -1,0 +1,45 @@
+{
+  "status": "bounded_source_checks",
+  "sample_rows": 18,
+  "selection": "largest5 plus fixed15 seed20261007 deduplicated",
+  "pass_counts": {
+    "raw_geo_code_exact": 18,
+    "raw_geo_coordinate_bytes_exact": 18,
+    "old_source_available": 18,
+    "old_source_literal_name_present": 18,
+    "old_source_first_count_exact": 18,
+    "current_literal_name_present": 18,
+    "current_population_exact": 18,
+    "current_county_exact": 18
+  },
+  "all_requested_checks_pass": true,
+  "inputs_sha256": {
+    "/workspace/settlements-work/near_name_coordinate_bridge_20261007/candidates.csv.gz": "572f0022639b77f7fdb72384f6ae65ea8ae5e4789461d7b41bd3e38ad558e523",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/near_name_coordinate_bridge_20261007/largest5_candidates.csv": "c766871bfe3152d9064bd1ab276430c3cac6faabd379ae04f028bf5ea57d36e5",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/near_name_coordinate_bridge_20261007/fixed15_candidates.csv": "2deb0be2125ea75bd59d3897f3b278247170b0f124bd9958c465908a6cb0a464",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/near_name_coordinate_bridge_20261007/verify_bounded_sources.py": "ce38c3bdcda8d6a7b79a8809cb189f2bb57d005e0c1d5d486a74d68050fe75f1"
+  },
+  "old_census_source_hashes": {
+    "/workspace/settlements-raw/data/raw/2002/079_983a1a85f7_Primor_krai_1.xls": "13c795665e6d97057b9bf7b0fb3f138919f4e5da36dc1a91d9f2959b319a87c1",
+    "/workspace/settlements-raw/data/raw/2002/062_7d7e23d2e9_Altai_Rep.xls": "b95167bc8f7cc8bd6370f250a04bff3deae42e44c1db5be9a5752cf6f9dedc3f",
+    "/workspace/settlements-raw/data/raw/2002/009_fc0fd8cf1b_02c_Lipetskaja.xls": "05aca1c6074bc0140c6b034e9843fbb5049f1f00d7b5cc35018827b020b6cc97",
+    "/workspace/settlements-raw/data/raw/2002/073_f153ba2c6b_Novosib.xls": "8ca6422c2eca0135a7146a9f0fc9c00721a568a1d5c660a0d345c858e6edcb25",
+    "/workspace/settlements-raw/data/raw/2002/004_f58b08b4f6_02c_Voronezhskaja.xls": "dff030ae28c445ccdf274e9b46fef0072ae68dacb5dfc581076dcf8dc1f8c1cf",
+    "/workspace/settlements-raw/data/raw/2002/011_f46bbaadfd_02c_Orlovskaja.xls": "62db545028449664bc22fae08d95e9478a4eb3c9b79ba8ae35e4f8606bb578d0",
+    "/workspace/settlements-raw/data/raw/2002/013_2dd2afccd6_02c_Smolenskaja.xls": "14f97d9440c004e47ee9e4651a7d5eceaedb64ede741a106358f9023ce848284",
+    "/workspace/settlements-raw/data/raw/2002/027_25f0f7433c_02c_Pskovskaja.xls": "af2a2f8811df411ac66dafab372b0140c4376c88d49c2aba9431423f77feab19",
+    "/workspace/settlements-raw/data/raw/2002/006_1916564aaa_02c_Kaluzhskaja.xls": "1905de841b770b36eeecd4a1284edf8f541d0e6be7feb8d538a3ef1f327eb194",
+    "/workspace/settlements-raw/data/raw/2002/051_46e3ecb0a0_02c_Permskaja_obl.xls": "1ef634a17c460b264838974e4de20de6ec78737314addb3f1c60b5e73058385b"
+  },
+  "output_sha256": "69036e910c5f7df9845b6b7ad9af7143024f5b412c334a4ff1ec6a8bbdd5fcc6",
+  "limitations": [
+    "Sample verifies physical raw labels, counts, code and point bytes; candidate identity still requires review.",
+    "Current OKATO field is a frozen provider-derived identifier; this is not an originally printed historical census code.",
+    "Current accepted point anchors may use GeoNames/Wikidata instead of the frozen provider coordinate; baseline admissions retained."
+  ]
+}

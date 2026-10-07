@@ -1,0 +1,11 @@
+# Near-name ownpoint candidates
+
+Candidate-only packet on explicit stage15; no accepted inputs or statuses changed. 162 edges and 20 transferred point uses simulate 143 additional complete three-census histories: population gains 19,846 (2002), 15,776 (2010), 12,977 (2021).
+
+Restricted variants preserve numerical tokens and geographic words: 137 one/two-character spellings and 25 printed grammatical-ending variants. Exact region/county, unique nearby ownpoint alternatives and point agreement within5km support candidates. All current accepted ownpoint settlements, including full-three histories, were checked. Competing Прокошино/Прокшино and Плешевицы/Плещевицы bindings are held. Shared raw coordinates with distinct official codes, repeated census years, known events, feature grains and point contradictions are excluded. Existing current points are trusted without an optional source-record-ID equality gate.
+
+85 candidates have exact raw2011 official object-code/current provider OKATO field agreement. This is corroboration, not an assertion of printed historical census-native identifiers. 157 preserve printed NP type; five have explicit type flags in printed_type_variant_flags.csv, including station-to-settlement. Printed railway object features are excluded; legal NP types station and crossing remain reviewable.
+
+Fixed15 seed20261007 plus largest5 yield 18 distinct physical source checks. All pass actual DBF code and coordinate-byte checks, historical own-label/first-population-cell checks and original current publisher name/population/county checks. Source file hashes, physical row/sheet/page/byte locators and code witnesses are in bounded_raw_source_code_checks.csv. This is a bounded sample, not a claim that every physical source record was re-parsed.
+
+Candidate CSVs and compressed witnesses are in /workspace/settlements-work/near_name_coordinate_bridge_20261007. receipt.json pins graph inputs, donor ledgers, candidate outputs and actual union simulation. hard_hold_population_summary.json and largest10_hard_holds.csv quantify excluded eligible pairs; endpoint populations are not hypothetical full-three gains. The reserve is useful but cannot close the 99% gap alone.
