@@ -12,8 +12,7 @@ def build(report,out):
     con=duckdb.connect(config={'threads':1,'memory_limit':'128MB'})
     removed=con.execute('SELECT source_record_id,census_year,population FROM read_parquet(?) WHERE source_record_id IN (SELECT UNNEST(?))',[selected,ids]).fetchdf();con.close()
     assert len(removed)==3 and set(removed.census_year)=={2002,2010,2021}
-    parts=next(p for p in manifest if p.endswith('/accepted_exclusive_member_projection.csv'))
-    partition=set(pd.read_csv(parts).source_record_id)
+    partition=set(pd.read_csv(out/'complete_publisher_partition_members.csv').source_record_id)
     qualified=set(pd.read_csv(out/'qualified_scope_source_id_credit_union.csv').source_record_id)
     refined=copy.deepcopy(report['all_three_component_points_national_unions'])
     for y in (2002,2010,2021):
