@@ -18,7 +18,7 @@ def clean(v):
 def digest(path):
     with path.open('rb') as stream: return hashlib.file_digest(stream,'sha256').hexdigest()
 
-def build(state,ordinary,componentpoints,stage,pins,out):
+def build(state,ordinary,componentpoints,stage,pins,out,reuse=False):
     start=time.monotonic();DEST.mkdir(parents=True,exist_ok=True)
     actual_sources={};actual_origins={}
     r2=Path('/workspace/settlements-work/sources/r2-missing')
@@ -61,6 +61,28 @@ def build(state,ordinary,componentpoints,stage,pins,out):
         ledger=clean(point.get('point_ledger_path'))
         if ledger: pin_actual(ledger)
     if stage==17: assert len(groups)==136995, ('all-own-point ordinary components before unknown-number exclusion',len(groups))
+    if stage==18: assert len(groups)==137010, ('all-own-point ordinary components before unknown-number exclusion',len(groups))
+    if stage==19: assert len(groups)==137012, ('all-own-point ordinary components before unknown-number exclusion',len(groups))
+    if stage==21: assert len(groups)==137042, ('all-own-point ordinary components before unknown-number exclusion',len(groups))
+    ledger_hashes={str(Path(path)):pins[str(Path(path))]['sha256'] for path in state.inputs}
+    if reuse:
+        receipt=json.loads((out/'export_receipt.json').read_text())
+        assert receipt.get('export_implementation_sha256')==digest(Path(__file__)),'Reuse rejected: export implementation changed'
+        assert receipt['columns']==len(fields),'Reuse rejected: export column schema changed'
+        assert receipt.get('ordinary_input_ledger_hashes')==ledger_hashes,'Reuse rejected: ordinary selected/graph/point ledger bytes differ or prior export lacks fingerprint'
+        assert target.stat().st_size==receipt['bytes'] and digest(target)==receipt['sha256']
+        finite=[years for years in groups.values() if set(years)==set(YEARS) and all(math.isfinite(float(years[y]['population'])) for y in YEARS)]
+        assert len(finite)==receipt['rows']
+        totals={str(year):sum(int(years[year]['population']) for years in finite) for year in YEARS}
+        assert totals=={str(k):v for k,v in receipt['population_by_year'].items()}
+        receipt['original_generation_stage']=receipt.get('original_generation_stage',receipt['working_stage'])
+        receipt['working_stage']=stage
+        receipt['ordinary_export_reused_without_rewrite']=True
+        receipt['reuse_validation']='Unchanged selected/graph/point ledger byte hashes; actual gzip SHA/bytes and independently recomputed finite ordinary count/populations match.'
+        receipt['reuse_validation_wall_seconds']=round(time.monotonic()-start,3)
+        (out/'export_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
+        (out/'export_source_hash_manifest.json').write_text(json.dumps(pins,ensure_ascii=False,indent=2)+'\n')
+        return receipt
     written=0;excluded=[];populations={y:0 for y in YEARS};uids=set()
     with target.open('wb') as raw:
         with gzip.GzipFile(fileobj=raw,mode='wb',filename='',mtime=0,compresslevel=9) as zipped:
@@ -104,7 +126,7 @@ def build(state,ordinary,componentpoints,stage,pins,out):
                     writer.writerow(record);written+=1
     unknown=[r for r in excluded if r['reason']=='unknown_population']
     assert len(unknown)==1 and unknown[0]['unknown_years']==[2010],unknown
-    receipt={'working_stage':stage,'file':str(target),'sha256':digest(target),'bytes':target.stat().st_size,'rows':written,'columns':len(fields),'population_by_year':populations,'all_three_own_point_components_before_number_filter':len(groups),'excluded_components':excluded,'unknown_population_never_zero_or_imputed':True,'native_identifiers':'Only selected source row oktmo/okato as imported; empty historical values remain unknown. No chronology or backfill asserted.','entity_uid_recipe':'np3: + unpadded URL-safe base64 of full SHA256 digest of UTF-8 compact JSON ordered [2002 source ID,2010 source ID,2021 source ID]','actual_source_mapping':'Imported source_path and source_sha256 are unchanged. source_actual_path maps legacy empty paths through /workspace/settlements-raw/source_file; source_actual_sha256 hashes actual cached source bytes. Explicit unresolved-source status retains missing original-file provenance; known source and point-origin bytes and admitted ledgers are pinned.','coordinate_claim':'Every census row has its own admitted representative point use; raw point-use fields retained. Historical measurement and boundary calibration are not asserted.','wall_seconds':round(time.monotonic()-start,3)}
+    receipt={'export_implementation_sha256':digest(Path(__file__)),'ordinary_input_ledger_hashes':ledger_hashes,'ordinary_export_reused_without_rewrite':False,'working_stage':stage,'file':str(target),'sha256':digest(target),'bytes':target.stat().st_size,'rows':written,'columns':len(fields),'population_by_year':populations,'all_three_own_point_components_before_number_filter':len(groups),'excluded_components':excluded,'unknown_population_never_zero_or_imputed':True,'native_identifiers':'Only selected source row oktmo/okato as imported; empty historical values remain unknown. No chronology or backfill asserted.','entity_uid_recipe':'np3: + unpadded URL-safe base64 of full SHA256 digest of UTF-8 compact JSON ordered [2002 source ID,2010 source ID,2021 source ID]','actual_source_mapping':'Imported source_path and source_sha256 are unchanged. source_actual_path maps legacy empty paths through /workspace/settlements-raw/source_file; source_actual_sha256 hashes actual cached source bytes. Explicit unresolved-source status retains missing original-file provenance; known source and point-origin bytes and admitted ledgers are pinned.','coordinate_claim':'Every census row has its own admitted representative point use; raw point-use fields retained. Historical measurement and boundary calibration are not asserted.','wall_seconds':round(time.monotonic()-start,3)}
     (out/'export_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
     (out/'export_source_hash_manifest.json').write_text(json.dumps(pins,ensure_ascii=False,indent=2)+'\n')
     (out/'export_recipe.md').write_text(f'# Ordinary complete-number full3 export\n\nRun `python research_rebuild/evidence/working_full_chain_20261007/build_report.py --stage {stage}` from repository root.\n\nThe gzip CSV lives outside Git at `{target}`. One entity is an ordered tuple of three selected source IDs linked by admitted same-place identity. All three ordinary rows must have admitted own point uses and finite populations; the one unknown 2010 component is excluded in export_receipt.json. Zero is retained as zero. Source names, quality, coordinates and imported native codes remain separate by census year. Empty codes remain unknown. Per-year raw point uses preserve inference claims and origin references.\n\nThe full source manifest and recipe are in Git; the compressed export is not. Gzip metadata and source-ID sort order are deterministic.\n')

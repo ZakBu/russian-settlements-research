@@ -1,0 +1,9 @@
+# Native 2002 printed-subdivision source context application
+
+Authorized bounded 18-row rule applied to explicit frozen stage 19. Adds 18 same-place edges and 23 representative point uses; 31 existing accepted point uses remain intact. Full-three-census covered population increases by 6,371 (2002), 6,556 (2010), 11,664 (2021), 18 rows in each year. No source populations changed.
+
+The original candidate batch evaluated full selected old/current competitor sets, including already complete chains, and held unresolved same-name old contexts. It requires exact name/type/region, original printed source subdivision, at least 3 accepted historical/current anchors agreeing on current county, and strict two-sided anchors within 20 physical source rows. Fifteen distinct checks from fixed 15 plus top 5 verified literal original workbook rows and heading witnesses. The current county is an inference from accepted anchors, not claimed to be printed in 2002.
+
+Application pins the original candidate receipt and its inputs, CSVs and raw workbook hashes, and checks exclusive census years, endpoint labels, accepted source anchors and component point compatibility again. Stage19 contains only new point uses, preserving the previously evaluated identity/competitor universe. Modern point origin fields are preserved separately from `coordinate_use_inference`; historical source file/hash/row/raw label and printed district/municipality are separately pinned. Historical point reuse is representative continuity, not a historical coordinate measurement, native code binding or boundary comparability assertion.
+
+Reproduce: run `apply.py` against loader stage 19, then `replay.py`. Root owns loader 20 integration. Accepted deltas and their replay receipt are in this directory; no frozen input, loader, report or Git changes were made by this application.

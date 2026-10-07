@@ -21,7 +21,7 @@ PARTITION_MEMBERS = E / "complete_numbered_partition_batch_20261007/accepted_exc
 PARTITION_SERIES = E / "complete_numbered_partition_batch_20261007/accepted_three_census_whole_place_series.csv"
 
 
-def load(stage=17):
+def load(stage=21):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -38,6 +38,10 @@ def load(stage=17):
     15: eight complete triplets with printed historical county and source context.
     16: native missing-year links and independently sourced external own points.
     17: restricted name variants with unique independent own points within 5 km.
+    18: neutral county-caption variants with uniquely bound historical own points.
+    19: native-code and source-bound own Wikidata points for remaining current NPs.
+    20: native 2002 source subdivisions mapped through accepted census anchors.
+    21: documented former names and native printed urban or rural source context.
     """
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
@@ -74,4 +78,12 @@ def load(stage=17):
         state.add_deltas([E/"own_year_and_corrected_points_application_20261007/accepted_identity_edge_delta.csv"], [E/"own_year_and_corrected_points_application_20261007/accepted_point_use_delta.csv"])
     if stage >= 17:
         state.add_deltas([E/"near_name_coordinate_application_20261007/accepted_identity_edge_delta.csv"], [E/"near_name_coordinate_application_20261007/accepted_point_use_delta.csv"])
+    if stage >= 18:
+        state.add_deltas([E/"neutral_county_point_application_20261007/accepted_identity_edge_delta.csv"], [E/"neutral_county_point_application_20261007/accepted_point_use_delta.csv"])
+    if stage >= 19:
+        state.add_deltas(point_paths=[E/"current_unpointed_own_wiki_mass_application_20261007/accepted_point_use_delta.csv"])
+    if stage >= 20:
+        state.add_deltas([E/"mass_residual_native_context_application_20261007/accepted_identity_edge_delta.csv"], [E/"mass_residual_native_context_application_20261007/accepted_point_use_delta.csv"])
+    if stage >= 21:
+        state.add_deltas([E/"remaining_large_native_triplets_application_20261007/accepted_identity_edge_delta.csv"], [E/"remaining_large_native_triplets_application_20261007/accepted_point_use_delta.csv"])
     return state

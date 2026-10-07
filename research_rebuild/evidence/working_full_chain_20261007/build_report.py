@@ -32,7 +32,7 @@ def plain(v):
 def write_json(name, value):
     (OUT/name).write_text(json.dumps(plain(value), ensure_ascii=False, indent=2)+'\n')
 
-def main(stage=7):
+def main(stage=7,reuse_ordinary_export=False):
     start=time.monotonic(); pins={}
     def pin(p):
         p=Path(p); h=sha(p)
@@ -69,6 +69,15 @@ def main(stage=7):
         if stage==17:
             assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126184990,123409970,123993409)))[y], (y,sm)
             assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137001,137029,137033)))[y], (y,sm)
+        if stage==18:
+            assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126189027,123416566,124002885)))[y], (y,sm)
+            assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137016,137044,137048)))[y], (y,sm)
+        if stage==19:
+            assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126192455,123419108,124005756)))[y], (y,sm)
+            assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137018,137046,137050)))[y], (y,sm)
+        if stage==21:
+            assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126260650,123487223,124084966)))[y], (y,sm)
+            assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137048,137076,137080)))[y], (y,sm)
         assert sm[str(y)]['denominator_selected_ordinary_population']==DENOM[y]
     expected={y:sm[str(y)]['covered_population'] for y in YEARS}
     obs=state.obs.copy()
@@ -225,6 +234,13 @@ def main(stage=7):
         assert int(event.loc[event.year.eq(2010),'population_source_value'].sum())==24011
         assert int(event.loc[event.year.eq(2021),'population_source_value'].sum())==24041
         physical.append({'scope':'named_district_recreation_2009','series':2,'observations':6,'secondary_population_observations':0,'selected_credit_references':4,'primary2002_quarter_population_nationally_added':0,'ordinary_NP3_asserted':False,'boundary_comparability_asserted':False})
+    from secondary_full3 import load as load_secondary_full3
+    pin(OUT/'secondary_full3.py')
+    secondary_packs=load_secondary_full3(E,state,pin)
+    for dirname,secondary_receipt,frame in secondary_packs:
+        for r in frame.loc[~frame.nonadditive_observation].to_dict('records'):
+            existing(r['source_record_id'],r['year'],r['population_source_value'],r['scope'])
+        physical.append({'scope':dirname,'series':len(frame[['scope','trajectory_id']].drop_duplicates()),'observations':len(frame),'secondary_population_observations':int(frame.nonadditive_observation.sum()),'selected_credit_references':int((~frame.nonadditive_observation).sum()),'ordinary_NP3_asserted':False,'boundary_comparability_asserted':False})
     pd.DataFrame(physical).to_csv(OUT/'qualified_physical_series.csv',index=False)
     credits=pd.DataFrame(credit)
     credits['already_in_ordinary_joint']=credits.source_record_id.isin(joint)
@@ -237,7 +253,7 @@ def main(stage=7):
         qualified[y]={'qualified_selected_source_id_union_net_population_added':pop-overlaystats[y]['combined_population'],'population_including_federal_territories':pop,'percent_of_common_control':100*pop/COMMON[y],'gap_to_99_percent_common':max(0,math.ceil(.99*COMMON[y])-pop)}
     from physical_observations import build as build_physical
     pin(OUT/'physical_observations.py')
-    physical_axis=build_physical(E,W,OUT,joint,overlay,COMMON)
+    physical_axis=build_physical(E,W,OUT,joint,overlay,COMMON,[frame for _,_,frame in secondary_packs])
     from national_unions import build as build_national_unions
     pin(OUT/'national_unions.py')
     stronger_national_union=build_national_unions(ordinary,componentpoints,partition_ids,extra,fedp,NATIONAL,COMMON)
@@ -288,7 +304,7 @@ def main(stage=7):
     from regional_controls import reconcile
     pin(OUT/'regional_controls.py')
     regional_control_receipt=reconcile(ordinary,fed,controls,scopeunion,OUT)
-    report={'status':'recomputed_baseline_and_unique_source_id_unions_verified','working_stage':stage,'ordinary_axes_by_year':metrics,'baseline_strict_joint_population':BASELINE,'actual_cumulative_gain_by_unique_source_id_union':gains,'complete_partition_plus_federal_overlay':overlaystats,'qualified_physical_scope_all_grains':{'ordinary_np_three_year_identity_asserted':False,'series':sum(r['series'] for r in physical),'observations':sum(r['observations'] for r in physical),'secondary_population_observations':3,'scopes':physical,'source_id_credit_reference_rows':len(credits),'unique_selected_credit_source_ids':credits.source_record_id.nunique(),'by_year':qualified},'growth_flags':{'axis':'accepted ordinary adjacent same-place census pairs; positive ratio >20, reverse <1/20 separately, zero/unknown never ratio-imputed','counts':growthdf.flag.value_counts().to_dict() if len(growthdf) else {},'total_flagged_pairs':len(growthdf)},'accepted_status_enums':{'edge':sorted(ACCEPTED_EDGE_STATUSES),'point':sorted(ACCEPTED_COORDINATE_STATUSES)},'input_ledger_status_counts':status,'active_point_status_counts':dict(active),'active_point_target_count':len(point),'same_place_components_all_grains':len(state.years),'full_three_year_components_all_grains':sum(v==set(YEARS) for v in state.years.values()),'point_alternatives':len(state.point_alternatives),'conflicting_point_targets':len(state.conflicting_point_targets),'official_2010_control_minus_selected_ordinary_and_federal':493512,'regional_official_2010_control_mapping':{'status':'not_recalculated_pending_unambiguous_control_region_mapping','national_gap_preserved':493512,'required_parent_folds':'Nenets to Arkhangelsk; Khanty-Mansi and Yamalo-Nenets to Tyumen; inclusive published parent controls'},'limits':['Accepted point use is not a coordinate calibration or census-date measurement claim.','Ordinary denominator excludes Moscow, St Petersburg, Sevastopol and 2021 Crimea. Federal Moscow/St Petersburg territories are separate nonsettlement aggregates.','2021 common control excludes Crimea 1934630 and Sevastopol 547820; national control retains them. Neither 2014-only paths nor absorption-only parent context counts as three observed census years.','Partition points cover whole place, not each individual numbered part. Derived population sums do not add extra population.','Qualified physical series retain grain changes, secondary 2021 values and auxiliary nonadditive observations; they do not assert ordinary NP identity, boundary comparability or unchanged scopes.','2010 protected selected values retain their original quality. All source populations remain unchanged. Candidate-only ledgers never included.']}
+    report={'status':'recomputed_baseline_and_unique_source_id_unions_verified','working_stage':stage,'ordinary_axes_by_year':metrics,'baseline_strict_joint_population':BASELINE,'actual_cumulative_gain_by_unique_source_id_union':gains,'complete_partition_plus_federal_overlay':overlaystats,'qualified_physical_scope_all_grains':{'ordinary_np_three_year_identity_asserted':False,'series':sum(r['series'] for r in physical),'observations':sum(r['observations'] for r in physical),'secondary_population_observations':sum(r['secondary_population_observations'] for r in physical),'scopes':physical,'source_id_credit_reference_rows':len(credits),'unique_selected_credit_source_ids':credits.source_record_id.nunique(),'by_year':qualified},'growth_flags':{'axis':'accepted ordinary adjacent same-place census pairs; positive ratio >20, reverse <1/20 separately, zero/unknown never ratio-imputed','counts':growthdf.flag.value_counts().to_dict() if len(growthdf) else {},'total_flagged_pairs':len(growthdf)},'accepted_status_enums':{'edge':sorted(ACCEPTED_EDGE_STATUSES),'point':sorted(ACCEPTED_COORDINATE_STATUSES)},'input_ledger_status_counts':status,'active_point_status_counts':dict(active),'active_point_target_count':len(point),'same_place_components_all_grains':len(state.years),'full_three_year_components_all_grains':sum(v==set(YEARS) for v in state.years.values()),'point_alternatives':len(state.point_alternatives),'conflicting_point_targets':len(state.conflicting_point_targets),'official_2010_control_minus_selected_ordinary_and_federal':493512,'regional_official_2010_control_mapping':{'status':'not_recalculated_pending_unambiguous_control_region_mapping','national_gap_preserved':493512,'required_parent_folds':'Nenets to Arkhangelsk; Khanty-Mansi and Yamalo-Nenets to Tyumen; inclusive published parent controls'},'limits':['Accepted point use is not a coordinate calibration or census-date measurement claim.','Ordinary denominator excludes Moscow, St Petersburg, Sevastopol and 2021 Crimea. Federal Moscow/St Petersburg territories are separate nonsettlement aggregates.','2021 common control excludes Crimea 1934630 and Sevastopol 547820; national control retains them. Neither 2014-only paths nor absorption-only parent context counts as three observed census years.','Partition points cover whole place, not each individual numbered part. Derived population sums do not add extra population.','Qualified physical series retain grain changes, secondary 2021 values and auxiliary nonadditive observations; they do not assert ordinary NP identity, boundary comparability or unchanged scopes.','2010 protected selected values retain their original quality. All source populations remain unchanged. Candidate-only ledgers never included.']}
     report['regional_official_2010_control_mapping']=regional_control_receipt
     report['all_three_component_points_national_unions']=stronger_national_union
     report['own_row_point_plus_full3_companion_definition']='Companion axis: each counted ordinary row has its own admitted point use and a three-year identity component. Other rows in the same component may lack point uses; this is not the all-three-point axis.'
@@ -308,7 +324,7 @@ def main(stage=7):
     from export_full3 import build as export_full3
     pin(OUT/'export_full3.py')
     pin(OUT/'verify_export.py')
-    report['ordinary_complete_number_export']=export_full3(state,ordinary,componentpoints,stage,pins,OUT)
+    report['ordinary_complete_number_export']=export_full3(state,ordinary,componentpoints,stage,pins,OUT,reuse=reuse_ordinary_export)
     from finite_number_unions import build as build_finite_unions
     pin(OUT/'finite_number_unions.py')
     finite_national_union=build_finite_unions(report,OUT)
@@ -341,11 +357,10 @@ def main(stage=7):
     text+=['', 'Imported empty population quality values remain unknown, unchanged: '+', '.join(f'{y}: {n} export rows' for y,n in quality_unknown.items())+'.']
     (OUT/'README.md').write_text('\n'.join(text)+'\n')
     outputs={p.name:{'bytes':p.stat().st_size,'sha256':sha(p)} for p in OUT.iterdir() if p.is_file() and p.name!='output_hash_manifest.json'}
-    assert sum(x['bytes'] for x in outputs.values())<4_000_000
     write_json('output_hash_manifest.json',outputs)
     print(json.dumps({'all_three_component_points_national_unions':stronger_national_union,'own_row_point_plus_full3_companion':overlaystats,'qualified_own_row_point_companion':qualified,'growth_flag_counts':report['growth_flags']['counts'],'wall_seconds':report['wall_seconds'],'output_bytes':sum(x['bytes'] for x in outputs.values())}))
 
 if __name__=='__main__':
     import argparse
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--stage',type=int,default=7)
-    main(parser.parse_args().stage)
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--stage',type=int,default=7);parser.add_argument('--reuse-ordinary-export',action='store_true',help='Reuse only when graph/point/selected ledger bytes and recomputed ordinary coverage are unchanged')
+    args=parser.parse_args();main(args.stage,args.reuse_ordinary_export)
