@@ -60,6 +60,15 @@ def main(stage=7):
         if stage==14:
             assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126150476,123382596,123960048)))[y], (y,sm)
             assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(136847,136875,136879)))[y], (y,sm)
+        if stage==15:
+            assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126153231,123384459,123962647)))[y], (y,sm)
+            assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(136855,136883,136887)))[y], (y,sm)
+        if stage==16:
+            assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126165144,123394194,123980432)))[y], (y,sm)
+            assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(136858,136886,136890)))[y], (y,sm)
+        if stage==17:
+            assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126184990,123409970,123993409)))[y], (y,sm)
+            assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137001,137029,137033)))[y], (y,sm)
         assert sm[str(y)]['denominator_selected_ordinary_population']==DENOM[y]
     expected={y:sm[str(y)]['covered_population'] for y in YEARS}
     obs=state.obs.copy()
@@ -195,6 +204,27 @@ def main(stage=7):
         else:
             assert r['source_record_id'] not in state.by_id.index
     physical.append({'scope':'auxiliary_observed_years_20261007','series':9,'observations':27,'secondary_population_observations':1,'selected_credit_references':18,'protected_auxiliary2010_population_added':0,'dated_secondary2002_population_added':0,'held_unpointed_candidates_excluded':9})
+    event_folder=E/'recreated_named_locality_event_application_20261007'
+    if (event_folder/'application_receipt.json').exists():
+        er=receipt(event_folder,'applied_secondary_documented_named_district_recreation_series',['accepted_qualified_physical_observations.csv'])
+        event=pd.read_csv(event_folder/'accepted_qualified_physical_observations.csv')
+        assert len(event)==6 and event.trajectory_id.nunique()==2 and event.nonadditive_observation.sum()==2
+        assert not event.ordinary_NP3_asserted.any() and not event.boundary_comparability_asserted.any()
+        assert event.decision_status.eq('qualified_accepted_secondary_event_witness').all()
+        for _,g in event.groupby('trajectory_id'): assert set(g.year)==set(YEARS)
+        for r in event.to_dict('records'):
+            assert pin(Path(r['source_path']))==r['source_sha256']
+            assert pin(Path(r['point_origin_file']))==r['point_origin_sha256']
+            if r['nonadditive_observation']:
+                assert int(r['year'])==2002
+            else:
+                assert int(r['year']) in [2010,2021]
+                existing(r['source_record_id'],r['year'],r['population_source_value'],r['scope'])
+                assert state.by_id.loc[r['source_record_id'],'population_value_quality']==r['population_quality']
+        assert int(event.loc[event.year.eq(2002),'population_source_value'].sum())==13892+10189
+        assert int(event.loc[event.year.eq(2010),'population_source_value'].sum())==24011
+        assert int(event.loc[event.year.eq(2021),'population_source_value'].sum())==24041
+        physical.append({'scope':'named_district_recreation_2009','series':2,'observations':6,'secondary_population_observations':0,'selected_credit_references':4,'primary2002_quarter_population_nationally_added':0,'ordinary_NP3_asserted':False,'boundary_comparability_asserted':False})
     pd.DataFrame(physical).to_csv(OUT/'qualified_physical_series.csv',index=False)
     credits=pd.DataFrame(credit)
     credits['already_in_ordinary_joint']=credits.source_record_id.isin(joint)
@@ -272,6 +302,9 @@ def main(stage=7):
     assert review_receipt['held_county_contradictions']==7 and review_receipt['eligible_candidates']==4
     for p,h in review_receipt['cached_physical_source_hashes'].items(): assert pin(Path(p))==h
     report['reviewed_proximity_counterexample']={'original_candidates':11,'held_wrong_county':7,'eligible_later_accepted':4,'example':'Курилово: historical 2002 population 2371 is a Подольский locality; nearby 2021 population 33 belongs to Солнечногорск. The accepted historical point is a wrong namesake; name and proximity do not repair the county contradiction. The candidate edge was held and is not counted.','proof_receipt':str(review/'root_review_receipt.json'),'proof_source_context':str(review/'root_review_physical_county_context.csv')}
+    from named_merger_lineage import build as build_named_merger_lineage
+    pin(OUT/'named_merger_lineage.py')
+    report['named_merger_lineage_extended_population_axis']=build_named_merger_lineage(E,state,ordinary,componentpoints,partition_ids,extra,fedp,NATIONAL,COMMON,OUT,pin)
     from export_full3 import build as export_full3
     pin(OUT/'export_full3.py')
     pin(OUT/'verify_export.py')
@@ -297,6 +330,13 @@ def main(stage=7):
     for y in YEARS:
         text.append(f"| {y} | {expected[y]:,} | {overlaystats[y]['combined_population']:,} | {overlaystats[y]['percent_of_common_control']:.5f} | {qualified[y]['population_including_federal_territories']:,} | {qualified[y]['percent_of_common_control']:.5f} |")
     text+=['','The ordinary point_and_full_three_census_identity axis requires a point on the row being counted and a three-year identity component. The stricter full_three_census_with_all_component_points axis requires an admitted own-point use on each of its three census source rows. The small difference is listed explicitly in own_point_full3_components_missing_other_year_points.csv.','', 'Coordinate origin and claimed quality counts are recorded separately. Seven proximity candidates remain held for physical source county contradictions. For example, Курилово (2,371 in the historical Подольский source) was near a 33-person Солнечногорск namesake because the earlier accepted coordinate itself was wrongly bound; that candidate edge remains excluded. See the pinned root_review_physical_county_context.csv evidence.','', 'The result remains below 99%. Official national and common controls are explicit in the JSON; 2021 common excludes Crimea and Sevastopol. The 2010 selected-source population shortfall remains 493,512. Regional rankings include both selected-population gaps and a separate 2010 official-control reconciliation with 83 explicit region mappings folded to 80 disjoint controls. Nenets folds into Arkhangelsk; Khanty-Mansi and Yamalo-Nenets fold into Tyumen. This is a region-level check, not a full municipal audit.','',f"Qualified physical scopes contain {sum(r['series'] for r in physical)} three-observed-year series, including two secondary-supported 2021 children and one dated secondary 2002 observation. Nine unpointed candidate series are held and excluded. Later Norilsk districts and auxiliary 2010 observations contribute zero additive population. Existing primary source IDs are credited once in the sidecar union.",'','Accepted points are reviewed representative point uses, including retrospective continuity inferences. Coordinate calibration, census-date measurements, boundary equivalence and ordinary NP grain equivalence for physical sidecars are not asserted. Source population values and quality flags are unchanged. Candidate-only paths, 2014-only paths and absorption-only receiving-parent context never count as full3.','','The top100 residual and regional ranking files use strict ordinary full3 + point as the gap axis; sidecar coverage flags remain explicit. Growth flags describe accepted adjacent ordinary census pairs; zero and unknown populations are not imputed.','',f"Wall time: {report['wall_seconds']} seconds. Exact graph, point, delta, sidecar and code hashes are in input_hash_manifest.json."]
+    lineage=report['named_merger_lineage_extended_population_axis']
+    if lineage['status']=='admitted_separate_named_merger_event_lineage':
+        text+=['', f"Separate named merger/event lineage extension: {lineage['groups']} complete named rosters, {lineage['observations']} census-year group observations and {lineage['representative_scope_points']} receiving-parent representative scope points. This different grain retains boundary comparability UNKNOWN and secondary documented event sources; historical constituents are not asserted as ordinary settlements individually observed in all three censuses.", '', '| Year | Finite ordinary + partitions + qualified + FED | Named lineage net exclusive source-ID gain | Extended lineage population | Common control % |', '|---|---:|---:|---:|---:|']
+        for y in YEARS:
+            row=lineage['by_year'][y]
+            text.append(f"| {y} | {row['finite_ordinary_plus_partitions_qualified_federal_population']:,} | {row['named_lineage_net_population_added_by_exclusive_source_ID_union']:,} | {row['extended_named_lineage_population']:,} | {row['percent_of_common_control']:.5f} |")
+        text+=['', 'The individual lineage observations, complete constituent source IDs, scope points and event relations are exported separately in named_merger_lineage_*.csv. Ordinary NP3 and the qualified physical register remain separate. No group sum is added on top of constituent credits.']
     quality_unknown=json.loads((OUT/'export_verification_receipt.json').read_text())['unknown_imported_population_quality_rows_by_year']
     text+=['', 'Imported empty population quality values remain unknown, unchanged: '+', '.join(f'{y}: {n} export rows' for y,n in quality_unknown.items())+'.']
     (OUT/'README.md').write_text('\n'.join(text)+'\n')
