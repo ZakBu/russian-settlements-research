@@ -1,0 +1,15 @@
+# Residual exact name + accepted point within 5 km candidates
+
+Candidate only; no accepted ledgers or populations modified. Pinned working_state default stage7. Baseline reproduced: 2002 125,865,264, 2010 123,114,035, 2021 123,670,785 strict ordinary population covered.
+
+11 distinct new same_place candidate unions, zero proposed point uses. Exact simulated full-three-year coverage population gain: 2002 +3,264; 2010 +2,263; 2021 +386. Seven new complete three-year components add seven covered rows per year; remaining unions do not complete three-year paths. These are candidate gains, pending parent review and admission.
+
+Name normalization is NFKC, casefold, ё→е, Unicode punctuation (including hyphens) to spaces, and whitespace collapse. Original endpoint names and normalization proof are retained. County and printed type are ignored for matching and disagreements are flagged. Each endpoint requires its own already accepted point. Mutual uniqueness counts all accepted pointed rows sharing normalized name and region in the opposite year within 5 km, including rows already connected; it does not require a name to be globally unique across a region.
+
+All same-year accepted coordinate sharing, repeated-year components, event IDs/native event codes, nonwhole/admin grains, federal cities/Crimea, conflicting point alternatives, native source coordinate contradictions, and component accepted point separation over 5 km are held. No fuzzy matching, population identity rule, boundary comparability, or provider identifier binding is asserted. No independent coordinate corroboration is asserted; common copied donor is explicitly flagged when identifiable. Points are accepted baseline claims, not freshly validated direct historical measurements.
+
+Independent cached physical source checks cover all 11 candidate pairs (22 endpoints), ordered by distance/county/type risk because the batch is below 100. All 22 raw name and file hash checks pass. For >=100 batches the script adds a fixed seed-20261007 random20 sample outside top12. The Kaliningrad source is physically cached at /workspace/settlements-work/sources/r2-missing/kaliningrad_tom1.xlsx; its bytes match the selected source hash. Original XLS numeric sheet locators are interpreted as zero-based physical worksheet indexes. Source inspection is separate from candidate generation; it is not independent human admission review. All points retain accepted ledger path/hash and source row origin fields.
+
+Separate structural replay passes pinned inputs, reproduced baseline and simulated result, mutual uniqueness, distinct unions, and no repeated years. 5 endpoint population ratios >=3 are flagged in population_ratio_flags.csv without changing values, including protected 2010 values. Zero counts remain zero and are not ratios. Large population changes are not evidence of comparable historical boundaries.
+
+Reproduce with build_batch.py, sample_raw.py, verify_structure.py in that order against the pinned snapshot; simulation_receipt.json pins all inputs and CSV outputs. Candidate authoring does not itself authorize statuses to become accepted.

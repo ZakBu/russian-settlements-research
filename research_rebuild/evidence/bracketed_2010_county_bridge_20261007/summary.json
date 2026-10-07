@@ -1,0 +1,121 @@
+{
+  "status": "candidate_context_inference_packet_ready_for_parent_apply_review",
+  "selected_input_path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+  "selected_input_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+  "baseline_metrics_with_named_extras": {
+    "2002": {
+      "denominator_selected_ordinary_population": 130111032,
+      "covered_population": 125531490,
+      "coverage_percent": 96.48028154906957,
+      "covered_rows": 133162,
+      "residual_rows": 24904,
+      "gap_to_99_percent": 3278432
+    },
+    "2010": {
+      "denominator_selected_ordinary_population": 125979957,
+      "covered_population": 122801573,
+      "coverage_percent": 97.47707169006257,
+      "covered_rows": 133191,
+      "residual_rows": 19121,
+      "gap_to_99_percent": 1918585
+    },
+    "2021": {
+      "denominator_selected_ordinary_population": 126087650,
+      "covered_population": 123348044,
+      "coverage_percent": 97.82722098476734,
+      "covered_rows": 133195,
+      "residual_rows": 21197,
+      "gap_to_99_percent": 1478730
+    }
+  },
+  "extras": {
+    "edge_files": [
+      "/workspace/russian-settlements-research/research_rebuild/evidence/refreshed_name_point_bridge_20261007/accepted_identity_edge_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/large_missing_year_batch_20261007/accepted_identity_edge_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/unique_county_name_bridge_20261007/accepted_identity_edge_delta.csv"
+    ],
+    "point_files": [
+      "/workspace/russian-settlements-research/research_rebuild/evidence/accepted_chain_point_transfer_20261007/accepted_point_use_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/refreshed_name_point_bridge_20261007/accepted_point_use_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/large_missing_year_application_20261007/accepted_point_use_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/unique_county_name_bridge_20261007/accepted_point_use_delta.csv"
+    ]
+  },
+  "inputs_sha256": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/event_aware_path_union_20261005/accepted_event_path_selected_rows.csv": "09679369de2ed0d3bfa78377e20aab54eb6232147073c98b886420c7527d651f",
+    "/workspace/settlements-work/sources/historical_identifiers/observed_v1/lineage_event_candidates.json": "1f6b6066ada348e160ccd5c898adb7d40cac9a50336da9788f211eb1ab466622",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/refreshed_name_point_bridge_20261007/accepted_identity_edge_delta.csv": "01bff908fd8e4659c86f19c2502fd882d3108055c2e0f27fee0cc3c93b337b67",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/large_missing_year_batch_20261007/accepted_identity_edge_delta.csv": "e98666121e38e72a62cf0771f1061c6c1995fb66317907a569d4f6bc4e7f8a6a",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_county_name_bridge_20261007/accepted_identity_edge_delta.csv": "bf6073d3fba1ebf960f01b79cfa8c6c072174f77b8625e9b47fec09897459817",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/accepted_chain_point_transfer_20261007/accepted_point_use_delta.csv": "745e82d127ed79e4eaf00e9a33de9449a05f26304d5d7c131f4b47efc1eee414",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/refreshed_name_point_bridge_20261007/accepted_point_use_delta.csv": "1c9b6a66111e04ebdfe7a781b7abea56148bfbc7366726d8291d19df33445339",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/large_missing_year_application_20261007/accepted_point_use_delta.csv": "0caa985ff62355ae7536922565536e9c0975d887bff85ce985f1771d6be8b522",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_county_name_bridge_20261007/accepted_point_use_delta.csv": "645a967338f22ff1c21ba704619b24abf8198afb15bd149747ffe3c3ba61f696"
+  },
+  "2010_additive_district_null_rows": 106512,
+  "2010_null_rows_with_physical_source_row": 102508,
+  "bracketed_two_sided_context_rows": 79458,
+  "eligible_contextual_link_candidates": 1024,
+  "usable_staged_source_candidates": 678,
+  "held_unstaged_or_hash_mismatch_candidates": 346,
+  "expected_2010_covered_population_gain_usable_candidates": 122773,
+  "expected_2010_covered_population_gain_held_unstaged": 53161,
+  "sample_seed": 20261007,
+  "sampled_targets": 25,
+  "sampled_bracket_rows": 75,
+  "hold_reason_counts": {
+    "lower_anchor_over_20_rows": 13110,
+    "county_boundary_or_disagreement": 16385,
+    "upper_anchor_over_20_rows": 13144,
+    "anchor_not_distinct_name_or_row": 289,
+    "no_upper_accepted_anchor": 1585,
+    "no_lower_accepted_anchor": 1346,
+    "event_hold": 7,
+    "not_source_whole_physical_row": 4064,
+    "missing_physical_source_locator": 4004,
+    "duplicate_selected_record_at_source_row": 2,
+    "old_current_component_has_event_or_repeated_year_scope": 65033,
+    "2010_endpoint_already_connected_or_repeated_year": 130064,
+    "2002_not_unique_whole_name_type_region_county": 8690,
+    "2021_not_unique_whole_name_type_region_county": 5274,
+    "duplicate_2010_same_name_unresolved_context": 4650,
+    "no_own_accepted_current_point": 5707,
+    "2010_not_unique_source_row_in_inferred_county": 4174,
+    "old_current_not_already_same_accepted_component": 4,
+    "old_current_points_over_5km": 74,
+    "event_candidate_hold": 2,
+    "2010_point_conflicts_with_old_current": 2
+  },
+  "practical_screen_counts": {
+    "bracketed_targets": 79458,
+    "unique_2002_endpoint": 70768,
+    "unique_2021_endpoint": 74184,
+    "unique_2010_source_row": 75284,
+    "old_current_same_component": 66322,
+    "old_point_present_consistency_check": 66059,
+    "current_point_own": 60619,
+    "old_current_points_within_5km": 65985,
+    "old_current_component_exact_2002_2021": 1293,
+    "target_2010_unlinked": 1294,
+    "old_point_absent_allowed": 267
+  },
+  "constraints": [
+    "district is inferred context, never written as original source field",
+    "no QID or population fingerprint used for identity",
+    "boundary/no-anchor/>20-row gaps held",
+    "two source-ordered distinct-name accepted 2010 anchors within 20 rows each are required",
+    "same_place candidate only when 2002+2021 are already one accepted component, county-local uniqueness, whole physical target row, no event flags, and own accepted current point",
+    "an existing 2002 accepted point is checked for <=5km consistency when available; it is not independent corroboration and is not a hard gate when absent",
+    "candidate status is not accepted and does not change graph"
+  ],
+  "outputs": {
+    "usable_contextual_link_candidates.csv": "254cde0964f697410db319de3532b6697201d56def1431083c152c9ca5676fdc",
+    "top_mass_5_candidates.csv": "c922a393db373c841717a1d42865be8670c59aa4201874649a9c0e639108bdae",
+    "held_unstaged_source_candidates.csv": "c38371aeb6bbb73d0fba6a8e3180717ba3dda5f6ef32d5ee20171caf6b141e22",
+    "sampled_bracket_source_checks.csv": "115178dd21656448dae1f5ce5218e0818af404e5275c69cf99883f64ea0fd67b",
+    "eligible_contextual_link_candidates.csv": "6d50613d9f4a7c87800d79f00e2affc97923258e8171dafe9c5f2e7651c16071",
+    "hold_reason_counts.csv": "bc7a76d749218071ff63e5261db5f407ee11e69c0f3f36e34cf2ebb0a69d9796"
+  },
+  "receipt": "receipt.md"
+}

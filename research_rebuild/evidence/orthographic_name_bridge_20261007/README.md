@@ -1,0 +1,9 @@
+# Orthographic source-name bridge — candidate-only zero-result batch
+
+Fixed working_state stage 10, following the accepted station-designator batch. Names match only through Russian quotation marks, Unicode hyphen/dash rendering, whitespace around hyphens and ё/е equivalence. All ordinary lexical words, punctuation outside the listed quotation/dash characters, and numbers remain intact. No fuzzy matching, source/county alias expansion, station-descriptor removal or numerical stripping is applied.
+
+Require the same region and explicit source county key, per-year county/name uniqueness ignoring printed type and counting unresolved plausible source competitors, physical additive whole-locality rows, and at least one already accepted component point. Accepted points must lie within 5 km; native coordinate contradictions, repeated census years, shared points and known events hold a pair. All inputs are byte-pinned; source populations and the protected 2010 limitations are preserved.
+
+Result: zero candidate edges, zero candidate point uses and zero marginal full-three-year population gain. 1,097 orthographic variant pairs are already connected. Seven disconnected component pairs have no accepted point and are recorded solely in no_point_reserve.csv; this reserve is not an identity or point admission and has not passed the full point/event checks. One further pair is held for native-source coordinate contradiction, proposed same-year point collision and repeated-year conflict.
+
+No raw candidate sample applies because there are no admissible candidates. parser_checks.json records five positive equivalences and five lexical/numerical negative controls. Run build_batch.py, sample_raw.py and verify_structure.py in order. Root owns further source-point investigation and any later admission.

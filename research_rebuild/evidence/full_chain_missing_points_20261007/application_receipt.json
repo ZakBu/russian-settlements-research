@@ -1,0 +1,249 @@
+{
+  "status": "reproducibly_built_raw_points_for_existing_accepted_full_chains",
+  "full_chain_components_without_any_accepted_point_at_start": 536,
+  "components_with_point_uses_added": 33,
+  "point_uses_added": 99,
+  "source_components": {
+    "geokladr_2011_exact_okato_name": 33
+  },
+  "point_use_rows_by_origin_kind": {
+    "accepted_same_place_spatial_continuity_inference": 66,
+    "direct_geokladr_2011_source_row": 33
+  },
+  "coverage_baseline": {
+    "2002": {
+      "denominator_selected_ordinary_population": 130111032,
+      "covered_population": 125417164,
+      "coverage_percent": 96.3924135195546,
+      "covered_rows": 132882,
+      "residual_rows": 25184,
+      "gap_to_99_percent": 3392758
+    },
+    "2010": {
+      "denominator_selected_ordinary_population": 125979957,
+      "covered_population": 122682881,
+      "coverage_percent": 97.38285670315001,
+      "covered_rows": 132914,
+      "residual_rows": 19398,
+      "gap_to_99_percent": 2037277
+    },
+    "2021": {
+      "denominator_selected_ordinary_population": 126087650,
+      "covered_population": 123226794,
+      "coverage_percent": 97.73105772056185,
+      "covered_rows": 132917,
+      "residual_rows": 21475,
+      "gap_to_99_percent": 1599980
+    }
+  },
+  "coverage_after": {
+    "2002": {
+      "denominator_selected_ordinary_population": 130111032,
+      "covered_population": 125420739,
+      "coverage_percent": 96.39516117280509,
+      "covered_rows": 132915,
+      "residual_rows": 25151,
+      "gap_to_99_percent": 3389183
+    },
+    "2010": {
+      "denominator_selected_ordinary_population": 125979957,
+      "covered_population": 122685428,
+      "coverage_percent": 97.38487845332412,
+      "covered_rows": 132947,
+      "residual_rows": 19365,
+      "gap_to_99_percent": 2034730
+    },
+    "2021": {
+      "denominator_selected_ordinary_population": 126087650,
+      "covered_population": 123228669,
+      "coverage_percent": 97.73254478134854,
+      "covered_rows": 132950,
+      "residual_rows": 21442,
+      "gap_to_99_percent": 1598105
+    }
+  },
+  "full_chain_population_gain_by_year": {
+    "2002": 3575,
+    "2010": 2547,
+    "2021": 1875
+  },
+  "point_uses_by_year": {
+    "2002": {
+      "point_uses_added": 33,
+      "population_point_uses_added": 3575
+    },
+    "2010": {
+      "point_uses_added": 33,
+      "population_point_uses_added": 2547
+    },
+    "2021": {
+      "point_uses_added": 33,
+      "population_point_uses_added": 1875
+    }
+  },
+  "held_components_by_reason": {
+    "no_exact_provider_point_or_okato": 18,
+    "geokladr_exact_name_okato_not_unique_or_absent": 80,
+    "nonlocality_or_nonpreferred_type": 93,
+    "transport_or_facility_name": 305,
+    "provider_exact_name_type_region_not_unique": 4,
+    "geokladr_disagrees_with_selected_coordinate_over_5km": 7,
+    "provider_exact_tuple_native_code_disagrees": 3
+  },
+  "preselection_exclusions": {
+    "name_type_or_region_changes": 4
+  },
+  "rules": {
+    "common": "Already accepted full same_place component, exactly one selected row per census year, unchanged settlement name/type/region across 2002/2010/2021, and no accepted point at start.",
+    "tochno_2021": "Unique exact source-provider settlement_dadata, settlement_type_full_dadata and region match to selected row; object_level=Населенный пункт and fias_level_dadata=6 and qc_geo_dadata=3; source OKTMO must equal selected OKTMO; coordinates must agree with selected 2021 coordinates within 50 m when present.",
+    "geokladr_2011": "Fallback only: unique exact full OKATO and exact locality name after removing a classifier type prefix; locality type allowed; selected coordinate, when present, must be within 5 km.",
+    "continuity": "2021 source point is reused on earlier rows only as a spatial continuity inference over the already accepted identity; no historical point measurement or external provider identifier binding is asserted."
+  },
+  "provider_binding_asserted": false,
+  "graph_inputs": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_identity_edges.parquet": {
+      "sha256": "1cc307f2855d15c7503dd226a278c49bdab72f178f5e2564c5e20fa4195a7d1a",
+      "bytes": 30857418
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_point_uses.parquet": {
+      "sha256": "cc2a7cf67d7c25eec2de7f962c49478dd275646138f1303ae3410bf2a6922d23",
+      "bytes": 53104666
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/exact_name_proximity_batch_20261005/accepted_identity_edge_delta.csv": {
+      "sha256": "43f9509917e00b28b71b48e31303566fde6ccec778df1b1f2949b22ed1a963de",
+      "bytes": 248304
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_name_region_coordinate_bridge_20261005/accepted_identity_edge_delta.csv": {
+      "sha256": "95cb1d4cd58dd7e2b56185a2663ed40f38cd5df4f27d0463901a6c9aac9d113d",
+      "bytes": 499203
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/accepted_identity_edge_delta.csv": {
+      "sha256": "ac9edb17b5345d0a0d92fe749e36efa98fd528efa7a97554b27bf8c4c28cfc3d",
+      "bytes": 276952
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/top60_identity_edge_delta.csv": {
+      "sha256": "b67c2d8d24bc09ba3676bb1c7d27b022e86ecfc4beea0a47abd4cd646204995c",
+      "bytes": 1535
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top100_classifier_bridge_20261005/accepted_classifier_bridge_delta.csv": {
+      "sha256": "43d6d428c49124f19aabe6b1197605c7fdf8dfd5516f5712fe554c42e0359d27",
+      "bytes": 24782
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/historical_classifier_bridge_batch_20261005/accepted_identity_edge_delta.csv": {
+      "sha256": "056eda9836b9468d2ecd04abc726e395662c93c7068a9633800366f707d5d5f7",
+      "bytes": 6249
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_exact_historical_code_point_batch_20261005/accepted_identity_edge_delta.csv": {
+      "sha256": "f7b58558253596eaaa64a9e000cea404a442225a01c9495c78fbbf0e724706ed",
+      "bytes": 384
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/kudryashovsky_three_census_chain_20261006/accepted_identity_edge_delta.csv": {
+      "sha256": "4db3f2b42c92139860e757c6711101e812cc4314e1d856f2e6ecdfe287f14732",
+      "bytes": 647
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_2021_fias_exact_name_bridge_20261006/accepted_identity_edge_delta.csv": {
+      "sha256": "cddd636154adf28e84f8d4165ec46821a68499c26118218dd91cee7d0b98e778",
+      "bytes": 5751
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/top60_point_use_delta.csv": {
+      "sha256": "2ff53b8ab3865e971f00794cad21a1c9fd9a40fdf948c0801befc034ae091783",
+      "bytes": 2815
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top100_classifier_bridge_20261005/old_point_use_delta.csv": {
+      "sha256": "02b32ecaab0127d7b49b17ff05a4eff37bff4f8ab47652fe04a4ba9cc2b1362d",
+      "bytes": 1076
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/historical_urban_code_residual_20261005/accepted_point_use_delta.csv": {
+      "sha256": "90e930e94f361fbde5843bab2717a358de8b587f0ec688afbeacda290f69d37e",
+      "bytes": 8650
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/historical_classifier_bridge_batch_20261005/accepted_retrospective_point_use_delta.csv": {
+      "sha256": "8beee00cfbfc9277605e96465a5e2c7727ec6496dcb8ba6607cb9db96dfef780",
+      "bytes": 7222
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/shared_locality_point_novaya_usman_20261005/accepted_shared_locality_point_uses.csv": {
+      "sha256": "6baafa02c33bab281bcc9ad37fa472d1b20235625e5b6eba75ccb294eb9eea81",
+      "bytes": 6806
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_name_region_coordinate_bridge_20261005/accepted_point_use_delta.csv": {
+      "sha256": "c1e7b1eea77978b4ae4374d6945118d0140c026611be890a95931c817dcef88f",
+      "bytes": 320256
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_exact_historical_code_point_batch_20261005/accepted_point_use_delta.csv": {
+      "sha256": "2924d3fe5c43588f1012222b35d115e0cb848dc2a54f6d4f1111a26a66f683c0",
+      "bytes": 3609
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_residual_ownlocality_points_20261005/accepted_point_use_delta.csv.gz": {
+      "sha256": "dd882ec334d07408d16ecf1e3a67f2eb03d1b13ff85cca12f8d32df1c0aabab3",
+      "bytes": 402347
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/kudryashovsky_three_census_chain_20261006/accepted_point_use_delta.csv": {
+      "sha256": "5674072d18ae65a06f0c73ec112a8bbb0b83d490b5e62eb6e9df75362c0424df",
+      "bytes": 2852
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_2021_fias_exact_name_bridge_20261006/accepted_retrospective_point_use_delta.csv": {
+      "sha256": "75b92b5bc06564041fcfa92e00277b500a8da95651a5a337b21599fea4d6414a",
+      "bytes": 19997
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/typed_city_geokladr_code_width_points_20261006/accepted_point_use_delta.csv": {
+      "sha256": "b5323b08f6bfb3611af8ffb907e19251d1df177352a7f1493f8844af50d58bd3",
+      "bytes": 17750
+    }
+  },
+  "graph_composition": {
+    "accepted_graph25_edges_path": "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_identity_edges.parquet",
+    "accepted_graph25_point_uses_path": "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_point_uses.parquet",
+    "accepted_identity_edge_delta_paths": [
+      "/workspace/russian-settlements-research/research_rebuild/evidence/exact_name_proximity_batch_20261005/accepted_identity_edge_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/unique_name_region_coordinate_bridge_20261005/accepted_identity_edge_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/accepted_identity_edge_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/top60_identity_edge_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/top100_classifier_bridge_20261005/accepted_classifier_bridge_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/historical_classifier_bridge_batch_20261005/accepted_identity_edge_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/unique_exact_historical_code_point_batch_20261005/accepted_identity_edge_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/kudryashovsky_three_census_chain_20261006/accepted_identity_edge_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/current_2021_fias_exact_name_bridge_20261006/accepted_identity_edge_delta.csv"
+    ],
+    "accepted_point_use_delta_paths": [
+      "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/top60_point_use_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/top100_classifier_bridge_20261005/old_point_use_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/historical_urban_code_residual_20261005/accepted_point_use_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/historical_classifier_bridge_batch_20261005/accepted_retrospective_point_use_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/shared_locality_point_novaya_usman_20261005/accepted_shared_locality_point_uses.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/unique_name_region_coordinate_bridge_20261005/accepted_point_use_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/unique_exact_historical_code_point_batch_20261005/accepted_point_use_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/current_residual_ownlocality_points_20261005/accepted_point_use_delta.csv.gz",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/kudryashovsky_three_census_chain_20261006/accepted_point_use_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/current_2021_fias_exact_name_bridge_20261006/accepted_retrospective_point_use_delta.csv",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/typed_city_geokladr_code_width_points_20261006/accepted_point_use_delta.csv"
+    ],
+    "accepted_identity_edge_delta_count": 9,
+    "accepted_point_use_delta_count": 11
+  },
+  "source_inputs": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": {
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet": {
+      "sha256": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+      "bytes": 9630813
+    },
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": {
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+      "bytes": 59991330
+    }
+  },
+  "build_script_sha256": "a69098bcc5dbc114013244be69bc44c4ef5a1b709690c0634d6c24b44cf119a5",
+  "outputs": {
+    "point_use_delta.csv": "88b9d9c788b3bf4af44ef63b5f9f968d1bfec116bca932951007062d1de59ad3"
+  }
+}

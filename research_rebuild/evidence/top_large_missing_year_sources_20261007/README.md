@@ -1,0 +1,11 @@
+# Fifteen largest remaining physical-place year gaps — source review
+
+Candidate-only review of the15 highest unique places in the pinned strict residual2002/2010 lists, excluding complete partitions and existing qualified physical series. Existing cached Wikidata/annual module material and relevant cached articles were searched first. Live Wikipedia revisions, rendered population tables, own Wikidata entities and targeted web searches followed. Fetch receipts preserve URLs, retrieval times, revision metadata and byte hashes.
+
+One genuine auxiliary-year candidate can complete an existing two-year physical series: **Власиха,2002:16,309**. Its own Wikidata entity gives year2002 with year precision and no attached references. A geography teaching publication by Ирина Павловна Костромина, published24 January2012 at19:42(localtimezone unspecified), explicitly reports the same2002 census count for Власиха. Its HTML is frozen and hashed. The publication may depend on historical Wikipedia; independent measurement is not asserted. This describes the pre2009 closed military town, so a qualified physical series requires an explicit continuity inference and remains nonadditive in2002. It does not invent an ordinary2002 ZATO settlement row.
+
+Keep the protected selected2010 population25,394. The teaching page's preliminary2010 value26,339 and Wikidata's26,359 are corroborating source context, not replacements. Conditional existing native credit is2010:25,394 and2021:28,240 once, only after review of the auxiliary2002 observation and physical series;2002 national selected credit iszero. No admission is performed here.
+
+Придонской2002:17,133 andМосковский2002:15,563 are already selected native observations in other graph components. Their secondary statements support identity review, not new auxiliary population admission. Neither yields a complete2021 own-place observation. The other large former cities and neighborhoods have no complete required-year own-count series in the reviewed sources. Preabsorption2015 counts, explicitly2020 counts, forecasts, district homonyms and receiving-parent totals remain excluded.
+
+Review `missing_year_observation_candidates.csv`, `top15_required_year_dispositions.csv`, `existing_own_representative_points.csv` and `summary.json`. No frozen source, native population, identity edge or national denominator changed.

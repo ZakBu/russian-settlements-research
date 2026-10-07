@@ -1,0 +1,13 @@
+# Bracketed printed-type variant candidates, 2026-10-07
+
+207 candidate localities; no admissions or selected-data mutations. Potential covered population gain if accepted: 42,534 (2002), 37,787 (2010), 32,420 (2021). This reproduces the current strict baseline covered populations 125,822,730 / 123,076,248 / 123,638,365 from working_state.load() stage 6. Candidate gain is conditional, not accepted coverage.
+
+Exact name, region and county determine county-local uniqueness irrespective of nonblank printed type. All 207 candidates have an explicit printed-type variant; each year's raw type and transition flags remain in the packet. Blank types are held rather than treated automatically as a complete settlement grain. Only whole physical source records are eligible; known events, component collisions, duplicate source rows, unresolved same-name competitors and point inconsistencies are held. The 2002+2021 pair is already accepted in one component lacking 2010; 2010 is a singleton. The current point is an own accepted point, while any accepted old point provides only a <=5 km consistency check.
+
+The 2010 county is inferred from two different-name, accepted 2010 source rows, one on each side within 20 physical rows, with agreeing explicit old/current counties. It remains inferred context: source district is never rewritten or represented as native. Only staged workbooks with matching selected hashes are eligible. Unstaged Kaliningrad originals are excluded. No QID or population fingerprint proves identity; populations are used only to calculate conditional gains and select the top-five audit sample.
+
+Checks: fixed seed 20261007 selected 20 candidates plus five highest-population candidates, totaling 25 distinct targets and 75 literal source rows. All bracket-row literal, physical order and workbook hash checks passed. Candidate endpoints are unique in all three years; all target gaps are <=20; printed types are nonblank; all type-variant flags are set. Input hashes are pinned in summary.json and were unchanged at run end.
+
+The strict rule produced 207 candidates rather than thousands: only 447 otherwise key-matching old/current pairs remain as exact 2002+2021 components; other key matches already contain 2010 or fail scope, uniqueness or own-point requirements. Holding conditions remain explicit in hold_reason_counts.csv.
+
+usable_contextual_link_candidates.csv is the application-compatible evidence packet. eligible_contextual_link_candidates.csv is a relative symlink to the identical staged-only packet to conserve disk. The generator, summary, top-five packet and literal sample are reproducible and candidate-only. Root owns independent review and any admission.

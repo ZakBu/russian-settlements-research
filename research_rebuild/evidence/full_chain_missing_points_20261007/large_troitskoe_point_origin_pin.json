@@ -1,0 +1,141 @@
+{
+  "status": "accepted_whole_locality_point_candidate",
+  "target_name": "Троицкое",
+  "target_type": "село",
+  "target_region": "Алтайский край",
+  "target_district": "Троицкий район",
+  "target_source_record_ids": {
+    "2002:066_76aa869929_Altai_krai1.xls:Sheet1:2203": {
+      "year": 2002,
+      "name": "Троицкое",
+      "type": "село",
+      "region": "алтайский",
+      "district": "Троицкий район",
+      "population": 10973,
+      "source_file": "data/raw/2002/066_76aa869929_Altai_krai1.xls",
+      "source_sha256_selected": null,
+      "source_locator": null
+    },
+    "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:1332": {
+      "year": 2010,
+      "name": "Троицкое",
+      "type": "село",
+      "region": "алтайский",
+      "district": null,
+      "population": 9629,
+      "source_file": "data/raw/2010/008_342f3c208b_16._20Сиб_ФО_2010.xls",
+      "source_sha256_selected": null,
+      "source_locator": null
+    },
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:40732": {
+      "year": 2021,
+      "name": "Троицкое",
+      "type": "село",
+      "region": "Алтайский край",
+      "district": "Троицкий муниципальный район",
+      "population": 9006,
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_sha256_selected": null,
+      "source_locator": null
+    }
+  },
+  "point": {
+    "latitude": 52.982777777778,
+    "longitude": 84.664722222222,
+    "coordinate_precision_degrees": 0.00027777777777778,
+    "globe": "http://www.wikidata.org/entity/Q2",
+    "provider_binding_asserted": false
+  },
+  "wikidata": {
+    "qid": "Q4463615",
+    "entity_url": "https://www.wikidata.org/wiki/Q4463615",
+    "api_url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q4463615&props=labels%7Cdescriptions%7Cclaims%7Csitelinks&languages=ru%7Cen&format=json",
+    "entity_json_path": "research_rebuild/evidence/full_chain_missing_points_20261007/wikidata_Q4463615_entity.json",
+    "entity_json_sha256": "260b56451ad81d07416c311deee54d0b4609cbce55a967db74d286c3179d84a1",
+    "entity_json_bytes": 67434,
+    "p625_statement_id": "q4463615$F4621DDF-D369-42C4-8F0A-869BE35F4EF5",
+    "p625_locator": "entities.Q4463615.claims.P625[0]",
+    "p625_import_reference_qid": "Q206855",
+    "label_ru": "Троицкое",
+    "description_ru": "село в Троицком районе Алтайского края России",
+    "p31_qid": "Q532",
+    "p31_label_ru": "село",
+    "p131_chain": [
+      {
+        "qid": "Q4463542",
+        "url": "https://www.wikidata.org/wiki/Q4463542",
+        "label_ru": "Троицкий сельсовет",
+        "description_ru": "сельское поселение в Троицком районе Алтайского края России"
+      },
+      {
+        "qid": "Q3999620",
+        "url": "https://www.wikidata.org/wiki/Q3999620",
+        "label_ru": "Троицкий район",
+        "description_ru": "муниципальный район в Алтайском крае России",
+        "ruwiki_title": "Троицкий район (Алтайский край)"
+      }
+    ]
+  },
+  "independent_coordinate_checks": {
+    "tochno_2021": {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "locator": "file_row_number=40731 (0-based); object_level=Населенный пункт; settlement_dadata=Троицкое; settlement_type_full_dadata=село; region=Алтайский край; fias_level_dadata=6; qc_geo_dadata=3; oktmo=1651457101",
+      "latitude": 52.9821368,
+      "longitude": 84.6782565,
+      "distance_from_P625_km": 0.9088654849021227
+    },
+    "geokladr_2011": {
+      "raw_dbf_path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+      "locator": "record_number_1based=1325; record_byte_offset_0based=523685; historical_okato=01251857001; name_raw=с Троицкое; settlement_type_raw=с",
+      "latitude": 52.982313,
+      "longitude": 84.672658,
+      "distance_from_P625_km": 0.533775753395577,
+      "source_sha256_in_parsed_row": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+    }
+  },
+  "disambiguation": "2021 selected row is in Троицкий муниципальный район, OKATO 01251857001. A separate same-name row exists in Усть-Пристанский район with another OKATO and a provider point over 100 km away. Q4463615 P131 resolves to Троицкий сельсовет → Троицкий район, explicitly in Алтайский край.",
+  "identity_claim": "Three selected same_place identities were already reviewed by parent; this package adds point uses only and creates no identity edge.",
+  "inputs": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": {
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    "/workspace/settlements-raw/data/raw/2002/066_76aa869929_Altai_krai1.xls": {
+      "sha256": "125d9d9dd5f089c0e610f2cb4ec9b77c204aebda058730bb08292e3060e6097a",
+      "bytes": 453120
+    },
+    "/workspace/settlements-raw/data/raw/2010/008_342f3c208b_16._20Сиб_ФО_2010.xls": {
+      "sha256": "960feadeb50c27be2d8a2084112349fb0c22ae608929716bcafed5a140c84d0e",
+      "bytes": 10963456
+    },
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": {
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+      "bytes": 59991330
+    },
+    "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet": {
+      "sha256": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+      "bytes": 9630813
+    },
+    "research_rebuild/evidence/full_chain_missing_points_20261007/wikidata_Q4463615_entity.json": {
+      "sha256": "260b56451ad81d07416c311deee54d0b4609cbce55a967db74d286c3179d84a1",
+      "bytes": 67434
+    },
+    "research_rebuild/evidence/full_chain_missing_points_20261007/wikidata_context_Qids.json": {
+      "sha256": "53be131d13c5175aa19e57de18ccde467c55bef66b199f6b63c4ed27588be77d",
+      "bytes": 141151
+    },
+    "research_rebuild/evidence/full_chain_missing_points_20261007/wikidata_district_Q3999620.json": {
+      "sha256": "1f29e7f1256ec1ae1271f06e0c571d0bf810d7f836b1229d8a2c32f75356175a",
+      "bytes": 2673
+    }
+  },
+  "output_csv": "research_rebuild/evidence/full_chain_missing_points_20261007/large_troitskoe_point_use_delta.csv",
+  "output_csv_sha256": "5f51d39454b0f44322f3700a387b6fc5caa84fc96b99820e6043985bc093cb29",
+  "output_rows": 3
+}

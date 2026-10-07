@@ -1,0 +1,488 @@
+{
+  "status": "point_candidate_for_currently_unpointed_accepted_full_chain",
+  "target_name": "Троицкое",
+  "target_type": "село",
+  "region": "Московская область",
+  "district": "Чеховский район / Городской округ Чехов",
+  "source_record_ids": {
+    "2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:6323": {
+      "year": 2002,
+      "name": "Троицкое",
+      "type": "село",
+      "region": "московская",
+      "district": "Чеховский район",
+      "population": 4586,
+      "source_file": "data/raw/2002/010_3e630cc803_02c_Moskovskaya-oblast.xls",
+      "source_sha256_selected": null
+    },
+    "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:13773": {
+      "year": 2010,
+      "name": "Троицкое",
+      "type": "село",
+      "region": "московская",
+      "district": null,
+      "population": 3191,
+      "source_file": "data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls",
+      "source_sha256_selected": null
+    },
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:70790": {
+      "year": 2021,
+      "name": "Троицкое",
+      "type": "село",
+      "region": "московская",
+      "district": "Городской округ Чехов",
+      "population": 5349,
+      "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_sha256_selected": null
+    }
+  },
+  "wikidata": {
+    "qid": "Q18804070",
+    "entity_url": "https://www.wikidata.org/wiki/Q18804070",
+    "api_url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q18804070&props=labels%7Cdescriptions%7Cclaims%7Csitelinks&languages=ru%7Cen&format=json",
+    "payload_path": "research_rebuild/evidence/full_chain_missing_points_20261007/wikidata_Q18804070_entity.json",
+    "payload_sha256": "e842c14d3c712b6cb9cd5770a58c0b55244a5dbcb36112bc079b2cb331674f95",
+    "p625_statement_id": "Q18804070$73f560f2-472c-37e6-84d7-9fc09ec4fff9",
+    "locator": "entities.Q18804070.claims.P625[0]",
+    "latitude": 55.24722222222222,
+    "longitude": 37.63055555555555,
+    "precision_degrees": 0.0002777777777777778,
+    "label_ru": "Троицкое",
+    "description_ru": "село в муниципальном округе Чехове Московской области России",
+    "ruwiki_title": "Троицкое (муниципальный округ Чехов)",
+    "p31_qid": "Q532",
+    "p31_label_ru": "село",
+    "p131_current_chain": [
+      {
+        "qid": "Q4414413",
+        "url": "https://www.wikidata.org/wiki/Q4414413",
+        "label": "Сельское поселение Любучанское",
+        "description": "сельское поселение в Чеховском районе Московской области России",
+        "valid_from": "+2005-02-28T00:00:00Z"
+      },
+      {
+        "qid": "Q1117025",
+        "url": "https://www.wikidata.org/wiki/Q1117025",
+        "label": "Чеховский район",
+        "description": "городской округ в Московской области России",
+        "ruwiki_title": "Чехов (муниципальный округ)"
+      }
+    ],
+    "historic_P131_claim": {
+      "qid": "Q4368069",
+      "label": "Подольский уезд",
+      "valid_to": "+1929-00-00T00:00:00Z"
+    }
+  },
+  "point_crosscheck": {
+    "selected_2021_latitude": 55.246949,
+    "selected_2021_longitude": 37.627301,
+    "raw_provider_path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+    "raw_provider_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "raw_provider_locator": "file_row_number=70789 0-based; settlement_dadata=Троицкое; settlement_type_full_dadata=поселок городского типа; region=Московская область; object_level=Населенный пункт; fias_level=6; qc_geo=3; oktmo=46784000761",
+    "raw_provider_latitude": 55.246949,
+    "raw_provider_longitude": 37.627301,
+    "distance_wikidata_to_selected_provider_km": 0.20851670745849946,
+    "provider_category_caveat": "The provider source says поселок городского типа while selected census row and Wikidata identify село. It is only used to corroborate name/region and coordinate proximity; provider ID/type binding is not asserted."
+  },
+  "geokladr_2011_check": {
+    "source_dbf": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+    "source_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "parsed_cache": "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet",
+    "parsed_cache_sha256": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+    "selected_okato": "46484559000",
+    "exact_code_record_count": 0,
+    "use": "not used as point source"
+  },
+  "identity_topology": {
+    "accepted_graph25_link": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_identity_edges.parquet",
+      "sha256": "1cc307f2855d15c7503dd226a278c49bdab72f178f5e2564c5e20fa4195a7d1a",
+      "from": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:13773",
+      "to": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:70790",
+      "decision_status": "checked_rule_accepted"
+    },
+    "large17_added_link": {
+      "path": "research_rebuild/evidence/large_missing_year_batch_20261007/accepted_identity_edge_delta.csv",
+      "sha256": "e98666121e38e72a62cf0771f1061c6c1995fb66317907a569d4f6bc4e7f8a6a",
+      "from": "2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:6323",
+      "to": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:13773",
+      "decision_status": "case_specific_independent_review_accepted"
+    },
+    "component_years": [
+      2002,
+      2010,
+      2021
+    ]
+  },
+  "identity_edges_added_by_this_packet": 0,
+  "provider_binding_asserted": false,
+  "population_boundary_comparability_asserted": false,
+  "input_hashes": {
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_2021_fias_exact_name_bridge_20261006/accepted_identity_edge_delta.csv": {
+      "sha256": "cddd636154adf28e84f8d4165ec46821a68499c26118218dd91cee7d0b98e778",
+      "bytes": 5751
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_2021_fias_exact_name_bridge_20261006/accepted_retrospective_point_use_delta.csv": {
+      "sha256": "75b92b5bc06564041fcfa92e00277b500a8da95651a5a337b21599fea4d6414a",
+      "bytes": 19997
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_residual_ownlocality_points_20261005/accepted_point_use_delta.csv.gz": {
+      "sha256": "dd882ec334d07408d16ecf1e3a67f2eb03d1b13ff85cca12f8d32df1c0aabab3",
+      "bytes": 402347
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/exact_name_proximity_batch_20261005/accepted_identity_edge_delta.csv": {
+      "sha256": "43f9509917e00b28b71b48e31303566fde6ccec778df1b1f2949b22ed1a963de",
+      "bytes": 248304
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/historical_classifier_bridge_batch_20261005/accepted_identity_edge_delta.csv": {
+      "sha256": "056eda9836b9468d2ecd04abc726e395662c93c7068a9633800366f707d5d5f7",
+      "bytes": 6249
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/historical_classifier_bridge_batch_20261005/accepted_retrospective_point_use_delta.csv": {
+      "sha256": "8beee00cfbfc9277605e96465a5e2c7727ec6496dcb8ba6607cb9db96dfef780",
+      "bytes": 7222
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/historical_urban_code_residual_20261005/accepted_point_use_delta.csv": {
+      "sha256": "90e930e94f361fbde5843bab2717a358de8b587f0ec688afbeacda290f69d37e",
+      "bytes": 8650
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/kudryashovsky_three_census_chain_20261006/accepted_identity_edge_delta.csv": {
+      "sha256": "4db3f2b42c92139860e757c6711101e812cc4314e1d856f2e6ecdfe287f14732",
+      "bytes": 647
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/kudryashovsky_three_census_chain_20261006/accepted_point_use_delta.csv": {
+      "sha256": "5674072d18ae65a06f0c73ec112a8bbb0b83d490b5e62eb6e9df75362c0424df",
+      "bytes": 2852
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/shared_locality_point_novaya_usman_20261005/accepted_shared_locality_point_uses.csv": {
+      "sha256": "6baafa02c33bab281bcc9ad37fa472d1b20235625e5b6eba75ccb294eb9eea81",
+      "bytes": 6806
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top100_classifier_bridge_20261005/accepted_classifier_bridge_delta.csv": {
+      "sha256": "43d6d428c49124f19aabe6b1197605c7fdf8dfd5516f5712fe554c42e0359d27",
+      "bytes": 24782
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top100_classifier_bridge_20261005/old_point_use_delta.csv": {
+      "sha256": "02b32ecaab0127d7b49b17ff05a4eff37bff4f8ab47652fe04a4ba9cc2b1362d",
+      "bytes": 1076
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/accepted_identity_edge_delta.csv": {
+      "sha256": "ac9edb17b5345d0a0d92fe749e36efa98fd528efa7a97554b27bf8c4c28cfc3d",
+      "bytes": 276952
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/top60_identity_edge_delta.csv": {
+      "sha256": "b67c2d8d24bc09ba3676bb1c7d27b022e86ecfc4beea0a47abd4cd646204995c",
+      "bytes": 1535
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/top60_point_use_delta.csv": {
+      "sha256": "2ff53b8ab3865e971f00794cad21a1c9fd9a40fdf948c0801befc034ae091783",
+      "bytes": 2815
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/typed_city_geokladr_code_width_points_20261006/accepted_point_use_delta.csv": {
+      "sha256": "b5323b08f6bfb3611af8ffb907e19251d1df177352a7f1493f8844af50d58bd3",
+      "bytes": 17750
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_exact_historical_code_point_batch_20261005/accepted_identity_edge_delta.csv": {
+      "sha256": "f7b58558253596eaaa64a9e000cea404a442225a01c9495c78fbbf0e724706ed",
+      "bytes": 384
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_exact_historical_code_point_batch_20261005/accepted_point_use_delta.csv": {
+      "sha256": "2924d3fe5c43588f1012222b35d115e0cb848dc2a54f6d4f1111a26a66f683c0",
+      "bytes": 3609
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_name_region_coordinate_bridge_20261005/accepted_identity_edge_delta.csv": {
+      "sha256": "95cb1d4cd58dd7e2b56185a2663ed40f38cd5df4f27d0463901a6c9aac9d113d",
+      "bytes": 499203
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_name_region_coordinate_bridge_20261005/accepted_point_use_delta.csv": {
+      "sha256": "c1e7b1eea77978b4ae4374d6945118d0140c026611be890a95931c817dcef88f",
+      "bytes": 320256
+    },
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": {
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    "/workspace/settlements-raw/data/raw/2002/010_3e630cc803_02c_Moskovskaya-oblast.xls": {
+      "sha256": "f2d9f7fba8c898e5e201e8b57e872a9323a1b37c3819434ae7d78e2a8db76147",
+      "bytes": 1086976
+    },
+    "/workspace/settlements-raw/data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls": {
+      "sha256": "cf5b5d57327bf0d32723a7f49bb58db503a201af83a6e2bda4b874986f864167",
+      "bytes": 12517888
+    },
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": {
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+      "bytes": 59991330
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_identity_edges.parquet": {
+      "sha256": "1cc307f2855d15c7503dd226a278c49bdab72f178f5e2564c5e20fa4195a7d1a",
+      "bytes": 30857418
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_point_uses.parquet": {
+      "sha256": "cc2a7cf67d7c25eec2de7f962c49478dd275646138f1303ae3410bf2a6922d23",
+      "bytes": 53104666
+    },
+    "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet": {
+      "sha256": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+      "bytes": 9630813
+    },
+    "research_rebuild/evidence/accepted_chain_point_transfer_20261007/accepted_point_use_delta.csv": {
+      "sha256": "745e82d127ed79e4eaf00e9a33de9449a05f26304d5d7c131f4b47efc1eee414",
+      "bytes": 10909
+    },
+    "research_rebuild/evidence/full_chain_missing_points_20261007/wikidata_Q18804070_entity.json": {
+      "sha256": "e842c14d3c712b6cb9cd5770a58c0b55244a5dbcb36112bc079b2cb331674f95",
+      "bytes": 18161
+    },
+    "research_rebuild/evidence/full_chain_missing_points_20261007/wikidata_context_Q18804070.json": {
+      "sha256": "f2498d2537fb42d91bd86580510be04628eb466ce155b4a2c5eeb7d6aac845ed",
+      "bytes": 69848
+    },
+    "research_rebuild/evidence/full_chain_missing_points_20261007/wikidata_district_Q1117025.json": {
+      "sha256": "4abe6a0cee6b557528cd15b9d8d817fa605f2417054609f516ac3003a3e1af61",
+      "bytes": 1960
+    },
+    "research_rebuild/evidence/full_chain_missing_points_20261007/wikidata_parent_Q4414413.json": {
+      "sha256": "93f0c6ec76df424423831acc03c84d46244d27b04d761fe8321d8ab7caec8cef",
+      "bytes": 53923
+    },
+    "research_rebuild/evidence/large_missing_year_application_20261007/accepted_point_use_delta.csv": {
+      "sha256": "0caa985ff62355ae7536922565536e9c0975d887bff85ce985f1771d6be8b522",
+      "bytes": 8473
+    },
+    "research_rebuild/evidence/large_missing_year_batch_20261007/accepted_identity_edge_delta.csv": {
+      "sha256": "e98666121e38e72a62cf0771f1061c6c1995fb66317907a569d4f6bc4e7f8a6a",
+      "bytes": 15836
+    },
+    "research_rebuild/evidence/refreshed_name_point_bridge_20261007/accepted_identity_edge_delta.csv": {
+      "sha256": "01bff908fd8e4659c86f19c2502fd882d3108055c2e0f27fee0cc3c93b337b67",
+      "bytes": 1853
+    },
+    "research_rebuild/evidence/refreshed_name_point_bridge_20261007/accepted_point_use_delta.csv": {
+      "sha256": "1c9b6a66111e04ebdfe7a781b7abea56148bfbc7366726d8291d19df33445339",
+      "bytes": 2632
+    },
+    "research_rebuild/evidence/residual_qid_application_20261007/accepted_identity_edge_delta.csv": {
+      "sha256": "5fb8b0afccfc8af4dbb0f57f5d8e2c49e3b714e4ab57e5436bdbbb4432a83d07",
+      "bytes": 261
+    },
+    "research_rebuild/evidence/residual_qid_application_20261007/accepted_point_use_delta.csv": {
+      "sha256": "8f42a96851c9ed7e726e2c34f670a9596bf394a7989ba4ff8d8f440183880dea",
+      "bytes": 667
+    },
+    "research_rebuild/evidence/unique_county_name_bridge_20261007/accepted_identity_edge_delta.csv": {
+      "sha256": "bf6073d3fba1ebf960f01b79cfa8c6c072174f77b8625e9b47fec09897459817",
+      "bytes": 179071
+    },
+    "research_rebuild/evidence/unique_county_name_bridge_20261007/accepted_point_use_delta.csv": {
+      "sha256": "645a967338f22ff1c21ba704619b24abf8198afb15bd149747ffe3c3ba61f696",
+      "bytes": 282352
+    }
+  },
+  "top10_current_full3_unpointed_before_this_packet": [
+    {
+      "name": "Троицкое",
+      "type": "село",
+      "region": "московская",
+      "districts": [
+        "Городской округ Чехов",
+        "Чеховский район"
+      ],
+      "population_by_year": {
+        "2002": 4586,
+        "2010": 3191,
+        "2021": 5349
+      },
+      "population_sum_three_rows": 13126,
+      "source_record_ids": [
+        "2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:6323",
+        "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:13773",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:70790"
+      ]
+    },
+    {
+      "name": "Зеленоградский",
+      "type": "пгт",
+      "region": "московская",
+      "districts": [
+        "Городской округ Пушкинский"
+      ],
+      "population_by_year": {
+        "2002": 2173,
+        "2010": 2552,
+        "2021": 5521
+      },
+      "population_sum_three_rows": 10246,
+      "source_record_ids": [
+        "2002:1_TOM_01_04.xls:0:1280",
+        "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:12335",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:69087"
+      ]
+    },
+    {
+      "name": "Сосновка",
+      "type": "пгт",
+      "region": "чувашская",
+      "districts": [
+        "Чебоксарский городской округ",
+        "Чебоксары"
+      ],
+      "population_by_year": {
+        "2002": 3053,
+        "2010": 2237,
+        "2021": 2502
+      },
+      "population_sum_three_rows": 7792,
+      "source_record_ids": [
+        "2002:1_TOM_01_04.xls:0:5850",
+        "2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:14277",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:164125"
+      ]
+    },
+    {
+      "name": "при станции Степь",
+      "type": "посёлок",
+      "region": "забайкальский",
+      "districts": [
+        "Муниципальный район \"Оловяннинский район\"",
+        "Оловяннинский район"
+      ],
+      "population_by_year": {
+        "2002": 3038,
+        "2010": 2699,
+        "2021": 488
+      },
+      "population_sum_three_rows": 6225,
+      "source_record_ids": [
+        "2002:076_4902d90fb3_Chitin.xls:Sheet1:620",
+        "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:10210",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:19430"
+      ]
+    },
+    {
+      "name": "станции Таловка",
+      "type": "посёлок",
+      "region": "бурятия",
+      "districts": [
+        "Прибайкальский муниципальный район",
+        "Прибайкальский район"
+      ],
+      "population_by_year": {
+        "2002": 2163,
+        "2010": 1956,
+        "2021": 1703
+      },
+      "population_sum_three_rows": 5822,
+      "source_record_ids": [
+        "2002:063_3ec7f8316e_buriatia1.xls:Sheet1:780",
+        "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:11049",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:998"
+      ]
+    },
+    {
+      "name": "станции Падунская",
+      "type": "посёлок",
+      "region": "кемеровская",
+      "districts": [
+        "Промышленновский",
+        "Промышленновский муниципальный округ",
+        "Промышленновский район"
+      ],
+      "population_by_year": {
+        "2002": 2177,
+        "2010": 2113,
+        "2021": 1488
+      },
+      "population_sum_three_rows": 5778,
+      "source_record_ids": [
+        "2002:072_970adef884_Kemerov_obl_new.xls:Sheet1:871",
+        "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:5561",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:32506"
+      ]
+    },
+    {
+      "name": "при станции Сбега",
+      "type": "посёлок",
+      "region": "забайкальский",
+      "districts": [
+        "Могочинский район",
+        "Муниципальный район \"Могочинский район\""
+      ],
+      "population_by_year": {
+        "2002": 1532,
+        "2010": 1713,
+        "2021": 1223
+      },
+      "population_sum_three_rows": 4468,
+      "source_record_ids": [
+        "2002:076_4902d90fb3_Chitin.xls:Sheet1:482",
+        "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:10123",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:19297"
+      ]
+    },
+    {
+      "name": "при станции Куанда",
+      "type": "посёлок",
+      "region": "забайкальский",
+      "districts": [
+        "Каларский муниципальный округ",
+        "Каларский район"
+      ],
+      "population_by_year": {
+        "2002": 1614,
+        "2010": 1695,
+        "2021": 1138
+      },
+      "population_sum_three_rows": 4447,
+      "source_record_ids": [
+        "2002:076_4902d90fb3_Chitin.xls:Sheet1:243",
+        "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:9968",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:18682"
+      ]
+    },
+    {
+      "name": "Титан",
+      "type": "населённый пункт",
+      "region": "мурманская",
+      "districts": [
+        "Муниципальный округ город Кировск с подведомственной территорией"
+      ],
+      "population_by_year": {
+        "2002": 1635,
+        "2010": 1442,
+        "2021": 1332
+      },
+      "population_sum_three_rows": 4409,
+      "source_record_ids": [
+        "2002:025_3449b500ac_02c_Murman_obl_YK.xls:Sheet1:44",
+        "MURMANSK2010:POPSEX:T1:R173",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:71273"
+      ]
+    },
+    {
+      "name": "станции Тальжино",
+      "type": "посёлок",
+      "region": "кемеровская",
+      "districts": [
+        "Новокузнецкий муниципальный район",
+        "Новокузнецкий район"
+      ],
+      "population_by_year": {
+        "2002": 1505,
+        "2010": 1530,
+        "2021": 1333
+      },
+      "population_sum_three_rows": 4368,
+      "source_record_ids": [
+        "2002:072_970adef884_Kemerov_obl_new.xls:Sheet1:572",
+        "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:5325",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:33099"
+      ]
+    }
+  ]
+}
