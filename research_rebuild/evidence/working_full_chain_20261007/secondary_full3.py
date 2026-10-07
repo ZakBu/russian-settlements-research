@@ -7,6 +7,7 @@ PACKS=[
  ('wikidata_secondary_full3_application_20261007','applied_qualified_secondary_census_referenced_own_physical_series','qualified_accepted_secondary_census_referenced_own_item'),
  ('current_unpointed_own_wiki_mass_application_20261007','applied_current_own_points_and_qualified_secondary_histories','qualified_accepted_secondary_own_census_history'),
  ('existing_event_scope_application_20261007','applied_reviewed_secondary_physical_three_census_scopes',None),
+ ('wikidata_secondary_full3_expansion_application_20261007','applied_qualified_secondary_census_referenced_own_physical_series','qualified_accepted_secondary_census_referenced_own_item'),
 ]
 
 def load(E,state,pin):
@@ -78,9 +79,13 @@ def load(E,state,pin):
                 assert selected.population_value_quality==row['population_quality']
                 if dirname=='existing_event_scope_application_20261007':
                     assert state.uf.find(sid)==state.uf.find(row['current_source_record_id'])
-            if dirname=='wikidata_secondary_full3_application_20261007':
+            if dirname in ['wikidata_secondary_full3_application_20261007','wikidata_secondary_full3_expansion_application_20261007']:
                 assert row['nonadditive_observation']==(year!=2021)
-                assert int(row['date_precision'])==9 and row['census_reference_ids']
+                if dirname=='wikidata_secondary_full3_application_20261007':
+                    assert int(row['date_precision'])==9 and row['census_reference_ids']
+                elif year in [2002,2010]:
+                    assert int(row['date_precision'])==9 and row['census_proof_class'].startswith('explicit_')
+                    assert json.loads(row['P248_ids_json']) or json.loads(row['census_reference_titles_json']) or json.loads(row['reference_urls_json'])
         frame[['source_actual_path','source_actual_sha256','source_actual_resolution_status']]=pd.DataFrame(actual_sources,index=frame.index)
         packs.append((dirname,receipt,frame))
     return packs
