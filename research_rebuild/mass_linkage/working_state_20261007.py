@@ -21,7 +21,7 @@ PARTITION_MEMBERS = E / "complete_numbered_partition_batch_20261007/accepted_exc
 PARTITION_SERIES = E / "complete_numbered_partition_batch_20261007/accepted_three_census_whole_place_series.csv"
 
 
-def load(stage=14):
+def load(stage=15):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -35,6 +35,7 @@ def load(stage=14):
     12: compatible native printed type prefixes, two complete trajectories.
     13: source-backed former names, with railway-feature candidates withheld.
     14: selected secondary 2010 XLS rows, two-sided accepted source context.
+    15: eight complete triplets with printed historical county and source context.
     """
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
@@ -65,4 +66,6 @@ def load(stage=14):
         state.add_deltas([E/"wikidata_former_name_application_20261007/accepted_identity_edge_delta.csv"], [E/"wikidata_former_name_application_20261007/accepted_point_use_delta.csv"])
     if stage >= 14:
         state.add_deltas([E/"secondary_2010_county_context_application_20261007/accepted_identity_edge_delta.csv"], [E/"secondary_2010_county_context_application_20261007/accepted_point_use_delta.csv"])
+    if stage >= 15:
+        state.add_deltas([E/"secondary_2010_new_triplets_application_20261007/accepted_identity_edge_delta.csv"], [E/"secondary_2010_new_triplets_application_20261007/accepted_point_use_delta.csv"])
     return state
