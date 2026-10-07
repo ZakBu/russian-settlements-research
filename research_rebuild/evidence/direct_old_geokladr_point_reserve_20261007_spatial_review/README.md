@@ -1,0 +1,11 @@
+# Independent spatial supplement — candidate only
+
+The original 1,135 ownpoint reserve stays immutable. This supplement compares its GeoKLADR points to cached external own-object coordinates using literal exact own OKATO/P721, exact own labels and explicit district context from a direct administrative label or the object's own Wikipedia article title. Positive cases additionally require cached Wikidata locality P31 or Tochno own type, physical row level, explicit county and unique agreeing FIAS identifiers. It requires no selected current census observation.
+
+Batch result: 17 candidates corroborated (1,034 residents in 2002, 44 in 2010); 19 rows on 18 raw codes held for explicit independent spatial conflicts; 1,099 unresolved. The bounded top10 plus fixed20 sample has two corroborations, two explicit conflicts and 26 unresolved. These counts describe evidence availability and screened disagreements, never an estimated accuracy probability.
+
+Examples show substantive risk: the own Октябрьский article in Мантуровский район lies approximately 83 km from its GeoKLADR point; own Игнатьево in Луховицкий район differs approximately 78 km. Batch conflicts extend from approximately 19 km to 463 km. Matching historical code/name/type/county and nonduplicated point bytes alone do not validate physical accuracy. The original pool must not be admitted wholesale.
+
+Positive point candidates retain their original coordinates and separate provider identifier binding from geographic agreement. Multiple coordinates and competing exact-code entities are held without choosing a convenient point. A 5 km agreement is a representative locality check, not proof of a precise historical location or census boundary. Wikimedia TSV and truthy cache share one lineage; they are not counted as independent sources of one another. Some historic object QIDs lack cached truthy statements; their exact own TSV code/label and own-article district title still expose spatial conflicts, but those objects do not enter the positive subgroup without locality-type support.
+
+Candidate deltas and the complete own-code screen live only in the work directory. No accepted inputs, population values or identity links are changed. Source and output checksums are in the receipt.
