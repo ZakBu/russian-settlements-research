@@ -1,0 +1,13 @@
+# Current-bound cached secondary2002 census histories
+
+This separate qualified packet starts with explicit State51 plus frozen stage52 and the six cached historical native-name alias deltas. Its 930 ordinary, pointed native2010–2021 components come from the earlier 936 missing-literal-native2002-name pool. No ordinary identity edge or point ledger is changed, and no native2002 record ID is assigned.
+
+The inventory reads 187 existing entity cache files and current own code/entity/point bindings. An accepted2002 value must be an actual own-item P1082 statement with explicit P585year2002 at precision9 or better, whole-locality grain without P518 subdivisions, and either literal census-method P459, exact census day, or a cached reference label/title/URL explicitly identifying the2002 census. Reference-item labels were read from existing source caches; dates, quantities, qualifiers, references and statements remain literal. Generic year-only population claims remain candidates.
+
+Admission requires an own populated-locality item, current native own name, unique current native code, and admitted physical own-point continuity. A post2002 founding claim, municipal/subdivision grain, competing entity or quantity, or native component point contradiction holds the case. The modern representative point is reused by explicit continuity inference; historical coordinates and historical boundary comparability remain unknown. Primary references are not independently verified.
+
+The accepted observation file contains three rows per qualified series: blank-ID/nonadditive secondary2002 and the two existing native2010/2021 rows with unchanged counts and quality. The selected credit union contains only existing native IDs. Exact source-ID union verification separately measures original mixed, direct lifecycle and formation axes against frozen scope snapshots; it preserves prior current2021 credits and assigns zero2002 denominator credit. Ordinary finite metrics remain unchanged.
+
+One normal-TLS Wikipedia API call fetched two exact own article titles; 675 own articles were reused from cache. No article or annual statement lacking literal census context was relabeled for coverage. This article check does not supply an additional accepted series in this packet.
+
+Run inventory.py, enrich_cached_references.py, refresh_claim_aggregates.py, prepare_qualified.py and verify.py to reconstruct the cached census packet. wiki_sources.py already has a frozen network receipt and response and should not be rerun to refetch. The qualified receipt is authoritative for counts, sources, marginal gains and independent verification.

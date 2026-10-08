@@ -114,10 +114,16 @@ class State:
         self.obs["root"] = self.obs.source_record_id.map(self.uf.find)
 
     def reject_point_uses(self, path):
-        """Supersede explicit reviewed claims without editing the frozen ledger."""
+        """Supersede reviewed default point uses without editing their evidence.
+
+        Representative-point supersession does not disprove the old location.
+        """
         for row in pd.read_csv(path, keep_default_na=False).to_dict("records"):
             sid = row["target_source_record_id"]
-            if row["rejection_status"] != "reviewed_rejected_coordinate_claim_only":
+            if row["rejection_status"] not in {
+                "reviewed_rejected_coordinate_claim_only",
+                "reviewed_superseded_representative_point_only",
+            }:
                 raise ValueError("Unsupported point rejection status")
             old = self.point_rows[sid]
             if (old["latitude"], old["longitude"]) != (float(row["old_latitude"]), float(row["old_longitude"])):
