@@ -43,9 +43,19 @@ def build(state,ordinary,componentpoints,stage,pins,out,reuse=False):
         h=actual_origins[key]
         if clean(claimed): assert h==clean(claimed),(key,claimed,h)
         return key,h
+    namespace={};namespace_input_hash=''
+    if stage>=51:
+        import pandas as pd
+        interpretation_path=out.parent/'eaoregion_source_namespace_mass_20261008'/'source_namespace_interpretation_delta.csv'
+        namespace_input_hash=digest(interpretation_path)
+        pins[str(interpretation_path)]={'sha256':namespace_input_hash,'bytes':interpretation_path.stat().st_size}
+        interpretation=pd.read_csv(interpretation_path,keep_default_na=False)
+        assert len(interpretation)==98 and interpretation.source_record_id.is_unique
+        namespace={row['source_record_id']:row for row in interpretation.to_dict('records')}
     target=DEST/'ordinary_full3_all_own_points_complete_numbers.csv.gz'
     fields=['entity_uid','ordinary_same_place_identity','all_three_own_point_uses','complete_number_count']
     suffixes=SOURCE_FIELDS+POINT_FIELDS+('point_use_raw_flags_json','representative_point_use','historical_measurement_asserted','point_reuse_or_continuity_inference_status','native_codes_as_imported_no_cross_year_backfill')
+    if stage>=51: suffixes+=('effective_region_norm','region_raw_original_import','region_interpretation_status','region_interpretation_input_sha256')
     for year in YEARS: fields.extend(f'{k}_{year}' for k in suffixes)
     cols=list(ordinary.columns);groups={}
     for values in ordinary.itertuples(index=False,name=None):
@@ -81,6 +91,7 @@ def build(state,ordinary,componentpoints,stage,pins,out,reuse=False):
         receipt['ordinary_export_reused_without_rewrite']=True
         receipt['reuse_validation']='Unchanged selected/graph/point ledger byte hashes; actual gzip SHA/bytes and independently recomputed finite ordinary count/populations match.'
         receipt['reuse_validation_wall_seconds']=round(time.monotonic()-start,3)
+        if stage>=51: receipt['source_namespace_interpretation']={'input_sha256':namespace_input_hash,'rows':98,'imported_region_norm_preserved':True,'effective_region_separate_column':True,'raw_source_metadata_unchanged':True}
         (out/'export_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
         (out/'export_source_hash_manifest.json').write_text(json.dumps(pins,ensure_ascii=False,indent=2)+'\n')
         return receipt
@@ -107,6 +118,19 @@ def build(state,ordinary,componentpoints,stage,pins,out,reuse=False):
                         source_key=(clean(row.get('source_path')),clean(row.get('source_file')),clean(row.get('source_sha256')))
                         if source_key not in actual_sources: actual_sources[source_key]=resolve_source(row)
                         for k in SOURCE_FIELDS: record[f'{k}_{year}']=clean(row.get(k))
+                        if stage>=51:
+                            correction=namespace.get(row['source_record_id'])
+                            record[f'effective_region_norm_{year}']=clean(row.get('region_norm'))
+                            record[f'region_raw_original_import_{year}']=clean(row.get('region_raw'))
+                            record[f'region_interpretation_status_{year}']='original_import_no_source_specific_correction'
+                            record[f'region_interpretation_input_sha256_{year}']=''
+                            if correction:
+                                assert year==2002 and row['region_norm']==correction['effective_region_norm']
+                                record[f'region_norm_{year}']=correction['region_norm_original_import']
+                                record[f'region_raw_original_import_{year}']=correction['region_raw_original_import']
+                                record[f'region_interpretation_status_{year}']=correction['interpretation_status']
+                                record[f'region_interpretation_input_sha256_{year}']=namespace_input_hash
+
                         record[f'source_actual_path_{year}'],record[f'source_actual_sha256_{year}'],record[f'source_actual_resolution_status_{year}']=actual_sources[source_key]
                         for k in POINT_FIELDS: record[f'{k}_{year}']=clean(point.get(k))
                         origin=clean(point.get('point_origin_file'))
@@ -129,6 +153,7 @@ def build(state,ordinary,componentpoints,stage,pins,out,reuse=False):
     unknown=[r for r in excluded if r['reason']=='unknown_population']
     assert len(unknown)==1 and unknown[0]['unknown_years']==[2010],unknown
     receipt={'export_implementation_sha256':digest(Path(__file__)),'ordinary_input_ledger_hashes':ledger_hashes,'ordinary_export_reused_without_rewrite':False,'working_stage':stage,'file':str(target),'sha256':digest(target),'bytes':target.stat().st_size,'rows':written,'columns':len(fields),'population_by_year':populations,'all_three_own_point_components_before_number_filter':len(groups),'excluded_components':excluded,'unknown_population_never_zero_or_imputed':True,'native_identifiers':'Only selected source row oktmo/okato as imported; empty historical values remain unknown. No chronology or backfill asserted.','entity_uid_recipe':'np3: + unpadded URL-safe base64 of full SHA256 digest of UTF-8 compact JSON ordered [2002 source ID,2010 source ID,2021 source ID]','actual_source_mapping':'Imported source_path and source_sha256 are unchanged. source_actual_path maps legacy empty paths through /workspace/settlements-raw/source_file; source_actual_sha256 hashes actual cached source bytes. Explicit unresolved-source status retains missing original-file provenance; known source and point-origin bytes and admitted ledgers are pinned.','coordinate_claim':'Every census row has its own admitted representative point use; raw point-use fields retained. Historical measurement and boundary calibration are not asserted.','wall_seconds':round(time.monotonic()-start,3)}
+    if stage>=51: receipt['source_namespace_interpretation']={'input_sha256':namespace_input_hash,'rows':98,'imported_region_norm_preserved':True,'effective_region_separate_column':True,'raw_source_metadata_unchanged':True}
     (out/'export_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
     (out/'export_source_hash_manifest.json').write_text(json.dumps(pins,ensure_ascii=False,indent=2)+'\n')
     (out/'export_recipe.md').write_text(f'# Ordinary complete-number full3 export\n\nRun `python research_rebuild/evidence/working_full_chain_20261007/build_report.py --stage {stage}` from repository root.\n\nThe gzip CSV lives outside Git at `{target}`. One entity is an ordered tuple of three selected source IDs linked by admitted same-place identity. All three ordinary rows must have admitted own point uses and finite populations; the one unknown 2010 component is excluded in export_receipt.json. Zero is retained as zero. Source names, quality, coordinates and imported native codes remain separate by census year. Empty codes remain unknown. Per-year raw point uses preserve inference claims and origin references.\n\nThe full source manifest and recipe are in Git; the compressed export is not. Gzip metadata and source-ID sort order are deterministic.\n')

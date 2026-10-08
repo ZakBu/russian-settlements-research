@@ -10,7 +10,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[3]
 E = ROOT / 'research_rebuild/evidence'
 sys.path.insert(0, str(ROOT / 'research_rebuild/mass_linkage'))
-from working_state_20261007 import load
+from working_state_20261007 import load, apply_source_namespace_interpretations
 
 
 def finite(state):
@@ -47,6 +47,8 @@ def main():
         (47, 'uncached_missing2010_dated_source_mass_20261008', '.csv', '.csv'),
         (48, 'accepted_lifecycle_ownpoint_application_20261008', '.csv', '.csv'),
         (49, 'large2010_residual_native2002_followup_20261008', '.csv', '.csv'),
+        (50, 'native2010_remaining_county_rule_mass_20261008', '.csv.gz', '.csv.gz'),
+        (51, 'eaoregion_source_namespace_mass_20261008', '.csv', '.csv'),
     ]
     state = load(39)
     assert finite(state) == {'histories': 138335, 'populations_by_year': {
@@ -66,7 +68,7 @@ def main():
                     assert path.parent == E / 'working_full_chain_20261007', str(path)
                     relative = str(path.relative_to(ROOT))
                     matched = None
-                    for commit in ['dba51d5c4c7f8c4cf4ef3d8520ec26139c1c8b5f', 'f67ea9111a2d7932ef7e55a7015a120ac3a50caa']:
+                    for commit in ['dba51d5c4c7f8c4cf4ef3d8520ec26139c1c8b5f', 'f67ea9111a2d7932ef7e55a7015a120ac3a50caa', '0b8c3b0bda66b4dcec86ef9ff1ce706dc8fdcac7']:
                         result = subprocess.run(['git', 'show', commit + ':' + relative], cwd=ROOT, capture_output=True)
                         if result.returncode == 0 and hashlib.sha256(result.stdout).hexdigest() == expected:
                             matched = commit
@@ -86,7 +88,7 @@ def main():
                     assert path.parent == E / 'working_full_chain_20261007', str(path)
                     relative = str(path.relative_to(ROOT))
                     matched = None
-                    for commit in ['dba51d5c4c7f8c4cf4ef3d8520ec26139c1c8b5f', 'f67ea9111a2d7932ef7e55a7015a120ac3a50caa']:
+                    for commit in ['dba51d5c4c7f8c4cf4ef3d8520ec26139c1c8b5f', 'f67ea9111a2d7932ef7e55a7015a120ac3a50caa', '0b8c3b0bda66b4dcec86ef9ff1ce706dc8fdcac7']:
                         result = subprocess.run(['git', 'show', commit + ':' + relative], cwd=ROOT, capture_output=True)
                         if result.returncode == 0 and hashlib.sha256(result.stdout).hexdigest() == expected:
                             matched = commit
@@ -99,6 +101,8 @@ def main():
                         historical_derived[str(path)] = {'sha256': expected, 'verified_exact_frozen_snapshot': str(snapshot), 'historical_calculation_code_only_not_new_build_input': True}
                 pins[str(path)] = expected
         before = finite(state)
+        if stage == 51:
+            apply_source_namespace_interpretations(state, folder / "source_namespace_interpretation_delta.csv")
         edges = folder / ('accepted_identity_edge_delta' + edge_suffix)
         points = folder / ('accepted_point_use_delta' + point_suffix)
         state.add_deltas([edges], [points])
@@ -113,13 +117,13 @@ def main():
                                                       for year in before['populations_by_year']},
                      'verified_input_and_ledger_pins': pins,
                      'historical_derived_output_verifications': historical_derived})
-    assert finite(state) == {'histories': 138852, 'populations_by_year': {
-        '2002': 126754230, '2010': 123913596, '2021': 124514340}}
-    result = {'status': 'actual_sequential39_to49_State_replay_passed',
+    assert finite(state) == {'histories': 138911, 'populations_by_year': {
+        '2002': 126801407, '2010': 123957564, '2021': 124562245}}
+    result = {'status': 'actual_sequential39_to51_State_replay_passed',
               'measurement': 'all_component_members_finite_all_own_point_uses_no_conflicting_roots',
               'population_source_values_and_quality_unchanged': True,
               'stages': rows, 'final': finite(state)}
-    (E / 'working_full_chain_20261007/native_composition_stages40_49_receipt.json').write_text(
+    (E / 'working_full_chain_20261007/native_composition_stages40_51_receipt.json').write_text(
         json.dumps(result, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps({'status': result['status'], 'final': result['final']}))
 

@@ -207,6 +207,30 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         for path,h in admission39['input_pins'].items():
             path=Path(path)
             if OUT not in path.parents and path!=M/'working_state_20261007.py': assert pin(path)==h
+    namespace_correction={'status':'not_loaded_before_admitted_stage51'}
+    if stage>=50:
+        folder=E/'native2010_remaining_county_rule_mass_20261008';rp=folder/'application_receipt.json';pin(rp);admission50=json.loads(rp.read_text())
+        assert admission50['baseline_stage']==49 and (admission50['accepted_cases'],admission50['edges'],admission50['point_uses'])==(44,67,67)
+        assert admission50['all_source_population_quality_names_unchanged'] and admission50['State_API_replay_passed']
+        for name,h in admission50['output_pins'].items(): assert pin(folder/name)==h
+    if stage>=51:
+        folder=E/'eaoregion_source_namespace_mass_20261008';rp=folder/'application_receipt.json';pin(rp);admission51=json.loads(rp.read_text())
+        assert admission51['status']=='accepted_actual50_source_specific_header_interpretation_and_bounded_native_application'
+        assert admission51['baseline_stage']==50 and admission51['interpretation_rows']==98
+        assert admission51['raw_source_populations_quality_metadata_unchanged'] and admission51['interpretation_effective_region_only']
+        for name,h in admission51['output_pins'].items(): assert pin(folder/name)==h
+        delta_path=folder/'source_namespace_interpretation_delta.csv';delta_hash=pin(delta_path);delta=pd.read_csv(delta_path,keep_default_na=False)
+        assert len(delta)==98 and delta.source_record_id.is_unique and delta.census_year.eq(2002).all()
+        assert delta.interpretation_status.eq('checked_source_header_interpretation_accepted').all() and delta.effective_region_norm.eq('еврейская').all()
+        assert not delta.source_population_modified.any() and not delta.raw_source_metadata_overwritten.any()
+        original=base.by_id.loc[list(delta.source_record_id)]
+        for row in delta.to_dict('records'):
+            selected=state.by_id.loc[row['source_record_id']];raw=original.loc[row['source_record_id']]
+            assert raw.region_norm==row['region_norm_original_import'] and raw.source_file==row['source_file_original_import']
+            assert selected.region_norm==row['effective_region_norm'] and selected.population==raw.population and selected.population_value_quality==raw.population_value_quality
+            assert pin(Path(row['source_namespace_witness_file']))==row['source_namespace_witness_sha256']
+        delta.to_csv(OUT/'source_namespace_interpretation_delta.csv',index=False)
+        namespace_correction={'status':'accepted_source_header_namespace_interpretation','interpretation_rows':98,'input_path':str(delta_path),'sha256':delta_hash,'effective_region_norm':'еврейская','source_header_locator':'Sheet1!A1','original_imported_regions_retained_in_export':True,'raw_source_populations_quality_metadata_unchanged':True,'interpretation_only_NP3_gain':0,'accepted_native_cases_after_interpretation':admission51['accepted_cases'],'native_case_finite_gain':admission51['net_finite_all3_all_points']}
     bm=base.metrics(); sm=state.metrics()
     for y in YEARS:
         assert bm[str(y)]['covered_population']==BASELINE[y], (y,bm)
@@ -633,6 +657,7 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
     report['final_mixed_remaining_native_observation_priority']=build_final_mixed_residuals(state,ordinary,componentpoints,partition_ids,extra,named_ids|territorial_ids,OUT)
     report['auxiliary_iteration']=auxiliary_iteration
     report['baseline_snapshot_git_commit']=baseline_snapshot
+    report['source_namespace_interpretation']=namespace_correction
     report['ordinary_export_reused_without_rewrite']=reuse_ordinary_export
     named_axis=report['named_merger_lineage_extended_population_axis']
     if named_axis['status']=='admitted_separate_named_merger_event_lineage':
@@ -692,6 +717,8 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
             row=formation['by_year'][y]
             text.append(f"| {y} | {row['direct_lifecycle_population']:,} | {row['formation_additional_native_UID_union_population']:,} | {row['lifecycle_plus_formation_population']:,} | {row['percent_of_common_control']:.5f} |")
         text+=['',json.dumps(formation['source_limits'],ensure_ascii=False)]
+    if namespace_correction['status']=='accepted_source_header_namespace_interpretation':
+        text+=['','EAO source namespace: 98 original2002 rows use the source header Sheet1!A1 Еврейская АО for effective regional context. Export keeps the imported region values and separately records the effective namespace and pinned interpretation input. Original source populations, quality, row locators and metadata remain unchanged; the interpretation alone adds no finite three-year histories.']
     quality_unknown=json.loads((OUT/'export_verification_receipt.json').read_text())['unknown_imported_population_quality_rows_by_year']
     text+=['', 'Imported empty population quality values remain unknown, unchanged: '+', '.join(f'{y}: {n} export rows' for y,n in quality_unknown.items())+'.']
     (OUT/'README.md').write_text('\n'.join(text)+'\n')

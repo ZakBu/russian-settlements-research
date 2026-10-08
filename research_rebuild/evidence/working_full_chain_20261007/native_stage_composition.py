@@ -28,10 +28,10 @@ def load(out,stage,pin):
                     assert pin(snapshot)==claimed
                     baseline_references.append({'path':str(path),'sha256':claimed,'verified_exact_frozen_snapshot':str(snapshot),'verification':'exact_frozen_calculation_source_stage47_not_live_build_input'})
                     continue
-                assert path.name in {'qualified_scope_source_id_credit_union.csv','named_merger_lineage_constituents.csv','complete_territorial_scope_constituents.csv','complete_publisher_partition_members.csv','qualified_physical_observations.csv'}
+                assert path.name in {'qualified_scope_source_id_credit_union.csv','named_merger_lineage_constituents.csv','complete_territorial_scope_constituents.csv','complete_publisher_partition_members.csv','qualified_physical_observations.csv','formation_path_native_credit_union.csv','direct_inclusion_transformation_path_native_credit_union.csv','coverage_receipt.json'}
                 relative=str(path.relative_to(out.parents[2]))
                 matching_commits=[]
-                for baseline_commit in ['dba51d5','f67ea9111a2d7932ef7e55a7015a120ac3a50caa']:
+                for baseline_commit in ['dba51d5','f67ea9111a2d7932ef7e55a7015a120ac3a50caa','0b8c3b0bda66b4dcec86ef9ff1ce706dc8fdcac7']:
                     original=subprocess.run(['git','show',baseline_commit+':'+relative],cwd=out.parents[2],capture_output=True)
                     if original.returncode==0 and hashlib.sha256(original.stdout).hexdigest()==claimed: matching_commits.append(baseline_commit)
                 assert matching_commits,('Historical report input does not match verified baseline Git blobs',str(path),claimed)
