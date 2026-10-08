@@ -6,6 +6,7 @@ import pandas as pd
 MISSING2002_SERIES={'temporal_missing2002_all_components_20261008':86,'temporal_missing2002_all_components_20261008/physical_grain_two_hold_followup':2}
 
 PACKS=[
+ ('uncached_missing2010_dated_source_mass_20261008','accepted_uncached2010_native_route_and_disjoint_secondary_census_fallback','qualified_accepted_secondary_census_referenced_own_item'),
  ('cached_missing2010_dated_source_mass_20261008','accepted_cached2010_native_route_and_disjoint_secondary_census_fallback','qualified_accepted_secondary_census_referenced_own_item'),
  ('wikidata_secondary_full3_application_20261007','applied_qualified_secondary_census_referenced_own_physical_series','qualified_accepted_secondary_census_referenced_own_item'),
  ('current_unpointed_own_wiki_mass_application_20261007','applied_current_own_points_and_qualified_secondary_histories','qualified_accepted_secondary_own_census_history'),
@@ -84,8 +85,10 @@ def load(E,state,pin):
             if dirname=='own_uncached2002_secondary_scope_20261008':
                 assert historical.census_proof_class.isin(['actual_P585_year2002_with_literal_P459_census_method','literal2002_census_reference_title_label_or_URL']).all()
             else: assert historical.census_proof_class.eq('exact_or_explicit_census_reference').all()
-        if dirname=='cached_missing2010_dated_source_mass_20261008':
-            assert len(frame)==360 and frame.trajectory_id.nunique()==120
+        if dirname in ['cached_missing2010_dated_source_mass_20261008','uncached_missing2010_dated_source_mass_20261008']:
+            expected_series=242 if dirname.startswith('uncached_') else 120
+            assert receipt['qualified_series']==expected_series and receipt['qualified_observations']==3*expected_series
+            assert len(frame)==3*expected_series and frame.trajectory_id.nunique()==expected_series
             missing=frame[frame.year.eq(2010)]
             assert missing.nonadditive_observation.all() and missing.source_record_id.eq('').all() and missing.source_population_is_census_known.all()
             assert missing.census_proof_class.eq('actual2010year_with_literal_census_method').all()
@@ -115,7 +118,7 @@ def load(E,state,pin):
                 assert selected.population_value_quality==row['population_quality']
                 if dirname=='existing_event_scope_application_20261007':
                     assert state.uf.find(sid)==state.uf.find(row['current_source_record_id'])
-            if dirname in ['cached_secondary_native_year_mass_application_20261008','additional_uncached_census_histories_application_20261008','own_dated2002_secondary_scope_20261008','own_uncached2002_secondary_scope_20261008','cached_missing2010_dated_source_mass_20261008']+list(MISSING2002_SERIES):
+            if dirname in ['cached_secondary_native_year_mass_application_20261008','additional_uncached_census_histories_application_20261008','own_dated2002_secondary_scope_20261008','own_uncached2002_secondary_scope_20261008','cached_missing2010_dated_source_mass_20261008','uncached_missing2010_dated_source_mass_20261008']+list(MISSING2002_SERIES):
                 if not row['nonadditive_observation']:
                     assert state.uf.find(sid)==state.uf.find(row['native_current_source_record_id'])
                     if year!=2021: assert row['historical_native_selected_source_ID_binding_asserted'] and row['native_existing_component_binding']
