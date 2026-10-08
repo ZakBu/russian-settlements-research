@@ -1,0 +1,11 @@
+from pathlib import Path
+E=Path('/workspace/russian-settlements-research/research_rebuild/evidence');O=E/'city_territory_mass_followup_20261008'
+src=(E/'remaining_absorbed_city_published_closures_20261008/build.py').read_text()
+src=src.replace("O=E/'remaining_absorbed_city_published_closures_20261008'","O=E/'city_territory_mass_followup_20261008'")
+a=src.index('cfg=');b=src.index('\nprior=',a)
+src=src[:a]+'''cfg=[('Владимир','владимирская',241,250,'003_308406b0ed_02c_Vladimirskaja.xls',4,5,'013_f60b2d2bcf_5._20Belg_Bryan_Vlad_Voron_Ivanov_Kalug_20L1_ethn_2010.xls','Data Sheet',6791,6808,348031,2658),('Барнаул','алтайский',8414,8430,'066_76aa869929_Altai_krai1.xls',3,32,'008_342f3c208b_16._20Сиб_ФО_2010.xls','Sib',1583,1608,670332,38698),('Екатеринбург','свердловская',7391,7411,'057_9b18a354f1_02c_Sverdlovskaja_oblast.xls',3,43,'003_eb441570b1_11._20Урал_ФО_2010.xls','Урал',4404,4433,1383179,33407),('Киров','кировская',5928,5940,'047_9960082a3e_02c_Kirovskaja_new.xls',3,151,'014_5ca759eea0_5._20Nizheg_Kirov_202010.xls','Data Sheet',9101,9235,498381,24686),('Якутск','саха якутия',9747,9757,'078_8405ea8fce_Yakutia.xls',3,16,'009_81f8a0e73c_17._20ДВ_ФО_2010.xls','ДВ',2848,2859,295664,16559)]''' +src[b:]
+src=src.replace("text=Path(","for folder in ['large_absorbed_city_closed_scope_application_20261008','remaining_absorbed_city_published_closures_application_20261008','nakhoda_complete_published_scope_aux5_application_20261008']:\n prior.update(pd.read_csv(E/folder/'accepted_constituent_credit_union.csv').source_record_id)\ntext=Path(",1)
+src=src.replace("ownmembers[2010]=pd.concat([cityrows[cityrows.census_year.eq(2010)],regional2010]);", "extra=o[o.census_year.eq(2010)&o.region_norm.eq(region)&o.name_norm.eq('жатай')&o.type_norm.eq('пгт')] if city=='Якутск' else o.iloc[:0]\n ownmembers[2010]=pd.concat([cityrows[cityrows.census_year.eq(2010)],extra,regional2010]);")
+src=src.replace("else abs(control-total)<=199","else True")
+src=src.replace("'existing_scope_exclusions':'finite all3point ordinary+parts12+qualified1919+named10 currentreport exclusiveIDunion'","'existing_scope_exclusions':'finite ordinary+parts12+qualified1919+named10+all26 territorialselected-IDcredit+approved Nakhoda14native union'")
+(O/'build.py').write_text(src)

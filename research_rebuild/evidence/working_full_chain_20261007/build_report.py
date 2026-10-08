@@ -133,6 +133,76 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         for path,h in admission33['input_pins'].items():
             path=Path(path)
             if OUT not in path.parents and path!=M/'working_state_20261007.py': assert pin(path)==h
+    if stage >= 34:
+        folder=E/'native_alias_remaining_mass_20261008/nationwide_dated_count_native_bindings_followup'
+        admission_path=folder/'application_receipt.json';pin(admission_path)
+        admission34=json.loads(admission_path.read_text())
+        assert admission34['baseline_stage']==33 and admission34['source_positive_cases']==34
+        assert (admission34['edges'],admission34['point_uses'],admission34['point_rejections'],admission34['holds'])==(63,63,1,0)
+        assert admission34['actual33_independent_frozen_csv_replay_passed']
+        assert admission34['native_populations_quality_and_source_spelling_unchanged']
+        assert admission34['secondary_date_count_is_identity_binding_evidence_not_official_historical_coordinate']
+        for name,h in admission34['output_pins'].items(): assert pin(folder/name)==h
+        for path,h in admission34['input_pins'].items():
+            path=Path(path)
+            if OUT not in path.parents and path!=M/'working_state_20261007.py': assert pin(path)==h
+    if stage >= 35:
+        folder=E/'native_alias_remaining_mass_20261008/native_missing2002_alias_bindings'
+        admission_path=folder/'application_receipt.json';pin(admission_path)
+        admission35=json.loads(admission_path.read_text())
+        assert admission35['baseline_stage']==34 and admission35['accepted_cases']==11
+        assert (admission35['edges'],admission35['point_uses'])==(11,11)
+        assert admission35['native_populations_quality_and_source_spelling_unchanged']
+        for name,h in admission35['output_pins'].items(): assert pin(folder/name)==h
+        for path,h in admission35['input_pins'].items():
+            path=Path(path)
+            if OUT not in path.parents and path!=M/'working_state_20261007.py': assert pin(path)==h
+    if stage >= 36:
+        folder=E/'absorbed_native_event_mass_20261008/purpe_sourcecounty_native_application'
+        admission_path=folder/'application_receipt.json';pin(admission_path)
+        admission36=json.loads(admission_path.read_text())
+        assert admission36['status']=='verified_actual35_replay_native_ordinary_three_census_alias_application'
+        assert (admission36['baseline_stage'],admission36['cases'],admission36['identity_edges'],admission36['new_point_uses'])==(35,3,6,4)
+        manifest_path=folder/'manifest.json';pin(manifest_path)
+        for record in json.loads(manifest_path.read_text())['files']: assert pin(Path(record['path']))==record['sha256']
+    if stage >= 37:
+        folder=E/'native_alias_remaining_mass_20261008/all_components_native2002_bindings'
+        admission_path=folder/'application_receipt.json';pin(admission_path)
+        admission37=json.loads(admission_path.read_text())
+        assert admission37['baseline_stage']==36 and (admission37['accepted_cases'],admission37['edges'],admission37['point_uses'])==(62,62,58)
+        assert admission37['independent_actual36_frozen_csv_replay_passed'] and admission37['native_populations_quality_source_spelling_unchanged']
+        assert admission37['all_native_competitors_checked_before_component_filter'] and admission37['all_current_namesakes_checked_before_component_filter']
+        assert admission37['nearest_literal_major_parent_contradictions']==0
+        for name,h in admission37['output_pins'].items(): assert pin(folder/name)==h
+        for path,h in admission37['input_pins'].items():
+            path=Path(path)
+            if OUT not in path.parents and path!=M/'working_state_20261007.py': assert pin(path)==h
+    if stage >= 38:
+        folder=E/'native_missing2010_all_components_20261008'
+        admission_path=folder/'application_receipt.json';pin(admission_path)
+        admission38=json.loads(admission_path.read_text())
+        assert admission38['baseline_stage']==37 and (admission38['accepted_edges'],admission38['accepted_point_uses'])==(470,470)
+        assert admission38['native_population_and_quality_unchanged'] and admission38['no_new_secondary_counts_or_UIDs']
+        validation_path=folder/'canonical_validation_receipt.json';pin(validation_path)
+        validation=json.loads(validation_path.read_text());assert validation['canonical_loader_replay']=='passed' and validation['all_input_raw_and_ledger_hashes']=='passed'
+        for key in ['accepted_ledger_pins','diagnostic_competitor_witness_pin']:
+            for name,h in admission38[key].items(): assert pin(folder/name)==h
+        for key in ['input_pins','raw_source_pins']:
+            for path,h in admission38[key].items():
+                path=Path(path)
+                if OUT not in path.parents and path!=M/'working_state_20261007.py': assert pin(path)==h
+    if stage >= 39:
+        folder=E/'native_alias_remaining_mass_20261008/all_cached_native2002_context_followup'
+        admission_path=folder/'application_receipt.json';pin(admission_path)
+        admission39=json.loads(admission_path.read_text())
+        assert admission39['baseline_stage']==38 and (admission39['accepted_cases'],admission39['edges'],admission39['point_uses'])==(5,5,3)
+        assert admission39['native_populations_quality_source_spelling_unchanged'] and admission39['all_native_competitors_checked_before_component_filter']
+        assert admission39['all_current_namesakes_checked_before_component_filter']
+        for name,h in admission39['output_pins'].items(): assert pin(folder/name)==h
+        for name,h in admission39['original_actual37_archive_pins'].items(): assert pin(folder/admission39['original_actual37_candidate_archive']/name)==h
+        for path,h in admission39['input_pins'].items():
+            path=Path(path)
+            if OUT not in path.parents and path!=M/'working_state_20261007.py': assert pin(path)==h
     bm=base.metrics(); sm=state.metrics()
     for y in YEARS:
         assert bm[str(y)]['covered_population']==BASELINE[y], (y,bm)
@@ -200,6 +270,24 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
             assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126561560,123730142,124344007)))[y], (y,sm)
             assert sm[str(y)]['covered_population']==admission33['after'][str(y)]['covered_population'], (y,sm)
             assert sm[str(y)]['covered_rows']==admission33['after'][str(y)]['covered_rows'], (y,sm)
+        if stage==34:
+            assert sm[str(y)]['covered_population']==admission34['after'][str(y)]['covered_population'], (y,sm)
+            assert sm[str(y)]['covered_rows']==admission34['after'][str(y)]['covered_rows'], (y,sm)
+        if stage==35:
+            assert sm[str(y)]['covered_population']==admission35['after'][str(y)]['covered_population'], (y,sm)
+            assert sm[str(y)]['covered_rows']==admission35['after'][str(y)]['covered_rows'], (y,sm)
+        if stage==36:
+            assert sm[str(y)]['covered_population']==admission36['after'][str(y)]['covered_population'], (y,sm)
+            assert sm[str(y)]['covered_rows']==admission36['after'][str(y)]['covered_rows'], (y,sm)
+        if stage==37:
+            assert sm[str(y)]['covered_population']==admission37['after'][str(y)]['covered_population'], (y,sm)
+            assert sm[str(y)]['covered_rows']==admission37['after'][str(y)]['covered_rows'], (y,sm)
+        if stage==38:
+            assert sm[str(y)]['covered_population']==admission38['after'][str(y)]['covered_population'], (y,sm)
+            assert sm[str(y)]['covered_rows']==admission38['after'][str(y)]['covered_rows'], (y,sm)
+        if stage==39:
+            assert sm[str(y)]['covered_population']==admission39['after'][str(y)]['covered_population'], (y,sm)
+            assert sm[str(y)]['covered_rows']==admission39['after'][str(y)]['covered_rows'], (y,sm)
         assert sm[str(y)]['denominator_selected_ordinary_population']==DENOM[y]
     expected={y:sm[str(y)]['covered_population'] for y in YEARS}
     obs=state.obs.copy()
@@ -461,6 +549,15 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         report['sourcecounty_homonym_rule_limits']={'individual_native_triplets':48,'uniqueness_scope':'printed source county; regional homonyms enumerated before point filtering','global_regional_name_uniqueness_asserted':False,'coordinate_application_family':'auto_rule','application_inference_kind':'inferred_continuity','county_or_city_receiving_point_projected_to_child_NP':False,'three_ownpoint_finite_observations_verified_after_actual_loader_replay':True}
     if stage >= 33:
         report['dated_count_native_binding_limits']={'source_positive_cases':108,'secondary_date_count_role':'identity binding evidence only; no official historical coordinate measurement asserted','native_population_quality_and_source_spelling_unchanged':True,'unknown_population_imputed':False}
+        if stage >= 34:
+            report['dated_count_native_binding_limits']['source_positive_cases']=142
+            report['dated_count_native_binding_limits']['followup_cases']=34
+    if stage >= 37:
+        report['native_missing2002_county_context_alias_limits']={'accepted_histories':62,'county_context_rule':admission37['native_county_context_rule'],'all_native_and_current_competitors_checked_before_component_filter':True,'native_population_quality_and_literal_spelling_unchanged':True,'historical_coordinate_measurement_asserted':False}
+    if stage >= 38:
+        report['native_missing2010_source_bound_rule_limits']={'accepted_histories':470,'source_values_and_quality_unchanged':True,'new_secondary_counts_or_source_IDs_added':False,'point_use_interpretation':'retrospective own-locality continuity inference; source coordinates and grain flags retained','historical_coordinate_measurement_asserted':False,'boundary_comparability':'UNKNOWN'}
+    if stage >= 39:
+        report['native_missing2002_final_current_namesake_guard']={'accepted_histories':5,'current_namesake_rows_checked':admission39['current_namesake_rows_checked'],'all_competitors_checked_before_component_filter':True,'held_counterexample':'Козловка: historical24-person row cannot be assigned to the765-person current namesake while a separate24-person current village shares ambiguous publisher code and coordinates. The proposed identity is held and excluded.','original_six_case_candidate_archive_is_accepted_identity_claim':False,'native_population_quality_and_literal_spelling_unchanged':True}
     report['all_three_component_points_national_unions']=stronger_national_union
     report['own_row_point_plus_full3_companion_definition']='Companion axis: each counted ordinary row has its own admitted point use and a three-year identity component. Other rows in the same component may lack point uses; this is not the all-three-point axis.'
     report['qualified_physical_actual_observation_axis']=physical_axis
@@ -481,6 +578,14 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
     named_ids=set(pd.read_csv(OUT/'named_merger_lineage_constituents.csv').source_record_id) if report['named_merger_lineage_extended_population_axis']['status']=='admitted_separate_named_merger_event_lineage' else set()
     territorial_axis,territorial_ids=build_territorial_scopes(E,state,ordinary,componentpoints,partition_ids,extra,named_ids,fedp,NATIONAL,COMMON,OUT,pin)
     report['extended_complete_territorial_population_axis']=territorial_axis
+    from temporal_display import build as build_temporal_display
+    pin(OUT/'temporal_display.py')
+    report['actual_dated2002_temporal_display_only']=build_temporal_display(E,state,pin,OUT)
+    from direct_inclusion_paths import build as build_direct_inclusion_paths
+    pin(OUT/'direct_inclusion_paths.py')
+    finite_blocked={state.uf.find(sid) for sid,pop in state.obs[['source_record_id','population']].itertuples(index=False,name=None) if pd.isna(pop) or not math.isfinite(float(pop))}
+    original_mixed_ids={sid for sid in componentpoints if state.uf.find(sid) not in finite_blocked}|partition_ids|extra|named_ids|territorial_ids
+    report['separate_direct_inclusion_transformation_path_axis']=build_direct_inclusion_paths(E,state,ordinary,original_mixed_ids,fedp,NATIONAL,COMMON,OUT,pin)
     from export_full3 import build as export_full3
     pin(OUT/'export_full3.py')
     pin(OUT/'verify_export.py')
@@ -493,6 +598,14 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         expected_finite=admission33['after_finite_all3_all_points']
         assert report['ordinary_complete_number_export']['rows']==expected_finite['histories']==137750
         assert {str(y):population for y,population in report['ordinary_complete_number_export']['population_by_year'].items()}==expected_finite['populations_by_year']==dict(zip(map(str,YEARS),(126561328,123729865,124343959)))
+    if stage==34:
+        expected_finite=admission34['after_finite_all3_all_points']
+        assert report['ordinary_complete_number_export']['rows']==expected_finite['histories']==137784
+        assert {str(y):population for y,population in report['ordinary_complete_number_export']['population_by_year'].items()}==expected_finite['populations_by_year']==dict(zip(map(str,YEARS),(126581542,123749020,124364844)))
+    if stage==39:
+        expected_finite=admission39['after_finite_all3_all_points']
+        assert report['ordinary_complete_number_export']['rows']==expected_finite['histories']==138335
+        assert {str(y):population for y,population in report['ordinary_complete_number_export']['population_by_year'].items()}==expected_finite['populations_by_year']==dict(zip(map(str,YEARS),(126682581,123845680,124452211)))
     from finite_number_unions import build as build_finite_unions
     pin(OUT/'finite_number_unions.py')
     finite_national_union=build_finite_unions(report,OUT)
@@ -516,6 +629,9 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
     reached=[y for y in YEARS if threshold[y]['percent_of_common_control']>=99]
     remaining=[y for y in YEARS if y not in reached]
     report['common_control_99_percent_goal_status']={'axis':'Finite ordinary all-three-point populations plus complete whole-place partitions, qualified physical selected source-ID union, Moscow/SPB territories and separate admitted named mergers and complete territorial scopes','years_reaching_99_percent_common_control':reached,'years_still_below_99_percent_common_control':remaining,'all_three_census_years_goal_met':len(reached)==3,'by_year':threshold,'ordinary_only_99_percent_goal_met':False,'2021_national_control_includes_Crimea_and_Sevastopol':True}
+    direct=report['separate_direct_inclusion_transformation_path_axis']
+    if direct['status']=='admitted_separate_direct_inclusion_transformation_path':
+        for y in YEARS: assert direct['by_year'][y]['original_final_mixed_census_population']==threshold[y]['population']
     # Detect concurrent ledger edits; pin content exactly as measured.
     for p,m in pins.items(): assert sha(Path(p))==m['sha256'], 'Input changed during measurement: '+p
     report['wall_seconds']=round(time.monotonic()-start,3)
@@ -544,6 +660,16 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         for y in YEARS:
             row=territorial_axis['by_year'][y]
             text.append(f"| {y} | {row['extended_complete_territorial_population']:,} | {row['percent_of_common_control']:.5f} | {row['gap_to_99_percent_common']:,} |")
+    display=report['actual_dated2002_temporal_display_only']
+    if display['status']=='retained_actual_dated_year_observations_for_display_only':
+        text+=['',f"Separate dated-year display register: {display['trajectories']} trajectories and {display['observations']} actual source observations. Their secondary2002 calendar-year counts lack explicit census designation. They add zero population to every census-coverage axis and remain outside qualified census series."]
+    direct=report['separate_direct_inclusion_transformation_path_axis']
+    if direct['status']=='admitted_separate_direct_inclusion_transformation_path':
+        text+=['',f"Separate direct inclusion transformation paths: {direct['events']} dated events connect independently observed historical localities with their own points to actual receiving-city census context. The included_in relation does not assert ordinary same-place identity, a complete whole-city roster, comparable boundaries or an individual child2021 population. Original final mixed census coverage and its goal status remain unchanged.",'', '| Year | Original mixed census population | Direct historical native ID gain | Separate transformation path population | Common control % |','|---|---:|---:|---:|---:|']
+        for y in YEARS:
+            row=direct['by_year'][y]
+            text.append(f"| {y} | {row['original_final_mixed_census_population']:,} | {row['direct_inclusion_native_ID_union_net_population']:,} | {row['separate_transformation_path_population']:,} | {row['percent_of_common_control']:.5f} |")
+        text+=['',direct['source_limits']]
     quality_unknown=json.loads((OUT/'export_verification_receipt.json').read_text())['unknown_imported_population_quality_rows_by_year']
     text+=['', 'Imported empty population quality values remain unknown, unchanged: '+', '.join(f'{y}: {n} export rows' for y,n in quality_unknown.items())+'.']
     (OUT/'README.md').write_text('\n'.join(text)+'\n')

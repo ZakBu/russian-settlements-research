@@ -21,7 +21,7 @@ PARTITION_MEMBERS = E / "complete_numbered_partition_batch_20261007/accepted_exc
 PARTITION_SERIES = E / "complete_numbered_partition_batch_20261007/accepted_three_census_whole_place_series.csv"
 
 
-def load(stage=33):
+def load(stage=39):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -54,9 +54,15 @@ def load(stage=33):
     31: source-bound Chechnya printed-name variants, dated population witnesses and native county contexts.
     32: individually sourcecounty-resolved homonyms; no municipal point assignment to settlements.
     33: own-code/date-bound cached 2002 population witnesses with native source contexts.
+    34: source-bound dated-count follow-up and explicit rejection of a contradicted historical Geo point.
+    35: literal own-name aliases with native historical county and independently coded current points.
+    36: printed county-qualified Tolka names and Seyakha aliases; source-derived stale county captions retained separately.
+    37: source-bound native 2002 matches with narrow aggregate-caption suffix normalization for county context.
+    38: literal native 2010 source county/urban-role bindings for existing 2002–2021 own-point components.
+    39: native 2002 own-source aliases and current namesake exclusions, composed on actual stage38.
     """
-    if not isinstance(stage, int) or not 1 <= stage <= 33:
-        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–33")
+    if not isinstance(stage, int) or not 1 <= stage <= 39:
+        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–39")
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
     if stage >= 2:
@@ -129,4 +135,17 @@ def load(stage=33):
         state.add_deltas([E/"individual_sourcecounty_homonym_application_20261008/accepted_identity_edge_delta.csv"], [E/"individual_sourcecounty_homonym_application_20261008/accepted_point_use_delta.csv"])
     if stage >= 33:
         state.add_deltas([E/"native_alias_remaining_mass_20261008/nationwide_dated_count_native_bindings/accepted_identity_edge_delta.csv"], [E/"native_alias_remaining_mass_20261008/nationwide_dated_count_native_bindings/accepted_point_use_delta.csv"])
+    if stage >= 34:
+        state.reject_point_uses(E/"native_alias_remaining_mass_20261008/nationwide_dated_count_native_bindings_followup/accepted_point_rejection_delta.csv")
+        state.add_deltas([E/"native_alias_remaining_mass_20261008/nationwide_dated_count_native_bindings_followup/accepted_identity_edge_delta.csv"], [E/"native_alias_remaining_mass_20261008/nationwide_dated_count_native_bindings_followup/accepted_point_use_delta.csv"])
+    if stage >= 35:
+        state.add_deltas([E/"native_alias_remaining_mass_20261008/native_missing2002_alias_bindings/accepted_identity_edge_delta.csv"], [E/"native_alias_remaining_mass_20261008/native_missing2002_alias_bindings/accepted_point_use_delta.csv"])
+    if stage >= 36:
+        state.add_deltas([E/"absorbed_native_event_mass_20261008/purpe_sourcecounty_native_application/accepted_identity_edge_delta.csv"], [E/"absorbed_native_event_mass_20261008/purpe_sourcecounty_native_application/accepted_point_use_delta.csv"])
+    if stage >= 37:
+        state.add_deltas([E/"native_alias_remaining_mass_20261008/all_components_native2002_bindings/accepted_identity_edge_delta.csv"], [E/"native_alias_remaining_mass_20261008/all_components_native2002_bindings/accepted_point_use_delta.csv"])
+    if stage >= 38:
+        state.add_deltas([E/"native_missing2010_all_components_20261008/accepted_identity_edge_delta.csv.gz"], [E/"native_missing2010_all_components_20261008/accepted_point_use_delta.csv"])
+    if stage >= 39:
+        state.add_deltas([E/"native_alias_remaining_mass_20261008/all_cached_native2002_context_followup/accepted_identity_edge_delta.csv"], [E/"native_alias_remaining_mass_20261008/all_cached_native2002_context_followup/accepted_point_use_delta.csv"])
     return state
