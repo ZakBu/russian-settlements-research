@@ -64,6 +64,7 @@ def build(state,ordinary,componentpoints,stage,pins,out,reuse=False):
     if stage==18: assert len(groups)==137010, ('all-own-point ordinary components before unknown-number exclusion',len(groups))
     if stage==19: assert len(groups)==137012, ('all-own-point ordinary components before unknown-number exclusion',len(groups))
     if stage==21: assert len(groups)==137042, ('all-own-point ordinary components before unknown-number exclusion',len(groups))
+    if stage==24: assert len(groups)==137069, ('all-own-point ordinary components before unknown-number exclusion',len(groups))
     ledger_hashes={str(Path(path)):pins[str(Path(path))]['sha256'] for path in state.inputs}
     if reuse:
         receipt=json.loads((out/'export_receipt.json').read_text())
@@ -124,6 +125,7 @@ def build(state,ordinary,componentpoints,stage,pins,out,reuse=False):
                         record[f'native_codes_as_imported_no_cross_year_backfill_{year}']=True
                         populations[year]+=int(row['population'])
                     writer.writerow(record);written+=1
+    if stage==24: assert populations==dict(zip(YEARS,(126288772,123469942,124065851))),populations
     unknown=[r for r in excluded if r['reason']=='unknown_population']
     assert len(unknown)==1 and unknown[0]['unknown_years']==[2010],unknown
     receipt={'export_implementation_sha256':digest(Path(__file__)),'ordinary_input_ledger_hashes':ledger_hashes,'ordinary_export_reused_without_rewrite':False,'working_stage':stage,'file':str(target),'sha256':digest(target),'bytes':target.stat().st_size,'rows':written,'columns':len(fields),'population_by_year':populations,'all_three_own_point_components_before_number_filter':len(groups),'excluded_components':excluded,'unknown_population_never_zero_or_imputed':True,'native_identifiers':'Only selected source row oktmo/okato as imported; empty historical values remain unknown. No chronology or backfill asserted.','entity_uid_recipe':'np3: + unpadded URL-safe base64 of full SHA256 digest of UTF-8 compact JSON ordered [2002 source ID,2010 source ID,2021 source ID]','actual_source_mapping':'Imported source_path and source_sha256 are unchanged. source_actual_path maps legacy empty paths through /workspace/settlements-raw/source_file; source_actual_sha256 hashes actual cached source bytes. Explicit unresolved-source status retains missing original-file provenance; known source and point-origin bytes and admitted ledgers are pinned.','coordinate_claim':'Every census row has its own admitted representative point use; raw point-use fields retained. Historical measurement and boundary calibration are not asserted.','wall_seconds':round(time.monotonic()-start,3)}

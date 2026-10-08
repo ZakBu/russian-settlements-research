@@ -21,7 +21,7 @@ PARTITION_MEMBERS = E / "complete_numbered_partition_batch_20261007/accepted_exc
 PARTITION_SERIES = E / "complete_numbered_partition_batch_20261007/accepted_three_census_whole_place_series.csv"
 
 
-def load(stage=21):
+def load(stage=24):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -42,6 +42,9 @@ def load(stage=21):
     19: native-code and source-bound own Wikidata points for remaining current NPs.
     20: native 2002 source subdivisions mapped through accepted census anchors.
     21: documented former names and native printed urban or rural source context.
+    22: resolved own locality points and source-bound follow-up histories.
+    23: exact census-value bindings with printed or flanking-source county context.
+    24: explicit rejection and recovery of contradicted modern provider points.
     """
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
@@ -86,4 +89,11 @@ def load(stage=21):
         state.add_deltas([E/"mass_residual_native_context_application_20261007/accepted_identity_edge_delta.csv"], [E/"mass_residual_native_context_application_20261007/accepted_point_use_delta.csv"])
     if stage >= 21:
         state.add_deltas([E/"remaining_large_native_triplets_application_20261007/accepted_identity_edge_delta.csv"], [E/"remaining_large_native_triplets_application_20261007/accepted_point_use_delta.csv"])
+    if stage >= 22:
+        state.add_deltas(point_paths=[E/"remaining_large_own_points_followup_application_20261007/accepted_point_use_delta.csv"])
+    if stage >= 23:
+        state.add_deltas([E/"old_native_from_existing_secondary_binding_application_20261007/accepted_identity_edge_delta.csv"], [E/"old_native_from_existing_secondary_binding_application_20261007/accepted_point_use_delta.csv"])
+    if stage >= 24:
+        state.reject_point_uses(E/"full3_conflicting_modern_point_recovery_application_20261007/accepted_point_rejection_delta.csv")
+        state.add_deltas(point_paths=[E/"full3_conflicting_modern_point_recovery_application_20261007/accepted_point_use_delta.csv"])
     return state

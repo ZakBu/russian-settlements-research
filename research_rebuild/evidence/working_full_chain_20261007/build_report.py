@@ -78,6 +78,15 @@ def main(stage=7,reuse_ordinary_export=False):
         if stage==21:
             assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126260650,123487223,124084966)))[y], (y,sm)
             assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137048,137076,137080)))[y], (y,sm)
+        if stage==22:
+            assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126262285,123488665,124086298)))[y], (y,sm)
+            assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137049,137077,137081)))[y], (y,sm)
+        if stage==23:
+            assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126263029,123489307,124086693)))[y], (y,sm)
+            assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137052,137080,137084)))[y], (y,sm)
+        if stage==24:
+            assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126291315,123492222,124086693)))[y], (y,sm)
+            assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137071,137084,137084)))[y], (y,sm)
         assert sm[str(y)]['denominator_selected_ordinary_population']==DENOM[y]
     expected={y:sm[str(y)]['covered_population'] for y in YEARS}
     obs=state.obs.copy()
