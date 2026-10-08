@@ -62,7 +62,7 @@ def apply_source_namespace_interpretations(state, path):
     return state
 
 
-def load(stage=51):
+def load(stage=55):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -113,9 +113,13 @@ def load(stage=51):
     49: literal source-bound native links for the largest remaining 2010 locality records.
     50: finite native histories from literal source-county brackets and own locality points.
     51: exact EAO source-header namespace interpretation and native rural continuity links.
+    52: source-bound rural type and literal ownership-designator variants on current two-year components.
+    53: mass rural singleton histories with printed county hierarchy and all physical competitors retained.
+    54: cached own-name aliases bound to six native old census records.
+    55: Donskoye native rural/PGT/rural continuity; complete parts and direct events remain separate report axes.
     """
-    if not isinstance(stage, int) or not 1 <= stage <= 51:
-        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–51")
+    if not isinstance(stage, int) or not 1 <= stage <= 55:
+        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–55")
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
     if stage >= 2:
@@ -226,4 +230,12 @@ def load(stage=51):
     if stage >= 51:
         apply_source_namespace_interpretations(state, E/"eaoregion_source_namespace_mass_20261008/source_namespace_interpretation_delta.csv")
         state.add_deltas([E/"eaoregion_source_namespace_mass_20261008/accepted_identity_edge_delta.csv"], [E/"eaoregion_source_namespace_mass_20261008/accepted_point_use_delta.csv"])
+    if stage >= 52:
+        state.add_deltas([E/"native_rural_type_alias_mass_20261008/accepted_identity_edge_delta.csv.gz"], [E/"native_rural_type_alias_mass_20261008/accepted_point_use_delta.csv.gz"])
+    if stage >= 53:
+        state.add_deltas([E/"native_singleton_rural_mass_20261008/accepted_identity_edge_delta.csv.gz"], [E/"native_singleton_rural_mass_20261008/accepted_point_use_delta.csv.gz"])
+    if stage >= 54:
+        state.add_deltas([E/"cached_historical_name_alias_mass_20261008/accepted_identity_edge_delta.csv.gz"], [E/"cached_historical_name_alias_mass_20261008/accepted_point_use_delta.csv.gz"])
+    if stage >= 55:
+        state.add_deltas([E/"absorbed_remaining2010_direct_mass_20261008/accepted_separate_native_identity_edge_delta.csv"], [E/"absorbed_remaining2010_direct_mass_20261008/accepted_separate_native_point_use_delta.csv"])
     return state

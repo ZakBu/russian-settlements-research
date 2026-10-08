@@ -3305,3 +3305,61 @@ point-origin unknown1507/1690/300 и population-quality unknown0/3/0 сохра�
 `research_rebuild/evidence/working_full_chain_20261007/combined51_validation_receipt.json`.
 История 49 остаётся в Git. Финальный bundle ожидает следующего source-checkpoint;
 transport-ready не заявлен. Предыдущий удалённый write403, публикация не выполнена.
+
+
+### 2026-10-08: механически проверенный 55 — native-ряды и блокировка scientific99
+
+Три подтверждённых неисправленных own-point конфликта блокируют scientific99.
+Числа и SHA 55 сохраняются как механический результат до исправлений.
+Один полный запуск 55 прошёл за 204,261 с, standalone verifier —10,609 с.
+141261 finite ordinary NP3 ×115 столбцов;126913772/124056798/124669530.
+Denominators130111032/125979957/126087650 дают 97,542668%/98,473441%/98,875290%.
+Ordinary99 остаётся невыполненной. Дополнительные 232/277/48 State.metrics()
+жителей не включены в finite числитель. Против Git51
+`65e88651f238173693e14c9654888b36b2fc9d44` добавлены 2350 историй,
+112365/99234/107285 жителей. Actual dedup прирост originalmixed
+116629/105259/105924; DIRECT/formation120318/108466/105924.
+
+Источник 53 применяет настоящие county boundaries, не ошибочную границу
+каждого подчинённого rural council. Смена сельсовета внутри района сохранена.
+Все old/current collisions удержаны до UF без выбора по приоритету.
+Фиксированный независимый 40-case аудит подтвердил три own-point binding
+конфликта: Михайловка 53611431101→provider 53611446136;
+Шулма 19656470101→provider 19656424681; Николаевка 29644403126→provider 29644452126.
+Полный raw2021 roster содержит другие однорайонные НП этих provider-кодов,
+пропущенные canonical selection. Inherited own-point assumption не подтверждена.
+Конфликты пока не исправлены; проверяется вся когорта 2326. Числа/хеши 55
+сохранены механически воспроизведёнными, не надёжной scientific99 claim.
+Fixed40 audit не является калиброванной национальной оценкой точности.
+Три новых complete publisher partitions дают 6928/6025/4476: теперь 15 рядов/
+45 observations, originalcandidate bytes неизменны, official2002 whole-control
+не заявлен. Куровской даёт separate included_in3689/3207/0;
+39 DIRECTevents/46 historicalobs/117 receivercontext. Донской 3170/2924/2919
+включён обычной native-историей, не direct-inclusion кредитом.
+
+Original mixed143622321/141358940/143848871 остаётся ниже 99% за 02/10:
+gaps92743/69031/0. DIRECT143889126/141412142/143848871,10gap15829.
+Formation+DIRECT143907282/141444186/143848871,
+99,132412%/99,011351%/99,412022%: all3COMMON99 арифметически превышена
+на отдельной оси, но scientific coverage не подтверждено из-за point conflicts. Common denominators145166731/142856536/
+144699673; national2021 147182123 даёт 97,735287%. Отсутствующие российские
+2002/2010 наблюдения Крыма/Севастополя 2482450 не синтезируются;
+потолок all-common на national2021 —98,313348%.
+
+Counts/quality/scientific rawmetadata unchanged.86/98 EAO corrected namespace
+строк сохраняют imported иeffective поля; исходные 62556+128359=190915.
+Дополнительные 10952 datedcounts/3195 мест/180 лет 1646–2025 неизменны,
+rejoin к UID55 не создаёт национального census credit. Growth>20x253,
+reverse<1/20 221; zero transitions/unknown не исправлены в гладкую кривую.
+Protected2010 limitations не становятся Student-доверительным интервалом;
+full municipal audit не завершён.267 источников проверены,734 unresolved2010,
+unknownpointorigin1519/1690/300,unknownquality0/3/0 сохранены.
+
+105 outputmanifest entries PASS. Main24675939 байт,SHA
+`42e9db06b743117f8fe5b30669cd59bcc61a74a61477d3e848eebfa1a9fe9b7a`.
+Exact gains/ranks/provenance:
+`research_rebuild/evidence/working_full_chain_20261007/combined55_validation_receipt.json`.
+Git51baseline сохранён; финальный bundle ожидает консолидированного checkpoint.
+GitHub push8 октября снова 403 несмотря на APIowner push=true;
+remote upload иtransport-ready не заявлены. Следующие source-batches
+допускаются после фиксации точных 55 исходников/хешей, без переписывания артефактов.

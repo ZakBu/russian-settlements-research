@@ -1,0 +1,14 @@
+{
+  "seed": 20261008,
+  "bands": [
+    ">=1000",
+    "100..999",
+    "1..99",
+    "0"
+  ],
+  "quota_per_band": 10,
+  "ranking": "SHA256(UTF8(seed|native2010_source_record_id)) ascending",
+  "shortfall": "redistribute remaining slots roundrobin frozen bandorder, taking next rank",
+  "sample_size": 40,
+  "interpretation": "bounded independent check; no population accuracy estimate or confidence interval"
+}
