@@ -8,12 +8,23 @@ STATUS='applied_separate_complete_named_merger_event_lineage'
 
 def build(E,state,ordinary,componentpoints,partition_ids,qualified_ids,federal,national,common,out,pin):
     frames_by_key={key:[] for key in FILES}; receipts=[]
-    for dirname in ['named_urban_merger_application_20261007','next_named_urban_merger_application_20261007','further_urban_merger_application_20261007']:
+    for dirname in ['named_urban_merger_application_20261007','next_named_urban_merger_application_20261007','further_urban_merger_application_20261007','voronezh_closed_roster_application_20261008']:
         folder=E/dirname;rp=folder/'application_receipt.json'
         if not rp.exists(): continue
         pin(rp);receipt=json.loads(rp.read_text())
         assert receipt['status']==STATUS,receipt['status']
         receipts.append(str(rp))
+        for name,claimed in receipt['outputs'].items():
+            assert pin(folder/name)==claimed
+        for source,claimed in receipt.get('inputs_sha256',{}).items():
+            path=Path(source)
+            # Prior report outputs are baseline references retained in the receipt,
+            # not immutable inputs of this new report iteration.
+            if out not in path.parents: assert pin(path)==claimed
+        if dirname=='voronezh_closed_roster_application_20261008':
+            for name in receipt['outputs']:
+                if name not in FILES.values():
+                    pd.read_csv(folder/name).to_csv(out/('voronezh_closed_roster_'+name),index=False)
         for key,name in FILES.items():
             assert pin(folder/name)==receipt['outputs'][name]
             frames_by_key[key].append(pd.read_csv(folder/name))

@@ -32,7 +32,7 @@ def plain(v):
 def write_json(name, value):
     (OUT/name).write_text(json.dumps(plain(value), ensure_ascii=False, indent=2)+'\n')
 
-def main(stage=7,reuse_ordinary_export=False):
+def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_snapshot=None):
     start=time.monotonic(); pins={}
     def pin(p):
         p=Path(p); h=sha(p)
@@ -47,6 +47,10 @@ def main(stage=7,reuse_ordinary_export=False):
         if p.is_file(): pin(p)
     base=State(); state=load(stage=stage)
     for p in dict.fromkeys(base.inputs+state.inputs+[Path(__file__), M/'working_state_20261007.py', M/'current_chain_state_20261007.py', M/'build_long_table.py', M/'measure_event_aware_path_union_20261005.py']): pin(p)
+    if stage >= 25:
+        application=E/'old_year_remaining_mass_rule_application_20261008/application_receipt.json'
+        pin(application)
+        assert json.loads(application.read_text())['status']=='applied_native_context_code_own_point_bindings'
     bm=base.metrics(); sm=state.metrics()
     for y in YEARS:
         assert bm[str(y)]['covered_population']==BASELINE[y], (y,bm)
@@ -87,6 +91,9 @@ def main(stage=7,reuse_ordinary_export=False):
         if stage==24:
             assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126291315,123492222,124086693)))[y], (y,sm)
             assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137071,137084,137084)))[y], (y,sm)
+        if stage==25:
+            assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126302080,123502299,124096770)))[y], (y,sm)
+            assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137084,137097,137097)))[y], (y,sm)
         assert sm[str(y)]['denominator_selected_ordinary_population']==DENOM[y]
     expected={y:sm[str(y)]['covered_population'] for y in YEARS}
     obs=state.obs.copy()
@@ -366,6 +373,14 @@ def main(stage=7,reuse_ordinary_export=False):
     finite_national_union=build_finite_unions(report,OUT)
     report['finite_three_population_all_three_component_points_national_unions']=finite_national_union
     stronger_national_union=finite_national_union
+    from final_mixed_residuals import build as build_final_mixed_residuals
+    pin(OUT/'final_mixed_residuals.py')
+    lineage=report['named_merger_lineage_extended_population_axis']
+    named_ids=set(pd.read_csv(OUT/'named_merger_lineage_constituents.csv').source_record_id) if lineage['status']=='admitted_separate_named_merger_event_lineage' else set()
+    report['final_mixed_remaining_native_observation_priority']=build_final_mixed_residuals(state,ordinary,componentpoints,partition_ids,extra,named_ids,OUT)
+    report['auxiliary_iteration']=auxiliary_iteration
+    report['baseline_snapshot_git_commit']=baseline_snapshot
+    report['ordinary_export_reused_without_rewrite']=reuse_ordinary_export
     named_axis=report['named_merger_lineage_extended_population_axis']
     if named_axis['status']=='admitted_separate_named_merger_event_lineage':
         threshold={y:{'population':named_axis['by_year'][y]['extended_named_lineage_population'],'percent_of_common_control':named_axis['by_year'][y]['percent_of_common_control'],'gap_to_99_percent_common':named_axis['by_year'][y]['gap_to_99_percent_common']} for y in YEARS}
@@ -407,4 +422,4 @@ def main(stage=7,reuse_ordinary_export=False):
 if __name__=='__main__':
     import argparse
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--stage',type=int,default=7);parser.add_argument('--reuse-ordinary-export',action='store_true',help='Reuse only when graph/point/selected ledger bytes and recomputed ordinary coverage are unchanged')
-    args=parser.parse_args();main(args.stage,args.reuse_ordinary_export)
+    parser.add_argument('--auxiliary-iteration');parser.add_argument('--baseline-snapshot');args=parser.parse_args();main(args.stage,args.reuse_ordinary_export,args.auxiliary_iteration,args.baseline_snapshot)
