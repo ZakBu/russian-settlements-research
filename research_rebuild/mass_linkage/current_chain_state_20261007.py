@@ -118,6 +118,8 @@ class State:
 
         Representative-point supersession does not disprove the old location.
         """
+        # Cache only within this invocation; compare every declared digest.
+        ledger_hashes = {}
         for row in pd.read_csv(path, keep_default_na=False).to_dict("records"):
             sid = row["target_source_record_id"]
             if row["rejection_status"] not in {
@@ -132,7 +134,9 @@ class State:
             if old["point_ledger_path"] != ledger:
                 raise ValueError("Rejected claim ledger is not active")
             from pathlib import Path
-            if sha(Path(ledger)) != row["origin_ledger_sha256"]:
+            if ledger not in ledger_hashes:
+                ledger_hashes[ledger] = sha(Path(ledger))
+            if ledger_hashes[ledger] != row["origin_ledger_sha256"]:
                 raise ValueError("Rejected claim input hash differs")
             self.point_rows.pop(sid)
             self.conflicting_point_targets.discard(sid)

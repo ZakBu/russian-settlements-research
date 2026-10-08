@@ -1,0 +1,70 @@
+{
+  "status": "schema_and_admission_plan_only_not_applied",
+  "actual_State_stage": 63,
+  "actual_full_State_source_IDs": 465800,
+  "candidate_IDs_in_actual_full_State": 0,
+  "candidates": 128,
+  "candidate_population": 13027,
+  "new_to_parsed_inventory": 127,
+  "existing_parsed_but_excluded": 1,
+  "closed_local_source_batch_rows": 98,
+  "closed_local_source_batch_population": 9810,
+  "held_rows": 30,
+  "held_population": 3217,
+  "source_grade_all_rows": "secondary_compilation_of_2002_census",
+  "official_primary_locality_value_claims": 0,
+  "exact_standard_schema": [
+    "source_record_id",
+    "census_year",
+    "settlement_name",
+    "settlement_type",
+    "name_norm",
+    "type_norm",
+    "region_norm",
+    "district_raw",
+    "population",
+    "population_scope",
+    "is_additive_settlement_record",
+    "population_value_quality",
+    "latitude",
+    "longitude",
+    "oktmo",
+    "okato",
+    "source_file",
+    "source_path",
+    "source_sha256",
+    "source_locator"
+  ],
+  "raw_counts_modified": false,
+  "State_API_modified": false,
+  "new_points_or_temporal_links": 0,
+  "input_pins": {
+    "/workspace/settlements-baseline/evidence/pipeline_before_20260929.py": "03797e97ab7b64806e705d14b5d7d6675be8a68c3f920258efabec484be3dd58",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/original_2002_population_control_residual_20261008/explicit_missing_2002_np_observation_candidates.csv.gz": "7ac859eb771a27e80d6ea925a282a6563e91fe2db20ed20d82f085ca83affe11",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application63_20261008/applied_component_snapshot.csv.gz": "68e91d78561ec6aad3c1618852be8a623bb931d510bdf994d45d39611dbd82c2",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application63_20261008/frozen_State_API.py": "002dacc1104d79d9330753ec0b5f5c528b62ca69574c7000df2e19fd5d16f76a",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+  },
+  "publication_dedup_key": [
+    "census_year",
+    "source_sha256",
+    "source_sheet",
+    "source_row"
+  ],
+  "source_ID_recipe": "year:original_source_filename:sheet:1-based-row",
+  "future_application_rules": [
+    "Root must accept the supplemental source grade and admission batch before appending observations; original selected parquet stays immutable.",
+    "Read exact finalized full State source-ID roster again; absent candidate IDs required. Existing parsed/excluded IDs are restorations, not new IDs.",
+    "Append admitted ordinary NP observations before UF initialization, then add only separately accepted coordinates/identity deltas.",
+    "No known primary population numerator credit solely from these secondary compilation values.",
+    "Verify source hashes and exact literal cell counts; never substitute a municipality control for a locality count.",
+    "Reject same source publication/row admitted via a renamed copy or same source ID; different accepted population claims for one SID must hold.",
+    "Regional closure is a count/source diagnostic, not own-point or identity proof. Hold Tver/Astrakhan until source inconsistencies are reviewed."
+  ],
+  "output_pins": {
+    "/workspace/russian-settlements-research/research_rebuild/evidence/original_2002_population_control_residual_20261008/future64_held_local_source_rows_30_20col.csv": "6ee985982a4eb33f3663384f5c9b438d90784f4776ca2a8ce04aac5ee20c2373",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/original_2002_population_control_residual_20261008/future64_missing_2002_admission_metadata.csv": "5aeaa4c4af0987521863201fd36522809afa766ed888cd9357f4bcfe7632fa98",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/original_2002_population_control_residual_20261008/future64_closed_local_source_batch_98_20col.csv": "f4d5d80c03a09960d947497f7f62e72d4f1c37b2d5a40c1e0fa52a5f705e4b2b",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/original_2002_population_control_residual_20261008/future64_missing_2002_source_observations_20col.csv": "bb44ad5fdab60bba4584a4a7cac1632504bd19f1e39aaad2fabc6a045b38a1ea"
+  }
+}
