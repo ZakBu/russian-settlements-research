@@ -1,0 +1,7 @@
+# Acceptedcomplete published cityterritorial scopes
+
+Rootauthorized6 scopes/18actual censusobservations/63nativeatomic members as published_complete_city_territory_scope, separate from ordinaryNP identity and namedlegalmergeraxes. Baseline25exclusive selectedIDnet2002 +145,289(44IDs),2010/2021zero. Nativecounts andsourcequalities unchanged.
+
+Allsourceyearrosters complete;2002federal+regionalatomiccontrols reconcile,2010publishedsolecity controlsagreewith nativeprimarycounts,2021parenthasexactlyoneNP/equalcount foreachscope. Historicalcomposition maychange; boundarycomparabilityUNKNOWN. Receivingcitypoint is representative_scope only, noindividualhistoricalNPcoordinate assertion. Legalannexation/exacteventroster notasserted.
+
+Fouracceptedinterfacefiles: group_observations,constituent_credit_union,representative_scope_points,scope_edges. Rawsourcecontrols/witnesses andall51original2002atomic sourcebindings retained. Receiptpins candidateinputs andoutputs. Reproduce python apply.py. No acceptedordinaryloader/pointledger,report,helper orGit mutations.

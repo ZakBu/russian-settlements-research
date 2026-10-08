@@ -180,6 +180,13 @@ def load(E,state,pin):
         for filename,h in correction['output_pins'].items(): assert pin_once(correction_folder/filename)==h
         for filename,h in correction['independent_cached_binding_source_pins'].items(): assert pin_once(Path(filename))==h
         targets=set(pd.read_csv(correction_folder/'accepted_point_use_delta.csv').target_source_record_id)
+        later_folder=E/'current_large_component_point_recovery_application_20261008'
+        if later_folder/'accepted_point_use_delta.csv' in state.inputs:
+            later_receipt_path=later_folder/'application_receipt.json';pin(later_receipt_path)
+            later_receipt=json.loads(later_receipt_path.read_text())
+            assert later_receipt['status']=='applied_coordinate_claim_recovery_existing_full_native_components'
+            for filename,h in later_receipt['outputs'].items(): assert pin_once(later_folder/filename)==h
+            targets |= set(pd.read_csv(later_folder/'accepted_point_use_delta.csv').target_source_record_id)
         retained=[]
         for index,(dirname,receipt,frame) in enumerate(packs):
             frame=frame.copy()
