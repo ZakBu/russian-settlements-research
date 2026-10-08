@@ -1,0 +1,38 @@
+{
+  "status": "PASS_four_bounded_GeoNames_anchor_rule_checks",
+  "carriers_checked": 4,
+  "actual_conflicts": 0,
+  "selection_rule_file": "selection_rule.json",
+  "selected_names": [
+    "Мокшино",
+    "Крутая Осыпь",
+    "Высокое",
+    "Сычи"
+  ],
+  "rule_checks": [
+    "Actual RU.txt line, ID, P/PPL class, coordinate and literal Cyrillic alternate name reopened.",
+    "Actual RU ADM1 record reopened and exact native Russian region label matched.",
+    "Entire raw2021 typed NP roster scanned per region without population or subtype filtering; exactly one ownname NP for each selected carrier.",
+    "Eight historical native XLS own rows reopened exactly; own typed locality labels and published2002 county contexts agree with accepted trajectories.",
+    "Existing accepted historical identity is preserved; no observed contradictory relocation/merger evidence."
+  ],
+  "historical_county_limit": "Sparse2010 tables do not independently repeat county at every leaf. This bounded point review uses existing accepted component identity, reopened properNP2010 leaf and published2002 county; arbitrary earlier nonempty2010 district cells are not interpreted as leaf county assignments.",
+  "Sychi_note_file": "Sychi_alternate_GN_assessment.json",
+  "official_modern_GN_NP_code_asserted": false,
+  "GN_admin2_when_absent": "UNKNOWN",
+  "inherited_oldyear_coordinates": "Retrospective continuity inference, not historical measurement.",
+  "limitations": "Four deterministic concrete checks; no representative sample, calibrated confidence interval or population-accuracy claim. No universal PPLQ exclusion.",
+  "source_packet_immutable": true,
+  "input_pins_file": "input_pins.json",
+  "output_pins": {
+    "selected_source_witnesses.json": "27188a0963dde205b9b0f078aa05a70a8603ef0fa7d95b589a32f8a82a7a1e58",
+    "four_anchor_ledger.csv": "eee4f67e755818c2cc8ca2e164953b3a1d04bc510965eea895d614b4bd459a48",
+    "seal.py": "232346a49883ca0e250320f36db02a9662d8a9c297cf3841d0e1dc489914ffd8",
+    "check.py": "c3171067ae84d2e42ea4a783db08181cc77820a82098bbf5e18566b334f9392b",
+    "literal_witnesses.json": "f68c5406bed0a55eeede2fab6393153b21e6e6aada3a6750a15b50c7182b28f3",
+    "Sychi_alternate_GN_assessment.json": "1e1f4b6547c293305837c02f2659db7fb8cfc9ff35a2579a33b37be8e62b2170",
+    "input_pins.json": "6670714dae91c88f5d76495f693c31044ae3b96218360874728273734a0ce5b4",
+    "selection_rule.json": "3124eb84c8b285229dee058dc6b1ec9c909add360d53922f90ff72e5b16879bf",
+    "select.py": "1c6fea52e7f148438ef5def5143a114cd48a8d86a366086dbb9c7f0687b6018b"
+  }
+}

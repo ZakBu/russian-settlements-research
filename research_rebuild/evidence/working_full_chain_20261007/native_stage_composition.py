@@ -17,21 +17,28 @@ def load(out,stage,pin):
         for raw,claimed in entry['verified_input_and_ledger_pins'].items():
             path=Path(raw)
             # Original report-output pins are historical baseline references.
-            if out not in path.parents: assert pin(path)==claimed
+            historical_loader=path in {out.parents[2]/'research_rebuild/mass_linkage/working_state_20261007.py',out.parents[2]/'research_rebuild/mass_linkage/current_chain_state_20261007.py'}
+            if out not in path.parents and not historical_loader: assert pin(path)==claimed
             else:
                 historical=entry.get('historical_derived_output_verifications',{}).get(str(path),{})
                 if 'verified_exact_frozen_snapshot' in historical:
-                    assert path.name=='replay_additional_native_20261008.py'
+                    assert path.name in {'replay_additional_native_20261008.py','working_state_20261007.py'}
                     assert historical['historical_calculation_code_only_not_new_build_input'] and historical['sha256']==claimed
                     snapshot=Path(historical['verified_exact_frozen_snapshot'])
-                    assert snapshot==out.parent/'accepted_lifecycle_ownpoint_application_20261008'/'frozen_calculation_source_stage47.py'
+                    if path.name=='working_state_20261007.py':
+                        assert historical_loader
+                        if claimed=='bc8477525df2519afeb5a57813e5ac68e27fe154cd354c3f93835d20759a56bd': assert snapshot==out.parent/'shared_rural_modern_point_corroboration_20261008'/'frozen_calculation_source_stage60.py'
+                        else:
+                            assert snapshot==out.parent/'combined_inherited_ownpoint_application_20261008'/'frozen_calculation_source_stage59.py'
+                            assert claimed=='2d8a098ba81a7c3227c968fb97ebd034a31e1a126fc4e01f88d04c2b8f5a466a'
+                    else: assert snapshot==out.parent/'accepted_lifecycle_ownpoint_application_20261008'/'frozen_calculation_source_stage47.py'
                     assert pin(snapshot)==claimed
-                    baseline_references.append({'path':str(path),'sha256':claimed,'verified_exact_frozen_snapshot':str(snapshot),'verification':'exact_frozen_calculation_source_stage47_not_live_build_input'})
+                    baseline_references.append({'path':str(path),'sha256':claimed,'verified_exact_frozen_snapshot':str(snapshot),'verification':'exact_frozen_calculation_source_not_live_build_input'})
                     continue
-                assert path.name in {'qualified_scope_source_id_credit_union.csv','named_merger_lineage_constituents.csv','complete_territorial_scope_constituents.csv','complete_publisher_partition_members.csv','qualified_physical_observations.csv','formation_path_native_credit_union.csv','direct_inclusion_transformation_path_native_credit_union.csv','coverage_receipt.json'}
+                assert historical_loader or path.name in {'build_report.py','secondary_full3.py','native_stage_composition.py','replay_additional_native_20261008.py','export_full3.py','verify_export.py','direct_inclusion_paths.py','qualified_scope_source_id_credit_union.csv','named_merger_lineage_constituents.csv','complete_territorial_scope_constituents.csv','complete_publisher_partition_members.csv','qualified_physical_observations.csv','formation_path_native_credit_union.csv','direct_inclusion_transformation_path_native_credit_union.csv','coverage_receipt.json'}
                 relative=str(path.relative_to(out.parents[2]))
                 matching_commits=[]
-                for baseline_commit in ['dba51d5','f67ea9111a2d7932ef7e55a7015a120ac3a50caa','0b8c3b0bda66b4dcec86ef9ff1ce706dc8fdcac7','65e88651f238173693e14c9654888b36b2fc9d44']:
+                for baseline_commit in ['dba51d5','f67ea9111a2d7932ef7e55a7015a120ac3a50caa','0b8c3b0bda66b4dcec86ef9ff1ce706dc8fdcac7','65e88651f238173693e14c9654888b36b2fc9d44','fce754a35ddd2a182b242d6d415797e177860532']:
                     original=subprocess.run(['git','show',baseline_commit+':'+relative],cwd=out.parents[2],capture_output=True)
                     if original.returncode==0 and hashlib.sha256(original.stdout).hexdigest()==claimed: matching_commits.append(baseline_commit)
                 assert matching_commits,('Historical report input does not match verified baseline Git blobs',str(path),claimed)

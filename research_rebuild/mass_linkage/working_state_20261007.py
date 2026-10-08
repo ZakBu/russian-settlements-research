@@ -62,7 +62,7 @@ def apply_source_namespace_interpretations(state, path):
     return state
 
 
-def load(stage=55):
+def load(stage=61):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -117,9 +117,15 @@ def load(stage=55):
     53: mass rural singleton histories with printed county hierarchy and all physical competitors retained.
     54: cached own-name aliases bound to six native old census records.
     55: Donskoye native rural/PGT/rural continuity; complete parts and direct events remain separate report axes.
+    56: accepted component literal-name variants bound to 53 native2010 source rows.
+    57: reject contradicted provider points and apply independent own-coded replacements.
+    58: own historic code/county and unique nearby own-point bindings for five native histories.
+    59: supersede or hold newly recovered Geo points after independent coordinate checks.
+    60: bulk supersession of inherited Geo defaults by own modern representative points, with explicit unresolved holds.
+    61: restore 45 rural histories through uniquely corroborated modern physical locality points.
     """
-    if not isinstance(stage, int) or not 1 <= stage <= 55:
-        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–55")
+    if not isinstance(stage, int) or not 1 <= stage <= 61:
+        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–61")
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
     if stage >= 2:
@@ -238,4 +244,19 @@ def load(stage=55):
         state.add_deltas([E/"cached_historical_name_alias_mass_20261008/accepted_identity_edge_delta.csv.gz"], [E/"cached_historical_name_alias_mass_20261008/accepted_point_use_delta.csv.gz"])
     if stage >= 55:
         state.add_deltas([E/"absorbed_remaining2010_direct_mass_20261008/accepted_separate_native_identity_edge_delta.csv"], [E/"absorbed_remaining2010_direct_mass_20261008/accepted_separate_native_point_use_delta.csv"])
+    if stage >= 56:
+        state.add_deltas([E/"current_component_name_alias_mass_20261008/accepted_identity_edge_delta.csv.gz"], [E/"current_component_name_alias_mass_20261008/accepted_point_use_delta.csv.gz"])
+    if stage >= 57:
+        state.reject_point_uses(E/"combined_ownpoint_correction_application_20261008/point_use_rejections.csv.gz")
+        state.add_deltas(point_paths=[E/"combined_ownpoint_correction_application_20261008/accepted_point_use_delta.csv.gz"])
+    if stage >= 58:
+        state.add_deltas([E/"remaining_native_spatial_literal_mass_20261008/accepted_identity_edge_delta.csv.gz"], [E/"remaining_native_spatial_literal_mass_20261008/accepted_point_use_delta.csv.gz"])
+    if stage >= 59:
+        state.reject_point_uses(E/"corrected_ownpoint_cached_history_followup_20261008/point_use_rejections.csv.gz")
+        state.add_deltas(point_paths=[E/"corrected_ownpoint_cached_history_followup_20261008/accepted_point_use_delta.csv.gz"])
+    if stage >= 60:
+        state.reject_point_uses(E/"combined_inherited_ownpoint_application_20261008/point_use_rejections.csv.gz")
+        state.add_deltas(point_paths=[E/"combined_inherited_ownpoint_application_20261008/accepted_point_use_delta.csv.gz"])
+    if stage >= 61:
+        state.add_deltas(point_paths=[E/"shared_rural_modern_point_corroboration_20261008/accepted_point_use_delta.csv.gz"])
     return state

@@ -1,11 +1,12 @@
 """Load only root-admitted secondary historical physical observation packs."""
 from pathlib import Path
-import json, math
+import json, math, re, hashlib, subprocess
 import pandas as pd
 
-MISSING2002_SERIES={'temporal_missing2002_all_components_20261008':86,'temporal_missing2002_all_components_20261008/physical_grain_two_hold_followup':2}
+MISSING2002_SERIES={'cached_current_bound_secondary2002_mass_20261008':26,'temporal_missing2002_all_components_20261008':86,'temporal_missing2002_all_components_20261008/physical_grain_two_hold_followup':2}
 
 PACKS=[
+ ('cached_current_bound_secondary2002_mass_20261008','root_admitted_frozen_qualified_missing2002_series','qualified_accepted_secondary_census_referenced_own_item'),
  ('uncached_missing2010_dated_source_mass_20261008','accepted_uncached2010_native_route_and_disjoint_secondary_census_fallback','qualified_accepted_secondary_census_referenced_own_item'),
  ('cached_missing2010_dated_source_mass_20261008','accepted_cached2010_native_route_and_disjoint_secondary_census_fallback','qualified_accepted_secondary_census_referenced_own_item'),
  ('wikidata_secondary_full3_application_20261007','applied_qualified_secondary_census_referenced_own_physical_series','qualified_accepted_secondary_census_referenced_own_item'),
@@ -21,7 +22,7 @@ PACKS=[
  ('temporal_missing2002_all_components_20261008/physical_grain_two_hold_followup','root_admitted_frozen_qualified_missing2002_series','qualified_accepted_secondary_census_referenced_own_item'),
 ]
 
-def load(E,state,pin):
+def load(E,state,pin,stage=55):
     packs=[];cached_hashes={}
     rawroot=Path('/workspace/settlements-raw');r2=Path('/workspace/settlements-work/sources/r2-missing')
     known_r2={'kaliningrad_2010_tom1.xlsx':r2/'kaliningrad_tom1.xlsx','murmansk_population_by_sex_municipalities.doc':r2/'murmansk_population.doc','arkhangelsk_2010_archived_original.html':r2/'arkhangelsk_2010_archived_original.html'}
@@ -44,6 +45,17 @@ def load(E,state,pin):
         if key not in cached_hashes: cached_hashes[key]=pin(path)
         return cached_hashes[key]
     for dirname,status,decision in PACKS:
+        if dirname=='cached_current_bound_secondary2002_mass_20261008':
+            folder=E/dirname;root_path=folder/'root_application_receipt.json'
+            if stage<57: continue
+            assert root_path.is_file(),('Missing root-qualified secondary26 admission',str(root_path))
+            pin(root_path);root_admission=json.loads(root_path.read_text())
+            assert root_admission['status']==status and root_admission['intended_working_stage']<=stage
+            assert root_admission['source_replay_passed'] and root_admission['selected_source_ID_credits_are_union_not_secondary_population']
+            assert pin(folder/'qualified_application_receipt.json')==root_admission['source_application_sha256']
+            assert not root_admission['ordinary_NP3_edges_or_points_added'] and not root_admission['historical_native2002_UID_binding_asserted']
+            assert not root_admission['population_primary_reference_verified'] and not root_admission['boundary_comparability_asserted']
+            for filename,h in root_admission['outputs'].items(): assert pin_once(folder/filename)==h
         folder=E/dirname;rp=folder/('qualified_application_receipt.json' if dirname in MISSING2002_SERIES else 'application_receipt.json')
         if not rp.exists(): continue
         pin(rp);receipt=json.loads(rp.read_text())
@@ -51,8 +63,9 @@ def load(E,state,pin):
         if dirname in MISSING2002_SERIES:
             assert receipt['qualified_series']==MISSING2002_SERIES[dirname] and receipt['qualified_observations']==3*MISSING2002_SERIES[dirname]
             assert receipt['ordinary_NP3_edges_or_points_added']==0 and not receipt['historical_native2002_UID_binding_asserted']
-            for proof in ['report_helper.py','validate_full_sources.py']: pin_once(folder/proof)
-            if MISSING2002_SERIES[dirname]==86: pin_once(folder/'cached_reference_item_witness.csv')
+            proofs=['prepare_qualified.py','verify.py'] if dirname=='cached_current_bound_secondary2002_mass_20261008' else ['report_helper.py','validate_full_sources.py']
+            for proof in proofs: pin_once(folder/proof)
+            if MISSING2002_SERIES[dirname] in [86,26]: pin_once(folder/'cached_reference_item_witness.csv')
         else: assert receipt['status']==status,(dirname,receipt['status'])
         name='accepted_qualified_physical_observations.csv'
         outputs=receipt.get('outputs',receipt.get('output_hashes',receipt.get('output_pins',{})))
@@ -96,7 +109,9 @@ def load(E,state,pin):
             assert len(frame)==3*MISSING2002_SERIES[dirname] and frame.trajectory_id.nunique()==MISSING2002_SERIES[dirname]
             historical=frame[frame.year.eq(2002)]
             assert historical.nonadditive_observation.all() and historical.source_record_id.eq('').all()
-            assert historical.census_proof_class.eq('literal_cached2002_census_reference_label_or_title_or_URL').all()
+            allowed=['literal_cached2002_census_reference_label_or_title_or_URL']
+            if dirname=='cached_current_bound_secondary2002_mass_20261008': allowed+=['actual_P585_year2002_with_literal_P459_census_method']
+            assert historical.census_proof_class.isin(allowed).all()
         for _,group in frame.groupby(['scope','trajectory_id']):
             assert len(group)==3 and set(group.year)=={2002,2010,2021}
         actual_sources=[]
@@ -229,6 +244,8 @@ def load(E,state,pin):
             for (scope,trajectory),group in frame.groupby(['scope','trajectory_id']):
                 current=group.loc[group.year.eq(2021),'source_record_id'].iloc[0]
                 if current not in targets: continue
+                # Later frozen rejections take precedence over inherited recovery overlays.
+                if stage>=57 and current not in state.point_rows: continue
                 active=state.point_rows[current]
                 for row_index in group.index:
                     old=frame.loc[row_index]
@@ -243,7 +260,132 @@ def load(E,state,pin):
                 assert pin_once(Path(active['point_origin_file']))==active['point_origin_sha256']
             packs[index]=(dirname,receipt,frame)
         pd.DataFrame(retained,columns=['scope','trajectory_id','year','current_native_source_record_id','old_latitude','old_longitude','old_point_origin_file','old_point_origin_sha256','old_point_origin_locator','old_point_binding_json','status']).to_csv(E/'working_full_chain_20261007/qualified_point_context_retained_alternatives.csv',index=False)
+    if stage>=57:
+        packs=project_corrected_sidecar_points(E,state,pin,packs,stage=stage)
     if (override_folder/'application_receipt.json').exists():
         final_expansion=next(frame for dirname,_,frame in packs if dirname=='wikidata_secondary_full3_expansion_application_20261007')
         final_expansion.to_csv(E/'working_full_chain_20261007/native_history_applied_expansion_observations.csv',index=False)
     return packs
+
+
+def project_corrected_sidecar_points(E,state,pin,packs,stage=57):
+    """Project only root-decided own points; hold complete source histories otherwise."""
+    assert verify_exact_provider_carrier_regression()
+    out=E/'working_full_chain_20261007';folder=E/'combined_ownpoint_correction_application_20261008'
+    rp=folder/'application_receipt.json';root_hash=pin(rp);receipt=json.loads(rp.read_text())
+    assert receipt['status']=='root_applied_ownpoint_rejections_and_independent_recoveries'
+    assert receipt['intended_working_stage']==57
+    audit_path=Path(receipt['own_population_identity_audit_path'])
+    assert pin(audit_path)==receipt['own_population_identity_audit_sha256']
+    for filename,h in receipt['outputs'].items(): assert pin(folder/filename)==h
+    audit=json.loads(audit_path.read_text())
+    for source,claimed in audit['input_pins'].items(): assert pin(Path(source))==claimed
+    for source,claimed in audit['checked_sidecar_sha256'].items():
+        path=Path(source)
+        if out in path.parents:
+            blob=subprocess.run(['git','show','fce754a35ddd2a182b242d6d415797e177860532:'+str(path.relative_to(out.parents[2]))],cwd=out.parents[2],capture_output=True)
+            assert blob.returncode==0 and hashlib.sha256(blob.stdout).hexdigest()==claimed,('Exact historical55 audit source mismatch',source)
+        else: assert pin(path)==claimed
+    rejected=set(pd.read_csv(folder/'point_use_rejections.csv.gz',keep_default_na=False).target_source_record_id)
+    decisions={(r['scope'],r['trajectory_id']):r for r in receipt['qualified_sidecar_projection_decisions']}
+    assert len(decisions)==7
+    root59_hash=None
+    if stage>=59:
+        folder59=E/'corrected_ownpoint_cached_history_followup_20261008';rp59=folder59/'root_application_receipt.json';root59_hash=pin(rp59);root59=json.loads(rp59.read_text())
+        assert root59['status']=='root_applied_independent_point_corroboration_or_hold' and root59['intended_working_stage']==59
+        assert pin(folder59/'application_receipt.json')==root59['source_application_sha256']
+        for name,h in root59['outputs'].items(): assert pin(folder59/name)==h
+        actions_path=Path(root59['qualified_scope_point_actions_path']);assert pin(actions_path)==root59['qualified_scope_point_actions_sha256']
+        actions=pd.read_csv(actions_path,keep_default_na=False)
+        assert len(actions)==2
+        for action in actions.to_dict('records'):
+            key=next(k for k in decisions if k[1]==action['trajectory_id']);decision=decisions[key].copy()
+            assert decision['current_source_record_id']==action['native_current_source_record_id'] and action['identity_and_population_values_unchanged']
+            decision['decision']='hold' if action['decision'].startswith('hold_') else 'replace_independent_own_point'
+            decision['reason']='root59 '+action['decision']
+            decision['replacement_target_source_record_id']='' if decision['decision']=='hold' else action['native_current_source_record_id']
+            decision['root59_point_json']=action['point_json'];decisions[key]=decision
+    root60_hash=None
+    if stage>=60:
+        rp60=E/'combined_inherited_ownpoint_application_20261008/application_receipt.json';root60_hash=pin(rp60);root60=json.loads(rp60.read_text())
+        assert root60['status']=='root_composed_independent_ownpoint_representatives_and_explicit_holds'
+        for update in root60.get('qualified_sidecar_projection_decisions',[]):
+            key=(update['scope'],update['trajectory_id']);assert key in decisions
+            assert update['current_source_record_id']==decisions[key]['current_source_record_id']
+            assert update['decision'] in ['hold','replace_independent_own_point']
+            if update['decision']=='replace_independent_own_point':
+                assert update['own_population_identity_rechecked'] and not update['trajectory_id'].endswith('Q19820596')
+            old=decisions[key];decisions[key]=dict(old,**update);decisions[key]['root59_point_json']=''
+    held=[];retained=[];seen=set();result=[]
+    for dirname,source_receipt,frame in packs:
+        frame=frame.copy();drop=[]
+        for key,group in frame.groupby(['scope','trajectory_id']):
+            if key not in decisions: continue
+            decision=decisions[key];seen.add(key)
+            assert len(group)==3 and set(group.year)=={2002,2010,2021}
+            current=group.loc[group.year.eq(2021),'source_record_id'].iloc[0]
+            assert current==decision['current_source_record_id']
+            original=group.copy();original['point_correction_root_receipt_sha256']=root_hash
+            original['point_correction_reason']=decision['reason']
+            if decision['decision']=='hold':
+                original['point_correction_status']='held_source_observations_no_admitted_point_or_joint_credit'
+                original['accepted_physical_three_observed_census_year_path']=False
+                original['accepted_scoped_representative_point']=False
+                original['joint_selected_source_ID_credit_admitted']=False
+                held.append(original);drop.extend(group.index);continue
+            assert decision['decision']=='replace_independent_own_point'
+            assert decision['replacement_target_source_record_id']==current and current in state.point_rows
+            active=state.point_rows[current]
+            if stage<60 or not decision.get('own_population_identity_rechecked'):
+                assert active['point_origin_kind'] in ['independent_raw_own_coded_GeoKLADR2011_locality_point','independent_owncoded_cached_Wikidata_point']
+            else:
+                assert active['point_origin_kind']!='tochno_2021_dadata_raw_parquet_point' and 'wiki' in str(active['point_origin_kind']).lower()
+            if decision.get('root59_point_json'):
+                proof=json.loads(decision['root59_point_json'])
+                for field in ['latitude','longitude','point_origin_file','point_origin_sha256','point_origin_locator']: assert active[field]==proof[field]
+            assert pin(Path(active['point_origin_file']))==active['point_origin_sha256']
+            original['point_correction_status']='retained_original_rejected_point_context_superseded_by_independent_own_coded_point'
+            retained.append(original)
+            for column in ['latitude','longitude','point_origin_file','point_origin_sha256','point_origin_locator']:
+                frame.loc[group.index,column]=active[column]
+            frame.loc[group.index,'point_binding_json']=json.dumps(active,ensure_ascii=False,default=str)
+            frame.loc[group.index,'retrospective_point_use_is_continuity_inference']=True
+            frame.loc[group.index,'representative_point_context_status']='root57_independent_own_coded_point_population_identity_rechecked_not_historical_coordinate_measurement'
+        result.append((dirname,source_receipt,frame.drop(index=drop)))
+    assert seen==set(decisions)
+    for _,_,frame in result:
+        for row in frame.to_dict('records'):
+            assert raw_provider_carrier(row) not in rejected,('Rejected raw provider point recreated by qualified overlay',row['trajectory_id'])
+    held_frame=pd.concat(held,ignore_index=True);retained_frame=pd.concat(retained,ignore_index=True)
+    expected_held=sum(d['decision']=='hold' for d in decisions.values())
+    assert len(held_frame)==3*expected_held and held_frame.trajectory_id.nunique()==expected_held
+    assert len(retained_frame)==3*(7-expected_held) and retained_frame.trajectory_id.nunique()==7-expected_held
+    held_frame.to_csv(out/'qualified_point_correction57_held_source_observations.csv',index=False)
+    retained_frame.to_csv(out/'qualified_point_correction57_retained_rejected_point_context.csv',index=False)
+    admission={'status':'root_admitted_source_specific_qualified_point_projection_and_identity_holds',
+        'intended_stage':stage,'root60_application_sha256':root60_hash,'root59_application_sha256':root59_hash,'root_application_receipt':str(rp),'root_application_sha256':root_hash,
+        'own_population_identity_audit_path':str(audit_path),'own_population_identity_audit_sha256':receipt['own_population_identity_audit_sha256'],
+        'decisions':list(decisions.values()),'held_series':expected_held,'held_observations':3*expected_held,'replacement_series':7-expected_held,'replacement_observations':3*(7-expected_held),
+        'frozen_population_sources_modified':False,'population_values_transferred_to_new_item':False,
+        'ordinary_identity_modified':False,'held_source_observations_selected_credit_admitted':False,
+        'source_application_inputs_verified_live_except_exact_historical55_Git_controls':True,
+        'exact_provider_carrier_regression':'PASS717_vs7172_and_full_UID',
+        'outputs':{name:hashlib.sha256((out/name).read_bytes()).hexdigest() for name in ['qualified_point_correction57_held_source_observations.csv','qualified_point_correction57_retained_rejected_point_context.csv']}}
+    (out/'qualified_point_projection57_admission_receipt.json').write_text(json.dumps(admission,ensure_ascii=False,indent=2)+'\n')
+    return result
+
+
+def raw_provider_carrier(row):
+    if not str(row.get('point_origin_file','')).endswith('2021_tochno/data_allsettlements_anon_156_v20251217.parquet'): return None
+    match=re.search(r'parquet[_ ]row[_ ](?:1based|1-based)\s*=\s*(\d+)',str(row.get('point_origin_locator','')))
+    return '2021:data_allsettlements_anon_156_v20251217.parquet:parquet:'+match.group(1) if match else None
+
+
+def verify_exact_provider_carrier_regression():
+    path='/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet'
+    uid='2021:data_allsettlements_anon_156_v20251217.parquet:parquet:717'
+    assert raw_provider_carrier({'point_origin_file':path,'point_origin_locator':'parquet row 1-based=717; fields=x'})==uid
+    assert raw_provider_carrier({'point_origin_file':path,'point_origin_locator':'parquet row 1-based=7172; fields=x'})==uid+'2'
+    assert raw_provider_carrier({'point_origin_file':path,'point_origin_locator':'parquet row 1-based=7172; fields=x'}) not in {uid}
+    assert uid not in json.loads(json.dumps([uid+'2']))
+    return True

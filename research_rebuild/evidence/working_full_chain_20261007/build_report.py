@@ -232,7 +232,7 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         delta.to_csv(OUT/'source_namespace_interpretation_delta.csv',index=False)
         namespace_correction={'status':'accepted_source_header_namespace_interpretation','interpretation_rows':98,'input_path':str(delta_path),'sha256':delta_hash,'effective_region_norm':'еврейская','source_header_locator':'Sheet1!A1','original_imported_regions_retained_in_export':True,'raw_source_populations_quality_metadata_unchanged':True,'interpretation_only_NP3_gain':0,'accepted_native_cases_after_interpretation':admission51['accepted_cases'],'native_case_finite_gain':admission51['net_finite_all3_all_points']}
     later_native_admissions=[]
-    for threshold,dirname,receipt_name in [(52,'native_rural_type_alias_mass_20261008','application_receipt.json'),(53,'native_singleton_rural_mass_20261008','application_receipt.json'),(54,'cached_historical_name_alias_mass_20261008','application_receipt.json'),(55,'absorbed_remaining2010_direct_mass_20261008','separate_native_application_receipt.json')]:
+    for threshold,dirname,receipt_name in [(52,'native_rural_type_alias_mass_20261008','application_receipt.json'),(53,'native_singleton_rural_mass_20261008','application_receipt.json'),(54,'cached_historical_name_alias_mass_20261008','application_receipt.json'),(55,'absorbed_remaining2010_direct_mass_20261008','separate_native_application_receipt.json'),(56,'current_component_name_alias_mass_20261008','application_receipt.json'),(58,'remaining_native_spatial_literal_mass_20261008','application_receipt.json')]:
         if stage<threshold: continue
         folder=E/dirname;rp=folder/receipt_name;pin(rp);admission=json.loads(rp.read_text())
         assert admission['accepted_cases']>0
@@ -243,11 +243,50 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
             assert admission['accepted_cases']==(17 if threshold==52 else 6)
         elif threshold==53:
             assert admission['status']=='actual51 source/count verified consolidated native mass application ready for independent replay'
+        elif threshold==58:
+            assert admission['baseline_stage']==56 and (admission['accepted_cases'],admission['edges'],admission['point_uses'])==(5,5,5)
+            assert admission['source_population_quality_names_types_unchanged'] and admission['State_API_replay_passed']
+        elif threshold==56:
+            assert admission['baseline_stage']==55 and (admission['accepted_cases'],admission['edges'],admission['point_uses'])==(53,53,53)
+            assert admission['all_source_population_quality_names_types_unchanged'] and admission['State_API_replay_passed']
+            assert admission['all_actual_native2010_source_county_rivals_before_credit_UF_type_filtering_passed']
         else:
             assert admission['population_values_quality_unchanged'] and admission['all_regional_homonyms_retained']
             assert (admission['accepted_cases'],admission['accepted_edges'],admission['accepted_points'])==(1,2,2)
             assert not any(admission['direct_included_in_gain'].values())
         later_native_admissions.append({'stage':threshold,'source_application':str(rp),'sha256':pin(rp),'accepted_cases_in_original_source_packet':admission['accepted_cases'],'actual_sequential_gain_reference':'root_sequential_native_composition'})
+    point_correction57=None
+    if stage>=57:
+        folder=E/'combined_ownpoint_correction_application_20261008';rp=folder/'application_receipt.json';h=pin(rp);admission=json.loads(rp.read_text())
+        assert admission['status']=='root_applied_ownpoint_rejections_and_independent_recoveries' and admission['intended_working_stage']==57
+        assert admission['identity_graph_unchanged'] and admission['population_values_quality_unchanged']
+        for name,claimed in admission['outputs'].items(): assert pin(folder/name)==claimed
+        assert pin(Path(admission['own_population_identity_audit_path']))==admission['own_population_identity_audit_sha256']
+        point_correction57={'source_application':str(rp),'sha256':h,'point_claims_rejected':1387,'point_uses_replaced':362,'current_carriers_with_conflicts':754,'current_carriers_recovered':155,'current_carriers_held':599,'population_values_quality_unchanged':True,'boundary_accuracy_not_calibrated':True,'secondary_population_identity_holds':5,'secondary_independent_own_coded_point_projections':2,'held_source_observations_are_outside_joint_credit':True}
+    point_correction59=None;representatives60=None
+    if stage>=59:
+        folder=E/'corrected_ownpoint_cached_history_followup_20261008';rp=folder/'root_application_receipt.json';h=pin(rp);admission=json.loads(rp.read_text())
+        assert admission['status']=='root_applied_independent_point_corroboration_or_hold' and admission['intended_working_stage']==59
+        assert pin(folder/'application_receipt.json')==admission['source_application_sha256']
+        for name,claimed in admission['outputs'].items(): assert pin(folder/name)==claimed
+        assert pin(Path(admission['qualified_scope_point_actions_path']))==admission['qualified_scope_point_actions_sha256']
+        point_correction59={'root_application':str(rp),'sha256':h,'before_finite':admission['before_finite'],'after_finite':admission['after_finite'],'Geo_ID_binding_not_asserted_wrong_when_Geo_coordinate_rejected':True,'secondary_actions_supersede_source57_point_decisions':True}
+    if stage>=60:
+        folder=E/'combined_inherited_ownpoint_application_20261008';rp=folder/'application_receipt.json';h=pin(rp);admission=json.loads(rp.read_text())
+        assert admission['status']=='root_composed_independent_ownpoint_representatives_and_explicit_holds' and admission['intended_stage']==60
+        assert admission['identity_edges_unchanged'] and admission['raw_census_population_quality_unchanged']
+        for name,claimed in admission['output_pins'].items(): assert pin(folder/name)==claimed
+        assert admission['after_finite']==native_composition['stages'][60-40]['after_finite_all3_all_points']
+        representatives60={'source_application':str(rp),'sha256':h,'point_claims_superseded_or_held':admission['point_claims_superseded_or_held'],'accepted_point_uses':admission['accepted_point_uses'],'held_point_uses':admission['held_point_uses'],'historical_point_alternatives_preserved_in_immutable_source_ledgers':True,'current_point_is_not_historical_censusday_measurement':True,'statistical_accuracy_probability_calibrated':False}
+    recovered61=None
+    if stage>=61:
+        folder=E/'shared_rural_modern_point_corroboration_20261008';rp=folder/'root_application_receipt.json';h=pin(rp);admission=json.loads(rp.read_text())
+        assert admission['status']=='root_admitted_source_corroborated_ownpoint_additions_only' and admission['intended_stage']==61
+        assert pin(Path(admission['source_application']))==admission['source_application_sha256']
+        for name,claimed in admission['output_pins'].items(): assert pin(folder/name)==claimed
+        assert admission['current_point_rejections']==0 and admission['identity_edges_unchanged'] and admission['raw_census_population_quality_unchanged']
+        assert admission['after_finite']==expected_native_finite
+        recovered61={'root_application':str(rp),'sha256':h,'source_positive_histories':45,'previously_inactive_historical_point_uses_admitted':59,'current_point_rejections':0,'provider_ID_quality_separate_from_own_chosen_point_correctness':True,'historical_coordinates_are_representative_continuity_inference':True,'calibrated_accuracy_asserted':False}
     bm=base.metrics(); sm=state.metrics()
     for y in YEARS:
         assert bm[str(y)]['covered_population']==BASELINE[y], (y,bm)
@@ -556,7 +595,7 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         physical.append({'scope':'named_district_recreation_2009','series':2,'observations':6,'secondary_population_observations':0,'selected_credit_references':4,'primary2002_quarter_population_nationally_added':0,'ordinary_NP3_asserted':False,'boundary_comparability_asserted':False})
     from secondary_full3 import load as load_secondary_full3
     pin(OUT/'secondary_full3.py')
-    secondary_packs=load_secondary_full3(E,state,pin)
+    secondary_packs=load_secondary_full3(E,state,pin,stage=stage)
     for dirname,secondary_receipt,frame in secondary_packs:
         for r in frame.loc[~frame.nonadditive_observation].to_dict('records'):
             existing(r['source_record_id'],r['year'],r['population_source_value'],r['scope'])
@@ -714,6 +753,11 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
     report['baseline_snapshot_git_commit']=baseline_snapshot
     report['source_namespace_interpretation']=namespace_correction
     report['later_native_admission_sources']=later_native_admissions
+    if point_correction57 is not None: report['ownpoint_correction57']=point_correction57
+    if point_correction59 is not None: report['ownpoint_corroboration59']=point_correction59
+    if representatives60 is not None: report['inherited_representative_point_modernization60']=representatives60
+    if recovered61 is not None: report['source_corroborated_historical_representative_points61']=recovered61
+    if stage>=57: report['qualified_point_projection_current_stage']=json.loads((OUT/'qualified_point_projection57_admission_receipt.json').read_text())
     report['ordinary_export_reused_without_rewrite']=reuse_ordinary_export
     named_axis=report['named_merger_lineage_extended_population_axis']
     if named_axis['status']=='admitted_separate_named_merger_event_lineage':
@@ -730,6 +774,7 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         for y in YEARS: assert direct['by_year'][y]['original_final_mixed_census_population']==threshold[y]['population']
     # Detect concurrent ledger edits; pin content exactly as measured.
     for p,m in pins.items(): assert sha(Path(p))==m['sha256'], 'Input changed during measurement: '+p
+    if stage>=60: report['interyear_ownpoint_geometry_diagnostic']=write_interyear_geometry_from_state(state,OUT,stage,expected_native_finite)
     report['wall_seconds']=round(time.monotonic()-start,3)
     write_json('coverage_receipt.json',report);write_json('input_hash_manifest.json',pins)
     from verify_export import main as verify_export
@@ -781,6 +826,29 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
     outputs={p.name:{'bytes':p.stat().st_size,'sha256':sha(p)} for p in OUT.iterdir() if p.is_file() and p.name!='output_hash_manifest.json'}
     write_json('output_hash_manifest.json',outputs)
     print(json.dumps({'all_three_component_points_national_unions':stronger_national_union,'own_row_point_plus_full3_companion':overlaystats,'qualified_own_row_point_companion':qualified,'growth_flag_counts':report['growth_flags']['counts'],'wall_seconds':report['wall_seconds'],'output_bytes':sum(x['bytes'] for x in outputs.values())}))
+
+
+
+def write_interyear_geometry_from_state(state,out,stage,expected):
+    import numpy as np
+    s=state;O=out;start=time.monotonic()
+    obs=s.obs;bad=~obs.source_record_id.isin(s.point_rows)|~np.isfinite(obs.population);badroots=set(obs.loc[bad,'root'])|{s.uf.find(x) for x in s.conflicting_point_targets};ordinary=obs.is_additive_settlement_record.fillna(False)&~obs.region_norm.isin(['москва','санкт петербург','севастополь'])&~(obs.census_year.eq(2021)&obs.region_norm.eq('крым'));roots={r for r in set(obs.loc[ordinary,'root']) if s.years[r]=={2002,2010,2021} and r not in badroots};d=obs[ordinary&obs.root.isin(roots)].copy();assert len(roots)==expected['histories'];assert not d[['root','census_year']].duplicated().any();assert len(d)==3*len(roots)
+    base=pd.DataFrame(index=sorted(roots));base.index.name='component_root';pairs=[(2002,2010),(2002,2021),(2010,2021)]
+    for y in [2002,2010,2021]:
+     f=d[d.census_year.eq(y)].set_index('root').reindex(base.index)
+     for field in ['source_record_id','settlement_name','settlement_type','region_norm','population']:base[field+'_'+str(y)]=f[field].values
+     points=[s.point_rows[x] for x in f.source_record_id]
+     for field in ['latitude','longitude','point_origin_file','point_origin_sha256','point_origin_locator','point_origin_kind','coordinate_admission_status','coordinate_source_record_id']:
+      base[field+'_'+str(y)]=[p.get(field,'') for p in points]
+    for a,b in pairs:
+     lat1=np.radians(base['latitude_'+str(a)].astype(float));lat2=np.radians(base['latitude_'+str(b)].astype(float));lon1=np.radians(base['longitude_'+str(a)].astype(float));lon2=np.radians(base['longitude_'+str(b)].astype(float));h=np.sin((lat2-lat1)/2)**2+np.cos(lat1)*np.cos(lat2)*np.sin((lon2-lon1)/2)**2; base[f'distance_km_{a}_{b}']=6371.0088*2*np.arcsin(np.sqrt(np.clip(h,0,1)))
+    cols=[f'distance_km_{a}_{b}' for a,b in pairs];base['max_interyear_distance_km']=base[cols].max(axis=1);base['max_pair']=base[cols].idxmax(axis=1);base=base.sort_values(['max_interyear_distance_km','source_record_id_2021'],ascending=[False,True]);base['rank_max_interyear_distance']=np.arange(1,len(base)+1)
+    def summarize(mask):
+     return {'histories':int(mask.sum()),'population_by_year':{str(y):int(base.loc[mask,'population_'+str(y)].sum()) for y in [2002,2010,2021]}}
+    summary={str(t):summarize(base.max_interyear_distance_km.gt(t)) for t in [5,100]};by_pair={str(t):{f'{a}_{b}':summarize(base[f'distance_km_{a}_{b}'].gt(t)) for a,b in pairs} for t in [5,100]};csv=O/f'interyear_ownpoint_geometry_diagnostic_stage{stage}_20261008.csv';base.head(100).reset_index().to_csv(csv,index=False)
+    receipt={'status':'actual_finite_ordinary_interyear_ownpoint_geometry_diagnostic_not_accuracy_calibration','stage':stage,'finite_control':expected,'threshold_comparison':'strictly_greater_than','threshold_union':summary,'threshold_by_pair':by_pair,'top10':base.head(10).reset_index().to_dict('records'),'top100_csv':str(csv),'top100_csv_sha256':sha(csv),'distance_alone_rejects_identity_or_point':False,'historical_censusday_coordinates_or_boundaries_asserted':False,'state_reloaded_for_diagnostic':False,'wall_seconds':round(time.monotonic()-start,3)}
+    (O/f'interyear_ownpoint_geometry_diagnostic_stage{stage}_20261008.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
+    return receipt
 
 if __name__=='__main__':
     import argparse
