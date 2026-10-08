@@ -1,0 +1,3 @@
+from pathlib import Path
+import urllib.request,json,hashlib
+E=Path(__file__).resolve().parent;r=json.loads((E/'bounded_acquisition_receipt.json').read_text())['routes'][0];u=r['url'];a=urllib.request.urlopen(u,timeout=35);d=a.read(5500001);assert len(d)==5467683 and d.startswith(b'%PDF');p=E/'tula_2010_official_Tom1.pdf';p.write_bytes(d);r.update(acquired=True,file=p.name,bytes=len(d),sha256=hashlib.sha256(d).hexdigest(),authorization='Root permits exact5.47MB TulaPDF, newzone total<=8MB',source_license='No explicit reuse license inferred; attribution and exact factual table locators retained');(E/'tula_primary_acquisition_receipt.json').write_text(json.dumps(r,ensure_ascii=False,indent=2));print(r)

@@ -524,11 +524,27 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         assert admission67['explicit_Gorodok17_new_source_ID_population']=={'2002':0,'2010':0,'2021':0}
         assert admission67['explicit_Gorodok17_inherited_source_ID_population']=={'2002':5495,'2010':0,'2021':0}
         for name,claimed in admission67['output_pins'].items(): assert pin(folder/name)==(claimed['sha256'] if isinstance(claimed,dict) else claimed)
-        assert {str(y):admission67['after'][str(y)]['finite_all3_ownpoints_population'] for y in YEARS}==expected_native_finite['populations_by_year']
-        assert all(admission67['after'][str(y)]['finite_all3_ownpoints_rows']==expected_native_finite['histories'] for y in YEARS)
+        assert {str(y):admission67['after'][str(y)]['finite_all3_ownpoints_population'] for y in YEARS}==native_composition['stages'][67-40]['after_finite_all3_all_points']['populations_by_year']
+        assert all(admission67['after'][str(y)]['finite_all3_ownpoints_rows']==native_composition['stages'][67-40]['after_finite_all3_all_points']['histories'] for y in YEARS)
         current=folder/'applied_state_observations.parquet';current_hash=pin(current);audited66=pd.read_parquet(current)
         assert state.obs.drop(columns='root',errors='ignore').equals(audited66.drop(columns='root',errors='ignore'))
         residual67={'source_application':str(rp),'sha256':h,'accepted_edges':admission67['accepted_edges'],'accepted_point_uses':admission67['accepted_point_uses'],'integration_holds':admission67['integration_holds'],'point_replacements':admission67['point_replacements'],'source_observation_additions':0,'source_population_quality_names_codes_and_grain_unchanged':True,'official_population_overlay_included':False,'new_typed_inclusion_events':0,'inherited_explicit_inclusion65_UID_population':admission67['explicit_Gorodok17_inherited_source_ID_population'],'actual_current_observations':str(current),'actual_current_observations_sha256':current_hash}
+    admission68=None;residual68=None
+    if stage>=68:
+        folder=E/'main_axis_residual_application68_20261008';rp=folder/'application_receipt.json';h=pin(rp);admission68=json.loads(rp.read_text())
+        assert admission68['status']=='applied_actual_frozen67_sourcepositive_railway_NP_and_sourcebound_former_name_identity_continuity_batch'
+        assert admission68['baseline_stage']==67 and admission68['intended_working_stage']==68
+        assert admission68['source_population_quality_names_codes_and_grain_unchanged'] and not admission68['official_population_overlay_included']
+        assert admission68['source_observation_additions']==0
+        assert not admission68['typed_inclusion65_UF_allowed'] and admission68['typed_context65_new_population_credit']==0
+        assert admission68['explicit_Gorodok17_new_source_ID_population']=={'2002':0,'2010':0,'2021':0}
+        assert admission68['explicit_Gorodok17_inherited_source_ID_population']=={'2002':5495,'2010':0,'2021':0}
+        for name,claimed in admission68['output_pins'].items(): assert pin(folder/name)==(claimed['sha256'] if isinstance(claimed,dict) else claimed)
+        assert {str(y):admission68['after'][str(y)]['finite_all3_ownpoints_population'] for y in YEARS}==native_composition['stages'][68-40]['after_finite_all3_all_points']['populations_by_year']
+        assert all(admission68['after'][str(y)]['finite_all3_ownpoints_rows']==native_composition['stages'][68-40]['after_finite_all3_all_points']['histories'] for y in YEARS)
+        current=folder/'applied_state_observations.parquet';current_hash=pin(current);audited66=pd.read_parquet(current)
+        assert state.obs.drop(columns='root',errors='ignore').equals(audited66.drop(columns='root',errors='ignore'))
+        residual68={'source_application':str(rp),'sha256':h,'accepted_edges':admission68['accepted_edges'],'accepted_point_uses':admission68['accepted_point_uses'],'integration_holds':admission68['integration_holds'],'point_replacements':admission68['point_replacements'],'source_observation_additions':0,'source_population_quality_names_codes_and_grain_unchanged':True,'official_population_overlay_included':False,'new_typed_inclusion_events':0,'inherited_explicit_inclusion65_UID_population':admission68['explicit_Gorodok17_inherited_source_ID_population'],'actual_current_observations':str(current),'actual_current_observations_sha256':current_hash}
     bm=base.metrics(); sm=state.metrics()
     for y in YEARS:
         assert bm[str(y)]['covered_population']==BASELINE[y], (y,bm)
@@ -963,10 +979,10 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         report['separate_primary_appearance_and_publication_absence_axis']=build_appearance_axis62(E,state,original_mixed_ids,fedp,COMMON,OUT,pin,report['separate_sourceyear_formation_plus_direct_lifecycle_axis'],stage=stage)
     if stage>=63:
         appearance=report['separate_primary_appearance_and_publication_absence_axis']
-        report['separate_primary_explicit_inclusion_axis63']=build_explicit_inclusion_axis63(E,state,original_mixed_ids,appearance,COMMON,OUT,pin,current_receipt=admission67 or admission66 or admission65 or admission64)
-        report['separate_primary_available_year_lifecycle_axis63']=build_available_year_lifecycle_round2_axis63(E,state,original_mixed_ids,appearance,report['separate_primary_explicit_inclusion_axis63'],COMMON,OUT,pin,current_receipt=admission67 or admission66 or admission65 or admission64)
+        report['separate_primary_explicit_inclusion_axis63']=build_explicit_inclusion_axis63(E,state,original_mixed_ids,appearance,COMMON,OUT,pin,current_receipt=admission68 or admission67 or admission66 or admission65 or admission64)
+        report['separate_primary_available_year_lifecycle_axis63']=build_available_year_lifecycle_round2_axis63(E,state,original_mixed_ids,appearance,report['separate_primary_explicit_inclusion_axis63'],COMMON,OUT,pin,current_receipt=admission68 or admission67 or admission66 or admission65 or admission64)
     if stage>=65:
-        report['separate_primary_explicit_inclusion_axis65']=build_gorodok17_inclusion_axis65(E,state,original_mixed_ids,report['separate_primary_available_year_lifecycle_axis63'],COMMON,OUT,pin,admission67 or admission66 or admission65)
+        report['separate_primary_explicit_inclusion_axis65']=build_gorodok17_inclusion_axis65(E,state,original_mixed_ids,report['separate_primary_available_year_lifecycle_axis63'],COMMON,OUT,pin,admission68 or admission67 or admission66 or admission65)
     from export_full3 import build as export_full3
     pin(OUT/'export_full3.py')
     pin(OUT/'verify_export.py')
@@ -1015,6 +1031,7 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
     if residual65 is not None: report['sourcepositive_alias_ownpoints_and_current_representative_supersession65']=residual65
     if residual66 is not None: report['published_code_alias_current_ownpoints_and_existing_UF_continuity66']=residual66
     if residual67 is not None: report['NULLscope_county_and_regional_identity_continuity67']=residual67
+    if residual68 is not None: report['railway_NP_and_sourcebound_former_name_identity_continuity68']=residual68
     if stage>=57: report['qualified_point_projection_current_stage']=json.loads((OUT/'qualified_point_projection57_admission_receipt.json').read_text())
     report['ordinary_export_reused_without_rewrite']=reuse_ordinary_export
     named_axis=report['named_merger_lineage_extended_population_axis']
@@ -1100,6 +1117,8 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         text+=['',f"Source66 adds {residual66['accepted_edges']} reviewed native published-code/alias edges and {residual66['accepted_point_uses']} own-point uses, with no source observation additions, point rejections, new events or population source overlay. Source128 metadata and the parent nonadditive interpretation remain unchanged. Gorodok17 belongs to source65; its inherited own2002 credit remains5495, while new source66 Gorodok17 UID gain and receiver context credit are zero."]
     if stage>=67:
         text+=['',f"Source67 adds {residual67['accepted_edges']} reviewed NULL-scope/county/regional continuity edges and {residual67['accepted_point_uses']} admitted own-point uses. Source populations, quality, names, native codes and additive grain remain unchanged, with no source observation additions or new typed inclusion events. Gorodok17 retains its separately admitted source65 identity/grain and existing5495-only2002 contribution. Population source overlays are separate from this raw export."]
+    if stage>=68:
+        text+=['',f"Source68 adds {residual68['accepted_edges']} reviewed railway-NP/former-name continuity edges and {residual68['accepted_point_uses']} admitted own-point uses. Source observations, populations, quality, names, codes and additive grain remain unchanged. Existing typed lifecycle/Gorodok17 source65 credit remains separately defined; population claim overlays are excluded from the raw report."]
     if namespace_correction['status']=='accepted_source_header_namespace_interpretation':
         text+=['','EAO source namespace: 98 original2002 rows use the source header Sheet1!A1 Еврейская АО for effective regional context. Export keeps the imported region values and separately records the effective namespace and pinned interpretation input. Original source populations, quality, row locators and metadata remain unchanged; the interpretation alone adds no finite three-year histories.']
     quality_unknown=json.loads((OUT/'export_verification_receipt.json').read_text())['unknown_imported_population_quality_rows_by_year']

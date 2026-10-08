@@ -62,7 +62,7 @@ def apply_source_namespace_interpretations(state, path):
     return state
 
 
-def load(stage=67):
+def load(stage=68):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -128,8 +128,8 @@ def load(stage=67):
     64: source-only omitted observations, nonadditive subtotal interpretation and source-bound temporal/point mass deltas.
     65: named physical-locality point recovery and supersession, explicit former-name histories; typed inclusion remains separate.
     """
-    if not isinstance(stage, int) or not 1 <= stage <= 67:
-        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–67")
+    if not isinstance(stage, int) or not 1 <= stage <= 68:
+        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–68")
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
     if stage >= 2:
@@ -326,6 +326,12 @@ def load(stage=67):
         )
     if stage >= 67:
         zone = E / "main_axis_residual_application67_20261008"
+        state.add_deltas(
+            edge_paths=[zone / "accepted_identity_edge_delta.csv.gz"],
+            point_paths=[zone / "accepted_point_use_delta.csv.gz"],
+        )
+    if stage >= 68:
+        zone = E / "main_axis_residual_application68_20261008"
         state.add_deltas(
             edge_paths=[zone / "accepted_identity_edge_delta.csv.gz"],
             point_paths=[zone / "accepted_point_use_delta.csv.gz"],

@@ -1,0 +1,34 @@
+name: Publish verified stage68 data
+on:
+  push:
+    branches: [research/mass-linkage-2026-10-02]
+    paths:
+      - publication/stage68/**
+      - .github/workflows/publish-stage68.yml
+permissions:
+  contents: write
+concurrency:
+  group: publish-settlements-stage68
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Verify local release assets
+        run: python scripts/verify_release_assets.py --manifest publication/stage68/release-assets-manifest.json --asset-dir publication/stage68
+      - name: Upload, verify and publish current data
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          if ! gh release view working-settlements-stage68-2026-10-08 >/dev/null 2>&1; then
+            gh release create working-settlements-stage68-2026-10-08 --target "$GITHUB_SHA" --title "Working settlements stage68 — 2026-10-08" --notes-file publication/stage68/README.md --draft
+          fi
+          if python research_rebuild/evidence/stage68_release_publication_20261008/verify_remote_assets.py; then
+            echo "Existing remote assets verified; upload skipped"
+          else
+            gh release upload working-settlements-stage68-2026-10-08 publication/stage68/* --clobber
+            python research_rebuild/evidence/stage68_release_publication_20261008/verify_remote_assets.py
+          fi
+          gh release edit working-settlements-stage68-2026-10-08 --draft=false --latest

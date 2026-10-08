@@ -1,0 +1,36 @@
+{
+  "status": "candidate_primary_claims_not_applied_review_pending",
+  "ready_rows": 2022,
+  "delta": 5113,
+  "old_population_sum": 213559,
+  "official_population_sum": 218672,
+  "credited_rows": 1965,
+  "credited_delta": 3470,
+  "by_region": {
+    "тульская": {
+      "rows": 2022,
+      "delta": 5113,
+      "old_population": 213559,
+      "primary_population": 218672
+    }
+  },
+  "holds": {
+    "full_regional_literal_typed_competition_not_unique": 1029,
+    "literal_primary_population_NULL": 321
+  },
+  "input_pins": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application67_20261008/applied_state_observations.parquet": "9923675e5e148f3c80c23d5ba786509f8c0991a9b551be340c28ea7f9f0ebd13",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application67_20261008/applied_primary_credited_UID_roster.csv.gz": "bc2e2ae2ea962c1766148eff7e57e95f78829a334d06c027a74ab9b208a9c024",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next_overlay_application67_20261008/normalized_cumulative_claims.csv.gz": "6dae9ec21926918a2345bf8007fdb9f066d16add4679554ac80c419a4ecec64b",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next68_primary_source_routes/tula_primary2010_full_NP_inventory.csv.gz": "a4f4d9e10c10daf7d640f3d50dbc85a6f8b00536c53d397230ea0f954a739523",
+    "/workspace/settlements-raw/data/raw/2010/011_040325482b_3._20Ryaz_Smol_Tambov_Tula_Jaroslavl_20L1_20ethn_2010.xls": "a3c69e68dfa35bfb0964a15f0f46b258500fab3e61ff3271ef9584e055d6efca"
+  },
+  "excluded_prior_claims": 5027,
+  "output_pins": {
+    "ready_primary2010_regional_claims.csv.gz": "e7bfd157ee1cd122b6a34d89f0871c5e97af4f0aa4ed8a6af9d16a0f1b842f1e",
+    "primary2010_binding_holds.csv.gz": "b934ee2c7bf7c8038c229ab2f5d93ab4b117a604ab9e18a3973df0044fad7197",
+    "fixed10_primary_claim_review.csv": "b00c867870770ab95723a9d65841974299fdafe4445e9aafe5ff004acc97a6da"
+  },
+  "fixed_sample_method": "deterministic top5 positive delta + top3 negative delta + smallest2 primary counts, deduplicated; no population identity matching"
+}
