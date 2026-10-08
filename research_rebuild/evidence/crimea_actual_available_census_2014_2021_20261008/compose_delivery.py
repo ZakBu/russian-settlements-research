@@ -115,12 +115,13 @@ def main():
         outputs[name] = write(D / name, rows)
     main_receipt = E / 'working_full_chain_20261007/coverage_receipt.json'
     report = json.loads(main_receipt.read_text())
-    assert report['working_stage'] == 63
+    assert report['working_stage'] == 64
     pins[str(main_receipt)] = sha(main_receipt)
+    # This retained schema key names the introduced axis; working_stage above fixes actual application.
     baseline = report['separate_primary_available_year_lifecycle_axis63']['by_year']
     national21 = int(baseline['2021']['primary_extended_lifecycle_population']) + 1934562 + 547820
     receipt = {'status': 'root_applied_existing_primary_calendar_layer_and_four_source_bound_joins',
-        'working_native_stage': 63, 'strict_Russian_2002_2010_2021_metrics_unchanged': True,
+        'working_native_stage': 64, 'strict_Russian_2002_2010_2021_metrics_unchanged': True,
         'Crimea_Russian_2002_2010': 'outside_scope_no_observations_created',
         'Crimea_numeric_2014_2021_pairs': 1008, 'Crimea_numeric_pair_2014_population': 1891465,
         'Crimea_numeric_pair_2021_population': 1934562, 'Crimea_2021_control': 1934630,

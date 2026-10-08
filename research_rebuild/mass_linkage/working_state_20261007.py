@@ -62,7 +62,7 @@ def apply_source_namespace_interpretations(state, path):
     return state
 
 
-def load(stage=63):
+def load(stage=64):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -125,9 +125,10 @@ def load(stage=63):
     61: restore 45 rural histories through uniquely corroborated modern physical locality points.
     62: source-bound remaining native histories and current own-point mass recovery; appearance paths remain separate.
     63: combined current points, temporal continuity and representative-point supersession; typed lifecycle credits remain separate.
+    64: source-only omitted observations, nonadditive subtotal interpretation and source-bound temporal/point mass deltas.
     """
-    if not isinstance(stage, int) or not 1 <= stage <= 63:
-        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–63")
+    if not isinstance(stage, int) or not 1 <= stage <= 64:
+        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–64")
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
     if stage >= 2:
@@ -271,5 +272,42 @@ def load(stage=63):
         state.add_deltas(
             edge_paths=[E / "main_axis_residual_application63_20261008/accepted_identity_edge_delta.csv.gz"],
             point_paths=[E / "main_axis_residual_application63_20261008/accepted_point_use_delta.csv.gz"],
+        )
+    if stage >= 64:
+        import importlib.util
+        import json
+        import pandas as pd
+        zone = E / "main_axis_residual_application64_20261008"
+        helper_path = zone / "add_source_observations.py"
+        spec = importlib.util.spec_from_file_location("reviewed_source_supplement64", helper_path)
+        helper = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(helper)
+        config = json.loads((zone / "finalized_packets.json").read_text())
+        supplement = config["source_supplement"]
+        helper.append_reviewed_source_observations(
+            state, zone / supplement["observations"], zone / supplement["metadata"],
+            observation_sha256=supplement["observation_sha256"], metadata_sha256=supplement["metadata_sha256"],
+            accepted_metadata_statuses=supplement["accepted_metadata_statuses"],
+        )
+        credit_path = E / "main_axis_residual_application63_20261008/applied_primary_credited_UID_roster.csv.gz"
+        baseline_credits = set(pd.read_csv(credit_path, usecols=["source_record_id"]).source_record_id)
+        helper.apply_reviewed_parent_grain(
+            state, zone / supplement["grain_delta"], delta_sha256=supplement["grain_delta_sha256"],
+            accepted_statuses=supplement["accepted_grain_statuses"], baseline_credited_IDs=baseline_credits,
+        )
+        source_metadata = [state.supplemental_source_metadata.copy()]
+        for addon in config.get("source_observation_addons", []):
+            helper.append_reviewed_source_observations(
+                state, zone / (addon["prefix"] + addon["observations"]), zone / (addon["prefix"] + addon["metadata"]),
+                observation_sha256=addon["observation_sha256"], metadata_sha256=addon["metadata_sha256"],
+                accepted_metadata_statuses=addon["accepted_metadata_statuses"],
+                expected_rows=addon["rows"], expected_population=addon["raw_source_population"],
+            )
+            source_metadata.append(state.supplemental_source_metadata.copy())
+        state.supplemental_source_metadata = pd.concat(source_metadata, ignore_index=True)
+        state.inputs.extend([helper_path, zone / "finalized_packets.json", credit_path])
+        state.add_deltas(
+            edge_paths=[zone / "accepted_identity_edge_delta.csv.gz"],
+            point_paths=[zone / "accepted_point_use_delta.csv.gz"],
         )
     return state

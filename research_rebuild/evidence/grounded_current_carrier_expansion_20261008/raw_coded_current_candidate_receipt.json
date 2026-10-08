@@ -1,0 +1,35 @@
+{
+  "status": "candidate_only_source_positive_full_raw2021_coded_current_binding_pending_actual63_compatibility",
+  "no_State_load": true,
+  "native_rows_screened": 155414,
+  "source_positive": 98848,
+  "positive_missing_current_ownpoint": 0,
+  "missing_carrier_known2021_population": 0,
+  "outcomes": {
+    "positive_already_accepted": 98848,
+    "provider object not own settlement FIAS level6": 5670,
+    "provider ownpoint invalid Russia envelope": 3184,
+    "actual provider type contradicts native physical subtype": 6662,
+    "native/provider own OKTMO not exact full11digits": 52880,
+    "own source/provider literal names disagree under closed lexical aliases": 7492,
+    "native code or FIAS binds multiple actual native codes": 9092,
+    "provider coordinate shared by distinct native own codes": 6083,
+    "ownpoint occupied by another accepted current native NP": 1694,
+    "actual native object not physical typed NP": 581
+  },
+  "rule": "actual full raw2021 own NP/source total/own11digit OKTMO and provider own samecode; unique native code and FIAS native code; own primary=settlement FIASlevel6; literal ownname under closed lexical normalization and physical typed subtype; no shared provider coordinates or accepted current occupation; no Wiki P31/query journal necessary. Current positive point candidate is independently sourced, never identity by proposed historic edges. Actual63 component compatibility and allrivals screen still required.",
+  "input_pins": {
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/primary_residual_mass_application_20261008/applied_point_snapshot.parquet": "41a6db6a56fbcb8038dfebe22097e4989adc0ad761d5004f2d42bf0b595142d3",
+    "/workspace/settlements-work/coordinates/ledger/coordinate_screen.parquet": "a6dfce862364dbae57c7b81d3dded1ae449f014254a74c453dfe2d09e39763a7",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_positive_residual_point_sources_20261008/accepted_point_use_delta.csv.gz": "2f985a4b9fb296a0f9e990c004e53a981a1c97d02701222808763302b15e4024",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_remaining_cached_named_sources_20261008/accepted_point_use_delta.csv.gz": "62ef176fb73792d2c936a4754a834a657eafbd0e72415fd1353600e382bec443"
+  },
+  "output_pins": {
+    "/workspace/settlements-work/grounded_current_carrier_expansion_20261008/source_positive_coded_current_candidates.parquet": "5fc0eaa8ad646714e733e72681055a3f365690f8d84f56297b650e671aa428a5",
+    "/workspace/settlements-work/grounded_current_carrier_expansion_20261008/raw_coded_current_holds.parquet": "bd89781a8ffbe297a93481c12f022b2c617640949e1cfa17681f5110eb88b845",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/grounded_current_carrier_expansion_20261008/source_positive_missing_current_candidates.csv.gz": "53187d90a547c8a31d93e688bf78dfe7bba6570bc9e7e33b3215062f8f23f76a"
+  },
+  "use_conditions": "Pinned Tochno/Rosstat raw2021 publisher Dadata fields; current locality representative, provider measurement date unknown; no address/parcel accuracy or census-date measurement asserted"
+}

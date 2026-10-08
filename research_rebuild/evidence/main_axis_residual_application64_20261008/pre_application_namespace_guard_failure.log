@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application64_20261008/compose.py", line 61, in <module>
+    source_admission=append_reviewed_source_observations(state,pin(OUT/supp['observations']),pin(OUT/supp['metadata']),observation_sha256=supp['observation_sha256'],metadata_sha256=supp['metadata_sha256'],accepted_metadata_statuses=supp['accepted_metadata_statuses']);grain=apply_reviewed_parent_grain(state,pin(OUT/supp['grain_delta']),delta_sha256=supp['grain_delta_sha256'],accepted_statuses=supp['accepted_grain_statuses'],baseline_credited_IDs=baseids);parent=grain['source_record_id'];source_addons=[]
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application64_20261008/add_source_observations.py", line 37, in append_reviewed_source_observations
+    keys.add(publication_key(native.source_record_id,h))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application64_20261008/add_source_observations.py", line 12, in publication_key
+    m=re.fullmatch(r'(2002|2010|2021):(.+):([^:]+):(\d+)',str(sid));assert m,sid
+                                                                           ^
+AssertionError: ROSSTAT2002:T1:T4:sheet01-04:excel_row02155

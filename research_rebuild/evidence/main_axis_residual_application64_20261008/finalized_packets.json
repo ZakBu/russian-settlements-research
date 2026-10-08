@@ -1,0 +1,82 @@
+{
+  "all_packets_finalized": true,
+  "capacity_authorized": true,
+  "baseline_commit": "af70fdf96d45c84c67df5afcdd6a216a10946140",
+  "source_supplement": {
+    "zone": "research_rebuild/evidence/original_2002_population_control_residual_20261008/finalized_stage64_source100",
+    "observations": "accepted_source_observations_100_20col.csv",
+    "observation_sha256": "e73eebc86facf1fa4bfca925e03d0becdb259a1212f0f218eca0e428a854830d",
+    "metadata": "accepted_source_observation_metadata_100.csv",
+    "metadata_sha256": "51a0393f4bac5c1a732af285b2a720b5fe6a021eadcc730a01dbd1426ec74028",
+    "accepted_metadata_statuses": [
+      "accepted_explicit_2002_compilation_NP_observation_source_only"
+    ],
+    "grain_delta": "accepted_Astrakhan_parent_nonadditive_interpretation.csv",
+    "grain_delta_sha256": "fad9966895963c7dec7e011ea0f97467e287ec5fdc02215ae7b3a03a7338ff3c",
+    "accepted_grain_statuses": [
+      "accepted_single_named_municipality_parent_subtotal_nonadditive"
+    ],
+    "manifest_sha256": "06cbac28a32accdd7816776692c9225ff4122f56d5ac16ab0484ad0358b53e39",
+    "rows": 100,
+    "raw_source_population": 9856,
+    "net_additive_population_delta": 9312,
+    "automatic_primary_credit": 0,
+    "source_grade": "secondary_compilation_of_2002_census",
+    "remaining_external2002_source_control_gap": 2414,
+    "held_Tver_rows": 28
+  },
+  "source_observation_addons": [
+    {
+      "zone": "research_rebuild/evidence/residual_source_followup_20261008/finalized_Tver28_source_addon",
+      "prefix": "tver28_",
+      "observations": "accepted_Tver28_source_observations_20col.csv",
+      "observation_sha256": "8318f52b58e05fc41f38e13ad306202ce5841b8a4c3646f6e3ec12880137d5f9",
+      "metadata": "accepted_Tver28_source_metadata.csv",
+      "metadata_sha256": "7b23fa3af122d025ddbd5dce03b1b734d8e80a259486976fac866ec203090f90",
+      "manifest": "source_addon_manifest.json",
+      "manifest_sha256": "98eecdfb93e0a5c07281cef71ac94b3430f8c8c8e8c9e6a22d7a73e864bf2a61",
+      "accepted_metadata_statuses": [
+        "accepted_explicit_2002_compilation_NP_observation_source_only"
+      ],
+      "rows": 28,
+      "raw_source_population": 3171
+    }
+  ],
+  "native_packets": [
+    {
+      "zone": "research_rebuild/evidence/current_live_named_residual_sources_20261008",
+      "receipt": "final_handoff_receipt.json",
+      "kind": "new_current_ownpoint",
+      "point_files": [
+        "accepted_point_use_delta.csv.gz"
+      ],
+      "edge_files": [],
+      "receipt_sha256": "1f6b84ace95a4913467eee342aff39265fa558dca3100aa2bffbe025f33ae545"
+    },
+    {
+      "zone": "research_rebuild/evidence/grounded_current_carrier_expansion_20261008",
+      "receipt": "admission_receipt.json",
+      "kind": "sourcebound_continuity",
+      "point_files": [
+        "accepted_current_point_delta.csv.gz",
+        "accepted_point_use_delta.csv.gz"
+      ],
+      "edge_files": [
+        "accepted_identity_edge_delta.csv.gz"
+      ],
+      "receipt_sha256": "7ff032f148ae866cf8bd437a3753054aeb9a84d4a30043bc897d462e262f914a"
+    },
+    {
+      "zone": "research_rebuild/evidence/grounded_current_carrier_expansion_20261008/source100_addon",
+      "receipt": "admission_receipt.json",
+      "receipt_sha256": "f93c77b862ed141d7abba7742bcd14e6d8378ed6d1e67a649716c3b32649dee9",
+      "kind": "sourcebound_secondary_source_continuity",
+      "point_files": [
+        "accepted_point_use_delta.csv.gz"
+      ],
+      "edge_files": [
+        "accepted_identity_edge_delta.csv.gz"
+      ]
+    }
+  ]
+}
