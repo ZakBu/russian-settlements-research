@@ -1,0 +1,7 @@
+Reviewed application prepared against exact baseline21 and report21 selected source-ID credit union. Root integration pending.
+
+17 new current own points (population41930),29 point uses including accepted-component historical reuse and explicitly documented Sибирский2002 ownurban native use. Sixteen actual full3 qualified trajectories (48observations; nativecurrent population49801). Actual unique selected source-ID gain against report21 is16613/11795/49801 for2002/2010/2021; ordinaryfull3 gain is1635/1442/1332 (Титан). These overlap and must be unioned, not added. Historical secondary observations are nonadditive with blank source IDs. Native populations and protected qualities are unchanged.
+
+Active current-component/historical-native coordinate conflicts above5km:0. Distinct own objects sharing exact coordinates in a year:0. Calculated ownarticle DMS and raw Wikidata coordinate precision are separate fields. Сабурово uses own DMS/admin history. Барсуки uses own DMS and exactnative code; conflicting optional P625 remains exposed. Савино is excluded. Сибирский2010 actual census11306 retains explicit P1476 title proof and year-only date without invented exact day.
+
+No ordinary identity edge, loader, report, old package or Git edit. application_receipt.json is the last atomic completion marker and pins baseline inputs, report21 credits, candidate evidence and all referenced source/point files.

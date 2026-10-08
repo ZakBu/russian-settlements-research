@@ -1,0 +1,9 @@
+# Native historical source-ID binding potential (candidate only)
+
+Cohort:455 approved pointed secondary census expansion series, stage21.79 uncredited native2002 IDs represent18982 population;122 native2010 IDs represent42080. Every strong candidate already belongs to the accepted same-place component of its own current2021 NP. No new name/count similarity edge is created. Existing oldcoordinates must agree within5km; absent oldcoordinates retain an explicit retrospective currentpoint continuity inference.
+
+The complete old/current typed-name/region competitor inventory contains5549 rows. No new county-only binding survives exclusivity/context checks. All conditional strong native IDs are distinct and have zero overlap with the other398-series route. Native2010 protected values and quality flags are preserved even when exact secondary census values differ. Legacy2002 population_scope NULL remains explicit; selected additive own-NP rows are not discarded solely for this missing optional field. Known aggregate/nonadditive/federalcity grains are held.
+
+`strong_uncredited_existing_component_native_IDs.csv` is the compact review list; `native_history_binding_candidates.csv` includes all461 options and holds. `full_old_and_current_competitors.csv` and `missing_native_candidates.csv` retain competition/missingness. Selected oldcodes remain unverified as direct rawcode origins and are never used alone as binding proof.
+
+This packet admits no native IDs, credits no secondary populations nationally and creates no edges. Next action can qualify the already-bound native historical source references while preserving both native protected values and separately nonadditive secondary alternatives, subject to root review. No accepted loader/report/Git/application files were changed by this candidate scan.
