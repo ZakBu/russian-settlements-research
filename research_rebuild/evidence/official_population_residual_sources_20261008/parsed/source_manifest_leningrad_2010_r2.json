@@ -1,0 +1,68 @@
+{
+  "release": "leningrad_2010_petrostat_municipal_settlements_r2",
+  "source": {
+    "publisher": "Petrostat (Territorial body of Rosstat for St Petersburg and Leningrad Oblast)",
+    "title": "Состав и численность населения муниципальных образований Ленинградской области",
+    "source_url": "https://78.rosstat.gov.ru/storage/mediabank/%D0%A7%D0%B8%D1%81%D0%BB%D0%BE+%D0%B8+%D1%81%D0%BE%D1%81%D1%82%D0%B0%D0%B2+%D0%9C%D0%9E.pdf",
+    "archived_download_url": "https://web.archive.org/web/20230708091123id_/https://78.rosstat.gov.ru/storage/mediabank/%D0%A7%D0%B8%D1%81%D0%BB%D0%BE+%D0%B8+%D1%81%D0%BE%D1%81%D1%82%D0%B0%D0%B2+%D0%9C%D0%9E.pdf",
+    "archive_capture": "2023-07-08 09:11:23 UTC",
+    "bytes": 1491109,
+    "sha256": "57cb1e6e9ea1c5803a860048941ddd51b40640372797229d0010e758155b8792",
+    "published_issue": "SPb., 2012, 159 pp.; outgoing no. ДД–140/3802, 23.04.2012",
+    "census_reference": "14 October 2010",
+    "source_scope": "Named values printed for localities with 100+ residents; named under-100 localities are listed without counts."
+  },
+  "extraction": {
+    "script": "extract_leningrad_2010_municipal_settlements.py",
+    "script_sha256": "2dcc0df6d2c4958644f22b2760748df054e615bcee48e60d454f2596b109ded8",
+    "pypdf_version": "6.10.0",
+    "page_count": 159,
+    "line_ledger_rows": 7124,
+    "explicit_value_rows": 688,
+    "named_without_value_rows": 2241,
+    "explicit_population_sum": 1662669,
+    "men_sum": 771747,
+    "women_sum": 890922,
+    "group_total_rows": 203,
+    "municipal_total_rows": 16,
+    "group_total_population_sum": 1651080,
+    "municipal_total_population_sum": 1588887,
+    "group_residual_rows": 203,
+    "group_residual_population_unallocated_sum": 54199,
+    "group_residual_sexes_all_match": true,
+    "all_explicit_rows_sex_sum_match": true
+  },
+  "limitations": [
+    "Values are available only for places the source prints with >=100 residents.",
+    "No municipal residual was allocated to the named localities without values.",
+    "Page/line locator means 1-based PDF page and 1-based pypdf extracted line; it is not a printed table-row number.",
+    "Source PDF was archived from the official publisher URL because current publisher TLS validation failed locally; archive transport was HTTPS-validated."
+  ],
+  "table5_full_settlement_crosscheck": null,
+  "outputs": {
+    "leningrad_2010_pdf_page_line_ledger.csv": {
+      "bytes": 582209,
+      "sha256": "fac685f3ad604ff54e4a95f0fd0a0b19d10ff33d485cbf7969f07b98a700a5fc"
+    },
+    "leningrad_2010_explicit_locality_values_ge100.csv": {
+      "bytes": 123600,
+      "sha256": "1fcf28d18d2972dfefc0fee8a93d9d0019efd91b98e7259f9254552d340ea980"
+    },
+    "leningrad_2010_named_localities_without_values.csv": {
+      "bytes": 383978,
+      "sha256": "a80744269ee5a56528ee81337742a9d3c1b69f1793e105b96936761ddbb78d0e"
+    },
+    "leningrad_2010_group_controls.csv": {
+      "bytes": 30676,
+      "sha256": "649f3e1e7b0db0717d80b354b52d893762c9711bce0d634ae5c05303890428c6"
+    },
+    "leningrad_2010_group_residuals_unallocated.csv": {
+      "bytes": 29822,
+      "sha256": "529c3a65c3a8ed52955625bcf6d062e65267bea8e1db3206cd0c00692e53003b"
+    },
+    "leningrad_2010_pdf_extracted_text.txt": {
+      "bytes": 267506,
+      "sha256": "da0243a5c8589710c512d3ad67389ec1616df04001ba47d47102ac787ea95095"
+    }
+  }
+}
