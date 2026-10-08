@@ -1,0 +1,27 @@
+name: Publish verified stage67 data
+on:
+  push:
+    branches: [research/mass-linkage-2026-10-02]
+    paths:
+      - publication/stage67/**
+      - .github/workflows/publish-stage67.yml
+permissions:
+  contents: write
+concurrency:
+  group: publish-settlements-stage67
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Verify local release assets
+        run: python scripts/verify_release_assets.py --manifest publication/stage67/release-assets-manifest.json --asset-dir publication/stage67
+      - name: Upload and verify release files
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh release upload working-settlements-stage67-2026-10-08 publication/stage67/working-settlements-stage67.tar.gz publication/stage67/current_files_manifest.json publication/stage67/release-assets-manifest.json publication/stage67/README.md --clobber
+          python research_rebuild/evidence/stage67_release_publication_20261008/verify_remote_assets.py
+          gh release edit working-settlements-stage67-2026-10-08 --draft=false --latest
