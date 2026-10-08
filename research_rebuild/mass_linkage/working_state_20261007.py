@@ -21,7 +21,7 @@ PARTITION_MEMBERS = E / "complete_numbered_partition_batch_20261007/accepted_exc
 PARTITION_SERIES = E / "complete_numbered_partition_batch_20261007/accepted_three_census_whole_place_series.csv"
 
 
-def load(stage=30):
+def load(stage=33):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -51,9 +51,12 @@ def load(stage=30):
     28: source-bound urban-to-rural native context for Nagorny, Sibirsky ZATO and Podgorny.
     29: refreshed two-sided source-context bindings and own points for 434 native 2010 rows.
     30: source-bound large native context follow-up and Shafranovo receiving-core point recovery.
+    31: source-bound Chechnya printed-name variants, dated population witnesses and native county contexts.
+    32: individually sourcecounty-resolved homonyms; no municipal point assignment to settlements.
+    33: own-code/date-bound cached 2002 population witnesses with native source contexts.
     """
-    if not isinstance(stage, int) or not 1 <= stage <= 30:
-        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–30")
+    if not isinstance(stage, int) or not 1 <= stage <= 33:
+        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–33")
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
     if stage >= 2:
@@ -120,4 +123,10 @@ def load(stage=30):
     if stage >= 30:
         state.reject_point_uses(E/"native_alias_remaining_mass_20261008/followup/accepted_point_rejection_delta.csv")
         state.add_deltas([E/"native_alias_remaining_mass_20261008/followup/accepted_identity_edge_delta.csv"], [E/"native_alias_remaining_mass_20261008/followup/accepted_point_use_delta.csv"])
+    if stage >= 31:
+        state.add_deltas([E/"chechnya_native_mass_20261008/accepted_identity_edge_delta.csv"], [E/"chechnya_native_mass_20261008/accepted_point_use_delta.csv"])
+    if stage >= 32:
+        state.add_deltas([E/"individual_sourcecounty_homonym_application_20261008/accepted_identity_edge_delta.csv"], [E/"individual_sourcecounty_homonym_application_20261008/accepted_point_use_delta.csv"])
+    if stage >= 33:
+        state.add_deltas([E/"native_alias_remaining_mass_20261008/nationwide_dated_count_native_bindings/accepted_identity_edge_delta.csv"], [E/"native_alias_remaining_mass_20261008/nationwide_dated_count_native_bindings/accepted_point_use_delta.csv"])
     return state

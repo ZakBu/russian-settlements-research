@@ -157,8 +157,10 @@ def moscow_sourceyear_municipal(folder,state,out,pin):
     members=pd.read_csv(folder/'accepted_native_scope_constituents.csv',keep_default_na=False)
     points=pd.read_csv(folder/'accepted_municipal_representative_points.csv',keep_default_na=False)
     controls=pd.read_csv(folder/'source_controls.csv',keep_default_na=False)
-    assert len(obs)==12 and len(members)==110 and len(points)==4 and len(controls)==8
-    assert obs.scope_id.nunique()==4 and set(obs.scope_id)==set(members.scope_id)==set(points.scope_id)
+    followup=folder.name=='sourceyear_scopes_followup_application_20261008'
+    scope_count=5 if followup else 4
+    assert (len(obs),len(members),len(points),len(controls))==((15,162,5,10) if followup else (12,110,4,8))
+    assert obs.scope_id.nunique()==scope_count and set(obs.scope_id)==set(members.scope_id)==set(points.scope_id)
     assert not obs.own_NP_series_asserted.any() and not obs.same_place_edge_created.any()
     assert not obs.population_boundary_comparability_asserted.any() and not obs.modern_boundary_harmonized.any()
     assert obs.selected_source_record_id.eq('').all() and obs.national2021_credit_population.eq(0).all()
@@ -167,11 +169,29 @@ def moscow_sourceyear_municipal(folder,state,out,pin):
     assert controls.complete_sourceyear_roster.all()
     assert not members.is_additive_to_ordinary_selected_denominator.any()
     qualifiers=pd.read_csv(folder/'accepted_sourceyear_composition_change_qualifiers.csv',keep_default_na=False)
-    assert len(qualifiers)==4 and not qualifiers.same_place_identity_asserted.any() and not qualifiers.full_modern_boundary_series_asserted.any()
+    assert len(qualifiers)==scope_count and not qualifiers.same_place_identity_asserted.any() and not qualifiers.full_modern_boundary_series_asserted.any()
     raw_frames={int(year):pd.read_excel(group.raw_source_path.iloc[0],header=None) for year,group in members.groupby('year')}
     for row in pd.read_csv(folder/'actual_raw_reopened_rows.csv',keep_default_na=False).to_dict('records'):
         raw=raw_frames[int(row['year'])].iloc[int(row['row_1based'])-1,:6].tolist()
         assert [None if pd.isna(value) else value for value in raw]==json.loads(row['raw_cells_json'])
+    unknown=pd.DataFrame()
+    if followup:
+        unknown=pd.read_csv(folder/'auxiliary_unknown_count_rows.csv',keep_default_na=False)
+        assert len(unknown)==4 and unknown.source_record_id.eq('').all() and unknown.native_population.eq('').all()
+        assert unknown.population_unknown.all() and not unknown.selected_native_source_ID.any()
+        assert unknown.national_native_credit_population.eq(0).all() and not unknown.point_assigned_to_individual_NP.any()
+        assert not unknown.population_sum_closure_asserted.any() and not unknown.constituent_populations_complete.any()
+        assert unknown.groupby('scope_id').size().to_dict()=={'moscow_sourceyear_mikhailovo_yartsevskoye':3,'moscow_sourceyear_filimonkovskoye':1}
+        for atom in unknown.to_dict('records'):
+            assert pin(Path(atom['raw_source_path']))==atom['raw_source_sha256']
+            raw=raw_frames[int(atom['census_year'])].iloc[int(atom['raw_row_1based'])-1,:6].tolist()
+            raw=[None if pd.isna(value) else value for value in raw]
+            assert raw==json.loads(atom['raw_first_cells_json']) and raw[3].strip()==atom['raw_label']
+            assert atom['raw_label'].startswith(atom['raw_type']+' ')
+            assert raw[4]==json.loads(atom['raw_population_symbol_json']) and raw[4] is None
+        assert obs.independently_published_whole_population.all()
+        assert obs.loc[obs.census_year.eq(2002),'population_sum_closure_asserted'].all()
+        assert not obs.loc[obs.census_year.eq(2010),'population_sum_closure_asserted'].any()
     for row in obs.to_dict('records'):
         assert pin(Path(row['population_source_file']))==row['population_source_sha256']
         own=members[members.scope_id.eq(row['scope_id'])&members.year.eq(row['census_year'])]
@@ -181,12 +201,19 @@ def moscow_sourceyear_municipal(folder,state,out,pin):
             control=controls[controls.scope_id.eq(row['scope_id'])&controls.year.eq(row['census_year'])]
             assert len(control)==1
             control=control.iloc[0]
-            assert int(control.raw_children_count)==len(own) and int(control.selected_children_sum)==int(own.native_population.sum())
+            unknown_count=int(((unknown.scope_id.eq(row['scope_id']))&(unknown.census_year.eq(row['census_year']))).sum()) if followup else 0
+            assert int(control.raw_children_count)==len(own)+unknown_count and int(control.selected_children_sum)==int(own.native_population.sum())
             assert int(control.whole_published_observation_population)==int(row['population'])
-            assert int(control.selected_children_sum)-int(row['population'])==int(control.selected_sum_minus_municipal_claim)
+            difference=control.finite_selected_sum_minus_independent_whole_observation if followup else control.selected_sum_minus_municipal_claim
+            assert int(control.selected_children_sum)-int(row['population'])==int(difference)
+            if followup:
+                assert int(row['complete_raw_roster_members_count'])==len(own)+unknown_count
+                assert int(row['auxiliary_unknown_count_members'])==unknown_count
+                assert bool(row['constituent_populations_complete'])==(unknown_count==0)
+                if int(row['census_year'])==2002: assert int(row['population'])==int(own.native_population.sum())
         else:
             assert not len(own) and row['native_constituent_sum']=='' and int(row['date_precision'])==9
-    assert set(obs.loc[obs.census_year.eq(2021),'population'].astype(int))=={101050,59580,93474,12104}
+    if not followup: assert set(obs.loc[obs.census_year.eq(2021),'population'].astype(int))=={101050,59580,93474,12104}
     for row in points.to_dict('records'):
         assert int(row['individual_NP_point_uses_created'])==0 and not row['population_boundary_comparability_asserted']
         assert row['historical_representative_is_territorial_inference_only'] and not row['historical_census_date_geography_measured']
@@ -224,6 +251,11 @@ def build(E,state,ordinary,componentpoints,partition_ids,qualified_ids,named_ids
     if (folder/'application_receipt.json').exists():
         receipt,obs,members,points=moscow_sourceyear_municipal(folder,state,out,pin)
         frames.append((obs,members,points));receipts.append(str(folder/'application_receipt.json'))
+    folder=E/'sourceyear_scopes_followup_application_20261008'
+    if (folder/'application_receipt.json').exists():
+        receipt,obs,members,points=moscow_sourceyear_municipal(folder,state,out,pin)
+        frames.append((obs,members,points));receipts.append(str(folder/'application_receipt.json'))
+        pd.read_csv(folder/'auxiliary_unknown_count_rows.csv',keep_default_na=False).to_csv(out/'complete_territorial_scope_unknown_auxiliary_atoms.csv',index=False)
     if not frames: return {'status':'not_loaded_without_root_application_receipt'},set()
     obs=pd.concat([f[0] for f in frames],ignore_index=True)
     members=pd.concat([f[1] for f in frames],ignore_index=True)
@@ -238,4 +270,4 @@ def build(E,state,ordinary,componentpoints,partition_ids,qualified_ids,named_ids
         byyear[year]={'finite_ordinary_partitions_qualified_named_federal_population':baseline,'territorial_net_population_added_by_exclusive_source_ID_union':final-baseline,'new_unique_selected_source_IDs':int(frame.source_record_id.isin(ids-before).sum()),'extended_complete_territorial_population':final,'official_national_control':int(national[year]),'common_three_census_control':int(common[year]),'percent_of_national_control':100*final/national[year],'percent_of_common_control':100*final/common[year],'gap_to_99_percent_common':max(0,math.ceil(.99*common[year])-final)}
     members['already_in_finite_ordinary_partitions_qualified_named_union']=members.source_record_id.isin(before)
     for name,frame in [('observations',obs),('constituents',members),('points',points)]:frame.to_csv(out/f'complete_territorial_scope_{name}.csv',index=False)
-    return {'status':'admitted_separate_complete_territorial_scopes','scopes':obs.scope_id.nunique(),'observations':len(obs),'native_constituent_references':len(members),'representative_scope_points':len(points),'ordinary_NP3_modified':False,'qualified_physical_series_modified':False,'named_merger_axis_modified':False,'boundary_comparability_asserted':False,'historical_individual_NP_point_coverage_asserted':False,'source_quality_limits':'City territories follow complete primary published source hierarchies by census year, with changed composition allowed. Transferred municipal scope uses primary native child rosters plus secondary own-municipality population/point witnesses and cached legal-agreement/own-article excerpts; an authenticated legal act roster is not asserted. Ryazan municipal2010 descriptive aggregate exceeds retained native constituents by1. Four further municipal/predecessor source-year rosters retain explicit changed compositions and protected-value discrepancies, with no fixed modern-boundary projection. Municipal2021 is nonadditive under the federal territory. Actual raw auxiliary leaves5 (Nakhoda2002 primary) and201 (Vladimir2010 confidentiality-protected secondary) complete their published scopes but retain blank selected native IDs and zero national additive credit; all protected source/control discrepancies remain unallocated.','application_receipts':receipts,'by_year':byyear},ids
+    return {'status':'admitted_separate_complete_territorial_scopes','scopes':obs.scope_id.nunique(),'observations':len(obs),'native_constituent_references':len(members),'representative_scope_points':len(points),'ordinary_NP3_modified':False,'qualified_physical_series_modified':False,'named_merger_axis_modified':False,'boundary_comparability_asserted':False,'historical_individual_NP_point_coverage_asserted':False,'source_quality_limits':'City territories follow complete primary published source hierarchies by census year, with changed composition allowed. Transferred municipal scope uses primary native child rosters plus secondary own-municipality population/point witnesses and cached legal-agreement/own-article excerpts; an authenticated legal act roster is not asserted. Ryazan municipal2010 descriptive aggregate exceeds retained native constituents by1. Four further municipal/predecessor source-year rosters retain explicit changed compositions and protected-value discrepancies, with no fixed modern-boundary projection. Municipal2021 is nonadditive under the federal territory. Actual raw auxiliary leaves5 (Nakhoda2002 primary) and201 (Vladimir2010 confidentiality-protected secondary) complete their published scopes but retain blank selected native IDs and zero national additive credit; all protected source/control discrepancies remain unallocated. Five further municipality source-year scopes use independently published actual whole observations; the Mikhailovo-Yartsevskoye and Filimonkovskoye2010 rosters contain four raw UNKNOWN counts with blank selected native IDs. Finite native subtotals never reconstruct whole observations, unknowns are never zero-filled, and only2002 whole-parent population closure is asserted.','application_receipts':receipts,'by_year':byyear},ids
