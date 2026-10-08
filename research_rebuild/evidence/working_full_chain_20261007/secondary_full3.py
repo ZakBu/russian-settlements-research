@@ -9,6 +9,8 @@ PACKS=[
  ('existing_event_scope_application_20261007','applied_reviewed_secondary_physical_three_census_scopes',None),
  ('wikidata_secondary_full3_expansion_application_20261007','applied_qualified_secondary_census_referenced_own_physical_series','qualified_accepted_secondary_census_referenced_own_item'),
  ('remaining_large_own_points_followup_application_20261007','applied_current_own_points_and_qualified_secondary_histories','qualified_accepted_secondary_own_census_history'),
+ ('cached_secondary_native_year_mass_application_20261008','applied_qualified_secondary_census_referenced_own_physical_series','qualified_accepted_secondary_census_referenced_own_item'),
+ ('additional_uncached_census_histories_application_20261008','applied_qualified_secondary_census_referenced_own_physical_series','qualified_accepted_secondary_census_referenced_own_item'),
 ]
 
 def load(E,state,pin):
@@ -80,6 +82,12 @@ def load(E,state,pin):
                 assert selected.population_value_quality==row['population_quality']
                 if dirname=='existing_event_scope_application_20261007':
                     assert state.uf.find(sid)==state.uf.find(row['current_source_record_id'])
+            if dirname in ['cached_secondary_native_year_mass_application_20261008','additional_uncached_census_histories_application_20261008']:
+                if not row['nonadditive_observation']:
+                    assert state.uf.find(sid)==state.uf.find(row['native_current_source_record_id'])
+                    if year!=2021: assert row['historical_native_selected_source_ID_binding_asserted'] and row['native_existing_component_binding']
+                else:
+                    assert row['census_proof_class'].startswith('explicit_') or row['census_proof_class']=='exact_P585_census_date'
             if dirname in ['wikidata_secondary_full3_application_20261007','wikidata_secondary_full3_expansion_application_20261007']:
                 assert row['nonadditive_observation']==(year!=2021)
                 if dirname=='wikidata_secondary_full3_application_20261007':
