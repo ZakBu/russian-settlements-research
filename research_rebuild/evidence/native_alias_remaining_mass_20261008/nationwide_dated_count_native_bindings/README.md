@@ -1,0 +1,9 @@
+108 native census histories ready for stage33, frozen against actual stage32. The CSV replay adds 208 identity edges and 208 representative point uses, with no point rejections or held cases. Finite histories increase from 137642 to 137750; native population gains are 17822 / 15972 / 20565 for 2002 / 2010 / 2021.
+
+Cached own Wikidata entities supply explicitly dated 2002 population claims. Each claim must agree with the original native 2002 row, own printed name, independently admitted current own native code/QID point, and native source county context. Population equality alone does not admit identity. Literal leading zero restoration is allowed for numerically stored native codes; an older P764 requires an exact independently cached own-QID/native-code TSV binding. No shortened code wildcard is used.
+
+Native 2010 identity uses an existing accepted component or two independent complete native source anchors bracketing the printed row in the same file and sheet. Source anchors were admitted before these proposed edges. All regional count collisions and same-name native point competitors are retained. Original raw 2002/2010 cells and source byte hashes are recorded in the compressed proof tables. Native spellings, populations, source grain, quality, and boundary flags are preserved.
+
+Historical point uses are modern own representative points assigned to source-bound native locality identity. They are not official historical census coordinates, and no secondary population is imported. Constant population boundary comparability is not asserted.
+
+`application_receipt.json` contains exact actual32 before/after weak and finite metrics, source/output SHA256 pins, and replay results. `actual32_overlap_checks.csv.gz` records component and point overlap checks; all 108 remain positive at actual32. Run `python apply.py` to verify pins and replay the frozen deltas. No report outputs are pinned.
