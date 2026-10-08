@@ -30,7 +30,8 @@ def load(out,stage,pin):
                     snapshot=Path(historical['verified_exact_frozen_snapshot'])
                     if path.name=='working_state_20261007.py':
                         assert historical_loader
-                        if claimed=='884f620ebd0c83a4dbdad2ee4a617b90efe7a3ecc61cbcf2342ae3970492697b': assert snapshot==out.parent/'main_axis_residual_application64_20261008'/'frozen_stage63_loader.py'
+                        if claimed=='34628c5a1e5fd1839306ca8872865b3890c2b5980b7bed4c8c5b69d8637b5840': assert snapshot==out.parent/'main_axis_residual_application66_20261008'/'frozen_stage65_loader.py'
+                        elif claimed=='884f620ebd0c83a4dbdad2ee4a617b90efe7a3ecc61cbcf2342ae3970492697b': assert snapshot==out.parent/'main_axis_residual_application64_20261008'/'frozen_stage63_loader.py'
                         elif claimed=='2c3079c90270837ec7787d946966d59890a009d4c531857dc9f23e7c7e06d96e': assert snapshot==out.parent/'main_axis_residual_application63_20261008'/'frozen_stage62_loader.py'
                         elif claimed=='44bc51fb5e4fd775083a8595b703738ab1118686d2644d84805fef011193f73c': assert snapshot==out.parent/'primary_residual_mass_application_20261008'/'frozen_stage61_loader.py'
                         elif claimed=='bc8477525df2519afeb5a57813e5ac68e27fe154cd354c3f93835d20759a56bd': assert snapshot==out.parent/'shared_rural_modern_point_corroboration_20261008'/'frozen_calculation_source_stage60.py'
@@ -44,7 +45,7 @@ def load(out,stage,pin):
                 assert historical_loader or path.name in {'build_report.py','secondary_full3.py','native_stage_composition.py','replay_additional_native_20261008.py','export_full3.py','verify_export.py','direct_inclusion_paths.py','qualified_scope_source_id_credit_union.csv','named_merger_lineage_constituents.csv','complete_territorial_scope_constituents.csv','complete_publisher_partition_members.csv','qualified_physical_observations.csv','formation_path_native_credit_union.csv','direct_inclusion_transformation_path_native_credit_union.csv','appearance_sourceyear_primary_native_credit_union.csv','appearance_sourceyear_available_population_statuses.csv','coverage_receipt.json'}
                 relative=str(path.relative_to(out.parents[2]))
                 matching_commits=[]
-                for baseline_commit in ['dba51d5','f67ea9111a2d7932ef7e55a7015a120ac3a50caa','0b8c3b0bda66b4dcec86ef9ff1ce706dc8fdcac7','65e88651f238173693e14c9654888b36b2fc9d44','fce754a35ddd2a182b242d6d415797e177860532','fde535a7a284dcabb3581a7bcb2a94c868689371','7b6924369e34e6cc21b661be03d40b80d437e5ef','af70fdf96d45c84c67df5afcdd6a216a10946140','93182f8531becdbf32d9bf8394d6149bcec2107e']:
+                for baseline_commit in ['dba51d5','f67ea9111a2d7932ef7e55a7015a120ac3a50caa','0b8c3b0bda66b4dcec86ef9ff1ce706dc8fdcac7','65e88651f238173693e14c9654888b36b2fc9d44','fce754a35ddd2a182b242d6d415797e177860532','fde535a7a284dcabb3581a7bcb2a94c868689371','7b6924369e34e6cc21b661be03d40b80d437e5ef','af70fdf96d45c84c67df5afcdd6a216a10946140','93182f8531becdbf32d9bf8394d6149bcec2107e','cf8c9e40a94f6834b540481c11c0cb6b34afc94e']:
                     original=subprocess.run(['git','show',baseline_commit+':'+relative],cwd=out.parents[2],capture_output=True)
                     if original.returncode==0 and hashlib.sha256(original.stdout).hexdigest()==claimed: matching_commits.append(baseline_commit)
                 assert matching_commits,('Historical report input does not match verified baseline Git blobs',str(path),claimed)
