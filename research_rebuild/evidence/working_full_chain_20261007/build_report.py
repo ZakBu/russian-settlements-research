@@ -45,6 +45,10 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
     for relative in re.findall(r'E\s*/\s*[\"\']([^\"\']+)[\"\']',(M/'working_state_20261007.py').read_text()):
         p=E/relative
         if p.is_file(): pin(p)
+    if stage >= 40:
+        from native_stage_composition import load as load_native_composition
+        pin(OUT/'native_stage_composition.py')
+        expected_native_finite,native_composition=load_native_composition(OUT,stage,pin)
     base=State(); state=load(stage=stage)
     for p in dict.fromkeys(base.inputs+state.inputs+[Path(__file__), M/'working_state_20261007.py', M/'current_chain_state_20261007.py', M/'build_long_table.py', M/'measure_event_aware_path_union_20261005.py']): pin(p)
     if stage >= 25:
@@ -584,6 +588,12 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
     from direct_inclusion_paths import build as build_direct_inclusion_paths
     pin(OUT/'direct_inclusion_paths.py')
     finite_blocked={state.uf.find(sid) for sid,pop in state.obs[['source_record_id','population']].itertuples(index=False,name=None) if pd.isna(pop) or not math.isfinite(float(pop))}
+    if stage >= 40:
+        finite_native_ids={sid for sid in componentpoints if state.uf.find(sid) not in finite_blocked}
+        for y in YEARS:
+            observed=ordinary[ordinary.census_year.eq(y)&ordinary.source_record_id.isin(finite_native_ids)]
+            assert len(observed)==expected_native_finite['histories']
+            assert int(observed.population.sum())==expected_native_finite['populations_by_year'][str(y)]
     original_mixed_ids={sid for sid in componentpoints if state.uf.find(sid) not in finite_blocked}|partition_ids|extra|named_ids|territorial_ids
     report['separate_direct_inclusion_transformation_path_axis']=build_direct_inclusion_paths(E,state,ordinary,original_mixed_ids,fedp,NATIONAL,COMMON,OUT,pin)
     from export_full3 import build as export_full3
@@ -606,6 +616,10 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         expected_finite=admission39['after_finite_all3_all_points']
         assert report['ordinary_complete_number_export']['rows']==expected_finite['histories']==138335
         assert {str(y):population for y,population in report['ordinary_complete_number_export']['population_by_year'].items()}==expected_finite['populations_by_year']==dict(zip(map(str,YEARS),(126682581,123845680,124452211)))
+    if stage >= 40:
+        assert report['ordinary_complete_number_export']['rows']==expected_native_finite['histories']
+        assert {str(y):p for y,p in report['ordinary_complete_number_export']['population_by_year'].items()}==expected_native_finite['populations_by_year']
+        report['root_sequential_native_composition']=native_composition
     from finite_number_unions import build as build_finite_unions
     pin(OUT/'finite_number_unions.py')
     finite_national_union=build_finite_unions(report,OUT)
@@ -669,7 +683,7 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         for y in YEARS:
             row=direct['by_year'][y]
             text.append(f"| {y} | {row['original_final_mixed_census_population']:,} | {row['direct_inclusion_native_ID_union_net_population']:,} | {row['separate_transformation_path_population']:,} | {row['percent_of_common_control']:.5f} |")
-        text+=['',direct['source_limits']]
+        text+=['',json.dumps(direct['source_limits'],ensure_ascii=False) if isinstance(direct['source_limits'],(list,dict)) else direct['source_limits']]
     quality_unknown=json.loads((OUT/'export_verification_receipt.json').read_text())['unknown_imported_population_quality_rows_by_year']
     text+=['', 'Imported empty population quality values remain unknown, unchanged: '+', '.join(f'{y}: {n} export rows' for y,n in quality_unknown.items())+'.']
     (OUT/'README.md').write_text('\n'.join(text)+'\n')

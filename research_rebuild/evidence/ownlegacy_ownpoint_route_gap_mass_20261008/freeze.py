@@ -5,7 +5,7 @@ R=Path('/workspace/russian-settlements-research');sys.path.insert(0,str(R/'resea
 from working_state_20261007 import load
 from current_chain_state_20261007 import normalize,sha,distance_km
 from apply_unique_county_name_bridge_20261007 import county_key
-O=Path(__file__).parent;E=O.parent;s=load(39);before=s.metrics();candidate=O/'candidate_source_bound_spatial_edges.csv';f=pd.read_csv(candidate,keep_default_na=False);aliaspath=E/'cross_county_independent_point_bridge_20261007/build_neutral_subset.py';tree=ast.parse(aliaspath.read_text());pairs=ast.literal_eval(next(x.value for x in tree.body if isinstance(x,ast.Assign)and any(isinstance(t,ast.Name)and t.id=='pairs'for t in x.targets)));neutral={frozenset([county_key(a),county_key(b)]) for a,b in pairs.items()};holds=[];edges=[];points=[];witness=[];native=[];occupied=collections.defaultdict(set)
+O=Path(__file__).parent;E=O.parent;s=load(39);before=s.metrics();candidate=O/'candidate_source_bound_spatial_edges.csv';f=pd.read_csv(candidate,dtype={'historical_okato_2009_raw':str,'historical_okato_2011_raw':str},keep_default_na=False);aliaspath=E/'cross_county_independent_point_bridge_20261007/build_neutral_subset.py';tree=ast.parse(aliaspath.read_text());pairs=ast.literal_eval(next(x.value for x in tree.body if isinstance(x,ast.Assign)and any(isinstance(t,ast.Name)and t.id=='pairs'for t in x.targets)));neutral={frozenset([county_key(a),county_key(b)]) for a,b in pairs.items()};holds=[];edges=[];points=[];witness=[];native=[];occupied=collections.defaultdict(set)
 for sid,p in s.point_rows.items():occupied[(int(s.by_id.loc[sid,'census_year']),p['latitude'],p['longitude'])].add(sid)
 def code(v):return '' if pd.isna(v) else str(v).removesuffix('.0')
 for a in f.to_dict('records'):

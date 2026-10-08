@@ -21,7 +21,7 @@ PARTITION_MEMBERS = E / "complete_numbered_partition_batch_20261007/accepted_exc
 PARTITION_SERIES = E / "complete_numbered_partition_batch_20261007/accepted_three_census_whole_place_series.csv"
 
 
-def load(stage=39):
+def load(stage=46):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -60,9 +60,16 @@ def load(stage=39):
     37: source-bound native 2002 matches with narrow aggregate-caption suffix normalization for county context.
     38: literal native 2010 source county/urban-role bindings for existing 2002–2021 own-point components.
     39: native 2002 own-source aliases and current namesake exclusions, composed on actual stage38.
+    40: literal whole-region unique native names with accepted 2010–2021 own-point continuity.
+    41: source-bound declining native 2010 rows and literal railway locality descriptors.
+    42: whole-region name/type uniqueness with other-class rivals retained explicitly.
+    43: Aramil locality identity with independent own point and explicitly ambiguous publisher OKATO.
+    44: source-bound own-code/classifier points for remaining native graph-compatible histories.
+    45: whole-region literal native 2010 name/type bindings with source and all namesake controls.
+    46: cached own 2010 census witnesses bound to five literal native source rows.
     """
-    if not isinstance(stage, int) or not 1 <= stage <= 39:
-        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–39")
+    if not isinstance(stage, int) or not 1 <= stage <= 46:
+        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–46")
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
     if stage >= 2:
@@ -148,4 +155,18 @@ def load(stage=39):
         state.add_deltas([E/"native_missing2010_all_components_20261008/accepted_identity_edge_delta.csv.gz"], [E/"native_missing2010_all_components_20261008/accepted_point_use_delta.csv"])
     if stage >= 39:
         state.add_deltas([E/"native_alias_remaining_mass_20261008/all_cached_native2002_context_followup/accepted_identity_edge_delta.csv"], [E/"native_alias_remaining_mass_20261008/all_cached_native2002_context_followup/accepted_point_use_delta.csv"])
+    if stage >= 40:
+        state.add_deltas([E/"native_alias_remaining_mass_20261008/existing_ownpoint_native02_mass/accepted_identity_edge_delta.csv"], [E/"native_alias_remaining_mass_20261008/existing_ownpoint_native02_mass/accepted_point_use_delta.csv"])
+    if stage >= 41:
+        state.add_deltas([E/"native_missing2010_residual_context_20261008/accepted_identity_edge_delta.csv.gz"], [E/"native_missing2010_residual_context_20261008/accepted_point_use_delta.csv.gz"])
+    if stage >= 42:
+        state.add_deltas([E/"native_alias_remaining_mass_20261008/whole_region_type_unique_followup/accepted_identity_edge_delta.csv"], [E/"native_alias_remaining_mass_20261008/whole_region_type_unique_followup/accepted_point_use_delta.csv"])
+    if stage >= 43:
+        state.add_deltas([E/"native_alias_remaining_mass_20261008/aramil_independent_ownpoint_supplement/accepted_identity_edge_delta.csv"], [E/"native_alias_remaining_mass_20261008/aramil_independent_ownpoint_supplement/accepted_point_use_delta.csv"])
+    if stage >= 44:
+        state.add_deltas([E/"ownlegacy_ownpoint_route_gap_mass_20261008/accepted_identity_edge_delta.csv"], [E/"ownlegacy_ownpoint_route_gap_mass_20261008/accepted_point_use_delta.csv"])
+    if stage >= 45:
+        state.add_deltas([E/"native2010_whole_region_name_type_mass_20261008/accepted_identity_edge_delta.csv.gz"], [E/"native2010_whole_region_name_type_mass_20261008/accepted_point_use_delta.csv.gz"])
+    if stage >= 46:
+        state.add_deltas([E/"cached_missing2010_dated_source_mass_20261008/accepted_identity_edge_delta.csv"], [E/"cached_missing2010_dated_source_mass_20261008/accepted_point_use_delta.csv"])
     return state
