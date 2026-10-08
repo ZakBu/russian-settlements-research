@@ -21,7 +21,7 @@ PARTITION_MEMBERS = E / "complete_numbered_partition_batch_20261007/accepted_exc
 PARTITION_SERIES = E / "complete_numbered_partition_batch_20261007/accepted_three_census_whole_place_series.csv"
 
 
-def load(stage=46):
+def load(stage=49):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -67,9 +67,12 @@ def load(stage=46):
     44: source-bound own-code/classifier points for remaining native graph-compatible histories.
     45: whole-region literal native 2010 name/type bindings with source and all namesake controls.
     46: cached own 2010 census witnesses bound to five literal native source rows.
+    47: uncached own 2010 census witnesses bound to two literal native source rows.
+    48: accepted former-locality own points and native PGT two-census continuity, without invented current counts.
+    49: literal source-bound native links for the largest remaining 2010 locality records.
     """
-    if not isinstance(stage, int) or not 1 <= stage <= 46:
-        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–46")
+    if not isinstance(stage, int) or not 1 <= stage <= 49:
+        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–49")
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
     if stage >= 2:
@@ -169,4 +172,10 @@ def load(stage=46):
         state.add_deltas([E/"native2010_whole_region_name_type_mass_20261008/accepted_identity_edge_delta.csv.gz"], [E/"native2010_whole_region_name_type_mass_20261008/accepted_point_use_delta.csv.gz"])
     if stage >= 46:
         state.add_deltas([E/"cached_missing2010_dated_source_mass_20261008/accepted_identity_edge_delta.csv"], [E/"cached_missing2010_dated_source_mass_20261008/accepted_point_use_delta.csv"])
+    if stage >= 47:
+        state.add_deltas([E/"uncached_missing2010_dated_source_mass_20261008/accepted_identity_edge_delta.csv"], [E/"uncached_missing2010_dated_source_mass_20261008/accepted_point_use_delta.csv"])
+    if stage >= 48:
+        state.add_deltas([E/"accepted_lifecycle_ownpoint_application_20261008/accepted_identity_edge_delta.csv"], [E/"accepted_lifecycle_ownpoint_application_20261008/accepted_point_use_delta.csv"])
+    if stage >= 49:
+        state.add_deltas([E/"large2010_residual_native2002_followup_20261008/accepted_identity_edge_delta.csv"], [E/"large2010_residual_native2002_followup_20261008/accepted_point_use_delta.csv"])
     return state

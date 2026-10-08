@@ -595,7 +595,8 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
             assert len(observed)==expected_native_finite['histories']
             assert int(observed.population.sum())==expected_native_finite['populations_by_year'][str(y)]
     original_mixed_ids={sid for sid in componentpoints if state.uf.find(sid) not in finite_blocked}|partition_ids|extra|named_ids|territorial_ids
-    report['separate_direct_inclusion_transformation_path_axis']=build_direct_inclusion_paths(E,state,ordinary,original_mixed_ids,fedp,NATIONAL,COMMON,OUT,pin)
+    report['separate_direct_inclusion_transformation_path_axis']=build_direct_inclusion_paths(E,state,ordinary,original_mixed_ids,fedp,NATIONAL,COMMON,OUT,pin,stage=stage)
+    report['separate_sourceyear_formation_plus_direct_lifecycle_axis']=report['separate_direct_inclusion_transformation_path_axis'].get('sourceyear_formation_and_direct_lifecycle_union',{'status':'not_loaded'})
     from export_full3 import build as export_full3
     pin(OUT/'export_full3.py')
     pin(OUT/'verify_export.py')
@@ -684,6 +685,13 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
             row=direct['by_year'][y]
             text.append(f"| {y} | {row['original_final_mixed_census_population']:,} | {row['direct_inclusion_native_ID_union_net_population']:,} | {row['separate_transformation_path_population']:,} | {row['percent_of_common_control']:.5f} |")
         text+=['',json.dumps(direct['source_limits'],ensure_ascii=False) if isinstance(direct['source_limits'],(list,dict)) else direct['source_limits']]
+    formation=report['separate_sourceyear_formation_plus_direct_lifecycle_axis']
+    if formation['status']=='admitted_separate_sourceyear_formation_plus_direct_lifecycle_selected_UID_union':
+        text+=['','Separate formation and direct lifecycle source-ID union: authentic historical Kievsky/Kokoshkino PGT observations retain their own physical points; whole municipalities have independently observed 2010/2021 quantities and municipal representative points. Mosrentgen retains two existing whole2002 predecessor references and its complete2010 published native roster at municipal grain. The 4,654 difference remains unallocated. No own2002 Mosrentgen municipality, individual NP2021 count, ordinary NP3 identity or comparable boundaries are asserted.','', '| Year | Direct lifecycle population | Additional formation UID gain | Lifecycle plus formation population | Common control % |','|---|---:|---:|---:|---:|']
+        for y in YEARS:
+            row=formation['by_year'][y]
+            text.append(f"| {y} | {row['direct_lifecycle_population']:,} | {row['formation_additional_native_UID_union_population']:,} | {row['lifecycle_plus_formation_population']:,} | {row['percent_of_common_control']:.5f} |")
+        text+=['',json.dumps(formation['source_limits'],ensure_ascii=False)]
     quality_unknown=json.loads((OUT/'export_verification_receipt.json').read_text())['unknown_imported_population_quality_rows_by_year']
     text+=['', 'Imported empty population quality values remain unknown, unchanged: '+', '.join(f'{y}: {n} export rows' for y,n in quality_unknown.items())+'.']
     (OUT/'README.md').write_text('\n'.join(text)+'\n')

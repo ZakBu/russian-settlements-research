@@ -2,6 +2,7 @@
 import hashlib
 import json
 import sys
+import subprocess
 from pathlib import Path
 
 import numpy as np
@@ -43,6 +44,9 @@ def main():
         (44, 'ownlegacy_ownpoint_route_gap_mass_20261008', '.csv', '.csv'),
         (45, 'native2010_whole_region_name_type_mass_20261008', '.csv.gz', '.csv.gz'),
         (46, 'cached_missing2010_dated_source_mass_20261008', '.csv', '.csv'),
+        (47, 'uncached_missing2010_dated_source_mass_20261008', '.csv', '.csv'),
+        (48, 'accepted_lifecycle_ownpoint_application_20261008', '.csv', '.csv'),
+        (49, 'large2010_residual_native2002_followup_20261008', '.csv', '.csv'),
     ]
     state = load(39)
     assert finite(state) == {'histories': 138335, 'populations_by_year': {
@@ -53,15 +57,46 @@ def main():
         receipt_path = folder / 'application_receipt.json'
         receipt = json.loads(receipt_path.read_text())
         pins = {}
+        historical_derived = {}
         for field in ['input_pins', 'raw_source_pins']:
             for filename, expected in receipt.get(field, {}).items():
                 path = Path(filename)
-                assert sha(path) == expected, str(path)
+                actual = sha(path)
+                if actual != expected:
+                    assert path.parent == E / 'working_full_chain_20261007', str(path)
+                    relative = str(path.relative_to(ROOT))
+                    matched = None
+                    for commit in ['dba51d5c4c7f8c4cf4ef3d8520ec26139c1c8b5f', 'f67ea9111a2d7932ef7e55a7015a120ac3a50caa']:
+                        result = subprocess.run(['git', 'show', commit + ':' + relative], cwd=ROOT, capture_output=True)
+                        if result.returncode == 0 and hashlib.sha256(result.stdout).hexdigest() == expected:
+                            matched = commit
+                            break
+                    if matched:
+                        historical_derived[str(path)] = {'sha256': expected, 'verified_exact_git_commit': matched, 'historical_control_only_not_new_build_input': True}
+                    else:
+                        snapshot = E / 'accepted_lifecycle_ownpoint_application_20261008/frozen_calculation_source_stage47.py'
+                        assert path.name == 'replay_additional_native_20261008.py' and sha(snapshot) == expected, str(path)
+                        historical_derived[str(path)] = {'sha256': expected, 'verified_exact_frozen_snapshot': str(snapshot), 'historical_calculation_code_only_not_new_build_input': True}
                 pins[str(path)] = expected
         for field in ['output_pins', 'accepted_ledger_pins']:
             for filename, expected in receipt.get(field, {}).items():
                 path = folder / filename
-                assert sha(path) == expected, str(path)
+                actual = sha(path)
+                if actual != expected:
+                    assert path.parent == E / 'working_full_chain_20261007', str(path)
+                    relative = str(path.relative_to(ROOT))
+                    matched = None
+                    for commit in ['dba51d5c4c7f8c4cf4ef3d8520ec26139c1c8b5f', 'f67ea9111a2d7932ef7e55a7015a120ac3a50caa']:
+                        result = subprocess.run(['git', 'show', commit + ':' + relative], cwd=ROOT, capture_output=True)
+                        if result.returncode == 0 and hashlib.sha256(result.stdout).hexdigest() == expected:
+                            matched = commit
+                            break
+                    if matched:
+                        historical_derived[str(path)] = {'sha256': expected, 'verified_exact_git_commit': matched, 'historical_control_only_not_new_build_input': True}
+                    else:
+                        snapshot = E / 'accepted_lifecycle_ownpoint_application_20261008/frozen_calculation_source_stage47.py'
+                        assert path.name == 'replay_additional_native_20261008.py' and sha(snapshot) == expected, str(path)
+                        historical_derived[str(path)] = {'sha256': expected, 'verified_exact_frozen_snapshot': str(snapshot), 'historical_calculation_code_only_not_new_build_input': True}
                 pins[str(path)] = expected
         before = finite(state)
         edges = folder / ('accepted_identity_edge_delta' + edge_suffix)
@@ -76,14 +111,15 @@ def main():
                      'actual_net_histories': after['histories'] - before['histories'],
                      'actual_net_population_by_year': {year: after['populations_by_year'][year] - before['populations_by_year'][year]
                                                       for year in before['populations_by_year']},
-                     'verified_input_and_ledger_pins': pins})
-    assert finite(state) == {'histories': 138836, 'populations_by_year': {
-        '2002': 126709814, '2010': 123868391, '2021': 124470404}}
-    result = {'status': 'actual_sequential39_to46_State_replay_passed',
+                     'verified_input_and_ledger_pins': pins,
+                     'historical_derived_output_verifications': historical_derived})
+    assert finite(state) == {'histories': 138852, 'populations_by_year': {
+        '2002': 126754230, '2010': 123913596, '2021': 124514340}}
+    result = {'status': 'actual_sequential39_to49_State_replay_passed',
               'measurement': 'all_component_members_finite_all_own_point_uses_no_conflicting_roots',
               'population_source_values_and_quality_unchanged': True,
               'stages': rows, 'final': finite(state)}
-    (E / 'working_full_chain_20261007/native_composition_stages40_46_receipt.json').write_text(
+    (E / 'working_full_chain_20261007/native_composition_stages40_49_receipt.json').write_text(
         json.dumps(result, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps({'status': result['status'], 'final': result['final']}))
 

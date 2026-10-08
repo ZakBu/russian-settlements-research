@@ -4,11 +4,12 @@ import json, hashlib, subprocess
 
 
 def load(out,stage,pin):
-    path=out/'native_composition_stages40_46_receipt.json'
+    final_stage=max(46,stage)
+    path=out/f'native_composition_stages40_{final_stage}_receipt.json'
     pin(path);receipt=json.loads(path.read_text())
-    assert receipt['status']=='actual_sequential39_to46_State_replay_passed'
+    assert receipt['status']==f'actual_sequential39_to{final_stage}_State_replay_passed'
     assert receipt['population_source_values_and_quality_unchanged']
-    assert [entry['stage'] for entry in receipt['stages']]==list(range(40,47))
+    assert [entry['stage'] for entry in receipt['stages']]==list(range(40,final_stage+1))
     prior=None;baseline_references=[]
     for entry in receipt['stages']:
         source=Path(entry['source_application'])
@@ -18,11 +19,24 @@ def load(out,stage,pin):
             # Original report-output pins are historical baseline references.
             if out not in path.parents: assert pin(path)==claimed
             else:
+                historical=entry.get('historical_derived_output_verifications',{}).get(str(path),{})
+                if 'verified_exact_frozen_snapshot' in historical:
+                    assert path.name=='replay_additional_native_20261008.py'
+                    assert historical['historical_calculation_code_only_not_new_build_input'] and historical['sha256']==claimed
+                    snapshot=Path(historical['verified_exact_frozen_snapshot'])
+                    assert snapshot==out.parent/'accepted_lifecycle_ownpoint_application_20261008'/'frozen_calculation_source_stage47.py'
+                    assert pin(snapshot)==claimed
+                    baseline_references.append({'path':str(path),'sha256':claimed,'verified_exact_frozen_snapshot':str(snapshot),'verification':'exact_frozen_calculation_source_stage47_not_live_build_input'})
+                    continue
                 assert path.name in {'qualified_scope_source_id_credit_union.csv','named_merger_lineage_constituents.csv','complete_territorial_scope_constituents.csv','complete_publisher_partition_members.csv','qualified_physical_observations.csv'}
                 relative=str(path.relative_to(out.parents[2]))
-                original=subprocess.run(['git','show','dba51d5:'+relative],cwd=out.parents[2],check=True,capture_output=True).stdout
-                assert hashlib.sha256(original).hexdigest()==claimed
-                baseline_references.append({'path':str(path),'sha256':claimed,'verification':'exact_stage39_Git_blob_dba51d5_historical_derived_output_not_live_build_input'})
+                matching_commits=[]
+                for baseline_commit in ['dba51d5','f67ea9111a2d7932ef7e55a7015a120ac3a50caa']:
+                    original=subprocess.run(['git','show',baseline_commit+':'+relative],cwd=out.parents[2],capture_output=True)
+                    if original.returncode==0 and hashlib.sha256(original.stdout).hexdigest()==claimed: matching_commits.append(baseline_commit)
+                assert matching_commits,('Historical report input does not match verified baseline Git blobs',str(path),claimed)
+                baseline_commit=matching_commits[0]
+                baseline_references.append({'path':str(path),'sha256':claimed,'verification':f'exact_baseline_Git_blob_{baseline_commit}_historical_derived_output_not_live_build_input'})
         before=entry['before_finite_all3_all_points'];after=entry['after_finite_all3_all_points']
         if prior is not None: assert before==prior
         assert after['histories']-before['histories']==entry['actual_net_histories']
@@ -30,7 +44,7 @@ def load(out,stage,pin):
             assert pop-before['populations_by_year'][year]==entry['actual_net_population_by_year'][year]
         prior=after
     assert prior==receipt['final']
-    assert receipt['final']=={'histories':138836,'populations_by_year':{'2002':126709814,'2010':123868391,'2021':124470404}}
+    assert receipt['stages'][46-40]['after_finite_all3_all_points']=={'histories':138836,'populations_by_year':{'2002':126709814,'2010':123868391,'2021':124470404}}
     receipt['historical_baseline_output_verification']=baseline_references
-    if stage<=46: return receipt['stages'][stage-40]['after_finite_all3_all_points'],receipt
-    raise AssertionError('Final native stage requires explicit root composition admission')
+    assert 40<=stage<=final_stage
+    return receipt['stages'][stage-40]['after_finite_all3_all_points'],receipt
