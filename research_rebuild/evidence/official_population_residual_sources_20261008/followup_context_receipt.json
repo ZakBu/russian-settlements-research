@@ -1,0 +1,62 @@
+{
+  "status": "followup_context_review_original_candidate_pack_frozen",
+  "positive_context_rule": "Exact target type/name/censusregion unique in all official and raw regional localities; raw target is positively NP-labelled. At least two nearest bracketing unique typed literal NP neighbors independently bind the same official municipality, OR at least3 sameSP/GP or municipality neighbors within7 raw NP rows plus nearest neighbor same context. All neighbor bindings include officialNULL named rows and use no counts. NW omits literal admin headers; recovered municipal context is a stated roster-context inference, not a fabricated caption.",
+  "target_rows": 512,
+  "accepted_rows": 510,
+  "held_rows": 2,
+  "accepted_delta": 10478,
+  "accepted_old_sum": 458601,
+  "accepted_new_sum": 469079,
+  "held_delta": 0,
+  "methods": {
+    "bracketed_by_two_independent_typed_unique_official_municipal_neighbors": 503,
+    "at_least_three_same_municipal_literal_neighbors_and_nearest_match": 4,
+    "at_least_three_same_SP_GP_literal_neighbors_and_nearest_match": 3,
+    "no_context_gate_pass": 2
+  },
+  "biggest_cases": [
+    {
+      "name_raw": "Каменка",
+      "old_source_row": 6237.0,
+      "old_population": 5265.0,
+      "population": 8212,
+      "official_minus_old_delta": 2947.0,
+      "followup_context_status": "accepted_positive_literal_roster_municipal_context",
+      "followup_context_method": "bracketed_by_two_independent_typed_unique_official_municipal_neighbors",
+      "positive_same_municipal_anchors": 11,
+      "positive_same_SP_GP_anchors": 11
+    },
+    {
+      "name_raw": "Никольское",
+      "old_source_row": 6343.0,
+      "old_population": 1691.0,
+      "population": 2913,
+      "official_minus_old_delta": 1222.0,
+      "followup_context_status": "accepted_positive_literal_roster_municipal_context",
+      "followup_context_method": "bracketed_by_two_independent_typed_unique_official_municipal_neighbors",
+      "positive_same_municipal_anchors": 14,
+      "positive_same_SP_GP_anchors": 13
+    }
+  ],
+  "frozen_input": {
+    "/workspace/russian-settlements-research/research_rebuild/evidence/official_population_residual_sources_20261008/reviewed_primary_override_delta_512.csv.gz": "d80c87429a458c8b0bcbb987dfc66921b4900491452b3dff30c7a32faad73697",
+    "/workspace/settlements-raw/data/raw/2010/001_723371ec84_1._20NW_2010.xls": "03569e7513579700cb0216869ecbe16712e0fe684f0340517f11484612fab382"
+  },
+  "no_selected_mutation": true,
+  "residual_allocation": false,
+  "independent_followup_check_needed": true,
+  "outputs": {
+    "followup_context_all_512.csv.gz": {
+      "bytes": 41793,
+      "sha256": "f0080bfe96590eb10cbdee10fba98279cf649158860a54b6d2ea9aecbe8fdd4b"
+    },
+    "followup_context_accepted_delta.csv.gz": {
+      "bytes": 41537,
+      "sha256": "df21311a80d61ed3e3d9e8cd9d160d93d6cbb27459184fbbf9c2fce52b237640"
+    },
+    "followup_literal_neighbor_witnesses.json.gz": {
+      "bytes": 47631,
+      "sha256": "23875cd9a6af4a720f5552d1551d659bc15894b0ca1e1118eecb284e043dd16f"
+    }
+  }
+}
