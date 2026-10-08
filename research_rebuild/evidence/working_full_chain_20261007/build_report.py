@@ -152,9 +152,45 @@ def build_available_year_lifecycle_round2_axis63(e,state,original_ids,appearance
     by_year={}
     for year in YEARS:
         before=inclusion_axis['by_year'][str(year)]['primary_with_explicit_inclusion_population'];gain=int(credit.loc[credit.year.eq(year),'actual_exclusive_native_population_gain'].sum());after=before+gain
-        assert after==receipt['after'][str(year)]['primary_axis_population']
+        assert after==receipt.get('after_legacy_available_year_lifecycle_axis',receipt['after'])[str(year)]['primary_axis_population']
         by_year[str(year)]={'core_appearance_and_first_inclusion_population':before,'lifecycle_round2_exclusive_native_population':gain,'primary_extended_lifecycle_population':after,'common_control':common[year],'percent_of_common_control':100*after/common[year]}
     return {'status':'separate_own_observed_available_year_lifecycle_selected_UID_union','events':len(events),'own_sourceyear_observations':len(credit),'by_year':by_year,'native_source_IDs':credit.source_record_id.tolist(),'ordinary_graph_mutated':False,'parent_context_new_credit':0,'old_unknown_population_imputed':False,'boundary_comparability':'UNKNOWN'}
+
+def build_gorodok17_inclusion_axis65(e,state,original_ids,prior_axis,common,out,pin,receipt):
+    folder=e/'main_axis_residual_application65_20261008'
+    projection=folder/'Gorodok17_projection_receipt.json';pin(projection);pr=json.loads(projection.read_text())
+    assert not pr['ordinary_UF_allowed'] and pr['receiving_context_new_credit']==0 and pr['later_owncount_unknown_not_zero']
+    for raw,h in pr['input_pins'].items(): assert pin(Path(raw))==h
+    tables={key:pd.read_csv(folder/('g17_'+name+'.csv'),keep_default_na=False) for key,name in [('credit','accepted_source_UID_credit'),('observations','accepted_own_sourceyear_observation'),('points','accepted_own_point_reference'),('events','accepted_lifecycle_event'),('edges','accepted_typed_context_edges'),('statuses','accepted_available_year_statuses')]}
+    credit=tables['credit'];observations=tables['observations'];points=tables['points'];events=tables['events'];edges=tables['edges'];statuses=tables['statuses']
+    assert len(credit)==len(observations)==len(points)==len(events)==1 and len(edges)==2 and len(statuses)==3
+    sid=pr['source_record_id'];assert set(credit.source_record_id)==set(observations.source_record_id)==set(points.target_source_record_id)=={sid}
+    assert not credit.is_additive_to_original_final_mixed_census_axis.any() and not credit.ordinary_three_census_same_place_claim.any() and not credit.primary_official_source_grade_from_sourcealone.any()
+    row=observations.iloc[0];native=state.by_id.loc[sid];point=points.iloc[0]
+    assert int(row.year)==int(native.census_year)==2002 and int(row.native_population)==int(native.population)==5495
+    assert row.native_population_quality==native.population_value_quality and row.native_actual_source_grade=='secondary_compilation_of_2002_census_not_direct_official_primary'
+    assert sid in state.point_rows and not point.recipient_point_assigned_to_child and not point.municipal_P625_projected_to_NP and not point.direct_historical_coordinate_measurement
+    assert pin(Path(point.point_origin_file))==point.point_origin_sha256
+    assert all(float(state.point_rows[sid][field])==float(point[field]) for field in ['latitude','longitude'])
+    for event in events.to_dict('records'):
+        assert event['relation']=='included_in' and not event['ordinary_same_place'] and not event['physical_abolition_on_exact_day_asserted']
+        assert pin(Path(event['event_source_file']))==event['event_source_sha256']
+    assert not edges.same_place.any() and not edges.graph_union_allowed.any() and edges.parent_source_UID_credit.eq(0).all()
+    for edge in edges.to_dict('records'):
+        assert edge['from_source_record_id']==sid and state.uf.find(sid)!=state.uf.find(edge['to_source_record_id'])
+        receiving=state.by_id.loc[edge['to_source_record_id']];assert int(receiving.population)=={2010:12650,2021:15060}[int(receiving.census_year)]
+    assert not statuses.unknown_is_zero.any() and not statuses.parent_population_is_own.any() and statuses.loc[statuses.year.ne(2002),'own_population'].eq('').all()
+    existing=set(original_ids)|set(prior_axis['native_source_IDs'])
+    for name in ['direct_inclusion_transformation_path_native_credit_union.csv','formation_path_native_credit_union.csv','appearance_sourceyear_primary_native_credit_union.csv','explicit_inclusion_primary_native_credit_union63.csv']:existing.update(pd.read_csv(out/name).source_record_id)
+    credit['already_in_current_prior_primary_union']=credit.source_record_id.isin(existing)
+    credit['actual_exclusive_native_population_gain']=credit.source_population.where(~credit.already_in_current_prior_primary_union,0)
+    credit.to_csv(out/'explicit_inclusion_primary_native_credit_union65.csv',index=False);statuses.to_csv(out/'explicit_inclusion_available_population_statuses65.csv',index=False)
+    by_year={}
+    for year in YEARS:
+        before=prior_axis['by_year'][str(year)]['primary_extended_lifecycle_population'];gain=int(credit.loc[credit.year.eq(year),'actual_exclusive_native_population_gain'].sum());after=before+gain
+        assert after==receipt['after'][str(year)]['primary_axis_population']
+        by_year[str(year)]={'prior_available_year_primary_population':before,'explicit_inclusion65_exclusive_native_population':gain,'primary_extended_lifecycle_population':after,'common_control':common[year],'percent_of_common_control':100*after/common[year]}
+    return {'status':'separate_explicit_former_NP_included_in_selected_UID_union','own_sourceyear_observations':1,'by_year':by_year,'native_source_IDs':credit.source_record_id.tolist(),'ordinary_graph_mutated':False,'parent_context_new_credit':0,'administrative_date_not_statistical_grain_or_exact_physical_abolition':True,'later_unknown_population_imputed':False,'boundary_comparability':'UNKNOWN'}
 
 def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_snapshot=None):
     start=time.monotonic(); pins={}
@@ -439,8 +475,8 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         assert admission64['baseline_stage']==63 and admission64['intended_working_stage']==64
         assert not admission64['official1775_population_overlay_included']
         for name,claimed in admission64['output_pins'].items(): assert pin(folder/name)==(claimed['sha256'] if isinstance(claimed,dict) else claimed)
-        assert {str(y):admission64['after'][str(y)]['finite_all3_ownpoints_population'] for y in YEARS}==expected_native_finite['populations_by_year']
-        assert all(admission64['after'][str(y)]['finite_all3_ownpoints_rows']==expected_native_finite['histories'] for y in YEARS)
+        assert {str(y):admission64['after'][str(y)]['finite_all3_ownpoints_population'] for y in YEARS}==native_composition['stages'][64-40]['after_finite_all3_all_points']['populations_by_year']
+        assert all(admission64['after'][str(y)]['finite_all3_ownpoints_rows']==native_composition['stages'][64-40]['after_finite_all3_all_points']['histories'] for y in YEARS)
         observed_path=folder/'applied_state_observations.parquet';observed_hash=pin(observed_path)
         audited=pd.read_parquet(observed_path)
         assert audited.source_record_id.is_unique and set(audited.source_record_id)==set(state.obs.source_record_id)
@@ -449,6 +485,18 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
             if field in ['census_year','population']: assert left.fillna(-float('inf')).astype(float).equals(right.fillna(-float('inf')).astype(float)),field
             else: assert left.fillna('').astype(str).equals(right.fillna('').astype(str)),field
         residual64={'source_application':str(rp),'sha256':h,'source_observation_total_rows':admission64['source_observation_total_rows'],'source_grade':'secondary_compilation_of_2002_census','source_only_auto_credit':False,'net_selected_additive_source_population_delta':admission64['net_selected_additive_source_population_delta'],'source_grain_interpretation':admission64['source_grain_interpretation'],'source_control_signed_gap':admission64['source_control_signed_gap'],'actual_current_observations':str(observed_path),'actual_current_observations_sha256':observed_hash,'official1775_population_overlay_included':False}
+    admission65=None;residual65=None
+    if stage>=65:
+        folder=E/'main_axis_residual_application65_20261008';rp=folder/'application_receipt.json';h=pin(rp);admission65=json.loads(rp.read_text())
+        assert admission65['status']=='applied_actual_frozen64_sourcepositive_alias_ownpoints_and_reviewed_current_point_supersession_batch'
+        assert admission65['baseline_stage']==64 and admission65['intended_working_stage']==65
+        assert admission65['source_population_quality_names_codes_and_grain_unchanged'] and not admission65['official_population_overlay_included']
+        for name,claimed in admission65['output_pins'].items(): assert pin(folder/name)==(claimed['sha256'] if isinstance(claimed,dict) else claimed)
+        assert {str(y):admission65['after'][str(y)]['finite_all3_ownpoints_population'] for y in YEARS}==expected_native_finite['populations_by_year']
+        assert all(admission65['after'][str(y)]['finite_all3_ownpoints_rows']==expected_native_finite['histories'] for y in YEARS)
+        current=folder/'applied_state_observations.parquet';current_hash=pin(current);audited65=pd.read_parquet(current)
+        assert state.obs.drop(columns='root',errors='ignore').equals(audited65.drop(columns='root',errors='ignore'))
+        residual65={'source_application':str(rp),'sha256':h,'accepted_edges':admission65['accepted_edges'],'accepted_point_uses':admission65['accepted_point_uses'],'point_replacements':admission65['point_replacements'],'integration_holds':admission65['integration_holds'],'source_population_quality_names_codes_and_grain_unchanged':True,'source_observation_additions':0,'official_population_overlay_included':False,'actual_current_observations':str(current),'actual_current_observations_sha256':current_hash}
     bm=base.metrics(); sm=state.metrics()
     for y in YEARS:
         assert bm[str(y)]['covered_population']==BASELINE[y], (y,bm)
@@ -883,8 +931,10 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         report['separate_primary_appearance_and_publication_absence_axis']=build_appearance_axis62(E,state,original_mixed_ids,fedp,COMMON,OUT,pin,report['separate_sourceyear_formation_plus_direct_lifecycle_axis'],stage=stage)
     if stage>=63:
         appearance=report['separate_primary_appearance_and_publication_absence_axis']
-        report['separate_primary_explicit_inclusion_axis63']=build_explicit_inclusion_axis63(E,state,original_mixed_ids,appearance,COMMON,OUT,pin,current_receipt=admission64)
-        report['separate_primary_available_year_lifecycle_axis63']=build_available_year_lifecycle_round2_axis63(E,state,original_mixed_ids,appearance,report['separate_primary_explicit_inclusion_axis63'],COMMON,OUT,pin,current_receipt=admission64)
+        report['separate_primary_explicit_inclusion_axis63']=build_explicit_inclusion_axis63(E,state,original_mixed_ids,appearance,COMMON,OUT,pin,current_receipt=admission65 or admission64)
+        report['separate_primary_available_year_lifecycle_axis63']=build_available_year_lifecycle_round2_axis63(E,state,original_mixed_ids,appearance,report['separate_primary_explicit_inclusion_axis63'],COMMON,OUT,pin,current_receipt=admission65 or admission64)
+    if stage>=65:
+        report['separate_primary_explicit_inclusion_axis65']=build_gorodok17_inclusion_axis65(E,state,original_mixed_ids,report['separate_primary_available_year_lifecycle_axis63'],COMMON,OUT,pin,admission65)
     from export_full3 import build as export_full3
     pin(OUT/'export_full3.py')
     pin(OUT/'verify_export.py')
@@ -930,6 +980,7 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
     if residual62 is not None: report['native_primary_residual_sourcebound_admission62']=residual62
     if residual63 is not None: report['native_primary_residual_sourcebound_admission63']=residual63
     if residual64 is not None: report['reviewed_secondary_source_observation_and_grain_admission64']=residual64
+    if residual65 is not None: report['sourcepositive_alias_ownpoints_and_current_representative_supersession65']=residual65
     if stage>=57: report['qualified_point_projection_current_stage']=json.loads((OUT/'qualified_point_projection57_admission_receipt.json').read_text())
     report['ordinary_export_reused_without_rewrite']=reuse_ordinary_export
     named_axis=report['named_merger_lineage_extended_population_axis']
@@ -1005,6 +1056,12 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
             text.append(f"| {y} | {first['core_plus_appearance_population']:,} | {first['explicit_included_in_exclusive_native_population']:,} | {last['lifecycle_round2_exclusive_native_population']:,} | {last['primary_extended_lifecycle_population']:,} | {last['percent_of_common_control']:.5f} |")
     if stage>=64:
         text+=['',f"Source64 adds {residual64['source_observation_total_rows']} reviewed secondary compilation observations, preserving their source grade and count witnesses. The explicit Astrakhan parent subtotal retains raw544 but is nonadditive; its own locality child is unchanged. Every ordinary population/row/regional denominator and current credit UID union uses the interpreted additive mask. Source-only observation admission creates no point, identity or automatic population credit. Signed source-control differences are retained without quota allocation: "+json.dumps(residual64['source_control_signed_gap'],ensure_ascii=False)+'. Population source overlays are separate and absent from this raw report.']
+    if stage>=65:
+        extra=report['separate_primary_explicit_inclusion_axis65']
+        text+=['','Source65 preserves all source64 observations, populations, grades and additive interpretations. Current own-point representative supersessions and accepted temporal continuity are separate from the Gorodok17 included_in supplement. Its own5495-person statistical2002 observation is retained despite reported administrative inclusion2001; no exact physical abolition or census-day boundary is inferred. Receiving-city2010/2021 observations are context only, later own counts remain NULL, and no ordinary UF edge is created. Population source overlays remain separate.','', '| Year | Prior available-year primary population | Additional own inclusion UID gain | Extended raw primary population | Common control % |','|---|---:|---:|---:|---:|']
+        for y in YEARS:
+            row=extra['by_year'][str(y)]
+            text.append(f"| {y} | {row['prior_available_year_primary_population']:,} | {row['explicit_inclusion65_exclusive_native_population']:,} | {row['primary_extended_lifecycle_population']:,} | {row['percent_of_common_control']:.5f} |")
     if namespace_correction['status']=='accepted_source_header_namespace_interpretation':
         text+=['','EAO source namespace: 98 original2002 rows use the source header Sheet1!A1 Еврейская АО for effective regional context. Export keeps the imported region values and separately records the effective namespace and pinned interpretation input. Original source populations, quality, row locators and metadata remain unchanged; the interpretation alone adds no finite three-year histories.']
     quality_unknown=json.loads((OUT/'export_verification_receipt.json').read_text())['unknown_imported_population_quality_rows_by_year']
