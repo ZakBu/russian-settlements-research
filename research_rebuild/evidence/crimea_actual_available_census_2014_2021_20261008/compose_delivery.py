@@ -115,12 +115,12 @@ def main():
         outputs[name] = write(D / name, rows)
     main_receipt = E / 'working_full_chain_20261007/coverage_receipt.json'
     report = json.loads(main_receipt.read_text())
-    assert report['working_stage'] == 61
+    assert report['working_stage'] == 63
     pins[str(main_receipt)] = sha(main_receipt)
-    baseline = report['separate_sourceyear_formation_plus_direct_lifecycle_axis']['by_year']
-    national21 = int(baseline['2021']['lifecycle_plus_formation_population']) + 1934562 + 547820
+    baseline = report['separate_primary_available_year_lifecycle_axis63']['by_year']
+    national21 = int(baseline['2021']['primary_extended_lifecycle_population']) + 1934562 + 547820
     receipt = {'status': 'root_applied_existing_primary_calendar_layer_and_four_source_bound_joins',
-        'working_native_stage': 61, 'strict_Russian_2002_2010_2021_metrics_unchanged': True,
+        'working_native_stage': 63, 'strict_Russian_2002_2010_2021_metrics_unchanged': True,
         'Crimea_Russian_2002_2010': 'outside_scope_no_observations_created',
         'Crimea_numeric_2014_2021_pairs': 1008, 'Crimea_numeric_pair_2014_population': 1891465,
         'Crimea_numeric_pair_2021_population': 1934562, 'Crimea_2021_control': 1934630,
@@ -133,7 +133,7 @@ def main():
         'national_2021_actually_available_calendar_population': national21,
         'national_2021_control': 147182123,
         'national_2021_actually_available_calendar_percent': 100 * national21 / 147182123,
-        'national_2021_calendar_definition': 'Existing common-territory lifecycle+formation axis plus numeric Crimea2014/2021 own-point paths and Sevastopol whole2014/2021 territory; excludes Sevastopol children; not literal Russian three-census population coverage',
+        'national_2021_calendar_definition': 'Current common-territory primary available-year lifecycle axis plus numeric Crimea2014/2021 own-point paths and Sevastopol whole2014/2021 territory; excludes Sevastopol children; not literal Russian three-census population coverage',
         'coordinate_accuracy_calibrated': False, 'historical_boundary_comparability': 'UNKNOWN',
         'input_pins': pins, 'outputs': outputs, 'composition_code_sha256': sha(Path(__file__))}
     (D / 'actually_available_census_coverage_receipt.json').write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + '\n')

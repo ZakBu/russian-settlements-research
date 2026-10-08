@@ -1,0 +1,14 @@
+# Four source-positive available-year paths
+
+Frozen reviewed packet against exact stage62 remaining/credited UID rosters. Root replay pending. Six native own UIDs add conditionally:2002=9172,2010=700,2021=14967. No ordinary UF edges or invented populations.
+
+* Верхнетемерницкий was separated into its own settlement in2008 from Щепкин. Own actual2010=700 and2021=6343;2002 own population blank. The three published Щепкин observations are parent context only, not reconstructed child counts.
+* Аничково was formed as a new NP on20April2012 by governor decree№69-ПГ. Its own2021=4741 is available;2002/2010 own populations blank. Construction began2010, distinct from settlement formation. The later2024PGT conversion is not projected onto census2021's raw village/settlement type.
+* Фосфоритный was included in Хорлово in2004 and restored as a separate worker settlement inApril2019. Actual own2002=4193 and2021=3883 remain exactly published;2010 own count is blank during documented inclusion. Хорлово's three actual counts are context only. Existing accepted2002↔2021 identity is retained; no child2010 is generated from the parent count.
+* NII agricultural institute Nemchinovka settlement was included in Новоивановское in2004; the receiving village was converted into a worker settlement. Own2002=4979 is separately published. Own2010/2021 are blank with ceased-separate-NP status. The own former-settlement article supplies its physical point55.704976/37.365232, used for2002 as explicit retrospective continuity inference. The successor coordinate is not substituted. Exact spelling quoted in the raw old census row is preserved.
+
+Five own native observations retain existing accepted ownpoint references from the stage62 point snapshot and agree within5km with their own article coordinate. One new retrospective point delta applies solely to old NII. Nine recipient/parent sourceyear observations are already credited and contribute0new population. Novоivановское2002 source is the actual Одинцовский village712, distinguished from the homonymous Рузский village140; municipal/modern NP populations are not assigned to the old NII.
+
+Literal own article excerpts, exact hashes/revisions/offsets, reopened native raw rows and parent raw source contexts are supplied. Event chronology is secondary; primary acts were not reopened and exact boundary comparability is UNKNOWN. Root must independently union exact source IDs before reporting actual national gains. `build_packet.py` regenerates packet CSVs; `packet_receipt.json` pins inputs/outputs; `verification_receipt.json` checks literal source bytes and UID disjointness.
+
+Сингапай (founded1980), Казачьи Лагери (oldcamp history), Круглое Поле (founded1953 with2002ethnicity publication), and Метлино remain held: none has a proven2002separate-publication absence in these bounded sources. Missing earlier values are never converted to zero or physical nonexistence.

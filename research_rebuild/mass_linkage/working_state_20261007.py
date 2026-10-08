@@ -62,7 +62,7 @@ def apply_source_namespace_interpretations(state, path):
     return state
 
 
-def load(stage=62):
+def load(stage=63):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -124,9 +124,10 @@ def load(stage=62):
     60: bulk supersession of inherited Geo defaults by own modern representative points, with explicit unresolved holds.
     61: restore 45 rural histories through uniquely corroborated modern physical locality points.
     62: source-bound remaining native histories and current own-point mass recovery; appearance paths remain separate.
+    63: combined current points, temporal continuity and representative-point supersession; typed lifecycle credits remain separate.
     """
-    if not isinstance(stage, int) or not 1 <= stage <= 62:
-        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–62")
+    if not isinstance(stage, int) or not 1 <= stage <= 63:
+        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–63")
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
     if stage >= 2:
@@ -264,5 +265,11 @@ def load(stage=62):
         state.add_deltas(
             edge_paths=[E / "primary_residual_mass_application_20261008/accepted_identity_edge_delta.csv.gz"],
             point_paths=[E / "primary_residual_mass_application_20261008/accepted_point_use_delta.csv.gz"],
+        )
+    if stage >= 63:
+        state.reject_point_uses(E / "main_axis_residual_application63_20261008/point_use_rejections.csv.gz")
+        state.add_deltas(
+            edge_paths=[E / "main_axis_residual_application63_20261008/accepted_identity_edge_delta.csv.gz"],
+            point_paths=[E / "main_axis_residual_application63_20261008/accepted_point_use_delta.csv.gz"],
         )
     return state
