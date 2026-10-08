@@ -21,7 +21,7 @@ PARTITION_MEMBERS = E / "complete_numbered_partition_batch_20261007/accepted_exc
 PARTITION_SERIES = E / "complete_numbered_partition_batch_20261007/accepted_three_census_whole_place_series.csv"
 
 
-def load(stage=26):
+def load(stage=30):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -47,7 +47,13 @@ def load(stage=26):
     24: explicit rejection and recovery of contradicted modern provider points.
     25: own settlement-code/context bindings including populated railway localities.
     26: unique nearby own-point competitors, native Moscow bindings and modern mispoint recovery.
+    27: printed standalone urban type suffixes, source-bound rename and explicit Dubrovka mispoint recovery.
+    28: source-bound urban-to-rural native context for Nagorny, Sibirsky ZATO and Podgorny.
+    29: refreshed two-sided source-context bindings and own points for 434 native 2010 rows.
+    30: source-bound large native context follow-up and Shafranovo receiving-core point recovery.
     """
+    if not isinstance(stage, int) or not 1 <= stage <= 30:
+        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–30")
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
     if stage >= 2:
@@ -104,4 +110,14 @@ def load(stage=26):
         state.add_deltas([E/"old_year_spatial_competitor_resolution_application_20261008/accepted_identity_edge_delta.csv", E/"moscow_three_stable_native_application_20261008/accepted_identity_edge_delta.csv"], [E/"old_year_spatial_competitor_resolution_application_20261008/accepted_point_use_delta.csv", E/"moscow_three_stable_native_application_20261008/accepted_point_use_delta.csv"])
         state.reject_point_uses(E/"current_large_component_point_recovery_application_20261008/accepted_point_rejection_delta.csv")
         state.add_deltas(point_paths=[E/"current_large_component_point_recovery_application_20261008/accepted_point_use_delta.csv"])
+    if stage >= 27:
+        state.reject_point_uses(E/"large_native_suffix_and_former_name_application_20261008/accepted_point_rejection_delta.csv")
+        state.add_deltas([E/"large_native_suffix_and_former_name_application_20261008/accepted_identity_edge_delta.csv"], [E/"large_native_suffix_and_former_name_application_20261008/accepted_point_use_delta.csv"])
+    if stage >= 28:
+        state.add_deltas([E/"native_alias_remaining_mass_20261008/accepted_identity_edge_delta.csv"], [E/"native_alias_remaining_mass_20261008/accepted_point_use_delta.csv"])
+    if stage >= 29:
+        state.add_deltas([E/"cached_wikipedia_history_mass_20261008/refreshed_2010_context/application/accepted_identity_edge_delta.csv"], [E/"cached_wikipedia_history_mass_20261008/refreshed_2010_context/application/accepted_point_use_delta.csv"])
+    if stage >= 30:
+        state.reject_point_uses(E/"native_alias_remaining_mass_20261008/followup/accepted_point_rejection_delta.csv")
+        state.add_deltas([E/"native_alias_remaining_mass_20261008/followup/accepted_identity_edge_delta.csv"], [E/"native_alias_remaining_mass_20261008/followup/accepted_point_use_delta.csv"])
     return state
