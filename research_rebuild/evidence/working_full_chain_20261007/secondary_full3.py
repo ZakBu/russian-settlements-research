@@ -6,6 +6,7 @@ import pandas as pd
 MISSING2002_SERIES={'temporal_missing2002_all_components_20261008':86,'temporal_missing2002_all_components_20261008/physical_grain_two_hold_followup':2}
 
 PACKS=[
+ ('cached_missing2010_dated_source_mass_20261008','accepted_cached2010_native_route_and_disjoint_secondary_census_fallback','qualified_accepted_secondary_census_referenced_own_item'),
  ('wikidata_secondary_full3_application_20261007','applied_qualified_secondary_census_referenced_own_physical_series','qualified_accepted_secondary_census_referenced_own_item'),
  ('current_unpointed_own_wiki_mass_application_20261007','applied_current_own_points_and_qualified_secondary_histories','qualified_accepted_secondary_own_census_history'),
  ('existing_event_scope_application_20261007','applied_reviewed_secondary_physical_three_census_scopes',None),
@@ -13,6 +14,7 @@ PACKS=[
  ('remaining_large_own_points_followup_application_20261007','applied_current_own_points_and_qualified_secondary_histories','qualified_accepted_secondary_own_census_history'),
  ('cached_secondary_native_year_mass_application_20261008','applied_qualified_secondary_census_referenced_own_physical_series','qualified_accepted_secondary_census_referenced_own_item'),
  ('additional_uncached_census_histories_application_20261008','applied_qualified_secondary_census_referenced_own_physical_series','qualified_accepted_secondary_census_referenced_own_item'),
+ ('own_uncached2002_secondary_scope_20261008','accepted_actual_dated2002_temporal_display_separate_from_explicit_census_qualified_union','qualified_accepted_secondary_census_referenced_own_item'),
  ('own_dated2002_secondary_scope_20261008','accepted_actual_dated2002_temporal_display_separate_from_explicit_census_qualified_union','qualified_accepted_secondary_census_referenced_own_item'),
  ('temporal_missing2002_all_components_20261008','root_admitted_frozen_qualified_missing2002_series','qualified_accepted_secondary_census_referenced_own_item'),
  ('temporal_missing2002_all_components_20261008/physical_grain_two_hold_followup','root_admitted_frozen_qualified_missing2002_series','qualified_accepted_secondary_census_referenced_own_item'),
@@ -52,7 +54,7 @@ def load(E,state,pin):
             if MISSING2002_SERIES[dirname]==86: pin_once(folder/'cached_reference_item_witness.csv')
         else: assert receipt['status']==status,(dirname,receipt['status'])
         name='accepted_qualified_physical_observations.csv'
-        outputs=receipt.get('outputs',receipt.get('output_hashes',{}))
+        outputs=receipt.get('outputs',receipt.get('output_hashes',receipt.get('output_pins',{})))
         assert pin(folder/name)==outputs[name]
         for filename,h in outputs.items(): assert pin_once(folder/filename)==h
         for filename,h in receipt.get('input_hashes',receipt.get('input_pins',{})).items():
@@ -73,12 +75,20 @@ def load(E,state,pin):
             if field not in frame: frame[field]=True
             assert frame[field].all()
         if decision: assert frame.decision_status.eq(decision).all()
-        if dirname=='own_dated2002_secondary_scope_20261008':
-            assert len(frame)==69 and frame.trajectory_id.nunique()==23
+        if dirname in ['own_dated2002_secondary_scope_20261008','own_uncached2002_secondary_scope_20261008']:
+            expected_series=37 if dirname=='own_uncached2002_secondary_scope_20261008' else 23
+            assert len(frame)==3*expected_series and frame.trajectory_id.nunique()==expected_series
             assert frame.accepted_physical_three_observed_census_year_path.all()
             historical=frame[frame.year.eq(2002)]
             assert historical.source_population_is_census_known.all()
-            assert historical.census_proof_class.eq('exact_or_explicit_census_reference').all()
+            if dirname=='own_uncached2002_secondary_scope_20261008':
+                assert historical.census_proof_class.isin(['actual_P585_year2002_with_literal_P459_census_method','literal2002_census_reference_title_label_or_URL']).all()
+            else: assert historical.census_proof_class.eq('exact_or_explicit_census_reference').all()
+        if dirname=='cached_missing2010_dated_source_mass_20261008':
+            assert len(frame)==360 and frame.trajectory_id.nunique()==120
+            missing=frame[frame.year.eq(2010)]
+            assert missing.nonadditive_observation.all() and missing.source_record_id.eq('').all() and missing.source_population_is_census_known.all()
+            assert missing.census_proof_class.eq('actual2010year_with_literal_census_method').all()
         if dirname in MISSING2002_SERIES:
             assert len(frame)==3*MISSING2002_SERIES[dirname] and frame.trajectory_id.nunique()==MISSING2002_SERIES[dirname]
             historical=frame[frame.year.eq(2002)]
@@ -105,12 +115,12 @@ def load(E,state,pin):
                 assert selected.population_value_quality==row['population_quality']
                 if dirname=='existing_event_scope_application_20261007':
                     assert state.uf.find(sid)==state.uf.find(row['current_source_record_id'])
-            if dirname in ['cached_secondary_native_year_mass_application_20261008','additional_uncached_census_histories_application_20261008','own_dated2002_secondary_scope_20261008']+list(MISSING2002_SERIES):
+            if dirname in ['cached_secondary_native_year_mass_application_20261008','additional_uncached_census_histories_application_20261008','own_dated2002_secondary_scope_20261008','own_uncached2002_secondary_scope_20261008','cached_missing2010_dated_source_mass_20261008']+list(MISSING2002_SERIES):
                 if not row['nonadditive_observation']:
                     assert state.uf.find(sid)==state.uf.find(row['native_current_source_record_id'])
                     if year!=2021: assert row['historical_native_selected_source_ID_binding_asserted'] and row['native_existing_component_binding']
                 else:
-                    assert row['census_proof_class'].startswith('explicit_') or row['census_proof_class'] in ['exact_P585_census_date','exact_or_explicit_census_reference','literal_cached2002_census_reference_label_or_title_or_URL']
+                    assert row['census_proof_class'].startswith('explicit_') or row['census_proof_class'] in ['exact_P585_census_date','exact_or_explicit_census_reference','literal_cached2002_census_reference_label_or_title_or_URL','actual_P585_year2002_with_literal_P459_census_method','literal2002_census_reference_title_label_or_URL','actual2010year_with_literal_census_method']
             if dirname in ['wikidata_secondary_full3_application_20261007','wikidata_secondary_full3_expansion_application_20261007']:
                 assert row['nonadditive_observation']==(year!=2021)
                 if dirname=='wikidata_secondary_full3_application_20261007':
