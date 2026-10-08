@@ -22,6 +22,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          gh release upload working-settlements-stage67-2026-10-08 publication/stage67/working-settlements-stage67.tar.gz publication/stage67/current_files_manifest.json publication/stage67/release-assets-manifest.json publication/stage67/README.md --clobber
-          python research_rebuild/evidence/stage67_release_publication_20261008/verify_remote_assets.py
+          if python research_rebuild/evidence/stage67_release_publication_20261008/verify_remote_assets.py; then
+            echo "Existing remote assets verified; upload skipped"
+          else
+            gh release upload working-settlements-stage67-2026-10-08 publication/stage67/working-settlements-stage67.tar.gz publication/stage67/current_files_manifest.json publication/stage67/release-assets-manifest.json publication/stage67/README.md --clobber
+            python research_rebuild/evidence/stage67_release_publication_20261008/verify_remote_assets.py
+          fi
           gh release edit working-settlements-stage67-2026-10-08 --draft=false --latest
