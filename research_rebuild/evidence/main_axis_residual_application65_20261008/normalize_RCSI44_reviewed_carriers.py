@@ -1,0 +1,25 @@
+"""Compile root-reviewed source-positive carriers; immutable v2 proposals stay unchanged."""
+from pathlib import Path
+import json,hashlib
+import pandas as pd
+OUT=Path(__file__).resolve().parent;Z=OUT.parent/'shared_ownpoint_conflict_route_20261008';PINS={}
+def pin(p,h=None):
+ p=Path(p)
+ if str(p) not in PINS:PINS[str(p)]={'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'bytes':p.stat().st_size}
+ if h:assert PINS[str(p)]['sha256']==h
+ return p
+rp=pin(Z/'RCSI44_actual64_packet_receipt_v2.json');r=json.loads(rp.read_text());assert r['baseline_stage']==64 and r['targets']==44 and r['components_singleton_2021'] and r['GeoNames_v2_review']['prior_v1_packet_superseded_and_not_to_apply']
+for h in r['inputs'].values():pin(h['path'],h['sha256'])
+for n,h in r['outputs'].items():pin(Z/n,h['sha256'])
+proposals=pd.read_csv(Z/'RCSI44_actual64_source_positive_replacement_proposals_v2_not_applied.csv.gz',dtype=str,keep_default_na=False);reject=pd.read_csv(Z/'RCSI44_actual64_current_point_rejection_delta_v2_not_applied.csv.gz',dtype=str,keep_default_na=False)
+assert len(proposals)==len(reject)==44 and proposals.target_source_record_id.is_unique and set(proposals.target_source_record_id)==set(reject.target_source_record_id)
+assert proposals.RCSI_code_bound_exact_native_OKTMO_name_type_region_municipality.eq('True').all() and proposals.GeoNames_feature_class_P.eq('True').all() and proposals.GeoNames_within_1km_count.eq('1').all() and proposals.historical_claims_changed.eq('False').all()
+rows=[]
+for d in proposals.to_dict('records'):
+ pin(d['RCSI_file'],d['RCSI_sha256']);pin(d['GeoNames_file'],d['GeoNames_zip_sha256']);gn=json.loads(d['GeoNames_points_json']);assert len(gn)==1 and gn[0]['feature_class']=='P' and gn[0]['country_code']=='RU' and gn[0]['admin1']==d['GeoNames_admin1'] and gn[0]['feature_code'] in r['GeoNames_v2_review']['eligible_support_feature_codes']
+ rows.append({**d,'raw_input_candidate_status':d['candidate_status'],'raw_input_candidate_only':d['candidate_only'],'candidate_only':'False','target_source_record_id':d['target_source_record_id'],'coordinate_source_record_id':'RCSI:sha256='+d['RCSI_sha256']+':id='+d['RCSI_record_id'],'latitude':d['new_latitude'],'longitude':d['new_longitude'],'coordinate_admission_status':'reviewed_rule_accepted','point_origin_file':d['RCSI_file'],'point_origin_sha256':d['RCSI_sha256'],'point_origin_locator':d['RCSI_locator'],'point_origin_kind':'RCSI_literal_own_OKTMO_physical_settlement_point_independently_GN_corroborated','coordinate_use_mode':'source_bound_current_own_locality_modern_representative_point','coordinate_time_scope':'modern_representative_not_census_date_measured','historical_census_coordinate_asserted':'False','modern_point_retrospective_inference':'False','provider':'RCSI','provider_id':'','external_provider_ID_binding_asserted':'False','prior_DaData_provider_identifier_binding_reused':'False','RCSI_native_own_OKTMO_binding_asserted':'True','point_replacement_scope':'current_representative_coordinate_claim_only;independent_historical_claims_unchanged','source_admission_basis':'root_reviewed_mass_rule:strict_literal_owncode_name_type_region_municipality_plus_corrected_whole_NP_GN_unique_point_and_full_rivals','new_source_observation':'False','raw_source_population_changed':'False'})
+f=pd.DataFrame(rows);assert f.coordinate_source_record_id.is_unique
+reject['raw_input_rejection_status']=reject.rejection_status;reject['raw_input_candidate_only']=reject.candidate_only;reject['rejection_status']='reviewed_superseded_representative_point_only';reject['candidate_only']='False';reject['root_reviewed_mass_rule']='source_positive_current_RCSI_owncode_context_plus_independent_corrected_GN_whole_NP_point;coordinate_only'
+a=OUT/'reviewed_RCSI44_current_ownpoint_delta.csv.gz';b=OUT/'reviewed_RCSI44_current_point_rejections.csv.gz';f.to_csv(a,index=False,compression={'method':'gzip','mtime':0});reject.to_csv(b,index=False,compression={'method':'gzip','mtime':0})
+result={'status':'root_reviewed_source_positive_current_point_supersession_carriers_ready_for_future65_not_applied','baseline_stage':64,'intended_working_stage':65,'root_mass_rule_authorization_received':True,'reviewed_current_ownpoint_carriers':44,'exact_current_point_rejections':44,'actual_canonical_application':False,'canonical_coordinate_status':'reviewed_rule_accepted','canonical_rejection_status':'reviewed_superseded_representative_point_only','coordinate_source_namespace':'RCSI:sha256=<literal_source_hash>:id=<literal_RCSI_ID>','old_independent_historical_claims_changed':False,'prior_provider_identifier_bindings_reused':False,'foreign_v2_proposal_bytes_unchanged':True,'prior_v1_proof_superseded':True,'input_pins':PINS,'output_pins':{p.name:{'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'bytes':p.stat().st_size} for p in [a,b,Path(__file__)]}}
+(OUT/'RCSI44_reviewed_carrier_receipt.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items() if k not in ['input_pins','output_pins']}))

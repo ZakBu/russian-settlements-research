@@ -238,3 +238,11 @@ The128 Lingvarium secondary-compilation observations are now admitted as source 
 Publication-overlap guards must parse shared-byte publication locators only. A distinct Rosstat source uses `ROSSTAT2002:T1:T4:sheet01-04:excel_row02155`; assuming the Lingvarium filename/sheet/row UID grammar for every publication rejects a genuine independent record. Preserve native ID syntax and publication hash rather than rewriting IDs to satisfy one parser.
 
 A population-overlay lookup against only the original selected parquet misses newly admitted source IDs and the parent nonadditive interpretation. Use the hash-pinned actual current observation ledger, check additive grain before all sums and regional/row denominators, and retain originalselected and full2010 unchanged-field checks. The separate1910 overlay changes2010 denominator by168770, not merely its numerator; signed source residuals remain explicit. Do not clamp or quota-allocate discrepancies.
+
+## 2026-10-08 — statistical grain after administrative inclusion; bounded point export
+
+Administrative inclusion2001 is not grounds to delete a separately printed own statistical NP2002. Gorodok17 retains5495 on an explicitly typed included_in path, with its compilation source grade, own former-NP point, NULL later own counts and zero receiver credit. The county parent closure checks native grain/double count; it does not turn receiver2010/2021 into child population or justify ordinaryUF identity.
+
+GN corroboration must describe the whole physical locality and respect actual native code/name/type/municipal competitors. Current owncoded RCSI point replacement is a representative use, not an asserted binding of a different provider ID or a historical census-day coordinate.
+
+A wide point dataframe can exhaust memory after a successful application. Preserve post-API UID/components and immutable delta/hash proofs; recover only export, without repeating State application. Validate points through streamed narrow key/coords/provenance columns. Exact numeric comparisons must use the canonical CSV reader: pandas parses36.358958333333334 as36.35895833333333 here, while stdlibfloat retains another last bit. Record the reader; do not substitute coordinate tolerance, clamping or smoothing for exact parsed-ledger verification.
