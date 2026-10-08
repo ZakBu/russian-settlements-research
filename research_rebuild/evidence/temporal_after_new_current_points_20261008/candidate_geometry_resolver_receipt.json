@@ -1,0 +1,45 @@
+{
+  "status": "experimental_geometry_proposals_resolved_against_actual_named_NP_source_objects_candidate_only",
+  "no_State_load": true,
+  "candidate_rows_considered": 14948,
+  "independent_named_NP_positive_candidates": 11406,
+  "held_rows": 3542,
+  "outcomes": {
+    "actual proposal source is not independently a physical populated locality": 2516,
+    "RCSI: independent literal own-NP source object positive": 1534,
+    "OSM/Geoapify: independent literal own-NP source object positive": 1131,
+    "GeoNames: independent literal own-NP source object positive": 1505,
+    "GeoKLADR2011: independent literal own-NP source object positive": 6854,
+    "actual proposal source label or literal alias contradicts native NP name": 54,
+    "no independent named physical source object resolved for proposal locator": 580,
+    "actual proposal source populated-locality class contradicts native NP type": 925,
+    "Wikipedia_cached: independent literal own-NP source object positive": 382,
+    "actual proposal source province contradicts native source province": 4
+  },
+  "provider_locator_does_not_admit_identity_or_coordinates": true,
+  "coordinate_first_status_is_experimental_not_accepted": true,
+  "use_conditions": {
+    "GeoNames": "CC BY4.0; GeoNames",
+    "OSM/Geoapify": "ODbL; ©OpenStreetMap contributors; respect share-alike for derived databases",
+    "Wikipedia": "CC BY-SA attribution to exact permanent revisions preserved",
+    "RCSI": "CC BY-NC-SA catalog terms preserved; candidate geometry only, final retrospective coordinates reused from independently accepted ownpoints",
+    "GeoKLADR": "Preserve source version/hash/raw DBF and classifier locators; candidate coordinates not admitted historic measurement"
+  },
+  "input_pins": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/primary_residual_mass_application_20261008/applied_point_snapshot.parquet": "41a6db6a56fbcb8038dfebe22097e4989adc0ad761d5004f2d42bf0b595142d3",
+    "/workspace/settlements-work/coordinate_first_20261008/year_points.parquet": "618570cb5b3c011912aba2738ab047853e09e1472cb8f46d39e5a0970a8d0e30",
+    "/workspace/settlements-work/coordinates/historical_named_candidates_v4/historical_named_point_candidates.parquet": "cb4449d3f0fec3c833eae1ee7d6e29183aabf1668bad5b8d8edf82bad7b121f8",
+    "/workspace/settlements-raw/data/raw/coordinate_candidates/rcsi_github_settlements.csv": "50317de1174e35fca893f5c8d965d9c7f40d6a60a06149b96672bb1a134268d0",
+    "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+    "/workspace/settlements-work/continuation_20261003/geonames_named_point_probe_v1/adm1_literal_alias_bindings.csv": "db71e5c264ff3f575078eefeab4b9268219e7392eae2aed8a6c54e09ab1e3d54",
+    "/workspace/settlements-work/coordinate_first_20261008/sources/osm_geoapify_ru.zip": "3a7ffefa2f12c70b8adbf2e98f4a694110ba2dc2fb8180653dd0581d7d4734dc",
+    "/workspace/settlements-assets/baseline/legacy_database_20260929.duckdb": "26a2fe5b2ce05119d919a196beb57cd655a49ffffb0ff8f194762aa78e6b5b64",
+    "/workspace/settlements-work/sources/raw_okato_2009_verification_v1/raw_classifier.parquet": "343c0f5af1f52b9276699d9fe8d883b58def5aeabdd904063389606d29bc2b81",
+    "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f"
+  },
+  "output_pins": {
+    "resolved_candidate_geometry.parquet": "17f406f67f7e0926dfd18f89648e37cea12f4d8c0900563dd4d2f2e038344461",
+    "candidate_geometry_resolver_holds.csv.gz": "c0193ff0e32c9bbc7c23fae9e43125cee7ffc7a2438c03b09d9742f390cab3a9"
+  }
+}
