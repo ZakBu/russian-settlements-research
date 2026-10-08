@@ -21,7 +21,48 @@ PARTITION_MEMBERS = E / "complete_numbered_partition_batch_20261007/accepted_exc
 PARTITION_SERIES = E / "complete_numbered_partition_batch_20261007/accepted_three_census_whole_place_series.csv"
 
 
-def load(stage=49):
+def apply_source_namespace_interpretations(state, path):
+    """Correct a proved import namespace while preserving original source fields."""
+    import pandas as pd
+    import xlrd
+    from current_chain_state_20261007 import sha
+
+    delta = pd.read_csv(path, dtype=str, keep_default_na=False)
+    if len(delta) != 98 or delta.source_record_id.duplicated().any():
+        raise ValueError("EAO interpretation must contain exactly the 98 source leaves")
+    witness = Path(delta.source_namespace_witness_file.iloc[0])
+    expected = delta.source_namespace_witness_sha256.iloc[0]
+    if delta.source_namespace_witness_file.nunique() != 1 or delta.source_namespace_witness_sha256.nunique() != 1 or sha(witness) != expected:
+        raise ValueError("EAO raw source witness differs")
+    book = xlrd.open_workbook(str(witness))
+    if book.sheet_by_name("Sheet1").cell_value(0, 0) != "Еврейская АО":
+        raise ValueError("EAO actual printed region header differs")
+    book.release_resources()
+    ids = set(delta.source_record_id)
+    mask = state.obs.source_record_id.isin(ids)
+    selected = state.obs.loc[mask].set_index("source_record_id")
+    if len(selected) != 98 or int(selected.population.sum()) != 62556:
+        raise ValueError("EAO selected leaf count or population differs")
+    for row in delta.to_dict("records"):
+        sid = row["source_record_id"]
+        old = selected.loc[sid]
+        if (int(old.census_year) != 2002 or old.region_norm != row["region_norm_original_import"]
+                or old.source_file != row["source_file_original_import"]
+                or row["effective_region_norm"] != "еврейская"
+                or row["interpretation_status"] != "checked_source_header_interpretation_accepted"
+                or row["source_population_modified"].lower() != "false"
+                or row["raw_source_metadata_overwritten"].lower() != "false"):
+            raise ValueError("Source namespace interpretation is outside the proved import subset")
+    state.obs["region_norm_original_import"] = state.obs.region_norm
+    state.obs["source_namespace_interpretation_status"] = "original_import_namespace"
+    state.obs.loc[mask, "region_norm"] = "еврейская"
+    state.obs.loc[mask, "source_namespace_interpretation_status"] = "checked_source_header_interpretation_accepted"
+    state.by_id = state.obs.set_index("source_record_id", drop=False)
+    state.inputs.extend([path, witness])
+    return state
+
+
+def load(stage=51):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -70,9 +111,11 @@ def load(stage=49):
     47: uncached own 2010 census witnesses bound to two literal native source rows.
     48: accepted former-locality own points and native PGT two-census continuity, without invented current counts.
     49: literal source-bound native links for the largest remaining 2010 locality records.
+    50: finite native histories from literal source-county brackets and own locality points.
+    51: exact EAO source-header namespace interpretation and native rural continuity links.
     """
-    if not isinstance(stage, int) or not 1 <= stage <= 49:
-        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–49")
+    if not isinstance(stage, int) or not 1 <= stage <= 51:
+        raise ValueError(f"Unsupported working stage: {stage}; implemented stages are 1–51")
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
     if stage >= 2:
@@ -178,4 +221,9 @@ def load(stage=49):
         state.add_deltas([E/"accepted_lifecycle_ownpoint_application_20261008/accepted_identity_edge_delta.csv"], [E/"accepted_lifecycle_ownpoint_application_20261008/accepted_point_use_delta.csv"])
     if stage >= 49:
         state.add_deltas([E/"large2010_residual_native2002_followup_20261008/accepted_identity_edge_delta.csv"], [E/"large2010_residual_native2002_followup_20261008/accepted_point_use_delta.csv"])
+    if stage >= 50:
+        state.add_deltas([E/"native2010_remaining_county_rule_mass_20261008/accepted_identity_edge_delta.csv.gz"], [E/"native2010_remaining_county_rule_mass_20261008/accepted_point_use_delta.csv.gz"])
+    if stage >= 51:
+        apply_source_namespace_interpretations(state, E/"eaoregion_source_namespace_mass_20261008/source_namespace_interpretation_delta.csv")
+        state.add_deltas([E/"eaoregion_source_namespace_mass_20261008/accepted_identity_edge_delta.csv"], [E/"eaoregion_source_namespace_mass_20261008/accepted_point_use_delta.csv"])
     return state
