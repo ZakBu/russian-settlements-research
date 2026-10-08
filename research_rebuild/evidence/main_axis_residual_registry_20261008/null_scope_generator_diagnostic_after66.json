@@ -1,0 +1,123 @@
+{
+  "status": "read_only_potential_generator_scope_omission_diagnostic_not_identity_admission",
+  "baseline_stage": 66,
+  "actual_State_loads": 0,
+  "downloads": 0,
+  "canonical_or_generator_mutations": 0,
+  "legacy_additive2002_NULLscope_rows": 155133,
+  "legacy_additive2002_NULLscope_population": 38725412,
+  "uncredited2002_NULLscope_remaining": {
+    "rows": 14473,
+    "population": 957272
+  },
+  "typed_physical_name_footprint_old_NULLscope": {
+    "rows": 154530,
+    "population": 38606772,
+    "source_row_classification_verified_here": false
+  },
+  "current_remaining": {
+    "rows": 10754,
+    "known_population2021": 706217,
+    "point_positive_rows": 9140,
+    "point_positive_population2021": 676101
+  },
+  "current_residual_potential_by_legacy_NULLscope_name_footprint": {
+    "possible_NULL2002_literal_name_region": {
+      "rows": 8983,
+      "known_population2021": 448480,
+      "point_positive_rows": 7525,
+      "point_positive_population2021": 421798
+    },
+    "possible_NULL2002_literal_name_propercounty": {
+      "rows": 7031,
+      "known_population2021": 232535,
+      "point_positive_rows": 5773,
+      "point_positive_population2021": 212259
+    },
+    "possible_NULL2002_same_type_literal_name_propercounty": {
+      "rows": 6747,
+      "known_population2021": 195845,
+      "point_positive_rows": 5537,
+      "point_positive_population2021": 176489
+    }
+  },
+  "current_remaining_components_missing2002": {
+    "rows": 7064,
+    "known_population2021": 580509,
+    "point_positive_rows": 5631,
+    "point_positive_population2021": 552490
+  },
+  "current_residual_missing2002_potential_by_legacy_NULLscope_name_footprint": {
+    "possible_NULL2002_literal_name_region": {
+      "rows": 5329,
+      "known_population2021": 324279,
+      "point_positive_rows": 4051,
+      "point_positive_population2021": 299694
+    },
+    "possible_NULL2002_literal_name_propercounty": {
+      "rows": 3891,
+      "known_population2021": 141375,
+      "point_positive_rows": 2804,
+      "point_positive_population2021": 123134
+    },
+    "possible_NULL2002_same_type_literal_name_propercounty": {
+      "rows": 3640,
+      "known_population2021": 106582,
+      "point_positive_rows": 2601,
+      "point_positive_population2021": 89261
+    }
+  },
+  "filters_inspected": [
+    {
+      "path": "research_rebuild/evidence/current_residual_next65_20261008/history_proposals/propose_exact_source_county.py",
+      "line": 8,
+      "condition": "population_scope in ('settlement','settlement_aggregate') and district_raw is not null",
+      "impact": "Cross-year native candidate/rival table drops additive2002 rural rows whose legacy scope isNULL; systematic candidate omission confirmed. Current author owns widened positive source-type/county recovery."
+    },
+    {
+      "path": "research_rebuild/evidence/audit_99_20261003/wikidata/profile_cached_wikidata.py",
+      "line": 64,
+      "condition": "census_year==2021 and population_scope=='settlement'",
+      "impact": "2021-only provider profile; does not remove2002 rows from historical candidate table."
+    },
+    {
+      "path": "research_rebuild/evidence/audit_99_20261003/wikidata_history_large/build_large_p1082_diagnostic.py",
+      "line": 106,
+      "condition": "census_year==2021 and population_scope=='settlement'",
+      "impact": "2021-only profile, not the legacy2002 counterpart omission."
+    },
+    {
+      "path": "research_rebuild/mass_linkage/review_type_false_zero_177.py",
+      "line": 244,
+      "condition": "source_additive=is_additive and population_scope=='settlement'",
+      "impact": "Specialized raw2021 provider/type review; caller checks2021 rawobject rows. Not a general2002 counterpart generator."
+    }
+  ],
+  "no_crossyear_strict_NULL_scope_exclusion_found_in_checked_state_or_older_mass_generators": [
+    "research_rebuild/mass_linkage/current_chain_state_20261007.py",
+    "research_rebuild/mass_linkage/working_state_20261007.py",
+    "research_rebuild/evidence/native_alias_remaining_mass_20261008/screen.py",
+    "research_rebuild/evidence/native_singleton_rural_mass_20261008/scan.py",
+    "research_rebuild/evidence/native2010_remaining_county_rule_mass_20261008/scan.py",
+    "research_rebuild/evidence/temporal_residual_mass_20261008/discover.py",
+    "research_rebuild/evidence/temporal_residual_mass_20261008/discover_continuity.py",
+    "research_rebuild/evidence/temporal_after_new_current_points_20261008/discover_context.py"
+  ],
+  "older_stage46plus_note": "Frozen applications replay accepted deltas and State denominators use actual additive flags, not scope==settlement. Recent temporal/rural/alias source scans read additive rows and perform rawleaf/grain checks; no evidence that the same broadNULL gate filtered their2002 counterparts. Case-specific fixedurban admissions and2021-only source guards remain unchanged. This is a scoped static inspection, not an exhaustive provenance audit.",
+  "caveat": "Name/county pattern intersections are candidate footprint only: they can include already-linked partial histories, same-county homonyms, uncertain context or relocations. No identity/point/primary credit is inferred; sourcebody rowclass/typed grain, fullrivals, UFyear, ownpoint and event guards remain required. NULL legacy scope alone is not a blocking aggregate claim; explicit totals and nonadditive rows remain blocked. Current author independently owns full source-county recovery; no candidate pair export or duplicate rawcounty audit performed.",
+  "input_pins": {
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application66_20261008/application_receipt.json": {
+      "sha256": "50a87e60252b36bb820771a6efd4afb027ee5d640d0550f7890ad99a394da40d",
+      "bytes": 57447
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application66_20261008/applied_state_observations.parquet": {
+      "sha256": "2e0f1171a227950c6c20ed2b9f77e903b6340fca99ba35ce13d5347199a9a95e",
+      "bytes": 12775989
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application66_20261008/applied_remaining_primary.csv.gz": {
+      "sha256": "54abfcacefe9bf0f028cab4e9cc7c3f5e919bf03a00700dcac037b5bbc54a566",
+      "bytes": 1460382
+    }
+  },
+  "peak_RSS_MB": 836.93359375
+}
