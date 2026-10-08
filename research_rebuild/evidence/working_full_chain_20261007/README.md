@@ -3,7 +3,7 @@
 Reproduce from repository root:
 
 ```bash
-python research_rebuild/evidence/working_full_chain_20261007/build_report.py --stage 65
+python research_rebuild/evidence/working_full_chain_20261007/build_report.py --stage 66
 ```
 
 Frozen State() baseline and working_state_20261007.load(stage=selected_stage) reproduce their pinned population totals. Population is credited by exclusive source-ID union, never by summing successive receipts.
@@ -12,17 +12,17 @@ The leading table requires admitted point uses and finite source populations on 
 
 | Year | Ordinary full3, all three points and finite numbers | + whole partitions + Moscow/SPB territories | Common control % | + qualified physical scopes | Common control % | Qualified gap to 99% |
 |---|---:|---:|---:|---:|---:|---:|
-| 2002 | 127,053,409 | 142,211,592 | 97.96431 | 142,485,177 | 98.15278 | 1,229,887 |
-| 2010 | 124,180,536 | 140,670,833 | 98.47000 | 140,988,224 | 98.69218 | 439,747 |
-| 2021 | 124,802,737 | 143,519,707 | 99.18454 | 143,936,290 | 99.47244 | 0 |
+| 2002 | 127,073,017 | 142,231,200 | 97.97782 | 142,504,265 | 98.16593 | 1,210,799 |
+| 2010 | 124,198,201 | 140,688,498 | 98.48237 | 140,996,229 | 98.69778 | 431,742 |
+| 2021 | 124,820,728 | 143,537,698 | 99.19697 | 143,943,256 | 99.47725 | 0 |
 
 Companion axis: an ordinary row has its own point use and a three-year identity component, while another census row in that component may lack a point use. These totals are not labelled as all-three-point coverage.
 
 | Year | Ordinary own-point + full3 identity | + partitions + FED | Common control % | + qualified physical scopes | Common control % |
 |---|---:|---:|---:|---:|---:|
-| 2002 | 127,053,410 | 142,211,593 | 97.96431 | 142,485,178 | 98.15278 |
-| 2010 | 124,180,601 | 140,670,898 | 98.47005 | 140,988,289 | 98.69222 |
-| 2021 | 124,803,133 | 143,520,103 | 99.18482 | 143,936,686 | 99.47271 |
+| 2002 | 127,073,018 | 142,231,201 | 97.97782 | 142,504,266 | 98.16593 |
+| 2010 | 124,198,266 | 140,688,563 | 98.48241 | 140,996,294 | 98.69783 |
+| 2021 | 124,822,875 | 143,539,845 | 99.19846 | 143,945,403 | 99.47873 |
 
 The ordinary point_and_full_three_census_identity axis requires a point on the row being counted and a three-year identity component. The stricter full_three_census_with_all_component_points axis requires an admitted own-point use on each of its three census source rows. The small difference is listed explicitly in own_point_full3_components_missing_other_year_points.csv.
 
@@ -36,15 +36,15 @@ Accepted points are reviewed representative point uses, including retrospective 
 
 The existing strict top100 and regional ranking files retain ordinary full3 + point semantics. regional_final_mixed_residual_rank.csv and top100_final_mixed_residual_YEAR.csv rank actual remaining native source IDs after all finite ordinary, partition, qualified, named and territorial credits. Regional denominators use selected known native population; national control shortfalls are not assigned to individual settlements. Growth flags describe accepted adjacent ordinary census pairs; zero and unknown populations are not imputed.
 
-Wall time: 241.799 seconds. Exact graph, point, delta, sidecar and code hashes are in input_hash_manifest.json.
+Wall time: 268.229 seconds. Exact graph, point, delta, sidecar and code hashes are in input_hash_manifest.json.
 
 Separate named merger/event lineage extension: 10 complete named rosters, 30 census-year group observations and 10 receiving-parent representative scope points. This different grain retains boundary comparability UNKNOWN and secondary documented event sources; historical constituents are not asserted as ordinary settlements individually observed in all three censuses.
 
 | Year | Finite ordinary + partitions + qualified + FED | Named lineage net exclusive source-ID gain | Extended lineage population | Common control % |
 |---|---:|---:|---:|---:|
-| 2002 | 142,485,177 | 604,671 | 143,089,848 | 98.56931 |
-| 2010 | 140,988,224 | 317,161 | 141,305,385 | 98.91419 |
-| 2021 | 143,936,290 | 0 | 143,936,290 | 99.47244 |
+| 2002 | 142,504,265 | 604,671 | 143,108,936 | 98.58246 |
+| 2010 | 140,996,229 | 317,161 | 141,313,390 | 98.91979 |
+| 2021 | 143,943,256 | 0 | 143,943,256 | 99.47725 |
 
 The individual lineage observations, complete constituent source IDs, scope points and event relations are exported separately in named_merger_lineage_*.csv. Ordinary NP3 and the qualified physical register remain separate. No group sum is added on top of constituent credits.
 
@@ -52,9 +52,9 @@ Separate complete territorial scopes: 37 scopes with 111 observed census-year va
 
 | Year | + complete territorial scopes | Common control % | Gap to 99% |
 |---|---:|---:|---:|
-| 2002 | 143,742,784 | 99.01910 | 0 |
-| 2010 | 141,475,857 | 99.03352 | 0 |
-| 2021 | 143,946,715 | 99.47964 | 0 |
+| 2002 | 143,761,872 | 99.03224 | 0 |
+| 2010 | 141,483,862 | 99.03912 | 0 |
+| 2021 | 143,953,681 | 99.48445 | 0 |
 
 Separate dated-year display register: 38 trajectories and 114 actual source observations. Their secondary2002 calendar-year counts lack explicit census designation. They add zero population to every census-coverage axis and remain outside qualified census series.
 
@@ -62,9 +62,9 @@ Separate direct inclusion transformation paths: 39 dated events connect independ
 
 | Year | Original mixed census population | Direct historical native ID gain | Separate transformation path population | Common control % |
 |---|---:|---:|---:|---:|
-| 2002 | 143,742,784 | 266,805 | 144,009,589 | 99.20289 |
-| 2010 | 141,475,857 | 53,202 | 141,529,059 | 99.07076 |
-| 2021 | 143,946,715 | 0 | 143,946,715 | 99.47964 |
+| 2002 | 143,761,872 | 266,805 | 144,028,677 | 99.21604 |
+| 2010 | 141,483,862 | 53,202 | 141,537,064 | 99.07637 |
+| 2021 | 143,953,681 | 0 | 143,953,681 | 99.48445 |
 
 ["Lopatinskyeventyear2004fromcachedownentityliteralrudescription+P131receivingcity, noexactdayorprimarylawclaimed", ["Secondary own-Wikipedia inclusions; no primary law reopened", "BelyeStolbybody2004/intro2005conflictpreserved", "Barybinoexplicitnamedintermediatepath", "Citedactdatesnotverifiedoperativedates", "Gikalo2020countyjurisdictiondistinctfrom2021cityinclusion", "Roslyakovo2010legacyoriginalDOCunmounted; exactrawparserledgeronlyverified"], {"candidate_agent_original_claim": "not mounted in searched location; exact primary raw-parser ledger only reopened", "ROOT_actual_path": "/workspace/settlements-work/sources/r2-missing/murmansk_population.doc", "ROOT_bytes": 384000, "ROOT_sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57", "ROOT_binary_available_and_bytes_verified": true, "ROOT_fresh_DOC_parser_rerun_asserted": false, "native_population_8696_retained_from_existing_primary_raw_parser_ledger": true}, "Secondary own-place Wikipedia dated inclusions; year or stated day precision retained, primary legal-operative dates not asserted. Former own locality point continuity inferred; no reconstructed fixed-boundary counts.", "Own secondary source reports incorporation and former PGT status; exact municipal-law day and historical-boundary equivalence remain unverified."]
 
@@ -72,9 +72,9 @@ Separate formation and direct lifecycle source-ID union: authentic historical Ki
 
 | Year | Direct lifecycle population | Additional formation UID gain | Lifecycle plus formation population | Common control % |
 |---|---:|---:|---:|---:|
-| 2002 | 144,009,589 | 18,156 | 144,027,745 | 99.21539 |
-| 2010 | 141,529,059 | 32,044 | 141,561,103 | 99.09319 |
-| 2021 | 143,946,715 | 0 | 143,946,715 | 99.47964 |
+| 2002 | 144,028,677 | 18,156 | 144,046,833 | 99.22854 |
+| 2010 | 141,537,064 | 32,044 | 141,569,108 | 99.09880 |
+| 2021 | 143,953,681 | 0 | 143,953,681 | 99.48445 |
 
 ["Cached secondary formation/transfer statements, primary legal-operative dates unverified; municipal source-year boundaries and protected2010 leaf-control differences unknown and unallocated. Modern point continuity inferred, not censusday measurements.", "Cached secondary formation/transfer statements, primary legal-operative dates unverified; municipal source-year boundaries and protected2010 leaf-control differences unknown and unallocated. Modern point continuity inferred, not censusday measurements."]
 
@@ -82,17 +82,17 @@ Separate appearance and publication-absence supplement: only independently obser
 
 | Year | Formation plus direct population | Own observed appearance UID gain | Separate primary population | Common control % |
 |---|---:|---:|---:|---:|
-| 2002 | 144,027,745 | 0 | 144,027,745 | 99.21539 |
-| 2010 | 141,561,103 | 6,333 | 141,567,436 | 99.09763 |
-| 2021 | 143,946,715 | 24,808 | 143,971,523 | 99.49679 |
+| 2002 | 144,046,833 | 0 | 144,046,833 | 99.22854 |
+| 2010 | 141,569,108 | 6,333 | 141,575,441 | 99.10323 |
+| 2021 | 143,953,681 | 24,808 | 143,978,489 | 99.50160 |
 
 Separate source63 primary supplements: independently observed former-locality populations and own points enter dated included_in paths; the next lifecycle packet represents only its own actually published source years. Receiving parents remain context with zero new credit. Unknown old own counts remain blank, no child2021 count is invented, and these relations do not create ordinary same-place graph edges.
 
 | Year | Core plus existing appearance population | Additional inclusion UID gain | Additional available-year lifecycle UID gain | Extended primary population | Common control % |
 |---|---:|---:|---:|---:|---:|
-| 2002 | 144,027,745 | 30,548 | 9,172 | 144,067,465 | 99.24276 |
-| 2010 | 141,567,436 | 0 | 700 | 141,568,136 | 99.09812 |
-| 2021 | 143,971,523 | 0 | 14,967 | 143,986,490 | 99.50713 |
+| 2002 | 144,046,833 | 30,548 | 9,172 | 144,086,553 | 99.25591 |
+| 2010 | 141,575,441 | 0 | 700 | 141,576,141 | 99.10372 |
+| 2021 | 143,978,489 | 0 | 14,967 | 143,993,456 | 99.51194 |
 
 Source64 adds 128 reviewed secondary compilation observations, preserving their source grade and count witnesses. The explicit Astrakhan parent subtotal retains raw544 but is nonadditive; its own locality child is unchanged. Every ordinary population/row/regional denominator and current credit UID union uses the interpreted additive mask. Source-only observation admission creates no point, identity or automatic population credit. Signed source-control differences are retained without quota allocation: {"2002": -757, "2010": 493512, "2021": 0}. Population source overlays are separate and absent from this raw report.
 
@@ -100,9 +100,11 @@ Source65 preserves all source64 observations, populations, grades and additive i
 
 | Year | Prior available-year primary population | Additional own inclusion UID gain | Extended raw primary population | Common control % |
 |---|---:|---:|---:|---:|
-| 2002 | 144,067,465 | 5,495 | 144,072,960 | 99.24654 |
-| 2010 | 141,568,136 | 0 | 141,568,136 | 99.09812 |
-| 2021 | 143,986,490 | 0 | 143,986,490 | 99.50713 |
+| 2002 | 144,086,553 | 5,495 | 144,092,048 | 99.25969 |
+| 2010 | 141,576,141 | 0 | 141,576,141 | 99.10372 |
+| 2021 | 143,993,456 | 0 | 143,993,456 | 99.51194 |
+
+Source66 adds 118 reviewed native published-code/alias edges and 652 own-point uses, with no source observation additions, point rejections, new events or population source overlay. Source128 metadata and the parent nonadditive interpretation remain unchanged. Gorodok17 belongs to source65; its inherited own2002 credit remains5495, while new source66 Gorodok17 UID gain and receiver context credit are zero.
 
 EAO source namespace: 98 original2002 rows use the source header Sheet1!A1 Еврейская АО for effective regional context. Export keeps the imported region values and separately records the effective namespace and pinned interpretation input. Original source populations, quality, row locators and metadata remain unchanged; the interpretation alone adds no finite three-year histories.
 

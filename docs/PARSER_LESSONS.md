@@ -246,3 +246,11 @@ Administrative inclusion2001 is not grounds to delete a separately printed own s
 GN corroboration must describe the whole physical locality and respect actual native code/name/type/municipal competitors. Current owncoded RCSI point replacement is a representative use, not an asserted binding of a different provider ID or a historical census-day coordinate.
 
 A wide point dataframe can exhaust memory after a successful application. Preserve post-API UID/components and immutable delta/hash proofs; recover only export, without repeating State application. Validate points through streamed narrow key/coords/provenance columns. Exact numeric comparisons must use the canonical CSV reader: pandas parses36.358958333333334 as36.35895833333333 here, while stdlibfloat retains another last bit. Record the reader; do not substitute coordinate tolerance, clamping or smoothing for exact parsed-ledger verification.
+
+## 2026-10-08 — explicit inherited events and on-row county evidence
+
+A new native/point batch must recompute the current unique source-ID union while retaining the original stage/date of typed lifecycle evidence. G17's5495 statistical2002 population belongs to stage65; source66adds zero new G17UID population. Do not count the same event again or invent later child observations from receiver context.
+
+For a primary population claim, own county on the actual row plus all printed same-name/type rivals is distinct from inferred forward-filled county context. Eight newly admitted official claims use explicit on-row binding; separate primary quality can improve even when some printed counts equal the old value. Preserve raw import grade/values and source hashes; recompute both effective numerator and denominator (selected2010delta173992), not only population credit.
+
+Temporal source-code admission must use the frozen accepted subset, not the larger discovery draft. The applied66 packet has118edges, not the earlier668 discovery figure; future67 sourcecounty/history drafts remain outside State and reported sums. Narrow streaming snapshot readback and exclusive UID unions avoid another wide point dataframe or full State replay.
