@@ -55,6 +55,48 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         for dirname,status in [('old_year_spatial_competitor_resolution_application_20261008','applied_native_identity_own_point_source_bindings'),('moscow_three_stable_native_application_20261008','applied_native_identity_own_point_source_bindings'),('current_large_component_point_recovery_application_20261008','applied_coordinate_claim_recovery_existing_full_native_components')]:
             application=E/dirname/'application_receipt.json';pin(application)
             assert json.loads(application.read_text())['status']==status
+    if stage >= 27:
+        folder=E/'large_native_suffix_and_former_name_application_20261008'
+        application=folder/'application_receipt.json';pin(application)
+        admission=json.loads(application.read_text())
+        assert admission['State_API_replay_passed'] and admission['baseline_stage']==26
+        assert (admission['accepted_edges'],admission['accepted_point_uses'],admission['coordinate_only_rejections'])==(15,15,1)
+        for name,h in admission['output_pins'].items(): assert pin(folder/name)==h
+        for path,h in admission['source_witness_input_pins'].items(): assert pin(ROOT/path)==h
+        for path,h in admission['input_pins'].items():
+            path=Path(path)
+            if OUT not in path.parents and path!=M/'working_state_20261007.py': assert pin(path)==h
+    if stage >= 28:
+        folder=E/'native_alias_remaining_mass_20261008'
+        application=folder/'application_receipt.json';pin(application)
+        admission=json.loads(application.read_text())
+        assert admission['baseline_stage']==27 and (admission['cases'],admission['edges'],admission['point_uses'])==(3,6,4)
+        for name,h in admission['output_pins'].items(): assert pin(folder/name)==h
+        for path,h in admission['input_pins'].items():
+            path=Path(path)
+            if OUT not in path.parents and path!=M/'working_state_20261007.py': assert pin(path)==h
+    if stage >= 29:
+        folder=E/'cached_wikipedia_history_mass_20261008/refreshed_2010_context/application'
+        application=folder/'application_receipt.json';pin(application)
+        admission=json.loads(application.read_text())
+        assert admission['status']=='applied_refreshed_flanking_source_context_native_2010_identity_rule'
+        assert (admission['baseline_stage'],admission['accepted_identity_edges'],admission['accepted_point_uses'],admission['held_candidates'])==(28,434,434,2)
+        assert admission['source_county_context_is_inference_not_literal_whole_county_proof']
+        assert admission['same_name_current_ownpoints_including_existing_full3_checked_before_graph_filter']
+        for name,h in admission['outputs'].items(): assert pin(folder/name)==h
+        for path,h in admission['input_hashes'].items():
+            path=Path(path)
+            if OUT not in path.parents and path!=M/'working_state_20261007.py': assert pin(path)==h
+    if stage >= 30:
+        folder=E/'native_alias_remaining_mass_20261008/followup'
+        application=folder/'application_receipt.json';pin(application)
+        admission30=json.loads(application.read_text())
+        assert admission30['baseline_stage']==29 and (admission30['edges'],admission30['point_uses'],admission30['point_rejections'])==(18,20,1)
+        assert admission30['protected_populations_quality_and_grain_unchanged']
+        for name,h in admission30['output_pins'].items(): assert pin(folder/name)==h
+        for path,h in admission30['input_pins'].items():
+            path=Path(path)
+            if OUT not in path.parents and path!=M/'working_state_20261007.py': assert pin(path)==h
     bm=base.metrics(); sm=state.metrics()
     for y in YEARS:
         assert bm[str(y)]['covered_population']==BASELINE[y], (y,bm)
@@ -101,6 +143,18 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         if stage==26:
             assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126338619,123519385,124114889)))[y], (y,sm)
             assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137110,137113,137112)))[y], (y,sm)
+        if stage==27:
+            assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126405286,123582214,124172049)))[y], (y,sm)
+            assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137124,137127,137126)))[y], (y,sm)
+        if stage==28:
+            assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126429854,123605305,124194398)))[y], (y,sm)
+            assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137127,137130,137129)))[y], (y,sm)
+        if stage==29:
+            assert sm[str(y)]['covered_population']==dict(zip(YEARS,(126473670,123647686,124253255)))[y], (y,sm)
+            assert sm[str(y)]['covered_rows']==dict(zip(YEARS,(137561,137564,137563)))[y], (y,sm)
+        if stage==30:
+            assert sm[str(y)]['covered_population']==admission30['after'][str(y)]['covered_population'], (y,sm)
+            assert sm[str(y)]['covered_rows']==admission30['after'][str(y)]['covered_rows'], (y,sm)
         assert sm[str(y)]['denominator_selected_ordinary_population']==DENOM[y]
     expected={y:sm[str(y)]['covered_population'] for y in YEARS}
     obs=state.obs.copy()
@@ -356,6 +410,8 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
     regional_control_receipt=reconcile(ordinary,fed,controls,scopeunion,OUT)
     report={'status':'recomputed_baseline_and_unique_source_id_unions_verified','working_stage':stage,'ordinary_axes_by_year':metrics,'baseline_strict_joint_population':BASELINE,'actual_cumulative_gain_by_unique_source_id_union':gains,'complete_partition_plus_federal_overlay':overlaystats,'qualified_physical_scope_all_grains':{'ordinary_np_three_year_identity_asserted':False,'series':sum(r['series'] for r in physical),'observations':sum(r['observations'] for r in physical),'secondary_population_observations':sum(r['secondary_population_observations'] for r in physical),'scopes':physical,'source_id_credit_reference_rows':len(credits),'unique_selected_credit_source_ids':credits.source_record_id.nunique(),'by_year':qualified},'growth_flags':{'axis':'accepted ordinary adjacent same-place census pairs; positive ratio >20, reverse <1/20 separately, zero/unknown never ratio-imputed','counts':growthdf.flag.value_counts().to_dict() if len(growthdf) else {},'total_flagged_pairs':len(growthdf)},'accepted_status_enums':{'edge':sorted(ACCEPTED_EDGE_STATUSES),'point':sorted(ACCEPTED_COORDINATE_STATUSES)},'input_ledger_status_counts':status,'active_point_status_counts':dict(active),'active_point_target_count':len(point),'same_place_components_all_grains':len(state.years),'full_three_year_components_all_grains':sum(v==set(YEARS) for v in state.years.values()),'point_alternatives':len(state.point_alternatives),'conflicting_point_targets':len(state.conflicting_point_targets),'official_2010_control_minus_selected_ordinary_and_federal':493512,'regional_official_2010_control_mapping':{'status':'not_recalculated_pending_unambiguous_control_region_mapping','national_gap_preserved':493512,'required_parent_folds':'Nenets to Arkhangelsk; Khanty-Mansi and Yamalo-Nenets to Tyumen; inclusive published parent controls'},'limits':['Accepted point use is not a coordinate calibration or census-date measurement claim.','Ordinary denominator excludes Moscow, St Petersburg, Sevastopol and 2021 Crimea. Federal Moscow/St Petersburg territories are separate nonsettlement aggregates.','2021 common control excludes Crimea 1934630 and Sevastopol 547820; national control retains them. Neither 2014-only paths nor absorption-only parent context counts as three observed census years.','Partition points cover whole place, not each individual numbered part. Derived population sums do not add extra population.','Qualified physical series retain grain changes, secondary 2021 values and auxiliary nonadditive observations; they do not assert ordinary NP identity, boundary comparability or unchanged scopes.','2010 protected selected values retain their original quality. All source populations remain unchanged. Candidate-only ledgers never included.']}
     report['regional_official_2010_control_mapping']=regional_control_receipt
+    if stage >= 29:
+        report['refreshed_native_context_rule_limits']={'accepted_native_2010_bindings':434,'held_railway_type_conflicts':2,'county_context':'two distinct already admitted source-row anchors flanking the target in its original workbook; inferred context, not a literal printed county header','current_competitors':'same-name own-point competitors checked before component or existing full3 filtering','population_flags':'real source zeros, extreme accepted census growth and source-year county caption reforms retained as review metadata; source values and imported quality unchanged','historical_point_measurement_asserted':False,'coordinate_calibration_or_national_precision_confidence_asserted':False}
     report['all_three_component_points_national_unions']=stronger_national_union
     report['own_row_point_plus_full3_companion_definition']='Companion axis: each counted ordinary row has its own admitted point use and a three-year identity component. Other rows in the same component may lack point uses; this is not the all-three-point axis.'
     report['qualified_physical_actual_observation_axis']=physical_axis
@@ -380,6 +436,10 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
     pin(OUT/'export_full3.py')
     pin(OUT/'verify_export.py')
     report['ordinary_complete_number_export']=export_full3(state,ordinary,componentpoints,stage,pins,OUT,reuse=reuse_ordinary_export)
+    if stage==30:
+        expected_finite=admission30['after_finite_all3_all_points']
+        assert report['ordinary_complete_number_export']['rows']==expected_finite['histories']
+        assert {str(y):population for y,population in report['ordinary_complete_number_export']['population_by_year'].items()}==expected_finite['populations_by_year']
     from finite_number_unions import build as build_finite_unions
     pin(OUT/'finite_number_unions.py')
     finite_national_union=build_finite_unions(report,OUT)
