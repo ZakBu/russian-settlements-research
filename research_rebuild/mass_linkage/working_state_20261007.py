@@ -21,7 +21,7 @@ PARTITION_MEMBERS = E / "complete_numbered_partition_batch_20261007/accepted_exc
 PARTITION_SERIES = E / "complete_numbered_partition_batch_20261007/accepted_three_census_whole_place_series.csv"
 
 
-def load(stage=25):
+def load(stage=26):
     """Replay a fixed stage, so earlier applications remain reproducible.
 
     1: county rule + 99 GeoKLADR uses; 2: source brackets;
@@ -46,6 +46,7 @@ def load(stage=25):
     23: exact census-value bindings with printed or flanking-source county context.
     24: explicit rejection and recovery of contradicted modern provider points.
     25: own settlement-code/context bindings including populated railway localities.
+    26: unique nearby own-point competitors, native Moscow bindings and modern mispoint recovery.
     """
     state = State()
     state.add_deltas(EARLY_EDGE_EXTRAS, EARLY_POINT_EXTRAS)
@@ -99,4 +100,8 @@ def load(stage=25):
         state.add_deltas(point_paths=[E/"full3_conflicting_modern_point_recovery_application_20261007/accepted_point_use_delta.csv"])
     if stage >= 25:
         state.add_deltas([E/"old_year_remaining_mass_rule_application_20261008/accepted_identity_edge_delta.csv"], [E/"old_year_remaining_mass_rule_application_20261008/accepted_point_use_delta.csv"])
+    if stage >= 26:
+        state.add_deltas([E/"old_year_spatial_competitor_resolution_application_20261008/accepted_identity_edge_delta.csv", E/"moscow_three_stable_native_application_20261008/accepted_identity_edge_delta.csv"], [E/"old_year_spatial_competitor_resolution_application_20261008/accepted_point_use_delta.csv", E/"moscow_three_stable_native_application_20261008/accepted_point_use_delta.csv"])
+        state.reject_point_uses(E/"current_large_component_point_recovery_application_20261008/accepted_point_rejection_delta.csv")
+        state.add_deltas(point_paths=[E/"current_large_component_point_recovery_application_20261008/accepted_point_use_delta.csv"])
     return state
