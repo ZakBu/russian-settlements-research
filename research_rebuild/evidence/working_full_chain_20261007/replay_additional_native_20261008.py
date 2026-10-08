@@ -49,6 +49,10 @@ def main():
         (49, 'large2010_residual_native2002_followup_20261008', '.csv', '.csv'),
         (50, 'native2010_remaining_county_rule_mass_20261008', '.csv.gz', '.csv.gz'),
         (51, 'eaoregion_source_namespace_mass_20261008', '.csv', '.csv'),
+        (52, 'native_rural_type_alias_mass_20261008', '.csv.gz', '.csv.gz'),
+        (53, 'native_singleton_rural_mass_20261008', '.csv.gz', '.csv.gz'),
+        (54, 'cached_historical_name_alias_mass_20261008', '.csv.gz', '.csv.gz'),
+        (55, 'absorbed_remaining2010_direct_mass_20261008', '.csv', '.csv'),
     ]
     state = load(39)
     assert finite(state) == {'histories': 138335, 'populations_by_year': {
@@ -56,7 +60,7 @@ def main():
     rows = []
     for stage, name, edge_suffix, point_suffix in cohorts:
         folder = E / name
-        receipt_path = folder / 'application_receipt.json'
+        receipt_path = folder / ('separate_native_application_receipt.json' if stage == 55 else 'application_receipt.json')
         receipt = json.loads(receipt_path.read_text())
         pins = {}
         historical_derived = {}
@@ -68,7 +72,7 @@ def main():
                     assert path.parent == E / 'working_full_chain_20261007', str(path)
                     relative = str(path.relative_to(ROOT))
                     matched = None
-                    for commit in ['dba51d5c4c7f8c4cf4ef3d8520ec26139c1c8b5f', 'f67ea9111a2d7932ef7e55a7015a120ac3a50caa', '0b8c3b0bda66b4dcec86ef9ff1ce706dc8fdcac7']:
+                    for commit in ['dba51d5c4c7f8c4cf4ef3d8520ec26139c1c8b5f', 'f67ea9111a2d7932ef7e55a7015a120ac3a50caa', '0b8c3b0bda66b4dcec86ef9ff1ce706dc8fdcac7', '65e88651f238173693e14c9654888b36b2fc9d44']:
                         result = subprocess.run(['git', 'show', commit + ':' + relative], cwd=ROOT, capture_output=True)
                         if result.returncode == 0 and hashlib.sha256(result.stdout).hexdigest() == expected:
                             matched = commit
@@ -88,7 +92,7 @@ def main():
                     assert path.parent == E / 'working_full_chain_20261007', str(path)
                     relative = str(path.relative_to(ROOT))
                     matched = None
-                    for commit in ['dba51d5c4c7f8c4cf4ef3d8520ec26139c1c8b5f', 'f67ea9111a2d7932ef7e55a7015a120ac3a50caa', '0b8c3b0bda66b4dcec86ef9ff1ce706dc8fdcac7']:
+                    for commit in ['dba51d5c4c7f8c4cf4ef3d8520ec26139c1c8b5f', 'f67ea9111a2d7932ef7e55a7015a120ac3a50caa', '0b8c3b0bda66b4dcec86ef9ff1ce706dc8fdcac7', '65e88651f238173693e14c9654888b36b2fc9d44']:
                         result = subprocess.run(['git', 'show', commit + ':' + relative], cwd=ROOT, capture_output=True)
                         if result.returncode == 0 and hashlib.sha256(result.stdout).hexdigest() == expected:
                             matched = commit
@@ -103,8 +107,8 @@ def main():
         before = finite(state)
         if stage == 51:
             apply_source_namespace_interpretations(state, folder / "source_namespace_interpretation_delta.csv")
-        edges = folder / ('accepted_identity_edge_delta' + edge_suffix)
-        points = folder / ('accepted_point_use_delta' + point_suffix)
+        edges = folder / (('accepted_separate_native_identity_edge_delta' if stage == 55 else 'accepted_identity_edge_delta') + edge_suffix)
+        points = folder / (('accepted_separate_native_point_use_delta' if stage == 55 else 'accepted_point_use_delta') + point_suffix)
         state.add_deltas([edges], [points])
         after = finite(state)
         rows.append({'stage': stage, 'source_application': str(receipt_path),
@@ -117,13 +121,13 @@ def main():
                                                       for year in before['populations_by_year']},
                      'verified_input_and_ledger_pins': pins,
                      'historical_derived_output_verifications': historical_derived})
-    assert finite(state) == {'histories': 138911, 'populations_by_year': {
-        '2002': 126801407, '2010': 123957564, '2021': 124562245}}
-    result = {'status': 'actual_sequential39_to51_State_replay_passed',
+    assert finite(state) == {'histories': 141261, 'populations_by_year': {
+        '2002': 126913772, '2010': 124056798, '2021': 124669530}}
+    result = {'status': 'actual_sequential39_to55_State_replay_passed',
               'measurement': 'all_component_members_finite_all_own_point_uses_no_conflicting_roots',
               'population_source_values_and_quality_unchanged': True,
               'stages': rows, 'final': finite(state)}
-    (E / 'working_full_chain_20261007/native_composition_stages40_51_receipt.json').write_text(
+    (E / 'working_full_chain_20261007/native_composition_stages40_55_receipt.json').write_text(
         json.dumps(result, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps({'status': result['status'], 'final': result['final']}))
 

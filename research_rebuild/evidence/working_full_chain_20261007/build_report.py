@@ -231,6 +231,23 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
             assert pin(Path(row['source_namespace_witness_file']))==row['source_namespace_witness_sha256']
         delta.to_csv(OUT/'source_namespace_interpretation_delta.csv',index=False)
         namespace_correction={'status':'accepted_source_header_namespace_interpretation','interpretation_rows':98,'input_path':str(delta_path),'sha256':delta_hash,'effective_region_norm':'еврейская','source_header_locator':'Sheet1!A1','original_imported_regions_retained_in_export':True,'raw_source_populations_quality_metadata_unchanged':True,'interpretation_only_NP3_gain':0,'accepted_native_cases_after_interpretation':admission51['accepted_cases'],'native_case_finite_gain':admission51['net_finite_all3_all_points']}
+    later_native_admissions=[]
+    for threshold,dirname,receipt_name in [(52,'native_rural_type_alias_mass_20261008','application_receipt.json'),(53,'native_singleton_rural_mass_20261008','application_receipt.json'),(54,'cached_historical_name_alias_mass_20261008','application_receipt.json'),(55,'absorbed_remaining2010_direct_mass_20261008','separate_native_application_receipt.json')]:
+        if stage<threshold: continue
+        folder=E/dirname;rp=folder/receipt_name;pin(rp);admission=json.loads(rp.read_text())
+        assert admission['accepted_cases']>0
+        assert all(pin(folder/name)==h for name,h in admission['output_pins'].items())
+        if threshold in [52,54]:
+            assert admission['status'].endswith('source/output pins and independent State API finite/full3 replay passed')
+            assert admission['all_source_population_quality_names_types_unchanged'] and admission['State_API_replay_passed']
+            assert admission['accepted_cases']==(17 if threshold==52 else 6)
+        elif threshold==53:
+            assert admission['status']=='actual51 source/count verified consolidated native mass application ready for independent replay'
+        else:
+            assert admission['population_values_quality_unchanged'] and admission['all_regional_homonyms_retained']
+            assert (admission['accepted_cases'],admission['accepted_edges'],admission['accepted_points'])==(1,2,2)
+            assert not any(admission['direct_included_in_gain'].values())
+        later_native_admissions.append({'stage':threshold,'source_application':str(rp),'sha256':pin(rp),'accepted_cases_in_original_source_packet':admission['accepted_cases'],'actual_sequential_gain_reference':'root_sequential_native_composition'})
     bm=base.metrics(); sm=state.metrics()
     for y in YEARS:
         assert bm[str(y)]['covered_population']==BASELINE[y], (y,bm)
@@ -368,6 +385,44 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
         members=pd.concat([members,extra_members],ignore_index=True)
         series=pd.concat([series,extra_series],ignore_index=True)
         support.to_csv(OUT/'additional_complete_partition_point_support.csv',index=False)
+    if stage>=55:
+        folder=E/'complete_printed_parts_remaining_mass_20261008';rp=folder/'root_application_receipt.json';pin(rp);pr=json.loads(rp.read_text())
+        assert pr['status']=='applied_complete_publisher_partition_with_own_whole_locality_point' and pr['intended_working_stage']<=stage
+        assert (pr['whole_series'],pr['census_observations'],pr['native_member_references'],pr['representative_whole_NP_points'])==(3,9,15,3)
+        assert pr['source_population_values_quality_names_and_raw_metadata_unchanged'] and pr['independent_packet_verification_completed']
+        assert not pr['ordinary_same_place_graph_union_created_by_this_sidecar'] and not pr['official2002_whole_control_asserted']
+        assert not pr['individual_part_point_admission'] and not pr['modern_boundary_reconstruction_asserted'] and not pr['population_boundary_comparability_asserted']
+        assert pin(folder/pr['source_receipt_file'])==pr['source_receipt_sha256']
+        for raw,h in pr['verified_source_pins'].items(): assert pin(Path(raw))==h
+        for name,h in pr['verified_candidate_output_pins'].items(): assert pin(folder/name)==h
+        extra_members=pd.read_csv(folder/'candidate_native_constituents.csv',keep_default_na=False)
+        extra_series=pd.read_csv(folder/'candidate_whole_place_three_census_series.csv',keep_default_na=False)
+        support=pd.read_csv(folder/'candidate_own_whole_points.csv',keep_default_na=False)
+        assert len(extra_members)==15 and len(extra_series)==9 and extra_series.place_id.nunique()==3 and len(support)==3
+        assert not extra_members.ordinary_same_place_graph_mutated.any()
+        for row in extra_series.to_dict('records'):
+            assert not row['source_population_modified'] and not row['native2002_official_whole_control_asserted']
+            assert not row['individual_part_coordinates_admitted'] and not row['population_boundary_comparability_asserted']
+            assert row['projection_status'] in ['candidate_complete_publisher_partition','selected_whole_locality_observation']
+            assert row['population_is_derived_sum']==(int(row['year'])!=2021)
+            for source in json.loads(row['member_source_provenance_json']):
+                if pd.notna(source['raw_source_path']) and source['raw_source_path']:
+                    assert pin(Path(source['raw_source_path']))==source['raw_source_sha256']
+                else:
+                    assert int(row['year'])==2021 and source['source_record_id'].startswith('2021:data_allsettlements_anon_156_v20251217.parquet:')
+                selected=state.by_id.loc[source['source_record_id']]
+                assert float(selected.population)==float(source['raw_population']) and selected.population_value_quality==source['population_value_quality']
+        for row in support.to_dict('records'):
+            assert pin(Path(row['point_origin_file']))==row['point_origin_sha256']
+            active=state.point_rows[row['target_source_record_id']]
+            assert (float(active['latitude']),float(active['longitude']))==(float(row['latitude']),float(row['longitude']))
+        # Original candidate bytes remain frozen; only delivered projection status changes.
+        extra_series=extra_series.copy();extra_series['projection_status']=extra_series.projection_status.replace({'candidate_complete_publisher_partition':'accepted_complete_publisher_partition'})
+        extra_series.loc[extra_series.year.eq(2021),'projection_status']='selected_whole_locality_observation'
+        for frame in [extra_members,extra_series,support]:
+            frame['root_admission_status']=pr['status'];frame['root_admission_receipt']=str(rp)
+        members=pd.concat([members,extra_members],ignore_index=True);series=pd.concat([series,extra_series],ignore_index=True)
+        support.to_csv(OUT/'remaining_complete_partition_point_support.csv',index=False)
     members.to_csv(OUT/'complete_publisher_partition_members.csv',index=False)
     series.to_csv(OUT/'complete_publisher_partition_series.csv',index=False)
     assert all(set(g.year)==set(YEARS) for _,g in series.groupby('place_id'))
@@ -658,6 +713,7 @@ def main(stage=7,reuse_ordinary_export=False,auxiliary_iteration=None,baseline_s
     report['auxiliary_iteration']=auxiliary_iteration
     report['baseline_snapshot_git_commit']=baseline_snapshot
     report['source_namespace_interpretation']=namespace_correction
+    report['later_native_admission_sources']=later_native_admissions
     report['ordinary_export_reused_without_rewrite']=reuse_ordinary_export
     named_axis=report['named_merger_lineage_extended_population_axis']
     if named_axis['status']=='admitted_separate_named_merger_event_lineage':

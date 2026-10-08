@@ -8,15 +8,17 @@ from territorial_scopes import admitted
 def load(folder,state,out,pin,receipt=None,followup=False):
     if receipt is None: receipt=admitted(folder,'applied_secondary_direct_included_in_transformation_path',out,pin)
     def read(accepted,candidate):
-        return pd.read_csv(folder/(candidate if followup else accepted),keep_default_na=False)
+        path=folder/(candidate if followup else accepted)
+        if not path.exists() and path.suffix=='.gz': path=path.with_suffix('')
+        return pd.read_csv(path,keep_default_na=False)
     obs=read('accepted_historical_observations.csv','candidate_historical_observations.csv.gz')
     points=read('accepted_former_locality_own_points.csv','candidate_former_locality_own_points.csv.gz')
     edges=read('accepted_included_in_event_edges.csv','candidate_included_in_event_edges.csv.gz')
     context=read('actual_receiving_city_three_census_context.csv','actual_receiving_city_three_census_context.csv.gz')
     credits=read('accepted_direct_event_native_credit_union.csv','candidate_direct_event_native_credit_union.csv.gz')
     expected_observations=int(receipt['historical_native_observations'] if followup else receipt['historical_observations'])
-    expected_events=int(receipt['positive_events'] if followup else receipt['events'])
-    expected_context=int(receipt['receiving_city_context_observations'] if followup else receipt['receiving_context_observations'])
+    expected_events=int(receipt.get('positive_events',receipt.get('events')) if followup else receipt['events'])
+    expected_context=int(receipt.get('receiving_city_context_observations',receipt.get('receiving_context_observations')) if followup else receipt['receiving_context_observations'])
     assert expected_observations>0 and expected_events>0 and expected_context==3*expected_events
     assert (len(obs),len(points),len(edges),len(context),len(credits))==(expected_observations,expected_observations,expected_observations,expected_context,expected_observations)
     assert obs.scope_id.nunique()==expected_events and obs.source_record_id.is_unique
@@ -25,7 +27,9 @@ def load(folder,state,out,pin,receipt=None,followup=False):
     assert not obs.is_additive_to_original_final_mixed_census_axis.any()
     assert edges.relation.eq('included_in').all() and not edges.same_place.any() and not edges.graph_union_allowed.any()
     assert set(obs.source_record_id)==set(points.target_source_record_id)==set(edges.from_source_record_id)==set(credits.source_record_id)
-    assert credits.qualifies_direct_transformation_path.all() and credits.own_historical_point_verified.all()
+    if 'qualifies_direct_transformation_path' in credits: assert credits.qualifies_direct_transformation_path.all()
+    else: assert receipt['status']=='applied_secondary_direct_included_in_transformation_path' and not credits.ordinary_three_census_same_place_claim.any()
+    assert credits.own_historical_point_verified.all()
     assert credits.receiving_city_actual_2002_2010_2021_context_verified.all()
     assert not credits.is_additive_to_original_final_mixed_census_axis.any()
     assert context.is_receiving_city_context_only.all() and context.new_national_credit_population.eq(0).all()
@@ -48,12 +52,14 @@ def load(folder,state,out,pin,receipt=None,followup=False):
         assert point.own_locality_point and not point.recipient_point_assigned_to_child
         assert (float(point.latitude),float(point.longitude))==(float(row['latitude']),float(row['longitude']))
         assert pin(Path(point.point_origin_file))==point.point_origin_sha256
+        if 'independent_ownarticle_point_source' in point: assert pin(Path(point.independent_ownarticle_point_source))==point.independent_ownarticle_point_sha256
         assert -90<=float(point.latitude)<=90 and -180<=float(point.longitude)<=180
         edge=edges[edges.from_source_record_id.eq(row['source_record_id'])].iloc[0]
         assert edge.to_source_record_id==row['receiving_city_2021_source_record_id'] and edge.event_date==row['event_date']
         assert pin(Path(edge.event_source_file))==edge.event_source_sha256
         parent=context[context.scope_id.eq(row['scope_id'])&context.census_year.eq(2021)].iloc[0]
-        assert parent.source_record_id==edge.to_source_record_id and float(parent.population)==float(row['receiving_city_2021_count_context_only'])
+        assert parent.source_record_id==edge.to_source_record_id
+        if 'receiving_city_2021_count_context_only' in row: assert float(parent.population)==float(row['receiving_city_2021_count_context_only'])
         credit=credits[credits.source_record_id.eq(row['source_record_id'])].iloc[0]
         assert int(credit.year)==int(row['year']) and float(credit.source_population)==float(native.population)
     return receipt,obs,points,edges,context,credits
@@ -64,22 +70,30 @@ def build(E,state,ordinary,baseline_ids,federal,national,common,out,pin,stage=46
     if not (folder/'application_receipt.json').exists(): return {'status':'not_loaded_without_root_application_receipt'}
     receipt,obs,points,edges,context,credits=load(folder,state,out,pin)
     limits=[receipt['weak_source_limit']]
-    for dirname in ['absorbed_large_direct_events_followup_20261008','absorbed_residual_direct_events_next_20261008']:
+    for dirname in ['absorbed_large_direct_events_followup_20261008','absorbed_residual_direct_events_next_20261008','absorbed_remaining2010_direct_mass_20261008']:
         followup=E/dirname
         root_admission=followup/'root_application_receipt.json'
         if not root_admission.exists(): continue
         pin(root_admission);admission=json.loads(root_admission.read_text())
         assert admission['status']=='applied_secondary_direct_included_in_transformation_path'
-        if admission['admitted_working_stage']>stage: continue
-        assert admission['positive_events']>0 and admission['historical_native_observations']>0
-        assert admission['receiving_city_context_observations']==3*admission['positive_events']
-        assert not admission['ordinary_same_place_graph_union_allowed'] and not admission['child2021_population_assigned']
-        assert not admission['boundary_harmonization_asserted'] and not admission['original_final_mixed_population_credit_allowed']
-        assert pin(Path(admission['canonical_frozen_candidate_receipt']))==admission['canonical_frozen_candidate_sha256']
-        for raw,claimed in admission['input_pins'].items():
+        if admission.get('admitted_working_stage',admission.get('intended_working_stage'))>stage: continue
+        assert admission.get('positive_events',admission.get('events'))>0 and admission['historical_native_observations']>0
+        assert admission.get('receiving_city_context_observations',admission.get('receiving_context_observations'))==3*admission.get('positive_events',admission.get('events'))
+        if 'canonical_frozen_candidate_receipt' in admission:
+            assert not admission['ordinary_same_place_graph_union_allowed'] and not admission['child2021_population_assigned']
+            assert not admission['boundary_harmonization_asserted'] and not admission['original_final_mixed_population_credit_allowed']
+            assert pin(Path(admission['canonical_frozen_candidate_receipt']))==admission['canonical_frozen_candidate_sha256']
+            sources=admission['input_pins'];outputs=admission['output_pins']
+        else:
+            assert admission['source_population_values_quality_names_and_raw_metadata_unchanged'] and admission['independent_packet_verification_completed']
+            assert not admission['ordinary_same_place_graph_union_created_by_this_sidecar'] and not admission['child_2021_population_created']
+            assert not admission['modern_boundary_reconstruction_asserted'] and not admission['population_boundary_comparability_asserted']
+            assert pin(followup/admission['source_receipt_file'])==admission['source_receipt_sha256']
+            sources=admission['verified_source_pins'];outputs=admission['verified_candidate_output_pins']
+        for raw,claimed in sources.items():
             path=Path(raw)
             if out not in path.parents: assert pin(path)==claimed
-        for name,claimed in admission['output_pins'].items(): assert pin(followup/name)==claimed
+        for name,claimed in outputs.items(): assert pin(followup/name)==claimed
         extra=load(followup,state,out,pin,admission,True)
         obs,points,edges,context,credits=[pd.concat([old,new],ignore_index=True) for old,new in zip([obs,points,edges,context,credits],extra[1:])]
         assert obs.source_record_id.is_unique and credits.source_record_id.is_unique
