@@ -1,0 +1,3 @@
+# Actual published county-header extension
+
+One bounded pass after replaying stage28 plus the434 admitted context observations. Sources004/014/016 only; Tula/Sverdlovsk/Ulyanovsk/Chechnya excluded.112 eligible old2010 targets and293 source-label competitors were evaluated using actual county-start/next-county rows, three distinct accepted block anchors, and exact literal native cells. Zero positive candidates; no new links, points or population credit. Most contexts lack actual county controls or contain contradictory accepted county anchors. No hypothetical Moscow county boundary or wider guessed source window was used.

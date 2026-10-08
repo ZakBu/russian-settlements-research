@@ -109,6 +109,26 @@ def cities(folder,state,out,pin):
         assert (int(control.complete_selected_atomic_sum),int(control.complete_published_atomic_sum),int(control.difference_not_allocated))==(347837,348038,-7)
         assert control.protected2010_difference_not_distributed and control.source_quality_difference_preserved
         auxiliary_by_scope_year[(atom.group,2010)]=201
+    if folder.name=='next_absorbed_city_closed_scopes_followup_application_20261008':
+        import xlrd
+        assert groups==3 and len(members)==26
+        auxiliary=pd.read_csv(folder/'actual_published_auxiliary_atom.csv',keep_default_na=False)
+        assert len(auxiliary)==1
+        atom=auxiliary.iloc[0]
+        assert atom.group=='published_closed_city_scope_Пермь' and int(atom.census_year)==2010
+        assert atom.selected_source_record_id=='' and not atom.national_additive_credit
+        assert atom.raw_label=='Казарма 30-й км' and atom.raw_type=='not_printed_in_raw_label' and int(atom.population)==6
+        assert atom.population_quality=='actual_published_secondary_confidentiality_protected_named_atomic_leaf_absent_selectedNP_layer'
+        assert pin(Path(atom.raw_file))==atom.raw_sha256
+        raw=xlrd.open_workbook(atom.raw_file).sheet_by_name(atom.raw_sheet).row_values(int(atom.raw_row_1based)-1)
+        original_witness=json.loads(atom.raw_original_row_json)
+        assert len(original_witness)>=8 and raw[:len(original_witness)]==original_witness
+        assert raw[5].strip()==atom.raw_label and int(raw[6])==6 and int(raw[7])==10
+        control=pd.read_csv(folder/'printed_controls_atomic_conservation.csv',keep_default_na=False)
+        control=control[control.group.eq(atom.group)&control.year.eq(2010)].iloc[0]
+        assert (int(control.printed_parent_or_complete_city_control),int(control.complete_selected_atomic_sum),int(control.difference_not_allocated))==(991170,991173,-3)
+        assert control.protected2010_difference_not_distributed and control.source_quality_difference_preserved
+        auxiliary_by_scope_year[(atom.group,2010)]=6
     for frame in [obs,members,points,edges]:
         assert frame.identity_axis.eq('published_complete_city_territory_scope').all()
         assert frame.boundary_comparability.eq('UNKNOWN').all()
@@ -131,6 +151,9 @@ def cities(folder,state,out,pin):
                 assert int(row['native_selected_population_sum'])==int(own.population.sum())
                 assert int(row['actual_published_auxiliary_member_count'])==int(auxiliary_population>0)
                 assert int(row['actual_published_atomic_constituent_count'])==len(own)+int(auxiliary_population>0)
+            if folder.name=='next_absorbed_city_closed_scopes_followup_application_20261008':
+                assert int(row['actual_published_auxiliary_population_sum'])==auxiliary_population
+                assert int(row['native_selected_population_sum'])==int(own.population.sum())
             assert set(own.source_record_id)==set(json.loads(row['source_record_ids_json']))
         lookup=dict(zip(frame.census_year,frame.observation_id));own_edges=edges[edges.group==group]
         assert set(zip(own_edges.from_observation_id,own_edges.to_observation_id))=={(lookup[2002],lookup[2010]),(lookup[2010],lookup[2021])}
@@ -228,7 +251,7 @@ def moscow_sourceyear_municipal(folder,state,out,pin):
 def build(E,state,ordinary,componentpoints,partition_ids,qualified_ids,named_ids,federal,national,common,out,pin):
     frames=[]; receipts=[]
     city_edges=[]; auxiliary_frames=[]
-    for dirname in ['large_absorbed_city_closed_scope_application_20261008','remaining_absorbed_city_published_closures_application_20261008','nakhoda_complete_published_scope_aux5_application_20261008','city_territory_mass_followup_application_20261008','city_territory_mass_final_two_application_20261008']:
+    for dirname in ['large_absorbed_city_closed_scope_application_20261008','remaining_absorbed_city_published_closures_application_20261008','nakhoda_complete_published_scope_aux5_application_20261008','city_territory_mass_followup_application_20261008','city_territory_mass_final_two_application_20261008','next_absorbed_city_closed_scopes_application_20261008','next_absorbed_city_closed_scopes_followup_application_20261008']:
         folder=E/dirname
         if (folder/'application_receipt.json').exists():
             receipt,obs,members,points=cities(folder,state,out,pin)
@@ -270,4 +293,4 @@ def build(E,state,ordinary,componentpoints,partition_ids,qualified_ids,named_ids
         byyear[year]={'finite_ordinary_partitions_qualified_named_federal_population':baseline,'territorial_net_population_added_by_exclusive_source_ID_union':final-baseline,'new_unique_selected_source_IDs':int(frame.source_record_id.isin(ids-before).sum()),'extended_complete_territorial_population':final,'official_national_control':int(national[year]),'common_three_census_control':int(common[year]),'percent_of_national_control':100*final/national[year],'percent_of_common_control':100*final/common[year],'gap_to_99_percent_common':max(0,math.ceil(.99*common[year])-final)}
     members['already_in_finite_ordinary_partitions_qualified_named_union']=members.source_record_id.isin(before)
     for name,frame in [('observations',obs),('constituents',members),('points',points)]:frame.to_csv(out/f'complete_territorial_scope_{name}.csv',index=False)
-    return {'status':'admitted_separate_complete_territorial_scopes','scopes':obs.scope_id.nunique(),'observations':len(obs),'native_constituent_references':len(members),'representative_scope_points':len(points),'ordinary_NP3_modified':False,'qualified_physical_series_modified':False,'named_merger_axis_modified':False,'boundary_comparability_asserted':False,'historical_individual_NP_point_coverage_asserted':False,'source_quality_limits':'City territories follow complete primary published source hierarchies by census year, with changed composition allowed. Transferred municipal scope uses primary native child rosters plus secondary own-municipality population/point witnesses and cached legal-agreement/own-article excerpts; an authenticated legal act roster is not asserted. Ryazan municipal2010 descriptive aggregate exceeds retained native constituents by1. Four further municipal/predecessor source-year rosters retain explicit changed compositions and protected-value discrepancies, with no fixed modern-boundary projection. Municipal2021 is nonadditive under the federal territory. Actual raw auxiliary leaves5 (Nakhoda2002 primary) and201 (Vladimir2010 confidentiality-protected secondary) complete their published scopes but retain blank selected native IDs and zero national additive credit; all protected source/control discrepancies remain unallocated. Five further municipality source-year scopes use independently published actual whole observations; the Mikhailovo-Yartsevskoye and Filimonkovskoye2010 rosters contain four raw UNKNOWN counts with blank selected native IDs. Finite native subtotals never reconstruct whole observations, unknowns are never zero-filled, and only2002 whole-parent population closure is asserted.','application_receipts':receipts,'by_year':byyear},ids
+    return {'status':'admitted_separate_complete_territorial_scopes','scopes':obs.scope_id.nunique(),'observations':len(obs),'native_constituent_references':len(members),'representative_scope_points':len(points),'ordinary_NP3_modified':False,'qualified_physical_series_modified':False,'named_merger_axis_modified':False,'boundary_comparability_asserted':False,'historical_individual_NP_point_coverage_asserted':False,'source_quality_limits':'City territories follow complete primary published source hierarchies by census year, with changed composition allowed. Transferred municipal scope uses primary native child rosters plus secondary own-municipality population/point witnesses and cached legal-agreement/own-article excerpts; an authenticated legal act roster is not asserted. Ryazan municipal2010 descriptive aggregate exceeds retained native constituents by1. Four further municipal/predecessor source-year rosters retain explicit changed compositions and protected-value discrepancies, with no fixed modern-boundary projection. Municipal2021 is nonadditive under the federal territory. Actual raw auxiliary leaves5 (Nakhoda2002 primary),201 (Vladimir2010 confidentiality-protected secondary) and6 (Perm2010 confidentiality-protected secondary, with unprinted raw type and alternative cell10 retained) complete their published scopes but retain blank selected native IDs and zero national additive credit; all protected source/control discrepancies remain unallocated. Five further municipality source-year scopes use independently published actual whole observations; the Mikhailovo-Yartsevskoye and Filimonkovskoye2010 rosters contain four raw UNKNOWN counts with blank selected native IDs. Finite native subtotals never reconstruct whole observations, unknowns are never zero-filled, and only2002 whole-parent population closure is asserted.','application_receipts':receipts,'by_year':byyear},ids

@@ -1,0 +1,125 @@
+{
+  "baseline_stage": 28,
+  "candidate_only": true,
+  "source_bound_edges_before_union": 34,
+  "batch_compatible_identity_edges": 33,
+  "candidate_point_uses": 30,
+  "new_finite_full_three_year_histories": 2,
+  "new_finite_full_three_year_populations": {
+    "2002": 26,
+    "2010": 29,
+    "2021": 45
+  },
+  "before": {
+    "2002": {
+      "denominator_selected_ordinary_population": 130111032,
+      "covered_population": 126429854,
+      "coverage_percent": 97.17074106367859,
+      "covered_rows": 137127,
+      "residual_rows": 20939,
+      "gap_to_99_percent": 2380068
+    },
+    "2010": {
+      "denominator_selected_ordinary_population": 125979957,
+      "covered_population": 123605305,
+      "coverage_percent": 98.11505571477532,
+      "covered_rows": 137130,
+      "residual_rows": 15182,
+      "gap_to_99_percent": 1114853
+    },
+    "2021": {
+      "denominator_selected_ordinary_population": 126087650,
+      "covered_population": 124194398,
+      "coverage_percent": 98.4984635687952,
+      "covered_rows": 137129,
+      "residual_rows": 17263,
+      "gap_to_99_percent": 632376
+    }
+  },
+  "after": {
+    "2002": {
+      "denominator_selected_ordinary_population": 130111032,
+      "covered_population": 126429880,
+      "coverage_percent": 97.17076104661133,
+      "covered_rows": 137129,
+      "residual_rows": 20937,
+      "gap_to_99_percent": 2380042
+    },
+    "2010": {
+      "denominator_selected_ordinary_population": 125979957,
+      "covered_population": 123605334,
+      "coverage_percent": 98.11507873431009,
+      "covered_rows": 137132,
+      "residual_rows": 15180,
+      "gap_to_99_percent": 1114824
+    },
+    "2021": {
+      "denominator_selected_ordinary_population": 126087650,
+      "covered_population": 124194443,
+      "coverage_percent": 98.49849925825409,
+      "covered_rows": 137131,
+      "residual_rows": 17261,
+      "gap_to_99_percent": 632331
+    }
+  },
+  "actual_net_population_gain": {
+    "2002": 26,
+    "2010": 29,
+    "2021": 45
+  },
+  "actual_net_rows_gain": {
+    "2002": 2,
+    "2010": 2,
+    "2021": 2
+  },
+  "outcomes": {
+    "Raw point shared by distinct historical codes": 2298,
+    "No valid exact raw own point for bound historical code": 1674,
+    "Historical own code/name/type/source context not uniquely bound": 22894,
+    "Actual selected coordinate candidate conflicts": 68,
+    "Known event or qualified scope lineage": 23,
+    "No unique physical current candidate within 5 km": 2397,
+    "Already joined": 3768,
+    "Indistinguishable same-year native old source rivals": 480,
+    "Real repeated census year component": 102,
+    "Existing admitted component point conflict": 55,
+    "Known wrong raw point source exclusion": 20,
+    "New point would collide with another same-year record": 44,
+    "Railway counterpart lacks own populated-locality class": 3
+  },
+  "candidate_old_observations": {
+    "2002": {
+      "rows": 29,
+      "population": 2512
+    },
+    "2010": {
+      "rows": 5,
+      "population": 1867
+    }
+  },
+  "spatial_rule": "All exact name/region current physical alternatives within 5 km considered before graph filtering; historical own code/name/type/source county bound before spatial search",
+  "independence_interpretation": "Each record has its own binding, independent of proposed edge; same original provider is allowed",
+  "input_pins": {
+    "/workspace/settlements-work/coordinates/historical_named_candidates_v4/all_historical_named_objects.parquet": "e2e6a2401050f88199db65f8a26afe410b4a47c3fb9b0e694f7ce7dccd878186",
+    "/workspace/settlements-work/sources/raw_okato_2009_verification_v1/raw_classifier.parquet": "343c0f5af1f52b9276699d9fe8d883b58def5aeabdd904063389606d29bc2b81",
+    "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+    "/workspace/settlements-work/wikidata/wide_v5/wide_point_bindings.parquet": "f59e2a1f26b7165ffccca2d118e04f8507f1c346b27ccf2e82d4c65879c33143",
+    "/workspace/settlements-work/secondary_2010_county_context_batch_20261007/all_selected_competitor_county_context.csv.gz": "6c298187ef2b583d531070a8352d293920f30b267ae8d44530141d08ed3839d5",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/direct_old_geokladr_point_reserve_20261007_spatial_review/suggested_raw_point_exclusion_keys.csv": "aab07a923e7e571cbf18aaff1b642d39f615c2b987a0ceda2f7e3a01dc0d5bcb"
+  },
+  "output_pins": {
+    "batch_holds.csv": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "candidate_source_bound_spatial_edges.csv": "712c52e2dcdf09873347feaa455121a01ccf6f5ba24631d9ad2c92fd4a025eb0",
+    "bounded_hard_holds.csv": "c88dc534a71442b9c60df730b17bcaad75103a97703ebd34bfb75a24fd1ad833",
+    "candidate_point_use_delta.csv": "3e490d5d8fa70ef48f9f4ca0cb7ddfb51f41b8c66eac9005e0fab0e072e0d9e4",
+    "candidate_identity_edge_delta.csv": "0168458725305c3dc81e7a968aa5541d33cf4505469597d25d62703825502291"
+  },
+  "scope": "Residual old observations population 0–2000 nationwide except Tula/Sverdlovsk; strict historical-code/own-point and all current exact-name-region alternatives",
+  "own_code_rivals_rule": "An explicit native old code distinguishes another old row only when both nonempty codes differ; missing code continues to block",
+  "cache_only_wikipedia_inventory": {
+    "files_examined": 197,
+    "table_entries_including_duplicates": 21,
+    "new_accepted_secondary_observations": 0,
+    "limitations": "Most genuine population tables are previously credited or low-population; Klimovsk and Kopeysk tables in inventory concern vital statistics or ethnicity, not total population. Historical 2020 table entries retained as 2020 and never retagged to2021."
+  }
+}

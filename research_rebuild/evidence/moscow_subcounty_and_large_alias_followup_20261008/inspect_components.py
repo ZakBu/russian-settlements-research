@@ -1,0 +1,10 @@
+import sys,json,re
+from pathlib import Path
+from collections import defaultdict
+import pandas as pd
+R=Path('/workspace/russian-settlements-research');sys.path.insert(0,str(R/'research_rebuild/mass_linkage'));from working_state_20261007 import load
+O=Path(__file__).parent;s=load(25);d=s.obs;focus=d[(d.settlement_name.str.contains('лежнев|центор|ахмат-юрт|гой-чу',case=False,regex=True))|((d.settlement_name.str.contains('дубровка',case=False))&d.region_norm.eq('брянская'))|((d.settlement_name.str.contains('комсомольское',case=False))&d.region_norm.eq('чеченская'))].copy();ids=set(focus.source_record_id);roots={s.uf.find(x) for x in ids};a=d[d.source_record_id.map(s.uf.find).isin(roots)].copy();a['component_years']=a.source_record_id.map(lambda x:json.dumps(sorted(s.years[s.uf.find(x)])));a['component_root']=a.source_record_id.map(s.uf.find);a['point_json']=a.source_record_id.map(lambda x:json.dumps(s.point_rows.get(x,{}),ensure_ascii=False));a.to_csv(O/'large_native_alias_components_stage25.csv',index=False);print(a[a.population.ge(1000)][['source_record_id','census_year','settlement_name','settlement_type','district_raw','population','component_years','component_root']].to_string(index=False))
+f=pd.read_csv(R/'research_rebuild/evidence/moscow_2002_printed_subcounty_mass_20261008/bounded200_source_header_code_resolution.csv',dtype=str);oldids=f[f.historical_own_okato.notna()].source_record_id.tolist();end=pd.read_csv(R/'research_rebuild/evidence/moscow_2002_printed_subcounty_mass_20261008/owncode_bound_current_endpoint_candidates.csv',dtype=str);m=[]
+for z in end.to_dict('records'):
+ sid,bid=z['old_source_record_id'],z['current_source_record_id'];r=dict(z,old_component_years=json.dumps(sorted(s.years[s.uf.find(sid)])),current_component_years=json.dumps(sorted(s.years[s.uf.find(bid)])),old_point_json=json.dumps(s.point_rows.get(sid,{}),ensure_ascii=False),current_point_json=json.dumps(s.point_rows.get(bid,{}),ensure_ascii=False),old_component_root=s.uf.find(sid),current_component_root=s.uf.find(bid));m.append(r)
+pd.DataFrame(m).to_csv(O/'moscow_all_endpoint_current_component_membership_stage25.csv',index=False)

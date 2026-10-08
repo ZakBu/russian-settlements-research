@@ -1,0 +1,19 @@
+from pathlib import Path
+import json,gzip,math,hashlib
+import pandas as pd,duckdb
+O=Path(__file__).parent;r=json.loads((O/'application_receipt.json').read_text())
+def sha(p):
+ with Path(p).open('rb')as f:return hashlib.file_digest(f,'sha256').hexdigest()
+for p,h in r['input_hashes'].items():assert sha(p)==h,p
+for p,h in r['outputs'].items():assert sha(O/p)==h,p
+q=pd.read_csv(O/'accepted_qualified_physical_observations.csv',keep_default_na=False);d=pd.read_csv(O/'accepted_working_temporal_year_observations.csv',keep_default_na=False);f=pd.concat([q,d]);assert len(f)==3*f.trajectory_id.nunique();assert not f[['trajectory_id','year']].duplicated().any();assert not f.ordinary_NP3_asserted.any();assert not f.boundary_comparability_asserted.any();assert set(f.year)=={2002,2010,2021};assert d.national_mixed_census_source_ID_credit_asserted.eq(False).all();assert not d.accepted_physical_three_observed_census_year_path.any();assert q.accepted_physical_three_observed_census_year_path.all();assert q.source_population_is_census_known.all();native=f[f.year.ne(2002)];secondary=f[f.year.eq(2002)];assert secondary.nonadditive_observation.all()and secondary.source_record_id.eq('').all();assert not native.nonadditive_observation.any();assert native.source_record_id.ne('').all();assert not native.source_record_id.duplicated().any()
+selected=Path('/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet');con=duckdb.connect(config={'threads':1,'memory_limit':'128MB'});obs=con.execute('select source_record_id,census_year,population,population_value_quality from read_parquet(?)where source_record_id in(select unnest(?))',[str(selected),list(native.source_record_id)]).fetchdf().set_index('source_record_id');assert len(obs)==len(native)
+for x in native.to_dict('records'):
+ s=obs.loc[x['source_record_id']];assert int(s.census_year)==int(x['year']);assert float(s.population)==float(x['population_source_value']);assert s.population_value_quality==x['population_quality']
+cache={}
+for x in secondary.to_dict('records'):
+ p=x['source_path']
+ if p not in cache:cache[p]=json.loads(gzip.decompress(Path(p).read_bytes()))['entities']
+ e=cache[p][x['wikidata_id']];st=next(st for st in e['claims']['P1082']if st['id']==x['statement_id']);assert float(st['mainsnak']['datavalue']['value']['amount'])==float(x['population_source_value']);dates=[v['datavalue']['value']for v in st.get('qualifiers',{}).get('P585',[])];assert any(v['time']==x['declared_date']and int(v['precision'])==int(x['source_date_precision'])for v in dates)
+ assert all(not(v['mainsnak'].get('datavalue',{}).get('value',{}).get('time','').startswith('+')and int(v['mainsnak']['datavalue']['value']['time'][1:5])>2002)for v in e.get('claims',{}).get('P571',[]))
+assert not d.loc[d.year.eq(2002),'source_population_is_census_known'].any();v={'status':'pins_actual_P1082_amount_date_precision_and_original_native_source_ID_count_quality_verified','application_receipt_sha256':sha(O/'application_receipt.json'),'verified_trajectories':f.trajectory_id.nunique(),'generic_display_only':d.trajectory_id.nunique(),'qualified_explicit_census':q.trajectory_id.nunique(),'new_native2002_credit':0,'ordinary_NP3_claimed':False,'generic_mixed_census_credit_claimed':False,'secondary_literal_zero_observations':int(secondary.population_source_value.eq(0).sum())};(O/'verification_receipt.json').write_text(json.dumps(v,ensure_ascii=False,indent=2));print(json.dumps(v,ensure_ascii=False))

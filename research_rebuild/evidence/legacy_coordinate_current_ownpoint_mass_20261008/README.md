@@ -1,0 +1,5 @@
+# Legacy auxiliary-coordinate/current-ownpoint inventory
+
+Explicit stage32 input pins. The selected native old rows have no raw lat/lon, so existing historical-named-candidate GeoKLADR coordinates are used only as auxiliary search corroboration. Their suggested provider/classifier binding is not admitted. All current accepted own locality points with the exact native name and region, including already full3 objects, are considered within5km before graph filtering. Native own leaf/type and positive printed/inherited source county or native own code are required; unresolved old source competitors, official-code contradictions, event scopes and component conflicts hold.
+
+5326 residual old-coordinate records remain outside Moscow/Chechnya.1622 satisfy the source-positive match rule, but1607 already have accepted same-place identity and all component points: their missing third census year cannot be invented through a coordinate edit. Only15 actionable edges remain (old2002 population282;old2010 population140); no mass application was made because the20k threshold is not met. Existing graph/points, raw counts, zeros and quality remain unchanged.
