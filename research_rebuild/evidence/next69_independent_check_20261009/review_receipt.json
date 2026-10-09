@@ -1,0 +1,388 @@
+{
+  "review": "next69_independent_check_20261009",
+  "date_utc": "2026-10-09",
+  "scope": "Independent bounded review of next69_temporal_20261009 and next69_lifecycle_points_20261009; no State.load, core writes, or frozen-packet changes.",
+  "results": {
+    "frozen_temporal_manifest_and_raw_workbook_source_hashes": true,
+    "2010_major_and_22_person_rival_raw_locators_rechecked": true,
+    "2010_major_neighbor_sequence_matches_2002_Kuznechikhinsky_group": false,
+    "22_person_rival_neighbor_sequence_matches_distinct_Glebovsky_group": true,
+    "all_279_targets_are_actual68_residual_members": true,
+    "all_target_roots_equal_actual68_state_observation_roots": true,
+    "all_279_targets_unpointed_in_actual68_point_snapshot": true,
+    "277_point_targets_and_2_holds_reconcile": true,
+    "all_277_donors_have_active_accepted_actual68_point_and_match_geometry": true,
+    "all_279_component_point_profiles_match_actual68_snapshot_geometry": true,
+    "3_deterministic_raw_donor_origin_records_rechecked": true,
+    "lifecycle_asset_manifest_matches": true
+  },
+  "all_pass": false,
+  "counts": {
+    "actual68_residual_primary_rows": 34443,
+    "lifecycle_target_membership_rows": 279,
+    "membership_not_in_residual": 0,
+    "point_targets": 277,
+    "held_targets": 2,
+    "targets_already_pointed": 0,
+    "target_root_mismatches": 0,
+    "donor_link_mismatches": 0,
+    "component_profile_geometry_mismatches": 0,
+    "donor_points": 141
+  },
+  "raw_workbook_evidence": {
+    "2010_rival_row_locator": "Data Sheet:18371",
+    "2010_rival_raw_row": "18369.0 | Ярославская | деревня Кузнечиха | 22.0 | 22.0",
+    "2010_major_row_locator": "Data Sheet:18436",
+    "2010_major_raw_row": "18434.0 | Ярославская | деревня Кузнечиха | 3158.0 | 3.0 | 3.0 | 163.0 | 16.0 | 2891.0 | 31.0 | 9.0 | 3.0 | 5.0 | 5.0 | 8.0 | 4.0 | 3.0",
+    "2010_major_neighborhood": [
+      "18432.0 | Ярославская | деревня Шепелево | 20.0 | 18.0",
+      "18433.0 | Ярославская | деревня Зманово | 3.0",
+      "18434.0 | Ярославская | деревня Кузнечиха | 3158.0 | 3.0 | 3.0 | 163.0 | 16.0 | 2891.0 | 31.0 | 9.0 | 3.0 | 5.0 | 5.0 | 8.0 | 4.0 | 3.0",
+      "18435.0 | Ярославская | деревня Бисерово | 4.0 | 4.0",
+      "18436.0 | Ярославская | деревня Борисово | 0.0"
+    ],
+    "2002_Kuznechikhinsky_rows": [
+      "5989.0 | деревня Зманово | 0",
+      "5990.0 | Кузнечихинский сельский округ | 4174",
+      "5991.0 | деревня Кузнечиха | 3296 | русские | 95.0",
+      "5992.0 | деревня Бисерово | 4 | русские | 75.0",
+      "5993.0 | деревня Борисово | 0"
+    ],
+    "2002_Glebovsky_rival_rows": {
+      "header": "5908.0 | Глебовский сельский округ | 1082",
+      "neighbors": [
+        "5921.0 | деревня Конищево | 3 | русские | 100.0",
+        "5922.0 | деревня Кувшинцево | 0",
+        "5923.0 | деревня Кузнечиха | 26 | русские | 100.0",
+        "5924.0 | деревня Малое Ноговицыно | 0",
+        "5925.0 | деревня Мартьянка | 0"
+      ]
+    },
+    "interpretation": "2010 literal village Kuznechikha (3158) matches the source-neighborhood around the 2002 Kuznechikhinsky group; the 22-person same-name row aligns with the distinct Glebovsky group, whose 2002 Kuznechikha is 26."
+  },
+  "donor_origin_spot_checks": [
+    {
+      "target": "2002:001_6e5cceefdf_02c_Belgorod-obl.xls:Sheet1:1014",
+      "donor": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:164709",
+      "locator": "ru/place-hamlet.ndjson:line:65505:osm_node:1507721900",
+      "osm_id_matches": true,
+      "coordinate_matches_delta": true,
+      "raw_name": "Новый Путь",
+      "pass": true
+    },
+    {
+      "target": "2002:053_f7f2b62d26_Samarskaja_new.xls:Sheet1:323",
+      "donor": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:114810",
+      "locator": "ru/place-hamlet.ndjson:line:60745:osm_node:1410236005",
+      "osm_id_matches": true,
+      "coordinate_matches_delta": true,
+      "raw_name": "Немчанка",
+      "pass": true
+    },
+    {
+      "target": "2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:8386",
+      "donor": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:130654",
+      "locator": "ru/place-hamlet.ndjson:line:27959:osm_node:1980515996",
+      "osm_id_matches": true,
+      "coordinate_matches_delta": true,
+      "raw_name": "Ефановка",
+      "pass": true
+    }
+  ],
+  "secondary_quality_hold": "2010 population exact scope remains unverified. This affects count-quality claims only; identity and point membership were checked independently.",
+  "known_review_note": "Root identified a v1 lifecycle projection issue where NULL population_scope could exclude otherwise canonical additive targets. This receipt verifies frozen point targets and actual68 geometry only; do not use v1 all-three or population projection. Root is preparing corrected projection v2.",
+  "actions_confirmed": "No State.load, core writes, reapplication, or edits to frozen next69 temporal/lifecycle packet files were performed.",
+  "inputs": [
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_temporal_20261009/packet_manifest.json",
+      "sha256": "dbedaca041503a9d4280ab133cecb527e5f1bf75425b3dcb4ddeb483e28fa21a",
+      "bytes": 2464
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_temporal_20261009/packet_manifest.sha256",
+      "sha256": "594be2926678bae7c03052ae39ec4460f52c9a183d862ef6ef08a89ab39c15a0",
+      "bytes": 87
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_temporal_20261009/accepted_identity_edge_delta.csv",
+      "sha256": "beb573958fe175f416bdeeccdd9988f6aa5944af58a08fbdd67f884b5a372628",
+      "bytes": 1444
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_temporal_20261009/accepted_point_use_delta.csv",
+      "sha256": "bd81dd930eadd84b014d845d1cb796941c9b279215a5cd97c0f89fc1e774aee1",
+      "bytes": 1299
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_temporal_20261009/source_context.csv",
+      "sha256": "5e41a9665fddc938c85adcc7121d94f9799f49b450c17613c57b1895b5768f7e",
+      "bytes": 4273
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_temporal_20261009/source_pins.json",
+      "sha256": "f7c57fd42ea25790f5b64904c894ca9d11ff05e7dd4cad28e31a00a9af539ac2",
+      "bytes": 1260
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_lifecycle_points_20261009/asset_manifest.json",
+      "sha256": "59fca57e6d21868d58a358336e11efa5b667a2eb1cef5868ace23d02b35bb85a",
+      "bytes": 1412
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_lifecycle_points_20261009/source_pins.json",
+      "sha256": "8614639be656fe022cccdec7bdbd8f27ce9355d18b99c98a4029adddb5637636",
+      "bytes": 7118
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_lifecycle_points_20261009/stage68_residual_target_membership.csv.gz",
+      "sha256": "ba343e6923fe265023607869c8d9ac337db82431403c0bab0cd5ffef991b0c48",
+      "bytes": 8719
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_lifecycle_points_20261009/accepted_point_use_delta.csv.gz",
+      "sha256": "2e93ff06b308431aea5ebfeda5a88c863ef2b495bb13b51e153eb91f55563f45",
+      "bytes": 29404
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_lifecycle_points_20261009/readonly_point_profiles.csv.gz",
+      "sha256": "205314a9759831b2ac5047c701456ee8d5d227434bddc9626ae0f018d131ade8",
+      "bytes": 4479
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_lifecycle_points_20261009/point_use_holds.csv.gz",
+      "sha256": "0362e72a419a7e10470509bdc5835a2f78c0bd36960e4c9a0d54cae59d08ef2e",
+      "bytes": 1195
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_remaining_primary.csv.gz",
+      "sha256": "de48168b15bd3989263048ca7ea73b26b5708743f16f8e9e6e8301a63d6df76b",
+      "bytes": 1444072
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_state_observations.parquet",
+      "sha256": "8cde620020634cf5ac9cfff145cc88c4d7365474cff56194b8a7137a43f6e0b9",
+      "bytes": 12774906
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_point_snapshot.parquet",
+      "sha256": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502",
+      "bytes": 19713572
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2002/017_6374fdddeb_02c_Yaroslavskaja.xls",
+      "sha256": "aebea7023a930ba1a2734427b4454c322fb21cf62891483b501431c25de448dd",
+      "bytes": 966144
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2010/011_040325482b_3._20Ryaz_Smol_Tambov_Tula_Jaroslavl_20L1_20ethn_2010.xls",
+      "sha256": "a3c69e68dfa35bfb0964a15f0f46b258500fab3e61ff3271ef9584e055d6efca",
+      "bytes": 9839104
+    },
+    {
+      "path": "/workspace/settlements-work/coordinate_first_20261008/sources/osm_geoapify_ru.zip",
+      "sha256": "3a7ffefa2f12c70b8adbf2e98f4a694110ba2dc2fb8180653dd0581d7d4734dc",
+      "bytes": 19883410
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/packet_receipt.json",
+      "sha256": "95f61a540664361a8f046fd4f64a7a8f1732fed602ad4cb04cde431e965a55ff",
+      "bytes": 3470
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/manifest.json",
+      "sha256": "959f529750dff24dc1da61d30efa25594b0a96676f8fdeb70d2cf323d3cacf31",
+      "bytes": 7136
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/input_pins.json",
+      "sha256": "5c9611a0d0f7e6be67cec6ecb297565a270c4dba4d93d25500c68d0164292d3a",
+      "bytes": 1911
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/live_exact_semkhoz_kerva.json.gz",
+      "sha256": "3546470adafe4a529d66e23266ba31b3b8885de0deff05874636e3d8ad5e71c2",
+      "bytes": 3686
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/native_raw_row_witnesses.csv",
+      "sha256": "bf0b42466aaad74a1b9c68c03438ff2323b75a483bea00572b5ccb40027c3b6f",
+      "bytes": 784
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/accepted_inclusion_events.csv",
+      "sha256": "df4ebbdaa64cbf405a008247a5dc9baf3fb9e997e20767bd117bbf068f70c6c3",
+      "bytes": 1346
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/accepted_included_in_event_edges.csv",
+      "sha256": "f16782e0a30f76ad7746441006e270f757624432c17ae5ed7e87e2351d2f5113",
+      "bytes": 1020
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/accepted_historical_observations.csv",
+      "sha256": "2a04b3bb97c8a953ccf529337faf18f1b8c3854eff695fc2ea9432ac69ea57b1",
+      "bytes": 1129
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/accepted_former_locality_own_points.csv",
+      "sha256": "78de76c22a7f30b4f53c3a5cd72df09f7a36a2b91b28479bb668c76676a4d36e",
+      "bytes": 1938
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/accepted_direct_event_native_credit_union.csv",
+      "sha256": "faf8fc77acd0399253e9704b28b104c3a8eb1915a9b13714f2c8b5ddd2dcd2ee",
+      "bytes": 458
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/actual_receiving_city_three_census_context.csv",
+      "sha256": "43ec7e4b93d995628cb2d0c714af60a0455dbc53728fed8178eda93b4af89300",
+      "bytes": 2094
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_primary_credited_UID_roster.csv.gz",
+      "sha256": "0a678e8f5572ff49bdd37632ff477741edc386d3245778dee0959e7d8624242a",
+      "bytes": 18792771
+    }
+  ],
+  "frozen_manifest_errors": [],
+  "lifecycle_asset_manifest_errors": [],
+  "event_packet_review": {
+    "all_event_input_hashes_match_packet_receipt": true,
+    "all_event_output_hashes_match_packet_receipt": true,
+    "both_native_counts_match_actual68_residual": true,
+    "event_native_source_IDs_not_previously_credited": true,
+    "official_2002_workbook_raw_rows_match_counts_and_names": true,
+    "own_article_points_and_2004_inclusion_rechecked": true,
+    "event_edges_are_non_union_included_in": true,
+    "unknown_boundary_and_open_roster_preserved": true,
+    "receiving_city_context_has_no_double_credit": true,
+    "typed_credit_5669_2002_only": true
+  },
+  "event_packet_review_raw_official_rows": [
+    {
+      "row": 1324,
+      "name_matches": true,
+      "population": 2862.0,
+      "population_matches": true
+    },
+    {
+      "row": 1391,
+      "name_matches": true,
+      "population": 2807.0,
+      "population_matches": true
+    }
+  ],
+  "event_packet_article_point_checks": [
+    {
+      "scope_id": "next69_included_семхоз",
+      "page_title": "Семхоз",
+      "page_revision": 154233536,
+      "expected_revision": 154233536,
+      "raw_point": [
+        56.28833,
+        38.06806
+      ],
+      "expected_point": [
+        56.28833,
+        38.06806
+      ],
+      "point_matches": true,
+      "inclusion_year_2004_text_present": true
+    },
+    {
+      "scope_id": "next69_included_керва",
+      "page_title": "Керва",
+      "page_revision": 153375010,
+      "expected_revision": 153375010,
+      "raw_point": [
+        55.61,
+        39.575
+      ],
+      "expected_point": [
+        55.61,
+        39.575
+      ],
+      "point_matches": true,
+      "inclusion_year_2004_text_present": true
+    }
+  ],
+  "receiving_city_no_double_count_check": {
+    "n": 6,
+    "all_source_IDs_in_existing_roster": true,
+    "all_context_only": true,
+    "all_new_credit_zero": true,
+    "already_baseline68_credit_true_all": true,
+    "children_not_substituted": true
+  },
+  "event_native_primary_status": {
+    "actual68_residual_rows": [
+      {
+        "source_record_id": "2002:1_TOM_01_04.xls:0:1324",
+        "population": 2862.0,
+        "is_additive_settlement_record": true
+      },
+      {
+        "source_record_id": "2002:1_TOM_01_04.xls:0:1391",
+        "population": 2807.0,
+        "is_additive_settlement_record": true
+      }
+    ],
+    "already_in_primary_roster_count": 0,
+    "typed_credit_by_year": {
+      "2002": 5669
+    }
+  },
+  "event_packet_pin_errors": {
+    "input_errors": [],
+    "output_errors": []
+  },
+  "event_packet_source_and_output_pins": {
+    "inputs": {
+      "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/live_exact_semkhoz_kerva.json.gz": "3546470adafe4a529d66e23266ba31b3b8885de0deff05874636e3d8ad5e71c2",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_state_observations.parquet": "8cde620020634cf5ac9cfff145cc88c4d7365474cff56194b8a7137a43f6e0b9",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_point_snapshot.parquet": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_remaining_primary.csv.gz": "de48168b15bd3989263048ca7ea73b26b5708743f16f8e9e6e8301a63d6df76b",
+      "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_primary_credited_UID_roster.csv.gz": "0a678e8f5572ff49bdd37632ff477741edc386d3245778dee0959e7d8624242a",
+      "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3"
+    },
+    "outputs": {
+      "accepted_included_in_event_edges.csv": "f16782e0a30f76ad7746441006e270f757624432c17ae5ed7e87e2351d2f5113",
+      "bounded_actual68_event_holds.csv": "0796539d6006ccd011e1aa479ee8d4492f58e0e25a6cb4c5d50f814465b019e5",
+      "actual_receiving_city_three_census_context.csv": "43ec7e4b93d995628cb2d0c714af60a0455dbc53728fed8178eda93b4af89300",
+      "accepted_available_year_statuses.csv": "ca45347f905cb3d17514ab8fec72d2766a84e171544299e0a2ff930ed977974d",
+      "literal_cached_positive_keyword_holds.csv": "ff6cc03cdaae40d08623c7e66768f961e55540f4769e895a3ad7e480bb532520",
+      "accepted_former_locality_own_points.csv": "78de76c22a7f30b4f53c3a5cd72df09f7a36a2b91b28479bb668c76676a4d36e",
+      "accepted_historical_observations.csv": "2a04b3bb97c8a953ccf529337faf18f1b8c3854eff695fc2ea9432ac69ea57b1",
+      "native_raw_row_witnesses.csv": "bf0b42466aaad74a1b9c68c03438ff2323b75a483bea00572b5ccb40027c3b6f",
+      "accepted_direct_event_native_credit_union.csv": "faf8fc77acd0399253e9704b28b104c3a8eb1915a9b13714f2c8b5ddd2dcd2ee",
+      "accepted_inclusion_events.csv": "df4ebbdaa64cbf405a008247a5dc9baf3fb9e997e20767bd117bbf068f70c6c3",
+      "literal_own_inclusion_source_excerpts.csv": "0e9d48ff8d4c7c373363ec9c44e8056781219078ef9ba782fc38cd4d9f27143e"
+    }
+  },
+  "planned_stage69_apply": {
+    "lifecycle_point_uses": 277,
+    "temporal_point_uses": 1,
+    "former_locality_own_point_uses": 2,
+    "distinct_point_targets": 280,
+    "target_rows": 280,
+    "all_unpointed_in_actual68_snapshot": true,
+    "all_in_actual68_residual": true,
+    "ordinary_same_place_edges": 1,
+    "event_inclusion_edges": 2,
+    "event_typed_credit_by_year": {
+      "2002": 5669
+    }
+  },
+  "application_approved": false,
+  "approval_scope": "Approve the planned 280 point uses and 1 ordinary same-place edge, plus two non-identity included_in event edges with 5,669 typed native credit in 2002 only. The lifecycle point delta and event packet were independently checked. Root must use corrected lifecycle projection v2 with canonical additive status. No population change, full-three gain, boundary comparability, or city-child substitution is approved.",
+  "application_hold_reasons": [
+    "One or more independent checks failed; see results, event_packet_review, and planned_stage69_apply."
+  ],
+  "output_pins": {
+    "independent_review.md": {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/next69_independent_check_20261009/independent_review.md",
+      "sha256": "1588d77cf4d403f1c6ca188a81db1c98be7355f9f7846ed4cf430e892d79c1f4",
+      "bytes": 2582
+    }
+  }
+}
