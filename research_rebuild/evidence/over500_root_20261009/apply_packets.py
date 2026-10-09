@@ -8,6 +8,71 @@ M = ROOT / 'research_rebuild/mass_linkage'
 sys.path.insert(0, str(M))
 from working_state_20261007 import load
 
+def append_reviewed_observations(state, observation_paths):
+    """Restore actual omitted source leaves, never synthesize an absent census."""
+    added = []
+    for path in observation_paths:
+        frame = pd.read_csv(path, keep_default_na=False)
+        assert frame.source_record_id.is_unique
+        assert not set(frame.source_record_id) & set(state.obs.source_record_id)
+        for row in frame.to_dict('records'):
+            sid = row['source_record_id']
+            year = int(row['census_year'])
+            pop = float(row['population'])
+            assert year in {2002, 2010, 2021} and math.isfinite(pop) and pop >= 0
+            assert row.get('source_sha256') and row.get('source_locator')
+            assert row.get('population_value_quality')
+            assert str(row['is_additive_settlement_record']).lower() == 'true'
+            physical = Path(row['source_path'])
+            assert physical.is_file(), 'Restored observation requires its original captured source'
+            with physical.open('rb') as stream:
+                assert hashlib.file_digest(stream, 'sha256').hexdigest() == row['source_sha256']
+            state.uf.parent[sid] = sid
+            state.years[sid] = {year}
+            added.append(sid)
+        frame['census_year'] = frame.census_year.astype(state.obs.census_year.dtype)
+        frame['population'] = frame.population.astype(state.obs.population.dtype)
+        frame['is_additive_settlement_record'] = True
+        frame['root'] = frame.source_record_id
+        for column in ['latitude', 'longitude']:
+            if column in frame:
+                frame[column] = pd.to_numeric(frame[column], errors='coerce')
+        state.obs = pd.concat([state.obs, frame.reindex(columns=state.obs.columns)], ignore_index=True)
+        state.by_id = state.obs.set_index('source_record_id', drop=False)
+        state.inputs.append(path)
+    return added
+
+def apply_reviewed_component_partitions(state, partition_paths):
+    """Supersede a proved wrong component with an exact, UID-preserving partition."""
+    changed = []
+    for path in partition_paths:
+        for row in pd.read_csv(path, keep_default_na=False).to_dict('records'):
+            assert row['admission_status'] == 'reviewed_wrong_identity_component_partition_correction'
+            proof = ROOT / row['source_binding_proof']
+            with proof.open('rb') as stream:
+                assert hashlib.file_digest(stream, 'sha256').hexdigest() == row['source_binding_proof_sha256']
+            before = json.loads(row['expected_before_members_JSON'])
+            after = json.loads(row['after_partition_JSON'])
+            assert len(before) == len(set(before)) and before
+            assert all(sid in state.by_id.index for sid in before)
+            old_root = state.uf.find(before[0])
+            actual = set(state.obs.loc[state.obs.source_record_id.map(state.uf.find).eq(old_root), 'source_record_id'])
+            assert actual == set(before), 'Correction must match the complete actual baseline component'
+            flat = [sid for group in after for sid in group]
+            assert len(flat) == len(set(flat)) and set(flat) == actual
+            assert len(after) > 1 and all(group for group in after)
+            state.years.pop(old_root)
+            for sid in before:
+                state.uf.parent[sid] = sid
+                state.years[sid] = {int(state.by_id.loc[sid, 'census_year'])}
+            for group in after:
+                for sid in group[1:]:
+                    state.union(group[0], sid)
+            changed.append({'before': before, 'after': after, 'proof_packet': str(path)})
+        state.inputs.append(path)
+    state.obs['root'] = state.obs.source_record_id.map(state.uf.find)
+    return changed
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--recipe', required=True)
@@ -30,14 +95,16 @@ def main():
         declared_point_ids.update(pd.read_csv(path, usecols=['target_source_record_id']).target_source_record_id)
     original_declared_points = {sid: (state.point_rows[sid]['latitude'], state.point_rows[sid]['longitude'])
                                 for sid in declared_point_ids if sid in state.point_rows}
-    for path in [recipe_path] + paths('edges') + paths('points') + paths('scope_overlays') + paths('point_rejections'):
+    for path in [recipe_path] + paths('edges') + paths('points') + paths('scope_overlays') + paths('point_rejections') + paths('observations') + paths('component_partitions'):
         with path.open('rb') as stream:
             digest = hashlib.file_digest(stream, 'sha256').hexdigest()
         pins[str(path)] = {'sha256': digest, 'bytes': path.stat().st_size}
+    additional_observation_ids = append_reviewed_observations(state, paths('observations'))
+    component_partitions = apply_reviewed_component_partitions(state, paths('component_partitions'))
     for path in paths('point_rejections'):
         state.reject_point_uses(path)
     state.add_deltas(edge_paths=paths('edges'), point_paths=paths('points'))
-    pd.testing.assert_frame_equal(original, state.obs.drop(columns=['root']))
+    pd.testing.assert_frame_equal(original, state.obs.iloc[:len(original)].drop(columns=['root']))
     point_delta_ids = set(state.point_rows) - before_points
     base = ROOT / 'publication/stage71'
     scopes = [pd.read_csv(base / 'accepted_large_record_scope_classification_overlay.csv', keep_default_na=False)]
@@ -82,6 +149,8 @@ def main():
     receipt = {
         'base_stage': 71, 'working_stage': 72, 'threshold_strictly_greater_than': 500,
         'raw_counts_source_metadata_unchanged': True,
+        'restored_actual_omitted_source_leaf_observations': len(additional_observation_ids),
+        'proved_wrong_identity_component_partitions_superseded': component_partitions,
         'whole_NP_source_year_records': len(eligible),
         'new_ownpoint_uses': len(point_delta_ids),
         'existing_ownpoint_coordinate_replacements': sum(old != (state.point_rows[sid]['latitude'], state.point_rows[sid]['longitude'])

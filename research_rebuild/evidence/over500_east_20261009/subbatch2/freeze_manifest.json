@@ -1,0 +1,95 @@
+{
+  "baseline_stage": 71,
+  "assigned_records": 235,
+  "accepted_edge_rows": 5,
+  "accepted_point_rows": 4,
+  "native_source_assets": [
+    {
+      "path": "/workspace/settlements-raw/data/raw/2002/051_46e3ecb0a0_02c_Permskaja_obl.xls",
+      "sha256": "1ef634a17c460b264838974e4de20de6ec78737314addb3f1c60b5e73058385b"
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2002/066_76aa869929_Altai_krai1.xls",
+      "sha256": "125d9d9dd5f089c0e610f2cb4ec9b77c204aebda058730bb08292e3060e6097a"
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2002/086_3c3b73a0d2_EvrejskajaAO.xls",
+      "sha256": "2cffde46129370d86539f8978fd8d17ab4e5338a213ab4e9baf62e66e2159299"
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2010/009_81f8a0e73c_17._20ДВ_ФО_2010.xls",
+      "sha256": "a8fd7aa55513e73a205ebff1da2ce35fd8ca0f61c286e54491cf49c6132470c4"
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2010/016_802d308e41_8._20Or_Penz_Perm_Samar_Saratov_Uly_2010.xls",
+      "sha256": "754aae620807b1275e59fc7bf8ce086ca91e7ec863d4d304f5a0a8b228a8d990"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/dev/shm/over500-20261009/residual.csv",
+      "sha256": "2024d7b2343482d9c0d568a9ccf9048d3909083c714bb55287b681d126ec78eb"
+    },
+    {
+      "path": "/dev/shm/settlements-stage71-20261009/applied_state_observations.parquet",
+      "sha256": "bd195dcf60a283c8286e410b507a983a2e6a9b3506a535a2ee3df45aeb332a54"
+    },
+    {
+      "path": "/dev/shm/settlements-stage71-20261009/applied_component_snapshot.csv.gz",
+      "sha256": "8e622b6499a0da0efd98db83a243b56301408714e2860ec00985d2adfe669f70"
+    },
+    {
+      "path": "/dev/shm/settlements-stage71-20261009/applied_point_snapshot.parquet",
+      "sha256": "2b009a07c3e1224f61166aa82b3141dbfb0ccb12b03bf837e5c52ff3d18d2185"
+    }
+  ],
+  "frozen_files": [
+    {
+      "name": "accepted_identity_edge_delta.csv",
+      "bytes": 3667,
+      "sha256": "21b7b59d85259a60a235a7060a7799a9f8056404ba8c718cf82101d64c606e02"
+    },
+    {
+      "name": "accepted_point_use_delta.csv",
+      "bytes": 3293,
+      "sha256": "50de29374da82a0a997ed3952e8afd65617cd6f285cb241ab151e94208c5b70d"
+    },
+    {
+      "name": "assigned.csv",
+      "bytes": 102905,
+      "sha256": "98025b83a50a708934860c7c94c171e55a8c054c3cabfdee295a5aadeeb6a23b"
+    },
+    {
+      "name": "build_batch.py",
+      "bytes": 8257,
+      "sha256": "5b13b7bea0a9bc49c233e40a99be94d9711ba59fc91bb96f5e3ecc0950e46b6f"
+    },
+    {
+      "name": "freeze.py",
+      "bytes": 3343,
+      "sha256": "a5bddee7078d212076a9cf35a0ec38a4513f80ff5497221e90f9d695173975dc"
+    },
+    {
+      "name": "identity_witnesses.json.gz",
+      "bytes": 866,
+      "sha256": "4c92901668be271ef99fa185863bdf6cf6a7e75429959b110835ecc6dcf215f4"
+    },
+    {
+      "name": "native_source_row_witnesses.json.gz",
+      "bytes": 1410,
+      "sha256": "2056805f0cb2c137240c55b760da58f4f6182c83e0782c98a7798886da0d08e7"
+    },
+    {
+      "name": "record_dispositions.csv",
+      "bytes": 43458,
+      "sha256": "05b006cd88ff25911c93fb02749cd7e9d1061a1e6a6515c85031527126161fe9"
+    }
+  ],
+  "validation": {
+    "all_delta_ids_in_stage71": true,
+    "new_components_one_record_per_year": true,
+    "point_donors_accepted_stage71_origins": true,
+    "point_conflicts_maximum_5km_guard": true
+  },
+  "use_conditions": "Retrospective own-locality representative points only. No historical census-coordinate measurement, exact boundary equivalence, or population modification. Same_place requires unique source county/name/type or narrow two-sided accepted native order anchors; typed parts and combined rows remain held."
+}

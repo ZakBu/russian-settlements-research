@@ -1,0 +1,11 @@
+# Vozrozhdenie representative-point correction review
+
+Positive bounded review: replace the two existing2010/2021 native point uses at55.1081449,38.8673108 with the directly quoted own qualified Kolomna locality article point55.17028,38.65. Separation is15.443km. Existing2010–2021 identity remains accepted; raw counts and quality remain unchanged. No provider identifier is inferred from proximity.
+
+The article page551956 revision147489198 directly publishes the coordinates, own code46222819020, Kolomensky/Nepetsino context and geography northwest of Kolomna. The exact historical2009 classifier line97710 names `п Возрождение`, code46222819020; parent46222819 is Непецинский. Original2002 sourceB2449 identifies Непецинский сельский округ under Коломенский район atB2366;B2477 names посёлок Отделения "Возрождение", count599. Original2010D10257 names посёлок Возрождение, count574. Native2021 row67448 (1-based) names the Kolomna settlement, count434, OKTMO46738000206. Stage71 already links2010/2021 and applies the same inherited2021 DaData claim to both.
+
+The Moscow-region namesake is a **village in Stupino**, with different native type, codes and accepted component. It is not the Kolomna settlement. Its point and graph are outside this correction. The2002 ownership-designator extension has matching original county/subcounty context, but no prior2002 point exists to reject; correction approval specifically concerns the existing2010/2021 claims.
+
+Use the old exact origin ledger hashes and target IDs in the Moscow packet's rejection rows; retain the rejected source claims as provenance. Do not copy its unsupported compass phrase "southeast of Kolomna": the directly demonstrated displacement is15.443km between old and own-locality points. The replacement is a modern representative point; census-date measurement and boundary equivalence remain unasserted.
+
+`review_receipt.json` records exact source cells, article revision, classifier strings, native identifiers and decision scope. `input_manifest.json` pins original sources, State snapshots and relevant packet bytes. `native_namesake_inventory.csv` lists the distinct namesakes. `review.py` reproduces the checks. No root State or Moscow packet files were modified.

@@ -1,0 +1,11 @@
+# Инхело bounded representative-point correction review
+
+Positive review: the existing2010 point42.620046,46.329182 is in the mountain cluster and conflicts with the source-bound plain locality. Replace that representative use with own article page3733983 revision153648575 point43.46917,46.61278, consistent with the already accepted2021 point43.469167,46.612778. Displacement is97.190km. Preserve the original GeoKLADR coordinate as a rejected source claim, not an identity rejection.
+
+The printed Ахвахский район is administrative registration/ownership, not proof of physical mountain location. Original2002 source names `Инхело (Новое Инхело)` at2002!A210, count796 atB210, and explicitly records `в Хас. р-не; каратинцы` atK210. It sits under Ахвахский район atA196 and Верхнеинхелинский council atA205. The own article independently states that the locality lies physically in Хасавюртовский район,24km north of Хасавюрт, by the Kutan channel and Кирпич-Кутан, while belonging administratively to Ahvakh/Verkhneinkhelinsky.
+
+Original2010E118:I118 separately names Ахвахский район, Верхнеинхелинский, село Инхело,841. Upper Inkhelo is a different rowH115,400. Native2021 row16284 has its own name/code82605415106 and same council; Upper Inkhelo is row16283 with code82605415101. Lower Inkhelo belongs to Botlikh and remains a separate native component. Stage71 already links the2010 plain-locality observation to the2021 observation. The raw2010 workbook itself contains different mountain enrichment coordinates inB118:C118; preserve those raw claims and do not treat them as original census-date measurements or stronger place binding than the explicit locality evidence.
+
+The article's formation date17.08.1989 supports a pre2002 plain locality but is a secondary citation; this review did not reopen the decree and does not independently admit an exact legal lifecycle event. Modern representative coordinate reuse in2010 is explicit continuity inference. No census-date coordinate measurement, boundary equivalence or provider-ID binding is asserted.
+
+`review_receipt.json` records original source cells, exact old ledger and coordinate-origin hashes, own article revision, native namesakes and bounded acceptance. `input_manifest.json` pins physical bytes. `review.py` reproduces the checks. No point/edge/root-state/other-packet mutation was made.
