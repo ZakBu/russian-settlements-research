@@ -40,3 +40,13 @@ The initial Bash packet claims were filtered by canonical replay: two conflictin
 ## Latest actual batch3 (supersedes batch2 metrics)
 
 Applied working coverage **99.461764% /99.380121% /99.646629%**; remaining threshold cohort **183 =82/63/38**. Batch3 is consolidated over the regional parent and includes batch2: its99 sourceUID additions and84,717/50,461/46,622 effective population gains must not be added again to batch2. The complete 2002 partitions behind joint Kora-Ursdon and Kamennomost reporting units use explicitly coarse joint spatial associations, exact old-part centers UNKNOWN, and population-scope equivalence exclusions. No legal merger date or ordinary same-year identity union is asserted. The last full release remains68.
+
+## Latest actual batch12 (supersedes earlier incremental metrics)
+
+| Year | Represented population | Fixed control | Working coverage | Residual population |
+|---|---:|---:|---:|---:|
+|2002|144,511,609|145,166,731|99.548711%|655,122|
+|2010|142,064,521|142,856,536|99.445587%|792,015|
+|2021|144,254,724|144,699,673|99.692502%|444,949|
+
+Remaining raw OR approved-primary >1000 cohort: **13=5/6/2 native source-year records**. Criterion not yet met. All1273 input hashes verified. Receipt and exact roster: `research_rebuild/evidence/main_axis_residual_application70_batch12_20261009/`. Batches are consolidated, not additive gains across versions. Missing historical individual counts remain unknown; explicitly coarse joint associations and available-year scope paths do not imply ordinary comparable three-year own-NP histories. Osinovsky117340 proposed municipality endpoint was held; corrected true NP117341 packet awaits final composition. Last full release remains68.

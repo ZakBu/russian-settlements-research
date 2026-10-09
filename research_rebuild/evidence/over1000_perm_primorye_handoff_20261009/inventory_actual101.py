@@ -1,0 +1,6 @@
+from pathlib import Path
+import pandas as pd,json,duckdb
+O=Path(__file__).parent.resolve();E=O.parent;B=E/'main_axis_residual_application68_20261008';c=duckdb.connect();d=c.execute("select * from read_parquet(?) where region_norm in ('пермский','приморский')",[str(B/'applied_state_observations.parquet')]).fetchdf();p=c.execute("select * from read_parquet(?) where target_source_record_id in (select source_record_id from read_parquet(?) where region_norm in ('пермский','приморский'))",[str(B/'applied_point_snapshot.parquet'),str(B/'applied_state_observations.parquet')]).fetchdf();d.to_csv(O/'all_native_perm_primorye_baseline68.csv.gz',index=False);p.to_csv(O/'all_ownpoint_perm_primorye_baseline68.csv.gz',index=False)
+q=d[d.name_norm.str.contains('ергач|краснояр|вильва|шумн|хвалын|авангард',na=False)].copy();q.to_csv(O/'target_all_alias_rivals_native_inventory.csv',index=False);pids=set(p.target_source_record_id)
+for r in q.itertuples():print(r.census_year,r.source_record_id,r.settlement_name,r.settlement_type,r.district_raw,r.population,r.root,'point',r.source_record_id in pids)
+(O/'snapshot_receipt.json').write_text(json.dumps({'baseline_stage':68,'handoff_actual_remaining_count':101,'native_rows':len(d),'point_rows':len(p)},indent=2))
