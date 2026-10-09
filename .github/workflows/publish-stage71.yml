@@ -1,0 +1,34 @@
+name: Publish verified stage71 full data
+on:
+  push:
+    branches: [research/mass-linkage-2026-10-02]
+    paths:
+      - publication/stage71/**
+      - .github/workflows/publish-stage71.yml
+permissions:
+  contents: write
+concurrency:
+  group: publish-settlements-stage71
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Verify full local assets
+        run: python scripts/verify_release_assets.py --manifest publication/stage71/release-assets-manifest.json --asset-dir publication/stage71
+      - name: Upload and independently verify remote bytes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          tag=working-settlements-stage71-2026-10-09
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            gh release create "$tag" --target "$GITHUB_SHA" --title "Working settlements stage71 — large-locality cohort resolved" --notes-file publication/stage71/README.md --draft
+          fi
+          gh release edit "$tag" --target "$GITHUB_SHA" --notes-file publication/stage71/README.md
+          gh release upload "$tag" publication/stage71/* --clobber
+          mkdir "$RUNNER_TEMP/stage71-readback"
+          gh release download "$tag" --dir "$RUNNER_TEMP/stage71-readback"
+          python scripts/verify_release_assets.py --manifest publication/stage71/release-assets-manifest.json --asset-dir "$RUNNER_TEMP/stage71-readback"
+          gh release edit "$tag" --draft=false --latest

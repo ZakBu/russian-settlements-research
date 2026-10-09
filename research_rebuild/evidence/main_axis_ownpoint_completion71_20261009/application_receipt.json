@@ -1,0 +1,344 @@
+{
+  "status": "actual_State_API_ownpoint_application",
+  "working_stage": "71_ownpoint_completion",
+  "new_own_point_uses": 185,
+  "all_native_records_above_threshold_have_ownpoint_after_scope_classification": true,
+  "remaining_whole_NP_over1000_without_ownpoint": 0,
+  "explicit_part_admin_territory_scope_exemptions": 38,
+  "raw_population_quality_and_identity_graph_unchanged": true,
+  "effective_primary_coverage": {
+    "2002": {
+      "population": 144520173,
+      "control": 145166731,
+      "coverage_percent": 99.55461007109129,
+      "remaining": 646558
+    },
+    "2010": {
+      "population": 142072036,
+      "control": 142856536,
+      "coverage_percent": 99.45084766720089,
+      "remaining": 784500
+    },
+    "2021": {
+      "population": 144260303,
+      "control": 144699673,
+      "coverage_percent": 99.69635729584544,
+      "remaining": 439370
+    }
+  },
+  "input_pins": {
+    "/workspace/russian-settlements-research/publication/stage70/applied_state_observations.parquet": {
+      "sha256": "bd195dcf60a283c8286e410b507a983a2e6a9b3506a535a2ee3df45aeb332a54",
+      "bytes": 12773784
+    },
+    "/workspace/russian-settlements-research/publication/stage70/applied_component_snapshot.csv.gz": {
+      "sha256": "8e622b6499a0da0efd98db83a243b56301408714e2860ec00985d2adfe669f70",
+      "bytes": 2803358
+    },
+    "/workspace/russian-settlements-research/publication/stage70/applied_point_snapshot.parquet": {
+      "sha256": "c9d584958266450086f471ae6e4f1c1c34d69740d347a3ef700b45be785b57c0",
+      "bytes": 20506455
+    },
+    "/workspace/russian-settlements-research/publication/stage70/applied_primary_credited_UID_roster.csv.gz": {
+      "sha256": "7c95eeea43794e919d5a48e06d76d07b8b9661dbf696f6f647b0da7d7f50a1c1",
+      "bytes": 15100878
+    },
+    "/workspace/russian-settlements-research/publication/stage70/application_receipt.json": {
+      "sha256": "aeaed5b9607e6651490b8a21c0ea6da8ec3cc8d475afe79be7c3c21bd766cb7e",
+      "bytes": 352821
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/large_ownpoint_scope_disambiguation_20261009/scope_overlay.csv": {
+      "sha256": "38b51c29fa01c6184a3ad5c310ed4b55415ca38b0f8be3e18c87303a57a75114",
+      "bytes": 36580
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/exact_native_UID_cached_ownpoint_claim_hits.csv": {
+      "sha256": "dac8c30240f9655c26f6aed7c3382225487e6d75b3fa091ee94a2edcb76929c8",
+      "bytes": 86
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/moscow_final_two_exact_ownwiki_batch.json.gz": {
+      "sha256": "37dbab986c9c0e1897d7e7db6f7975f37944750307a5022608adf08c2f33295a",
+      "bytes": 2055
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/fetch_final_two.py": {
+      "sha256": "3495c48efad99db7bcf79b01b83fbc99c8618f7297a918fa9ae646c104615ae9",
+      "bytes": 1384
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/README.md": {
+      "sha256": "2a186b58feccfb18c482d3a7241ba33527aa199dfd4e317a0d779daf6cf60493",
+      "bytes": 2168
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/Sovkhoz1May_external_search.html.gz": {
+      "sha256": "41ae5ac696b921f90d24c7efa516d9945cac402ec843c74d8582c8253fbf41c8",
+      "bytes": 46475
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/north_exact_roster.csv": {
+      "sha256": "05d835b5c453208246b8142c42c6af0a4ba113e1645ad062aa9d3b7306da095a",
+      "bytes": 12992
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/replay_point_delta.py": {
+      "sha256": "7749911801dba37dc8fb70bc7d5df85fc153c6dd2eb236ee18c8a24737ad088a",
+      "bytes": 1788
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/build_moscow_points.py": {
+      "sha256": "de6af65e6cd6808b8774136e7c3dd65a5b6ac9a86b5952a3dec05e55e8f5dba5",
+      "bytes": 9268
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/Sovkhoz1May_bing_search.html.gz": {
+      "sha256": "be7dc4defb19ffc6ccdd93fc0e6248301dfd657bb0f63536966fdf6516b2106f",
+      "bytes": 42647
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/east_exact_roster.csv": {
+      "sha256": "bf60fa63f66374f33ef22abeecec4abd95c0af91fb14072496b93130efb9d9df",
+      "bytes": 18107
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/all_raw_or_primary_over1000_without_State_ownpoint.csv": {
+      "sha256": "e689d89e1be4d69183c3ab220da7c9f6f9ebda220ee8fdf2bb2fe36c1eca87eb",
+      "bytes": 86177
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/Sovkhoz1May_primary_map_owncompound_crop.png": {
+      "sha256": "5b277ae33909f424f6118000e0db3e0c77e4496cb63da950041be82c784fb05a",
+      "bytes": 633378
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/fetch_remaining_batch.py": {
+      "sha256": "e4b700717980e2f3c54ecf6dcb9d8022f17c9db4b7431b8c69f8d23301db6837",
+      "bytes": 1974
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/Sovkhoz1May_current_OSM_owncompound.json": {
+      "sha256": "667f8ed0e7ec9e0b8687891c85cca6ec9fd771262da2bfa13dbe81b5220b431a",
+      "bytes": 2171
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/final_two_search0.json.gz": {
+      "sha256": "b52364ecc85d2f570909bf26789e58319dc697c5d0628383669089fcf6bdb495",
+      "bytes": 1457
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/search_remaining.py": {
+      "sha256": "19e7c4c898a62bcd5311ce5c0d88f1a2bc22c83e55228da4f8d8cb9a35029a51",
+      "bytes": 1034
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/canonical_point_replay_receipt.json": {
+      "sha256": "a3af71e963ecf8e0bb54084dbdf7ce5b1ee653bff9f1c153afad5dae02e9b471",
+      "bytes": 394
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/moscow2011_ownphysical_candidate_inventory.csv.gz": {
+      "sha256": "841872a9bfea6749f59ec699262aa6218715cf700de300f6257fd3b5f7ccf8b9",
+      "bytes": 308197
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/inspected_point_file_inventory.json": {
+      "sha256": "9bc6466050bc5395142bdc6d2c02376316d4090ec252350984779272e27a9e3a",
+      "bytes": 44156
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/Sovkhoz1May_N37_004_primary_map.jpg": {
+      "sha256": "f1f8c9dc1da4dec2213a8f59fc22c500d1a455cc9ae8bec2e377a276c538c701",
+      "bytes": 3029405
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/root_exact_roster.csv": {
+      "sha256": "1e3ad7a8060daf598771805040c49c488ea0efd1d6a6b35f4f89a622721f220a",
+      "bytes": 3216
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/actual_final_credited_over1000_missing_State_ownpoint.csv": {
+      "sha256": "6b425b5d479ee9014e4b64f16dcd9aa97a484a2760fa27cddc1ef8579fd40793",
+      "bytes": 106167
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/moscow_exact_ownwiki_http_receipt.json": {
+      "sha256": "e47dbb90dec421235c1981b8b85e3ae94fc5607cecaf21a88f8f1aeb9ea0a6e4",
+      "bytes": 63
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/inventory.py": {
+      "sha256": "48f6744c400cf6ae94cec5b0ac0eb736c7310529214c7be7b0de7542f4824344",
+      "bytes": 2450
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/final_two_search1.json.gz": {
+      "sha256": "85180d471ac921186963c653781280b5b991526e9f24dfe0f4631ce255a8242d",
+      "bytes": 1656
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/moscow_exact_roster.csv": {
+      "sha256": "e371e8a2770dfb3c3a4bdab6ecc5e51c1b19bc14027654a4b65fc7df22fa3ce2",
+      "bytes": 27182
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/fetch_moscow.py": {
+      "sha256": "ac5261ced221d22653ffabf13526a535c9bd11d137537eca1bf71bdf935f449c",
+      "bytes": 2309
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/classified_missing_ownpoint_inventory.csv": {
+      "sha256": "273fa1edf951cad3153b31b30e2131fca50c9866841fe119aeb95ba644eb0563",
+      "bytes": 116749
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/FINAL_manifest.json": {
+      "sha256": "03cad8665b0180c04c4d2ca5f1928dd50999834ea9e9364798a9204293b171b4",
+      "bytes": 5920
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/Moscow_remaining_point_holds.csv": {
+      "sha256": "3ab9b1188feb3fe0dc43e88c79e96c4c07108efee13f8904c12f08d52e882dbf",
+      "bytes": 45
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/Sovkhoz1May_primary_map_receipt.json": {
+      "sha256": "ed2c6b489b7967c46291652060874f291f68ea65ae46326d9e448cce3a7dfd9e",
+      "bytes": 763
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/accepted_point_use_delta.csv": {
+      "sha256": "d3dfbeab2dc1caf2d770332308e9dfd557b49c4db9913e23bf26dd566194cc44",
+      "bytes": 57122
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/moscow_remaining_exact_ownwiki_batch.json.gz": {
+      "sha256": "ade24f783c7e7215f8fd8f3c90a875ba863deab1ccce522a1ffa62de4a3803ce",
+      "bytes": 36862
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/moscow_exact_ownwiki_batch.json.gz": {
+      "sha256": "e12960ad15a960cb58dea5e9296a4ebf5187445445246c8fa2932c3df1922aeb",
+      "bytes": 105821
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/Moscow_own_article_native_target_binding_witnesses.csv": {
+      "sha256": "69b31fb72309558080496f62c36b862483f342e1a7332c56b939fcd6f87d4bcf",
+      "bytes": 359698
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/south_exact_roster.csv": {
+      "sha256": "8e88360f4759dfcea1f4cb003695b124dd1918aa440bc00c68dce55c1a739420",
+      "bytes": 26152
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/root_yaroslavka_whole_ownpoint/application_handoff.json": {
+      "sha256": "6328ebf7c0c463ad1df1a33916632b666b79b0c0576e7c19549ed2d614765cb0",
+      "bytes": 555
+    },
+    "research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/root_yaroslavka_whole_ownpoint/accepted_point_use_delta.csv": {
+      "sha256": "f85de2c18ad5dda10492c7de861334be125efba3859dd55d687da04adfb7f80d",
+      "bytes": 10789
+    },
+    "research_rebuild/evidence/large_existing_credited_south_ownpoints_20261009/batch1_fortythree_ownpoint_uses/source_ready_roster.csv": {
+      "sha256": "b0965ae442f545bd74b0a27824cb3977d5c4e4358c232dc86a90641a62da78d8",
+      "bytes": 17586
+    },
+    "research_rebuild/evidence/large_existing_credited_south_ownpoints_20261009/batch1_fortythree_ownpoint_uses/reviewed_ownphysical_point_binding.csv": {
+      "sha256": "a8bc10f627b0a8464c691d8011c60df96c62aeccfa97802d8c953429f34b9bdf",
+      "bytes": 30489
+    },
+    "research_rebuild/evidence/large_existing_credited_south_ownpoints_20261009/batch1_fortythree_ownpoint_uses/FINAL_manifest.json": {
+      "sha256": "f78b68feb2098180c48c201f29ad8bbca267236dd7a4663742aa993240e4868a",
+      "bytes": 4706
+    },
+    "research_rebuild/evidence/large_existing_credited_south_ownpoints_20261009/batch1_fortythree_ownpoint_uses/accepted_point_use_delta.csv": {
+      "sha256": "c5bb1181105d804786e7c91da5db8524cbd417a0c841b917d42a5878ee95228d",
+      "bytes": 40529
+    },
+    "research_rebuild/evidence/large_existing_credited_south_ownpoints_20261009/batch3_lower_kamennomost_own_historical_object/reviewed_source_binding.md": {
+      "sha256": "069622f993e7d27d9d35076e222c99f1c63af4ef3414e5306dec32c5fd408e04",
+      "bytes": 1346
+    },
+    "research_rebuild/evidence/large_existing_credited_south_ownpoints_20261009/batch3_lower_kamennomost_own_historical_object/FINAL_manifest.json": {
+      "sha256": "d5836f1f4d64f5e04db293eb9a7c07bd7a7acd94d275b600e532a9077c9e0944",
+      "bytes": 2318
+    },
+    "research_rebuild/evidence/large_existing_credited_south_ownpoints_20261009/batch3_lower_kamennomost_own_historical_object/accepted_point_use_delta.csv": {
+      "sha256": "e049176082336567e9dca1bac4ad5dcf7c7eb7bee5e0442bda77a8c5445b0b4c",
+      "bytes": 1930
+    },
+    "research_rebuild/evidence/large_existing_credited_north_ownpoints_20261009/ownpoint_source_row_witnesses.csv": {
+      "sha256": "76e40e54693920c04163cc329f0d88deeea0b0bd37c0a48bf8cd671a3f3f2c97",
+      "bytes": 21418
+    },
+    "research_rebuild/evidence/large_existing_credited_north_ownpoints_20261009/assigned_roster.csv": {
+      "sha256": "cf3c751193a288d311675225e753cba04fde600bfe09e58b92fcc32fe046903b",
+      "bytes": 5942
+    },
+    "research_rebuild/evidence/large_existing_credited_north_ownpoints_20261009/FINAL_manifest.json": {
+      "sha256": "1fbc2c7d1b75561c52aecf5e1c17f693126792c555e0444ae3385c4c85e9f54a",
+      "bytes": 2073
+    },
+    "research_rebuild/evidence/large_existing_credited_north_ownpoints_20261009/accepted_point_use_delta.csv": {
+      "sha256": "43ba882a763d5903275e69fe8623ccce18101dc6d8a5d3df388fbca950683344",
+      "bytes": 41651
+    },
+    "research_rebuild/evidence/large_existing_credited_north_ownpoints_20261009/build_points.py": {
+      "sha256": "e8bb16a3c2fc66e65c82cf8cc4fbad75b40468b287a137e9914356f2962f2e63",
+      "bytes": 7676
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/crosscheck_large_north_ownpoint_binding_20261009/own_article_coordinate_snapshot_receipt.json": {
+      "sha256": "6fba784af120e7e5a5a45385197839e3782c9ddc881f3496022e2a5fe4ee78c5",
+      "bytes": 4775
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/crosscheck_large_north_ownpoint_binding_20261009/own_article_coordinate_snapshots.json.gz": {
+      "sha256": "4f69d234f8d0b518642d56057d138b1d4674c3f1427c5181db453508b57a103a",
+      "bytes": 1134
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/crosscheck_large_north_ownpoint_binding_20261009/point_binding_rivals_review.csv": {
+      "sha256": "f4c05fe5e5e4517a58ed6312e9c60a234e563cea7c291c3451004af626a57ce2",
+      "bytes": 31995
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/crosscheck_large_north_ownpoint_binding_20261009/build_review.py": {
+      "sha256": "81e72881ef674bff0de405e0aa51513a60be3907a36c59f79319f08686867ca7",
+      "bytes": 15077
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/crosscheck_large_north_ownpoint_binding_20261009/wiki_own_article_coordinate_rivals.json.gz": {
+      "sha256": "dc4d33af74f99ebdeffc49aba608ced5fdc2c843b280c05655106d34c2b63425",
+      "bytes": 992
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/crosscheck_large_north_ownpoint_binding_20261009/FINAL_review_receipt.json": {
+      "sha256": "f907d7948f95e7634f6e97cd76ee556202c4cbd3e5366469e45f54e2f0529b6e",
+      "bytes": 2299
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/crosscheck_large_north_ownpoint_binding_20261009/point_article_coordinate_corrections.csv": {
+      "sha256": "29e035126c0e211ecfc075addc8d726ebaf45eab8aea54e2fdf6418ad41d0268",
+      "bytes": 5386
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/crosscheck_large_north_ownpoint_binding_20261009/wiki_own_article_coordinate_rivals_receipt.json": {
+      "sha256": "8076678fb8d9138d8101c245fbe9a3558caca25df56e68bf5dd760ae74d57dfc",
+      "bytes": 2641
+    },
+    "research_rebuild/evidence/large_existing_credited_east_ownpoints_20261009/README.md": {
+      "sha256": "f5e8ff64b366bd4347997cd0b54f715dc2e90c3e157796d180fbb5eefaf1b541",
+      "bytes": 3102
+    },
+    "research_rebuild/evidence/large_existing_credited_east_ownpoints_20261009/osm_nominatim_raw_witnesses.json": {
+      "sha256": "ea868f2da11318145b0333aeb0845a3d5de5146234346c4a0ed7ea6bfb7279db",
+      "bytes": 218182
+    },
+    "research_rebuild/evidence/large_existing_credited_east_ownpoints_20261009/osm_nominatim_raw_witnesses.sha256": {
+      "sha256": "9f5cac1bc1912bbb7e2603b05002dcb6fd62476f5d1b327d10b0291c7402dbd0",
+      "bytes": 99
+    },
+    "research_rebuild/evidence/large_existing_credited_east_ownpoints_20261009/wikipedia_abagur_point_witness.json": {
+      "sha256": "4a2c7cd58fb71c0a28d8035f62672c10a66ac212409309baa14524acc0e3c5b8",
+      "bytes": 419
+    },
+    "research_rebuild/evidence/large_existing_credited_east_ownpoints_20261009/build_east_point_packet.py": {
+      "sha256": "e84f250a632be79d39a3a7ce947a2e78cdb1b3baf4d5462d2816c91d03c57021",
+      "bytes": 19817
+    },
+    "research_rebuild/evidence/large_existing_credited_east_ownpoints_20261009/geokladr_2011_exact_name_candidate_witnesses.csv": {
+      "sha256": "c21145676ec941f788eca85091d2637ca59749af88b8e9e331a7820f33438557",
+      "bytes": 10222
+    },
+    "research_rebuild/evidence/large_existing_credited_east_ownpoints_20261009/wikipedia_article_point_witnesses.json": {
+      "sha256": "a952c6c70b8c408adcefa9c51ea814d02a6d7be938763b2be07842ba871dc32a",
+      "bytes": 1508
+    },
+    "research_rebuild/evidence/large_existing_credited_east_ownpoints_20261009/source_file_manifest.csv": {
+      "sha256": "0761813728a35f3ba12d3bff7b5661513766e57a1e135449b1ffb188b28cf28f",
+      "bytes": 2054
+    },
+    "research_rebuild/evidence/large_existing_credited_east_ownpoints_20261009/point_dispositions.csv": {
+      "sha256": "477bfaf8c767022f4b41e9242254bbe137556621af9fc5719f88c1e29ee9622a",
+      "bytes": 39384
+    },
+    "research_rebuild/evidence/large_existing_credited_east_ownpoints_20261009/manifest.json": {
+      "sha256": "2ac4c74f5cca0003c162a07215bd99c3ba31625be9d5c0ec517fd990f5cc33a4",
+      "bytes": 2828
+    },
+    "research_rebuild/evidence/large_existing_credited_east_ownpoints_20261009/run_receipt.json": {
+      "sha256": "6be94753a3ecee4b1a75175eae73431cbb9f9675fdc61e632d9e50bf77683030",
+      "bytes": 541
+    },
+    "research_rebuild/evidence/large_existing_credited_east_ownpoints_20261009/accepted_point_use_delta.csv": {
+      "sha256": "c345bac83a998f6e55761d8a1eda284b255035b5dd1b43de787254f781e0a58b",
+      "bytes": 56961
+    },
+    "research_rebuild/evidence/large_existing_credited_east_ownpoints_20261009/native_source_row_witnesses.csv": {
+      "sha256": "0c09b5db05f150e102ac9fed5237e3a066eb92791d632927f378327052a705d6",
+      "bytes": 133939
+    },
+    "/workspace/russian-settlements-research/publication/stage70/applied_primary_population_source_overlay_2010.csv.gz": {
+      "sha256": "8d1f6e2cdd6118f1cad2a3bd2eaab0373e734bc563d6b7bda859d28333eafa17",
+      "bytes": 830238
+    }
+  },
+  "wall_seconds": 44.93
+}
