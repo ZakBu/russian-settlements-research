@@ -1,0 +1,11 @@
+# South final three own points: supp04
+
+Three independent-reviewed approximate own point uses are admitted in accepted_point_use_delta.csv. The exact native wholeNP records and populations566/537/599 remain unchanged. No identity edge, merger event, count transfer, artificial zero, historical boundary equivalence, or whole receiving-locality center is admitted. Accepted identity delta is empty.
+
+First Yaroslavka uses resolved house176 on the street explicitly printed in its own legal address. Second uses resolved Молодежная street, explicitly printed in the full own2-Я EGRUL address (not solely a snippet or commoncurrentvillage street). They are1791.84m apart and are approximate historical ownaddress placement representatives, not fabricated census centroids. The older Uistoka duplicate point is superseded as the preferred evidence path; no claim that its coordinate is universally false or that the two old NP merged at a particular date is made.
+
+Gireevsky uses the actual named hutor district polygon/representative inside Kantyshevo hierarchy, distinct from the whole current settlement, province, and commercial POI. Native2002 row59 is the council, row60 wholeKantyshevo, row61 ownhutor. Road26Н-035 independently corroborates the literal own name. The indexed Berkat listing was not present in the current direct body and is not admission evidence.
+
+Every point has conservative1000m historical placement uncertainty; source house/street/polygon geometry is real, but2002measurement/occupancy and historical boundaries are not asserted. Returned OSM buildings corroborate actual built geometry only. Closest captured building centroids lie7.97m,32.77m,3.09m from the three points respectively; no building age is inferred.
+
+Independent review: over500_south_last3_address_geometry_review_20261009/bounded_review_receipt.json. Source extraction retains actual JSON paths and raw hashes. JS geocode placeholders in Indexphone, wrong-region street, whole province/currentsettlement results, speculative aliases, and index-only ad text are excluded. Prior frozen packets/supplements remain unchanged. The new archive PDFs contain older same-name/type variants, not a positive first/second currentgeometry bridge. Geographic.org response is a generic gazetteer landing page, not an ownlocality claim.
