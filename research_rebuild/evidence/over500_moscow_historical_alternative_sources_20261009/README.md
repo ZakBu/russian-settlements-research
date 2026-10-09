@@ -1,0 +1,17 @@
+# Moscow historical six: alternative physical housing sources
+
+Candidate collection only; Moscow owns binding and admissions. Exactsix IDs are pinned in `exact6_targets.csv`; outcomes are in `exact6_source_collection_dispositions.csv`. No point, edge, lifecycle, population or source-quality decisions were made.
+
+Concrete qualified housing sources:
+
+- **Холмогорка**: exact apartment house street Холмогорка17,22 residential units, built1969. Direct `dom.gogov.ru/houses/8332321` page publishes map placemark56.0548034,35.9360557. This is an old house, not either named bus stop. Raw HTML/text captured; original former-NP/street continuity belongs to Moscow's reviewed source context.
+- **Фирмы Луч**: own mapped Лучистая5 apartment way168646341,55.9573573,38.0749129, source tags1986/90flats/5floors. Street way74371377 lies at55.9573983,38.0737143 and is named Лучистая in Ново/Щёлково. The current-address locality Ново and historicalGrebnevsky ownership remain separate: explicit oldfirm settlement-to-housing continuity is still needed. The same-county Лучистая5 in Соколово is a distinct rival.
+- **Санатория Звенигород**: exact Радужная3 residential building way278151056,55.7018973,36.8666448,5floors. Frozen search source explicitly aliases its address as `посёлок санатория Звенигород,3 / Радужная улица,3`; direct Domclick destination returns401, so alias grade is a search snippet. Separately, direct named residential compound `мкр. Поселок санатория Звенигород, корп.8` publishes55.702488096558774,36.867027282714844; source refers to2012project documents, so do not automatically reuse that new housing point for2002. Both sanatorium institutional rivals remain separate.
+
+`qualified_housing_source_coordinate_candidates.csv` records four candidates, exact capture hashes/locators and required ownership bindings. Nominatim candidate files retain raw feature IDs/tags/addresses and rivals; no nearest selection occurred. GeoNames original ZIP provides23 alias/rival candidates. One fresh Overpass capture supplies103 mapped residential/place features around candidate districts; proximity alone binds none of them.
+
+**Юдино** historical local-history source captured from `https://www.odintsovo.info/goroda/?id=3025`, redirecting to `oinfo.ru`. Current page title is селоЮдино, but body explicitly distinguishes1989 village489 versus poselok647; authors Пузатиков/Лившиц/Аверьянов, published28November2005, edited3February2017. It discusses Перхушковская фабрика культоваров opposite a memorial, but gives no separately bound poselok housing coordinate. Current provider Юдино results are other county namesakes and remain unbound.
+
+**Караваевской Фабрики** own industrial relation2014705 is published at55.8610837,38.591035; industrial factory and surrounding residential areas do not yet prove ownformer settlement footprint. **Участка N2** searches found no own former-locality housing feature. Whole Караваево and event recipient БольшоеБуньково points must not substitute for that record.
+
+All requests used normalTLS; no429 or retry loop.43 Nominatim queries, three distinct bounded Overpass queries (one successful,504/500 failures recorded), eight ownhousing-page requests. Flatinfo responses are script-only guard pages, Mingkh is a bot challenge and Fryazino housing page503; these are not literal source proof. Captured originals, readable texts, response receipts and `asset_manifest.json` preserve exact bytes. Source collection does not imply a historical measurement, provider identifier binding or admission.
