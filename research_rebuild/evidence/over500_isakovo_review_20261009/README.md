@@ -1,0 +1,15 @@
+# Исаково exact cross-county correction review
+
+Positive bounded review supports splitting the currently composed component into `[[Voskresensk2002 row370], [Noginsk2010 row11496, Noginsk2021 row68495]]`. Preserve the independently reviewed Noginsk2010–2021 edge, then admit the separately reviewed actual Voskresensk series2002row370→2010row8375→2021row65719. The wrong2002→Noginsk2021 edge originates in application63 and must not survive later replay.
+
+Provenance distinction: **bare Stage71 snapshot contains only the incorrect Voskresensk2002/Noginsk2021 pair; Noginsk2010 is a singleton there.** The exact three-ID component arises after the frozen Moscow batch1 adds its independently reviewed Noginsk10→21 edge. Apply the narrow correction after that earlier batch, before the batch3 Voskresensk joins. Do not describe all three IDs as a bare Stage71 component.
+
+Original2002Sheet1!B370 names деревня Исаково, C370=398, beneath literal Виноградовский сельский округ atB366 and Воскресенский район. Qualified own article page5214914 revision153367059 independently names that exact historical county/subcounty, village type, own historical codes46206810004 and46606402156, and own coordinates55.4197611,38.5806056. No unsupported equality with modern native codes is asserted.
+
+The two2010 leaf rowsD8375/E8375 andD11496/E11496 are both деревня Исаково, respectively484 and367. Their counties are **two-sided accepted source-order inferences, not literal county headers in the2010 workbook**. Both flanking anchors were checked against original2002 physical source labels and printed county headers. Native2021row65719 has Voskresensk own code46710000236/count653; row68495 has Bogorodsk/Noginsk own code46751000261/count510. Every Moscow-region native Исаково namesake is retained in the separate inventory; county/subcounty/code evidence prevents name-only conflation.
+
+The2002 point55.708889,38.193056 is an inherited Noginsk representative and must be rejected separately. Replace with the own Voskresensk article point as explicit modern representative continuity inference, preserving original source claims, counts and qualities. No census-date coordinate measurement or provider-ID binding is asserted.
+
+`review_receipt.json` provides exact IDs, partition, raw cells, original flanking-anchor county witnesses and distinct native codes. `false_application63_pair.csv` and `preserved_Moscow_batch1_Noginsk_pair.csv` pin edge origins; `input_manifest.json` pins physical bytes. `review.py` reproduces the bounded checks. No source ledger, State, point or other packet was changed.
+
+Canonical integration alternative independently verified: `component_partition_correction_baseline71.csv` expects exactly the bad bareStage71 pair `[Vosk02row370, Nog21row68495]` and splits it into two singleton components **before all Moscow batch deltas**. Then frozen batch1 reconstructs the sound Noginsk10→21 pair and batch3 admits the Voskresensk series. This simpler ordering is supported; the composed-three-ID partition remains historical bounded replay evidence. The exact baseline alternative bytes are hashed in the review receipt.
