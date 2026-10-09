@@ -1,0 +1,88 @@
+{
+  "packet": "crosscheck_last_available_scope_20261009",
+  "status": "bounded_independent_review_complete",
+  "scope": [
+    "Igumnovo 2010/2021 temporal pair and unresolved 2002 scope",
+    "Shatalovo-1 2021-only count/point; separate Shatalovo village row and point"
+  ],
+  "disposition": {
+    "igumnovo": {
+      "2010": {
+        "source_record_id": "2010:014_5ca759eea0_5._20Nizheg_Kirov_202010.xls:Data Sheet:4554",
+        "population": 1167,
+        "status": "retain exact typed 2010 observation; protected-value scope caveat remains"
+      },
+      "2021": {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:75546",
+        "population": 1184,
+        "status": "retain exact typed 2021 observation"
+      },
+      "2002": "unknown_for_target_not_zero; two same-name rows are separately typed and parent-bound; neither is assigned to Dzerzhinsk posyolok",
+      "history_status": "supported 2010-to-2021 pair, not full three-census history"
+    },
+    "shatalovo1": {
+      "2021": {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:124329",
+        "population": 2251,
+        "status": "retain exact typed current observation"
+      },
+      "2002_2010": "unknown_for_target_not_zero; village rows do not establish Shatalovo-1 counts",
+      "history_status": "current-year-only, not full three-census history",
+      "separate_village": {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:124302",
+        "population": 506,
+        "status": "separate typed village row; do not transfer its counts"
+      }
+    },
+    "identity_or_point_changes": 0,
+    "unknown_years_inferred_zero": false,
+    "boundary_comparability_asserted": false
+  },
+  "independent_coordinate_review": {
+    "point_ledger": "/workspace/settlements-work/continuation_20261004/accepted_mass_twelfth_primary58_point19/accepted_point_uses.parquet",
+    "point_ledger_sha256": "024309b8fb2376892cdf51e6cef006f223f9d9c449b531bb2329d748e5c83caf",
+    "wikidata_cache": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0137.jsonl.gz",
+    "wikidata_cache_sha256": "1f368ded4f5a2718afa28d7d0467a9fe01be560be7e0646410c7a2d39c71ad3c",
+    "raw_p625_lines": {
+      "10106": "Q4520841 P625 POINT(32.465833 54.333056)",
+      "10326": "Q4520843 P625 POINT(32.466667 54.333333)"
+    },
+    "own_article_snapshot": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/primary2010_auxiliary2_scope_review_v1/shatalovo_ruwiki_api.json",
+      "sha256": "1a83c7a58eadda3ac330623617647ed0728613b400b7b82fe03a85da98d3310e",
+      "revision_ids": {
+        "Шаталово (Смоленская область)": 148091541,
+        "Шаталово-1": 147521079
+      },
+      "coordinate_crosscheck": "Shatalovo-1 article prints 54°19′59″N, 32°27′57″E, matching Q4520841 to rounded precision. Village article prints 54°20′00″N, 32°28′00″E, matching Q4520843 to rounded precision. The QID claims are separate but only 62.2 m apart; spatial proximity does not prove identity or historical count allocation."
+    },
+    "selected_2021_source_rows": {
+      "Shatalovo-1": {
+        "name_type": "посёлок Шаталово-1",
+        "population": 2251,
+        "FIAS": "55746ccd-0e1b-4fec-b7c9-a5827e9ab839",
+        "OKATO": "66233000229",
+        "OKTMO": "66533000327",
+        "Dadata_point": [
+          54.32916,
+          32.47499
+        ]
+      },
+      "Shatalovo_village": {
+        "name_type": "деревня Шаталово",
+        "population": 506,
+        "FIAS": "ba093ead-9183-40bd-83b4-edfb14b17b97",
+        "OKATO": "66233000192",
+        "OKTMO": "66533000316",
+        "Dadata_point": [
+          54.3338443,
+          32.4472919
+        ]
+      }
+    },
+    "coordinate_limits": "The Wikidata P625 points match each respective article's printed coordinates and are individually attached in the accepted point ledger to distinct source UIDs and QIDs. The current Dadata points differ from those points by approximately 0.735 km for Shatalovo-1 and 1.257 km for the village; the two Dadata points are approximately 1.870 km apart. This warrants retaining representative-point provenance/quality distinctions; it does not support merging the two native records. No point is a census-date measurement or population boundary."
+  },
+  "material_packet_correction": "A112 packet prose says Shatalovo-1 OKTMO 66633495151 and Shatalovo village OKTMO 66633495101. Those values are not the selected 2021 parquet's oktmo_dadata values. The raw selected rows give Shatalovo-1 OKTMO 66533000327 and village OKTMO 66533000316. Keep the distinct FIAS/OKATO/type/name evidence; correct or qualify the OKTMO field before citing it as a native 2021 field.",
+  "checked_packet": "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v34_final_four_uid_source_scopes",
+  "checked_packet_receipt_sha256": "5afcaaa749bf02db81646b7eb19454bcf0bc452126246e6febc98f63a17161b5"
+}
