@@ -1,0 +1,36 @@
+{
+  "status": "primary_source_order_erratum_for_prior_selected_district_field",
+  "assigned_uid": "2002:079_983a1a85f7_Primor_krai_1.xls:Sheet1:875",
+  "literal_2010_row": {
+    "source_record_id": "2010:009_81f8a0e73c_17._20ДВ_ФО_2010.xls:ДВ:512",
+    "raw_sheet_row_1based": 512,
+    "source_region": "Приморский край",
+    "label": "с. Соколовка",
+    "population": 1058,
+    "preceding_row": "2010 row511: с. Чугуевка, 10810",
+    "following_rows": [
+      "2010 row513: с. Цветковка, 389",
+      "2010 row514: с. Шумное, 1122"
+    ],
+    "literal_district_column": "column D header is район; cells D508:D515 are blank. No raw row text says Хасанский."
+  },
+  "imported_conflict": {
+    "selected_ledger_district_raw": "Хасанский",
+    "decision": "treat as imported/parser context error for this source row; preserve value in history, do not treat it as raw workbook evidence. The primary XLS row locator and contiguous cross-census named anchors contradict it."
+  },
+  "primary_context": {
+    "2002": "The same sequence in the official 2002 Primorsky source has Chuguevka (row874), Sokolovka (875), Tsvetkovka (876) under Chuguevsky district / Chuguevskaya administration; Shumnoe row878 under another Chuguevsky administration.",
+    "2021": "The exact named current Chuguevka (ID 99561), Sokolovka (ID 99587), Tsvetkovka (ID 99590) all resolve to Chuguevsky municipal district and use OKATO prefix 05255000000; target own point already accepted."
+  },
+  "homonym_disposition": "The 2010 raw row is primary evidence for the Primorsky Chuguevsky Sokolovka; no second Sokolovka occurs in this Primorsky workbook (other found same-label rows are other federal subjects). Do not infer identity from 1058 equality alone; use literal row locator + local source order + dated county anchors.",
+  "coordinate_disposition": "Keep 2021 own point (44.1194745,133.8667682) on 2021 receiver. No old-specific 2002/2010 point evidence here; do not invent a coordinate transfer.",
+  "boundary_or_population_note": "This supports source identity across listed census rows only; equal 2002/2010 count is not a boundary comparability statement. Source values retain existing confidentiality/within-ten quality limits.",
+  "source_pins": {
+    "2010_xls": "a8fd7aa55513e73a205ebff1da2ce35fd8ca0f61c286e54491cf49c6132470c4",
+    "2002_xls": "13c795665e6d97057b9bf7b0fb3f138919f4e5da36dc1a91d9f2959b319a87c1",
+    "2021_raw": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "selected_observations": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "article_revision": "d4889baf87641659b2acbeac54842b16e4671ea00691dcb8a8b79c52ab99c44a"
+  },
+  "decision": "Correct the frozen V14 interpretation by addendum: 2010 literal row 512 has raw source-order context in Chuguevsky and should be a candidate source binding to the assigned 2002/2021 Chuguevsky Sokolovka. The selected ledger district token `Хасанский` is not present in the XLS and is inconsistent with its source row sequence. Root may consume these two temporal edges after review; no canonical rows changed."
+}

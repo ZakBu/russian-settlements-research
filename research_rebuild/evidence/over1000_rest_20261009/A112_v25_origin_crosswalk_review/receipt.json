@@ -1,0 +1,78 @@
+{
+  "packet": "A112_v25_origin_crosswalk_review",
+  "purpose": "bounded source identity crosswalk and exact 2002 publisher rows; no canonical mutation",
+  "inputs": [
+    {
+      "key": "2002_udmurt",
+      "path": "/workspace/settlements-raw/data/raw/2002/045_9dc3ed048e_02c__Udmurtia.xls",
+      "sha256": "2b1bfc7e0cd8567e1e0eba093660d29ddcede9b8d83fc4dfe15b4c53fe6a7128"
+    },
+    {
+      "key": "2002_nizhny",
+      "path": "/workspace/settlements-raw/data/raw/2002/048_4f024587eb_02c_Nizhegorod_obl_new.xls",
+      "sha256": "32aa9a5b76b281d8e27c5a2cba32066ba8830d98e4577b300e4e401d49589cc5"
+    },
+    {
+      "key": "2010_udmurt",
+      "path": "/workspace/settlements-raw/data/raw/2010/017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls",
+      "sha256": "0ad9f5527c60819aa6e298bc78c5a19e7d3b09ad7f541064a8d922595854177a"
+    },
+    {
+      "key": "2010_nizhny",
+      "path": "/workspace/settlements-raw/data/raw/2010/014_5ca759eea0_5._20Nizheg_Kirov_202010.xls",
+      "sha256": "c286aa10e8ebd8a4594b5623affa0ca1aacb6b69ac09a4a9288eeb754aa81c27"
+    },
+    {
+      "key": "2021_raw",
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+    },
+    {
+      "key": "2009_classifier",
+      "path": "/workspace/settlements-work/sources/raw_okato_2009_verification_v1/raw_classifier.parquet",
+      "sha256": "343c0f5af1f52b9276699d9fe8d883b58def5aeabdd904063389606d29bc2b81"
+    },
+    {
+      "key": "2011_geokladr",
+      "path": "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet",
+      "sha256": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f"
+    },
+    {
+      "key": "wiki_postol",
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v25_origin_crosswalk_review/postol_village_raw_revision.json",
+      "sha256": "e43edd48017b77ca058be9ca01022364f3e94b3ac6db2d477b5c36d8059e8c15"
+    },
+    {
+      "key": "wiki_sholya",
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v25_origin_crosswalk_review/sholya_village_raw_revision.json",
+      "sha256": "bd860bc8c5d9b065d9cf8899c7328e5a698363dc67cfa42f481c4fff96c9c09c"
+    },
+    {
+      "key": "wiki_igumnovo",
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v25_origin_crosswalk_review/igumnovo_dzerzhinsk_raw_revision.json",
+      "sha256": "67e653e5895bef2861a54efc096eb0dd3ac10c03c1bd56a4286b229c4ef039a4"
+    }
+  ],
+  "outputs_sha256": {
+    "README.md": "8a8b6f0b9c553b6df32becd8fd68b279f24fab37573cc4cf274061216156a19f",
+    "accepted_actual_available_year_observations.csv": "8b64b90a4458b47055ac78bdb67301cf519a33eeb3e1bd4eb26a1f36bd1648b0",
+    "accepted_actual_available_year_scopes.csv": "bc71179cf585d808109cf2ecfd24be9a2bb6932ae7482463ff2a90eb21781e11",
+    "accepted_identity_edge_delta.csv": "7fc5910f2b8fc6ff1d83bd684e308a2e516364de3b14dabb8c046c64a63eb7ef",
+    "igumnovo_dzerzhinsk_raw_revision.json": "67e653e5895bef2861a54efc096eb0dd3ac10c03c1bd56a4286b229c4ef039a4",
+    "postol_village_raw_revision.json": "e43edd48017b77ca058be9ca01022364f3e94b3ac6db2d477b5c36d8059e8c15",
+    "sholya_village_raw_revision.json": "bd860bc8c5d9b065d9cf8899c7328e5a698363dc67cfa42f481c4fff96c9c09c",
+    "source_event_and_crosswalk_evidence.csv": "1e34a263271fdd26f84916c8fab642a393e0fca9f89369d959a9a3f164ec8a57"
+  },
+  "proposals": {
+    "identity_edges": 2,
+    "edges": [
+      "2002 Postol station/settlement to 2010 Postol village (dated transformation evidence)",
+      "2002 Sholya station/settlement to 2010 Sholya village (same district, exact typed current counterpart, article station context)"
+    ],
+    "unknown_2002_scope_rows": 1,
+    "population_transfers": 0,
+    "coordinate_transfers": 0,
+    "zero_inferences": 0,
+    "point_notes": "Coordinate evidence does not assign points or redefine identity."
+  }
+}

@@ -1,0 +1,13 @@
+# North second handoff batch 1 review
+
+This packet covers the exact 16 target UIDs in the north-second roster. Original native populations and quality labels remain untouched; unknown years are not zero. It records 16 exact UID dispositions, 9 baseline actual68 point memberships, 10 temporal edge candidates, four dated event candidates, and four former-locality own-point candidates. Candidate rows await root admission; accepted baseline point memberships are explicitly identified separately.
+
+**Strong observed-year continuations.** Lesnoye Leningrad (2010/2021 exact B v23 UIDs); Gaz-Sale Yamal (2010/2021 exact B v23 UIDs, plus separate 2002 Gazsale UID); Levintsy Kirov PGT (2010/2021 exact B v20 UIDs, with same-name Zuevsky villages retained as competitors); Tomsk Neftyanik→Neftyanikov (2002/2010/2021, same type/county and supported singular/plural form; 2021 own point); Tomsk Novokuskovo→Novo-Kuskovo (2002/2010/2021, same type/Asinovsky county; Starokuskovo is a distinct nearby village); Tomsk Airport (2010/2021 exact own-place pair); Kaliningrad Novodorozhny (2010/2021 exact own-place pair). Values and source quality remain as published.
+
+**Dated transformation routes; no ordinary identity edge.** Alekсino→Kolchanovo (2004 law 54-оз); Lesozavod→Pasha (2004 law 55-оз); Верхнефилатово→Tobolsk (2004 own-place source); Стригуны-Первые plus separate Стригуны-Вторые merged into newly named Стригуны (2005 own-place source). The 2002 records remain separately countable; no receiving population is assigned to former places. Striguny-Вторые 2002 row 272 (446) is separately pinned as event-participant context, never added to target UID count or merged population.
+
+**Point and source caveats.** 2002 Газсале already has an actual68 point at 67.383333/78.983333; 2010/2021 Газ-Сале carriers at 67.3370447/78.9258582 differ by about 5.9 km. Both point claims are preserved; no supersession requested. Alekсino point candidate is an official regional waste-list location at the exact retainedown microdistrict address (row 843, Колчаново, мкр Алексино, д15); use only as approximate scoped reference, never as Kolchanovo center or a precise historical boundary. Lesozavod, Верхнефилатово and Стригуны-Первые candidates use exact own-name settlement features/pages and are approximate representative points, not censusday measurements.
+
+**Hard hold.** 2002 Tomsk `Воронино`, poselok in Shegarsky rayon, has no verified same-county later counterpart or own point. Same-name 2002/2010/2021 Voronino records are type village/derevnya in Tomsky rayon; do not link.
+
+No population is changed, transferred, summed or set to zero. No core edits or State.load/run were performed.

@@ -1,0 +1,61 @@
+{
+  "packet": "A112_v26_vetluga_kalinina_three_year_bridge",
+  "purpose": "primary-source identity bridge; no canonical files modified",
+  "input_sha256": {
+    "2002_official_xls": {
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3"
+    },
+    "2010_selected_xls": {
+      "path": "/workspace/settlements-raw/data/raw/2010/014_5ca759eea0_5._20Nizheg_Kirov_202010.xls",
+      "sha256": "c286aa10e8ebd8a4594b5623affa0ca1aacb6b69ac09a4a9288eeb754aa81c27"
+    },
+    "2010_official_pdf": {
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+    },
+    "2021_tochno": {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+    },
+    "classifier2009": {
+      "path": "/workspace/settlements-work/sources/raw_okato_2009_verification_v1/raw_classifier.parquet",
+      "sha256": "343c0f5af1f52b9276699d9fe8d883b58def5aeabdd904063389606d29bc2b81"
+    },
+    "geokladr2011": {
+      "path": "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet",
+      "sha256": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f"
+    },
+    "accepted_point_snapshot": {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_point_snapshot.parquet",
+      "sha256": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502"
+    },
+    "parsed_official2010": {
+      "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+      "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40"
+    }
+  },
+  "output_sha256": {
+    "README.md": "4bf34d3548ea234e5a07ba622c26f189fd71a77016ad107a83c603509c51463d",
+    "accepted_current_point_context.csv": "f2e133c2a8bd4ccb9676fc39eef9f0f6474ba811cef6c178761531ce47e3ab66",
+    "accepted_identity_edge_delta.csv": "dfc26625949f6fe4a2370a5e3aad88f9505bc3cbf63496f490b897e9a4062952",
+    "source_uid_and_code_bridge_witnesses.csv": "627afbd03f1b67edbb49b22ac872dfd935907920667f856e4ef7315f13ef8ccd",
+    "typed_classifier_geokladr_crosswalk.csv": "1b3751a767c88c847923110df1412fcc402f03721bbaced8594ab3e52e7e08e5"
+  },
+  "counts": {
+    "identity_edges": 2,
+    "old2002_selected_population": 2796,
+    "selected2010_population_preserved": 2280,
+    "official2010_alternate_population_context_only": 2332,
+    "current2021_population": 1763,
+    "unknown_year_scopes": 0,
+    "population_changes": 0,
+    "point_transfers": 0
+  },
+  "decisions": {
+    "status": "ready_for_parent_application_review",
+    "2002_to_2010": "same_place; exact typed object, source hierarchy, and code context",
+    "2010_to_2021": "same_place; unique 2009 type/code → 2011 KOD3=000 object → exact current native OKATO and accepted own point",
+    "boundary_comparability": "UNKNOWN"
+  }
+}

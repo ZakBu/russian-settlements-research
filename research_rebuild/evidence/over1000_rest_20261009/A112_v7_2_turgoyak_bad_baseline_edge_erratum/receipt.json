@@ -1,0 +1,34 @@
+{
+  "scope": "Bounded endpoint component and exact bad legacy-edge erratum for Turgoyak. No canonical graph or V7 changes.",
+  "bad_baseline_edge_id": "legacy-temporal-2002-bc0c503bddac92de6f",
+  "bad_pair": [
+    "2002:061_e177b0a77d_Chel_abinskaja1.xls:Sheet1:145",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161448"
+  ],
+  "bad_edge_reason": "The 2002 old row is a 22-person поселок beneath the Сыростанский rural council caption in the regional workbook; it is not the 2,292-person пгт listed in official 2002 Tom 1. The legacy inferred edge tied the small rural observation directly to the large current Turgoiak. This contaminates the component and blocks proper PGT 2002-to-2010 edge by a same-year collision.",
+  "correction": "Withdraw only the tiny-row-to-current edge; retain the tiny 22 as a separate 2002 source observation. Preserve 2010/2021 large locality, then consider the frozen V7 proper PGT 2002-to-2010 edge. Net old-year credit must account for the separate 22 observation; do not treat 2,292 as the only source observation.",
+  "baseline_edge_ledger_rows": {
+    "legacy_temporal/staged_accepted_edges.csv": "CSV data row 5366",
+    "legacy_temporal/legacy_temporal_edges_and_holds.csv": "CSV data row 98852",
+    "independent_review/legacy_temporal_eligible_edges.csv": "CSV data row 5365",
+    "root/R4/working_application/identity_edge_diagnostics.csv": "CSV data row 68937"
+  },
+  "input_sha256": {
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application70_batch7_20261009/all_held_actual_identity_conflicts.csv": "0d4632773b16253808cf399018455dc86512b6fe665e175ebce6d604182cb37d",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application70_batch7_20261009/held_identity_component_context.csv": "092851f50f98ddfda93f7e5ca7175e35f133b32ffdce9f9b23ded2d232e1b461",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v7_turgoyak_2002_2010_2021_review/receipt.json": "65d80f00e8ff8640aac82b44d6b3397f3613aff2f58c759478ddc2ab4c30a9c8",
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "/workspace/settlements-raw/data/raw/2002/061_e177b0a77d_Chel_abinskaja1.xls": "0ffd4853815474209972fef66ad1704eb74deb756f869c967620a39e8caeb5f5",
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "/workspace/settlements-raw/data/raw/2010/003_eb441570b1_11._20Урал_ФО_2010.xls": "042e8e141831b431d8b7addd9674959625ddbdf6fa79986e81e968d941ab1156",
+    "/workspace/settlements-work/continuation_20261004/independent_review/legacy_temporal_eligible_edges.csv": "37805105a3c6f8bf246239b5b5d5f2222e5a5d69e135683f33d213a71262fa98",
+    "/workspace/settlements-work/continuation_20261004/legacy_temporal/legacy_temporal_edges_and_holds.csv": "f8514eac2e9db44fa170eec67598f7bd35a7540ac04cdc8f0672eb38cb10488e",
+    "/workspace/settlements-work/continuation_20261004/legacy_temporal/staged_accepted_edges.csv": "bd9012b339dc1cf45d629aaa9f1d71018324a6c36f4d71588e5d28bab4106047",
+    "/workspace/settlements-work/continuation_20261004/root/R4/working_application/identity_edge_diagnostics.csv": "56a72ca5abd564976564fca5a2c2331d756e009577aeea803f1d176554803bdb"
+  },
+  "output_sha256": {
+    "README.md": "c743a115887678bbe7727a82b06756afeef69c44c70720d290089d9d61e58fe5",
+    "bad_baseline_edge_exact_rows.csv": "dc9ec716294fa6c39e6fff1e2fa0aab337ce132f136d3ef38abda66783ccd1a7",
+    "endpoint_objects.csv": "5a5106405321de685f6f22d6a94ef128c1ab394dd5cab1c86ab84311f324ee41"
+  }
+}
