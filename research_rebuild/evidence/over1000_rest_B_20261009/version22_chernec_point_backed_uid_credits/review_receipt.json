@@ -1,0 +1,78 @@
+{
+  "packet": "over1000_rest_B_20261009/version22_chernec_point_backed_uid_credits",
+  "review_status": "PASS_2010_2021_NATIVE_UID_CREDITS; 2002_LIMITED_SELECTED_PUBLICATION_ABSENCE; GROWTH_FLAG_RETAINED",
+  "application_approved": true,
+  "coverage_complete": false,
+  "scope": "single station locality 2010 and 2021 UIDs; 2002 scoped source status; no cohort-level claim",
+  "native_uid_credit_rows": 2,
+  "source_year_status_rows": 3,
+  "identity_edges_added": 0,
+  "ordinary_identity_edges_added": 0,
+  "population_values_or_quality_modified": false,
+  "population_sum_or_transfer": false,
+  "growth_ratio_2021_to_2010": 95.55555555555556,
+  "growth_treatment": "Retained source-reported 95.56x change, unexplained; no fabricated cause or count adjustment.",
+  "checks": {
+    "both_target_uids_in_same_existing_actual68_component": true,
+    "2021_target_has_existing_admitted_own_point": true,
+    "2010_credit_uses_same_component_point_context_only": true,
+    "2002_village_namesake_not_credited_to_station": true,
+    "2002_selected_scope_limit_explicit": true,
+    "all_population_quality_labels_preserved": true,
+    "output_hashes_match": true
+  },
+  "source_pins": {
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_state_observations.parquet": {
+      "sha256": "8cde620020634cf5ac9cfff145cc88c4d7365474cff56194b8a7137a43f6e0b9",
+      "bytes": 12774906
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_point_snapshot.parquet": {
+      "sha256": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502",
+      "bytes": 19713572
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_component_snapshot.csv.gz": {
+      "sha256": "2787384874ab5f56c6cf392e8c5aa13dffa7c48443f6051826ead655a2c49230",
+      "bytes": 2734494
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version19_chernec_source_reconciliation/review_receipt.json": {
+      "sha256": "65542fc94dc1c7a939278a9f0af0f7705a2ff4dbe7ff079609fa46f973d0d491",
+      "bytes": 4328
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version21_chernec_2002_coverage_review/review_receipt.json": {
+      "sha256": "5dd58c03d532d34ece64368fa0ea2106804a8d9a83c12acb8126c3b9c817f057",
+      "bytes": 4888
+    },
+    "/workspace/settlements-raw/data/raw/2010/013_f60b2d2bcf_5._20Belg_Bryan_Vlad_Voron_Ivanov_Kalug_20L1_ethn_2010.xls": {
+      "sha256": "52a7cd38f32d03b79c20b256dfd4019e49a0f7a4bab9d96abc57cbf16e2b90ac",
+      "bytes": 9111040
+    },
+    "/workspace/settlements-raw/data/raw/2021/009_8bce1020ba_Брянская_15_lg.xlsx": {
+      "sha256": "dd155c2a61ecc1f92f6d9a79a81639ee4affba5fedb15d9b5b424ee8269fedc8",
+      "bytes": 2135560
+    },
+    "/workspace/settlements-raw/data/raw/2002/002_d4cda9574f_02c_Bryanskaja.xls": {
+      "sha256": "24eb3ca1675c288dfc595bfabeeaa5d9053257b3dd6ee701a2c99d2d93b1958e",
+      "bytes": 588800
+    },
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": {
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "bytes": 1819648
+    }
+  },
+  "output_pins": {
+    "accepted_available_year_native_UID_credits.csv": {
+      "sha256": "c73d5eec6e65482803f3921dccf31127ba663915ee03587408e8388f4484df35",
+      "bytes": 1966
+    },
+    "source_year_statuses.csv": {
+      "sha256": "f7765c64b764d20014653e837736e8126b0bde669e6bf56ee6e1a5ea1e908ab5",
+      "bytes": 955
+    }
+  },
+  "notes": [
+    "The 2002 station status is limited to the checked 2002 rural locality workbook and Tom1 urban aggregate table. It does not assert zero, legal/physical absence, or full demographic coverage.",
+    "The 2002 village name/type/code/point belongs to a distinct locality and is excluded from station population.",
+    "The accepted point source is the existing Q97821506 own-locality physical point already admitted in the actual68 point snapshot."
+  ],
+  "scope_coverage": "2010/2021 native UID pair credited; selected 2002 publication status bounded to two checked sources."
+}

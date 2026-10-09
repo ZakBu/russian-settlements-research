@@ -30,3 +30,13 @@ Regional tasks cover Moscow oblast; Tula/Yaroslavl; Krasnodar/Rostov/Dagestan; B
 
 
 Actual regional applications after69: see `evidence/main_axis_residual_application70_southv2_20261009/application_receipt.json`. Current applied working coverage: **99.334930% / 99.284930% / 99.557271%**. Remaining >1000 source-year records: **410 =172/130/108**; criterion not met. Stage68 is still the last full published wide-table release.
+
+## Actual composed incremental application through batch2
+
+The canonical State API now applied the Bash/Amur, Moscow, regional and batch2 source packets, retaining immutable stage68 as the last full published pack. Latest actual coverage is **99.446588% / 99.373076% / 99.634852%**, with **208 =92/69/47** native source-year records above the raw OR approved-primary 1,000 threshold still outside the admitted working route. This does not meet the user completion criterion. The batch2 gain over the regional parent is62,686 /40,396 /29,581 effective people,71 native UIDs.
+
+The initial Bash packet claims were filtered by canonical replay: two conflicting candidate edges and six missing-own-point UID routes were held, rather than accepted from the producer ledger. V6 and source-proven PGT/rural Subkhankulovo repair subsequently close all33 assigned targets. Popovka, Novolisino and Konstantinovka coordinate/identity corrections retain rejected original evidence; original populations and quality remain unchanged. Joint reporting-scope transitions, census publication absence and independent former localities remain distinct from ordinary comparable three-year histories. Main full-pack entrypoints still identify stage68.
+
+## Latest actual batch3 (supersedes batch2 metrics)
+
+Applied working coverage **99.461764% /99.380121% /99.646629%**; remaining threshold cohort **183 =82/63/38**. Batch3 is consolidated over the regional parent and includes batch2: its99 sourceUID additions and84,717/50,461/46,622 effective population gains must not be added again to batch2. The complete 2002 partitions behind joint Kora-Ursdon and Kamennomost reporting units use explicitly coarse joint spatial associations, exact old-part centers UNKNOWN, and population-scope equivalence exclusions. No legal merger date or ordinary same-year identity union is asserted. The last full release remains68.
