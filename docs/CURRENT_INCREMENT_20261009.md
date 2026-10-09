@@ -50,3 +50,15 @@ Applied working coverage **99.461764% /99.380121% /99.646629%**; remaining thres
 |2021|144,254,724|144,699,673|99.692502%|444,949|
 
 Remaining raw OR approved-primary >1000 cohort: **13=5/6/2 native source-year records**. Criterion not yet met. All1273 input hashes verified. Receipt and exact roster: `research_rebuild/evidence/main_axis_residual_application70_batch12_20261009/`. Batches are consolidated, not additive gains across versions. Missing historical individual counts remain unknown; explicitly coarse joint associations and available-year scope paths do not imply ordinary comparable three-year own-NP histories. Osinovsky117340 proposed municipality endpoint was held; corrected true NP117341 packet awaits final composition. Last full release remains68.
+
+## Final actual batch16 — zero threshold residual
+
+**No eligible selected ordinary source-year record with raw OR approved-primary population >1,000 remains outside the admitted working spatial/available-year route.**
+
+| Year | Represented population | Fixed common control | Working coverage | Remaining to control |
+|---|---:|---:|---:|---:|
+|2002|144,520,173|145,166,731|99.554610%|646,558|
+|2010|142,072,036|142,856,536|99.450848%|784,500|
+|2021|144,260,303|144,699,673|99.696357%|439,370|
+
+Actual receipt and empty threshold roster: `research_rebuild/evidence/main_axis_residual_application70_batch16_20261009/`. All1,346 input hashes independently rechecked. The final Osinovsky endpoint is NP117341; rejected municipality117340 is not credited. The zero applies to the working axis including evidenced lifecycle and explicitly bounded available-year publication scopes, **not** to universal own-count2002→2010→2021 completeness. Igumnovo lacks an attributable2002 count; Shatalovo-1 lacks attributable2002/2010 counts. Those remain unknown. Priuralsky2219 retains its own historic point and secondary/cited2004 Magnitogorsk inclusion route; primary act portal503 limitation is recorded. No population is imputed or allocated. Last complete published bundle remains68 pending refreshed full export.
