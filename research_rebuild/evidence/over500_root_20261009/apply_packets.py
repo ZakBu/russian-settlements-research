@@ -77,6 +77,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--recipe', required=True)
     parser.add_argument('--output', required=True)
+    parser.add_argument('--write-snapshot', action='store_true')
     args = parser.parse_args()
     recipe_path = Path(args.recipe)
     recipe = json.loads(recipe_path.read_text())
@@ -127,7 +128,22 @@ def main():
     eligible['component_years'] = eligible.source_record_id.map(lambda sid: ','.join(map(str, sorted(state.years[state.uf.find(sid)]))))
     eligible['has_same_place_other_census'] = eligible.component_years.str.contains(',')
     eligible['has_full3_identity_component'] = eligible.component_years.eq('2002,2010,2021')
+    # Raw latitude/longitude remain original claims; explicitly expose admitted own points.
+    for field in ['latitude', 'longitude', 'coordinate_admission_status', 'point_origin_file', 'point_origin_sha256', 'point_origin_locator', 'coordinate_binding_rule', 'point_use_inference']:
+        eligible['accepted_ownpoint_' + field] = eligible.source_record_id.map(
+            lambda sid: state.point_rows.get(sid, {}).get(field, ''))
     eligible.to_csv(out / 'all_whole_NP_over500_record_status.csv.gz', index=False, compression={'method': 'gzip', 'mtime': 0})
+    by_year = []
+    for year, rows in eligible.groupby('census_year'):
+        denominator = float(rows.effective_population.sum())
+        summary = {'census_year': int(year), 'records': len(rows),
+                   'effective_population': denominator}
+        for axis in ['has_ownpoint', 'has_same_place_other_census', 'has_full3_identity_component']:
+            summary[axis + '_records'] = int(rows[axis].sum())
+            summary[axis + '_population'] = float(rows.loc[rows[axis], 'effective_population'].sum())
+            summary[axis + '_population_percent'] = 100 * summary[axis + '_population'] / denominator
+        by_year.append(summary)
+    pd.DataFrame(by_year).to_csv(out / 'whole_NP_over500_coverage_by_year.csv', index=False)
     missing = eligible[~eligible.has_ownpoint]
     missing.to_csv(out / 'remaining_whole_NP_over500_without_ownpoint.csv', index=False)
     pd.DataFrame([state.point_rows[sid] for sid in sorted(declared_point_ids)]).to_csv(out / 'accepted_point_use_delta.csv', index=False)
@@ -143,6 +159,23 @@ def main():
     complete_roots = set(stats[(stats.n_records == 3) & (stats.n_years == 3) &
                                stats.all_ownpoints & stats.all_finite_populations].index)
     full3 = set(ordinary.loc[ordinary.root.isin(complete_roots), 'source_record_id'])
+    # Credit union membership is not a baseline full-three-year identity test.
+    old_obs = original.copy()
+    old_obs['root'] = old_obs.source_record_id.map(before_roots)
+    old_ordinary = old_obs[old_obs.is_additive_settlement_record.fillna(False) &
+                           ~old_obs.region_norm.isin(['москва', 'санкт петербург', 'севастополь', 'крым']) &
+                           ~old_obs.source_record_id.isin(scope.source_record_id)].copy()
+    old_ordinary['has_ownpoint'] = old_ordinary.source_record_id.isin(before_points)
+    old_ordinary['has_finite_population'] = old_ordinary.population.map(lambda value: pd.notna(value) and math.isfinite(float(value)))
+    old_stats = old_ordinary.groupby('root').agg(n_records=('source_record_id', 'size'),
+                                              n_years=('census_year', 'nunique'),
+                                              all_ownpoints=('has_ownpoint', 'all'),
+                                              all_finite_populations=('has_finite_population', 'all'))
+    old_complete_roots = set(old_stats[(old_stats.n_records == 3) & (old_stats.n_years == 3) & old_stats.all_ownpoints & old_stats.all_finite_populations].index)
+    old_full3 = set(old_ordinary.loc[old_ordinary.root.isin(old_complete_roots), 'source_record_id'])
+    lost_full3 = old_full3 - full3
+    gained_full3 = full3 - old_full3
+    obs[obs.source_record_id.isin(lost_full3)].to_csv(out / 'previous_full3_ids_without_current_full3.csv', index=False)
     old_credit = pd.read_csv(base / 'applied_primary_credited_UID_roster.csv.gz', usecols=['source_record_id'])
     newly_full3 = full3 - set(old_credit.source_record_id)
     obs[obs.source_record_id.isin(newly_full3)].to_csv(out / 'newly_complete_full3_source_year_records.csv.gz', index=False, compression={'method': 'gzip', 'mtime': 0})
@@ -158,6 +191,8 @@ def main():
         'remaining_whole_NP_without_ownpoint': len(missing),
         'whole_NP_without_same_place_other_census': int((~eligible.has_same_place_other_census).sum()),
         'whole_NP_without_full3_identity_component': int((~eligible.has_full3_identity_component).sum()),
+        'actual_full3_source_year_ids_gained_vs_baseline_identity': len(gained_full3),
+        'actual_previous_full3_ids_lost_after_proved_identity_correction': len(lost_full3),
         'newly_complete_full3_source_year_records': len(newly_full3),
         'newly_complete_full3_population_by_year': obs[obs.source_record_id.isin(newly_full3)].groupby('census_year').effective_population.sum().to_dict(),
         'typed_scope_exclusions': len(scope),
@@ -165,6 +200,15 @@ def main():
         'wall_seconds': round(time.monotonic() - start, 3),
         'incomplete_connected_series_not_automatically_credited_as_full3': True,
     }
+    if args.write_snapshot:
+        state.obs.to_parquet(out / 'applied_state_observations.parquet', index=False, compression='zstd')
+        state.obs[['source_record_id', 'root']].to_csv(out / 'applied_component_snapshot.csv.gz', index=False,
+                                                   compression={'method': 'gzip', 'mtime': 0})
+        sys.path.insert(0, str(ROOT / 'research_rebuild/evidence/main_axis_residual_application68_20261008'))
+        from stream_point_snapshot import write_point_snapshot_from_active_rows
+        write_point_snapshot_from_active_rows(state.point_rows, out / 'applied_point_snapshot.parquet')
+        receipt['selected_observation_rows'] = len(state.obs)
+        receipt['active_point_rows'] = len(state.point_rows)
     (out / 'application_receipt.json').write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps({k: v for k, v in receipt.items() if k != 'input_pins'}, ensure_ascii=False, indent=2), flush=True)
 
