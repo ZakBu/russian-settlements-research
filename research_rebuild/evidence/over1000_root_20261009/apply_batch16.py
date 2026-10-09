@@ -447,4 +447,17 @@ def main():
     (OUT/'application_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({k:v for k,v in receipt.items() if k!='input_pins'},ensure_ascii=False,indent=2),flush=True)
 
+    import os
+    if os.environ.get('SETTLEMENTS_FINAL_EXPORT_DIR'):
+        sys.path.insert(0, str(E/'over1000_final_export_20261009'))
+        from export_final_state_v2 import export_final_state
+        full_export = export_final_state(
+            state=state, credited_ids=ids,
+            output_dir=os.environ['SETTLEMENTS_FINAL_EXPORT_DIR'],
+            recipe_output_dir=OUT, pins=pins,
+            stage_label=receipt['working_stage'], event_ids=eventids,
+            joint=joint, scope=scope,
+            expected_coverage=receipt['effective_primary_coverage'])
+        print(json.dumps(full_export, ensure_ascii=False, indent=2), flush=True)
+
 if __name__=='__main__':main()
