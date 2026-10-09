@@ -1,0 +1,40 @@
+{
+  "packet": "next69_temporal_20261009",
+  "status": "bounded_source_review_ready_deltas_not_applied",
+  "actual_State_loads": 0,
+  "actual68_input_fingerprints": {
+    "applied_remaining_primary.csv.gz": "de48168b15bd3989263048ca7ea73b26b5708743f16f8e9e6e8301a63d6df76b",
+    "applied_point_snapshot.parquet": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502"
+  },
+  "resolved_temporal_bridge": {
+    "from_source_record_id": "2010:011_040325482b_3._20Ryaz_Smol_Tambov_Tula_Jaroslavl_20L1_20ethn_2010.xls:Data Sheet:18436",
+    "to_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:172543",
+    "new_identity_edge": true,
+    "new_retrospective_point_use": true,
+    "current_component_root": "2002:017_6374fdddeb_02c_Yaroslavskaja.xls:Sheet1:5991",
+    "current_component_years_before": "2002,2021",
+    "same_name_rival_component_root": "2002:017_6374fdddeb_02c_Yaroslavskaja.xls:Sheet1:5923",
+    "same_name_rival_2010_source_record_id": "2010:011_040325482b_3._20Ryaz_Smol_Tambov_Tula_Jaroslavl_20L1_20ethn_2010.xls:Data Sheet:18371",
+    "donor_point_snapshot_row_match": true,
+    "donor_point_carrier": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:172543",
+    "donor_latitude": 57.707416,
+    "donor_longitude": 39.89817,
+    "donor_point_origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "donor_point_origin_locator": "parquet row 1-based=172543; fields=latitude_dadata,longitude_dadata; native_OKTMO=78650435101",
+    "new_2010_full3_population_gain_claimed": false,
+    "population_gain_reason": "The 2010 count is marked secondary_confidentiality_protected_value_exact_scope_unverified; identity is source-bound, but no exact-scope comparable population gain is claimed."
+  },
+  "additional_hold": {
+    "case": "Tula 2010/2021 Центральный (4432/3813)",
+    "status": "held",
+    "reason": "Generic name and regional singleton do not provide a source-bound locality identity; 2010 raw row lacks county and local code, and no independent former-name/localcode bridge was found in this bounded review."
+  },
+  "next_step": "Root may independently inspect the source-bound delta, then compose and replay with actual68 if approved by the integration policy.",
+  "source_files_sha256": {
+    "accepted_identity_edge_delta.csv": "beb573958fe175f416bdeeccdd9988f6aa5944af58a08fbdd67f884b5a372628",
+    "accepted_point_use_delta.csv": "bd81dd930eadd84b014d845d1cb796941c9b279215a5cd97c0f89fc1e774aee1",
+    "source_context.csv": "5e41a9665fddc938c85adcc7121d94f9799f49b450c17613c57b1895b5768f7e",
+    "source_pins.json": "f7c57fd42ea25790f5b64904c894ca9d11ff05e7dd4cad28e31a00a9af539ac2",
+    "temporal_holds.csv": "a9f6394f3b53915cd9ca9f0fde9cd1bfdaab6dc5a3d182a586a3068a91c81f5c"
+  }
+}
