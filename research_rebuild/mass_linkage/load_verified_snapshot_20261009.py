@@ -2,12 +2,30 @@
 from pathlib import Path
 import json
 import sys
+import subprocess
+import tempfile
 import pandas as pd
 from current_chain_state_20261007 import State, sha
 from build_long_table import UnionFind, ACCEPTED_COORDINATE_STATUSES
 
 def load_verified_snapshot(directory):
     directory = Path(directory)
+    required = ['release-assets-manifest.json', 'applied_state_observations.parquet',
+                'applied_component_snapshot.csv.gz', 'applied_point_snapshot.parquet',
+                'full_export_receipt.json']
+    if any(not (directory / name).is_file() for name in required):
+        # Capacity-limited local worktrees may have disposable memory-cache links.
+        # The regular asset blobs are committed; hydrate only the snapshot we need.
+        repository = Path(__file__).resolve().parents[2]
+        relative = directory.relative_to(repository).as_posix()
+        if relative not in {'publication/stage70', 'publication/stage71'}:
+            raise ValueError('Only committed current snapshot paths can be hydrated')
+        cache = Path(tempfile.mkdtemp(prefix='settlements-snapshot-', dir='/dev/shm'))
+        for name in required:
+            with (cache / name).open('wb') as stream:
+                subprocess.run(['git', 'show', f'HEAD:{relative}/{name}'], cwd=repository,
+                               stdout=stream, check=True)
+        directory = cache
     manifest = json.loads((directory / 'release-assets-manifest.json').read_text())
     entries = {row['name']: row for row in manifest['assets']}
     names = ['applied_state_observations.parquet', 'applied_component_snapshot.csv.gz',
