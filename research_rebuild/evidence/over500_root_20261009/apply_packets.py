@@ -107,6 +107,8 @@ def main():
     state.add_deltas(edge_paths=paths('edges'), point_paths=paths('points'))
     pd.testing.assert_frame_equal(original, state.obs.iloc[:len(original)].drop(columns=['root']))
     point_delta_ids = set(state.point_rows) - before_points
+    withdrawn_without_replacement = before_points - set(state.point_rows)
+    assert len(state.point_rows) == len(before_points) + len(point_delta_ids) - len(withdrawn_without_replacement)
     base = ROOT / 'publication/stage71'
     scopes = [pd.read_csv(base / 'accepted_large_record_scope_classification_overlay.csv', keep_default_na=False)]
     for path in paths('scope_overlays'):
@@ -128,8 +130,17 @@ def main():
     eligible['component_years'] = eligible.source_record_id.map(lambda sid: ','.join(map(str, sorted(state.years[state.uf.find(sid)]))))
     eligible['has_same_place_other_census'] = eligible.component_years.str.contains(',')
     eligible['has_full3_identity_component'] = eligible.component_years.eq('2002,2010,2021')
+    whole = obs[obs.is_additive_settlement_record.fillna(False) &
+                ~obs.source_record_id.isin(scope.source_record_id)].copy()
+    whole['point_present'] = whole.source_record_id.isin(state.point_rows)
+    whole['population_finite'] = whole.population.map(lambda value: pd.notna(value) and math.isfinite(float(value)))
+    joint_stats = whole.groupby('root').agg(records=('source_record_id', 'size'), years=('census_year', 'nunique'),
+                                          points=('point_present', 'all'), finite=('population_finite', 'all'))
+    joint_roots = set(joint_stats[(joint_stats.records == 3) & (joint_stats.years == 3) &
+                                 joint_stats.points & joint_stats.finite].index)
+    eligible['has_full3_all_ownpoints_and_finite_counts'] = eligible.root.isin(joint_roots)
     # Raw latitude/longitude remain original claims; explicitly expose admitted own points.
-    for field in ['latitude', 'longitude', 'coordinate_admission_status', 'point_origin_file', 'point_origin_sha256', 'point_origin_locator', 'coordinate_binding_rule', 'point_use_inference']:
+    for field in ['latitude', 'longitude', 'coordinate_admission_status', 'point_origin_file', 'point_origin_sha256', 'point_origin_locator', 'point_origin_kind', 'coordinate_binding_rule', 'point_use_inference', 'point_temporal_interpretation', 'source_placement_uncertainty_m', 'diagnostic_map_registration_uncertainty_m', 'spatial_scope_uncertainty', 'historical_census_coordinate_asserted', 'direct_historical_coordinate_measurement', 'provider_binding_asserted', 'external_provider_ID_binding_asserted', 'population_boundary_comparability_asserted', 'boundary_comparability_asserted']:
         eligible['accepted_ownpoint_' + field] = eligible.source_record_id.map(
             lambda sid: state.point_rows.get(sid, {}).get(field, ''))
     eligible.to_csv(out / 'all_whole_NP_over500_record_status.csv.gz', index=False, compression={'method': 'gzip', 'mtime': 0})
@@ -138,7 +149,7 @@ def main():
         denominator = float(rows.effective_population.sum())
         summary = {'census_year': int(year), 'records': len(rows),
                    'effective_population': denominator}
-        for axis in ['has_ownpoint', 'has_same_place_other_census', 'has_full3_identity_component']:
+        for axis in ['has_ownpoint', 'has_same_place_other_census', 'has_full3_identity_component', 'has_full3_all_ownpoints_and_finite_counts']:
             summary[axis + '_records'] = int(rows[axis].sum())
             summary[axis + '_population'] = float(rows.loc[rows[axis], 'effective_population'].sum())
             summary[axis + '_population_percent'] = 100 * summary[axis + '_population'] / denominator
@@ -186,11 +197,14 @@ def main():
         'proved_wrong_identity_component_partitions_superseded': component_partitions,
         'whole_NP_source_year_records': len(eligible),
         'new_ownpoint_uses': len(point_delta_ids),
+        'baseline_ownpoint_uses_withdrawn_without_replacement': sorted(withdrawn_without_replacement),
         'existing_ownpoint_coordinate_replacements': sum(old != (state.point_rows[sid]['latitude'], state.point_rows[sid]['longitude'])
                                                       for sid, old in original_declared_points.items()),
         'remaining_whole_NP_without_ownpoint': len(missing),
         'whole_NP_without_same_place_other_census': int((~eligible.has_same_place_other_census).sum()),
         'whole_NP_without_full3_identity_component': int((~eligible.has_full3_identity_component).sum()),
+        'whole_NP_without_full3_all_ownpoints_and_finite_counts': int((~eligible.has_full3_all_ownpoints_and_finite_counts).sum()),
+        'ordinary_full3_complete_components': len(complete_roots),
         'actual_full3_source_year_ids_gained_vs_baseline_identity': len(gained_full3),
         'actual_previous_full3_ids_lost_after_proved_identity_correction': len(lost_full3),
         'newly_complete_full3_source_year_records': len(newly_full3),

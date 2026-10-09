@@ -1,0 +1,1 @@
+Explicit former FirmLuch / Luchistaya housing bridge remains unresolved. Search engine guards and unrelated Bing cached responses are failed captures, never evidence for ownership. No coordinate or identity admission.
