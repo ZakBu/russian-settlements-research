@@ -1,0 +1,106 @@
+{
+  "baseline": 68,
+  "false_component": [
+    {
+      "source_record_id": "2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:837",
+      "census_year": 2002,
+      "district_raw": "Дмитровский район",
+      "population": 2.0
+    },
+    {
+      "source_record_id": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:10365",
+      "census_year": 2010,
+      "district_raw": NaN,
+      "population": 340.0
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:65842",
+      "census_year": 2021,
+      "district_raw": "Дмитровский городской округ",
+      "population": 1.0
+    }
+  ],
+  "rejected_native_pair": [
+    "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:10365",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:65842"
+  ],
+  "correct_native_pair": [
+    "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:10365",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:67653"
+  ],
+  "original_native2010_raw_path": "/workspace/settlements-raw/data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls",
+  "raw_sha256": "cf5b5d57327bf0d32723a7f49bb58db503a201af83a6e2bda4b874986f864167",
+  "literal_target_row_1based": 10365,
+  "literal_target_cells": [
+    10362.0,
+    "",
+    "Моск.обл.",
+    "деревня Гаврилково",
+    340.0,
+    "",
+    "",
+    ""
+  ],
+  "two_sided_independently_accepted_nativecounty_anchors": [
+    {
+      "UID": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:10364",
+      "root": "2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:2565",
+      "county": "Красногорский район",
+      "raw_cells": [
+        10361.0,
+        "",
+        "Моск.обл.",
+        "деревня Аристово",
+        36.0,
+        "",
+        "",
+        ""
+      ],
+      "already_accepted_three_native_years": true
+    },
+    {
+      "UID": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:10366",
+      "root": "2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:2566",
+      "county": "Красногорский район",
+      "raw_cells": [
+        10363.0,
+        "",
+        "Моск.обл.",
+        "деревня Коростово",
+        118.0,
+        "",
+        "",
+        ""
+      ],
+      "already_accepted_three_native_years": true
+    }
+  ],
+  "correct_receiving_own_core": [
+    {
+      "source_record_id": "2002:010_3e630cc803_02c_Moskovskaya-oblast.xls:Sheet1:2579",
+      "census_year": 2002,
+      "district_raw": "Красногорский район",
+      "population": 76.0
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:67653",
+      "census_year": 2021,
+      "district_raw": "Городской округ Красногорск",
+      "population": 1087.0
+    }
+  ],
+  "correct_ownpoint": {
+    "latitude": 55.8761608,
+    "longitude": 37.3787031,
+    "coordinate_admission_status": "reviewed_rule_accepted",
+    "coordinate_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:67653",
+    "point_origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+    "point_origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "point_origin_locator": "parquet_row_1based=67653;latitude_dadata,longitude_dadata",
+    "point_origin_kind": "tochno_2021_dadata_raw_parquet_point",
+    "point_ledger_path": "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_point_uses.parquet"
+  },
+  "population_values_changed": false,
+  "original_imported_blank_district_not_changed": true,
+  "repair_adapter_requirement": "Exclude actual pair10365→65842 from stage63 acceptededge input before building UF. Point claim10365 is specifically rejected then reassigned from own67653. Core populations all retained."
+}

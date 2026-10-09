@@ -1,0 +1,45 @@
+{
+  "scope": "Additive check to v8: inspect both 2002 Chelyabinsk rural raw XLS and 2002 official Tom1 urban table before classifying settlement-level publication availability.",
+  "sources": [
+    {
+      "source": "chelyabinsk_2002_rural",
+      "path": "/workspace/settlements-raw/data/raw/2002/061_e177b0a77d_Chel_abinskaja1.xls",
+      "sha256": "0ffd4853815474209972fef66ad1704eb74deb756f869c967620a39e8caeb5f5",
+      "sheets": [
+        {
+          "sheet": "Sheet1",
+          "nrows": 1840,
+          "ncols": 4
+        },
+        {
+          "sheet": "Status",
+          "nrows": 17,
+          "ncols": 2
+        }
+      ],
+      "exact_literal_metlino_matches": [],
+      "exact_match_count": 0
+    },
+    {
+      "source": "tom1_2002",
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "sheets": [
+        {
+          "sheet": "01-04",
+          "nrows": 10581,
+          "ncols": 6
+        }
+      ],
+      "exact_literal_metlino_matches": [],
+      "exact_match_count": 0
+    }
+  ],
+  "urban_table_scope": "Tom1 Chelyabinsk oblast block around row 8047: Озерск is a single city total row 91,760, no subordinate NP breakdown within its line; next row 8048 is Снежинск with subordinate administrative settlements. Full excerpt in tom1_ozersk_block.csv.",
+  "conclusion": "The raw Chelyabinsk regional workbook has zero literal Metlino rows across both sheets, and official Tom1 has no Metlino child row under the city total. This supports only “no itemized 2002 Metlino value found in the local 2002 source pair”; it does not support zero or allocating the city aggregate. Retain the v8 limitation that the city total may include locality residents.",
+  "files": {
+    "metlino_2002_source_scope.csv": "791274eb1b0d9b7338d30b38a17a497ff440f16f44b21b806c2edf6be1c80404",
+    "tom1_ozersk_block.csv": "110a93587dfe1e26301435b4a041d6ebe4f14b5a0f90f6275a96fbc169bb64d2",
+    "replay.py": "7b1bdfdea322cabf424decada4f86e0a67af330bf83d935debb20c6c8f265234"
+  }
+}

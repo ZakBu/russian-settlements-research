@@ -1,0 +1,85 @@
+{
+  "packet": "over1000_rest_B_20261009/version30_titovo_rail_object_to_poselok_chain",
+  "review_status": "PASS_2002_2010_RAIL_UIDS_TO_2021_POSELOK_WITH_SEPARATE_VILLAGE; 2010_COUNTY_LIMIT_EXPLICIT",
+  "application_approved": true,
+  "coverage_complete": true,
+  "positive_locality_groups": 1,
+  "native_uid_credits": 3,
+  "ordinary_identity_edges_added": 2,
+  "population_values_or_quality_modified": false,
+  "population_sum_or_transfer": false,
+  "population_boundary_comparability_asserted": false,
+  "values_2002_2010_2021": [
+    1406,
+    1306,
+    1142
+  ],
+  "point_claim": "Only 2021 poselok point is asserted; no old rail coordinate is invented. 2021 village rival has separate own point.",
+  "2021_poselok_vs_village_point_distance_km": 5.330868685339619,
+  "checks": {
+    "2002_rail_vs_village_rows_reopened": true,
+    "2010_rail_station_and_village_rows_reopened": true,
+    "2021_poselok_and_village_uids_and_points_verified": true,
+    "unique_rail_record_each_year": true,
+    "2010_missing_county_explicit": true,
+    "2010_population_quality_preserved": true,
+    "output_hashes_match": true
+  },
+  "source_pins": {
+    "/workspace/settlements-raw/data/raw/2002/050_a0dc3f856b_penzen_obl.xls": {
+      "sha256": "a9114d3359cfed2089bcc52af9b800c52ae991dd166177905523e61a38c5e440",
+      "bytes": 387072
+    },
+    "/workspace/settlements-raw/data/raw/2010/016_802d308e41_8._20Or_Penz_Perm_Samar_Saratov_Uly_2010.xls": {
+      "sha256": "754aae620807b1275e59fc7bf8ce086ca91e7ec863d4d304f5a0a8b228a8d990",
+      "bytes": 10336768
+    },
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": {
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": {
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "bytes": 1819648
+    },
+    "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": {
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "bytes": 15230814
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_state_observations.parquet": {
+      "sha256": "8cde620020634cf5ac9cfff145cc88c4d7365474cff56194b8a7137a43f6e0b9",
+      "bytes": 12774906
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_point_snapshot.parquet": {
+      "sha256": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502",
+      "bytes": 19713572
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_component_snapshot.csv.gz": {
+      "sha256": "2787384874ab5f56c6cf392e8c5aa13dffa7c48443f6051826ead655a2c49230",
+      "bytes": 2734494
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application70_regional_batch_20261009/remaining_over1000_raw_or_primary.csv": {
+      "sha256": "f74740cf28b30976824d573ee2f07c030ceafb1a668b2fc3331e01ccffb1fc76",
+      "bytes": 119364
+    }
+  },
+  "output_pins": {
+    "source_row_witnesses.csv": {
+      "sha256": "7423e483995ae79408f1a09f0b746cde319c65a80e856c4ea0ac33fd27c480ad",
+      "bytes": 2190
+    },
+    "accepted_identity_edge_delta.csv": {
+      "sha256": "2f57bdba589e2ac3836078a5ea68178ed0c6ea9ad630bf8a944a01fed75fb312",
+      "bytes": 2083
+    },
+    "accepted_native_UID_credits.csv": {
+      "sha256": "b4fb0e6639b28f2fe2655186fefe2a6af9133a94aa2fdee7f153e1db0f96b4d7",
+      "bytes": 1446
+    }
+  },
+  "notes": [
+    "2002 rail object and village have distinct exact source types and direct Pachelmsky county.",
+    "2010 source calls the 1306 record railway station; county is not printed and no county is inferred. Same file separately records the village at 58.",
+    "2021 poselok and village have different own points 5.331km apart; no population counts are merged or transferred."
+  ]
+}

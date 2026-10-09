@@ -1,0 +1,70 @@
+{
+  "packet": "version14_27km_monchegorsk",
+  "application_approved": true,
+  "coverage_complete": false,
+  "cohort_size": 178,
+  "scope_source_record_ids": [
+    "2002:025_3449b500ac_02c_Murman_obl_YK.xls:Sheet1:51",
+    "MURMANSK2010:POPSEX:T1:R178"
+  ],
+  "reason": "Approves only the 2002 and 2010 B records into the already-pointed 2021 27km locality component, using full3 exact own article/official-source concordance. Adjacent 25km locality is separately checked and excluded. All populations and source quality remain as recorded; no census-day coordinate or boundary comparability assertion. Remaining B cohort incomplete.",
+  "inputs": [
+    {
+      "path": "/workspace/settlements-raw/data/raw/2002/025_3449b500ac_02c_Murman_obl_YK.xls",
+      "sha256": "cf47ce00cd1ded52ebe8a333d2eb16a1872f4f5cf624bf4dc375ed9690053e82"
+    },
+    {
+      "path": "/workspace/settlements-work/sources/r2-missing/murmansk_population.doc",
+      "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_population_next_cohort_probe_v1/regional_assets/murmansk/murmansk_2010_population_by_sex_full_table_ledger.csv",
+      "sha256": "d773db68c5f8ea96f91b3ad124a6a790a75b4a5ce98b0d61a8219214eb078270"
+    },
+    {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+    },
+    {
+      "path": "research_rebuild/evidence/main_axis_residual_application68_20261008/applied_state_observations.parquet",
+      "sha256": "8cde620020634cf5ac9cfff145cc88c4d7365474cff56194b8a7137a43f6e0b9"
+    },
+    {
+      "path": "research_rebuild/evidence/main_axis_residual_application68_20261008/applied_point_snapshot.parquet",
+      "sha256": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502"
+    },
+    {
+      "path": "research_rebuild/evidence/main_axis_residual_application68_20261008/applied_component_snapshot.csv.gz",
+      "sha256": "2787384874ab5f56c6cf392e8c5aa13dffa7c48443f6051826ead655a2c49230"
+    },
+    {
+      "path": "research_rebuild/evidence/next69_capacity_20261009/over1000_rest_B_assignment.csv",
+      "sha256": "3a0f235cfcacc38a37a34d2b338643bd07ba41d2edc43799117df6ef46c5a2b8"
+    },
+    {
+      "path": "research_rebuild/evidence/over1000_rest_B_20261009/version13_pokrovskoe_gornouralsky/all178_dispositions.csv",
+      "sha256": "a842aefee4119968e0e85f03603264af12f748d5a849b8192f10c589ba7ce549"
+    },
+    {
+      "path": "research_rebuild/evidence/over1000_rest_B_20261009/27km_ownarticle.html",
+      "sha256": "671bcd272500156c406753e0328edf3dcc900512a151433b97867ffbeab071e7"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://ru.wikipedia.org/wiki/27_км_железной_дороги_Мончегорск-Оленья",
+      "locator": "oldid154722843; lines1-25,48,83-92"
+    },
+    {
+      "url": "https://51.rosstat.gov.ru/storage/mediabank/14(1).doc",
+      "locator": "2010 official document, row178; local source hash and row extraction ledger pinned"
+    }
+  ],
+  "outputs": {
+    "all178_dispositions.csv": "369ba9f344add2d4d52a76c47207ccb75df57a492ad621a7c0560e2db69e6c84",
+    "source_row_witnesses.csv": "51c8af1086232e87ff2e301778522191848d66113be759ba840b57157832d14a",
+    "source_witnesses.txt": "ab9e892c91c8b06979559f379bd127346ed3d3fdd01a5a85720e64199c0c3118",
+    "accepted_point_use_delta.csv": "299f33d95496ffa1587a6e80b210566d7a10fa4e7723742243c2109b2781dd2d",
+    "accepted_identity_edge_delta.csv": "0053ee335f67e5f2e4dc0147b8f080290e1720e0be2200402d73124a32729ef7"
+  }
+}

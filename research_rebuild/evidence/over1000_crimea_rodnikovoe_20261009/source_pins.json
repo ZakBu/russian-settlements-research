@@ -1,0 +1,47 @@
+{
+  "scope": "one exact outside-common >1000 residual target; no core state load/run",
+  "inputs": {
+    "outside_common_scope_over1000_audit.csv": {
+      "path": "research_rebuild/evidence/over1000_root_20261009/outside_common_scope_over1000_audit.csv",
+      "sha256": "99eee15f710ba0aa9cd27676bdf9dd41db3deeb4ecdba534e1ec789d4e9fb479"
+    },
+    "ruwiki_revision_154349596.json": {
+      "path": "research_rebuild/evidence/over1000_crimea_rodnikovoe_20261009/ruwiki_revision_154349596.json",
+      "sha256": "8ea8afe5b89f892e590543c19158e4d73971cced7b282bdf5e1ec5b05be6f8a3",
+      "pageid": 2450416,
+      "revisionid": 154349596,
+      "timestamp": "2026-08-09T17:41:27Z"
+    },
+    "2021 native census parquet": {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50304",
+      "row_locator": "parquet_row_1based=50304"
+    }
+  },
+  "official_temporal_sources": [
+    {
+      "url": "https://perepis2002.rosstat.gov.ru/index.html_id=7.html",
+      "claim": "2002 Russian census was as of 2002-10-09"
+    },
+    {
+      "url": "https://rosstat.gov.ru/free_doc/new_site/perepis2010/croc/documents/portret-russia.pdf",
+      "claim": "2010 Russian census occurred 2010-10-14 through 2010-10-25, reference time 2010-10-14"
+    },
+    {
+      "url": "https://www.nalog.gov.ru/rn77/about_fts/docs/4600769/",
+      "claim": "6-FKZ of 2014-03-21 establishes Crimea and Sevastopol as new Russian federal subjects"
+    }
+  ],
+  "coordinates": {
+    "latitude": 45.0458333333,
+    "longitude": 33.9541666667,
+    "display": "45°02′45″N 33°57′15″E"
+  },
+  "claims_limited": [
+    "representative-point inference only",
+    "no historical census coordinate",
+    "no 2002/2010 zero",
+    "no 2001 or 2014 value substituted"
+  ]
+}

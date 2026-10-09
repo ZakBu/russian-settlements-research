@@ -1,0 +1,132 @@
+{
+  "packet": "over1000_tula_oktyabrsky_v5_20261009",
+  "status": "ready_for_root_review",
+  "purpose": "source-bound 2002/2010/2021 Oktabrsky temporal path and explicit 2010 census-source composition; no core/state API run",
+  "source_pins": {
+    "selected_2002_tula_raw": {
+      "path": "/workspace/settlements-raw/data/raw/2002/016_3aa889d669_02c_Tulskaja.xls",
+      "sha256": "d252915e50ff311f4d695e1a2f8a38da624c6b34774dc799418cf3f8d487a59f",
+      "bytes": 667648
+    },
+    "selected_2010_native_raw": {
+      "path": "/workspace/settlements-raw/data/raw/2010/011_040325482b_3._20Ryaz_Smol_Tambov_Tula_Jaroslavl_20L1_20ethn_2010.xls",
+      "sha256": "a3c69e68dfa35bfb0964a15f0f46b258500fab3e61ff3271ef9584e055d6efca",
+      "bytes": 9839104
+    },
+    "2021_native_parquet": {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    "official_2010_tula_inventory": {
+      "path": "research_rebuild/evidence/next68_primary_source_routes/tula_primary2010_full_NP_inventory.csv.gz",
+      "sha256": "a4f4d9e10c10daf7d640f3d50dbc85a6f8b00536c53d397230ea0f954a739523",
+      "bytes": 168695
+    },
+    "official_2010_tula_pdf": {
+      "path": "research_rebuild/evidence/next68_primary_source_routes/tula_2010_official_Tom1.pdf",
+      "sha256": "af106d17032ed614af762a8be09608aa090f239d4e7fce5b3419b8374f7e8a65",
+      "bytes": 5467683
+    },
+    "own_article_revision": {
+      "path": "research_rebuild/evidence/over1000_tula_yaroslavl_20261009_v2/web_captures/wiki_04.json",
+      "sha256": "4fb0d88a160bd8beaf36d255ef51399bdd3515aac054fcc6edcbf86b33838c12",
+      "bytes": 8497
+    },
+    "actual68_component_snapshot": {
+      "path": "research_rebuild/evidence/main_axis_residual_application68_20261008/applied_component_snapshot.csv.gz",
+      "sha256": "2787384874ab5f56c6cf392e8c5aa13dffa7c48443f6051826ead655a2c49230",
+      "bytes": 2734494
+    },
+    "actual70_regional_batch_residual": {
+      "path": "research_rebuild/evidence/main_axis_residual_application70_regional_batch_20261009/remaining_over1000_raw_or_primary.csv",
+      "sha256": "f74740cf28b30976824d573ee2f07c030ceafb1a668b2fc3331e01ccffb1fc76",
+      "bytes": 119364
+    },
+    "stage_v2_candidate_edge": {
+      "path": "research_rebuild/evidence/over1000_tula_yaroslavl_20261009_v2/accepted_identity_edge_delta.csv",
+      "sha256": "44122edd33ea32c6a1c0565b3faa2bb676376c3f915cfeb91dc5c66f97543cc4",
+      "bytes": 13100
+    },
+    "v2_source_context": {
+      "path": "research_rebuild/evidence/over1000_tula_yaroslavl_20261009_v2/source_context.csv",
+      "sha256": "141c64f19fd34b08bf20e25f6a3f8ca997197a50024b18ecaf8a28f8b7978a82",
+      "bytes": 11122
+    },
+    "current_ownpoint_source_frame": {
+      "path": "/workspace/settlements-work/continuation_20261004/root/current_residual_wikidata4231_source_frame.csv",
+      "sha256": "86753d8e569eaf1823cc78cbc234ce207da355abff8af90a0690d44ddfac539a",
+      "bytes": 4208125
+    },
+    "wikidata_truthy_batch_0090": {
+      "path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0090.jsonl.gz",
+      "sha256": "fce12304fff45cdb07d5ef940c86b28d889687eb471fee234014d2cfc20885ae",
+      "bytes": 70095
+    },
+    "locators": {
+      "2002 Oktabrsky": "Sheet1 index2190, source ID row2191; context rows2031-2032 and2190",
+      "2002 VNIICOP": "Sheet1 index2198, source ID row2199",
+      "2010 Oktabrsky selected raw": "Data Sheet selected UID row11315, native secondary value1287",
+      "2010 Oktabrsky official primary": "TULA2010:Table12:PDFpage86:line15, county Leninsky, municipality Rozhdestvenskoye, population1285",
+      "2021 Oktabrsky": "Parquet row152518, population852, own point Q23976562",
+      "2021 VNIICOP": "Parquet row152512, population541; baseline component member with old row2199",
+      "article": "pageid9079639; revision150967583; time2026-01-02T20:00:43Z; own article Oktabrsky, Leninsky, says VNIICOP population counted within Oktabrsky in 2010",
+      "Q23976562 point": "batch_0090.jsonl.gz#line=7248; POINT(37.559440 54.336390)",
+      "source_scope_guardrail": "No separate VNIICOP 2010 own-native population is asserted; 2002 value636 is not copied into 2010."
+    }
+  },
+  "files": {
+    "2010_vniicop_separate_row_scan.csv": {
+      "sha256": "067bef9c1a353cdf7ff89d2435d471ffb80e350115bd2ac04954a643ccd75f7e",
+      "bytes": 716
+    },
+    "README.md": {
+      "sha256": "011cb216b93239614340acf0cfc245f28dcacb872c1a88affa9583736eb6f0fc",
+      "bytes": 2881
+    },
+    "accepted_identity_edge_delta.csv": {
+      "sha256": "8f408d698539a0f61d65fcf13bc114b822660bc0991fe69b463304642277f75e",
+      "bytes": 1888
+    },
+    "accepted_point_use_delta.csv": {
+      "sha256": "920df9ff592444cdf65cfc9ca1bb175ac24cb39e677b68a663f5d06d77179f2d",
+      "bytes": 2272
+    },
+    "five_record_temporal_composition_ledger.csv": {
+      "sha256": "21dd200e112396eb2d0afdc7a5d31150b65a6c2207d839559bc5d56e2bd558a4",
+      "bytes": 1755
+    },
+    "official_2010_primary_row_witness.csv": {
+      "sha256": "496ab6ddd11eadc87f039c10012541231f96d67f2157f61a3076859db203cbb8",
+      "bytes": 1111
+    },
+    "raw_2002_native_row_witnesses.csv": {
+      "sha256": "f19941f0c49d2d1981ecf2c4cbdffc9a2d2f497970c76e141967b97d35a8f991",
+      "bytes": 779
+    },
+    "raw_2010_native_row_witness.csv": {
+      "sha256": "bd8a914198200a6705ac3aaa5b69528b0b66fb1961aa65aa3539582efae41306",
+      "bytes": 517
+    },
+    "raw_2021_native_row_witnesses.csv": {
+      "sha256": "8af789a9f0448f24a409fefc262998a4c3e239a11bcbe52144659e1c41665a6f",
+      "bytes": 754
+    },
+    "source_pins.json": {
+      "sha256": "5314e7800e7d181f6abb3613fee9b0c6f6e85c6fba6e2db6c26112676bc9e275",
+      "bytes": 5087
+    },
+    "source_scope_composition.csv": {
+      "sha256": "224de792a6a19f7730030a381c6fb21fa3eada3c3d5775da1da8a00e561a4b5a",
+      "bytes": 1280
+    },
+    "source_year_status_and_quality.csv": {
+      "sha256": "76cb9702ded0f61f83e9f603b15af14aed51d53db53f5de65d23117626a96107",
+      "bytes": 1727
+    },
+    "wikidata_Q23976562_claim_line7248.json": {
+      "sha256": "9a93c50588e5a2dc49d959193479efe2129dae4ca4494643324bf754c029a80f",
+      "bytes": 199
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "packet": "over1000_rest_B_20261009/version26_novogorelovo_selected_census_scope",
+  "review_status": "PASS_2021_NATIVE_UID_AND_POINT; PRIOR_YEARS_LIMITED_SELECTED_SOURCE_NO_MATCH",
+  "application_approved": true,
+  "coverage_complete": false,
+  "positive_locality_groups": 1,
+  "native_uid_credits": 1,
+  "identity_edges_added": 0,
+  "population_values_or_quality_modified": false,
+  "population_sum_or_transfer": false,
+  "historical_absence_claimed": false,
+  "checks": {
+    "2021_native_UID_in_actual68_observations": true,
+    "2021_point_in_actual68_snapshot_and_admitted": true,
+    "2002_rural_and_Tom1_searched": true,
+    "2010_NW_workbook_and_Tom1_searched": true,
+    "same_name_StPetersburg_object_excluded": true,
+    "output_hashes_match": true
+  },
+  "source_pins": {
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_state_observations.parquet": {
+      "sha256": "8cde620020634cf5ac9cfff145cc88c4d7365474cff56194b8a7137a43f6e0b9",
+      "bytes": 12774906
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_point_snapshot.parquet": {
+      "sha256": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502",
+      "bytes": 19713572
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_component_snapshot.csv.gz": {
+      "sha256": "2787384874ab5f56c6cf392e8c5aa13dffa7c48443f6051826ead655a2c49230",
+      "bytes": 2734494
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application70_regional_batch_20261009/remaining_over1000_raw_or_primary.csv": {
+      "sha256": "f74740cf28b30976824d573ee2f07c030ceafb1a668b2fc3331e01ccffb1fc76",
+      "bytes": 119364
+    },
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": {
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    "/workspace/settlements-raw/data/raw/2002/024_2d3f550c6f_02c_Leningradskaja_obl_new.xls": {
+      "sha256": "7f7df94c8d573fc3e101738a53d2e44246bb5448f0b2008b2a71cfff8e7c0ddd",
+      "bytes": 950784
+    },
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": {
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "bytes": 1819648
+    },
+    "/workspace/settlements-raw/data/raw/2010/001_723371ec84_1._20NW_2010.xls": {
+      "sha256": "03569e7513579700cb0216869ecbe16712e0fe684f0340517f11484612fab382",
+      "bytes": 9754624
+    },
+    "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": {
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "bytes": 15230814
+    }
+  },
+  "output_pins": {
+    "accepted_native_UID_credits.csv": {
+      "sha256": "33e647c1bab48b6ba72fd13172950ec0af82cb69ff2bf6213def0a03a2fc607a",
+      "bytes": 1128
+    },
+    "source_year_statuses.csv": {
+      "sha256": "03564c6389049f9d748493e3e46a6c4166a781fc0b4d376ecbd66b412433fb5e",
+      "bytes": 1092
+    },
+    "selected_source_search_witnesses.csv": {
+      "sha256": "5b462d685ea85e92fdb8f0542cb142b4d2b95f0f7024c9aad5b7de09cd7dfd73",
+      "bytes": 494
+    }
+  },
+  "notes": [
+    "The 2021 source population is direct and its own locality point is already admitted.",
+    "Earlier census rows are limited selected-source findings only, not zero or physical/legal absence.",
+    "A 2010 same-name St Petersburg municipal district is a different region/object."
+  ]
+}

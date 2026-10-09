@@ -1,0 +1,20 @@
+from pathlib import Path
+import pandas as pd,json,hashlib
+O=Path(__file__).parent;M=O.parent/'over1000_moscow_20261009';d=pd.read_csv(M/'moscow_native_all_years_stage68.csv.gz');e=pd.read_csv(O/'accepted_identity_edge_delta.csv');p=pd.read_csv(O/'accepted_point_use_delta.csv');parent={s:s for s in d.root.unique()};yrs={rt:set(g.census_year)for rt,g in d.groupby('root')};rt=dict(zip(d.source_record_id,d.root))
+def find(a):
+ while parent[a]!=a:a=parent[a]
+ return a
+for r in e.itertuples():
+ a,b=find(rt[r.from_source_record_id]),find(rt[r.to_source_record_id]);assert a!=b and not yrs[a]&yrs[b];parent[a]=b;yrs[b]|=yrs[a]
+assert len(p)==7 and len(e)==5
+assigned=pd.read_csv(M/'assigned79_native_UIDs.csv');readyevent=pd.read_csv(O/'accepted_direct_event_native_credit_union.csv');assert len(readyevent)==4 and readyevent.source_population.sum()==8125
+# All changed identity components must have actual native02/10/21, no repeated sourceyear.
+changed={find(rt[s])for s in set(e.from_source_record_id)|set(e.to_source_record_id)}
+changed_rows=d[d.root.map(find).isin(changed)];assert len(changed_rows)==9
+for _,g in changed_rows.groupby(changed_rows.root.map(find)):assert len(g)==3 and set(g.census_year)=={2002,2010,2021}
+newordinary=changed_rows.groupby('census_year').population.sum().to_dict();dedup=dict(newordinary);dedup[2010]-=2632;dedup[2021]-=2350
+receipt={'status':'FINAL_FROZEN','baseline':68,'ordinary_edges':5,'ordinary_point_uses':7,'explicit_wrong_point_rejections':1,'ordinary_actual68_replay':'PASS;3disjointnative02/10/21components;0sameyearcollisions','ordinary_baseline68_new_native_UIDs':9,'ordinary_baseline68_new_population_by_year':newordinary,'ordinary_increment_after_prior69_Uspensky_available_year_UID_credit_dedup':dedup,'included_in_events':4,'historical_observations':4,'receiving_context_observations':12,'included_native2002_population_gain':8125,'increment_after_existing_formation_UID_dedup_all_years':int(sum(dedup.values())+8125),'assigned79_additional_ready_records':5,'assigned79_additional_ready_population':9270,'all_prior_packets_plus_this_ready_assigned_records':74,'remaining_assigned_records':5,'remaining_assigned_population':14004,'remaining_assigned_UID_suffixes':['1568','4618','3866','4801','2538'],'native_population_edits':0,'fake_calendar_zero':False,'fake_successor_or_child_year_count':False,'parent_point_assignment_to_formerNP':False,'source_comparability':'UNKNOWN','ownpoint_Chapaev_quality':'IndependentqualifiedownformerNPestatehouse10historicalphotolocation;manualrepresentativepoint,notcentroidorcensusdaymeasurement;adjacenttowerpointnotadmitted','conditional_receiver_ordinary_continuation':'Sovkhozincluded_intoBiokhim2003-01-10;recipientBiokhimrenamedUspensky2003-05-14. ActualoldBio445+future2632/2350retained;genericearlierformationavailableyearpathcreditdedup.'}
+(O/'FINAL_packet_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
+newids=(set(readyevent.source_record_id)|set(changed_rows.source_record_id))-set(pd.read_csv(M/'accepted_newly_formed_native_credit_union.csv').source_record_id);q=assigned[assigned.source_record_id.isin(newids)].copy();assert len(q)==5;q['disposition']='ready_secondary_source_pinned_available_year_native_path';q.to_csv(O/'assigned79_additional_ready_UIDs.csv',index=False)
+held=assigned[assigned.source_record_id.str.endswith((':1568',':4618',':3866',':4801',':2538'))].copy();assert len(held)==5;held['status']='hold_actual_dated_absorption_known_independent_former_ownNP_point_missing';held.to_csv(O/'remaining5_literal_native_holds.csv',index=False)
+manifest={'status':'FINAL_FROZEN','baseline':68,'files':[dict(path=f.name,bytes=f.stat().st_size,sha256=hashlib.sha256(f.read_bytes()).hexdigest())for f in sorted(O.iterdir())if f.is_file()and not f.name.startswith('FINAL_manifest')],'receipt':'FINAL_packet_receipt.json'};(O/'FINAL_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n');h=hashlib.sha256((O/'FINAL_manifest.json').read_bytes()).hexdigest();(O/'FINAL_manifest.sha256').write_text(h+'  FINAL_manifest.json\n');print(json.dumps(receipt,ensure_ascii=False,indent=2));print(h)
