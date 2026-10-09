@@ -1,0 +1,5 @@
+Conservative current working-axis lower bound after application15.
+
+Reproduce: take published stage71 credited UID roster, remove exact seven IDs in previous_full3_ids_without_current_full3.csv (all prior finite-full3-only, no independent typed credit), append301 disjoint IDs from newly_complete_full3_source_year_records.csv.gz. Sum effective_population byyear and add the six published federal territory observations once. Controls145166731/142856536/144699673 unchanged; this is not the >500 or coordinate-only denominator. Result144583859/142134641/144308122; percentages99.5984810046/99.4946713534/99.7294043643.
+
+New transformation-only packets are not silently added to this axis; their complete integration may increase it. Corrected two-year links are not automatically recredited as full3. This is a deliberately conservative confirmed union, not a successor national release or an assertion that all pending accepted lifecycle decisions are integrated. Inputhashes, retainedUIDroster and frozenincremental sources are provided.
