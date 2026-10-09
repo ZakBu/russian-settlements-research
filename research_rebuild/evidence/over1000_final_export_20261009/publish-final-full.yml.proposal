@@ -1,0 +1,76 @@
+name: Build and publish final full settlement tables
+on:
+  workflow_dispatch:
+    inputs:
+      runtime_bundle_url:
+        description: Immutable HTTPS archive of pinned /workspace data and evidence required by final recipe
+        required: true
+      runtime_bundle_sha256:
+        description: SHA256 of the exact runtime archive
+        required: true
+      final_recipe:
+        description: Final reviewed recipe filename
+        default: apply_batch16.py
+        required: true
+      release_tag:
+        description: New release tag (preserves stage68 release)
+        default: working-settlements-final-2026-10-09
+        required: true
+permissions:
+  contents: write
+concurrency:
+  group: publish-settlements-final-full
+  cancel-in-progress: false
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - run: pip install pandas pyarrow duckdb
+      - name: Hydrate pinned runtime inputs
+        env:
+          RUNTIME_URL: ${{ inputs.runtime_bundle_url }}
+          RUNTIME_SHA: ${{ inputs.runtime_bundle_sha256 }}
+        run: |
+          curl --fail --location --proto '=https' "$RUNTIME_URL" --output "$RUNNER_TEMP/runtime.tar.gz"
+          printf '%s  %s\n' "$RUNTIME_SHA" "$RUNNER_TEMP/runtime.tar.gz" | sha256sum --check
+          sudo mkdir -p /workspace
+          sudo chown "$USER" /workspace
+          python - <<'PY'
+          import os,tarfile,pathlib
+          with tarfile.open(pathlib.Path(os.environ['RUNNER_TEMP'])/'runtime.tar.gz') as t:
+              # Archive roots are settlements-work, settlements-raw, settlements-delivery;
+              # required repository evidence overlays must be restored separately under
+              # russian-settlements-research without replacing checked-out code.
+              t.extractall('/workspace',filter='data')
+          PY
+          rm "$RUNNER_TEMP/runtime.tar.gz"
+          # Archive must not contain russian-settlements-research itself. Repository
+          # evidence is checked in or restored to checkout by root's pinned hydration.
+          ln -s "$GITHUB_WORKSPACE" /workspace/russian-settlements-research
+      - name: Apply final reviewed recipe and export complete tables
+        env:
+          FINAL_RECIPE: ${{ inputs.final_recipe }}
+          SETTLEMENTS_FINAL_EXPORT_DIR: ${{ runner.temp }}/final-full
+        run: |
+          case "$FINAL_RECIPE" in apply_batch[0-9]*.py) ;; *) exit 2 ;; esac
+          python "research_rebuild/evidence/over1000_root_20261009/$FINAL_RECIPE"
+          python scripts/verify_release_assets.py --manifest "$SETTLEMENTS_FINAL_EXPORT_DIR/release-assets-manifest.json" --asset-dir "$SETTLEMENTS_FINAL_EXPORT_DIR"
+      - name: Upload and verify exact final assets before publication
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release create "$RELEASE_TAG" --target "$GITHUB_SHA" --title "Final working settlement tables — 2026-10-09" --notes "Complete refreshed ordinary table, available-year source records, State snapshots, scope overlays and provenance manifests." --draft
+          fi
+          gh release upload "$RELEASE_TAG" "$RUNNER_TEMP/final-full/"* --clobber
+          mkdir "$RUNNER_TEMP/remote-readback"
+          gh release download "$RELEASE_TAG" --dir "$RUNNER_TEMP/remote-readback"
+          python scripts/verify_release_assets.py --manifest "$RUNNER_TEMP/final-full/release-assets-manifest.json" --asset-dir "$RUNNER_TEMP/remote-readback"
+          gh release edit "$RELEASE_TAG" --draft=false --latest

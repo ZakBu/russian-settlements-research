@@ -1,3 +1,7 @@
+# Current working data — stage70
+
+Latest complete bundle: [stage70](https://github.com/ZakBu/russian-settlements-research/releases/tag/working-settlements-stage70-2026-10-09). The publication workflow verifies remote bytes before marking it published. The default State loader now reads the verified complete stage70 snapshots; explicit older stages remain available. Full export:142570 ordinary three-census rows (135columns),431463 credited source-year observations,465928 total native observations,446739 accepted active own-point claims. The chronological increment notes below are retained as history.
+
 # Applied increment 69 and the >1,000-person completion criterion
 
 The latest full published pack remains [stage68](https://github.com/ZakBu/russian-settlements-research/releases/tag/working-settlements-stage68-2026-10-08). The following increment has actually been applied with the existing State API to its certified native snapshots. It is not yet a replacement full publication. The main full-pack entry point and frozen stage68 reports remain stage68 until the regional completion batch is composed.
