@@ -1,3 +1,7 @@
+# Current working data — stage71
+
+Latest complete bundle: [stage71](https://github.com/ZakBu/russian-settlements-research/releases/tag/working-settlements-stage71-2026-10-09). The publication workflow verifies remote bytes before publication. All **30,448** eligible whole-NP source-year records above raw OR approved-primary population1,000 have an accepted active own representative point.185 missing own point uses were added;38 explicitly typed part/admin/territory observations are retained separately. Working population coverage stays99.554610% /99.450848% /99.696357%; unavailable historical individual counts remain unknown. The default verified snapshot loader now uses71. Earlier sections below are retained as chronology.
+
 # Current working data — stage70
 
 Latest complete bundle: [stage70](https://github.com/ZakBu/russian-settlements-research/releases/tag/working-settlements-stage70-2026-10-09). The publication workflow verifies remote bytes before marking it published. The default State loader now reads the verified complete stage70 snapshots; explicit older stages remain available. Full export:142570 ordinary three-census rows (135columns),431463 credited source-year observations,465928 total native observations,446739 accepted active own-point claims. The chronological increment notes below are retained as history.
