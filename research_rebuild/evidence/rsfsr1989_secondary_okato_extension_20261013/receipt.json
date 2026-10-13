@@ -1,0 +1,59 @@
+{
+  "inputs": {
+    "/workspace/scratch/tochno-enrichment-20261013/applied/integrated_spatial_temporal_records.parquet": "8be41d46b832310fc68bc48c715e71af87e5c525fc7e1c4d7264ce71931a623a",
+    "/workspace/settlements-raw/data/raw/wikimedia/wikidata_oktmo_population.tsv": "768c39a0dd2cd10fbb7ac13438665b0f39c2c4e4d1e663e5ef9368e37b5af8ae",
+    "/workspace/settlements-raw/data/raw/wikimedia/wikidata_oktmo_entities.tsv": "580e20042d6dfdcc6dd29d5d7fbde59593145b97abbb37e7760e89b567b36d36",
+    "/workspace/scratch/tochno-np-attach-20261013/native_np_latest_all_attributes.parquet": "f13e5f95b33b2ba73f28acf768a0edff302feb90ab124c298302338dcfce9cfd",
+    "/workspace/scratch/tochno-enrichment-20261013/applied/applied_core_point_snapshot.parquet": "1415e1fed2e307060444ef06bb086ee1603f75fd302ab7efb81795788e6e54d2"
+  },
+  "source1989_rows": 26132,
+  "source1989_QIDs": 13268,
+  "current_bound_QIDs": 8653,
+  "secondary1989_rows_GUID_deduplicated": 8654,
+  "own1989_NP_or_explicit_city_subjects": 8653,
+  "source_bounded_population_sum_min": 76685892,
+  "source_bounded_population_sum_max": 76685973,
+  "single_value_subjects": 8652,
+  "conflicting_subjects": 1,
+  "primary_city_roster_reference": "/workspace/russian-settlements-research/research_rebuild/evidence/rsfsr1989_urban_mass_20261013/image_checked_source_current_reference_bindings.csv",
+  "primary_roster_subjects_excluded_from_secondary_disjoint_count": 34,
+  "secondary_disjoint_min": 53575764,
+  "secondary_disjoint_max": 53575845,
+  "holds": {
+    "point_unavailable_or_ambiguous": 571,
+    "no_unique_literal_own_NP_code_or_accepted_direct_QID": 3846,
+    "literal_name_mismatch": 89,
+    "current_own_point_disagreement": 98,
+    "aggregate_or_asset_label": 13
+  },
+  "not_a_primary_census_or_boundary_verified_national_total": true,
+  "missing_flat_qualifier_precision_unit_provenance_explicit": true,
+  "new_downloads_used": false,
+  "outputs": {
+    "current_own_NP_bindings.parquet": {
+      "path": "/workspace/scratch/rsfsr1989_secondary_okato_extension_20261013/current_own_NP_bindings.parquet",
+      "sha256": "d1003b44ec5494a4d3c75b20dbac4c0230644ee4b158815409ffedbe577a5aec",
+      "bytes": 515909
+    },
+    "secondary_population_1989_long.parquet": {
+      "path": "/workspace/scratch/rsfsr1989_secondary_okato_extension_20261013/secondary_population_1989_long.parquet",
+      "sha256": "7a1038f978bcf347f4a738f92e9b8fde7bebc7796d34b37b18807fdef37ffd99",
+      "bytes": 850310
+    },
+    "additional_OKATO11_population_1989_long.parquet": {
+      "path": "/workspace/scratch/rsfsr1989_secondary_okato_extension_20261013/additional_OKATO11_population_1989_long.parquet",
+      "sha256": "1f54031256cc06c4896640d1687b1565265bb6c43643637112e6a42c28c23d90",
+      "bytes": 45376
+    }
+  },
+  "elapsed_seconds": 33.32,
+  "delta_against_frozen_mass": {
+    "new_GUIDs": 282,
+    "new_subjects": 282,
+    "sum_literal_added": 2364195,
+    "prior_GUIDs_now_held": 3,
+    "sum_literal_held": 1984,
+    "net_subject_change": 279,
+    "prior_parquet_sha256": "e9d5f7becfe617a72ccb95fbcb6a12185ad920b63f6750f5adcfd5bb93c20c00"
+  }
+}
