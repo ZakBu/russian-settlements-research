@@ -270,3 +270,10 @@ Generic primary claim adapters preserve explicit NULL sex fields and source-grad
 ## 2026-10-09 — original source order in ethnicity-sorted Amur tables
 
 The 2002 Amur XLS is physically sorted by an ethnic-share indicator. Adjacent spreadsheet rows are not administrative hierarchy evidence. Preserve the original ordinal in column 0 and reconstruct original order before interpreting county captions. Nikolaevka (population 1,092) belongs to the Bureysky/Novobureysky rural source scope; its physical row position had misleadingly suggested Zeya. Compare all same-name source rows and retain physical and original row locators separately. Correcting identity does not rewrite population, quality, or external-provider identifiers.
+
+
+## 2026-10-13 — буквальные кавычки в Tesseract TSV
+
+Tesseract TSV — не CSV с кавычечным экранированием. Распознанное слово, равное двойной кавычке, при csv.DictReader(delimiter="\t") поглощало следующие строки. Возникал ложный региональный заголовок до 27251 символа, часть записей терялась. Исправление: quoting=csv.QUOTE_NONE для исходного TSV, при сохранении исходных байтов и их хешей. Повторное чтение тех же 82 файлов восстановило 3055 кандидатных строк вместо 2464; OCR повторно не запускался.
+
+Контроль структуры: отдельная ячейка text не должна содержать встроенные TSV-строки; заголовки проверяются отдельно от населённых пунктов. Правильный TSV-парсер не доказывает верность OCR цифр: массовые строки остаются кандидатами. Код: research_rebuild/evidence/extended_population_sources_20261013/parse_ocr_candidates.py.
