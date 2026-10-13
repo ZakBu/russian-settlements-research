@@ -1,0 +1,348 @@
+{
+  "status": "independent_review_complete_candidate_only",
+  "decision": "The 2010 primary pgt-to-2021 pgt same-place edge is supported for root review. The codes and publication types distinguish the urban object from the separately published village; the colocated 2009/2011 coordinate pair is explicitly not treated as distinguishing evidence. County continuity is unproven and no boundary/population comparability is asserted.",
+  "scope": "one Gramoteino identity edge; no admission or canonical mutation",
+  "candidate": {
+    "edge_id": "URB2-36158d98057dfa0908",
+    "from_source_record_id": "ROSSTAT2010:T5:p186:l37",
+    "to_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:33242",
+    "relation": "same_place",
+    "candidate_status": "candidate_only_pending_independent_review",
+    "candidate_only": true,
+    "identity_admission": false,
+    "rule_family": "unique_typed_urban_bridge_rural_homonyms_nonblocking_v2"
+  },
+  "2010_primary": {
+    "source_record_id": "ROSSTAT2010:T5:p186:l37",
+    "source_file": "data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+    "source_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+    "native_id": "ROSSTAT2010:T5:p186:l37",
+    "locator": {
+      "pdf_page_1based": 186,
+      "printed_page": 185,
+      "raw_district": "",
+      "raw_label": "пгт Грамотеино",
+      "table": "5",
+      "text_line_end_1based": 37,
+      "text_line_start_1based": 37
+    },
+    "raw_name_type": "пгт Грамотеино",
+    "population_reported": 12996,
+    "population_quality": "reviewed_primary_reported_value",
+    "original_quality_tag": "confidentiality_perturbed_within_ten",
+    "source_flags": {
+      "entity_grain_status": "atomic_physical_settlement_primary_table5_reviewed",
+      "grain_explicit": true,
+      "grain_review_flag": "primary_atomic_settlement_reviewed",
+      "is_additive_settlement_record": true,
+      "is_federal_aggregate": false,
+      "population_scope": "settlement",
+      "district_raw": "",
+      "municipality_raw": null,
+      "legacy_identity_status": "quarantined",
+      "legacy_identity_conflict": true,
+      "legacy_identity_reasons": "[\"administrative_conflict\"]",
+      "legacy_match_method": "unique_region_name_type_district_conflict"
+    },
+    "assessment": "Primary 2010 Table 5 row: atomic physical settlement reviewed, explicit grain, additive, non-aggregate, settlement scope. Population is reported exactly as 12,996; preserve the within-ten confidentiality qualification."
+  },
+  "2021_native_source": {
+    "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:33242",
+    "source_file": "data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+    "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "source_row_1based": 33242,
+    "raw_native_id": "32707000061",
+    "raw_OKATO": "32407554000",
+    "raw_OKTMO": "32707000061",
+    "source_flags": {
+      "entity_grain_status": null,
+      "grain_explicit": false,
+      "grain_review_flag": "grain_unresolved_or_not_recorded",
+      "is_additive_settlement_record": true,
+      "is_federal_aggregate": false,
+      "population_scope": "settlement",
+      "district_raw": "Беловский городской округ",
+      "municipality_raw": "Беловский городской округ",
+      "legacy_identity_status": "anchor_record",
+      "legacy_identity_conflict": false,
+      "legacy_identity_reasons": "[]"
+    },
+    "raw_rows": [
+      {
+        "object_level": "Населенный пункт",
+        "object_name": "пгт Грамотеино",
+        "oktmo": "32707000061",
+        "region": "Кемеровская область",
+        "mun_upper": "Беловский городской округ",
+        "mun_lower": "Беловский городской округ",
+        "settlement": "пгт Грамотеино",
+        "population": 11217,
+        "settlement_type_full_dadata": "поселок городского типа",
+        "settlement_with_type_dadata": "пгт Грамотеино",
+        "settlement_type_dadata": "пгт",
+        "settlement_dadata": "Грамотеино",
+        "fias_id_dadata": "e4eb4d62-61d5-4a75-b021-938c5ed2661f",
+        "fias_level_dadata": "6",
+        "okato_dadata": "32407554000.0",
+        "latitude_dadata": 54.5163486,
+        "longitude_dadata": 86.3734225,
+        "qc_geo_dadata": 3
+      },
+      {
+        "object_level": "Населенный пункт",
+        "object_name": "деревня Грамотеино",
+        "oktmo": "32707000106",
+        "region": "Кемеровская область",
+        "mun_upper": "Беловский городской округ",
+        "mun_lower": "Беловский городской округ",
+        "settlement": "деревня Грамотеино",
+        "population": 1329,
+        "settlement_type_full_dadata": "деревня",
+        "settlement_with_type_dadata": "д Грамотеино",
+        "settlement_type_dadata": "д",
+        "settlement_dadata": "Грамотеино",
+        "fias_id_dadata": "901ffa84-d933-4415-ac38-4e0c171b7bbc",
+        "fias_level_dadata": "6",
+        "okato_dadata": "32407000005.0",
+        "latitude_dadata": 54.5255005,
+        "longitude_dadata": 86.358519,
+        "qc_geo_dadata": 3
+      }
+    ],
+    "sourcewide_unique_code_counts": {
+      "OKATO_32407554000": 1,
+      "OKTMO_32707000061": 1,
+      "rural_OKTMO_32707000106": 1
+    },
+    "assessment": "Native current source row is object_level=Населенный пункт, raw type пгт, population 11,217 and carries its own exact OKATO/OKTMO; the selected evidence grain flag is unresolved, so the raw source classification is retained alongside it."
+  },
+  "historical_typed_code_evidence": {
+    "2009_classifier": {
+      "raw_OKATO": "32407554",
+      "raw_name": "Грамотеино",
+      "normalized_name": "Грамотеино",
+      "status": "поселок городского типа",
+      "line_1based": 71476,
+      "row_sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+      "snapshot_version": "142/2009",
+      "valid_from": null,
+      "valid_to": null
+    },
+    "2011_GeoKLADR_urban": {
+      "raw_OKATO": "32407554000",
+      "DBF_record_1based": 53408,
+      "byte_offset_0based": 21096470,
+      "raw_name": "Грамотеино",
+      "SCOKATO_type": "пгт                      ",
+      "settlement_type": "пгт",
+      "KLADR_code": "4200001500400",
+      "OKTMO_raw": null,
+      "DATA_UPD_raw": "2011/06/20",
+      "source_updated_at": "2011/06/20",
+      "longitude": 86.356393,
+      "latitude": 54.525511,
+      "row_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+    },
+    "2011_GeoKLADR_rural_competitor": {
+      "raw_OKATO": "32201852002",
+      "DBF_record_1based": 52405,
+      "byte_offset_0based": 20700285,
+      "raw_name": "д Грамотеино",
+      "SCOKATO_type": "д                        ",
+      "settlement_type": "д",
+      "KLADR_code": "4200001500900",
+      "OKTMO_raw": null,
+      "DATA_UPD_raw": "2011/06/20",
+      "source_updated_at": "2011/06/20",
+      "longitude": 86.356393,
+      "latitude": 54.525511,
+      "row_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+    },
+    "interpretation": "2009 classifier says urban/posyolok-gorodskogo-tipa OKATO 32407554. 2011 raw urban DBF code is 32407554000, exactly equal to the 2021 source OKATO. The rural homonym is a different raw type/code (32201852002). Both 2011 rows have the exact same raw representative coordinates (54.525511, 86.356393); therefore old point distance/co-location is not a discriminator and is not used as identity proof."
+  },
+  "current_rural_homonym": {
+    "selected_source_record_ids": [
+      "2002:072_970adef884_Kemerov_obl_new.xls:Sheet1:139",
+      "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:6029",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:33245"
+    ],
+    "current_typed_row": {
+      "object_level": "Населенный пункт",
+      "object_name": "деревня Грамотеино",
+      "oktmo": "32707000106",
+      "region": "Кемеровская область",
+      "mun_upper": "Беловский городской округ",
+      "mun_lower": "Беловский городской округ",
+      "settlement": "деревня Грамотеино",
+      "population": 1329,
+      "settlement_type_full_dadata": "деревня",
+      "settlement_with_type_dadata": "д Грамотеино",
+      "settlement_type_dadata": "д",
+      "settlement_dadata": "Грамотеино",
+      "fias_id_dadata": "901ffa84-d933-4415-ac38-4e0c171b7bbc",
+      "fias_level_dadata": "6",
+      "okato_dadata": "32407000005.0",
+      "latitude_dadata": 54.5255005,
+      "longitude_dadata": 86.358519,
+      "qc_geo_dadata": 3
+    },
+    "witnesses": [
+      {
+        "accepted_point": [
+          54.5255005,
+          86.358519
+        ],
+        "component_source_record_ids": [
+          "2002:072_970adef884_Kemerov_obl_new.xls:Sheet1:139",
+          "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:33245"
+        ],
+        "distance_to_urban_point_km": 1.400268247438378,
+        "distinct_typed_historical_rows": [
+          {
+            "distance_to_own_point_km": 0.13719788891069026,
+            "okato_2009": "32201852002",
+            "point": [
+              54.525511,
+              86.356393
+            ],
+            "record_number_1based": 52405,
+            "source_line_1based": 69967,
+            "status": "деревня"
+          }
+        ],
+        "representative_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:33245",
+        "representative_year": 2021,
+        "type": "деревня"
+      },
+      {
+        "accepted_point": [
+          54.525511,
+          86.356393
+        ],
+        "component_source_record_ids": [
+          "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:6029"
+        ],
+        "distance_to_urban_point_km": 1.4986330792806757,
+        "distinct_typed_historical_rows": [
+          {
+            "distance_to_own_point_km": 0.0,
+            "okato_2009": "32201852002",
+            "point": [
+              54.525511,
+              86.356393
+            ],
+            "record_number_1based": 52405,
+            "source_line_1based": 69967,
+            "status": "деревня"
+          }
+        ],
+        "representative_source_record_id": "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:6029",
+        "representative_year": 2010,
+        "type": "деревня"
+      }
+    ],
+    "assessment": "Rural source object is explicitly typed деревня, with current OKTMO 32707000106 and distinct current OKATO 32407000005; old rural code 32201852002. It is kept as a separate object. Urban and rural current representative points are about 1.4–1.5 km apart, while the old GeoKLADR points coincide exactly; proximity is not used to identify either record."
+  },
+  "county_and_admin_scope": {
+    "2010_table_locator_raw_district": "",
+    "2021_county": "Беловский городской округ",
+    "2021_municipality": "Беловский городской округ",
+    "legacy_flags": {
+      "legacy_identity_status": "quarantined",
+      "legacy_identity_conflict": true,
+      "legacy_identity_reasons": "[\"administrative_conflict\"]",
+      "legacy_match_method": "unique_region_name_type_district_conflict"
+    },
+    "interpretation": "2010 raw district is blank; 2021 raw district/municipality are Беловский городской округ. Legacy quarantine records administrative_conflict because the labels/context do not align. This is an unresolved administrative-context warning, not evidence of a physical contradiction; do not claim county alias, historical boundary continuity, or population-scope comparability."
+  },
+  "current_component_and_point": {
+    "existing_2002_urban_source_record_id": "2002:1_TOM_01_04.xls:0:9097",
+    "old_2010_component_year_mask": 2,
+    "current_2002_plus_2021_component_year_mask": 5,
+    "baseline_reproduces_current_coverage": true,
+    "edge_only_conditional_joint_gain": {
+      "2002": {
+        "baseline": {
+          "rows": 109082,
+          "population": 120329640.0
+        },
+        "conditional_after": {
+          "rows": 109083,
+          "population": 120344006.0
+        },
+        "marginal_rows": 1,
+        "marginal_population": 14366.0
+      },
+      "2010": {
+        "baseline": {
+          "rows": 109089,
+          "population": 117757261.0
+        },
+        "conditional_after": {
+          "rows": 109089,
+          "population": 117757261.0
+        },
+        "marginal_rows": 0,
+        "marginal_population": 0.0
+      },
+      "2021": {
+        "baseline": {
+          "rows": 109122,
+          "population": 118517049.0
+        },
+        "conditional_after": {
+          "rows": 109123,
+          "population": 118528266.0
+        },
+        "marginal_rows": 1,
+        "marginal_population": 11217.0
+      }
+    },
+    "accepted_2021_point_use": {
+      "application_inference_kind": null,
+      "coordinate_admission_status": "reviewed_rule_accepted",
+      "coordinate_provider": "tochno_dadata",
+      "coordinate_provider_id": "e4eb4d62-61d5-4a75-b021-938c5ed2661f",
+      "coordinate_source": "tochno_dadata",
+      "coordinate_source_file": null,
+      "coordinate_source_locator": null,
+      "coordinate_source_origin": null,
+      "coordinate_source_sha256": null,
+      "latitude": 54.5163486,
+      "longitude": 86.3734225,
+      "source_okato_raw": "32407554000",
+      "source_oktmo_raw": "32707000061",
+      "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:33242",
+      "target_year": 2021
+    },
+    "point_assessment": "The accepted 2021 point is sourced directly from the 2021 Tochno/Dadata row tied to the urban current source ID and is distinct from the rural current row. If root accepts the identity edge, generic same-place point continuity can use this accepted urban carrier for the 2010 observation, with measurement date unknown and boundary/population comparability false. Do not reuse the rural carrier or claim a 2010 measurement."
+  },
+  "producer_receipt": {
+    "generator_sha256": "c7ffa1e7895cb8f32941cc7112b513f48c153034a82fb969bbfc2e490de416db",
+    "summary_sha256": "942ac44c98c1962eb37acd32eb098b33a7f15c00e9510eac9b55aa5da596bfb9",
+    "staged_edges_sha256": "007ffa832ee282a168765a3ca909d037d12900dc4fdd9e2be2acf091cc6f6714",
+    "candidate_edge_id": "URB2-36158d98057dfa0908",
+    "pins": {
+      "/workspace/russian-settlements-research/config/mass_joint_20261004.json": "48227e6cb8c8611b76fae36cf52cff7d89ba63ae7f4b9ab55e1c235101ad6543",
+      "/workspace/settlements-work/continuation_20261004/R4/urban_typed_homonym_bridge_recovery/disjoint_holds.csv": "d06c4a4801bd23d71c580cdef5f0f5301c107104ec78dd7e842049d7bced40e3",
+      "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327",
+      "/workspace/settlements-work/coordinates/historical_named_candidates_v4/all_historical_named_objects.parquet": "e2e6a2401050f88199db65f8a26afe410b4a47c3fb9b0e694f7ce7dccd878186",
+      "/workspace/settlements-work/continuation_20261004/accepted_mass_rule_corrections_origin_corrected/accepted_identity_edges.parquet": "9273cc06dec342fd09de6d392e0450d4a5a7a0729b0c7f1680452219772ec98e",
+      "/workspace/settlements-work/continuation_20261004/accepted_mass_rule_corrections_origin_corrected/accepted_point_uses.parquet": "8ca8a5279483ddedac5b8958905e9bdc7919b8a74760db718d30988b9bca5f06",
+      "/workspace/settlements-work/continuation_20261004/accepted_mass_rule_corrections_origin_corrected/coverage.json": "da827687e31002232b4e487b9eab064e4cf08103f73c38ebf6bdbbed557ce3fd",
+      "/workspace/settlements-work/continuation_20261003/blocked_point_reuse_targets_v1.json": "7a715254f965d996541001d08d3422828299f5c300dfae4cbe78b79f9a5b0e70",
+      "/workspace/settlements-work/continuation_20261004/independent_review/wikidata_review_receipt_final.json": "d4f0ad8adbfe5c206a7967d1d998344e878e25c49f2ae05c3c50d94154f5a90f",
+      "/workspace/settlements-work/continuation_20261004/federal_application/accepted_territory_reference_points.parquet": "3b366d9a513b0396e90813f03c4e3af1cd0b1caef92379a9ae95cae43451d6e3"
+    }
+  },
+  "independent_inputs": {
+    "selected": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+    "source_evidence": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+    "historical_classifier": "/workspace/settlements-work/sources/raw_okato_2009_verification_v1/raw_classifier.parquet",
+    "geokladr": "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet",
+    "current_raw_source": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+    "current_long": "/workspace/settlements-work/continuation_20261004/accepted_mass_batch/settlements_long.parquet"
+  },
+  "independent_row_count": 6
+}

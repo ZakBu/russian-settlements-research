@@ -1,0 +1,39 @@
+{
+  "status": "bounded_source_checks",
+  "sample_rows": 20,
+  "selection": "largest5 plus fixed15 seed20261007 deduplicated",
+  "pass_counts": {
+    "raw_geo_code_exact": 20,
+    "raw_geo_coordinate_bytes_exact": 20,
+    "old_source_available": 20,
+    "old_source_literal_name_present": 20,
+    "old_source_first_count_exact": 20,
+    "current_literal_name_present": 20,
+    "current_population_exact": 20,
+    "current_county_exact": 20
+  },
+  "all_requested_checks_pass": true,
+  "inputs_sha256": {
+    "/workspace/settlements-work/cross_county_independent_point_bridge_20261007/candidates.csv.gz": "99aaea0abc2783be110ea844f50f5a0b5c543a7279fa5328c7ac66406066933a",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/cross_county_independent_point_bridge_20261007/largest5_candidates.csv": "a29d948760a95d6a2e5c94efe1ca151ecaeb8796bdf6d7d0b446ab2dc3c99e90",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/cross_county_independent_point_bridge_20261007/fixed15_candidates.csv": "8dfa045a6b4dea53cfdce3c11b199cb4311d02359747ddc9fdb3bc7edff94c35",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/cross_county_independent_point_bridge_20261007/verify_bounded_sources.py": "025ca7c9bf3ef898c65df29767bef384b2798336e83df49a02b5d7d5434445fd"
+  },
+  "old_census_source_hashes": {
+    "/workspace/settlements-raw/data/raw/2002/010_3e630cc803_02c_Moskovskaya-oblast.xls": "f2d9f7fba8c898e5e201e8b57e872a9323a1b37c3819434ae7d78e2a8db76147",
+    "/workspace/settlements-raw/data/raw/2002/007_acff9aa32d_02c_Kostromskaja.xls": "d671072378d41dc0e1ab1388db5a64e7601ff3e44f5e1e8e9d16591f0b1f134b"
+  },
+  "output_sha256": "676a039073d5b9dc2f88b0aa23a4c50df9fcc36d60c2a42c84ab1a6062f7373f",
+  "limitations": [
+    "Sample verifies physical raw labels, counts, code and point bytes; candidate identity still requires review.",
+    "Current OKATO field is a frozen provider-derived identifier; this is not an originally printed historical census code.",
+    "Current accepted point anchors may use GeoNames/Wikidata instead of the frozen provider coordinate; baseline admissions retained."
+  ],
+  "sample_rows_unchanged_after_known_hold_exclusion": true,
+  "verification_update_note": "Explicit seven known historical holds removed from preliminary scan; fixed15/largest5 rows and all their candidate fields unchanged. Primary sample checks reused without a repeated audit."
+}

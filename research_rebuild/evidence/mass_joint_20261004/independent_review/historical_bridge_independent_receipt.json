@@ -1,0 +1,57 @@
+{
+  "status": "bounded_independent_review_historical_bridge_complete",
+  "inputs": {
+    "producer_ledger_sha256": "6d9cb25c16dc961b7057d3914a76e7030a77ad41379d6a3fcb038a1386907aa7",
+    "producer_staged_sha256": "368ddebfc9b549c27cb41491f523f02a3d495a5507bf4349cb6bf0877cc51ef0",
+    "builder_sha256": "bdc01e9000d2328e24318807aeea89a3eb73a7de3152386257d97283f353e51f",
+    "raw_sql_sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+    "raw_dbf_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "selected_observations_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "input_manifest_sha256": "15c03537ad7050138ebda5a198198784d41c776c12cbe6222a0fb76194124a97"
+  },
+  "cohort": {
+    "bridge_candidates": 1258,
+    "candidate_population": 10555840,
+    "eligible_independent_point_uses": 1013,
+    "eligible_population": 8630033,
+    "eligible_by_year": [
+      {
+        "target_year": 2002,
+        "rows": 883,
+        "population": 6785413
+      },
+      {
+        "target_year": 2010,
+        "rows": 130,
+        "population": 1844620
+      }
+    ],
+    "holds": 245,
+    "hold_population": 1925807,
+    "hold_reason_marginals_overlap": {
+      "same_year_exact_point_shared_by_distinct_raw_historical_objects": 77,
+      "source_evidence_hard_identity_collision_or_aggregate_hold": 144,
+      "prior_target_specific_hard_quarantine": 2,
+      "selected_source_asset_not_locally_verified_against_frozen_manifest": 32,
+      "selected_source_sheet_or_row_locator_missing": 18
+    }
+  },
+  "raw_fixed_sample": {
+    "n": 100,
+    "all_checks_pass": true,
+    "population": 3705375,
+    "sample_rule": "top 100 eligible by population, systematic review of both source code and raw point bytes"
+  },
+  "admission_scope": "Admit these 1,013 distinct named historical source records as primary spatial representative-point uses under explicit code-grain bridge and one-year-or-nine-year point-retrospective assumption. No temporal identity edges, legal code history, boundary comparability, or census-date coordinate measurement are asserted.",
+  "holds_policy": "All 245 candidates with any existing hold reason remain held, including hard target quarantines, shared exact points across distinct raw historical objects, source-evidence identity/aggregate conflicts, unavailable local source-hash verification, and missing source sheet/row locator.",
+  "files": {
+    "eligible_ids_csv": "historical_bridge_eligible_point_uses.csv",
+    "holds_csv": "historical_bridge_holds.csv",
+    "raw_top100_checks_csv": "historical_bridge_raw_top100_checks.csv"
+  },
+  "outputs_sha256": {
+    "historical_bridge_eligible_point_uses.csv": "daca51345eab8b2fd703d799de9feec569d9d9b005f1e9329e67cea42e163674",
+    "historical_bridge_holds.csv": "7f1fcd14ab0675616eb9affc1ecc9df0b8eefe102101182120e5d857596beb7a",
+    "historical_bridge_raw_top100_checks.csv": "9d704d9604e8a3ca93668e9fa4ea1ed01ef311b6cbc74e0aaf2b7980268bfbc7"
+  }
+}

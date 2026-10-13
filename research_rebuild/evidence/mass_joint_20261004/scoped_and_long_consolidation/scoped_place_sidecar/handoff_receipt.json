@@ -1,0 +1,144 @@
+{
+  "status": "ready_sidecar_join_not_full_table_rewrite",
+  "prepared_at_utc": "2026-10-04T13:30:00.735874+00:00",
+  "table_input": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/eleventh_full_long_rebuild/final/long_865395_with_309_current_subject_context.parquet",
+    "sha256": "5dd988334a5855c9a42bf6ad97af1cc31f34bddf3aeb6d215da9a385d6b39f30",
+    "rows": 865395
+  },
+  "overlay": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/eleventh_full_long_rebuild/scoped_place_context_final/accepted_old_scoped_place_context.parquet",
+    "sha256": "c13a6b886b3bf05ffa86e34273708d25992af92e1cf2d2dc3b9c802762859613",
+    "rows": 8,
+    "bytes": 8794,
+    "exact_source_year_keys": [
+      [
+        "2002:1_TOM_01_04.xls:0:1049",
+        2002,
+        "troitsk_shcherbinka",
+        55.485,
+        37.307222222222
+      ],
+      [
+        "2002:1_TOM_01_04.xls:0:1052",
+        2002,
+        "troitsk_shcherbinka",
+        55.49972,
+        37.55972
+      ],
+      [
+        "2002:1_TOM_01_04.xls:0:4119",
+        2002,
+        "krasnodar",
+        45.1025,
+        38.934583333333
+      ],
+      [
+        "2002:1_TOM_01_04.xls:0:4120",
+        2002,
+        "krasnodar",
+        45.02366,
+        39.10436
+      ],
+      [
+        "2002:1_TOM_01_04.xls:0:8696",
+        2002,
+        "kayerkan",
+        69.37861,
+        87.74389
+      ],
+      [
+        "2002:1_TOM_01_04.xls:0:8697",
+        2002,
+        "talnakh",
+        69.4865,
+        88.3972
+      ],
+      [
+        "2010:pub-11-1-4.pdf:pdf_page_18:13",
+        2010,
+        "troitsk_shcherbinka",
+        55.485,
+        37.307222222222
+      ],
+      [
+        "2010:pub-11-1-4.pdf:pdf_page_20:14",
+        2010,
+        "troitsk_shcherbinka",
+        55.49972,
+        37.55972
+      ]
+    ]
+  },
+  "join_contract": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/eleventh_full_long_rebuild/scoped_place_context_final/scoped_place_context_join.sql",
+    "sha256": "174b847c9c515d888132647de5bea8995103250a78d2797bf3ab65932189ef53",
+    "keys": [
+      "source_record_id",
+      "observation_year"
+    ],
+    "expected_join_rows": 865395,
+    "expected_matched_overlay_rows": 8
+  },
+  "accepted_layer_inputs": {
+    "talnakh": {
+      "reviewed_source_data": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/accepted_talnakh_typed_scope/scoped_point_uses.parquet",
+        "sha256": "f515f9febcda28d14774eb2d0c49e13f842c0e3086d6217bdb0bd96c7f2d60e5"
+      },
+      "application_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/accepted_talnakh_typed_scope/application_receipt.json",
+        "sha256": "06c02c848af7ee7854d79e4b3663a062155b64135a3f9142bf42da4b2cb0495d"
+      }
+    },
+    "kayerkan": {
+      "reviewed_source_data": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/accepted_kayerkan_typed_scope/scoped_point_uses.parquet",
+        "sha256": "56680c66114d33890acfbb87893aa45955932adc414f95fa209626bc424be857"
+      },
+      "application_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/accepted_kayerkan_typed_scope/application_receipt.json",
+        "sha256": "d5cdd058bcd8c05ca63e4808906227fe4782bb6593b5245fc1bbc30d73a17c8f"
+      }
+    },
+    "krasnodar": {
+      "reviewed_source_data": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/accepted_krasnodar_inclusion_scope/scoped_point_uses.parquet",
+        "sha256": "cebd0e5725e3aa0106931e66a0b79fa29ea60b6c79909e675c5de6384d727c00"
+      },
+      "application_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/accepted_krasnodar_inclusion_scope/application_receipt.json",
+        "sha256": "15617e3d9762169a3bb5052cd9db80378c32d0370119f03cc2095a796c2a0bb1"
+      }
+    },
+    "troitsk_shcherbinka": {
+      "reviewed_source_data": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/accepted_secondary_supported_troitsk_shcherbinka_trajectories/scoped_trajectory_observations.parquet",
+        "sha256": "13c618b7428710258470cda6362cf5ea2455cb1e7f874c6340e2baf0a4faa89e"
+      },
+      "application_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/accepted_secondary_supported_troitsk_shcherbinka_trajectories/application_receipt.json",
+        "sha256": "f94443dc9eaba2cf37b0fe0ebbbc33308df241946df45bdaef4eba886264daff"
+      }
+    }
+  },
+  "preflight_guards": {
+    "overlay_key_pairs_unique": true,
+    "every_key_matches_one_existing_census_row": true,
+    "population_value_nonnull_on_all_eight_rows": true,
+    "scoped_coordinates_nonnull": true,
+    "ordinary_NP_full3_unchanged_true": true
+  },
+  "preservation_contract": [
+    "No primary observation rows are added.",
+    "Canonical NP3 coordinates, quality, admission, population, and identity columns remain selected verbatim from the full-table input.",
+    "Scoped coordinates and statuses are separate columns; they do not certify a census-date measurement.",
+    "Talnakh/Kayerkan remain nonadditive intracity partition contexts within Norilsk.",
+    "Krasnodar remains a secondary-reported 2003 inclusion route; legal act/effective date unverified; no inherited 2021 child population.",
+    "Troitsk/Shcherbinka 2021 child observations remain nonadditive in the accepted layer; old source population values are unchanged."
+  ],
+  "disk_guard": {
+    "full_enriched_copy_written": false,
+    "reason": "Only 139MB free at the time of join attempt; root required at least 500MB before a wide write. The full-table write was stopped and its DuckDB spill was removed."
+  }
+}

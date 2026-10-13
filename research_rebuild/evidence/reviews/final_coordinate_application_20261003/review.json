@@ -1,0 +1,132 @@
+{
+  "review_id": "coordinate_extension_application_review_v1_20261003",
+  "reviewer_scope": "Independent bounded review of frozen extension_application_v2 application outputs; not a new point-admission or population review.",
+  "verdict": "conditionally_supported_as_staged_candidate_uses_pending_canonical_point_origin_enrichment_before_promotion",
+  "promotion_status": "not_ready_until_canonical_point_origin_file_hash_and_record_locator_are_consistent_and_independently_receipted",
+  "application_manifest": {
+    "path": "/workspace/settlements-work/coordinates/extension_application_v2/manifest.json",
+    "sha256": "83faf7b307a9b267aa26212017980ca9127710563005762d5782c4ef057ea2a4",
+    "status": "candidate_application_staged_pending_independent_root_review"
+  },
+  "application_script": {
+    "path": "/workspace/russian-settlements-research/research_rebuild/mass_linkage/apply_coordinate_extensions.py",
+    "sha256": "7d478baacc0311c047a141c2844ecb7a9eca5d28516e2d2a4c9d0400c4a4e042",
+    "matches_manifest": true
+  },
+  "outputs": {
+    "checks": {
+      "path": "/workspace/settlements-work/coordinates/extension_application_v2/coordinate_extension_application_checks.parquet",
+      "sha256": "8f788dcd19ed41afa283ad8e6323be370bf0e2eb3a828d67b7dc02168ce693df",
+      "rows": 247899
+    },
+    "held": {
+      "path": "/workspace/settlements-work/coordinates/extension_application_v2/held_coordinate_extensions.parquet",
+      "sha256": "4c708543686925d6269c56dc3e050ff740ece563da5204ad7c6905497a67933e",
+      "rows": 54854
+    },
+    "uses": {
+      "path": "/workspace/settlements-work/coordinates/extension_application_v2/staged_proposed_point_uses.parquet",
+      "sha256": "091982265a3e9300aa3c850f6d5d6ae6ecacde2789778957eb92d2400ee38427",
+      "rows": 290346
+    }
+  },
+  "reviewed_counts": {
+    "input_previously_accepted_rows": 97301,
+    "new_staged_targets": 193045,
+    "new_staged_all_admission_allowed_false": true,
+    "new_staged_direct_historical_measurement_false": true,
+    "new_staged_boundary_comparability_asserted_false": true,
+    "new_staged_population_scope_comparability_asserted_false": true,
+    "new_ids_unique_in_combined_output": true,
+    "staged_by_family": {
+      "A_modern_city_exact_historical_named_point": 153,
+      "F_generic_2002_2010_GeoKLADR_point": 108856,
+      "R_accepted_graph_retrospective_continuity": 84035,
+      "M_Moscow_2002_standalone_physical_city": 1
+    },
+    "held_by_family": {
+      "A_precedence": 622,
+      "F_generic": 54216,
+      "R_event": 16
+    }
+  },
+  "independent_checks": [
+    {
+      "check": "frozen output SHA256 and row counts",
+      "result": "pass",
+      "evidence": "All three output hashes and counts match v2 manifest."
+    },
+    {
+      "check": "current application script pin",
+      "result": "pass",
+      "evidence": "Current apply_coordinate_extensions.py hash is 7d478baacc0311c047a141c2844ecb7a9eca5d28516e2d2a4c9d0400c4a4e042, matching manifest."
+    },
+    {
+      "check": "point-use status and semantics",
+      "result": "pass",
+      "evidence": "All 193,045 new rows remain staged_candidate_pending_root_review; admission_allowed=false, direct_historical_coordinate_measurement=false, boundary_comparability_asserted=false and population_scope_comparability_asserted=false."
+    },
+    {
+      "check": "unique target IDs",
+      "result": "pass",
+      "evidence": "All 290,346 combined target_source_record_id values are unique."
+    },
+    {
+      "check": "ordinary retrospective continuity graph",
+      "result": "pass_with_soft_provenance",
+      "evidence": "84,035 R uses preserve exact accepted modern point coordinates/source record/provider status and accepted-path metadata. Whole-ledger path review: 84,034 one-edge paths plus one two-edge accepted path; all exact endpoints and accepted same-place edges; hard point conflicts=0. Point measurement date/query receipt can remain a soft provenance uncertainty; no exact census-date polygon is required."
+    },
+    {
+      "check": "lineage event holds",
+      "result": "pass",
+      "evidence": "All 16 R candidates with exact modern-source code-keyed event hits are held for review (11 target 2002, 5 target 2010); candidate event records are not represented as accepted events. The 2010 interval check excludes a 2002-only coverage record."
+    },
+    {
+      "check": "old typed-width extension",
+      "result": "pass_as_narrowed",
+      "evidence": "All 4,086 2002/2010 city/pgt typed urban 8-digit→GeoKLADR 11-digit width rows remain held; 1,962 city and 2,124 pgt. No approval for this older width cohort is implied. The separately reviewed modern 775 city KOD3=000 bridge and 153 non-precedence targets are unaffected."
+    },
+    {
+      "check": "GeoKLADR shared-point collisions",
+      "result": "pass_as_narrowed",
+      "evidence": "3,715 within-year shared GeoKLADR point-group rows are held (overlap with width holds is retained in the ledger rather than added as disjoint counts)."
+    },
+    {
+      "check": "source row / raw Geo coordinates",
+      "result": "pass_with_provenance_condition",
+      "evidence": "All 109,009 staged A/F source rows match the exact selected source ID/year/file/row/name/type/region. The prior independent join reopened all 109,009 candidate points against parsed raw GeoKLADR records and raw 2009 classifier rows, matching raw coordinates, OKATO, record number/byte offset, names, types, KOD3 and raw DBF hash."
+    },
+    {
+      "check": "provider and population claims",
+      "result": "pass",
+      "evidence": "No provider-ID binding upgrade, point averaging, boundary equivalence, population-scope equivalence, historical measurement, population exactness or annual national denominator claim is made. A cohort has its documented source provider ≤5 km comparison; generic F has no universal second-provider requirement."
+    },
+    {
+      "check": "Moscow 2002 standalone exception",
+      "result": "pass_as_bounded_candidate",
+      "evidence": "The selected ROSSTAT 2002 physical-settlement city row (Excel row 2155; scope physical_settlement_city_only) and Q649 raw P625/physical-class evidence are checked. This supports only the 2002 physical city representative point. No accepted identity edge to a 2021 aggregate is used; no 2010/2021 Moscow or St Petersburg/Sevastopol aggregate point is inferred."
+    },
+    {
+      "check": "fresh sample",
+      "result": "pass",
+      "evidence": "24-row fixed sample is unique and has zero source-record-ID overlap with the earlier 17-row extension-review sample. It covers A string/numeric code comparisons, F staged/shared-point/old-width rows, and R accepted continuity plus event holds."
+    }
+  ],
+  "blocking_condition": {
+    "status": "open_in_frozen_v2_outputs",
+    "detail": "In staged F/A rows, coordinate_source_file currently names the parsed GeoKLADR parquet while coordinate_source_sha256 is the raw DBF SHA256 d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650. The parsed artifact SHA256 c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f is already separately represented. R rows have empty coordinate_source_file/hash columns while origin details are embedded in inherited provenance. This is a canonical provenance representation mismatch, not a point-coordinate or candidate-eligibility discrepancy.",
+    "required_before_promotion": "Attach a separate canonical point-origin enrichment/receipt without rewriting frozen v2 files: F/A canonical raw DBF path + raw DBF SHA + record number and byte offset, with parsed artifact path/SHA kept separately; R canonical origin file/hash/locator must resolve to the already accepted modern carrier and match its coordinates/provider fields; M must retain raw Wikidata batch path/hash/line. Recheck raw origin associations before any promotion."
+  },
+  "limitations": [
+    "This is a bounded review of point-use continuity/source-quality and application gates only.",
+    "Candidate staging is not admission.",
+    "No population accuracy or historical boundary equivalence conclusion is evaluated.",
+    "Review sample is diagnostic and is not a statistical accuracy estimate."
+  ],
+  "sample": {
+    "path": "/workspace/settlements-work/coordinates/extension_application_review_v1/sample.csv",
+    "sha256": "9f5075b9b579080994fa29e888e897d961c6b314b0dabe1f37feb714a5621bca",
+    "rows": 24,
+    "overlap_with_prior_sample_rows": 0
+  }
+}

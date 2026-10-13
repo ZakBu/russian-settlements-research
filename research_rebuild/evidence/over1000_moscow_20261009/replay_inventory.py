@@ -1,0 +1,11 @@
+from pathlib import Path
+import pandas as pd,json
+O=Path(__file__).parent;E=O.parent;d=pd.read_csv(O/'moscow_native_all_years_stage68.csv.gz');p=pd.read_csv(O/'moscow_ownpoint_snapshot68.csv.gz');e=pd.read_csv(O/'accepted_identity_edge_delta.csv');np=pd.read_csv(O/'accepted_point_use_delta.csv');parent={x:x for x in d.root.unique()};roots=dict(zip(d.source_record_id,d.root));years={x:set(g.census_year)for x,g in d.groupby('root')}
+def find(x):
+ while parent[x]!=x:x=parent[x]
+ return x
+for r in e.itertuples():
+ a,b=find(roots[r.from_source_record_id]),find(roots[r.to_source_record_id]);
+ if a==b:continue
+ assert not(years[a]&years[b]),(r.case,years[a],years[b]);parent[a]=b;years[b]|=years[a]
+d['after_root']=d.source_record_id.map(lambda x:find(roots[x]));pointids=set(p.target_source_record_id)|set(np.target_source_record_id);complete={root for root,g in d.groupby('after_root')if set(g.census_year)=={2002,2010,2021}and set(g.source_record_id)<=pointids};credited=set(pd.read_csv(E/'main_axis_residual_application68_20261008/applied_primary_credited_UID_roster.csv.gz').source_record_id);new=d[d.after_root.isin(complete)&~d.source_record_id.isin(credited)];a=pd.read_csv(O/'assigned79_native_UIDs.csv');a['ordinary_proposed_resolved_full3']=a.source_record_id.isin(new.source_record_id);a['after_ordinary_component_root']=a.source_record_id.map(dict(zip(d.source_record_id,d.after_root)));a['after_ordinary_component_years']=a.after_ordinary_component_root.map(lambda x:','.join(str(z)for z in sorted(years[find(x)])));a.to_csv(O/'per_record_working_dispositions.csv',index=False);new.to_csv(O/'ordinary_proposed_new_primary_UIDs.csv.gz',index=False);rec=dict(status='bounded_inmemory_actual68_component_replay_passed',ordinary_edges=len(e),new_point_uses=len(np),ordinary_new_credit_UIDs=len(new),ordinary_new_credit_by_year=new.groupby('census_year').population.sum().to_dict(),assigned79_resolved_by_ordinary=len(a[a.ordinary_proposed_resolved_full3]),assigned79_still_pending=len(a[~a.ordinary_proposed_resolved_full3]),native_population_edits=0,same_year_component_collisions=0);(O/'ordinary_replay_receipt.json').write_text(json.dumps(rec,ensure_ascii=False,indent=2));print(json.dumps(rec));print(a[~a.ordinary_proposed_resolved_full3][['settlement_name','census_year','population','source_record_id']].to_string(index=False))

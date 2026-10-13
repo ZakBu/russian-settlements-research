@@ -1,0 +1,30 @@
+{
+  "status": "candidate_only_no_ledger_changes",
+  "parent_packet": "/workspace/settlements-work/continuation_20261004/root/fifth_point_conflict_correction_candidates_fullcohort_v1",
+  "source_2021_raw_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+  "source_2021_raw_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+  "audited_current_source_rows": 1847,
+  "source_rows_replayed_and_pinned": 1847,
+  "staged_point_correction_rows": 862,
+  "staged_current_source_ids": 824,
+  "source_2021_locator": "The audited settlement source_record_id ends with the 1-based Parquet row; DuckDB file_row_number is 0-based and was replayed against the raw parquet.",
+  "scope": "Full exact 1847 current source-ID cohort from frozen point-conflict audit. Corrected row counts are 862 old GeoKLADR point/source rows (2010: 822, 2002: 40) across 824 current source IDs, after requiring unique single P625, accepted current Dadata/GeoNames agreement ≤1km, old same-graph GeoKLADR >20km away, and no event candidates. This supersedes the initial rough 994 diagnostic.",
+  "input_sha256": {
+    "candidate_rows": "69d3c3ac1cba786689082154992af5e445574719c584bea45ea7e32915230029",
+    "source_binding_inventory": "5f1177c3e61acd54368990e2cec46d888d99da1e061ec519aa2d60bfbf806df8",
+    "audit": "e4321b04379cfb9bd7d3e688c5d4bfbcfd9ef359bb4eb230d488bc732bf8152b",
+    "current_graph": "cc62fc8d3184c43f6ce09cea0ce71618077347ea4dee0f53ad9709f5c20a8241",
+    "current_points": "a67529375e63391e7d05e3ab902ff20884ec3fd4483c7b0bbc988ca056b3c994",
+    "source_2021_raw": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+  },
+  "limitations": [
+    "Candidate rows only; no accepted point or identity mutation.",
+    "Current source point and Wikidata P625 are two distinct source families but P625 may be imported/secondary.",
+    "All coordinate measurement dates unknown.",
+    "Current QID binding predicate vector is a candidate evidence gate, not a separate independent historical identity review.",
+    "No historical coordinates are asserted or synthesized from census dates."
+  ],
+  "current_qid_raw_p764_p31_claims_artifact": "/workspace/settlements-work/continuation_20261004/root/fifth_point_conflict_correction_candidates_fullcohort_v2/current_qid_raw_p764_p31_claims_1847.csv",
+  "current_qid_raw_p764_p31_claims_sha256": "fc0bb6efe7c0f93c5bf26208f4cb59cf89becc9d94a6b458504cd8b287282877",
+  "current_qid_binding_inventory_source_sha256": "a59d5e5d9f43bc3d7922d9c3af04ffc88bca9582e6b77ff61d9468741a543071"
+}

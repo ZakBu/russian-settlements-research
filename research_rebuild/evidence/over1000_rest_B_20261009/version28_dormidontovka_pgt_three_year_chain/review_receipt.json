@@ -1,0 +1,90 @@
+{
+  "packet": "over1000_rest_B_20261009/version28_dormidontovka_pgt_three_year_chain",
+  "review_status": "PASS_THREE_YEAR_URBAN_TO_RURAL_STATUS_CHAIN; SAME_NAME_RURAL_VILLAGE_KEPT_SEPARATE",
+  "application_approved": true,
+  "coverage_complete": true,
+  "positive_locality_groups": 1,
+  "native_uid_credits": 3,
+  "ordinary_identity_edges_added": 2,
+  "population_values_or_quality_modified": false,
+  "population_sum_or_transfer": false,
+  "population_boundary_comparability_asserted": false,
+  "values_2002_2010_2021": [
+    1672,
+    1426,
+    1222
+  ],
+  "point_claim": "Only existing 2021 pgt own point is claimed. Same-name rural village point is separate. No historical pgt point invented.",
+  "same_name_rural_village_values": {
+    "2002": 657,
+    "2010": 525,
+    "2021": 512
+  },
+  "distance_rural_2002_own_point_to_2021_pgt_point_km": 6.617793031714178,
+  "checks": {
+    "2002_urban_rural_rows_reopened": true,
+    "2010_official_T5_and_rural_row_reopened": true,
+    "2021_UID_and_own_point_verified": true,
+    "all_three_pgt_records_unique_per_year": true,
+    "same_name_rural_series_separate": true,
+    "population_quality_preserved": true,
+    "output_hashes_match": true
+  },
+  "source_pins": {
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": {
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "bytes": 1819648
+    },
+    "/workspace/settlements-raw/data/raw/2002/080_f2f9e3cb11_Xabarov.xls": {
+      "sha256": "5f079ec6f446ea622f69ea722e0b17768837eee2db24147d48c46f07175c73d5",
+      "bytes": 233472
+    },
+    "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": {
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "bytes": 15230814
+    },
+    "/workspace/settlements-raw/data/raw/2010/009_81f8a0e73c_17._20ДВ_ФО_2010.xls": {
+      "sha256": "a8fd7aa55513e73a205ebff1da2ce35fd8ca0f61c286e54491cf49c6132470c4",
+      "bytes": 2249728
+    },
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": {
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_state_observations.parquet": {
+      "sha256": "8cde620020634cf5ac9cfff145cc88c4d7365474cff56194b8a7137a43f6e0b9",
+      "bytes": 12774906
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_point_snapshot.parquet": {
+      "sha256": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502",
+      "bytes": 19713572
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_component_snapshot.csv.gz": {
+      "sha256": "2787384874ab5f56c6cf392e8c5aa13dffa7c48443f6051826ead655a2c49230",
+      "bytes": 2734494
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application70_regional_batch_20261009/remaining_over1000_raw_or_primary.csv": {
+      "sha256": "f74740cf28b30976824d573ee2f07c030ceafb1a668b2fc3331e01ccffb1fc76",
+      "bytes": 119364
+    }
+  },
+  "output_pins": {
+    "source_row_witnesses.csv": {
+      "sha256": "bfb903c104b1d8c79c8f873385a9773062ebb607b201e1ececb158e4ad51bce5",
+      "bytes": 2006
+    },
+    "accepted_identity_edge_delta.csv": {
+      "sha256": "67372b66e7705f7a4a54d235d1d62c6667b9fa66c369a4123daf87932a07dc41",
+      "bytes": 1925
+    },
+    "accepted_native_UID_credits.csv": {
+      "sha256": "c65f222cd903ee68674b1b04bdd274279da0ae5f515d55f666a01b9ef4e5dddd",
+      "bytes": 1375
+    }
+  },
+  "notes": [
+    "The 2002 and 2010 native source rows explicitly identify the pgt, and both are nested under Vyazemsky district. 2021 poselok is in the same county.",
+    "Each census also has a separate rural village/selo named Дормидонтовка; the 2002 village own point is 6.68 km from the 2021 pgt point.",
+    "Status changed in census descriptors from pgt to poselok, but no precise status-change date is asserted. Population differences are kept unadjusted."
+  ]
+}

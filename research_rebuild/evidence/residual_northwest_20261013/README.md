@@ -1,0 +1,3 @@
+Reviewed northwest residual packet
+
+3 full3 proposals (Ивакша fullcompound role separation, Лепша Новый fullcompound role separation, Ushakovo fullcode corrected), plus Bereznik coordinate-only correction with no newyear credit. Original native populations and codes retained. Frozen source files copied using git show at84a1a3528ae42fa30a4855446fb3def6ba99f7a1; original directories untouched. 2021 original raw parquet is unavailable here; selected directpublished native leaves retained without claiming rawsource reopening. Root must replay canonical accepted state and reconcile exact denominator before claiming gains.

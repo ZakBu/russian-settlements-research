@@ -1,0 +1,117 @@
+{
+  "status": "49_novel_non_census_dated_secondary_claim_candidates_staged_not_accepted",
+  "counts": {
+    "claims": 49,
+    "distinct_qids": 17,
+    "distinct_years": 20,
+    "qids_with_pending_binding": 17
+  },
+  "population_sum_by_claim_year": {
+    "1859": 3564,
+    "1873": 2065,
+    "1897": 4241,
+    "1905": 982,
+    "1915": 3111,
+    "1926": 2137,
+    "1939": 13516,
+    "1959": 4165,
+    "1970": 1217,
+    "1987": 200,
+    "1999": 2656,
+    "2004": 1610,
+    "2008": 16,
+    "2011": 1833,
+    "2012": 1759,
+    "2013": 365,
+    "2014": 416,
+    "2016": 40,
+    "2017": 39,
+    "2025": 1414
+  },
+  "sum_unique_qid_year_values": 45346,
+  "reference_coverage": {
+    "claims_with_any_reference": 48,
+    "claims_without_reference": 1
+  },
+  "claim_quality": {
+    "all_year_precision": true,
+    "all_nonnegative_finite": true,
+    "same_qid_year_value_conflicts": 0
+  },
+  "current_binding_candidate_checks": {
+    "all_exact_P764_physical_name_type_region_unique_code_flags_pass": true,
+    "binding_status": "candidate pending independent current-QID review",
+    "accepted_binding_count": 0,
+    "all_candidate_points_accepted": false
+  },
+  "raw_entity_batches": {
+    "distinct_batches_verified": 7,
+    "all_raw_entity_batch_hashes_verified": true
+  },
+  "current_residual_overlap": {
+    "claims": 8,
+    "distinct_qids": 2,
+    "sum_unique_qid_year_values": 12607,
+    "accepted_point_uses": 0,
+    "rows": [
+      {
+        "qid": "Q24484253",
+        "claims": 5,
+        "population_sum": 11985,
+        "years": [
+          1859,
+          1873,
+          1897,
+          1915,
+          2004
+        ],
+        "candidate_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:5791",
+        "candidate_name": "Арчединская"
+      },
+      {
+        "qid": "Q28525985",
+        "claims": 3,
+        "population_sum": 622,
+        "years": [
+          1926,
+          2013,
+          2014
+        ],
+        "candidate_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:97857",
+        "candidate_name": "Вогулка"
+      }
+    ]
+  },
+  "limitations": [
+    "These are secondary Wikidata statements, not primary-source census observations.",
+    "The 49 claims are novel by statement GUID versus the frozen overlay; QID/year values do not conflict within this candidate set.",
+    "Each associated present-day selected row/QID binding remains pending independent review despite passing candidate flags.",
+    "No coordinates, temporal identity edges, source scope, or population-boundary comparability are asserted.",
+    "The total is a sum of dated QID claims, not unique national population and not additive across years."
+  ],
+  "inputs": {
+    "claim_inventory": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/fetched_full_entity_secondary_history_20261004/fetched_p1082_claim_inventory.parquet",
+      "sha256": "f975b799dc2f9ca94c401dfff632a2d59b27adde74f2da24bcc5dcf6877df6f5"
+    },
+    "current_binding_candidates": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/fetched_full_entity_secondary_history_20261004/new_claim_current_qid_binding_candidates.parquet",
+      "sha256": "45a65af213b5acc018d139be0d23b5cdceefe9dc65f6dcf3722285fd2d9eb757"
+    },
+    "frozen_secondary_overlay": {
+      "path": "/workspace/settlements-work/continuation_20261004/root/long_graph16_with_364032_secondary_display/secondary_history_overlay.parquet",
+      "sha256": "87dace49eef02b28df742e09fa14c7b6d044d4f4784d0313694723bee7adee89"
+    },
+    "source_summary": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/fetched_full_entity_secondary_history_20261004/summary.json",
+      "sha256": "8b3e876efae6ef517f16ef497794129d4af795ce08bb5b000afa0bf038ecf7b3"
+    }
+  },
+  "outputs": {
+    "annual_claim_candidates.jsonl": {
+      "path": "/tmp/annual_wikidata_candidates_20261005_v2/annual_claim_candidates.jsonl",
+      "sha256": "21356c64a01cc56d1f8caaebc413b2e4acf8cdd9cf1741f7c8149e1bf1ae3275",
+      "bytes": 169662
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "status": "point_only_quarantine_complete_no_identity_or_population_mutation",
+  "created_at_utc": "2026-10-04T12:47:14+00:00",
+  "baseline_point_ledger": {
+    "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_eleventh_reviewed28_point2/accepted_point_uses.parquet",
+    "sha256": "90a7c08ec0877472e80a52d42be37e0e37c0064578236f0810e599cb2fbc1ad5",
+    "rows": 418256,
+    "schema_fields": 453
+  },
+  "identity_graph": {
+    "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_eleventh_reviewed28_point2/accepted_identity_edges.parquet",
+    "sha256": "a03fe3df05cf1a03bec7cf0f5e602240ccdfc85b907f5568561fdd4e7b032555",
+    "rows": 348309,
+    "incident_edges_for_quarantined_ids": 0
+  },
+  "raw_dbf": {
+    "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+    "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "locator": "record_number_1based=38578;byte_offset_0based=15238620",
+    "code": "25255553005",
+    "raw_name": "п Таежный",
+    "raw_type": "п",
+    "lat": 55.6534,
+    "lon": 98.9961
+  },
+  "decision_scope": {
+    "quarantined_point_uses": [
+      "2002:070_48ec6f4a77_Irkut_obl_new.xls:Sheet1:1623",
+      "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:4924"
+    ],
+    "identity_edges_removed": 0,
+    "source_observations_or_population_changed": false,
+    "current_point_targets_preserved": [
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:24744",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25538"
+    ],
+    "replacement_or_identity_claim_made": false
+  },
+  "outputs": {
+    "accepted_point_uses.parquet": {
+      "sha256": "d5a93cdbfaf02faa139d6925b2d2abdeb29f3cde02b91d0217127ec0edda9a95",
+      "rows": 418254,
+      "schema_fields": 453
+    },
+    "superseded_point_uses.parquet": {
+      "sha256": "602174205ef1c4dcccf66934808d3899879e09b826778eeda1d992be3d3bc070",
+      "rows": 2,
+      "schema_fields": 453
+    },
+    "quarantine_decisions.csv": {
+      "sha256": "b0696b5658f64274bac8c65f4491e966ceb4a1412145354301624a1ce723a955",
+      "rows": 2
+    }
+  },
+  "verification": {
+    "exactly_two_expected_point_uses_removed": true,
+    "retained_schema_and_metadata_equal_baseline": true,
+    "all_418254_retained_rows_and_all_453_fields_stream_compared_in_order": true,
+    "superseded_full_rows_equal_baseline": true,
+    "graph_incident_check_passed": true,
+    "inputs_rehashed_after_run": true
+  },
+  "script": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/accepted_taezhny_point_quarantine/build_point_only_quarantine.py",
+    "sha256": "b3878a655d305edc378ba5654587a98d953bfcede910e06d46fb06203c7252ce"
+  }
+}

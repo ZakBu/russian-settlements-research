@@ -1,0 +1,117 @@
+{
+  "baseline_stage": 25,
+  "candidate_only": true,
+  "source_bound_edges_before_union": 71,
+  "batch_compatible_identity_edges": 70,
+  "candidate_point_uses": 58,
+  "new_finite_full_three_year_histories": 14,
+  "new_finite_full_three_year_populations": {
+    "2002": 3957,
+    "2010": 3513,
+    "2021": 3574
+  },
+  "before": {
+    "2002": {
+      "denominator_selected_ordinary_population": 130111032,
+      "covered_population": 126302080,
+      "coverage_percent": 97.07253724649574,
+      "covered_rows": 137084,
+      "residual_rows": 20982,
+      "gap_to_99_percent": 2507842
+    },
+    "2010": {
+      "denominator_selected_ordinary_population": 125979957,
+      "covered_population": 123502299,
+      "coverage_percent": 98.03329191484008,
+      "covered_rows": 137097,
+      "residual_rows": 15215,
+      "gap_to_99_percent": 1217859
+    },
+    "2021": {
+      "denominator_selected_ordinary_population": 126087650,
+      "covered_population": 124096770,
+      "coverage_percent": 98.42103489120466,
+      "covered_rows": 137097,
+      "residual_rows": 17295,
+      "gap_to_99_percent": 730004
+    }
+  },
+  "after": {
+    "2002": {
+      "denominator_selected_ordinary_population": 130111032,
+      "covered_population": 126306037,
+      "coverage_percent": 97.07557849514252,
+      "covered_rows": 137098,
+      "residual_rows": 20968,
+      "gap_to_99_percent": 2503885
+    },
+    "2010": {
+      "denominator_selected_ordinary_population": 125979957,
+      "covered_population": 123505812,
+      "coverage_percent": 98.03608045365502,
+      "covered_rows": 137111,
+      "residual_rows": 15201,
+      "gap_to_99_percent": 1214346
+    },
+    "2021": {
+      "denominator_selected_ordinary_population": 126087650,
+      "covered_population": 124100344,
+      "coverage_percent": 98.42386942733884,
+      "covered_rows": 137111,
+      "residual_rows": 17281,
+      "gap_to_99_percent": 726430
+    }
+  },
+  "actual_net_population_gain": {
+    "2002": 3957,
+    "2010": 3513,
+    "2021": 3574
+  },
+  "actual_net_rows_gain": {
+    "2002": 14,
+    "2010": 14,
+    "2021": 14
+  },
+  "outcomes": {
+    "Raw point shared by distinct historical codes": 2596,
+    "Historical own code/name/type/source context not uniquely bound": 23867,
+    "No unique physical current candidate within 5 km": 2719,
+    "Already joined": 3819,
+    "No valid exact raw own point for bound historical code": 1796,
+    "Indistinguishable same-year native old source rivals": 499,
+    "Known event or qualified scope lineage": 17,
+    "Actual selected coordinate candidate conflicts": 72,
+    "Existing admitted component point conflict": 55,
+    "Real repeated census year component": 106,
+    "Known wrong raw point source exclusion": 21,
+    "New point would collide with another same-year record": 48,
+    "Railway counterpart lacks own populated-locality class": 3
+  },
+  "candidate_old_observations": {
+    "2002": {
+      "rows": 49,
+      "population": 4329
+    },
+    "2010": {
+      "rows": 22,
+      "population": 5370
+    }
+  },
+  "spatial_rule": "All exact name/region current physical alternatives within 5 km considered before graph filtering; historical own code/name/type/source county bound before spatial search",
+  "independence_interpretation": "Each record has its own binding, independent of proposed edge; same original provider is allowed",
+  "input_pins": {
+    "/workspace/settlements-work/coordinates/historical_named_candidates_v4/all_historical_named_objects.parquet": "e2e6a2401050f88199db65f8a26afe410b4a47c3fb9b0e694f7ce7dccd878186",
+    "/workspace/settlements-work/sources/raw_okato_2009_verification_v1/raw_classifier.parquet": "343c0f5af1f52b9276699d9fe8d883b58def5aeabdd904063389606d29bc2b81",
+    "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+    "/workspace/settlements-work/wikidata/wide_v5/wide_point_bindings.parquet": "f59e2a1f26b7165ffccca2d118e04f8507f1c346b27ccf2e82d4c65879c33143",
+    "/workspace/settlements-work/secondary_2010_county_context_batch_20261007/all_selected_competitor_county_context.csv.gz": "6c298187ef2b583d531070a8352d293920f30b267ae8d44530141d08ed3839d5",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/direct_old_geokladr_point_reserve_20261007_spatial_review/suggested_raw_point_exclusion_keys.csv": "aab07a923e7e571cbf18aaff1b642d39f615c2b987a0ceda2f7e3a01dc0d5bcb"
+  },
+  "output_pins": {
+    "batch_holds.csv": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "candidate_source_bound_spatial_edges.csv": "38aa0eb0bde976654c3de4fcd946346567de6f3ca6b122e808569213877a98f8",
+    "bounded_hard_holds.csv": "645a83d722f7fc68b7250354903eff2d76722b76480aaa468be4f9cf927d252a",
+    "candidate_point_use_delta.csv": "86803757276ba9b78aee0987605e6e7f74fb217a1126f8bd1a4834018375a781",
+    "candidate_identity_edge_delta.csv": "f3cb46111cd4f1f0bc78d25ef585d5d16b3457e860dd859cd8247014a47b9422"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "inventory_version": "historical-identifier-candidates-r1",
+  "database": {
+    "path": "/workspace/settlements-assets/baseline/legacy_database_20260929.duckdb",
+    "bytes": 929050624,
+    "sha256": "26a2fe5b2ce05119d919a196beb57cd655a49ffffb0ff8f194762aa78e6b5b64"
+  },
+  "database_read_only": true,
+  "manifest_path": "/workspace/settlements-baseline/output/input_manifest.parquet",
+  "table_row_counts": {
+    "historical_okato_142_2009": 154812,
+    "historical_geokladr_coordinates_2011": 151875,
+    "administrative_identifiers_2021": 155751,
+    "census_lineage_events": 44
+  },
+  "census_source_row_code_field_counts": {
+    "2002": {
+      "rows": 157520,
+      "okato_nonnull": 0,
+      "oktmo_nonnull": 0,
+      "fias_nonnull": 0,
+      "source_native_row_id_nonnull": 157520
+    },
+    "2010": {
+      "rows": 152697,
+      "okato_nonnull": 0,
+      "oktmo_nonnull": 0,
+      "fias_nonnull": 0,
+      "source_native_row_id_nonnull": 152697
+    }
+  },
+  "claim_count": 1465966,
+  "interpretation": {
+    "code_claims": "Observed identifiers with source version and locators; comparisons are not legal change events or proof of same-place identity.",
+    "dates": "Source snapshot/update/version dates describe the cited artifact only. valid_from and valid_to remain null.",
+    "2011_source_status": "Raw DBF status codes are retained; no available dictionary established their meaning, so every code stays unmapped.",
+    "2002_2010_workbook_codes": "Processed census_source_rows has no non-null OKATO/OKTMO/FIAS fields; source_native_id is only a workbook row identifier. No fuzzy classifier-code join is performed."
+  },
+  "builder_sha256": "bd36debe56382360ff88af679081872c9c0a74a29130bfca7c4ebe105dc34c95",
+  "outputs": {
+    "claims": {
+      "path": "/workspace/settlements-work/sources/historical_identifiers/observed_v1/identifier_claim_candidates.parquet",
+      "rows": 1465966,
+      "bytes": 33783026,
+      "sha256": "9c58c0b4f6f5c334924ad25027ffba6db10b786c3bbd22e0b5b19e14c40d7a33"
+    },
+    "events": {
+      "path": "/workspace/settlements-work/sources/historical_identifiers/observed_v1/lineage_event_candidates.json",
+      "rows": 44,
+      "bytes": 29526,
+      "sha256": "1f6b6066ada348e160ccd5c898adb7d40cac9a50336da9788f211eb1ab466622"
+    },
+    "schema": {
+      "path": "/workspace/settlements-work/sources/historical_identifiers/observed_v1/schema_and_date_semantics.json",
+      "bytes": 1969,
+      "sha256": "a861bb700b3e30fb493e28bf085ad8ca6ed4513a8443cd7399ce38feb8b691ec"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "artifact": "shared_named_point_identity_admission_rule_review_v1_correction_note",
+  "status": "supplemental_reconciliation_no_change_to_scientific_scope_or_approved_ids",
+  "final_review_json": "/workspace/settlements-work/continuation_20261003/shared_named_point_identity_admission_rule_review_v1/review.json",
+  "final_review_sha256": "f273b88f0b63a3b27a126766f472545ceb03a7ccc544380e0945c02c48615413",
+  "corrected_review_sha256": "f273b88f0b63a3b27a126766f472545ceb03a7ccc544380e0945c02c48615413",
+  "prior_review_sha256_reported_but_bytes_not_retained": "d41791e73d418dc0a316f39d96978adfdfca64113a35c2e081adb41b0d24c14b",
+  "prior_review_bytes_retained": false,
+  "correction": "The first review draft computed the literal-DBF/source-object gate across all 2,319 candidate rows, including the 1,199 intentionally held rows, so its aggregate boolean was false despite all required gates passing for the 1,120 pending subset. The final f273 review corrects that boolean to evaluate exactly the 1,120 approved staged IDs; all nine review gate booleans are now true. The exact approved 1,120 pair/2,240 endpoint set and 1,199 held set did not change.",
+  "supplemental_sample_evidence": {
+    "path": "/workspace/settlements-work/continuation_20261003/shared_named_point_identity_admission_rule_review_v1_supplement/sample_direct_row_validation.csv",
+    "sha256": "edc1f939b93ebf864ccb23d82577037ac6c79ef04422a62f036a562663a05ee9",
+    "rows": 120,
+    "description": "Two independently reopened source-row records per each of 60 sampled pairs, including 2002/2010 raw labels, source file hashes and locators, exact DBF object values, classifier source fields, and source-check status. The sample is descriptive and not a national precision estimate."
+  },
+  "kazachinskoye_scope_note": "The primary-PDF proof addition is included solely as a source-specific re-staging recommendation for the exact held Kazachinskoye pair. It is not part of the approved 1,120 pairs and does not change the current stage status.",
+  "promotion_contract_note": "The independent review uses `decision_scope`; the existing promotion utility expects `scope.staged_new_pairs`. Root should project that field to 1120 in its application review input while preserving the exact pins and IDs; this supplement does not authorize bypassing the gate."
+}

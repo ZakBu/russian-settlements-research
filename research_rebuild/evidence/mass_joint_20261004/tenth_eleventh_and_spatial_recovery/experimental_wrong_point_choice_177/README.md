@@ -1,0 +1,1 @@
+This is the preserved, unconsumed experiment that chose GeoNames witnesses instead of the source coordinates approved by the independent review. It is superseded by apply_reviewed_type_false_zero_177_source_points_20261004.py. Its ledger was never used in accepted coverage. Original script bytes and receipt are retained for diagnosis; do not run this as the accepted point rule.

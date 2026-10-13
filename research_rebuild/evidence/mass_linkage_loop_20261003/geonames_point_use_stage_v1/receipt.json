@@ -1,0 +1,42 @@
+{
+  "artifact": "geonames_point_use_stage_v1",
+  "status": "candidate_only_pending_independent_application_review",
+  "candidate_rule": "conditional_named_geonames_representative_point_v1",
+  "staged_rows": 9044,
+  "staged_population_context": 2827998,
+  "coordinate_use_admissions": 0,
+  "identity_edge_admissions": 0,
+  "historical_propagations": 0,
+  "accepted_base_point_rows": 316262,
+  "base_target_overlap": 0,
+  "geonames_raw_lines_reopened": 9044,
+  "geonames_member_rows_read": 412729,
+  "builder_sha256": "4357c90f6aac77b645f2a5cd356dfba9b788bf24e0cbdbd4a2f0bca273c7818e",
+  "inputs": {
+    "/workspace/settlements-work/continuation_20261003/geonames_named_point_rule_review_v1/conditional_point_use_candidates.parquet": "d2be3a350bb5163086a1696d51cd5ce8737b54ad96ed51b01e3143b54a20ea64",
+    "/workspace/settlements-work/continuation_20261003/geonames_named_point_rule_review_v1/review.json": "2c642f39f52f45590366cdf0db9147aac4f11c778da5c303873ff54f3e4d0b83",
+    "/workspace/settlements-work/continuation_20261003/geonames_named_point_rule_review_v1/receipt.json": "43d83221a2f70fdd07ada6a9b8293cb46846cc8dae842b5e05617112ead1a74a",
+    "/workspace/settlements-work/continuation_20261003/accepted_after_podlipkovsky_hold_v1/accepted_point_uses.parquet": "c65441e973c59bd6421327624b4a1b587f7860581ed28083d4259719bf53a3b9",
+    "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4"
+  },
+  "pins": {
+    "conditional_review_sha256": "2c642f39f52f45590366cdf0db9147aac4f11c778da5c303873ff54f3e4d0b83",
+    "conditional_review_receipt_sha256": "43d83221a2f70fdd07ada6a9b8293cb46846cc8dae842b5e05617112ead1a74a",
+    "conditional_candidate_table_sha256": "d2be3a350bb5163086a1696d51cd5ce8737b54ad96ed51b01e3143b54a20ea64",
+    "conditional_rule_reviewed_candidate_sha256": "d2be3a350bb5163086a1696d51cd5ce8737b54ad96ed51b01e3143b54a20ea64",
+    "geonames_zip_sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+    "geonames_ru_member_sha256": "3ef8f69d9c6b8adbd53afc35f6dc774b1d01b04f566622e1892a6d2f00d2f4d0"
+  },
+  "outputs": {
+    "staged_point_uses.parquet": "b963a3a7af06ea0029e1e30337825ed0a9fb217cb373a1e5b11c368a8554b864",
+    "gate_ledger.parquet": "35406c823e5931d3e65c95eb314d6d72fb8fa8d8b9676b1402280d6574826ddd"
+  },
+  "limits": [
+    "Rows are 2021-only pending point-use candidates; no coordinates are admitted by this stage.",
+    "Stored coordinates are the raw GeoNames named-place coordinates, not the provider coordinates; provider coordinates are only retained as concordance context.",
+    "GeoNames geonameid identifies the external gazetteer row only; census identifier and legal FIAS binding are unassessed.",
+    "Alias validity date, upstream coordinate lineage, and point measurement date are unknown.",
+    "No identity edge, historical propagation, population comparability, or boundary comparability is asserted.",
+    "The preserved source README specifies GeoNames CC BY 4.0; this stage makes no project-wide license conclusion."
+  ]
+}

@@ -1,0 +1,11 @@
+# Cached historical own-name alias batch
+
+The baseline is explicit State51 plus the frozen stage52 native_rural_type_alias_mass accepted ledgers. The target pool is exactly the previous 936 currently pointed, native2010–2021 rural components with no literal native2002 name, excluding EAO and previously mixed/direct/formation-credited native2010 source IDs. No network requests were made.
+
+Cached own Wikidata aliases/official/native-name claims and own Wikipedia former-name infoboxes are attached only through unique exact-name, uncontested current native-code Wikidata bindings. The inventory retains source paths, exact locators and raw claims/infobox text, including any dates, references and uncertainties. An undated alias is secondary identity evidence, not a dated rename assertion. Deterministic typography normalization treats spaces and hyphen/dash variants equivalently.
+
+Admission requires an actual native2002 own settlement row and protected census count, compatible rural class, unique historic/current county route, all regional name rivals retained before graph filtering, no live same-county former-name competitor in2010, and an already accepted own2010–2021 physical-point component. Printed historical county captions are independently checked, including a literal grammatical genitive form such as Елецкого района. Named already accepted native county anchors may establish a specific current caption association. Actual competing namesakes, occupied census years, absent county evidence and contradictory points hold the candidate.
+
+The accepted edge/point ledgers preserve every source count, quality, name and type. Point reuse asserts representative physical identity only, without an historical census measurement or population-boundary assertion. `prepare.py`, `apply.py`, and `verify_mixed.py` respectively construct, independently replay, and measure exact source-ID gains on finite, original mixed, direct and formation axes. The frozen stage49 scope ledgers are unioned with actual State52 finite histories; no mutable report files are used.
+
+A target without a cached alias matching native2002 is a source-discovery hold, not proof the census had no settlement. No missing count, year or zero is filled. The receipts report accepted gains and remaining source-versus-rule blockers.

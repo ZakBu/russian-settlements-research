@@ -1,0 +1,64 @@
+{
+  "status": "accepted_shared_parent_locality_anchor_for_two_split_rows_per_census",
+  "records": 6,
+  "records_by_year": {
+    "2002": 2,
+    "2010": 2,
+    "2021": 2
+  },
+  "population_covered_by_year": {
+    "2002": 22476,
+    "2010": 29272,
+    "2021": 36540
+  },
+  "one_locality_two_record_parts": true,
+  "shared_coordinate_allowed": true,
+  "reason": "The 2021 primary selected source lists parts 1 and 2 as one base locality, with identical FIAS level-6 ID/name and exact same coordinate; distinct OKTMO units partition population rows. A local Wikidata item independently represents the parent locality with matching part-1 OKTMO and a point 0.183 km away. Existing accepted graph already gives each part its own 2002-2010-2021 chain.",
+  "within_year_other_endpoint_coordinate_collision": 0,
+  "identity_edges_added": 0,
+  "population_values_modified": false,
+  "population_boundary_comparability_asserted": false,
+  "inputs": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "/tmp/graph28_three_code_bridge_20261005/accepted_identity_edges.parquet": {
+      "sha256": "583364c80cddc4fbed00dd06527f734242b1983c268f83a78a38946a811ede1d",
+      "bytes": 30858517
+    },
+    "/tmp/graph29_ozherele_points_20261005/accepted_point_uses.parquet": {
+      "sha256": "c4b6a79741c36bbc092d4f2390bd743dd55b982fc9c671f1d1ed6660b7f4f8e3",
+      "bytes": 53105876
+    },
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": {
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    "/workspace/settlements-raw/data/raw/wikimedia/wikidata_oktmo_entities.tsv": {
+      "sha256": "580e20042d6dfdcc6dd29d5d7fbde59593145b97abbb37e7760e89b567b36d36",
+      "bytes": 136480270
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/accepted_identity_edge_delta.csv": {
+      "sha256": "ac9edb17b5345d0a0d92fe749e36efa98fd528efa7a97554b27bf8c4c28cfc3d",
+      "bytes": 276952
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/top60_identity_edge_delta.csv": {
+      "sha256": "b67c2d8d24bc09ba3676bb1c7d27b022e86ecfc4beea0a47abd4cd646204995c",
+      "bytes": 1535
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top100_classifier_bridge_20261005/accepted_classifier_bridge_delta.csv": {
+      "sha256": "43d6d428c49124f19aabe6b1197605c7fdf8dfd5516f5712fe554c42e0359d27",
+      "bytes": 24782
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/historical_classifier_bridge_batch_20261005/accepted_identity_edge_delta.csv": {
+      "sha256": "056eda9836b9468d2ecd04abc726e395662c93c7068a9633800366f707d5d5f7",
+      "bytes": 6249
+    }
+  },
+  "limitations": [
+    "The coordinate locates the shared parent settlement; it does not locate the separate municipal parts within that settlement.",
+    "Wikidata's OKTMO matches part 1 only; part 2's coordinate inheritance is supported by the shared FIAS parent record, not by a direct Wikidata code binding.",
+    "No census population values or boundaries are claimed comparable because of this point assignment."
+  ]
+}

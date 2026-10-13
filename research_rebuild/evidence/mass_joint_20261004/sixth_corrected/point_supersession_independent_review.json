@@ -1,0 +1,191 @@
+{
+  "accepted_graph_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_sixth_reviewed/accepted_identity_edges.parquet",
+  "accepted_graph_sha256": "cc62fc8d3184c43f6ce09cea0ce71618077347ea4dee0f53ad9709f5c20a8241",
+  "accepted_point_path": "/workspace/settlements-work/continuation_20261004/accepted_mass_sixth_reviewed/accepted_point_uses.parquet",
+  "accepted_point_sha256": "a67529375e63391e7d05e3ab902ff20884ec3fd4483c7b0bbc988ca056b3c994",
+  "actual_event_candidate_nonempty_rows": 0,
+  "administrative_context_limitation": "Current and historical published district labels, current/historical region/type, and DBF/historic classification are checked. The most distant examples (including the 2043 km maximum in Sakha) retain the same district label after removing the dated administrative suffix, alongside exact typed name and native-code/QID binding; the distance does not support a relocation inference. One 502.5 km Vologda case with a blank historical district is held because continuity cannot be independently resolved. No exact historical boundaries or point measurement date is claimed. Two source rows show old GeoKLADR and historical type “посёлок” versus current 2021 type “деревня”; they remain eligible under accepted physical identity plus current native code/name/type/region and exact point corroboration, with type transition flag retained.",
+  "affected_historical_population_by_year_descriptive_only": {
+    "2002": 12424.0,
+    "2010": 202417.0
+  },
+  "all_old_DBf_record_origins_and_coordinates_match": true,
+  "all_old_and_current_observation_pairs_in_same_accepted_graph_component": true,
+  "all_published_current_P764_P31_code_name_type_region_vectors_pass": true,
+  "all_raw_P625_lines_hash_and_coordinates_match": true,
+  "all_raw_source_rows_match_candidate_fields": true,
+  "candidate_rows": 862,
+  "config_sha256": "2b7558d0522cd6da4fa89c38e29a08d00c84596c047fff02c49b87bc9c922a29",
+  "coordinate_accuracy_limitation": "All eligible current Dadata and P625 points agree within 1km, while GeoKLADR-to-P625 separation exceeds 20km. Dadata separation ranges from 19.83 to 2043.17km. No recorded event/successor/collision exists among eligible endpoints; one 502.5 km case with blank historical district is held rather than infer continuity.",
+  "current_source_replay_path": "/workspace/settlements-work/continuation_20261004/independent_review/geokladr_point_corrections_862/current_raw_source_replay_862.csv",
+  "current_source_replay_sha256": "95c1d09da7fce5a066c31baae1091282fe5f09d0727e046d5053497e9961bf3f",
+  "dbf_replay_path": "/workspace/settlements-work/continuation_20261004/independent_review/geokladr_point_corrections_862/raw_DBf_replay_862.csv",
+  "dbf_replay_sha256": "bc44935f4c1a4f60701aa769ed54829dbef9c7e85d0d264187ac972e9e7f2ad5",
+  "distance_P625_to_proposed_point_km": {
+    "all_at_most_1km": true,
+    "max": 0.9942553108479629
+  },
+  "distance_old_to_proposed_km": {
+    "all_over_19km": true,
+    "candidate_gate_old_to_P625_all_over_20km": true,
+    "max": 2043.1665214160457,
+    "median": 87.97800668395341,
+    "min": 19.826731242786515
+  },
+  "eligible_coordinate_corrections": 861,
+  "eligible_list_path": "/workspace/settlements-work/continuation_20261004/independent_review/geokladr_point_corrections_862/eligible_coordinate_corrections_861.csv",
+  "eligible_list_sha256": "f4212221036d04e9d3f1e2f39e8671c16e21b6587c29096a23dd1283c840ac58",
+  "five_negative_controls": {
+    "included_in_candidate_set": 0,
+    "rows": 5,
+    "summary": [
+      {
+        "control": "Afipsky",
+        "current_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:46138",
+        "dbf_distance_to_current_km": 39.32882283796403,
+        "included_in_candidate_correction": false,
+        "raw_dbf_code": "03243552000",
+        "raw_dbf_latitude": "44.598688",
+        "raw_dbf_longitude": "38.588292",
+        "raw_dbf_name": "Афипский",
+        "raw_dbf_record": "2700",
+        "raw_dbf_type": "пгт",
+        "reason_against_candidate_gate": "current QID/code binding gate fails and no Earth P625 point",
+        "truthy_P625_count": 0,
+        "truthy_P625_earth_points": 0
+      },
+      {
+        "control": "Verkhovye",
+        "current_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:90996",
+        "dbf_distance_to_current_km": 140.16500451477074,
+        "included_in_candidate_correction": false,
+        "raw_dbf_code": "54208551000",
+        "raw_dbf_latitude": "53.312442",
+        "raw_dbf_longitude": "35.303273",
+        "raw_dbf_name": "Верховье",
+        "raw_dbf_record": "85942",
+        "raw_dbf_type": "пгт",
+        "reason_against_candidate_gate": "multiple truthy Earth P625 points leave point choice unresolved",
+        "truthy_P625_count": 2,
+        "truthy_P625_earth_points": 2
+      },
+      {
+        "control": "Dolgoe",
+        "current_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:91353",
+        "dbf_distance_to_current_km": 85.70498841550567,
+        "included_in_candidate_correction": false,
+        "raw_dbf_code": "54215551000",
+        "raw_dbf_latitude": "52.804060",
+        "raw_dbf_longitude": "37.217607",
+        "raw_dbf_name": "Долгое",
+        "raw_dbf_record": "86264",
+        "raw_dbf_type": "пгт",
+        "reason_against_candidate_gate": "no same-accepted-graph historical GeoKLADR endpoint exists for point correction",
+        "truthy_P625_count": 1,
+        "truthy_P625_earth_points": 1
+      },
+      {
+        "control": "Pokrovskoye",
+        "current_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:93130",
+        "dbf_distance_to_current_km": 99.38654446984974,
+        "included_in_candidate_correction": false,
+        "raw_dbf_code": "54250551000",
+        "raw_dbf_latitude": "53.400296",
+        "raw_dbf_longitude": "36.183854",
+        "raw_dbf_name": "Покровское",
+        "raw_dbf_record": "87889",
+        "raw_dbf_type": "пгт",
+        "reason_against_candidate_gate": "no same-accepted-graph historical GeoKLADR endpoint exists for point correction",
+        "truthy_P625_count": 1,
+        "truthy_P625_earth_points": 1
+      },
+      {
+        "control": "Zmievka",
+        "current_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:93310",
+        "dbf_distance_to_current_km": 59.219792042060135,
+        "included_in_candidate_correction": false,
+        "raw_dbf_code": "54252551000",
+        "raw_dbf_latitude": "52.346035",
+        "raw_dbf_longitude": "35.676735",
+        "raw_dbf_name": "Змиевка",
+        "raw_dbf_record": "88054",
+        "raw_dbf_type": "пгт",
+        "reason_against_candidate_gate": "multiple truthy Earth P625 points leave point choice unresolved",
+        "truthy_P625_count": 2,
+        "truthy_P625_earth_points": 2
+      }
+    ]
+  },
+  "fixed_48_raw_publication_sample": {
+    "all_names_match": 48,
+    "all_population_values_match": 48,
+    "all_raw_selected_row_matches": 48,
+    "rows": 48,
+    "seed": "sha256(review20261004:historical_source_record_id)",
+    "stratification": "12 highest population + 12 deterministic hash-selected xls rows per historic year"
+  },
+  "frozen_candidate_csv_sha256": "c3eb324aff431994e9f0b74078144d48b533af0d3ab65027dc6663c1d181f65c",
+  "frozen_packet_receipt_sha256": "8816f46e90d8db7e5ff3445321bff99af7f94c34e0be408d7585dec1926bf052",
+  "frozen_qid_claim_vector_sha256": "fc0bb6efe7c0f93c5bf26208f4cb59cf89becc9d94a6b458504cd8b287282877",
+  "frozen_source_binding_inventory_sha256": "375685ee296d2ff0fdc00df2fec8d4c32be48e559b8798f1c1fac903faa3db17",
+  "full_check_detail_path": "/workspace/settlements-work/continuation_20261004/independent_review/geokladr_point_corrections_862/full_source_and_graph_checks.json",
+  "full_check_detail_sha256": "31dadd352b559c84b07c29acf3991de097450c8b813ed626ec0e6a0e3f7faa03",
+  "geokladr_parsed_crosscheck_sha256": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+  "held_continuity_path": "/workspace/settlements-work/continuation_20261004/independent_review/geokladr_point_corrections_862/held_continuity_1.csv",
+  "held_continuity_review": [
+    {
+      "current_published_district": "Вытегорский муниципальный район",
+      "current_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:8695",
+      "distance_old_DBf_to_proposed_km": 502.5087163548749,
+      "historical_source_record_id": "2010:012_5c339c0d0e_4._20Vologod_pskov_2010.xls:Data Sheet:2975",
+      "name": "деревня Калиновская",
+      "old_latitude": "60.184551",
+      "old_longitude": "45.566956",
+      "old_published_district": null,
+      "proposed_latitude": "61.1061701",
+      "proposed_longitude": "36.5338061",
+      "reason": "The 2010 old-source district is blank and the point jump is 502.5 km; name/code/current-point corroboration establishes the candidate current point but does not resolve old physical-place continuity versus long-distance relocation. Hold coordinate supersession pending independent historical location context."
+    }
+  ],
+  "held_continuity_sha256": "3f7ee1e7412ee1d66b50e176c60aa2d56db9cb645e3f016a3008d3a95201aa0e",
+  "held_coordinate_corrections": 1,
+  "negative_controls_path": "/workspace/settlements-work/continuation_20261004/independent_review/geokladr_point_corrections_862/five_negative_control_findings.csv",
+  "negative_controls_sha256": "4f7c1eaff5fd5fdf79ef2962f7d737a2f29659b2cef5e8da9315485eed890308",
+  "old_DBF_name_matches_current_or_historical_name": 862,
+  "old_DBF_type_matches_historical_selected_source": 862,
+  "old_DBF_type_transition_vs_current_rows": 2,
+  "point_change_scope": "Supersede historical GeoKLADR point values only for these old source rows with the exact accepted Dadata current point; retain all old GeoKLADR coordinates, DBF source records, and provenance; do not change identity graph or population; mark date unknown and retrospective current-point inference.",
+  "raw_current_source_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+  "raw_geokladr_dbf_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+  "raw_sample_path": "/workspace/settlements-work/continuation_20261004/independent_review/geokladr_point_corrections_862/fixed_48_historical_publication_sample.csv",
+  "raw_sample_sha256": "bc89dadadf4923c66af10c4ab36426122c231fd94a35cb307d2692f81bb0fec9",
+  "review_script_path": "/workspace/settlements-work/continuation_20261004/independent_review/geokladr_point_corrections_862/review_geokladr_correction_862.py",
+  "review_script_sha256": "8d29f6f089335b6450e92f6d31c3f577758835fbe1314779c6426344f016fe69",
+  "selected_observations_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+  "source_endpoint_hard_flag_rows": 0,
+  "source_evidence_sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327",
+  "source_hard_flag_counts": {
+    "current": {
+      "additive_false": 0,
+      "endpoint_rows": 862,
+      "federal_aggregate_true": 0,
+      "legacy_identity_conflict_true": 0,
+      "same_year_collision_true": 0,
+      "verified_successor_nonnull": 0
+    },
+    "historical": {
+      "additive_false": 0,
+      "endpoint_rows": 862,
+      "federal_aggregate_true": 0,
+      "legacy_identity_conflict_true": 23,
+      "same_year_collision_true": 0,
+      "verified_successor_nonnull": 0
+    }
+  },
+  "status": "independent_coordinate_correction_review_complete_candidate_only",
+  "unique_current_source_ids": 824,
+  "years": {
+    "2002": 40,
+    "2010": 822
+  }
+}

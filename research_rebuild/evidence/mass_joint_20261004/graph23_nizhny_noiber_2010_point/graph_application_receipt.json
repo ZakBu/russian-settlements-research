@@ -1,0 +1,52 @@
+{
+  "status": "applied_bounded_independent_case_review_identity_extension",
+  "base_graph_rows": 348655,
+  "accepted_graph_rows": 348656,
+  "new_identity_rows": 1,
+  "new_point_uses": 0,
+  "population_values_modified": false,
+  "coordinate_ledger_modified": false,
+  "candidate_edge": {
+    "decision_id": "RESIDUAL-PAIR-20261005-02",
+    "relation": "same_place",
+    "from_source_record_id": "2010:002_027be52979_10._20СевКаз_ФО_20(без_20Даг)_202010.xls:СК:1568",
+    "to_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161665",
+    "from_year": 2010,
+    "to_year": 2021
+  },
+  "resulting_observed_years_in_component": [
+    2002,
+    2010,
+    2021
+  ],
+  "2010_population_retained": 6784,
+  "2010_population_quality_retained": "secondary_confidentiality_protected_value_exact_scope_unverified",
+  "coordinate_route": "Existing accepted 2002 and 2021 points agree within 0.00001 degrees; any 2010 coordinate is a continuity inference only, not a date-specific measurement.",
+  "limitations": [
+    "The selected 2010 value remains four persons above the cited official primary 6780.",
+    "Exact scope of the selected protected 2010 value remains unverified.",
+    "Population-boundary comparability across census years is unknown."
+  ],
+  "input_pins": {
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "graph22": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph22_krasnodar_20261005/accepted_identity_edges.parquet",
+      "sha256": "36cf7cc785108ce198558f3347a02f7b75e6bdd667a8c4142cd537b0c324115c"
+    },
+    "points22": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph22_krasnodar_20261005/accepted_point_uses.parquet",
+      "sha256": "22acb1205a70d36df44954539069362ce29f296c94664255d1edb8ffc12e4020"
+    },
+    "independent_review": {
+      "path": "/workspace/settlements-work/continuation_20261004/regions/chechnya_top_residual_graph16_recheck_20261005/source_chain_followup/2010_row_identity_review.json",
+      "sha256": "c4e2b14cd1a95d99bd8b44e38c31279a6e33e0eea569f7e1456841abc15ee84d"
+    }
+  },
+  "output_sha256": {
+    "accepted_identity_edges.parquet": "3283d85d8686395a01b238ad1a35ba3df9e3cf451efbe732b199e4d59fbe2e06"
+  },
+  "script_sha256": "1bda5d8bcbaf77ed8dbb0c81a6cf031ba16597b29e8ea1a04ae43017da214a0e"
+}

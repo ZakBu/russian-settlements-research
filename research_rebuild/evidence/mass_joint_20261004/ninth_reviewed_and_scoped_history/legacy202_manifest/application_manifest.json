@@ -1,0 +1,86 @@
+{
+  "frozen": {
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+    },
+    "legacy_availability": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/legacy_availability_projected_r5.parquet",
+      "sha256": "3c21c2edbc7ab0813929775c1d5100d5e15bb25b6c5cdb31d3fe46edd80270d5"
+    }
+  },
+  "blocked_targets": {
+    "path": "/workspace/settlements-work/continuation_20261003/blocked_point_reuse_targets_v1.json",
+    "sha256": "7a715254f965d996541001d08d3422828299f5c300dfae4cbe78b79f9a5b0e70"
+  },
+  "federal_points": {
+    "path": "/workspace/settlements-work/continuation_20261004/federal_application/accepted_territory_reference_points.parquet",
+    "sha256": "3b366d9a513b0396e90813f03c4e3af1cd0b1caef92379a9ae95cae43451d6e3"
+  },
+  "federal_chains": {
+    "path": "/workspace/settlements-work/continuation_20261004/federal_application/accepted_typed_city_continuity.parquet",
+    "sha256": "ee5898e3e5495d691f230e18fce08191fcc287ed35e06d969140bb05df75c695"
+  },
+  "legacy_collision_resolution_reviews": [
+    {
+      "eligible": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/wd_collision_resolution_89/eligible_legacy_collision_resolutions.csv",
+        "sha256": "ff06b0838fdf5f39066b976462d5b26f67c56372f6a2d3e348959dfd818dccea"
+      },
+      "review_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/wd_collision_resolution_89/review_receipt.json",
+        "sha256": "ea13c1609d140c2c3fd834ec0659b3fa84a4e5cacf07948214569a74cbfd5b31"
+      }
+    }
+  ],
+  "base": {
+    "graph": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_eighth_reviewed/accepted_identity_edges.parquet",
+      "sha256": "c0f276db44f524845bd9c4d973ce8294f372d942cad292028b3b3984024bf011"
+    },
+    "points": {
+      "path": "/workspace/settlements-work/continuation_20261004/root/accepted_afipsky_point_review_delta_applied/accepted_point_uses.parquet",
+      "sha256": "7e850aa1e6d5df3aabd380797b8218893aaaff0b3721a231f80ce09c288b8e22"
+    }
+  },
+  "identity_sources": [
+    {
+      "candidate": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/ninth_reviewed_legacy204/legacy_native_classifiers204_new_identity_adapter.csv",
+        "sha256": "8461f7eced84168045d7dbc6c576ba5353a16fed1648f0a98fab1cfbe11e9d40"
+      },
+      "eligible": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/ninth_reviewed_legacy204/legacy_native_classifiers204_new_identity_adapter.csv",
+        "sha256": "8461f7eced84168045d7dbc6c576ba5353a16fed1648f0a98fab1cfbe11e9d40"
+      },
+      "review_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/legacy_oktmo_currentpoint_1659_review/review_receipt.json",
+        "sha256": "cddc09a10d879ff36f2b2a0e3e4682bd98914004c37ba3b35b210cd2197fa5b7"
+      },
+      "candidate_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "family",
+        "status": "review_status"
+      },
+      "eligible_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "family"
+      },
+      "accepted_candidate_statuses": [
+        "eligible"
+      ],
+      "canonical_columns": {
+        "relation": "relation"
+      },
+      "additional_review_receipts": []
+    }
+  ],
+  "point_sources": [],
+  "reviewed_at_utc": "2026-10-04T10:36:46.351484+00:00"
+}

@@ -1,0 +1,58 @@
+{
+  "packet": "version17_yablochnoe_status_chain",
+  "application_approved": true,
+  "coverage_complete": false,
+  "cohort_size": 178,
+  "scope_source_record_ids": [
+    "2002:1_TOM_01_04.xls:0:10502"
+  ],
+  "reason": "Adds the 2002 former-name pgt observation to the existing 2010–2021 Яблочное component with a source-backed status/name transition and own-locality coordinate. Raw observations/quality are unchanged; point discrepancy with the accepted current component point is explicitly disclosed; 3/178 cohort records covered so far.",
+  "inputs": [
+    {
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3"
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2010/009_81f8a0e73c_17._20ДВ_ФО_2010.xls",
+      "sha256": "a8fd7aa55513e73a205ebff1da2ce35fd8ca0f61c286e54491cf49c6132470c4"
+    },
+    {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+    },
+    {
+      "path": "research_rebuild/evidence/main_axis_residual_application68_20261008/applied_state_observations.parquet",
+      "sha256": "8cde620020634cf5ac9cfff145cc88c4d7365474cff56194b8a7137a43f6e0b9"
+    },
+    {
+      "path": "research_rebuild/evidence/main_axis_residual_application68_20261008/applied_component_snapshot.csv.gz",
+      "sha256": "2787384874ab5f56c6cf392e8c5aa13dffa7c48443f6051826ead655a2c49230"
+    },
+    {
+      "path": "research_rebuild/evidence/next69_capacity_20261009/over1000_rest_B_assignment.csv",
+      "sha256": "3a0f235cfcacc38a37a34d2b338643bd07ba41d2edc43799117df6ef46c5a2b8"
+    },
+    {
+      "path": "research_rebuild/evidence/over1000_rest_B_20261009/version16_kosmymino_ozero_karachi/all178_dispositions.csv",
+      "sha256": "91c87119b0b09d43ec18d1ae0de9a9d435d00fa836becb66a3785cc4a8d61c81"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://wikipedia.akarpov.ru/content/wikipedia/A/Яблочное_(Сахалинская_область)",
+      "locator": "article lines2,6-9,20-21,31-45; former name/status, own point/current codes, 2002 and 2010 counts"
+    },
+    {
+      "url": "https://sakhalin-gov.ru/doc/46637",
+      "locator": "Sakhalin Oblast Law 524; cited by own article as transition act"
+    }
+  ],
+  "outputs": {
+    "all178_dispositions.csv": "5751ea574564276b5b369d65271407c70dc503ca7f7d0711445bbf7b0d8a7d6d",
+    "accepted_identity_edge_delta.csv": "9be45ae15b93358f9dc27546f577d75094567de86f8191a913fe6b05b4199c7e",
+    "accepted_point_use_delta.csv": "184c4f3552bbdd9fcdde183a89df9ec246666bced6a7a2628dd798ce3086c378",
+    "source_row_witnesses.csv": "5f56292ca0fd549e3b77f9956aea716d51d8ceaff56a8a4103a625250d63a1a8",
+    "source_witnesses.txt": "92825934aa0ce9a9f71d7051814c5223c1217c022507eda55b0ff4ded5eef446",
+    "actual68_source_record_audit.csv": "4e00a74f9d3bdb900b545f098fec134f9fa9f8a3fbf2bc7ac40768a8ea8ec190"
+  }
+}

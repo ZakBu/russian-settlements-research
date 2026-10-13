@@ -1,0 +1,36 @@
+{
+  "review_id": "graph19_lokot_root_adoption_20261005_v1",
+  "status": "scoped_identity_edges_and_direct_2021_point_accepted_for_application",
+  "independent_review_receipt_sha256": "32c58eb8ceb381b50c6c95335b6e626cc485ea1b674def1e3604c10ac82c5dd6",
+  "independent_review_sha256": "fe19c2cd0ef5e01de509b38a3a75e3e5324331aff528f8b52b8f24eaca2423b5",
+  "decisions": {
+    "identity_pairs": [
+      {
+        "from": "2002:1_TOM_01_04.xls:0:133",
+        "to": "ROSSTAT2010:T5:p15:l48",
+        "relation": "same_place",
+        "decision": "accept",
+        "basis": "independent reviewer found unique same-region selected row in each year, exact official 2010 locality row, matching admin context, typed GeoKLADR 2011 raw named PGT and 2021 FIAS6+OKATO+OKTMO; do not use long OKATO alone",
+        "boundary_or_population_comparability": "not asserted"
+      },
+      {
+        "from": "ROSSTAT2010:T5:p15:l48",
+        "to": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:173506",
+        "relation": "same_place",
+        "decision": "accept",
+        "basis": "independent reviewer found unique same-region selected row in each year, exact official 2010 locality row, matching admin context, typed GeoKLADR 2011 raw named PGT and 2021 FIAS6+OKATO+OKTMO; do not use long OKATO alone",
+        "boundary_or_population_comparability": "not asserted"
+      }
+    ],
+    "point": {
+      "target": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:173506",
+      "decision": "accept direct 2021 representative point",
+      "source_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "source_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "locator": "parquet_row_0based=173506; object_level=Населенный пункт; name=посёлок Локоть; FIAS_level=6; FIAS=c2be7e89-98a8-4af5-8941-5826a19b9dc2; OKATO=15204551000; OKTMO=15604151051",
+      "reason": "same selected Tochno NP row carries exact FIAS level 6 and crosswalk IDs; GeoKLADR and GeoNames are within 1.53 km. Wikidata multi-valued P625 excluded from point selection; no averaging."
+    },
+    "2010_point": "propagate from an accepted point on same-place chain as inferred spatial continuity only; not measured at census date",
+    "population": "selected counts retained 12094/10028/8469; 2010 primary value perturbation retained; no boundary comparison asserted"
+  }
+}

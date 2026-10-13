@@ -1,0 +1,6 @@
+{
+  "incident": "I dynamically imported review_articles.py during an audit helper. Its module-level code ran the cached article source review and wrote its normal derived outputs.",
+  "recovery": "Compared each of the four touched tracked output files byte-for-byte against HEAD. All were already identical to HEAD, so no tracked file needed git restore. Verified all 35 producer receipt input/raw workbook hashes for the frozen stage66 regional packet still match. Removed only the newly-created review_articles.pyc.",
+  "state_or_canonical_mutation": false,
+  "evidence": "preservation_manifest.json"
+}

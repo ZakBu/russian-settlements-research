@@ -1,0 +1,40 @@
+{
+  "packet": "A112_v35_shatalovo_code_field_erratum",
+  "status": "field_axis_clarification_frozen",
+  "finding": "V34 source/native codes 66633495151 and 66633495101 are raw source field oktmo; crosscheck provider codes 66533000327 and 66533000316 are raw field oktmo_dadata. Both field families are explicitly retained; no numeric code is overwritten.",
+  "rows": {
+    "Shatalovo-1": {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:124329",
+      "raw_parquet_row": 124329,
+      "oktmo": "66633495151",
+      "okato_dadata": "66233000229",
+      "oktmo_dadata": "66533000327",
+      "fias_id_dadata": "55746ccd-0e1b-4fec-b7c9-a5827e9ab839"
+    },
+    "Shatalovo village": {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:124302",
+      "raw_parquet_row": 124302,
+      "oktmo": "66633495101",
+      "okato_dadata": "66233000192",
+      "oktmo_dadata": "66533000316",
+      "fias_id_dadata": "ba093ead-9183-40bd-83b4-edfb14b17b97"
+    }
+  },
+  "effect": {
+    "identity_edges_added_removed": 0,
+    "point_uses_added_removed": 0,
+    "population_edits": 0,
+    "V34_rewritten": false
+  },
+  "source_pins": {
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/crosscheck_last_available_scope_20261009/receipt.json": "2ef8e6d8da2c5c2cdf2b374f6eba744f0e232a0ee157eb53ae9b7119d3375902",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v34_final_four_uid_source_scopes/receipt.json": "5afcaaa749bf02db81646b7eb19454bcf0bc452126246e6febc98f63a17161b5"
+  },
+  "method": "Inspected full raw 2021 parquet field names and exact rows 124302 and 124329; read exact corresponding selected_observations rows. Kept the raw field named oktmo/source_native_id distinct from provider fields okato_dadata and oktmo_dadata.",
+  "output_sha256": {
+    "README.md": "eb46258d29ebbdf51a27839665af99677ed1d5f04ddf58fdad2028c56ec408c5",
+    "shatalovo_2021_code_axes.csv": "ba2f737ee87c0d408fcc683455500a85947ac70f92bf29ce17b63e4140c63fb5"
+  }
+}

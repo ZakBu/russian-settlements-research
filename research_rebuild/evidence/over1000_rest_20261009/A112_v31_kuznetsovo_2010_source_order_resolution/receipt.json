@@ -1,0 +1,65 @@
+{
+  "packet": "A112_v31_kuznetsovo_2010_source_order_resolution",
+  "purpose": "row-level source-order mapping of all five 2010 Kuznetsovo homonyms; correct V28 held status without editing V28",
+  "inputs_sha256": {
+    "2002_workbook": {
+      "path": "/workspace/settlements-raw/data/raw/2002/048_4f024587eb_02c_Nizhegorod_obl_new.xls",
+      "sha256": "32aa9a5b76b281d8e27c5a2cba32066ba8830d98e4577b300e4e401d49589cc5"
+    },
+    "2010_workbook": {
+      "path": "/workspace/settlements-raw/data/raw/2010/014_5ca759eea0_5._20Nizheg_Kirov_202010.xls",
+      "sha256": "c286aa10e8ebd8a4594b5623affa0ca1aacb6b69ac09a4a9288eeb754aa81c27"
+    },
+    "2021_raw_tochno": {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+    },
+    "2009_classifier": {
+      "path": "/workspace/settlements-work/sources/raw_okato_2009_verification_v1/raw_classifier.parquet",
+      "sha256": "343c0f5af1f52b9276699d9fe8d883b58def5aeabdd904063389606d29bc2b81"
+    },
+    "2011_geokladr": {
+      "path": "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet",
+      "sha256": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f"
+    },
+    "profile_review": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/secondary_history_1703_scope_review/reviewed_secondary_profiles.csv",
+      "sha256": "8b0b358d52775bdb043d8bd84f116ce3203ac1fc2dc10a51f0a64502ca19f4c4"
+    },
+    "point_snapshot": {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_point_snapshot.parquet",
+      "sha256": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502"
+    },
+    "wd_big": {
+      "path": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0036.jsonl.gz",
+      "sha256": "262a2d81cab67fb8bd1780f1406aed88af51513581661276bc1187ac6c3c2a0d"
+    },
+    "v28_receipt": {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v28_kuznetsovo_source_article_review/receipt.json",
+      "sha256": "eeee5d476934805c2ea63fb01fbb97cd2e8d46002cf3c82b6a5e830020f84ddd"
+    }
+  },
+  "outputs_sha256": {
+    "2010_candidate_flanks.csv": "5260e98ed2b24efb12c316abaf01de05d877d56875f224054e6d99902d1002ef",
+    "README.md": "09be03937f0c7fa96a79a0be65c02efba8768083cd208513d11b9d22b9fb1f97",
+    "accepted_identity_edge_delta.csv": "a9b23fe5bd8c6c4956600659087b0f827dc3781fdbcd3b3d17cabdafb19450f0",
+    "all_five_2010_candidates.csv": "336e6bb0a7652a8110fb14377e89df93c38044a3288f801882da41b8be89e392",
+    "primary_code_and_current_context.csv": "133c6785739d1aecc7db55b34b3227c040650901b02daaa93b7622bd524d11e9",
+    "superseding_erratum_v28_2010_hold.csv": "5496c1dff4fd7239f5cd0a07c9d2fa8292863b33fd13d96f1befa165f87b98ea"
+  },
+  "decisions": {
+    "2002_row4854_to_2010_row3831": "accepted same_place by ordered literal primary flanks and exact historical code branch",
+    "2010_row3831_to_2021_row76311": "accepted same_place by the now-bound 2010 source row, current own article/QID and separate former-council homonym evidence",
+    "2010_selected_value": 1085,
+    "reported_profile_2010_value": 1123,
+    "value_reconciliation": "no replacement; value difference is not an identity conflict; protect selected 1085 and preserve both source claims as distinct source observations",
+    "boundary_comparability": "UNKNOWN",
+    "value_or_point_edits": 0,
+    "duplicate_2011_coordinate_caveat": "2009/2011 Kузнецовsky and Vершилovsky codes are distinct but GeoKLADR coordinate fields are identical; not used for disambiguation"
+  },
+  "counts": {
+    "same_name_type_2010_variants": 5,
+    "new_identity_edges": 2,
+    "new_point_uses": 0
+  }
+}

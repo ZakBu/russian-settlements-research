@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Base button styles */
+        .bbtn {
+            padding:12px 18px;
+            border:1px solid #000;
+            cursor:pointer;
+            font-size:26px;
+
+        }
+
+        .shadow{
+            box-shadow: 0 0 0 5px gray;
+        }
+
+        .bbtn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Hide text when loading */
+        .bbtn.loading .btn-text {
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        /* Spinner element configuration */
+        .bbtn::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            border: 3px solid transparent;
+            border-top-color: #000;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        /* Show spinner and trigger animation */
+        .bbtn.loading::after {
+            opacity: 1;
+            animation: button-spin 0.6s linear infinite;
+        }
+
+        /* Infinite rotation animation */
+        @keyframes button-spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .dotloading {
+            font-weight: bold;
+            display: inline-block;
+            font-family: monospace;
+            font-size: 30px;
+            clip-path: inset(0 3ch 0 0);
+            animation: l 1s steps(4, jump-none) infinite;
+        }
+
+        @keyframes l {
+            to {
+                clip-path: inset(0)
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+
+<div id="ovl" style="
+position:fixed;
+inset:0;
+background:#f8fafc;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:9999;
+font-family:sans-serif;
+">
+    <div id="btn" class="bbtn">
+        <noscript>Enable JavaScript and cookies to continue</noscript>
+        <span class="btn-text dotloading" id="btn-text"></span>
+    </div>
+</div>
+
+
+<script>
+
+
+    const workerCode = `
+    self.onmessage = async (e) => {
+        const challenge = "d2e7ca41c5f9a09cb4a27cfcfd0a2fc1";
+        const difficulty = 4;
+
+        async function sha256(str) {
+            const buf = new TextEncoder().encode(str);
+            const hash = await crypto.subtle.digest('SHA-256', buf);
+            return Array.from(new Uint8Array(hash))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+
+        }
+
+        async function calcNonce(){
+
+            const target = "0".repeat(difficulty);
+            let nonce = 0;
+            while (true) {
+                const hash = await sha256(challenge + nonce);
+                if (hash.startsWith(target)) break;
+                nonce++;
+
+            }
+            return nonce;
+        }
+
+        const result =  await calcNonce();
+        postMessage(result);
+
+
+
+    }
+    `;
+
+    async function runChallenge() {
+
+        const isMobile = 'ontouchstart' in window;
+        let focused = document.hasFocus();
+        let visible = document.visibilityState === 'visible';
+
+        let moved = false;
+
+        document.getElementById("btn-text").innerHTML = 'Wait...';
+
+
+        if(navigator.webdriver){
+            document.getElementById("btn").innerHTML = 'Failed 504';
+            document.getElementById("btn").style.color = 'red';
+            return;
+        }
+
+        ['pointermove', 'pointerdown', 'keydown', 'scroll'].forEach(e => {
+            document.addEventListener(e, () => {
+                moved = true;
+            }, { once: true });
+        });
+
+        window.addEventListener('focus', () => focused = true);
+        document.addEventListener('visibilitychange', () => {
+            if(document.visibilityState == 'visible'){
+                visible = true;
+            };
+        });
+
+        if(isMobile){
+            if (typeof DeviceMotionEvent?.requestPermission === 'function') {
+                //console.log('iOS-like поведение (нужен клик)');
+            } else {
+
+                ['devicemotion', 'deviceorientation'].forEach(e => {
+                    window.addEventListener(e, () => {
+                        moved = true;
+                    }, { once: true });
+                });
+            }
+        }
+
+        const blob = new Blob([workerCode], { type: 'application/javascript' });
+        const worker = new Worker(URL.createObjectURL(blob));
+
+        worker.onmessage = (e) => {
+            let nonce = e.data;
+            let challenge_id = '1e459524242790056c2e75b4b0f33c52';
+
+            document.getElementById("btn").classList.toggle('shadow');
+            document.getElementById("btn-text").innerHTML = 'Continue';
+            document.getElementById("btn-text").classList.toggle('dotloading');
+
+            let myInterval = setInterval(async () => {
+
+                if(!isMobile ){
+
+                    if(!visible || !focused){
+                        return
+                    }
+                }
+
+                if (moved) {
+                    clearInterval(myInterval);
+
+                    document.getElementById("btn").classList.toggle('loading');
+
+
+                    // отправляем решение
+                    await fetch("/verify.php", {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({nonce, challenge_id})
+                    });
+
+                    location.reload();
+                } else {
+                    //console.log('no move');
+                }
+            }, 200);
+        };
+
+
+        worker.postMessage(0);
+
+
+    }
+
+
+    (async () => {
+        if ('requestIdleCallback' in window) {
+            // Safe to use requestIdleCallback
+            window.requestIdleCallback((deadline) => {
+                runChallenge();
+            });
+        } else {
+            runChallenge();
+        }
+
+
+    })();
+</script>
+
+</body>
+</html>

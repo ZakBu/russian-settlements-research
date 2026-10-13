@@ -1,0 +1,84 @@
+{
+  "status": "read_only_current_residual_gate_diagnostic",
+  "current_physical_exact_historical_point_candidates": 3133,
+  "by_year": {
+    "2002": {
+      "rows": 1689,
+      "population": 8344574,
+      "pending_root_review": 3,
+      "held": 1686,
+      "population_pending_root_review": 385
+    },
+    "2010": {
+      "rows": 1444,
+      "population": 2866202,
+      "pending_root_review": 4,
+      "held": 1440,
+      "population_pending_root_review": 428
+    }
+  },
+  "gate_reason_marginals_overlapping": {
+    "within_year_shared_geokladr_point_group": 1945,
+    "historical_code_not_exact_raw_join": 1258
+  },
+  "code_join_basis": [
+    {
+      "year": 2002,
+      "code_join_basis": "exact_raw_code",
+      "rows": 614,
+      "population": 236326.0
+    },
+    {
+      "year": 2002,
+      "code_join_basis": "typed_urban_8digit_plus_zero_third_geo_group",
+      "rows": 1075,
+      "population": 8108248.0
+    },
+    {
+      "year": 2010,
+      "code_join_basis": "exact_raw_code",
+      "rows": 1261,
+      "population": 418610.0
+    },
+    {
+      "year": 2010,
+      "code_join_basis": "typed_urban_8digit_plus_zero_third_geo_group",
+      "rows": 183,
+      "population": 2447592.0
+    }
+  ],
+  "shared_coordinate_candidates": {
+    "rows": 1945,
+    "distinct_exact_point_groups": 1340,
+    "all_grouped_objects_have_distinct_historical_raw_okato": true
+  },
+  "selected_row_source_lineage": {
+    "selected_row_lineage_routes": {
+      "exact_input_manifest_path_and_file_hash": 3058,
+      "selected_row_has_sha256_and_locator": 75
+    },
+    "manifest_paths_resolved": 3058,
+    "manifest_hash_equals_selected_row_hash_when_both_present": 0,
+    "unique_manifest_assets_checked": 79,
+    "unique_manifest_assets_locally_present": 79,
+    "unique_manifest_assets_local_hash_matches": 79,
+    "row_id_and_locator_note": "The release source_record_id retains source file plus sheet/row or PDF page/row; input_manifest pins the source file bytes. Nulls in selected source_sha256/source_locator do not mean the source asset is unpinned when an exact input_manifest path join exists."
+  },
+  "source_provenance": {
+    "selected_source_hash_missing_in_extension_check_rows": 3058,
+    "selected_source_locator_missing_in_extension_check_rows": 3058,
+    "local_source_file_resolved_rows": 3115,
+    "local_source_hash_matches_rows": 57,
+    "raw_source_reopened_and_rehashed_rows": 0,
+    "exact_current_event_ids_rows": 0,
+    "dated_point_source_values": {
+      "2011/06/20": 3133
+    }
+  },
+  "interpretation": [
+    "Historical raw OKATO code joins are classifier/GeoKLADR code witnesses, not native census-source official identifiers. Census-source OKATO/OKTMO values remain literal and are not widened or repaired by this diagnostic.",
+    "The verified typed-city schema bridge is 2009 raw 8-digit code to the 2011 raw 11-digit GeoKLADR code only when the raw KOD3 block is literally 000. Treat it as a scoped point-candidate association, never a legal-code identity or a leading-zero repair.",
+    "Generic 2002/2010 points are GeoKLADR records updated 2011-06-20, not census-date measurements. No exact event IDs were attached to these generic candidates; separate modern-point reuse candidate holds have event-specific restrictions.",
+    "The historical name/type/region candidate is not proof of same-place continuity, coordinate identity, population scope, or polygon comparability. Shared points are exact-coordinate collisions across distinct raw historical objects and remain blocked pending scoped resolution."
+  ]
+}

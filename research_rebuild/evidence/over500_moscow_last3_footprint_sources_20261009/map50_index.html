@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "https://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+<meta name="google-site-verification" content="C9jwJinfjNaonWpNdqF4roDy-_zRvgka86dsVJOfJqI" />
+<style type="text/css">a,p,body,td,.main { font-family: Arial, Verdana, Helvetica, sans-serif; font-size: 12px;}</style>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<meta name="KEYWORDS" content="Топографическая карта Украины, топографические карты Украины, космическая съемка">
+<meta name="DESCRIPTION" content="Интерактивная карта Украины, России, Европы 1:100000, на основе советских генштабовских карт и космическая сьемка из материалов НАСА">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<title>Карта КИЇВ, м.Київ область, м.Київ район</title>
+<style>
+#map-canvas {
+height: 400px;
+width: 920px;
+}
+</style>
+
+<SCRIPT language="JavaScript"  type="text/javascript">
+var min_lon_i=16.6219468949115;
+var min_lat_i=44.4836104212986;
+
+function displayCoords(event) {
+  event = event || window.event;
+  var offsetX = event.layerX ? event.layerX : event.offsetX;
+  var offsetY = event.layerY ? event.layerY : event.offsetY;
+
+  var geox=Math.floor( (min_lon_i+(offsetX/15.0666666582963))*100 )/100;
+  var geoy=Math.floor( (min_lat_i+((270-offsetY)/22.5888888637901))*100 )/100;
+
+  min_lon_i=geox-(420/(2*15.0666666582963));
+  min_lat_i=geoy-(270/(2*22.5888888637901));
+
+  document.f1.lon.value=geox;
+  document.f1.lat.value=geoy;
+  document.getElementById('imap').src="/imap/?lon=" + geox + "&lat=" + geoy + '&w=420&h=270&grid=smtm100';
+  document.getElementById('button_contain').style.display='inline';
+  Object.values(document.forms['f1']).forEach(node => {
+      if(node.value.trim() === '') {
+          node.disabled = true;
+      }
+  })
+  document.forms["f1"].submit();
+}
+
+var min_lon_map1=30.4508918187856;
+var min_lat_map1=50.4296862119145;
+
+function displayCoords1(event) {
+  event = event || window.event;
+  var offsetX = event.layerX ? event.layerX : event.offsetX;
+  var offsetY = event.layerY ? event.layerY : event.offsetY;
+
+  var geox=Math.floor( (min_lon_map1+(offsetX/4215.99915680017))*100 )/100;
+  var geoy=Math.floor( (min_lat_map1+((400-offsetY)/6597.65778648129))*100 )/100;
+
+  min_lon_map1=geox-(920/(2*4215.99915680017));
+  min_lat_map1=geoy-(400/(2*6597.65778648129));
+
+  document.f1.lon.value=geox;
+  document.f1.lat.value=geoy;
+  document.getElementById('imap').src="/imap/?lon=" + geox + "&lat=" + geoy + '&w=420&h=270&grid=smtm100';
+  document.getElementById('button_contain').style.display='inline';
+  document.forms["f1"].submit();
+}
+</script>
+
+<!--
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+-->
+
+<script>
+var map;
+function initialize() {
+  var mapOptions = {
+    zoom: 7,
+    center: new google.maps.LatLng(50.46, 30.56),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<script type="text/javascript">
+function currcoord() {
+    var t = document.getElementById("currbutton");
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      t.value = "Geolocation is not supported";
+    }
+}
+
+
+function showPosition(position) {
+    var options = { timeout: 31000, enableHighAccuracy: true, maximumAge: 90000 };
+    var t = document.getElementById("currbutton");
+    var lat=Math.floor((position.coords.latitude)*100 )/100;
+    var lon=Math.floor((position.coords.longitude)*100 )/100;
+    t.value = "Lat: " + lat +" "+"Lon: " + lon;
+
+    document.f1.lon.value=lon;
+    document.f1.lat.value=lat;
+    document.getElementById('imap').src="/imap/?lon=" + lon + "&lat=" + lat + '&w=420&h=270&grid=smtm100';
+    document.getElementById('button_contain').style.display='inline';
+    document.forms["f1"].submit();
+}
+</script>
+
+</head>
+<body bgcolor="white" link="#000000" vlink="#000000">
+<!-- onload="load()" onunload="GUnload() -->
+
+
+<div align="center">
+<h1>Топографічна мапа України, Росії, Білорусі
+</h1>
+<form name="f1" ACTION="/">
+<table width="950" border="0" cellpadding="2" cellspacing="0">
+<tr>
+
+
+<td width="400" align="left" valign="top">
+
+<div itemscope itemtype="https://schema.org/Place">
+<meta itemprop="map" content="/map/?lon=30.56&amp;lat=50.46" />
+<div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><b><span itemprop="addressRegion">м.Київ</span></b>, .<span itemprop="addressLocality"><strong>КИЇВ</strong></span></div>
+</div>
+
+<br>
+<!-- ####################### index map ########################## -->
+<img id="imap" style="position:relative" name="imap" border="0" src="/imap/?x=30.56&amp;y=50.46&amp;w=420&amp;h=270&amp;grid=smtm100" width="420" height="270" alt=""><script
+type="text/javascript">document.getElementById('imap').onclick=displayCoords;</script>
+<br>
+<b>Ссылка сюда:</b><br>
+<input type="text" value="https://maps.vlasenko.net/?lon=30.56&amp;lat=50.46" size="40" onclick="this.focus(); this.select();" style="width:420px;"/>
+<br><input type="text" value="http://maps.vlasenko.net/ua/mkyiv/mkyiv/kyiv/" size="60" onclick="this.focus(); this.select();" style="width:420px;"/>
+<br>
+<div itemprop="geo" itemscope itemtype="https://schema.org/GeoCoordinates">
+<b>Долгота (lon): <input id="lon" type="text" name="lon" size="5" maxlength="10" value="30.56" onclick="this.focus(); this.select();"> Широта (lat): </b>
+<input id="lat" type="text" name="lat" size="5" maxlength="10" value="50.46" onclick="this.focus(); this.select();">
+<nobr>
+<span style="display:none" id="button_contain"><input type="button" value="обновить карты" onclick="this.form.submit()">
+</span>
+</nobr>
+
+<a href="https://www.google.com/maps/search/?api=1&amp;query=50.46%2C30.56">Google maps</a>
+<meta itemprop="longitude" content="30.56" />
+<meta itemprop="latitude" content="50.46" />
+
+<p>
+
+<ho-block_old>
+
+</div>
+</div>
+</td>
+
+
+
+<td width="500" align="left" valign="top">
+<nobr>
+<select name="addmap2" onChange="this.form.submit();">
+<option  value="smtm500">Топографическая 1:500000</option>
+<option selected value="smtm1000">Топографическая 1:1000000</option>
+</select>
+
+<a rel="nofollow" href="/?lon=30.4578&amp;lat=50.46&amp;addmap2=smtm1000&amp;addmap1=smtm100"><img
+src="/img/arl.svg" width="35" height="20" border="0" alt="сместить на 7 км на запад" title="сместить на 1/5 карты на запад (7 км)"></a>
+<a rel="nofollow" href="/?lon=30.56&amp;lat=50.5622&amp;addmap2=smtm1000&amp;addmap1=smtm100"><img
+src="/img/aru.svg" width="35" height="20" border="0" alt="сместить на 7 км на север" title="сместить на 1/5 карты на север(7 км)"></a>
+<a rel="nofollow" href="/?lon=30.56&amp;lat=50.3578&amp;addmap2=smtm1000&amp;addmap1=smtm100"><img
+src="/img/ard.svg" width="35" height="20" border="0" alt="сместить на 7 км на юг" title="сместить на 1/5 карты на юг (7 км)"></a>
+<a rel="nofollow" href="/?lon=30.6622&amp;lat=50.46&amp;addmap2=smtm1000&amp;addmap1=smtm100"><img
+src="/img/arr.svg" width="35" height="20" border="0" alt="сместить на 7 км на восток" title="сместить на 1/5 карты на восток (7 км)"></a>
+<a rel="nofollow" href="https://maps.vlasenko.net/smtm1000/m-36.jpg" title="Полный лист карты"><b>M-36</b></a>  <a rel="nofollow" href="https://maps.vlasenko.net/smtm1000/m-36.map" title="Map-файл для OziExplorer">ozi</a>
+</nobr>
+
+<!-- ####################### map2 ########################## -->
+<script language="JavaScript">
+//<!--
+document.write('<img name="addmap2" src="/map/?lon=30.56&amp;lat=50.46&amp;map=smtm1000&amp;w=450&amp;h=280" alt="" width="450" height="280">');
+//-->
+</script>
+<br>
+<b>Поиск:</b> (до 100 км)
+<input type="text" name="s" value="" size="20"><input type="submit" value="найти">
+<br>
+<select onChange="coords = this.options[this.selectedIndex].value.split(';'); document.f1.lon.value = coords[0]; document.f1.lat.value = coords[1]; document.f1.submit();">
+<option value="">Найдено ближайших 10</option>
+<option value="30.5596;50.4402">2.2 km, КИЇВ (м.Київ, м.Київ)</option>
+<option value="30.6414;50.5494">11.4 km, ПОГРЕБИ (Броварський, Київська)</option>
+<option value="30.7126;50.5116">12.2 km,  (м Бровари, Київська)</option>
+<option value="30.5466;50.5758">12.9 km, ОСЕЩИНА (Вишгородський, Київська)</option>
+<option value="30.5326;50.576">13 km, ОСЕЩИНА (Вишгородський, Київська)</option>
+<option value="30.4586;50.3544">13.7 km, НОВОСІЛКИ (Києво-Святошинський, Київська)</option>
+<option value="30.3688;50.4112">14.5 km, СОФІЇВСЬКА БОРЩАГІВКА</option>
+<option value="30.6834;50.5682">14.8 km, ЗАЗИМ'Я (Броварський, Київська)</option>
+<option value="30.495;50.5876">14.9 km, ВИШГОРОД (Вишгородський, Київська)</option>
+
+</select>
+<br>
+<a href="/?lon=30.56&amp;lat=50.46">Киев-0km <img border=0 src="/cgi-fast/arr.cgi?x1=30.56&amp;y1=50.46&amp;x2=30.56&amp;y2=50.46"></a>&nbsp;&nbsp;&nbsp;<a href="/?lon=31.29009&amp;lat=51.49807">Чернигов-126km <img border=0 src="/cgi-fast/arr.cgi?x1=30.56&amp;y1=50.46&amp;x2=31.29009&amp;y2=51.49807"></a>&nbsp;&nbsp;&nbsp;<a href="/?lon=28.65749&amp;lat=50.27447">Житомир-136km <img border=0 src="/cgi-fast/arr.cgi?x1=30.56&amp;y1=50.46&amp;x2=28.65749&amp;y2=50.27447"></a>&nbsp;&nbsp;&nbsp;
+</td>
+</tr>
+
+
+<!-- --------------------------------------------------------- -->
+
+<tr>
+<td width="1020" align="left" valign="top" COLSPAN="2">
+<nobr><select name="addmap1" onChange="this.form.submit();">
+<option selected value="smtm100">Топографическая 1:100000</option>
+<option  value="smtm200">Топографическая 1:200000</option>
+<option  value="sat95">Косм.снимок 1995г.</option>
+<option  value="sat12m35">Косм.снимок 2012г.</option>
+<option  value="sat14m35">Косм.снимок 2014г.</option>
+<option  value="topo1910">Австрийская 1910г.</option>
+<option  value="sat19m">Косм.снимок 2019г.</option>
+</select>
+
+<a rel="nofollow" href="/?lon=30.5164&amp;lat=50.46&amp;addmap2=smtm1000&amp;addmap1=smtm100"><img
+src="/img/arl.svg" width="35" height="20" border="0" alt="сместить на 3 км на запад" title="сместить на 1/5 карты на запад (3 км)"></a>
+<a rel="nofollow" href="/?lon=30.56&amp;lat=50.5036&amp;addmap2=smtm1000&amp;addmap1=smtm100"><img
+src="/img/aru.svg" width="35" height="20" border="0" alt="сместить на 3 км на север" title="сместить на 1/5 карты на север(3 км)"></a>
+<a rel="nofollow" href="/?lon=30.56&amp;lat=50.4164&amp;addmap2=smtm1000&amp;addmap1=smtm100"><img
+src="/img/ard.svg" width="35" height="20" border="0" alt="сместить на 3 км на юг" title="сместить на 1/5 карты на юг (3 км)"></a>
+<a rel="nofollow" href="/?lon=30.6036&amp;lat=50.46&amp;addmap2=smtm1000&amp;addmap1=smtm100"><img
+src="/img/arr.svg" width="35" height="20" border="0" alt="сместить на 3 км на восток" title="сместить на 1/5 карты на восток (3 км)"></a>
+<b>M-36-050</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!-- <b>HTML нижней карты:</b>
+<input type="text" value="<a href=&quot;https://maps.vlasenko.net/&quot;><img src=&quot;https://maps.vlasenko.net/map/?lon=30.56&amp;lat=50.46&amp;w=920&amp;h=400&amp;map=smtm100&quot; width=&quot;920&quot; height=&quot;400&quot; border=&quot;0&quot;></a>" size="15" onclick="this.focus(); this.select();" style="width:200px;"/>
+-->
+<input type="button" value="мои координаты" id="currbutton" onclick="currcoord()"></input>
+
+</nobr>
+
+<br>
+<!-- ####################### map1 ########################## -->
+
+<img style="position:relative" name="addmap1" id="addmap1" src="/map/ua/mkyiv/mkyiv/kyiv.smtm100.jpg" alt="Карта КИЇВ, м.Київ область, м.Київ район" title="Топографическая Карта КИЇВ, м.Київ область, м.Київ район" width="920" height="400"><script language="JavaScript">document.getElementById('addmap1').onclick=displayCoords1;</script>
+
+
+</td>
+</tr>
+
+
+</table>
+</form>
+
+<hr width="900">
+
+<table width="950" border="0" cellpadding="1" cellspacing="0">
+<tr>
+<td width="300" align="left" valign="top">
+<strong>Топографические карты советского генштаба (Soviet military topographic maps</strong>)</strong>
+, с автоматической привязкой:<br>
+<a href="/soviet-military-topographic-map/map50k.html">Топографическая карта 1:50000</a>,
+<a href="/soviet-military-topographic-map/map100k.html">Топографические карты 1:100000</a><br>
+<a href="/soviet-military-topographic-map/map200k.html">Топокарты 1:200000</a>,
+<a href="/soviet-military-topographic-map/map500k.html">Карты 1:500000</a><br>
+<a href="/soviet-military-topographic-map/map1m.html">Карты 1:1000000</a><br>
+<a href="/soviet-military-topographic-map/">Все</a><br>
+<br>
+
+В целях соблюдения требований законодательства карты Украины 1:50000, 1:100000 удалены с сайта.<br>
+<br>
+CopyLeft Petro Vlasenko<br><script type="text/javascript">document.write('maps<fuckemailcollectors>' + '@</fuckemailcollectors>' /*spamnah*/ + 'vlasenko' + '.net');</script>
+
+</td>
+
+<!-- link1 -->
+<td width="300" align="left" valign="top">
+<strong>Карты с точной привязкой:</strong><br>
+<!-- <a href="/map-1k.html">Карта 1:100000 Украина</a><br> -->
+<a href="/joined.html">1:100000 Украина (cклеенные,ozf)</a><br>
+<a href="/map2k-ua-md.html">1:200000 Украина и Молдова</a><br>
+<a href="/map5k-ua-by-md.html">1:500000 Украина, Беларусь, Молдова</a><br>
+<a href="/map10k-ua-by-md.html">1:1000000 Украина, Беларусь, Молдова</a><br>
+<br>
+<b>Рекомендовано:</b>
+<br>
+<a href="https://www.ho.ua/vps/">
+<font color=red><b>NVME VPS</b></font> in Ukraine
+</a>
+
+<br>
+
+<a href="https://www.ho.ua/">
+<b><font color=red>Lifetime web-hosting</font></b> 50 GB NVME
+</a>
+
+<br>
+
+<a href="https://ukraine-domain.com/">
+<font color=red>Ukrainian <b>Domain name</b></font> registration
+</a>
+
+<br>
+
+<a href="https://camera-ftp.com/">
+Free <b><font color=red>FTP server for CCTV</font></b> camera
+</a>
+
+<a href="https://geotargeting.com.ua/">
+Базы для <b><font color=red>геотаргетинга</font></b> 
+</a>
+
+
+<br>
+<br>
+<font color="red">Объем сайта превышает 100 гигабайт. Осторожнее с автоматическими загрузками!</font>
+<br>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55110941-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- MyCounter v.2.0 -->
+<script type="text/javascript"><!--
+my_id = 5472;
+my_width = 88;
+my_height = 31;
+my_alt = "MyCounter - счётчик и статистика (посетителей и хитов сегодня)";
+//--></script>
+<script type="text/javascript"
+  src="https://get.mycounter.ua/counter2.0.js">
+</script><noscript>
+<a target="_blank" href="https://mycounter.ua/"><img
+src="https://get.mycounter.ua/counter.php?id=5472"
+title="MyCounter - счётчик и статистика (посетителей и хитов сегодня)"
+alt="MyCounter - счётчик и статистика (посетителей и хитов сегодня)"
+width="88" height="31" border="0" /></a></noscript>
+<!--/ MyCounter -->
+
+
+
+</td>
+
+<!-- link2 -->
+<td width="300" align="left" valign="top">
+<a href="/ukraine/"><strong>Карты Украины:</strong><br>автомобильных дорог, городов, прочие</a><br>
+Украина 2006 год <a href="/map1k-2006.html">1:100000</a> <a href="/map2k-2006.html">1:200000</a><br>
+<a href="/satellite/">Спутниковые снимки, Украина и Киев</a><br>
+<a href="/historical/">Исторические карты Украины, Киева, топография нач. 20 века</a><br>
+<a href="/belarus/"><strong>Карты Беларуси:</strong><br>автомобильных дорог, городов, прочие</a><br>
+<a href="/historical/russia/"><strong>Исторические карты России</strong></a><br>
+<a href="/list/ukraine/" title="список городов украины"><strong>Список населенных пунктов Украины</strong></a><br>
+<a href="/list/russia/" title="список населенных пунктов России"><strong>Список городов и деревень России</strong></a><br>
+<a href="/list/belarus/" title="список городов Белоруссии"><strong>Список населенных пунктов Беларуси</strong></a>
+<br>
+
+</td>
+
+<!-- link3 -->
+<td width="300" align="left" valign="top">
+<bottom-links>
+</td>
+
+</td>
+</tr>
+</table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+from pathlib import Path
+import sys,json,re,collections,math
+import pandas as pd
+R=Path('/workspace/russian-settlements-research');sys.path.insert(0,str(R/'research_rebuild/mass_linkage'))
+from working_state_20261007 import load
+from current_chain_state_20261007 import normalize,sha,distance_km
+O=Path(__file__).parent;s=load(39);pins={str(p):sha(p) for p in s.inputs};prior=O.parent/'native_missing2010_residual_context_20261008/accepted_identity_edge_delta.csv.gz';pins[str(prior)]=sha(prior);excluded=set(pd.read_csv(prior).to_source_record_id)
+D=r'(?:поселок городского типа|рабочий поселок|дачный поселок|курортный поселок|железнодорожная станция|железнодорожный разъезд|пгт|рп|кп|дп|город|село|деревня|поселок|хутор|станица|аул|слобода|станция|разъезд)'
+def name(v):
+ t=normalize(v);t=re.sub('^'+D+r'\s+','',t);t=re.sub(r'\s*\('+D+r'\)\s*$','',t);t=re.sub(r'\s*,\s*'+D+r'\s*$','',t);t=re.sub(r'\s+(?:пгт|рп|кп|дп)\s*$','',t);t=re.sub(r'^(?:ж[.]?\s*д[.]?|ж/д)\s+станц(?:ии|ия)\s+','железнодорожной станции ',t);return re.sub('[^а-яa-z0-9]+',' ',t).strip()
+def role(a):
+ t=normalize(a['type_norm']);n=normalize(a['settlement_name'])
+ if 'железнодорож' in n or re.match(r'^(?:ж[.]?\s*д[.]?|ж/д)\s+станц',n) or 'железнодорож' in t or t in ['станция','разъезд','железнодорожная станция','железнодорожный разъезд']:return 'railway_np'
+ if t=='город':return 'city_np'
+ if t in ['пгт','рп','поселок городского типа','рабочий поселок','дачный поселок','курортный поселок']:return 'urban_settlement_np'
+ if t in ['','объект']:return 'unknown_np_role'
+ return 'rural_np'
+allrows=s.obs[s.obs.is_additive_settlement_record.fillna(False)].copy();index=collections.defaultdict(list)
+for a in allrows.to_dict('records'):index[(int(a['census_year']),a['region_norm'],name(a['settlement_name']))].append(a)
+rows=[];candidates=[];witness=[]
+for root,g in s.obs.groupby('root',sort=False):
+ if set(g.census_year)!={2002,2021} or len(g)!=2 or not g.is_additive_settlement_record.fillna(False).all() or g.region_norm.isin(['москва','санкт петербург','севастополь','крым']).any():continue
+ old=g[g.census_year.eq(2002)].iloc[0];cur=g[g.census_year.eq(2021)].iloc[0]
+ if cur.source_record_id in excluded or cur.source_record_id not in s.point_rows or cur.source_record_id in s.conflicting_point_targets:continue
+ cp=s.point_rows[cur.source_record_id];op=s.point_rows.get(old.source_record_id);agreement=distance_km((op['latitude'],op['longitude']),(cp['latitude'],cp['longitude'])) if op else None;keys={name(cur.settlement_name),name(old.settlement_name)};options={a['source_record_id']:a for key in keys for a in index[(2010,cur.region_norm,key)]};roles={role(cur.to_dict()),role(old.to_dict())}-{'unknown_np_role'};accepted=[]
+ for a in options.values():
+  sid=a['source_record_id'];same=[];typed=[]
+  for year in [2002,2010,2021]:
+   rr={b['source_record_id']:b for key in keys for b in index[(year,cur.region_norm,key)]};same.extend(rr.values());typed.extend(b for b in rr.values() if role(b)==role(a) or role(b)=='unknown_np_role')
+  per={year:[b for b in same if int(b['census_year'])==year] for year in [2002,2010,2021]};tp={year:[b for b in typed if int(b['census_year'])==year] for year in [2002,2010,2021]};strict=all(len(per[y])==1 for y in per);typedunique=all(len(tp[y])==1 for y in tp);typesokay=role(a) in roles;sp=s.point_rows.get(sid);spdist=distance_km((sp['latitude'],sp['longitude']),(cp['latitude'],cp['longitude'])) if sp else None;graphokay=not(s.years[s.uf.find(sid)]&{2002,2021});ratios=[a['population']/old.population if old.population>0 else None,cur.population/a['population'] if a['population']>0 else None];growth=any(x is not None and not .5<=x<=2 for x in ratios);positive=(strict or typedunique) and typesokay and op is not None and agreement<=5 and (spdist is None or spdist<=5) and graphokay
+  row={'current2021_source_record_id':cur.source_record_id,'old2002_source_record_id':old.source_record_id,'target2010_source_record_id':sid,'current_name':cur.settlement_name,'old2002_name':old.settlement_name,'native2010_name':a['settlement_name'],'region':cur.region_norm,'old2002_county':old.district_raw,'current2021_county':cur.district_raw,'native2010_county':a['district_raw'],'native2010_type':a['settlement_type'],'native2010_printed_role':role(a),'old2002_type':old.settlement_type,'current2021_type':cur.settlement_type,'population2002':old.population,'population2010':a['population'],'population2021':cur.population,'population_quality2010':a['population_value_quality'],'growth_flag':growth,'genuine_zero_present':any(x==0 for x in [old.population,a['population'],cur.population]),'strict_all_three_year_region_name_unique':strict,'typed_all_three_year_region_name_unique':typedunique,'whole_region_typed_roles_compatible':typesokay,'old2002_point_admitted':op is not None,'old_current_point_agreement_km':agreement,'existing_target2010_point_distance_km':spdist,'native2010_source_file':a['source_file'],'native2010_source_locator':a['source_locator'],'target2010_component_years':json.dumps(sorted(s.years[s.uf.find(sid)])),'source_positive_candidate':positive,'all_competing_selected_sources_json':json.dumps([{'id':b['source_record_id'],'year':int(b['census_year']),'name':b['settlement_name'],'type':b['settlement_type'],'role':role(b),'county':b['district_raw']} for b in same],ensure_ascii=False),'candidate_only':True};witness.append(row)
+  if positive:accepted.append(row)
+ if len(accepted)==1:candidates.extend(accepted)
+ rows.append({'current_source_record_id':cur.source_record_id,'old_source_record_id':old.source_record_id,'name':cur.settlement_name,'region':cur.region_norm,'population2002':old.population,'population2021':cur.population,'oldpoint_admitted':op is not None,'old_current_agreement_km':agreement,'native2010_options':len(options),'source_positive_candidates':len(accepted),'max_population_weight':max(old.population,cur.population)})
+f=pd.DataFrame(rows).sort_values('max_population_weight',ascending=False);f.to_csv(O/'all_current_two_year_components.csv.gz',index=False,compression={'method':'gzip','mtime':0});pd.DataFrame(witness).to_csv(O/'all_region_all_year_competitors.csv.gz',index=False,compression={'method':'gzip','mtime':0});pd.DataFrame(candidates).to_csv(O/'source_positive_native2010_candidates.csv.gz',index=False,compression={'method':'gzip','mtime':0});r={'source_preparation_stage':39,'excluded_frozen_prior441_components':len(excluded),'all_current_ownpoint_two_year_components':len(f),'independently_admitted_oldpoint_components':int(f.oldpoint_admitted.sum()),'unadmitted_oldpoint_components':int((~f.oldpoint_admitted).sum()),'population2002':int(f.population2002.sum()),'population2021':int(f.population2021.sum()),'source_positive_candidates':len(candidates),'potential_population_by_year':{str(y):int(sum(z['population'+str(y)] for z in candidates)) for y in [2002,2010,2021]},'input_pins':pins,'final_actual41_canonical_application_pending':True};(O/'source_preparation_receipt.json').write_text(json.dumps(r,ensure_ascii=False,indent=2));print(json.dumps({k:v for k,v in r.items() if k!='input_pins'}))
