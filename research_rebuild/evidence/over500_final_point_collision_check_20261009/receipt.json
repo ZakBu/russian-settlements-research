@@ -1,0 +1,31 @@
+{
+  "checked_at_utc": "2026-10-09T18:04:53.447414+00:00",
+  "input_file": "/dev/shm/over500-20261009/eleventh-application/all_whole_NP_over500_record_status.csv.gz",
+  "input_sha256": "7052b7e7369e4d121de1dbf90199c5df04bd597fbe7217244d57ab5be35388e3",
+  "input_rows": 59652,
+  "has_ownpoint_rows": 59643,
+  "has_ownpoint_by_year": {
+    "2002": 21770,
+    "2010": 19696,
+    "2021": 18177
+  },
+  "comparison": "Exact equality of parsed numeric accepted_ownpoint latitude and longitude within identical census_year; every has_ownpoint=True record included; no exclusions, rounding, tolerance, root deduplication or identity inference.",
+  "collision_groups": 1,
+  "collision_records": 2,
+  "data_modified": false,
+  "script_file": "/workspace/russian-settlements-research/research_rebuild/evidence/over500_final_point_collision_check_20261009/check.py",
+  "script_sha256": "4450c387e431e7b508d2b80a28e36477cf4bff377a06e586f612dfbf0e14d52b",
+  "pandas_version": "2.2.3",
+  "outputs": [
+    {
+      "file": "exact_sameyear_coordinate_groups.csv",
+      "sha256": "fb717abdb66ced11660e21286176cf743e33cf67d1d547d81f914405b45c0b38",
+      "bytes": 146
+    },
+    {
+      "file": "exact_sameyear_coordinate_collision_records.csv.gz",
+      "sha256": "6029bbab0a1239c5535b61aea49c3764c8fb6f0e6bbe2d348ee0fc93659e4ed3",
+      "bytes": 1189
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "status": "independent_full_merged_identity_graph_dfs_passed_no_admissions",
+  "merged_graph_path": "/workspace/settlements-work/continuation_20261004/root/R4/working_application/merged_identity_edges.parquet",
+  "merged_graph_sha256": "7874959268b3999325cb35de0c60f01d3661eed3c714851ff9af09508d2eb5bb",
+  "candidate_diagnostics_sha256": "56a72ca5abd564976564fca5a2c2331d756e009577aeea803f1d176554803bdb",
+  "base_graph_sha256": "e9f402c2bda189561d56a4adcee5ecd2fa4d5ed52610b45011eab9f8bc14f075",
+  "selected_observations_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+  "reviewed_legacy_list_sha256": "37805105a3c6f8bf246239b5b5d5f2222e5a5d69e135683f33d213a71262fa98",
+  "reviewed_temporal_list_sha256": "50ef33dfb76ab5c13ede4fb8e65b205f1f001dc1b1d7d945f83a0a2879ebadc8",
+  "independent_pair_coverage": {
+    "reviewed_eligible_candidate_pairs": 133818,
+    "diagnostics_pairs": 133818,
+    "exact_set_match": true,
+    "federal_aggregate_candidates_admitted": 0
+  },
+  "frozen_base": {
+    "rows": 177707,
+    "rows_preserved_exact": 177707,
+    "original_columns_compared": 97,
+    "changed_old_values": 0,
+    "baseline_connected_union_statuses": {
+      "added": 175769,
+      "already_connected": 1938
+    }
+  },
+  "candidate_processing": {
+    "families": {
+      "legacy_temporal": 70259,
+      "temporal_mass": 63559
+    },
+    "graph_added_edges": 73344,
+    "already_connected_redundant_edges": 60465,
+    "successor_event_holds": 8,
+    "duplicate_year_holds": 1,
+    "all_results_reproduced": true
+  },
+  "dfs": {
+    "baseline_duplicate_year_components": 0,
+    "merged_duplicate_year_components": 0,
+    "all_components_year_exclusive": true
+  },
+  "raw_endpoints": {
+    "all_candidate_endpoints_additive": true,
+    "federal_aggregate_endpoint_pairs_in_candidates": 0,
+    "three_federal_total_pair_ids": [
+      {
+        "from_source_record_id": "2002:1_TOM_01_04.xls:0:3218",
+        "to_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656"
+      },
+      {
+        "from_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_11:41",
+        "to_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748"
+      },
+      {
+        "from_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_15:39",
+        "to_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656"
+      }
+    ]
+  },
+  "fixed_critical_review": {
+    "rows": 17,
+    "covers_all_R_C_transitions_and_all_9_holds": true,
+    "file": "merged_graph_fixed_17_critical_edge_checks.csv"
+  },
+  "outputs": {
+    "merged_graph_fixed_17_critical_edge_checks.csv": {
+      "sha256": "6f10cdaca2a4a82368abdd30d80d52ce31791530518fb329032305df98c20da3",
+      "bytes": 11652
+    },
+    "merged_graph_independent_candidate_union_find.csv": {
+      "sha256": "ea3c86cbcd3ba40750f55a31a6f15ad0f1f673a90eebc8991db905a1c118b8ad",
+      "bytes": 31599798
+    },
+    "merged_graph_candidate_endpoint_grain_checks.csv": {
+      "sha256": "b805fd557b39133fdcbb9a839bbe0e1a2a42f52f3edf9d6345ba14fca12142ee",
+      "bytes": 28943545
+    }
+  },
+  "passed": true,
+  "graph_sha256": "7874959268b3999325cb35de0c60f01d3661eed3c714851ff9af09508d2eb5bb",
+  "critical_findings": {
+    "baseline_preservation": "all 177,707 base edges preserved exactly across 97 original columns",
+    "year_exclusivity": "independent union-find/DFS: 0 duplicate-year components before or after merge; all 133,818 diagnostics reproduced",
+    "federal_aggregate": "0 of three explicitly excluded federal total pairs were in ordinary graph candidates",
+    "holds": "eight authoritative successor event edges not attempted and one duplicate-year component collision correctly held",
+    "endpoint_grain": "all candidate endpoints selected and additive ordinary records"
+  }
+}

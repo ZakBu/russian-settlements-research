@@ -1,0 +1,58 @@
+{
+  "status": "two_reviewed_historical_point_continuity_uses_applied",
+  "inputs": {
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "graph": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_identity_edges.parquet",
+      "sha256": "1cc307f2855d15c7503dd226a278c49bdab72f178f5e2564c5e20fa4195a7d1a"
+    },
+    "points": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_point_uses.parquet",
+      "sha256": "cc2a7cf67d7c25eec2de7f962c49478dd275646138f1303ae3410bf2a6922d23"
+    },
+    "residual": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph24_anapa_20261005/scoped_joint_residual.parquet",
+      "sha256": "669d2755db4c13504024d8d80cd899013886587bd7dad10d5759954c5d59750f"
+    },
+    "review": {
+      "path": "/workspace/settlements-work/continuation_20261004/regions/krasnodar_exact_triads_graph20_review_20261005/independent_source_followup_v1/review.json",
+      "sha256": "7e46ef95802052f0444a09dd9fb9dfaa881bbb48bb97379bac48fa685c2d60bd"
+    },
+    "rcsi": {
+      "path": "/workspace/settlements-raw/data/raw/coordinate_candidates/rcsi_github_settlements.csv",
+      "sha256": "50317de1174e35fca893f5c8d965d9c7f40d6a60a06149b96672bb1a134268d0"
+    }
+  },
+  "graph_sha256": "1cc307f2855d15c7503dd226a278c49bdab72f178f5e2564c5e20fa4195a7d1a",
+  "point_ledger_before_sha256": "cc2a7cf67d7c25eec2de7f962c49478dd275646138f1303ae3410bf2a6922d23",
+  "point_ledger_after_sha256": "5e153f1864471421d29d3edfa0ccfee4297f5e0a4e9e0cda20c4682c5471f3c8",
+  "new_point_uses": [
+    {
+      "source_record_id": "2002:036_81b258bc42_02c_Krasnodarski-krai.xls:11:354",
+      "year": 2002,
+      "latitude": 44.8544444444444,
+      "longitude": 37.4377777777778,
+      "status": "reviewed_case_accepted",
+      "population": 2917
+    },
+    {
+      "source_record_id": "2010:005_888282bccc_13._20Краснодарский_край_2010.xls:КК:52",
+      "year": 2010,
+      "latitude": 44.8544444444444,
+      "longitude": 37.4377777777778,
+      "status": "reviewed_case_accepted",
+      "population": 2971
+    }
+  ],
+  "coordinates_are_direct_historical_measurements": false,
+  "population_boundary_comparability_asserted": false,
+  "population_values_modified": false,
+  "limits": [
+    "RCSI coordinate date is unknown.",
+    "Selected 2010 population 2971 remains the protected value; auxiliary Wikidata 2968 is not substituted.",
+    "Historical 2002 GeoKLADR point is rejected for this place because it is about 280 km from the independently concordant RCSI/Wikidata current-locality cluster."
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "scope": "bounded diagnosis of 254 temporal holds caused by separate same-year records sharing accepted ownpoint",
+  "status": "candidate corrections only; no canonical/live data modified",
+  "inputs": {
+    "held_table": {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/grounded_current_carrier_expansion_20261008/admission_holds.csv.gz",
+      "sha256": "52611641e8530d859d7dc913ff52856cd46110fd762cc9b6d733411a62c9ac42"
+    },
+    "point_snapshot63": {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application63_20261008/applied_point_snapshot.parquet",
+      "sha256": "14e1d2bf0538ae8233e83385a69d15fefff335c218e73494cda3b80929e112fb"
+    },
+    "native_roster": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "native_raw2021": {
+      "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+    },
+    "RCSI": {
+      "path": "/workspace/settlements-raw/data/raw/coordinate_candidates/rcsi_github_settlements.csv",
+      "sha256": "50317de1174e35fca893f5c8d965d9c7f40d6a60a06149b96672bb1a134268d0"
+    },
+    "GeoNames_RU_zip": {
+      "path": "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip",
+      "sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4"
+    },
+    "GeoNames_ADM1_bindings": {
+      "path": "/workspace/settlements-work/continuation_20261003/geonames_named_point_probe_v1/adm1_literal_alias_bindings.csv",
+      "sha256": "db71e5c264ff3f575078eefeab4b9268219e7392eae2aed8a6c54e09ab1e3d54"
+    }
+  },
+  "selection": "all 254 frozen shared-ownpoint temporal holds; 123 exact 7dp groups; correction proposal gates applied to full groups, not sample",
+  "counts": {
+    "held_identity_pairs": 254,
+    "held_old_population": 4618,
+    "groups": 123,
+    "groups_candidate_RCSI": 65,
+    "RCSI_candidate_replacements": 65,
+    "candidate_pairs_pre_GN": 130,
+    "candidate_old_population_pre_GN": 2034,
+    "GN_pass_replacements": 44,
+    "GN_complete_groups": 44,
+    "GN_supported_pairs": 88,
+    "GN_supported_old_population": 1270,
+    "GN_not_supported_groups": 21,
+    "GN_not_supported_pairs": 42,
+    "GN_not_supported_old_population": 764
+  },
+  "GN_rule": "GeoNames RU feature class P/code PPL, exact literal name or alternate name, mapped literal ADM1 region; exactly one candidate within 1km and all others >5km",
+  "outputs": {
+    "RCSI_GN_corroboration.csv": "abc4f3ebfe69cf4589c9b96dd9758be4d38d68ac0bf6fbe78d1a27ef2336c58f",
+    "proposed_RCSI_current_point_replacements_not_applied.csv.gz": "6f1c79a9fdd094ebd877c52f6b536273609313e05d13a33b350efbc546790ba7",
+    "RCSI_group_route_summary.csv": "9456f2b6c6d320c198f5b2ea639565c306c9e6be779146a859b9636b0a161ca8"
+  }
+}

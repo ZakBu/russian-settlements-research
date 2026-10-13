@@ -1,0 +1,7 @@
+# Additional reviewed-name query sources
+
+`geonames_fresh_v3_candidates.csv.gz` and its capture bundle preserve direct standard TLS GeoNames-derived Open-Meteo search results for initially uncovered names. Алагуз generates Алагузово (Bashkortostan) and Боронск generates Боронский (Altai Krai); a Kirov namesake is retained separately. These search aliases remain candidates.
+
+`nominatim_v4_own_feature_candidates.csv.gz` and `nominatim_v4_all12_capture_bundle.json.gz` use the East reviewer's supplied modern literal names to collect 13 original features from 12 standard TLS own-name/county/region queries. Own village/hamlet features cover Акбердино, Дюмеево, Нижнеяркеево, Алагузово, Малая Воложикья, Черновский лесоучасток, 3 Госконезавод Центральная усадьба, Боронский and Трубачево. Two historical source UIDs each received both the own village Елхово and the separate municipality Елховское сельское поселение. Only the actual village point is an atomic locality candidate, and the old historical alias still needs proof. Южная Тунгуска returned no feature.
+
+The combined collection contains some alternative source feature for 80 of 81 original UIDs. This is candidate-source availability, not admitted coordinate coverage. No coordinates, links or census population values are admitted. East owns native locality, type, county/subcounty, own-code and old-name validation. All pre-existing v1/v2 candidates and captures remain byte-frozen.

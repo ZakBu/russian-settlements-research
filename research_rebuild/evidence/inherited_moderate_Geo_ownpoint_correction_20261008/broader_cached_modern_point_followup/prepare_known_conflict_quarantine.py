@@ -1,0 +1,22 @@
+import json,gzip,re,sys,collections
+from pathlib import Path
+import pandas as pd
+O=Path(__file__).parent;B=O.parent;R=Path('/workspace/russian-settlements-research');sys.path.insert(0,str(R/'research_rebuild/mass_linkage'))
+from current_chain_state_20261007 import sha,normalize,distance_km
+F=pd.read_csv(B/'candidate_moderate_histories.csv.gz',keep_default_na=False).set_index('source_record_id_2021');obs=pd.read_parquet(B/'frozen_moderate_observations.parquet').set_index('source_record_id');active=json.load(gzip.open(B/'frozen_active_point_uses.json.gz','rt'));held=pd.read_csv(O/'holds.csv.gz',keep_default_na=False);H=Path('/workspace/settlements-work/coordinates/historical_named_candidates_v4/all_historical_named_objects.parquet');h=pd.read_parquet(H);valid=h[h.historical_name_exact.fillna(False)&h.historical_type_exact.fillna(False)&~h.is_deleted.fillna(True)&h.is_settlement_raw.eq('t')&h.latitude_from_lat.between(41,82)&h.longitude_from_long.between(19,180)].copy();clusters=collections.defaultdict(dict);records={}
+for a in valid.to_dict('records'):
+ key=(float(a['latitude_from_lat']),float(a['longitude_from_long']),a['historical_point_modern_region']);clusters[key][str(a['historical_okato_2009_raw'])]=a;records[int(a['record_number_1based'])]=a
+out=[];w=[]
+for z in held.to_dict('records'):
+ sid=z['native2021_source_record_id'];f=F.loc[sid];cur=active[sid];modern=(float(cur['latitude']),float(cur['longitude']))
+ for target in [f.source_record_id_2002,f.source_record_id_2010]:
+  p=active[target]
+  if 'geokladr' not in str(p.get('point_origin_file','')).lower() or normalize(obs.loc[target].settlement_type) not in ['село','деревня','хутор','поселок']:continue
+  coord=(float(p['latitude']),float(p['longitude']));key=(*coord,obs.loc[target].region_norm);others=clusters.get(key,{})
+  if len(others)<=1 or distance_km(coord,modern)<=5:continue
+  m=re.search(r'(?:raw_dbf_record_number_1based|DBF_record_1based|DBFrecord)\s*=\s*(\d+)',str(p.get('point_origin_locator','')));a=records.get(int(m[1])) if m else None
+  if not a or a['historical_point_modern_region']!=obs.loc[target].region_norm or (a['latitude_from_lat'],a['longitude_from_long'])!=coord:continue
+  ledger=Path(p['point_ledger_path']);out.append({'target_source_record_id':target,'rejection_status':'reviewed_rejected_coordinate_claim_only','old_latitude':coord[0],'old_longitude':coord[1],'origin_ledger':str(ledger),'origin_ledger_sha256':sha(ledger),'case':sid,'reason':'coordinate_conflict_unresolved: raw Geo2011 rural coordinate shared by distinct proper native classifier NP codes while existing current point differs >5km; no independent modern own point admitted. Suspend inherited claim from reliable retrospective point coverage, preserve both raw coordinate alternatives and accepted identity/count. Which physical coordinate is accurate remains UNKNOWN.','coordinate_quality_status':'coordinate_conflict_unresolved','source_claim_asserted_false':False,'replacement_admitted':False,'identity_rejected':False})
+  w.append({'target_source_record_id':target,'current_native_source_record_id':sid,'old_own_Geo_record_1based':int(m[1]),'old_own_historic_code':a['historical_okato_2009_raw'],'shared_distinct_proper_NP_codes':len(others),'all_shared_raw_NP_records_json':json.dumps(list(others.values()),ensure_ascii=False,default=str),'current_separation_km':distance_km(coord,modern),'current_anchor_admission_hold':z['reason'],'coordinate_quality_status':'coordinate_conflict_unresolved'})
+for fn,data,cols in [('unresolved_shared_rural_Geo_point_quarantine.csv.gz',out,['target_source_record_id','rejection_status','old_latitude','old_longitude','origin_ledger','origin_ledger_sha256']),('unresolved_shared_rural_Geo_witnesses.csv.gz',w,['target_source_record_id'])]:pd.DataFrame(data,columns=cols if not data else None).to_csv(O/fn,index=False,compression={'method':'gzip','mtime':0})
+r={'status':'source-specific unresolved shared rural Geo centroids quarantined; urban representatives and merely absent modern source proof not automatically rejected','quarantined_histories':len({v['case'] for v in out}),'quarantined_old_point_uses':len(out),'input_pins':{str(H):sha(H)},'populations_by_year':{str(y):int(sum(F.loc[sid,'population_'+str(y)] for sid in {v['case'] for v in out})) for y in [2002,2010,2021]},'source_values_and_identity_preserved':True};(O/'known_conflict_quarantine_receipt.json').write_text(json.dumps(r,ensure_ascii=False,indent=2));print(r)

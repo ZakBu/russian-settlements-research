@@ -1,0 +1,28 @@
+{
+  "status": "diagnostic_only_no_data_or_identity_changes",
+  "counts": {
+    "components_checked": 143247,
+    "pairs_2002_2010": 132858,
+    "pairs_2002_2021": 140133,
+    "pairs_2010_2021": 135936,
+    "flagged_pairs_2002_2021": 3339,
+    "flagged_pairs_2010_2021": 2028,
+    "flagged_pairs_2002_2010": 1187,
+    "positive_from_zero_pairs": 9273
+  },
+  "flagged_pairs": 6554,
+  "flagged_pairs_with_protected_source": 3124,
+  "rules": "Flag >=300% growth, zero→>=1000 (undefined percentage), >=1000→zero, or absolute change>=1000 with >=100% growth/75% decline.",
+  "limitations": [
+    "Population changes can be real or reflect boundaries, source protection, status or matching errors.",
+    "Flags do not establish an error or justify altering source populations.",
+    "Only accepted ordinary identity components are assessed; typed event and territorial paths require their own scope-aware review."
+  ],
+  "inputs": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_fifteenth_eao71_point879/accepted_identity_edges.parquet": "334a79b4a43a8a279d5c211c0471f85a83c35081539b10cf1a89bd83b1c16f2a"
+  },
+  "outputs": {
+    "flagged_population_changes.csv": "74f11ab24bc95cfdd87ee008308df4696039491e4912df466c86711675e8d8b8"
+  }
+}

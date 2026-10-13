@@ -1,0 +1,60 @@
+{
+  "status": "corrected_all_residual_axes_actual_observed_year_path_coverage_measured",
+  "definition": "Every exact additive selected residual row counts if it has an accepted point and an accepted same_place component with at least two distinct actually observed selected census years. No missing-year observation is imputed. All old missing_joint_axis classes are eligible; any apparent inclusion is resolved by these two predicates.",
+  "prior_measurement_correction": "The prior implementation filtered to missing_joint_axis=identity_path, omitting rows that were classified identity_and_point before a newly admitted edge and point resolved both requirements.",
+  "accepted_edges": 348667,
+  "accepted_point_uses": 428174,
+  "residual_input_rows": 66345,
+  "qualifying_residual_rows": 18550,
+  "qualifying_population_by_prior_axis": {
+    "identity_and_point": 20901,
+    "identity_path": 2543288,
+    "point": 5888
+  },
+  "corrected_rows_by_prior_axis": {
+    "identity_and_point": 4,
+    "identity_path": 18544,
+    "point": 2
+  },
+  "corrected_from_prior_filter_population": 26789,
+  "results": {
+    "2002": {
+      "official_control_population": 145166731,
+      "scope_aware_baseline_population": 141229691,
+      "corrected_additional_population": 575898,
+      "coordinate_and_actual_observed_year_path_population": 141805589,
+      "control_fraction_percent": 97.68463340267681,
+      "remaining_to_99_percent": 1909475
+    },
+    "2010": {
+      "official_control_population": 142856536,
+      "scope_aware_baseline_population": 139446962,
+      "corrected_additional_population": 761229,
+      "coordinate_and_actual_observed_year_path_population": 140208191,
+      "control_fraction_percent": 98.14615062484785,
+      "remaining_to_99_percent": 1219780
+    },
+    "2021": {
+      "official_control_population": 147182123,
+      "scope_aware_baseline_population": 144711119,
+      "corrected_additional_population": 1232950,
+      "coordinate_and_actual_observed_year_path_population": 145944069,
+      "control_fraction_percent": 99.15882854876335,
+      "remaining_to_99_percent": 0
+    }
+  },
+  "inputs": {
+    "config": "/tmp/mass_joint_graph27.json",
+    "residual": "/workspace/settlements-work/continuation_20261004/accepted_graph24_anapa_20261005/scoped_joint_residual.parquet",
+    "identity_graph": "/tmp/graph27_peski_code_bridge_20261005/accepted_identity_edges.parquet",
+    "point_uses": "/tmp/graph27_peski_code_bridge_20261005/accepted_point_uses.parquet"
+  },
+  "input_sha256": {
+    "/tmp/mass_joint_graph27.json": "ba32259f6468c81bceb5913d179b2b9528d9cc92b97eca74dc3876dc8a635fd7",
+    "/workspace/settlements-work/continuation_20261004/accepted_graph24_anapa_20261005/scoped_joint_residual.parquet": "669d2755db4c13504024d8d80cd899013886587bd7dad10d5759954c5d59750f",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/tmp/graph27_peski_code_bridge_20261005/accepted_identity_edges.parquet": "607347a69514a3f0b83d0681520bd642a7973d08d7dc1418723cb0050867d914",
+    "/tmp/graph27_peski_code_bridge_20261005/accepted_point_uses.parquet": "c24a596af84094f119c9ded8a07dbb22b98b1be2c0384698c455300baf17263f",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/mass_joint_20261004/graph24_anapa_four_localities/scoped_joint_coverage.json": "73e25a33332225b1a63a7c84b1b2e15b4ffebc9f89dc1d0aeb358f6a004d162f"
+  }
+}

@@ -1,0 +1,939 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<META NAME="DOC_TITLE" CONTENT="Итоги">
+<title>Итоги::Пермьстат</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="icon" href="" type="image/x-icon"/>
+
+<link type="text/css" rel="stylesheet" media="screen" href="/wps/wcm/connect/rosstat_ts/permstat/resources/696f3f804a3bc9cbb31aff9b325d75cb/style.css" />
+
+<link type="text/css" rel="stylesheet" media="screen" href="/wps/wcm/connect/rosstat_ts/permstat/resources/fa74b5004a82eec39a13dbb1a349f479/popup.css" />
+
+<style>
+
+   /* collage */
+   #collage { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/a6d9ea804b27bef0bd97fd4322c5f9b9/bg.jpg') center no-repeat; }
+   #collage a.collage_logo { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/458af0004c3f8c58be94bf8070d5aef1/perm_logo.png') no-repeat; }
+
+   /* toolbar */
+   #toolbar li { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/117440004b27bf5cbd9cfd4322c5f9b9/sep.png') right repeat-y;}
+
+   /* font */
+   #font { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/d6d4cc804b27bf88bd9efd4322c5f9b9/font.png') no-repeat; }
+
+   /* menu */
+   #menu { background: #354f9a url('/wps/wcm/connect/rosstat_ts/permstat/resources/4a9bc7004b27bfd3bda0fd4322c5f9b9/bg.gif') top repeat-x; }
+   #menu td a:hover,
+   #menu td.on a, #menu td.on a:visited, #menu td.on a:hover,
+   #menu td.sel a, #menu td.sel a:visited, #menu td.sel a:hover { background: #d91c21 url('/wps/wcm/connect/rosstat_ts/permstat/resources/b69a21804b27c00bbda2fd4322c5f9b9/bg_on.gif') top repeat-x; }
+
+   /* raSubMenu */
+   .raSubMenu span a.child, .raSubMenu span a.child:visited { background: #4960a4 url('/wps/wcm/connect/rosstat_ts/permstat/resources/56ce65804b27c061bda4fd4322c5f9b9/arrow.gif') center right no-repeat; }
+   .raSubMenu span a.child:hover { background: #37519b url('/wps/wcm/connect/rosstat_ts/permstat/resources/56ce65804b27c061bda4fd4322c5f9b9/arrow.gif') center right no-repeat; }
+   .raSubMenu span a.sel, .raSubMenu span a.sel:visited, .raSubMenu span a.sel:hover { background: #37519b url('/wps/wcm/connect/rosstat_ts/permstat/resources/56ce65804b27c061bda4fd4322c5f9b9/arrow.gif') center right no-repeat; }
+
+   /* right */
+   #right { background: #e7edf0 url('/wps/wcm/connect/rosstat_ts/permstat/resources/8c03a3804b27c0b3bda6fd4322c5f9b9/r.png') bottom repeat-x; }
+
+   /* footer */
+   #footer .footer_shadow { background: #c4d3db url('/wps/wcm/connect/rosstat_ts/permstat/resources/297ec7804b27c0f4bda8fd4322c5f9b9/w.gif') top left no-repeat; }
+
+   /* wide template */
+   #wide .list li { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 10px 0.6em; }
+
+   /* promo */
+   #promo .prev { background: #fff url('/wps/wcm/connect/rosstat_ts/permstat/resources/af2276004b27c1cdbdaafd4322c5f9b9/sep.gif') top right repeat-y; }
+   #promo .next { background: #fff url('/wps/wcm/connect/rosstat_ts/permstat/resources/2a9b1c004b27c1fcbdacfd4322c5f9b9/sep2.gif') top left repeat-y; }
+   #promo .prev div.on { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/b9bc2a004b27c224bdaefd4322c5f9b9/prev2.png') left center no-repeat; }
+   #promo .next div.on { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/3a4450004b27c250bdb0fd4322c5f9b9/next2.png') right center no-repeat; }
+
+   /* submenu */
+   #submenu li { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/75716e004b27c2a6bdb2fd4322c5f9b9/folder.gif') 0 3px no-repeat; }
+
+   /* chart */
+   #chart .prev { left: 0; background: #fff; border-right: 1px solid #c9c9c9; }
+   #chart .next { right: 0; background: #fff; border-left: 1px solid #c9c9c9; }
+   #chart .prev div.on { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/b9bc2a004b27c224bdaefd4322c5f9b9/prev2.png') left center no-repeat; }
+   #chart .next div.on { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/3a4450004b27c250bdb0fd4322c5f9b9/next2.png') right center no-repeat; }
+
+   /* interactive */
+   #interactive .prev { left: 0; background: #fff; border-right: 1px solid #c9c9c9; }
+   #interactive .next { right: 0; background: #fff; border-left: 1px solid #c9c9c9; }
+   #interactive .prev div.on { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/b9bc2a004b27c224bdaefd4322c5f9b9/prev2.png') left center no-repeat; }
+   #interactive .next div.on { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/3a4450004b27c250bdb0fd4322c5f9b9/next2.png') right center no-repeat; }
+
+   /* metadata */
+   #metadata .prev { left: 0; background: #fff; border-right: 1px solid #c9c9c9; }
+   #metadata .next { right: 0; background: #fff; border-left: 1px solid #c9c9c9; }
+   #metadata .prev div.on { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/b9bc2a004b27c224bdaefd4322c5f9b9/prev2.png') left center no-repeat; }
+   #metadata .next div.on { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/3a4450004b27c250bdb0fd4322c5f9b9/next2.png') right center no-repeat; }
+
+   /* news */
+   #right .news_date { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/18f26b004b27c307bdb4fd4322c5f9b9/news.gif') no-repeat 0 1px; }
+   #right .news_date_new { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/e52f39804b27c336bdb6fd4322c5f9b9/newsNew.gif') no-repeat 0 1px; }
+   #left .news_date { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/18f26b004b27c307bdb4fd4322c5f9b9/news.gif') no-repeat 0 1px; }
+   #left .news_date_new { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/e52f39804b27c336bdb6fd4322c5f9b9/newsNew.gif') no-repeat 0 1px; }
+
+   /* more */
+   .more a { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/f859fd804b27c366bdb8fd4322c5f9b9/more.gif') right no-repeat; }
+
+   /* line */
+   .line { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/77e3eb804b27c491bdc0fd4322c5f9b9/line.gif') center no-repeat; }
+
+   /* panel */
+   .panel { background: #c9d2db url('/wps/wcm/connect/rosstat_ts/permstat/resources/07ff50804b27c4e5bdc2fd4322c5f9b9/w.gif') bottom left no-repeat; }
+   .panel_shadow { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/07ff50804b27c4e5bdc2fd4322c5f9b9/w.gif') top right no-repeat; }
+
+   /* informer */
+   .informer h2 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/316e8e004b27c3b8bdbafd4322c5f9b9/forum.png') no-repeat; line-height: 64px; }
+
+   /* vote */
+   .vote h2 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/4109c9004b27c3f0bdbcfd4322c5f9b9/vote.png') no-repeat; }
+
+   /* search */
+   #right .search_field a { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/42f07e004b27c42abdbefd4322c5f9b9/search.gif') no-repeat; }
+
+   /* event */
+   #left .event .link { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/ec527e004b2b4e59be50fe4322c5f9b9/link.gif') 0 -3px no-repeat; }
+
+   /* list */
+   #content .list li { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 10px 0.6em; }
+   #left .list li { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 10px 0.6em; }
+   #right .list li { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 10px 0.6em; }
+   #right .list2 li { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 10px 0.6em; }
+   #right .right-submenu li { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 10px 0.6em; }
+   #right .right-submenu li.level2 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 32px 0.6em; }
+   #right .right-submenu li.level3 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 52px 0.6em; }
+   #right .right-submenu li.level4 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 66px 0.6em; }
+   ul.comment li { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 10px 0.6em; }
+
+   /* description page frame */
+   .DescriptFrame { background: #ecf1f7 url('/wps/wcm/connect/rosstat_ts/permstat/resources/e0eea1004b3466c08686c64322c5f9b9/tl.gif') top left no-repeat; }
+   .DescriptFrame .in { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/7f214c004b34673f8688c64322c5f9b9/br.gif') bottom right no-repeat; }
+   .DescriptFrame ul li { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/cab215004b346794868ac64322c5f9b9/bullet6.gif') no-repeat 3px 7px; }
+
+   /* tab 2 */
+   .raTab2 li h3 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/2e651a004a3c67feb3b2ff9b325d75cb/bullet_on.gif') no-repeat 12px 12px; }
+   .raTab2 li.on { background: #E7E7E7 url('/wps/wcm/connect/rosstat_ts/permstat/resources/1966a6004a3c6853b3b4ff9b325d75cb/on.gif') right no-repeat; }
+   .raTab2 li.on h3 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/271a1e004a3c67b6b3b0ff9b325d75cb/bullet.gif') no-repeat 12px 12px; }
+
+   /* NewsListing */
+   .raNewsListing span, .raNewsListing a { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/4e36d6004b34d80ab636f64322c5f9b9/listing.gif') no-repeat; }
+   .raNewsListing .first { background-position: 0 0; }
+   .raNewsListing .prev { background-position: 0 -13px; }  
+   .raNewsListing .next { background-position: 0 -39px; }
+   .raNewsListing .last { background-position: 0 -26px; }
+   .raNewsListing .firstOn { background-position: 0 -52px; }
+   .raNewsListing .prevOn { background-position: 0 -65px; }
+   .raNewsListing .nextOn { background-position: 0 -91px; }
+   .raNewsListing .lastOn { background-position: 0 -78px; }
+
+   /* faq */
+   .faqHead { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/3571f4004b3a79a598f7d84322c5f9b9/bg.gif') repeat-x; }
+   .faqHead tr {background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/3479aa804b3a7a1798fcd84322c5f9b9/faqBg.gif') left top no-repeat;  }
+   .faqHead td {background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/6f1122004b3a79da98f9d84322c5f9b9/endBg.gif') right top no-repeat; }
+ 
+   .faqQuestion { float:left; width: 90%; font-size: 14px; color: #4960A4; background: #C4D3DB url('/wps/wcm/connect/rosstat_ts/permstat/resources/f06b63004df018caa718bf0ba8f88639/q.gif') right bottom no-repeat; padding: 10px 10px 17px 10px; }
+   .faqAnswer { float:right; width: 90%; color: #222; background: #E7EDF0 url('/wps/wcm/connect/rosstat_ts/permstat/resources/17aa3c004df0189ba6e4be0ba8f88639/a.gif') top left no-repeat; padding: 17px 10px 10px 10px; }
+
+      /* popup */
+   #popup_data .topleft_red { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/443069004a82eb6d9a0ddbb1a349f479/tl_red.png') bottom left no-repeat; }
+   #popup_data .topright_red { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/e9e3d8004a82eb6d9a11dbb1a349f479/tr_red.png') bottom right no-repeat; }
+   #popup_data .topleft_blue { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/f7e529004a82eb6c9a0bdbb1a349f479/tl_blue.png') bottom left no-repeat; }
+   #popup_data .topright_blue { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/aa1cf0804a82eb6d9a0fdbb1a349f479/tr_blue.png') bottom right no-repeat; }
+   #popup_data .topright_red h1, #popup_data .topright_blue h1 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/accb16004a82eb6c9a09dbb1a349f479/title.png') top right no-repeat; }
+   #popup_data .left { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/405017004a82eb6c9a05dbb1a349f479/l.png') left repeat-y; }
+   #popup_data .right { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/7d1c0e004a82eb6c9a07dbb1a349f479/r.png') right repeat-y; }
+   #popup_data .bottomleft { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/9c666b804a82eb6b9a01dbb1a349f479/bl.png') left no-repeat; }
+   #popup_data .bottomright { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/126ad2804a82eb6c9a03dbb1a349f479/br.png') right no-repeat; }
+   #popup_data .bottom { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/1ba76f804a82eb6b99ffd9b1a349f479/b.png') repeat-x; }
+
+   /* sitemap */
+   #left .sitemap li.root { background: url(/wps/wcm/connect/rosstat_ts/permstat/resources/e52f39804b27c336bdb6fd4322c5f9b9/newsNew.gif) no-repeat 7px 0.6em; }
+   #left .sitemap li { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/18f26b004b27c307bdb4fd4322c5f9b9/news.gif') no-repeat 27px 0.6em; }
+   #left .sitemap li.level2 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 52px 0.6em; }
+   #left .sitemap li.level3 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 72px 0.6em; }
+   #left .sitemap li.level4 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 86px 0.6em; }
+   #left .sitemap li.level5 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 106px 0.6em; }
+   #left .sitemap li.level6 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/67e203004a3bdb96b33dff9b325d75cb/b3.gif') no-repeat 122px 0.6em; }
+
+   /* search */
+   #search { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/a63851804a3bdfdeb343ff9b325d75cb/bg.gif') no-repeat; }
+   #search_arrow { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/e7a70d804a3bdf9ab341ff9b325d75cb/arrow.gif') center no-repeat; }
+   #search_list li { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/84dcda804a3bcfc9b325ff9b325d75cb/b1.gif') no-repeat 10px 0.6em; }
+   .search_advanced { background: #e8e8e8 url('/wps/wcm/connect/rosstat_ts/permstat/resources/8fba40004aa1ab918ee5affb12fa69f5/bg_adv.gif') left repeat-y; }
+
+    /* basket */
+   .raBasketInfo { background: #d91c21 url('/wps/wcm/connect/rosstat_ts/permstat/resources/6e782f004b93d3b3b0b8fad995a1fb6d/basket.gif') left no-repeat; }
+   a.raBasketDel, a.raBasketDel:visited { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/98ffd1804b93d41fb0bcfad995a1fb6d/delete_off.gif') no-repeat; }
+   a.raBasketDel:hover { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/d99327004b93d3eeb0bafad995a1fb6d/delete_on.gif') no-repeat; }
+   .raBasketIcon1 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/098010004b93d46bb0befad995a1fb6d/info.gif') no-repeat; }
+   .raBasketIcon2 { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/ba5acf004b93d4acb0c0fad995a1fb6d/shield.gif') no-repeat; }
+   .raTableGroup tr.open td { background: #354f9a url('/wps/wcm/connect/rosstat_ts/permstat/resources/fae6d1004b93d0d7b0b4fad995a1fb6d/minus.gif') no-repeat 5px 6px; }
+   .raTableGroup tr.close td { background: #354f9a url('/wps/wcm/connect/rosstat_ts/permstat/resources/330508804b93d106b0b6fad995a1fb6d/plus.gif') no-repeat 5px 6px; }
+
+   /* gallery */
+   .raGallery span { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/c1dff2004a9b505292f3971f409d8c0b/scroll3.gif') no-repeat; }
+   .raGallery span.left { left: 0; background-position: 0 0; }
+   .raGallery span.right { right: 0; background-position: -24px 0; }
+   .raGallery span.leftOn { left: 0; background-position: -12px 0; cursor: pointer; }
+   .raGallery span.rightOn { right: 0; background-position: -36px 0; cursor: pointer; }
+   .raGallerySmall span { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/b43521804b9ff5ce9c8fbc987c78e234/scroll.gif') center no-repeat; }
+   .raContentBox2 .raGallerySmall span { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/55bc73004b9ff5cf9c9abc987c78e234/scroll2.gif') center no-repeat; }
+   .raGallerySmall span.left { left: 0; background-position: -48px 0; }
+   .raGallerySmall span.right { right: 0; background-position: -72px 0; }
+   .raGallerySmall span.leftOn { left: 0; background-position: 0 0; cursor: pointer; }
+   .raGallerySmall span.rightOn { right: 0; background-position: -24px 0; cursor: pointer; }
+   .raVideoSmall span { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/b43521804b9ff5ce9c8fbc987c78e234/scroll.gif') center no-repeat; }
+   .raVideoSmall span.left { left: 0; background-position: -48px 0; }
+   .raVideoSmall span.right { right: 0; background-position: -72px 0; }
+   .raVideoSmall span.leftOn { left: 0; background-position: 0 0; cursor: pointer; }
+   .raVideoSmall span.rightOn { right: 0; background-position: -24px 0; cursor: pointer; }
+
+   /* indicator */
+   ul.indicator li th.close { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/4b6b1f004bc4bb4e8d0cdf0201bee476/indicator_close.gif') no-repeat 0 5px; }
+   ul.indicator li th.open { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/81c490804bc4bb868d18df0201bee476/indicator_open.gif') no-repeat 0 5px; }
+
+    /* list */
+   #right .right-submenu li { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/952936804bf2919b8730c7652f69e212/b3.gif') no-repeat 10px 6px; }
+   #right .right-submenu li.open span { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/429676804bf273b4850dc5652f69e212/b3_open.gif') no-repeat 7px 3px; }
+   #right .right-submenu li.close span { background: url('/wps/wcm/connect/rosstat_ts/permstat/resources/0bc160004bf273b6850fc5652f69e212/b3_close.gif') no-repeat 7px 3px; }
+
+label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+
+</style>
+
+<script type="text/javascript" language="javascript" src="
+/wps/wcm/connect/rosstat_ts/permstat/resources/7e6948004aa1cbc1b132bffb12fa69f5/cookies.js"></script>
+<script type="text/javascript" language="javascript" src="/wps/wcm/connect/rosstat_ts/permstat/resources/70d01d004a387f94a4a7acf68055bb5b/jquery.js"></script>
+
+<script type="text/javascript" language="javascript" src="/wps/wcm/connect/rosstat_ts/permstat/resources/1c41d5804aa1a8e88c5baffb12fa69f5/jquery.masked.js"></script>
+
+<script type="text/javascript" language="javascript" src="/wps/wcm/connect/rosstat_ts/permstat/resources/0fd42f004be04efdafc1ffd1d80c7d83/jquery.tablesorter.js"></script>
+
+<script type="text/javascript" language="javascript" src="/wps/wcm/connect/rosstat_ts/permstat/resources/f7ab34804b3d4ae7a997e94322c5f9b9/jquery.unescape.js"></script>
+
+<script type="text/javascript" language="javascript" src="/wps/wcm/connect/rosstat_ts/permstat/resources/a52c30004a82df2399e4d9b1a349f479/jquery.validate.min.js"></script>
+
+<script type="text/javascript" language="javascript">
+	var _closePopup = '/wps/wcm/connect/rosstat_ts/permstat/resources/eb0d3a004a82f7e89a16dbb1a349f479/close.png';
+	var _printPopup = '/wps/wcm/connect/rosstat_ts/permstat/resources/3de6f1804a82f7e99a18dbb1a349f479/print.png';
+	var _resizePopup = '/wps/wcm/connect/rosstat_ts/permstat/resources/89999b004a82f7e99a1adbb1a349f479/resize.png';
+
+        var TBL_ON_PIC = '/wps/wcm/connect/rosstat_ts/permstat/resources/a3a061004bc474399d3fdf0201bee476/indicator_table_on.gif';
+        var TBL_OFF_PIC = '/wps/wcm/connect/rosstat_ts/permstat/resources/01b84e804bc474109d1fdf0201bee476/indicator_table_off.gif';
+        var GRPH_ON_PIC = '/wps/wcm/connect/rosstat_ts/permstat/resources/068aed004bc473939cafdf0201bee476/indicator_graph_on.gif';
+        var GRPH_OFF_PIC = '/wps/wcm/connect/rosstat_ts/permstat/resources/1cca86004bc4735e9c5adf0201bee476/indicator_graph_off.gif';
+        var MAP_ON_PIC = '/wps/wcm/connect/rosstat_ts/permstat/resources/8db481004bc473e49ce5df0201bee476/indicator_map_on.gif';
+        var MAP_OFF_PIC = '/wps/wcm/connect/rosstat_ts/permstat/resources/24b813804bc473ba9cc9df0201bee476/indicator_map_off.gif';
+</script>
+
+<script type="text/javascript" language="javascript" src="/wps/wcm/connect/rosstat_ts/permstat/resources/7c82fb804a387f22a4a3acf68055bb5b/script.js"></script>
+<script type="text/javascript" language="javascript" src="/wps/wcm/connect/rosstat_ts/permstat/resources/51bd86004b27c6f3bdc5fd4322c5f9b9/navigation.js"></script>   
+
+<script type="text/javascript" language="javascript" src="/wps/wcm/connect/rosstat_ts/permstat/resources/420399804a771168bd73fdaacb0b2ec3/ui.datepicker.min.js"></script>
+
+<script type="text/javascript" language="javascript" src="/wps/wcm/connect/rosstat_ts/permstat/resources/be9434004a82e54299e9d9b1a349f479/user-services_ts.js"></script>
+
+<!-- lightbox -->
+<link type="text/css" rel="stylesheet" media="screen" href="/wps/wcm/connect/rosstat_ts/permstat/resources/c20230004a77124abd7ffdaacb0b2ec3/lightbox.css" />
+<script type="text/javascript" language="javascript">
+	var _imgLoading = '/wps/wcm/connect/rosstat_ts/permstat/resources/c4e72b804a77121ebd79fdaacb0b2ec3/loading.gif';
+	var _imgPrev = '/wps/wcm/connect/rosstat_ts/permstat/resources/10013e804a77121fbd7dfdaacb0b2ec3/prev.gif';
+	var _imgNext = '/wps/wcm/connect/rosstat_ts/permstat/resources/ef38e9004a77121ebd7bfdaacb0b2ec3/next.gif';
+	var _imgClose = '/wps/wcm/connect/rosstat_ts/permstat/resources/8e1115804a77121ebd77fdaacb0b2ec3/close.gif';
+	var _imgBlank = '/wps/wcm/connect/rosstat_ts/permstat/resources/31adf6004a77121ebd75fdaacb0b2ec3/blank.gif';
+</script>
+<script type="text/javascript" language="javascript" src="/wps/wcm/connect/rosstat_ts/permstat/resources/f9d67e004a77114bbd71fdaacb0b2ec3/jquery.lightbox.js"></script>
+
+<script language="javascript" type="text/javascript">
+
+      $j(document).ready(function(){      
+ 
+       // browser verifying
+      _browser._verifying('/wps/wcm/connect/rosstat_ts/permstat/ru/browser.html');      
+
+      var _siteStructure = [{id:'dabf5a004c3f684d9fcebf8070d5aef1', title:'Главная', name:'ru', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/', depth:'1', treenum: '1.1', hidden:'', showOnMain:'', target:''},{id:'76051c004c3f6981a1c6b18070d5aef1', title:'Карта сайта', name:'sitemap', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/sitemap/', depth:'2', treenum: '1.1.1', hidden:'true', showOnMain:'', target:''},{id:'5a5c3e804c3f699ea1f0b18070d5aef1', title:'Личный кабинет', name:'cabinet', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/cabinet/', depth:'2', treenum: '1.1.2', hidden:'true', showOnMain:'', target:''},{id:'f81246804d385b83b3c9fb7d08c3b2f0', title:'Мой профайл', name:'profile', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/cabinet/profile/', depth:'3', treenum: '1.1.2.1', hidden:'', showOnMain:'', target:''},{id:'b8981a004c3f69bca21bb38070d5aef1', title:'Мои ссылки', name:'reference', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/cabinet/reference/', depth:'3', treenum: '1.1.2.2', hidden:'', showOnMain:'', target:''},{id:'b7241d004c3f69cfa235b38070d5aef1', title:'Моя подписка', name:'subscribe', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/cabinet/subscribe/', depth:'3', treenum: '1.1.2.3', hidden:'', showOnMain:'', target:''},{id:'b052d5804c3f69e2a24fb38070d5aef1', title:'Моя корзина', name:'cart', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/cabinet/cart/', depth:'3', treenum: '1.1.2.4', hidden:'', showOnMain:'', target:''},{id:'6979d5804c3f6a0ca28ab38070d5aef1', title:'Мои заказы', name:'order', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/cabinet/order/', depth:'3', treenum: '1.1.2.5', hidden:'', showOnMain:'', target:''},{id:'b0be91004c3f6a21a2c0b38070d5aef1', title:'Активные заказы', name:'active', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/cabinet/order/active/', depth:'4', treenum: '1.1.2.5.1', hidden:'', showOnMain:'', target:''},{id:'aefcc9804c3f6a31a2d3b38070d5aef1', title:'Выполненные', name:'complete', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/cabinet/order/complete/', depth:'4', treenum: '1.1.2.5.2', hidden:'', showOnMain:'', target:''},{id:'b3ca79004c3f6a43a2e5b38070d5aef1', title:'Витрины данных', name:'showcase', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/cabinet/showcase/', depth:'3', treenum: '1.1.2.6', hidden:'', showOnMain:'', target:''},{id:'242cc6804c3f6a53a304b38070d5aef1', title:'Контакты специалистов', name:'contacts', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/contacts/', depth:'2', treenum: '1.1.3', hidden:'true', showOnMain:'', target:''},{id:'f7d273804c3f6a6da328b38070d5aef1', title:'Обратная связь', name:'feedback', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/feedback/', depth:'2', treenum: '1.1.4', hidden:'true', showOnMain:'', target:''},{id:'f53147804c3f6a88a348b38070d5aef1', title:'О Пермьстате', name:'about', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/', depth:'2', treenum: '1.1.5', hidden:'', showOnMain:'', target:''},{id:'d1c5c7004c3f6a9fa366b38070d5aef1', title:'Руководство', name:'administration', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/administration/', depth:'3', treenum: '1.1.5.1', hidden:'', showOnMain:'', target:''},{id:'fd9e78004c3f6ab2a37eb38070d5aef1', title:'Структура', name:'structure', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/structure/', depth:'3', treenum: '1.1.5.2', hidden:'', showOnMain:'', target:''},{id:'1b2b0c004c3f6acaa399b38070d5aef1', title:'Районные отделы', name:'departments', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/departments/', depth:'3', treenum: '1.1.5.3', hidden:'', showOnMain:'', target:''},{id:'964bec804c3f6ae1a3c2b38070d5aef1', title:'Полномочия', name:'capabilities', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/capabilities/', depth:'3', treenum: '1.1.5.4', hidden:'', showOnMain:'', target:''},{id:'b9db5b004c3f6b12a40ab58070d5aef1', title:'Государственная служба', name:'government_job', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/government_job/', depth:'3', treenum: '1.1.5.5', hidden:'', showOnMain:'', target:''},{id:'8e179f804c3f6b29a42eb58070d5aef1', title:'Конкурсы', name:'tenders', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/government_job/tenders/', depth:'4', treenum: '1.1.5.5.1', hidden:'', showOnMain:'', target:''},{id:'4c13da804a1fc19abd94fd8bfb59418c', title:'Порядок поступления граждан на государственную гражданскую службу', name:'order_receipt_citizens', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/government_job/tenders/order_receipt_citizens/', depth:'5', treenum: '1.1.5.5.1.1', hidden:'', showOnMain:'', target:''},{id:'fbe649804a1fc194bd89fd8bfb59418c', title:'Конкурсы на замещение вакантных должностей', name:'competitions_to_fill', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/government_job/tenders/competitions_to_fill/', depth:'5', treenum: '1.1.5.5.1.2', hidden:'', showOnMain:'', target:''},{id:'0cd104804c3f6b4ba455b58070d5aef1', title:'Квалификационные требования', name:'qualification_requirements', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/government_job/tenders/qualification_requirements/', depth:'5', treenum: '1.1.5.5.1.3', hidden:'', showOnMain:'', target:''},{id:'a231c0004c3f6b6ea485b58070d5aef1', title:'Взаимодействие', name:'interaction', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/government_job/tenders/interaction/', depth:'5', treenum: '1.1.5.5.1.4', hidden:'', showOnMain:'', target:''},{id:'7c1f16804c3f6b94a4c1b58070d5aef1', title:'Информация о результатах конкурса', name:'competition_results', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/government_job/tenders/competition_results/', depth:'5', treenum: '1.1.5.5.1.5', hidden:'', showOnMain:'', target:''},{id:'f258e3804a1fc18cbd7efd8bfb59418c', title:'Порядок обжалования результатов конкурса', name:'procedure_for_appealing', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/government_job/tenders/procedure_for_appealing/', depth:'5', treenum: '1.1.5.5.1.6', hidden:'', showOnMain:'', target:''},{id:'cf5591004c3f6bb5a4eeb58070d5aef1', title:'Госзакупки', name:'government_purchases', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/government_purchases/', depth:'3', treenum: '1.1.5.6', hidden:'', showOnMain:'', target:''},{id:'9965670049a202e58811caf2e93b570e', title:'Информация о контрактах, заключенных с физическими лицами', name:'contracts_with_phisical_person_info', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/government_purchases/contracts_with_phisical_person_info/', depth:'4', treenum: '1.1.5.6.1', hidden:'', showOnMain:'', target:''},{id:'6e37b8804c3f6bc9a4ffb58070d5aef1', title:'План-график размещения заказов', name:'orders_schedule', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/government_purchases/orders_schedule/', depth:'4', treenum: '1.1.5.6.2', hidden:'', showOnMain:'', target:''},{id:'f25465004c3f6bf6a537b58070d5aef1', title:'Размещение заказов для государственных нужд', name:'orders_for_goverment', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/government_purchases/orders_for_goverment/', depth:'4', treenum: '1.1.5.6.3', hidden:'', showOnMain:'', target:''},{id:'686dc1804c3f6c21a567b58070d5aef1', title:'Архив', name:'archive', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/government_purchases/archive/', depth:'4', treenum: '1.1.5.6.4', hidden:'', showOnMain:'', target:''},{id:'176bc6804c3f6c3da584b58070d5aef1', title:'Обращения граждан', name:'appeals', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/appeals/', depth:'3', treenum: '1.1.5.7', hidden:'', showOnMain:'', target:''},{id:'6cd4c1804c3f6c97a5ddb58070d5aef1', title:'Антикоррупционная деятельность', name:'anticorruption_activities', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/anticorruption_activities/', depth:'3', treenum: '1.1.5.8', hidden:'', showOnMain:'', target:''},{id:'357d09804c3f6cc5a609b78070d5aef1', title:'Административная реформа', name:'reform', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/reform/', depth:'3', treenum: '1.1.5.9', hidden:'', showOnMain:'', target:''},{id:'f6b377804c3f6cf5a63fb78070d5aef1', title:'Учебный класс', name:'classroom', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/classroom/', depth:'3', treenum: '1.1.5.10', hidden:'', showOnMain:'', target:''},{id:'38f7ab804c3f6d2ca664b78070d5aef1', title:'Коллегия', name:'collegium', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/collegium/', depth:'3', treenum: '1.1.5.11', hidden:'', showOnMain:'', target:''},{id:'bf1c1c004352ace69942d974665da2b8', title:'Общественный совет', name:'publiccouncil', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/publiccouncil/', depth:'3', treenum: '1.1.5.12', hidden:'', showOnMain:'', target:''},{id:'ebe0fd004c3f6d5ea68fb78070d5aef1', title:'Совет молодых специалистов', name:'council_of_young_professionals', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/council_of_young_professionals/', depth:'3', treenum: '1.1.5.13', hidden:'', showOnMain:'', target:''},{id:'62e0ba804c3f6d8ca6c0b78070d5aef1', title:'История статистики региона', name:'history_of_region_statistics', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/history_of_region_statistics/', depth:'3', treenum: '1.1.5.14', hidden:'', showOnMain:'', target:''},{id:'e798fc004c3f6dbfa6f3b78070d5aef1', title:'Итоги работы', name:'results', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/about/results/', depth:'3', treenum: '1.1.5.15', hidden:'', showOnMain:'', target:''},{id:'b984dd804c3f6dfaa71fb78070d5aef1', title:'Новости', name:'news', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/news/', depth:'2', treenum: '1.1.6', hidden:'', showOnMain:'', target:''},{id:'c4ea00004c3f6e1ea739b78070d5aef1', title:'Новостная лента', name:'rss', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/news/rss/', depth:'3', treenum: '1.1.6.1', hidden:'', showOnMain:'', target:''},{id:'7ec588804c3f6e80a787b78070d5aef1', title:'Фотогалерея', name:'photo', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/news/photo/', depth:'3', treenum: '1.1.6.2', hidden:'', showOnMain:'', target:''},{id:'a3345b804c3f6ea6a7a9b78070d5aef1', title:'Видеоматериалы', name:'video', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/news/video/', depth:'3', treenum: '1.1.6.3', hidden:'', showOnMain:'', target:''},{id:'90824c804c3f6ecfa7d0b78070d5aef1', title:'Официальная статистика', name:'statistics', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/', depth:'2', treenum: '1.1.7', hidden:'', showOnMain:'true', target:''},{id:'760c9b004c3f6ef0a7eeb78070d5aef1', title:'Валовой региональный продукт', name:'grp', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/grp/', depth:'3', treenum: '1.1.7.1', hidden:'', showOnMain:'', target:''},{id:'d530d6804c3f6f15a814b98070d5aef1', title:'Население ', name:'population', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/population/', depth:'3', treenum: '1.1.7.2', hidden:'', showOnMain:'', target:''},{id:'b9e5bb804c3f6f55a84fb98070d5aef1', title:'Внешнеэкономическая деятельность ', name:'foreign_trade', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/foreign_trade/', depth:'3', treenum: '1.1.7.3', hidden:'', showOnMain:'', target:''},{id:'2e891c004c3f6f8fa875b98070d5aef1', title:'Финансы ', name:'finance', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/finance/', depth:'3', treenum: '1.1.7.4', hidden:'', showOnMain:'', target:''},{id:'13d996004c3f6fd5a89eb98070d5aef1', title:'Рынок труда и занятость населения', name:'employment', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/employment/', depth:'3', treenum: '1.1.7.5', hidden:'', showOnMain:'', target:''},{id:'e8cd61804c3f7029a8d3b98070d5aef1', title:'Цены и тарифы ', name:'prices', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/prices/', depth:'3', treenum: '1.1.7.6', hidden:'', showOnMain:'', target:''},{id:'2656dc804c3f7074a8feb98070d5aef1', title:'Уровень жизни ', name:'standards_of_life', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/standards_of_life/', depth:'3', treenum: '1.1.7.7', hidden:'', showOnMain:'', target:''},{id:'95efba804c3f70baa929b98070d5aef1', title:'Социальная сфера', name:'sphere', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/sphere/', depth:'3', treenum: '1.1.7.8', hidden:'', showOnMain:'', target:''},{id:'99f0fc004c3f70fda956b98070d5aef1', title:'Учет хозяйствующих субъектов', name:'accounting', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/accounting/', depth:'3', treenum: '1.1.7.9', hidden:'', showOnMain:'', target:''},{id:'a3438e004c3f7128a97eb98070d5aef1', title:'Макроэкономика', name:'macroeconomics', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/macroeconomics/', depth:'3', treenum: '1.1.7.10', hidden:'', showOnMain:'', target:''},{id:'8168fc004c3f7166a9a5b98070d5aef1', title:'Предприятия и организации', name:'organizations', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/organizations/', depth:'3', treenum: '1.1.7.11', hidden:'', showOnMain:'', target:''},{id:'93f72b804c3f718ea9c1b98070d5aef1', title:'Окружающая среда', name:'environment', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/environment/', depth:'3', treenum: '1.1.7.12', hidden:'', showOnMain:'', target:''},{id:'56a893004c3f71baa9e4b98070d5aef1', title:'Жилищные условия', name:'housing', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/housing/', depth:'3', treenum: '1.1.7.13', hidden:'', showOnMain:'', target:''},{id:'fb3acd004c3f71daaa00bb8070d5aef1', title:'Государство, общественные организации', name:'government', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/government/', depth:'3', treenum: '1.1.7.14', hidden:'', showOnMain:'', target:''},{id:'5e3c5c004c3f71fbaa1bbb8070d5aef1', title:'Предпринимательство', name:'enterprises', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/enterprises/', depth:'3', treenum: '1.1.7.15', hidden:'', showOnMain:'', target:''},{id:'8cc432004c3f720faa31bb8070d5aef1', title:'Малое и среднее предпринимательство', name:'small_and_medium_enterprises', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/enterprises/small_and_medium_enterprises/', depth:'4', treenum: '1.1.7.15.1', hidden:'', showOnMain:'', target:''},{id:'6e7829804c3f7243aa5dbb8070d5aef1', title:'Основные фонды', name:'fixed_assets', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/enterprises/fixed_assets/', depth:'4', treenum: '1.1.7.15.2', hidden:'', showOnMain:'', target:''},{id:'95e1ed004c3f7269aa85bb8070d5aef1', title:'Промышленное производство', name:'production', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/enterprises/production/', depth:'4', treenum: '1.1.7.15.3', hidden:'', showOnMain:'', target:''},{id:'6a2c2a804c3f729caab7bb8070d5aef1', title:'Сельское хозяйство, охота и лесное хозяйство', name:'agriculture', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/enterprises/agriculture/', depth:'4', treenum: '1.1.7.15.4', hidden:'', showOnMain:'', target:''},{id:'b3986c004c3f72d4aae2bb8070d5aef1', title:'Рыболовство и рыбоводство', name:'fisheries', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/enterprises/fisheries/', depth:'4', treenum: '1.1.7.15.5', hidden:'', showOnMain:'', target:''},{id:'f0c623804c3f72ffab14bb8070d5aef1', title:'Строительство', name:'construction', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/enterprises/construction/', depth:'4', treenum: '1.1.7.15.6', hidden:'', showOnMain:'', target:''},{id:'18d278804c3f733aab58bb8070d5aef1', title:'Транспорт и связь', name:'transport', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/enterprises/transport/', depth:'4', treenum: '1.1.7.15.7', hidden:'', showOnMain:'', target:''},{id:'b9905a804c3f7371ab89bb8070d5aef1', title:'Торговля и услуги', name:'trade', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/enterprises/trade/', depth:'4', treenum: '1.1.7.15.8', hidden:'', showOnMain:'', target:''},{id:'2cbcbf804c3f73b8abc6bb8070d5aef1', title:'Инвестиции ', name:'investment', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/enterprises/investment/', depth:'4', treenum: '1.1.7.15.9', hidden:'', showOnMain:'', target:''},{id:'25ada5804c3f73e8abeebb8070d5aef1', title:'Наука и инновации', name:'science', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/enterprises/science/', depth:'4', treenum: '1.1.7.15.10', hidden:'', showOnMain:'', target:''},{id:'ad58db804c3f740bac0cbd8070d5aef1', title:'ИКТ', name:'ict', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/enterprises/ict/', depth:'4', treenum: '1.1.7.15.11', hidden:'', showOnMain:'', target:''},{id:'64b916804c3f743bac38bd8070d5aef1', title:'Индикаторы', name:'indicators', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/indicators/', depth:'3', treenum: '1.1.7.16', hidden:'', showOnMain:'', target:''},{id:'503548004c3f7454ac49bd8070d5aef1', title:'Базы данных', name:'db', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics/db/', depth:'3', treenum: '1.1.7.17', hidden:'', showOnMain:'', target:''},{id:'25fd7d804c3f7488ac6fbd8070d5aef1', title:'Официальная статистика ФО', name:'statistics_fo', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics_fo/', depth:'2', treenum: '1.1.8', hidden:'true', showOnMain:'false', target:''},{id:'a631dc004c3f74a4ac88bd8070d5aef1', title:'Население ', name:'population', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics_fo/population/', depth:'3', treenum: '1.1.8.1', hidden:'', showOnMain:'', target:''},{id:'31bc64804c3f74c7acaabd8070d5aef1', title:'Внешнеэкономическая деятельность ', name:'foreign_trade', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics_fo/foreign_trade/', depth:'3', treenum: '1.1.8.2', hidden:'', showOnMain:'', target:''},{id:'187ddd004c3f74f4accfbd8070d5aef1', title:'Финансы ', name:'finance', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics_fo/finance/', depth:'3', treenum: '1.1.8.3', hidden:'', showOnMain:'', target:''},{id:'391659004c3f752dacedbd8070d5aef1', title:'Рынок труда и занятость населения', name:'employment', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics_fo/employment/', depth:'3', treenum: '1.1.8.4', hidden:'', showOnMain:'', target:''},{id:'b2bf3e804c3f754fad0bbd8070d5aef1', title:'Цены и тарифы ', name:'prices', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics_fo/prices/', depth:'3', treenum: '1.1.8.5', hidden:'', showOnMain:'', target:''},{id:'54f11d804c3f7574ad3bbd8070d5aef1', title:'Уровень жизни ', name:'standards_of_life', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics_fo/standards_of_life/', depth:'3', treenum: '1.1.8.6', hidden:'', showOnMain:'', target:''},{id:'330a91804c3f759aad58bd8070d5aef1', title:'Социальная сфера', name:'sphere', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics_fo/sphere/', depth:'3', treenum: '1.1.8.7', hidden:'', showOnMain:'', target:''},{id:'19c50d804c3f75b9ad80bd8070d5aef1', title:'Макроэкономика', name:'macroeconomics', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics_fo/macroeconomics/', depth:'3', treenum: '1.1.8.8', hidden:'', showOnMain:'', target:''},{id:'b64cd7004c3f75dcad9dbd8070d5aef1', title:'Малое и среднее предпринимательство', name:'small_and_medium_enterprises', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/statistics_fo/small_and_medium_enterprises/', depth:'3', treenum: '1.1.8.9', hidden:'', showOnMain:'', target:''},{id:'e5c30a004c3f7603adc3bd8070d5aef1', title:'Муниципальная статистика', name:'municipal_statistics', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/municipal_statistics/', depth:'2', treenum: '1.1.9', hidden:'', showOnMain:'', target:''},{id:'482804804c3f761cadd2bd8070d5aef1', title:'Перечень муниципальных образований', name:'list_of_municipalities', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/municipal_statistics/list_of_municipalities/', depth:'3', treenum: '1.1.9.1', hidden:'', showOnMain:'', target:''},{id:'32c2d2804c3f763cadefbd8070d5aef1', title:'Основные показатели социально-экономического положения муниципальных образований', name:'main_indicators', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/municipal_statistics/main_indicators/', depth:'3', treenum: '1.1.9.2', hidden:'', showOnMain:'', target:''},{id:'c657cb804c3f765bae0cbf8070d5aef1', title:'Нормативные документы', name:'regulatory_documents', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/municipal_statistics/regulatory_documents/', depth:'3', treenum: '1.1.9.3', hidden:'', showOnMain:'', target:''},{id:'d680a2804c3f767dae25bf8070d5aef1', title:'Картографический материал', name:'cartographic_material', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/municipal_statistics/cartographic_material/', depth:'3', treenum: '1.1.9.4', hidden:'', showOnMain:'', target:''},{id:'a3f49b004c3f76b9ae58bf8070d5aef1', title:'Отчетность', name:'reporting', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/', depth:'2', treenum: '1.1.10', hidden:'', showOnMain:'', target:''},{id:'41f45f804c3f76d2ae71bf8070d5aef1', title:'Информационные письма и комментарии', name:'letters', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/letters/', depth:'3', treenum: '1.1.10.1', hidden:'', showOnMain:'', target:''},{id:'2bb7c5004c3f770daea3bf8070d5aef1', title:'Методология', name:'methodology', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/methodology/', depth:'3', treenum: '1.1.10.2', hidden:'', showOnMain:'', target:''},{id:'0478ec004c3f773daec6bf8070d5aef1', title:'Классификаторы', name:'classifications', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/classifications/', depth:'3', treenum: '1.1.10.3', hidden:'', showOnMain:'', target:''},{id:'d19b1c004c3f776daefdbf8070d5aef1', title:'Статистическая отчетность', name:'statistical_reports', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/statistical_reports/', depth:'3', treenum: '1.1.10.4', hidden:'', showOnMain:'', target:''},{id:'ec768c004c3f777faf03bf8070d5aef1', title:'Федеральные статистические формы', name:'form_blanks', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/statistical_reports/form_blanks/', depth:'4', treenum: '1.1.10.4.1', hidden:'', showOnMain:'', target:''},{id:'f6b57c004c3f77b9af3abf8070d5aef1', title:'Архив', name:'archive', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/statistical_reports/form_blanks/archive/', depth:'5', treenum: '1.1.10.4.1.1', hidden:'true', showOnMain:'', target:''},{id:'8e38c0004c3f77f6af6ebf8070d5aef1', title:'Региональные статистические формы', name:'reg_form_blanks', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/statistical_reports/reg_form_blanks/', depth:'4', treenum: '1.1.10.4.2', hidden:'', showOnMain:'', target:''},{id:'b218f7804c3f7830afa2bf8070d5aef1', title:'Архив', name:'archive', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/statistical_reports/reg_form_blanks/archive/', depth:'5', treenum: '1.1.10.4.2.1', hidden:'true', showOnMain:'', target:''},{id:'50bc4d004c3f785fafc1bf8070d5aef1', title:'Табель форм', name:'table_of_forms', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/statistical_reports/table_of_forms/', depth:'4', treenum: '1.1.10.4.3', hidden:'', showOnMain:'', target:''},{id:'17043a004c3f7891afedbf8070d5aef1', title:'Список отчитывающихся хозяйствующих субъектов', name:'list', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/statistical_reports/list/', depth:'4', treenum: '1.1.10.4.4', hidden:'', showOnMain:'', target:''},{id:'ca8622004c3f78c3b019b18070d5aef1', title:'Актуальная информация для юридических и физических лиц', name:'current_information', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/statistical_reports/current_information/', depth:'4', treenum: '1.1.10.4.5', hidden:'', showOnMain:'', target:''},{id:'e0f8a1804c3f78f4b04cb18070d5aef1', title:'Бухгалтерская отчетность', name:'financial_statements', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/financial_statements/', depth:'3', treenum: '1.1.10.5', hidden:'', showOnMain:'', target:''},{id:'15c323804c3f790ab05cb18070d5aef1', title:'Бланки форм', name:'form_blanks_account', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/financial_statements/form_blanks_account/', depth:'4', treenum: '1.1.10.5.1', hidden:'', showOnMain:'', target:''},{id:'48d4d9804c3f7941b083b18070d5aef1', title:'Архив', name:'archive', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/financial_statements/form_blanks_account/archive/', depth:'5', treenum: '1.1.10.5.1.1', hidden:'true', showOnMain:'', target:''},{id:'3fab33004c3f7968b0a3b18070d5aef1', title:'Электронная отчетность', name:'e-statements', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/e-statements/', depth:'3', treenum: '1.1.10.6', hidden:'', showOnMain:'', target:''},{id:'371227004c3f797fb0bbb18070d5aef1', title:'Система Web-сбора', name:'systems_of_web', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/e-statements/systems_of_web/', depth:'4', treenum: '1.1.10.6.1', hidden:'', showOnMain:'', target:''},{id:'a7896a004c3f79b8b0ecb18070d5aef1', title:'ПО форм статотчетности', name:'form_of_statistical_reports', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/e-statements/form_of_statistical_reports/', depth:'4', treenum: '1.1.10.6.2', hidden:'', showOnMain:'', target:''},{id:'dd2267804c3f7a39b168b18070d5aef1', title:'Шаблоны форм статотчетности', name:'templates', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/e-statements/templates/', depth:'4', treenum: '1.1.10.6.3', hidden:'', showOnMain:'', target:''},{id:'ae68b9004c3f7a5ab185b18070d5aef1', title:'Предоставление отчетов через спецоператоров связи', name:'reporting', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/e-statements/reporting/', depth:'4', treenum: '1.1.10.6.4', hidden:'', showOnMain:'', target:''},{id:'ef2cf6004c3f7a8bb1b0b18070d5aef1', title:'Прием отчетности с ЭЦП', name:'eds', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/e-statements/eds/', depth:'4', treenum: '1.1.10.6.5', hidden:'', showOnMain:'', target:''},{id:'400a12004c3f7abfb1ceb18070d5aef1', title:'Ответственность за непредставление отчетности&nbsp;', name:'submit_reports', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/submit_reports/', depth:'3', treenum: '1.1.10.7', hidden:'', showOnMain:'', target:''},{id:'867765004c3f7aefb207b38070d5aef1', title:'Нормативные документы', name:'regulatory_documents_reports', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/regulatory_documents_reports/', depth:'3', treenum: '1.1.10.8', hidden:'', showOnMain:'', target:''},{id:'d70bb4004c3f7b29b230b38070d5aef1', title:'Архив', name:'archive', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/reporting/regulatory_documents_reports/archive/', depth:'4', treenum: '1.1.10.8.1', hidden:'true', showOnMain:'', target:''},{id:'667a8c804c3f7b55b261b38070d5aef1', title:'Публикации ', name:'publications', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/publications/', depth:'2', treenum: '1.1.11', hidden:'', showOnMain:'', target:''},{id:'e57ebd804c3f7b73b280b38070d5aef1', title:'Пресс-выпуски', name:'news_issues', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/publications/news_issues/', depth:'3', treenum: '1.1.11.1', hidden:'', showOnMain:'', target:''},{id:'4b8339004c3f7ba4b2cab38070d5aef1', title:'Архив', name:'archive', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/publications/news_issues/archive/', depth:'4', treenum: '1.1.11.1.1', hidden:'true', showOnMain:'', target:''},{id:'438cbe804c3f7bcfb2fab38070d5aef1', title:'Пресс-конференции', name:'press_conference', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/publications/press_conference/', depth:'3', treenum: '1.1.11.2', hidden:'', showOnMain:'', target:''},{id:'6c2cac804c3f7bffb326b38070d5aef1', title:'Официальные статистические публикации ТОГС&nbsp;', name:'official_publications', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/publications/official_publications/', depth:'3', treenum: '1.1.11.3', hidden:'', showOnMain:'', target:''},{id:'df401e004c3f7c13b347b38070d5aef1', title:'Электронные версии публикаций', name:'electronic_versions', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/publications/official_publications/electronic_versions/', depth:'4', treenum: '1.1.11.3.1', hidden:'', showOnMain:'', target:''},{id:'031e56804c3f7c4ab371b38070d5aef1', title:'Архив', name:'archive', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/publications/official_publications/electronic_versions/archive/', depth:'5', treenum: '1.1.11.3.1.1', hidden:'true', showOnMain:'', target:''},{id:'16e6ae804c3f7c84b399b38070d5aef1', title:'Календарь выпуска публикаций', name:'calendar', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/publications/official_publications/calendar/', depth:'4', treenum: '1.1.11.3.2', hidden:'', showOnMain:'', target:''},{id:'cb59f2004c3f7ccfb3c5b38070d5aef1', title:'Услуги&nbsp;', name:'services', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/services/', depth:'2', treenum: '1.1.12', hidden:'', showOnMain:'', target:''},{id:'a7a7a3804c3f7cf1b3ddb38070d5aef1', title:'Информационные услуги', name:'info_services', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/services/info_services/', depth:'3', treenum: '1.1.12.1', hidden:'', showOnMain:'', target:''},{id:'3efb0e004c3f7d67b410b58070d5aef1', title:'Каталог публикаций', name:'catalog_publications', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/services/catalog_publications/', depth:'3', treenum: '1.1.12.2', hidden:'', showOnMain:'', target:''},{id:'f6f9dc804c3f7da2b432b58070d5aef1', title:'Правила оформления заказа', name:'order_terms', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/services/order_terms/', depth:'3', treenum: '1.1.12.3', hidden:'', showOnMain:'', target:''},{id:'4bb64b004c3f7dd5b45db58070d5aef1', title:'Нормативные документы', name:'regulatory_docs', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/services/regulatory_docs/', depth:'3', treenum: '1.1.12.4', hidden:'', showOnMain:'', target:''},{id:'923296804c3f7e23b48cb58070d5aef1', title:'Переписи и обследования', name:'census_and_researching', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/', depth:'2', treenum: '1.1.13', hidden:'true', showOnMain:'', target:''},{id:'1d334c804c3f86c0ba53bb8070d5aef1', title:'Переписи', name:'census', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/', depth:'3', treenum: '1.1.13.1', hidden:'', showOnMain:'', target:''},{id:'4a58720047975b2ca460a4ed3bc4492f', title:'Всероссийская сельскохозяйственная перепись-2016', name:'national_census_2016', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2016/', depth:'4', treenum: '1.1.13.1.1', hidden:'', showOnMain:'', target:''},{id:'e79b35004797605ba59ba5ed3bc4492f', title:'Официальные документы', name:'official_documentations_2016', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2016/official_documentations_2016/', depth:'5', treenum: '1.1.13.1.1.1', hidden:'', showOnMain:'', target:''},{id:'1c5dbb0047976061a5b2a5ed3bc4492f', title:'Информация для СМИ', name:'information_for_media_2016', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2016/information_for_media_2016/', depth:'5', treenum: '1.1.13.1.1.2', hidden:'', showOnMain:'', target:''},{id:'76f7170047976061a5b4a5ed3bc4492f', title:'Новости', name:'census_news_2016', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2016/census_news_2016/', depth:'5', treenum: '1.1.13.1.1.3', hidden:'', showOnMain:'', target:''},{id:'069cc58047976062a5b6a5ed3bc4492f', title:'Итоги', name:'score_2016', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2016/score_2016/', depth:'5', treenum: '1.1.13.1.1.4', hidden:'', showOnMain:'', target:''},{id:'7f9c1d0047976062a5b8a5ed3bc4492f', title:'Это интересно', name:'interesting_2016', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2016/interesting_2016/', depth:'5', treenum: '1.1.13.1.1.5', hidden:'', showOnMain:'', target:''},{id:'82ab808047975b2ba45fa4ed3bc4492f', title:'Микроперепись-2015', name:'microcensus_2015', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/microcensus_2015/', depth:'4', treenum: '1.1.13.1.2', hidden:'', showOnMain:'', target:''},{id:'fb27710047975db9a4b1a4ed3bc4492f', title:'Официальные документы', name:'official_documentations_2015', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/microcensus_2015/official_documentations_2015/', depth:'5', treenum: '1.1.13.1.2.1', hidden:'', showOnMain:'', target:''},{id:'d680c88047975dbca4c8a4ed3bc4492f', title:'Информация для СМИ', name:'information_for_media_2015', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/microcensus_2015/information_for_media_2015/', depth:'5', treenum: '1.1.13.1.2.2', hidden:'', showOnMain:'', target:''},{id:'f5805a0047975dbea4cba4ed3bc4492f', title:'Новости', name:'microcensus_news', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/microcensus_2015/microcensus_news/', depth:'5', treenum: '1.1.13.1.2.3', hidden:'', showOnMain:'', target:''},{id:'2d879d0047975dbfa4cda4ed3bc4492f', title:'Итоги', name:'score_2015', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/microcensus_2015/score_2015/', depth:'5', treenum: '1.1.13.1.2.4', hidden:'', showOnMain:'', target:''},{id:'82c3ae8047975dbfa4cfa4ed3bc4492f', title:'Это интересно', name:'interesting_2015', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/microcensus_2015/interesting_2015/', depth:'5', treenum: '1.1.13.1.2.5', hidden:'', showOnMain:'', target:''},{id:'95106f804c3f86deba5fbb8070d5aef1', title:'Всероссийская перепись населения 2010', name:'national_census_2010', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2010/', depth:'4', treenum: '1.1.13.1.3', hidden:'true', showOnMain:'', target:''},{id:'d154c7804c3f8700ba77bb8070d5aef1', title:'Официальные документы', name:'official_documintations_2010', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2010/official_documintations_2010/', depth:'5', treenum: '1.1.13.1.3.1', hidden:'', showOnMain:'', target:''},{id:'aaaf84804c3f8732baa3bb8070d5aef1', title:'Информация для СМИ', name:'information_for_media_2010', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2010/information_for_media_2010/', depth:'5', treenum: '1.1.13.1.3.2', hidden:'', showOnMain:'', target:''},{id:'42c164004c3f875bbac4bb8070d5aef1', title:'Новости', name:'census_news_2010', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2010/census_news_2010/', depth:'5', treenum: '1.1.13.1.3.3', hidden:'', showOnMain:'', target:''},{id:'79a075804c3f876dbad0bb8070d5aef1', title:'Итоги', name:'score_2010', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2010/score_2010/', depth:'5', treenum: '1.1.13.1.3.4', hidden:'', showOnMain:'', target:''},{id:'bbe3aa004c3f87a1baf3bb8070d5aef1', title:'Это интересно', name:'intersting_2010', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2010/intersting_2010/', depth:'5', treenum: '1.1.13.1.3.5', hidden:'', showOnMain:'', target:''},{id:'ca9585804c3f87d0bb1ebb8070d5aef1', title:'Всероссийская сельскохозяйственная перепись 2006', name:'national_census_2006', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2006/', depth:'4', treenum: '1.1.13.1.4', hidden:'true', showOnMain:'', target:''},{id:'3687e6004c3f87f1bb2ebb8070d5aef1', title:'Официальные документы', name:'official_documintations_2006', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2006/official_documintations_2006/', depth:'5', treenum: '1.1.13.1.4.1', hidden:'', showOnMain:'', target:''},{id:'8631d6004c3f8820bb4ebb8070d5aef1', title:'Информация для СМИ', name:'information_for_media_2006', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2006/information_for_media_2006/', depth:'5', treenum: '1.1.13.1.4.2', hidden:'', showOnMain:'', target:''},{id:'9ad893004c3f884dbb68bb8070d5aef1', title:'Новости', name:'census_news_2006', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2006/census_news_2006/', depth:'5', treenum: '1.1.13.1.4.3', hidden:'', showOnMain:'', target:''},{id:'771d49004c3f885dbb70bb8070d5aef1', title:'Итоги', name:'score_2006', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2006/score_2006/', depth:'5', treenum: '1.1.13.1.4.4', hidden:'', showOnMain:'', target:''},{id:'a43321004c3f8888bb9cbb8070d5aef1', title:'Это интересно', name:'intersting_2006', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2006/intersting_2006/', depth:'5', treenum: '1.1.13.1.4.5', hidden:'', showOnMain:'', target:''},{id:'af03ab004c3f88b4bbbfbb8070d5aef1', title:'Всероссийская перепись населения 2002', name:'national_census_2002', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2002/', depth:'4', treenum: '1.1.13.1.5', hidden:'true', showOnMain:'', target:''},{id:'4d9d05804c3f88cfbbd7bb8070d5aef1', title:'Официальные документы', name:'official_documintations_2002', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2002/official_documintations_2002/', depth:'5', treenum: '1.1.13.1.5.1', hidden:'', showOnMain:'', target:''},{id:'20fde3804c3f88f9bbf2bb8070d5aef1', title:'Информация для СМИ', name:'information_for_media_2002', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2002/information_for_media_2002/', depth:'5', treenum: '1.1.13.1.5.2', hidden:'', showOnMain:'', target:''},{id:'b0b887804c3f8923bc13bd8070d5aef1', title:'Новости', name:'census_news_2002', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2002/census_news_2002/', depth:'5', treenum: '1.1.13.1.5.3', hidden:'', showOnMain:'', target:''},{id:'570c89004c3f8934bc1fbd8070d5aef1', title:'Итоги', name:'score_2002', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2002/score_2002/', depth:'5', treenum: '1.1.13.1.5.4', hidden:'', showOnMain:'', target:''},{id:'770373004c3f895bbc33bd8070d5aef1', title:'Это интересно', name:'intersting_2002', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2002/intersting_2002/', depth:'5', treenum: '1.1.13.1.5.5', hidden:'', showOnMain:'', target:''},{id:'c0b483804c3f8984bc4ebd8070d5aef1', title:'Обследования и наблюдения', name:'researching', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/researching/', depth:'3', treenum: '1.1.13.2', hidden:'', showOnMain:'', target:''},{id:'f1051d804c3f8996bc5abd8070d5aef1', title:'Сплошное статистическое наблюдение малого и среднего бизнеса', name:'statistic_researching', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/researching/statistic_researching/', depth:'4', treenum: '1.1.13.2.1', hidden:'true', showOnMain:'', target:''},{id:'676448804c3f89b4bc6cbd8070d5aef1', title:'Официальные документы', name:'official_documintations_2011', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/researching/statistic_researching/official_documintations_2011/', depth:'5', treenum: '1.1.13.2.1.1', hidden:'', showOnMain:'', target:''},{id:'3565dd004c3f89dabc97bd8070d5aef1', title:'Информационные материалы', name:'information_materials', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/researching/statistic_researching/information_materials/', depth:'5', treenum: '1.1.13.2.1.2', hidden:'', showOnMain:'', target:''},{id:'28f67a004c3f8a04bcafbd8070d5aef1', title:'Программное обеспечение', name:'software', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/researching/statistic_researching/software/', depth:'5', treenum: '1.1.13.2.1.3', hidden:'', showOnMain:'', target:''},{id:'31fe40004c3f8a32bccfbd8070d5aef1', title:'Справочники и классификаторы', name:'references_and_classifiers', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/researching/statistic_researching/references_and_classifiers/', depth:'5', treenum: '1.1.13.2.1.4', hidden:'', showOnMain:'', target:''},{id:'b83479804c3f8a66bceebd8070d5aef1', title:'Формы и XML-шаблоны форм наблюдения', name:'forms_and_xml_templates', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/researching/statistic_researching/forms_and_xml_templates/', depth:'5', treenum: '1.1.13.2.1.5', hidden:'', showOnMain:'', target:''},{id:'550d0c004c3f8a93bd0fbd8070d5aef1', title:'Информация для СМИ', name:'information_for_media_2011', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/researching/statistic_researching/information_for_media_2011/', depth:'5', treenum: '1.1.13.2.1.6', hidden:'', showOnMain:'', target:''},{id:'93b6bc804c3f8abbbd31bd8070d5aef1', title:'Итоги сплошного наблюдения малого и среднего бизнеса за 2010г.', name:'score_2010', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/researching/statistic_researching/score_2010/', depth:'5', treenum: '1.1.13.2.1.7', hidden:'', showOnMain:'', target:''},{id:'bd72d8004a47e44c807de8758571d025', title:'Итоги сплошного наблюдения малого и среднего бизнеса за 2015г.', name:'score_2015', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/researching/statistic_researching/score_2015/', depth:'5', treenum: '1.1.13.2.1.8', hidden:'', showOnMain:'', target:''},{id:'5c113a004c3f8ae6bd51bd8070d5aef1', title:'Выборочное федеральное статистическое наблюдение &laquo;Затраты-выпуск&raquo;', name:'statistical_observation', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/researching/statistical_observation/', depth:'4', treenum: '1.1.13.2.2', hidden:'true', showOnMain:'', target:''},{id:'d2b252804c3f8c20be6abf8070d5aef1', title:'Росстат в регионах', name:'regions', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/regions/', depth:'2', treenum: '1.1.14', hidden:'true', showOnMain:'', target:''},{id:'51b285804c3f8c37be77bf8070d5aef1', title:'Поиск', name:'search', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/search/', depth:'2', treenum: '1.1.15', hidden:'true', showOnMain:'', target:''},{id:'0a0a4e004d00f6df98f9d80d9d5f7b1a', title:'Опросы', name:'quiz', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/quiz/', depth:'2', treenum: '1.1.16', hidden:'true', showOnMain:'', target:''},{id:'23cf2b004e78b27a979ff70d534aab22', title:'Хранилище старых документов', name:'Storage_ald', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/Storage_ald/', depth:'2', treenum: '1.1.17', hidden:'true', showOnMain:'', target:''},{id:'a1be27804c3f8bf8be3ebf8070d5aef1', title:'Итоги', name:'score_input_2011', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/Storage_ald/score_input_2011/', depth:'3', treenum: '1.1.17.1', hidden:'', showOnMain:'', target:''},{id:'93a9e0004c3f8bd3be1cbf8070d5aef1', title:'Информация для СМИ', name:'information_for_media_input_2011', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/Storage_ald/information_for_media_input_2011/', depth:'3', treenum: '1.1.17.2', hidden:'', showOnMain:'', target:''},{id:'081b59804c3f8ba9bdf6bd8070d5aef1', title:'Формы и XML-шаблоны форм наблюдения', name:'forms_and_xml_templates_2011', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/Storage_ald/forms_and_xml_templates_2011/', depth:'3', treenum: '1.1.17.3', hidden:'', showOnMain:'', target:''},{id:'6ed94c804c3f8b82bdd1bd8070d5aef1', title:'Справочники и классификаторы', name:'references_and_classifiers_2011', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/Storage_ald/references_and_classifiers_2011/', depth:'3', treenum: '1.1.17.4', hidden:'', showOnMain:'', target:''},{id:'9ff157004c3f8b59bdafbd8070d5aef1', title:'Программное обеспечение', name:'software_2011', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/Storage_ald/software_2011/', depth:'3', treenum: '1.1.17.5', hidden:'', showOnMain:'', target:''},{id:'de2451804c3f8b2cbd84bd8070d5aef1', title:'Информационные материалы', name:'information_materials_2011', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/Storage_ald/information_materials_2011/', depth:'3', treenum: '1.1.17.6', hidden:'', showOnMain:'', target:''},{id:'2fb6e7004c3f8b01bd6abd8070d5aef1', title:'Официальные документы', name:'official_documintations_input_2011', href:'/wps/wcm/connect/rosstat_ts/permstat/ru/Storage_ald/official_documintations_input_2011/', depth:'3', treenum: '1.1.17.7', hidden:'', showOnMain:'', target:''}];
+
+      _navigation._init(_siteStructure, 'ru');        
+      _navigation._highLevel('79a075804c3f876dbad0bb8070d5aef1');
+      _navigation._lowLevel();
+
+      // menu init
+      _menu._init();         
+
+      _font._init('/wps/wcm/connect/rosstat_ts/permstat/resources/2ceece004b284377bdc9fd4322c5f9b9/plus.css', '/wps/wcm/connect/rosstat_ts/permstat/ru/plus.css');
+
+      Login.checkCurrentUser();
+
+      });
+
+</script>
+</head>
+<body>
+
+
+
+<script type="text/javascript" language="javascript">
+
+  $j(document).ready(function(){      
+      _navigation._treeRight('79a075804c3f876dbad0bb8070d5aef1');
+   });
+
+</script>
+
+<!-- layout -->
+<div id="layout_max">
+<div id="layout_min">
+
+   <!-- header -->
+   <div id="header">
+		
+      <!-- collage -->
+      <div id="collage">
+         <script language="javascript" type="text/javascript">
+
+   function onLogout() {
+      deleteCookie("USER_NAME_ID", "/");
+   }
+
+</script>
+
+<div id="userNamePanel" style="display: none;">Добро пожаловать, <nobr><b id="userNameBlock"></b></nobr></div>
+
+<ul id="toolbar">
+      <div id="loginBlock" style="float: left">
+         <li>
+	     <a target="" title="" href="#" onclick="Login.openDialog('/wps/wcm/connect/rosstat_ts/permstat/ru/login');return false;">Войти</a>
+         </li>
+      </div>
+	
+      <div id="userInfoBlock" style="display: none; float: left">
+         <li>
+	     <a href="/RosstatSingleLogin/ibm_security_logout?logoutExitPage=.."  onclick="onLogout()">Выйти</a>
+         </li>
+         <li>
+             <a href="/wps/wcm/connect/rosstat_ts/permstat/ru/cabinet" target="" title="">Личный кабинет</a>
+         </li>
+         <li>
+             <a href="#" target="" title="" onclick="BookmarkAdd.openDialog('/wps/wcm/connect/rosstat_ts/permstat/ru/add_bookmark');return false;">Добавить закладку</a>
+         </li>
+      </div>
+
+   <li>
+      <a target="" title="" href="/wps/wcm/connect/rosstat_ts/permstat/ru/contacts">Контакты специалистов</a>
+   </li>
+   <li class="icon">
+      <a target="" title="" href="/wps/wcm/connect/rosstat_ts/permstat/ru/feedback/">
+         <img src="/wps/wcm/connect/rosstat_ts/permstat/resources/4b70c6804b28592fbdd8fd4322c5f9b9/mail.gif" title="Обратная связь" width="14" height="11" style="margin: 4px 0 0 0;" />
+      </a>
+   </li>
+   <li class="icon">
+      <a target="" title="" href="/wps/wcm/connect/rosstat_ts/permstat/ru/sitemap">
+         <img src="/wps/wcm/connect/rosstat_ts/permstat/resources/2fd9e0004b285970bddafd4322c5f9b9/sitemap.gif" title="Карта сайта" width="11" height="11" style="margin: 4px 0 0 0;" />
+      </a>
+   </li> 
+    <li>
+             <a href="/wps/wcm/connect/rosstat_ts/permstat/ru/cabinet" target="" title="">Личный кабинет</a>
+    </li> 
+</ul>
+
+<!-- /toolbar -->
+
+<!-- font -->
+<div id="font" onclick="_font._resize()" title="Изменить размер шрифта">Aa</div>
+<!-- /font -->
+
+<!-- logo -->
+<a href="/wps/wcm/connect/rosstat_ts/permstat/" class="collage_logo" title="Федеральная служба Государственной статистики"><spacer /></a>
+<!-- /logo --> 
+
+      </div>
+      <!-- /collage -->
+
+      <!-- menu -->
+      <div id="menu">
+      </div>
+      <!-- /menu -->
+
+   </div>
+   <!-- /header -->
+
+   <!-- content -->
+   <div id="content2">            
+   
+      <table width="100%">
+      <tr valign="top">
+         <!-- left -->
+	 <td id="left">
+
+            <!-- breadcrumbs -->
+            <script type="text/javascript" language="javascript">
+
+   $j(document).ready(function(){      
+      $j('.breadcrumbs a:last').css({'text-decoration': 'underline', 'color': '#666666'} );
+   });
+
+</script>
+
+<div class="breadcrumbs">
+<h2><a target="" title="" href="/wps/wcm/connect/rosstat_ts/permstat/ru/"><img src="/wps/wcm/connect/rosstat_ts/permstat/resources/30fd2a004b347016889ac84322c5f9b9/home.png" align="absmiddle" width="16" height="16"/></a> \\ <a href="/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/">Переписи и обследования</a> \ <a href="/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/">Переписи</a> \ <a href="/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2010/">Всероссийская перепись населения 2010</a> \ <a href="/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2010/score_2010/">Итоги</a> <span id="rss"></span></h2>
+</div>
+            <!-- /breadcrumbs --> 
+
+            <br />
+
+            <!-- DescriptFrame -->
+            <div class="DescriptFrame"><div class="in"><table width="100%" cellpadding="0" cellspacing="0" class="webpart-zone"> 
+ <tbody>
+  <tr> 
+   <td valign="top" width="100%" class="center-zone"> 
+    <table width="100%" cellpadding="0" cellspacing="0" border="0"> 
+     <tbody>
+      <tr> 
+       <td id="MSOZoneCell_WebPartWPQ1" valign="top">
+        <table toplevel="" border="0" cellpadding="0" cellspacing="0" width="100%"> 
+         <tbody>
+          <tr> 
+           <td valign="top">
+            <div webpartid="7d5ae3db-e571-42f2-8a16-226c34aa35b0" haspers="false" id="WebPartWPQ1" width="100%" class="ms-WPBody" allowdelete="false" style="">
+             <p align="center"><strong><font size="2">Российская Федерация</font></strong></p> 
+             <ul> 
+              <li><a href="http://www.gks.ru/free_doc/new_site/population/demo/perepis2010/inf.doc" >Информационные материалы о предварительных итогах Всероссийской переписи населения 2010 года </a></li> 
+              <li><a href="http://www.gks.ru/free_doc/new_site/population/demo/perepis2010/met.doc" >Методологические пояснения к информационным материалам о предварительных итогах Всероссийской переписи населения 2010 года</a></li> 
+              <li><a href="http://www.gks.ru/free_doc/new_site/population/demo/perepis2010/pril2.xls" >Численность городского и сельского населения Российской Федерации</a>&nbsp;</li> 
+              <li><a href="http://www.gks.ru/free_doc/new_site/population/demo/perepis2010/pril3.xls" >Группировка городских населенных пунктов по численности населения</a>&nbsp;</li> 
+              <li><a href="http://www.gks.ru/free_doc/new_site/population/demo/perepis2010/pril4.xls" >Города с численностью населения 100 тысяч человек и более</a></li> 
+              <li><a href="http://www.gks.ru/free_doc/new_site/population/demo/perepis2010/pril5.xls" >Группировка сельских населенных пунктов по численности населения</a></li> 
+              <li><a href="http://www.gks.ru/free_doc/new_site/population/demo/perepis2010/pril6.xls" >Численность мужчин и женщин Российской Федерации</a>&nbsp;</li> 
+              <li><a href="http://www.gks.ru/free_doc/new_site/population/demo/perepis2010/pril7.xls" >Соотношение численности мужчин и женщин Российской Федерации</a></li>
+             </ul> 
+             <p align="center"><strong><font size="2">Пермский край</font></strong></p> 
+             <ul> 
+              <!--
+<LI>
+<DIV align=left><a href="http://permstat.gks.ru/perepis10/DocLib1/Предварительные%20итоги%20ВПН%202010.%20Численность%20постоянного%20населения%20%20Пермского%20края.doc" >Предварительные итоги ВПН 2010. Численность постоянного населения по городским округам и муниципальным районам Пермского края (полностью)</a></DIV></LI>
+--> 
+              <li> 
+               <div align="left">
+                <a href="http://permstat.gks.ru/perepis10/DocLib1/Статистический%20бюллетень_предварительные%20итоги%20ВПН%202010_обложка.doc" >Статистический бюллетень_предварительные итоги ВПН 2010_обложка</a>                 <a ></a>
+               </div></li> 
+              <li> 
+               <div align="left">
+                <a href="http://permstat.gks.ru/perepis10/DocLib1/Предисловие.doc" >Предисловие</a>                 <a ></a>
+               </div></li> 
+              <li> 
+               <div align="left">
+                <a href="http://permstat.gks.ru/perepis10/DocLib1/Численность%20мужчин%20и%20женщин%20Пермского%20края.doc" >Численность мужчин и женщин Пермского края</a>                 <a ></a>
+               </div></li> 
+              <li> 
+               <div align="left">
+                <a href="http://permstat.gks.ru/perepis10/DocLib1/Численность%20постоянного%20населения%20Пермского%20края%20по%20мунициапльным%20образованиям.doc" >Численность постоянного населения Пермского края по мунициапльным образованиям</a>                 <a ></a>
+               </div></li> 
+              <li> 
+               <div align="left">
+                <a href="http://permstat.gks.ru/perepis10/DocLib1/Численность%20городского%20и%20сельского%20населения%20Пермского%20края.doc" >Численность городского и сельского населения Пермского края</a>
+               </div></li>
+             </ul> 
+             <p align="left"><strong><font size="2"></font></strong>&nbsp;</p>
+            </div></td> 
+          </tr> 
+         </tbody>
+        </table></td> 
+      </tr> 
+     </tbody>
+    </table> </td> 
+   <td valign="top" class="right-zone"> </td> 
+  </tr> 
+ </tbody>
+</table></div></div>	
+
+<div style="height: 30px"><spacer /></div>
+            <!-- /DescriptFrame -->
+
+            <!-- events -->
+             
+            <!-- /events -->  
+      
+            <!-- data -->
+	    <div class="data">
+    
+               <!-- content -->
+               <script language="JavaScript">
+
+if(!Array.indexOf){
+   Array.prototype.indexOf = function(obj){
+      for(var i=0; i<this.length; i++){
+         if(this[i]==obj){
+            return i;
+         }
+      }
+      return -1;
+   }
+}
+
+var sortProp = '';
+var sortAsc = false;
+
+function GrpDocList(objectName, sourceArray) {
+	// Имя экземпляра этого класса
+	this.objectName = objectName;
+	this.sourceArray = sourceArray;
+	this.group = new Object();
+	
+        this.initList = function() {		
+             this.sortArray('date', false);
+             this.groupSourceArray();
+        }			
+
+        this.showList = function() {		
+             var searchResultTableHTML = "";
+             var _tempArr = [];
+             for (var key in this.group) {
+                _tempArr.push(key);
+             }
+ 
+             _tempArr.sort();
+             for (var i = 0; i < _tempArr.length; i++) {
+                searchResultTableHTML += this.renderDocSearchResultRow(_tempArr[i], this.group[_tempArr[i]]);
+             }
+
+             if (searchResultTableHTML != "")
+                document.getElementById("docSearchResult").innerHTML = '<table class="nsiTable"><tr><th colspan="2"'  + ((sortProp == 'title') ? ' class="sort"' : '') + ' onclick="' + objectName + '.sortMode(\'title\')" style="cursor: pointer">Наименование документа</th><th'  + ((sortProp == 'date') ? ' class="sort"' : '') + ' onclick="' + objectName + '.sortMode(\'date\')" style="cursor: pointer">Дата публикации</th><th>Размер</th></tr>' + searchResultTableHTML + '</table>';
+        }	
+
+	/**
+	 * Sort array by date descending
+	 */
+        this.sortArray = function(_prop, _dir){
+		if(sortProp == _prop){
+			sortAsc = sortAsc ? false : true;
+		}else{
+                        if (_dir === undefined)
+			   sortAsc = true;
+                        else
+                           sortAsc = _dir;
+		}
+		sortProp = _prop;
+
+		function _cmp(a, b){
+        		if(sortAsc) return (a[_prop] > b[_prop]) ? 1 : -1;
+	        	else return (a[_prop] < b[_prop]) ? 1 : -1;
+        	}
+
+		this.sourceArray.sort(_cmp);     		
+	} 
+	
+        this.sortMode = function(_prop){
+                this.sortArray(_prop);
+                this.group = new Object();
+                this.groupSourceArray(); 
+       		this.showList();             
+        }
+
+        this.groupSourceArray = function() {
+           var _tempArr = [];
+	   for (var i = 0; i < this.sourceArray.length; i++) {
+
+              var _catArr = [];
+              var _keyArr = [];
+
+              if (this.sourceArray[i].cat != '') {
+                 _catArr = this.sourceArray[i].cat.split('|'); 
+                 if (this.sourceArray[i].key != '')
+                    _keyArr = this.sourceArray[i].key.split('|');
+              } else {
+                 _keyArr = this.sourceArray[i].key.split('|');
+              }                            
+
+try{
+              for (var ic = 0; ic < _catArr.length; ic++) {
+                 if (this.group[_catArr[ic]]) {
+                     _tempArr = this.group[_catArr[ic]];
+                     _tempArr.push(this.sourceArray[i]);
+                     this.group[_catArr[ic]] = _tempArr;
+                 } else {
+                     this.group[_catArr[ic]] = new Array(this.sourceArray[i]);
+                 }               
+              }  
+}catch(err){}
+
+try{
+              for (var ik = 0; ik < _keyArr.length; ik++) {
+                 if (_catArr.indexOf(_keyArr[ik]) == -1) {
+                    if (this.group[_keyArr[ik]]) {
+                        _tempArr = this.group[_keyArr[ik]];
+                        _tempArr.push(this.sourceArray[i]);
+                        this.group[_keyArr[ik]] = _tempArr;
+                    } else {
+                        this.group[_keyArr[ik]] = new Array(this.sourceArray[i]);
+                    }
+                 }
+              } 
+}catch(err){}
+                      
+           }
+	}
+
+
+       this.renderDocSearchResultRow = function(cat, docs) {
+           str = cat != '' ? ('<tr class="subt"><td colspan="4">' + cat + '</td></tr>') : ''; 
+           for (var i = 0; i < docs.length; i++) {
+
+              var _pic = '/wps/wcm/connect/rosstat_ts/permstat/resources/7cc55e804b4357d99c49dc4322c5f9b9/file-link.png'; 
+              switch (docs[i].mimeType) {
+                 case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':	       
+	         case 'application/msword':	       
+                    _pic = '/wps/wcm/connect/rosstat_ts/permstat/resources/8591b7004a92115ba7b9af0ce486f7a1/file-doc.png';
+                    break;
+	        case 'application/pdf':	     
+                    _pic = '/wps/wcm/connect/rosstat_ts/permstat/resources/f761be804b408dd4b28ef24322c5f9b9/file-pdf.png';
+	            break;
+                case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                case 'application/vnd.ms-excel':
+                    _pic = '/wps/wcm/connect/rosstat_ts/permstat/resources/6859f8804a9211eea7bfaf0ce486f7a1/file-xls.png';
+	            break;
+                case 'text/plain':
+                    _pic = '/wps/wcm/connect/rosstat_ts/permstat/resources/a254db804a9211a9a7bdaf0ce486f7a1/file-txt.png';
+	            break;   
+                case 'application/mspowerpoint':
+                    _pic = '/wps/wcm/connect/rosstat_ts/permstat/resources/a4a140804a92117da7bbaf0ce486f7a1/file-ppt.png';
+	            break;    
+	        case 'text/html':
+                    _pic = '/wps/wcm/connect/rosstat_ts/permstat/resources/51b41d004b43e04ea6bde64322c5f9b9/file-htm.png';	       
+	            break;
+                case 'application/zip':
+                   _pic = '/wps/wcm/connect/rosstat_ts/permstat/resources/7ffaa6804a921219a7c1af0ce486f7a1/file-zip.png';	       
+	            break;                               
+	        default:	       
+                    var _pos = docs[i].file.lastIndexOf('.');
+                    if (_pos != -1) {
+                       var _ext = docs[i].file.substr(_pos + 1);
+                       if (_ext.toLowerCase() == 'rar')
+                           _pic = '/wps/wcm/connect/rosstat_ts/permstat/resources/7ffaa6804a921219a7c1af0ce486f7a1/file-zip.png';
+                       else if (_ext.toLowerCase() == 'ppt' || _ext.toLowerCase() == 'ppsx' || _ext.toLowerCase() == 'pps')
+                           _pic = '/wps/wcm/connect/rosstat_ts/permstat/resources/a4a140804a92117da7bbaf0ce486f7a1/file-ppt.png';
+                    }                       
+	            break;
+	      }
+
+              var _resource = (docs[i].file != '' && (docs[i].fileAdd != '' || docs[i].body != '')) ? docs[i].ref : (docs[i].file != '' ? docs[i].file : (docs[i].link != '' ? docs[i].link : docs[i].ref));             
+              str += '<tr valign="top"><td>' + (_resource.indexOf('</a>') == -1 ? '<a href=\"' + _resource + '\"' + (_resource == docs[i].file ? ' target=\"_blank\"' : '') + '><img src="' + _pic + '" width="20" height="20" /></a>' : _resource) +'</td>';
+              str += '<td width="75%">' + (_resource.indexOf('</a>') == -1 ? '<a title=\"\" href=\"' + _resource + '\"' + (_resource == docs[i].file ? ' target=\"_blank\"' : '') + '>' + docs[i].title + '</a>'  : docs[i].title) + (docs[i].status == 'Новое' ? '&nbsp;&#160;<img src="/wps/wcm/connect/rosstat_ts/permstat/resources/db7f7f004bf5fa249ce3bcc13b524acd/new.gif" align="absmiddle" style="border:0;"/>' : '') + '</td>';      
+              str += '<td width="15%">' + this.formatDate(docs[i].date) + '</td>';
+              str += '<td width="10%" class="grey">' + (docs[i].size ? docs[i].size : '&nbsp;') + '</td></tr>';  
+           } 
+           return str;        
+       }
+
+       this.formatDate = function(date) {
+		var day = String(date.getDate());
+		var month = String(date.getMonth() + 1);
+		var year = String(date.getFullYear());
+		var hours = String(date.getHours());
+                var minutes = String(date.getMinutes());
+
+		if (day.length < 2) {
+			day = "0" + day;
+		}
+		
+		if (month.length < 2) {
+			month = "0" + month;
+		}
+
+		if (year.length < 4) {
+			for (var i = 0; i < (4 - year.length); i++)
+			year = "0" + year;
+		}
+		
+                if (hours.length < 2) {
+			hours = "0" + hours;
+		}
+
+                if (minutes.length < 2) {
+			minutes = "0" + minutes;
+		}
+
+		return day + "." + month + "." + year;
+	}
+	
+}
+</script>
+
+<script type="text/javascript" language="javascript">
+ 
+   $j(document).ready(function(){
+
+	   $j.ajax({
+			url: '/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2010/score_2010/documents.json',
+			cache:false,
+			type:'get',				
+			async: false,
+			dataType: 'text',
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+				alert('Ошибка получения данных:'+textStatus);
+			},
+			success: function(text) {
+				if (text != null) {
+					if (text != 'null') {
+						var jsonText = text.replace(/\n/g,'<br/>');
+						jsonText = jsonText.replace(/\r/g,'');
+                                                jsonText = jsonText.replace(/<c>(.*?)<\/c>/g, function(a,s){ var escaped = s.replace(/\\['\\]|'/g, function (ss) { if (ss == "'") return "\\'"; else return ss; }); return escaped; });
+						json = eval(jsonText);
+						grpDocList = new GrpDocList('grpDocList', json);
+					} else {
+						grpDocList = new GrpDocList('grpDocList', []);
+					}
+					
+				    grpDocList.initList();
+				    grpDocList.showList();
+                               
+				}
+			}
+		});
+   });
+</script>
+	
+<div id="docSearchResult">	          
+</div>
+               <!-- /content -->
+
+            </div>
+            <!-- /data -->
+
+            <br />
+            <!-- additional --> 
+             
+            <!-- /additional -->
+
+            <div class="clear"><spacer></spacer></div>
+
+            <!-- faq -->
+            
+            <!-- /faq -->            
+
+            <div class="clear"><spacer /></div>
+
+         </td>
+         <!-- /left -->
+
+         <!-- right -->
+	 <td id="right">
+      
+            <!-- search -->
+            <div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'https://yandex.ru/search/site/','arrow':true,'bg':'#cccccc','fontsize':14,'fg':'#000000','language':'ru','logo':'rb','publicname':'Поиск по ТОГС сайтам','suggest':true,'target':'_blank','tld':'ru','type':3,'usebigdictionary':true,'searchid':2266025,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':null,'input_placeholderColor':'#000000','input_borderColor':'#000000'}"><form action="https://yandex.ru/search/site/" method="get" target="_blank"><input type="hidden" name="searchid" value="2266025"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="search" name="text" value=""/><input type="submit" value="Найти"/></form></div><style type="text/css">.ya-page_js_yes .ya-site-form_inited_no { display: none; }</style><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
+            <!-- /search -->
+
+            <!-- data -->
+            <div class="data">
+
+               <h1>Содержание</h1>
+               <div id="rightmenu">
+               </div>   
+
+               <hr class="hrR" /> 
+
+               <!-- togsmap -->
+               <h1>Росстат в регионах</h1>
+
+<div align="center">
+
+
+<a href="http://www.gks.ru/wps/wcm/connect/rosstat_main/rosstat/ru/about/territorial/site/" target="_blank" ><img src="/wps/wcm/connect/rosstat_ts/permstat/resources/fde46f004b2b44c4be4afe4322c5f9b9/togsmap.gif" border="0" width="252" height="141"  /></a>
+
+
+</div> 
+
+<hr class="hrR" /> 
+               <!-- /togsmap -->
+
+               <!-- banner --> 
+               <script type="text/javascript" language="javascript">
+
+   function createBanners(_collection, _limit) {
+      if (_collection.length > 0 ) {
+         
+         _collection.sort(function(a, b){
+            return a.order-b.order
+         });
+ 
+         for (var i = 0; i < _collection.length; i++) {
+            if (i >= _limit)
+               break;
+
+            var _bannerRef = _collection[i].ref; 
+            if (_bannerRef == '')
+               _bannerRef = _collection[i].altRef; 
+
+            $j('<a href=\"' + _bannerRef + '\" target=\"' + _collection[i].target + '\">' + _collection[i].picture + '</a><br /><br />').appendTo('div .banner');
+         }
+        
+         $j('div .banner').after('<hr class="hrR" />');  
+      } 
+   }
+
+   var _banners = [];
+
+   $j(document).ready(function(){
+      createBanners(_banners, 15);
+   });
+
+</script>
+
+<div class="banner">
+</div>
+               <!-- /banner --> 
+
+               <!-- refs -->
+               
+               <!-- /refs -->
+
+               <!-- contact -->
+               <script type="text/javascript" language="javascript">
+
+   function createContact(_collection) {
+      if (_collection.length > 0 ) {
+         _collection.sort(function(a, b){
+            return a.order-b.order
+         });
+ 
+         for (var i = 0; i < _collection.length; i++) {
+            $j('<div id=\"contact_' + (i + 1) + '\" class=\"findings\" style=\"position: static; left: 0\"><div class=\"lightBox\" header=\"Адрес: ' + _collection[i].address + '\" desc=\"Тел.: ' + _collection[i].phone + '\"><b><a href=\"' + _collection[i].map + '\"><img src=\"' + _collection[i].mapSmall + '\" width=\"140\" height=\"83\" style=\"float: left\"/></a><a href=\"' + _collection[i].picture + '\"><img src=\"' + _collection[i].pictureSmall + '\" width=\"140\" height=\"83\" style=\"float: right\" /></a></b></div><div class="clear" style="height: 5px"><spacer /></div><p><b>Адрес: </b>' + $j.unescape(_collection[i].address) + '</p><p><b>Тел.: </b>' + _collection[i].phone + '</p>' + _collection[i].fax + '<p><b>Email:</b> <a target=\"\" title=\"\" href=\"mailto:' + _collection[i].email + '\">' + _collection[i].email + '</a></p>' + _collection[i].timetable + _collection[i].roadmap + '</div>').appendTo('#contact');
+         }
+      }  
+   }
+
+   $j(document).ready(function(){
+      $j.ajax({
+	   url: '/wps/wcm/connect/rosstat_ts/permstat/ru/contact.json',
+	   cache:false,
+	   type:'get',				
+	   async: false,
+	   dataType: 'text',
+	   error: function (XMLHttpRequest, textStatus, errorThrown) {
+		alert('Ошибка получения данных:'+textStatus);
+	   },
+	   success: function(text) {
+	 	if (text != null) {
+			if (text != 'null') {
+				var jsonText = text.replace(/\n/g,'');
+				jsonText = jsonText.replace(/\r/g,'');
+                                jsonText = jsonText.replace(/<c>(.*?)<\/c>/g, function(a,s){ var escaped = s.replace(/\\['\\]|'/g, function (ss) { if (ss == "'") return "\\'"; else return ss; }); return escaped; });
+				json = eval(jsonText);
+                                createContact(json);
+                                _contact._init();
+
+                               $j('#contact .lightBox a').each(function(){
+				  $j(this).lightBox();
+			       });
+			} 
+		}
+	}
+   });
+});
+
+</script>
+
+<h1>Контакты</h1>
+
+<div id="contact" style="height: auto;">	
+</div>
+
+<br />
+<a target="" title="" href="/wps/wcm/connect/rosstat_ts/permstat/ru/contacts/" class="contactLink">Контакты специалистов</a>
+               <!-- /contact -->
+
+               <br /><br />
+
+               <!-- responsible -->
+               
+               <!-- /responsible -->
+ 
+               <br />
+
+            </div>
+            <!-- /data -->
+
+	    <div style="width: 330px"></div>
+
+         </td>
+	 <!-- /right -->
+      </tr>
+      </table>
+
+   </div>
+   <!-- /content -->
+
+   <!-- footer -->
+   <div id="footer"><div class="footer_shadow"><div class="footer_frame">
+
+      <!-- lowmenu -->
+      <div id="lowmenu">
+      </div>
+      <!-- low/menu -->
+
+      <span>Copyright 1999 - 2018 Федеральная служба государственной статистики</span>
+
+    <script type="text/javascript">
+       (function(d, t, p) {
+           var j = d.createElement(t); j.async = true; j.type = "text/javascript";
+           j.src = ("https:" == p ? "https:" : "http:") + "//stat.sputnik.ru/cnt.js";
+           var s = d.getElementsByTagName(t)[0]; s.parentNode.insertBefore(j, s);
+       })(document, "script", document.location.protocol);
+    </script>
+
+<!-- stat counter begin -->
+<script>
+	{	
+		var MAX_NUMBER = 2147483647;
+		var source = 'permstat.gks.ru';
+//		var pathName = encodeURI(document.location.pathname);
+                var pathName = encodeURI('/wps/wcm/connect/rosstat_ts/permstat/ru/census_and_researching/census/national_census_2010/score_2010/');
+		var href = encodeURI(document.location.href);
+                if (href.indexOf(pathName, href.length - pathName.length) == -1) {
+                   var _lidx = href.lastIndexOf('/');
+                   if (_lidx != -1)
+                      href = href.substr(0, _lidx+1);
+                } 
+		var title = encodeURI(document.title);
+                document.write('<img src="http://gks.ru/sai/empty.gif?r='+Math.round(Math.random() * MAX_NUMBER )+'&pt='+pathName+'&tt='+title+'&hr='+href+'&src='+source+'" width=1 height=1 >');
+		
+	}
+
+</script>
+<!-- stat counter end -->    <!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter18751267 = new Ya.Metrika({id:18751267,
+                    clickmap:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/18751267" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->     
+
+   </div></div></div>
+   <!-- /footer -->
+
+</div>
+</div>
+<!-- /layout -->
+
+</body>
+</html>

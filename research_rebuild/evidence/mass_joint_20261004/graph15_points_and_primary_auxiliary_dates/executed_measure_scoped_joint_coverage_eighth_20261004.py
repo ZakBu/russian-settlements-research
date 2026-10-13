@@ -1,0 +1,427 @@
+"""Recompute strict and scope-aware territorial coverage from accepted observation IDs."""
+import hashlib,json
+from pathlib import Path
+import duckdb
+C=Path('/workspace/settlements-work/continuation_20261004');CORE=C/'R4/final_long_preparation/seventh_canonical_long/source_preserving_core.parquet';F=C/'R4/final_long_preparation/seventh_canonical_long/federal_typed_city_continuity.parquet';T=C/'root/accepted_territorial_scope_layers_seventh';S=C/'root/scoped2014_applied/accepted_scoped_observations_2014.parquet';O=C/'root/scoped_joint_coverage_eighth.json'
+B=C/'accepted_mass_eighth_reviewed';SELECTED=Path('/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet')
+def sha(p):
+ with Path(p).open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
+
+def exclusive_official_source_projection(populations, year, observations, partition_ids):
+ """Choose one official assertion per place/year, retaining alternatives elsewhere."""
+ projected=populations.copy();removed={};excluded=set()
+ if year==2002:
+  excluded.update(partition_ids)
+  for sid in partition_ids:
+   if sid in projected:removed[sid]=projected.pop(sid)
+ selected=[r for r in observations if int(r['census_year'])==year]
+ for r in selected:
+  sid=r['source_record_id'];aliases=set(json.loads(r['same_census_source_alias_record_ids']))
+  counterpart=r['preferred_same_census_alternate_selected_source_record_id']
+  if counterpart:aliases.add(counterpart)
+  excluded.update(aliases-{sid})
+  for alt in aliases:
+   if alt in projected:removed[alt]=projected.pop(alt)
+  projected[sid]=int(r['population'])
+ return projected,removed,excluded,selected
+
+def add_secondary_supported_old_rows(populations, year, observations):
+ """Count actual old primary rows once; current secondary children are not additive."""
+ projected=populations.copy()
+ if year==2021:return projected
+ for r in observations:
+  if int(r['observation_year'])!=year:continue
+  assert r['observation_source_class']=='primary_official_selected_old_census_row'
+  sid=r['source_record_id'];population=int(r['population'])
+  if sid in projected:assert projected[sid]==population
+  projected[sid]=population
+ return projected
+
+def add_typed_scope_old_city(populations, year, old_city, parent_source_id):
+ """Union an existing historical city once; later district children stay nested."""
+ projected=populations.copy()
+ assert parent_source_id in projected, 'Receiving parent must already be represented'
+ if year!=2002:return projected
+ sid=old_city['source_record_id'];value=int(old_city['population'])
+ assert sid!=parent_source_id
+ if sid in projected:assert projected[sid]==value
+ projected[sid]=value
+ return projected
+
+def union_complete_observed_partition(populations, observation, source_populations):
+ """Represent a reviewed whole union, retaining each member population once."""
+ result=populations.copy();ids=json.loads(observation['component_source_record_ids_json']);values=json.loads(observation['component_populations_json'])
+ assert len(ids)==len(values)==len(set(ids))==2
+ assert int(observation['population'])==sum(int(v) for v in values)
+ for sid,value in zip(ids,values):
+  assert source_populations[sid]==int(value), 'Partition member source population changed'
+  if sid in result:assert result[sid]==int(value)
+  result[sid]=int(value)
+ return result
+
+def run(points=None, supplemental=None, output=None, residual_output=None, graph=None, official_scope=None, secondary_scope=None, typed_scope=None, inclusion_scope=None, target_fraction=.99, complete_partition_scope=None, reported_inclusion_reference_scope=None, combined_temporal_scope=None, event_aware_selected_scope=None, auxiliary_primary_temporal_scope=None):
+ global O
+ assert 0 < target_fraction <= 1, 'Target fraction must be in (0,1]'
+ pointpath=Path(points) if points else B/'accepted_point_uses.parquet'
+ graphpath=Path(graph) if graph else B/'accepted_identity_edges.parquet'
+ graphreceipt=graphpath.parent/'receipt.json'
+ assert graphreceipt.is_file(), 'Accepted graph requires its application receipt'
+ if output:O=Path(output)
+ assert not O.exists(), 'Measurement receipts are immutable; choose a new output'
+ con=duckdb.connect(config={'threads':1,'memory_limit':'512MB'})
+ con.read_parquet(str(SELECTED)).create_view('sel')
+ from collections import defaultdict
+ adj=defaultdict(set)
+ for a,b in con.execute('select from_source_record_id,to_source_record_id from read_parquet(?)',[str(graphpath)]).fetchall():adj[a].add(b);adj[b].add(a)
+ yrs=dict(con.execute('select source_record_id,census_year from sel').fetchall());seen=set();full=set()
+ for start in adj:
+  if start in seen:continue
+  stack=[start];seen.add(start);members=[]
+  while stack:
+   v=stack.pop();members.append(v)
+   for w in adj[v]:
+    if w not in seen:seen.add(w);stack.append(w)
+  assert len({yrs[v] for v in members})==len(members)
+  if {yrs[v] for v in members}=={2002,2010,2021}:full.update(members)
+ import pyarrow as pa
+ con.register('full_ids',pa.table({'sid':sorted(full)}))
+ con.read_parquet(str(pointpath)).create_view('points')
+ from research_rebuild.mass_linkage.build_long_table import ACCEPTED_COORDINATE_STATUSES
+ assert {r[0] for r in con.execute('select distinct coordinate_admission_status from points').fetchall()} <= ACCEPTED_COORDINATE_STATUSES
+ con.execute("create view core as select s.census_year observation_year,s.source_record_id,s.population population_value,'census' record_type,'settlement' entity_category,f.sid is not null census_full_chain,p.latitude,p.longitude from sel s left join full_ids f on s.source_record_id=f.sid left join points p on s.source_record_id=p.target_source_record_id")
+
+ rows=con.execute("select cast(observation_year as integer),source_record_id,cast(population_value as bigint) from core where record_type='census' and entity_category='settlement' and census_full_chain and latitude is not null and longitude is not null").fetchall();npmap={y:{sid:pop for yr,sid,pop in rows if yr==y} for y in [2002,2010,2021]}
+ chains=con.execute('select city,years,source_record_ids_json from read_parquet(?)',[str(F)]).fetchall();all_source=dict(con.execute("select source_record_id,cast(population_value as bigint) from core where record_type='census'").fetchall());feds={y:{} for y in npmap}
+ for city,years,ids in chains:
+  if years!='2002|2010|2021':continue
+  for y,sid in zip([2002,2010,2021],json.loads(ids)):feds[y][sid]=all_source[sid]
+ controls={2002:145166731,2010:142856536,2021:147182123};result={}
+ m=json.loads((T/'accepted_moscow2002_territorial_override.json').read_text());assert m['decision_status']=='accepted_exclusive_territorial_view_override'
+ scoped=con.execute('select current_2021_source_record_id,cast(current_2021_population_context as bigint) from read_parquet(?) where latitude is not null and longitude is not null',[str(S)]).fetchall();assert len(scoped)==len(dict(scoped))==993
+ additional_pins=[];supplement_rows=[]
+ if supplemental:
+  folder=Path(supplemental);receiptpath=folder/'application_receipt.json';receipt=json.loads(receiptpath.read_text());assert receipt['status']=='applied_independently_reviewed22_scoped2014_source_rows_and_identity_point_uses'
+  obs=folder/'accepted_scoped_observations.parquet';edge=folder/'accepted_scoped_identity_links.parquet';assert sha(obs)==receipt['outputs'][obs.name] and sha(edge)==receipt['outputs'][edge.name]
+  supplement_rows=con.execute('select current_2021_source_record_id,cast(current_2021_population_context as bigint),population_value is not null from read_parquet(?) where latitude is not null and longitude is not null',[str(obs)]).fetchall()
+  links=con.execute("select to_source_record_id from read_parquet(?) where decision_status='accepted_scoped_identity_observation_only'",[str(edge)]).fetchall()
+  assert len(supplement_rows)==len(links)==22 and {r[0] for r in supplement_rows}=={r[0] for r in links}
+  assert not {r[0] for r in supplement_rows}&{r[0] for r in scoped}
+  for sid,pop,known in supplement_rows:assert all_source[sid]==pop
+  additional_pins=[receiptpath,obs,edge]
+ official_rows=[];official_exclusions=[]
+ if official_scope:
+  import pyarrow.parquet as pq
+  folder=Path(official_scope);receiptpath=folder/'application_receipt.json';receipt=json.loads(receiptpath.read_text())
+  assert receipt['status']=='applied_reviewed_official_primary_three_place_scoped_trajectories'
+  obs=folder/'accepted_scoped_trajectory_projection.parquet';edge=folder/'accepted_scoped_continuity_links.parquet'
+  assert sha(obs)==receipt['outputs'][obs.name] and sha(edge)==receipt['outputs'][edge.name]
+  official_rows=pq.read_table(obs).to_pylist();links=pq.read_table(edge).to_pylist()
+  assert len(official_rows)==9 and len(links)==6
+  assert {(r['place'],int(r['census_year'])) for r in official_rows}=={(p,y) for p in receipt['places'] for y in [2002,2010,2021]}
+  assert all(r['decision_status']=='accepted_scoped_physical_trajectory_projection' and r['coordinate_admission_status'] in ACCEPTED_COORDINATE_STATUSES for r in official_rows)
+  assert all(r['applied_scoped_decision_status']=='accepted_scoped_physical_continuity' for r in links)
+  carrier_ids=sorted({r['current_2021_source_record_id'] for r in official_rows})
+  carriers={r[0]:(r[1],r[2]) for r in con.execute('select target_source_record_id,latitude,longitude from points where target_source_record_id in(select unnest(?))',[carrier_ids]).fetchall()};assert len(carriers)==3
+  for r in official_rows:
+   assert carriers[r['current_2021_source_record_id']]==(float(r['latitude']),float(r['longitude']))
+   if int(r['census_year'])==2021:assert all_source[r['source_record_id']]==int(r['population'])
+  official_exclusions=receipt['excluded_partition_source_record_ids'];assert len(official_exclusions)==2 and sum(all_source[s] for s in official_exclusions)==29533
+  additional_pins.extend([receiptpath,obs,edge])
+ secondary_rows=[]
+ if secondary_scope:
+  import pyarrow.parquet as pq
+  folder=Path(secondary_scope);receiptpath=folder/'application_receipt.json';receipt=json.loads(receiptpath.read_text())
+  assert receipt['status']=='applied_to_separate_immutable_secondary_supported_layer'
+  obs=folder/'scoped_trajectory_observations.parquet';edge=folder/'accepted_scoped_physical_continuity_edges.parquet'
+  assert sha(obs)==receipt['outputs'][obs.name] and sha(edge)==receipt['outputs'][edge.name]
+  secondary_rows=pq.read_table(obs).to_pylist();links=pq.read_table(edge).to_pylist()
+  assert len(secondary_rows)==6 and len(links)==4
+  assert {(r['subject_qid'],int(r['observation_year'])) for r in secondary_rows}=={(qid,y) for qid in {'Q196691','Q198388'} for y in [2002,2010,2021]}
+  assert all(r['decision_status']=='accepted_scoped_physical_continuity' and not r['population_scope_comparability_asserted'] for r in links)
+  observations_by_id={r['observation_id']:r for r in secondary_rows};assert len(observations_by_id)==6
+  for link in links:
+   a=observations_by_id[link['from_observation_id']];b=observations_by_id[link['to_observation_id']]
+   assert a['subject_qid']==b['subject_qid'] and (int(a['observation_year']),int(b['observation_year'])) in {(2002,2010),(2010,2021)}
+  oldids=[r['source_record_id'] for r in secondary_rows if int(r['observation_year'])!=2021]
+  oldpoints={r[0]:(r[1],r[2]) for r in con.execute('select target_source_record_id,latitude,longitude from points where target_source_record_id in(select unnest(?))',[oldids]).fetchall()};assert len(oldpoints)==4
+  for r in secondary_rows:
+   if int(r['observation_year'])==2021:
+    assert r['observation_source_class']=='secondary_dated_wikidata_P1082' and r['population_source_status']=='secondary_wikidata_claim_only'
+    assert not r['national_2021_additive'] and not r['native_2021_binding'] and r['source_record_id'] is None and int(r['P585_precision'])==9
+    claim=json.loads(r['P1082_full_raw_statement_json']);assert claim['id']==r['statement_guid'] and int(claim['mainsnak']['datavalue']['value']['amount'])==int(r['population'])
+   else:
+    sid=r['source_record_id'];assert all_source[sid]==int(r['population']) and int(yrs[sid])==int(r['observation_year'])
+    assert oldpoints[sid]==(float(r['coordinate_latitude']),float(r['coordinate_longitude']))
+  additional_pins.extend([receiptpath,obs,edge])
+ typed_layers=[]
+ for scope in typed_scope or []:
+  import pyarrow.parquet as pq
+  folder=Path(scope);receiptpath=folder/'application_receipt.json';receipt=json.loads(receiptpath.read_text())
+  assert receipt['status']=='materialized_accepted_separate_scoped_layer'
+  obs=folder/'scoped_primary_observations.parquet';edge=folder/'accepted_typed_scope_edges.parquet';point=folder/'scoped_point_uses.parquet';loader=folder/'loader_schema.json'
+  for path in [obs,edge,point,loader]:assert sha(path)==receipt['outputs'][path.name]
+  old_hook=json.loads(loader.read_text())['old_2002_union_hook']
+  observations=pq.read_table(obs).to_pylist();links=pq.read_table(edge).to_pylist();uses=pq.read_table(point).to_pylist()
+  assert len(observations)==len(uses)==3 and len(links)==2
+  byyear={int(x['observation_year']):x for x in observations};assert set(byyear)=={2002,2010,2021}
+  assert len({x['wikidata_claim_subject_qid'] for x in observations})==1
+  assert all(x['source_status']=='official_primary_source_observation' and not x['national_additive'] and not x['ordinary_NP_same_grain_identity'] for x in observations)
+  obsids={x['observation_id'] for x in observations};assert {x['target_observation_id'] for x in uses}==obsids
+  assert all(x['decision_status']=='accepted_scoped_typed_physical_place_relation' and not x['population_comparability_asserted'] and not x['parent_population_transfer'] for x in links)
+  assert {(x['from_observation_id'],x['to_observation_id']) for x in links}=={(byyear[2002]['observation_id'],byyear[2010]['observation_id']),(byyear[2010]['observation_id'],byyear[2021]['observation_id'])}
+  for x in uses:
+   assert x['point_status']=='accepted_scoped_named_place_point_use' and -90<=float(x['latitude'])<=90 and -180<=float(x['longitude'])<=180
+   assert sha(Path(x['point_origin_file']))==x['point_origin_sha256']
+  old=byyear[2002];sid=old['source_record_id']
+  assert yrs[sid]==2002 and all_source[sid]==int(old['population']) and sid==old_hook['source_record_id'] and int(old['population'])==int(old_hook['old_primary_value'])
+  grain=con.execute('select settlement_type,population_scope,is_additive_settlement_record from sel where source_record_id=?',[sid]).fetchone();assert grain==('город','settlement',True)
+  assert all(byyear[y]['source_record_id'] is None for y in [2010,2021])
+  parents={}
+  for year,row in byyear.items():
+   matches=con.execute("select source_record_id,cast(population as bigint) from sel where census_year=? and settlement_name='Норильск' and population_scope='settlement' and is_additive_settlement_record=true",[year]).fetchall()
+   assert len(matches)==1 and matches[0][1]==int(row['nested_norilsk_city_population'])
+   parents[year]=matches[0][0]
+  typed_layers.append({'old':old,'parents':parents,'qid':old['wikidata_claim_subject_qid'],'folder':str(folder)})
+  additional_pins.extend([receiptpath,obs,edge,point,loader])
+ inclusion_layers=[]
+ for scope in inclusion_scope or []:
+  import csv,pyarrow.parquet as pq
+  folder=Path(scope);receiptpath=folder/'application_receipt.json';receipt=json.loads(receiptpath.read_text());assert receipt['status']=='materialized_accepted_separate_scoped_layer'
+  obs=folder/'scoped_primary_observations.parquet';edge=folder/'accepted_typed_scope_edges.parquet';point=folder/'scoped_point_uses.parquet';parents=folder/'current_parent_context_references.csv'
+  for path in [obs,edge,point,parents]:assert sha(path)==receipt['outputs'][path.name]
+  observations=pq.read_table(obs).to_pylist();links=pq.read_table(edge).to_pylist();uses=pq.read_table(point).to_pylist()
+  with parents.open(newline='') as f:contexts=list(csv.DictReader(f))
+  current=[x for x in contexts if x['context_role']=='current_receiving_city_parent_reference_only'];oldparents={int(x['year']):x for x in contexts if x['context_role']=='separate_selected_Krasnodar_city_source_row'}
+  assert len(current)==1 and int(current[0]['year'])==2021
+  parent=current[0];parentid=parent['source_record_id'];assert yrs[parentid]==2021 and all_source[parentid]==int(parent['population'])
+  for year,row in oldparents.items():assert yrs[row['source_record_id']]==year and all_source[row['source_record_id']]==int(row['population'])
+  assert len(observations)==len(links)==len(uses)==2
+  obsids={x['observation_id'] for x in observations};assert {x['from_observation_id'] for x in links}=={x['target_observation_id'] for x in uses}==obsids
+  assert all(x['to_observation_id']==parent['context_id'] and x['to_source_record_id'] is None and x['decision_status']=='accepted_secondary_reported_inclusion_scope' and not x['ordinary_NP_same_grain_identity'] and not x['population_comparability_asserted'] and not x['parent_population_transfer'] for x in links)
+  for x in observations:
+   sid=x['source_record_id'];year=int(x['observation_year']);assert year==2002 and yrs[sid]==year and all_source[sid]==int(x['population'])
+   assert x['source_status']=='official_primary_source_observation' and not x['national_additive'] and not x['ordinary_NP_same_grain_identity']
+   assert con.execute('select settlement_type,population_scope,is_additive_settlement_record from sel where source_record_id=?',[sid]).fetchone()==('пгт','settlement',True)
+  for x in uses:
+   assert x['point_status']=='accepted_scoped_named_place_point_use' and -90<=float(x['latitude'])<=90 and -180<=float(x['longitude'])<=180
+   assert sha(Path(x['point_origin_file']))==x['point_origin_sha256']
+  inclusion_layers.append({'observations':observations,'parentid':parentid,'oldparents':oldparents,'folder':str(folder)})
+  additional_pins.extend([receiptpath,obs,edge,point,parents])
+ reported_references=[]
+ for scope in reported_inclusion_reference_scope or []:
+  folder=Path(scope);receiptpath=folder/'application_receipt.json';receipt=json.loads(receiptpath.read_text())
+  assert receipt['status']=='applied_reviewed_secondary_reported_large_inclusion_references'
+  path=folder/'accepted_scoped_inclusion_references.json';point=folder/'accepted_scoped_point_uses.json'
+  assert sha(path)==receipt['outputs'][path.name] and sha(point)==receipt['outputs'][point.name]
+  group=json.loads(path.read_text());assert 0<len(group)==int(receipt['observation_references'])
+  assert len({x['source_record_id'] for x in group})==len(group)
+  for row in group:
+   sid=row['source_record_id'];assert yrs[sid]==int(row['year']) and all_source[sid]==int(row['population'])
+   assert row['status']=='secondary_reported_inclusion_context_only'
+   assert not row['population_additive'] and not row['ordinary_same_place_claim'] and not row['current_child_population_asserted']
+   p=row['point_row'];assert p['coordinate_admission_status'] in ACCEPTED_COORDINATE_STATUSES
+   assert p['target_source_record_id']==sid and -90<=float(p['latitude'])<=90 and -180<=float(p['longitude'])<=180
+   assert row['current_2021_receiver_source_record_id'] in npmap[2021], 'Receiving city must already have coordinates and a full trajectory'
+   assert all_source[row['current_2021_receiver_source_record_id']]==row['current_receiver_population_context_only']
+   assert con.execute("select population_scope,is_additive_settlement_record from sel where source_record_id=?",[sid]).fetchone()==('settlement',True)
+  reported_references.extend(group);additional_pins.extend([receiptpath,path,point])
+ assert len({x['source_record_id'] for x in reported_references})==len(reported_references)
+ partition_rows=[]
+ for scope in complete_partition_scope or []:
+  import pyarrow.parquet as pq
+  folder=Path(scope);receiptpath=folder/'application_receipt.json';receipt=json.loads(receiptpath.read_text())
+  assert receipt['status']=='applied_independently_reviewed_complete_numbered_partition_series'
+  path=folder/'accepted_complete_partition_observations.parquet';assert sha(path)==receipt['outputs'][path.name]
+  group=pq.read_table(path).to_pylist();assert len(group)==3 and {int(x['observation_year']) for x in group}=={2002,2010,2021}
+  assert len({x['subject_qid'] for x in group})==1 and len({(x['latitude'],x['longitude']) for x in group})==1
+  for row in group:
+   assert row['projection_status']=='accepted_complete_observed_numbered_partition_projection'
+   assert row['population_is_derived_sum'] and not row['modern_boundary_harmonized'] and not row['boundary_comparability_asserted']
+   assert not row['ordinary_NP_three_census_identity_asserted'] and not row['individual_part_coordinate_admission'] and not row['native_code_binding_asserted']
+   assert sha(Path(row['point_origin_file']))==row['point_origin_sha256']
+   ids=json.loads(row['component_source_record_ids_json']);assert all(yrs[sid]==int(row['observation_year']) for sid in ids)
+   assert set(ids)<=full, 'Each numbered part must already have its accepted temporal component'
+   assert len(con.execute("select source_record_id from sel where source_record_id in(select unnest(?)) and settlement_type='село' and is_additive_settlement_record and (population_scope is null or population_scope='settlement')",[ids]).fetchall())==2
+   union_complete_observed_partition({},row,all_source)
+  partition_rows.extend(group);additional_pins.extend([receiptpath,path])
+ combined_references=[];combined_layers=[]
+ for scope in combined_temporal_scope or []:
+  folder=Path(scope);receiptpath=folder/'application_receipt.json';receipt=json.loads(receiptpath.read_text())
+  assert receipt['status']=='applied_reviewed_combined_primary_secondary_temporal_scope'
+  assert receipt['old_secondary_population_nationally_added']==0 and not receipt['population_values_modified'] and not receipt['ordinary_primary_NP3_modified']
+  paths=[folder/name for name in receipt['outputs']]
+  for path in paths:assert sha(path)==receipt['outputs'][path.name]
+  trajectories=json.loads((folder/'accepted_scoped_trajectories.json').read_text());refs=json.loads((folder/'accepted_existing_primary_credit_references.json').read_text())
+  assert len(trajectories)==receipt['trajectories'] and len(refs)==receipt['credit_references']
+  bycurrent={r['current_source_record_id']:r for r in trajectories};assert len(bycurrent)==len(trajectories)
+  refids=[r['source_record_id'] for r in refs];assert len(refids)==len(set(refids))
+  refpoints={sid:(lat,lon,status) for sid,lat,lon,status in con.execute('select target_source_record_id,latitude,longitude,coordinate_admission_status from points where target_source_record_id in(select unnest(?))',[refids]).fetchall()}
+  for r in trajectories:
+   assert r['decision_status']=='accepted_scoped_primary_secondary_date_union' and not r['ordinary_primary_NP3'] and not r['boundary_comparability_asserted']
+   assert {2021}|{int(o['year']) for o in r['observations']}=={2002,2010,2021}
+   for o in r['observations']:
+    if o['source_class']=='secondary_dated_wikidata_P1082':assert o['source_record_id'] is None and not o['national_additive']
+    else:assert yrs[o['source_record_id']]==int(o['year']) and all_source[o['source_record_id']]==int(o['population'])
+  for r in refs:
+   sid=r['source_record_id'];assert yrs[sid]==int(r['year']) and all_source[sid]==int(r['population'])
+   assert r['current_source_record_id'] in bycurrent
+   use=refpoints.get(sid)
+   assert use and use[2] in ACCEPTED_COORDINATE_STATUSES and use[:2]==(r['coordinate_latitude'],r['coordinate_longitude'])
+  combined_references.extend(refs);combined_layers.append({'path':str(folder),'trajectories':len(trajectories),'credit_references':len(refs),'held_old_point_references':receipt['held_old_point_references']})
+  additional_pins.extend([receiptpath]+paths)
+ event_references=[];event_layers=[]
+ for folder in event_aware_selected_scope or []:
+  folder=Path(folder);rp=folder/'application_receipt.json';receipt=json.loads(rp.read_text())
+  assert receipt['status']=='applied_separate_event_aware_existing_selected_village_trajectory'
+  path=folder/'accepted_scoped_trajectory.json';assert sha(path)==receipt['outputs'][path.name]
+  layer=json.loads(path.read_text());obs=layer['observations'];assert len(obs)==3 and {int(r['year']) for r in obs}=={2002,2010,2021}
+  assert not receipt['ordinary_NP_graph_modified'] and not receipt['source_population_values_modified'] and not receipt['legacy_flags_modified']
+  pp={r['target_source_record_id']:r for r in layer['points']}
+  for row in obs:
+   sid=row['source_record_id'];assert yrs[sid]==int(row['year']) and all_source[sid]==int(row['population'])
+   assert row['decision_status']=='accepted_event_aware_physical_village_trajectory' and not row['ordinary_NP3'] and not row['boundary_comparability_asserted']
+   point=pp[sid];assert point['status']=='accepted_scoped_representative_point_use' and not point['historical_coordinate_measurement_asserted']
+   carrier=point['inference_from_accepted_current_source_record_id']
+   use=con.execute('select latitude,longitude,coordinate_admission_status from points where target_source_record_id=?',[carrier]).fetchall()
+   assert len(use)==1 and use[0][2] in ACCEPTED_COORDINATE_STATUSES and use[0][:2]==(point['latitude'],point['longitude'])
+  ordered=sorted(obs,key=lambda r:int(r['year']))
+  assert {(r['from_source_record_id'],r['to_source_record_id']) for r in layer['links']}=={(ordered[0]['source_record_id'],ordered[1]['source_record_id']),(ordered[1]['source_record_id'],ordered[2]['source_record_id'])}
+  event_references.extend(obs);event_layers.append(str(folder));additional_pins.extend([rp,path])
+ auxiliary_references=[];auxiliary_layers=[]
+ for folder in auxiliary_primary_temporal_scope or []:
+  folder=Path(folder);rp=folder/'application_receipt.json';receipt=json.loads(rp.read_text())
+  assert receipt['status']=='applied_scoped_primary_auxiliary_date_trajectories'
+  assert receipt['auxiliary_2010_population_nationally_added']==0 and not receipt['ordinary_graph_modified']
+  assert not receipt['source_population_values_modified'] and not receipt['ambiguous_selected_2010_counterparts_excluded']
+  path=folder/'accepted_trajectories.json';refpath=folder/'accepted_existing_primary_credit_references.json'
+  assert sha(path)==receipt['outputs'][path.name] and sha(refpath)==receipt['outputs'][refpath.name]
+  layer=json.loads(path.read_text());refs=json.loads(refpath.read_text())
+  assert len(layer['trajectories'])==receipt['trajectories'] and len(refs)==receipt['existing_primary_credit_references']
+  for trajectory in layer['trajectories']:
+   assert trajectory['status']=='accepted_scoped_primary_auxiliary_date_trajectory' and not trajectory['ordinary_primary_NP3'] and not trajectory['boundary_comparability_asserted']
+   aux=[o for o in trajectory['observations'] if int(o['year'])==2010];assert len(aux)==1
+   assert aux[0]['source_record_id'] not in yrs and not aux[0]['source_membership_in_selected_observations']
+  for row in refs:
+   sid=row['source_record_id'];assert int(row['year']) in (2002,2021) and yrs[sid]==int(row['year']) and all_source[sid]==int(row['population'])
+   p=row['point_carrier'];use=con.execute('select latitude,longitude,coordinate_admission_status from points where target_source_record_id=?',[sid]).fetchall()
+   assert len(use)==1 and use[0]==(p['latitude'],p['longitude'],p['status']) and p['status'] in ACCEPTED_COORDINATE_STATUSES
+  auxiliary_references.extend(refs);auxiliary_layers.append(str(folder));additional_pins.extend([rp,path,refpath])
+ # Accepted annual territorial edges provide real 2021->2022/23/24 paths for
+ # Sevastopol; do not pretend it appeared in Russian censuses2002 or2010.
+ annualpath=T/'accepted_annual_federal9_territorial_edges.csv';e=con.execute("select * from read_csv(?,all_varchar=true)",[str(annualpath)]).fetchdf();sev=[r for r in chains if r[0]=='Севастополь'];assert len(sev)==1;sevid=json.loads(sev[0][2])[0];assert len(e[e.from_observation_id==sevid])==3
+ covered_ids=set(); excluded_ids=set()
+ for y in npmap:
+  strict=npmap[y]|feds[y];scop=strict.copy();extra=[]
+  if y==2002:
+   excluded_ids.update(m['excluded_child_source_record_ids'])
+   removed={sid:scop.pop(sid) for sid in m['excluded_child_source_record_ids'] if sid in scop};scop[m['source_record_id']]=m['population'];extra.append({'kind':'exclusive_Moscow2002_published_parent_instead_of_all_children','removed_already_counted_population':sum(removed.values()),'parent_population':m['population']})
+  if y==2021:
+   for sid,pop in scoped:
+    if sid in scop:assert scop[sid]==pop
+    else:scop[sid]=pop
+   scop[sevid]=all_source[sevid];extra.append({'kind':'accepted_scope2014_to2021_crimea_NP_paths','rows':len(scoped),'population':sum(p for s,p in scoped)});extra.append({'kind':'accepted_Sevastopol2021_to2022_2023_2024_territorial_path','population':all_source[sevid]})
+   for sid,pop,known in supplement_rows:
+    if sid in scop:assert scop[sid]==pop
+    else:scop[sid]=pop
+   if supplement_rows:extra.append({'kind':'accepted_supplemental_2014_source_identity_and_point_paths','rows':len(supplement_rows),'current2021_population':sum(r[1] for r in supplement_rows),'known_numeric2014_observations':sum(r[2] for r in supplement_rows),'literal_dash2014_population_remains_unknown':sum(not r[2] for r in supplement_rows),'current2021_population_whose_2014_numeric_population_unknown':sum(r[1] for r in supplement_rows if not r[2])})
+  if official_rows:
+   before=sum(scop.values());scop,removed,new_exclusions,scoped_year=exclusive_official_source_projection(scop,y,official_rows,official_exclusions)
+   excluded_ids.update(new_exclusions)
+   extra.append({'kind':'accepted_exclusive_official_primary_three_place_trajectory_projection','places':len(scoped_year),'official_population':sum(int(r['population']) for r in scoped_year),'removed_already_counted_alias_counterpart_or_partition_population':sum(removed.values()),'net_joint_population_change':sum(scop.values())-before,'protected_alternates_remain_in_frozen_selection':True,'boundary_comparability_not_asserted':True})
+  before_secondary=sum(scop.values())
+  if secondary_rows:
+   scop=add_secondary_supported_old_rows(scop,y,secondary_rows)
+   extra.append({'kind':'accepted_physical_trajectories_with_secondary_2021_assertions','places':2,'old_primary_population_net_added':sum(scop.values())-before_secondary,'current_secondary_child_population_nationally_added':0,'current2021_population_source_status':'secondary_wikidata_claim_only','current2021_atomic_source_binding':False,'census_boundary_and_population_grain_comparability':'unknown'})
+  secondary_net_added=sum(scop.values())-before_secondary
+  for layer in typed_layers:
+   before=sum(scop.values());scop=add_typed_scope_old_city(scop,y,layer['old'],layer['parents'][y])
+   extra.append({'kind':'accepted_city_to_intracity_district_physical_trajectory','subject_qid':layer['qid'],'old_primary_existing_source_population_net_added':sum(scop.values())-before,'current_district_population_added':0,'ordinary_NP_three_census_chain':False,'boundary_and_population_grain_comparability':'unknown'})
+  inclusion_net_added=0
+  for layer in inclusion_layers:
+   before=sum(scop.values())
+   if y in layer['oldparents']:
+    for old in layer['observations']:
+     if int(old['observation_year'])==y:scop=add_typed_scope_old_city(scop,y,old,layer['oldparents'][y]['source_record_id'])
+   if y==2021:assert layer['parentid'] in scop
+   delta=sum(scop.values())-before;inclusion_net_added+=delta
+   extra.append({'kind':'secondary_reported_inclusion_spatial_paths','old_primary_population_net_added':delta,'current_receiving_parent_or_child_population_added':0,'legal_act_independently_verified':False,'current_child_population_observed':False,'ordinary_NP_three_census_chain':False,'boundary_and_population_grain_comparability':'unknown'})
+  if reported_references:
+   from research_rebuild.mass_linkage.load_reviewed_inclusion_scope_20261004 import apply_scoped_inclusion_reference
+   before=sum(scop.values())
+   for row in reported_references:
+    scop=apply_scoped_inclusion_reference(scop,y,row,represented_current_receivers=set(npmap[2021]))
+   delta=sum(scop.values())-before;inclusion_net_added+=delta
+   extra.append({'kind':'reviewed_secondary_reported_large_inclusion_references','old_primary_population_net_added':delta,'current_parent_or_child_population_added':0,'legal_acts_independently_verified':False,'ordinary_NP_three_census_chain':False,'modern_boundary_harmonized':False,'boundary_comparability':'unknown'})
+  for row in partition_rows:
+   if int(row['observation_year'])!=y:continue
+   before=sum(scop.values());scop=union_complete_observed_partition(scop,row,all_source)
+   extra.append({'kind':'accepted_complete_observed_numbered_partition_union','place':row['place'],'derived_population':int(row['population']),'net_joint_population_change':sum(scop.values())-before,'individual_part_points_admitted':False,'modern_boundary_harmonized':False,'population_boundary_comparability':'unknown','source_population_quality_preserved':True})
+  if combined_references:
+   before=sum(scop.values())
+   for row in combined_references:
+    if int(row['year'])!=y:continue
+    sid=row['source_record_id'];assert sid not in excluded_ids, 'Cannot count an excluded child alongside its territorial parent'
+    if sid in scop:assert scop[sid]==int(row['population'])
+    scop[sid]=int(row['population'])
+   delta=sum(scop.values())-before;secondary_net_added+=delta
+   extra.append({'kind':'reviewed_existing_primary_plus_referenced_secondary_date_union','existing_primary_population_net_added':delta,'secondary_population_nationally_added':0,'ordinary_primary_NP3':False,'population_boundary_comparability':'unknown'})
+  if event_references:
+   before=sum(scop.values())
+   for row in event_references:
+    if int(row['year'])!=y:continue
+    sid=row['source_record_id'];assert sid not in excluded_ids
+    if sid in scop:assert scop[sid]==int(row['population'])
+    scop[sid]=int(row['population'])
+   extra.append({'kind':'reviewed_separate_event_aware_selected_village_paths','existing_primary_population_net_added':sum(scop.values())-before,'ordinary_NP3':False,'legacy_flags_modified':False,'population_boundary_comparability':'unknown'})
+  if auxiliary_references:
+   before=sum(scop.values())
+   for row in auxiliary_references:
+    if int(row['year'])!=y:continue
+    sid=row['source_record_id'];assert sid not in excluded_ids
+    if sid in scop:assert scop[sid]==int(row['population'])
+    scop[sid]=int(row['population'])
+   extra.append({'kind':'reviewed_auxiliary_primary_2010_date_on_existing_2002_2021_place_path','existing_selected_population_net_added':sum(scop.values())-before,'auxiliary_2010_population_nationally_added':0,'ambiguous_selected_2010_counterparts_excluded':False,'ordinary_NP3':False,'boundary_comparability':'unknown'})
+  covered_ids.update(scop)
+  a=sum(strict.values());b=sum(scop.values());result[y]={'control_population':controls[y],'strict_NP_joint_population':sum(npmap[y].values()),'strict_NP_joint_rows':len(npmap[y]),'strict_with_existing_federal_typed_three_census_population':a,'strict_with_federal_percent':100*a/controls[y],'available_scope_joint_population':b,'available_scope_joint_percent':100*b/controls[y],'remaining_population_to_99':max(0,__import__('math').ceil(.99*controls[y])-b),'scope_adjustments':extra}
+  result[y]['available_scope_joint_without_secondary_supported_paths_population']=b-secondary_net_added
+  result[y]['available_scope_joint_without_secondary_supported_or_secondary_reported_relations_population']=b-secondary_net_added-inclusion_net_added
+  result[y]['remaining_population_to_target']=max(0,__import__('math').ceil(target_fraction*controls[y])-b)
+  result[y]['remaining_population_to_100']=max(0,controls[y]-b)
+ if residual_output:
+  dest=Path(residual_output);assert not dest.exists()
+  con.register('joint_covered_or_excluded_ids',pa.table({'sid':sorted(covered_ids|excluded_ids)}))
+  residual=con.execute("select s.source_record_id,s.census_year,s.settlement_name,s.settlement_type,s.region_norm,s.district_raw,s.population,s.population_value_quality,s.source_file,s.source_sheet,s.source_row,s.okato,s.oktmo,s.settlement_id,p.latitude accepted_latitude,p.longitude accepted_longitude,p.coordinate_admission_status,f.sid is not null accepted_full_three_census_chain,case when f.sid is null and p.latitude is null then 'identity_and_point' when f.sid is null then 'identity_path' else 'point' end missing_joint_axis from sel s left join full_ids f on s.source_record_id=f.sid left join points p on s.source_record_id=p.target_source_record_id left join joint_covered_or_excluded_ids j on s.source_record_id=j.sid where j.sid is null").fetch_arrow_table()
+  import pyarrow.parquet as pq
+  pq.write_table(residual,dest,compression='zstd')
+ r={'status':'accepted_graph_with_reviewed_point_and_scoped_increments_joint_measurement','target99_reached_each_year':all(x['remaining_population_to_99']==0 for x in result.values()),'results':result,'definition':'Ordinary accepted coordinate+full Russian3 chain; separate federal territorial chains; replace2002 Moscow childpartition by exactpublishedparent exclusively; Crimea actual2014->21 identity/presence paths (unknown numeric population remains unknown); Sevastopolactual2021->22/23/24 paths; optional reviewed exclusive official-source three-date trajectories preserve alternate values and flags. No invented oldRussianrecords. This scope-aware metric is separate from canonical strict3.','input_pins':{str(p):sha(p) for p in [SELECTED,graphpath,pointpath,graphreceipt,F,S,T/'application_receipt.json',T/'accepted_moscow2002_territorial_override.json',annualpath]+additional_pins},'script_sha256':sha(Path(__file__))}
+ r['current_user_goal_population_fraction']=target_fraction
+ r['target_reached_each_year']=all(x['remaining_population_to_target']==0 for x in result.values())
+ if partition_rows:
+  r['definition']+=' Independently reviewed complete numbered-part unions use one representative point for the whole locality across its actual observed dates. Member source populations are unioned exactly once; derived sums are not additional population. Individual part points, modern-boundary harmonization, source-value exactness for protected2010, and ordinary NP graph unions are not asserted.'
+  r['accepted_complete_partition_scope_layers']=[str(x) for x in complete_partition_scope]
+ if secondary_rows:
+  r['definition']+=' Two reviewed physical-place trajectories use actual primary old census rows and dated secondary Wikidata2021 assertions. Their old primary population is counted once; their current secondary child population is not added to the already represented Moscow territory. This proves spatial identity continuity, not comparable census boundaries or independently verified secondary population.'
+  r['secondary_supported_scope']={'places':['Троицк','Щербинка'],'current_population_quality':'secondary_wikidata_claim_only','current_atomic_source_binding':False,'current_secondary_population_added':0,'population_boundary_comparability':'unknown'}
+ if typed_layers:
+  r['definition']+=' Reviewed typed city-to-intracity-district physical trajectories union the existing additive2002 city row once. Later primary district observations remain auxiliary nonadditive children of the represented Norilsk city, with unknown boundary comparability and no ordinary NP three-census identity claim.'
+  r['typed_scope_layers']=[{'qid':x['qid'],'path':x['folder']} for x in typed_layers]
+ if inclusion_layers:
+  r['definition']+=' Two historical PGT source rows use independently reviewed secondary-reported inclusion paths into the represented Krasnodar city. Only the existing2002 primary settlement rows are unioned once; no current child population is observed or assigned, no parent population is transferred, and the cited legal act remains unverified. These secondary-reported event paths are reported separately from official primary scoped trajectories and ordinary NP3.'
+  r['secondary_reported_inclusion_scope_layers']=[x['folder'] for x in inclusion_layers]
+ if reported_references:
+  r['definition']+=' Additional reviewed historical inclusion references count existing old source populations once, conditional on separately represented old city-proper rows and current receiving cities. Historical named-place points are admitted only in this scoped sidecar; receiving-city population is neither transferred nor added. Secondary-reported transformation, exact legal date unknown, no modern-boundary reconstruction or ordinary NP3 claim.'
+  r['accepted_reported_inclusion_reference_scopes']=[str(x) for x in reported_inclusion_reference_scope]
+ if combined_layers:
+  r['definition']+=' Reviewed native-code physical-place bindings support primary/secondary date unions: only existing selected primary source IDs with accepted points count nationally once; secondary amounts stay nonadditive and retain source-verification limits. Ordinary primary NP3 and boundary equivalence are not asserted.'
+  r['accepted_combined_temporal_scope_layers']=combined_layers
+ if event_layers:
+  r['definition']+=' Separately reviewed event-aware village trajectories retain nonterminal historical inclusion flags and existing primary census rows; present-day representative points are retrospectively inferred. They do not assert ordinary NP3, unchanged census boundaries or exact legal event dates.'
+  r['accepted_event_aware_selected_scope_layers']=event_layers
+ if auxiliary_layers:
+  r['definition']+=' Independently bound auxiliary official2010 settlement observations supply a third primary observed date to existing accepted2002/2021 place paths. Only those existing selected endpoints with accepted points count nationally once; auxiliary2010 values remain nonadditive, unresolved selected2010 homonyms remain unbound, and no boundary harmonization or ordinary NP3 union is asserted.'
+  r['accepted_auxiliary_primary_temporal_scope_layers']=auxiliary_layers
+ if residual_output:r['residual_diagnostic']={'path':str(dest),'sha256':sha(dest),'rows':residual.num_rows}
+ O.write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n');print(json.dumps(result,ensure_ascii=False))
+if __name__=='__main__':
+ import argparse
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--points');p.add_argument('--supplemental');p.add_argument('--output');p.add_argument('--residual-output');p.add_argument('--graph');p.add_argument('--official-scope');p.add_argument('--secondary-scope');p.add_argument('--typed-scope',action='append');p.add_argument('--inclusion-scope',action='append');p.add_argument('--target-fraction',type=float,default=.99);p.add_argument('--complete-partition-scope',action='append');p.add_argument('--reported-inclusion-reference-scope',action='append');p.add_argument('--combined-temporal-scope',action='append');p.add_argument('--event-aware-selected-scope',action='append');p.add_argument('--auxiliary-primary-temporal-scope',action='append');a=p.parse_args();run(a.points,a.supplemental,a.output,a.residual_output,a.graph,a.official_scope,a.secondary_scope,a.typed_scope,a.inclusion_scope,a.target_fraction,a.complete_partition_scope,a.reported_inclusion_reference_scope,a.combined_temporal_scope,a.event_aware_selected_scope,a.auxiliary_primary_temporal_scope)

@@ -1,0 +1,13 @@
+# Large native2010 residual, actual46 follow-up
+
+`apply.py` replays the consolidated accepted edge and point deltas from frozen actual46, verifies exact source/output hashes, reproduces ordinary and finite three-census coverage, and asserts protected population, quality, names and types unchanged. Root owns integration; no shared loader, release, report or Git edits were made.
+
+Fourteen native histories are complete. The ordinary/finite population additions relative to actual46 are 44,033 (2002), 44,941 (2010), and 43,710 (2021). These are ordinary graph marginal gains; a mixed qualified/scoped source-ID credit union must deduplicate any previously qualified old/current IDs before claiming mixed gains.
+
+Evidence separates native raw row witnesses, all regional same-name rivals before graph filtering, source county bindings and accepted own physical point origins. County caption mappings retain the literal native labels: Kirov/Kirov district, Pavlovsky Posad/Pavlovo-Posadsky district, Stupino/Stupinsky district and Chekhov/Chekhovsky district. Source rows at county-block edges additionally use named neighbouring accepted native census anchors and the independently bound native old/current own-NP component. Printed name aliases include Kolpny/Kolpna, Erkin/Erken Shahkar and Yurt, Stary Urukh/Khatuyei and Staromelovaya/Staraya Melovaya. Population agreement is not the admission rule, and the sharp Vypolzovo growth is retained literally.
+
+No historical census-date coordinate, boundary comparability, interpolated count, invented missing year, modern-boundary subtotal, new zero, or municipal aggregate substitution is asserted. Existing own current physical points are reused through an explicit continuity inference; original point origins and hashes remain in the delta.
+
+The separate qualified review expanded the four exact own population templates in one bounded Wikipedia API request with normal TLS. Only Khatuyei prints a 2002 census-referenced cell, and its native selected Stary Urukh 2002 row already allows an ordinary upgrade. Metlino and Novoye have only 2010/2021, and Energetik starts at 2007. Therefore the qualified accepted ledgers are intentionally empty, with zero extra 2002 credit. The secondary publisher's reference citations are not asserted to be independently verified primary references.
+
+Indistinguishable same-county homonyms, occupied census components, absent native years and insufficient physical point bindings remain in `application_holds.csv`. Existing qualified/scoped targets and the separately assigned newly admitted discovery cohorts were excluded from duplicate discovery.

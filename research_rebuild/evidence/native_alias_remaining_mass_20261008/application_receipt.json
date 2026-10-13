@@ -1,0 +1,186 @@
+{
+  "baseline_stage": 27,
+  "status": "Ready for parent review and loader integration; in-memory State API replay passed",
+  "cases": 3,
+  "edges": 6,
+  "point_uses": 4,
+  "before": {
+    "2002": {
+      "denominator_selected_ordinary_population": 130111032,
+      "covered_population": 126405286,
+      "coverage_percent": 97.1518587293966,
+      "covered_rows": 137124,
+      "residual_rows": 20942,
+      "gap_to_99_percent": 2404636
+    },
+    "2010": {
+      "denominator_selected_ordinary_population": 125979957,
+      "covered_population": 123582214,
+      "coverage_percent": 98.09672660866204,
+      "covered_rows": 137127,
+      "residual_rows": 15185,
+      "gap_to_99_percent": 1137944
+    },
+    "2021": {
+      "denominator_selected_ordinary_population": 126087650,
+      "covered_population": 124172049,
+      "coverage_percent": 98.48073859731703,
+      "covered_rows": 137126,
+      "residual_rows": 17266,
+      "gap_to_99_percent": 654725
+    }
+  },
+  "after": {
+    "2002": {
+      "denominator_selected_ordinary_population": 130111032,
+      "covered_population": 126429854,
+      "coverage_percent": 97.17074106367859,
+      "covered_rows": 137127,
+      "residual_rows": 20939,
+      "gap_to_99_percent": 2380068
+    },
+    "2010": {
+      "denominator_selected_ordinary_population": 125979957,
+      "covered_population": 123605305,
+      "coverage_percent": 98.11505571477532,
+      "covered_rows": 137130,
+      "residual_rows": 15182,
+      "gap_to_99_percent": 1114853
+    },
+    "2021": {
+      "denominator_selected_ordinary_population": 126087650,
+      "covered_population": 124194398,
+      "coverage_percent": 98.4984635687952,
+      "covered_rows": 137129,
+      "residual_rows": 17263,
+      "gap_to_99_percent": 632376
+    }
+  },
+  "before_finite_all3_all_points": {
+    "histories": 137122,
+    "populations_by_year": {
+      "2002": 126405054,
+      "2010": 123579575,
+      "2021": 124170113
+    }
+  },
+  "after_finite_all3_all_points": {
+    "histories": 137125,
+    "populations_by_year": {
+      "2002": 126429622,
+      "2010": 123602666,
+      "2021": 124192462
+    }
+  },
+  "net_finite_all3_all_points": {
+    "histories": 3,
+    "populations_by_year": {
+      "2002": 24568,
+      "2010": 23091,
+      "2021": 22349
+    }
+  },
+  "input_pins": {
+    "/workspace/settlements-raw/data/raw/historical_classifiers/okato_142_2009/dump-142_2009.sql": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "/workspace/settlements-raw/data/raw/2010/008_342f3c208b_16._20Сиб_ФО_2010.xls": "960feadeb50c27be2d8a2084112349fb0c22ae608929716bcafed5a140c84d0e",
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "/workspace/settlements-work/coordinates/historical_named_candidates_v4/all_historical_named_objects.parquet": "e2e6a2401050f88199db65f8a26afe410b4a47c3fb9b0e694f7ce7dccd878186"
+  },
+  "output_pins": {
+    "accepted_identity_edge_delta.csv": "203969c46393796aaa5d4ea3b8f6e0d1604b9bc28710b498f564829fa79c7c3a",
+    "accepted_point_use_delta.csv": "6fd93ca69b447e303d9201779675d4e3ba64df4c0b175df85e94e5109c799f12",
+    "actual_raw_source_bindings.csv": "da96ba30ef4b2976fefb7b46e874dc931496d8f63a641ab3de5bcd605da0c105",
+    "all_same_name_point_competitors.csv": "9c7e9f3504917cccc3df686cd6026a204a7c7e574e79c486d020987d7bb83566",
+    "urban_type_bound_triplets.csv": "29e4abdef4e86f94772694f0c764405df55492ee06204061d5723907880beaa3",
+    "urban_type_historical_candidates.csv": "1a6b93c933849663518307d21152d3feae0370ca8aa683ec6cac63fa355ccae8",
+    "podgorny_primary2010_p178.txt": "6fbb36140693d2e3084cd0d697691e7b9355ce350adc244c42d33d46e2002ef0",
+    "own_classifier_raw_rows.json": "080019fb8185798d18604cb0f1ab2cd7311b942081a547e10edd053427e5f99a",
+    "sibirsky_raw_dbf_2011.json": "f7fdd681b0d8888eafe1aa7aaa372f232cdfef3a1db2191e3ca3f4b2baffa4ee"
+  },
+  "population_and_quality_unchanged": true,
+  "Sibirsky_2010_secondary11306_vs_protected8786": "Explicit selected-source quality difference, not corrected or treated as identity requirement; native rawSib1626 is final standalone own subject-level settlement, separate from Barnaul block and rural Первомайский homonym.",
+  "historical_own_points_to_current_point_km": {
+    "нагорный": 0.6647960462936384,
+    "подгорный": 0.35177861839741736
+  },
+  "baseline_correction": {
+    "reason": "Preparation ran before loader27 integration; load(27) then replayed actual26. Pinned source proofs, accepted edges and points unchanged. Corrected receipt uses actual integrated27 and the same accepted3 CSVs.",
+    "previous_mislabeled_before": {
+      "2002": {
+        "denominator_selected_ordinary_population": 130111032,
+        "covered_population": 126338619,
+        "coverage_percent": 97.10062018415164,
+        "covered_rows": 137110,
+        "residual_rows": 20956,
+        "gap_to_99_percent": 2471303
+      },
+      "2010": {
+        "denominator_selected_ordinary_population": 125979957,
+        "covered_population": 123519385,
+        "coverage_percent": 98.04685438970264,
+        "covered_rows": 137113,
+        "residual_rows": 15199,
+        "gap_to_99_percent": 1200773
+      },
+      "2021": {
+        "denominator_selected_ordinary_population": 126087650,
+        "covered_population": 124114889,
+        "coverage_percent": 98.43540505354807,
+        "covered_rows": 137112,
+        "residual_rows": 17280,
+        "gap_to_99_percent": 711885
+      }
+    },
+    "previous_mislabeled_after": {
+      "2002": {
+        "denominator_selected_ordinary_population": 130111032,
+        "covered_population": 126363187,
+        "coverage_percent": 97.11950251843363,
+        "covered_rows": 137113,
+        "residual_rows": 20953,
+        "gap_to_99_percent": 2446735
+      },
+      "2010": {
+        "denominator_selected_ordinary_population": 125979957,
+        "covered_population": 123542476,
+        "coverage_percent": 98.06518349581593,
+        "covered_rows": 137116,
+        "residual_rows": 15196,
+        "gap_to_99_percent": 1177682
+      },
+      "2021": {
+        "denominator_selected_ordinary_population": 126087650,
+        "covered_population": 124137238,
+        "coverage_percent": 98.45313002502624,
+        "covered_rows": 137115,
+        "residual_rows": 17277,
+        "gap_to_99_percent": 689536
+      }
+    },
+    "previous_before_finite": {
+      "histories": 137108,
+      "populations_by_year": {
+        "2002": 126338387,
+        "2010": 123516746,
+        "2021": 124112953
+      }
+    },
+    "previous_after_finite": {
+      "histories": 137111,
+      "populations_by_year": {
+        "2002": 126362955,
+        "2010": 123539837,
+        "2021": 124135302
+      }
+    },
+    "exact_before_covered_population_difference": {
+      "2002": 66667,
+      "2010": 62829,
+      "2021": 57160
+    },
+    "source_and_output_pins_unchanged": true
+  }
+}

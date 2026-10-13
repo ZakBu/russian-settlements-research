@@ -1,0 +1,44 @@
+{
+  "status": "candidate_primary_claims_not_applied_review_pending",
+  "ready_rows": 3066,
+  "delta": 14217,
+  "old_population_sum": 627148,
+  "official_population_sum": 641365,
+  "credited_rows": 2964,
+  "credited_delta": 13554,
+  "by_region": {
+    "пермский": {
+      "rows": 2605,
+      "delta": 9905,
+      "old_population": 416145,
+      "primary_population": 426050
+    },
+    "приморский": {
+      "rows": 461,
+      "delta": 4312,
+      "old_population": 211003,
+      "primary_population": 215315
+    }
+  },
+  "holds": {
+    "full_regional_literal_typed_competition_not_unique": 852,
+    "literal_primary_population_NULL": 175,
+    "raw_literal_propertype_name_not_verified": 2
+  },
+  "input_pins": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application66_20261008/applied_state_observations.parquet": "2e0f1171a227950c6c20ed2b9f77e903b6340fca99ba35ce13d5347199a9a95e",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application66_20261008/applied_primary_credited_UID_roster.csv.gz": "66bae9302059bebddbd7fb48c383a9411314201f424d53bfca57571fe816d4e6",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next_overlay_application66_20261008/normalized_cumulative_claims.csv.gz": "1718a75bb20012803277368b5afeae5061fbc70e235513d78828dce91b6a8aaf",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next67_primary_source_routes/parsed_primary_2010_NP_inventory.csv.gz": "7615b244441d621229f26ce1cb4ea939ad7c19ad7816c18d0f5e1b4021e1d7e3",
+    "/workspace/settlements-raw/data/raw/2010/009_81f8a0e73c_17._20ДВ_ФО_2010.xls": "a8fd7aa55513e73a205ebff1da2ce35fd8ca0f61c286e54491cf49c6132470c4",
+    "/workspace/settlements-raw/data/raw/2010/016_802d308e41_8._20Or_Penz_Perm_Samar_Saratov_Uly_2010.xls": "754aae620807b1275e59fc7bf8ce086ca91e7ec863d4d304f5a0a8b228a8d990"
+  },
+  "excluded_prior_claims": 1961,
+  "output_pins": {
+    "ready_primary2010_regional_claims.csv.gz": "c62ecf6f8b23088c79c230e79a3600062f2c6b7a0025378f25fa30c2b133378c",
+    "primary2010_binding_holds.csv.gz": "949881ce0a890a323a35bf62975add13539388a7eb81e25820912d02e4d2559b",
+    "fixed10_primary_claim_review.csv": "4b9a425812f78305b8cd7731dcf88cbe93dcf127f6b40625bcd01ee5f30c3dae"
+  },
+  "fixed_sample_method": "deterministic top5 positive delta + top3 negative delta + smallest2 primary counts, deduplicated; no population identity matching"
+}

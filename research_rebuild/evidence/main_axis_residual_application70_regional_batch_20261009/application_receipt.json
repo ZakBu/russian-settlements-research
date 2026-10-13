@@ -1,0 +1,1608 @@
+{
+  "working_stage": "70_regional_batch_increment",
+  "status": "actual_State_API_applied",
+  "new_identity_edges": 29,
+  "new_point_uses": 25,
+  "new_primary_UIDs": 60,
+  "effective_population_gain": {
+    "2002": 46394,
+    "2010": 41427,
+    "2021": 29004
+  },
+  "effective_primary_coverage": {
+    "2002": {
+      "population": 144300675,
+      "control": 145166731,
+      "coverage_percent": 99.40340600491996,
+      "remaining": 866056
+    },
+    "2010": {
+      "population": 141920538,
+      "control": 142856536,
+      "coverage_percent": 99.34479861670452,
+      "remaining": 935998
+    },
+    "2021": {
+      "population": 144141724,
+      "control": 144699673,
+      "coverage_percent": 99.61440894202988,
+      "remaining": 557949
+    }
+  },
+  "remaining_over1000_source_year_records": 269,
+  "remaining_by_year": {
+    "2002": 120,
+    "2010": 89,
+    "2021": 60
+  },
+  "raw_population_unchanged": true,
+  "absent_years_not_zero": true,
+  "source_packet_erratum": "Gavrilkovo false counterpart history credit withdrawn for original Dmitrov2002=2 and2021=1; corrected Krasnogorsk identity accepted",
+  "input_pins": {
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/application_receipt.json": {
+      "sha256": "81a10fdcd3e947f9d8ee26399e6fda7fdd79d3891948a3eb11e59928b9dbf407",
+      "bytes": 43567
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_state_observations.parquet": {
+      "sha256": "8cde620020634cf5ac9cfff145cc88c4d7365474cff56194b8a7137a43f6e0b9",
+      "bytes": 12774906
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_component_snapshot.csv.gz": {
+      "sha256": "2787384874ab5f56c6cf392e8c5aa13dffa7c48443f6051826ead655a2c49230",
+      "bytes": 2734494
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_point_snapshot.parquet": {
+      "sha256": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502",
+      "bytes": 19713572
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_primary_credited_UID_roster.csv.gz": {
+      "sha256": "0a678e8f5572ff49bdd37632ff477741edc386d3245778dee0959e7d8624242a",
+      "bytes": 18792771
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_lifecycle_points_20261009/version2/source_pins.json": {
+      "sha256": "8614639be656fe022cccdec7bdbd8f27ce9355d18b99c98a4029adddb5637636",
+      "bytes": 7118
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_remaining_primary.csv.gz": {
+      "sha256": "de48168b15bd3989263048ca7ea73b26b5708743f16f8e9e6e8301a63d6df76b",
+      "bytes": 1444072
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/working_full_chain_20261007/coverage_receipt.json": {
+      "sha256": "8f9dc4cffbc970e14b7dd1a5e4699085f721e0facd72bf373e8b8615b4ba23b2",
+      "bytes": 1531467
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/working_full_chain_20261007/input_hash_manifest.json": {
+      "sha256": "9306d0cc6bedab7285a97774d1f5645d7f8c27dc3864d61b2860930bba0df2c7",
+      "bytes": 612467
+    },
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": {
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    "/workspace/settlements-work/coordinate_first_20261008/sources/osm_geoapify_ru.zip": {
+      "sha256": "3a7ffefa2f12c70b8adbf2e98f4a694110ba2dc2fb8180653dd0581d7d4734dc",
+      "bytes": 19883410
+    },
+    "/workspace/settlements-raw/data/raw/2002/026_0eca405331_02c_Novgorodskaja.xls": {
+      "sha256": "11b59be33d0faa6784af84762bfc3d977626e667cae2dc1be342c2cea103db04",
+      "bytes": 643072
+    },
+    "/workspace/settlements-raw/data/raw/2002/027_25f0f7433c_02c_Pskovskaja.xls": {
+      "sha256": "af2a2f8811df411ac66dafab372b0140c4376c88d49c2aba9431423f77feab19",
+      "bytes": 1174528
+    },
+    "/workspace/settlements-raw/data/raw/2010/001_723371ec84_1._20NW_2010.xls": {
+      "sha256": "03569e7513579700cb0216869ecbe16712e0fe684f0340517f11484612fab382",
+      "bytes": 9754624
+    },
+    "/workspace/settlements-raw/data/raw/2010/012_5c339c0d0e_4._20Vologod_pskov_2010.xls": {
+      "sha256": "8f86eaaf6c47fb0d13ce5af84aaba3f1f937ba639e73e436e502c0d453ad28f2",
+      "bytes": 7793664
+    },
+    "/workspace/settlements-raw/data/raw/2002/008_d607cc2b0d_02c_Kurskaja.xls": {
+      "sha256": "a36a2d3c17fb0b7cab8bebc5e8eccc0312b2ba24851f4cbe16aaaf4fe55c3588",
+      "bytes": 616448
+    },
+    "/workspace/settlements-raw/data/raw/2002/017_6374fdddeb_02c_Yaroslavskaja.xls": {
+      "sha256": "aebea7023a930ba1a2734427b4454c322fb21cf62891483b501431c25de448dd",
+      "bytes": 966144
+    },
+    "/workspace/settlements-raw/data/raw/2002/011_f46bbaadfd_02c_Orlovskaja.xls": {
+      "sha256": "62db545028449664bc22fae08d95e9478a4eb3c9b79ba8ae35e4f8606bb578d0",
+      "bytes": 604160
+    },
+    "/workspace/settlements-raw/data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls": {
+      "sha256": "cf5b5d57327bf0d32723a7f49bb58db503a201af83a6e2bda4b874986f864167",
+      "bytes": 12517888
+    },
+    "/workspace/settlements-raw/data/raw/2002/002_d4cda9574f_02c_Bryanskaja.xls": {
+      "sha256": "24eb3ca1675c288dfc595bfabeeaa5d9053257b3dd6ee701a2c99d2d93b1958e",
+      "bytes": 588800
+    },
+    "/workspace/settlements-raw/data/raw/2010/013_f60b2d2bcf_5._20Belg_Bryan_Vlad_Voron_Ivanov_Kalug_20L1_ethn_2010.xls": {
+      "sha256": "52a7cd38f32d03b79c20b256dfd4019e49a0f7a4bab9d96abc57cbf16e2b90ac",
+      "bytes": 9111040
+    },
+    "/workspace/settlements-raw/data/raw/2002/012_c6dde723e8_02c_Ryazanskaja.xls": {
+      "sha256": "8013a96ab3a29691400bf041aa6938b751b4057052e31e22dd8322b228950efc",
+      "bytes": 609280
+    },
+    "/workspace/settlements-raw/data/raw/2002/016_3aa889d669_02c_Tulskaja.xls": {
+      "sha256": "d252915e50ff311f4d695e1a2f8a38da624c6b34774dc799418cf3f8d487a59f",
+      "bytes": 667648
+    },
+    "/workspace/settlements-raw/data/raw/2002/053_f7f2b62d26_Samarskaja_new.xls": {
+      "sha256": "aec3c2eb441ef3e9fee87e63f6ca3d56457e2fa94331f7a1240f1b54130d85d4",
+      "bytes": 372736
+    },
+    "/workspace/settlements-raw/data/raw/2010/011_040325482b_3._20Ryaz_Smol_Tambov_Tula_Jaroslavl_20L1_20ethn_2010.xls": {
+      "sha256": "a3c69e68dfa35bfb0964a15f0f46b258500fab3e61ff3271ef9584e055d6efca",
+      "bytes": 9839104
+    },
+    "/workspace/settlements-raw/data/raw/2010/016_802d308e41_8._20Or_Penz_Perm_Samar_Saratov_Uly_2010.xls": {
+      "sha256": "754aae620807b1275e59fc7bf8ce086ca91e7ec863d4d304f5a0a8b228a8d990",
+      "bytes": 10336768
+    },
+    "/workspace/settlements-raw/data/raw/2002/049_8bbd34a852_Orenburgskaja1.xls": {
+      "sha256": "49b0d7ca121aac2ede9540f55c9b6e1cc252c9bba4b055e3dc7935720a5994a8",
+      "bytes": 510976
+    },
+    "/workspace/settlements-raw/data/raw/2002/006_1916564aaa_02c_Kaluzhskaja.xls": {
+      "sha256": "1905de841b770b36eeecd4a1284edf8f541d0e6be7feb8d538a3ef1f327eb194",
+      "bytes": 638976
+    },
+    "/workspace/settlements-raw/data/raw/2002/001_6e5cceefdf_02c_Belgorod-obl.xls": {
+      "sha256": "4476e8d4e971681b5bafaa4e9f2f9adab0a44041736b06b66afe1b81210ed127",
+      "bytes": 442880
+    },
+    "/workspace/settlements-raw/data/raw/2002/005_14871cc62a_02c_Ivanovskaja.xls": {
+      "sha256": "7558c25096c1da4947c6a155d2ab4368186c5ddb920a28b5260acc983f81e13f",
+      "bytes": 589824
+    },
+    "/workspace/settlements-raw/data/raw/2010/017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls": {
+      "sha256": "0ad9f5527c60819aa6e298bc78c5a19e7d3b09ad7f541064a8d922595854177a",
+      "bytes": 10935808
+    },
+    "/workspace/settlements-raw/data/raw/2002/034_e4218f10b9_02c_N.Osetia.xls": {
+      "sha256": "3fcd7bd8e7efc8283e4842f51afdb6f2c21534a470632b008f9cdbea5f870757",
+      "bytes": 172032
+    },
+    "/workspace/settlements-raw/data/raw/2010/002_027be52979_10._20СевКаз_ФО_20(без_20Даг)_202010.xls": {
+      "sha256": "b27bfc884f38aeebd62e49036bb549bc53e447e978a0db2265654c280a77f69c",
+      "bytes": 2388992
+    },
+    "/workspace/settlements-raw/data/raw/2002/044_42b3ed3cfc_Tataria.xls": {
+      "sha256": "2e32dc06bab6bdaaab5586be61f9716cb0b9fbf27cfa5ee426b372fc6d5ecdb9",
+      "bytes": 722944
+    },
+    "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0135.jsonl.gz": {
+      "sha256": "d914db54f8a44b45d380b6822fed22f5a3f6da59ef074da58e2060c1c1b20bb7",
+      "bytes": 112101
+    },
+    "/workspace/settlements-raw/data/raw/2002/020_e4f979c6c7_02c_Arxang-new.xls": {
+      "sha256": "e647c6b02c6bd995581be7f699347e61b5d8c3794d769f99714b0414f119e30a",
+      "bytes": 663552
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_temporal_20261009/source_pins.json": {
+      "sha256": "f7c57fd42ea25790f5b64904c894ca9d11ff05e7dd4cad28e31a00a9af539ac2",
+      "bytes": 1260
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/packet_receipt.json": {
+      "sha256": "95f61a540664361a8f046fd4f64a7a8f1732fed602ad4cb04cde431e965a55ff",
+      "bytes": 3470
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/live_exact_semkhoz_kerva.json.gz": {
+      "sha256": "3546470adafe4a529d66e23266ba31b3b8885de0deff05874636e3d8ad5e71c2",
+      "bytes": 3686
+    },
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": {
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "bytes": 1819648
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/accepted_included_in_event_edges.csv": {
+      "sha256": "f16782e0a30f76ad7746441006e270f757624432c17ae5ed7e87e2351d2f5113",
+      "bytes": 1020
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/bounded_actual68_event_holds.csv": {
+      "sha256": "0796539d6006ccd011e1aa479ee8d4492f58e0e25a6cb4c5d50f814465b019e5",
+      "bytes": 42043
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/actual_receiving_city_three_census_context.csv": {
+      "sha256": "43ec7e4b93d995628cb2d0c714af60a0455dbc53728fed8178eda93b4af89300",
+      "bytes": 2094
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/accepted_available_year_statuses.csv": {
+      "sha256": "ca45347f905cb3d17514ab8fec72d2766a84e171544299e0a2ff930ed977974d",
+      "bytes": 864
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/literal_cached_positive_keyword_holds.csv": {
+      "sha256": "ff6cc03cdaae40d08623c7e66768f961e55540f4769e895a3ad7e480bb532520",
+      "bytes": 5339
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/accepted_former_locality_own_points.csv": {
+      "sha256": "78de76c22a7f30b4f53c3a5cd72df09f7a36a2b91b28479bb668c76676a4d36e",
+      "bytes": 1938
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/accepted_historical_observations.csv": {
+      "sha256": "2a04b3bb97c8a953ccf529337faf18f1b8c3854eff695fc2ea9432ac69ea57b1",
+      "bytes": 1129
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/native_raw_row_witnesses.csv": {
+      "sha256": "bf0b42466aaad74a1b9c68c03438ff2323b75a483bea00572b5ccb40027c3b6f",
+      "bytes": 784
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/accepted_direct_event_native_credit_union.csv": {
+      "sha256": "faf8fc77acd0399253e9704b28b104c3a8eb1915a9b13714f2c8b5ddd2dcd2ee",
+      "bytes": 458
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/accepted_inclusion_events.csv": {
+      "sha256": "df4ebbdaa64cbf405a008247a5dc9baf3fb9e997e20767bd117bbf068f70c6c3",
+      "bytes": 1346
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_event_mass_20261009/literal_own_inclusion_source_excerpts.csv": {
+      "sha256": "0e9d48ff8d4c7c373363ec9c44e8056781219078ef9ba782fc38cd4d9f27143e",
+      "bytes": 2725
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next69_independent_check_20261009/review_receipt_v2.json": {
+      "sha256": "bee9ddcf86efad6a62c76fa23409137937a38cef8b39167c0967f83d0dee6ba1",
+      "bytes": 21315
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application69_20261009/accepted_identity_edge_delta.csv.gz": {
+      "sha256": "060635633c210ebd7446b95c7a57a57102a27b4c4ae4f075b83e35c2af077c73",
+      "bytes": 641
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application69_20261009/accepted_point_use_delta.csv.gz": {
+      "sha256": "5c4788290ddbeea2658e1f17425f8284ba336f17b9770b8677d2b93fa0ac84c9",
+      "bytes": 30365
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application70_tula_20261009/accepted_identity_edge_delta.csv": {
+      "sha256": "44122edd33ea32c6a1c0565b3faa2bb676376c3f915cfeb91dc5c66f97543cc4",
+      "bytes": 13100
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application70_tula_20261009/accepted_point_use_delta.csv": {
+      "sha256": "cea194e7300cfa6ffb71d6f4ebaef82ceed08ed741afdc3648327d1f0c1eb16a",
+      "bytes": 14246
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/application_receipt.json": {
+      "sha256": "2ee1cc11d0e4f491804a925d620653f1b8a40ea7ba515c104aba152f82057926",
+      "bytes": 2991
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/literal_native_source_rows.csv.gz": {
+      "sha256": "c7ed6a9827517f89bcc99133b68af8c6f4242beacde8a922d320ed7e83e51f1c",
+      "bytes": 65104
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/reviewed_identity_edge_rejection.csv": {
+      "sha256": "5c88de5d39d4f7b3d25d3b282c74b314c64f4da4354e9d5aeb8dbf44c7dee3e8",
+      "bytes": 1122
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/literal_native_source_support_rows.csv.gz": {
+      "sha256": "e5b0f7ad218faf1d086c03e3bd8bdb827502857ced965581414c47a75e6108cc",
+      "bytes": 120565
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/wiki_articles_03.json": {
+      "sha256": "8c9c1708d6499c852bd38c951ecd3486f08e05fd16e3a8585876efd30a49f561",
+      "bytes": 72544
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/all58_UID_disposition.csv": {
+      "sha256": "3d9d9fb26cfdd5ce84fcee47465d87b7876da95b2e5af502927e6b4dc9cf1a7c",
+      "bytes": 31870
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/wiki_articles_02.json": {
+      "sha256": "8ebffbeadfd95e0d214e5076d0cb96a70f7b3e66fcc885e4432ff54041263cc3",
+      "bytes": 45519
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/all58_actual68_residual_membership.csv": {
+      "sha256": "8b1608016742c4edf183985db98c122abe1cd17d92115c62fdaa79dd13b5dfc1",
+      "bytes": 26271
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/wiki_own_entity_yamansu.json": {
+      "sha256": "24e22d496cf22e74bfe2dbf25821daff22cbbbdd05220a5fe87f288e4ef86663",
+      "bytes": 36688
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/all_native_name_type_county_rivals.csv.gz": {
+      "sha256": "f28a94d6f1f18711868e5441f05283bfe7157072b8d80cf6c311b09d1d3e0157",
+      "bytes": 17539
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/identity_source_witnesses.csv.gz": {
+      "sha256": "7ab4155e61202cb006bd2f85ed3049a880eb3cd4cb58970c2d5be79519c31f79",
+      "bytes": 68081
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/wiki_followup_00.json": {
+      "sha256": "d52c0eb2cd7331832326506524b691be90d4039003bf5df4399285fb1921eadc",
+      "bytes": 58391
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/events_and_seal.py": {
+      "sha256": "06b5da8f10d4ba3f8f9cc803a501ced4906b1bb3b2b3bf706a4256c105d80e3e",
+      "bytes": 9698
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/new_Duchi_actual_available_year_event.csv": {
+      "sha256": "e10e2c3a901fa6fef6242325249fbc0ce281eb5a2de8830de28330231f20f3cd",
+      "bytes": 879
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/verification_receipt.json": {
+      "sha256": "d2c7693d3cc4fede9b8876b75cb65be726a8874109a4282235760dbb26a5c405",
+      "bytes": 3833
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/point_use_rejections.csv.gz": {
+      "sha256": "2dca8a7f9be5fecd9b074311fe47251628fdc352acba9b9c60bb1b32ca7abfa7",
+      "bytes": 2742
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/wiki_final_source_contexts.json": {
+      "sha256": "7d21324e22dfa445e2852cce214c44ce6937e05f5b6cb410f29e0a0de64d676d",
+      "bytes": 51902
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/own_Geo2011_name_rivals_raw.json": {
+      "sha256": "500dd297e93037c70db0c745c74afe83cec47f53f66c44bfb0d488114486b9eb",
+      "bytes": 41566
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/wiki_own_entities_00.json": {
+      "sha256": "b98d0f1d4c7fa63142f27131947a2191c80b286785d8a8f068a97a99ea8e008a",
+      "bytes": 645249
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/accepted_former_locality_own_points.csv": {
+      "sha256": "37ae93c8751def5ed013ceff57af729e9aacf2aa33afba0294823130cbee23bd",
+      "bytes": 2637
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/wiki_articles_01.json": {
+      "sha256": "ba658a89c0227cc6ccc65dafa9a824347c7cfbb654b6e41fa26c3b84517703e1",
+      "bytes": 51927
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/wiki_own_entities_01.json": {
+      "sha256": "18d370d31efaa5bc1a5b539135708a20439a1ca863d9536710c08b70b9486356",
+      "bytes": 87498
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/wiki_page_inventory.csv": {
+      "sha256": "7a693f079ae9488e82bd19862d684a0d8c850a64101c817d30d2ed1c9f8b975c",
+      "bytes": 2795
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/accepted_historical_observations.csv": {
+      "sha256": "a4547cef9e3034509ce5d2a098f0ee679a0cb6501c43cb13d7724e04ababd97e",
+      "bytes": 1578
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/finalize.py": {
+      "sha256": "74e9e159203edf448b1ec08e476fdf99c8f544923da993e5f0e55da1556af88b",
+      "bytes": 20272
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/accepted_direct_event_native_credit_union.csv": {
+      "sha256": "cb82097127488e31d825f6c2741da9f8ae6aaf5f9ea5fce8bf48f639f3cc8812",
+      "bytes": 637
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/accepted_point_use_delta.csv.gz": {
+      "sha256": "fe1f7bb8421826b891a5e24efd87820f248f6e0d7d5e3ae3bd1b398ad4e84a76",
+      "bytes": 6233
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/group_holds.csv": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/accepted_identity_edge_delta.csv.gz": {
+      "sha256": "bc75baad1907f68dab40ade0a79fa1e315da492ae13ad085a5e4200f1fb836f3",
+      "bytes": 3182
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/accepted_inclusion_events.csv": {
+      "sha256": "db1f4f1b694d9296134a5c10e0e6f5832fce33fe5958a9bf3d01a23754272b4c",
+      "bytes": 1751
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/manifest.json": {
+      "sha256": "00904b041ba8a785491674718acfb62a3925cc7dc195b9aaff1ee594e2a4f20b",
+      "bytes": 5801
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/wiki_followup_01.json": {
+      "sha256": "226d0ee41d398edd1756e59b0c9601e48140eaa2a455d4e3b087d61794f320b8",
+      "bytes": 23715
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/receiver_actual68_native_context.csv": {
+      "sha256": "ce06d03ddded64b0b1a8bde3ea1078723ed49408b4ccb82ebd7ecfa1070f97dd",
+      "bytes": 106628
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/literal_own_inclusion_source_excerpts.csv": {
+      "sha256": "88aef57319074b10e1a0b39aeae5c766447d1fc86faf4468ac0e5bb143822ed9",
+      "bytes": 11974
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/literal_current_raw_binding_rows.json": {
+      "sha256": "f13338c3a47c50b1871b81f618189cbb284a0f426a7fcb0aa3561bae8edb15ed",
+      "bytes": 239455
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/wiki_articles_00.json": {
+      "sha256": "4f551c17cce4f561ccfb2920789998a5ec9ad4946990ac0dd8e85d9992abfed6",
+      "bytes": 83120
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/projected_incremental_native_finite_UID.csv.gz": {
+      "sha256": "3b3c33ad3cba7a9d5853ca020b786abee4f15a1425b9d2980644ffcc6ee08673",
+      "bytes": 1065
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/probe.py": {
+      "sha256": "908e25f784cae5c907fb8e93979cb0e6d7219452f3a0fcac28e373a32443edd4",
+      "bytes": 5306
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/wiki_followup_exact_02.json": {
+      "sha256": "ad84def4d396ad8100e9ebae4f2ff67d4749e0e41b34ab1fbc59c67e818b4009",
+      "bytes": 46654
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_identity_edges.parquet": {
+      "sha256": "1cc307f2855d15c7503dd226a278c49bdab72f178f5e2564c5e20fa4195a7d1a",
+      "bytes": 30857418
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/manifest.json": {
+      "sha256": "abae97e78e25db7113dc50a2b7d061f7a80bab52db44f9b4a3a64d21166d3af3",
+      "bytes": 4543
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/accepted_actual_available_year_observations.csv.gz": {
+      "sha256": "8396807f28501b979ea431e3a6e27d803c32dbb6c399b028eb94a9341ed54c31",
+      "bytes": 4105
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/accepted_actual_available_year_scopes.csv": {
+      "sha256": "b4ffcb3b99b163bc013729b2e241acb151bd750343871489154ad9e54128b890",
+      "bytes": 11676
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/accepted_direct_event_native_credit_union.csv": {
+      "sha256": "eb1441d20706a20ddff81c623b3d6df987aaacf48e123e5759f5ba4936b893fc",
+      "bytes": 413
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/accepted_former_locality_own_points.csv": {
+      "sha256": "c339cbc69fab0b285729d89b6a49abdee6e1ba9f04cadec79b64c9269cb9a5d5",
+      "bytes": 1513
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/accepted_historical_observations.csv": {
+      "sha256": "fa08b175ee45fd94ee771a19d3bf666bc5300ec61a479dfb4faf89e632385277",
+      "bytes": 700
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/accepted_identity_edge_delta.csv.gz": {
+      "sha256": "4f7f4fe385b907202d0a947ce6c0346e7c58096ae1ca9a39c17a40d36e888081",
+      "bytes": 808
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/accepted_inclusion_events.csv": {
+      "sha256": "7722603abe57fd5410fce3455725977b6acf0b294bb98a345af47b87f87ebcce",
+      "bytes": 738
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/accepted_point_use_delta.csv.gz": {
+      "sha256": "6e8861c0d1e500cf17a3ba3aba7ba8bd7220427fe626973b4bee1f399acba278",
+      "bytes": 3379
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/all2002_selected_Rostov_native_typed_rivals.csv.gz": {
+      "sha256": "66a4c7ced735a04048df7ab8bb7532d064638abbcaa9642382d08aef4f046c0a",
+      "bytes": 56252
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/all9_UID_disposition.csv": {
+      "sha256": "9408ab517d1d69bdbd1223b319108c3d5ad54c5dd63257098a7817df808ba7c5",
+      "bytes": 8727
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/application_receipt.json": {
+      "sha256": "5e67ec76d88944efa9b163efd27a455224505ccf3ff3d83954907c84502fed16",
+      "bytes": 2127
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/assemble.py": {
+      "sha256": "5222e22c06f1a3fc1ad2407fd94fbba8e32649ac5a530efe70a93796dc07b28a",
+      "bytes": 17575
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/bing_formerNP_exact.html": {
+      "sha256": "a54965c7c23d12dda418cff23b5f33244fe089d7fbbb7ac88665c8256a08184f",
+      "bytes": 125407
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/full2002_actual_county_source_rows.csv.gz": {
+      "sha256": "46b730a47e6e076cb5f153d363716d80e1cd47a218b959bce72223c020e92a39",
+      "bytes": 3150
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/full2002_source_publication_name_alias_scan.csv": {
+      "sha256": "f2d4fe72377fddc163d032e18ec29b94f0a95de84071ced2b4dda4a88ecfba79",
+      "bytes": 4819
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/geonames_exact_held_rivals.json": {
+      "sha256": "2976d15d718ecd63f798e936bf36eca002eebad0a1739b825420cdac08648b69",
+      "bytes": 15369
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/literal_current_provider_binding_rows.json": {
+      "sha256": "9259c9c3928af328635541008a075f8b3368d30cdf3cd9b0c43ccd7e43e33899",
+      "bytes": 3489
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/literal_source_flank_identity_witnesses.csv.gz": {
+      "sha256": "239462d5283308c43c80c3bcbcc62a3051bac731c337a106951afd520c3a4a71",
+      "bytes": 10256
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/literal_web_query_0.html": {
+      "sha256": "7a5d55f50f44e4bdb60e5c57e2a448f926a9b210d651b278489021054eaea1a6",
+      "bytes": 93518
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/literal_web_query_1.html": {
+      "sha256": "c52415e97e7474d8815e125eaf38e1980f1441bb7f23c38c927155c2c4ffcf51",
+      "bytes": 93052
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/own_exact_alias_articles.json": {
+      "sha256": "868e7a5eb071842e7d47246325dc716a14caa2e76c44890eb0bb6321e777236a",
+      "bytes": 11249
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/own_held_articles.json": {
+      "sha256": "9143761c0ee7bc16074cfcff9d67aa19b0a6ef358d253be61ec67c2b9ffef2fd",
+      "bytes": 27467
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/own_resolved_entities.json": {
+      "sha256": "d16c612003d75181e0882ccde81f12b7f7890e1bc045336ee423098a16671ec5",
+      "bytes": 38309
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/projected_incremental_native_finite_UID.csv": {
+      "sha256": "3251f9ba38ef6e6d42c0dd78453ff778accf07231d51580e98b15c37bc1bc6a9",
+      "bytes": 840
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/receiving_Mechetinskaya_actual68_context.csv": {
+      "sha256": "e9922f949442fc8ddc87725513aeb78d7d8da2912aa16ce416dfba440073bb2a",
+      "bytes": 1711
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/source_flank_positive_identity_rules.csv": {
+      "sha256": "7b77f56d8eb59a89150ce95bb451380c6f94f1b057d9ccf08979803377853eeb",
+      "bytes": 28625
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/source_method_attempts.csv": {
+      "sha256": "27cffd46e927434133281ccbbbe985cd55eb89a252a65e52b0dfac4aef5c6c75",
+      "bytes": 1163
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/verification_receipt.json": {
+      "sha256": "ad4e321ee332278697618564973e5ad04b97ad12761093cbf18aa2e11e0db374",
+      "bytes": 1162
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/version2/zverevo_secondary_city_history.html": {
+      "sha256": "20db6abf66087b00b1c1eb356cd12060be8a3f7c48e62100d84b904affb5e4d3",
+      "bytes": 26566
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/freeze_manifest.json": {
+      "sha256": "f53e272f7ff3b0e2587d06f8ce618f5658580b4e7a57707d37201769b2461c10",
+      "bytes": 4965
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/README.md": {
+      "sha256": "45bb908e787351b6dbc0b6917b07d4b5a9474eacd20835cbce0c31f8a9c54af1",
+      "bytes": 10696
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/accepted_identity_edge_delta.csv": {
+      "sha256": "c9dd2cf3ef61ccb8bddcd3cceaf453f392b323bd04e8341922e4dcb1447d23fc",
+      "bytes": 22363
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/accepted_point_use_delta.csv": {
+      "sha256": "a4afdfac4df543a338ef0dbc6f42aa90a54f0f2a13ff6c6be55c33b4d149f6d6",
+      "bytes": 17820
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/accepted_typed_lifecycle_event_delta.csv": {
+      "sha256": "e5a3bb84a8cd81b480d8bbad5debfd3f547d03ee85999be9e7bfda8487b8f7f4",
+      "bytes": 6924
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/available_year_paths.csv": {
+      "sha256": "fb3dbe7a65ddb01ec56bec5c622abe8c24f48f4691e2ad8f8294f8e5bd6f04a6",
+      "bytes": 22101
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/preexisting_point_article_corroboration.csv": {
+      "sha256": "16ec2f2c923de0f28d9ee9ee8bfdecceb5fb6fbed16b557781efe125f93ee94b",
+      "bytes": 4772
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/primary_year_credit_ledger.csv": {
+      "sha256": "6b053e4a02b7b78318aaca5c1991b41b11c980f99ce33721a9b134da31b4a56b",
+      "bytes": 54757
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/source_witnesses.csv": {
+      "sha256": "e148fd1116ece0c082ea3a187d58cb62a925ceb214419118bbe6e8a21f6ebebb",
+      "bytes": 53456
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/targeted_bash_holds_article_pages.json.gz": {
+      "sha256": "72c3186dd13a4f65e613ccf71a2b12fded1545c607e9e3bb6185c91e6f389e2d",
+      "bytes": 7108
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/targeted_itkulovo_article.json.gz": {
+      "sha256": "e483b7c29928e9842fb8fcbead26daf27956ff3c7b99276cf49aca7671320874",
+      "bytes": 2746
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/targeted_malinovka_article.json.gz": {
+      "sha256": "b70ee1c86cd0430f48324ec699b759f1e6d4b6d46d6bcfd8670bd22ef5226dff",
+      "bytes": 5159
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/targeted_nikolaevka_zeysky_article.json.gz": {
+      "sha256": "a6b174d25dca4fc6247cdf9a7cda71b6bb5c8072faa9fe34115412c683cbd833",
+      "bytes": 2541
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/targeted_primary_article_pages.json.gz": {
+      "sha256": "8c4d8bba0982baaced4110483c4ca3516371294be592caeefe14f0ab05125219",
+      "bytes": 2358
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/targeted_region_search_result.json.gz": {
+      "sha256": "936df5ec906b6e340330fc348b923d735db099f92dd1c3824c9369b1036e5e2f",
+      "bytes": 936
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/targeted_sadovoe_article.json.gz": {
+      "sha256": "069c94a9504be1050306f34d3a56175a2014b6a227ef8404a669ab05f73d55a2",
+      "bytes": 2007
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/targeted_subkhankulovo_2008_gov_resolution_mirror.html": {
+      "sha256": "4dceaec538b533d94f935ce5e65c145596e7728354764140a8a1ecab907912ad",
+      "bytes": 27215
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/targeted_subkhankulovo_2008_gov_resolution_mirror.json": {
+      "sha256": "fdf512b31d9d8a4561f8338d97e5c565a55932f3dfd985c0ad2964034517466d",
+      "bytes": 1137
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/targeted_yangantau_article.json.gz": {
+      "sha256": "c7f7806680035cb453ab73ada220dfecba5baf7f900004d031e0c5ca7c4452aa",
+      "bytes": 3270
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/targeted_yangelskoe_article.json.gz": {
+      "sha256": "ec10997255f13cd6acdfdb238837d6cbe729ff3df5ac0fd873db6d05fe00ee2c",
+      "bytes": 3144
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_bash_amur_20261009/version3/uid_dispositions_v3.csv": {
+      "sha256": "a6bc5c49e15cd07c047bc3daf984c87f80d8cebb9e20c3ac188e63b30307ff44",
+      "bytes": 17139
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/FINAL_manifest.json": {
+      "sha256": "04d4ade301315ac8c62ab055696598e9876dbd07e9ac95218915e99af0432b2a",
+      "bytes": 13627
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/accepted_included_in_event_edges.csv": {
+      "sha256": "0a5839b5d45ee2659c409fafc1a1552be4db90577a90b0395da84b7015f74b3f",
+      "bytes": 2327
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/all_native_identity_rivals.csv.gz": {
+      "sha256": "9e7a645808d436100bdde2855835933bff96f8b39789df1ba3660c1dce81076c",
+      "bytes": 5437
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/build_gavrilkovo_repair.py": {
+      "sha256": "6cada1ba3906747f078c8a4a17b8117d16576049aa6810d3a88fde6b0a92624a",
+      "bytes": 5399
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_batch6.py": {
+      "sha256": "f1e53317ce939f19b5ad564ed220fdf3b2f89d9d2817bd90ee41755717f93859",
+      "bytes": 1703
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/all79_final_record_dispositions.csv": {
+      "sha256": "4cd4abd05439c4a56138785be90e51e5ec177cc8396f3635336196c73c135b9f",
+      "bytes": 58297
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/accepted_newly_formed_lifecycle_events.csv": {
+      "sha256": "6f331f0df2187780db74c869ce6b681ee0df50795f249566f9e8a5df83f27a5e",
+      "bytes": 6475
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_own_entities.py": {
+      "sha256": "83c73bafcfada68c2f88aaef54e7ccec64dfb110880f4e4ea507b63309acd1b7",
+      "bytes": 2064
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/moscow_ownpoint_snapshot68.csv.gz": {
+      "sha256": "6da66ddd555fc3edf90568f9bddb0eb88f2c446e6bcf01c1288e6e7269fbf4c2",
+      "bytes": 527822
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_batch5_receipt.json": {
+      "sha256": "9da7da3d15a7a2bd6f39012767648d370c258d7a6045c1f971f0b056f372f987",
+      "bytes": 10948
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/ordinary_proposed_new_primary_UIDs.csv.gz": {
+      "sha256": "7e4deb0afb83ffb133af4d37a10592df6a5b8e4716bf5236deabcf3e64dd65b6",
+      "bytes": 3538
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/accepted_identity_edge_rejection_delta.csv": {
+      "sha256": "9ba057f396736aa6869990bfb0545860d089f2a3ee3352a87b127c74ffadae32",
+      "bytes": 1811
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/network_search_throttle_note.json": {
+      "sha256": "5cff865a9d4e521cb73b07a6eeac6604519fba9eae71aefc53e9973c345fb0bb",
+      "bytes": 205
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/replay_inventory.py": {
+      "sha256": "dfd4f00938b6a931f32db5a671b094678dbfe05bc34f880e5b5a8c761cddde0f",
+      "bytes": 2346
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/own_historical_geo_keyword_records.csv": {
+      "sha256": "2cd1910505f2fa0277b359dddd9a8c192007b59aacf4bad0b8ebb5e65f8113e4",
+      "bytes": 1827
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/accepted_point_rejection_delta.csv": {
+      "sha256": "ad9a974ad6e74a9d507269da292d4771508a08714da4e3847ff6759962b95010",
+      "bytes": 5153
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/Grishenki_two_native_rivals_source_proof.json": {
+      "sha256": "aae2c3120f91f5bb48fc28f656e5df2ac9e67508b1f4e5e0b1c47e377034bcb6",
+      "bytes": 8678
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/actual_receiving_city_three_census_context.csv": {
+      "sha256": "3dcdda5c535f7c904456d326513dd633a46ed8d44952a49504aba84b432a3660",
+      "bytes": 5116
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/independent_source_county_anchors.csv.gz": {
+      "sha256": "d0cd414c93504974668a58a1d87115dbf18745b77b35d6274591c306318629c2",
+      "bytes": 1618
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_batch2_receipt.json": {
+      "sha256": "f8d1dfb12aaf90e09033be5eff02aef5c4bbef2a993d76d10025bc8cbd632195",
+      "bytes": 7637
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/moscow_native_all_years_stage68.csv.gz": {
+      "sha256": "65bfd3e521b76842bd48dbe989949890f65deb9329db98e90d03ceea187fbcc9",
+      "bytes": 522355
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_batch4_receipt.json": {
+      "sha256": "ba681940bf40ebc99eba2702332f78d8a9d3d283eff1acb8ead83b761acd3bb4",
+      "bytes": 9843
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/accepted_available_year_statuses.csv": {
+      "sha256": "f16974df39889a2c3ae1e1940f9c3a8555cae3e46d5b3c74ed41e497f088b9b7",
+      "bytes": 2358
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/build_events.py": {
+      "sha256": "40d45ca0e33fde8d2786e862ac6ff7e3b9c5660edc26bdca3e8932d39056d730",
+      "bytes": 9113
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/build_birth_statuses.py": {
+      "sha256": "e5669a698798185aeec230d5f9c2f42ba3f992f3cdc8b0b6338324ec64145f70",
+      "bytes": 5849
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_batch5.py": {
+      "sha256": "6bd1bad48722ffd1df033615ecc5867d4492d7f07d2da89cb0ecd06f24eeab82",
+      "bytes": 2887
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_batch1_receipt.json": {
+      "sha256": "9807f9f3c272313283ff36d5c07be06b748133e425ebbc6ac2dc86291d098551",
+      "bytes": 20015
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/Gavrilkovo_split_literal_source_proof.json": {
+      "sha256": "a18be2c6ce8c1e230f262a58f6b6a9158a4c287e0b3dce7e06cf4ab4b867c62a",
+      "bytes": 4134
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/FINAL_manifest.sha256": {
+      "sha256": "4f0ce74add95895dd582f010e005aa2a1bfcedebc1c3f2264d164887833b60d3",
+      "bytes": 86
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/build_grishenki_disambiguation.py": {
+      "sha256": "f7681c2dbdc02905f00f613457fbcd50f289f97797af6db56fe69aebdff62db2",
+      "bytes": 7727
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/assigned79_native_UIDs.csv": {
+      "sha256": "57be1ef4ecf258252ac820dfc91248fa3d81937fbbd944943b322d80a22f9a9d",
+      "bytes": 38884
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/FINAL_packet_receipt.json": {
+      "sha256": "4e1d48afc799a9fa5a91709100eaad6320f56ef49e46084b1937f689f750ab6d",
+      "bytes": 1559
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/event_native_raw_row_witnesses.csv": {
+      "sha256": "3cd2d852c4494e85abd1a730b5c32d3cb45466ea1ecdd5a44ebbd8f8bf045a44",
+      "bytes": 1971
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/ordinary_replay_receipt.json": {
+      "sha256": "82969c9dc1cfaf37dde5d9527929289af6e685030b11df39e6a22e1f2dc1b87c",
+      "bytes": 397
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_batch3_receipt.json": {
+      "sha256": "ff1c0423ff11c64c190e11de2f2a8aa979dacca2d2c94667a01a13904d97e0b8",
+      "bytes": 10313
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_batch7.py": {
+      "sha256": "d0ca5b9468d10ca25682c9005ca7a9752e2d99df20b33eae54bd4e105f04f266",
+      "bytes": 1550
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_batch2.py": {
+      "sha256": "73c67fd276f4603ece04e08d087dc471ee014598b55b32957e78925bcc4f931e",
+      "bytes": 2028
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/search_titles.py": {
+      "sha256": "862a73af9c7b23093bd78ef9175f6fa8ad2a4e12985206a338622115d79387d0",
+      "bytes": 1575
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/conditional_after_rejection_correct_identity_edges.csv": {
+      "sha256": "377c780b3e3c37a49dc6b8774ed9c9c796d83026f981de52e164cb2ff955a4df",
+      "bytes": 630
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_batch3.py": {
+      "sha256": "db4ebf95a774699e468214cf3728939f056bb97cc83b363299dcc1fe120c9ec3",
+      "bytes": 2312
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/conditional_after_rejection_correct_point_uses.csv": {
+      "sha256": "50524718fde0af4c790e90cd163b9c5878fab638084a3241f037faf7885ab172",
+      "bytes": 1052
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/selected_2002_ownnamed_absence_witnesses.csv": {
+      "sha256": "e385adccd94527d8a66ecf0f7675ae40082af8825dc57e681059f84bbeb89f41",
+      "bytes": 2660
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/own_wikipedia_batch6.json.gz": {
+      "sha256": "a14dc981361bf183ef10e839b1e05d6483641908f8c7efdffdb644fc649ebe91",
+      "bytes": 9114
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/accepted_newly_formed_available_year_statuses.csv": {
+      "sha256": "960c48a8a60e91ab3665ac6b8d90a0281c612343ea71dfbd6e60f5f9374a0800",
+      "bytes": 1328
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/accepted_newly_formed_native_observations.csv": {
+      "sha256": "d9a18257e420138604f599b17cbebc33ea81f323a5a4bd9575ecd02254bf1074",
+      "bytes": 4165
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/Gavrilkovo_existing_edge_claims.csv": {
+      "sha256": "e16107401ad8c4a7f9ba746c14cd00d2c3b5091fbceca696ff049bd19660c002",
+      "bytes": 2383
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/cached_target_own_pages.json.gz": {
+      "sha256": "6525eefcff0c683aaa07d976013c816ad7acdba606035210bea0c20b62b38fce",
+      "bytes": 8645
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/extend_ordinary.py": {
+      "sha256": "4481b919c2f8cf90f299b72e08a2ec3d22ddf33b3de619f98f1f5439cc562f3e",
+      "bytes": 9400
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/accepted_former_locality_own_points.csv": {
+      "sha256": "c8f3de61da69e8655c0176f8fc41efc8aaeccd4ab7d0df9e7f4cbb7a46bcce41",
+      "bytes": 4706
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/inventory.py": {
+      "sha256": "b256420b7497243b0b1fa9fc8ce35ce82a2f6c87c6173fba4adebf501e4ff532",
+      "bytes": 2187
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/explicit_rival_disambiguation_inventory.csv.gz": {
+      "sha256": "c415c93d8952cb559cdee96ee1b4e98cb1b783a20e24f7e97602fac3b40f6f28",
+      "bytes": 828
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/native2010_independent_county_anchor_inventory.csv.gz": {
+      "sha256": "a29d05ca9ec46d43fa0724f34d1c9ad989d4764d85d4a2298c5b8051df6f8145",
+      "bytes": 153090
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/raw2011_geo_all_ownname_candidates.csv": {
+      "sha256": "a1793a7a096837acbaa33438fbe0544307364a2eb66a08265d252ee517357340",
+      "bytes": 7852
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/accepted_newly_formed_native_credit_union.csv": {
+      "sha256": "9a36acbc38829c27a1cf546c8c242e852bd8a55f1730b6133d0a92d44d448bee",
+      "bytes": 1272
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/append_two.py": {
+      "sha256": "aa3a0182faa3c230bd265c112519da8bcee3c32f729dc489dd2443dfca4d82f5",
+      "bytes": 4255
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/own_wikipedia_batch5.json.gz": {
+      "sha256": "b970d2502196460169c44329df3fc2901521a84fdb5cf4844dfb31f7c6f3baf3",
+      "bytes": 34426
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/prior_own_classifier_context_holds.csv": {
+      "sha256": "341e5005185e92503684d8a29fcad38d7adf8a4ee5fe088896023c3882626c4b",
+      "bytes": 24413
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/accepted_historical_observations.csv": {
+      "sha256": "f4ead5ddc8ca66bfe5d0de9f0e275f527710efe423a5098efb8249b2fc6e2e03",
+      "bytes": 2350
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/scan_raw_geo.py": {
+      "sha256": "c0ce1ff609e30fd3da2c1432a788a23918486fd19be0f99176c637e9ab49c702",
+      "bytes": 1496
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/accepted_direct_event_native_credit_union.csv": {
+      "sha256": "d1c248087213d1e8ad510c6b12d995c574b79e58d06302fa0320eb53196eb11b",
+      "bytes": 869
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/ordinary_component_collision_holds.csv": {
+      "sha256": "e574a328c2182ecbf45a137fe6c2bfd640cda286d77bf0ba203669c57590b98c",
+      "bytes": 323
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/accepted_inclusion_events.csv": {
+      "sha256": "495f153f1467116fedf42162cab96f92a66255487af4b7797c0e4529c7059846",
+      "bytes": 3158
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/literal_own_inclusion_source_excerpts.csv": {
+      "sha256": "437a8eb69963b32ef87a36033178d13e9ec17bdfee84ccb86b5680a793f81b5e",
+      "bytes": 8492
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/native_raw_row_witnesses.csv.gz": {
+      "sha256": "11bb04caf04cfb4f6e7b1ce0303fcc65838ba49a81f1384165174f42972fa2ac",
+      "bytes": 1640
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_batch7_receipt.json": {
+      "sha256": "933a7c7f9ba93cbd44a20f306db64f2e81a3048fe4553fb300f696502bf71597",
+      "bytes": 3163
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/own_wikipedia_batch2.json.gz": {
+      "sha256": "14548a6851cd9313cb2ec562ca9655f24d177b8f2eb64279b6c6eb7c3680d3d5",
+      "bytes": 52685
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/own_wikipedia_batch7.json.gz": {
+      "sha256": "9b647ba2a268c41732ea090ca5c7192278698409217a55f2517b16904ce65580",
+      "bytes": 7439
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/per_record_working_dispositions.csv": {
+      "sha256": "ebf4ccf77dbfbc05dc36f8b7f404d1cb8127928f16310f234124a73b951968b1",
+      "bytes": 45734
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/native_all_with_independent_county.csv.gz": {
+      "sha256": "039d4138d0ed903e3beb9ea1ad91ca49e06abdef06da0ac4da7dea9eb48411e1",
+      "bytes": 533338
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/own_wikipedia_batch3.json.gz": {
+      "sha256": "8d5a221ef3692ca1dd4141ef50e0342ec0ed104883a5e8b9fc237d3a38a89099",
+      "bytes": 230848
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_batch.py": {
+      "sha256": "df3086c5e5fb49ebca00a5e40aee5cda0f1693a2feafc4fdfbd0e8cbec5c11c1",
+      "bytes": 3679
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/accepted_point_use_delta.csv": {
+      "sha256": "259ebf6e1d20a98c987eed9bc81bb3dc957ee4016b1a7c83bc1a9e63c54ecb2b",
+      "bytes": 38331
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/own_wikidata_entity_claims.json.gz": {
+      "sha256": "eeb69c2704ca17476790eae45747d42c3f1329732ce71de6964384344c81eef9",
+      "bytes": 14616
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/own_entities_fetch_receipt.json": {
+      "sha256": "597f2ca1081ff07204219d9aca0cb5b31c9b1b4573d06c6b3106c7b4db0493e6",
+      "bytes": 540
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/prepare_ordinary.py": {
+      "sha256": "ecae6029286fa4537c998aa5fac52fd5ebacc604f30a0cc3e5215bf67c55d3d6",
+      "bytes": 5291
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_batch4.py": {
+      "sha256": "eb550f4dade9f1c70f83d4891da649393a5419c207d60ca4bbeff71b86f0eec0",
+      "bytes": 2417
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/literal_ordinary_lifecycle_bridges.csv": {
+      "sha256": "77d7db6665ef79dd65306a58613137c52c8617b1b38dbf63d51f6854c1ad23a8",
+      "bytes": 40236
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/own_wikipedia_batch1.json.gz": {
+      "sha256": "79e1c58c7c106d29e83c25f1e621781bfdc370646958965dce4827d610cdd74e",
+      "bytes": 87079
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/fetch_batch6_receipt.json": {
+      "sha256": "5cd6a8e262eb2e75790ce9124da0c4797a969e90a99e10472417e8db48d3e9b1",
+      "bytes": 4543
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/accepted_identity_edge_delta.csv": {
+      "sha256": "52caaf208a622b928429f547c2b96ae2e15c84e240eeea67a1d2a93cd506919b",
+      "bytes": 21071
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/own_wikipedia_batch4.json.gz": {
+      "sha256": "ee8af78170cab2f7cc8c7fbf5e721b6cfd2ff299510da404f6074449b9e2156d",
+      "bytes": 33151
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_20261009/finalize_packet.py": {
+      "sha256": "4523f379f3cd05b4dc71e8f69e9bb93f78c4dbc96c005760f972105613427411",
+      "bytes": 6320
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_crosscheck_moscow_20261009/receipt.json": {
+      "sha256": "4b23fb7bbf0604d33d6a9822f84f131db5828d9a46bc4a7ac047fe3587aab9fc",
+      "bytes": 787
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_geonames_continuation_20261009/accepted_included_in_event_edges.csv": {
+      "sha256": "1948f47fc5409321b2e9c6beaccee8d06e3917553a05740e2bd9dbc59ee189b7",
+      "bytes": 1537
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_geonames_continuation_20261009/independent_own_GeoNames_binding_witnesses.csv": {
+      "sha256": "4a1310f12c5f8dfa6cb409d88aa906d985598bc20046980da97352c96cc00997",
+      "bytes": 2881
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_geonames_continuation_20261009/actual_receiving_city_three_census_context.csv": {
+      "sha256": "4c388cd002ed66990b3c27fa627566174f8ba39af5b5b1500e9c25602a44e176",
+      "bytes": 3189
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_geonames_continuation_20261009/accepted_available_year_statuses.csv": {
+      "sha256": "f9b97efd6a77f8cfc9e1b583120d59123fc5f635c7aa24b9c95622133cb28438",
+      "bytes": 1389
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_geonames_continuation_20261009/build_events.py": {
+      "sha256": "86ec4569840d032222221445344fe86c5e1ef62dc9c6173cc5b772b6ae9ea028",
+      "bytes": 10041
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_geonames_continuation_20261009/FINAL_manifest.sha256": {
+      "sha256": "505034a00b5aee922c86eee6e6b8e7764502cd709d7013a06ab7d945a3576b45",
+      "bytes": 86
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_geonames_continuation_20261009/FINAL_packet_receipt.json": {
+      "sha256": "426e5ed90bb205460cb15fa247bfe6d5d4fb952aa15f8b1c84946e8fbd5a5478",
+      "bytes": 693
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_geonames_continuation_20261009/event_native_raw_row_witnesses.csv": {
+      "sha256": "18639a66edc9afeeb1cdfe2c71cd4b40308c0bec3ee2346dc0f59b76e959eb8e",
+      "bytes": 1223
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_geonames_continuation_20261009/accepted_former_locality_own_points.csv": {
+      "sha256": "b9b65fddf6ee2a384aadf045079dce7523a2d9c41097fc22a8062374b9a35498",
+      "bytes": 3737
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_geonames_continuation_20261009/accepted_historical_observations.csv": {
+      "sha256": "03667bc80f69928bb422952490d8e7dc7d37edb7111e8ed01ad2e10c7175a166",
+      "bytes": 1643
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_geonames_continuation_20261009/accepted_direct_event_native_credit_union.csv": {
+      "sha256": "80637ba9226a8023077ee23885ab39cf9702904dac6ff2d272836c84e7f6b5c4",
+      "bytes": 671
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_geonames_continuation_20261009/accepted_inclusion_events.csv": {
+      "sha256": "060851850376386b174d34a15cf8384e6f903e64176db066618cc0777acffd74",
+      "bytes": 2011
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_geonames_continuation_20261009/literal_own_inclusion_source_excerpts.csv": {
+      "sha256": "04e6354fef0d779514c14848eada85ed0fc295129e6f01a885f2876ad67a3afc",
+      "bytes": 4155
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_geonames_continuation_20261009/FINAL_manifest.json": {
+      "sha256": "cb344ab1daac991f33c27beb4f346b77dba49a13783a907d2589097f4ca86aa5",
+      "bytes": 2251
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/accepted_included_in_event_edges.csv": {
+      "sha256": "4fc821d40e3fb1a76faea7fd920e2e86582c845a6f8b5bacebc21e6cab3fd483",
+      "bytes": 676
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/independent_own_GeoNames_binding_witnesses.csv": {
+      "sha256": "cd6fce26f54df32834635954edf72d31745b27b472250bdb70322a2dc94af97d",
+      "bytes": 942
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/accepted_point_rejection_delta.csv": {
+      "sha256": "7e3db4a8b710b6c70be4f7fde2786a32180a65a93d3a162a150a9a5b4c0a8951",
+      "bytes": 218
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/actual_receiving_city_three_census_context.csv": {
+      "sha256": "a9edb1713202ebff4b4cb257ad27731d704d87dda83aa56587839f8fa6f91763",
+      "bytes": 1316
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/accepted_available_year_statuses.csv": {
+      "sha256": "df0e701023e8683d5de04c951e96f35a4369c4960e8faacecd52e0e7c830260c",
+      "bytes": 540
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/build_events.py": {
+      "sha256": "6da766fa7c7537fca52c4eeeb5a5de528217083ee86f8a3118b46465d89400bb",
+      "bytes": 10028
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/FINAL_manifest.sha256": {
+      "sha256": "f479794f0575621e6862fed95a5d6f97997d62ec9a9904bac2b1b0caed12d709",
+      "bytes": 86
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/FINAL_packet_receipt.json": {
+      "sha256": "904e1fbf52ce55deb76429bca1746a845edb73e073545eedb583b7e0b1840cfb",
+      "bytes": 365
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/event_native_raw_row_witnesses.csv": {
+      "sha256": "051cfc5995f11d6525a3e622fbf4a433c951d3d027faad544a0856568933d975",
+      "bytes": 500
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/accepted_former_locality_own_points.csv": {
+      "sha256": "aa5bbd49b211b958ef8026c0295b9e94b86d4f3f26a9a24ef0a97070e7a09828",
+      "bytes": 1395
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/accepted_historical_observations.csv": {
+      "sha256": "45be37e5a88dd962009913173d216f45499297f9a8ecdb1df59cae5292b468b0",
+      "bytes": 922
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/accepted_direct_event_native_credit_union.csv": {
+      "sha256": "0a5b2a8e9241c03e6e3a4ebaa4ac3676ea2acbdb54d35b556b7bbd78201ac883",
+      "bytes": 407
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/accepted_inclusion_events.csv": {
+      "sha256": "4fd003ff5c01de7082ae8acf9a1991f9394a4bdc806ee185b08ff7339594d68a",
+      "bytes": 871
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/literal_own_inclusion_source_excerpts.csv": {
+      "sha256": "30aeb8d911eb694238289cf8cb8eb14604c67215c6e0b19cb3c7d04cbe7baf1f",
+      "bytes": 817
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_moscow_pominovo_event_20261009/FINAL_manifest.json": {
+      "sha256": "0c836713b8b62d7eb613cb8fe5873b76fcc16967cb00ea3d297edf88eee30e9c",
+      "bytes": 2274
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v3_point_context_and_errata/ready_identity_edge_candidates_v3.csv": {
+      "sha256": "5ac3aa4350d3e022a00b8177d3646fd5beb2ba6de429b06c76a5309fed5f8a54",
+      "bytes": 7509
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v3_point_context_and_errata/receipt.json": {
+      "sha256": "eefb8e0ec37f2d49b67f8705cd4362c89ec7e6a2ef12a997b0ada2bd3a0ec070",
+      "bytes": 943
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v3_point_context_and_errata/superseding_erratum_lazo_v3.csv": {
+      "sha256": "b284261b95f9c3b2c6d4052c28ea38f071d2299b2db779f3e704c542faf1d346",
+      "bytes": 632
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v3_point_context_and_errata/existing_accepted_point_carriers_for_candidate_edges_v3.csv": {
+      "sha256": "7f3393011d2e5eb633042b0a23f96809ed64577c2cc13b5cdba9dd97da5c93fc",
+      "bytes": 5296
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v4_azino_edge_review/receipt.json": {
+      "sha256": "1d463a25ed6eeea8df14fe69edbbd45e3d9b00f6126abba2b3a06ba5e52bebc8",
+      "bytes": 5423
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v4_azino_edge_review/README.md": {
+      "sha256": "726fb1fd4977b19c94f00c9d905ac33378c8d0707701f93195e212e087fcd8fe",
+      "bytes": 1957
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v4_azino_edge_review/azino_existing_accepted_point_context.csv": {
+      "sha256": "c21a0e9b17e781209270b6d1ea8b0d7d51f69d9caced48b7126cf112de6e3385",
+      "bytes": 1134
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v4_azino_edge_review/azino_2002_2010_source_bound_edge_candidate.csv": {
+      "sha256": "92325a77dfb956e1a8aac896435a174c33ff698bc5cf67cf7b5008b3b2397ec9",
+      "bytes": 4890
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v5_voronezh_sovkhoz_temporal_edge/receipt.json": {
+      "sha256": "3ee67dcb10f640f05584d7998e9598440cf82ea7689ddab0b7f74ea69ec03bdc",
+      "bytes": 5793
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v5_voronezh_sovkhoz_temporal_edge/README.md": {
+      "sha256": "a905d1fc6d0677e057e02c1eb9b34e7c5dc1c255cab34dce4c4340ebc58e80a3",
+      "bytes": 1497
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v5_voronezh_sovkhoz_temporal_edge/voronezh_sovkhoz_existing_point_context.csv": {
+      "sha256": "c4463d3acb7aaf72fbb150667c48a97cae67fbecb646bc27be6eadb8de24b0b8",
+      "bytes": 950
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v5_voronezh_sovkhoz_temporal_edge/voronezh_sovkhoz_2002_to_2010_edge_candidate.csv": {
+      "sha256": "4d521cf5fad232e0eaed714cbdb8d07e3abc71f7687456bce283da60098f9d61",
+      "bytes": 4856
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v6_dokuchaev_2nd_site_temporal_edge/receipt.json": {
+      "sha256": "4c2e6ac65ee2ad41866a13ca90ca2f33ea3b8762f9d7b793c75b786254185c38",
+      "bytes": 7233
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v6_dokuchaev_2nd_site_temporal_edge/README.md": {
+      "sha256": "81ca6172f4e0eb8c6eadbed076a7a6f89c91c5b08d5040d4f64e77fd741d34fc",
+      "bytes": 1333
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v6_dokuchaev_2nd_site_temporal_edge/dokuchaev_second_site_2002_to_2010_edge_candidate.csv": {
+      "sha256": "48e1767c7b5c2f847e95220d7e0f4dee1dcc071f10af6d56ba50f6261e26ce8c",
+      "bytes": 4626
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v6_dokuchaev_2nd_site_temporal_edge/dokuchaev_second_site_existing_point_context.csv": {
+      "sha256": "d51eef98b97442b51f858d2a705993c76c0e360f96d230be7af27c676a30bfad",
+      "bytes": 853
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version10_mochishche_dacha/all178_dispositions.csv": {
+      "sha256": "940b30282753b059eb4d9872564c3f5a12fc8175f5013157e999c04952961f3b",
+      "bytes": 82945
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version10_mochishche_dacha/source_row_witnesses.csv": {
+      "sha256": "3da55780b29a0ca159721220e6296bf50933a30ea99247e59e158dc36f4f35a4",
+      "bytes": 3594
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version10_mochishche_dacha/source_witnesses.txt": {
+      "sha256": "f98814ca50be23d4ad76f4f75eac30c9006f29a9a4cada800cbb353b3a77203e",
+      "bytes": 1452
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version10_mochishche_dacha/review_receipt.json": {
+      "sha256": "57c6ba35801fd44c894cb6e723a3e16a1c624900166933f17e3ca6ec0a51b365",
+      "bytes": 3330
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version10_mochishche_dacha/accepted_point_use_delta.csv": {
+      "sha256": "8e54ada8bbfad11cd30b21fec97b02ad4871b3054e5a0ef47220ec28af701e8c",
+      "bytes": 1293
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version10_mochishche_dacha/accepted_identity_edge_delta.csv": {
+      "sha256": "0ad051e8634f1cb54720edfcc542868327dbff399f7d1797ec1a90cf986db66f",
+      "bytes": 4106
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version11_kudinovo_maloyaroslavets/all178_dispositions.csv": {
+      "sha256": "02908702d31a93b52c6ad30442bea4c3c0fc0c57dd3cf332c0cf2a43d1d9c837",
+      "bytes": 83431
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version11_kudinovo_maloyaroslavets/source_row_witnesses.csv": {
+      "sha256": "7283e3a7c137e11a6af33ec2e74f07e270de70450d9f3cfce4e6a3e37fca8ae6",
+      "bytes": 3505
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version11_kudinovo_maloyaroslavets/source_witnesses.txt": {
+      "sha256": "7c8c884cc037bcc84a27f874190115eb0f75dc9ccb254cba0ebe08f8c46a2fd3",
+      "bytes": 1251
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version11_kudinovo_maloyaroslavets/review_receipt.json": {
+      "sha256": "415858b42cb666028ad5beb57be8a90b109b11c30f95d081aa9dfda668f35b69",
+      "bytes": 3149
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version11_kudinovo_maloyaroslavets/accepted_point_use_delta.csv": {
+      "sha256": "6bc6e3b36166b3a76fcefc09d4ae3075d8eb3e3c62c5b157077d6661e6001585",
+      "bytes": 1239
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version11_kudinovo_maloyaroslavets/accepted_identity_edge_delta.csv": {
+      "sha256": "c956a148fa4deb11e2512b1b805297f95064414692d143a976a43a5c43b35f5d",
+      "bytes": 2324
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version12_dvinskoy_upper_toyma/all178_dispositions.csv": {
+      "sha256": "0672d07a029709f84a9eceff5afff17fecdc4aa72ee31272cd1b4d24ba8c9d6a",
+      "bytes": 83958
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version12_dvinskoy_upper_toyma/source_row_witnesses.csv": {
+      "sha256": "c4ba84350cba209679210d2a371104c4b15abbf32e40f2413eaed829cd81d725",
+      "bytes": 3517
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version12_dvinskoy_upper_toyma/source_witnesses.txt": {
+      "sha256": "1f79b2333650ae047870784033a6be7c7dc4b9b4036849c2b6f704a1266c2d93",
+      "bytes": 1254
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version12_dvinskoy_upper_toyma/review_receipt.json": {
+      "sha256": "228aacb04168e4fe66c8f1ec12a5e64a69a62726e2bece427d00e3d937ae90da",
+      "bytes": 3190
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version12_dvinskoy_upper_toyma/accepted_point_use_delta.csv": {
+      "sha256": "6652ce9ae4c9fd346a7f2f62b20acc7589774db03df0965254eab3d7fa27e75e",
+      "bytes": 1966
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version12_dvinskoy_upper_toyma/accepted_identity_edge_delta.csv": {
+      "sha256": "28cf75ae35e6d81064eb9a754f6a9387c287e8796f16bbacb3abe1bb31590d4d",
+      "bytes": 4534
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version13_pokrovskoe_gornouralsky/all178_dispositions.csv": {
+      "sha256": "a842aefee4119968e0e85f03603264af12f748d5a849b8192f10c589ba7ce549",
+      "bytes": 84331
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version13_pokrovskoe_gornouralsky/source_row_witnesses.csv": {
+      "sha256": "0f5aa208f3637c7badd7c21a60d571e2afe3cd366c77b839b9627b21fde12558",
+      "bytes": 4465
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version13_pokrovskoe_gornouralsky/source_witnesses.txt": {
+      "sha256": "d38d8cf2a42d2ec6f8b5da8e2503f36bae0c4cddd115d53d64ff320a8e66098f",
+      "bytes": 1647
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version13_pokrovskoe_gornouralsky/review_receipt.json": {
+      "sha256": "21fed19c589e4b9226232e86ed826e2fd24707f466536d5d1130633df5375c56",
+      "bytes": 3762
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version13_pokrovskoe_gornouralsky/accepted_point_use_delta.csv": {
+      "sha256": "9c7894bd39a2dafb40f251304c7c6584faa39082aabe32a63db8ea0351fa5124",
+      "bytes": 1579
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version13_pokrovskoe_gornouralsky/accepted_identity_edge_delta.csv": {
+      "sha256": "ba9a1525723f03272f895f9f1bf6741af17a3397bdc9683b61175f0c0b0c4814",
+      "bytes": 4896
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version14_27km_monchegorsk/all178_dispositions.csv": {
+      "sha256": "369ba9f344add2d4d52a76c47207ccb75df57a492ad621a7c0560e2db69e6c84",
+      "bytes": 84913
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version14_27km_monchegorsk/source_row_witnesses.csv": {
+      "sha256": "51c8af1086232e87ff2e301778522191848d66113be759ba840b57157832d14a",
+      "bytes": 3994
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version14_27km_monchegorsk/source_witnesses.txt": {
+      "sha256": "ab9e892c91c8b06979559f379bd127346ed3d3fdd01a5a85720e64199c0c3118",
+      "bytes": 1082
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version14_27km_monchegorsk/review_receipt.json": {
+      "sha256": "fd2bafded108a6438048288b66e857fe014f06f4ba44425167ace89985bd0e32",
+      "bytes": 3682
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version14_27km_monchegorsk/accepted_point_use_delta.csv": {
+      "sha256": "299f33d95496ffa1587a6e80b210566d7a10fa4e7723742243c2109b2781dd2d",
+      "bytes": 2311
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version14_27km_monchegorsk/accepted_identity_edge_delta.csv": {
+      "sha256": "0053ee335f67e5f2e4dc0147b8f080290e1720e0be2200402d73124a32729ef7",
+      "bytes": 4522
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version15_alekseevka_korochansky/all178_dispositions.csv": {
+      "sha256": "aac3ed139437dea1a4e0a138bf0bcfa5a393b3bc518941bdde27e668a66817c0",
+      "bytes": 85250
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version15_alekseevka_korochansky/source_row_witnesses.csv": {
+      "sha256": "df2f37ab1bf2a5f6551bd24252ad4e921164ad0448989d6e5b9d0ba80ca84a0f",
+      "bytes": 3785
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version15_alekseevka_korochansky/source_witnesses.txt": {
+      "sha256": "0bd8f2a02c2fa7243cd5035440b6bce3aa36665ab83205f17278631c31dee704",
+      "bytes": 1246
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version15_alekseevka_korochansky/review_receipt.json": {
+      "sha256": "a628c0faecb9dad36ec617fbe52563e6f1bfe6375f9f250a57a84601a3de8845",
+      "bytes": 3087
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version15_alekseevka_korochansky/accepted_point_use_delta.csv": {
+      "sha256": "69a3fcc30b73ee49f8166ef79027cb4127ebff1c27baec05d6ebf2872eff4f6f",
+      "bytes": 1230
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version15_alekseevka_korochansky/accepted_identity_edge_delta.csv": {
+      "sha256": "834fe561d92c1a69f4802e5b5a85003d6cb1981f35feafe120701d4d041812a6",
+      "bytes": 2460
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version3_shosseynoe/all178_dispositions.csv": {
+      "sha256": "de57fbc1a6206a2866f8557862489f0fe5b14feb77455a5dea6596336a4491d6",
+      "bytes": 81570
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version3_shosseynoe/source_row_witnesses.csv": {
+      "sha256": "ed26d1d8428ebb5ba5c57e3042d0c2d5af30012f5bc0480aae138ce04ba9cc5a",
+      "bytes": 4346
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version3_shosseynoe/point_rejections.csv": {
+      "sha256": "dcda6088115e80a0cfbb21f22a7ca7728f0364f73e9d91bea8853005602b4a26",
+      "bytes": 1088
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version3_shosseynoe/review_receipt.json": {
+      "sha256": "6702b269fc5ab1be3e6ab174781fab161cbe9fc3b51433a85348d4d1e9abc019",
+      "bytes": 5239
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version3_shosseynoe/source_pins.json": {
+      "sha256": "87dc242b9a969d9cfd9b12f32669ed8dd165d1f6bde686172744296ff9418fa2",
+      "bytes": 3179
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version3_shosseynoe/accepted_point_use_delta.csv": {
+      "sha256": "52e4130b65ea48f3de0123763d8d9309a17477b9cd2acb3c6d33022325dacd19",
+      "bytes": 1397
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version3_shosseynoe/accepted_identity_edge_delta.csv": {
+      "sha256": "3af3b3bfa62fb240598c3a26cef6a257aa8aa52d3aeb2405012201594a47244e",
+      "bytes": 2809
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version4_stanovoye/all178_dispositions.csv": {
+      "sha256": "efd49023f5580fe177cae14c26a6e03d6f48cd5538d7cea62ee6e94863bb0c3b",
+      "bytes": 81148
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version4_stanovoye/source_row_witnesses.csv": {
+      "sha256": "ce9ebdf738dbdf3cce7fb6622f80373e775f3b6886b5c83e5ff8893235408354",
+      "bytes": 2907
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version4_stanovoye/point_rejections.csv": {
+      "sha256": "13e78000634fce64772058c5f5c3e04dff5a8996ba546dc7d2e29804eae1abc5",
+      "bytes": 1291
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version4_stanovoye/review_receipt.json": {
+      "sha256": "d94744fe0d7bbdc6a0d1b822f66156751ccde760c0739d70ec3a5609e151c918",
+      "bytes": 2922
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version4_stanovoye/source_pins.json": {
+      "sha256": "1e31e2a0c8d9437415bc17a82260349a9dc04ac06773b4bce9009373a5f4e983",
+      "bytes": 1670
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version4_stanovoye/accepted_point_use_delta.csv": {
+      "sha256": "2bcab8599bc2e0cbfac7387b6b9fff7c0dd1d30020aa9568e26457db5255a8c6",
+      "bytes": 2618
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version4_stanovoye/accepted_identity_edge_delta.csv": {
+      "sha256": "bc53434a60778b93c6f1378d01f65f2da849412a6b0a164a56f439c09f34c7f2",
+      "bytes": 3289
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version5_solotcha/accepted_included_in_event_edges.csv": {
+      "sha256": "980d3e9f15491b3dd0ca7de0c1ba441f3418765e5b92eebd393fb19bcb11523a",
+      "bytes": 644
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version5_solotcha/all178_dispositions.csv": {
+      "sha256": "530799d05de95cb57bc99a9687cd7da1e2312dd3ac74652e326ffe9008a04587",
+      "bytes": 81283
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version5_solotcha/source_witnesses.txt": {
+      "sha256": "85c0b16713ceb66a92b0742b02ddab39f4f31c8c916ac98a3b4c3a19f72cf683",
+      "bytes": 1083
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version5_solotcha/review_receipt.json": {
+      "sha256": "8b3b420240305b122ad4ff63e5c9a8a8b780cfbb427295d4d5075724ceb42c89",
+      "bytes": 3098
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version5_solotcha/accepted_former_locality_own_points.csv": {
+      "sha256": "1b3bf83a36db06dfad614aeb16cbd7f86ed808b9b451433a6999b5b6c2fa00af",
+      "bytes": 1164
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version5_solotcha/accepted_historical_observations.csv": {
+      "sha256": "b92575f7153c1dd8a5da87f927af96bb3d18591e684b6a3d4894e3c8752991b9",
+      "bytes": 838
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version5_solotcha/accepted_direct_event_native_credit_union.csv": {
+      "sha256": "c7a45c398abb2f7a5521b7b734a105470467918b6b34ea6f77d1756d958798dc",
+      "bytes": 360
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version5_solotcha/source_pins.json": {
+      "sha256": "3ae20411e78c8ae44c8152b5226444eb44d47a7cef4ef6e55b13b405cbc0725f",
+      "bytes": 1579
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version5_solotcha/accepted_inclusion_events.csv": {
+      "sha256": "ed666d258f4158cb6c368e8386d7daf97cf9da0eee5f8a05ce34e002ea91b2c3",
+      "bytes": 888
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version6_vorkuta_inclusions/accepted_included_in_event_edges.csv": {
+      "sha256": "41a5be06fbc4880f258d4884ca9c1909f1d3fec8e30952199ba4d1c8809c501d",
+      "bytes": 1158
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version6_vorkuta_inclusions/all178_dispositions.csv": {
+      "sha256": "ae68bdd2cbbf5619adb20ccd2aaa4664ab44e517bbb42ba0f523d4c7eda000bb",
+      "bytes": 81555
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version6_vorkuta_inclusions/source_row_witnesses.csv": {
+      "sha256": "09ee11a8cc3113c4023a402606f68051538c9c1d3cdc69be3c3b955c27636f0c",
+      "bytes": 838
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version6_vorkuta_inclusions/source_witnesses.txt": {
+      "sha256": "ec2fc2efb93602ba6ef243fa68d9b769bd9be28df43d20c51ea9c044a0754745",
+      "bytes": 936
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version6_vorkuta_inclusions/review_receipt.json": {
+      "sha256": "876880fca18ae096d3f68b0068bcfbfbe78ac2875b83a5c09a147d44dcea38c3",
+      "bytes": 3384
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version6_vorkuta_inclusions/accepted_former_locality_own_points.csv": {
+      "sha256": "46403acbff19d320a0da65e255a3a3e3360b1b7c90182d66f6ba9b275cac758a",
+      "bytes": 2268
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version6_vorkuta_inclusions/accepted_historical_observations.csv": {
+      "sha256": "9100bdada7f35725997d94215415ffda47ea3acadb0aea8835356532b28bf49c",
+      "bytes": 1185
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version6_vorkuta_inclusions/accepted_direct_event_native_credit_union.csv": {
+      "sha256": "6136367e0bc88f3311b1256768b5622eef608d741841179a0dd4784bcd2a4f16",
+      "bytes": 486
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version6_vorkuta_inclusions/source_pins.json": {
+      "sha256": "eaf3321fcfdfd8b5683184414c386ff2a82a9a983a082fb6081748d371a99b2f",
+      "bytes": 1693
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version6_vorkuta_inclusions/accepted_inclusion_events.csv": {
+      "sha256": "a2ba49b8522a703dcd7bf7f7769dfdcfb4fea0979962a181c1ab73818f36adc4",
+      "bytes": 1495
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version7_biltoy_yurt/all178_dispositions.csv": {
+      "sha256": "92e27af3b013b3bfdd6d24f31d7107b50a647a81c867559f726b630586e9c7d0",
+      "bytes": 81823
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version7_biltoy_yurt/source_row_witnesses.csv": {
+      "sha256": "590f1000fd38e741a563d2d0deac20a183a502548c1f417866e8b312ed13473a",
+      "bytes": 2077
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version7_biltoy_yurt/point_rejections.csv": {
+      "sha256": "74fdbf845fd8c48de070921198bf3eab5a4a9db597ae53f30c92332e017fe6fe",
+      "bytes": 1133
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version7_biltoy_yurt/source_witnesses.txt": {
+      "sha256": "98ad3e23e25a79518cecc4226301640c21bd75390b4a08b1a6a84bd1019183e1",
+      "bytes": 1751
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version7_biltoy_yurt/review_receipt.json": {
+      "sha256": "acda1faaf019f3920ea28e137366082f995e952c09546676503c5acbf077fe68",
+      "bytes": 3822
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version7_biltoy_yurt/source_pins.json": {
+      "sha256": "85dbaffa6ccb7a1b1a774a4fd27906285fff089c9545f62a687a3733e85727cb",
+      "bytes": 2157
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version7_biltoy_yurt/accepted_point_use_delta.csv": {
+      "sha256": "5f241ee95b3fe9d8d7160c43951eda3058e0e740f9d1eefb6b4337e6069dad87",
+      "bytes": 3932
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version7_biltoy_yurt/accepted_identity_edge_delta.csv": {
+      "sha256": "d863fb5c3dfe66a8bc6574ed644d3cd1ed96572f81e3d971ebc38c6b99cc5d5a",
+      "bytes": 3143
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version9_belomestnoe_belgorod/all178_dispositions.csv": {
+      "sha256": "1945c8d9396e7c7aa825952feccc4b6468f0f1a76b39c48052a02c1f347a536e",
+      "bytes": 82526
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version9_belomestnoe_belgorod/source_row_witnesses.csv": {
+      "sha256": "1ee8fd6a6ee6e300351634243f4a1f5125c4568e112a548ce1a244dd2f464257",
+      "bytes": 2704
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version9_belomestnoe_belgorod/source_witnesses.txt": {
+      "sha256": "657c71507727afdc9e0ddd935292122b7899b8a6b512b16d096715c9ea2bd6f2",
+      "bytes": 1335
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version9_belomestnoe_belgorod/review_receipt.json": {
+      "sha256": "85f94888e21f13936a789afdbec4b67df47b0dd85b7db9443fa8fc7df96ed1bd",
+      "bytes": 3651
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version9_belomestnoe_belgorod/accepted_point_use_delta.csv": {
+      "sha256": "63610a8233a0d01cf2d4db64589b628cec03b65f2ef5433a125205dc4ef57614",
+      "bytes": 1258
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_B_20261009/version9_belomestnoe_belgorod/accepted_identity_edge_delta.csv": {
+      "sha256": "bda3a9ca6df4b1ae1ece85a9a54b1f01f6c2932f62bc497a7499a290225d5e34",
+      "bytes": 3689
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/wiki_exact_context_search_0.json": {
+      "sha256": "e42a3586ceec7069f3993340618b2630082d79f140d2d2edfe76abcfb0339317",
+      "bytes": 22228
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/application_receipt.json": {
+      "sha256": "e4ff95743e2fd32c6d60241132e74b6610f1a4a7ebbdc673fc2ce3d0bd6d6845",
+      "bytes": 1769
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/own_Dolotinsky_point_entity.json": {
+      "sha256": "026884dea80075335e80e98aecc4569c1cb1174ea03c0648d594d61230faba8f",
+      "bytes": 11920
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/all_current_native_typed_name_rivals_raw.json": {
+      "sha256": "6c1fe247a7b2357b90f8613e574cdda7cde82428952c3a2c7e92f51e8249b043",
+      "bytes": 7944
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/OSM_exact_GN_point_area.xml": {
+      "sha256": "341b4caac53c84bb2a48033b3be29441445b8fccc3d6adb826590aa5f04773b8",
+      "bytes": 221884
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/classifier2009_owncode_and_all_regional_name_rivals.csv": {
+      "sha256": "f446354dda9a254885779a0e0239aac10f4a8d0b2c4810ac7d029e646de479e0",
+      "bytes": 4959
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/own_Dolotinsky_alias_articles.json": {
+      "sha256": "ff514af06aed60e0e91d9b2dbd7f8f29ae629a62c1868ccd336c683e43980bfc",
+      "bytes": 10589
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/own_physical_identity_witness.json": {
+      "sha256": "ed018998a8dc70d2c0d451bad3f889a4bf38741ddc1e3b393416daf1d78b1833",
+      "bytes": 21754
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/all_native2002_2010_2021_typed_name_rivals.csv.gz": {
+      "sha256": "168db0ec411e77d1961bf1499b688141f21d1370d10b3acfe26389a35add9bad",
+      "bytes": 1661
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/verification_receipt.json": {
+      "sha256": "c14fd01bd8d0e0abe248fccb1f0df72353b15a57a4a7fe55accc6a9eaba5d953",
+      "bytes": 567
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/Geo2011_owncode_raw_witness.json": {
+      "sha256": "2c3617181a959c61e97d4aee5067ddbca2dd091ae850eabc098ff23b3f68950f",
+      "bytes": 913
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/seal.py": {
+      "sha256": "5492f343087d9292b22197f923a63c64669c81990809194a71510ae40443341e",
+      "bytes": 10994
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/accepted_point_use_delta.csv.gz": {
+      "sha256": "ff1a321eef9f66cef3cbc2bac85e9a8f37cee715afbe6bbd603c8836fdd3b7d2",
+      "bytes": 2923
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/projected_incremental_native_finite_UID.csv": {
+      "sha256": "05bf26171d404f8e85ea7e058834ca3b0598389a4a194343b966ce5db6898cd2",
+      "bytes": 271
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/accepted_identity_edge_delta.csv.gz": {
+      "sha256": "1bd5334586b2ef83181c69106b216276805d69d1853182a7ed502282b739a286",
+      "bytes": 846
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/manifest.json": {
+      "sha256": "1fe51db3a3204d7bde516142cd9375a8756ed8524fca704f516faf47db85e65e",
+      "bytes": 2978
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/wiki_exact_context_search_1.json": {
+      "sha256": "5eca1f669a76589d259c0e9d721730a8fdd0efa0f9f0c6acc2fbd8975f87db89",
+      "bytes": 21682
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/OSM_exact_name_geocoder.json": {
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "bytes": 2
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/literal_native_primary_source_rows.csv": {
+      "sha256": "f4c7dcf75226f7191154b34e5f9951eb793bb38f09cf316b23fb4644605d4f27",
+      "bytes": 35499
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_south_20261009/pervomaysky_followup/wiki_exact_context_search_2.json": {
+      "sha256": "e164a72520e93ea842bfe3c7b3552479dafa359009fabab88eb86f78e11458e0",
+      "bytes": 20658
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_tula_temporal_v4_20261009/README.md": {
+      "sha256": "ad0df4450108f9d0da47c8877e8f09338aac33b8099550b1d46ea75ed89ce13e",
+      "bytes": 1669
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_tula_temporal_v4_20261009/official_primary_source_bindings.csv": {
+      "sha256": "542e56d03e824b96c2f72a037cec9a18725d7eb8d611f41b01b9c9f7c1463fad",
+      "bytes": 1879
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_tula_temporal_v4_20261009/selected_2002_scope_scan.csv": {
+      "sha256": "a492e35b770729dbd49bb2e1feb74a8060712aa699738c8c4b4c84f9b1b6e56c",
+      "bytes": 2959
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_tula_temporal_v4_20261009/zhdankovsky_status_erratum.csv": {
+      "sha256": "12af6fe3431022236dc56c67273800d6bcedfaee1845cac1cd47a7326e37009b",
+      "bytes": 491
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_tula_temporal_v4_20261009/source_year_status.csv": {
+      "sha256": "10c57265257b9a8f821d77bbb66ebb756cc2a9b9f7bb19f9090b3a5b99e4c6ed",
+      "bytes": 5149
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_tula_temporal_v4_20261009/packet_manifest.json": {
+      "sha256": "bc4b1be0e9fed2526b083634a762fbc0a4471701f848e682cb4195459a1ae138",
+      "bytes": 2155
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_tula_temporal_v4_20261009/actual410_remaining_tula_yaroslav_2021_targets.csv": {
+      "sha256": "2bdb81be037eacc5a770f4e023c340ca86f053a8eb57a3aa97e793352260a72c",
+      "bytes": 2518
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_tula_temporal_v4_20261009/source_pins.json": {
+      "sha256": "60c6019af3395cdf6ce404459245cbda10e7b0e2ba5599ae8dc778da53a05647",
+      "bytes": 3654
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_tula_temporal_v4_20261009/official_primary_source_binding.csv": {
+      "sha256": "0d1bb13bdaa50e1c81d8d3a5ae27f9ea73db636dc706ba69fd023fc6932b058c",
+      "bytes": 824
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_tula_temporal_v4_20261009/accepted_point_use_delta.csv": {
+      "sha256": "0e2293aa01713d75e3d44ec9004721c6d7eb52166360aef517808f61fcd22b63",
+      "bytes": 1524
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_tula_temporal_v4_20261009/tunoshna_genplan_source_locator.json": {
+      "sha256": "1f62223068a5706d58b1447fa28f6d5a769ea0384f8329f33d52dafc010dd8c8",
+      "bytes": 1478
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_tula_temporal_v4_20261009/accepted_identity_edge_delta.csv": {
+      "sha256": "bf032489aa89baa96eea3ef563b6d6f2db0cef408789a6ffe112acb422131183",
+      "bytes": 1064
+    },
+    "/workspace/russian-settlements-research/publication/stage68/applied_primary_population_source_overlay_2010.csv.gz": {
+      "sha256": "8d1f6e2cdd6118f1cad2a3bd2eaab0373e734bc563d6b7bda859d28333eafa17",
+      "bytes": 830238
+    }
+  },
+  "wall_seconds": 54.56
+}

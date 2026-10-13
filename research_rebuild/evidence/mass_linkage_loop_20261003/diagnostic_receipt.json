@@ -1,0 +1,26 @@
+{
+  "scope": "Selected census records; year-row population sums are not unique-person totals",
+  "rows": 465800,
+  "accepted_point_uses": 327430,
+  "identity_edges": 176568,
+  "full_census_components": 44758,
+  "inputs": {
+    "/workspace/settlements-delivery/continuation-loop-20261003/selected_observations.parquet": "94ae62cfa8a37820db09416b1fd63cc43cac4aae371b5d26ca2fb14f68163356",
+    "/workspace/settlements-delivery/continuation-loop-20261003/accepted_identity_edges.parquet": "98741f9b695283f390355c34077ca4fd090ecdbb576e9bae323292a585220622",
+    "/workspace/settlements-delivery/continuation-loop-20261003/accepted_point_uses.parquet": "18865bc7a8a9fb181c71c49dbaca35775f6f2ec3925afa5ec35e21d04be01b77"
+  },
+  "builder_sha256": "eec62d20ef8041372c1d37076f6f8489c3fb9c099ccbc7f0654e7fc2efd02ef1",
+  "files": {
+    "unresolved_identity.csv.gz": "c39ef59cfd77b0bc0b51e0bbe2878fcce2b491ae766c39f1ac23b0f9642b1f09",
+    "coordinate_provider_labels_inventory.csv": "7fd631572b9cf6127e0652813b190546641aded8f840ca6c592bf8dcf91dcfe1",
+    "population_quality_and_linkage.csv": "3f584caa2837d1bb268c8ffa6be7d6c6ba81f6fb50f7e5d59b09df3d30ba7359",
+    "incomplete_census_chains.csv.gz": "d58680da9ff1ba8e0026971ae9e7e51825172caf12b94376832b8b745b99f1b3",
+    "unresolved_coordinates.csv.gz": "1dee88077af5e5e9b786a3558903d6eb657be8859207532fefa1582d795f2951",
+    "coordinate_quality_breakdown.csv": "96d18f38a57b0d20f2a2be97c65be3437948cb7c56cd9cd1e38f003382390208"
+  },
+  "limits": [
+    "A checked point does not upgrade the population source to an exact primary count.",
+    "Missing chains include real nonexistence and census-scope changes as well as unresolved links.",
+    "These diagnostics do not infer legal identifier intervals or comparable boundaries."
+  ]
+}

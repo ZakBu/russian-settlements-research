@@ -1,0 +1,50 @@
+{
+  "review_id": "target99_plan_final_scope_sampling_check_v2",
+  "supersedes": "final_plan_review.json",
+  "status": "pass_with_false_positive_corrected",
+  "scope": "Bounded final review of requested scope/PPS corrections and newly added pilot/history statements only; no repeated data audit and no admissions.",
+  "final_report": {
+    "path": "/workspace/russian-settlements-research/docs/AUDIT_AND_PLAN_99_20261003.md",
+    "sha256": "0c676ee0a007ce13fb536604655c77e3251dcd1861c5b4eab612429957f504fe"
+  },
+  "correction_to_v1": {
+    "status": "false_positive_finding_withdrawn",
+    "detail": "At the exact report SHA above, lines 280-305 contain no sentence claiming that 600 draws establish 99.9% accuracy. The actual text says a 300-600 check pilot does not certify 99.9%, then gives the correct one-sided 95% upper error bound of about 0.498% for 600 zero-error independent PPS draws and says 2,995 zero-error draws are needed for 0.1%. The apparent duplicate came from my prior misreading of overlapping output; the draft itself was unchanged.",
+    "search": "Exact-string search for `дают точность 99,9%` returned no match."
+  },
+  "findings": [
+    {
+      "id": "observed_year_and_annual_denominator_scope",
+      "status": "pass",
+      "evidence": "The opening says 99%/99.9% are targets rather than a confirmed forecast for the three census years and that national denominators for other years are undefined. The completion criterion says to report 99% only for years with a defined nonoverlapping denominator."
+    },
+    {
+      "id": "territory_and_city_identity_scope",
+      "status": "pass",
+      "evidence": "Federal-territory representation remains separate from physical-place points, parent and child totals are exclusive, the pre-2012 Moscow boundary is reserved for requested harmonization, and boundary changes do not themselves negate city identity or block coordinates. The city-identity text permits links with incomparable population scopes and does not require an individual historical polygon for ordinary stable cases."
+    },
+    {
+      "id": "pilot_and_sampling_frame_separation",
+      "status": "pass",
+      "evidence": "The 351-place / 2,068,453-person group is explicitly a pilot not yet geographically checked. It distinguishes 300 PPS draws from 178 unique random records and 61 targeted records, reports the 200-record union, excludes targeted checks from the probability estimate, and calls seed/weight reproduction an integrity check rather than independent geographic validation."
+    },
+    {
+      "id": "historical_population_claim_scope",
+      "status": "pass",
+      "evidence": "The 64,483 assertion inventory separates rank-eligible and deprecated rows, holds the four date variants, says 4,984 full-entity statements are already included rather than additive, and states these historical candidates are not added to the frozen 500,320-row table."
+    },
+    {
+      "id": "pps_zero_error_bound",
+      "status": "pass_conditionally",
+      "evidence": "The exact text gives the correct one-sided 95% bound for independent with-replacement PPS draws: `1 - 0.05^(1/n)` is about 0.498044% for n=600 and 0.099974% for n=2,995. It limits use to a separately fixed with-replacement sample and excludes the stratified pilot, targeted conflict checks, and untested years.",
+      "conditions": [
+        "The sampling frame is frozen and its population weights are exact and disjoint for the population-mass estimand.",
+        "Per-draw PPS probabilities and independent with-replacement implementation are reproducible.",
+        "Each sampled unit receives a verified fixed error/correct label; repeated IDs retain their repeated draw count because the unit's reviewed label applies to each draw.",
+        "No transfer of the confidence bound beyond the frozen frame and reviewed rule family."
+      ]
+    }
+  ],
+  "recommendation": "Accept the final draft on the bounded scope/PPS checks. The prior v1 finding that requested deletion of a nonexistent 99.9%-accuracy sentence is withdrawn; no report edit is needed for that item.",
+  "no_admissions": true
+}

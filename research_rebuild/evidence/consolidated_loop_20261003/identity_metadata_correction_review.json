@@ -1,0 +1,66 @@
+{
+  "verdict": "PASS_BOUNDED_ALIAS_METADATA_CORRECTION_CHECK",
+  "scope": "Read-only row/value comparison of the frozen 177707-row graph correction; no identity decisions or admissions made.",
+  "correction_receipt_sha256": "3575e01d8b30c697d0c558c7f9e128796068dbeeaa0a1a536310a2e229738b18",
+  "correction_receipt_pins_verified": true,
+  "old_graph_sha256": "a30c25916ac73507edb2a67a2b3c249be93517f467bbff19fe527ba6c80a8126",
+  "corrected_graph_sha256": "e9f402c2bda189561d56a4adcee5ecd2fa4d5ed52610b45011eab9f8bc14f075",
+  "row_count_old": 177707,
+  "row_count_corrected": 177707,
+  "all_nonmetadata_columns_exactly_equal": true,
+  "metadata_fields_checked": [
+    "candidate_status",
+    "admission_status",
+    "candidate_only"
+  ],
+  "changed_rows": 1139,
+  "changed_endpoints": 2278,
+  "all_1139_changed_rows_exact_tuple": {
+    "candidate_status": "accepted_after_independent_application_review",
+    "admission_status": "checked_rule_accepted",
+    "candidate_only": false
+  },
+  "remaining_rows_unchanged": 176568,
+  "legacy_metadata_caveat": "Among unchanged rows are the prior 1120 edges whose optional candidate/admission flags predate this correction. This review does not validate those legacy flags; canonical decision status remains authoritative for them.",
+  "no_new_scientific_admissions": true,
+  "dagestan_source_evidence_correction_prior_independent_review": {
+    "review_verdict": "PASS_DAGESTAN_SOURCE_EVIDENCE_ID_CORRECTION_INDEPENDENTLY_VERIFIED",
+    "review_path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_review_v1/evidence_correction_review.json",
+    "review_sha256": "168465b4d86f671a765fc8e8bcc9c002ff5eb03dd4ab3db4feae0ad8658a7b68",
+    "correction_output_sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327",
+    "correction_receipt_sha256": "d29d0332538733ea23b2b73eee03ca55090487dd74103518434d1ee92ca064de",
+    "correction_is_output_irrelevant_to_export_logic_per_root_builder_scope": true,
+    "reused_not_reaudited": true
+  },
+  "derivative_manifest_pending": true,
+  "files": {
+    "old_graph": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_v1/accepted_identity_edges.parquet",
+      "sha256": "a30c25916ac73507edb2a67a2b3c249be93517f467bbff19fe527ba6c80a8126"
+    },
+    "corrected_graph": {
+      "path": "/workspace/settlements-work/continuation_20261003/shared_named_point_region_alias_metadata_correction_v1/accepted_identity_edges.parquet",
+      "sha256": "e9f402c2bda189561d56a4adcee5ecd2fa4d5ed52610b45011eab9f8bc14f075"
+    },
+    "correction_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261003/shared_named_point_region_alias_metadata_correction_v1/receipt.json",
+      "sha256": "3575e01d8b30c697d0c558c7f9e128796068dbeeaa0a1a536310a2e229738b18"
+    },
+    "alias_application_review": {
+      "path": "/workspace/settlements-work/continuation_20261003/shared_named_point_region_alias_review_v1/review.json",
+      "sha256": "1ed7d69cfd3f5ee20a0b136f9a0bd1b2d3db7088b0faf3c469b8da7d878d7fa5"
+    },
+    "evidence_correction_output": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_evidence_id_correction_v1/source_evidence.parquet",
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+    },
+    "evidence_correction_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_evidence_id_correction_v1/receipt.json",
+      "sha256": "d29d0332538733ea23b2b73eee03ca55090487dd74103518434d1ee92ca064de"
+    },
+    "evidence_correction_review": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_review_v1/evidence_correction_review.json",
+      "sha256": "168465b4d86f671a765fc8e8bcc9c002ff5eb03dd4ab3db4feae0ad8658a7b68"
+    }
+  }
+}

@@ -32,3 +32,241 @@
 6. Публиковать выборку со статусом и нерешёнными воротами. Парсерная проверка не означает автоматического допуска идентичности или координаты.
 
 См. также [дневник решений](DECISION_DIARY.md), [статус выпуска](../STATUS.md), [источники и условия использования](../SOURCES.md), [R5 манифест](../research_rebuild/evidence/ingestion/source_manifest_karelia_r5_fresh.json) и [корректирующий парсер 2010 таблицы 5](../research_audit/extract_official_2010_reference.py).
+
+## Дополнение массового цикла 2026-10-03
+
+- Дагестанский XLS: тип/имя — столбцы6/7, район —4; столбец9 содержит этнический показатель. Проверять заголовок профиля, а не только номер столбца из старой конфигурации.56 исходных строк проверены независимо.
+- Нулевое число совпадений ключа не означает дубль: обработка дефисов по-разному давала ложный статус «неуникально». Сохранять сырое имя и использовать одинаковые нормализаторы для обеих сторон ключа.
+- При наложении нового источника `set_index` может удалить ID из строки: последующее `.get` записывает null в JSON. Проверять внутренний и верхний ID после фактического применения; преобразовывать скаляры NumPy в нативные JSON-значения.
+- После допуска обновлять связанные служебные флаги новых строк. Канонический статус решения и сохранённые исторические метки стадии должны различаться явно. Проверки должны охватывать необязательные поля реального подготовленного пакета.
+- Количество физических строк CSV не равно числу записей: цитата исходной PDF-строки может содержать перенос внутри кавычек. Использовать CSV-парсер.
+- Территориальные итоги могут быть ошибочно помечены поселениями в исходном столбце. Использовать доказательный слой уровня объекта при проверке координат и расчёте возможного потолка; наличие старой точки не меняет этот уровень.
+
+## Дополнение массового цикла 2026-10-04
+
+- Пустая районная ячейка не разрешает бесконечный forward fill. В XLS Башкортостана район «Бураевский» из строки1429 ошибочно распространялся на Иглино/Чекмагуш и другие районы. Без доказанной иерархии блока контекст остаётся неизвестным. Сравнение результата заполнения с собственной проекцией не является независимой проверкой.
+- Схема CSV по ключам первой строки теряет новые доказательства других семейств при `extrasaction=ignore`. Использовать полный набор колонок и проверять обязательные поля каждого правила; неожиданные поля должны давать ошибку.
+- Nullable служебный `admission_allowed` не заменяет канонический статус допуска принятой таблицы. Пустое необязательное поле не должно выбрасывать принятые Wikidata/GeoNames точки.
+- Рецензия привязана к точным байтам снимка. Расширение кандидатного пакета создаёт новый замороженный набор; прежние исходники/рецензии сохраняются и используются только в своём диапазоне проверки.
+- Хеш больших источников рассчитывается один раз на файл, а не на каждую строку. Регрессия на число вызовов обнаруживает квадратический расход без ненадёжных временных порогов.
+- Уникальность межгодового ключа проверяется отдельно для каждого года и на полном исходном слое. Подсчёт `name+region` сразу по 2002 и 2010 ошибочно исключает устойчивые НП, существующие в обоих годах. Фильтрация современных кандидатов до проверки уникальности также может скрыть конкурирующий одноимённый объект.
+- `name_raw_2009` классификатора содержит типовой префикс, например «с Сындасско». Сравнивать его непосредственно с переписным `settlement_name` нельзя. Для ключа использовать разобранное поле `name`, сохраняя исходную строку и проверяя конкретное правило её разбора. Общий фильтр по началу слова, особенно «Город», недопустим.
+- Разные тексты районных подписей разных лет требуют смыслового разбора: административное переименование, смена уровня и неизвестный унаследованный контекст отличаются от действительного конфликта объектов. Само неравенство сырых строк не является доказанным географическим противоречием.
+- Большие множества идентификаторов строятся вне цикла по компонентам. Диагностика точечных пробелов после исправления повторного построения множества выполняется за 3,16 секунды; неуспешный черновой запуск был остановлен после нескольких минут. Это исправление производительности, без изменения критериев допуска.
+
+### 2026-10-04: индексы, источник и область записи
+
+* GeoNames ADM1 сначала индексируется полностью; физические PPL сопоставляются
+  вторым проходом. Порядок строк файла не должен менять найденных конкурентов.
+* Публикационные `settlement`, `region`, `oktmo` сравниваются с полями публикации,
+  а обратная геокодировка `_dadata` хранится отдельным утверждением.
+* Разобранное имя исторического классификатора сравнивается с именем НП;
+  сырой типовой префикс сохраняется. Не удалять начальные буквы «Город».
+* Числовой код без ведущего нуля остаётся literal; zfill — отдельный вывод
+  с собственным статусом и доказательством, не исправление исходной строки.
+* Выходные пути имеют allowlist вне входных рецензий; до и после подготовки
+  проверяются их хеши. Переменную пути вывода нельзя переиспользовать в цикле.
+
+
+### 2026-10-04: происхождение смешанных точек и сохранность наблюдений
+
+Адаптер смешанного набора должен выбирать source path/hash/locator по
+проверенной семье фактического происхождения каждой точки. Подтверждение
+GeoNames для точки Tochno не превращает её в измерение GeoNames, и наоборот.
+107 применённых новых точек разделены 79 Tochno / 28 GeoNames после
+полного replay исходных строк; смешанная регрессия предотвращает общий
+provider override. Общий экспорт обязан сохранять уже принятые годовые и
+буквальные слои: проверка одной переписной суммы не выявляет их выпадение.
+Проверка уникальности нормализует пробелы вокруг существующих дефисов,
+не удаляя сам дефис; исходное название всегда сохраняется.
+
+### 2026-10-04: fifth-run validation and provenance
+
+* Узкая `claims.parquet` не является полным индексом исторических QID-заявлений.
+  Перед выводом «исторической записи нет» нужно проверить фактический полный
+  entity cache и годовые выгрузки. Здесь 29 пакетов дали 10114 непомеченных
+  deprecated P1082 statements на 1444 QID; все пары QID/statement-GUID уже
+  были в staged secondary history. Повторный cache replay подтвердил источник,
+  но не создал новые утверждения и сам по себе не доказывает связь места.
+* Исходные поля публикации `settlement`, `region`, `object_name` и нативный
+  `oktmo` имеют отдельный смысл от вспомогательных `_dadata` полей. Для
+  Шумерли helper-классификатор присваивал городу деревенский код/тип, тогда как
+  буквальный объект публикации и уникальный нативный городской OKTMO совпадали.
+  Сначала проверяйте publisher row grain, имя, регион и нативный код; helper
+  храните как отдельное мнение провайдера, не как исходное удостоверение НП.
+* Ограничение DuckDB в 1 GB на широком join не гарантировало, что проход
+  завершится быстро. Перенос на Arrow/Parquet выявил Null-бинарное смещение
+  offset при чтении одной из колонок; ошибку нужно воспроизводить на тех же
+  source hashes, исправить путь чтения и затем прогнать полную проверку схемы,
+  ID, null и итоговых хешей. В пятом прогоне подтверждённый v3-путь оставил
+  исходные source bytes неизменными.
+* Итоговый пятый прогон сохранил происхождение каждого исходного point use:
+  1935 новых identity rows, 58 прямых точек и 163 continuity-переноса. Из 712
+  проверенных контекстных записей лишь 9 дали новую связь; 703 пересекались
+  с уже связанными endpoint-контекстами и были подтверждениями, не новыми
+  объединениями. См. receipt bundle [`fifth_reviewed`](../research_rebuild/evidence/mass_joint_20261004/fifth_reviewed/).
+
+
+### Массовое чтение и экспорт, 4 октября
+
+* Преждевременный `break` во внешнем цикле строк листа уничтожает весь остаток
+  после первой типизированной строки. Проверяйте число прочитанных физических
+  строк и контрольные НП в начале/середине/конце; ноль совпадений отличается от
+  нескольких конкурентов. Нулевой вывод повреждённого сканера не доказательство.
+* Повторный разбор одного листа для каждого локального блока дороже собственно
+  сопоставления. Сохраняйте узкий индекс физических строк/заголовков и checkpoint
+  кандидатов до итоговой симуляции; не держите десятки широких книг в памяти.
+* Годы2002.0 могут быть интегральными строковыми представлениями; строго
+  разрешайте только целое значение и совпадение с фактическим годом источника.
+  Дробные годы не округлять. Проверка типа координатного правила должна
+  опираться на явный статус, а не на префикс имени скрипта `reviewed_`.
+
+
+### 4 октября: длинные доказательные поля и потоковые проекции
+
+СтандартныйCSV field limit128KiB недостаточен для полного сырого блока
+таблицы. Поднимайте явный конечный лимит и проверяйте сохранность длинных
+полей; не усекать доказательства ради успешного чтения. Для широкой
+длиннойParquet таблицы маленький контекст309 строк присоединяется
+потоковымLEFTJOIN кVIEW; материализация wideTEMP и глобальная сортировка
+породили5.9GB spill. Идентичность определяетсяobservation_id, физический
+порядок строк не обещается. Защищённое вторичное2010 значение нельзя
+назвать официальным сравнителем только потому, что найден исходный
+файл вторичного издателя; сверяйте отдельно реальную строкуРосстата.
+
+
+### 8 октября: буквальный заголовок района и вспомогательные подписи
+
+В исходной книге `060_0d687479dd_02c_yamalo-nenets.xls`, лист `Sheet1`,
+физическая строка 81 содержит «Пуровский р-н». Восемь выбранных записей
+населённых пунктов ниже неё (19 821 человек, включая Пурпе — 9 074)
+сохранили ошибочный прежний `district_raw` «Приуральский район».
+Этот конфликт создан разбором таблицы и не доказывает перемещения или
+существования другого одноимённого населённого пункта. Свидетельство:
+[`purpe_actual_printed_county_bracket.csv`](../research_rebuild/evidence/absorbed_native_event_mass_20261008/purpe_actual_printed_county_bracket.csv).
+
+В книге 2010 года `003_eb441570b1_11._20Урал_ФО_2010.xls`, лист «Урал»,
+девять записей строк 2800–2808 получили подпись «сс» вместо вышестоящего
+«Ямальский район» в строке 2799; следующий город начинается в строке 2809.
+Сельсовет и район — разные уровни. При наследовании контекста нужно
+определять уровень заголовка, учитывать сокращение «р-н» и сохранять
+вышестоящий район при чтении подчинённых подписей. Свидетельство:
+[`yamalo2010_literal_upper_county_context_20261008`](../research_rebuild/evidence/yamalo2010_literal_upper_county_context_20261008/).
+
+В рабочем слое исходный `district_raw` не переписан: исправленный контекст
+содержится отдельно с хешем книги и буквальными строками заголовка.
+Применены только положительно разрешённые соответствия двух Толек с
+разными районами и Сеяхи с опубликованными вариантами названия;
+остальные строки не объявлены новыми совпадениями. Пурпе не получил
+искусственную запись 2021 года. См.
+[`purpe_sourcecounty_native_application`](../research_rebuild/evidence/absorbed_native_event_mass_20261008/purpe_sourcecounty_native_application/).
+
+
+## 2026-10-08: входные свидетельства и производные контрольные таблицы
+
+При массовом объединении стадий 40–46 исходные значения и качество населения
+не менялись. Проверка завершения сначала ошибочно требовала прежний хеш
+производной таблицы, которую тот же запуск уже обновил. Прежнюю контрольную
+таблицу проверили по точным байтам сохранённого Git-коммита; исходники,
+принятые связи и свидетельства точек по-прежнему проверяются по живым файлам.
+Исторический контроль результата не следует включать в неизменяемые входы
+его нового построения. Отдельная ошибка вывода структурированного списка
+ограничений исправлена без третьего расчёта графа или перезаписи численностей.
+
+Уникальное в регионе сочетание буквального названия и совместимого типа
+позволило связать 37 исходных строк 2010 года. Наличие уже подтверждённой
+преемственности физического места допускает ретроспективное применение
+собственной точки; отдельная старая точка не обязательна. Реальные конкуренты
+и противоречащие точки сохраняют значение: три точки с расхождением
+134–281 км удержаны. Защищённые значения 2010 года остаются защищёнными,
+принятие идентичности не делает их точными официальными значениями.
+
+
+## 2026-10-08: одноимённые НП вне выбранного слоя и координаты поставщика
+
+Фиксированная независимая выборка 40 новых сельских историй обнаружила три
+связи точки поставщика с другим опубликованным населённым пунктом. Проверка
+соперников только в выбранном слое пропускала одноимённые строки полного
+исходного перечня 2021 года. Проверять физические конкуренты нужно по полному
+исходному перечню, сохраняя коды строками, включая ведущие нули.
+
+Подчинённый сельсовет не следует принимать за район, однако его исходная
+подпись помогает различать одноимённые НП в одном районе. Общий FIAS и точка
+не доказывают, что две опубликованные строки обозначают один физический НП.
+Неправильная привязка к коду поставщика и неправильная сама точка — отдельные
+выводы: независимый собственный кодированный источник может подтвердить
+точку при отклонении чужого идентификатора. До такого подтверждения известный
+конфликт не входит в надёжное собственное координатное покрытие.
+
+Узкий массовый поиск выявил также 446 таких привязок в предыдущем слое;
+только семь входят в полные трёхпереписные истории. Обычное различие старого
+и нового кода, документированный мост восьми- и одиннадцатизначного кода,
+пустое поле или неподдержанный формат сами по себе не объявлены ошибками.
+Свидетельства: `native_mass_fixed_sample_20261008` и
+`baseline_fullraw_point_code_conflict_scan_20261008`. Расчётный результат
+стадии55 сохранён как предварительный с явным уведомлением о конфликте.
+
+
+## 2026-10-08 — практические ограничения массовых координат и источников
+
+* Полный raw roster нужен для конкурентов: canonical selection могла пропустить настоящий одноимённый НП другого provider-кода.
+* Совпадение собственного кода GeoKLADR не доказывает физическую правильность точки. Provider-ID binding и собственная физическая точка — разные утверждения; чужой неиспользованный DaData ID не опровергает правильно связанную Wikidata-точку.
+* Документированный 8-значный urban ОКАТО ↔11-значный GeoKLADR с000 и представление числовой ячейки `.0` — ограниченные форматные мосты, не универсальное обрезание кода.
+* Смена сельсовета не равна смене районного заголовка. Отсутствие ADM2, исторического полигона или отдельного query journal не заменяет положительную проверку физического объекта и не блокирует сильный обычный случай.
+* Для локального GeoNames-кандидата учитывать все региональные одноимённые физические объекты, включая PPLQ. Далёкий одноимённый объект не создаёт локальную коллизию, но близкий настоящий конкурент удерживает результат.
+* Точное сравнение полного UID требуется вместо substring:717 и7172 — разные записи. Коррекция собственной точки не переносит автоматически историю населения чужого QID.
+* Существующие опубликованные/рабочие primary слои искать за пределами одного каталога или ожидаемого имени файла: первичная перепись Крыма2014 уже была доступна в project work cache.
+* Официальные строки Крыма2014 сохраняют literal старое имя, точный лист/строку и хеш; current alias не переписывает primary текст или дату юридического переименования.
+* Даже точное замыкание суммы известных численностей на региональный контроль не превращает одиннадцать NULL строк2014 в индивидуальные нули.
+* Современная территориальная точка Севастополя — представительский spatial reference, не измерение2014 или точка всех физических дочерних НП. Никогда не суммировать parent с включёнными child.
+
+
+## 2026-10-08 — source hierarchy before population closure
+
+В Астраханском источнике «Село Малый Арал» с отступом9 — промежуточный subtotal, а «село Малый Арал» с отступом12 — строка самого НП. Обе содержат544. Число и нормализованное название совпадают, но это не две additive записи. Перед подсчётом сохранять исходный регистр, отступ, положение под заголовком и соседние строки; классифицировать роль строки по всей source-level иерархии. Одно regex по имени или совпавший контроль не подтверждают grain.
+
+Редкие железнодорожные типы и слитные подписи требуют отдельного остатка парсера: стандартный список «село/деревня/посёлок» может пропустить настоящий НП. Разделение слитной подписи не должно менять буквальный raw excerpt; токенизацию и принятое толкование хранить отдельно. Такие пропуски сначала проверяются в исходнике, затем связываются с native ID, собственным физическим объектом и точкой.
+
+Кандидатный Lingvarium compilation:128 отсутствующих НП2002/13 027, без применения к State. Гипотетическая национальная сумма превышает контроль на1 301; subtotal duplicate544 — конкретное source-level предупреждение. Даже замкнутая региональная сумма не доказывает, что родители и дети классифицированы правильно: взаимно компенсирующие пропуски/повторы могут скрыться в общем итоге. Не распределять дефицит квотой, не подгонять численности и не объявлять закрытие страны по одному total. Raw evidence, holds и несовпавшие controls сохраняются до отдельного допуска.
+
+Source grade всех 128 кандидатов — региональная XLS-компиляция Lingvarium, не прямой первичный Rosstat. Из них **98 строк /9 810 жителей** относятся к **20 замкнутым региональным source-пакетам**; **30 строк /3 217** (Тверь28, Астрахань2) удержаны из-за несогласованности национальной суммы. Это строки и source-пакеты, а не 98 проверок или десять регионов. Доказательство Astrakhan subtotal сохраняется как candidate correction; новые строки в State ещё не добавлены.
+
+## 2026-10-08 — applied64 source admissions and stage-aware denominator readback
+
+The128 Lingvarium secondary-compilation observations are now admitted as source records, separately from identity and point credit. Parent row456 retains raw544 with additive=False; child row457 remains unchanged. All28 Tver railway rows have their own printed parent closures. Local closure permits these observed rows without forcing national closure: selected2002 signed excess757 remains visible. The earlier candidate/held entries above describe their historical state.
+
+Publication-overlap guards must parse shared-byte publication locators only. A distinct Rosstat source uses `ROSSTAT2002:T1:T4:sheet01-04:excel_row02155`; assuming the Lingvarium filename/sheet/row UID grammar for every publication rejects a genuine independent record. Preserve native ID syntax and publication hash rather than rewriting IDs to satisfy one parser.
+
+A population-overlay lookup against only the original selected parquet misses newly admitted source IDs and the parent nonadditive interpretation. Use the hash-pinned actual current observation ledger, check additive grain before all sums and regional/row denominators, and retain originalselected and full2010 unchanged-field checks. The separate1910 overlay changes2010 denominator by168770, not merely its numerator; signed source residuals remain explicit. Do not clamp or quota-allocate discrepancies.
+
+## 2026-10-08 — statistical grain after administrative inclusion; bounded point export
+
+Administrative inclusion2001 is not grounds to delete a separately printed own statistical NP2002. Gorodok17 retains5495 on an explicitly typed included_in path, with its compilation source grade, own former-NP point, NULL later own counts and zero receiver credit. The county parent closure checks native grain/double count; it does not turn receiver2010/2021 into child population or justify ordinaryUF identity.
+
+GN corroboration must describe the whole physical locality and respect actual native code/name/type/municipal competitors. Current owncoded RCSI point replacement is a representative use, not an asserted binding of a different provider ID or a historical census-day coordinate.
+
+A wide point dataframe can exhaust memory after a successful application. Preserve post-API UID/components and immutable delta/hash proofs; recover only export, without repeating State application. Validate points through streamed narrow key/coords/provenance columns. Exact numeric comparisons must use the canonical CSV reader: pandas parses36.358958333333334 as36.35895833333333 here, while stdlibfloat retains another last bit. Record the reader; do not substitute coordinate tolerance, clamping or smoothing for exact parsed-ledger verification.
+
+## 2026-10-08 — explicit inherited events and on-row county evidence
+
+A new native/point batch must recompute the current unique source-ID union while retaining the original stage/date of typed lifecycle evidence. G17's5495 statistical2002 population belongs to stage65; source66adds zero new G17UID population. Do not count the same event again or invent later child observations from receiver context.
+
+For a primary population claim, own county on the actual row plus all printed same-name/type rivals is distinct from inferred forward-filled county context. Eight newly admitted official claims use explicit on-row binding; separate primary quality can improve even when some printed counts equal the old value. Preserve raw import grade/values and source hashes; recompute both effective numerator and denominator (selected2010delta173992), not only population credit.
+
+Temporal source-code admission must use the frozen accepted subset, not the larger discovery draft. The applied66 packet has118edges, not the earlier668 discovery figure; future67 sourcecounty/history drafts remain outside State and reported sums. Narrow streaming snapshot readback and exclusive UID unions avoid another wide point dataframe or full State replay.
+
+## 2026-10-08 — NULL scope generation and heterogeneous publication locators
+
+A NULL county/parish must remain unknown in candidate generation; a scoped equality rule must not silently coerce it into a shared place. The bounded67 generator correction still requires actual accepted source-code/name/type/region or independent parish/railway evidence. Freeze the accepted subset:168edges/167uses, not all discoveries. Genuine same-year urban/rural collisions remain held.
+
+Population claim adapters must bind actual XLS/MHT publication locators as well as PDF locators, compare old values and all required source fields, and preserve unknown sex counts.133NULL sex fields in the new3066claims are not zero and do not invalidate an independently printed total. Recompute the current source-ID membership and effective numerator/denominator: actual primarydelta185514 differs from conditional185516; raw population/quality/grain stay unchanged. Keep primary source grade separate from imported quality and parent context; inherited G17 credit remains attached to stage65.
+
+## 2026-10-08 — immutable identifiers and separate corrected reviews
+
+Stage-number substitutions must target stage fields/path components, never unrestricted numeric substrings in immutable source IDs/hashes. A readonly68 validation adaptation changed Astrakhan parent SID218ac665→218ac675; the literal was restored in /tmp only before remaining checks. Canonical data were unchanged. Keep original published review bytes/hash controls; store corrected semantic count-source review v2 separately with explicit sourceUID binding instead of rewriting originals. Restored df8cff/d134 reviews and separate Tula v2 preserve scientific history without reapplying State/API.
+
+Generic primary claim adapters preserve explicit NULL sex fields and source-grade distinctions across heterogeneous locators. Own printed population proof is separate from imported quality; selected totals and credited UID membership must be recomputed. Actual68 effective2010 gain9666=6189native+3477overlay/membership differs from conditional3470; neither implies 100% coverage, historical boundary equality or point accuracy.
+
+## 2026-10-09 — original source order in ethnicity-sorted Amur tables
+
+The 2002 Amur XLS is physically sorted by an ethnic-share indicator. Adjacent spreadsheet rows are not administrative hierarchy evidence. Preserve the original ordinal in column 0 and reconstruct original order before interpreting county captions. Nikolaevka (population 1,092) belongs to the Bureysky/Novobureysky rural source scope; its physical row position had misleadingly suggested Zeya. Compare all same-name source rows and retain physical and original row locators separately. Correcting identity does not rewrite population, quality, or external-provider identifiers.

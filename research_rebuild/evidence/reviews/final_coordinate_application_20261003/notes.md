@@ -1,0 +1,22 @@
+# Coordinate extension application review v1
+
+I reviewed the immutable `extension_application_v2` application ledger and wrote a new fixed sample. The v2 manifest pins the current application script and all input/output artifacts. All 290,346 combined target IDs are unique; the 193,045 new uses remain staged candidates with `admission_allowed=false`. The candidate rows make no direct historical-measurement, boundary-comparability, or population-scope-comparability assertion.
+
+The staged families are 153 A modern-city cases, 108,856 F generic 2002/2010 GeoKLADR points, 84,035 R retrospective accepted-graph continuity uses, and one standalone Moscow 2002 physical-city point. The hold ledger contains 622 A precedence rows, 54,216 F rows, and 16 R event rows. In the F hold ledger, all 4,086 old typed 8→11 width cases remain held (1,962 city, 2,124 pgt); all 3,715 shared-point-group cases remain held. These counts overlap and should not be summed as disjoint records. The width hold is separate from the earlier reviewed modern 775-city bridge and does not revoke the 153 A target uses.
+
+The accepted R path review found 84,034 one-edge paths and one two-edge path, each with exact source/modern endpoints and accepted same-place edges. The staged point coordinates and accepted modern carrier identity/provider status are preserved. Sixteen exact code-keyed event-hit targets remain held; their event candidates are not treated as accepted events. Uncertainty about point measurement date/query receipt is soft provenance, while any hard coordinate conflict blocks use. This operational continuity inference does not claim a historic measurement or boundary comparison, and does not require an individual dossier or census-date polygon for every ordinary stable physical settlement.
+
+For A/F, the earlier raw-source joins covered all 109,009 staged point rows against the parsed GeoKLADR records and raw 2009 classifier: coordinate values, raw code/name/type/KOD3, row number/byte offset, and raw DBF hash matched. Selected census source rows are linked to exact release IDs and locators; local-file hash and release-hash evidence are distinct. A universal independent second point provider is not required for F. A retains the separate provider-to-point comparison in its source-specific gate.
+
+The substantive point-use gates are supported as staged candidates, subject to the provenance condition below. **The frozen v2 output still has a canonical point-origin representation mismatch:** F/A rows name the parsed parquet in `coordinate_source_file` but put the raw DBF digest in `coordinate_source_sha256`; the parsed artifact digest is separate. R rows leave file/hash fields blank and carry inherited origin details in provenance JSON. Before promotion, record a canonical origin tuple with the actual point-source file/hash/record locator and the parsed artifact as a separate input-artifact field, then independently check that tuple against the raw point row or accepted modern carrier. Do not alter the frozen application outputs to repair this.
+
+The Moscow exception is tightly scoped to ROSSTAT 2002 source row 2155, typed city, physical-settlement-city-only scope, and the physical city center P625 claim on Q649. It is a standalone 2002 representative-point inference and needs no identity edge to the 2021 aggregate; it gives no point to Moscow 2010/2021, St Petersburg, or Sevastopol aggregates and transfers no provider-ID binding or population exactness.
+
+`sample.csv` has 24 fresh target IDs with no overlap with the prior 17-row sample. It covers A exact text and explicit numeric serialization, F eligible points, shared-point holds, and city/pgt older-width holds, plus R continuity and event-hit holds. It is a deterministic diagnostic sample, not a population-accuracy sample.
+
+## Reproducibility evidence
+
+- Manifest: `extension_application_v2/manifest.json`, SHA-256 `83faf7b307a9b267aa26212017980ca9127710563005762d5782c4ef057ea2a4`.
+- Current application script SHA-256 matches the v2 manifest: `7d478baacc0311c047a141c2844ecb7a9eca5d28516e2d2a4c9d0400c4a4e042`.
+- Output pins: checks `8f788dcd19ed41afa283ad8e6323be370bf0e2eb3a828d67b7dc02168ce693df`; held `4c708543686925d6269c56dc3e050ff740ece563da5204ad7c6905497a67933e`; uses `091982265a3e9300aa3c850f6d5d6ae6ecacde2789778957eb92d2400ee38427`.
+- Fresh sample SHA-256: `9f5075b9b579080994fa29e888e897d961c6b314b0dabe1f37feb714a5621bca`.

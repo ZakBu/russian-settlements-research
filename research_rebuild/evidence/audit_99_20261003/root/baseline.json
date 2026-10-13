@@ -1,0 +1,359 @@
+{
+  "audit": "read_only_current_baseline_and_target_bounds",
+  "created_inputs": [
+    {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/settlements_long.parquet",
+      "sha256": "0826f554d9100c52b5e430327cb209d030d035f7c52dd19caa7cf7c902969a72"
+    },
+    {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/coverage.json",
+      "sha256": "b6a82fbc4f360ca8fe4f409ffdb5efc7a6d8eb7f41e7cad913e1eb4e9f1c3587"
+    }
+  ],
+  "checks": {
+    "unique_observation_ids": true,
+    "coordinate_pairs_and_ranges": true,
+    "census_point_counts_population_equal_published_coverage": true,
+    "aggregate_population_equal_published_coverage_and_no_settlement_points": true,
+    "disjoint_population_partition_sums_to_full_control": true
+  },
+  "row_count": 500320,
+  "census_rows": 465800,
+  "metrics": [
+    {
+      "year": 2002,
+      "control": 145166731,
+      "known_selected_population": 145155005,
+      "source_population_gap": 11726,
+      "accepted_point_records": 121906,
+      "accepted_point_population": 120606407,
+      "aggregate_population": 4661219,
+      "unpointed_nonaggregate_records": 36165,
+      "unpointed_nonaggregate_population": 19887379,
+      "availability_population": 142106890,
+      "physical_selected_point_coverage": 0.8584465579139564,
+      "canonical_national_point_coverage": 0.8308129980553189,
+      "targets": {
+        "99_percent": {
+          "minimum_population": 143715064,
+          "required_additional_admitted_point_population": 23108657,
+          "available_point_inventory_shortfall_even_if_all_correct": 1608174,
+          "current_grain_nonaggregate_ceiling_shortfall": 3221278,
+          "physical_selected_operational_threshold": 139088849,
+          "physical_selected_additional_needed": 18482442
+        },
+        "99_9_percent": {
+          "minimum_population": 145021565,
+          "required_additional_admitted_point_population": 24415158,
+          "available_point_inventory_shortfall_even_if_all_correct": 2914675,
+          "current_grain_nonaggregate_ceiling_shortfall": 4527779,
+          "physical_selected_operational_threshold": 140353293,
+          "physical_selected_additional_needed": 19746886
+        }
+      },
+      "axes": {
+        "coordinate_availability_by_exact_source_route": {
+          "rows": 152781,
+          "known_population": 142106890,
+          "row_fraction": 0.9665279113315451,
+          "selected_known_population_fraction": 0.9790009652095703,
+          "official_control_population_fraction": 0.9789218853457546,
+          "unknown_population_rows": 0
+        },
+        "coordinate_inventory_including_unaccepted_legacy_place_pointers": {
+          "rows": 152781,
+          "known_population": 142106890,
+          "row_fraction": 0.9665279113315451,
+          "selected_known_population_fraction": 0.9790009652095703,
+          "official_control_population_fraction": 0.9789218853457546,
+          "unknown_population_rows": 0
+        },
+        "coordinate_admitted": {
+          "rows": 121906,
+          "known_population": 120606407,
+          "row_fraction": 0.7712055265954755,
+          "selected_known_population_fraction": 0.8308801132968168,
+          "official_control_population_fraction": 0.8308129980553189,
+          "unknown_population_rows": 0
+        },
+        "identity_link_to_other_census": {
+          "rows": 126788,
+          "known_population": 112654242,
+          "row_fraction": 0.8020901867503416,
+          "selected_known_population_fraction": 0.7760961601014034,
+          "official_control_population_fraction": 0.776033470093089,
+          "unknown_population_rows": 0
+        },
+        "full_census_chain": {
+          "rows": 44758,
+          "known_population": 94776163,
+          "row_fraction": 0.28314945088314186,
+          "selected_known_population_fraction": 0.6529307273972399,
+          "official_control_population_fraction": 0.6528779862102151,
+          "unknown_population_rows": 0
+        },
+        "joint_admitted_coordinate_and_other_census": {
+          "rows": 115238,
+          "known_population": 108378387,
+          "row_fraction": 0.729022217723569,
+          "selected_known_population_fraction": 0.746638994638869,
+          "official_control_population_fraction": 0.7465786840650148,
+          "unknown_population_rows": 0
+        },
+        "joint_admitted_coordinate_and_full_chain": {
+          "rows": 44581,
+          "known_population": 92407374,
+          "row_fraction": 0.28202970798117316,
+          "selected_known_population_fraction": 0.6366116965791155,
+          "official_control_population_fraction": 0.6365602735794884,
+          "unknown_population_rows": 0
+        }
+      },
+      "population_quality": [
+        {
+          "source_quality": "direct_published_census_value",
+          "rows": 158067,
+          "known_population": 134772251
+        },
+        {
+          "source_quality": "reviewed_primary_source_child_partition",
+          "rows": 5,
+          "known_population": 10382754
+        }
+      ]
+    },
+    {
+      "year": 2010,
+      "control": 142856536,
+      "known_selected_population": 142363024,
+      "source_population_gap": 493512,
+      "accepted_point_records": 79636,
+      "accepted_point_population": 102296204,
+      "aggregate_population": 16383067,
+      "unpointed_nonaggregate_records": 72676,
+      "unpointed_nonaggregate_population": 23683753,
+      "availability_population": 141062916,
+      "physical_selected_point_coverage": 0.812003801525349,
+      "canonical_national_point_coverage": 0.7160764698928441,
+      "targets": {
+        "99_percent": {
+          "minimum_population": 141427971,
+          "required_additional_admitted_point_population": 39131767,
+          "available_point_inventory_shortfall_even_if_all_correct": 365055,
+          "current_grain_nonaggregate_ceiling_shortfall": 15448014,
+          "physical_selected_operational_threshold": 124720158,
+          "physical_selected_additional_needed": 22423954
+        },
+        "99_9_percent": {
+          "minimum_population": 142713680,
+          "required_additional_admitted_point_population": 40417476,
+          "available_point_inventory_shortfall_even_if_all_correct": 1650764,
+          "current_grain_nonaggregate_ceiling_shortfall": 16733723,
+          "physical_selected_operational_threshold": 125853978,
+          "physical_selected_additional_needed": 23557774
+        }
+      },
+      "axes": {
+        "coordinate_availability_by_exact_source_route": {
+          "rows": 148081,
+          "known_population": 141062916,
+          "row_fraction": 0.9722087267092979,
+          "selected_known_population_fraction": 0.9908676567589629,
+          "official_control_population_fraction": 0.9874446066646891,
+          "unknown_population_rows": 0
+        },
+        "coordinate_inventory_including_unaccepted_legacy_place_pointers": {
+          "rows": 148081,
+          "known_population": 141062916,
+          "row_fraction": 0.9722087267092979,
+          "selected_known_population_fraction": 0.9908676567589629,
+          "official_control_population_fraction": 0.9874446066646891,
+          "unknown_population_rows": 0
+        },
+        "coordinate_admitted": {
+          "rows": 79636,
+          "known_population": 102296204,
+          "row_fraction": 0.5228409732526229,
+          "selected_known_population_fraction": 0.7185588021788579,
+          "official_control_population_fraction": 0.7160764698928441,
+          "unknown_population_rows": 0
+        },
+        "identity_link_to_other_census": {
+          "rows": 51246,
+          "known_population": 97882710,
+          "row_fraction": 0.33644970258807466,
+          "selected_known_population_fraction": 0.687557114549632,
+          "official_control_population_fraction": 0.685181880652629,
+          "unknown_population_rows": 0
+        },
+        "full_census_chain": {
+          "rows": 44758,
+          "known_population": 93942959,
+          "row_fraction": 0.29385348687579604,
+          "selected_known_population_fraction": 0.6598831379136763,
+          "official_control_population_fraction": 0.6576035064996956,
+          "unknown_population_rows": 0
+        },
+        "joint_admitted_coordinate_and_other_census": {
+          "rows": 51043,
+          "known_population": 95267382,
+          "row_fraction": 0.33511692950089944,
+          "selected_known_population_fraction": 0.669186276908532,
+          "official_control_population_fraction": 0.6668745068829053,
+          "unknown_population_rows": 0
+        },
+        "joint_admitted_coordinate_and_full_chain": {
+          "rows": 44582,
+          "known_population": 91666056,
+          "row_fraction": 0.29269797917459983,
+          "selected_known_population_fraction": 0.6438894975987585,
+          "official_control_population_fraction": 0.6416651177934204,
+          "unknown_population_rows": 0
+        }
+      },
+      "population_quality": [
+        {
+          "source_quality": "direct_official_city_value",
+          "rows": 1032,
+          "known_population": 94812305
+        },
+        {
+          "source_quality": "fresh_primary_r5_source",
+          "rows": 800,
+          "known_population": 643548
+        },
+        {
+          "source_quality": "reviewed_context_specific_dash_interpretation",
+          "rows": 32,
+          "known_population": 0
+        },
+        {
+          "source_quality": "reviewed_primary_reported_value",
+          "rows": 2607,
+          "known_population": 10491996
+        },
+        {
+          "source_quality": "reviewed_primary_source_value_or_null",
+          "rows": 4004,
+          "known_population": 1227626
+        },
+        {
+          "source_quality": "secondary_confidentiality_protected_value_exact_scope_unverified",
+          "rows": 143836,
+          "known_population": 35139230
+        },
+        {
+          "source_quality": "nan",
+          "rows": 3,
+          "known_population": 48319
+        }
+      ]
+    },
+    {
+      "year": 2021,
+      "control": 147182123,
+      "known_selected_population": 147182123,
+      "source_population_gap": 0,
+      "accepted_point_records": 130463,
+      "accepted_point_population": 120227079,
+      "aggregate_population": 19159843,
+      "unpointed_nonaggregate_records": 24948,
+      "unpointed_nonaggregate_population": 7795201,
+      "availability_population": 147166619,
+      "physical_selected_point_coverage": 0.9391105907502976,
+      "canonical_national_point_coverage": 0.8168592526688856,
+      "targets": {
+        "99_percent": {
+          "minimum_population": 145710302,
+          "required_additional_admitted_point_population": 25483223,
+          "available_point_inventory_shortfall_even_if_all_correct": 0,
+          "current_grain_nonaggregate_ceiling_shortfall": 17688022,
+          "physical_selected_operational_threshold": 126742058,
+          "physical_selected_additional_needed": 6514979
+        },
+        "99_9_percent": {
+          "minimum_population": 147034941,
+          "required_additional_admitted_point_population": 26807862,
+          "available_point_inventory_shortfall_even_if_all_correct": 0,
+          "current_grain_nonaggregate_ceiling_shortfall": 19012661,
+          "physical_selected_operational_threshold": 127894258,
+          "physical_selected_additional_needed": 7667179
+        }
+      },
+      "axes": {
+        "coordinate_availability_by_exact_source_route": {
+          "rows": 154494,
+          "known_population": 147166619,
+          "row_fraction": 0.9940803273836334,
+          "selected_known_population_fraction": 0.9998946611199514,
+          "official_control_population_fraction": 0.9998946611199514,
+          "unknown_population_rows": 0
+        },
+        "coordinate_inventory_including_unaccepted_legacy_place_pointers": {
+          "rows": 154494,
+          "known_population": 147166619,
+          "row_fraction": 0.9940803273836334,
+          "selected_known_population_fraction": 0.9998946611199514,
+          "official_control_population_fraction": 0.9998946611199514,
+          "unknown_population_rows": 0
+        },
+        "coordinate_admitted": {
+          "rows": 130463,
+          "known_population": 120227079,
+          "row_fraction": 0.8394546179880834,
+          "selected_known_population_fraction": 0.8168592526688856,
+          "official_control_population_fraction": 0.8168592526688856,
+          "unknown_population_rows": 0
+        },
+        "identity_link_to_other_census": {
+          "rows": 128746,
+          "known_population": 112753665,
+          "row_fraction": 0.8284067072464514,
+          "selected_known_population_fraction": 0.7660826104539884,
+          "official_control_population_fraction": 0.7660826104539884,
+          "unknown_population_rows": 0
+        },
+        "full_census_chain": {
+          "rows": 44758,
+          "known_population": 94936935,
+          "row_fraction": 0.28799207278623545,
+          "selected_known_population_fraction": 0.6450303410829317,
+          "official_control_population_fraction": 0.6450303410829317,
+          "unknown_population_rows": 0
+        },
+        "joint_admitted_coordinate_and_other_census": {
+          "rows": 117084,
+          "known_population": 109363087,
+          "row_fraction": 0.7533684224072478,
+          "selected_known_population_fraction": 0.7430459947910929,
+          "official_control_population_fraction": 0.7430459947910929,
+          "unknown_population_rows": 0
+        },
+        "joint_admitted_coordinate_and_full_chain": {
+          "rows": 44586,
+          "known_population": 93215503,
+          "row_fraction": 0.2868853513840452,
+          "selected_known_population_fraction": 0.63333440977747,
+          "official_control_population_fraction": 0.63333440977747,
+          "unknown_population_rows": 0
+        }
+      },
+      "population_quality": [
+        {
+          "source_quality": "direct_published_census_value",
+          "rows": 155412,
+          "known_population": 147180360
+        },
+        {
+          "source_quality": "nan",
+          "rows": 2,
+          "known_population": 1763
+        }
+      ]
+    }
+  ],
+  "no_admissions": true,
+  "inventory_is_not_accuracy": true,
+  "additional_years_national_denominators": "not_defined",
+  "seconds": 1.046
+}

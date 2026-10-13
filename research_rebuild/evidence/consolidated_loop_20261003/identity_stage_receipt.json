@@ -1,0 +1,152 @@
+{
+  "artifact": "shared_named_point_region_alias_stage_v1",
+  "status": "candidate_identity_edges_only_no_admission",
+  "candidate_rule": "shared_named_geo_object_identity_explicit_2010_region_alias_v1",
+  "scope": {
+    "staged_new_pairs": 1139,
+    "retained_other_source_row_holds": 60,
+    "base_graph_edges_preserved": 176568,
+    "total_staged_graph_edges": 177707
+  },
+  "alias_profile_counts": {
+    "Моск.обл.": 823,
+    "Перм.кр.": 228,
+    "Р.Алтай": 55,
+    "ХМАО": 27,
+    "Чукотский АО": 5,
+    "Чечня": 1
+  },
+  "population_context_by_year": {
+    "2002": 281674,
+    "2010": 285722
+  },
+  "current_accepted_point_carriers_by_year": {
+    "2002": {
+      "accepted_direct_geo_point_uses": 1139,
+      "distinct_population": 281674,
+      "point_origin_kind_counts": {
+        "geokladr_2011_raw_dbf_coordinate": 1139
+      },
+      "incremental_point_uses_created": 0
+    },
+    "2010": {
+      "accepted_direct_geo_point_uses": 1139,
+      "distinct_population": 285722,
+      "point_origin_kind_counts": {
+        "geokladr_2011_raw_dbf_coordinate": 1139
+      },
+      "incremental_point_uses_created": 0
+    }
+  },
+  "point_gain_from_identity_staging": {
+    "new_point_uses": 0,
+    "reason": "All historical pair endpoints already have accepted direct GeoKLADR point uses; this stage changes identity candidates only."
+  },
+  "three_year_chain_context": {
+    "accepted_3year_chains_added": 0,
+    "current_2021_signature_counterparts": 1138,
+    "current_signature_points": 921,
+    "current_points_sharing_exact_geo_object": 0
+  },
+  "checks": {
+    "exact_1139_profile_ids": true,
+    "current_selected_ids_and_population_unchanged": true,
+    "current_name_type_region_unchanged": true,
+    "year_signature_unique": true,
+    "both_historical_endpoints_have_accepted_direct_point": true,
+    "current_graph_no_endpoint_competitors": true,
+    "staged_base_graph_byte_values_preserved": true,
+    "all_new_edges_pending": true,
+    "all_pop_boundary_point_admissions_false": true,
+    "all_60_nonalias_event_family_population_holds_retained": true
+  },
+  "inputs": {
+    "/workspace/settlements-work/continuation_20261003/shared_named_point_region_profile_probe_v1/summary.json": {
+      "sha256": "dff6e89726e7069f52c617367877d0a8eb088b17c158daba07fd5aacfcacaf49",
+      "bytes": 10955
+    },
+    "/workspace/settlements-work/continuation_20261003/shared_named_point_region_profile_probe_v1/label_correction_addendum.json": {
+      "sha256": "55cf098eccc157102cb025a9c263ff65b3e1119ef36fe300aca8423896013cec",
+      "bytes": 1244
+    },
+    "/workspace/settlements-work/continuation_20261003/shared_named_point_region_profile_probe_v1/ordinary_region_alias_profile_pairs.parquet": {
+      "sha256": "6af501ea362edc1b7233a526ef27375e68eced870c0913a135ab6e0401e6f467",
+      "bytes": 321839
+    },
+    "/workspace/settlements-work/continuation_20261003/shared_named_point_region_profile_probe_v1/explicit_alias_profile.csv": {
+      "sha256": "fbcf7a7de7d2f37cab3ae64347735c06976249ed43ee8486ea6d780e43f2b4f3",
+      "bytes": 1341
+    },
+    "/workspace/settlements-work/continuation_20261003/shared_named_point_region_profile_probe_v1/all_retained_hold_pairs.parquet": {
+      "sha256": "33c4e460b02103fac1922720e5f9652c467287b69bb4492940f85d40d17e7a16",
+      "bytes": 291180
+    },
+    "/workspace/settlements-work/continuation_20261003/shared_named_point_identity_stage_v1/receipt.json": {
+      "sha256": "f10fb23ef71f21c338d8775b4a970e875c65467e344a8cf8602ec430f8a6828c",
+      "bytes": 4485
+    },
+    "/workspace/settlements-work/continuation_20261003/shared_named_point_identity_stage_v1/candidate_identity_edges.parquet": {
+      "sha256": "da5eb0a4e931b60c3e1d91b36f20c59202d158a37a59ac752fb8466dcfa8825c",
+      "bytes": 2208492
+    },
+    "/workspace/settlements-work/continuation_20261003/shared_named_point_identity_stage_v1/source_row_checks.parquet": {
+      "sha256": "049e49589ec5f1ad2d7d92f087a2eeeb82b9bfab940148461e81e9ba53d57735",
+      "bytes": 618388
+    },
+    "/workspace/settlements-work/continuation_20261003/shared_named_point_identity_stage_v1/application_checks.parquet": {
+      "sha256": "ce3419113b8e810b6a920bd3dc11d44b8065999e0ef593373c47a5e06b0ba805",
+      "bytes": 123055
+    },
+    "/workspace/settlements-delivery/continuation-loop-20261003/accepted_identity_edges.parquet": {
+      "sha256": "98741f9b695283f390355c34077ca4fd090ecdbb576e9bae323292a585220622",
+      "bytes": 34501240
+    },
+    "/workspace/settlements-delivery/continuation-loop-20261003/selected_observations.parquet": {
+      "sha256": "94ae62cfa8a37820db09416b1fd63cc43cac4aae371b5d26ca2fb14f68163356",
+      "bytes": 37364895
+    },
+    "/workspace/settlements-work/continuation_20261003/accepted_direct_historical_point_2021_delta_v1/accepted_point_uses.parquet": {
+      "sha256": "8718f30c78682ef0a50d4c8a398fab7445721454c299a4a4905d218621889e53",
+      "bytes": 55290517
+    },
+    "/workspace/settlements-work/continuation_20261003/accepted_shared_named_object_identity_delta_v1/acceptance_receipt.json": {
+      "sha256": "050a8d185c7a1ca8638f7c9d9971cfcec6bdc73f1974f05591359b3a0ba74e30",
+      "bytes": 793
+    },
+    "/workspace/settlements-work/continuation_20261003/accepted_direct_historical_point_2021_delta_v1/acceptance_receipt.json": {
+      "sha256": "627ebe3252cdaad47d1e0060083383ecbc217b1ab9b74a692dffa6576b16d7a3",
+      "bytes": 1261
+    },
+    "/workspace/settlements-work/sources/historical_identifiers/observed_v1/lineage_event_candidates.json": {
+      "sha256": "1f6b6066ada348e160ccd5c898adb7d40cac9a50336da9788f211eb1ab466622",
+      "bytes": 29526
+    }
+  },
+  "outputs": {
+    "application_checks.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/shared_named_point_region_alias_stage_v1/application_checks.parquet",
+      "sha256": "2acc194085e940b6e475c705370d09aa846bb32aa4ac8bd4699a5f6ffb4c89c7",
+      "bytes": 68429
+    },
+    "source_row_checks.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/shared_named_point_region_alias_stage_v1/source_row_checks.parquet",
+      "sha256": "7f98051ce441e47ff6b69e1b6c828a86ca1a96fd1fc8acac4e8914cc130e5f67",
+      "bytes": 395017
+    },
+    "staged_identity_edges.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/shared_named_point_region_alias_stage_v1/staged_identity_edges.parquet",
+      "sha256": "60dad1685b394bd6458a38b1f65f5e73eaf099988080e19a98765a3c1818b7a8",
+      "bytes": 35479155
+    },
+    "retained_hold_pairs.parquet": {
+      "path": "/workspace/settlements-work/continuation_20261003/shared_named_point_region_alias_stage_v1/retained_hold_pairs.parquet",
+      "sha256": "ac288f1fdf8bb1a831616e30a8a28700794d3ab840559723969ff2405c137007",
+      "bytes": 55778
+    }
+  },
+  "runtime_seconds": 5.566,
+  "application_checks_sha256": "2acc194085e940b6e475c705370d09aa846bb32aa4ac8bd4699a5f6ffb4c89c7",
+  "source_row_checks_sha256": "7f98051ce441e47ff6b69e1b6c828a86ca1a96fd1fc8acac4e8914cc130e5f67",
+  "staged_identity_edges_sha256": "60dad1685b394bd6458a38b1f65f5e73eaf099988080e19a98765a3c1818b7a8",
+  "builder_sha256": "278cfc90e8c36d5deb3f9420caa23ef69232c4809f5bd238f1a4e488d8ba5980"
+}

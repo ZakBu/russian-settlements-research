@@ -1,0 +1,86 @@
+{
+  "receipt_type": "corrective independent review note; raw-admin extension",
+  "corrects_prior_receipt_sha256": "70b37352dc84abe5db712db3d57b50450cc85bbbd4fc80ed35556b09c8c5ab4a",
+  "supersedes_only": "the prior R_H claim that nearby/carry-forward district context matched the selected district or established an unpublished-district block. It does not change the frozen proposal set, eligible IDs, R_F/R_G findings, raw row identity/population checks, raw point checks, or independent graph results.",
+  "extension_sha256": "795a5351288e068b81698705be199650c973b142768fd2ee46c92b3eb7c52b1a",
+  "R_H_decision": {
+    "candidate_edges": 1047,
+    "distinct_2010_raw_rows": 734,
+    "eligible_edge_ids_sha256": "34f4207a17790704e83f14d6bde3d3059a0d05fad69e07bfacaf52ecbdd0b7e4",
+    "rule": "Retain R_H as an ordinary source-backed physical-continuity rule only: unique exact normalized typed name and region across the three census years, independently anchored by accepted raw 2002 GeoKLADR to raw 2021 Tochno representative points within 5 km, with graph-year exclusivity. Treat the 2010 direct district value as unknown where blank. A blank is not evidence that district was unpublished and carried/nearest prior context is not an identity assertion.",
+    "explicit_conflict_gate": "No explicit contradictory source hierarchy is waived. A direct source district assertion that conflicts with the linked locality or a competing same-region name/type identity remains a hold. Existing hard quarantines and known holds remain intact.",
+    "independent_raw_checks": {
+      "row_audit_path": "/workspace/settlements-work/continuation_20261004/independent_review/raw_admin_R_H_all_2010_raw_row_checks.csv",
+      "row_audit_sha256": "32dccc3528534809538e332d9a61659063ea5df74d037f26e0a8b7c930a4dbb9",
+      "rows": 734,
+      "every_candidate_row_source_file_hash_name_population_and_direct_district_cell_rechecked": true,
+      "direct_district_blank_for_all_734": true,
+      "merged_ranges_covering_direct_district_cells": 0,
+      "raw_point_audit_path": "/workspace/settlements-work/continuation_20261004/independent_review/raw_admin_R_H_independent_point_checks.csv",
+      "raw_point_audit_sha256": "bc32c0d3c7c0d89187ddfbb1fa93bd2f7de3102a0b8923cd029c89623ddd908f",
+      "raw_point_receipt_path": "/workspace/settlements-work/continuation_20261004/independent_review/raw_admin_R_H_independent_point_receipt.json",
+      "raw_point_receipt_sha256": "7973d2eef833d003b6d57c8cf5be4c111d372b92e387580bdded0ee4c39838b4",
+      "raw_pairs": 734,
+      "distances_all_reproduced_to_4dp": true,
+      "max_distance_km": 4.479293683904956,
+      "threshold_km": 5.0
+    },
+    "context_error_demonstration": {
+      "source_file": "data/raw/2010/017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls",
+      "sheet": "!!!",
+      "rows": [
+        {
+          "row": 1429,
+          "raw_name": "Бураевский",
+          "meaning": "preceding direct district cell, showing grouped district structure"
+        },
+        {
+          "row": 1590,
+          "raw_name": "село Красноусольский",
+          "raw_population": 11981,
+          "direct_district_cell": "",
+          "meaning": "different settlement; no direct district"
+        },
+        {
+          "row": 2078,
+          "raw_name": "село Иглино",
+          "raw_population": 16812,
+          "direct_district_cell": "",
+          "meaning": "different settlement; no direct district"
+        },
+        {
+          "row": 4177,
+          "raw_name": "село Чекмагуш",
+          "raw_population": 11321,
+          "direct_district_cell": "",
+          "meaning": "different settlement; no direct district"
+        }
+      ],
+      "interpretation": "the pre-implementation review’s recovered_admin_context field uses preceding nonblank values across district-group boundaries; examples show that value cannot be treated as a reliable district for a blank row. All 734 blank source district cells therefore remain unknown; no context-based clearance is claimed."
+    },
+    "fixed_noncandidate_holds": [
+      {
+        "id": "2010:009_81f8a0e73c_17._20ДВ_ФО_2010.xls:ДВ:481",
+        "reason": "retained source/selected-district discrepancy; not an endpoint in extension"
+      },
+      {
+        "id": "2010:009_81f8a0e73c_17._20ДВ_ФО_2010.xls:ДВ:565",
+        "reason": "retained source/selected-district discrepancy; not an endpoint in extension"
+      },
+      {
+        "id": "2010:006_9b114a55c0_14._20Адыгея.xls:адыг:147",
+        "reason": "obsolete/displaced XLS row, not current frozen selected observation; current primary selected source is ROSSTAT Tom 1 Table 5 p73 l20, population 26171; not an endpoint"
+      }
+    ],
+    "unchanged_graph_result": {
+      "graph_receipt_path": "/workspace/settlements-work/continuation_20261004/independent_review/raw_admin_extension_independent_DFS_receipt.json",
+      "graph_receipt_sha256": "34b08063e31bff04880bf6c918528f4931fc9a309a66ac9db4f9699820e22da9",
+      "baseline_collision_attempts": 0,
+      "endpoint_year_identity_conflicts": 0,
+      "extension_year_collisions": 0,
+      "adds": 1341,
+      "redundant": 8574,
+      "multi_year_population_comparability_claimed": false
+    }
+  }
+}

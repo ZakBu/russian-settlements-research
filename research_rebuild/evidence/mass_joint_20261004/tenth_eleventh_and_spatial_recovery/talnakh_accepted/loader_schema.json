@@ -1,0 +1,40 @@
+{
+  "schema_version": "talnakh_scoped_layer_v1",
+  "layer": "accepted_talnakh_typed_scope",
+  "files": {
+    "observations": "scoped_primary_observations.parquet",
+    "point_uses": "scoped_point_uses.parquet",
+    "scope_edges": "accepted_typed_scope_edges.parquet"
+  },
+  "join_keys": {
+    "observations": "observation_id",
+    "points": "target_observation_id",
+    "edges": [
+      "from_observation_id",
+      "to_observation_id"
+    ]
+  },
+  "old_2002_union_hook": {
+    "source_record_id": "2002:1_TOM_01_04.xls:0:8697",
+    "action": "join to existing canonical old census row by exact source_record_id; do not append a duplicate population observation",
+    "old_primary_value": 58654,
+    "add_point_context_from": "scoped_point_uses.parquet",
+    "identity_edge_from": "accepted_typed_scope_edges.parquet"
+  },
+  "2010_2021_auxiliary_rows": {
+    "source_record_id": null,
+    "action": "keep in auxiliary scoped observation layer; do not fabricate canonical settlement source IDs or current IDs",
+    "auxiliary_observation_ids": [
+      "aux:2010:rosstat_tom1_table5:pdfpage178:talnakh",
+      "aux:2021:rosstat_tom1_table5:sheettab5:row22436"
+    ]
+  },
+  "guards": {
+    "all_observations_national_additive": false,
+    "point_is_historical_measurement": false,
+    "current_entity_id_created": false,
+    "ordinary_NP3_claimed": false,
+    "boundary_comparability_asserted": false,
+    "population_parent_transfers": false
+  }
+}

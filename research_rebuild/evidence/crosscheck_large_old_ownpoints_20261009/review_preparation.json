@@ -1,0 +1,47 @@
+{
+  "status": "AWAIT_FROZEN_READY_CANONICAL_DELTAS_MOSCOW61_WORKING_NOT_FROZEN",
+  "source_roster_pins": [
+    {
+      "stratum": "south",
+      "roster": "/workspace/russian-settlements-research/research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/south_exact_roster.csv",
+      "sha256": "8e88360f4759dfcea1f4cb003695b124dd1918aa440bc00c68dce55c1a739420",
+      "UIDs": 62,
+      "part_labelled_UIDs": 18
+    },
+    {
+      "stratum": "east",
+      "roster": "/workspace/russian-settlements-research/research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/east_exact_roster.csv",
+      "sha256": "bf60fa63f66374f33ef22abeecec4abd95c0af91fb14072496b93130efb9d9df",
+      "UIDs": 53,
+      "part_labelled_UIDs": 14
+    },
+    {
+      "stratum": "north",
+      "roster": "/workspace/russian-settlements-research/research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/north_exact_roster.csv",
+      "sha256": "05d835b5c453208246b8142c42c6af0a4ba113e1645ad062aa9d3b7306da095a",
+      "UIDs": 40,
+      "part_labelled_UIDs": 0
+    },
+    {
+      "stratum": "moscow",
+      "roster": "/workspace/russian-settlements-research/research_rebuild/evidence/large_existing_credit_missing_ownpoint_20261009/moscow_exact_roster.csv",
+      "sha256": "e371e8a2770dfb3c3a4bdab6ecc5e51c1b19bc14027654a4b65fc7df22fa3ce2",
+      "UIDs": 62,
+      "part_labelled_UIDs": 0
+    }
+  ],
+  "sampling_plan": "12 fixed sourceIDs:3 per producer when READY canonicalclaims frozen; include ordinary oldwhole,formerNP/event and homonym/rename risk if present. Add every coordinate duplicate conflict acrossreadyclaims where distinctownphysicalplace implied. Exclude own-producedYaroslavka from independent sample.",
+  "review_checks": [
+    "exacttargetIDmembership",
+    "ownphysicalNP/ownformer-neighborhood vs parentwhole/adminscope",
+    "literalownpage pointfield and printedtype/county",
+    "existingacceptedidentity/lifecycle route consistency",
+    "actualpointsourcebytehash",
+    "samecoordinatesacrossdistinctproviderentities/homonyms",
+    "retrospectivecontinuity explicit; nohistoricalmeasurementclaim"
+  ],
+  "count_sources_rereviewed": false,
+  "noState_load": true,
+  "no_point_collection": true,
+  "scope_correction": "Fourcohort217 minus32explicitparts minusSon1042councilaggregate=184genuinewhole; plus separatelyrootYaros2010whole=185. Son excluded; rootYaros own-producedoriginalpartition excludedindependent12."
+}

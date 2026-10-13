@@ -1,0 +1,58 @@
+{
+  "status": "bounded_source_order_hierarchy_context_for_parent_review",
+  "question": "Does the 2010 row 7607 (село Троицкое, 1941) fit the Novokhopersky historical unit/receiver when workbook row has no rayon/municipality field?",
+  "source_structure": {
+    "workbook": "/workspace/settlements-raw/data/raw/2010/013_f60b2d2bcf_5._20Belg_Bryan_Vlad_Voron_Ivanov_Kalug_20L1_ethn_2010.xls",
+    "sha256": "52a7cd38f32d03b79c20b256dfd4019e49a0f7a4bab9d96abc57cbf16e2b90ac",
+    "sheet": "Data Sheet",
+    "sheet_count": 1,
+    "dimensions": [
+      14844,
+      194
+    ],
+    "title_header_rows": {
+      "row2": "2010; Преобладающие языки и народы",
+      "row3": [
+        "serial",
+        "субъ",
+        "субъ",
+        "н.п.",
+        "Всего"
+      ]
+    },
+    "geography_warning": "Rows have oblast in column C and locality in D; no rayon/county/municipality column. Source order is contextual evidence, not a literal district field."
+  },
+  "focal_row": {
+    "row_1based": 7607,
+    "source_record_id": "2010:013_f60b2d2bcf_5._20Belg_Bryan_Vlad_Voron_Ivanov_Kalug_20L1_ethn_2010.xls:Data Sheet:7607",
+    "locality": "село Троицкое",
+    "population": 1941,
+    "sequence_neighbors": "Immediately follows 2010 localities matching Novokhopersky 2002/current anchors (Pykhovka, Rusanovo, Elansky, Ivanovka, Ternovsky, Dolginka, Lepyohinka, Tuluchеevka) and precedes Noverzhavets, Central, Averinka, Kamyshanovsky; several sequence anchors resolve exactly to Novokhopersky in both 2002 and 2021."
+  },
+  "competitors": [
+    {
+      "row_1based": 7437,
+      "population": 1202,
+      "context": "Sequence is interleaved with six 2002 Liskinsky localities (Tрезоруково, Добрино, Нижнемарьино, Рождествено, Щучье, Переезжее) and their same-name current rows, all explicitly in Liskinsky district."
+    },
+    {
+      "row_1based": 8269,
+      "population": 366,
+      "context": "Sequence is interleaved with 2002/current Голосновка, Семилуки, Ендовище locality anchors in Semiluksky district."
+    }
+  ],
+  "typed_scope_decision": {
+    "2010_row_binding": "source_order_supported_Novokhopersky whole-locality candidate; 2002/2021 cross-year local anchors cover the focal run and both competitor runs; workbook lacks a literal rayon field, so retain source-order qualification",
+    "old_2002_partition": "two source rows remain separate typed partition members, part1=964 Moscow council; part2=1196 Starozhil council; sum 2160 is a historical partition total, not one selected 2002 locality row and not ordinary same_place union",
+    "current_2021_receiver": "whole locality row 2021:data_allsettlements_anon_156_v20251217.parquet:parquet:14969, 1524; exact district + rural settlement; matching typed 2009/2011 local code remains corroboration",
+    "point": "Keep existing accepted point on whole current receiver. Historic part2-specific point remains UNKNOWN; do not copy receiver point to either 2002 constituent."
+  },
+  "recommended_use": "Parent may treat the bounded 2010 row as scoped to the Novokhopersky Troitskoe whole-locality sequence for a typed joint scope review. Preserve publication note as source-order inference rather than explicit row-level rayon. Do not make a normal identity edge from part2 to whole receiver or sum the 2002 parts as an ordinary record.",
+  "article_revision_sha256": "0488a78a49f7e538c37a2310a515255ee5461f3ddc84e4ce1464704c2c13c2f2",
+  "selected_observations_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+  "pins": {
+    "2002_workbook_sha256": "dff030ae28c445ccdf274e9b46fef0072ae68dacb5dfc581076dcf8dc1f8c1cf",
+    "2010_workbook_sha256": "52a7cd38f32d03b79c20b256dfd4019e49a0f7a4bab9d96abc57cbf16e2b90ac",
+    "selected_observations_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+  }
+}

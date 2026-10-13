@@ -1,0 +1,92 @@
+{
+  "status": "full_long_exact_census_observation_patch_passed",
+  "base_long": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/long_graph22_krasnodar_komarovskiy_patch_20261005/settlements_long_refreshed.parquet",
+    "sha256": "302488cc2a6fc27fdd48628a98f21a6cf14f10579d388476c04d19c2fb9e92a7",
+    "rows": 865395
+  },
+  "selected": {
+    "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+    "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+  },
+  "graph": {
+    "path": "/workspace/settlements-work/continuation_20261004/accepted_graph23_nizhny_noiber_2010_20261005/accepted_identity_edges.parquet",
+    "sha256": "3283d85d8686395a01b238ad1a35ba3df9e3cf451efbe732b199e4d59fbe2e06"
+  },
+  "point_uses": {
+    "path": "/workspace/settlements-work/continuation_20261004/accepted_graph23_nizhny_noiber_2010_20261005/accepted_point_uses.parquet",
+    "sha256": "e043924bcb556ebd9cf40fdb7558684c203fdf5c6b790fea41c9b479c8dd7315"
+  },
+  "exact_source_ids": [
+    "2002:035_e1bf1fa87f_02c_Chechnya.xls:Sheet1:202",
+    "2010:002_027be52979_10._20СевКаз_ФО_20(без_20Даг)_202010.xls:СК:1568",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161665"
+  ],
+  "exact_observation_ids_replaced": 3,
+  "base_only_rows_preserved": 865392,
+  "final_rows": 865395,
+  "census_rows": 465800,
+  "selected_census_population_sum": 434700152.0,
+  "population_values_modified": false,
+  "readback": [
+    {
+      "observation_id": "census:2002:035_e1bf1fa87f_02c_Chechnya.xls:Sheet1:202",
+      "entity_id": "settlement:2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161665",
+      "latitude": 43.2701552,
+      "longitude": 46.2770258,
+      "census_full_chain": true,
+      "census_2002_status": "observed",
+      "census_2010_status": "observed",
+      "census_2021_status": "observed"
+    },
+    {
+      "observation_id": "census:2010:002_027be52979_10._20СевКаз_ФО_20(без_20Даг)_202010.xls:СК:1568",
+      "entity_id": "settlement:2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161665",
+      "latitude": 43.2701552,
+      "longitude": 46.2770258,
+      "census_full_chain": true,
+      "census_2002_status": "observed",
+      "census_2010_status": "observed",
+      "census_2021_status": "observed"
+    },
+    {
+      "observation_id": "census:2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161665",
+      "entity_id": "settlement:2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161665",
+      "latitude": 43.2701552,
+      "longitude": 46.2770258,
+      "census_full_chain": true,
+      "census_2002_status": "observed",
+      "census_2010_status": "observed",
+      "census_2021_status": "observed"
+    }
+  ],
+  "final": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/long_graph23_nizhny_noiber_patch_v2_20261005/settlements_long_refreshed.parquet",
+    "sha256": "d02f23f5d90e4d726e3a029f61a20e0a69c3f4ae9aae4b420f88ceefd68e3d2d",
+    "bytes": 94907158
+  },
+  "patch_builder_summary": {
+    "row_count": 3,
+    "record_type_counts": {
+      "census": 3
+    },
+    "entity_category_counts": {
+      "settlement": 3
+    },
+    "association_status_counts": {
+      "accepted_same_place_component": 3
+    },
+    "coordinate_admission_status_counts": {
+      "reviewed_extension_rule_accepted": 3
+    },
+    "census_record_count": 3,
+    "census_linked_record_count": 3,
+    "census_singleton_unknown_no_link_count": 0,
+    "coordinate_count": 3,
+    "coordinate_count_by_record_type": {
+      "census": 3
+    },
+    "wiki_rows_have_coordinates": 0,
+    "duplicate_observation_id_count": 0
+  }
+}

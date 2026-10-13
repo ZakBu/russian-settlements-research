@@ -1,0 +1,163 @@
+{
+  "scope": "individual additive settlement rows eligible for a 2002-2010-2021 chain; federal-city regional aggregates are handled in a separate territory layer; Crimea/Sevastopol 2021 are out of scope because no 2002/2010 Russian census endpoint",
+  "by_year": {
+    "2002": {
+      "selected_additive_rows_in_chain_scope": 158066,
+      "selected_additive_population_in_chain_scope": 130111032,
+      "joint_covered_population": 125417164,
+      "uncovered_rows": 25184,
+      "uncovered_population": 4693868,
+      "uncovered_by_reason": {
+        "missing_full_chain": {
+          "size": 8243,
+          "sum": 1217499.0
+        },
+        "missing_point": {
+          "size": 578,
+          "sum": 147073.0
+        },
+        "missing_point_and_chain": {
+          "size": 16363,
+          "sum": 3329296.0
+        }
+      }
+    },
+    "2010": {
+      "selected_additive_rows_in_chain_scope": 152312,
+      "selected_additive_population_in_chain_scope": 125979957,
+      "joint_covered_population": 122682881,
+      "uncovered_rows": 19398,
+      "uncovered_population": 3297076,
+      "uncovered_by_reason": {
+        "missing_full_chain": {
+          "size": 3090,
+          "sum": 1295473.0
+        },
+        "missing_point": {
+          "size": 546,
+          "sum": 89718.0
+        },
+        "missing_point_and_chain": {
+          "size": 15762,
+          "sum": 1911885.0
+        }
+      }
+    },
+    "2021": {
+      "selected_additive_rows_in_chain_scope": 154392,
+      "selected_additive_population_in_chain_scope": 126087650,
+      "joint_covered_population": 123226794,
+      "uncovered_rows": 21475,
+      "uncovered_population": 2860856,
+      "uncovered_by_reason": {
+        "missing_full_chain": {
+          "size": 17807,
+          "sum": 2546629.0
+        },
+        "missing_point": {
+          "size": 543,
+          "sum": 70280.0
+        },
+        "missing_point_and_chain": {
+          "size": 3125,
+          "sum": 243947.0
+        }
+      }
+    }
+  },
+  "inputs": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_identity_edges.parquet": {
+      "sha256": "1cc307f2855d15c7503dd226a278c49bdab72f178f5e2564c5e20fa4195a7d1a",
+      "bytes": 30857418
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_point_uses.parquet": {
+      "sha256": "cc2a7cf67d7c25eec2de7f962c49478dd275646138f1303ae3410bf2a6922d23",
+      "bytes": 53104666
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_name_region_coordinate_bridge_20261005/accepted_identity_edge_delta.csv": {
+      "sha256": "95cb1d4cd58dd7e2b56185a2663ed40f38cd5df4f27d0463901a6c9aac9d113d",
+      "bytes": 499203
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_exact_historical_code_point_batch_20261005/accepted_identity_edge_delta.csv": {
+      "sha256": "f7b58558253596eaaa64a9e000cea404a442225a01c9495c78fbbf0e724706ed",
+      "bytes": 384
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/kudryashovsky_three_census_chain_20261006/accepted_identity_edge_delta.csv": {
+      "sha256": "4db3f2b42c92139860e757c6711101e812cc4314e1d856f2e6ecdfe287f14732",
+      "bytes": 647
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_2021_fias_exact_name_bridge_20261006/accepted_identity_edge_delta.csv": {
+      "sha256": "cddd636154adf28e84f8d4165ec46821a68499c26118218dd91cee7d0b98e778",
+      "bytes": 5751
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/exact_name_proximity_batch_20261005/accepted_identity_edge_delta.csv": {
+      "sha256": "43f9509917e00b28b71b48e31303566fde6ccec778df1b1f2949b22ed1a963de",
+      "bytes": 248304
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/accepted_identity_edge_delta.csv": {
+      "sha256": "ac9edb17b5345d0a0d92fe749e36efa98fd528efa7a97554b27bf8c4c28cfc3d",
+      "bytes": 276952
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/top60_identity_edge_delta.csv": {
+      "sha256": "b67c2d8d24bc09ba3676bb1c7d27b022e86ecfc4beea0a47abd4cd646204995c",
+      "bytes": 1535
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top100_classifier_bridge_20261005/accepted_classifier_bridge_delta.csv": {
+      "sha256": "43d6d428c49124f19aabe6b1197605c7fdf8dfd5516f5712fe554c42e0359d27",
+      "bytes": 24782
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/historical_classifier_bridge_batch_20261005/accepted_identity_edge_delta.csv": {
+      "sha256": "056eda9836b9468d2ecd04abc726e395662c93c7068a9633800366f707d5d5f7",
+      "bytes": 6249
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top60_and_proximity_review_20261005/simple_rule_application/top60_point_use_delta.csv": {
+      "sha256": "2ff53b8ab3865e971f00794cad21a1c9fd9a40fdf948c0801befc034ae091783",
+      "bytes": 2815
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/top100_classifier_bridge_20261005/old_point_use_delta.csv": {
+      "sha256": "02b32ecaab0127d7b49b17ff05a4eff37bff4f8ab47652fe04a4ba9cc2b1362d",
+      "bytes": 1076
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/historical_urban_code_residual_20261005/accepted_point_use_delta.csv": {
+      "sha256": "90e930e94f361fbde5843bab2717a358de8b587f0ec688afbeacda290f69d37e",
+      "bytes": 8650
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/historical_classifier_bridge_batch_20261005/accepted_retrospective_point_use_delta.csv": {
+      "sha256": "8beee00cfbfc9277605e96465a5e2c7727ec6496dcb8ba6607cb9db96dfef780",
+      "bytes": 7222
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/shared_locality_point_novaya_usman_20261005/accepted_shared_locality_point_uses.csv": {
+      "sha256": "6baafa02c33bab281bcc9ad37fa472d1b20235625e5b6eba75ccb294eb9eea81",
+      "bytes": 6806
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_name_region_coordinate_bridge_20261005/accepted_point_use_delta.csv": {
+      "sha256": "c1e7b1eea77978b4ae4374d6945118d0140c026611be890a95931c817dcef88f",
+      "bytes": 320256
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/unique_exact_historical_code_point_batch_20261005/accepted_point_use_delta.csv": {
+      "sha256": "2924d3fe5c43588f1012222b35d115e0cb848dc2a54f6d4f1111a26a66f683c0",
+      "bytes": 3609
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_residual_ownlocality_points_20261005/accepted_point_use_delta.csv.gz": {
+      "sha256": "dd882ec334d07408d16ecf1e3a67f2eb03d1b13ff85cca12f8d32df1c0aabab3",
+      "bytes": 402347
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/kudryashovsky_three_census_chain_20261006/accepted_point_use_delta.csv": {
+      "sha256": "5674072d18ae65a06f0c73ec112a8bbb0b83d490b5e62eb6e9df75362c0424df",
+      "bytes": 2852
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/current_2021_fias_exact_name_bridge_20261006/accepted_retrospective_point_use_delta.csv": {
+      "sha256": "75b92b5bc06564041fcfa92e00277b500a8da95651a5a337b21599fea4d6414a",
+      "bytes": 19997
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/typed_city_geokladr_code_width_points_20261006/accepted_point_use_delta.csv": {
+      "sha256": "b5323b08f6bfb3611af8ffb907e19251d1df177352a7f1493f8844af50d58bd3",
+      "bytes": 17750
+    }
+  },
+  "limitation": "This additive settlement residual excludes the separate federal-territory spatial overlay and does not imply every uncovered record existed in all three census years."
+}
