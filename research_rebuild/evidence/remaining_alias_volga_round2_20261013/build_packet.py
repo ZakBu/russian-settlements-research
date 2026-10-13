@@ -1,0 +1,12 @@
+import pandas as pd,pathlib,json,hashlib,xlrd,re,math
+D=pathlib.Path(__file__).parent
+x=pd.read_parquet('/workspace/scratch/residual-20261013/final/applied_state_observations.parquet');p=pd.read_parquet('/workspace/scratch/residual-20261013/final/applied_core_point_snapshot.parquet')
+pairs=[('2002:044_42b3ed3cfc_Tataria.xls:Sheet1:693','2021:data_allsettlements_anon_156_v20251217.parquet:parquet:130067','elkhovo'),('2002:045_9dc3ed048e_02c__Udmurtia.xls:Sheet1:2403','2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:12204','ryabovo'),('2002:051_46e3ecb0a0_02c_Permskaja_obl.xls:Sheet1:1924','2010:016_802d308e41_8._20Or_Penz_Perm_Samar_Saratov_Uly_2010.xls:!!!:6194','goskonzavod'),('2002:041_4b428edd23_Bashkiria_new.xls:Sheet1:6065','2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:3933','yuldashevo'),('2002:055_430166490c_Uljanovskaja_new.xls:Sheet1:525','2010:016_802d308e41_8._20Or_Penz_Perm_Samar_Saratov_Uly_2010.xls:!!!:10392','vyry'),('2002:055_430166490c_Uljanovskaja_new.xls:Sheet1:1331','2010:016_802d308e41_8._20Or_Penz_Perm_Samar_Saratov_Uly_2010.xls:!!!:10896','okhotnichya'),('2002:041_4b428edd23_Bashkiria_new.xls:Sheet1:696','2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:403','muradym'),('2002:045_9dc3ed048e_02c__Udmurtia.xls:Sheet1:519','2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:10936','cheptsa')]
+roots=set(x[x.source_record_id.isin([u for a,b,c in pairs for u in [a,b]])].root);z=x[x.root.isin(roots)].merge(p,on='source_record_id',suffixes=('','_point'));z.to_csv(D/'native_component_snapshot.csv.gz',index=False)
+w=[]
+for _,r in z.iterrows():
+ if r.census_year==2021:continue
+ uid=r.source_record_id;year,f,s,row=uid.split(':');row=int(row);path=pathlib.Path('/workspace/settlements-raw/data/raw')/year/f;b=xlrd.open_workbook(str(path));sh=b.sheet_by_name(s) if s in b.sheet_names() else b.sheet_by_index(int(s)); rows=[{'row_1based':i+1,'cells':sh.row_values(i)} for i in range(max(0,row-35),min(sh.nrows,row+5))];w.append({'uid':uid,'source_path':str(path),'source_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'locator':f'sheet={sh.name};row_1based={row}','rows':rows})
+(D/'native_leaf_context.json').write_text(json.dumps(w,ensure_ascii=False,indent=2))
+json.dump(pairs,open(D/'candidate_pairs.json','w'),ensure_ascii=False,indent=2)
+print(z[['source_record_id','settlement_name','population','latitude_point','longitude_point']].to_string(index=False))
