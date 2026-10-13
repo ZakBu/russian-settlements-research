@@ -1,29 +1,21 @@
-# Source inventory and use conditions
+# Реестр источников и условия использования
 
-Conditions below summarize the working project's source register and documentation as reviewed on 2026-09-29. They are provenance notes, not legal opinions. The private archive intentionally has no blanket license.
+Ниже обобщены реестр источников и документация проекта, проверенные 29 сентября 2026 года. Это сведения о происхождении материалов, а не юридические заключения. Единой лицензии на материалы разных источников нет.
 
-| Source family | Role in the project | Recorded terms/status | Release handling |
+| Источник | Роль в проекте | Зафиксированные условия и статус | Обращение при публикации |
 |---|---|---|---|
-| Rosstat 2002, 2010 and 2021 census publications | Population observations and official controls | Official published tables; retain publication, table, page/row and source URL | Preserve within the private baseline; cite table-level provenance |
-| Lingvarium 2002/2010/2021 regional workbooks | Settlement-level extracts and comparison data | Catalog/mirror; redistribution license is not stated in the reviewed source register | Private research baseline only pending terms review; do not publicly redistribute complete workbooks or derived full extracts |
-| Tochno / «Если быть точным», 2021 settlements | Population, OKTMO and DaData-derived coordinates | Source register records CC BY 4.0 | Preserve attribution and source version; do not infer that this license covers other merged sources |
-| Wikidata | Identifiers, claims and coordinate/population comparisons | CC0 | Preserve entity/property and statement provenance |
-| Russian Wikipedia | Articles, regional modules and settlement lists | CC BY-SA per source register/site terms | Keep revision IDs/permanent links and required attribution; review share-alike implications before distributing extracted corpora |
-| Historical OKATO / GeoKLADR and candidate coordinate sources | Identifier and coordinate evidence | Source-specific terms vary; source register includes GIS-Lab and a CC BY-NC-SA coordinate mirror | Preserve source-specific terms; no blanket permission inferred; keep as candidate evidence where not admitted |
-| Rosstat municipal indicators / FIAS-GAR | Administrative context | Official publication/register; object levels and validity dates differ | Do not expand municipal values to settlements or treat address validity as a legal settlement event |
+| Публикации переписей Росстата 2002, 2010 и 2021 | Наблюдения численности и официальные контрольные суммы | Официальные таблицы; сохранять публикацию, таблицу, страницу или строку и URL | Сохранять происхождение на уровне таблицы; исходное наследие хранилось в закрытом базовом архиве |
+| Региональные таблицы Lingvarium 2002/2010/2021 | Выгрузки по НП и сравнительные данные | Каталог и зеркало; лицензия на распространение в проверенном реестре не указана | До проверки условий использовать в закрытом исследовательском архиве; не публиковать полные таблицы и производные полные выгрузки |
+| «Точно» / «Если быть точным», НП 2021 | Население, ОКТМО и координаты из DaData | В реестре указана CC BY 4.0 | Сохранять атрибуцию и версию источника; не распространять эту лицензию на остальные объединённые источники |
+| Wikidata | Идентификаторы, утверждения, сравнение координат и численности | CC0 | Сохранять происхождение сущности, свойства и утверждения |
+| Русская Википедия | Статьи, региональные модули и списки НП | CC BY-SA согласно реестру и условиям сайта | Сохранять номера редакций, постоянные ссылки и атрибуцию; учитывать требования распространения производных материалов на совместимых условиях |
+| Исторический ОКАТО / GeoKLADR и источники координатных кандидатов | Доказательства по идентификаторам и координатам | Условия различаются; в реестре есть GIS-Lab и координатное зеркало CC BY-NC-SA | Сохранять условия каждого источника; не предполагать общего разрешения; непринятые сведения оставлять кандидатами |
+| Муниципальные показатели Росстата / ФИАС–ГАР | Административный контекст | Официальные публикации и реестр; уровни объектов и даты действия различаются | Не переносить муниципальные показатели на НП и не считать срок действия адреса юридическим событием для населённого пункта |
 
-The existing project has no root `LICENSE` file. The owner made the repository public on 2026-10-02; older manifests retain their original visibility as historical metadata. Public visibility does not assign a common license to the combined data. Source-specific attribution and redistribution conditions remain applicable to any new artifact.
+В корне проекта нет файла `LICENSE`. Владелец сделал репозиторий публичным 2 октября 2026 года; старые манифесты сохраняют прежнюю видимость как исторические метаданные. Публичность репозитория не назначает единую лицензию объединённым данным. Требования атрибуции и распространения каждого источника сохраняются для новых материалов.
 
-## Added context source on 2026-10-02
+## Контекстный источник, добавленный 2 октября 2026 года
 
-GeoBoundaries gbOpen ADM1 release `9469f09` for RUS and UKR supplies a modern
-physical-region contradiction screen. The source identifies its geometries as
-OpenStreetMap/Wambacher, boundary year represented 2017, under Open Data Commons
-Open Database License 1.0. Metadata, exact URLs and SHA-256 receipts are in
-`research_rebuild/evidence/discovery/modern_region_point_screen_20261002`.
-The source and its derivative diagnostic layer retain these distinct conditions;
-no common merged-data license is assigned. RUS uses the simplified geometry,
-so border-near points remain uncertain. Crimea and Sevastopol are mapped to the
-explicit UKR geometry codes for physical context, independently of the recorded
-Russian census-2021 territorial scope. This source neither proves historical
-settlement boundaries nor converts territorial totals into settlement points.
+GeoBoundaries gbOpen ADM1, выпуск `9469f09` для RUS и UKR, используется для поиска противоречий между современной географией региона и точкой. Источник указывает происхождение геометрий OpenStreetMap/Wambacher, представляемый год границ 2017 и лицензию Open Data Commons Open Database License 1.0. Метаданные, точные URL и квитанции SHA-256 находятся в `research_rebuild/evidence/discovery/modern_region_point_screen_20261002`.
+
+Источник и производный диагностический слой сохраняют эти отдельные условия; общей лицензии объединённым данным не назначено. Для RUS используется упрощённая геометрия, поэтому точки рядом с границей остаются неопределёнными. Крым и Севастополь соотнесены с явными кодами геометрии UKR для физического контекста независимо от зафиксированного территориального охвата российской переписи 2021 года. Этот источник не доказывает исторические границы НП и не превращает территориальный итог в точку отдельного населённого пункта.

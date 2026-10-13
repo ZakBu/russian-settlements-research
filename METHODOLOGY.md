@@ -1,25 +1,25 @@
-# Methodology and release policy
+# Методология и правила публикации
 
-## Research unit
+## Единица исследования
 
-The target is a physical inhabited locality and a representative point for that locality. Census observations, administrative names/codes, identity decisions, historical events and coordinate claims are separate facts with their own source and date. An administrative code or coordinate inherited from a later successor does not by itself establish historical identity or location.
+Целевой объект — физический населённый пункт и его репрезентативная точка. Переписные наблюдения, административные названия и коды, решения об идентичности, исторические события и утверждения о координатах — отдельные факты со своими источниками и датами. Административный код или координата, унаследованные от позднейшего преемника, сами по себе не устанавливают историческую идентичность или местоположение.
 
-## Evidence handling
+## Работа с доказательствами
 
-- Preserve each census source row, reported population and source locator unchanged.
-- Treat the existing crosswalk as a candidate-generating result. Record accepted, rejected, unresolved and conflicting decisions with evidence and rule version; corrections supersede prior decisions without erasing them.
-- Record name, type, administrative affiliation and identifiers as dated claims. A rename or type change may describe continuity; merger, split and incorporation are explicit events that can connect multiple places.
-- Store coordinate candidates with source, object level, time applicability and review status. Admit a point to a census observation only when its settlement-level provenance and the observation-to-place link are supported.
-- Do not convert text similarity, provider agreement, a modern code, an administrative centroid or a matching population total into proof by itself.
+- Сохранять каждую исходную строку переписи, опубликованную численность и указатель на источник без изменений.
+- Использовать существующую таблицу соответствий для поиска кандидатов. Фиксировать принятые, отклонённые, нерешённые и конфликтующие решения вместе с доказательствами и версией правила; исправления заменяют прежние решения, сохраняя их историю.
+- Хранить название, тип, административную принадлежность и идентификаторы как датированные утверждения. Переименование или изменение типа могут отражать преемственность; объединение, разделение и включение — явные события, способные связывать несколько мест.
+- Хранить координатных кандидатов с источником, уровнем объекта, временной применимостью и статусом проверки. Принимать точку для переписного наблюдения, когда подтверждены её принадлежность населённому пункту и связь наблюдения с этим местом.
+- Не считать текстовое сходство, согласие поставщиков, современный код, административный центр или совпадение численности самостоятельным доказательством.
 
-## Coverage measures
+## Показатели покрытия
 
-For each census year, report both the fraction of additive settlement rows and the fraction of their population with an admitted representative point tied to that specific observation. Report territorial aggregates and unallocated controls separately. Report longitudinal identity/panel coverage as a distinct measure; an observation can have a valid annual point while its relationship to another census year remains unresolved.
+Для каждого переписного года сообщать долю строк населённых пунктов, допускающих суммирование, и долю их населения с принятой репрезентативной точкой, связанной с конкретным наблюдением. Территориальные итоги и нераспределённые контрольные остатки показывать отдельно. Покрытие межгодовыми связями и полными временными рядами измерять отдельно: наблюдение может иметь корректную точку в своём году, хотя его связь с другой переписью ещё не установлена.
 
-## Independent quality control
+## Независимая проверка качества
 
-Each automated admission rule must identify the evidence class it accepts and preserve the evidence used for each decision. Validate the implementation against independent primary-source checks, a stratified sample of accepted rows, all high-population conflicts, and targeted cases covering duplicate names, administrative changes, type changes, inclusion, merger and split. Report errors by evidence class and retain rejected and unresolved cases. Sampling tests implementation quality; it does not substitute for direct evidence required by an individual admission rule.
+Каждое правило автоматического принятия должно определять допустимый класс доказательств и сохранять использованные свидетельства для каждого решения. Проверять реализацию по независимым первоисточникам, стратифицированной выборке принятых строк, всем конфликтам с большим населением и целевым случаям одноимённых объектов, административных изменений, смены типа, включений, объединений и разделений. Сообщать ошибки по классам доказательств; сохранять отклонённые и нерешённые случаи. Выборочная проверка оценивает качество реализации, но не заменяет доказательства, требуемые конкретным правилом принятия.
 
-## Reproducibility
+## Воспроизводимость
 
-Every baseline asset has a SHA-256 digest. A scientific release must bind its input manifest, code revision, rule versions and output checks to the exact source snapshot. Do not overwrite baseline assets when correcting a parser or decision.
+Для каждого вложения исходного выпуска зафиксирован SHA-256. Научный выпуск должен связывать манифест входов, версию кода, версии правил и проверки выходов с точным снимком источников. Исправляя парсер или решение, не перезаписывать исходные вложения.
