@@ -1,0 +1,9 @@
+# Дополнительная own-native-code привязка literal1979
+
+Дельта содержит 561 новый ROOT / QID / GUID и 3 856 644 буквальных жителей 1979 года, без пересечения ROOT исходного secondary_population_1979_long.parquet. Её значения нельзя объявлять подтверждённой первичной переписью: population basis, qualifiers, unit, date precision, census method и P31 остаются UNKNOWN из плоского кеша. Наличие 1989 на QID не требовалось.
+
+Переиспользован reviewed collect.py маршрут: объект CORE/latest имеет native_source_object_level=Населенный пункт; собственный OKTMO 10/11 цифр (допускается один ведущий 0) либо собственный native OKATO 11 цифр должен однозначно связывать QID и current own-NP. Муниципальный 8-значный код не участвует. Затем обязательны буквальное нормализованное имя, одна уникальная источниковая точка и принятая own-NP координата в пределах 5 км; aggregate/asset labels, конкурирующие QID и Крым/Севастополь исключаются. Нет direct-QID fallback, известных city overrides или индивидуальных досье. Текущая own-NP object level доказана native registry; полный физический P31 Wikidata не заявляется проверенным.
+
+Координаты современные и используются как historical continuity inference, границы UNKNOWN. В Parquet сохранены GUID, исходные literal population/date/rank, own code axes, point distance, entity/population file SHA и нулевые locator ordinals, raw population и entity proofs. Новых API/скачиваний нет. Замороженная базовая таблица проверена по SHA без изменений.
+
+Дельта: deltabinding1979native_population_long.parquet; bindings: deltabinding1979native_bindings.parquet. Воспроизведение: python deltabinding1979native_collect.py, затем python deltabinding1979native_validate.py. Receipt и validation отдельные от базовых; копии в /workspace/shared/rsfsr1979_wikidata_mass. Root интегрирует с primary priority и дедупликацией ROOT.
