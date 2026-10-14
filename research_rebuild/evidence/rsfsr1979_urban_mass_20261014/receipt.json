@@ -1,0 +1,169 @@
+{
+  "settlement_rows": 3045,
+  "settlement_population_sum": 95373867,
+  "type_profiles": [
+    {
+      "type": "г.",
+      "rows": 1002,
+      "population_sum": 83292693
+    },
+    {
+      "type": "кп",
+      "rows": 4,
+      "population_sum": 12612
+    },
+    {
+      "type": "пгт",
+      "rows": 2039,
+      "population_sum": 12068562
+    }
+  ],
+  "city_subdivision_rows": 359,
+  "sex_balance_conflicts": [],
+  "duplicate_region_label_groups": [
+    {
+      "region": "Коми АССР",
+      "label": "пгт Кажым",
+      "count": 2
+    },
+    {
+      "region": "Владимирская область",
+      "label": "пгт Красный Октябрь",
+      "count": 2
+    },
+    {
+      "region": "Рязанская область",
+      "label": "пгт Октябрьский",
+      "count": 2
+    },
+    {
+      "region": "Сахалинская область",
+      "label": "пгт Восточный",
+      "count": 2
+    }
+  ],
+  "nonprefix_non_district_labels": [],
+  "region_count": 88,
+  "controls": [
+    {
+      "source_record_id": "1979:demoscope:rus79_reg1.php:html_tr:7:all",
+      "source_locator": "HTML tr 7, columns 2-4",
+      "source_url": "https://www.demoscope.ru/weekly/ssp/rus79_reg1.php",
+      "source_sha256": "b9aa7682a896b07ebaa2e35fcc97569a5f0f6ea87a0ad7cb0b880cb388f40557",
+      "population_basis": "present",
+      "population_scope": "all",
+      "population_total": 137550949,
+      "population_male": 63482780,
+      "population_female": 74068169,
+      "unit": "persons"
+    },
+    {
+      "source_record_id": "1979:demoscope:rus79_reg1.php:html_tr:7:urban",
+      "source_locator": "HTML tr 7, columns 5-7",
+      "source_url": "https://www.demoscope.ru/weekly/ssp/rus79_reg1.php",
+      "source_sha256": "b9aa7682a896b07ebaa2e35fcc97569a5f0f6ea87a0ad7cb0b880cb388f40557",
+      "population_basis": "present",
+      "population_scope": "urban",
+      "population_total": 95373867,
+      "population_male": 44101144,
+      "population_female": 51272723,
+      "unit": "persons"
+    },
+    {
+      "source_record_id": "1979:demoscope:rus79_reg1.php:html_tr:7:rural",
+      "source_locator": "HTML tr 7, columns 8-10",
+      "source_url": "https://www.demoscope.ru/weekly/ssp/rus79_reg1.php",
+      "source_sha256": "b9aa7682a896b07ebaa2e35fcc97569a5f0f6ea87a0ad7cb0b880cb388f40557",
+      "population_basis": "present",
+      "population_scope": "rural",
+      "population_total": 42177082,
+      "population_male": 19381636,
+      "population_female": 22795446,
+      "unit": "persons"
+    }
+  ],
+  "no_allocation": true,
+  "no_historical_identity_acceptance": true,
+  "permanent_population_extracted": false,
+  "assets": {
+    "rus79_reg2.html": {
+      "path": "/workspace/shared/rsfsr1979_urban_mass/rus79_reg2.html",
+      "bytes": 865485,
+      "sha256": "b7c5fa6dea75c9107f6b8371b2a72a6e94698b89d4c520bb26470ea4ab4a10b5",
+      "retrieval": "2026-10-14 normal verified TLS curl HTTPS"
+    },
+    "census1979_index.html": {
+      "path": "/workspace/shared/rsfsr1979_urban_mass/census1979_index.html",
+      "bytes": 10331,
+      "sha256": "592624bcac6c6fe5bcb302b27fa392681ba944969ae2371ef8beb34750c3ab10",
+      "retrieval": "2026-10-14 normal verified TLS curl HTTPS"
+    },
+    "rus79_reg1.html": {
+      "path": "/workspace/shared/rsfsr1979_urban_mass/rus79_reg1.html",
+      "bytes": 1437273,
+      "sha256": "b9aa7682a896b07ebaa2e35fcc97569a5f0f6ea87a0ad7cb0b880cb388f40557",
+      "retrieval": "2026-10-14 normal verified TLS curl HTTPS"
+    }
+  },
+  "outputs": {
+    "urban_settlements_1979.csv": {
+      "bytes": 2394820,
+      "sha256": "35942c7e011e5aff43fb78107254ad7b388836fbe1d7ad0478b8ad458e1a9217"
+    },
+    "official_controls.csv": {
+      "bytes": 857,
+      "sha256": "b04af7fbb04708c7959ddf2dc16a6d4627e093e66509a6e626f6930ea016efdf"
+    },
+    "all_numeric_source_rows.csv": {
+      "bytes": 2686965,
+      "sha256": "450b93b03134e963a1072ca68d83ec042fd8811a30d69cd0a1accded94643b74"
+    },
+    "book_spot_comparison.csv": {
+      "bytes": 3317,
+      "sha256": "8ff01ed0c18f6c5d9725a6c0547ba0dd1373e293e6fa45c824b326d97fa6ffcb"
+    }
+  },
+  "settlement_sum_minus_official_urban_control": 0,
+  "book_comparison": {
+    "checked_rows": 12,
+    "equal": 9,
+    "different": [
+      {
+        "source_record_id": "1979:demoscope:rus79_reg2.php:html_tr:962",
+        "name_1979": "Москва",
+        "html_present_1979": "7830509",
+        "book_1979_present": "7933034",
+        "book_source_pdf_sha256": "e0144d44e94b0c324ad573daeb80621265a0ce01e03bdc9c3e676eaf5ec892a9",
+        "book_pdf_page": "92",
+        "book_side": "left",
+        "book_ocr_line_key": "1:1:37",
+        "comparison": "different_do_not_merge",
+        "interpretation": "Different editions / territorial frame requires investigation; no overwriting either value"
+      },
+      {
+        "source_record_id": "1979:demoscope:rus79_reg2.php:html_tr:2319",
+        "name_1979": "Куйбышев (ныне г. Самара)",
+        "html_present_1979": "1216233",
+        "book_1979_present": "1206133",
+        "book_source_pdf_sha256": "e0144d44e94b0c324ad573daeb80621265a0ce01e03bdc9c3e676eaf5ec892a9",
+        "book_pdf_page": "102",
+        "book_side": "right",
+        "book_ocr_line_key": "1:1:21",
+        "comparison": "different_do_not_merge",
+        "interpretation": "Different editions / territorial frame requires investigation; no overwriting either value"
+      },
+      {
+        "source_record_id": "1979:demoscope:rus79_reg2.php:html_tr:2930",
+        "name_1979": "Уфа",
+        "html_present_1979": "969289",
+        "book_1979_present": "978477",
+        "book_source_pdf_sha256": "e0144d44e94b0c324ad573daeb80621265a0ce01e03bdc9c3e676eaf5ec892a9",
+        "book_pdf_page": "111",
+        "book_side": "left",
+        "book_ocr_line_key": "1:1:40",
+        "comparison": "different_do_not_merge",
+        "interpretation": "Different editions / territorial frame requires investigation; no overwriting either value"
+      }
+    ]
+  }
+}
