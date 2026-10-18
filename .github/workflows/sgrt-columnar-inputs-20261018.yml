@@ -13,7 +13,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: pip download pyarrow==19.0.1 --only-binary=:all: --no-deps --dest columnar/reader --platform manylinux_2_28_x86_64 --python-version 313 --implementation cp --abi cp313
+      - run: |
+          pip download pyarrow==19.0.1 --only-binary=:all: --no-deps --dest columnar/reader --platform manylinux_2_28_x86_64 --python-version 313 --implementation cp --abi cp313
       - name: Extract original public Parquet members
         run: |
           python - <<'PY'
