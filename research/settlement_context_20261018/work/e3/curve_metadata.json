@@ -1,0 +1,31 @@
+{
+  "status": "computed_exploratory",
+  "input_sha256": "d40273e13a8ecf8f31bf367ddc414e21bd026eea325192629fb2f81f6dfa374c",
+  "script_sha256": "a3f65545391bd1f3828ec917f6250660a1c76dde6850228373c47e47c5b28475",
+  "n_input": 142570,
+  "dev_risk_n": 101593,
+  "heldout_outcomes_used": 0,
+  "n_regions": 81,
+  "radii_km": [
+    2,
+    5,
+    10,
+    20,
+    30
+  ],
+  "normalized_radii": [
+    0.25,
+    0.5,
+    1,
+    2,
+    3
+  ],
+  "seconds": 50.57528066635132,
+  "limitations": [
+    "Development-only induced graphs lose cross-holdout and cross-region edges.",
+    "Fixed baselinepositive2010 nodes; zero2021 is census zero, not proven physical loss.",
+    "Normalization median globalpositive2010 fifth-neighbor distance of region development points; fixed across dates.",
+    "No conditional-risk null simulation or p-value.",
+    "LCC population shares weight surviving baseline2010 population, not2021 population."
+  ]
+}

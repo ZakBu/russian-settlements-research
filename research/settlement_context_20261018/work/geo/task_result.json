@@ -1,0 +1,44 @@
+{
+  "task_id": "G-context-stage71-20261018",
+  "agent_id": "G",
+  "status": "reviewed",
+  "input_hashes": {
+    "ordinary_stage71": "d40273e13a8ecf8f31bf367ddc414e21bd026eea325192629fb2f81f6dfa374c",
+    "federal": "d527db11401f36353e76a331f8dbe838d552454b145171a934ada7c54bb3ab2b"
+  },
+  "artifacts": [
+    "research_staging/geo/build_features.py",
+    "research_staging/geo/features.csv.gz",
+    "research_staging/geo/spatial_contract.json",
+    "research_staging/geo/CONTRACT.md",
+    "research_staging/geo/test_geometry.py",
+    "research_staging/geo/synthetic_geometry_report.json",
+    "research_staging/replication/geometry_comparison.json",
+    "research_staging/replication/nearest_comparison.json",
+    "research_staging/geo/build_features_v1.py",
+    "research_staging/geo/SENSITIVITIES.md"
+  ],
+  "summary": "142570ordinaryfull3 rows preserved;2002/2010-only spatial context calculated with UID self exclusion and spherical BallTree. Runtime143.94s,maxRSS369812KiB. Four scales plus additive rings,history,NN5,hierarchy,external capital distances.",
+  "limitations": [
+    "Full3-selected ordinary neighborhood universe, not all census records; absent lifecycle/available-year observations not allocated.",
+    "2010 coordinates are retrospective representative point uses; not demonstrated census-day measurements.",
+    "Federal territorial aggregates excluded from point masses; capital distances use 2021-derived anchor retained in 2010 territory layer.",
+    "NN5 normalization is dimensionless shape relative to local30km count density, not a transport or functional link.",
+    "History symmetric change uses same2010 geographic neighbor set and2002/2010 populations. All finite2010 counts retained irrespective of quality; quality column preserved.",
+    "A zero population2010 makes size ratio undefined rather than infinity.",
+    "48large coordinate drift rows require sensitivity that also alters neighborhood universe, not focal filtering alone."
+  ],
+  "claims": [
+    "No2021fields read as features.",
+    "All numeric2010 values retained,qualityflags copied.",
+    "Federal territorial masses not treated as point mass.",
+    "Synthetic geometry tests pass.",
+    "Distinct replicator:200queries/4600checks plus800nearest/anchorchecks passed;initial densityarea discrepancy retained and reconciled explicitly."
+  ],
+  "blockers": [],
+  "n_input": 142570,
+  "n_analytic": 142570,
+  "spec_id": "G-sphere-r10-30-60-100-v1",
+  "run_id": "G-exec4810",
+  "next_action": "Independent replicate100blind+100stratified;coordinator integration and sensitivity."
+}

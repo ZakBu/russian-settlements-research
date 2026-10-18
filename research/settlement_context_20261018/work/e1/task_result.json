@@ -1,0 +1,90 @@
+{
+  "role": "E1",
+  "status": "computed",
+  "scope": "development_only",
+  "not_final_holdout": true,
+  "artifacts": [
+    "model_executor.py",
+    "experiment_card.json",
+    "development_comparison.csv",
+    "development/predictions.parquet",
+    "development/result.json",
+    "interpretation.md"
+  ],
+  "findings": [
+    {
+      "run": "development",
+      "n": 101593,
+      "blocks": 382,
+      "brier_baseline": 0.036350241954149196,
+      "brier_augmented": 0.03608260677590084,
+      "delta": 0.0002676351782483546,
+      "relative_improvement": 0.007362679417263285,
+      "ci_lower": 5.524377363965573e-05,
+      "ci_upper": 0.0005289548292351406,
+      "holdout_outcomes_parsed": 0
+    },
+    {
+      "run": "development_rawmass",
+      "n": 101593,
+      "blocks": 382,
+      "brier_baseline": 0.036350241954149196,
+      "brier_augmented": 0.036347960151038645,
+      "delta": 2.28180311053828e-06,
+      "relative_improvement": 6.277270763194532e-05,
+      "ci_lower": -8.8806352510837e-05,
+      "ci_upper": 0.00010569808551307202,
+      "holdout_outcomes_parsed": 0
+    },
+    {
+      "run": "development_permuted",
+      "n": 101593,
+      "blocks": 382,
+      "brier_baseline": 0.036350241954149196,
+      "brier_augmented": 0.03649953549170625,
+      "delta": -0.0001492935375570609,
+      "relative_improvement": -0.004107085112263463,
+      "ci_lower": -0.0002948761088459597,
+      "ci_upper": -1.2049726674236236e-05,
+      "holdout_outcomes_parsed": 0
+    },
+    {
+      "run": "development_radius10",
+      "n": 101593,
+      "blocks": 382,
+      "brier_baseline": 0.036350241954149196,
+      "brier_augmented": 0.03616766956167858,
+      "delta": 0.0001825723924706069,
+      "relative_improvement": 0.0050225908454996455,
+      "ci_lower": -5.2529756059454374e-05,
+      "ci_upper": 0.000437641581734446,
+      "holdout_outcomes_parsed": 0
+    },
+    {
+      "run": "development_radius60",
+      "n": 101593,
+      "blocks": 382,
+      "brier_baseline": 0.036350241954149196,
+      "brier_augmented": 0.03637638265673702,
+      "delta": -2.614070258782911e-05,
+      "relative_improvement": -0.000719134211563213,
+      "ci_lower": -0.0002783613636043016,
+      "ci_upper": 0.00019699512933999528,
+      "holdout_outcomes_parsed": 0
+    }
+  ],
+  "limitations": [
+    "Mainrelativegain0.736% below2%threshold",
+    "Intervalsdescriptiveconditionalonfit; no validatedp",
+    "Capital/drift/original2010/fullrefit/flexiblelearner sensitivities notyetcomputed",
+    "Onlyonepermutationseed family; three-seed diagnostic outstanding",
+    "Finalholdout untouchedbyE1runner"
+  ],
+  "commands": [
+    "python research_staging/e1/model_executor.py --output research_staging/e1/development",
+    "python research_staging/e1/model_executor.py --variant rawmass --output research_staging/e1/development_rawmass",
+    "python research_staging/e1/model_executor.py --variant permuted --output research_staging/e1/development_permuted",
+    "python research_staging/e1/model_executor.py --radius 10 --output research_staging/e1/development_radius10",
+    "python research_staging/e1/model_executor.py --radius 60 --output research_staging/e1/development_radius60"
+  ]
+}

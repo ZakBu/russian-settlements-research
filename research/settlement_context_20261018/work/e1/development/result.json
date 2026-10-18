@@ -1,0 +1,202 @@
+{
+  "status": "development_only",
+  "direction": "E1",
+  "variant": "history",
+  "radius": 30,
+  "task": "zero",
+  "rows_master": 142570,
+  "development_n": 118641,
+  "eligible_development_n": 101593,
+  "development_zero2010_n": 17048,
+  "holdout_outcomes_parsed": 0,
+  "baseline_columns": [
+    "log_population2010",
+    "own_history",
+    "own_history_missing",
+    "lat",
+    "lon",
+    "sin_lon",
+    "cos_lon",
+    "log_mass10",
+    "log_count10",
+    "empty10",
+    "log_mass30",
+    "log_count30",
+    "empty30",
+    "log_mass60",
+    "log_count60",
+    "empty60",
+    "log_mass100",
+    "log_count100",
+    "empty100",
+    "log_nearest_ge10000_km",
+    "log_nearest_ge100000_km",
+    "log_distance_RU-FED-MOW_km",
+    "log_distance_RU-FED-SPB_km"
+  ],
+  "additional_columns": [
+    "e1_history",
+    "e1_zero_fraction",
+    "e1_log_pair_count",
+    "e1_coverage"
+  ],
+  "params": {
+    "learning_rate": 0.08,
+    "max_iter": 150,
+    "max_leaf_nodes": 15,
+    "min_samples_leaf": 100,
+    "l2_regularization": 1,
+    "early_stopping": false,
+    "random_state": 20261018
+  },
+  "seed": 20261018,
+  "input_sha256": "d40273e13a8ecf8f31bf367ddc414e21bd026eea325192629fb2f81f6dfa374c",
+  "features_sha256": "b3e62de9163e7b07116a5737cfa1817e93aa4dc690ec38bea7b8043cff810ee4",
+  "code_sha256": "03e0c8c31b85a3abf8ebd03c21eee9f2bf027ebc7e379d9c919975970b0cb843",
+  "split_sha256": "eea0866d637808858db6b523e5d34a327ae45e33d251d25757b541588086e493",
+  "cv_folds": [
+    {
+      "fold": 0,
+      "train_before_buffer": 75255,
+      "train_after_buffer": 56870,
+      "test_n": 26338,
+      "train_blocks": 309,
+      "test_blocks": 72,
+      "nearest_train_test_km": 60.006664892942766,
+      "baseline": {
+        "brier": 0.03431083112379261,
+        "log_loss": 0.1166496099771878,
+        "average_precision": 0.3205620523792484,
+        "seconds": 0.9053113460540771
+      },
+      "augmented": {
+        "brier": 0.034124590037733396,
+        "log_loss": 0.11632567398735917,
+        "average_precision": 0.3354166233852644,
+        "seconds": 1.0728464126586914
+      }
+    },
+    {
+      "fold": 1,
+      "train_before_buffer": 76561,
+      "train_after_buffer": 52168,
+      "test_n": 25032,
+      "train_blocks": 291,
+      "test_blocks": 79,
+      "nearest_train_test_km": 60.00171789010756,
+      "baseline": {
+        "brier": 0.03606134373725171,
+        "log_loss": 0.12081786151488709,
+        "average_precision": 0.33695157450431124,
+        "seconds": 0.8577144145965576
+      },
+      "augmented": {
+        "brier": 0.03549765460297106,
+        "log_loss": 0.11917241198528053,
+        "average_precision": 0.35615715881429366,
+        "seconds": 1.0379230976104736
+      }
+    },
+    {
+      "fold": 2,
+      "train_before_buffer": 83901,
+      "train_after_buffer": 68372,
+      "test_n": 17692,
+      "train_blocks": 296,
+      "test_blocks": 79,
+      "nearest_train_test_km": 60.00042122389034,
+      "baseline": {
+        "brier": 0.03775386416941194,
+        "log_loss": 0.12904198655144003,
+        "average_precision": 0.35063271131978374,
+        "seconds": 0.916323184967041
+      },
+      "augmented": {
+        "brier": 0.03777593876319135,
+        "log_loss": 0.1287165400498415,
+        "average_precision": 0.35758715985670414,
+        "seconds": 1.0077705383300781
+      }
+    },
+    {
+      "fold": 3,
+      "train_before_buffer": 83680,
+      "train_after_buffer": 66233,
+      "test_n": 17913,
+      "train_blocks": 311,
+      "test_blocks": 70,
+      "nearest_train_test_km": 60.0063873586835,
+      "baseline": {
+        "brier": 0.035314147791138825,
+        "log_loss": 0.11798242852147393,
+        "average_precision": 0.37845331625363765,
+        "seconds": 1.2211620807647705
+      },
+      "augmented": {
+        "brier": 0.03535727687617023,
+        "log_loss": 0.11826249482613344,
+        "average_precision": 0.37654693579426607,
+        "seconds": 2.331404685974121
+      }
+    },
+    {
+      "fold": 4,
+      "train_before_buffer": 86975,
+      "train_after_buffer": 69565,
+      "test_n": 14618,
+      "train_blocks": 293,
+      "test_blocks": 82,
+      "nearest_train_test_km": 60.000466977297634,
+      "baseline": {
+        "brier": 0.040090313997170494,
+        "log_loss": 0.13216594942929877,
+        "average_precision": 0.3798603648182383,
+        "seconds": 1.1407959461212158
+      },
+      "augmented": {
+        "brier": 0.03945154730246824,
+        "log_loss": 0.1303145050123615,
+        "average_precision": 0.39298047782828066,
+        "seconds": 2.515550374984741
+      }
+    }
+  ],
+  "paired_interval": {
+    "delta": 0.0002676351782483546,
+    "ci95": [
+      5.524377363965573e-05,
+      0.0005289548292351406
+    ],
+    "n_rows": 101593,
+    "n_blocks": 382,
+    "seed": 20261018,
+    "replicates": 1999,
+    "conditional_on_fit": true,
+    "few_blocks_warning": false
+  },
+  "baseline": {
+    "brier": 0.036350241954149196,
+    "log_loss": 0.122302344196456,
+    "average_precision": 0.3461734315363109
+  },
+  "augmented": {
+    "brier": 0.03608260677590084,
+    "log_loss": 0.12153923940574284,
+    "average_precision": 0.35757795445060014
+  },
+  "seconds": 75.20001721382141,
+  "python": "3.12.14",
+  "packages": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "sklearn": "1.8.0",
+    "pyproj": "3.8.0",
+    "pyarrow": "26.0.0"
+  },
+  "limitations": [
+    "Development spatial CV is reconnaissance, not final holdout evidence.",
+    "Conditional-on-fit bootstrap ignores retraining and residual dependence beyond blocks.",
+    "Stage71 ordinary-neighborhood context excludes federal territorial mass; capital distances included.",
+    "No causal interpretation; geometric proximity is not transport."
+  ]
+}

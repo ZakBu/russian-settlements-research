@@ -1,0 +1,14 @@
+{
+ "id":"E1-v1-development","status":"code_ready_not_computed","agent":"/root/direction_e1","primary_outcome":"1[P2021=0] among P2010>0; P2021 numerical nonnegative; valid geometry",
+ "primary_contrast":"Brier(B)-Brier(B+history30)","period":"2010–2021","history":"2002–2010",
+ "baseline_amendment":"Coordinator requests masses, count and empty10/30/60/100km, >=10k/100k nearest other settlement, Moscow/SPB distance, ownlogP2010 and symmetric2002–2010 plusmissing,lon/lat/sinlon/coslon. >=10k replaces draft protocol >=50k.",
+ "additional":"30km aggregate symmetric change, fraction P2002>0 transitioning to0, logpaircount, pairedcoverage; selfUID excluded, empty proportions NaN",
+ "negative_control":"Joint added-block permutation separately train/test within spatialblocks, seed20261019+fold; not exact conditional test",
+ "rawmass_comparator":"B+logmass2002+logmass2010 vs same B; reparameterization diagnostic",
+ "sensitivities_planned":["radius10/60 same targetrisk","capitaldistance>100km","coordinate drift<=5km","original2010 fallbackselected on same targetrisk","moreflexibleHGB"],
+ "split":"EPSG6933 200km SHA256block holdoutmod5=0; five development folds independently hashed;60km trainbuffer",
+ "learner":{"class":"HistGradientBoostingClassifier","learning_rate":0.08,"max_iter":150,"max_leaf_nodes":15,"min_samples_leaf":100,"l2_regularization":1,"early_stopping":false,"random_state":20261018},
+ "uncertainty":"1999 pairedblockbootstrap conditionalonfit, descriptive95percentileinterval; no calibratedp/Holm",
+ "runtime":"threads2; smoke restricted first10000trainUID onefold and cannot be interpreted as estimate",
+ "limitations":["Common100kmcontext overlaps despite60kmbuffer","stage71ordinarymass excludes federalterritorialaggregates","retrospectiveholdout not new historically untouched census","pastcoverage and currentrecordselection may bias"]
+}

@@ -1,0 +1,172 @@
+{
+  "status": "computed",
+  "independent_scope": "Separate agent; standard-library CSV/gzip/Decimal implementation; no main analysis code or result read before this receipt. Not independent new data. Prior instructions contained expected row count and hash, so identity validation is not blinded to those expectations.",
+  "utc": "2026-10-18T17:39:39.281760+00:00",
+  "input": "repo/publication/stage71/ordinary_full3_with_primary_population_sources.csv.gz",
+  "sha256": "d40273e13a8ecf8f31bf367ddc414e21bd026eea325192629fb2f81f6dfa374c",
+  "size_bytes": 26266958,
+  "rows": 142570,
+  "columns": 135,
+  "unique_uid": 142570,
+  "empty_uid_count": 0,
+  "duplicate_uid_count": 0,
+  "population": {
+    "2002": {
+      "numeric": 142570,
+      "positive": 133688,
+      "zero": 8882,
+      "sum_decimal": "127397236.0"
+    },
+    "2010": {
+      "numeric": 142570,
+      "positive": 121324,
+      "zero": 21246,
+      "sum_decimal": "124684805.0"
+    },
+    "2021": {
+      "numeric": 142570,
+      "positive": 121788,
+      "zero": 20782,
+      "sum_decimal": "125132003.0"
+    }
+  },
+  "quality_flags": {
+    "2002": {
+      "direct_published_census_value": 142545,
+      "verified_count_in_secondary_census_compilation": 25
+    },
+    "2010": {
+      "secondary_confidentiality_protected_value_exact_scope_unverified": 127900,
+      "reviewed_primary_reported_value": 9349,
+      "fresh_primary_r5_source": 761,
+      "reviewed_primary_source_value_or_null": 3507,
+      "reviewed_context_specific_dash_interpretation": 27,
+      "direct_official_city_value": 1023,
+      "": 3
+    },
+    "2021": {
+      "direct_published_census_value": 142570
+    }
+  },
+  "transitions": {
+    "2002_2010": {
+      "positive->positive": 120219,
+      "positive->zero": 13469,
+      "zero->zero": 7777,
+      "zero->positive": 1105
+    },
+    "2010_2021": {
+      "positive->positive": 115349,
+      "zero->zero": 14807,
+      "positive->zero": 5975,
+      "zero->positive": 6439
+    },
+    "2002_2021": {
+      "positive->positive": 119775,
+      "positive->zero": 13913,
+      "zero->zero": 6869,
+      "zero->positive": 2013
+    }
+  },
+  "coordinates_2010": {
+    "valid_global_range": 142570,
+    "coordinate_admission:reviewed_extension_rule_accepted": 142131,
+    "coordinate_admission:reviewed_rule_accepted": 208,
+    "coordinate_admission:reviewed_case_accepted": 207,
+    "coordinate_admission:frozen_r5b_reviewed_baseline_preserved": 24
+  },
+  "region_counts_2010": {
+    "белгородская": 1580,
+    "брянская": 2598,
+    "владимирская": 2428,
+    "воронежская": 1676,
+    "ивановская": 2965,
+    "калужская": 3093,
+    "костромская": 1848,
+    "курская": 2529,
+    "липецкая": 1380,
+    "московская": 4761,
+    "орловская": 2287,
+    "рязанская": 2721,
+    "смоленская": 4611,
+    "тамбовская": 1462,
+    "тверская": 8650,
+    "тульская": 3053,
+    "ярославская": 5446,
+    "карелия": 761,
+    "коми": 743,
+    "архангельская": 3466,
+    "ненецкий": 41,
+    "вологодская": 7155,
+    "калининградская": 1011,
+    "ленинградская": 2880,
+    "мурманская": 113,
+    "новгородская": 3471,
+    "псковская": 7857,
+    "адыгея": 223,
+    "дагестан": 1544,
+    "ингушетия": 40,
+    "кабардино балкарская": 160,
+    "калмыкия": 260,
+    "карачаево черкесская": 145,
+    "северная осетия алания": 204,
+    "чеченская": 310,
+    "краснодарский": 1732,
+    "ставропольский": 756,
+    "астраханская": 424,
+    "волгоградская": 1463,
+    "ростовская": 2253,
+    "башкортостан": 4286,
+    "марий эл": 1581,
+    "мордовия": 1240,
+    "татарстан": 3048,
+    "удмуртская": 1867,
+    "чувашская": 1689,
+    "кировская": 4057,
+    "нижегородская": 4526,
+    "оренбургская": 1701,
+    "пензенская": 1377,
+    "пермский": 3334,
+    "самарская": 1311,
+    "саратовская": 1683,
+    "ульяновская": 966,
+    "курганская": 1225,
+    "свердловская": 1777,
+    "тюменская": 1228,
+    "ханты мансийский югра": 192,
+    "ямало ненецкий": 81,
+    "челябинская": 1233,
+    "алтай": 241,
+    "бурятия": 628,
+    "тыва": 143,
+    "хакасия": 270,
+    "алтайский": 1541,
+    "красноярский": 1637,
+    "иркутская": 1459,
+    "кемеровская": 1088,
+    "новосибирская": 1492,
+    "омская": 1480,
+    "томская": 546,
+    "забайкальский": 787,
+    "саха якутия": 624,
+    "приморский": 614,
+    "хабаровский": 409,
+    "амурская": 584,
+    "камчатский": 84,
+    "магаданская": 72,
+    "сахалинская": 223,
+    "еврейская": 100,
+    "чукотский": 46
+  },
+  "negative_examples": [],
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39"
+  },
+  "main_results_seen": false,
+  "remaining": [
+    "100 independent spherical queries after geometric target contract",
+    "saved prediction metrics and train/test overlap",
+    "one independent fit under frozen specification"
+  ]
+}

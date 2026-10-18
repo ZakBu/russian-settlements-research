@@ -1,0 +1,27 @@
+{
+  "verified": {
+    "main": {
+      "gzip_integrity": "pass",
+      "compressed_sha256": "b3e62de9163e7b07116a5737cfa1817e93aa4dc690ec38bea7b8043cff810ee4",
+      "decompressed_sha256": "217355cfd7fde2478c5239a50c50c8aa99b70a6ef5510deb08e6012f78a6b937",
+      "decompressed_bytes": 182809800,
+      "rows_plus_header": 142571
+    },
+    "original2010": {
+      "gzip_integrity": "pass",
+      "compressed_sha256": "a5c460bc63854f50490f93b8db6e80fe62a577fb8c2bb2a6592d525b5114bc7a",
+      "decompressed_sha256": "c7136106fd8adf415d31c14b4d84782efaad69dee179822d76f9037ce65467fe",
+      "decompressed_bytes": 182986968,
+      "rows_plus_header": 142571
+    }
+  },
+  "corrupted_attempt": {
+    "path": "exclude_drift/features.csv.gz",
+    "actual_sha256": "e3741a2c08eee638c3caf9c9bb1656bd5c1695f3d9938ebacab5f04364465000",
+    "manifest_sha256": "d6cb6258eb229d1a425f803dde5542c6c8a692285bd55c0808aa93c38cc8b540",
+    "integrity": "failed truncated gzip",
+    "salvage_rows_plus_header_complete": 141350,
+    "interpretation": "replacement with preservedmtime suggested by inode/ctime; cause not established",
+    "action": "separate unique recovery folder with atomic publish and gzip verification"
+  }
+}

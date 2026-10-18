@@ -1,0 +1,63 @@
+{
+  "status": "locked_for_remaining_retrospective_evaluation",
+  "locked_at_utc": "2026-10-18T17:47:02.816770+00:00",
+  "input_sha256": "d40273e13a8ecf8f31bf367ddc414e21bd026eea325192629fb2f81f6dfa374c",
+  "features_sha256": "b3e62de9163e7b07116a5737cfa1817e93aa4dc690ec38bea7b8043cff810ee4",
+  "split_sha256": "eea0866d637808858db6b523e5d34a327ae45e33d251d25757b541588086e493",
+  "final_runner_sha256": "fa92692928d85892e096c92cb49b32e7a974296e0425ea4205113d190e097477",
+  "dependencies_sha256": {
+    "e1/model_executor.py": "03e0c8c31b85a3abf8ebd03c21eee9f2bf027ebc7e379d9c919975970b0cb843",
+    "statistics/statistical_utils.py": "3b8179ed96553de34a6fd15ca16e929262fcb30bdb0602eb39362f9e3be74724"
+  },
+  "sensitivity_features_sha256": {
+    "original": "a5c460bc63854f50490f93b8db6e80fe62a577fb8c2bb2a6592d525b5114bc7a",
+    "drift": "e3741a2c08eee638c3caf9c9bb1656bd5c1695f3d9938ebacab5f04364465000"
+  },
+  "config_ids": [
+    "E1_primary",
+    "E1_r10",
+    "E1_r60",
+    "E1_nn",
+    "E1_buffer100",
+    "E1_linear",
+    "E2_primary",
+    "E2_r10",
+    "E2_r60",
+    "E2_nn",
+    "E2_buffer100",
+    "E2_linear",
+    "E1_raw_control",
+    "E1_permuted",
+    "E1_original",
+    "E2_original",
+    "E1_drift",
+    "E2_drift"
+  ],
+  "reweighted_fit_replicates": 20,
+  "primary_contrasts": [
+    "E1_primary: Brier",
+    "E2_primary: symmetric-change MAE"
+  ],
+  "operational_useful_relative_gain": 0.02,
+  "seed": 20261018,
+  "approval": "T/R conditional pass; exact guards enforce SHA/config/masks",
+  "amendments": [
+    "E3 development-only after two negative specifications; two final primary contrasts, not three.",
+    "E2 temporal window changed from 2002–2021 to 2010–2021 to avoid intermediate-year covariate leakage.",
+    "Baseline actual23columns: four radii10/30/60/100km and centers>=10000/100000; draft50k/30-only superseded before final.",
+    "HGBfixed150iter15leavesminleaf100earlystopFalse; fixed linear family secondary.",
+    "No p/Holm claim: null calibration not established; intervals descriptive conditional-on-fit.",
+    "Original2010 sensitivity changes covariates including neighbors, risk/targetselectedaxis fixed; not full original-axis outcome evaluation.",
+    "Focal drift retained in evaluation,48UID excluded from neighboruniverse sensitivity; mask post-audit uses all-year coords.",
+    "E3 initialpandasparser saw whole2021column before masking; noholdout aggregates, rewrittenstreamingandrerun; auditwholepanel summaries known.",
+    "Predictions beforelabels committed tolocaldisk withSHA,not externally timestampedGit.",
+    "Full3 ordinary context excludes federalmass; externalcapitaldistances only; transductive baseline geography retrospectivepointuses.",
+    "Buffer60primary,100secondary;100kmcontextsoverlap despitecenterdistancebuffers.",
+    "20blockreweighted fits diagnostic,notexactbootstrap or unconditionalCI."
+  ],
+  "known_limits": [
+    "Historical outcomes previously explored; current-run protected evaluation is not historically untouched.",
+    "Geometric proximity is not transport; no causality.",
+    "No boundary-harmonized national universe; panel142570 accepted histories only."
+  ]
+}

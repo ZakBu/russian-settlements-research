@@ -1,0 +1,180 @@
+{
+  "status": "development_only",
+  "direction": "E3",
+  "variant": "history",
+  "radius": 30,
+  "task": "change",
+  "rows_master": 142570,
+  "development_n": 118641,
+  "eligible_development_n": 101593,
+  "development_zero2010_n": 17048,
+  "holdout_outcomes_parsed": 0,
+  "baseline_columns": [
+    "log_population2010",
+    "own_history",
+    "own_history_missing",
+    "lat",
+    "lon",
+    "sin_lon",
+    "cos_lon",
+    "log_mass10",
+    "log_count10",
+    "empty10",
+    "log_mass30",
+    "log_count30",
+    "empty30",
+    "log_mass60",
+    "log_count60",
+    "empty60",
+    "log_mass100",
+    "log_count100",
+    "empty100",
+    "log_nearest_ge10000_km",
+    "log_nearest_ge100000_km",
+    "log_distance_RU-FED-MOW_km",
+    "log_distance_RU-FED-SPB_km",
+    "nn_control_shape",
+    "nn_control_logdistance"
+  ],
+  "additional_columns": [
+    "morph_median_nn5_2010",
+    "morph_isolated10_2010",
+    "morph_lcc10_2010",
+    "morph_insufficient"
+  ],
+  "params": {
+    "learning_rate": 0.08,
+    "max_iter": 150,
+    "max_leaf_nodes": 15,
+    "min_samples_leaf": 100,
+    "l2_regularization": 1,
+    "early_stopping": false,
+    "random_state": 20261018
+  },
+  "seed": 20261018,
+  "input_sha256": "d40273e13a8ecf8f31bf367ddc414e21bd026eea325192629fb2f81f6dfa374c",
+  "features_sha256": "b3e62de9163e7b07116a5737cfa1817e93aa4dc690ec38bea7b8043cff810ee4",
+  "code_sha256": "03e0c8c31b85a3abf8ebd03c21eee9f2bf027ebc7e379d9c919975970b0cb843",
+  "split_sha256": "eea0866d637808858db6b523e5d34a327ae45e33d251d25757b541588086e493",
+  "cv_folds": [
+    {
+      "fold": 0,
+      "train_before_buffer": 75255,
+      "train_after_buffer": 56870,
+      "test_n": 26338,
+      "train_blocks": 309,
+      "test_blocks": 72,
+      "nearest_train_test_km": 60.006664892942766,
+      "baseline": {
+        "mae": 0.3836688356744746,
+        "seconds": 2.007081985473633
+      },
+      "augmented": {
+        "mae": 0.3854416691463484,
+        "seconds": 1.378943681716919
+      }
+    },
+    {
+      "fold": 1,
+      "train_before_buffer": 76561,
+      "train_after_buffer": 52168,
+      "test_n": 25032,
+      "train_blocks": 291,
+      "test_blocks": 79,
+      "nearest_train_test_km": 60.00171789010756,
+      "baseline": {
+        "mae": 0.40166803112403526,
+        "seconds": 1.0914478302001953
+      },
+      "augmented": {
+        "mae": 0.405049449128527,
+        "seconds": 1.201080083847046
+      }
+    },
+    {
+      "fold": 2,
+      "train_before_buffer": 83901,
+      "train_after_buffer": 68372,
+      "test_n": 17692,
+      "train_blocks": 296,
+      "test_blocks": 79,
+      "nearest_train_test_km": 60.00042122389034,
+      "baseline": {
+        "mae": 0.4352487261349638,
+        "seconds": 1.3358051776885986
+      },
+      "augmented": {
+        "mae": 0.4370443016662574,
+        "seconds": 1.737610101699829
+      }
+    },
+    {
+      "fold": 3,
+      "train_before_buffer": 83680,
+      "train_after_buffer": 66233,
+      "test_n": 17913,
+      "train_blocks": 311,
+      "test_blocks": 70,
+      "nearest_train_test_km": 60.0063873586835,
+      "baseline": {
+        "mae": 0.37391740839084464,
+        "seconds": 1.2122550010681152
+      },
+      "augmented": {
+        "mae": 0.37491449837851004,
+        "seconds": 1.2403101921081543
+      }
+    },
+    {
+      "fold": 4,
+      "train_before_buffer": 86975,
+      "train_after_buffer": 69565,
+      "test_n": 14618,
+      "train_blocks": 293,
+      "test_blocks": 82,
+      "nearest_train_test_km": 60.000466977297634,
+      "baseline": {
+        "mae": 0.3938680739913126,
+        "seconds": 1.2743275165557861
+      },
+      "augmented": {
+        "mae": 0.393326286879989,
+        "seconds": 1.2135519981384277
+      }
+    }
+  ],
+  "paired_interval": {
+    "delta": -0.0017033151371257532,
+    "ci95": [
+      -0.0032758916150407687,
+      -0.00020571896984794284
+    ],
+    "n_rows": 101593,
+    "n_blocks": 382,
+    "seed": 20261018,
+    "replicates": 1999,
+    "conditional_on_fit": true,
+    "few_blocks_warning": false
+  },
+  "baseline": {
+    "mae": 0.3968343336054762
+  },
+  "augmented": {
+    "mae": 0.39853764874260206
+  },
+  "seconds": 75.19309091567993,
+  "python": "3.12.14",
+  "packages": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "sklearn": "1.8.0",
+    "pyproj": "3.8.0",
+    "pyarrow": "26.0.0"
+  },
+  "limitations": [
+    "Development spatial CV is reconnaissance, not final holdout evidence.",
+    "Conditional-on-fit bootstrap ignores retraining and residual dependence beyond blocks.",
+    "Stage71 ordinary-neighborhood context excludes federal territorial mass; capital distances included.",
+    "No causal interpretation; geometric proximity is not transport."
+  ]
+}
