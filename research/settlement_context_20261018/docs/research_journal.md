@@ -63,3 +63,11 @@ API releases повторно прочитан:10 выпусков, послед
 При тесте переносимого рендерера в новом каталоге снова обнаружена неполная запись двухPNG; оригинальные рисунки не повреждены. Wrapper исправлен на рендер во временный каталог, PIL/хеш-проверку и атомарное копирование. Повторный тест exit0:все8PNG побитово совпали с оригиналами. Первый отрицательный тест не скрыт, квитанция сохранена. Общая причина усечения файлов этой среды остаётся неустановленной.
 
 Итоговая критикаS принята: убрано неизмеренное утверждение об информационной полноте baseline. Аннотации и выводы содержат финальные19731/89, выигрыши1.31%/0.13% и смену знака при100км. Вёрстка двухWord-версий для подачи не выполнена; Markdown-черновик не называется готовой журнальной статьёй.
+
+## 2026-10-18 — подтверждение сохранения в GitHub
+
+Результаты опубликованы [коммитом74820b0](https://github.com/ZakBu/russian-settlements-research/commit/74820b041bbb3e61f290f8965eaa33327443fdbc). API списка изменённых файлов подтвердил344 файла, все строго внутриresearch/settlement_context_20261018; вне каталога изменений нет. GitHub tree outputs прочитан безусечения; SHA всех8PNG иprimary_predictions.csv.gz совпали с локально вычисленными git blob SHA. Отдельный API branchmain подтвердил неизменный90fe15a2aebc7327b7d525d29c5d70057e320e2e. PR№2 открыт,draft=true,merged=false; тело обновлено под окончательные результаты.
+
+Проверяемые этапы: [основание52bab5e](https://github.com/ZakBu/russian-settlements-research/commit/52bab5e45df834d1748d4eb559b57009c927c8d8), [аудитbd061fb](https://github.com/ZakBu/russian-settlements-research/commit/bd061fb671e4257c0afe522144dafacd77ab7aff), [разведкаdab2b1e](https://github.com/ZakBu/russian-settlements-research/commit/dab2b1e6b183ced459ad52296cf1f80e4d5dfba8), [заморозка19b103a](https://github.com/ZakBu/russian-settlements-research/commit/19b103a743adcdf26c5e7d35eafd0bd2e1a620fe), [результат74820b0](https://github.com/ZakBu/russian-settlements-research/commit/74820b041bbb3e61f290f8965eaa33327443fdbc).
+
+Техническая попытка получить рекурсивное дерево всего репозитория повторно далаTransportclosed; узкийtreeoutputs и пагинированный PR file-list успешно заменили её. Слияние, письмо и отправка статьи не выполнялись.
