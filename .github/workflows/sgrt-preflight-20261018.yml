@@ -1,0 +1,52 @@
+name: SGRT source preflight 20261018
+on:
+  push:
+    branches: [research/sgrt-final-protocol-20261018]
+    paths: [.github/workflows/sgrt-preflight-20261018.yml]
+permissions:
+  contents: read
+jobs:
+  inspect-public-inputs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install readers
+        run: pip install pandas pyarrow requests
+      - name: Inspect sources without changing them
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p sgrt_preflight
+          python - <<'PY'
+          import requests, json, pathlib, hashlib, os, pandas as pd
+          root=pathlib.Path('sgrt_preflight'); repo='ZakBu/russian-settlements-research'
+          session=requests.Session()
+          def api(url):
+              r=session.get(url,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN']} if url.startswith('https://api.github.com/repos/'+repo) else {},timeout=120)
+              r.raise_for_status(); return r.json()
+          release=api('https://api.github.com/repos/'+repo+'/releases/tags/working-settlements-stage71-2026-10-09')
+          assets={a['name']:a for a in release['assets']}
+          name='ordinary_full3_with_primary_population_sources.csv.gz'
+          r=session.get(assets[name]['browser_download_url'],timeout=180);r.raise_for_status()
+          p=root/name;p.write_bytes(r.content)
+          df=pd.read_csv(p,low_memory=False)
+          summary={'source':assets[name]['browser_download_url'],'bytes':len(r.content),'sha256':hashlib.sha256(r.content).hexdigest(),'shape':list(df.shape),'columns':list(df.columns),'dtypes':{k:str(v) for k,v in df.dtypes.items()},'head':json.loads(df.head(4).to_json(orient='records',force_ascii=False)),'missing':df.isna().sum().to_dict()}
+          print('SGRT_INPUT_SCHEMA_BEGIN');print(json.dumps(summary,ensure_ascii=False));print('SGRT_INPUT_SCHEMA_END')
+          (root/'schema.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2))
+          tree=api('https://api.github.com/repos/'+repo+'/git/trees/main?recursive=1')
+          selected=[x for x in tree.get('tree',[]) if any(s in x['path'].lower() for s in ['1989','tochno','agric','rfsd','agents.md','municip','sgrt','network_plan','next_stage'])]
+          print('REPO_SOURCE_PATHS');print(json.dumps(selected,ensure_ascii=False));(root/'source_paths.json').write_text(json.dumps(selected,ensure_ascii=False,indent=2))
+          try:
+              hf=api('https://huggingface.co/api/datasets/irlspbru/RFSD/tree/main?recursive=true&limit=1000')
+              print('RFSD_TREE'); print(json.dumps(hf,ensure_ascii=False));(root/'rfsd_tree.json').write_text(json.dumps(hf,ensure_ascii=False,indent=2))
+          except Exception as e: print('RFSD_METADATA_ERROR',str(e))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sgrt-source-preflight-20261018
+          path: sgrt_preflight/
+          retention-days: 14
