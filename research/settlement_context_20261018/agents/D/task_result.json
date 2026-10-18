@@ -1,0 +1,54 @@
+{
+  "agent_role": "data_auditor",
+  "status": "computed",
+  "artifacts": [
+    "README.md",
+    "audit.py",
+    "TASK.md",
+    "cohorts/by_population_value_quality_2010.csv",
+    "cohorts/panel_audit.csv.gz",
+    "cohorts/by_effective_region_norm_2010.csv",
+    "cohorts/by_baseline_size.csv",
+    "cohorts/by_settlement_type_2010.csv",
+    "evidence/source_actual_resolution_status_2002.csv",
+    "evidence/point_origin_kind_2010.csv",
+    "evidence/expansion_availability.csv",
+    "evidence/point_origin_resolution_status_2010.csv",
+    "evidence/point_origin_resolution_status_2002.csv",
+    "evidence/point_raw_flags.csv",
+    "evidence/coordinate_admission_status_2010.csv",
+    "evidence/coordinate_admission_status_2021.csv",
+    "evidence/point_origin_kind_2002.csv",
+    "evidence/region_interpretation_status_2002.csv",
+    "evidence/point_origin_resolution_status_2021.csv",
+    "evidence/schema.csv",
+    "evidence/population_value_quality_2002.csv",
+    "evidence/data_contract.json",
+    "evidence/source_actual_resolution_status_2021.csv",
+    "evidence/source_actual_resolution_status_2010.csv",
+    "evidence/point_drift_over5km.csv",
+    "evidence/point_origin_kind_2021.csv",
+    "evidence/region_interpretation_status_2021.csv",
+    "evidence/population_value_quality_2010.csv",
+    "evidence/population_value_quality_2021.csv",
+    "evidence/exclusion_log.csv.gz",
+    "evidence/region_interpretation_status_2010.csv",
+    "evidence/coordinate_admission_status_2002.csv"
+  ],
+  "claims_verified": [
+    "input SHA and142570x135",
+    "unique entity_uid",
+    "all numeric2010 retained",
+    "zero transition risk cohorts",
+    "coordinate drift roster"
+  ],
+  "limitations": [
+    "source-primary truth not independently revalidated",
+    "boundary comparability unknown",
+    "expansion data absent"
+  ],
+  "blockers": [
+    "77 manifest-referenced extension data files absent locally"
+  ],
+  "next_action": "independent reproduction; spatial sensitivity on coordinate conflicts"
+}
