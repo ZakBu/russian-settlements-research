@@ -1,0 +1,51 @@
+{
+  "status": "computed",
+  "method": "Separate source implementation; same locked sklearn learner/library, not independent algorithm/data",
+  "lock_sha256": "b1312df395d2df36111529c3d029df176efc8cdad19c4070be5a8571beba966f",
+  "script_sha256": "07b6b68fe9344a005995a9f49498b85ced0defa9bb4c09af766ca69f69d21d3b",
+  "train_n": 77832,
+  "test_n": 19731,
+  "baseline_columns": [
+    "log_population2010",
+    "own_history",
+    "own_history_missing",
+    "lat",
+    "lon",
+    "sin_lon",
+    "cos_lon",
+    "log_mass10",
+    "log_count10",
+    "empty10",
+    "log_mass30",
+    "log_count30",
+    "empty30",
+    "log_mass60",
+    "log_count60",
+    "empty60",
+    "log_mass100",
+    "log_count100",
+    "empty100",
+    "log_nearest_ge10000_km",
+    "log_nearest_ge100000_km",
+    "log_distance_RU-FED-MOW_km",
+    "log_distance_RU-FED-SPB_km"
+  ],
+  "additional_columns": [
+    "history",
+    "zero_fraction",
+    "log_pair_count",
+    "coverage"
+  ],
+  "holdout_labels_read": 0,
+  "prediction_sha256": "55aa5ecf7c3fd6918ef1d4dc2e0558f266a51adb0c18ef6e80868badaf229cba",
+  "params": {
+    "learning_rate": 0.08,
+    "max_iter": 150,
+    "max_leaf_nodes": 15,
+    "min_samples_leaf": 100,
+    "l2_regularization": 1,
+    "early_stopping": false,
+    "random_state": 20261018,
+    "loss": "log_loss"
+  }
+}

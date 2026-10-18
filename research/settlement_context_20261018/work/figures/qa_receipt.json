@@ -1,21 +1,136 @@
 {
-  "status": "reviewed_initial_exports",
+  "status": "final_exports_reviewed",
   "reviewer": "editor agent",
   "checks": [
-    "contact_sheet viewed for first six charts",
-    "synthetic coverage figure viewed separately",
-    "PNG/SVG/CSV generated from structured source files",
-    "bibliography R01-R09 mapping checked against matrix",
-    "final output not read because unavailable at render time"
+    {
+      "file": "01_panel_risk.png",
+      "pixels": [
+        2632,
+        1362
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "jpg_exists": true,
+      "svg_exists": true,
+      "csv_exists": true
+    },
+    {
+      "file": "02_quality_zero.png",
+      "pixels": [
+        3524,
+        1421
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "jpg_exists": true,
+      "svg_exists": true,
+      "csv_exists": true
+    },
+    {
+      "file": "03_spatial_split.png",
+      "pixels": [
+        2623,
+        1662
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "jpg_exists": true,
+      "svg_exists": true,
+      "csv_exists": true
+    },
+    {
+      "file": "04_loss_gains.png",
+      "pixels": [
+        2621,
+        1418
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "jpg_exists": true,
+      "svg_exists": true,
+      "csv_exists": true
+    },
+    {
+      "file": "05_locked_sensitivities.png",
+      "pixels": [
+        3523,
+        2048
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "jpg_exists": true,
+      "svg_exists": true,
+      "csv_exists": true
+    },
+    {
+      "file": "06_Xonly_concentration_pair.png",
+      "pixels": [
+        2623,
+        1314
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "jpg_exists": true,
+      "svg_exists": true,
+      "csv_exists": true
+    },
+    {
+      "file": "07_denominator_counterexample.png",
+      "pixels": [
+        3520,
+        1314
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "jpg_exists": true,
+      "svg_exists": true,
+      "csv_exists": true
+    },
+    {
+      "file": "08_synthetic_coverage.png",
+      "pixels": [
+        2616,
+        1361
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "jpg_exists": true,
+      "svg_exists": true,
+      "csv_exists": true
+    }
   ],
-  "issues": [
-    "Figure03 does not show administrative geometry; explicitly a coordinate distribution map",
-    "Figure07 uses separate y scales; disclosed in caption",
-    "Final figures 04/05 must be regenerated after evaluation.json exists"
+  "visual_checks": [
+    "initial six-chart contact sheet viewed",
+    "figure08 viewed individually",
+    "figure03 scale-bar version viewed individually",
+    "final eight-chart contact sheet viewed",
+    "final figure05 Russian-label version viewed individually"
   ],
-  "pending": [
-    "coordinator visual review",
-    "final evaluation integration",
-    "independent loss verification"
-  ]
+  "limitations": [
+    "Figure03 is observed-coordinate distribution without administrative basemap",
+    "Figure03 500km bar is projection-coordinate distance",
+    "Figure07 uses separate y scales disclosed in caption",
+    "statistical intervals remain descriptive; synthetic lengthscale not real residual estimate"
+  ],
+  "no_models_trained_by_editor": true,
+  "final_results_integrated": true,
+  "independent_loss_verification": "reviewed: replication/final_review.md and final_replication_report.json",
+  "ready_for_blob_upload": true,
+  "figure_code_frozen_after_editor_ready_pass": true
 }

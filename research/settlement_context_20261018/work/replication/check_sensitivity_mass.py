@@ -10,7 +10,7 @@ with gzip.open(root/'repo/publication/stage71/ordinary_full3_with_primary_popula
   selected=float(r['population_2010']);o=r['original_population_2010'];orig=float(o) if o and math.isfinite(float(o)) else selected
   rows.append((r['entity_uid'],math.radians(float(r['latitude_2010'])),math.radians(float(r['longitude_2010'])),selected,orig))
 outputs={}
-for name,path in [('original','geo/original2010/features.csv.gz'),('drift','geo/exclude_drift/features.csv.gz')]:
+for name,path in [('original','geo/original2010/features.csv.gz'),('drift','geo/exclude_drift_recovery/features.csv.gz')]:
  with gzip.open(root/'research_staging'/path,'rt') as f:outputs[name]={r['entity_uid']:r for r in csv.DictReader(f) if r['entity_uid'] in wanted}
 errors=[];checks=0
 for uid,la,lo,p,o in rows:

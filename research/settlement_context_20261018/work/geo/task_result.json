@@ -16,7 +16,14 @@
     "research_staging/replication/geometry_comparison.json",
     "research_staging/replication/nearest_comparison.json",
     "research_staging/geo/build_features_v1.py",
-    "research_staging/geo/SENSITIVITIES.md"
+    "research_staging/geo/SENSITIVITIES.md",
+    "research_staging/geo/build_features_atomic.py",
+    "research_staging/geo/original2010/spatial_contract.json",
+    "research_staging/geo/exclude_drift_recovery/spatial_contract.json",
+    "research_staging/geo/exclude_drift_recovery/post_publish_check.json",
+    "research_staging/geo/integrity_reconciliation_20261018.json",
+    "research_staging/geo/selected_v2_byte_verification.json",
+    "research_staging/geo/coordinate_sensitivity_summary.json"
   ],
   "summary": "142570ordinaryfull3 rows preserved;2002/2010-only spatial context calculated with UID self exclusion and spherical BallTree. Runtime143.94s,maxRSS369812KiB. Four scales plus additive rings,history,NN5,hierarchy,external capital distances.",
   "limitations": [
@@ -26,19 +33,23 @@
     "NN5 normalization is dimensionless shape relative to local30km count density, not a transport or functional link.",
     "History symmetric change uses same2010 geographic neighbor set and2002/2010 populations. All finite2010 counts retained irrespective of quality; quality column preserved.",
     "A zero population2010 makes size ratio undefined rather than infinity.",
-    "48large coordinate drift rows require sensitivity that also alters neighborhood universe, not focal filtering alone."
+    "48large coordinate drift rows require sensitivity that also alters neighborhood universe, not focal filtering alone.",
+    "Cause of intervening driftgzip truncation unknown; documented, recovered independently by full rerun with atomicpublish."
   ],
   "claims": [
     "No2021fields read as features.",
     "All numeric2010 values retained,qualityflags copied.",
     "Federal territorial masses not treated as point mass.",
     "Synthetic geometry tests pass.",
-    "Distinct replicator:200queries/4600checks plus800nearest/anchorchecks passed;initial densityarea discrepancy retained and reconciled explicitly."
+    "Distinct replicator:200queries/4600checks plus800nearest/anchorchecks passed;initial densityarea discrepancy retained and reconciled explicitly.",
+    "Original2010 covariate and exclude48-neighbor sensitivities fully recomputed, all142570origins retained.",
+    "Atomic recovery drift output exactly matches firstcompletedreceipt;corrupted intervening copy rejected,not overwritten.",
+    "V2selected rerun byte-identical to main."
   ],
   "blockers": [],
   "n_input": 142570,
   "n_analytic": 142570,
   "spec_id": "G-sphere-r10-30-60-100-v1",
   "run_id": "G-exec4810",
-  "next_action": "Independent replicate100blind+100stratified;coordinator integration and sensitivity."
+  "next_action": "Coordinator use main/original2010/exclude_drift_recovery only;largefeaturefiles staylocal,commitcode/manifests/checks."
 }

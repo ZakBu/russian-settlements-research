@@ -1,0 +1,100 @@
+{
+  "status": "computed_focused_known_null_bootstrap_coverage_diagnostic",
+  "seed": 20261018,
+  "n_simulations": 300,
+  "bootstrap_replicates": 499,
+  "holdout_blocks": 89,
+  "risk_rows": 19731,
+  "feature_sha256": "b3e62de9163e7b07116a5737cfa1817e93aa4dc690ec38bea7b8043cff810ee4",
+  "code_sha256": "958856abedc0c40ebc0e24cb29e7a91c90caef8550ddaca98b67f777ee0fd290",
+  "feature_columns_loaded": [
+    "entity_uid",
+    "population_2010",
+    "latitude_2010",
+    "longitude_2010"
+  ],
+  "estimator": "row-weighted mean of zero-mean block-constant Gaussian synthetic loss differences, n2010-positive rows per actual holdout block",
+  "resampling": "uniform resampling of whole actual holdout blocks, keeping block n weights; percentile 95% CI",
+  "true_estimand": "unconditional Gaussian ensemble expectation zero, conditional on fixed real geometry and weights",
+  "limitations": [
+    "No real 2021 outcomes or predictions loaded. Not a model-selection, learner, predictive-gain or p-value calibration.",
+    "Synthetic differences constant within each block; all dependence specified by idealized isotropic centroid field.",
+    "Gaussian field defined using spherical chord distance to ensure positive-semidefinite covariance; not measured real residual correlation.",
+    "300 Monte Carlo replicates and 499 bootstrap resamples give bounded diagnostic precision; intervals shown are Monte Carlo binomial Wilson, not research-effect uncertainty.",
+    "Coverage failures at an assumed lengthscale do not estimate actual research CI coverage; passing IID case does not validate spatial independence."
+  ],
+  "results": [
+    {
+      "lengthscale_km": 0,
+      "covariance": "I + 1e-10 I",
+      "coverage_n": 280,
+      "simulations": 300,
+      "coverage": 0.9333333333333333,
+      "coverage_mc_wilson95": [
+        0.899276940483885,
+        0.9564324844548417
+      ],
+      "lower_ci_above_zero_n": 12,
+      "lower_ci_above_zero_fraction": 0.04,
+      "positive_mc_wilson95": [
+        0.023027321487942308,
+        0.06860421203864003
+      ],
+      "mean_interval_width": 1.0098915574755674,
+      "mean_bootstrap_se": 0.26127109466083737,
+      "true_ensemble_mean_se": 0.28591594634905515,
+      "empirical_mean_sd": 0.2717795956323881,
+      "bootstrap_se_to_true_se": 0.9138038573821602,
+      "empirical_mean": -0.0042284960948160135
+    },
+    {
+      "lengthscale_km": 100,
+      "covariance": "exp(-spherical_chord_distance_km^2/(2*lengthscale_km^2)) + 1e-10 I",
+      "coverage_n": 270,
+      "simulations": 300,
+      "coverage": 0.9,
+      "coverage_mc_wilson95": [
+        0.8608335376153785,
+        0.9290520854049847
+      ],
+      "lower_ci_above_zero_n": 13,
+      "lower_ci_above_zero_fraction": 0.043333333333333335,
+      "positive_mc_wilson95": [
+        0.025496448084407246,
+        0.07271746563401146
+      ],
+      "mean_interval_width": 0.9942298879019978,
+      "mean_bootstrap_se": 0.2577259606914843,
+      "true_ensemble_mean_se": 0.28875884839303506,
+      "empirical_mean_sd": 0.2888080130330103,
+      "bootstrap_se_to_true_se": 0.8925300891236714,
+      "empirical_mean": -0.010354675324076409
+    },
+    {
+      "lengthscale_km": 300,
+      "covariance": "exp(-spherical_chord_distance_km^2/(2*lengthscale_km^2)) + 1e-10 I",
+      "coverage_n": 226,
+      "simulations": 300,
+      "coverage": 0.7533333333333333,
+      "coverage_mc_wilson95": [
+        0.7015546972961404,
+        0.7987061972834228
+      ],
+      "lower_ci_above_zero_n": 35,
+      "lower_ci_above_zero_fraction": 0.11666666666666667,
+      "positive_mc_wilson95": [
+        0.08509313461466292,
+        0.15793314332415567
+      ],
+      "mean_interval_width": 0.9506790178999082,
+      "mean_bootstrap_se": 0.24567703239251776,
+      "true_ensemble_mean_se": 0.3877505511611499,
+      "empirical_mean_sd": 0.38622914871797454,
+      "bootstrap_se_to_true_se": 0.6335955723513953,
+      "empirical_mean": 0.012466312473999406
+    }
+  ],
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "pandas": "2.2.3"
+}

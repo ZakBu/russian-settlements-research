@@ -16,7 +16,7 @@ BLUE='#2469A0'; LIGHT='#92B8D6'; GRAY='#b3bdc7'; DARK='#334e68'
 captions=[]; sources=[]
 def readj(p): return json.loads(Path(p).read_text())
 def save(fig,stem,data,caption,source):
- fig.tight_layout(pad=1.5);fig.savefig(O/(stem+'.png'),dpi=180,bbox_inches='tight');fig.savefig(O/(stem+'.svg'),bbox_inches='tight');plt.close(fig)
+ fig.tight_layout(pad=1.5);fig.savefig(O/(stem+'.png'),dpi=300,bbox_inches='tight');fig.savefig(O/(stem+'.jpg'),dpi=300,bbox_inches='tight',pil_kwargs={'quality':95});fig.savefig(O/(stem+'.svg'),bbox_inches='tight');plt.close(fig)
  data.to_csv(O/(stem+'.csv'),index=False);captions.append('## '+stem+'\n\n'+caption+'\n\nИсточник: '+source+'\n');sources.append({'figure':stem,'source':source,'rows':len(data)})
 def fmt(x,pos=None): return f'{x:,.0f}'.replace(',',' ')
 a=readj(A/'evidence/data_contract.json')
@@ -37,7 +37,8 @@ tr=Transformer.from_crs('EPSG:4326','EPSG:3576',always_xy=True);m.x_m,m.y_m=tr.t
 for h,col,lbl in [(False,GRAY,'Разработка'),(True,BLUE,'Отложенные блоки')]:
  t=m[m.holdout==h];ax.scatter(t.x_m/1000,t.y_m/1000,s=.12,color=col,alpha=.55,rasterized=True,label=lbl)
 ax.set_aspect('equal');ax.set_xlabel('x, км');ax.set_ylabel('y, км');ax.set_title('3. География разделения наблюдений');ax.legend(markerscale=12,frameon=False,loc='lower left')
-save(f,'03_spatial_split',b,'Реальные репрезентативные координаты записей 2010, перепроецированные в EPSG:3576 (Lambert Azimuthal Equal Area, центр 90° в.д.). Это карта размещения записей без административной подложки; белые участки не означают отсутствие поселений вне панели. Синий показывает целиком отложенные блоки; точки регионов, не вошедшие в панель, не изображены. Координаты не доказаны как измерения на дату переписи. CSV содержит центры тяжести точек блоков в метрах, а не границы блоков.','geo/features.csv.gz; e1/development/split_manifest.csv.gz')
+xl=ax.get_xlim();yl=ax.get_ylim();sx=xl[1]-.13*(xl[1]-xl[0])-500;sy=yl[0]+.11*(yl[1]-yl[0]);tick=.012*(yl[1]-yl[0]);ax.plot([sx,sx+500],[sy,sy],color=DARK,lw=2);ax.vlines([sx,sx+500],sy-tick,sy+tick,color=DARK,lw=1.2);ax.text(sx+250,sy+2*tick,'500 км в проекции',ha='center',va='bottom',fontsize=9)
+save(f,'03_spatial_split',b,'Реальные репрезентативные координаты записей 2010, перепроецированные в EPSG:3576 (Lambert Azimuthal Equal Area, центр 90° в.д.). Это карта размещения записей без административной подложки; белые участки не означают отсутствие поселений вне панели. Синий показывает целиком отложенные блоки; точки регионов, не вошедшие в панель, не изображены. Координаты не доказаны как измерения на дату переписи. Масштабная линейка показывает 500 км в координатах проекции, не универсальное наземное расстояние. CSV содержит центры тяжести точек блоков в метрах, а не границы блоков.','geo/features.csv.gz; e1/development/split_manifest.csv.gz')
 rows=[]
 for name,lab in [('e1','E1: история соседей'),('e2','E2: иерархия'),('e3','E3: морфология')]:
  j=readj(S/name/'development/result.json');met='brier' if name=='e1' else 'mae';base=j['baseline'][met];ci=j['paired_interval'];rows.append(dict(direction=name,label=lab,split='development',gain=100*ci['delta']/base,lo=100*ci['ci95'][0]/base,hi=100*ci['ci95'][1]/base,n=ci['n_rows'],blocks=ci['n_blocks']))
@@ -46,7 +47,7 @@ if final.exists():
  j=readj(final)
  for v in j['results']:
   if v['primary']:
-   met='brier' if v['task']=='zero' else 'mae';base=v['baseline'][met];ci=v['interval'];rows.append(dict(direction=v['id'][:2].lower(),label=v['id'],split='holdout',gain=100*v['relative_gain'],lo=100*ci['ci95'][0]/base,hi=100*ci['ci95'][1]/base,n=ci['n_rows'],blocks=ci['n_blocks']))
+   met='brier' if v['task']=='zero' else 'mae';base=v['baseline'][met];ci=v['interval'];rows.append(dict(direction=v['id'][:2].lower(),label={'E1_primary':'E1: история соседей','E2_primary':'E2: иерархия'}[v['id']],split='holdout',gain=100*v['relative_gain'],lo=100*ci['ci95'][0]/base,hi=100*ci['ci95'][1]/base,n=ci['n_rows'],blocks=ci['n_blocks']))
 d=pd.DataFrame(rows);f,ax=plt.subplots(figsize=(9,5));labels=[]
 for i,r in d.iterrows():
  ax.errorbar(r.gain,i,xerr=[[r.gain-r.lo],[r.hi-r.gain]],fmt='o' if r.split=='holdout' else 's',color=BLUE if r.split=='holdout' else DARK,capsize=4);labels.append(r.label+(' · holdout' if r.split=='holdout' else ' · разработка'))
@@ -56,11 +57,11 @@ if final.exists():
  j=readj(final);rows=[]
  for v in j['results']:
   met='brier' if v['task']=='zero' else 'mae';base=v['baseline'][met];ci=v['interval'];rows.append(dict(id=v['id'],direction=v['id'][:2],gain=100*v['relative_gain'],lo=100*ci['ci95'][0]/base,hi=100*ci['ci95'][1]/base))
- d=pd.DataFrame(rows);f,axs=plt.subplots(1,2,figsize=(12,7))
+ d=pd.DataFrame(rows);f,axs=plt.subplots(1,2,figsize=(12,7));f.suptitle('5. Заранее фиксированные проверки устойчивости')
  for ax,direction in zip(axs,['E1','E2']):
   t=d[d.direction==direction].reset_index(drop=True)
   for i,r in t.iterrows():ax.errorbar(r.gain,i,xerr=[[r.gain-r.lo],[r.hi-r.gain]],fmt='o',color=BLUE,capsize=3)
-  ax.set_yticks(range(len(t)),t.id);ax.axvline(0,color=GRAY);ax.axvline(2,color=LIGHT,ls='--');ax.set_title(direction);ax.set_xlabel('Снижение ошибки, %')
+  names={'primary':'Основная','r10':'Радиус 10 км','r60':'Радиус 60 км','nn':'Контроль близости','buffer100':'Буфер 100 км','linear':'Линейная модель','raw_control':'Контроль массы 2002','permuted':'Перестановка','original':'Исходные значения 2010','drift':'Исключение дрейфа'};ax.set_yticks(range(len(t)),[names.get(z[3:],z) for z in t.id]);ax.axvline(0,color=GRAY);ax.axvline(2,color=LIGHT,ls='--');ax.set_title(direction);ax.set_xlabel('Снижение ошибки, %')
  save(f,'05_locked_sensitivities',d,'Все заранее зафиксированные конфигурации отложенной проверки; повторные использования одного holdout не являются независимыми повторениями. r10/r60: радиус; nn: контроль нормированной близости; buffer100: буфер 100 км; linear: линейное семейство; raw_control: исходная масса 2002; permuted: перестановка добавленных признаков внутри блоков; original/drift: чувствительность к значению 2010 и координатному дрейфу. Интервалы условные, не скорректированы за множественность; это диагностика, не меню выбора успешной модели.','final/evaluation.json')
 pairs=pd.read_csv(S/'e2/illustrative_pairs_preoutcome.csv');r=pairs.iloc[0];d=pd.DataFrame({'место':[r.name2010_a,r.name2010_b],'population2010':[r.p2010_a,r.p2010_b],'mass30':[r.mass30_a,r.mass30_b],'count30':[r.count30_a,r.count30_b],'maxshare30':[r.maxshare30_a,r.maxshare30_b],'effective_n30':[r.effective_n30_a,r.effective_n30_b]});f,axs=plt.subplots(1,2,figsize=(9,4.5));axs[0].bar(d['место'],d.maxshare30*100,color=[BLUE,LIGHT]);axs[0].set_ylabel('Доля крупнейшего соседа, %');axs[0].set_ylim(0,100);axs[1].bar(d['место'],d.effective_n30,color=[BLUE,LIGHT]);axs[1].set_ylabel('Эффективное число соседей');f.suptitle('6. Одинаковая масса — разная концентрация')
 save(f,'06_Xonly_concentration_pair',d,f'Пример отобран без чтения исходов 2021, по лексикографическому UID. Иркутская область; собственное население {r.p2010_a:.0f}/{r.p2010_b:.0f}, масса окружения 30 км {r.mass30_a:.0f}/{r.mass30_b:.0f}, число соседей {r.count30_a:.0f}/{r.count30_b:.0f}. Эффективное число = 1/сумма квадратов долей масс. Это иллюстрация различимости признаков при близкой массе, не оценка воздействия и не национальное доказательство перекрытия.','e2/illustrative_pairs_preoutcome.csv; development_X_support.json')

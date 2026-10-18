@@ -1,0 +1,113 @@
+{
+  "method": "Independent PyArrow input, stdlib math.fsum metrics, no model_executor/statistical_utils imports; compares saved dev predictions not independently refit devCV",
+  "results": [
+    {
+      "direction": "e1",
+      "status": "reviewed",
+      "input_sha256": "aecff91fe79fc1d5fb1347f4c593f4758259bf332c33db2f23f788f4718bd08c",
+      "n": 101593,
+      "blocks": 382,
+      "metric": "brier",
+      "baseline": 0.03635024195414919,
+      "augmented": 0.03608260677590083,
+      "delta": 0.00026763517824835575,
+      "relative_gain": 0.007362679417263318,
+      "reported_differences": {
+        "baseline": -6.938893903907228e-18,
+        "augmented": -6.938893903907228e-18,
+        "delta": 1.1384122811097797e-18
+      },
+      "folds": [
+        {
+          "fold": 0,
+          "n": 26338,
+          "blocks": 72,
+          "baseline": 0.03431083112379261,
+          "augmented": 0.034124590037733396
+        },
+        {
+          "fold": 1,
+          "n": 25032,
+          "blocks": 79,
+          "baseline": 0.03606134373725171,
+          "augmented": 0.03549765460297106
+        },
+        {
+          "fold": 2,
+          "n": 17692,
+          "blocks": 79,
+          "baseline": 0.03775386416941194,
+          "augmented": 0.03777593876319135
+        },
+        {
+          "fold": 3,
+          "n": 17913,
+          "blocks": 70,
+          "baseline": 0.03531414779113883,
+          "augmented": 0.03535727687617023
+        },
+        {
+          "fold": 4,
+          "n": 14618,
+          "blocks": 82,
+          "baseline": 0.040090313997170494,
+          "augmented": 0.03945154730246825
+        }
+      ]
+    },
+    {
+      "direction": "e2",
+      "status": "reviewed",
+      "input_sha256": "631e5b3fcdb17af0546be4d5398f795fce43a337a9a9c787c6e0217e780ea900",
+      "n": 101593,
+      "blocks": 382,
+      "metric": "mae",
+      "baseline": 0.3968790369365161,
+      "augmented": 0.3955112965648809,
+      "delta": 0.0013677403716352288,
+      "relative_gain": 0.00344623989765932,
+      "reported_differences": {
+        "baseline": 0.0,
+        "augmented": 0.0,
+        "delta": 1.734723475976807e-17
+      },
+      "folds": [
+        {
+          "fold": 0,
+          "n": 26338,
+          "blocks": 72,
+          "baseline": 0.38442039811710954,
+          "augmented": 0.3811641556999813
+        },
+        {
+          "fold": 1,
+          "n": 25032,
+          "blocks": 79,
+          "baseline": 0.40127483282144083,
+          "augmented": 0.4016162810853638
+        },
+        {
+          "fold": 2,
+          "n": 17692,
+          "blocks": 79,
+          "baseline": 0.43499714339157497,
+          "augmented": 0.4328670973430828
+        },
+        {
+          "fold": 3,
+          "n": 17913,
+          "blocks": 70,
+          "baseline": 0.37517842918452804,
+          "augmented": 0.37430533853411224
+        },
+        {
+          "fold": 4,
+          "n": 14618,
+          "blocks": 82,
+          "baseline": 0.3922571675899951,
+          "augmented": 0.39168167024255285
+        }
+      ]
+    }
+  ]
+}

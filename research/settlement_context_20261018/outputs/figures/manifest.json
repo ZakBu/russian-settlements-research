@@ -1,0 +1,47 @@
+{
+  "figures": [
+    {
+      "figure": "01_panel_risk",
+      "source": "data_audit/evidence/data_contract.json; e1/development/split_manifest.csv.gz",
+      "rows": 4
+    },
+    {
+      "figure": "02_quality_zero",
+      "source": "data_audit/evidence/zero_three_way_patterns.csv; population_value_quality_2010.csv",
+      "rows": 8
+    },
+    {
+      "figure": "03_spatial_split",
+      "source": "geo/features.csv.gz; e1/development/split_manifest.csv.gz",
+      "rows": 473
+    },
+    {
+      "figure": "04_loss_gains",
+      "source": "e1/e2/e3 development/result.json; final/evaluation.json, если существует",
+      "rows": 5
+    },
+    {
+      "figure": "05_locked_sensitivities",
+      "source": "final/evaluation.json",
+      "rows": 18
+    },
+    {
+      "figure": "06_Xonly_concentration_pair",
+      "source": "e2/illustrative_pairs_preoutcome.csv; development_X_support.json",
+      "rows": 2
+    },
+    {
+      "figure": "07_denominator_counterexample",
+      "source": "e3/regional_curves.csv; descriptive_summary.json",
+      "rows": 3
+    },
+    {
+      "figure": "08_synthetic_coverage",
+      "source": "statistics/calibration/run_v1/results.json",
+      "rows": 3
+    }
+  ],
+  "script_sha256": "0c93648cb19470e0cc770f6c0e71888d0d1af2c73e43829f47825a89e8710d03",
+  "final_available": true,
+  "status": "rendered; visual_review_pending"
+}
