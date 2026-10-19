@@ -1,0 +1,73 @@
+{
+  "recorded_utc": "2026-10-19T18:43:29.207381+00:00",
+  "change_kind": "memory_lifetime_and_csv_batching_only",
+  "trigger": {
+    "coordinator_observation": "Full national replay step 07 killed with -9 after crosswalk loop; cgroup memory.max 8 GiB",
+    "observed_by": "root coordinator",
+    "not_claimed": "No completed replay or measured peak-memory reduction by this patch author"
+  },
+  "original_output_build_code_sha256": "5586ce4023870ed3cfa1873b9946982ea232dce495b78891895adc76197c0f0e",
+  "current_replay_build_code_sha256": "a5e7165847f4e749ab63c302b9e64827cfb77433b6971ef3e31569006221b64c",
+  "changes": [
+    "After completed crosswalk loop delete frames/data/final source frame d and no-longer-used coordinate arrays; gc.collect",
+    "After DataFrame construction delete row dictionaries; gc.collect",
+    "Create confidence-quality work frame from only three referenced columns",
+    "Explicit CSV chunksize=2500 for long and wide compressed exports"
+  ],
+  "unchanged_contract": [
+    "No formulas, conditions, source classification, row order, columns or intended dtypes changed",
+    "No binary data or existing source extracts rewritten",
+    "Existing output binary SHA values remain original freeze values"
+  ],
+  "static_checks": {
+    "py_compile_passed": true,
+    "ast_parse_passed": true,
+    "reverse_only_declared_edits_recovers_exact_original_code_sha256": true
+  },
+  "runtime_replay_status": "PASS_ROOT_SERIAL_REPLAY",
+  "frozen_binary_sha256": {
+    "places_settlement_features.parquet": "ca9e527bc6ec00f1528db91c94bbd45fcb40ae0e7c7fb3fdc0b33fd79d517ab6",
+    "places_objects_and_crosswalk.parquet": "aec4e21808e64de43c37960ced7ead9020fc1e2bf38638c7ed77d067b47e5a68",
+    "places_external_geography.parquet": "2cb5deb37869d84f11767d56fea5a95921d5997b58cc0c80fc58c0cc737a9e7c"
+  },
+  "historical_validation": "VALIDATION.json 110/110 and CONFIDENCE_ZERO_AUDIT.json describe original frozen outputs/code; they are not a new full execution of current code",
+  "runtime_replay_evidence": {
+    "source": "national_integration_20261019/REPLAY.json",
+    "source_sha256": "ee2ea80d03446f4b38dbaea26876cb604121fd6874f05b8dea9d4e8ba5e16afd",
+    "recorded_utc": "2026-10-19T18:50:13.988143+00:00",
+    "overall_status": "PASS",
+    "commands_passed": 12,
+    "tables_typed_exact": 16,
+    "places_command": {
+      "label": "07_physical_places",
+      "actual_command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/tmp/sgrt_national_replay_6g41ammv/national_integration_20261019/places/build_places_features.py"
+      ],
+      "exit_code": 0,
+      "seconds": 103.428,
+      "log": "replay_logs/07_physical_places.log"
+    },
+    "places_comparisons": [
+      {
+        "path": "places/places_objects_and_crosswalk.parquet",
+        "rows": 648242,
+        "columns": 38,
+        "all_typed_cells_and_nulls_exact": true,
+        "expected_sha256": "aec4e21808e64de43c37960ced7ead9020fc1e2bf38638c7ed77d067b47e5a68",
+        "replayed_sha256": "aec4e21808e64de43c37960ced7ead9020fc1e2bf38638c7ed77d067b47e5a68"
+      },
+      {
+        "path": "places/places_settlement_features.parquet",
+        "rows": 142570,
+        "columns": 85,
+        "all_typed_cells_and_nulls_exact": true,
+        "expected_sha256": "ca9e527bc6ec00f1528db91c94bbd45fcb40ae0e7c7fb3fdc0b33fd79d517ab6",
+        "replayed_sha256": "ca9e527bc6ec00f1528db91c94bbd45fcb40ae0e7c7fb3fdc0b33fd79d517ab6"
+      }
+    ],
+    "scope": "Full source-fragment to Places outputs rerun succeeded; the two main Places Parquet files match frozen typed cells, nulls and SHA256. External geography derivative is not separately compared in this replay manifest. No peak RSS was recorded here.",
+    "seconds": 308.058,
+    "finished_utc": "2026-10-19T18:49:02.842039+00:00"
+  }
+}
