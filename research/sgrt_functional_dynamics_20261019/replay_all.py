@@ -50,7 +50,7 @@ def main():
    if q.is_file():frozen[str(q)]=sha(q)
   fd=os.open(source,os.O_RDONLY|os.O_DIRECTORY);fds.append(fd);dest.symlink_to(f'/proc/self/fd/{fd}',target_is_directory=True)
  report['frozen_input_file_count']=len(frozen);report['frozen_input_sha256_before']=frozen
- env=os.environ.copy();env.update({'OPENBLAS_NUM_THREADS':'1','OMP_NUM_THREADS':'1','NUMEXPR_NUM_THREADS':'1','HOME':str(temp/'home'),'MPLCONFIGDIR':str(temp/'home/matplotlib'),'PYTHONPYCACHEPREFIX':str(temp/'home/pycache'),'PYTHONPATH':os.pathsep.join(s for s in sys.path if s and Path(s).is_dir() and Path(s).name=='site-packages')})
+ env=os.environ.copy();env.update({'OPENBLAS_NUM_THREADS':'1','OMP_NUM_THREADS':'1','NUMEXPR_NUM_THREADS':'1','MPLCONFIGDIR':str(temp/'home/matplotlib'),'PYTHONPYCACHEPREFIX':str(temp/'home/pycache'),'PYTHONPATH':os.pathsep.join(s for s in sys.path if s and Path(s).is_dir() and Path(s).name=='site-packages')})
  common={'cwd':str(temp),'env':env,'pass_fds':tuple(fds)}
  def run(label,args):
   logfile=logs/(f'{len(report["commands"]):02d}_{label}.log');start=time.time();command=[sys.executable]+[str(x) for x in args]
