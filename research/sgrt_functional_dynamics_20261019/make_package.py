@@ -59,7 +59,7 @@ def main():
  for n in ['claim_registry.csv','BIBLIOGRAPHY.csv','typology_hypotheses.csv']:shutil.copyfile(R/n,D/n)
  report={'status':'PASS','archive':archive.name,'members':len(selected),'each_member_sha256_verified':len(manifest),'uncompressed_bytes':sum(m['bytes']for m in manifest.values()),'map_formats_verified':len(mapfiles)}
  (R/'PACKAGE_VERIFICATION.json').write_text(json.dumps(report,indent=2)+'\n')
- sums={p.name:{'sha256':sha(p),'bytes':p.stat().st_size}for p in D.iterdir()if p.is_file() and p.name!='CHECKSUMS.json'}
+ sums={p.name:{'sha256':sha(p),'bytes':p.stat().st_size}for p in D.iterdir()if p.is_file() and not p.name.startswith('.') and p.name!='CHECKSUMS.json'}
  (D/'CHECKSUMS.json').write_text(json.dumps({'status':'PASS','files':sums,'verification':report},ensure_ascii=False,indent=2)+'\n')
  print(json.dumps(report));print(json.dumps(sums,ensure_ascii=False))
 if __name__=='__main__':main()
