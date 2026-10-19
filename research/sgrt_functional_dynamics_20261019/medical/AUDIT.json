@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "objects_observations": 59,
+  "object_alias_pairs": 5,
+  "relations": 79,
+  "relation_kinds": {
+    "institutional_subdivision": 52,
+    "provider_reported_service": 4,
+    "scheduled_mobile_visit": 23
+  },
+  "tariff_summary": [
+    {
+      "organization_code": "225",
+      "municipality": "Невьянский муниципальный округ",
+      "listed_units_2025": 17,
+      "listed_units_2026": 17,
+      "staffed_units_2025": 13,
+      "staffed_units_2026": 13,
+      "registered_population_2025": 5309,
+      "registered_population_2026": 5223,
+      "delta": -86,
+      "percent": -1.6198907515539651
+    },
+    {
+      "organization_code": "277",
+      "municipality": "Нижнетуринский муниципальный округ",
+      "listed_units_2025": 8,
+      "listed_units_2026": 7,
+      "staffed_units_2025": 6,
+      "staffed_units_2026": 6,
+      "registered_population_2025": 1113,
+      "registered_population_2026": 1063,
+      "delta": -50,
+      "percent": -4.492362982929022
+    }
+  ],
+  "paired_changes": {
+    "same_staff_presence_flag": 24,
+    "absent_later_tariff_not_proven_closure": 1
+  },
+  "schedule_rows": 21,
+  "schedule_destination_events": 23,
+  "schedule_unique_destinations": 19,
+  "checks": {
+    "tariff_rows_49": true,
+    "tariff_ids_unique": true,
+    "tariff_counts_nonnegative": true,
+    "tariff_women_not_above_total": true,
+    "schedule_rows_21": true,
+    "schedule_month_conflict_retained": true,
+    "two_FAP_four_memberships": true,
+    "no_patient_flows_asserted": true,
+    "objects_ids_unique": true,
+    "relations_ids_unique": true,
+    "alias_pairs_known": true,
+    "printed_tariff_total_225_2025": true,
+    "printed_tariff_total_225_2026": true,
+    "printed_tariff_total_277_2025": true,
+    "printed_tariff_total_277_2026": true
+  },
+  "limits": [
+    "Object observation count includes source duplicates and zero-staff tariff units; not number of operating facilities",
+    "Institutional subdivision is organizational evidence, not destination of patient trips",
+    "No national functional SGRT delimitation",
+    "Undated page read 2026-10-19 is not a historical 2026 observation date"
+  ]
+}
