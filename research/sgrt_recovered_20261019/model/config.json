@@ -1,0 +1,31 @@
+{
+  "primary_baseline": 2010,
+  "coordinates": "frozen2021",
+  "source2010_values": "all retained including zeros; no metadata-based exclusions",
+  "candidates": "all2010urban with positive2010 mass plus positive rural local maxima10km and2externalterritoryanchors",
+  "urban_statuses": [
+    "город",
+    "пгт",
+    "посёлок городского типа",
+    "рабочий посёлок"
+  ],
+  "rural_origin": "not verified administrative center",
+  "nearest_primary_radius_km": 100,
+  "huff": {
+    "mass": "population2010",
+    "alpha": 1,
+    "beta": 2,
+    "d0_km": 5,
+    "radius_km": 100,
+    "score_is_not_nearest_assignment_probability": true
+  },
+  "upper_parent_rule": "strongest greater2010mass center within100km with external/self field ratio>1",
+  "sensitivity_parent_ratio_thresholds": [
+    0.1,
+    0.5,
+    1
+  ],
+  "dynamic2021": "candidate list reselected using raw population2021/status2021, same coordinates and cohort; nearest2010geometry fixed comparison retained",
+  "outcomes": "external mass not added to cohort; empty external anchors tracked separately; UNASSIGNED residual included",
+  "interpretation": "geometric potential and calculated membership; not measured service or labor flows"
+}

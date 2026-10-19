@@ -1,0 +1,119 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "check": "relaxed unique keys",
+      "passed": true
+    },
+    {
+      "check": "relaxed group coverage",
+      "passed": true
+    },
+    {
+      "check": "primary unique keys",
+      "passed": true
+    },
+    {
+      "check": "primary group coverage",
+      "passed": true
+    },
+    {
+      "check": "primary qualifying subset of relaxed predecessor",
+      "passed": true
+    },
+    {
+      "check": "main threshold exactly reproduces all saved classifications",
+      "passed": true
+    },
+    {
+      "check": "main threshold full match key count",
+      "passed": true
+    },
+    {
+      "check": "strict unique keys",
+      "passed": true
+    },
+    {
+      "check": "strict group coverage",
+      "passed": true
+    },
+    {
+      "check": "strict qualifying subset of relaxed predecessor",
+      "passed": true
+    },
+    {
+      "check": "summary unique year regime basis threshold",
+      "passed": true
+    },
+    {
+      "check": "threshold_classifications parquet readback",
+      "passed": true
+    },
+    {
+      "check": "threshold_classifications csv.gz readback",
+      "passed": true
+    },
+    {
+      "check": "threshold_sensitivity parquet readback",
+      "passed": true
+    },
+    {
+      "check": "threshold_sensitivity csv.gz readback",
+      "passed": true
+    },
+    {
+      "check": "original source and primary outputs unchanged",
+      "passed": true
+    }
+  ],
+  "input_sha256": {
+    "sector_profiles.parquet": "4b2b419e021f5c96f6c0027c8396f43943083eb86841fde5a497502d9fd5dc1c",
+    "functional_types.parquet": "29530af5b8e151a4e991257699030b9cbd290c72a48f6bebb0970e532e6cc289",
+    "FINISHED.json": "5dd9c91f53798bb8b4229a2304bded309a9b51314a5f777b6525d182ea6a7bfb"
+  },
+  "source": "Primary2010 RFSD sector profiles, fixed address/sample denominators unchanged",
+  "rules": "N_zone>=5; known sector share>=threshold and LQ>=threshold; largest share then LQ then alphabetical sector; no qualifying sector remains explicit",
+  "scope": "Both years2016/2021, both count/revenue bases, all1/5/10km baseline/strict address regimes",
+  "agreement_denominator": "Observed units having N_zone>=5 under the SAME year/address regime/basis, includes adequate units with no qualifying specialization",
+  "main2021baseline5km_count": [
+    {
+      "year": 2021,
+      "max_distance_km": 5,
+      "quality": "baseline",
+      "basis": "count",
+      "threshold_variant": "primary",
+      "share_min": 0.2,
+      "LQ_min": 1.25,
+      "n_common_adequate": 5022,
+      "dominant_agreement": 1.0,
+      "n_classified": 3481,
+      "n_observed_units": 10111
+    },
+    {
+      "year": 2021,
+      "max_distance_km": 5,
+      "quality": "baseline",
+      "basis": "count",
+      "threshold_variant": "relaxed",
+      "share_min": 0.15,
+      "LQ_min": 1.1,
+      "n_common_adequate": 5022,
+      "dominant_agreement": 0.7729988052568698,
+      "n_classified": 4510,
+      "n_observed_units": 10111
+    },
+    {
+      "year": 2021,
+      "max_distance_km": 5,
+      "quality": "baseline",
+      "basis": "count",
+      "threshold_variant": "strict",
+      "share_min": 0.25,
+      "LQ_min": 1.5,
+      "n_common_adequate": 5022,
+      "dominant_agreement": 0.7903225806451613,
+      "n_classified": 2507,
+      "n_observed_units": 10111
+    }
+  ]
+}

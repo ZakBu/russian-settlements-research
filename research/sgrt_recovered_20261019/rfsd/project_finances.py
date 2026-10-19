@@ -19,14 +19,14 @@ def save(d,name):
   assert back.shape==d.shape and list(back.columns)==list(d.columns),(name,ext,'shape')
   for col in d.select_dtypes(include=[np.number]).columns:assert np.allclose(d[col],back[col],equal_nan=True),('roundtrip',name,col)
   os.replace(tmp,dest)
-mem=pd.read_parquet(a.membership);assert {'id','lat','lon','center_id'}<=set(mem.columns);mem=mem[mem.center_id.notna()&mem.lat.between(-90,90)&mem.lon.between(-180,180)].reset_index(drop=True);assert mem.id.is_unique
-cids=sorted(mem.center_id.unique());cindex=dict(zip(cids,range(len(cids))));mi=mem.center_id.map(cindex).to_numpy();tree=cKDTree(xyz(mem.lat,mem.lon));selfpoint=mem.id.eq(mem.center_id).to_numpy();N=len(cids)
+mem=pd.read_parquet(a.membership);assert {'id','lat','lon','center_id'}<=set(mem.columns);mem=mem[mem.lat.between(-90,90)&mem.lon.between(-180,180)].reset_index(drop=True);assert mem.id.is_unique
+cids=sorted(mem.loc[mem.center_id.notna()&mem.center_id.ne('UNASSIGNED'),'center_id'].unique());cindex=dict(zip(cids,range(len(cids))));mi=mem.center_id.map(cindex).fillna(-1).astype(int).to_numpy();tree=cKDTree(xyz(mem.lat,mem.lon));selfpoint=mem.id.eq(mem.center_id).to_numpy();N=len(cids)
 COLS=['inn','eligible','filed','articulated','outlier','imputed','geocoding_quality','lat','lon','okved_section','line_2110','line_1600','line_2400'];MODES=[(1,'baseline'),(5,'baseline'),(10,'baseline'),(1,'strict'),(5,'strict'),(10,'strict')];financial=[];sectors=[];witnesses=[];receipts=[]
 for year in [2016,2021]:
  t=time.time();source=a.cache/f'rfsd_{year}_selected.parquet';pf=pq.ParquetFile(source);assert set(COLS)<=set(pf.schema_arrow.names);rec=dict(year=year,source_file=source.name,selected_sha256=sha(source),rows_expected=pf.metadata.num_rows,schema=str(pf.schema_arrow),selected_columns=COLS);receipts.append(rec)
  sums=np.zeros((6,N,6));maximum=np.zeros((6,N));sec=collections.defaultdict(lambda:np.zeros(2));wsec=collections.defaultdict(lambda:np.zeros(2));seen=set();quality=collections.Counter();aud=collections.Counter()
  for batch in pf.iter_batches(batch_size=50000,columns=COLS):
-  d=batch.to_pandas().reset_index(drop=True);aud['rows']+=len(d);quality.update(d.geocoding_quality.fillna('missing'))
+  d=batch.to_pandas().reset_index(drop=True);aud['rows']+=len(d);aud['inn_not_10_digits']+=int((~d.inn.fillna('').str.fullmatch(r'\d{10}')).sum());quality.update(d.geocoding_quality.fillna('missing'))
   for inn in d.inn:
    if inn is None or pd.isna(inn):aud['inn_missing']+=1;continue
    if inn in seen:aud['inn_duplicates']+=1

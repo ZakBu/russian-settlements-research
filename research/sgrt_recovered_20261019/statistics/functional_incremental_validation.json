@@ -1,0 +1,1824 @@
+{
+  "status": "completed",
+  "primary_outcome": "log1p(total_population2021)-log1p(total_population2010)",
+  "secondary_outcome": "log1p(environment_population2021)-log1p(environment_population2010), structural noncenter_members>0 only",
+  "n_same_cohort": 4262,
+  "zone_universe_nonresidual": 15377,
+  "zone_coverage": 0.2771671977628926,
+  "population2010_coverage": 0.7231939850248793,
+  "selection": "crop coverage>=.8, observed organizations2021 baseline5km>=5, finite location; no demographic-value/source-metadata/outcome filtering",
+  "protocol": "fixed ridge penalty1,5 deterministic whole-spatial-block folds; train-only median imputation and scaling; main400km plus250/600 sensitivity; same rows/folds for all three models",
+  "seed": 20261019,
+  "interpretation": "2021 profiles are contemporaneous descriptive correlates of past2010–2021 dynamics, not prior causes or true forecasting; sectors are legal-address reporting economy, not jobs; crops are source-municipal profile composition, not allocated field hectares",
+  "limitations": "no gap buffer between adjacent train/test blocks; uncertainty conditional on fitted folds; coverage-selected results do not extrapolate to all zones",
+  "results": [
+    {
+      "outcome": "outcome_total",
+      "block_km": 250,
+      "model": "M1",
+      "n": 4262,
+      "n_blocks": 236,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment"
+      ],
+      "RMSE_OOF": 0.1710231974981519,
+      "MAE_OOF": 0.1123756903584168,
+      "R2_OOF": 0.20802061111871373,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3797,
+          "test_n": 465,
+          "train_blocks": 196,
+          "test_blocks": 40,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.1555242834178863
+        },
+        {
+          "fold": 1,
+          "train_n": 3293,
+          "test_n": 969,
+          "train_blocks": 188,
+          "test_blocks": 48,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.18330914278617919
+        },
+        {
+          "fold": 2,
+          "train_n": 3377,
+          "test_n": 885,
+          "train_blocks": 185,
+          "test_blocks": 51,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.19579542126879804
+        },
+        {
+          "fold": 3,
+          "train_n": 3341,
+          "test_n": 921,
+          "train_blocks": 193,
+          "test_blocks": 43,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.15007580182347963
+        },
+        {
+          "fold": 4,
+          "train_n": 3240,
+          "test_n": 1022,
+          "train_blocks": 182,
+          "test_blocks": 54,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.1600525309276385
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 250,
+      "model": "M2",
+      "n": 4262,
+      "n_blocks": 236,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment",
+        "share_grain",
+        "share_technical",
+        "share_potato",
+        "share_vegetables",
+        "share_fodder",
+        "share_melon",
+        "share_mixed",
+        "share_zero_sown",
+        "coverage"
+      ],
+      "RMSE_OOF": 0.17071930088393236,
+      "MAE_OOF": 0.1120528623836105,
+      "R2_OOF": 0.21083269769465351,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3797,
+          "test_n": 465,
+          "train_blocks": 196,
+          "test_blocks": 40,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.154567494041757
+        },
+        {
+          "fold": 1,
+          "train_n": 3293,
+          "test_n": 969,
+          "train_blocks": 188,
+          "test_blocks": 48,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.18265745341667597
+        },
+        {
+          "fold": 2,
+          "train_n": 3377,
+          "test_n": 885,
+          "train_blocks": 185,
+          "test_blocks": 51,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.19610360776129557
+        },
+        {
+          "fold": 3,
+          "train_n": 3341,
+          "test_n": 921,
+          "train_blocks": 193,
+          "test_blocks": 43,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.14965059752231083
+        },
+        {
+          "fold": 4,
+          "train_n": 3240,
+          "test_n": 1022,
+          "train_blocks": 182,
+          "test_blocks": 54,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.159859614858997
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 250,
+      "model": "M3",
+      "n": 4262,
+      "n_blocks": 236,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment",
+        "share_grain",
+        "share_technical",
+        "share_potato",
+        "share_vegetables",
+        "share_fodder",
+        "share_melon",
+        "share_mixed",
+        "share_zero_sown",
+        "coverage",
+        "sector_share_A",
+        "sector_share_B",
+        "sector_share_C",
+        "sector_share_D",
+        "sector_share_E",
+        "sector_share_F",
+        "sector_share_G",
+        "sector_share_H",
+        "sector_share_I",
+        "sector_share_J",
+        "sector_share_K",
+        "sector_share_L",
+        "sector_share_M",
+        "sector_share_N",
+        "sector_share_O",
+        "sector_share_P",
+        "sector_share_Q",
+        "sector_share_R",
+        "sector_share_S",
+        "sector_share_T",
+        "sector_share_U",
+        "log_observed_organizations",
+        "sector_diversity_entropy"
+      ],
+      "RMSE_OOF": 0.16558474519582891,
+      "MAE_OOF": 0.10925232798089397,
+      "R2_OOF": 0.2575888534166476,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3797,
+          "test_n": 465,
+          "train_blocks": 196,
+          "test_blocks": 40,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.14980194709236655
+        },
+        {
+          "fold": 1,
+          "train_n": 3293,
+          "test_n": 969,
+          "train_blocks": 188,
+          "test_blocks": 48,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.17749364171640308
+        },
+        {
+          "fold": 2,
+          "train_n": 3377,
+          "test_n": 885,
+          "train_blocks": 185,
+          "test_blocks": 51,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.18846765775137692
+        },
+        {
+          "fold": 3,
+          "train_n": 3341,
+          "test_n": 921,
+          "train_blocks": 193,
+          "test_blocks": 43,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.14930689531791136
+        },
+        {
+          "fold": 4,
+          "train_n": 3240,
+          "test_n": 1022,
+          "train_blocks": 182,
+          "test_blocks": 54,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.15301241308020008
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 250,
+      "comparison": "M2 minus M1",
+      "delta_MSE": -0.00010385438819324134,
+      "CI025": -0.00037859054676198616,
+      "CI975": 0.00014141944968305639,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 250,
+      "comparison": "M3 minus M2",
+      "delta_MSE": -0.0017267718527310366,
+      "CI025": -0.002586864291391502,
+      "CI975": -0.0007320857710336414,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 250,
+      "comparison": "M3 minus M1",
+      "delta_MSE": -0.0018306262409242778,
+      "CI025": -0.00288911985707015,
+      "CI975": -0.0008166257207111216,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 400,
+      "model": "M1",
+      "n": 4262,
+      "n_blocks": 115,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment"
+      ],
+      "RMSE_OOF": 0.1710790472433895,
+      "MAE_OOF": 0.11237306251618798,
+      "R2_OOF": 0.20750326528518226,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3138,
+          "test_n": 1124,
+          "train_blocks": 92,
+          "test_blocks": 23,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.16599873014970631
+        },
+        {
+          "fold": 1,
+          "train_n": 3334,
+          "test_n": 928,
+          "train_blocks": 94,
+          "test_blocks": 21,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.18830851030238172
+        },
+        {
+          "fold": 2,
+          "train_n": 3590,
+          "test_n": 672,
+          "train_blocks": 93,
+          "test_blocks": 22,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.16906588761611796
+        },
+        {
+          "fold": 3,
+          "train_n": 3635,
+          "test_n": 627,
+          "train_blocks": 92,
+          "test_blocks": 23,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.14869045780651233
+        },
+        {
+          "fold": 4,
+          "train_n": 3351,
+          "test_n": 911,
+          "train_blocks": 89,
+          "test_blocks": 26,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.17465895619894026
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 400,
+      "model": "M2",
+      "n": 4262,
+      "n_blocks": 115,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment",
+        "share_grain",
+        "share_technical",
+        "share_potato",
+        "share_vegetables",
+        "share_fodder",
+        "share_melon",
+        "share_mixed",
+        "share_zero_sown",
+        "coverage"
+      ],
+      "RMSE_OOF": 0.1709967055778472,
+      "MAE_OOF": 0.11226404714271052,
+      "R2_OOF": 0.20826595128485736,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3138,
+          "test_n": 1124,
+          "train_blocks": 92,
+          "test_blocks": 23,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.16710907068112402
+        },
+        {
+          "fold": 1,
+          "train_n": 3334,
+          "test_n": 928,
+          "train_blocks": 94,
+          "test_blocks": 21,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.18852004288113608
+        },
+        {
+          "fold": 2,
+          "train_n": 3590,
+          "test_n": 672,
+          "train_blocks": 93,
+          "test_blocks": 22,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.16787103949866686
+        },
+        {
+          "fold": 3,
+          "train_n": 3635,
+          "test_n": 627,
+          "train_blocks": 92,
+          "test_blocks": 23,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.14785600001499632
+        },
+        {
+          "fold": 4,
+          "train_n": 3351,
+          "test_n": 911,
+          "train_blocks": 89,
+          "test_blocks": 26,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.1740796298078812
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 400,
+      "model": "M3",
+      "n": 4262,
+      "n_blocks": 115,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment",
+        "share_grain",
+        "share_technical",
+        "share_potato",
+        "share_vegetables",
+        "share_fodder",
+        "share_melon",
+        "share_mixed",
+        "share_zero_sown",
+        "coverage",
+        "sector_share_A",
+        "sector_share_B",
+        "sector_share_C",
+        "sector_share_D",
+        "sector_share_E",
+        "sector_share_F",
+        "sector_share_G",
+        "sector_share_H",
+        "sector_share_I",
+        "sector_share_J",
+        "sector_share_K",
+        "sector_share_L",
+        "sector_share_M",
+        "sector_share_N",
+        "sector_share_O",
+        "sector_share_P",
+        "sector_share_Q",
+        "sector_share_R",
+        "sector_share_S",
+        "sector_share_T",
+        "sector_share_U",
+        "log_observed_organizations",
+        "sector_diversity_entropy"
+      ],
+      "RMSE_OOF": 0.1665501076483555,
+      "MAE_OOF": 0.11000878876722696,
+      "R2_OOF": 0.2489070751511464,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3138,
+          "test_n": 1124,
+          "train_blocks": 92,
+          "test_blocks": 23,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.16188078901537428
+        },
+        {
+          "fold": 1,
+          "train_n": 3334,
+          "test_n": 928,
+          "train_blocks": 94,
+          "test_blocks": 21,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.19192673266905383
+        },
+        {
+          "fold": 2,
+          "train_n": 3590,
+          "test_n": 672,
+          "train_blocks": 93,
+          "test_blocks": 22,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.160113371806949
+        },
+        {
+          "fold": 3,
+          "train_n": 3635,
+          "test_n": 627,
+          "train_blocks": 92,
+          "test_blocks": 23,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.13734744069248062
+        },
+        {
+          "fold": 4,
+          "train_n": 3351,
+          "test_n": 911,
+          "train_blocks": 89,
+          "test_blocks": 26,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.16740183043128753
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 400,
+      "comparison": "M2 minus M1",
+      "delta_MSE": -2.8167087228936232e-05,
+      "CI025": -0.0003535634652620152,
+      "CI975": 0.0002959710165706955,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 400,
+      "comparison": "M3 minus M2",
+      "delta_MSE": -0.0015009349607981463,
+      "CI025": -0.002613423009797031,
+      "CI975": -0.0004381464462751368,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 400,
+      "comparison": "M3 minus M1",
+      "delta_MSE": -0.0015291020480270824,
+      "CI025": -0.002803215086053268,
+      "CI975": -0.00029264531581689,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 600,
+      "model": "M1",
+      "n": 4262,
+      "n_blocks": 73,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment"
+      ],
+      "RMSE_OOF": 0.17080920151874554,
+      "MAE_OOF": 0.11227093622978461,
+      "R2_OOF": 0.2100013292283659,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3581,
+          "test_n": 681,
+          "train_blocks": 61,
+          "test_blocks": 12,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.14570020987433546
+        },
+        {
+          "fold": 1,
+          "train_n": 2906,
+          "test_n": 1356,
+          "train_blocks": 52,
+          "test_blocks": 21,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.16708285309050305
+        },
+        {
+          "fold": 2,
+          "train_n": 3785,
+          "test_n": 477,
+          "train_blocks": 59,
+          "test_blocks": 14,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.21619149084228523
+        },
+        {
+          "fold": 3,
+          "train_n": 3044,
+          "test_n": 1218,
+          "train_blocks": 57,
+          "test_blocks": 16,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.15933306783548742
+        },
+        {
+          "fold": 4,
+          "train_n": 3732,
+          "test_n": 530,
+          "train_blocks": 63,
+          "test_blocks": 10,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.18843816981955774
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 600,
+      "model": "M2",
+      "n": 4262,
+      "n_blocks": 73,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment",
+        "share_grain",
+        "share_technical",
+        "share_potato",
+        "share_vegetables",
+        "share_fodder",
+        "share_melon",
+        "share_mixed",
+        "share_zero_sown",
+        "coverage"
+      ],
+      "RMSE_OOF": 0.17118842385076283,
+      "MAE_OOF": 0.11268514337075082,
+      "R2_OOF": 0.20648960154888973,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3581,
+          "test_n": 681,
+          "train_blocks": 61,
+          "test_blocks": 12,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.1439888996530884
+        },
+        {
+          "fold": 1,
+          "train_n": 2906,
+          "test_n": 1356,
+          "train_blocks": 52,
+          "test_blocks": 21,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.16770381585033792
+        },
+        {
+          "fold": 2,
+          "train_n": 3785,
+          "test_n": 477,
+          "train_blocks": 59,
+          "test_blocks": 14,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.21722065603128204
+        },
+        {
+          "fold": 3,
+          "train_n": 3044,
+          "test_n": 1218,
+          "train_blocks": 57,
+          "test_blocks": 16,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.16038214121082564
+        },
+        {
+          "fold": 4,
+          "train_n": 3732,
+          "test_n": 530,
+          "train_blocks": 63,
+          "test_blocks": 10,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.18837391429898284
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 600,
+      "model": "M3",
+      "n": 4262,
+      "n_blocks": 73,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment",
+        "share_grain",
+        "share_technical",
+        "share_potato",
+        "share_vegetables",
+        "share_fodder",
+        "share_melon",
+        "share_mixed",
+        "share_zero_sown",
+        "coverage",
+        "sector_share_A",
+        "sector_share_B",
+        "sector_share_C",
+        "sector_share_D",
+        "sector_share_E",
+        "sector_share_F",
+        "sector_share_G",
+        "sector_share_H",
+        "sector_share_I",
+        "sector_share_J",
+        "sector_share_K",
+        "sector_share_L",
+        "sector_share_M",
+        "sector_share_N",
+        "sector_share_O",
+        "sector_share_P",
+        "sector_share_Q",
+        "sector_share_R",
+        "sector_share_S",
+        "sector_share_T",
+        "sector_share_U",
+        "log_observed_organizations",
+        "sector_diversity_entropy"
+      ],
+      "RMSE_OOF": 0.16760969223760805,
+      "MAE_OOF": 0.11124099218138635,
+      "R2_OOF": 0.2393198335692982,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3581,
+          "test_n": 681,
+          "train_blocks": 61,
+          "test_blocks": 12,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.13533494921148603
+        },
+        {
+          "fold": 1,
+          "train_n": 2906,
+          "test_n": 1356,
+          "train_blocks": 52,
+          "test_blocks": 21,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.1607648354270219
+        },
+        {
+          "fold": 2,
+          "train_n": 3785,
+          "test_n": 477,
+          "train_blocks": 59,
+          "test_blocks": 14,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.21830384086679838
+        },
+        {
+          "fold": 3,
+          "train_n": 3044,
+          "test_n": 1218,
+          "train_blocks": 57,
+          "test_blocks": 16,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.16157470814832678
+        },
+        {
+          "fold": 4,
+          "train_n": 3732,
+          "test_n": 530,
+          "train_blocks": 63,
+          "test_blocks": 10,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.1826610635040013
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 600,
+      "comparison": "M2 minus M1",
+      "delta_MSE": 0.0001296931370370024,
+      "CI025": -0.00029146829543862264,
+      "CI975": 0.000537839732322184,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 600,
+      "comparison": "M3 minus M2",
+      "delta_MSE": -0.0012124675285227374,
+      "CI025": -0.0029855221716591314,
+      "CI975": 0.0003363583202909426,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_total",
+      "block_km": 600,
+      "comparison": "M3 minus M1",
+      "delta_MSE": -0.001082774391485735,
+      "CI025": -0.002512034561695323,
+      "CI975": 0.0003990482854182291,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 250,
+      "model": "M1",
+      "n": 3931,
+      "n_blocks": 198,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment"
+      ],
+      "RMSE_OOF": 0.31637803607862297,
+      "MAE_OOF": 0.17951389586870692,
+      "R2_OOF": 0.17973059511343803,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3505,
+          "test_n": 426,
+          "train_blocks": 168,
+          "test_blocks": 30,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.28715816745058254
+        },
+        {
+          "fold": 1,
+          "train_n": 3030,
+          "test_n": 901,
+          "train_blocks": 153,
+          "test_blocks": 45,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.33383613180947597
+        },
+        {
+          "fold": 2,
+          "train_n": 3119,
+          "test_n": 812,
+          "train_blocks": 158,
+          "test_blocks": 40,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.293440240279434
+        },
+        {
+          "fold": 3,
+          "train_n": 3075,
+          "test_n": 856,
+          "train_blocks": 162,
+          "test_blocks": 36,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.29184013745156623
+        },
+        {
+          "fold": 4,
+          "train_n": 2995,
+          "test_n": 936,
+          "train_blocks": 151,
+          "test_blocks": 47,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.3506820861147004
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 250,
+      "model": "M2",
+      "n": 3931,
+      "n_blocks": 198,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment",
+        "share_grain",
+        "share_technical",
+        "share_potato",
+        "share_vegetables",
+        "share_fodder",
+        "share_melon",
+        "share_mixed",
+        "share_zero_sown",
+        "coverage"
+      ],
+      "RMSE_OOF": 0.31590860859996966,
+      "MAE_OOF": 0.17945665262835614,
+      "R2_OOF": 0.18216294685445433,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3505,
+          "test_n": 426,
+          "train_blocks": 168,
+          "test_blocks": 30,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.2967897280920916
+        },
+        {
+          "fold": 1,
+          "train_n": 3030,
+          "test_n": 901,
+          "train_blocks": 153,
+          "test_blocks": 45,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.32909609228117376
+        },
+        {
+          "fold": 2,
+          "train_n": 3119,
+          "test_n": 812,
+          "train_blocks": 158,
+          "test_blocks": 40,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.29157492341134084
+        },
+        {
+          "fold": 3,
+          "train_n": 3075,
+          "test_n": 856,
+          "train_blocks": 162,
+          "test_blocks": 36,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.28903415161873713
+        },
+        {
+          "fold": 4,
+          "train_n": 2995,
+          "test_n": 936,
+          "train_blocks": 151,
+          "test_blocks": 47,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.35303497843456816
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 250,
+      "model": "M3",
+      "n": 3931,
+      "n_blocks": 198,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment",
+        "share_grain",
+        "share_technical",
+        "share_potato",
+        "share_vegetables",
+        "share_fodder",
+        "share_melon",
+        "share_mixed",
+        "share_zero_sown",
+        "coverage",
+        "sector_share_A",
+        "sector_share_B",
+        "sector_share_C",
+        "sector_share_D",
+        "sector_share_E",
+        "sector_share_F",
+        "sector_share_G",
+        "sector_share_H",
+        "sector_share_I",
+        "sector_share_J",
+        "sector_share_K",
+        "sector_share_L",
+        "sector_share_M",
+        "sector_share_N",
+        "sector_share_O",
+        "sector_share_P",
+        "sector_share_Q",
+        "sector_share_R",
+        "sector_share_S",
+        "sector_share_T",
+        "sector_share_U",
+        "log_observed_organizations",
+        "sector_diversity_entropy"
+      ],
+      "RMSE_OOF": 0.31107182347145534,
+      "MAE_OOF": 0.17853722577403447,
+      "R2_OOF": 0.20701456333654045,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3505,
+          "test_n": 426,
+          "train_blocks": 168,
+          "test_blocks": 30,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.2866796904818096
+        },
+        {
+          "fold": 1,
+          "train_n": 3030,
+          "test_n": 901,
+          "train_blocks": 153,
+          "test_blocks": 45,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.32556386554100447
+        },
+        {
+          "fold": 2,
+          "train_n": 3119,
+          "test_n": 812,
+          "train_blocks": 158,
+          "test_blocks": 40,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.28389029063782045
+        },
+        {
+          "fold": 3,
+          "train_n": 3075,
+          "test_n": 856,
+          "train_blocks": 162,
+          "test_blocks": 36,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.2918304182188113
+        },
+        {
+          "fold": 4,
+          "train_n": 2995,
+          "test_n": 936,
+          "train_blocks": 151,
+          "test_blocks": 47,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.3451944451198428
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 250,
+      "comparison": "M2 minus M1",
+      "delta_MSE": -0.0002968127253976133,
+      "CI025": -0.001997818635237341,
+      "CI975": 0.0016696418281255906,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 250,
+      "comparison": "M3 minus M2",
+      "delta_MSE": -0.0030325696297125652,
+      "CI025": -0.005643496745916124,
+      "CI975": -0.0009607335455181039,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 250,
+      "comparison": "M3 minus M1",
+      "delta_MSE": -0.0033293823551101783,
+      "CI025": -0.0062826930620924785,
+      "CI975": -0.0006189255776545072,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 400,
+      "model": "M1",
+      "n": 3931,
+      "n_blocks": 102,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment"
+      ],
+      "RMSE_OOF": 0.31625678424533465,
+      "MAE_OOF": 0.17922071622664873,
+      "R2_OOF": 0.18035921087646478,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 2876,
+          "test_n": 1055,
+          "train_blocks": 79,
+          "test_blocks": 23,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.3304947335066536
+        },
+        {
+          "fold": 1,
+          "train_n": 3079,
+          "test_n": 852,
+          "train_blocks": 83,
+          "test_blocks": 19,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.3100768210559505
+        },
+        {
+          "fold": 2,
+          "train_n": 3325,
+          "test_n": 606,
+          "train_blocks": 83,
+          "test_blocks": 19,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.339089959949523
+        },
+        {
+          "fold": 3,
+          "train_n": 3352,
+          "test_n": 579,
+          "train_blocks": 83,
+          "test_blocks": 19,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.25901274359904825
+        },
+        {
+          "fold": 4,
+          "train_n": 3092,
+          "test_n": 839,
+          "train_blocks": 80,
+          "test_blocks": 22,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.3229359284207963
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 400,
+      "model": "M2",
+      "n": 3931,
+      "n_blocks": 102,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment",
+        "share_grain",
+        "share_technical",
+        "share_potato",
+        "share_vegetables",
+        "share_fodder",
+        "share_melon",
+        "share_mixed",
+        "share_zero_sown",
+        "coverage"
+      ],
+      "RMSE_OOF": 0.31443894692770324,
+      "MAE_OOF": 0.1788901141926801,
+      "R2_OOF": 0.18975468644631222,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 2876,
+          "test_n": 1055,
+          "train_blocks": 79,
+          "test_blocks": 23,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.33041217023793623
+        },
+        {
+          "fold": 1,
+          "train_n": 3079,
+          "test_n": 852,
+          "train_blocks": 83,
+          "test_blocks": 19,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.3024466900794718
+        },
+        {
+          "fold": 2,
+          "train_n": 3325,
+          "test_n": 606,
+          "train_blocks": 83,
+          "test_blocks": 19,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.33756337695050637
+        },
+        {
+          "fold": 3,
+          "train_n": 3352,
+          "test_n": 579,
+          "train_blocks": 83,
+          "test_blocks": 19,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.26219909032931255
+        },
+        {
+          "fold": 4,
+          "train_n": 3092,
+          "test_n": 839,
+          "train_blocks": 80,
+          "test_blocks": 22,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.3214506554588609
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 400,
+      "model": "M3",
+      "n": 3931,
+      "n_blocks": 102,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment",
+        "share_grain",
+        "share_technical",
+        "share_potato",
+        "share_vegetables",
+        "share_fodder",
+        "share_melon",
+        "share_mixed",
+        "share_zero_sown",
+        "coverage",
+        "sector_share_A",
+        "sector_share_B",
+        "sector_share_C",
+        "sector_share_D",
+        "sector_share_E",
+        "sector_share_F",
+        "sector_share_G",
+        "sector_share_H",
+        "sector_share_I",
+        "sector_share_J",
+        "sector_share_K",
+        "sector_share_L",
+        "sector_share_M",
+        "sector_share_N",
+        "sector_share_O",
+        "sector_share_P",
+        "sector_share_Q",
+        "sector_share_R",
+        "sector_share_S",
+        "sector_share_T",
+        "sector_share_U",
+        "log_observed_organizations",
+        "sector_diversity_entropy"
+      ],
+      "RMSE_OOF": 0.30872957393896894,
+      "MAE_OOF": 0.1775473828667712,
+      "R2_OOF": 0.21891134725347927,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 2876,
+          "test_n": 1055,
+          "train_blocks": 79,
+          "test_blocks": 23,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.3215876175072937
+        },
+        {
+          "fold": 1,
+          "train_n": 3079,
+          "test_n": 852,
+          "train_blocks": 83,
+          "test_blocks": 19,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.29601773657945246
+        },
+        {
+          "fold": 2,
+          "train_n": 3325,
+          "test_n": 606,
+          "train_blocks": 83,
+          "test_blocks": 19,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.3348953390532496
+        },
+        {
+          "fold": 3,
+          "train_n": 3352,
+          "test_n": 579,
+          "train_blocks": 83,
+          "test_blocks": 19,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.2573570412332692
+        },
+        {
+          "fold": 4,
+          "train_n": 3092,
+          "test_n": 839,
+          "train_blocks": 80,
+          "test_blocks": 22,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.31754454104097557
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 400,
+      "comparison": "M2 minus M1",
+      "delta_MSE": -0.001146502236197161,
+      "CI025": -0.0033102731972407466,
+      "CI975": 0.0009585871111146255,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 400,
+      "comparison": "M3 minus M2",
+      "delta_MSE": -0.00355790152046572,
+      "CI025": -0.006062112150531202,
+      "CI975": -0.0013323128314098195,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 400,
+      "comparison": "M3 minus M1",
+      "delta_MSE": -0.004704403756662881,
+      "CI025": -0.0075874568745293094,
+      "CI975": -0.0018236409089339243,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 600,
+      "model": "M1",
+      "n": 3931,
+      "n_blocks": 63,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment"
+      ],
+      "RMSE_OOF": 0.31580902381825815,
+      "MAE_OOF": 0.17941185258396955,
+      "R2_OOF": 0.18267848385004848,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3325,
+          "test_n": 606,
+          "train_blocks": 52,
+          "test_blocks": 11,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.3208786963326463
+        },
+        {
+          "fold": 1,
+          "train_n": 2654,
+          "test_n": 1277,
+          "train_blocks": 44,
+          "test_blocks": 19,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.28235202168313817
+        },
+        {
+          "fold": 2,
+          "train_n": 3487,
+          "test_n": 444,
+          "train_blocks": 52,
+          "test_blocks": 11,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.4328224113132691
+        },
+        {
+          "fold": 3,
+          "train_n": 2804,
+          "test_n": 1127,
+          "train_blocks": 48,
+          "test_blocks": 15,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.2531214597388896
+        },
+        {
+          "fold": 4,
+          "train_n": 3454,
+          "test_n": 477,
+          "train_blocks": 56,
+          "test_blocks": 7,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.38979069298899927
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 600,
+      "model": "M2",
+      "n": 3931,
+      "n_blocks": 63,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment",
+        "share_grain",
+        "share_technical",
+        "share_potato",
+        "share_vegetables",
+        "share_fodder",
+        "share_melon",
+        "share_mixed",
+        "share_zero_sown",
+        "coverage"
+      ],
+      "RMSE_OOF": 0.31432141896733673,
+      "MAE_OOF": 0.17910659170866416,
+      "R2_OOF": 0.19036026462681943,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3325,
+          "test_n": 606,
+          "train_blocks": 52,
+          "test_blocks": 11,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.3179263746321364
+        },
+        {
+          "fold": 1,
+          "train_n": 2654,
+          "test_n": 1277,
+          "train_blocks": 44,
+          "test_blocks": 19,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.2790264819885671
+        },
+        {
+          "fold": 2,
+          "train_n": 3487,
+          "test_n": 444,
+          "train_blocks": 52,
+          "test_blocks": 11,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.4355308397969937
+        },
+        {
+          "fold": 3,
+          "train_n": 2804,
+          "test_n": 1127,
+          "train_blocks": 48,
+          "test_blocks": 15,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.25693969774286884
+        },
+        {
+          "fold": 4,
+          "train_n": 3454,
+          "test_n": 477,
+          "train_blocks": 56,
+          "test_blocks": 7,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.38054574801877267
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 600,
+      "model": "M3",
+      "n": 3931,
+      "n_blocks": 63,
+      "features": [
+        "log_mass2010",
+        "log_density25",
+        "log_distance",
+        "log_population2010",
+        "has_environment",
+        "share_grain",
+        "share_technical",
+        "share_potato",
+        "share_vegetables",
+        "share_fodder",
+        "share_melon",
+        "share_mixed",
+        "share_zero_sown",
+        "coverage",
+        "sector_share_A",
+        "sector_share_B",
+        "sector_share_C",
+        "sector_share_D",
+        "sector_share_E",
+        "sector_share_F",
+        "sector_share_G",
+        "sector_share_H",
+        "sector_share_I",
+        "sector_share_J",
+        "sector_share_K",
+        "sector_share_L",
+        "sector_share_M",
+        "sector_share_N",
+        "sector_share_O",
+        "sector_share_P",
+        "sector_share_Q",
+        "sector_share_R",
+        "sector_share_S",
+        "sector_share_T",
+        "sector_share_U",
+        "log_observed_organizations",
+        "sector_diversity_entropy"
+      ],
+      "RMSE_OOF": 0.30929013094351354,
+      "MAE_OOF": 0.1787958678609784,
+      "R2_OOF": 0.2160723434944738,
+      "folds": [
+        {
+          "fold": 0,
+          "train_n": 3325,
+          "test_n": 606,
+          "train_blocks": 52,
+          "test_blocks": 11,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.31284725124194146
+        },
+        {
+          "fold": 1,
+          "train_n": 2654,
+          "test_n": 1277,
+          "train_blocks": 44,
+          "test_blocks": 19,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.27366175948345867
+        },
+        {
+          "fold": 2,
+          "train_n": 3487,
+          "test_n": 444,
+          "train_blocks": 52,
+          "test_blocks": 11,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.4303887369048678
+        },
+        {
+          "fold": 3,
+          "train_n": 2804,
+          "test_n": 1127,
+          "train_blocks": 48,
+          "test_blocks": 15,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.25692488687639253
+        },
+        {
+          "fold": 4,
+          "train_n": 3454,
+          "test_n": 477,
+          "train_blocks": 56,
+          "test_blocks": 7,
+          "imputed_train_values": 0,
+          "imputed_test_values": 0,
+          "rmse": 0.36759850925827664
+        }
+      ]
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 600,
+      "comparison": "M2 minus M1",
+      "delta_MSE": -0.0009373851034011256,
+      "CI025": -0.0033168983434730954,
+      "CI975": 0.0014147365154471446,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 600,
+      "comparison": "M3 minus M2",
+      "delta_MSE": -0.003137569322584265,
+      "CI025": -0.006779184422103195,
+      "CI975": -0.00029677011558861406,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    },
+    {
+      "outcome": "outcome_environment",
+      "block_km": 600,
+      "comparison": "M3 minus M1",
+      "delta_MSE": -0.0040749544259853915,
+      "CI025": -0.008273625596867215,
+      "CI975": -3.2937882871964514e-05,
+      "bootstrap_repetitions": 399,
+      "meaning": "negative favors added predictors; paired whole-block bootstrap of fixed OOF errors, conditional on fitted folds, no model refit inside bootstrap"
+    }
+  ],
+  "input_checks": [
+    {
+      "test": "unique_financial_keys",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "unique_sector_keys",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "unique_crop_and_geography_keys",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_six_RFSD_modes_count_exact",
+      "passed": true,
+      "details": {
+        "year_zone_mode_pairs": 100929,
+        "max_difference": 0.0
+      }
+    },
+    {
+      "test": "nonnegative_sector_counts",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "sector_shares_sum_one",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "functional_cohort_unique",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "finite_outcome_outcome_total",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_total_250_M1",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_total_250_M2",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_total_250_M3",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_total_400_M1",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_total_400_M2",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_total_400_M3",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_total_600_M1",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_total_600_M2",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_total_600_M3",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "finite_outcome_outcome_environment",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_environment_250_M1",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_environment_250_M2",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_environment_250_M3",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_environment_400_M1",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_environment_400_M2",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_environment_400_M3",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_environment_600_M1",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_environment_600_M2",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all_OOF_finite_outcome_environment_600_M3",
+      "passed": true,
+      "details": null
+    }
+  ]
+}

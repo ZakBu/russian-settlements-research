@@ -1,0 +1,34 @@
+{
+  "primary": {
+    "basis": "organization count",
+    "share_min": 0.2,
+    "LQ_min": 1.25,
+    "N_zone_min": 5,
+    "address_max_distance_km": 5,
+    "quality": "baseline"
+  },
+  "sensitivity": {
+    "bases": [
+      "count",
+      "revenue"
+    ],
+    "distance_km": [
+      1,
+      5,
+      10
+    ],
+    "quality": [
+      "baseline",
+      "strict house/nonimputed"
+    ]
+  },
+  "unknown": "UNKNOWN included in denominators but not assigned as a specialization",
+  "units": "thousand nominal rubles; no deflation",
+  "not_measured": [
+    "employment",
+    "production place",
+    "commuting",
+    "service flows"
+  ],
+  "commercial_coverage": "Financial/state/religious/budget noneligible or nonfiling organizations underrepresented; no-service conclusions prohibited"
+}
