@@ -1,0 +1,5698 @@
+{
+  "file": "part-00006-4f05dab3-5982-5cee-9cd0-714856eac08e-c000.zstd.parquet",
+  "rows": 5137402,
+  "row_groups": 256,
+  "columns": [
+    "id",
+    "geometry",
+    "confidence",
+    "websites.list.element",
+    "emails.list.element",
+    "socials.list.element",
+    "phones.list.element",
+    "brand.wikidata",
+    "brand.names.primary",
+    "brand.names.common.key_value.key",
+    "brand.names.common.key_value.value",
+    "brand.names.rules.list.element.variant",
+    "brand.names.rules.list.element.language",
+    "brand.names.rules.list.element.perspectives.mode",
+    "brand.names.rules.list.element.perspectives.countries.list.element",
+    "brand.names.rules.list.element.value",
+    "brand.names.rules.list.element.between.list.element",
+    "brand.names.rules.list.element.side",
+    "addresses.list.element.freeform",
+    "addresses.list.element.locality",
+    "addresses.list.element.postcode",
+    "addresses.list.element.region",
+    "addresses.list.element.country",
+    "names.primary",
+    "names.common.key_value.key",
+    "names.common.key_value.value",
+    "names.rules.list.element.variant",
+    "names.rules.list.element.language",
+    "names.rules.list.element.perspectives.mode",
+    "names.rules.list.element.perspectives.countries.list.element",
+    "names.rules.list.element.value",
+    "names.rules.list.element.between.list.element",
+    "names.rules.list.element.side",
+    "sources.list.element.property",
+    "sources.list.element.dataset",
+    "sources.list.element.license",
+    "sources.list.element.record_id",
+    "sources.list.element.update_time",
+    "sources.list.element.confidence",
+    "sources.list.element.between.list.element",
+    "sources.list.element.provider",
+    "sources.list.element.resource",
+    "sources.list.element.version",
+    "operating_status",
+    "basic_category",
+    "taxonomy.primary",
+    "taxonomy.hierarchy.list.element",
+    "taxonomy.alternates.list.element",
+    "version",
+    "bbox.xmin",
+    "bbox.xmax",
+    "bbox.ymin",
+    "bbox.ymax"
+  ],
+  "schema": "id: string\ngeometry: binary\nconfidence: double\nwebsites: list<element: string>\n  child 0, element: string\nemails: list<element: string>\n  child 0, element: string\nsocials: list<element: string>\n  child 0, element: string\nphones: list<element: string>\n  child 0, element: string\nbrand: struct<wikidata: string, names: struct<primary: string, common: map<string, string ('common')>, rule (... 192 chars omitted)\n  child 0, wikidata: string\n  child 1, names: struct<primary: string, common: map<string, string ('common')>, rules: list<element: struct<variant: (... 159 chars omitted)\n      child 0, primary: string\n      child 1, common: map<string, string ('common')>\n          child 0, common: struct<key: string not null, value: string> not null\n              child 0, key: string not null\n              child 1, value: string\n      child 2, rules: list<element: struct<variant: string, language: string, perspectives: struct<mode: string, countries (... 87 chars omitted)\n          child 0, element: struct<variant: string, language: string, perspectives: struct<mode: string, countries: list<element (... 72 chars omitted)\n              child 0, variant: string\n              child 1, language: string\n              child 2, perspectives: struct<mode: string, countries: list<element: string>>\n                  child 0, mode: string\n                  child 1, countries: list<element: string>\n                      child 0, element: string\n              child 3, value: string\n              child 4, between: list<element: double>\n                  child 0, element: double\n              child 5, side: string\naddresses: list<element: struct<freeform: string, locality: string, postcode: string, region: string, country:  (... 8 chars omitted)\n  child 0, element: struct<freeform: string, locality: string, postcode: string, region: string, country: string>\n      child 0, freeform: string\n      child 1, locality: string\n      child 2, postcode: string\n      child 3, region: string\n      child 4, country: string\nnames: struct<primary: string, common: map<string, string ('common')>, rules: list<element: struct<variant: (... 159 chars omitted)\n  child 0, primary: string\n  child 1, common: map<string, string ('common')>\n      child 0, common: struct<key: string not null, value: string> not null\n          child 0, key: string not null\n          child 1, value: string\n  child 2, rules: list<element: struct<variant: string, language: string, perspectives: struct<mode: string, countries (... 87 chars omitted)\n      child 0, element: struct<variant: string, language: string, perspectives: struct<mode: string, countries: list<element (... 72 chars omitted)\n          child 0, variant: string\n          child 1, language: string\n          child 2, perspectives: struct<mode: string, countries: list<element: string>>\n              child 0, mode: string\n              child 1, countries: list<element: string>\n                  child 0, element: string\n          child 3, value: string\n          child 4, between: list<element: double>\n              child 0, element: double\n          child 5, side: string\nsources: list<element: struct<property: string, dataset: string, license: string, record_id: string, update_t (... 118 chars omitted)\n  child 0, element: struct<property: string, dataset: string, license: string, record_id: string, update_time: string, c (... 103 chars omitted)\n      child 0, property: string\n      child 1, dataset: string\n      child 2, license: string\n      child 3, record_id: string\n      child 4, update_time: string\n      child 5, confidence: double\n      child 6, between: list<element: double>\n          child 0, element: double\n      child 7, provider: string\n      child 8, resource: string\n      child 9, version: string\noperating_status: string\nbasic_category: string\ntaxonomy: struct<primary: string, hierarchy: list<element: string>, alternates: list<element: string>>\n  child 0, primary: string\n  child 1, hierarchy: list<element: string>\n      child 0, element: string\n  child 2, alternates: list<element: string>\n      child 0, element: string\nversion: int32\nbbox: struct<xmin: double, xmax: double, ymin: double, ymax: double>\n  child 0, xmin: double\n  child 1, xmax: double\n  child 2, ymin: double\n  child 3, ymax: double\n-- schema metadata --\ngeo: '{\"version\": \"1.1.0\", \"primary_column\": \"geometry\", \"columns\": {\"geo' + 274",
+  "row_group_bounds": [
+    {
+      "row_group": 0,
+      "rows": 20651,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.50575256347656,
+          "max": -74.48714447021484
+        },
+        "bbox.xmax": {
+          "min": -76.5057373046875,
+          "max": -74.48713684082031
+        },
+        "bbox.ymin": {
+          "min": 40.38440704345703,
+          "max": 40.53620147705078
+        },
+        "bbox.ymax": {
+          "min": 40.38441467285156,
+          "max": 40.53620529174805
+        }
+      }
+    },
+    {
+      "row_group": 1,
+      "rows": 16621,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.49897003173828,
+          "max": -74.4871597290039
+        },
+        "bbox.xmax": {
+          "min": -76.49896240234375,
+          "max": -74.48714447021484
+        },
+        "bbox.ymin": {
+          "min": 40.53622055053711,
+          "max": 40.5966682434082
+        },
+        "bbox.ymax": {
+          "min": 40.53622817993164,
+          "max": 40.596675872802734
+        }
+      }
+    },
+    {
+      "row_group": 2,
+      "rows": 16003,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.48712158203125,
+          "max": -74.11360931396484
+        },
+        "bbox.xmax": {
+          "min": -74.48710632324219,
+          "max": -74.11359405517578
+        },
+        "bbox.ymin": {
+          "min": 40.384437561035156,
+          "max": 40.49462127685547
+        },
+        "bbox.ymax": {
+          "min": 40.384437561035156,
+          "max": 40.494625091552734
+        }
+      }
+    },
+    {
+      "row_group": 3,
+      "rows": 26560,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.48707580566406,
+          "max": -74.1135025024414
+        },
+        "bbox.xmax": {
+          "min": -74.48706817626953,
+          "max": -74.11348724365234
+        },
+        "bbox.ymin": {
+          "min": 40.49462127685547,
+          "max": 40.5966796875
+        },
+        "bbox.ymax": {
+          "min": 40.49462890625,
+          "max": 40.59668731689453
+        }
+      }
+    },
+    {
+      "row_group": 4,
+      "rows": 16877,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.50524139404297,
+          "max": -74.42805480957031
+        },
+        "bbox.xmax": {
+          "min": -76.5052261352539,
+          "max": -74.42804718017578
+        },
+        "bbox.ymin": {
+          "min": 40.596683502197266,
+          "max": 40.6434440612793
+        },
+        "bbox.ymax": {
+          "min": 40.59668731689453,
+          "max": 40.64344787597656
+        }
+      }
+    },
+    {
+      "row_group": 5,
+      "rows": 20529,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.50578308105469,
+          "max": -74.42813110351562
+        },
+        "bbox.xmax": {
+          "min": -76.50577545166016,
+          "max": -74.4281234741211
+        },
+        "bbox.ymin": {
+          "min": 40.64345169067383,
+          "max": 40.74681854248047
+        },
+        "bbox.ymax": {
+          "min": 40.64345932006836,
+          "max": 40.746826171875
+        }
+      }
+    },
+    {
+      "row_group": 6,
+      "rows": 23978,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.42798614501953,
+          "max": -74.1135025024414
+        },
+        "bbox.xmax": {
+          "min": -74.427978515625,
+          "max": -74.11349487304688
+        },
+        "bbox.ymin": {
+          "min": 40.59670639038086,
+          "max": 40.67365264892578
+        },
+        "bbox.ymax": {
+          "min": 40.596710205078125,
+          "max": 40.67366027832031
+        }
+      }
+    },
+    {
+      "row_group": 7,
+      "rows": 26346,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.42794799804688,
+          "max": -74.11351776123047
+        },
+        "bbox.xmax": {
+          "min": -74.42793273925781,
+          "max": -74.1135025024414
+        },
+        "bbox.ymin": {
+          "min": 40.67365646362305,
+          "max": 40.746829986572266
+        },
+        "bbox.ymax": {
+          "min": 40.67366027832031,
+          "max": 40.74683380126953
+        }
+      }
+    },
+    {
+      "row_group": 8,
+      "rows": 20743,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.11349487304688,
+          "max": -74.0042495727539
+        },
+        "bbox.xmax": {
+          "min": -74.11348724365234,
+          "max": -74.00424194335938
+        },
+        "bbox.ymin": {
+          "min": 40.38440704345703,
+          "max": 40.67629623413086
+        },
+        "bbox.ymax": {
+          "min": 40.3844108581543,
+          "max": 40.676300048828125
+        }
+      }
+    },
+    {
+      "row_group": 9,
+      "rows": 19537,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.1130142211914,
+          "max": -74.0042495727539
+        },
+        "bbox.xmax": {
+          "min": -74.11300659179688,
+          "max": -74.00424194335938
+        },
+        "bbox.ymin": {
+          "min": 40.67632293701172,
+          "max": 40.71352767944336
+        },
+        "bbox.ymax": {
+          "min": 40.67633056640625,
+          "max": 40.71353530883789
+        }
+      }
+    },
+    {
+      "row_group": 10,
+      "rows": 14270,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.0042495727539,
+          "max": -73.97161865234375
+        },
+        "bbox.xmax": {
+          "min": -74.00423431396484,
+          "max": -73.97160339355469
+        },
+        "bbox.ymin": {
+          "min": 40.385101318359375,
+          "max": 40.666316986083984
+        },
+        "bbox.ymax": {
+          "min": 40.38510513305664,
+          "max": 40.66632080078125
+        }
+      }
+    },
+    {
+      "row_group": 11,
+      "rows": 21917,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.00424194335938,
+          "max": -73.97161865234375
+        },
+        "bbox.xmax": {
+          "min": -74.00423431396484,
+          "max": -73.97161102294922
+        },
+        "bbox.ymin": {
+          "min": 40.66632843017578,
+          "max": 40.713523864746094
+        },
+        "bbox.ymax": {
+          "min": 40.66633605957031,
+          "max": 40.713531494140625
+        }
+      }
+    },
+    {
+      "row_group": 12,
+      "rows": 22726,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.11331176757812,
+          "max": -73.99661254882812
+        },
+        "bbox.xmax": {
+          "min": -74.11329650878906,
+          "max": -73.99659729003906
+        },
+        "bbox.ymin": {
+          "min": 40.713531494140625,
+          "max": 40.72665786743164
+        },
+        "bbox.ymax": {
+          "min": 40.71353530883789,
+          "max": 40.72666549682617
+        }
+      }
+    },
+    {
+      "row_group": 13,
+      "rows": 16656,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.11349487304688,
+          "max": -73.99661254882812
+        },
+        "bbox.xmax": {
+          "min": -74.11348724365234,
+          "max": -73.99659729003906
+        },
+        "bbox.ymin": {
+          "min": 40.726661682128906,
+          "max": 40.746826171875
+        },
+        "bbox.ymax": {
+          "min": 40.72666549682617,
+          "max": 40.746829986572266
+        }
+      }
+    },
+    {
+      "row_group": 14,
+      "rows": 21856,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.9966049194336,
+          "max": -73.97215270996094
+        },
+        "bbox.xmax": {
+          "min": -73.99659729003906,
+          "max": -73.9721450805664
+        },
+        "bbox.ymin": {
+          "min": 40.713531494140625,
+          "max": 40.7390251159668
+        },
+        "bbox.ymax": {
+          "min": 40.713539123535156,
+          "max": 40.73902893066406
+        }
+      }
+    },
+    {
+      "row_group": 15,
+      "rows": 21293,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.9966049194336,
+          "max": -73.97162628173828
+        },
+        "bbox.xmax": {
+          "min": -73.99658966064453,
+          "max": -73.97161865234375
+        },
+        "bbox.ymin": {
+          "min": 40.7390251159668,
+          "max": 40.746829986572266
+        },
+        "bbox.ymax": {
+          "min": 40.73903274536133,
+          "max": 40.74683380126953
+        }
+      }
+    },
+    {
+      "row_group": 16,
+      "rows": 15652,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.50582885742188,
+          "max": -74.33567810058594
+        },
+        "bbox.xmax": {
+          "min": -76.50582122802734,
+          "max": -74.3356704711914
+        },
+        "bbox.ymin": {
+          "min": 40.74683380126953,
+          "max": 40.823081970214844
+        },
+        "bbox.ymax": {
+          "min": 40.74684143066406,
+          "max": 40.823089599609375
+        }
+      }
+    },
+    {
+      "row_group": 17,
+      "rows": 21970,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.50566864013672,
+          "max": -74.3356704711914
+        },
+        "bbox.xmax": {
+          "min": -76.50566101074219,
+          "max": -74.33566284179688
+        },
+        "bbox.ymin": {
+          "min": 40.82310485839844,
+          "max": 40.921024322509766
+        },
+        "bbox.ymax": {
+          "min": 40.82311248779297,
+          "max": 40.92102813720703
+        }
+      }
+    },
+    {
+      "row_group": 18,
+      "rows": 16622,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.33556365966797,
+          "max": -74.14041900634766
+        },
+        "bbox.xmax": {
+          "min": -74.33555603027344,
+          "max": -74.14041137695312
+        },
+        "bbox.ymin": {
+          "min": 40.74683380126953,
+          "max": 40.81819534301758
+        },
+        "bbox.ymax": {
+          "min": 40.7468376159668,
+          "max": 40.81820297241211
+        }
+      }
+    },
+    {
+      "row_group": 19,
+      "rows": 19982,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.33556365966797,
+          "max": -74.14042663574219
+        },
+        "bbox.xmax": {
+          "min": -74.3355484008789,
+          "max": -74.14041900634766
+        },
+        "bbox.ymin": {
+          "min": 40.818199157714844,
+          "max": 40.9210090637207
+        },
+        "bbox.ymax": {
+          "min": 40.81820297241211,
+          "max": 40.921016693115234
+        }
+      }
+    },
+    {
+      "row_group": 20,
+      "rows": 22698,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.50534057617188,
+          "max": -74.95176696777344
+        },
+        "bbox.xmax": {
+          "min": -76.50532531738281,
+          "max": -74.9517593383789
+        },
+        "bbox.ymin": {
+          "min": 40.921051025390625,
+          "max": 41.25913619995117
+        },
+        "bbox.ymax": {
+          "min": 40.921058654785156,
+          "max": 41.2591438293457
+        }
+      }
+    },
+    {
+      "row_group": 21,
+      "rows": 24044,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.50538635253906,
+          "max": -74.95130157470703
+        },
+        "bbox.xmax": {
+          "min": -76.50537872314453,
+          "max": -74.9512939453125
+        },
+        "bbox.ymin": {
+          "min": 41.25914001464844,
+          "max": 41.694210052490234
+        },
+        "bbox.ymax": {
+          "min": 41.25914764404297,
+          "max": 41.694217681884766
+        }
+      }
+    },
+    {
+      "row_group": 22,
+      "rows": 22670,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.95051574707031,
+          "max": -74.14041900634766
+        },
+        "bbox.xmax": {
+          "min": -74.95050811767578,
+          "max": -74.14041137695312
+        },
+        "bbox.ymin": {
+          "min": 40.92103958129883,
+          "max": 41.16313552856445
+        },
+        "bbox.ymax": {
+          "min": 40.92104721069336,
+          "max": 41.163143157958984
+        }
+      }
+    },
+    {
+      "row_group": 23,
+      "rows": 17710,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.95089721679688,
+          "max": -74.14048767089844
+        },
+        "bbox.xmax": {
+          "min": -74.95088195800781,
+          "max": -74.1404800415039
+        },
+        "bbox.ymin": {
+          "min": 41.16328811645508,
+          "max": 41.694217681884766
+        },
+        "bbox.ymax": {
+          "min": 41.163291931152344,
+          "max": 41.6942253112793
+        }
+      }
+    },
+    {
+      "row_group": 24,
+      "rows": 18273,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.14035034179688,
+          "max": -73.98535919189453
+        },
+        "bbox.xmax": {
+          "min": -74.14034271240234,
+          "max": -73.98534393310547
+        },
+        "bbox.ymin": {
+          "min": 40.746829986572266,
+          "max": 40.75375747680664
+        },
+        "bbox.ymax": {
+          "min": 40.7468376159668,
+          "max": 40.75376510620117
+        }
+      }
+    },
+    {
+      "row_group": 25,
+      "rows": 16359,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.14041137695312,
+          "max": -73.98535919189453
+        },
+        "bbox.xmax": {
+          "min": -74.14039611816406,
+          "max": -73.98534393310547
+        },
+        "bbox.ymin": {
+          "min": 40.753761291503906,
+          "max": 40.77460861206055
+        },
+        "bbox.ymax": {
+          "min": 40.75376510620117,
+          "max": 40.77461624145508
+        }
+      }
+    },
+    {
+      "row_group": 26,
+      "rows": 26394,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.9853515625,
+          "max": -73.97161865234375
+        },
+        "bbox.xmax": {
+          "min": -73.98534393310547,
+          "max": -73.97161102294922
+        },
+        "bbox.ymin": {
+          "min": 40.746829986572266,
+          "max": 40.75693130493164
+        },
+        "bbox.ymax": {
+          "min": 40.7468376159668,
+          "max": 40.756935119628906
+        }
+      }
+    },
+    {
+      "row_group": 27,
+      "rows": 22039,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.9853515625,
+          "max": -73.97161865234375
+        },
+        "bbox.xmax": {
+          "min": -73.98534393310547,
+          "max": -73.97160339355469
+        },
+        "bbox.ymin": {
+          "min": 40.75693130493164,
+          "max": 40.77460861206055
+        },
+        "bbox.ymax": {
+          "min": 40.75693893432617,
+          "max": 40.77461242675781
+        }
+      }
+    },
+    {
+      "row_group": 28,
+      "rows": 16649,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.14041137695312,
+          "max": -74.04464721679688
+        },
+        "bbox.xmax": {
+          "min": -74.1404037475586,
+          "max": -74.04463958740234
+        },
+        "bbox.ymin": {
+          "min": 40.77466583251953,
+          "max": 40.89561462402344
+        },
+        "bbox.ymax": {
+          "min": 40.7746696472168,
+          "max": 40.89562225341797
+        }
+      }
+    },
+    {
+      "row_group": 29,
+      "rows": 21737,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.14041900634766,
+          "max": -74.04464721679688
+        },
+        "bbox.xmax": {
+          "min": -74.1404037475586,
+          "max": -74.04463958740234
+        },
+        "bbox.ymin": {
+          "min": 40.8956298828125,
+          "max": 41.69366455078125
+        },
+        "bbox.ymax": {
+          "min": 40.89563751220703,
+          "max": 41.69367218017578
+        }
+      }
+    },
+    {
+      "row_group": 30,
+      "rows": 19148,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.04463195800781,
+          "max": -73.97161865234375
+        },
+        "bbox.xmax": {
+          "min": -74.04462432861328,
+          "max": -73.97160339355469
+        },
+        "bbox.ymin": {
+          "min": 40.77461242675781,
+          "max": 40.886314392089844
+        },
+        "bbox.ymax": {
+          "min": 40.774620056152344,
+          "max": 40.88631820678711
+        }
+      }
+    },
+    {
+      "row_group": 31,
+      "rows": 21190,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.04463195800781,
+          "max": -73.97162628173828
+        },
+        "bbox.xmax": {
+          "min": -74.04462432861328,
+          "max": -73.97161865234375
+        },
+        "bbox.ymin": {
+          "min": 40.88631820678711,
+          "max": 41.6942024230957
+        },
+        "bbox.ymax": {
+          "min": 40.88632583618164,
+          "max": 41.69420623779297
+        }
+      }
+    },
+    {
+      "row_group": 32,
+      "rows": 21112,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.97161102294922,
+          "max": -73.9278335571289
+        },
+        "bbox.xmax": {
+          "min": -73.97160339355469,
+          "max": -73.92782592773438
+        },
+        "bbox.ymin": {
+          "min": 40.54291534423828,
+          "max": 40.672122955322266
+        },
+        "bbox.ymax": {
+          "min": 40.54291915893555,
+          "max": 40.67212677001953
+        }
+      }
+    },
+    {
+      "row_group": 33,
+      "rows": 23989,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.97161102294922,
+          "max": -73.9278335571289
+        },
+        "bbox.xmax": {
+          "min": -73.97160339355469,
+          "max": -73.92782592773438
+        },
+        "bbox.ymin": {
+          "min": 40.67212677001953,
+          "max": 40.75007629394531
+        },
+        "bbox.ymax": {
+          "min": 40.67213439941406,
+          "max": 40.750083923339844
+        }
+      }
+    },
+    {
+      "row_group": 34,
+      "rows": 18025,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.9278335571289,
+          "max": -73.83007049560547
+        },
+        "bbox.xmax": {
+          "min": -73.92781829833984,
+          "max": -73.83006286621094
+        },
+        "bbox.ymin": {
+          "min": 40.5566520690918,
+          "max": 40.698822021484375
+        },
+        "bbox.ymax": {
+          "min": 40.55665588378906,
+          "max": 40.698829650878906
+        }
+      }
+    },
+    {
+      "row_group": 35,
+      "rows": 21857,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.92781829833984,
+          "max": -73.83008575439453
+        },
+        "bbox.xmax": {
+          "min": -73.92780303955078,
+          "max": -73.83007049560547
+        },
+        "bbox.ymin": {
+          "min": 40.69882583618164,
+          "max": 40.75007629394531
+        },
+        "bbox.ymax": {
+          "min": 40.698829650878906,
+          "max": 40.75008010864258
+        }
+      }
+    },
+    {
+      "row_group": 36,
+      "rows": 18291,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.97161102294922,
+          "max": -73.94284057617188
+        },
+        "bbox.xmax": {
+          "min": -73.97160339355469,
+          "max": -73.94283294677734
+        },
+        "bbox.ymin": {
+          "min": 40.750083923339844,
+          "max": 40.77140426635742
+        },
+        "bbox.ymax": {
+          "min": 40.750091552734375,
+          "max": 40.77141189575195
+        }
+      }
+    },
+    {
+      "row_group": 37,
+      "rows": 24188,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.97161102294922,
+          "max": -73.94284057617188
+        },
+        "bbox.xmax": {
+          "min": -73.97160339355469,
+          "max": -73.94283294677734
+        },
+        "bbox.ymin": {
+          "min": 40.77140808105469,
+          "max": 40.847957611083984
+        },
+        "bbox.ymax": {
+          "min": 40.77141571044922,
+          "max": 40.847965240478516
+        }
+      }
+    },
+    {
+      "row_group": 38,
+      "rows": 23879,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.94284057617188,
+          "max": -73.83007049560547
+        },
+        "bbox.xmax": {
+          "min": -73.94282531738281,
+          "max": -73.83006286621094
+        },
+        "bbox.ymin": {
+          "min": 40.75008010864258,
+          "max": 40.80751419067383
+        },
+        "bbox.ymax": {
+          "min": 40.75008773803711,
+          "max": 40.80752182006836
+        }
+      }
+    },
+    {
+      "row_group": 39,
+      "rows": 20764,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.94284057617188,
+          "max": -73.83007049560547
+        },
+        "bbox.xmax": {
+          "min": -73.94282531738281,
+          "max": -73.83006286621094
+        },
+        "bbox.ymin": {
+          "min": 40.80752182006836,
+          "max": 40.847965240478516
+        },
+        "bbox.ymax": {
+          "min": 40.807525634765625,
+          "max": 40.84796905517578
+        }
+      }
+    },
+    {
+      "row_group": 40,
+      "rows": 17141,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.83001708984375,
+          "max": -73.65172576904297
+        },
+        "bbox.xmax": {
+          "min": -73.83000183105469,
+          "max": -73.65171813964844
+        },
+        "bbox.ymin": {
+          "min": 40.579673767089844,
+          "max": 40.687713623046875
+        },
+        "bbox.ymax": {
+          "min": 40.579681396484375,
+          "max": 40.687721252441406
+        }
+      }
+    },
+    {
+      "row_group": 41,
+      "rows": 16236,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.83007049560547,
+          "max": -73.6517333984375
+        },
+        "bbox.xmax": {
+          "min": -73.8300552368164,
+          "max": -73.65172576904297
+        },
+        "bbox.ymin": {
+          "min": 40.68772506713867,
+          "max": 40.732017517089844
+        },
+        "bbox.ymax": {
+          "min": 40.6877326965332,
+          "max": 40.73202133178711
+        }
+      }
+    },
+    {
+      "row_group": 42,
+      "rows": 18723,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.65171813964844,
+          "max": -72.98690032958984
+        },
+        "bbox.xmax": {
+          "min": -73.6517105102539,
+          "max": -72.98689270019531
+        },
+        "bbox.ymin": {
+          "min": 40.573646545410156,
+          "max": 40.693199157714844
+        },
+        "bbox.ymax": {
+          "min": 40.57365417480469,
+          "max": 40.69320297241211
+        }
+      }
+    },
+    {
+      "row_group": 43,
+      "rows": 17847,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.65170288085938,
+          "max": -72.92586517333984
+        },
+        "bbox.xmax": {
+          "min": -73.65169525146484,
+          "max": -72.92585754394531
+        },
+        "bbox.ymin": {
+          "min": 40.693206787109375,
+          "max": 40.732017517089844
+        },
+        "bbox.ymax": {
+          "min": 40.69321060180664,
+          "max": 40.732025146484375
+        }
+      }
+    },
+    {
+      "row_group": 44,
+      "rows": 17107,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.83006286621094,
+          "max": -73.51471710205078
+        },
+        "bbox.xmax": {
+          "min": -73.8300552368164,
+          "max": -73.51470947265625
+        },
+        "bbox.ymin": {
+          "min": 40.73202133178711,
+          "max": 40.75971221923828
+        },
+        "bbox.ymax": {
+          "min": 40.732025146484375,
+          "max": 40.75971984863281
+        }
+      }
+    },
+    {
+      "row_group": 45,
+      "rows": 23366,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.83007049560547,
+          "max": -73.5146255493164
+        },
+        "bbox.xmax": {
+          "min": -73.8300552368164,
+          "max": -73.51461791992188
+        },
+        "bbox.ymin": {
+          "min": 40.75971603393555,
+          "max": 40.84794235229492
+        },
+        "bbox.ymax": {
+          "min": 40.75971984863281,
+          "max": 40.84794616699219
+        }
+      }
+    },
+    {
+      "row_group": 46,
+      "rows": 23858,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.51461791992188,
+          "max": -72.67132568359375
+        },
+        "bbox.xmax": {
+          "min": -73.51460266113281,
+          "max": -72.67131805419922
+        },
+        "bbox.ymin": {
+          "min": 40.73202133178711,
+          "max": 40.788185119628906
+        },
+        "bbox.ymax": {
+          "min": 40.732025146484375,
+          "max": 40.78818893432617
+        }
+      }
+    },
+    {
+      "row_group": 47,
+      "rows": 22943,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.51453399658203,
+          "max": -72.46086120605469
+        },
+        "bbox.xmax": {
+          "min": -73.5145263671875,
+          "max": -72.46085357666016
+        },
+        "bbox.ymin": {
+          "min": 40.78818893432617,
+          "max": 40.847965240478516
+        },
+        "bbox.ymax": {
+          "min": 40.78819274902344,
+          "max": 40.84796905517578
+        }
+      }
+    },
+    {
+      "row_group": 48,
+      "rows": 19197,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.97161102294922,
+          "max": -73.83771514892578
+        },
+        "bbox.xmax": {
+          "min": -73.97160339355469,
+          "max": -73.83770751953125
+        },
+        "bbox.ymin": {
+          "min": 40.847965240478516,
+          "max": 40.87850570678711
+        },
+        "bbox.ymax": {
+          "min": 40.84797286987305,
+          "max": 40.878509521484375
+        }
+      }
+    },
+    {
+      "row_group": 49,
+      "rows": 17250,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.97161102294922,
+          "max": -73.83769989013672
+        },
+        "bbox.xmax": {
+          "min": -73.97159576416016,
+          "max": -73.83769226074219
+        },
+        "bbox.ymin": {
+          "min": 40.87850570678711,
+          "max": 41.040714263916016
+        },
+        "bbox.ymax": {
+          "min": 40.87851333618164,
+          "max": 41.04071807861328
+        }
+      }
+    },
+    {
+      "row_group": 50,
+      "rows": 18219,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.83769226074219,
+          "max": -73.22621154785156
+        },
+        "bbox.xmax": {
+          "min": -73.83768463134766,
+          "max": -73.22620391845703
+        },
+        "bbox.ymin": {
+          "min": 40.847965240478516,
+          "max": 40.945030212402344
+        },
+        "bbox.ymax": {
+          "min": 40.84797286987305,
+          "max": 40.94503402709961
+        }
+      }
+    },
+    {
+      "row_group": 51,
+      "rows": 21446,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.83767700195312,
+          "max": -73.39347076416016
+        },
+        "bbox.xmax": {
+          "min": -73.8376693725586,
+          "max": -73.39346313476562
+        },
+        "bbox.ymin": {
+          "min": 40.945037841796875,
+          "max": 41.04074478149414
+        },
+        "bbox.ymax": {
+          "min": 40.945045471191406,
+          "max": 41.040748596191406
+        }
+      }
+    },
+    {
+      "row_group": 52,
+      "rows": 21820,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.97156524658203,
+          "max": -73.54258728027344
+        },
+        "bbox.xmax": {
+          "min": -73.97154998779297,
+          "max": -73.54257202148438
+        },
+        "bbox.ymin": {
+          "min": 41.04074478149414,
+          "max": 41.25847625732422
+        },
+        "bbox.ymax": {
+          "min": 41.04075241088867,
+          "max": 41.25848388671875
+        }
+      }
+    },
+    {
+      "row_group": 53,
+      "rows": 18435,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.97160339355469,
+          "max": -73.54264068603516
+        },
+        "bbox.xmax": {
+          "min": -73.97158813476562,
+          "max": -73.5426254272461
+        },
+        "bbox.ymin": {
+          "min": 41.25849151611328,
+          "max": 41.69428634643555
+        },
+        "bbox.ymax": {
+          "min": 41.25849533081055,
+          "max": 41.69429016113281
+        }
+      }
+    },
+    {
+      "row_group": 54,
+      "rows": 14989,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.54257202148438,
+          "max": -73.23931121826172
+        },
+        "bbox.xmax": {
+          "min": -73.54256439208984,
+          "max": -73.23929595947266
+        },
+        "bbox.ymin": {
+          "min": 41.040748596191406,
+          "max": 41.140445709228516
+        },
+        "bbox.ymax": {
+          "min": 41.04075241088867,
+          "max": 41.14044952392578
+        }
+      }
+    },
+    {
+      "row_group": 55,
+      "rows": 23632,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.54255676269531,
+          "max": -73.22604370117188
+        },
+        "bbox.xmax": {
+          "min": -73.54254913330078,
+          "max": -73.22603607177734
+        },
+        "bbox.ymin": {
+          "min": 41.14045333862305,
+          "max": 41.693424224853516
+        },
+        "bbox.ymax": {
+          "min": 41.14046096801758,
+          "max": 41.69342803955078
+        }
+      }
+    },
+    {
+      "row_group": 56,
+      "rows": 17333,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.22603607177734,
+          "max": -72.91893005371094
+        },
+        "bbox.xmax": {
+          "min": -73.22602844238281,
+          "max": -72.9189224243164
+        },
+        "bbox.ymin": {
+          "min": 40.84797668457031,
+          "max": 41.19438934326172
+        },
+        "bbox.ymax": {
+          "min": 40.84798049926758,
+          "max": 41.194393157958984
+        }
+      }
+    },
+    {
+      "row_group": 57,
+      "rows": 23182,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.22603607177734,
+          "max": -72.91889953613281
+        },
+        "bbox.xmax": {
+          "min": -73.22602844238281,
+          "max": -72.91889190673828
+        },
+        "bbox.ymin": {
+          "min": 41.19440841674805,
+          "max": 41.41102600097656
+        },
+        "bbox.ymax": {
+          "min": 41.19441223144531,
+          "max": 41.411033630371094
+        }
+      }
+    },
+    {
+      "row_group": 58,
+      "rows": 21982,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -72.91881561279297,
+          "max": -69.96195983886719
+        },
+        "bbox.xmax": {
+          "min": -72.91880798339844,
+          "max": -69.96195220947266
+        },
+        "bbox.ymin": {
+          "min": 40.847991943359375,
+          "max": 41.299407958984375
+        },
+        "bbox.ymax": {
+          "min": 40.84799575805664,
+          "max": 41.29941177368164
+        }
+      }
+    },
+    {
+      "row_group": 59,
+      "rows": 20149,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -72.91889190673828,
+          "max": -69.97779083251953
+        },
+        "bbox.xmax": {
+          "min": -72.91888427734375,
+          "max": -69.977783203125
+        },
+        "bbox.ymin": {
+          "min": 41.2994270324707,
+          "max": 41.4110221862793
+        },
+        "bbox.ymax": {
+          "min": 41.29943084716797,
+          "max": 41.41102981567383
+        }
+      }
+    },
+    {
+      "row_group": 60,
+      "rows": 20583,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.22592163085938,
+          "max": -72.22737884521484
+        },
+        "bbox.xmax": {
+          "min": -73.22591400146484,
+          "max": -72.22737121582031
+        },
+        "bbox.ymin": {
+          "min": 41.411041259765625,
+          "max": 41.570777893066406
+        },
+        "bbox.ymax": {
+          "min": 41.411048889160156,
+          "max": 41.57078170776367
+        }
+      }
+    },
+    {
+      "row_group": 61,
+      "rows": 19151,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.22550964355469,
+          "max": -72.22781372070312
+        },
+        "bbox.xmax": {
+          "min": -73.22550201416016,
+          "max": -72.2278060913086
+        },
+        "bbox.ymin": {
+          "min": 41.57079315185547,
+          "max": 41.694278717041016
+        },
+        "bbox.ymax": {
+          "min": 41.57080078125,
+          "max": 41.69428634643555
+        }
+      }
+    },
+    {
+      "row_group": 62,
+      "rows": 17567,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -72.22737121582031,
+          "max": -69.9884033203125
+        },
+        "bbox.xmax": {
+          "min": -72.22736358642578,
+          "max": -69.98839569091797
+        },
+        "bbox.ymin": {
+          "min": 41.411067962646484,
+          "max": 41.596073150634766
+        },
+        "bbox.ymax": {
+          "min": 41.41107177734375,
+          "max": 41.5960807800293
+        }
+      }
+    },
+    {
+      "row_group": 63,
+      "rows": 26024,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -72.22673034667969,
+          "max": -69.9322738647461
+        },
+        "bbox.xmax": {
+          "min": -72.22672271728516,
+          "max": -69.93226623535156
+        },
+        "bbox.ymin": {
+          "min": 41.596092224121094,
+          "max": 41.69428634643555
+        },
+        "bbox.ymax": {
+          "min": 41.596099853515625,
+          "max": 41.69429016113281
+        }
+      }
+    },
+    {
+      "row_group": 64,
+      "rows": 20108,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.50578308105469,
+          "max": -74.16555786132812
+        },
+        "bbox.xmax": {
+          "min": -76.50577545166016,
+          "max": -74.16554260253906
+        },
+        "bbox.ymin": {
+          "min": 41.69434356689453,
+          "max": 42.31373977661133
+        },
+        "bbox.ymax": {
+          "min": 41.69435119628906,
+          "max": 42.31374740600586
+        }
+      }
+    },
+    {
+      "row_group": 65,
+      "rows": 16307,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.5058364868164,
+          "max": -74.16703796386719
+        },
+        "bbox.xmax": {
+          "min": -76.50582885742188,
+          "max": -74.16702270507812
+        },
+        "bbox.ymin": {
+          "min": 42.31377410888672,
+          "max": 42.87638473510742
+        },
+        "bbox.ymax": {
+          "min": 42.31378173828125,
+          "max": 42.87638854980469
+        }
+      }
+    },
+    {
+      "row_group": 66,
+      "rows": 20403,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.16490173339844,
+          "max": -73.75634765625
+        },
+        "bbox.xmax": {
+          "min": -74.1648941040039,
+          "max": -73.75634002685547
+        },
+        "bbox.ymin": {
+          "min": 41.69429397583008,
+          "max": 42.65159606933594
+        },
+        "bbox.ymax": {
+          "min": 41.69430160522461,
+          "max": 42.65160369873047
+        }
+      }
+    },
+    {
+      "row_group": 67,
+      "rows": 20229,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -74.1650390625,
+          "max": -73.75634765625
+        },
+        "bbox.xmax": {
+          "min": -74.16502380371094,
+          "max": -73.75634002685547
+        },
+        "bbox.ymin": {
+          "min": 42.651615142822266,
+          "max": 42.87631607055664
+        },
+        "bbox.ymax": {
+          "min": 42.6516227722168,
+          "max": 42.87632369995117
+        }
+      }
+    },
+    {
+      "row_group": 68,
+      "rows": 18488,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.50565338134766,
+          "max": -75.7772216796875
+        },
+        "bbox.xmax": {
+          "min": -76.50564575195312,
+          "max": -75.77720642089844
+        },
+        "bbox.ymin": {
+          "min": 42.876487731933594,
+          "max": 43.10301208496094
+        },
+        "bbox.ymax": {
+          "min": 42.87649154663086,
+          "max": 43.10301971435547
+        }
+      }
+    },
+    {
+      "row_group": 69,
+      "rows": 19947,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.50582122802734,
+          "max": -75.777099609375
+        },
+        "bbox.xmax": {
+          "min": -76.50581359863281,
+          "max": -75.77709197998047
+        },
+        "bbox.ymin": {
+          "min": 43.10305404663086,
+          "max": 44.638919830322266
+        },
+        "bbox.ymax": {
+          "min": 43.10306167602539,
+          "max": 44.63892364501953
+        }
+      }
+    },
+    {
+      "row_group": 70,
+      "rows": 20762,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -75.77691650390625,
+          "max": -73.75689697265625
+        },
+        "bbox.xmax": {
+          "min": -75.77690124511719,
+          "max": -73.75688934326172
+        },
+        "bbox.ymin": {
+          "min": 42.87641906738281,
+          "max": 43.124290466308594
+        },
+        "bbox.ymax": {
+          "min": 42.876426696777344,
+          "max": 43.124298095703125
+        }
+      }
+    },
+    {
+      "row_group": 71,
+      "rows": 16094,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -75.77701568603516,
+          "max": -73.75650024414062
+        },
+        "bbox.xmax": {
+          "min": -75.77700805664062,
+          "max": -73.7564926147461
+        },
+        "bbox.ymin": {
+          "min": 43.12430191040039,
+          "max": 44.639591217041016
+        },
+        "bbox.ymax": {
+          "min": 43.12430953979492,
+          "max": 44.63959884643555
+        }
+      }
+    },
+    {
+      "row_group": 72,
+      "rows": 18796,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.75617980957031,
+          "max": -72.61238098144531
+        },
+        "bbox.xmax": {
+          "min": -73.75617218017578,
+          "max": -72.61236572265625
+        },
+        "bbox.ymin": {
+          "min": 41.69428634643555,
+          "max": 41.78440856933594
+        },
+        "bbox.ymax": {
+          "min": 41.69429397583008,
+          "max": 41.7844123840332
+        }
+      }
+    },
+    {
+      "row_group": 73,
+      "rows": 26193,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.75628662109375,
+          "max": -72.61235046386719
+        },
+        "bbox.xmax": {
+          "min": -73.75627899169922,
+          "max": -72.61234283447266
+        },
+        "bbox.ymin": {
+          "min": 41.78444290161133,
+          "max": 42.29452133178711
+        },
+        "bbox.ymax": {
+          "min": 41.784446716308594,
+          "max": 42.29452896118164
+        }
+      }
+    },
+    {
+      "row_group": 74,
+      "rows": 15286,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -72.61233520507812,
+          "max": -72.11274719238281
+        },
+        "bbox.xmax": {
+          "min": -72.61231994628906,
+          "max": -72.11273956298828
+        },
+        "bbox.ymin": {
+          "min": 41.694313049316406,
+          "max": 41.98974609375
+        },
+        "bbox.ymax": {
+          "min": 41.69432067871094,
+          "max": 41.98975372314453
+        }
+      }
+    },
+    {
+      "row_group": 75,
+      "rows": 17594,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -72.61234283447266,
+          "max": -72.11257934570312
+        },
+        "bbox.xmax": {
+          "min": -72.6123275756836,
+          "max": -72.1125717163086
+        },
+        "bbox.ymin": {
+          "min": 41.98979568481445,
+          "max": 42.294498443603516
+        },
+        "bbox.ymax": {
+          "min": 41.98979949951172,
+          "max": 42.29450607299805
+        }
+      }
+    },
+    {
+      "row_group": 76,
+      "rows": 19317,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.75634002685547,
+          "max": -73.07846069335938
+        },
+        "bbox.xmax": {
+          "min": -73.75633239746094,
+          "max": -73.07845306396484
+        },
+        "bbox.ymin": {
+          "min": 42.294551849365234,
+          "max": 42.87366485595703
+        },
+        "bbox.ymax": {
+          "min": 42.294559478759766,
+          "max": 42.87367248535156
+        }
+      }
+    },
+    {
+      "row_group": 77,
+      "rows": 26959,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.75631713867188,
+          "max": -73.07793426513672
+        },
+        "bbox.xmax": {
+          "min": -73.75630950927734,
+          "max": -73.07791900634766
+        },
+        "bbox.ymin": {
+          "min": 42.87369918823242,
+          "max": 44.63970947265625
+        },
+        "bbox.ymax": {
+          "min": 42.87370300292969,
+          "max": 44.63971710205078
+        }
+      }
+    },
+    {
+      "row_group": 78,
+      "rows": 19917,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.07778930664062,
+          "max": -72.11274719238281
+        },
+        "bbox.xmax": {
+          "min": -73.07777404785156,
+          "max": -72.11273956298828
+        },
+        "bbox.ymin": {
+          "min": 42.29457092285156,
+          "max": 43.27531433105469
+        },
+        "bbox.ymax": {
+          "min": 42.294578552246094,
+          "max": 43.27531814575195
+        }
+      }
+    },
+    {
+      "row_group": 79,
+      "rows": 20931,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.07791137695312,
+          "max": -72.11286163330078
+        },
+        "bbox.xmax": {
+          "min": -73.0779037475586,
+          "max": -72.11285400390625
+        },
+        "bbox.ymin": {
+          "min": 43.27532196044922,
+          "max": 44.63972854614258
+        },
+        "bbox.ymax": {
+          "min": 43.27532958984375,
+          "max": 44.63973617553711
+        }
+      }
+    },
+    {
+      "row_group": 80,
+      "rows": 23197,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.50502014160156,
+          "max": -75.63831329345703
+        },
+        "bbox.xmax": {
+          "min": -76.50501251220703,
+          "max": -75.63829803466797
+        },
+        "bbox.ymin": {
+          "min": 44.639930725097656,
+          "max": 45.39499282836914
+        },
+        "bbox.ymax": {
+          "min": 44.63993835449219,
+          "max": 45.39500045776367
+        }
+      }
+    },
+    {
+      "row_group": 81,
+      "rows": 17877,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.50328826904297,
+          "max": -75.63831329345703
+        },
+        "bbox.xmax": {
+          "min": -76.50328063964844,
+          "max": -75.63829803466797
+        },
+        "bbox.ymin": {
+          "min": 45.394996643066406,
+          "max": 45.4703254699707
+        },
+        "bbox.ymax": {
+          "min": 45.39500427246094,
+          "max": 45.470333099365234
+        }
+      }
+    },
+    {
+      "row_group": 82,
+      "rows": 17076,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -75.63827514648438,
+          "max": -73.6476821899414
+        },
+        "bbox.xmax": {
+          "min": -75.63826751708984,
+          "max": -73.64767456054688
+        },
+        "bbox.ymin": {
+          "min": 44.64065170288086,
+          "max": 45.343624114990234
+        },
+        "bbox.ymax": {
+          "min": 44.64065933227539,
+          "max": 45.343631744384766
+        }
+      }
+    },
+    {
+      "row_group": 83,
+      "rows": 18545,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -75.63829040527344,
+          "max": -73.64751434326172
+        },
+        "bbox.xmax": {
+          "min": -75.6382827758789,
+          "max": -73.64750671386719
+        },
+        "bbox.ymin": {
+          "min": 45.3437385559082,
+          "max": 45.47039031982422
+        },
+        "bbox.ymax": {
+          "min": 45.343746185302734,
+          "max": 45.47039794921875
+        }
+      }
+    },
+    {
+      "row_group": 84,
+      "rows": 15847,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.50542449951172,
+          "max": -73.8947525024414
+        },
+        "bbox.xmax": {
+          "min": -76.50541687011719,
+          "max": -73.89473724365234
+        },
+        "bbox.ymin": {
+          "min": 45.47042465209961,
+          "max": 45.7191276550293
+        },
+        "bbox.ymax": {
+          "min": 45.47043228149414,
+          "max": 45.71913528442383
+        }
+      }
+    },
+    {
+      "row_group": 85,
+      "rows": 20024,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -76.50580596923828,
+          "max": -73.8947525024414
+        },
+        "bbox.xmax": {
+          "min": -76.50579833984375,
+          "max": -73.89474487304688
+        },
+        "bbox.ymin": {
+          "min": 45.71920394897461,
+          "max": 83.08889770507812
+        },
+        "bbox.ymax": {
+          "min": 45.71921157836914,
+          "max": 83.08891296386719
+        }
+      }
+    },
+    {
+      "row_group": 86,
+      "rows": 19568,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.89473724365234,
+          "max": -73.64750671386719
+        },
+        "bbox.xmax": {
+          "min": -73.89472961425781,
+          "max": -73.64749145507812
+        },
+        "bbox.ymin": {
+          "min": 45.47040939331055,
+          "max": 45.565208435058594
+        },
+        "bbox.ymax": {
+          "min": 45.47041702270508,
+          "max": 45.565216064453125
+        }
+      }
+    },
+    {
+      "row_group": 87,
+      "rows": 19978,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.89472198486328,
+          "max": -73.64755249023438
+        },
+        "bbox.xmax": {
+          "min": -73.89471435546875,
+          "max": -73.64753723144531
+        },
+        "bbox.ymin": {
+          "min": 45.56521224975586,
+          "max": 81.41393280029297
+        },
+        "bbox.ymax": {
+          "min": 45.56521987915039,
+          "max": 81.4139404296875
+        }
+      }
+    },
+    {
+      "row_group": 88,
+      "rows": 19340,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.64749908447266,
+          "max": -73.54196166992188
+        },
+        "bbox.xmax": {
+          "min": -73.64749145507812,
+          "max": -73.54195404052734
+        },
+        "bbox.ymin": {
+          "min": 44.64038848876953,
+          "max": 45.50013732910156
+        },
+        "bbox.ymax": {
+          "min": 44.6403923034668,
+          "max": 45.500144958496094
+        }
+      }
+    },
+    {
+      "row_group": 89,
+      "rows": 19393,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.64749908447266,
+          "max": -73.54308319091797
+        },
+        "bbox.xmax": {
+          "min": -73.64749145507812,
+          "max": -73.54307556152344
+        },
+        "bbox.ymin": {
+          "min": 45.50014114379883,
+          "max": 45.530555725097656
+        },
+        "bbox.ymax": {
+          "min": 45.50014877319336,
+          "max": 45.53056335449219
+        }
+      }
+    },
+    {
+      "row_group": 90,
+      "rows": 21713,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.54190063476562,
+          "max": -72.11258697509766
+        },
+        "bbox.xmax": {
+          "min": -73.54188537597656,
+          "max": -72.11257934570312
+        },
+        "bbox.ymin": {
+          "min": 44.63978958129883,
+          "max": 45.40810012817383
+        },
+        "bbox.ymax": {
+          "min": 44.63979721069336,
+          "max": 45.40810775756836
+        }
+      }
+    },
+    {
+      "row_group": 91,
+      "rows": 15596,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.54185485839844,
+          "max": -72.11311340332031
+        },
+        "bbox.xmax": {
+          "min": -73.54183959960938,
+          "max": -72.11309814453125
+        },
+        "bbox.ymin": {
+          "min": 45.40811538696289,
+          "max": 45.53055953979492
+        },
+        "bbox.ymax": {
+          "min": 45.40812301635742,
+          "max": 45.53056716918945
+        }
+      }
+    },
+    {
+      "row_group": 92,
+      "rows": 19359,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.64749908447266,
+          "max": -73.43131256103516
+        },
+        "bbox.xmax": {
+          "min": -73.64749145507812,
+          "max": -73.43130493164062
+        },
+        "bbox.ymin": {
+          "min": 45.53056335449219,
+          "max": 45.59241485595703
+        },
+        "bbox.ymax": {
+          "min": 45.53057098388672,
+          "max": 45.59242248535156
+        }
+      }
+    },
+    {
+      "row_group": 93,
+      "rows": 18122,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.64749145507812,
+          "max": -73.43130493164062
+        },
+        "bbox.xmax": {
+          "min": -73.64747619628906,
+          "max": -73.4312973022461
+        },
+        "bbox.ymin": {
+          "min": 45.59243392944336,
+          "max": 70.5333251953125
+        },
+        "bbox.ymax": {
+          "min": 45.59244155883789,
+          "max": 70.53333282470703
+        }
+      }
+    },
+    {
+      "row_group": 94,
+      "rows": 16463,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.43128204345703,
+          "max": -72.11555480957031
+        },
+        "bbox.xmax": {
+          "min": -73.4312744140625,
+          "max": -72.11554718017578
+        },
+        "bbox.ymin": {
+          "min": 45.53057098388672,
+          "max": 46.026123046875
+        },
+        "bbox.ymax": {
+          "min": 45.53057861328125,
+          "max": 46.02613067626953
+        }
+      }
+    },
+    {
+      "row_group": 95,
+      "rows": 19471,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -73.4312973022461,
+          "max": -72.11260223388672
+        },
+        "bbox.xmax": {
+          "min": -73.43128967285156,
+          "max": -72.11259460449219
+        },
+        "bbox.ymin": {
+          "min": 46.026145935058594,
+          "max": 82.4333267211914
+        },
+        "bbox.ymax": {
+          "min": 46.026153564453125,
+          "max": 82.43334197998047
+        }
+      }
+    },
+    {
+      "row_group": 96,
+      "rows": 20733,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -72.11061096191406,
+          "max": -71.41603088378906
+        },
+        "bbox.xmax": {
+          "min": -72.11060333251953,
+          "max": -71.41602325439453
+        },
+        "bbox.ymin": {
+          "min": 41.69430923461914,
+          "max": 41.87532043457031
+        },
+        "bbox.ymax": {
+          "min": 41.69431686401367,
+          "max": 41.875328063964844
+        }
+      }
+    },
+    {
+      "row_group": 97,
+      "rows": 20255,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -72.11248016357422,
+          "max": -71.4160385131836
+        },
+        "bbox.xmax": {
+          "min": -72.11247253417969,
+          "max": -71.41603088378906
+        },
+        "bbox.ymin": {
+          "min": 41.875328063964844,
+          "max": 42.21118927001953
+        },
+        "bbox.ymax": {
+          "min": 41.875335693359375,
+          "max": 42.21119689941406
+        }
+      }
+    },
+    {
+      "row_group": 98,
+      "rows": 20356,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.41602325439453,
+          "max": -71.17127227783203
+        },
+        "bbox.xmax": {
+          "min": -71.416015625,
+          "max": -71.17125701904297
+        },
+        "bbox.ymin": {
+          "min": 41.69430923461914,
+          "max": 41.926734924316406
+        },
+        "bbox.ymax": {
+          "min": 41.69431686401367,
+          "max": 41.92674255371094
+        }
+      }
+    },
+    {
+      "row_group": 99,
+      "rows": 14559,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.416015625,
+          "max": -71.17134094238281
+        },
+        "bbox.xmax": {
+          "min": -71.41600799560547,
+          "max": -71.17132568359375
+        },
+        "bbox.ymin": {
+          "min": 41.926876068115234,
+          "max": 42.211177825927734
+        },
+        "bbox.ymax": {
+          "min": 41.9268798828125,
+          "max": 42.211185455322266
+        }
+      }
+    },
+    {
+      "row_group": 100,
+      "rows": 20261,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -72.11253356933594,
+          "max": -71.43365478515625
+        },
+        "bbox.xmax": {
+          "min": -72.11251831054688,
+          "max": -71.43363952636719
+        },
+        "bbox.ymin": {
+          "min": 42.211204528808594,
+          "max": 42.33342742919922
+        },
+        "bbox.ymax": {
+          "min": 42.211212158203125,
+          "max": 42.33343505859375
+        }
+      }
+    },
+    {
+      "row_group": 101,
+      "rows": 17868,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -72.112060546875,
+          "max": -71.43365478515625
+        },
+        "bbox.xmax": {
+          "min": -72.11205291748047,
+          "max": -71.43364715576172
+        },
+        "bbox.ymin": {
+          "min": 42.33346939086914,
+          "max": 42.59328079223633
+        },
+        "bbox.ymax": {
+          "min": 42.33347702026367,
+          "max": 42.59328842163086
+        }
+      }
+    },
+    {
+      "row_group": 102,
+      "rows": 22119,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.43362426757812,
+          "max": -71.17123413085938
+        },
+        "bbox.xmax": {
+          "min": -71.4336166381836,
+          "max": -71.17121887207031
+        },
+        "bbox.ymin": {
+          "min": 42.21120071411133,
+          "max": 42.36970520019531
+        },
+        "bbox.ymax": {
+          "min": 42.21120834350586,
+          "max": 42.369712829589844
+        }
+      }
+    },
+    {
+      "row_group": 103,
+      "rows": 18182,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.4336166381836,
+          "max": -71.17123413085938
+        },
+        "bbox.xmax": {
+          "min": -71.43360900878906,
+          "max": -71.17122650146484
+        },
+        "bbox.ymin": {
+          "min": 42.36970901489258,
+          "max": 42.593292236328125
+        },
+        "bbox.ymax": {
+          "min": 42.369712829589844,
+          "max": 42.593299865722656
+        }
+      }
+    },
+    {
+      "row_group": 104,
+      "rows": 21527,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.17122650146484,
+          "max": -71.03453063964844
+        },
+        "bbox.xmax": {
+          "min": -71.17121887207031,
+          "max": -71.0345230102539
+        },
+        "bbox.ymin": {
+          "min": 41.6943359375,
+          "max": 42.288700103759766
+        },
+        "bbox.ymax": {
+          "min": 41.69434356689453,
+          "max": 42.2887077331543
+        }
+      }
+    },
+    {
+      "row_group": 105,
+      "rows": 23070,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.17115020751953,
+          "max": -71.03453826904297
+        },
+        "bbox.xmax": {
+          "min": -71.171142578125,
+          "max": -71.0345230102539
+        },
+        "bbox.ymin": {
+          "min": 42.28871154785156,
+          "max": 42.35072326660156
+        },
+        "bbox.ymax": {
+          "min": 42.28871536254883,
+          "max": 42.35072708129883
+        }
+      }
+    },
+    {
+      "row_group": 106,
+      "rows": 23095,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.03447723388672,
+          "max": -69.93087768554688
+        },
+        "bbox.xmax": {
+          "min": -71.03446960449219,
+          "max": -69.93087005615234
+        },
+        "bbox.ymin": {
+          "min": 41.694297790527344,
+          "max": 42.08530807495117
+        },
+        "bbox.ymax": {
+          "min": 41.694305419921875,
+          "max": 42.0853157043457
+        }
+      }
+    },
+    {
+      "row_group": 107,
+      "rows": 20961,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.0345230102539,
+          "max": -70.64026641845703
+        },
+        "bbox.xmax": {
+          "min": -71.03450775146484,
+          "max": -70.6402587890625
+        },
+        "bbox.ymin": {
+          "min": 42.085350036621094,
+          "max": 42.34973907470703
+        },
+        "bbox.ymax": {
+          "min": 42.085357666015625,
+          "max": 42.3497428894043
+        }
+      }
+    },
+    {
+      "row_group": 108,
+      "rows": 18010,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.17120361328125,
+          "max": -71.06120300292969
+        },
+        "bbox.xmax": {
+          "min": -71.17119598388672,
+          "max": -71.06119537353516
+        },
+        "bbox.ymin": {
+          "min": 42.35072326660156,
+          "max": 42.388671875
+        },
+        "bbox.ymax": {
+          "min": 42.350730895996094,
+          "max": 42.388675689697266
+        }
+      }
+    },
+    {
+      "row_group": 109,
+      "rows": 19938,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.17118072509766,
+          "max": -71.06120300292969
+        },
+        "bbox.xmax": {
+          "min": -71.17117309570312,
+          "max": -71.06119537353516
+        },
+        "bbox.ymin": {
+          "min": 42.38869094848633,
+          "max": 42.593223571777344
+        },
+        "bbox.ymax": {
+          "min": 42.38869857788086,
+          "max": 42.593231201171875
+        }
+      }
+    },
+    {
+      "row_group": 110,
+      "rows": 15509,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.06120300292969,
+          "max": -70.95772552490234
+        },
+        "bbox.xmax": {
+          "min": -71.06118774414062,
+          "max": -70.95771789550781
+        },
+        "bbox.ymin": {
+          "min": 42.35072326660156,
+          "max": 42.404476165771484
+        },
+        "bbox.ymax": {
+          "min": 42.350730895996094,
+          "max": 42.404483795166016
+        }
+      }
+    },
+    {
+      "row_group": 111,
+      "rows": 23619,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.06119537353516,
+          "max": -70.65205383300781
+        },
+        "bbox.xmax": {
+          "min": -71.06118774414062,
+          "max": -70.65204620361328
+        },
+        "bbox.ymin": {
+          "min": 42.40447998046875,
+          "max": 42.59328842163086
+        },
+        "bbox.ymax": {
+          "min": 42.40448760986328,
+          "max": 42.59329605102539
+        }
+      }
+    },
+    {
+      "row_group": 112,
+      "rows": 20881,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -72.11206817626953,
+          "max": -71.42056274414062
+        },
+        "bbox.xmax": {
+          "min": -72.112060546875,
+          "max": -71.4205551147461
+        },
+        "bbox.ymin": {
+          "min": 42.59329605102539,
+          "max": 42.98558044433594
+        },
+        "bbox.ymax": {
+          "min": 42.59330368041992,
+          "max": 42.98558807373047
+        }
+      }
+    },
+    {
+      "row_group": 113,
+      "rows": 19471,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -72.1124496459961,
+          "max": -71.42061614990234
+        },
+        "bbox.xmax": {
+          "min": -72.11244201660156,
+          "max": -71.42060852050781
+        },
+        "bbox.ymin": {
+          "min": 42.98560333251953,
+          "max": 43.781978607177734
+        },
+        "bbox.ymax": {
+          "min": 42.9856071472168,
+          "max": 43.781986236572266
+        }
+      }
+    },
+    {
+      "row_group": 114,
+      "rows": 18817,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.4205322265625,
+          "max": -71.02299499511719
+        },
+        "bbox.xmax": {
+          "min": -71.42052459716797,
+          "max": -71.02297973632812
+        },
+        "bbox.ymin": {
+          "min": 42.59331512451172,
+          "max": 42.748573303222656
+        },
+        "bbox.ymax": {
+          "min": 42.59332275390625,
+          "max": 42.74858093261719
+        }
+      }
+    },
+    {
+      "row_group": 115,
+      "rows": 18926,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.4205322265625,
+          "max": -71.0228042602539
+        },
+        "bbox.xmax": {
+          "min": -71.42052459716797,
+          "max": -71.02279663085938
+        },
+        "bbox.ymin": {
+          "min": 42.74864196777344,
+          "max": 43.78194808959961
+        },
+        "bbox.ymax": {
+          "min": 42.74864959716797,
+          "max": 43.78195571899414
+        }
+      }
+    },
+    {
+      "row_group": 116,
+      "rows": 18146,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -72.11254119873047,
+          "max": -71.30091094970703
+        },
+        "bbox.xmax": {
+          "min": -72.11254119873047,
+          "max": -71.3009033203125
+        },
+        "bbox.ymin": {
+          "min": 43.782039642333984,
+          "max": 46.04752731323242
+        },
+        "bbox.ymax": {
+          "min": 43.78204345703125,
+          "max": 46.04753494262695
+        }
+      }
+    },
+    {
+      "row_group": 117,
+      "rows": 18261,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -72.1123275756836,
+          "max": -71.30078125
+        },
+        "bbox.xmax": {
+          "min": -72.11231994628906,
+          "max": -71.30077362060547
+        },
+        "bbox.ymin": {
+          "min": 46.04758071899414,
+          "max": 82.74899291992188
+        },
+        "bbox.ymax": {
+          "min": 46.04758834838867,
+          "max": 82.7490005493164
+        }
+      }
+    },
+    {
+      "row_group": 118,
+      "rows": 17980,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.30078125,
+          "max": -71.02278900146484
+        },
+        "bbox.xmax": {
+          "min": -71.30076599121094,
+          "max": -71.02278137207031
+        },
+        "bbox.ymin": {
+          "min": 43.78214645385742,
+          "max": 46.81598663330078
+        },
+        "bbox.ymax": {
+          "min": 43.78215408325195,
+          "max": 46.81599426269531
+        }
+      }
+    },
+    {
+      "row_group": 119,
+      "rows": 14004,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.30077362060547,
+          "max": -71.02290344238281
+        },
+        "bbox.xmax": {
+          "min": -71.30076599121094,
+          "max": -71.02289581298828
+        },
+        "bbox.ymin": {
+          "min": 46.81599044799805,
+          "max": 82.06881713867188
+        },
+        "bbox.ymax": {
+          "min": 46.81599807739258,
+          "max": 82.06883239746094
+        }
+      }
+    },
+    {
+      "row_group": 120,
+      "rows": 20359,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.02274322509766,
+          "max": -70.57487487792969
+        },
+        "bbox.xmax": {
+          "min": -71.02273559570312,
+          "max": -70.57485961914062
+        },
+        "bbox.ymin": {
+          "min": 42.59329605102539,
+          "max": 43.10016632080078
+        },
+        "bbox.ymax": {
+          "min": 42.593299865722656,
+          "max": 43.10017395019531
+        }
+      }
+    },
+    {
+      "row_group": 121,
+      "rows": 25523,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.02257537841797,
+          "max": -70.36505126953125
+        },
+        "bbox.xmax": {
+          "min": -71.0225601196289,
+          "max": -70.36504364013672
+        },
+        "bbox.ymin": {
+          "min": 43.100215911865234,
+          "max": 44.37191390991211
+        },
+        "bbox.ymax": {
+          "min": 43.100223541259766,
+          "max": 44.37192153930664
+        }
+      }
+    },
+    {
+      "row_group": 122,
+      "rows": 20556,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -70.36502838134766,
+          "max": -66.06039428710938
+        },
+        "bbox.xmax": {
+          "min": -70.36502075195312,
+          "max": -66.06038665771484
+        },
+        "bbox.ymin": {
+          "min": 43.43968963623047,
+          "max": 43.91340637207031
+        },
+        "bbox.ymax": {
+          "min": 43.439693450927734,
+          "max": 43.91341018676758
+        }
+      }
+    },
+    {
+      "row_group": 123,
+      "rows": 19649,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -70.36497497558594,
+          "max": -66.06118774414062
+        },
+        "bbox.xmax": {
+          "min": -70.3649673461914,
+          "max": -66.0611801147461
+        },
+        "bbox.ymin": {
+          "min": 43.91343307495117,
+          "max": 44.372798919677734
+        },
+        "bbox.ymax": {
+          "min": 43.91343688964844,
+          "max": 44.372806549072266
+        }
+      }
+    },
+    {
+      "row_group": 124,
+      "rows": 17030,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.02188873291016,
+          "max": -68.74405670166016
+        },
+        "bbox.xmax": {
+          "min": -71.02188110351562,
+          "max": -68.74404907226562
+        },
+        "bbox.ymin": {
+          "min": 44.372825622558594,
+          "max": 44.94671630859375
+        },
+        "bbox.ymax": {
+          "min": 44.372833251953125,
+          "max": 44.946720123291016
+        }
+      }
+    },
+    {
+      "row_group": 125,
+      "rows": 20748,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -71.02278900146484,
+          "max": -68.74473571777344
+        },
+        "bbox.xmax": {
+          "min": -71.02277374267578,
+          "max": -68.74472045898438
+        },
+        "bbox.ymin": {
+          "min": 44.9471435546875,
+          "max": 83.11139678955078
+        },
+        "bbox.ymax": {
+          "min": 44.947147369384766,
+          "max": 83.11141204833984
+        }
+      }
+    },
+    {
+      "row_group": 126,
+      "rows": 15520,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -68.74404907226562,
+          "max": -66.05973815917969
+        },
+        "bbox.xmax": {
+          "min": -68.7440414428711,
+          "max": -66.05973052978516
+        },
+        "bbox.ymin": {
+          "min": 44.372928619384766,
+          "max": 45.943241119384766
+        },
+        "bbox.ymax": {
+          "min": 44.3729362487793,
+          "max": 45.9432487487793
+        }
+      }
+    },
+    {
+      "row_group": 127,
+      "rows": 22745,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -68.74392700195312,
+          "max": -66.05989074707031
+        },
+        "bbox.xmax": {
+          "min": -68.7439193725586,
+          "max": -66.05988311767578
+        },
+        "bbox.ymin": {
+          "min": 45.9432487487793,
+          "max": 82.88543701171875
+        },
+        "bbox.ymax": {
+          "min": 45.94325637817383,
+          "max": 82.88545227050781
+        }
+      }
+    },
+    {
+      "row_group": 128,
+      "rows": 20281,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -8.82469654083252,
+          "max": -8.606877326965332
+        },
+        "bbox.xmax": {
+          "min": -8.824694633483887,
+          "max": -8.606876373291016
+        },
+        "bbox.ymin": {
+          "min": 40.3846435546875,
+          "max": 41.15182876586914
+        },
+        "bbox.ymax": {
+          "min": 40.384647369384766,
+          "max": 41.151832580566406
+        }
+      }
+    },
+    {
+      "row_group": 129,
+      "rows": 21145,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -8.771278381347656,
+          "max": -8.606876373291016
+        },
+        "bbox.xmax": {
+          "min": -8.77127742767334,
+          "max": -8.6068754196167
+        },
+        "bbox.ymin": {
+          "min": 41.1518440246582,
+          "max": 41.38203048706055
+        },
+        "bbox.ymax": {
+          "min": 41.15184783935547,
+          "max": 41.38203811645508
+        }
+      }
+    },
+    {
+      "row_group": 130,
+      "rows": 19906,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -8.606866836547852,
+          "max": -8.284947395324707
+        },
+        "bbox.xmax": {
+          "min": -8.606865882873535,
+          "max": -8.28494644165039
+        },
+        "bbox.ymin": {
+          "min": 40.38441467285156,
+          "max": 41.14188003540039
+        },
+        "bbox.ymax": {
+          "min": 40.384422302246094,
+          "max": 41.141883850097656
+        }
+      }
+    },
+    {
+      "row_group": 131,
+      "rows": 23958,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -8.606873512268066,
+          "max": -8.284653663635254
+        },
+        "bbox.xmax": {
+          "min": -8.60687255859375,
+          "max": -8.284652709960938
+        },
+        "bbox.ymin": {
+          "min": 41.14188003540039,
+          "max": 41.382015228271484
+        },
+        "bbox.ymax": {
+          "min": 41.14188766479492,
+          "max": 41.38201904296875
+        }
+      }
+    },
+    {
+      "row_group": 132,
+      "rows": 21557,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -8.914732933044434,
+          "max": -8.623838424682617
+        },
+        "bbox.xmax": {
+          "min": -8.9147310256958,
+          "max": -8.6238374710083
+        },
+        "bbox.ymin": {
+          "min": 41.38204574584961,
+          "max": 42.236297607421875
+        },
+        "bbox.ymax": {
+          "min": 41.38205337524414,
+          "max": 42.236305236816406
+        }
+      }
+    },
+    {
+      "row_group": 133,
+      "rows": 20138,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -9.294443130493164,
+          "max": -8.623842239379883
+        },
+        "bbox.xmax": {
+          "min": -9.294442176818848,
+          "max": -8.623841285705566
+        },
+        "bbox.ymin": {
+          "min": 42.23630142211914,
+          "max": 42.9354362487793
+        },
+        "bbox.ymax": {
+          "min": 42.236305236816406,
+          "max": 42.93544387817383
+        }
+      }
+    },
+    {
+      "row_group": 134,
+      "rows": 21079,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -8.623810768127441,
+          "max": -8.284651756286621
+        },
+        "bbox.xmax": {
+          "min": -8.623809814453125,
+          "max": -8.284650802612305
+        },
+        "bbox.ymin": {
+          "min": 41.38204574584961,
+          "max": 41.63693618774414
+        },
+        "bbox.ymax": {
+          "min": 41.38205337524414,
+          "max": 41.63694381713867
+        }
+      }
+    },
+    {
+      "row_group": 135,
+      "rows": 16235,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -8.623831748962402,
+          "max": -8.285033226013184
+        },
+        "bbox.xmax": {
+          "min": -8.62382984161377,
+          "max": -8.285032272338867
+        },
+        "bbox.ymin": {
+          "min": 41.63700485229492,
+          "max": 42.93550491333008
+        },
+        "bbox.ymax": {
+          "min": 41.63701248168945,
+          "max": 42.93551254272461
+        }
+      }
+    },
+    {
+      "row_group": 136,
+      "rows": 18946,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -8.284429550170898,
+          "max": -4.236945152282715
+        },
+        "bbox.xmax": {
+          "min": -8.284428596496582,
+          "max": -4.236944675445557
+        },
+        "bbox.ymin": {
+          "min": 40.38441467285156,
+          "max": 40.8376579284668
+        },
+        "bbox.ymax": {
+          "min": 40.384422302246094,
+          "max": 40.83766555786133
+        }
+      }
+    },
+    {
+      "row_group": 137,
+      "rows": 20336,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -8.284639358520508,
+          "max": -4.23694372177124
+        },
+        "bbox.xmax": {
+          "min": -8.284638404846191,
+          "max": -4.236942768096924
+        },
+        "bbox.ymin": {
+          "min": 40.8382682800293,
+          "max": 41.26607131958008
+        },
+        "bbox.ymax": {
+          "min": 40.83827590942383,
+          "max": 41.26607894897461
+        }
+      }
+    },
+    {
+      "row_group": 138,
+      "rows": 18084,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -4.236351013183594,
+          "max": -3.7171247005462646
+        },
+        "bbox.xmax": {
+          "min": -4.2363505363464355,
+          "max": -3.7171242237091064
+        },
+        "bbox.ymin": {
+          "min": 40.38440704345703,
+          "max": 40.49083709716797
+        },
+        "bbox.ymax": {
+          "min": 40.38441467285156,
+          "max": 40.4908447265625
+        }
+      }
+    },
+    {
+      "row_group": 139,
+      "rows": 16548,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -4.236889839172363,
+          "max": -3.7171220779418945
+        },
+        "bbox.xmax": {
+          "min": -4.236889362335205,
+          "max": -3.7171216011047363
+        },
+        "bbox.ymin": {
+          "min": 40.490840911865234,
+          "max": 41.265289306640625
+        },
+        "bbox.ymax": {
+          "min": 40.490848541259766,
+          "max": 41.265296936035156
+        }
+      }
+    },
+    {
+      "row_group": 140,
+      "rows": 16933,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -8.284649848937988,
+          "max": -5.755360126495361
+        },
+        "bbox.xmax": {
+          "min": -8.284648895263672,
+          "max": -5.755359172821045
+        },
+        "bbox.ymin": {
+          "min": 41.26607894897461,
+          "max": 41.800296783447266
+        },
+        "bbox.ymax": {
+          "min": 41.266082763671875,
+          "max": 41.80030059814453
+        }
+      }
+    },
+    {
+      "row_group": 141,
+      "rows": 24550,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -8.284082412719727,
+          "max": -5.755499839782715
+        },
+        "bbox.xmax": {
+          "min": -8.28408145904541,
+          "max": -5.755498886108398
+        },
+        "bbox.ymin": {
+          "min": 41.800357818603516,
+          "max": 42.935489654541016
+        },
+        "bbox.ymax": {
+          "min": 41.80036163330078,
+          "max": 42.93549346923828
+        }
+      }
+    },
+    {
+      "row_group": 142,
+      "rows": 18830,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -5.75531005859375,
+          "max": -3.7188000679016113
+        },
+        "bbox.xmax": {
+          "min": -5.755309104919434,
+          "max": -3.718799591064453
+        },
+        "bbox.ymin": {
+          "min": 41.26639938354492,
+          "max": 41.66533279418945
+        },
+        "bbox.ymax": {
+          "min": 41.26640319824219,
+          "max": 41.66533660888672
+        }
+      }
+    },
+    {
+      "row_group": 143,
+      "rows": 18661,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -5.755327224731445,
+          "max": -3.7171337604522705
+        },
+        "bbox.xmax": {
+          "min": -5.755326271057129,
+          "max": -3.7171332836151123
+        },
+        "bbox.ymin": {
+          "min": 41.66533660888672,
+          "max": 42.935386657714844
+        },
+        "bbox.ymax": {
+          "min": 41.665340423583984,
+          "max": 42.93539047241211
+        }
+      }
+    },
+    {
+      "row_group": 144,
+      "rows": 17883,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -66.05955505371094,
+          "max": -8.40790843963623
+        },
+        "bbox.xmax": {
+          "min": -66.0595474243164,
+          "max": -8.407907485961914
+        },
+        "bbox.ymin": {
+          "min": 42.935760498046875,
+          "max": 44.64071273803711
+        },
+        "bbox.ymax": {
+          "min": 42.935768127441406,
+          "max": 44.64072036743164
+        }
+      }
+    },
+    {
+      "row_group": 145,
+      "rows": 21295,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -65.83290100097656,
+          "max": -61.856788635253906
+        },
+        "bbox.xmax": {
+          "min": -65.83289337158203,
+          "max": -61.856781005859375
+        },
+        "bbox.ymin": {
+          "min": 44.640716552734375,
+          "max": 45.06735610961914
+        },
+        "bbox.ymax": {
+          "min": 44.640724182128906,
+          "max": 45.06736373901367
+        }
+      }
+    },
+    {
+      "row_group": 146,
+      "rows": 28014,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -8.407906532287598,
+          "max": -5.77353572845459
+        },
+        "bbox.xmax": {
+          "min": -8.407905578613281,
+          "max": -5.773535251617432
+        },
+        "bbox.ymin": {
+          "min": 42.935523986816406,
+          "max": 43.394371032714844
+        },
+        "bbox.ymax": {
+          "min": 42.93553161621094,
+          "max": 43.394378662109375
+        }
+      }
+    },
+    {
+      "row_group": 147,
+      "rows": 16848,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -8.350300788879395,
+          "max": -5.773536682128906
+        },
+        "bbox.xmax": {
+          "min": -8.350299835205078,
+          "max": -5.77353572845459
+        },
+        "bbox.ymin": {
+          "min": 43.39439392089844,
+          "max": 43.788490295410156
+        },
+        "bbox.ymax": {
+          "min": 43.39440155029297,
+          "max": 43.78849792480469
+        }
+      }
+    },
+    {
+      "row_group": 148,
+      "rows": 17735,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -66.05973052978516,
+          "max": -62.56998062133789
+        },
+        "bbox.xmax": {
+          "min": -66.05972290039062,
+          "max": -62.56997299194336
+        },
+        "bbox.ymin": {
+          "min": 45.067359924316406,
+          "max": 46.094730377197266
+        },
+        "bbox.ymax": {
+          "min": 45.06736373901367,
+          "max": 46.0947380065918
+        }
+      }
+    },
+    {
+      "row_group": 149,
+      "rows": 21912,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -66.05709838867188,
+          "max": -62.5714225769043
+        },
+        "bbox.xmax": {
+          "min": -66.05709075927734,
+          "max": -62.571414947509766
+        },
+        "bbox.ymin": {
+          "min": 46.09474563598633,
+          "max": 51.90011978149414
+        },
+        "bbox.ymax": {
+          "min": 46.09475326538086,
+          "max": 51.90012741088867
+        }
+      }
+    },
+    {
+      "row_group": 150,
+      "rows": 21343,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -62.56914138793945,
+          "max": -52.619781494140625
+        },
+        "bbox.xmax": {
+          "min": -62.56913375854492,
+          "max": -52.619773864746094
+        },
+        "bbox.ymin": {
+          "min": 45.068538665771484,
+          "max": 48.01670837402344
+        },
+        "bbox.ymax": {
+          "min": 45.068546295166016,
+          "max": 48.01671600341797
+        }
+      }
+    },
+    {
+      "row_group": 151,
+      "rows": 21045,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -62.551761627197266,
+          "max": -6.256700038909912
+        },
+        "bbox.xmax": {
+          "min": -62.551753997802734,
+          "max": -6.256699085235596
+        },
+        "bbox.ymin": {
+          "min": 48.017982482910156,
+          "max": 51.91236877441406
+        },
+        "bbox.ymax": {
+          "min": 48.01799011230469,
+          "max": 51.912376403808594
+        }
+      }
+    },
+    {
+      "row_group": 152,
+      "rows": 17858,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -5.773532867431641,
+          "max": -4.503058910369873
+        },
+        "bbox.xmax": {
+          "min": -5.773531913757324,
+          "max": -4.503058433532715
+        },
+        "bbox.ymin": {
+          "min": 42.93553924560547,
+          "max": 43.54116439819336
+        },
+        "bbox.ymax": {
+          "min": 42.935546875,
+          "max": 43.54117202758789
+        }
+      }
+    },
+    {
+      "row_group": 153,
+      "rows": 21956,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -5.773200035095215,
+          "max": -4.502557754516602
+        },
+        "bbox.xmax": {
+          "min": -5.773199081420898,
+          "max": -4.502556800842285
+        },
+        "bbox.ymin": {
+          "min": 43.541168212890625,
+          "max": 50.26371383666992
+        },
+        "bbox.ymax": {
+          "min": 43.541175842285156,
+          "max": 50.26372146606445
+        }
+      }
+    },
+    {
+      "row_group": 154,
+      "rows": 21598,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -4.502511024475098,
+          "max": -3.7172300815582275
+        },
+        "bbox.xmax": {
+          "min": -4.5025105476379395,
+          "max": -3.7172296047210693
+        },
+        "bbox.ymin": {
+          "min": 42.93610382080078,
+          "max": 47.928070068359375
+        },
+        "bbox.ymax": {
+          "min": 42.93611145019531,
+          "max": 47.928077697753906
+        }
+      }
+    },
+    {
+      "row_group": 155,
+      "rows": 21535,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -4.502500057220459,
+          "max": -3.71714448928833
+        },
+        "bbox.xmax": {
+          "min": -4.502499580383301,
+          "max": -3.717144012451172
+        },
+        "bbox.ymin": {
+          "min": 47.9282341003418,
+          "max": 50.26174545288086
+        },
+        "bbox.ymax": {
+          "min": 47.92824172973633,
+          "max": 50.26175308227539
+        }
+      }
+    },
+    {
+      "row_group": 156,
+      "rows": 17264,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -5.285717010498047,
+          "max": -4.168145179748535
+        },
+        "bbox.xmax": {
+          "min": -5.2857160568237305,
+          "max": -4.168144702911377
+        },
+        "bbox.ymin": {
+          "min": 50.26371765136719,
+          "max": 50.51304244995117
+        },
+        "bbox.ymax": {
+          "min": 50.26372528076172,
+          "max": 50.5130500793457
+        }
+      }
+    },
+    {
+      "row_group": 157,
+      "rows": 20677,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -5.3500213623046875,
+          "max": -4.168140411376953
+        },
+        "bbox.xmax": {
+          "min": -5.350020408630371,
+          "max": -4.168139934539795
+        },
+        "bbox.ymin": {
+          "min": 50.51304626464844,
+          "max": 51.912349700927734
+        },
+        "bbox.ymax": {
+          "min": 50.51305389404297,
+          "max": 51.912357330322266
+        }
+      }
+    },
+    {
+      "row_group": 158,
+      "rows": 20774,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -4.168137073516846,
+          "max": -3.717205047607422
+        },
+        "bbox.xmax": {
+          "min": -4.1681365966796875,
+          "max": -3.7172045707702637
+        },
+        "bbox.ymin": {
+          "min": 50.26372528076172,
+          "max": 51.06413269042969
+        },
+        "bbox.ymax": {
+          "min": 50.26373291015625,
+          "max": 51.06414031982422
+        }
+      }
+    },
+    {
+      "row_group": 159,
+      "rows": 25131,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -4.168136119842529,
+          "max": -3.7171390056610107
+        },
+        "bbox.xmax": {
+          "min": -4.168135643005371,
+          "max": -3.7171385288238525
+        },
+        "bbox.ymin": {
+          "min": 51.06416320800781,
+          "max": 51.91228103637695
+        },
+        "bbox.ymax": {
+          "min": 51.064170837402344,
+          "max": 51.912288665771484
+        }
+      }
+    },
+    {
+      "row_group": 160,
+      "rows": 17945,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.717108964920044,
+          "max": -3.6886684894561768
+        },
+        "bbox.xmax": {
+          "min": -3.7171084880828857,
+          "max": -3.6886680126190186
+        },
+        "bbox.ymin": {
+          "min": 40.38443374633789,
+          "max": 40.42254638671875
+        },
+        "bbox.ymax": {
+          "min": 40.38444137573242,
+          "max": 40.422550201416016
+        }
+      }
+    },
+    {
+      "row_group": 161,
+      "rows": 17395,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.7171213626861572,
+          "max": -3.688657283782959
+        },
+        "bbox.xmax": {
+          "min": -3.717120885848999,
+          "max": -3.688656806945801
+        },
+        "bbox.ymin": {
+          "min": 40.422550201416016,
+          "max": 40.45392608642578
+        },
+        "bbox.ymax": {
+          "min": 40.42255783081055,
+          "max": 40.45392990112305
+        }
+      }
+    },
+    {
+      "row_group": 162,
+      "rows": 21213,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.68864107131958,
+          "max": -3.007140636444092
+        },
+        "bbox.xmax": {
+          "min": -3.688640594482422,
+          "max": -3.0071401596069336
+        },
+        "bbox.ymin": {
+          "min": 40.38440704345703,
+          "max": 40.430667877197266
+        },
+        "bbox.ymax": {
+          "min": 40.3844108581543,
+          "max": 40.43067169189453
+        }
+      }
+    },
+    {
+      "row_group": 163,
+      "rows": 15736,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.688645362854004,
+          "max": -3.1118500232696533
+        },
+        "bbox.xmax": {
+          "min": -3.6886448860168457,
+          "max": -3.111849546432495
+        },
+        "bbox.ymin": {
+          "min": 40.43067169189453,
+          "max": 40.45392608642578
+        },
+        "bbox.ymax": {
+          "min": 40.4306755065918,
+          "max": 40.45392990112305
+        }
+      }
+    },
+    {
+      "row_group": 164,
+      "rows": 20938,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.7171130180358887,
+          "max": -3.4764204025268555
+        },
+        "bbox.xmax": {
+          "min": -3.7171125411987305,
+          "max": -3.4764199256896973
+        },
+        "bbox.ymin": {
+          "min": 40.45392990112305,
+          "max": 40.54015350341797
+        },
+        "bbox.ymax": {
+          "min": 40.45393371582031,
+          "max": 40.5401611328125
+        }
+      }
+    },
+    {
+      "row_group": 165,
+      "rows": 21575,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.7171151638031006,
+          "max": -3.476378917694092
+        },
+        "bbox.xmax": {
+          "min": -3.7171146869659424,
+          "max": -3.4763784408569336
+        },
+        "bbox.ymin": {
+          "min": 40.54016876220703,
+          "max": 48.521602630615234
+        },
+        "bbox.ymax": {
+          "min": 40.5401725769043,
+          "max": 48.521610260009766
+        }
+      }
+    },
+    {
+      "row_group": 166,
+      "rows": 22544,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.476372003555298,
+          "max": -2.9602439403533936
+        },
+        "bbox.xmax": {
+          "min": -3.4763715267181396,
+          "max": -2.9602434635162354
+        },
+        "bbox.ymin": {
+          "min": 40.45393753051758,
+          "max": 43.31794357299805
+        },
+        "bbox.ymax": {
+          "min": 40.45394515991211,
+          "max": 43.31795120239258
+        }
+      }
+    },
+    {
+      "row_group": 167,
+      "rows": 22497,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.4760501384735107,
+          "max": -2.9602720737457275
+        },
+        "bbox.xmax": {
+          "min": -3.4760496616363525,
+          "max": -2.9602715969085693
+        },
+        "bbox.ymin": {
+          "min": 43.31794738769531,
+          "max": 48.52056121826172
+        },
+        "bbox.ymax": {
+          "min": 43.31795120239258,
+          "max": 48.52056884765625
+        }
+      }
+    },
+    {
+      "row_group": 168,
+      "rows": 19836,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.9602198600769043,
+          "max": -2.4539530277252197
+        },
+        "bbox.xmax": {
+          "min": -2.960219383239746,
+          "max": -2.4539527893066406
+        },
+        "bbox.ymin": {
+          "min": 40.386985778808594,
+          "max": 43.18600082397461
+        },
+        "bbox.ymax": {
+          "min": 40.38698959350586,
+          "max": 43.186004638671875
+        }
+      }
+    },
+    {
+      "row_group": 169,
+      "rows": 15947,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.9602270126342773,
+          "max": -2.454195022583008
+        },
+        "bbox.xmax": {
+          "min": -2.960226535797119,
+          "max": -2.4541947841644287
+        },
+        "bbox.ymin": {
+          "min": 43.18600845336914,
+          "max": 43.31482696533203
+        },
+        "bbox.ymax": {
+          "min": 43.18601608276367,
+          "max": 43.3148307800293
+        }
+      }
+    },
+    {
+      "row_group": 170,
+      "rows": 17558,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.453920364379883,
+          "max": -1.5878448486328125
+        },
+        "bbox.xmax": {
+          "min": -2.4539198875427246,
+          "max": -1.5878446102142334
+        },
+        "bbox.ymin": {
+          "min": 40.38786315917969,
+          "max": 42.786869049072266
+        },
+        "bbox.ymax": {
+          "min": 40.38787078857422,
+          "max": 42.7868766784668
+        }
+      }
+    },
+    {
+      "row_group": 171,
+      "rows": 22467,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.453876256942749,
+          "max": -1.587820053100586
+        },
+        "bbox.xmax": {
+          "min": -2.45387601852417,
+          "max": -1.5878198146820068
+        },
+        "bbox.ymin": {
+          "min": 42.78691864013672,
+          "max": 43.314857482910156
+        },
+        "bbox.ymax": {
+          "min": 42.78692626953125,
+          "max": 43.31486511230469
+        }
+      }
+    },
+    {
+      "row_group": 172,
+      "rows": 21588,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.960226535797119,
+          "max": -1.958909034729004
+        },
+        "bbox.xmax": {
+          "min": -2.960226058959961,
+          "max": -1.9589087963104248
+        },
+        "bbox.ymin": {
+          "min": 43.31487274169922,
+          "max": 47.54358673095703
+        },
+        "bbox.ymax": {
+          "min": 43.31488037109375,
+          "max": 47.54359436035156
+        }
+      }
+    },
+    {
+      "row_group": 173,
+      "rows": 24415,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.960221529006958,
+          "max": -1.9588494300842285
+        },
+        "bbox.xmax": {
+          "min": -2.9602210521698,
+          "max": -1.9588491916656494
+        },
+        "bbox.ymin": {
+          "min": 47.54361343383789,
+          "max": 48.52169418334961
+        },
+        "bbox.ymax": {
+          "min": 47.54362106323242,
+          "max": 48.52170181274414
+        }
+      }
+    },
+    {
+      "row_group": 174,
+      "rows": 20743,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -1.9587976932525635,
+          "max": -1.5877982378005981
+        },
+        "bbox.xmax": {
+          "min": -1.9587974548339844,
+          "max": -1.587797999382019
+        },
+        "bbox.ymin": {
+          "min": 43.31486129760742,
+          "max": 47.261253356933594
+        },
+        "bbox.ymax": {
+          "min": 43.31486892700195,
+          "max": 47.261260986328125
+        }
+      }
+    },
+    {
+      "row_group": 175,
+      "rows": 21956,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -1.958834171295166,
+          "max": -1.5877795219421387
+        },
+        "bbox.xmax": {
+          "min": -1.958833932876587,
+          "max": -1.5877792835235596
+        },
+        "bbox.ymin": {
+          "min": 47.261260986328125,
+          "max": 48.52150344848633
+        },
+        "bbox.ymax": {
+          "min": 47.26126480102539,
+          "max": 48.52151107788086
+        }
+      }
+    },
+    {
+      "row_group": 176,
+      "rows": 17312,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.7171032428741455,
+          "max": -3.2967960834503174
+        },
+        "bbox.xmax": {
+          "min": -3.7171027660369873,
+          "max": -3.296795606613159
+        },
+        "bbox.ymin": {
+          "min": 48.52172088623047,
+          "max": 50.545597076416016
+        },
+        "bbox.ymax": {
+          "min": 48.521728515625,
+          "max": 50.54560470581055
+        }
+      }
+    },
+    {
+      "row_group": 177,
+      "rows": 22361,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.7169270515441895,
+          "max": -3.2969717979431152
+        },
+        "bbox.xmax": {
+          "min": -3.7169265747070312,
+          "max": -3.296971321105957
+        },
+        "bbox.ymin": {
+          "min": 50.54560470581055,
+          "max": 51.40337371826172
+        },
+        "bbox.ymax": {
+          "min": 50.54561233520508,
+          "max": 51.40338134765625
+        }
+      }
+    },
+    {
+      "row_group": 178,
+      "rows": 23938,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.296759843826294,
+          "max": -2.5853002071380615
+        },
+        "bbox.xmax": {
+          "min": -3.2967593669891357,
+          "max": -2.5852999687194824
+        },
+        "bbox.ymin": {
+          "min": 48.52178192138672,
+          "max": 51.0228157043457
+        },
+        "bbox.ymax": {
+          "min": 48.52178955078125,
+          "max": 51.022823333740234
+        }
+      }
+    },
+    {
+      "row_group": 179,
+      "rows": 20982,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.296670913696289,
+          "max": -2.585344076156616
+        },
+        "bbox.xmax": {
+          "min": -3.296670436859131,
+          "max": -2.585343837738037
+        },
+        "bbox.ymin": {
+          "min": 51.022823333740234,
+          "max": 51.403377532958984
+        },
+        "bbox.ymax": {
+          "min": 51.022830963134766,
+          "max": 51.403385162353516
+        }
+      }
+    },
+    {
+      "row_group": 180,
+      "rows": 27136,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.7168290615081787,
+          "max": -3.133272409439087
+        },
+        "bbox.xmax": {
+          "min": -3.7168285846710205,
+          "max": -3.1332719326019287
+        },
+        "bbox.ymin": {
+          "min": 51.40340042114258,
+          "max": 51.55182647705078
+        },
+        "bbox.ymax": {
+          "min": 51.40340805053711,
+          "max": 51.55183410644531
+        }
+      }
+    },
+    {
+      "row_group": 181,
+      "rows": 19778,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.7166829109191895,
+          "max": -3.1332809925079346
+        },
+        "bbox.xmax": {
+          "min": -3.7166824340820312,
+          "max": -3.1332805156707764
+        },
+        "bbox.ymin": {
+          "min": 51.55183410644531,
+          "max": 51.91211700439453
+        },
+        "bbox.ymax": {
+          "min": 51.551841735839844,
+          "max": 51.91212463378906
+        }
+      }
+    },
+    {
+      "row_group": 182,
+      "rows": 21322,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.133236885070801,
+          "max": -2.5852620601654053
+        },
+        "bbox.xmax": {
+          "min": -3.1332364082336426,
+          "max": -2.585261583328247
+        },
+        "bbox.ymin": {
+          "min": 51.403419494628906,
+          "max": 51.53981399536133
+        },
+        "bbox.ymax": {
+          "min": 51.40342712402344,
+          "max": 51.53982162475586
+        }
+      }
+    },
+    {
+      "row_group": 183,
+      "rows": 17749,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.13325834274292,
+          "max": -2.5852785110473633
+        },
+        "bbox.xmax": {
+          "min": -3.1332578659057617,
+          "max": -2.585278034210205
+        },
+        "bbox.ymin": {
+          "min": 51.53984451293945,
+          "max": 51.912357330322266
+        },
+        "bbox.ymax": {
+          "min": 51.539852142333984,
+          "max": 51.9123649597168
+        }
+      }
+    },
+    {
+      "row_group": 184,
+      "rows": 24837,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.585222005844116,
+          "max": -1.9112166166305542
+        },
+        "bbox.xmax": {
+          "min": -2.585221767425537,
+          "max": -1.911216378211975
+        },
+        "bbox.ymin": {
+          "min": 48.521705627441406,
+          "max": 50.73196792602539
+        },
+        "bbox.ymax": {
+          "min": 48.52171325683594,
+          "max": 50.73197555541992
+        }
+      }
+    },
+    {
+      "row_group": 185,
+      "rows": 18556,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.58520245552063,
+          "max": -1.9111653566360474
+        },
+        "bbox.xmax": {
+          "min": -2.5852019786834717,
+          "max": -1.9111651182174683
+        },
+        "bbox.ymin": {
+          "min": 50.731971740722656,
+          "max": 51.22896957397461
+        },
+        "bbox.ymax": {
+          "min": 50.73197937011719,
+          "max": 51.22897720336914
+        }
+      }
+    },
+    {
+      "row_group": 186,
+      "rows": 17410,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -1.9111405611038208,
+          "max": -1.5877963304519653
+        },
+        "bbox.xmax": {
+          "min": -1.9111403226852417,
+          "max": -1.5877960920333862
+        },
+        "bbox.ymin": {
+          "min": 48.5220832824707,
+          "max": 50.74686813354492
+        },
+        "bbox.ymax": {
+          "min": 48.522090911865234,
+          "max": 50.74687576293945
+        }
+      }
+    },
+    {
+      "row_group": 187,
+      "rows": 15822,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -1.9111053943634033,
+          "max": -1.5878205299377441
+        },
+        "bbox.xmax": {
+          "min": -1.9111051559448242,
+          "max": -1.587820291519165
+        },
+        "bbox.ymin": {
+          "min": 50.74687194824219,
+          "max": 51.22895431518555
+        },
+        "bbox.ymax": {
+          "min": 50.74687957763672,
+          "max": 51.22896194458008
+        }
+      }
+    },
+    {
+      "row_group": 188,
+      "rows": 20687,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.585261106491089,
+          "max": -2.232801675796509
+        },
+        "bbox.xmax": {
+          "min": -2.5852606296539307,
+          "max": -2.2328011989593506
+        },
+        "bbox.ymin": {
+          "min": 51.228973388671875,
+          "max": 51.46140670776367
+        },
+        "bbox.ymax": {
+          "min": 51.228981018066406,
+          "max": 51.4614143371582
+        }
+      }
+    },
+    {
+      "row_group": 189,
+      "rows": 23654,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.585249423980713,
+          "max": -2.2326576709747314
+        },
+        "bbox.xmax": {
+          "min": -2.5852489471435547,
+          "max": -2.2326574325561523
+        },
+        "bbox.ymin": {
+          "min": 51.4614143371582,
+          "max": 51.91237258911133
+        },
+        "bbox.ymax": {
+          "min": 51.461421966552734,
+          "max": 51.91238021850586
+        }
+      }
+    },
+    {
+      "row_group": 190,
+      "rows": 21288,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.2325901985168457,
+          "max": -1.5878881216049194
+        },
+        "bbox.xmax": {
+          "min": -2.2325899600982666,
+          "max": -1.5878878831863403
+        },
+        "bbox.ymin": {
+          "min": 51.2289924621582,
+          "max": 51.57301330566406
+        },
+        "bbox.ymax": {
+          "min": 51.229000091552734,
+          "max": 51.573020935058594
+        }
+      }
+    },
+    {
+      "row_group": 191,
+      "rows": 23957,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.232651948928833,
+          "max": -1.5877999067306519
+        },
+        "bbox.xmax": {
+          "min": -2.232651710510254,
+          "max": -1.5877996683120728
+        },
+        "bbox.ymin": {
+          "min": 51.57301712036133,
+          "max": 51.91238021850586
+        },
+        "bbox.ymax": {
+          "min": 51.57302474975586,
+          "max": 51.91238784790039
+        }
+      }
+    },
+    {
+      "row_group": 192,
+      "rows": 12937,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -66.0320053100586,
+          "max": -7.178220748901367
+        },
+        "bbox.xmax": {
+          "min": -66.03199768066406,
+          "max": -7.178219795227051
+        },
+        "bbox.ymin": {
+          "min": 51.912384033203125,
+          "max": 52.43334197998047
+        },
+        "bbox.ymax": {
+          "min": 51.912391662597656,
+          "max": 52.433349609375
+        }
+      }
+    },
+    {
+      "row_group": 193,
+      "rows": 25814,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -65.83195495605469,
+          "max": -7.177718162536621
+        },
+        "bbox.xmax": {
+          "min": -65.83194732666016,
+          "max": -7.177717208862305
+        },
+        "bbox.ymin": {
+          "min": 52.43342590332031,
+          "max": 53.34223937988281
+        },
+        "bbox.ymax": {
+          "min": 52.433433532714844,
+          "max": 53.342247009277344
+        }
+      }
+    },
+    {
+      "row_group": 194,
+      "rows": 21604,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -7.177557945251465,
+          "max": -5.998257637023926
+        },
+        "bbox.xmax": {
+          "min": -7.177556991577148,
+          "max": -5.998256683349609
+        },
+        "bbox.ymin": {
+          "min": 52.12371826171875,
+          "max": 53.274627685546875
+        },
+        "bbox.ymax": {
+          "min": 52.12372589111328,
+          "max": 53.274635314941406
+        }
+      }
+    },
+    {
+      "row_group": 195,
+      "rows": 20416,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -7.133462905883789,
+          "max": -6.093446731567383
+        },
+        "bbox.xmax": {
+          "min": -7.133461952209473,
+          "max": -6.093445777893066
+        },
+        "bbox.ymin": {
+          "min": 53.27464294433594,
+          "max": 53.342323303222656
+        },
+        "bbox.ymax": {
+          "min": 53.27465057373047,
+          "max": 53.34233093261719
+        }
+      }
+    },
+    {
+      "row_group": 196,
+      "rows": 20626,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -65.9985122680664,
+          "max": -6.399972915649414
+        },
+        "bbox.xmax": {
+          "min": -65.99850463867188,
+          "max": -6.399971961975098
+        },
+        "bbox.ymin": {
+          "min": 53.34232711791992,
+          "max": 53.97201919555664
+        },
+        "bbox.ymax": {
+          "min": 53.34233474731445,
+          "max": 53.97202682495117
+        }
+      }
+    },
+    {
+      "row_group": 197,
+      "rows": 20803,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -66.01520538330078,
+          "max": -6.400000095367432
+        },
+        "bbox.xmax": {
+          "min": -66.01519775390625,
+          "max": -6.399999141693115
+        },
+        "bbox.ymin": {
+          "min": 53.97214889526367,
+          "max": 54.579002380371094
+        },
+        "bbox.ymax": {
+          "min": 53.9721565246582,
+          "max": 54.579010009765625
+        }
+      }
+    },
+    {
+      "row_group": 198,
+      "rows": 19939,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -6.399952411651611,
+          "max": -6.026390075683594
+        },
+        "bbox.xmax": {
+          "min": -6.399951457977295,
+          "max": -6.026389122009277
+        },
+        "bbox.ymin": {
+          "min": 53.34232711791992,
+          "max": 53.49114990234375
+        },
+        "bbox.ymax": {
+          "min": 53.34233474731445,
+          "max": 53.49115753173828
+        }
+      }
+    },
+    {
+      "row_group": 199,
+      "rows": 19620,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -6.399956703186035,
+          "max": -5.952254295349121
+        },
+        "bbox.xmax": {
+          "min": -6.399955749511719,
+          "max": -5.952253341674805
+        },
+        "bbox.ymin": {
+          "min": 53.49127960205078,
+          "max": 54.57902526855469
+        },
+        "bbox.ymax": {
+          "min": 53.49128723144531,
+          "max": 54.57903289794922
+        }
+      }
+    },
+    {
+      "row_group": 200,
+      "rows": 20171,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -5.235885143280029,
+          "max": -3.1124002933502197
+        },
+        "bbox.xmax": {
+          "min": -5.235884666442871,
+          "max": -3.1123998165130615
+        },
+        "bbox.ymin": {
+          "min": 51.91239929199219,
+          "max": 53.04795837402344
+        },
+        "bbox.ymax": {
+          "min": 51.91240692138672,
+          "max": 53.04796600341797
+        }
+      }
+    },
+    {
+      "row_group": 201,
+      "rows": 23067,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -4.699542999267578,
+          "max": -3.1123383045196533
+        },
+        "bbox.xmax": {
+          "min": -4.69954252243042,
+          "max": -3.112337827682495
+        },
+        "bbox.ymin": {
+          "min": 53.048282623291016,
+          "max": 53.40016555786133
+        },
+        "bbox.ymax": {
+          "min": 53.04829025268555,
+          "max": 53.40017318725586
+        }
+      }
+    },
+    {
+      "row_group": 202,
+      "rows": 18920,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.1121044158935547,
+          "max": -2.782158851623535
+        },
+        "bbox.xmax": {
+          "min": -3.1121039390563965,
+          "max": -2.782158374786377
+        },
+        "bbox.ymin": {
+          "min": 51.9139404296875,
+          "max": 53.19102478027344
+        },
+        "bbox.ymax": {
+          "min": 51.91394805908203,
+          "max": 53.19103240966797
+        }
+      }
+    },
+    {
+      "row_group": 203,
+      "rows": 25543,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.112194061279297,
+          "max": -2.7823424339294434
+        },
+        "bbox.xmax": {
+          "min": -3.1121935844421387,
+          "max": -2.7823421955108643
+        },
+        "bbox.ymin": {
+          "min": 53.191036224365234,
+          "max": 53.40016555786133
+        },
+        "bbox.ymax": {
+          "min": 53.191043853759766,
+          "max": 53.40017318725586
+        }
+      }
+    },
+    {
+      "row_group": 204,
+      "rows": 21390,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -4.611709117889404,
+          "max": -3.000420093536377
+        },
+        "bbox.xmax": {
+          "min": -4.611708641052246,
+          "max": -3.0004196166992188
+        },
+        "bbox.ymin": {
+          "min": 53.400169372558594,
+          "max": 53.882869720458984
+        },
+        "bbox.ymax": {
+          "min": 53.400177001953125,
+          "max": 53.882877349853516
+        }
+      }
+    },
+    {
+      "row_group": 205,
+      "rows": 19251,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -5.952239990234375,
+          "max": -3.0008890628814697
+        },
+        "bbox.xmax": {
+          "min": -5.952239036560059,
+          "max": -3.0008885860443115
+        },
+        "bbox.ymin": {
+          "min": 53.88289260864258,
+          "max": 54.57901382446289
+        },
+        "bbox.ymax": {
+          "min": 53.88290023803711,
+          "max": 54.57902145385742
+        }
+      }
+    },
+    {
+      "row_group": 206,
+      "rows": 18491,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.000418186187744,
+          "max": -2.782156467437744
+        },
+        "bbox.xmax": {
+          "min": -3.000417709350586,
+          "max": -2.782155990600586
+        },
+        "bbox.ymin": {
+          "min": 53.400169372558594,
+          "max": 53.47930908203125
+        },
+        "bbox.ymax": {
+          "min": 53.400177001953125,
+          "max": 53.47931671142578
+        }
+      }
+    },
+    {
+      "row_group": 207,
+      "rows": 23403,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.0004193782806396,
+          "max": -2.782156467437744
+        },
+        "bbox.xmax": {
+          "min": -3.0004189014434814,
+          "max": -2.782155990600586
+        },
+        "bbox.ymin": {
+          "min": 53.47931671142578,
+          "max": 54.577728271484375
+        },
+        "bbox.ymax": {
+          "min": 53.47932434082031,
+          "max": 54.577735900878906
+        }
+      }
+    },
+    {
+      "row_group": 208,
+      "rows": 22657,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -65.91517639160156,
+          "max": -5.870953559875488
+        },
+        "bbox.xmax": {
+          "min": -65.91516876220703,
+          "max": -5.870952606201172
+        },
+        "bbox.ymin": {
+          "min": 54.57902908325195,
+          "max": 54.752864837646484
+        },
+        "bbox.ymax": {
+          "min": 54.579036712646484,
+          "max": 54.752872467041016
+        }
+      }
+    },
+    {
+      "row_group": 209,
+      "rows": 22336,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -65.96306610107422,
+          "max": -5.871149063110352
+        },
+        "bbox.xmax": {
+          "min": -65.96305847167969,
+          "max": -5.871148109436035
+        },
+        "bbox.ymin": {
+          "min": 54.75288391113281,
+          "max": 55.80057907104492
+        },
+        "bbox.ymax": {
+          "min": 54.752891540527344,
+          "max": 55.80058670043945
+        }
+      }
+    },
+    {
+      "row_group": 210,
+      "rows": 15860,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -5.870940208435059,
+          "max": -4.233606338500977
+        },
+        "bbox.xmax": {
+          "min": -5.870939254760742,
+          "max": -4.233605861663818
+        },
+        "bbox.ymin": {
+          "min": 54.57912826538086,
+          "max": 55.47492980957031
+        },
+        "bbox.ymax": {
+          "min": 54.57913589477539,
+          "max": 55.474937438964844
+        }
+      }
+    },
+    {
+      "row_group": 211,
+      "rows": 14310,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -5.752474784851074,
+          "max": -4.233797550201416
+        },
+        "bbox.xmax": {
+          "min": -5.752473831176758,
+          "max": -4.233797073364258
+        },
+        "bbox.ymin": {
+          "min": 55.47498321533203,
+          "max": 55.802547454833984
+        },
+        "bbox.ymax": {
+          "min": 55.47499084472656,
+          "max": 55.802555084228516
+        }
+      }
+    },
+    {
+      "row_group": 212,
+      "rows": 24258,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -66.00000762939453,
+          "max": -4.516515731811523
+        },
+        "bbox.xmax": {
+          "min": -66.0,
+          "max": -4.516514778137207
+        },
+        "bbox.ymin": {
+          "min": 55.80259323120117,
+          "max": 63.96780014038086
+        },
+        "bbox.ymax": {
+          "min": 55.8026008605957,
+          "max": 63.96780776977539
+        }
+      }
+    },
+    {
+      "row_group": 213,
+      "rows": 19309,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -65.92623138427734,
+          "max": -8.473496437072754
+        },
+        "bbox.xmax": {
+          "min": -65.92622375488281,
+          "max": -8.473495483398438
+        },
+        "bbox.ymin": {
+          "min": 63.9681282043457,
+          "max": 83.57147216796875
+        },
+        "bbox.ymax": {
+          "min": 63.968135833740234,
+          "max": 83.57147979736328
+        }
+      }
+    },
+    {
+      "row_group": 214,
+      "rows": 17461,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -4.516481399536133,
+          "max": -4.23360013961792
+        },
+        "bbox.xmax": {
+          "min": -4.516480922698975,
+          "max": -4.233599662780762
+        },
+        "bbox.ymin": {
+          "min": 55.80255889892578,
+          "max": 55.86064147949219
+        },
+        "bbox.ymax": {
+          "min": 55.80256652832031,
+          "max": 55.86064910888672
+        }
+      }
+    },
+    {
+      "row_group": 215,
+      "rows": 22688,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -4.51649808883667,
+          "max": -4.23360013961792
+        },
+        "bbox.xmax": {
+          "min": -4.5164971351623535,
+          "max": -4.233599662780762
+        },
+        "bbox.ymin": {
+          "min": 55.86064910888672,
+          "max": 58.551025390625
+        },
+        "bbox.ymax": {
+          "min": 55.86065673828125,
+          "max": 58.55103302001953
+        }
+      }
+    },
+    {
+      "row_group": 216,
+      "rows": 16797,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -4.233598232269287,
+          "max": -3.760606050491333
+        },
+        "bbox.xmax": {
+          "min": -4.233597278594971,
+          "max": -3.760605573654175
+        },
+        "bbox.ymin": {
+          "min": 54.766666412353516,
+          "max": 55.82099533081055
+        },
+        "bbox.ymax": {
+          "min": 54.76667404174805,
+          "max": 55.82100296020508
+        }
+      }
+    },
+    {
+      "row_group": 217,
+      "rows": 16064,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -4.233585834503174,
+          "max": -3.7606093883514404
+        },
+        "bbox.xmax": {
+          "min": -4.233584880828857,
+          "max": -3.7606089115142822
+        },
+        "bbox.ymin": {
+          "min": 55.82101058959961,
+          "max": 55.95303726196289
+        },
+        "bbox.ymax": {
+          "min": 55.82101821899414,
+          "max": 55.95304489135742
+        }
+      }
+    },
+    {
+      "row_group": 218,
+      "rows": 20577,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.76047945022583,
+          "max": -2.7822000980377197
+        },
+        "bbox.xmax": {
+          "min": -3.760478973388672,
+          "max": -2.7821998596191406
+        },
+        "bbox.ymin": {
+          "min": 54.579139709472656,
+          "max": 55.82488250732422
+        },
+        "bbox.ymax": {
+          "min": 54.57914733886719,
+          "max": 55.82489013671875
+        }
+      }
+    },
+    {
+      "row_group": 219,
+      "rows": 29717,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.7605106830596924,
+          "max": -2.7821686267852783
+        },
+        "bbox.xmax": {
+          "min": -3.760510206222534,
+          "max": -2.78216814994812
+        },
+        "bbox.ymin": {
+          "min": 55.824954986572266,
+          "max": 55.95307159423828
+        },
+        "bbox.ymax": {
+          "min": 55.8249626159668,
+          "max": 55.95307922363281
+        }
+      }
+    },
+    {
+      "row_group": 220,
+      "rows": 18057,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -4.233242034912109,
+          "max": -3.3651225566864014
+        },
+        "bbox.xmax": {
+          "min": -4.233241558074951,
+          "max": -3.365122079849243
+        },
+        "bbox.ymin": {
+          "min": 55.95307540893555,
+          "max": 56.14439392089844
+        },
+        "bbox.ymax": {
+          "min": 55.95308303833008,
+          "max": 56.14440155029297
+        }
+      }
+    },
+    {
+      "row_group": 221,
+      "rows": 19101,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -4.2335991859436035,
+          "max": -3.365180015563965
+        },
+        "bbox.xmax": {
+          "min": -4.233598709106445,
+          "max": -3.3651795387268066
+        },
+        "bbox.ymin": {
+          "min": 56.144771575927734,
+          "max": 59.0
+        },
+        "bbox.ymax": {
+          "min": 56.144779205322266,
+          "max": 59.0
+        }
+      }
+    },
+    {
+      "row_group": 222,
+      "rows": 19196,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.365042209625244,
+          "max": -2.782153844833374
+        },
+        "bbox.xmax": {
+          "min": -3.365041732788086,
+          "max": -2.782153367996216
+        },
+        "bbox.ymin": {
+          "min": 55.95307540893555,
+          "max": 56.20345687866211
+        },
+        "bbox.ymax": {
+          "min": 55.95308303833008,
+          "max": 56.20346450805664
+        }
+      }
+    },
+    {
+      "row_group": 223,
+      "rows": 21060,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -3.3650310039520264,
+          "max": -2.782167673110962
+        },
+        "bbox.xmax": {
+          "min": -3.365030527114868,
+          "max": -2.7821671962738037
+        },
+        "bbox.ymin": {
+          "min": 56.203487396240234,
+          "max": 59.36666488647461
+        },
+        "bbox.ymax": {
+          "min": 56.203495025634766,
+          "max": 59.36667251586914
+        }
+      }
+    },
+    {
+      "row_group": 224,
+      "rows": 20944,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.7821240425109863,
+          "max": -2.2375950813293457
+        },
+        "bbox.xmax": {
+          "min": -2.7821238040924072,
+          "max": -2.2375948429107666
+        },
+        "bbox.ymin": {
+          "min": 51.91241455078125,
+          "max": 52.536216735839844
+        },
+        "bbox.ymax": {
+          "min": 51.91242218017578,
+          "max": 52.536224365234375
+        }
+      }
+    },
+    {
+      "row_group": 225,
+      "rows": 19529,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.7821526527404785,
+          "max": -2.237919569015503
+        },
+        "bbox.xmax": {
+          "min": -2.7821521759033203,
+          "max": -2.237919330596924
+        },
+        "bbox.ymin": {
+          "min": 52.53622055053711,
+          "max": 52.994224548339844
+        },
+        "bbox.ymax": {
+          "min": 52.53622817993164,
+          "max": 52.994232177734375
+        }
+      }
+    },
+    {
+      "row_group": 226,
+      "rows": 13186,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.237588405609131,
+          "max": -2.1206159591674805
+        },
+        "bbox.xmax": {
+          "min": -2.2375879287719727,
+          "max": -2.1206157207489014
+        },
+        "bbox.ymin": {
+          "min": 51.91280746459961,
+          "max": 52.471675872802734
+        },
+        "bbox.ymax": {
+          "min": 51.91281509399414,
+          "max": 52.471683502197266
+        }
+      }
+    },
+    {
+      "row_group": 227,
+      "rows": 16335,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.2374088764190674,
+          "max": -2.120584487915039
+        },
+        "bbox.xmax": {
+          "min": -2.237408399581909,
+          "max": -2.12058424949646
+        },
+        "bbox.ymin": {
+          "min": 52.471736907958984,
+          "max": 52.994258880615234
+        },
+        "bbox.ymax": {
+          "min": 52.471744537353516,
+          "max": 52.994266510009766
+        }
+      }
+    },
+    {
+      "row_group": 228,
+      "rows": 19641,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.782139301300049,
+          "max": -2.3407840728759766
+        },
+        "bbox.xmax": {
+          "min": -2.7821388244628906,
+          "max": -2.3407838344573975
+        },
+        "bbox.ymin": {
+          "min": 52.994651794433594,
+          "max": 53.3462028503418
+        },
+        "bbox.ymax": {
+          "min": 52.994659423828125,
+          "max": 53.34621047973633
+        }
+      }
+    },
+    {
+      "row_group": 229,
+      "rows": 20413,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.782060384750366,
+          "max": -2.3407845497131348
+        },
+        "bbox.xmax": {
+          "min": -2.782059907913208,
+          "max": -2.3407843112945557
+        },
+        "bbox.ymin": {
+          "min": 53.34627151489258,
+          "max": 53.4477653503418
+        },
+        "bbox.ymax": {
+          "min": 53.34627914428711,
+          "max": 53.44777297973633
+        }
+      }
+    },
+    {
+      "row_group": 230,
+      "rows": 24871,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.3407297134399414,
+          "max": -2.1206040382385254
+        },
+        "bbox.xmax": {
+          "min": -2.340729236602783,
+          "max": -2.1206037998199463
+        },
+        "bbox.ymin": {
+          "min": 52.9942741394043,
+          "max": 53.365928649902344
+        },
+        "bbox.ymax": {
+          "min": 52.99428176879883,
+          "max": 53.365936279296875
+        }
+      }
+    },
+    {
+      "row_group": 231,
+      "rows": 22140,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.3407623767852783,
+          "max": -2.1206133365631104
+        },
+        "bbox.xmax": {
+          "min": -2.340762138366699,
+          "max": -2.1206130981445312
+        },
+        "bbox.ymin": {
+          "min": 53.365943908691406,
+          "max": 53.4477653503418
+        },
+        "bbox.ymax": {
+          "min": 53.36595153808594,
+          "max": 53.44777297973633
+        }
+      }
+    },
+    {
+      "row_group": 232,
+      "rows": 22722,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.120581865310669,
+          "max": -1.892902135848999
+        },
+        "bbox.xmax": {
+          "min": -2.12058162689209,
+          "max": -1.89290189743042
+        },
+        "bbox.ymin": {
+          "min": 51.91239547729492,
+          "max": 52.457298278808594
+        },
+        "bbox.ymax": {
+          "min": 51.91240310668945,
+          "max": 52.457305908203125
+        }
+      }
+    },
+    {
+      "row_group": 233,
+      "rows": 19524,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.1205761432647705,
+          "max": -1.892903208732605
+        },
+        "bbox.xmax": {
+          "min": -2.1205759048461914,
+          "max": -1.8929029703140259
+        },
+        "bbox.ymin": {
+          "min": 52.45730209350586,
+          "max": 52.4964599609375
+        },
+        "bbox.ymax": {
+          "min": 52.45730972290039,
+          "max": 52.49646759033203
+        }
+      }
+    },
+    {
+      "row_group": 234,
+      "rows": 17010,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -1.8928823471069336,
+          "max": -1.587784767150879
+        },
+        "bbox.xmax": {
+          "min": -1.8928821086883545,
+          "max": -1.5877845287322998
+        },
+        "bbox.ymin": {
+          "min": 51.91252517700195,
+          "max": 52.41918182373047
+        },
+        "bbox.ymax": {
+          "min": 51.912532806396484,
+          "max": 52.419189453125
+        }
+      }
+    },
+    {
+      "row_group": 235,
+      "rows": 17221,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -1.8929020166397095,
+          "max": -1.5878900289535522
+        },
+        "bbox.xmax": {
+          "min": -1.8929017782211304,
+          "max": -1.5878897905349731
+        },
+        "bbox.ymin": {
+          "min": 52.41923141479492,
+          "max": 52.49644470214844
+        },
+        "bbox.ymax": {
+          "min": 52.41923904418945,
+          "max": 52.49645233154297
+        }
+      }
+    },
+    {
+      "row_group": 236,
+      "rows": 20676,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.1205837726593018,
+          "max": -1.9685496091842651
+        },
+        "bbox.xmax": {
+          "min": -2.1205835342407227,
+          "max": -1.968549370765686
+        },
+        "bbox.ymin": {
+          "min": 52.49646759033203,
+          "max": 52.64242172241211
+        },
+        "bbox.ymax": {
+          "min": 52.49647521972656,
+          "max": 52.64242935180664
+        }
+      }
+    },
+    {
+      "row_group": 237,
+      "rows": 19261,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.120584011077881,
+          "max": -1.9685935974121094
+        },
+        "bbox.xmax": {
+          "min": -2.1205837726593018,
+          "max": -1.9685933589935303
+        },
+        "bbox.ymin": {
+          "min": 52.64242935180664,
+          "max": 53.44776153564453
+        },
+        "bbox.ymax": {
+          "min": 52.64243698120117,
+          "max": 53.44776916503906
+        }
+      }
+    },
+    {
+      "row_group": 238,
+      "rows": 20905,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -1.9685359001159668,
+          "max": -1.5888217687606812
+        },
+        "bbox.xmax": {
+          "min": -1.9685356616973877,
+          "max": -1.588821530342102
+        },
+        "bbox.ymin": {
+          "min": 52.496463775634766,
+          "max": 52.62873077392578
+        },
+        "bbox.ymax": {
+          "min": 52.4964714050293,
+          "max": 52.62873840332031
+        }
+      }
+    },
+    {
+      "row_group": 239,
+      "rows": 24341,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -1.9685419797897339,
+          "max": -1.5877951383590698
+        },
+        "bbox.xmax": {
+          "min": -1.9685417413711548,
+          "max": -1.5877948999404907
+        },
+        "bbox.ymin": {
+          "min": 52.628746032714844,
+          "max": 53.44758605957031
+        },
+        "bbox.ymax": {
+          "min": 52.628753662109375,
+          "max": 53.447593688964844
+        }
+      }
+    },
+    {
+      "row_group": 240,
+      "rows": 26825,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.7821266651153564,
+          "max": -2.3048481941223145
+        },
+        "bbox.xmax": {
+          "min": -2.7821261882781982,
+          "max": -2.3048479557037354
+        },
+        "bbox.ymin": {
+          "min": 53.44776916503906,
+          "max": 53.54892349243164
+        },
+        "bbox.ymax": {
+          "min": 53.447776794433594,
+          "max": 53.54893112182617
+        }
+      }
+    },
+    {
+      "row_group": 241,
+      "rows": 15313,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.782041072845459,
+          "max": -2.30492901802063
+        },
+        "bbox.xmax": {
+          "min": -2.782040596008301,
+          "max": -2.304928779602051
+        },
+        "bbox.ymin": {
+          "min": 53.548927307128906,
+          "max": 53.603363037109375
+        },
+        "bbox.ymax": {
+          "min": 53.54893493652344,
+          "max": 53.603370666503906
+        }
+      }
+    },
+    {
+      "row_group": 242,
+      "rows": 20098,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.304826498031616,
+          "max": -2.1885783672332764
+        },
+        "bbox.xmax": {
+          "min": -2.304826259613037,
+          "max": -2.188577890396118
+        },
+        "bbox.ymin": {
+          "min": 53.44777297973633,
+          "max": 53.48632049560547
+        },
+        "bbox.ymax": {
+          "min": 53.44778060913086,
+          "max": 53.486328125
+        }
+      }
+    },
+    {
+      "row_group": 243,
+      "rows": 13977,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.3048171997070312,
+          "max": -2.18858003616333
+        },
+        "bbox.xmax": {
+          "min": -2.304816961288452,
+          "max": -2.188579797744751
+        },
+        "bbox.ymin": {
+          "min": 53.486328125,
+          "max": 53.60332107543945
+        },
+        "bbox.ymax": {
+          "min": 53.48633575439453,
+          "max": 53.603328704833984
+        }
+      }
+    },
+    {
+      "row_group": 244,
+      "rows": 17797,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.782153606414795,
+          "max": -2.590848207473755
+        },
+        "bbox.xmax": {
+          "min": -2.7821531295776367,
+          "max": -2.590847969055176
+        },
+        "bbox.ymin": {
+          "min": 53.60367965698242,
+          "max": 53.833465576171875
+        },
+        "bbox.ymax": {
+          "min": 53.60368728637695,
+          "max": 53.833473205566406
+        }
+      }
+    },
+    {
+      "row_group": 245,
+      "rows": 14041,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.7821240425109863,
+          "max": -2.590853214263916
+        },
+        "bbox.xmax": {
+          "min": -2.782123565673828,
+          "max": -2.590852975845337
+        },
+        "bbox.ymin": {
+          "min": 53.8334846496582,
+          "max": 59.28724670410156
+        },
+        "bbox.ymax": {
+          "min": 53.833492279052734,
+          "max": 59.287254333496094
+        }
+      }
+    },
+    {
+      "row_group": 246,
+      "rows": 19449,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.5907247066497803,
+          "max": -2.188593864440918
+        },
+        "bbox.xmax": {
+          "min": -2.590724468231201,
+          "max": -2.188593626022339
+        },
+        "bbox.ymin": {
+          "min": 53.60337829589844,
+          "max": 53.78953552246094
+        },
+        "bbox.ymax": {
+          "min": 53.60338592529297,
+          "max": 53.78954315185547
+        }
+      }
+    },
+    {
+      "row_group": 247,
+      "rows": 22769,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.5908262729644775,
+          "max": -2.1885573863983154
+        },
+        "bbox.xmax": {
+          "min": -2.5908257961273193,
+          "max": -2.1885571479797363
+        },
+        "bbox.ymin": {
+          "min": 53.7895393371582,
+          "max": 59.38972854614258
+        },
+        "bbox.ymax": {
+          "min": 53.789546966552734,
+          "max": 59.38973617553711
+        }
+      }
+    },
+    {
+      "row_group": 248,
+      "rows": 19642,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.1885292530059814,
+          "max": -1.801255226135254
+        },
+        "bbox.xmax": {
+          "min": -2.1885290145874023,
+          "max": -1.8012549877166748
+        },
+        "bbox.ymin": {
+          "min": 53.44776916503906,
+          "max": 53.56526184082031
+        },
+        "bbox.ymax": {
+          "min": 53.447776794433594,
+          "max": 53.565269470214844
+        }
+      }
+    },
+    {
+      "row_group": 249,
+      "rows": 22682,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.188508987426758,
+          "max": -1.8008126020431519
+        },
+        "bbox.xmax": {
+          "min": -2.1885085105895996,
+          "max": -1.8008123636245728
+        },
+        "bbox.ymin": {
+          "min": 53.56526565551758,
+          "max": 53.83415603637695
+        },
+        "bbox.ymax": {
+          "min": 53.56527328491211,
+          "max": 53.834163665771484
+        }
+      }
+    },
+    {
+      "row_group": 250,
+      "rows": 20289,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -1.8008002042770386,
+          "max": -1.5877900123596191
+        },
+        "bbox.xmax": {
+          "min": -1.8007999658584595,
+          "max": -1.58778977394104
+        },
+        "bbox.ymin": {
+          "min": 53.448158264160156,
+          "max": 53.74681854248047
+        },
+        "bbox.ymax": {
+          "min": 53.44816589355469,
+          "max": 53.746826171875
+        }
+      }
+    },
+    {
+      "row_group": 251,
+      "rows": 17850,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -1.8007605075836182,
+          "max": -1.5877795219421387
+        },
+        "bbox.xmax": {
+          "min": -1.800760269165039,
+          "max": -1.5877792835235596
+        },
+        "bbox.ymin": {
+          "min": 53.7468376159668,
+          "max": 53.83418273925781
+        },
+        "bbox.ymax": {
+          "min": 53.74684524536133,
+          "max": 53.834190368652344
+        }
+      }
+    },
+    {
+      "row_group": 252,
+      "rows": 18450,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.1885361671447754,
+          "max": -1.8062341213226318
+        },
+        "bbox.xmax": {
+          "min": -2.1885359287261963,
+          "max": -1.8062338829040527
+        },
+        "bbox.ymin": {
+          "min": 53.834197998046875,
+          "max": 55.76462173461914
+        },
+        "bbox.ymax": {
+          "min": 53.834205627441406,
+          "max": 55.76462936401367
+        }
+      }
+    },
+    {
+      "row_group": 253,
+      "rows": 14568,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -2.1885340213775635,
+          "max": -1.8062856197357178
+        },
+        "bbox.xmax": {
+          "min": -2.1885337829589844,
+          "max": -1.8062853813171387
+        },
+        "bbox.ymin": {
+          "min": 55.7646598815918,
+          "max": 60.13800811767578
+        },
+        "bbox.ymax": {
+          "min": 55.76466751098633,
+          "max": 60.13801574707031
+        }
+      }
+    },
+    {
+      "row_group": 254,
+      "rows": 18341,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -1.8061352968215942,
+          "max": -1.5877875089645386
+        },
+        "bbox.xmax": {
+          "min": -1.8061350584030151,
+          "max": -1.5877872705459595
+        },
+        "bbox.ymin": {
+          "min": 53.83418655395508,
+          "max": 54.89891815185547
+        },
+        "bbox.ymax": {
+          "min": 53.83419418334961,
+          "max": 54.89892578125
+        }
+      }
+    },
+    {
+      "row_group": 255,
+      "rows": 26389,
+      "bbox": {
+        "bbox.xmin": {
+          "min": -1.8062251806259155,
+          "max": -1.5877931118011475
+        },
+        "bbox.xmax": {
+          "min": -1.8062249422073364,
+          "max": -1.5877928733825684
+        },
+        "bbox.ymin": {
+          "min": 54.89897155761719,
+          "max": 60.49555587768555
+        },
+        "bbox.ymax": {
+          "min": 54.89897918701172,
+          "max": 60.49556350708008
+        }
+      }
+    }
+  ],
+  "access": [],
+  "footer_sha256": "6795cd3ca6210bf26de408dc34ec3dd5888d6a27bb961444771176c16e57547a",
+  "schema_inspected_before_data": true
+}

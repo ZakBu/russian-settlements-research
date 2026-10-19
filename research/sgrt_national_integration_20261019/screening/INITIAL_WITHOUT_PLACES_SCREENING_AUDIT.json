@@ -1,0 +1,119 @@
+{
+  "rows": 142570,
+  "columns": 209,
+  "pass": true,
+  "checks": [
+    {
+      "name": "full_unique_axis",
+      "pass": true
+    },
+    {
+      "name": "no_missing_id",
+      "pass": true
+    },
+    {
+      "name": "native_diversity_matches_source",
+      "pass": true
+    },
+    {
+      "name": "alias_diversity_matches_source",
+      "pass": true
+    },
+    {
+      "name": "conditional_function_superset",
+      "pass": true
+    },
+    {
+      "name": "no_infinite_density",
+      "pass": true
+    },
+    {
+      "name": "zero_population_density_is_missing",
+      "pass": true
+    },
+    {
+      "name": "all_year_stable_profile_count",
+      "pass": true
+    },
+    {
+      "name": "no_external_centrality_asserted",
+      "pass": true
+    },
+    {
+      "name": "radius_monotone_1",
+      "pass": true
+    },
+    {
+      "name": "radius_monotone_2",
+      "pass": true
+    },
+    {
+      "name": "radius_monotone_3",
+      "pass": true
+    },
+    {
+      "name": "whole_parquet_readback",
+      "pass": true
+    }
+  ],
+  "places_loaded": false,
+  "places_coordinate_sensitivity_loaded": false,
+  "profile_counts": {
+    "legal_native": {
+      "observed_none": 130473,
+      "single_observed_function": 7777,
+      "multiple_observed_functions": 4320
+    },
+    "legal_conditional": {
+      "observed_none": 129694,
+      "single_observed_function": 7955,
+      "multiple_observed_functions": 4921
+    },
+    "physical_baseline": {
+      "observations_nodata": 142570
+    },
+    "physical_conditional": {
+      "observations_nodata": 142570
+    },
+    "wb_strict": {
+      "observed_none": 134576,
+      "single_observed_function": 7994
+    },
+    "baseline": {
+      "observed_none": 127805,
+      "single_observed_function": 8438,
+      "multiple_observed_functions": 6327
+    },
+    "conditional": {
+      "observed_none": 127627,
+      "single_observed_function": 7950,
+      "multiple_observed_functions": 6993
+    }
+  },
+  "review_queue_UID": 17684,
+  "source_disagreement_UID": 9822,
+  "conditional_changed_category_UID": 786,
+  "conditional_added_any_group_UID": 992,
+  "known_complete_function_absence_UID": 0,
+  "external_centrality_proven_UID": 0,
+  "inputs": {
+    "national_integration_20261019/core/feature_master.parquet": {
+      "sha256": "d6aba16ba110c8ca53850622abc720b9df3e5cac507c9088702466a13edb6195",
+      "bytes": 30536010
+    },
+    "national_integration_20261019/services/wb_objects_crosswalk.parquet": {
+      "sha256": "d45798d1c43cb9af1e639825d7e72c9467e714f3d0145782b2f1bc1d98237dd0",
+      "bytes": 13574351
+    }
+  },
+  "code_sha256": "31cad4a9d785837fd59387d7ae0d97dddfbb5726334747082e7d673fb0872202",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "national_integration_20261019/screening/support_point_screening.py",
+    "--base",
+    ".",
+    "--out",
+    "national_integration_20261019/screening"
+  ],
+  "elapsed_seconds": 17.319328546524048
+}
