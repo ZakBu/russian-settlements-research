@@ -15,7 +15,7 @@ import pandas as pd
 import pyarrow.parquet as pq
 
 ROOT=Path(__file__).resolve().parent;BASE=ROOT.parent
-EXCLUDED={'statistics','__pycache__','figures','visual_check','output','outputs','caches','cache','pinned_calendar','pinned_sector_calendar','address_audit_2021_2025','results','remote_selected','remote_address_selected'}
+EXCLUDED={'statistics','__pycache__','figures','visual_check','output','outputs','caches','cache','replay_logs','pinned_calendar','pinned_sector_calendar','address_audit_2021_2025','documented_provider_annual_profiles','results','remote_selected','remote_address_selected'}
 def sha(p):
  h=hashlib.sha256()
  with open(p,'rb') as f:
@@ -24,8 +24,8 @@ def sha(p):
 def dump(p,x):p.write_text(json.dumps(x,ensure_ascii=False,indent=2,allow_nan=False)+'\n')
 def ignore(path,names):return [n for n in names if n in EXCLUDED or n.endswith(('.pyc','.footer','.bin'))]
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--temp-parent',type=Path,default=Path('/workspace'));ap.add_argument('--receipt',type=Path,default=ROOT/'REPLAY.json');a=ap.parse_args()
- t=time.time();temp=Path(tempfile.mkdtemp(prefix='sgrt_full_replay_',dir=a.temp_parent));copy=temp/ROOT.name;logs=temp/'logs';logs.mkdir();(temp/'home').mkdir()
+ ap=argparse.ArgumentParser();ap.add_argument('--temp-parent',type=Path,default=Path(tempfile.gettempdir()));ap.add_argument('--receipt',type=Path,default=ROOT/'REPLAY.json');a=ap.parse_args()
+ t=time.time();temp=Path(tempfile.mkdtemp(prefix='sgrt_full_replay_',dir=a.temp_parent));copy=temp/'functional_dynamics_20261019';logs=temp/'logs';logs.mkdir();(temp/'home').mkdir()
  report={'status':'RUNNING','started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'temporary_base':str(temp),'commands':[],'comparisons':[],'worker_uid':os.getuid(),'worker_gid':os.getgid(),'os_readonly_enforcement_available':False,'input_protection':'All executable code and mutable captures copied; frozen symlinks only read; every target SHA verified before and after. UID namespace maps only 0, Landlock ENOSYS.','generated_outputs_removed_before_rebuild':True,'input_tables_really_recomputed':True,'calendar_source_rows_expected':63308662}
  dump(a.receipt,report)
  shutil.copytree(ROOT,copy,ignore=ignore)
@@ -55,7 +55,7 @@ def main():
  def run(label,args):
   logfile=logs/(f'{len(report["commands"]):02d}_{label}.log');start=time.time();command=[sys.executable]+[str(x) for x in args]
   with logfile.open('wb') as out:proc=subprocess.run(command,stdout=out,stderr=subprocess.STDOUT,**common)
-  row={'stage':label,'command':command,'cwd':str(temp),'exit_code':proc.returncode,'seconds':round(time.time()-start,3),'log':str(logfile),'log_sha256':sha(logfile)};report['commands'].append(row);dump(a.receipt,report)
+  row={'stage':label,'command':command,'cwd':str(temp),'exit_code':proc.returncode,'seconds':round(time.time()-start,3),'log':str(logfile),'log_sha256':sha(logfile),'executed_script_sha256':sha(Path(command[1])) if len(command)>1 and Path(command[1]).is_file() else None};report['commands'].append(row);dump(a.receipt,report)
   print(label,proc.returncode,row['seconds'],flush=True)
   if proc.returncode!=0:raise RuntimeError('Replay command failed: '+label+'; see '+str(logfile))
  try:
@@ -72,7 +72,7 @@ def main():
   script('legacy_economy','economy/build_dynamics.py','--base',temp,'--out',copy/'economy/results');script('legacy_exact_summary','economy/summarize_exact_dynamics.py','--out',copy/'economy/results','--panel',temp/'restored/extracted/research/sgrt_recovered_20261019/data/panel.parquet');script('legacy_registration_size','economy/summarize_registration_reallocation.py','--out',copy/'economy/results','--panel',temp/'restored/extracted/research/sgrt_recovered_20261019/data/panel.parquet')
   script('full_fifteen_year_calendar','economy/build_multiyear_exact.py','--base',temp,'--out',copy/'economy/pinned_calendar');script('all_sector_calendar','economy/build_sector_calendar.py','--base',temp,'--out',copy/'economy/pinned_sector_calendar');script('crosscheck_calendars','economy/crosscheck_calendars.py','--root',copy/'economy')
   script('address_lifecycle','economy/audit_addresses.py','--base',temp,'--out',copy/'economy/address_audit_2021_2025');script('alias_examples','economy/build_alias_cases.py','--base',temp)
-  script('provider_annual_profiles','model/join_annual_profiles.py','--input',copy/'economy/pinned_calendar/point_exact_code_witnesses_2011_2025.parquet','--out',copy/'model/annual_results')
+  script('provider_annual_profiles','model/join_annual_profiles.py','--input',copy/'economy/pinned_calendar/point_exact_code_witnesses_2011_2025.parquet','--out',copy/'economy/documented_provider_annual_profiles')
   coverage=pd.read_csv(copy/'economy/pinned_calendar/coverage_2011_2025.csv');assert len(coverage)==15 and int(coverage.source_rows.sum())==63308662
   report['calendar_source_rows_actually_recomputed']=int(coverage.source_rows.sum());report['calendar_years_recomputed']=coverage.year.tolist()
   # Compare actual tables, not logs/JSON absolute paths, timestamps or binaries.
@@ -100,6 +100,10 @@ def main():
  except Exception as exc:
   report['status']='FAIL';report['error']=repr(exc)
  finally:
+  durable_logs=a.receipt.parent/'replay_logs';durable_logs.mkdir(exist_ok=True)
+  for row in report['commands']:
+   src=Path(row['log']);dst=durable_logs/src.name;shutil.copy2(src,dst);row['runtime_log']=row['log'];row['log']=str(dst.relative_to(a.receipt.parent))
+  report['launcher_snapshot_sha256']=sha(copy/'replay_all.py')
   report['seconds']=round(time.time()-t,3);report['finished_utc']=datetime.datetime.now(datetime.timezone.utc).isoformat();dump(a.receipt,report)
   for fd in fds:os.close(fd)
  print(json.dumps({'status':report['status'],'commands':len(report['commands']),'tables_compared':report.get('tables_compared'),'seconds':report['seconds'],'receipt':str(a.receipt)},ensure_ascii=False),flush=True)
