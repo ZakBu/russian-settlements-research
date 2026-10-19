@@ -1,0 +1,42 @@
+{
+  "finding_id": "COORD-01",
+  "severity": "material_for_distance_and_model_validation",
+  "discovered_by": "GIS flagged unexpected length; independent critic investigated primary evidence",
+  "entity_uid": "np3:ZzaZBbQm40RQi_V2kuqBgzoQMX-NTW4a-bM3_TEYJcs",
+  "settlement": "Приозёрный, Невьянский городской округ, Свердловская область",
+  "input_latitude": 57.5,
+  "input_longitude": 60.216667,
+  "input_census_population_2021": 10,
+  "destination": "Калиново",
+  "computed_straight_line_distance_km": 40.9624,
+  "primary_evidence": {
+    "title": "Муниципальный вестник Невьянского городского округа №2(15), 18 января 2019; программа комплексного развития транспортной инфраструктуры",
+    "url": "https://storage.inovaco.ru/media/project_mo_101/a0/66/6d/5b/d0/06/-2-15ot18012019-mun_vest_ngo_.pdf",
+    "pdf_page_1_based": 19,
+    "table": "11, маршрут 110",
+    "described_stops": ["Калиново", "Невьянский Рыбзавод", "Приозерный", "Таватуйский детский дом", "Таватуй (Аятский сельсовет)"],
+    "reported_route_length_km": 10,
+    "retrieved_date": "2026-10-19",
+    "web_reference": "turn97view1",
+    "locator": "L1782-L1788; PDF page index18",
+    "meaning": "Документированная транспортная схема; не измеренные поездки и не новое точное геокодирование"
+  },
+  "reasoning": "Сохранённая в панели точка Приозёрного даёт более40км прямой дистанции до Калиново, тогда как официальный документ включает оба НП в маршрут длиной10км. Это существенное пространственное противоречие. Точное корректное положение и возможные изменения после2019 требуют дополнительной верификации; координата не заменяется по вторичным сайтам.",
+  "secondary_discovery_only": {
+    "candidate_latitude": 57.1016666667,
+    "candidate_longitude": 60.1594444444,
+    "used_for_main_calculations": false,
+    "refs": ["turn92search0", "turn92search1", "turn92search20"]
+  },
+  "required_handling": {
+    "immutable_input_kept": true,
+    "service_edge_E2_retained": true,
+    "source_population_values_retained": true,
+    "distance_metrics_exclude_until_resolved": true,
+    "model_validation_exclude_until_resolved": true,
+    "gradient_metrics_exclude_until_resolved": true,
+    "exact_corrected_coordinate_claim_allowed": false
+  },
+  "acceptance_state": "HANDLED_BY_EXPLICIT_QUARANTINE_IN_documented_graph_v3",
+  "handling_audit": "documented_graph_audit.json confirms distance NA, original unverified distance retained, E2 edge and populations preserved; exact corrected coordinate remains unresolved"
+}
