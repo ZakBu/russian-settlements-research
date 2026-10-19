@@ -1,0 +1,66 @@
+{
+  "status": "COMPUTED_MUNICIPAL_CONTEXT_AND_LEGAL_ADDRESS_WITNESSES",
+  "raw_rows": 8832750,
+  "pilot_centers": 15,
+  "municipalities": 4,
+  "pilot_raw_series_rows": 10735,
+  "pilot_measure_rows": 657,
+  "quarantined_measure_rows": 0,
+  "RFSD_rows_scanned": 3412469,
+  "municipal_2021_nonmissing": {
+    "Нижняя Тура": 9,
+    "Косья": 9,
+    "Сигнальный": 9,
+    "Платина": 9,
+    "Козлово": 12,
+    "Селихово": 12,
+    "Ручьи": 12,
+    "Быньги": 12,
+    "Аятское": 12,
+    "Конево": 12,
+    "Калиново": 12,
+    "Ребристый": 12,
+    "Невьянск": 12,
+    "Малоказаккулово": 12,
+    "Батталово": 12
+  },
+  "RFSD_group_totals": "{('coded_exact', 'agricultural_support016'): 0, ('coded_exact', 'agricultural_wholesale462'): 3, ('coded_exact', 'crop_livestock_hunting01'): 14, ('coded_exact', 'food_manufacture10'): 7, ('coded_exact', 'food_wholesale463'): 7, ('coded_exact', 'veterinary75'): 0, ('coded_exact_strict_house5km', 'agricultural_support016'): 0, ('coded_exact_strict_house5km', 'agricultural_wholesale462'): 2, ('coded_exact_strict_house5km', 'crop_livestock_hunting01'): 12, ('coded_exact_strict_house5km', 'food_manufacture10'): 6, ('coded_exact_strict_house5km', 'food_wholesale463'): 6, ('coded_exact_strict_house5km', 'veterinary75'): 0}",
+  "inputs": [
+    {
+      "path": "restored/extracted/inputs/recovery_inputs/columnar/agriculture.parquet",
+      "sha256": "e6ca2906f49fd0fe561ae98f535206990cebc2675884571bced546c3374c198d",
+      "bytes": 42415006
+    },
+    {
+      "path": "anchor_research_20261019/data/point_axis.parquet",
+      "sha256": "a2b5544c0d3c5581144a5439113a96c4a771697dc87a38c2abf979e1ead1467b",
+      "bytes": 14389261
+    },
+    {
+      "path": "anchor_research_20261019/data/service_edges_linked.csv",
+      "sha256": "a144fca4344ad7edaad8f9b9f498e066037c95901874375997a6d0a95116e083",
+      "bytes": 75796
+    },
+    {
+      "path": "restored/extracted/inputs/recovery_inputs/enrichment/rfsd_2021_selected.parquet",
+      "sha256": "3207af7b715805441f9577e88fe967d2e97263e916483c24bfb7c238f419c725",
+      "bytes": 70210408
+    }
+  ],
+  "code_sha256": "c7de4fcf654b408fbfd40fca4b5c7606863044bd6b1fe2939814193b2a09e039",
+  "municipal_source_schema": "indicator_section_code: string\nindicator_section: string\nindicator_code: string\nindicator_name: string\nselmash: string\nkategor: string\nskot: string\nokei: string\nokpdst: string\nokpd2: string\nkultur: string\nregion_id: string\nregion_name: string\nmun_level: string\nmun_district: string\nmunicipality: string\noktmo: string\nmun_type: string\nmun_type_oktmo: string\noktmo_stable: string\noktmo_history: string\noktmo_year_from: string\noktmo_year_to: string\nyear: int64\nindicator_value: double\nindicator_unit: string\nindicator_period: string\ncomment: string\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 3463",
+  "RFSD_selected_columns": [
+    "inn",
+    "oktmo",
+    "okved",
+    "okved_section",
+    "lat",
+    "lon",
+    "geocoding_quality"
+  ],
+  "boundary_match_2026_proven": false,
+  "external_agroservice_flow_observed": false,
+  "land_utilization_share_identified": false,
+  "checks_passed": 13,
+  "checks_total": 13
+}

@@ -41,6 +41,14 @@ SELF_ONLY = [
     ("NV2026", "Таватуй", "МБОУ ООШ поселка Таватуй", "primary_basic_general_only", "Only host in appendix1; school absent from secondary-general appendix2; alternative secondary provider unknown")
 ]
 
+PROVIDER_TYPES={"Нижняя Тура":"город","Косья":"посёлок","Сигнальный":"посёлок","Платина":"посёлок","Козлово":"посёлок","Селихово":"село","Ручьи":"деревня","Быньги":"село","Аятское":"село","Конево":"село","Калиново":"посёлок","Ребристый":"посёлок","Невьянск":"город","Малоказаккулово":"деревня","Батталово":"деревня"}
+ORIGIN_TYPES={
+    "Нижняя Тура":["деревня"]*4,"Косья":["посёлок"]*5,"Сигнальный":["посёлок"]*2,"Платина":["деревня"],
+    "Козлово":["деревня"]*18,"Селихово":["деревня"]*8,"Ручьи":["деревня"]*15+["село"],
+    "Быньги":["село","село","деревня","посёлок","посёлок"],"Аятское":["село","село","посёлок","деревня","деревня"],
+    "Конево":["деревня","деревня","посёлок","село","село"],"Калиново":["посёлок"]*3,"Ребристый":["посёлок","село"],"Невьянск":["посёлок","село","посёлок"],"Малоказаккулово":["деревня"],"Батталово":["деревня"]
+}
+
 def dump_csv(name, rows):
     assert rows
     with (ROOT/name).open("w", encoding="utf-8", newline="") as f:
@@ -54,10 +62,11 @@ def main():
         assert center.casefold() in capture.casefold(), center
         provider_id=f"{source_id}:{center}:{school}"
         providers.append(dict(provider_id=provider_id,source_id=source_id,region=source["region"],municipality=source["municipality"],provider_settlement=center,provider_name=school,provider_location_evidence="institution_site_name_not_street_address",reported_quantity=amount,quantity_meaning=amount_meaning,full_capacity=None,latitude=None,longitude=None,origin_count=len(origins.split("|"))))
-        for origin in origins.split("|"):
+        assert len(ORIGIN_TYPES[center])==len(origins.split("|"))
+        for origin,origin_type in zip(origins.split("|"),ORIGIN_TYPES[center]):
             assert origin.casefold() in capture.casefold(), origin
             assert origin != center
-            rows.append(dict(edge_id=f"E{len(rows)+1:03d}",source_id=source_id,region=source["region"],municipality=source["municipality"],origin_name=origin,provider_settlement=center,provider_id=provider_id,service_level=source["level"],link_kind=source["kind"],evidence_level=source["evidence"],source_document_date=source["date"],locator=locator,flow_count=None,actual_travel_observed=False,cohort_use="heldout_edge_validation_only",linkage_status="names_unlinked_to_population_panel",source_url=source["url"]))
+            rows.append(dict(edge_id=f"E{len(rows)+1:03d}",source_id=source_id,region=source["region"],municipality=source["municipality"],origin_name=origin,origin_type=origin_type,provider_settlement=center,provider_type=PROVIDER_TYPES[center],source_identity_note="literal пос./п. does not itself prove urban-type status; Таватуй (Аятский сельсовет) distinct from unsuffixed Таватуй until separately resolved",provider_id=provider_id,service_level=source["level"],link_kind=source["kind"],evidence_level=source["evidence"],source_document_date=source["date"],locator=locator,flow_count=None,actual_travel_observed=False,cohort_use="post_development_external_validation_not_blind_holdout",linkage_status="names_unlinked_to_population_panel",source_url=source["url"]))
     dump_csv("service_edges.csv",rows); dump_csv("providers.csv",providers)
     selfrows=[dict(source_id=s,settlement=c,provider=p,service_level=l,status="document_self_only_not_general_noncentrality",meaning=why) for s,c,p,l,why in SELF_ONLY]
     dump_csv("document_self_only.csv",selfrows)
@@ -66,7 +75,7 @@ def main():
         b=(ROOT/"captures"/s["capture"]).read_bytes()
         audits.append(dict(source_id=sid,**s,retrieved_utc_date="2026-10-19",capture_sha256=hashlib.sha256(b).hexdigest(),capture_bytes=len(b),raw_source_bytes_sha256=None,raw_bytes_available=False,extracted_edges=sum(r["source_id"]==sid for r in rows),independent_flow_evidence=False))
     (ROOT/"source_audit.json").write_text(json.dumps(audits,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    tests=[("external_edges_no_self_loops",all(r["origin_name"]!=r["provider_settlement"] for r in rows)),("unique_edge_ids",len({r["edge_id"] for r in rows})==len(rows)),("no_flow_claims",all(r["actual_travel_observed"] is False and r["flow_count"] is None for r in rows)),("no_geometric_center_selection",True),("all_origin_names_in_capture",True),("all_provider_names_have_origin_groups",all(p["origin_count"]>0 for p in providers)),("source_hashes_present",all(len(a["capture_sha256"])==64 for a in audits)),("raw_pdf_html_hashes_not_fabricated",all(a["raw_source_bytes_sha256"] is None for a in audits))]
+    tests=[("external_edges_no_self_loops",all(r["origin_name"]!=r["provider_settlement"] for r in rows)),("unique_edge_ids",len({r["edge_id"] for r in rows})==len(rows)),("no_flow_claims",all(r["actual_travel_observed"] is False and r["flow_count"] is None for r in rows)),("no_radius_or_distance_input_fields",all(not any(k in r for k in ["radius","distance","population_maximum"]) for r in rows)),("all_origin_names_in_capture",all(r["origin_name"].casefold() in (ROOT/"captures"/SOURCES[r["source_id"]]["capture"]).read_text(encoding="utf-8").casefold() for r in rows)),("all_provider_names_have_origin_groups",all(p["origin_count"]>0 for p in providers)),("source_hashes_present",all(len(a["capture_sha256"])==64 for a in audits)),("raw_pdf_html_hashes_not_fabricated",all(a["raw_source_bytes_sha256"] is None for a in audits))]
     summary=dict(status="PASS" if all(ok for _,ok in tests) else "FAIL",n_external_edges=len(rows),n_providers=len(providers),n_regions=len({r["region"] for r in rows}),n_source_documents=len(SOURCES),n_document_self_only=len(selfrows),checks=[dict(name=n,pass_=ok) for n,ok in tests],note="Purposive pilot; no nationwide service coverage or observed OD trips; coordinates not assigned")
     (ROOT/"FINISHED.json").write_text(json.dumps(summary,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(summary,ensure_ascii=False))

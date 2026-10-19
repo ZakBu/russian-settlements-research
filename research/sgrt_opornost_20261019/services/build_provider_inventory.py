@@ -40,7 +40,7 @@ def main():
     nodes={}
     for r in rows:
         key=r["region"],r["municipality"],r["provider_settlement"]
-        if key not in nodes:nodes[key]=dict(region=key[0],municipality=key[1],name=key[2],school_inventory_records=0,has_school=True,source_ids=set(),latitude=None,longitude=None,selection_basis="all_institutions_in_official_school_document; NOT functional_center_certification",external_service_status="withheld_for_validation")
+        if key not in nodes:nodes[key]=dict(region=key[0],municipality=key[1],name=key[2],school_inventory_records=0,has_school=True,source_ids=set(),latitude=None,longitude=None,selection_basis="all_institutions_in_official_school_document; NOT functional_center_certification",external_service_status="not_used_for_input_selection; edges_known_to_researchers_not_blind")
         nodes[key]["school_inventory_records"]+=1;nodes[key]["source_ids"].add(r["source_id"])
     for n in nodes.values():n["source_ids"]="|".join(sorted(n["source_ids"]))
     with (ROOT/"school_feature_nodes.csv").open("w",encoding="utf-8",newline="") as f:

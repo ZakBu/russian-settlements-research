@@ -27,7 +27,8 @@ def run(root,out,year):
     finances=np.zeros((2,n),dtype=np.int64);revenues=np.zeros((2,n));maxrev=np.zeros((2,n))
     accepted_code=np.zeros((2,n),dtype=np.int64);accepted_fallback=np.zeros((2,n),dtype=np.int64)
     coord_unknown=np.zeros((2,n),dtype=np.int64);coord_far5=np.zeros((2,n),dtype=np.int64);coord_far50=np.zeros((2,n),dtype=np.int64)
-    rows=0;notaccepted=0;missinginn=0;exact_count=0;fallback_count=0
+    rows=0;notaccepted=0;missinginn=0;exact_count=0;fallback_count=0;federal_held=0
+    geoquality=np.zeros((2,n,4),dtype=np.int64)
     classifypairs={'retail47':'G','food56':'I','accommodation55':'I','education85':'P',
       'health86':'Q','social8788':'Q','repair95':'S','personal96':'S','finance64to66':'K','admin84':'O'}
     lut={s:i for i,s in enumerate(SECTIONS)}
@@ -39,16 +40,18 @@ def run(root,out,year):
         d=b.to_pandas();rows+=len(d)
         goodinn=(d.inn.notna()&d.inn.fillna('').str.strip().ne('')).to_numpy();missinginn+=int((~goodinn).sum())
         coded=codes(d.oktmo).map(lookup).fillna(-1).astype(int).to_numpy()
-        exact=(coded>=0)&goodinn;exact_count+=int(exact.sum())
+        federal=codes(d.oktmo).str[:2].isin(['45','40']).to_numpy()&goodinn
+        federal_held+=int(federal.sum())
+        exact=(coded>=0)&goodinn&~federal;exact_count+=int(exact.sum())
         valid=(d.lat.between(-90,90)&d.lon.between(-180,180)).to_numpy()
         near=np.full(len(d),-1,dtype=int);nd=np.full(len(d),np.inf);gap=np.full(len(d),-1.)
         if valid.any():
             chord,ix=tree.query(xyz(d.lat.to_numpy()[valid],d.lon.to_numpy()[valid]),k=2,workers=2)
             dd=2*R*np.arcsin(np.clip(chord/2,0,1));near[valid]=ix[:,0];nd[valid]=dd[:,0];gap[valid]=dd[:,1]-dd[:,0]
         q=d.geocoding_quality.fillna('').to_numpy()
-        fallback=(~exact)&goodinn&valid&np.isin(q,['house','street'])&(nd<=1)&(gap>.25)
+        fallback=(~exact)&~federal&goodinn&valid&np.isin(q,['house','street'])&(nd<=1)&(gap>.25)
         fallback_count+=int(fallback.sum());assigned=np.where(exact,coded,np.where(fallback,near,-1))
-        selected=exact|fallback;notaccepted+=int((~selected&goodinn).sum())
+        selected=exact|fallback;notaccepted+=int((~selected&goodinn&~federal).sum())
         distance=np.full(len(d),np.inf)
         take=selected&valid
         if take.any():
@@ -69,6 +72,9 @@ def run(root,out,year):
             np.add.at(finances[qi],assigned[fs],1);np.add.at(revenues[qi],assigned[fs],rev[fs]);np.maximum.at(maxrev[qi],assigned[fs],rev[fs])
             for arr,mask in [(accepted_code,exact),(accepted_fallback,fallback),(coord_unknown,~valid),(coord_far5,valid&(distance>5)),(coord_far50,valid&(distance>50))]:
                 t=sel&mask;np.add.at(arr[qi],assigned[t],1)
+            for gi,quality in enumerate(['house','street','city','missing_or_other']):
+                t=sel&((q==quality) if gi<3 else ~np.isin(q,['house','street','city']))
+                np.add.at(geoquality[qi,:,gi],assigned[t],1)
     frames=[];coverage=[];checks=[]
     for qi,label in enumerate(['coded_baseline','coded_strict_house_5km']):
         df=p.drop(columns=['oktmo_2021']).copy();df['year']=year;df['quality_mode']=label
@@ -85,6 +91,8 @@ def run(root,out,year):
         df['financial_eligible_reports']=finances[qi];df['known_nominal_revenue_thousand_rub']=revenues[qi]
         df['max_legal_entity_revenue_share']=np.divide(maxrev[qi],revenues[qi],out=np.full(n,np.nan),where=revenues[qi]>0)
         for arr,name in [(accepted_code,'exact_code_entities'),(accepted_fallback,'coordinate_fallback_entities'),(coord_unknown,'entities_unknown_coordinates'),(coord_far5,'entities_coordinates_gt5km'),(coord_far50,'entities_coordinates_gt50km')]:df[name]=arr[qi]
+        df['entities_geocode_compatible_le5km']=df.legal_entities-df.entities_coordinates_gt5km-df.entities_unknown_coordinates
+        for gi,quality in enumerate(['house','street','city','missing_or_other']):df['entities_geocoding_'+quality]=geoquality[qi,:,gi]
         df['rfds_presence_status']=np.where(df.legal_entities>0,'observed_legal_address_presence','no_accepted_RFSD_witness_not_function_absence')
         frames.append(df)
         coverage.append({'year':year,'mode':label,'np_total':n,'entities':int(df.legal_entities.sum()),'np_with_entities':int(df.legal_entities.gt(0).sum()),
@@ -98,10 +106,10 @@ def run(root,out,year):
     pd.testing.assert_frame_equal(df,pq.read_table(out/'points_economic_features.parquet').to_pandas())
     checks += [{'check':'strict_subset_all_sectors','pass':bool((sections[1]<=sections[0]).all())},
       {'check':'full_points_each_mode','pass':len(df)==2*n and not df.duplicated(['id','year','quality_mode']).any()},
-      {'check':'source_rows_balance','pass':rows==exact_count+fallback_count+notaccepted+missinginn},
+      {'check':'source_rows_balance','pass':rows==exact_count+fallback_count+notaccepted+missinginn+federal_held},
       {'check':'unique_normalized_settlement_codes','pass':bool(pc.is_unique)},
       {'check':'whole_table_readback','pass':True},{'check':'no_outcome_or_old_zones','pass':not any('zone' in c or 'growth' in c or 'basin' in c for c in pp)}]
-    audit={'year':year,'rows':rows,'missing_inn':missinginn,'exact_code_matches':exact_count,'coordinate_fallback':fallback_count,'unlinked_valid_inn':notaccepted,'profiles':coverage,
+    audit={'year':year,'rows':rows,'missing_inn':missinginn,'exact_code_matches':exact_count,'coordinate_fallback':fallback_count,'unlinked_valid_inn':notaccepted,'federal_territory_entities_held_separately':federal_held,'profiles':coverage,
       'source_sha256':sha(source),'panel_sha256':sha(panelpath),'code_sha256':sha(Path(__file__)),
       'code_reference_year':2021,'2016_historical_code_crosswalk_proven':False,'geography_inconsistency_retained_in_baseline':True}
     dump(out/'coverage.json',audit);dump(out/'checks.json',checks)
