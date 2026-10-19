@@ -1,0 +1,38 @@
+{
+  "panel": {
+    "path": "restored/extracted/research/sgrt_recovered_20261019/data/panel.parquet",
+    "sha256": "a2b5544c0d3c5581144a5439113a96c4a771697dc87a38c2abf979e1ead1467b"
+  },
+  "source": {
+    "path": "restored/extracted/inputs/recovery_inputs/enrichment/rfsd_2021_selected.parquet",
+    "sha256": "3207af7b715805441f9577e88fe967d2e97263e916483c24bfb7c238f419c725"
+  },
+  "code_sha256": "9099232f885fb34b4a0467dbbd68f45828caa52bfd47e59943c91737ce6a6186",
+  "forbidden_input_fields": [
+    "zone_id",
+    "basin_id",
+    "growth",
+    "population_change"
+  ],
+  "allowed_panel_columns": [
+    "id",
+    "name",
+    "type",
+    "region",
+    "lat",
+    "lon",
+    "population_2010",
+    "population_2021"
+  ],
+  "geocode_ambiguity_margin_km": 0.25,
+  "no_catchment_inputs": true,
+  "outputs": {
+    "checks.json": "5cd005a148ec5d122e1106e31dcfd202d89555c2e6de79d5ecdbfb0f24a38ece",
+    "coverage_by_mode.csv": "924eae89e3dc5d6a577324069f08266651187e6d6bcee28375945cf0822e3dbe",
+    "schema.json": "80a36e8b9085e2ec349020e7a72c86f93159dc702fd2d8a1f2c16c93b1f7429a",
+    "points_economic_features.csv.gz": "95db9131cfe0f77be73d44543eb493e7a16748351851852f453b114a599cfb15",
+    "coverage.json": "269db6afc2f45c1d269243be7c3d2369fac3b49341a58e1b9beefaf2419e2979",
+    "points_economic_features.parquet": "6b316cf8fd76fdfd9d7f9cb08cbff8f0709e9b4e0d1f5dfa7d2ca0c72215cc73",
+    "point_sector_sensitivity.parquet": "9ce73fc58f012ac4e1084f868547722cd800dcc0bd634153fa79208f0d719a9d"
+  }
+}
