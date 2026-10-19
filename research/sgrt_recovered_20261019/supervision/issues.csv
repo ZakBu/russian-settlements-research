@@ -1,13 +1,13 @@
 issue_id,problem,decision,status,verification_or_remaining_action
-S01,Использование всех чисел 2010 и наблюдаемых нулей,D01,independently_checked,data_only_checks.json:8 PASS/0 FAIL; all142570ID/populations/coordinates matched raw stage71;21246observed2010zeros retained;model preservation awaits final audit
-S02,Квартильный приоритет создаёт чрезмерные бассейны малых центров,D02,open,ожидается nearest-модель; Коморгузя/Булановка проверяются заново
-S03,Кандидатный сельский максимум не равен административному райцентру,D02/D04,open,ожидаются center_origin и независимые RFSD-свидетельства самого узла
-S04,"Сельхозсуммы, распределённые по населению, подменяют специализацию",D03,open,"ожидаются муниципальные доли культур и композиции СГРТ, count main"
-S05,Пропущенная секция ОКВЭД и несохранение секторных сумм,D04,open,ожидается равенство сектора=финансы по зоне/году/фильтру
-S06,Низкие counts искусственно повышают согласие отраслевых типов,D04,open,ожидается согласие на общей adequately observed выборке и на всех зонах
-S07,Перепривязка геометрии смешивается с демографическим ростом,D01/D02,open,ожидается независимое симметричное разложение fixed/dynamic
-S08,M1/M2/M3 сравниваются на разных выборках,D05,open,ожидаются единый cohort и пространственные folds; статистик следующей волной
-S09,Историческая частичная подвыборка 1989 выдается за полное покрытие,D01,open,ожидаются точный link audit и парная подвыборка с типом населения
-S10,Потенциальная принадлежность выдается за действительные поездки,D05,open,ожидается отдельная внешняя проверка с уровнями доказательности
-S11,Частично записанные или усечённые файлы попадают в окончательные выводы,D06,open,ожидаются полное чтение/CRC/SHA и FINISHED до проверки
-S12,Утраченное прошлое исследование выдается за восстановленное без новых расчётов,D06,open,все итоговые числа должны иметь новые фактически существующие таблицы/логи
+S01,Использование всех чисел 2010 и наблюдаемых нулей,D01,independently_checked,actual_checks.json;all142570sourcevaluesand21246zerosretained
+S02,Квартильный приоритет создаёт чрезмерные бассейны малых центров,D02,corrected_and_independently_checked,"sharp_case_audit.csv;Komorguzya20,Bulanovka16;35corechecks"
+S03,Кандидатный сельский максимум не равен административному райцентру,D02/D04,corrected_and_checked,final_typology101fields:explicitcandidateoriginsandbaseline/strictanchorwitness
+S04,"Сельхозсуммы, распределённые по населению, подменяют специализацию",D03,corrected_and_independently_checked,functional_checks.json:all2244municipal and all15378zonal profiles independently reconstructed
+S05,Пропущенная секция ОКВЭД и несохранение секторных сумм,D04,independently_checked,functional_checks.json:all6mode sector/finance equality+41040typecrosscheck
+S06,Низкие counts искусственно повышают согласие отраслевых типов,D04,corrected_and_checked,summary scope10111observed/5022adequate;REPORT corrected C34
+S07,Перепривязка геометрии смешивается с демографическим ростом,D01/D02,independently_checked,actual_checks.json:exact symmetric decomposition allzones/nationalreallocation0
+S08,M1/M2/M3 сравниваются на разных выборках,D05,independently_replayed,statistics_checks81 and buffer50checks63:allOOFtrainonly/folds/bootstrap reproduced
+S09,Историческая частичная подвыборка 1989 выдается за полное покрытие,D01,independently_checked_with_coverage_limits,history_validation_checks15:19863exactlinks/7778sourcekindprimary;basis/boundary retained
+S10,Потенциальная принадлежность выдается за действительные поездки,D05,checked_negative_evidence_retained,13cases2direct4chain;9negative;0observedOD—does not certify functional flows
+S11,Частично записанные или усечённые файлы попадают в окончательные выводы,D06,checked_atomic_readback_and_fresh_replay,FINISHED/SHA/readback files;REPLAY12full-tablematches;rootfinalpackageCRCseparate
+S12,Утраченное прошлое исследование выдается за восстановленное без новых расчётов,D06,resolved_by_actual_new_outputs,Freshcurrentdata/model/agriculture/RFSD/statistics/typologyfiles and logs independently checked
