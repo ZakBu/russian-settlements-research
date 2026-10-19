@@ -30,6 +30,12 @@ def main():
  raw=B/'restored/extracted/inputs'
  for rel in ['publication/stage71/ordinary_full3_with_primary_population_sources.csv.gz','recovery_inputs/columnar/agriculture.parquet','recovery_inputs/enrichment/rfsd_2016_selected.parquet','recovery_inputs/enrichment/rfsd_2021_selected.parquet','recovery_inputs/enrichment/world.geojson']:
   p=raw/rel;assert p.is_file();selected[p.relative_to(B).as_posix()]=p
+ panel_copy=B/'restored/extracted/research/sgrt_recovered_20261019/data/panel.parquet'
+ assert panel_copy.is_file();selected[panel_copy.relative_to(B).as_posix()]=panel_copy
+ for p in (B/'restored/extracted/research/sgrt_recovered_20261019/context').glob('*'):
+  if p.is_file():selected[p.relative_to(B).as_posix()]=p
+ for n in ['01-2.0.docx','05-1-.docx','16-15052026-1-.docx']:
+  p=B/'project_sources'/n;selected[p.relative_to(B).as_posix()]=p
  manifest={n:{'bytes':p.stat().st_size,'sha256':sha(p)} for n,p in sorted(selected.items())}
  (R/'ARTIFACT_MANIFEST.json').write_text(json.dumps({'files':manifest,'exclusions':'hidden files, caches/footer, acquired copyrighted books, duplicate CSV.gz when Parquet available; CSV reproducible from code','layout':'extract at a working directory; python functional_dynamics_20261019/replay_all.py'},ensure_ascii=False,indent=2)+'\n')
  selected[(R/'ARTIFACT_MANIFEST.json').relative_to(B).as_posix()]=R/'ARTIFACT_MANIFEST.json'
