@@ -1,0 +1,22 @@
+{
+  "source": "run_model.py",
+  "source_sha256": "6f606a248c082e875e18d0ad64b71bb02e703839190fe1b19230e462bc623794",
+  "new_script": "run_2002.py",
+  "changes": {
+    "default=Path(__file__).resolve().parent);parser.add_argument('--skip-sensitivity'": "default=Path(__file__).resolve().parent.parent/'model2002');parser.add_argument('--skip-sensitivity'",
+    "mass=d.population_2010.to_numpy(float);ci=candidates(d,2010)": "mass=d.population_2002.to_numpy(float);ci=candidates(d,2002)",
+    "col='settlement_type_2010' if 'settlement_type_2010' in d else 'type'": "col='settlement_type_2002' if 'settlement_type_2002' in d else 'type'",
+    "'urban2010'": "'urban2002'",
+    "centers['settlement_type_2010']": "centers['settlement_type_2002']",
+    "c=ag.center_growth_2010_2021;e=ag.environment_growth_2010_2021": "c=ag.center_growth_2002_2021;e=ag.environment_growth_2002_2021",
+    "ag.center_population_2010.eq(0),ag.environment_transition_2010_2021": "ag.center_population_2002.eq(0),ag.environment_transition_2002_2021",
+    "ag['center_share_change']=ag.center_share_2021-ag.center_share_2010": "ag['center_share_change']=ag.center_share_2021-ag.center_share_2002",
+    "b=s.population_2010;f=s.population_2021;s['transition_2010_2021']": "b=s.population_2002;f=s.population_2021;s['transition_2002_2021']",
+    "s['log1p_change_2010_2021']": "s['log1p_change_2002_2021']",
+    "weights=s.population_2010": "weights=s.population_2002",
+    "population2010_weighted_agreement": "population2002_weighted_agreement",
+    "candidates(d,2010,radius)": "candidates(d,2002,radius)",
+    "summary=dict(n_rows=n": "summary=dict(baseline_year=2002,n_rows=n"
+  },
+  "main2010_not_modified": true
+}
