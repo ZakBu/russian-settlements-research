@@ -1,0 +1,156 @@
+[
+  {
+    "name": "own_population",
+    "block": "demographic",
+    "columns": [
+      "own_population_for_mass"
+    ],
+    "transform": "log1p",
+    "year": 2021,
+    "unit": "own_NP_population_or_explicit_federal_territorial_context_proxy",
+    "bound_columns": [
+      "own_population_for_mass"
+    ],
+    "n_observed": 155416,
+    "n_used_in_z": 155416,
+    "mean_transformed": 3.3484507575647213,
+    "sd_transformed": 2.378497551524788,
+    "computed_from_own_source_features": true
+  },
+  {
+    "name": "physical_education",
+    "block": "service",
+    "physical": "education",
+    "transform": "log1p",
+    "year": 2021,
+    "unit": "source_sites_not_capacity",
+    "bound_columns": [
+      "model_school2021_inclusive_count"
+    ],
+    "n_observed": 10644,
+    "n_used_in_z": 10644,
+    "mean_transformed": 0.8866564727183008,
+    "sd_transformed": 0.4345749106165899,
+    "computed_from_own_source_features": true
+  },
+  {
+    "name": "physical_healthcare",
+    "block": "service",
+    "physical": "healthcare",
+    "transform": "log1p",
+    "year": 2021,
+    "unit": "source_sites_not_capacity",
+    "bound_columns": [
+      "medical_medical_osm_strong_coordinate_candidate_healthcare_sites_count"
+    ],
+    "n_observed": 5266,
+    "n_used_in_z": 5266,
+    "mean_transformed": 0.8467122994192426,
+    "sd_transformed": 0.36796565255628083,
+    "computed_from_own_source_features": true
+  },
+  {
+    "name": "physical_trade",
+    "block": "service",
+    "physical": "trade",
+    "transform": "log1p",
+    "year": 2021,
+    "unit": "dated2021_mutually_exclusive_source_object_classes_not_capacity",
+    "bound_columns": [
+      "model_services2021_trade_inclusive_count"
+    ],
+    "n_observed": 16912,
+    "n_used_in_z": 16912,
+    "mean_transformed": 1.4501441002465751,
+    "sd_transformed": 1.0614806144647504,
+    "computed_from_own_source_features": true
+  },
+  {
+    "name": "physical_finance",
+    "block": "service",
+    "physical": "finance",
+    "transform": "log1p",
+    "year": 2021,
+    "unit": "dated2021_mutually_exclusive_source_object_classes_not_capacity",
+    "bound_columns": [
+      "model_services2021_finance_inclusive_count"
+    ],
+    "n_observed": 4287,
+    "n_used_in_z": 4287,
+    "mean_transformed": 1.230666816283133,
+    "sd_transformed": 0.8280864095247703,
+    "computed_from_own_source_features": true
+  },
+  {
+    "name": "registered_organization_economy",
+    "block": "economy",
+    "columns": [
+      "own_registered_economy_for_mass"
+    ],
+    "transform": "log1p",
+    "year": 2021,
+    "unit": "own_registered_legal_entities2021_or_explicit_federal_context2021_proxy",
+    "bound_columns": [
+      "own_registered_economy_for_mass"
+    ],
+    "n_observed": 142572,
+    "n_used_in_z": 142572,
+    "mean_transformed": 0.46040255596995894,
+    "sd_transformed": 0.9671029240415255,
+    "computed_from_own_source_features": true
+  },
+  {
+    "name": "housing_construction",
+    "block": "housing",
+    "columns": [
+      "context_housing_completed_residential_m2_per_capita_2021"
+    ],
+    "transform": "log1p",
+    "year": 2021,
+    "unit": "municipal_context_m2_per_capita_not_own_settlement",
+    "bound_columns": [
+      "context_housing_completed_residential_m2_per_capita_2021"
+    ],
+    "n_observed": 135843,
+    "n_used_in_z": 135843,
+    "mean_transformed": 0.36092318233179665,
+    "sd_transformed": 0.3231757210990452,
+    "computed_from_own_source_features": true
+  },
+  {
+    "name": "baseline_natural_increase",
+    "block": "demographic_context_2021",
+    "columns": [
+      "context_natural_increase_per1000_2021"
+    ],
+    "transform": "identity",
+    "year": 2021,
+    "unit": "municipal_context_per1000_not_own_settlement",
+    "bound_columns": [
+      "context_natural_increase_per1000_2021"
+    ],
+    "n_observed": 134666,
+    "n_used_in_z": 134666,
+    "mean_transformed": -12.861504866576317,
+    "sd_transformed": 6.21752475795621,
+    "computed_from_own_source_features": true
+  },
+  {
+    "name": "baseline_net_migration",
+    "block": "demographic_context_2021",
+    "columns": [
+      "context_migration_increase_per1000_2021"
+    ],
+    "transform": "identity",
+    "year": 2021,
+    "unit": "municipal_context_per1000_not_own_settlement",
+    "bound_columns": [
+      "context_migration_increase_per1000_2021"
+    ],
+    "n_observed": 135281,
+    "n_used_in_z": 135281,
+    "mean_transformed": -1.3649964831877714,
+    "sd_transformed": 11.442987290067549,
+    "computed_from_own_source_features": true
+  }
+]
