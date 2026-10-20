@@ -29,6 +29,11 @@ def main():
    row=e['requirements'][req['id']];row['author']='author';row['reviewer']='independent_reviewer'
    row['criteria']={c['id']:{'status':'PASS','verified_by':'independent_reviewer','artifact':str(file),'sha256':sha(file),'review_rationale':'Synthetic proof for exercising validator, never scientific evidence.','assertions':[{'pointer':'verified','operator':'eq','expected':True}]} for c in req['checks']}
   r=evaluate(policy,e);check('complete_valid_synthetic_evidence_exercises_accept_path',r['scientific_final_allowed'])
+  source=Path(temp)/'source.txt';source.write_text('original source')
+  sourced=copy.deepcopy(e);proof=next(iter(sourced['requirements']['W06']['criteria'].values()));proof['source_artifacts']=[{'artifact':str(source),'sha256':sha(source)}]
+  check('source_dependency_accepts_unchanged_bytes',evaluate(policy,sourced)['scientific_final_allowed'])
+  source.write_text('changed source')
+  check('source_dependency_change_invalidates_old_receipt',not evaluate(policy,sourced)['scientific_final_allowed'])
   broken=copy.deepcopy(e);broken['requirements']['W06']['criteria'][policy['requirements'][5]['checks'][0]['id']]['assertions'][0]['expected']=False
   r=evaluate(policy,broken);check('false_json_assertion_blocks_release',not r['scientific_final_allowed'])
   file.write_text(json.dumps({'verified':False}))
