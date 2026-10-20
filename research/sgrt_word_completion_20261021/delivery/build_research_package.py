@@ -34,6 +34,7 @@ def render(blocks,name):
     md=[]
     for kind,body in blocks:
         if kind in ['title','head','text','small']:
+            body=re.sub(r'(?<=[А-Яа-яёЁ])(?=\d)|(?<=\d)(?=[А-Яа-яёЁ])',' ',body)
             style={'title':'TitleRU','head':'HeadRU','text':'BodyRU','small':'SmallRU'}[kind]
             story.append(Paragraph(escape(body),st[style]))
             if kind=='title':doc.add_heading(body,0);md.append('# '+body)
@@ -68,6 +69,9 @@ def build(model):
     frozen_before={str(p):sha(p) for p in inputs}
     config_name=model.name.replace('output_','model_inputs_').removesuffix('_baseline')+'.json'
     configuration=read_json(model.parent/config_name)
+    if not (ROOT/'analysis/run_receipt.json').exists():raise FileNotFoundError('Actual regression/sample-gate receipt required')
+    for stem in ['03_road_hierarchy_','04_nine_word_types_','11_regional_sgrt_']:
+        if not (ROOT/f'maps/{stem}{model.name}.pdf').exists():raise FileNotFoundError('Actual model atlas/region figure required: '+stem+model.name)
     s=pd.read_parquet(model/'systems.parquet');m=pd.read_parquet(model/'memberships.parquet');types=pd.read_parquet(model/'word_type_hypotheses.parquet')
     low=s[(s.level==1)&s.n_rural_external_settlements.gt(0)].copy();axis=pd.read_parquet(ROOT/'axis/full_settlement_axis.parquet')
     audit=read_json(ROOT/'reviews/strict_gate_receipt.json');road=read_json(ROOT/'transport/graph_receipt.json')
@@ -93,13 +97,32 @@ def build(model):
     rows=[]
     for typ,name in TYPE_NAMES.items():
         t=types[(types.level==1)&types.word_type.eq(typ)]
-        rows.append([str(typ),name,number(t.rule_status.eq('satisfied_observed_indicators').sum()),number(t.rule_status.eq('unknown_missing_required_indicators').sum())])
-    blocks.append(('table',(['№','Тип','Все необходимые признаки','Неизвестные необходимые признаки'],rows)))
+        rows.append([str(typ),name,number(t.rule_status.eq('satisfied_observed_indicators').sum()),number(t.operational_hypothesis.sum()),number(t.rule_status.eq('unknown_missing_required_indicators').sum())])
+    blocks.append(('table',(['№','Тип','Все необходимые признаки','Операциональные гипотезы','Неизвестные признаки'],rows)))
     blocks.append(('text','Строгая матрица TRUE/FALSE/UNKNOWN проверяет необходимые признаки каждого типа. Отдельный слой операциональных типов-гипотез допускает содержательную классификацию по измеренным демографическим и функциональным сочетаниям, сохраняя недоказанные механизмы и возможные пересечения. Картографирование гипотез не превращает их в окончательно подтверждённые типы. Место проживания, национальные ответы и динамика населения не устанавливают индивидуальные причины поведения; моногород не тождествен промышленному спаду, добывающая площадка — переходу на вахту.'))
     validation=model/'independent_medical_validation_receipt.json'
     if validation.exists():
         v=read_json(validation);blocks.extend([('head','6. Независимая проверка модельных назначений'),('text',f'Официальные территории первичной медицинской помощи Ленинградской области2024 дают {v["unique_external_resolved_pairs"]} уникальных внешних отношений с явно связанным поставщиком. Точное совпадение низового назначения на всех таких парах: {100*v["exact_lowest_agreement_all_resolved_pairs"]:.1f}%; среди пар с поставщиком в наборе модельных кандидатов: {100*v["exact_lowest_agreement_eligible_pairs"]:.1f}%. Доля источниковых поставщиков, попавших в набор кандидатов, оценивается отдельно от точности назначения. Нормативное прикрепление не является наблюдаемой поездкой и не служит универсальной истиной для всех услуг. Этот корпус не используется для обучения и не назван слепой заранее зарегистрированной проверкой.')])
     blocks.extend([('head','7. Проверка гипотез и границы интерпретации'),('text','М1, М2 и М3 сравниваются на одной и той же полной подвыборке: сначала масса и доступность, затем сельский аграрный и природный контекст, затем конфигурация и пригородность. Стандартизация выполняется внутри обучающей части, регионы разделяют обучение и проверку. Неизвестная площадь сельхозугодий2021 не заменяется площадью2008; российский бонитет не заменяется рейтингом FAO. Отбор полной подвыборки и пространственная зависимость остатков проверяются отдельно.'),('text','Атлас содержит исходное покрытие, климат и почвы, вложенную иерархию, содержательные типы-гипотезы и фактические дорожные изохроны. Точки населённых пунктов и сеть не изображаются доказанными непрерывными территориальными полигонами. Для основного варианта и варианта с географическими кандидатами сохраняется отдельный состав, чтобы масштаб неопределённости связывания был видим.'),('head','8. Воспроизводимость и литературная опора'),('text','Все слои привязаны к устойчивым идентификаторам и снабжены датами, URL, SHA256, исходным зерном, единицами и правилами пропусков. Проверяющий агент независимо контролирует соответствие исходной рукописи; отказ по критерию возвращает расчёт на исправление. Программный цикл сохраняет команды, журналы и состояние приёмки. Прохождение технических проверок не объявляется научным завершением.'),('text','Методическая интерпретация опирается на выборочное первичное чтение Поляна, Трейвиша, Родомана, Покшишевского, Лаппо и Хорева, дополненное первичными текстами Баранского1946, Колосовского1947 и архивными выступлениями Маергойза в публикации2012. Перечень прочитанных страниц и ограничения чтения сохранены в литературной матрице; чужим авторам не приписываются наши сценарные пороги.'),('small','Проверяемые выходы: model/*/memberships.parquet, systems.parquet, hierarchy.parquet, function_specific_memberships.parquet, word_type_hypotheses.parquet, operational_type_candidates.parquet; analysis/; maps/; transport/; reviews/. Требования и научные ограничения читаются вместе с картами.')])
+    metrics_path=ROOT/'analysis/model_metrics.csv'
+    analysis_receipt=read_json(ROOT/'analysis/run_receipt.json')
+    extra=[('head','7а. Фактически рассчитанное сравнение моделей')]
+    if metrics_path.exists() and metrics_path.stat().st_size>2:
+        metrics=pd.read_csv(metrics_path);primary=metrics[metrics.scenario.eq('primary')]
+        metric_rows=[[str(int(r.level)),r.model,number(r.n),str(int(r.regions)),f'{r.group_oof_rmse:.3f}',f'{r.group_oof_mae:.3f}'] for r in primary.itertuples()]
+        extra.append(('table',(['Уровень','Модель','Общая N','Регионов','RMSE по новым регионам','MAE'],metric_rows)))
+        extra.append(('text','Ошибки относятся к совокупному процентному изменению2010–2021, а не к ежегодным процентам. Общая выборка и совпадающие региональные разбиения сохранены для всех трёх спецификаций. Масса2021 включает население конечного года и потому механически связана с исходом; даже контроль исходного населения и отдельный сельский исход не устраняют эндогенность. Коэффициенты и интервалы имеют описательный смысл.'))
+    else:
+        extra.append(('text','Ни один уровень не прошёл заранее заданные требования общей полной выборки и числа регионов. Недостающие наблюдения не заменялись нулями; результат проверки состава выборки опубликован в analysis/sample_gates.csv. Отсутствующий результат не объявляется подтверждением гипотезы.'))
+    gates=ROOT/'analysis/sample_gates.csv'
+    if gates.exists():
+        g=pd.read_csv(gates);pure=g[g.scenario.eq('pure_primary_population_source_sensitivity')]
+        if len(pure):extra.append(('text','Проверка только на полностью первично подтверждённых переписных значениях: '+ '; '.join(f'уровень{int(r.level)}: N={int(r.common_sample)}, регионов={int(r.regions)}, {r.status}' for r in pure.itertuples())+'.'))
+    location=next(i for i,(kind,body) in enumerate(blocks) if kind=='head' and body.startswith('8.'))
+    blocks[location:location]=extra
+    pars=configuration['model']
+    position=next(i for i,(kind,body) in enumerate(blocks) if kind=='text' and body.startswith('Модель выбора'))
+    blocks[position]=('text',f'Модель выбора использует Gij=Mj·exp(−Tij/τ), Pij=Gij/(ΣkGik+Moutside). Tij получено по направленному дорожному графу; соединительный внедорожный участок со скоростью15км/ч хранится отдельно. В основной конфигурации τ={pars["time_decay_minutes"]:g}минут, предел={pars["max_travel_minutes"]:g}минут, порог выбора={pars["minimum_choice_probability"]:g}, Moutside={pars["outside_mass"]:g}. При Moutside=0 вероятность условна на наблюдаемом наборе доступных поставщиков. Консервативный вариант с внешней альтернативой сохраняется отдельно. Параметры сценарные и не подбирались по точности на проверочных медицинских отношениях.')
     render(blocks,'SGRT_RESEARCH_REPORT_20261021')
     atlas=fitz.open()
     atlasfiles=sorted((ROOT/'maps').glob('*.pdf'))

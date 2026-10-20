@@ -5,14 +5,14 @@
   "scientific_final_allowed": false,
   "completion_claim_allowed": false,
   "requirements_total": 32,
-  "requirements_closed": 0,
-  "requirements_open": 32,
-  "criteria_verified": 4,
+  "requirements_closed": 1,
+  "requirements_open": 31,
+  "criteria_verified": 7,
   "criteria_total": 96,
   "dimension_closed_counts": {
-    "implementation": 0,
-    "data": 0,
-    "scientific": 0
+    "implementation": 1,
+    "data": 1,
+    "scientific": 1
   },
   "global_errors": [
     "missing_frozen_current_model_snapshot"
@@ -67,25 +67,18 @@
     },
     {
       "requirement_id": "W03",
-      "state": "NEEDS_REPAIR",
-      "declared_state": "IN_PROGRESS",
-      "criteria_verified": 1,
+      "state": "CLOSED",
+      "declared_state": "CLOSED",
+      "criteria_verified": 3,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "IN_PROGRESS",
-        "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "implementation": "CLOSED",
+        "data": "CLOSED",
+        "scientific": "CLOSED"
       },
-      "errors": [
-        "state=IN_PROGRESS",
-        "implementation=IN_PROGRESS",
-        "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
-        "missing:immutable_population_and_coordinate_provenance",
-        "missing:census_zeros_and_missing_values_preserved"
-      ],
-      "next_repair": "Доказать источниковую идентичность новых записей и нули/пропуски по каждому году; проверить исторические территории и координатное происхождение.",
-      "scientific_release_allowed": false
+      "errors": [],
+      "next_repair": "CLOSED в точном объёме сохранения/происхождения предоставленных данных. Историческая территориальная сопоставимость и sourcecoverage остаются отдельными W11/W21/W31; modelprimaryoverrides18909 отдельно версионированы.",
+      "scientific_release_allowed": true
     },
     {
       "requirement_id": "W04",
@@ -229,7 +222,7 @@
       "requirement_id": "W10",
       "state": "NEEDS_REPAIR",
       "declared_state": "IN_PROGRESS",
-      "criteria_verified": 0,
+      "criteria_verified": 1,
       "criteria_total": 3,
       "dimensions": {
         "implementation": "IN_PROGRESS",
@@ -241,7 +234,6 @@
         "implementation=IN_PROGRESS",
         "data=IN_PROGRESS",
         "scientific=NEEDS_REPAIR",
-        "missing:versioned_directed_road_graph_and_speed_profile",
         "missing:shortest_path_minutes_snap_and_disconnected_audit",
         "missing:network_isochrones_and_independent_route_checks"
       ],
@@ -768,6 +760,6 @@
     }
   ],
   "policy_sha256": "aaa2447a1f324a95f81febe985484d161b1a3c0c70f0914dc2b8b34da3df30e7",
-  "evidence_sha256": "d72a26ad5324fe3b2854914e074232f964cd776d94c30471e48e15f243c1bc26",
+  "evidence_sha256": "5b5e8223c1fd59aa7afd011c625f3c5b34f3e58a09812bc0eb31fec8237c05da",
   "important": "BLOCKED_EXTERNAL and disclosed limitations do not mean CLOSED. A negative scientific finding may close a valid analysis; absence of data may not."
 }

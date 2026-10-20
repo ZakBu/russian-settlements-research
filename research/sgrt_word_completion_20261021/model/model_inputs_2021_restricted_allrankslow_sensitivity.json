@@ -1,0 +1,311 @@
+{
+  "axis": "research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet",
+  "axis_id": "id",
+  "mass_reference_year": 2021,
+  "dynamic_initial_year": 2010,
+  "dynamic_final_year": 2021,
+  "layers": [
+    {
+      "path": "research/sgrt_national_integration_20261019/core/feature_master.parquet",
+      "key": "id",
+      "prefix": "legacy_"
+    },
+    {
+      "path": "research/sgrt_word_completion_20261021/education/settlement_features_2021_full_axis.parquet",
+      "key": "id",
+      "prefix": "school_",
+      "optional": true
+    },
+    {
+      "path": "research/sgrt_word_completion_20261021/medical/history_20210101/settlement_features.parquet",
+      "key": "id",
+      "prefix": "medical_",
+      "optional": true
+    },
+    {
+      "path": "research/sgrt_word_completion_20261021/context/municipal_settlement_features.parquet",
+      "key": "id",
+      "prefix": "",
+      "optional": true,
+      "retain_prefixes": [
+        "context_",
+        "agro_"
+      ]
+    },
+    {
+      "path": "research/sgrt_word_completion_20261021/context/climate_settlement_features.parquet",
+      "key": "id",
+      "prefix": "",
+      "optional": true,
+      "retain_prefixes": [
+        "climate_"
+      ]
+    },
+    {
+      "path": "research/sgrt_word_completion_20261021/typology/settlement_features.parquet",
+      "key": "id",
+      "prefix": "",
+      "optional": true,
+      "retain_prefixes": [
+        "recreation_",
+        "dacha_",
+        "designated_",
+        "historical_",
+        "geonames_",
+        "ethnic_",
+        "industrial_",
+        "resource_",
+        "commuting_",
+        "sanatorium_",
+        "official_resort_",
+        "osm_allotment_",
+        "osm_accommodation_"
+      ],
+      "retain_evidence_suffix": true
+    },
+    {
+      "path": "research/sgrt_word_completion_20261021/context/soil_settlement_features.parquet",
+      "key": "id",
+      "prefix": "",
+      "optional": true,
+      "retain_prefixes": [
+        "soil_"
+      ]
+    },
+    {
+      "path": "research/sgrt_word_completion_20261021/calibration/services_2021_settlement_features.parquet",
+      "key": "id",
+      "prefix": "services_",
+      "optional": false
+    },
+    {
+      "path": "research/sgrt_word_completion_20261021/transport/settlement_road_snap.parquet",
+      "key": "id",
+      "prefix": "road_",
+      "optional": false,
+      "normalize_route_aliases": true
+    },
+    {
+      "path": "research/sgrt_word_completion_20261021/literature/industrial_case_evidence.parquet",
+      "key": "id",
+      "prefix": "industrialcase_",
+      "optional": false,
+      "retain_prefixes": [
+        "source_",
+        "event_",
+        "excerpt",
+        "enterprise",
+        "affected_industry"
+      ]
+    },
+    {
+      "path": "research/sgrt_word_completion_20261021/demography2010_recovery/root_reviewed_primary2010_four_regions_v1.parquet",
+      "key": "id",
+      "prefix": "recovered2010_",
+      "optional": false,
+      "retain_prefixes": [
+        "source_",
+        "raw_",
+        "official_",
+        "primary_",
+        "count_",
+        "sex_",
+        "link_",
+        "root_",
+        "reviewed_"
+      ]
+    }
+  ],
+  "physical_features": {
+    "education": [
+      "school_education_osm2021_school_baseline_count"
+    ],
+    "healthcare": [
+      "medical_medical_osm_baseline_healthcare_sites_count"
+    ],
+    "hospital": [
+      "model_hospital2021_baseline_count"
+    ],
+    "trade": [
+      "model_services2021_trade_baseline_count"
+    ],
+    "finance": [
+      "model_services2021_finance_baseline_count"
+    ],
+    "administration": [
+      "services_services_osm2021_administration_baseline_count"
+    ],
+    "higher_education": [
+      "school_education_osm2021_college_baseline_count",
+      "school_education_osm2021_university_baseline_count"
+    ],
+    "preschool": [
+      "school_education_osm2021_preschool_baseline_count"
+    ]
+  },
+  "components": [
+    {
+      "name": "own_population",
+      "block": "demographic",
+      "columns": [
+        "own_population_for_mass"
+      ],
+      "transform": "log1p",
+      "year": 2021,
+      "unit": "own_NP_population_or_explicit_federal_territorial_context_proxy"
+    },
+    {
+      "name": "physical_education",
+      "block": "service",
+      "physical": "education",
+      "transform": "log1p",
+      "year": 2021,
+      "unit": "source_sites_not_capacity"
+    },
+    {
+      "name": "physical_healthcare",
+      "block": "service",
+      "physical": "healthcare",
+      "transform": "log1p",
+      "year": 2021,
+      "unit": "source_sites_not_capacity"
+    },
+    {
+      "name": "physical_trade",
+      "block": "service",
+      "physical": "trade",
+      "transform": "log1p",
+      "year": 2021,
+      "unit": "dated2021_mutually_exclusive_source_object_classes_not_capacity"
+    },
+    {
+      "name": "physical_finance",
+      "block": "service",
+      "physical": "finance",
+      "transform": "log1p",
+      "year": 2021,
+      "unit": "dated2021_mutually_exclusive_source_object_classes_not_capacity"
+    },
+    {
+      "name": "registered_organization_economy",
+      "block": "economy",
+      "columns": [
+        "own_registered_economy_for_mass"
+      ],
+      "transform": "log1p",
+      "year": 2021,
+      "unit": "own_registered_legal_entities2021_or_explicit_federal_context2021_proxy"
+    },
+    {
+      "name": "housing_construction",
+      "block": "housing",
+      "columns": [
+        "context_housing_completed_residential_m2_per_capita_2021"
+      ],
+      "transform": "log1p",
+      "year": 2021,
+      "unit": "municipal_context_m2_per_capita_not_own_settlement"
+    },
+    {
+      "name": "baseline_natural_increase",
+      "block": "demographic_context_2021",
+      "columns": [
+        "context_natural_increase_per1000_2021"
+      ],
+      "transform": "identity",
+      "year": 2021,
+      "unit": "municipal_context_per1000_not_own_settlement"
+    },
+    {
+      "name": "baseline_net_migration",
+      "block": "demographic_context_2021",
+      "columns": [
+        "context_migration_increase_per1000_2021"
+      ],
+      "transform": "identity",
+      "year": 2021,
+      "unit": "municipal_context_per1000_not_own_settlement"
+    }
+  ],
+  "model": {
+    "time_decay_minutes": 30.0,
+    "max_travel_minutes": 180.0,
+    "outside_mass": 0.0,
+    "minimum_choice_probability": 0.35,
+    "competition_ratio": 0.8,
+    "maximum_rank_components": 6,
+    "minimum_rank_cluster_size": 20,
+    "random_seed": 20261021,
+    "hierarchy_max_travel_minutes": 360.0,
+    "pending_singleton_max_travel_minutes": 180.0
+  },
+  "external_centers": "research/sgrt_word_completion_20261021/axis/external_context_centers.parquet",
+  "travel_edges": "research/sgrt_word_completion_20261021/transport/candidate_travel_times.parquet",
+  "linkage_mode": "dated2021_baseline_explicit_locality_retro_demography__restricted_integral_center_eligibility",
+  "external_context_reference": "research/sgrt_national_integration_20261019/core/external_federal_features.csv",
+  "derived_features": [
+    {
+      "name": "model_hospital2021_baseline_count",
+      "columns": [
+        "medical_medical_osm_baseline_hospital_source_tag_count",
+        "medical_medical_osm_baseline_central_district_hospital_name_assertion_count",
+        "medical_medical_osm_baseline_district_local_hospital_name_assertion_count",
+        "medical_medical_osm_baseline_regional_hospital_name_assertion_count"
+      ],
+      "operation": "sum_disjoint"
+    },
+    {
+      "name": "model_services2021_trade_baseline_count",
+      "columns": [
+        "services_services_osm2021_large_retail_baseline_count",
+        "services_services_osm2021_other_retail_baseline_count",
+        "services_services_osm2021_market_baseline_count"
+      ],
+      "operation": "sum_disjoint"
+    },
+    {
+      "name": "model_services2021_finance_baseline_count",
+      "columns": [
+        "services_services_osm2021_bank_baseline_count",
+        "services_services_osm2021_atm_baseline_count"
+      ],
+      "operation": "sum_disjoint"
+    }
+  ],
+  "required_input_columns": [
+    "legacy_econ_native_2021_legal_entities",
+    "road_snap_km",
+    "road_snap_status",
+    "road_weak_component"
+  ],
+  "target_run_id": "sgrt_word_completion_20261021_cycle02",
+  "center_eligibility": "restricted_multifunctional_or_independent_seat",
+  "independent_district_seats": "research/sgrt_word_completion_20261021/calibration/osm_admin_centers_axis_linked.parquet",
+  "evidence_overrides": [
+    {
+      "source": "industrialcase_industrial_decline_2010_2021_primary",
+      "target": "industrial_decline_evidence"
+    },
+    {
+      "source": "industrialcase_industrial_decline_2010_2021_primary",
+      "target": "historical_industrial_function_evidence"
+    }
+  ],
+  "outside_option_interpretation": "primary_conditional_probability_among_reachable_centers_Word_max_probability_threshold;outside1_separate_conservative_sensitivity",
+  "initial_assignment_center_scope": "all_ranks_compete",
+  "travel_manifest": "research/sgrt_word_completion_20261021/transport/candidate_travel_times_manifest.json",
+  "population_overrides": [
+    {
+      "year": 2010,
+      "value": "recovered2010_reviewed_primary2010_population",
+      "quality": "recovered2010_reviewed_primary2010_quality",
+      "allowed": "recovered2010_reviewed_primary2010_override_allowed",
+      "root_review_status": "recovered2010_root_review_status"
+    }
+  ],
+  "route_id_aliases": {
+    "RU-FED-MOW": "ctx:RU-FED-MOW",
+    "RU-FED-SPB": "ctx:RU-FED-SPB"
+  },
+  "persist_full_choice_edges": false
+}

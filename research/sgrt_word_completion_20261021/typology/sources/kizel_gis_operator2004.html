@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+		<title>ГИС экологического мониторинга кизеловского угольного бассейна &#8212; ArcReview</title>
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="ArcReview &raquo; Лента" href="https://arcreview.esri-cis.ru/feed/" />
+<link rel="alternate" type="application/rss+xml" title="ArcReview &raquo; Лента комментариев" href="https://arcreview.esri-cis.ru/comments/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/arcreview.esri-cis.ru\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.10"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='dashicons-css'  href='https://arcreview.esri-cis.ru/wp-includes/css/dashicons.min.css?ver=4.9.10' type='text/css' media='all' />
+<link rel='stylesheet' id='csco-vendors-css'  href='https://arcreview.esri-cis.ru/wp-content/themes/authentic/css/vendors.min.css?ver=4.9.10' type='text/css' media='all' />
+<link rel='stylesheet' id='csco-style-css'  href='https://arcreview.esri-cis.ru/wp-content/themes/authentic/style.css?ver=4.9.10' type='text/css' media='all' />
+<link rel='stylesheet' id='kirki-styles-csco_theme_mod-css'  href='https://arcreview.esri-cis.ru/wp-content/themes/authentic/framework/includes/kirki/assets/css/kirki-styles.css?ver=3.0.25' type='text/css' media='all' />
+<style id='kirki-styles-csco_theme_mod-inline-css' type='text/css'>
+body, .offcanvas, #search, input[type=search], input[type=text], input[type=number], input[type=email], input[type=tel], input[type=password], textarea, .form-control, .card, .pagination-content{background-color:#ffffff;}.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link, .woocommerce div.product .woocommerce-tabs ul.tabs li.active a{border-bottom-color:#ffffff;border-left-color:#eeeeee;border-right-color:#eeeeee;}.content .block-bg-dark, .dropcap-bg-inverse:first-letter, .dropcap-bg-dark:first-letter{color:#ffffff!important;}body, input[type=search], input[type=text], input[type=number], input[type=email], input[type=tel], input[type=password], textarea{color:#282828;}blockquote cite, label, .text-small, .comment-metadata, .logged-in-as, .post-categories, .post-count, .product-count, .post-meta, .content figcaption, .post-media figcaption, .post-tags, .sub-title, .tagcloud, .timestamp, #wp-calendar caption, .comment-metadata a, .comment-metadata, .bsa-wrap .bsa-count, .bsa-wrap .bsa-label, .bsb-default .bsb-count, .title-share, .btw-default .btw-tweet:before, .woocommerce ul.products li.product .price, .woocommerce .widget_price_filter .price_slider_amount, .woocommerce ul.cart_list li .reviewer, .woocommerce ul.product_list_widget li .reviewer, .woocommerce .woocommerce-result-count, .woocommerce .product_meta, .woocommerce div.product p.price del,.woocommerce div.product span.price del, .woocommerce .woocommerce-review-link, .woocommerce-review__published-date, .woocommerce table.shop_table th, .woocommerce table.shop_table_responsive tr td::before, .woocommerce-page table.shop_table_responsive tr td::before{color:#c9c9c9;}.owl-dot span{background-color:#c9c9c9;}a, #search .close, .btn-link, .bsa-wrap .bsa-count, .bsa-wrap .bsa-icon, .bsa-wrap .bsa-title, .bsb-default .bsb-link, .bsb-wrap .bsb-total .bsb-label, .woocommerce ul.products li.product .price ins, .woocommerce .widget_layered_nav ul li.chosen a:before, .woocommerce div.product p.price, .woocommerce div.product span.price, .woocommerce .quantity-controls input, .woocommerce .woocommerce-review-link:hover, .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link, .woocommerce div.product .woocommerce-tabs ul.tabs li a, .woocommerce p.stars a:hover, .woocommerce .order-total .amount{color:#000000;}.owl-dot.active span{background-color:#000000;}.woocommerce a.remove{color:#000000!important;}a:hover, .btn-link:hover, #search .close:hover, .woocommerce .widget_layered_nav ul li.chosen a:hover:before, .woocommerce p.stars a, .woocommerce .woocommerce-MyAccount-navigation-link.is-active a{color:#0079c1;}section.widget .widget-wrap, .form-control, input[type=search], input[type=text], input[type=number], input[type=email], input[type=tel], input[type=password], textarea, select, .card, .post-archive .archive-compact .post-masonry, .post-archive .archive-compact .post-grid, .post-archive .archive-compact.archive-masonry section.widget, .post-archive .archive-compact.archive-grid section.widget, .woocommerce .cart-collaterals .cart_totals, .woocommerce form.checkout_coupon, .woocommerce form.login, .woocommerce form.register, .select2-container--default .select2-selection--single, .select2-dropdown, .woocommerce form .form-row.woocommerce-validated .select2-container, .woocommerce form .form-row.woocommerce-validated input.input-text, .woocommerce form .form-row.woocommerce-validated select, .woocommerce table.woocommerce-checkout-review-order-table, #add_payment_method #payment, .woocommerce-cart #payment, .woocommerce-checkout #payment, #add_payment_method table.cart td.actions .coupon .input-text, .woocommerce-cart table.cart td.actions .coupon .input-text, .woocommerce-checkout table.cart td.actions .coupon .input-text, .woocommerce table.woocommerce-table--order-details, .woocommerce .woocommerce-MyAccount-navigation ul{border-color:#eeeeee;}.header-enabled .navbar-primary:not(.navbar-stuck) .navbar, .navigation.comment-navigation, .site-main > article > .post-author, .post-main .post-author, .comment-body + .comment-respond, .comment-list + .comment-respond, .comment-list article, .comment-list .pingback, .comment-list .trackback, .section-tiles + .site-content .main-content, .section-carousel + .site-content > .container:before, .section-tiles + .site-content > .container:before, .post-standard:not(.post-featured) + .post-standard:not(.post-featured), .archive-first + .archive-list, .single .section-carousel, .widget_nav_menu .menu > .menu-item:not(:first-child), .widget_pages li:not(:first-child) a, .widget_meta li:not(:first-child) a, .widget_categories > ul > li:not(:first-child), .widget_archive > ul > li:not(:first-child), .widget_recent_comments li:not(:first-child), .widget_recent_entries li:not(:first-child), #wp-calendar tbody td, .single .navigation.pagination, .navigation.pagination + .post-tags, .fb-comments, .post-tags, .sidebar-offcanvas .widget + .widget, .page-header-simple .page-header + .post-archive, .section-carousel + .site-content > .container:before, .section-grid + .site-content > .container:before, .archive-pagination:not(:empty), .post-list:not(.post-featured) + .post-list:not(.post-featured), .woocommerce .widget_shopping_cart .total, .woocommerce.widget_shopping_cart .total, .widget_product_categories > ul > li:not(:first-child), .woocommerce .widget_layered_nav > ul > li:not(:first-child), .woocommerce .product_meta, .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link, .woocommerce div.product .woocommerce-tabs ul.tabs li.active a, .woocommerce #review_form, .woocommerce table.shop_table td, #add_payment_method .cart-collaterals .cart_totals tr td, #add_payment_method .cart-collaterals .cart_totals tr th, .woocommerce-cart .cart-collaterals .cart_totals tr td, .woocommerce-cart .cart-collaterals .cart_totals tr th, .woocommerce-checkout .cart-collaterals .cart_totals tr td, .woocommerce-checkout .cart-collaterals .cart_totals tr th, .woocommerce table.shop_table tbody th, .woocommerce table.shop_table tfoot td, .woocommerce table.shop_table tfoot th{border-top-color:#eeeeee;}.navbar-primary:not(.navbar-stuck) .navbar, .navbar-stuck, .topbar, .navbar-offcanvas, .navigation.comment-navigation, .bsc-separator, .nav-tabs, .woocommerce div.product .woocommerce-tabs ul.tabs{border-bottom-color:#eeeeee;}.woocommerce .widget_price_filter .price_slider_wrapper .ui-widget-content, .nav-tabs .nav-link:not(.active):focus, .nav-tabs .nav-link:not(.active):hover{background-color:#eeeeee;}.woocommerce .star-rating::before{color:#eeeeee;}.site-main .bmc-wrap, .post-comments, .content .dropcap-bg:first-letter, .content .dropcap-bg-light:first-letter, .content .block-bg-default, .content .block-bg-light, .bsa-horizontal .bsa-link, .bsb-after-post.bsb-default .bsb-link, .bsb-before-post.bsb-default .bsb-link, .basic_mailchimp_widget, .btw-slider, div.quantity input, .woocommerce-error, .woocommerce-info, .woocommerce-message, .card-header, .progress, .woocommerce div.product .woocommerce-tabs ul.tabs li:not(.active) a:hover, .woocommerce table.shop_attributes tr:nth-child(even) td, .woocommerce table.shop_attributes tr:nth-child(even) th, .woocommerce .woocommerce-Reviews #comments, .woocommerce #review_form_wrapper, #add_payment_method #payment div.form-row, .woocommerce-cart #payment div.form-row, .woocommerce-checkout #payment div.form-row{background-color:#f8f8f8;}h1, h2, h3, h4, h5, h6, .comment .fn, #search input[type="search"], .woocommerce .widget_shopping_cart .total strong, .woocommerce.widget_shopping_cart .total strong, .woocommerce .widget_shopping_cart .total .amount, .woocommerce.widget_shopping_cart .total .amount, .woocommerce-review__author, .comment-reply-title, #ship-to-different-address > label{color:#000000;}#search input[type="search"]:-ms-input-placeholder{color:#000000;}#search input[type="search"]:-moz-placeholder{color:#000000;}#search input[type="search"]::-webkit-input-placeholder{color:#000000;}h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, .comment .fn a{color:#000000;}h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover, .comment .fn a:hover{color:#a0a0a0;}.title-block{color:#000000;}.btn-primary, .post-number, .bsb-monochrome.bsb-before-post .bsb-link, .bsb-monochrome.bsb-after-post .bsb-link, .section-tiles .post-more .btn, .section-slider .post-more .btn, .post-pagination .post-more .btn, .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit.alt, .woocommerce a.button.alt, .woocommerce button.button.alt, .woocommerce input.button.alt, .woocommerce #respond input#submit.alt:hover, .woocommerce a.button.alt:hover, .woocommerce button.button.alt:hover, .woocommerce input.button.alt:hover, .woocommerce span.onsale, .header-cart .cart-quantity, .woocommerce.widget_product_search input[type=submit], .product-thumbnail .added_to_cart, .woocommerce a.remove:hover, .select2-container--default .select2-results__option--highlighted[aria-selected]{color:#ffffff;}.pin-it{color:#ffffff!important;}.btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .bsb-monochrome.bsb-before-post .bsb-link:hover, .bsb-monochrome.bsb-after-post .bsb-link:hover, .section-tiles .post-more .btn:hover, .section-slider .post-more .btn:hover, .post-pagination .post-more .btn:hover, .woocommerce #respond input#submit:hover, .woocommerce a.button:hover, .woocommerce button.button:hover, .woocommerce input.button:hover, .header-cart:hover .cart-quantity, .post-tags a:focus, .post-tags a:hover, .tagcloud a:focus, .tagcloud a:hover, .woocommerce.widget_product_search input[type=submit]:hover, .product-thumbnail .added_to_cart:hover{color:#ffffff;}.pin-it:hover{color:#ffffff!important;background-color:#0270af!important;}.btn-primary, .post-number, .nav-pills .nav-link.active, .nav-pills .nav-link.active:focus, .nav-pills .nav-link.active:hover, .bsb-monochrome.bsb-before-post .bsb-link, .bsb-monochrome.bsb-after-post .bsb-link, .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce span.onsale, .header-cart .cart-quantity, .woocommerce .widget_price_filter .ui-slider .ui-slider-handle, .woocommerce .widget_price_filter .ui-slider .ui-slider-range, .woocommerce.widget_product_search input[type=submit], .product-thumbnail .added_to_cart, .woocommerce #respond input#submit.alt, .woocommerce a.button.alt, .woocommerce button.button.alt, .woocommerce input.button.alt, .woocommerce a.remove:hover, .select2-container--default .select2-results__option--highlighted[aria-selected]{background-color:#0079c1;}.bg-primary, .pin-it{background-color:#0079c1!important;}.woocommerce .star-rating span::before{color:#0079c1;}.btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .bsb-monochrome.bsb-before-post .bsb-link:hover, .bsb-monochrome.bsb-after-post .bsb-link:hover, .woocommerce #respond input#submit:hover, .woocommerce a.button:hover, .woocommerce button.button:hover, .woocommerce input.button:hover, .header-cart:hover .cart-quantity, .post-tags a:focus, .post-tags a:hover, .tagcloud a:focus, .tagcloud a:hover, .woocommerce.widget_product_search input[type=submit]:hover, .product-thumbnail .added_to_cart:hover, .woocommerce #respond input#submit.alt:hover, .woocommerce a.button.alt:hover, .woocommerce button.button.alt:hover, .woocommerce input.button.alt:hover{background-color:#0270af;}.btn-secondary, .woocommerce #respond input#submit.disabled, .woocommerce #respond input#submit:disabled, .woocommerce a.button.disabled, .woocommerce a.button:disabled, .woocommerce button.button.disabled, .woocommerce button.button:disabled, .woocommerce input.button.disabled, .woocommerce input.button:disabled, .woocommerce.widget_product_search input[type=submit].disabled, .woocommerce.widget_product_search input[type=submit]:disabled, .woocommerce .added_to_cart.disabled, .woocommerce .added_to_cart:disabled, .woocommerce #respond input#submit.alt.disabled, .woocommerce #respond input#submit.alt.disabled:hover, .woocommerce #respond input#submit.alt:disabled, .woocommerce #respond input#submit.alt:disabled:hover, .woocommerce #respond input#submit.alt:disabled[disabled], .woocommerce #respond input#submit.alt:disabled[disabled]:hover, .woocommerce a.button.alt.disabled, .woocommerce a.button.alt.disabled:hover, .woocommerce a.button.alt:disabled, .woocommerce a.button.alt:disabled:hover, .woocommerce a.button.alt:disabled[disabled], .woocommerce a.button.alt:disabled[disabled]:hover, .woocommerce button.button.alt.disabled, .woocommerce button.button.alt.disabled:hover, .woocommerce button.button.alt:disabled, .woocommerce button.button.alt:disabled:hover, .woocommerce button.button.alt:disabled[disabled], .woocommerce button.button.alt:disabled[disabled]:hover, .woocommerce input.button.alt.disabled, .woocommerce input.button.alt.disabled:hover, .woocommerce input.button.alt:disabled, .woocommerce input.button.alt:disabled:hover, .woocommerce input.button.alt:disabled[disabled], .woocommerce input.button.alt:disabled[disabled]:hover{color:#a0a0a0;background-color:#eeeeee;}.btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus{color:#000000;background-color:#f8f8f8;}.site-title{color:#000000;}.site-title:hover{color:#a0a0a0;}.site-description{color:#a0a0a0;}.navbar-primary{background-color:#ffffff;}.navbar-primary:not(.navbar-stuck) .navbar, .navbar-stuck{border-bottom-width:1px;border-bottom-style:solid;}.navbar-primary a, .navbar-primary button, .navbar-primary .navbar-nav > li > a{color:#000000;}.navbar-primary a:hover, .navbar-primary button:hover, .navbar-primary .navbar-nav > li > a:focus, .navbar-primary .navbar-nav > li > a:hover, .navbar-primary .navbar-nav > li.current-menu-parent > a, .navbar-primary .navbar-nav > li.current-nav-item > a{color:#0079c1;}.navbar-nav .sub-menu{background-color:#ffffff;border:1px #eeeeee solid;}.navbar-nav .sub-menu .sub-menu{margin-top:-1px;}.navbar-nav .sub-menu > li > a, .navbar-nav .sub-cats > li > a, .navbar-nav .menu-columns > .sub-menu > li > a:hover, .mega-menu-item .entry-title a{color:#000000;}.navbar-nav .sub-menu > li > a:hover, .navbar-nav .sub-menu > li > a:focus, .navbar-nav .sub-menu > li > a:active, .navbar-nav .sub-cats > li > a:hover, .navbar-nav .sub-cats > li > a:focus, .navbar-nav .sub-cats > li > a:active, .mega-menu-item .entry-title a:hover{color:#0079c1;}.navbar-nav .sub-menu .current-menu-item > a, .navbar-nav .sub-menu .current-menu-ancestor > a, .navbar-nav .sub-menu .current-menu-parent > a{color:#025d91;}.navbar-nav .sub-menu > li + li > a, .navbar-nav .sub-cats > li + li > a{border-top:1px #eeeeee solid;}.navbar-primary .bsa-nav .bsa-icon{color:#000000;}.navbar-primary .bsa-nav .bsa-item .bsa-link:hover .bsa-icon{color:#000000;}.navbar-primary .bsa-nav .bsa-title, .navbar-primary .bsa-nav .bsa-count, .navbar-primary .bsa-nav .bsa-label{color:#A0A0A0;}.navbar-primary .bsa-nav .bsa-item .bsa-link:hover .bsa-title, .navbar-primary .bsa-nav .bsa-item .bsa-link:hover .bsa-count, .navbar-primary .bsa-nav .bsa-item .bsa-link:hover .bsa-label{color:#000000;}.topbar{border-bottom-width:1px;border-bottom-style:solid;}.topbar a, .topbar .navbar-nav > li > a, .topbar .bsa-nav .bsa-icon, .topbar .bsa-nav .bsa-label, .topbar .bsa-nav .bsa-title{color:#a0a0a0;}.topbar a:hover, .topbar .navbar-nav > li > a:focus, .topbar .navbar-nav > li > a:hover, .topbar .navbar-nav > li.current-menu-item > a, .topbar .bsa-nav .bsa-item .bsa-link:hover .bsa-icon, .topbar .bsa-nav .bsa-item .bsa-link:hover .bsa-title, .topbar .bsa-nav .bsa-count{color:#0079c1;}.topbar .bsa-nav .bsa-icon{color:#0079c1;}.topbar .bsa-nav .bsa-item .bsa-link:hover .bsa-icon{color:#0270af;}.topbar .bsa-nav .bsa-title, .topbar .bsa-nav .bsa-count, .topbar .bsa-nav .bsa-label{color:#a0a0a0;}.topbar .bsa-nav .bsa-item .bsa-link:hover .bsa-title, .topbar .bsa-nav .bsa-item .bsa-link:hover .bsa-count, .topbar .bsa-nav .bsa-item .bsa-link:hover .bsa-label{color:#000000;}.offcanvas-header .navbar-brand, .offcanvas-header .navbar-toggle{color:#000000;}.offcanvas-header .navbar-brand:hover, .offcanvas-header .navbar-brand:focus, .offcanvas-header .navbar-toggle:hover, .offcanvas-header .navbar-toggle:focus{color:#0079c1;}.offcanvas-header .navbar{background-color:#ffffff;}.navbar-offcanvas{border-bottom-width:1px;border-bottom-style:solid;height:50px;}.content p{color:#303030;}.content p > a:not(.btn):not(.button), .content > ul a, .content > ol a, .taxonomy-description a{color:#0079c1;}.content p > a:not(.btn):not(.button):hover, .content > ul a:hover, .content > ol a:hover, .taxonomy-description a:hover{color:#000000;}.post-categories a{color:#0079c1;}.post-categories a:hover{color:#000000;}::selection{color:#ffffff;background:#0079c1;}::-moz-selection{color:#ffffff;background:#0079c1;}.content blockquote, .content blockquote p{color:#292929;}.content .dropcap:first-letter, .content .content-block, .content .lead{color:#292929;}.content .dropcap-bg-inverse:first-letter, .content .dropcap-bg-dark:first-letter, .content .block-border-top:before, .content .block-border-bottom:after, .content .block-bg-inverse, .content .block-bg-dark{background-color:#292929;}.content .dropcap-borders:first-letter, .content .block-border-all{border-color:#292929;}.content .dropcap-border-right:first-letter, .content .block-border-right{border-right-color:#292929;}.content .block-border-left{border-left-color:#292929;}.site-footer{background-color:#f3f4f5;color:#afb4ba;}.site-footer .owl-dot span, .site-footer .widget_price_filter .ui-slider .ui-slider-handle{background-color:#afb4ba;}.site-footer .title-widget{color:#e29292;}.site-footer a, .site-footer #wp-calendar thead th, .site-footer .owl-dot.active span, .site-footer h2, .site-footer .bsa-wrap .bsa-count, .site-footer .bsa-wrap .bsa-icon, .site-footer .bsa-wrap .bsa-title, .woocommerce .site-footer .widget_shopping_cart .total strong, .site-footer .woocommerce.widget_shopping_cart .total strong, .woocommerce .site-footer .widget_shopping_cart .total .amount, .site-footer .woocommerce.widget_shopping_cart .total .amount, .woocommerce .site-footer .star-rating span::before{color:#000000;}.site-footer .owl-dot.active span{background-color:#000000;}.woocommerce .site-footer a.remove{color:#000000!important;}.site-footer a:hover, site-footer a:hover:active, .site-footer a:focus:active{color:#0079c1;}.site-footer #wp-calendar tfoot tr #prev + .pad:after, .site-footer #wp-calendar tbody td a, .sidebar-footer .basic_mailchimp_widget, .sidebar-footer .bsa-horizontal .bsa-link, .woocommerce .site-footer .widget_price_filter .ui-slider .ui-slider-range, .woocommerce .site-footer .widget_price_filter .price_slider_wrapper .ui-widget-content{background-color:#e6e8e9;}.site-footer .widget, .site-footer .widget_nav_menu .menu > .menu-item:not(:first-child), .site-footer .widget_categories > ul > li:not(:first-child), .site-footer .widget_archive > ul > li:not(:first-child), .site-footer #wp-calendar tbody td, .site-footer .widget_pages li:not(:first-child) a, .site-footer .widget_meta li:not(:first-child) a, .site-footer .widget_recent_comments li:not(:first-child), .site-footer .widget_recent_entries li:not(:first-child), .site-footer #wp-calendar tbody td#today:after, .footer-section + .footer-section > .container > *, .sidebar-footer .widget + .widget, .site-footer .widget_product_categories > ul > li:not(:first-child), .site-footer .widget_layered_nav > ul > li:not(:first-child), .woocommerce .site-footer .widget_shopping_cart .total, .site-footer .woocommerce.widget_shopping_cart .total{border-top-color:#e6e8e9;}.woocommerce .site-footer .star-rating::before{color:#e6e8e9;}.site-footer .btn, .woocommerce .site-footer a.button, .woocommerce .site-footer button.button, .woocommerce .site-footer input.button{color:#a0a0a0;}.site-footer .btn:hover, .site-footer .btn:active, .woocommerce .site-footer a.button:hover, .woocommerce .site-footer button.button:hover, .woocommerce .site-footer input.button:hover{color:#ffffff;}.site-footer .btn, .site-footer select, .site-footer .authentic_widget_posts .numbered .post-number, .woocommerce .site-footer a.button, .woocommerce .site-footer button.button, .woocommerce .site-footer input.button{background-color:#242424;}.site-footer .btn:hover, .site-footer .btn:active, .site-footer .btn:focus, .woocommerce .site-footer a.button:hover, .woocommerce .site-footer button.button:hover, .woocommerce .site-footer input.button:hover{background-color:#141414;}.overlay-media:before, .page-header.overlay:hover .overlay-media:before, .post-thumbnail:before, .null-instagram-feed .overlay:hover .overlay-media:before{background-color:rgba(44,47,48,0.25);}.overlay:hover .overlay-media:before, .post-thumbnail:hover:before, .pagination-visible:hover .pagination-title{background-color:rgba(44,47,48,0.5);}body, button, input[type=search], input[type=text], input[type=number], input[type=email], input[type=tel], input[type=password], optgroup, select, textarea{font-family:Montserrat, Helvetica, Arial, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;}blockquote cite, label, .text-small, .comment-metadata, .logged-in-as, .post-categories, .post-count, .product-count, .post-meta, .post-tags, .sub-title, .tagcloud, .timestamp, .instagram-meta, .alert, #wp-calendar caption, .bsa-wrap .bsa-count, .bsa-wrap .bsa-label, .bsb-wrap .bsb-count, .btw-count, .woocommerce .widget_price_filter .price_slider_amount, .woocommerce ul.cart_list li .reviewer, .woocommerce ul.product_list_widget li .reviewer, .woocommerce .woocommerce-result-count, .woocommerce .product_meta, .woocommerce-error, .woocommerce-info, .woocommerce-message, .woocommerce .woocommerce-review-link, .woocommerce-review__published-date, .woocommerce table.shop_table th, .woocommerce table.shop_table_responsive tr td::before, .woocommerce-page table.shop_table_responsive tr td::before, .header-cart .cart-quantity{font-family:Montserrat, Helvetica, Arial, sans-serif;font-size:10px;font-weight:400;letter-spacing:.2px;text-transform:uppercase;}.lead, .text-large, .bmc-message{font-family:Montserrat, Helvetica, Arial, sans-serif;font-size:1.25rem;font-weight:400;letter-spacing:0px;text-transform:none;}.btn, .btn-link, .nav-tabs .nav-link, .nav-pills .nav-link, .card-header h5, .pagination-title, .comment-reply-link, .post-number span:first-child, .bsa-wrap .bsa-title, .bsb-wrap .bsb-label, .bsb-wrap .bsb-title, .title-share, .btw-username, .btw-label, .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce .widget_price_filter .price_slider_amount .button, body .woocommerce.widget_product_search input[type=submit], .woocommerce span.onsale, .product-thumbnail .added_to_cart, .woocommerce div.product form.cart .reset_variations, .woocommerce div.product .woocommerce-tabs ul.tabs li a, #add_payment_method .wc-proceed-to-checkout a.checkout-button, .woocommerce-cart .wc-proceed-to-checkout a.checkout-button, .woocommerce-checkout .wc-proceed-to-checkout a.checkout-button{font-family:Montserrat, Helvetica, Arial, sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}h1, h2, h3, h4, h5, h6, .comment .fn, .archive-standard section.basic_mailchimp_widget .title-widget, .archive-list section.basic_mailchimp_widget .title-widget, .woocommerce ul.cart_list li a, .woocommerce ul.product_list_widget li a, .woocommerce .widget_shopping_cart .total strong, .woocommerce.widget_shopping_cart .total strong, .woocommerce .widget_shopping_cart .total .amount, .woocommerce.widget_shopping_cart .total .amount, .woocommerce-review__author, .woocommerce .cart_item .product-name a, #ship-to-different-address > label{font-family:Montserrat, Helvetica, Arial, sans-serif;font-weight:600;}.title-block, .comment-reply-title, .nav-links, section.related.products > h2, .woocommerce .cart_totals > h2, .woocommerce-billing-fields > h3, #ship-to-different-address > label, #order_review_heading, .woocommerce .woocommerce-order-details__title, .woocommerce .woocommerce-customer-details > h2, .woocommerce .woocommerce-column__title, .woocommerce .woocommerce-Address-title h3{font-family:Montserrat, Helvetica, Arial, sans-serif;font-size:13px;font-weight:700;letter-spacing:0.2px;text-transform:uppercase;}h1, .post-standard .entry-title, .archive-list .post-featured .entry-title, .archive-standard .post-featured .entry-title{font-size:3rem;letter-spacing:-.15rem;text-transform:none;}h2, .post-archive > div:not(.columns-3):not(.columns-4) .post-featured h2, .archive-standard section.basic_mailchimp_widget .title-widget, .archive-list section.basic_mailchimp_widget .title-widget{font-size:2rem;letter-spacing:-.1rem;text-transform:none;}h3, .archive-grid h2, .archive-masonry h2, .archive-list h2, .section-tiles h2{font-size:1.5rem;letter-spacing:-.1rem;text-transform:none;}h4{font-size:1.25rem;letter-spacing:-.05rem;text-transform:none;}h5, .woocommerce ul.cart_list li a, .woocommerce ul.product_list_widget li a, .woocommerce .widget_shopping_cart .total strong, .woocommerce.widget_shopping_cart .total strong, .woocommerce-loop-product__title, .woocommerce .cart_item .product-name a{font-size:1rem;letter-spacing:-.025rem;text-transform:none;}h6, .comment .fn, .woocommerce-review__author{font-size:15px;letter-spacing:-1px;text-transform:none;}.navbar-nav > li > a, .navbar-nav .menu-columns > .sub-menu > li > a, .widget_archive li, .widget_categories li, .widget_meta li a, .widget_nav_menu .menu > li > a, .widget_pages .page_item a, .woocommerce.widget_product_categories li, .woocommerce .widget_layered_nav li, .woocommerce .woocommerce-MyAccount-navigation-link a{font-family:Montserrat, Helvetica, Arial, sans-serif;font-size:13px;font-weight:600;letter-spacing:0.2px;text-transform:uppercase;}.topbar .navbar-nav > li > a, .nav .sub-menu > li > a, .navbar-nav .sub-cats > li > a, .widget_categories .children li a, .widget_nav_menu .sub-menu > li > a, .widget_product_categories .children li a{font-family:Montserrat, Helvetica, Arial, sans-serif;font-size:13px;font-weight:400;letter-spacing:-0.2px;text-transform:none;}.content .lead{font-family:Montserrat, Helvetica, Arial, sans-serif;font-size:2rem;font-weight:700;letter-spacing:-.1rem;text-transform:none;}.content .dropcap:first-letter{font-family:Montserrat, Helvetica, Arial, sans-serif;font-size:2.5rem;font-weight:500;text-transform:uppercase;}.content blockquote{font-family:Montserrat, Helvetica, Arial, sans-serif;font-size:2rem;font-weight:700;letter-spacing:-.1rem;text-transform:none;}#search input[type="search"]{font-family:Montserrat, Helvetica, Arial, sans-serif!important;font-size:3rem!important;font-weight:600;letter-spacing:-.15rem!important;text-transform:none!important;}.topbar .navbar{height:40px;}.navbar-primary .navbar{height:80px;}.offcanvas{top:50px;}.btn, .scroll-to-top:after, .image-popup:after, .pin-it, .content .dropcap:first-letter, .bsa-horizontal .bsa-link, .bsb-after-post .bsb-link, .bsb-before-post .bsb-link, .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;}.input-group-btn .btn{border-top-right-radius:0;border-bottom-right-radius:0;}.slider-featured:not(.slider-large):not(.slider-multiple) .owl-carousel:not(.owl-loaded){height:600px;}@media ( min-width: 760px ){.tabs-vertical .nav-tabs{border-bottom-color:#ffffff;border-right-color:#eeeeee;}.tabs-vertical .nav-tabs .nav-link.active, .tabs-vertical .nav-tabs .nav-item.show .nav-link{border-right-color:#ffffff;border-bottom-color:#eeeeee;}.slider-featured .overlay-outer{height:600px;}}@media (max-width: 1019px){.layout-sidebar .content-area{border-bottom-color:#eeeeee;}}@media (min-width: 760px){.sidebar-area .sidebar-2{border-left-color:#eeeeee;}}@media ( min-width: 970px ){.header-enabled .navbar-primary:not(.navbar-stuck) .navbar{border-top-width:1px;border-top-style:solid;}.slider-featured h2{font-size:3rem;letter-spacing:-.15rem;text-transform:none;}.site-main > article > .section-carousel h2{font-size:1rem;letter-spacing:-.025rem;text-transform:none;}}@media ( min-width: 601px ){.admin-bar .offcanvas{top:calc(50px + 46px);}}@media ( min-width: 783px ){.admin-bar .offcanvas{top:calc(50px + 32px);}}
+</style>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var csco_mega_menu = {"rest_url":"https:\/\/arcreview.esri-cis.ru\/wp-json\/csco\/v1\/menu-posts"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='https://arcreview.esri-cis.ru/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://arcreview.esri-cis.ru/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://arcreview.esri-cis.ru/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Российская система дистанционного мониторинга лесных пожаров' href='https://arcreview.esri-cis.ru/2004/10/13/wildfire-monitoring-russia/' />
+<link rel='next' title='Рост сосновых древостоев в горной местности с высоким уровнем загрязнения атмосферы промышленными выбросами' href='https://arcreview.esri-cis.ru/2004/10/14/growth-of-pine-stands/' />
+<meta name="generator" content="WordPress 4.9.10" />
+<link rel="canonical" href="https://arcreview.esri-cis.ru/2004/10/14/monitoring-of-kizelovsky-coal-basin/" />
+<link rel='shortlink' href='https://arcreview.esri-cis.ru/?p=540' />
+<link rel="alternate" type="application/json+oembed" href="https://arcreview.esri-cis.ru/wp-json/oembed/1.0/embed?url=https%3A%2F%2Farcreview.esri-cis.ru%2F2004%2F10%2F14%2Fmonitoring-of-kizelovsky-coal-basin%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://arcreview.esri-cis.ru/wp-json/oembed/1.0/embed?url=https%3A%2F%2Farcreview.esri-cis.ru%2F2004%2F10%2F14%2Fmonitoring-of-kizelovsky-coal-basin%2F&#038;format=xml" />
+<link rel="icon" href="https://arcreview.esri-cis.ru/wp-content/uploads/2018/03/cropped-esri_big-1-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://arcreview.esri-cis.ru/wp-content/uploads/2018/03/cropped-esri_big-1-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://arcreview.esri-cis.ru/wp-content/uploads/2018/03/cropped-esri_big-1-180x180.png" />
+<meta name="msapplication-TileImage" content="https://arcreview.esri-cis.ru/wp-content/uploads/2018/03/cropped-esri_big-1-270x270.png" />
+		<style type="text/css" id="wp-custom-css">
+			.footer-copyright{
+	font-size:12px;
+	line-height: 1.4;
+	color: #797b7c;
+}
+.navbar-link{
+	color: #afb8be !important;
+	font-size: 2.15em;
+	margin-top: 4px;
+	margin-left: 12px;
+	float: left;
+}
+.navbar-link:hover{
+	color: #0079c1 !important;
+}
+
+@media screen and (max-width: 800px){
+	.logo-image {
+    max-width: 65%;
+	}
+
+	.navbar-link{
+		font-size: 120%;
+	}	
+}
+
+@media screen and (max-width: 400px){
+	.navbar-link{
+		font-size: 100%;
+	}	
+}
+		</style>
+	</head>
+
+<body class="post-template-default single single-post postid-540 single-format-standard header-disabled layout-sidebar layout-sidebar-right page-header-type-wide post-sidebar-enabled pin-it-enabled lightbox-enabled parallax-enabled sticky-sidebar-enabled stick-to-bottom navbar-sticky-enabled style-align-center">
+
+
+<div class="offcanvas-header">
+
+	
+	
+	<nav class="navbar navbar-offcanvas  navbar-border">
+
+		
+		<button type="button" class="offcanvas-toggle navbar-toggle">
+		  <i class="icon icon-cross"></i>
+		</button>
+
+	</nav>
+
+	
+</div>
+
+<div class="offcanvas">
+	<aside class="sidebar-offcanvas" role="complementary">
+	<div class="widget nav_menu-3 widget_nav_menu"><div class="menu-%d0%b2%d1%8b%d0%bf%d1%83%d1%81%d0%ba%d0%b8-container"><ul id="menu-%d0%b2%d1%8b%d0%bf%d1%83%d1%81%d0%ba%d0%b8" class="menu"><li id="menu-item-9474" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-9474"><a href="#">Выпуски</a>
+<ul class="sub-menu">
+	<li id="menu-item-11559" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-11559"><a href="https://arcreview.esri-cis.ru/category/2021/">2021</a>
+	<ul class="sub-menu">
+		<li id="menu-item-11560" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11560"><a href="https://arcreview.esri-cis.ru/category/2021/2021-94-gis-from-conference-to-conference/">Выпуск 2021 №1 (94) ГИС от конференции к конференции</a></li>
+	</ul>
+</li>
+	<li id="menu-item-10192" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-10192"><a href="https://arcreview.esri-cis.ru/category/2020/">2020</a>
+	<ul class="sub-menu">
+		<li id="menu-item-10305" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10305"><a href="https://arcreview.esri-cis.ru/category/2020/2020-93-gis-at-the-forefront-and-covid-19/">Выпуск 2020 №2 (93) ГИС на передовых рубежах &#8212; и при COVID-19</a></li>
+		<li id="menu-item-10189" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10189"><a href="https://arcreview.esri-cis.ru/category/2020/gis-for-infrastructure-management/">Выпуск 2020 №1 (92) ГИС для управления инфраструктурой</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9751" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9751"><a href="https://arcreview.esri-cis.ru/category/2019/">2019</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9752" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9752"><a href="https://arcreview.esri-cis.ru/category/2019/2019-88-gis-for-asset-management/">Выпуск 2019 №1 (88) ГИС для управления активами</a></li>
+		<li id="menu-item-9840" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9840"><a href="https://arcreview.esri-cis.ru/category/2019/2019-89-gis-and-the-4th-industrial-revolution/">Выпуск 2019 №2 (89) ГИС и 4-я промышленная революция</a></li>
+		<li id="menu-item-9841" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9841"><a href="https://arcreview.esri-cis.ru/category/2019/2019-90-arcgis-2019/">Выпуск 2019 №3 (90) ArcGIS 2019</a></li>
+		<li id="menu-item-9918" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9918"><a href="https://arcreview.esri-cis.ru/category/2019/2019-91-gis-data-maps-analysis/">Выпуск 2019 №4 (91) ГИС: данные, карты, анализ</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9641" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9641"><a href="https://arcreview.esri-cis.ru/category/2018/">2018</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9642" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9642"><a href="https://arcreview.esri-cis.ru/category/2018/2018-84-gis-for-logistics-and-postal-services/">Выпуск 2018 №1 (84) ГИС для логистических и почтовых служб</a></li>
+		<li id="menu-item-9643" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9643"><a href="https://arcreview.esri-cis.ru/category/2018/2018-85-gis-for-network-utilities/">Выпуск 2018 №2 (85) ГИС для Сетевого коммунального хозяйства</a></li>
+		<li id="menu-item-9644" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9644"><a href="https://arcreview.esri-cis.ru/category/2018/2018-86-web-gis-in-a-business-application/">Выпуск 2018 №3 (86) Веб-ГИС в приложении к бизнесу</a></li>
+		<li id="menu-item-9645" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9645"><a href="https://arcreview.esri-cis.ru/category/2018/2018-87-arcgis-in-2018-and-prospects/">Выпуск 2018 №4 (87) ArcGIS в 2018 году и Перспективы</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9659" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9659"><a href="https://arcreview.esri-cis.ru/category/2017/">2017</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9677" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9677"><a href="https://arcreview.esri-cis.ru/category/2017/2017-80-gis-and-public-health/">Выпуск 2017 №1 (80) ГИС и здоровье общества</a></li>
+		<li id="menu-item-9678" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9678"><a href="https://arcreview.esri-cis.ru/category/2017/2017-81-gis-and-natural-resources/">Выпуск 2017 №2 (81) ГИС и природные ресурсы</a></li>
+		<li id="menu-item-9679" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9679"><a href="https://arcreview.esri-cis.ru/category/2017/2017-82-gis-for-business-development/">Выпуск 2017 №3 (82) ГИС для развития бизнеса</a></li>
+		<li id="menu-item-9680" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9680"><a href="https://arcreview.esri-cis.ru/category/2017/2017-83-esri-and-arcgis-2017/">Выпуск 2017 №4 (83) Esri и ArcGIS: 2017</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9660" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9660"><a href="https://arcreview.esri-cis.ru/category/2016/">2016</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9672" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9672"><a href="https://arcreview.esri-cis.ru/category/2016/2016-76-gis-in-solving-transport-problems/">Выпуск 2016 №1 (76) ГИС в решении транспортных проблем</a></li>
+		<li id="menu-item-9673" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9673"><a href="https://arcreview.esri-cis.ru/category/2016/2016-77-gis-for-business/">Выпуск 2016 №2 (77) ГИС для Бизнеса</a></li>
+		<li id="menu-item-9674" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9674"><a href="https://arcreview.esri-cis.ru/category/2016/2016-78-gis-for-agriculture/">Выпуск 2016 №3 (78) ГИС для сельского хозяйства</a></li>
+		<li id="menu-item-9675" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9675"><a href="https://arcreview.esri-cis.ru/category/2016/2016-79-arcgis-in-2016-and-further-innovations/">Выпуск 2016 №4 (79) ArcGIS в 2016 и дальнейшие инновации</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9666" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9666"><a href="https://arcreview.esri-cis.ru/category/2015/">2015</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9667" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9667"><a href="https://arcreview.esri-cis.ru/category/2015/2015-1-72-arcgis-for-professionals-in-their-field/">Выпуск 2015 №1 (72) ArcGIS для профессионалов в своем деле: первые 20 лет</a></li>
+		<li id="menu-item-9668" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9668"><a href="https://arcreview.esri-cis.ru/category/2015/2015-2-73-gis-in-urban-planning-and-construction/">Выпуск 2015 №2 (73) ГИС в городском планировании и строительстве</a></li>
+		<li id="menu-item-9669" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9669"><a href="https://arcreview.esri-cis.ru/category/2015/2015-3-74-gis-in-mining-and-geology/">Выпуск 2015 №3 (74) ГИС в горном деле и геологии</a></li>
+		<li id="menu-item-9670" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9670"><a href="https://arcreview.esri-cis.ru/category/2015/2015-4-75-gis-large-integration-projects/">Выпуск 2015 №4 (75) ГИС в крупных интеграционных проектах</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9683" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9683"><a href="https://arcreview.esri-cis.ru/category/2014/">2014</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9684" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9684"><a href="https://arcreview.esri-cis.ru/category/2014/2014-1-68-imb-and-esri-in-russia/">Выпуск 2014 №1 (68) IBM и Esri: Развитие сотрудничества в России</a></li>
+		<li id="menu-item-9685" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9685"><a href="https://arcreview.esri-cis.ru/category/2014/2014-2-69-gis-for-cities-and-regions/">Выпуск 2014 №2 (69) ГИС для городов и регионов</a></li>
+		<li id="menu-item-9686" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9686"><a href="https://arcreview.esri-cis.ru/category/2014/2014-3-70-gis-for-energy/">Выпуск 2014 №3 (70) ГИС для энергетики</a></li>
+		<li id="menu-item-9687" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9687"><a href="https://arcreview.esri-cis.ru/category/2014/2014-4-71-gis-creating-a-better-future/">Выпуск 2014 №4 (71) ГИС – Созидая лучшее будущее</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9689" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9689"><a href="https://arcreview.esri-cis.ru/category/2013/">2013</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9690" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9690"><a href="https://arcreview.esri-cis.ru/category/2013/2013-1-64-corporate-gis-for-everyone-and-everyone/">Выпуск 2013 №1 (64) Корпоративные ГИС для всех и для каждого</a></li>
+		<li id="menu-item-9692" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9692"><a href="https://arcreview.esri-cis.ru/category/2013/2013-2-65-gis-in-the-cis-countries/">Выпуск 2013 №2 (65) ГИС в странах СНГ</a></li>
+		<li id="menu-item-9691" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9691"><a href="https://arcreview.esri-cis.ru/category/2013/2013-3-66-gis-in-the-world/">Выпуск 2013 №3 (66) ГИС в Мире</a></li>
+		<li id="menu-item-9693" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9693"><a href="https://arcreview.esri-cis.ru/category/2013/2013-4-67-gis-for-everyone/">Выпуск 2013 №4 (67) ГИС для всех</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9701" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9701"><a href="https://arcreview.esri-cis.ru/category/2012/">2012</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9703" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9703"><a href="https://arcreview.esri-cis.ru/category/2012/2012-1-60-gis-in-healthcare-and-medicine/">Выпуск 2012 №1 (60) ГИС в здравоохранении и медицине</a></li>
+		<li id="menu-item-9704" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9704"><a href="https://arcreview.esri-cis.ru/category/2012/2012-2-61-gis-in-the-electric-power-industry/">Выпуск 2012 №2 (61) ГИС в электроэнергетике: интеллектуальные энергосистемы</a></li>
+		<li id="menu-item-9702" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9702"><a href="https://arcreview.esri-cis.ru/category/2012/2012-3-62-gis-theory-and-practice-arcgis/">Выпуск 2012 №3 (62) ГИС: теория и практика. ArcGIS 10.1</a></li>
+		<li id="menu-item-9705" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9705"><a href="https://arcreview.esri-cis.ru/category/2012/2012-4-63-professional-gis-services/">Выпуск 2012 №4 (63) Профессиональные ГИС-услуги: Проектная деятельность компании DATA+. ArcGIS 10.1</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9695" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9695"><a href="https://arcreview.esri-cis.ru/category/2011/">2011</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9697" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9697"><a href="https://arcreview.esri-cis.ru/category/2011/2011-1-56-oil-gas-and-gis/">Выпуск 2011 №1 (56) Нефть, Газ и ГИС</a></li>
+		<li id="menu-item-9696" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9696"><a href="https://arcreview.esri-cis.ru/category/2011/2011-2-57-gis-the-service-of-society/">Выпуск 2011 №2 (57) ГИС на службе обществу</a></li>
+		<li id="menu-item-9698" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9698"><a href="https://arcreview.esri-cis.ru/category/2011/2011-3-58-geographical-knowledge-our-new-infrastructure/">Выпуск 2011 №3 (58) Географическое Знание: наша новая инфраструктура</a></li>
+		<li id="menu-item-9699" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9699"><a href="https://arcreview.esri-cis.ru/category/2011/2011-4-59-geographical-knowledge/">Выпуск 2011 №4 (59) Географическое Знание: Esri: от истоков до наших дней</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9744" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9744"><a href="https://arcreview.esri-cis.ru/category/2010/">2010</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9745" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9745"><a href="https://arcreview.esri-cis.ru/category/2010/2010-1-52-gis-is-gis/">Выпуск 2010 №1 (52) GIS is GIS</a></li>
+		<li id="menu-item-9746" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9746"><a href="https://arcreview.esri-cis.ru/category/2010/2010-2-53-the-long-awaited-ten/">Выпуск 2010 №2 (53) Долгожданная «десятка»</a></li>
+		<li id="menu-item-9747" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9747"><a href="https://arcreview.esri-cis.ru/category/2010/2010-3-54-arcgis-in-the-cloud/">Выпуск 2010 №3 (54) ArcGIS В ОБЛАКЕ</a></li>
+		<li id="menu-item-9748" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9748"><a href="https://arcreview.esri-cis.ru/category/2010/2010-4-55-gis-in-a-changing-world/">Выпуск 2010 №4 (55) ГИС в меняющемся мире</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9738" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9738"><a href="https://arcreview.esri-cis.ru/category/2009/">2009</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9739" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9739"><a href="https://arcreview.esri-cis.ru/category/2009/2009-1-48-gis-and-cartography/">Выпуск 2009 №1 (48) ГИС и картография</a></li>
+		<li id="menu-item-9740" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9740"><a href="https://arcreview.esri-cis.ru/category/2009/2009-2-49-corporate-gis/">Выпуск 2009 №2 (49) Корпоративные ГИС</a></li>
+		<li id="menu-item-9741" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9741"><a href="https://arcreview.esri-cis.ru/category/2009/2009-3-50-the-anniversary-issue/">Выпуск 2009 №3 (50) Юбилейный номер!</a></li>
+		<li id="menu-item-9742" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9742"><a href="https://arcreview.esri-cis.ru/category/2009/2009-4-51-gis-gis-gis/">Выпуск 2009 №4 (51) GIS ГИС ГИС</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9732" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9732"><a href="https://arcreview.esri-cis.ru/category/2008/">2008</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9733" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9733"><a href="https://arcreview.esri-cis.ru/category/2008/2008-1-44-gis-in-the-northwest/">Выпуск 2008 №1 (44) ГИС на северо-западе</a></li>
+		<li id="menu-item-9734" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9734"><a href="https://arcreview.esri-cis.ru/category/2008/2008-2-45-gis-in-kazakhstan/">Выпуск 2008 №2 (45) ГИС в Казахстане</a></li>
+		<li id="menu-item-9735" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9735"><a href="https://arcreview.esri-cis.ru/category/2008/2008-3-46-municipal-gis/">Выпуск 2008 №3 (46) Муниципальные ГИС</a></li>
+		<li id="menu-item-9736" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9736"><a href="https://arcreview.esri-cis.ru/category/2008/2008-4-47-gis-gis-gis/">Выпуск 2008 №4 (47) ГИС, ГИС, ГИС&#8230;</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9727" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9727"><a href="https://arcreview.esri-cis.ru/category/2007/">2007</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9728" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9728"><a href="https://arcreview.esri-cis.ru/category/2007/2007-1-40-gis-in-production/">Выпуск 2007 №1 (40) ГИС в сфере производства</a></li>
+		<li id="menu-item-9729" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9729"><a href="https://arcreview.esri-cis.ru/category/2007/2007-2-41-gis-and-fec/">Выпуск 2007 №2 (41) ГИС и ТЭК</a></li>
+		<li id="menu-item-9730" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9730"><a href="https://arcreview.esri-cis.ru/category/2007/2007-3-42-gis-and-transport/">Выпуск 2007 №3 (42) ГИС и транспорт</a></li>
+		<li id="menu-item-9731" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9731"><a href="https://arcreview.esri-cis.ru/category/2007/2007-4-43-gis-gis-gis/">Выпуск 2007 №4 (43) ГИС, ГИС, ГИС &#8230;</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9721" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9721"><a href="https://arcreview.esri-cis.ru/category/2006/">2006</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9722" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9722"><a href="https://arcreview.esri-cis.ru/category/2006/2006-1-36-gis-and-water-resources/">Выпуск 2006 №1 (36) ГИС и водные ресурсы</a></li>
+		<li id="menu-item-9723" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9723"><a href="https://arcreview.esri-cis.ru/category/2006/2006-2-37-spatial-data-infrastructure/">Выпуск 2006 №2 (37) Инфраструктура пространственных данных</a></li>
+		<li id="menu-item-9724" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9724"><a href="https://arcreview.esri-cis.ru/category/2006/2006-3-38-gis-for-managing-cities-and-territories/">Выпуск 2006 №3 (38) ГИС для управления городами и территориями</a></li>
+		<li id="menu-item-9725" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9725"><a href="https://arcreview.esri-cis.ru/category/2006/2006-4-39-gis-and-the-environment/">Выпуск 2006 №4 (39) ГИС и окружающая среда</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9715" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9715"><a href="https://arcreview.esri-cis.ru/category/2005/">2005</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9716" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9716"><a href="https://arcreview.esri-cis.ru/category/2005/2005-1-32-gis-in-the-oil-and-gas-industry/">Выпуск 2005 №1 (32) ГИС в нефтегазовой отрасли</a></li>
+		<li id="menu-item-9717" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9717"><a href="https://arcreview.esri-cis.ru/category/2005/2005-2-33-land-cadastre-and-urban-gis/">Выпуск 2005 №2 (33) Земельный кадастр и городские ГИС</a></li>
+		<li id="menu-item-9718" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9718"><a href="https://arcreview.esri-cis.ru/category/2005/2005-3-34-new-remote-sensing-and-remote-sensing-technologies/">Выпуск 2005 №3 (34) Новые технологии дистанционного зондирования и работы с ДДЗ</a></li>
+		<li id="menu-item-9719" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9719"><a href="https://arcreview.esri-cis.ru/category/2005/2005-4-35-gis-in-the-trade-and-service-sector/">Выпуск 2005 №4 (35) ГИС в торговле и сфере услуг</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9707" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor menu-item-has-children menu-item-9707"><a href="https://arcreview.esri-cis.ru/category/2004/">2004</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9709" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9709"><a href="https://arcreview.esri-cis.ru/category/2004/2004-1-28-gis-gis-gis/">Выпуск 2004 №1 (28) Гис, Гис, Гис&#8230;</a></li>
+		<li id="menu-item-9710" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9710"><a href="https://arcreview.esri-cis.ru/category/2004/2004-2-29-gis-in-agriculture/">Выпуск 2004 №2 (29) ГИС в сельском хозяйстве</a></li>
+		<li id="menu-item-9711" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9711"><a href="https://arcreview.esri-cis.ru/category/2004/2004-3-30-arcgis-9/">Выпуск 2004 №3 (30) ArcGIS 9</a></li>
+		<li id="menu-item-9712" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-9712"><a href="https://arcreview.esri-cis.ru/category/2004/2004-4-31-gis-and-the-environment/">Выпуск 2004 №4 (31) ГИС и окружающая среда</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9539" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9539"><a href="https://arcreview.esri-cis.ru/category/2003/">2003</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9540" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9540"><a href="https://arcreview.esri-cis.ru/category/2003/2003-1-24-gis-and-transport/">Выпуск 2003 №1 (24) ГИС и транспорт</a></li>
+		<li id="menu-item-9541" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9541"><a href="https://arcreview.esri-cis.ru/category/2003/2003-2-25-gis-for-land-cadastre/">Выпуск 2003 №2 (25) ГИС для земельного кадастра</a></li>
+		<li id="menu-item-9542" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9542"><a href="https://arcreview.esri-cis.ru/category/2003/2003-3-26-emergencies-and-gis/">Выпуск 2003 №3 (26) Чрезвычайные ситуации и ГИС</a></li>
+		<li id="menu-item-9544" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9544"><a href="https://arcreview.esri-cis.ru/category/2003/2003-4-27-gis-in-the-oil-and-gas-industry/">Выпуск 2003 №4 (27) ГИС в нефтегазовой промышленности</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9546" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9546"><a href="https://arcreview.esri-cis.ru/category/2002/">2002</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9547" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9547"><a href="https://arcreview.esri-cis.ru/category/2002/2002-1-20-gis-and-natural-resources/">Выпуск 2002 №1 (20) ГИС и природные ресурсы</a></li>
+		<li id="menu-item-9550" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9550"><a href="https://arcreview.esri-cis.ru/category/2002/2002-4-23-gis-in-the-oil-and-gas-industry/">Выпуск 2002 №4 (23) ГИС в нефтяной и газовой промышленности</a></li>
+		<li id="menu-item-9548" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9548"><a href="https://arcreview.esri-cis.ru/category/2002/2002-2-21-gis-and-education/">Выпуск 2002 №2 (21) ГИС и образование</a></li>
+		<li id="menu-item-9549" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9549"><a href="https://arcreview.esri-cis.ru/category/2002/2002-3-22-gis-and-remote-sensing-data/">Выпуск 2002 №3 (22) ГИС и данные дистанционного зондирования</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9533" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9533"><a href="https://arcreview.esri-cis.ru/category/2001/">2001</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9534" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9534"><a href="https://arcreview.esri-cis.ru/category/2001/2001-1-16-gis-and-mapping/">Выпуск 2001 №1 (16) ГИС и картография</a></li>
+		<li id="menu-item-9535" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9535"><a href="https://arcreview.esri-cis.ru/category/2001/2001-2-17-gis-and-remote-sensing-data/">Выпуск 2001 №2 (17) ГИС и ДДЗ</a></li>
+		<li id="menu-item-9536" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9536"><a href="https://arcreview.esri-cis.ru/category/2001/2001-3-18-gis-and-urban-studies/">Выпуск 2001 №3 (18) ГИС и урбанистика</a></li>
+		<li id="menu-item-9537" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9537"><a href="https://arcreview.esri-cis.ru/category/2001/2001-4-19-the-latest-gis-technology/">Выпуск 2001 №4 (19) Новейшие технологии ГИС</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+</ul></div></div>	</aside>
+</div>
+
+<div class="site-overlay"></div>
+
+<div id="page" class="site">
+
+	
+	<div class="site-inner">
+
+		
+		<header id="masthead" class="site-header" role="banner">
+
+			
+			
+<div class="topbar d-none d-lg-block">
+	<div class="container">
+		<nav class="navbar">
+
+		
+			<div class="col-left">
+				
+		<ul id="menu-%d0%b2%d0%b5%d1%80%d1%85%d0%bd%d0%b5%d0%b5-%d0%bc%d0%b5%d0%bd%d1%8e" class="nav navbar-nav navbar-lonely d-none d-lg-block"><li id="menu-item-9572" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9572"><a href="https://www.esri-cis.com/ru-ru/newsroom/news">Новости</a></li>
+<li id="menu-item-9573" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9573"><a href="https://www.esri-cis.com/ru-ru/arcgis/products/index">Продукты</a></li>
+<li id="menu-item-9574" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9574"><a href="https://www.esri-cis.com/ru-ru/industries/index">Отрасли</a></li>
+<li id="menu-item-9576" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9576"><a href="https://www.esri-cis.com/ru-ru/about/events/overview">События</a></li>
+<li id="menu-item-9577" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9577"><a href="https://www.esri-cis.com/ru-ru/arcgis/services/overview">Услуги</a></li>
+<li id="menu-item-9578" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9578"><a href="https://www.esri-cis.com/ru-ru/about/about-esri/overview">О компании</a></li>
+<li id="menu-item-9587" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9587"><a target="_blank" href="https://www.esri-cis.com/ru-ru/newsroom/arcreview/subscribe">Подписка</a></li>
+</ul>			</div>
+
+		
+			<div class="col-right">
+				
+			<div class="bsa-wrap bsa-nav bsa-titles-disabled bsa-counts-enabled bsa-labels-enabled bsa-mode-rest">
+		<div class="bsa-items">
+								<div class="bsa-item bsa-vk " data-id="vk">
+													<a href="https://vk.com/esricis" class="bsa-link" target="_blank" rel="">
+								<i class="bsa-icon icon icon-vk"></i>
+								
+																				<span class="bsa-count-rest"></span>
+											
+															</a>
+											</div>
+									<div class="bsa-item bsa-youtube " data-id="youtube">
+													<a href="https://www.youtube.com/user/esricis" class="bsa-link" target="_blank" rel="">
+								<i class="bsa-icon icon icon-youtube"></i>
+								
+																				<span class="bsa-count-rest"></span>
+											
+															</a>
+											</div>
+									<div class="bsa-item bsa-rss " data-id="rss">
+													<a href="https://arcreview.esri-cis.ru/feed/" class="bsa-link" target="_blank" rel="">
+								<i class="bsa-icon icon icon-rss"></i>
+								
+																				<span class="bsa-count-rest"></span>
+											
+															</a>
+											</div>
+						</div>
+	</div>
+				</div>
+
+		
+		</nav>
+	</div>
+</div>
+
+<div class="navbar-primary navbar-right social-disabled toggle-disabled">
+	<div class="container">
+		<nav class="navbar">
+
+			<div class="navbar-col">
+				<div>
+
+					<button class="navbar-toggle offcanvas-toggle" type="button">
+						<i class="icon icon-menu"></i>
+					</button>
+
+										
+						<a class="navbar-brand" href="https://www.esri-cis.ru">
+							<img class="logo-image" src="https://arcreview.esri-cis.ru/wp-content/uploads/2019/04/logo-44.png" srcset="https://arcreview.esri-cis.ru/wp-content/uploads/2019/04/logo-44.png 1x, https://arcreview.esri-cis.ru/wp-content/uploads/2019/04/logo-88.png 2x" alt="ArcReview">
+													</a>
+					<a class="navbar-link" href="https://arcreview.esri-cis.ru">ArcReview</a>
+
+					
+					
+				</div>
+			</div>
+
+			<ul id="menu-%d0%b2%d1%8b%d0%bf%d1%83%d1%81%d0%ba%d0%b8-1" class="nav navbar-nav"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-9474"><a href="#">Выпуски</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-11559"><a href="https://arcreview.esri-cis.ru/category/2021/">2021</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11560"><a href="https://arcreview.esri-cis.ru/category/2021/2021-94-gis-from-conference-to-conference/">Выпуск 2021 №1 (94) ГИС от конференции к конференции</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-10192"><a href="https://arcreview.esri-cis.ru/category/2020/">2020</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10305"><a href="https://arcreview.esri-cis.ru/category/2020/2020-93-gis-at-the-forefront-and-covid-19/">Выпуск 2020 №2 (93) ГИС на передовых рубежах &#8212; и при COVID-19</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10189"><a href="https://arcreview.esri-cis.ru/category/2020/gis-for-infrastructure-management/">Выпуск 2020 №1 (92) ГИС для управления инфраструктурой</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9751"><a href="https://arcreview.esri-cis.ru/category/2019/">2019</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9752"><a href="https://arcreview.esri-cis.ru/category/2019/2019-88-gis-for-asset-management/">Выпуск 2019 №1 (88) ГИС для управления активами</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9840"><a href="https://arcreview.esri-cis.ru/category/2019/2019-89-gis-and-the-4th-industrial-revolution/">Выпуск 2019 №2 (89) ГИС и 4-я промышленная революция</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9841"><a href="https://arcreview.esri-cis.ru/category/2019/2019-90-arcgis-2019/">Выпуск 2019 №3 (90) ArcGIS 2019</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9918"><a href="https://arcreview.esri-cis.ru/category/2019/2019-91-gis-data-maps-analysis/">Выпуск 2019 №4 (91) ГИС: данные, карты, анализ</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9641"><a href="https://arcreview.esri-cis.ru/category/2018/">2018</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9642"><a href="https://arcreview.esri-cis.ru/category/2018/2018-84-gis-for-logistics-and-postal-services/">Выпуск 2018 №1 (84) ГИС для логистических и почтовых служб</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9643"><a href="https://arcreview.esri-cis.ru/category/2018/2018-85-gis-for-network-utilities/">Выпуск 2018 №2 (85) ГИС для Сетевого коммунального хозяйства</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9644"><a href="https://arcreview.esri-cis.ru/category/2018/2018-86-web-gis-in-a-business-application/">Выпуск 2018 №3 (86) Веб-ГИС в приложении к бизнесу</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9645"><a href="https://arcreview.esri-cis.ru/category/2018/2018-87-arcgis-in-2018-and-prospects/">Выпуск 2018 №4 (87) ArcGIS в 2018 году и Перспективы</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9659"><a href="https://arcreview.esri-cis.ru/category/2017/">2017</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9677"><a href="https://arcreview.esri-cis.ru/category/2017/2017-80-gis-and-public-health/">Выпуск 2017 №1 (80) ГИС и здоровье общества</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9678"><a href="https://arcreview.esri-cis.ru/category/2017/2017-81-gis-and-natural-resources/">Выпуск 2017 №2 (81) ГИС и природные ресурсы</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9679"><a href="https://arcreview.esri-cis.ru/category/2017/2017-82-gis-for-business-development/">Выпуск 2017 №3 (82) ГИС для развития бизнеса</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9680"><a href="https://arcreview.esri-cis.ru/category/2017/2017-83-esri-and-arcgis-2017/">Выпуск 2017 №4 (83) Esri и ArcGIS: 2017</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9660"><a href="https://arcreview.esri-cis.ru/category/2016/">2016</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9672"><a href="https://arcreview.esri-cis.ru/category/2016/2016-76-gis-in-solving-transport-problems/">Выпуск 2016 №1 (76) ГИС в решении транспортных проблем</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9673"><a href="https://arcreview.esri-cis.ru/category/2016/2016-77-gis-for-business/">Выпуск 2016 №2 (77) ГИС для Бизнеса</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9674"><a href="https://arcreview.esri-cis.ru/category/2016/2016-78-gis-for-agriculture/">Выпуск 2016 №3 (78) ГИС для сельского хозяйства</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9675"><a href="https://arcreview.esri-cis.ru/category/2016/2016-79-arcgis-in-2016-and-further-innovations/">Выпуск 2016 №4 (79) ArcGIS в 2016 и дальнейшие инновации</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9666"><a href="https://arcreview.esri-cis.ru/category/2015/">2015</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9667"><a href="https://arcreview.esri-cis.ru/category/2015/2015-1-72-arcgis-for-professionals-in-their-field/">Выпуск 2015 №1 (72) ArcGIS для профессионалов в своем деле: первые 20 лет</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9668"><a href="https://arcreview.esri-cis.ru/category/2015/2015-2-73-gis-in-urban-planning-and-construction/">Выпуск 2015 №2 (73) ГИС в городском планировании и строительстве</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9669"><a href="https://arcreview.esri-cis.ru/category/2015/2015-3-74-gis-in-mining-and-geology/">Выпуск 2015 №3 (74) ГИС в горном деле и геологии</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9670"><a href="https://arcreview.esri-cis.ru/category/2015/2015-4-75-gis-large-integration-projects/">Выпуск 2015 №4 (75) ГИС в крупных интеграционных проектах</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9683"><a href="https://arcreview.esri-cis.ru/category/2014/">2014</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9684"><a href="https://arcreview.esri-cis.ru/category/2014/2014-1-68-imb-and-esri-in-russia/">Выпуск 2014 №1 (68) IBM и Esri: Развитие сотрудничества в России</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9685"><a href="https://arcreview.esri-cis.ru/category/2014/2014-2-69-gis-for-cities-and-regions/">Выпуск 2014 №2 (69) ГИС для городов и регионов</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9686"><a href="https://arcreview.esri-cis.ru/category/2014/2014-3-70-gis-for-energy/">Выпуск 2014 №3 (70) ГИС для энергетики</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9687"><a href="https://arcreview.esri-cis.ru/category/2014/2014-4-71-gis-creating-a-better-future/">Выпуск 2014 №4 (71) ГИС – Созидая лучшее будущее</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9689"><a href="https://arcreview.esri-cis.ru/category/2013/">2013</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9690"><a href="https://arcreview.esri-cis.ru/category/2013/2013-1-64-corporate-gis-for-everyone-and-everyone/">Выпуск 2013 №1 (64) Корпоративные ГИС для всех и для каждого</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9692"><a href="https://arcreview.esri-cis.ru/category/2013/2013-2-65-gis-in-the-cis-countries/">Выпуск 2013 №2 (65) ГИС в странах СНГ</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9691"><a href="https://arcreview.esri-cis.ru/category/2013/2013-3-66-gis-in-the-world/">Выпуск 2013 №3 (66) ГИС в Мире</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9693"><a href="https://arcreview.esri-cis.ru/category/2013/2013-4-67-gis-for-everyone/">Выпуск 2013 №4 (67) ГИС для всех</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9701"><a href="https://arcreview.esri-cis.ru/category/2012/">2012</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9703"><a href="https://arcreview.esri-cis.ru/category/2012/2012-1-60-gis-in-healthcare-and-medicine/">Выпуск 2012 №1 (60) ГИС в здравоохранении и медицине</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9704"><a href="https://arcreview.esri-cis.ru/category/2012/2012-2-61-gis-in-the-electric-power-industry/">Выпуск 2012 №2 (61) ГИС в электроэнергетике: интеллектуальные энергосистемы</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9702"><a href="https://arcreview.esri-cis.ru/category/2012/2012-3-62-gis-theory-and-practice-arcgis/">Выпуск 2012 №3 (62) ГИС: теория и практика. ArcGIS 10.1</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9705"><a href="https://arcreview.esri-cis.ru/category/2012/2012-4-63-professional-gis-services/">Выпуск 2012 №4 (63) Профессиональные ГИС-услуги: Проектная деятельность компании DATA+. ArcGIS 10.1</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9695"><a href="https://arcreview.esri-cis.ru/category/2011/">2011</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9697"><a href="https://arcreview.esri-cis.ru/category/2011/2011-1-56-oil-gas-and-gis/">Выпуск 2011 №1 (56) Нефть, Газ и ГИС</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9696"><a href="https://arcreview.esri-cis.ru/category/2011/2011-2-57-gis-the-service-of-society/">Выпуск 2011 №2 (57) ГИС на службе обществу</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9698"><a href="https://arcreview.esri-cis.ru/category/2011/2011-3-58-geographical-knowledge-our-new-infrastructure/">Выпуск 2011 №3 (58) Географическое Знание: наша новая инфраструктура</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9699"><a href="https://arcreview.esri-cis.ru/category/2011/2011-4-59-geographical-knowledge/">Выпуск 2011 №4 (59) Географическое Знание: Esri: от истоков до наших дней</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9744"><a href="https://arcreview.esri-cis.ru/category/2010/">2010</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9745"><a href="https://arcreview.esri-cis.ru/category/2010/2010-1-52-gis-is-gis/">Выпуск 2010 №1 (52) GIS is GIS</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9746"><a href="https://arcreview.esri-cis.ru/category/2010/2010-2-53-the-long-awaited-ten/">Выпуск 2010 №2 (53) Долгожданная «десятка»</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9747"><a href="https://arcreview.esri-cis.ru/category/2010/2010-3-54-arcgis-in-the-cloud/">Выпуск 2010 №3 (54) ArcGIS В ОБЛАКЕ</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9748"><a href="https://arcreview.esri-cis.ru/category/2010/2010-4-55-gis-in-a-changing-world/">Выпуск 2010 №4 (55) ГИС в меняющемся мире</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9738"><a href="https://arcreview.esri-cis.ru/category/2009/">2009</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9739"><a href="https://arcreview.esri-cis.ru/category/2009/2009-1-48-gis-and-cartography/">Выпуск 2009 №1 (48) ГИС и картография</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9740"><a href="https://arcreview.esri-cis.ru/category/2009/2009-2-49-corporate-gis/">Выпуск 2009 №2 (49) Корпоративные ГИС</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9741"><a href="https://arcreview.esri-cis.ru/category/2009/2009-3-50-the-anniversary-issue/">Выпуск 2009 №3 (50) Юбилейный номер!</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9742"><a href="https://arcreview.esri-cis.ru/category/2009/2009-4-51-gis-gis-gis/">Выпуск 2009 №4 (51) GIS ГИС ГИС</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9732"><a href="https://arcreview.esri-cis.ru/category/2008/">2008</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9733"><a href="https://arcreview.esri-cis.ru/category/2008/2008-1-44-gis-in-the-northwest/">Выпуск 2008 №1 (44) ГИС на северо-западе</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9734"><a href="https://arcreview.esri-cis.ru/category/2008/2008-2-45-gis-in-kazakhstan/">Выпуск 2008 №2 (45) ГИС в Казахстане</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9735"><a href="https://arcreview.esri-cis.ru/category/2008/2008-3-46-municipal-gis/">Выпуск 2008 №3 (46) Муниципальные ГИС</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9736"><a href="https://arcreview.esri-cis.ru/category/2008/2008-4-47-gis-gis-gis/">Выпуск 2008 №4 (47) ГИС, ГИС, ГИС&#8230;</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9727"><a href="https://arcreview.esri-cis.ru/category/2007/">2007</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9728"><a href="https://arcreview.esri-cis.ru/category/2007/2007-1-40-gis-in-production/">Выпуск 2007 №1 (40) ГИС в сфере производства</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9729"><a href="https://arcreview.esri-cis.ru/category/2007/2007-2-41-gis-and-fec/">Выпуск 2007 №2 (41) ГИС и ТЭК</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9730"><a href="https://arcreview.esri-cis.ru/category/2007/2007-3-42-gis-and-transport/">Выпуск 2007 №3 (42) ГИС и транспорт</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9731"><a href="https://arcreview.esri-cis.ru/category/2007/2007-4-43-gis-gis-gis/">Выпуск 2007 №4 (43) ГИС, ГИС, ГИС &#8230;</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9721"><a href="https://arcreview.esri-cis.ru/category/2006/">2006</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9722"><a href="https://arcreview.esri-cis.ru/category/2006/2006-1-36-gis-and-water-resources/">Выпуск 2006 №1 (36) ГИС и водные ресурсы</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9723"><a href="https://arcreview.esri-cis.ru/category/2006/2006-2-37-spatial-data-infrastructure/">Выпуск 2006 №2 (37) Инфраструктура пространственных данных</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9724"><a href="https://arcreview.esri-cis.ru/category/2006/2006-3-38-gis-for-managing-cities-and-territories/">Выпуск 2006 №3 (38) ГИС для управления городами и территориями</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9725"><a href="https://arcreview.esri-cis.ru/category/2006/2006-4-39-gis-and-the-environment/">Выпуск 2006 №4 (39) ГИС и окружающая среда</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9715"><a href="https://arcreview.esri-cis.ru/category/2005/">2005</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9716"><a href="https://arcreview.esri-cis.ru/category/2005/2005-1-32-gis-in-the-oil-and-gas-industry/">Выпуск 2005 №1 (32) ГИС в нефтегазовой отрасли</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9717"><a href="https://arcreview.esri-cis.ru/category/2005/2005-2-33-land-cadastre-and-urban-gis/">Выпуск 2005 №2 (33) Земельный кадастр и городские ГИС</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9718"><a href="https://arcreview.esri-cis.ru/category/2005/2005-3-34-new-remote-sensing-and-remote-sensing-technologies/">Выпуск 2005 №3 (34) Новые технологии дистанционного зондирования и работы с ДДЗ</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9719"><a href="https://arcreview.esri-cis.ru/category/2005/2005-4-35-gis-in-the-trade-and-service-sector/">Выпуск 2005 №4 (35) ГИС в торговле и сфере услуг</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor menu-item-has-children menu-item-9707"><a href="https://arcreview.esri-cis.ru/category/2004/">2004</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9709"><a href="https://arcreview.esri-cis.ru/category/2004/2004-1-28-gis-gis-gis/">Выпуск 2004 №1 (28) Гис, Гис, Гис&#8230;</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9710"><a href="https://arcreview.esri-cis.ru/category/2004/2004-2-29-gis-in-agriculture/">Выпуск 2004 №2 (29) ГИС в сельском хозяйстве</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9711"><a href="https://arcreview.esri-cis.ru/category/2004/2004-3-30-arcgis-9/">Выпуск 2004 №3 (30) ArcGIS 9</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-9712"><a href="https://arcreview.esri-cis.ru/category/2004/2004-4-31-gis-and-the-environment/">Выпуск 2004 №4 (31) ГИС и окружающая среда</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9539"><a href="https://arcreview.esri-cis.ru/category/2003/">2003</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9540"><a href="https://arcreview.esri-cis.ru/category/2003/2003-1-24-gis-and-transport/">Выпуск 2003 №1 (24) ГИС и транспорт</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9541"><a href="https://arcreview.esri-cis.ru/category/2003/2003-2-25-gis-for-land-cadastre/">Выпуск 2003 №2 (25) ГИС для земельного кадастра</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9542"><a href="https://arcreview.esri-cis.ru/category/2003/2003-3-26-emergencies-and-gis/">Выпуск 2003 №3 (26) Чрезвычайные ситуации и ГИС</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9544"><a href="https://arcreview.esri-cis.ru/category/2003/2003-4-27-gis-in-the-oil-and-gas-industry/">Выпуск 2003 №4 (27) ГИС в нефтегазовой промышленности</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9546"><a href="https://arcreview.esri-cis.ru/category/2002/">2002</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9547"><a href="https://arcreview.esri-cis.ru/category/2002/2002-1-20-gis-and-natural-resources/">Выпуск 2002 №1 (20) ГИС и природные ресурсы</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9550"><a href="https://arcreview.esri-cis.ru/category/2002/2002-4-23-gis-in-the-oil-and-gas-industry/">Выпуск 2002 №4 (23) ГИС в нефтяной и газовой промышленности</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9548"><a href="https://arcreview.esri-cis.ru/category/2002/2002-2-21-gis-and-education/">Выпуск 2002 №2 (21) ГИС и образование</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9549"><a href="https://arcreview.esri-cis.ru/category/2002/2002-3-22-gis-and-remote-sensing-data/">Выпуск 2002 №3 (22) ГИС и данные дистанционного зондирования</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-9533"><a href="https://arcreview.esri-cis.ru/category/2001/">2001</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9534"><a href="https://arcreview.esri-cis.ru/category/2001/2001-1-16-gis-and-mapping/">Выпуск 2001 №1 (16) ГИС и картография</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9535"><a href="https://arcreview.esri-cis.ru/category/2001/2001-2-17-gis-and-remote-sensing-data/">Выпуск 2001 №2 (17) ГИС и ДДЗ</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9536"><a href="https://arcreview.esri-cis.ru/category/2001/2001-3-18-gis-and-urban-studies/">Выпуск 2001 №3 (18) ГИС и урбанистика</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9537"><a href="https://arcreview.esri-cis.ru/category/2001/2001-4-19-the-latest-gis-technology/">Выпуск 2001 №4 (19) Новейшие технологии ГИС</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+</ul>
+			<div class="navbar-col">
+				<div>
+
+					
+					
+					<a href="#search" class="navbar-search"><i class="icon icon-search"></i></a>
+
+				</div>
+			</div>
+
+		</nav>
+	</div>
+</div><!-- .navbar-primary -->
+
+			
+		</header>
+
+				<section class="page-header page-header-wide overlay">
+
+			
+			<div class="overlay-media parallax">
+							</div>
+
+			<div class="overlay-outer">
+				<div class="overlay-inner">
+					<span class="meta-category"><ul class="post-categories">
+	<li><a href="https://arcreview.esri-cis.ru/category/2004/2004-4-31-gis-and-the-environment/" rel="category tag">Выпуск 2004 №4 (31) ГИС и окружающая среда</a></li></ul></span>					<h1 class=&quot;entry-title&quot;>ГИС экологического мониторинга кизеловского угольного бассейна</h1>					<ul class="post-meta"><li class="meta-date d-none"><span class="screen-reader-text">Posted on</span> <a href="https://arcreview.esri-cis.ru/2004/10/14/monitoring-of-kizelovsky-coal-basin/" rel="bookmark"><time class="entry-date published" datetime="2004-10-14T07:19:57+00:00">14.10.2004</time><time class="updated" datetime="2021-09-09T22:57:52+00:00">09.09.2021</time></a></li><li class="meta-author d-none"><span class="meta-separator">by</span><span class="author vcard"><a class="url fn n" href="https://arcreview.esri-cis.ru/author/" title="View all posts by webmaster">webmaster</a></span></li><li class="meta-reading-time">3 минут чтения</li></ul>				</div>
+			</div>
+
+			
+		</section>
+		
+		
+		<div class="site-content">
+
+			
+			<div class="container">
+
+				
+				<div id="content" class="main-content">
+
+					
+	<div id="primary" class="content-area">
+
+		
+		<main id="main" class="site-main" role="main">
+
+			
+			
+				
+				<article id="post-540" class="post-540 post type-post status-publish format-standard hentry category-2004-4-31-gis-and-the-environment">
+
+					
+					<div class="post-wrap">
+
+								<aside class="post-sidebar">
+					<div class="bsb-wrap bsb-default bsb-has-counts bsb-post-sidebar bsb-mode-php" data-post-id="540" data-share-url="https://arcreview.esri-cis.ru/2004/10/14/monitoring-of-kizelovsky-coal-basin/">
+
+			
+			<div class="bsb-items">
+
+										<div class="bsb-item bsb-twitter bsb-no-count" data-id="twitter">
+
+							<a href="https://twitter.com/share?url=https://arcreview.esri-cis.ru/2004/10/14/monitoring-of-kizelovsky-coal-basin/&text=ГИС%20экологического%20мониторинга%20кизеловского%20угольного%20бассейна" class="bsb-link" target="_blank">
+
+								<i class="bsb-icon icon icon-twitter"></i>
+
+								
+															</a>
+						</div>
+											<div class="bsb-item bsb-vkontakte bsb-no-count" data-id="vkontakte">
+
+							<a href="https://vk.com/share.php?url=https://arcreview.esri-cis.ru/2004/10/14/monitoring-of-kizelovsky-coal-basin/" class="bsb-link" target="_blank">
+
+								<i class="bsb-icon icon icon-vkontakte"></i>
+
+								
+															</a>
+						</div>
+											<div class="bsb-item bsb-mail bsb-no-count" data-id="mail">
+
+							<a href="mailto:?subject=ГИС%20экологического%20мониторинга%20кизеловского%20угольного%20бассейна&body=ГИС%20экологического%20мониторинга%20кизеловского%20угольного%20бассейна%20https://arcreview.esri-cis.ru/2004/10/14/monitoring-of-kizelovsky-coal-basin/" class="bsb-link" target="_blank">
+
+								<i class="bsb-icon icon icon-mail"></i>
+
+								
+															</a>
+						</div>
+								</div>
+		</div>
+			</aside>
+	
+						<div class="post-main">
+
+									<header class="d-none">
+			<span class="entry-title">ГИС экологического мониторинга кизеловского угольного бассейна</span>
+			<ul class="post-meta d-none"><li class="meta-date"><span class="screen-reader-text">Posted on</span> <a href="https://arcreview.esri-cis.ru/2004/10/14/monitoring-of-kizelovsky-coal-basin/" rel="bookmark"><time class="entry-date published" datetime="2004-10-14T07:19:57+00:00">14.10.2004</time><time class="updated" datetime="2021-09-09T22:57:52+00:00">09.09.2021</time></a></li><li class="meta-author"><span class="meta-separator">by</span><span class="author vcard"><a class="url fn n" href="https://arcreview.esri-cis.ru/author/webmaster/" title="View all posts by webmaster">webmaster</a></span></li></ul>		</header>
+	
+							<section class="content entry-content">
+
+								<p style="text-align: right;">Терещенко Татьяна Леонидовна</p>
+<p style="text-align: right;">ФГУП МНИИЭКО ТЭК, г. Пермь, тел. (3422) 10-64-75, факс: (3422) 16-74-41, E-mail: <a href="mailto:mniieko_ovos@permonline.ru" target="_blank" rel="noopener">mniieko_ovos@permonline.ru</a></p>
+<p><img src="https://www.esri-cis.ru/news/arcreview/Images/Number_31/point2.gif" width="151" height="1" border="0" hspace="11" /></p>
+<p><img src="https://arcreview.esri-cis.ru/wp-content/uploads/import/Number_31/post540_img1.jpg" width="250" height="256" align="right" hspace="10" vspace="10" />Реструктуризация угольной промышленности, начатая в 90-х годах прошлого века, повлекла за собой ликвидацию нерентабельных шахт и разрезов по всей территории Российской Федерации. Затронула она и Кизеловский угольный бассейн Пермской области.</p>
+<p>Кизеловский каменноугольный бассейн имеет более чем двухвековую историю. Всего шахтерами на 95 шахтах этого бассейна добыто более 500 млн. тонн каменного угля. Максимальный уровень добычи, более 12 млн. тонн, был достигнут в 1959 г. Максимальная глубина разработки угольных пластов &#8212; 1025 метров (шахта «Ключевская). На момент начала реструктуризации в составе ОАО «Кизелуголь» находилось 15 шахт. Последняя шахта бассейна – ОАО «Шахта Шумихинская» &#8212; прекратила добычу угля 1 апреля 2000 г.</p>
+<p><span id="more-540"></span></p>
+<p>В настоящее время, в рамках реализации проектов реструктуризации, закончены работы по ликвидации горных выработок, имеющих выход на дневную поверхность. Ведутся работы по сносу промышленных зданий и сооружений, по ликвидации последствий вредного влияния подземных горных разработок на окружающую среду, ведется экологический, социально-экономический и медико-биологический мониторинг.</p>
+<p>Работы осуществляются специалистами организованного в г. Кизел Уральского фонда социального-экологического мониторинга углепромышленных территорий (УФСЭМ УТ), Межотраслевого научно-исследовательского института экологии топливно-энергетического комплекса (ФГУП МНИИЭКО ТЭК) и других организаций.</p>
+<p>Для обеспечения природоохранной деятельности и отслеживания экологической ситуации в районе расположения закрытых шахт компанией «ИБС» была разработана геоинформационная система экологического мониторинга Кизеловского угольного бассейна (ГИС ЭМК), являющаяся частью комплексного решения – двухуровневой информационно-аналитической системы социально-экологического мониторинга и анализа деятельности углепромышленных территорий (ИАС СЭМАД).</p>
+<p>ГИС ЭМК разработана в сотрудничестве с компанией DATA+ на базе программного обеспечения ArcGIS. Наряду со стандартными функциями работы с пространственными данными она содержит дополнительные инструменты для сбора, анализа, отображения и хранения результатов лабораторных и полевых исследований, проводимых в рамках экологического мониторинга (рис. 1).</p>
+<p align="center"><strong><img src="https://arcreview.esri-cis.ru/wp-content/uploads/import/Number_31/post540_img2.gif" /><br />
+Рис. 1.</strong> Инструменты для сбора и редактирования информации об объектах наблюдений.</p>
+<p>ГИС ЭМК реализует следующие основные функции по сбору, хранению, анализу и отображению пространственной и атрибутивной информации:</p>
+<ul>
+<li>необходимой для гидрологического и гидрогеологического мониторинга подземных и шахтных вод, стоков с горных отвалов, поверхностных водотоков.</li>
+<li>о состоянии породных отвалов.</li>
+<li>необходимой для мониторинга сдвижения земной поверхности на территории горных отвалов.</li>
+</ul>
+<p>ГИС ЭМК реализована как электронная карта, отвечающая требованиям ArcGIS в части организации данных, методов их ввода, редактирования, анализа и отображения. Данные организованы в объектно–ориентированную базу геоданных (БГД). Доступ к данным, а также просмотр и редактирование электронных таблиц и структуры БГД может проводиться средствами ArcCatalog и ArcMap (рис. 2), а также через специализированные функции ГИС ЭМК.</p>
+<p align="center"><strong><img src="https://arcreview.esri-cis.ru/wp-content/uploads/import/Number_31/post540_img3.gif" /><br />
+Рис. 2.</strong> Хранение, редактирование и просмотр данных в ArcCatalog и ArcMap.</p>
+<p>Функциональность, предназначенная для решения специфических задач экологического мониторинга, для ввода, анализа и отображения результатов исследования экологической ситуации в Кизеловском угольном бассейне и подготовки отчетных форм установленного образца, реализована в виде дополнительных модулей в среде ArcMap.</p>
+<p>Задачи экологического мониторинга, связанные с наблюдениями за компонентами геологической среды, и специфика горнодобывающих предприятий потребовали развития ГИС ЭМК и создания дополнительного картографического наполнения. В его состав входит базовая геолого-гидрогеологическая информация, необходимая для эффективной работы в рамках проведения мониторинга сдвижения земной поверхности на территориях горных отводов ликвидируемых шахт, для мониторинга породных отвалов и гидрогеологического мониторинга подземных и шахтных вод, стоков с горных отвалов, поверхностных водотоков.</p>
+<p>Электронная система ГИС ЭМК в данный момент содержит цифровую топографическую основу и сравнительно небольшую по объему картографическую информацию о наблюдательной сети мониторинга и расположении шахтных полей (рис. 3). Дополнительное наполнение осуществляется специалистами института «МНИИЭКО ТЭК» путем выборочной векторизации информации с бумажных носителей в пакете Easy Trace и ее последующем импорте в ГИС ЭМК.</p>
+<p align="center"><strong><img src="https://arcreview.esri-cis.ru/wp-content/uploads/import/Number_31/post540_img4.gif" /><br />
+Рис. 3.</strong> Вывод информации по сети мониторинга.</p>
+<p>В качестве исходной была выбрана бумажная геологическая карта масштаба 1:50 000, на которой нанесены геологические границы, линии тектонических нарушений, водозаборы, расположенные на шахтных полях. Векторизуемая информация была разбита по тематическим векторным слоям, взаимоотношения между которыми были вынесены в топологические правила проведения трассировки. На данный момент вся необходимая информация оцифрована и подготовлена для экспорта в геоинформационную систему.</p>
+<p>Разрабатываемое ГИС- наполнение представляет собой базовую информацию, необходимую для эффективной работы ГИС ЭМК в рамках проведения экологического мониторинга. Оно наглядно демонстрирует неограниченные возможности развития локальных геоинформационных систем для решения разноплановых, постоянно возникающих задач.</p>
+<p>Оперативность, интеграция экологической, социально-экономической, медико-биологической, управленческой информации на единой географической основе в соединении с инструментами математического анализа выделяют геоинформационные системы из ряда существующих прикладных программ. Этой универсальностью и объясняется привлекательность их использования для специалистов практически любых отраслей.</p>
+<p>Создание, эксплуатация и развитие ГИС ЭМК явились одним из первых опытов использования ГИС-технологий для решения комплексных задач в регионе ликвидированных угольных предприятий. Распространение этого опыта представляется нам весьма интересным и перспективным.</p>
+
+							</section>
+
+							<section class="custom-content custom-content-post_content-after"><br />
+<input type="text" style="position: absolute; left: -9999px;" tabindex="-1" aria-hidden="true" id="ConstBlogURL">
+<button style="width: 100%;"  class="btn btn-primary btn-effect" onclick="GetConstURL()" title="Получить постоянную ссылку на этот пост">
+<span><svg style="vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" height="18" width="24" viewBox="0 0 950 950" fill="white">
+<path d="M226.1,702.799H414.2c11.5,0,20.899-9.299,20.899-20.898V564.4H331.3V597.1H226.1c-66.5,0-120.3-53.9-120.3-120.301v-3.5 c0-66.5,53.9-120.3,120.3-120.3h105.2v32.7h103.8V268c0-11.5-9.3-20.9-20.899-20.9H226.1c-60.4,0-117.2,23.5-159.9,66.2 C23.5,356,0,412.799,0,473.2v3.5C0,537.1,23.5,593.9,66.2,636.6C108.9,679.299,165.7,702.799,226.1,702.799z"></path>
+<path d="M723.899,247.2H531.8c-11.5,0-20.9,9.3-20.9,20.9v117.6H618.7V353h105.199c66.5,0,120.301,53.9,120.301,120.3v3.5 c0,66.5-53.9,120.301-120.301,120.301H618.7V564.4H510.899V682c0,11.5,9.301,20.9,20.9,20.9h192.1c60.4,0,117.2-23.5,159.9-66.201 c42.7-42.699,66.2-99.5,66.2-159.9v-3.5c0-60.399-23.5-117.2-66.2-159.9S784.3,247.2,723.899,247.2z"></path>
+<path d="M331.3,425H300c-27.6,0-50,22.4-50,50c0,27.6,22.4,50,50,50h31.3h103.8H511h107.8h31.3c27.601,0,50-22.4,50-50 c0-27.6-22.399-50-50-50h-31.3h-107.9H435H331.3z"></path>
+</svg></span>
+<span>URL</span>
+</button>
+<script type="text/javascript">
+function GetConstURL(){
+  var myUrl = document.getElementById("ConstBlogURL");
+  myUrl.value = decodeURI(document.URL);
+  myUrl.select();
+  
+  try {
+    var status = document.execCommand("Copy"); 
+    if(!status){
+      console.error("Cannot copy text");
+    }else{
+      console.log("The text is now on the clipboard");
+      alert("Ссылка скопирована в буфер");
+    }
+  }catch (err){
+    console.log("Unable to copy.");
+  }
+}
+</script></section>		<section class="section-share">
+					<div class="bsb-wrap bsb-default bsb-after-post bsb-mode-php" data-post-id="540" data-share-url="https://arcreview.esri-cis.ru/2004/10/14/monitoring-of-kizelovsky-coal-basin/">
+
+			
+			<div class="bsb-items">
+
+										<div class="bsb-item bsb-twitter bsb-no-count" data-id="twitter">
+
+							<a href="https://twitter.com/share?url=https://arcreview.esri-cis.ru/2004/10/14/monitoring-of-kizelovsky-coal-basin/&text=ГИС%20экологического%20мониторинга%20кизеловского%20угольного%20бассейна" class="bsb-link" target="_blank">
+
+								<i class="bsb-icon icon icon-twitter"></i>
+
+																	<span class="bsb-label">Tweet</span>
+								
+															</a>
+						</div>
+											<div class="bsb-item bsb-vkontakte bsb-no-count" data-id="vkontakte">
+
+							<a href="https://vk.com/share.php?url=https://arcreview.esri-cis.ru/2004/10/14/monitoring-of-kizelovsky-coal-basin/" class="bsb-link" target="_blank">
+
+								<i class="bsb-icon icon icon-vkontakte"></i>
+
+																	<span class="bsb-label">Like</span>
+								
+															</a>
+						</div>
+											<div class="bsb-item bsb-mail bsb-no-count" data-id="mail">
+
+							<a href="mailto:?subject=ГИС%20экологического%20мониторинга%20кизеловского%20угольного%20бассейна&body=ГИС%20экологического%20мониторинга%20кизеловского%20угольного%20бассейна%20https://arcreview.esri-cis.ru/2004/10/14/monitoring-of-kizelovsky-coal-basin/" class="bsb-link" target="_blank">
+
+								<i class="bsb-icon icon icon-mail"></i>
+
+																	<span class="bsb-label">Share</span>
+								
+															</a>
+						</div>
+								</div>
+		</div>
+			</section>
+		
+						</div><!-- .post-main -->
+
+						
+					</div><!-- .entry-wrap -->
+
+					
+	
+	<section class="posts-pagination">
+
+		
+			<article class="post-pagination post-previous">
+				<a href="https://arcreview.esri-cis.ru/2004/10/13/wildfire-monitoring-russia/" class="pagination-title">Предыдущая запись</a>
+				<div class="pagination-content">
+					<div class="overlay">
+						<div class="overlay-media">
+													</div>
+						<div class="overlay-outer">
+							<div class="overlay-inner">
+								<span class="meta-category"><ul class="post-categories">
+	<li><a href="https://arcreview.esri-cis.ru/category/2004/2004-4-31-gis-and-the-environment/" rel="category tag">Выпуск 2004 №4 (31) ГИС и окружающая среда</a></li></ul></span>								<h4>Российская система дистанционного мониторинга лесных пожаров</h4>
+								<ul class="post-meta d-none"><li class="meta-date"><span class="screen-reader-text">Posted on</span> <a href="https://arcreview.esri-cis.ru/2004/10/13/wildfire-monitoring-russia/" rel="bookmark"><time class="entry-date published" datetime="2004-10-13T13:38:35+00:00">13.10.2004</time><time class="updated" datetime="2021-09-09T23:22:06+00:00">09.09.2021</time></a></li><li class="meta-author"><span class="meta-separator">by</span><span class="author vcard"><a class="url fn n" href="https://arcreview.esri-cis.ru/author/webmaster/" title="View all posts by webmaster">webmaster</a></span></li></ul>								<div class="post-more"><a href="https://arcreview.esri-cis.ru/2004/10/13/wildfire-monitoring-russia/" class="btn btn-primary btn-effect"><span>Читать</span><span><i class="icon icon-arrow-left"></i></span></a></div>							</div>
+						</div>
+						<a href="https://arcreview.esri-cis.ru/2004/10/13/wildfire-monitoring-russia/" class="overlay-link"></a>
+					</div>
+				</div>
+			</article>
+
+		
+			<article class="post-pagination post-next">
+				<a href="https://arcreview.esri-cis.ru/2004/10/14/growth-of-pine-stands/" class="pagination-title">Следующая запись</a>
+				<div class="pagination-content">
+					<div class="overlay">
+						<div class="overlay-media">
+													</div>
+						<div class="overlay-outer">
+							<div class="overlay-inner">
+								<span class="meta-category"><ul class="post-categories">
+	<li><a href="https://arcreview.esri-cis.ru/category/2004/2004-4-31-gis-and-the-environment/" rel="category tag">Выпуск 2004 №4 (31) ГИС и окружающая среда</a></li></ul></span>								<h4>Рост сосновых древостоев в горной местности с высоким уровнем загрязнения атмосферы промышленными выбросами</h4>
+								<ul class="post-meta d-none"><li class="meta-date"><span class="screen-reader-text">Posted on</span> <a href="https://arcreview.esri-cis.ru/2004/10/14/growth-of-pine-stands/" rel="bookmark"><time class="entry-date published" datetime="2004-10-14T10:05:50+00:00">14.10.2004</time><time class="updated" datetime="2021-09-09T22:55:56+00:00">09.09.2021</time></a></li><li class="meta-author"><span class="meta-separator">by</span><span class="author vcard"><a class="url fn n" href="https://arcreview.esri-cis.ru/author/webmaster/" title="View all posts by webmaster">webmaster</a></span></li></ul>								<div class="post-more"><a href="https://arcreview.esri-cis.ru/2004/10/14/growth-of-pine-stands/" class="btn btn-primary btn-effect"><span>Читать</span><span><i class="icon icon-arrow-right"></i></span></a></div>							</div>
+						</div>
+						<a href="https://arcreview.esri-cis.ru/2004/10/14/growth-of-pine-stands/" class="overlay-link"></a>
+					</div>
+				</div>
+			</article>
+
+		
+	</section>
+
+	
+	
+
+	
+	<section class="section-carousel">
+		
+							<h3 class="title-block">Также может быть интересно</h3>
+			
+			<div class="slider-container slider-loop" data-columns="3">
+				<div class="owl-carousel">
+											<article class="post-546 post type-post status-publish format-standard hentry category-2004-4-31-gis-and-the-environment">
+							<div class="post-thumbnail">
+								<div class="post-more"><a href="https://arcreview.esri-cis.ru/2004/10/16/gis-for-philippine-tarsiers/" class="btn-link"><span>Читать</span></a></div>							  <a href="https://arcreview.esri-cis.ru/2004/10/16/gis-for-philippine-tarsiers/"></a>
+							</div>
+							<span class="meta-category"><ul class="post-categories">
+	<li><a href="https://arcreview.esri-cis.ru/category/2004/2004-4-31-gis-and-the-environment/" rel="category tag">Выпуск 2004 №4 (31) ГИС и окружающая среда</a></li></ul></span>							<h2 class="entry-title"><a href="https://arcreview.esri-cis.ru/2004/10/16/gis-for-philippine-tarsiers/">ГИС для защиты филиппинских долгопятов</a></h2>
+							<ul class="post-meta d-none"><li class="meta-date"><span class="screen-reader-text">Posted on</span> <a href="https://arcreview.esri-cis.ru/2004/10/16/gis-for-philippine-tarsiers/" rel="bookmark"><time class="entry-date published" datetime="2004-10-16T15:26:54+00:00">16.10.2004</time><time class="updated" datetime="2021-09-09T23:03:24+00:00">09.09.2021</time></a></li><li class="meta-author"><span class="meta-separator">by</span><span class="author vcard"><a class="url fn n" href="https://arcreview.esri-cis.ru/author/webmaster/" title="View all posts by webmaster">webmaster</a></span></li></ul>						</article>
+											<article class="post-541 post type-post status-publish format-standard hentry category-2004-4-31-gis-and-the-environment">
+							<div class="post-thumbnail">
+								<div class="post-more"><a href="https://arcreview.esri-cis.ru/2004/10/15/geoinformation-system-of-aragvi/" class="btn-link"><span>Читать</span></a></div>							  <a href="https://arcreview.esri-cis.ru/2004/10/15/geoinformation-system-of-aragvi/"></a>
+							</div>
+							<span class="meta-category"><ul class="post-categories">
+	<li><a href="https://arcreview.esri-cis.ru/category/2004/2004-4-31-gis-and-the-environment/" rel="category tag">Выпуск 2004 №4 (31) ГИС и окружающая среда</a></li></ul></span>							<h2 class="entry-title"><a href="https://arcreview.esri-cis.ru/2004/10/15/geoinformation-system-of-aragvi/">Геоинформационная система бассейна р. Арагви</a></h2>
+							<ul class="post-meta d-none"><li class="meta-date"><span class="screen-reader-text">Posted on</span> <a href="https://arcreview.esri-cis.ru/2004/10/15/geoinformation-system-of-aragvi/" rel="bookmark"><time class="entry-date published" datetime="2004-10-15T12:32:17+00:00">15.10.2004</time><time class="updated" datetime="2021-09-09T22:58:22+00:00">09.09.2021</time></a></li><li class="meta-author"><span class="meta-separator">by</span><span class="author vcard"><a class="url fn n" href="https://arcreview.esri-cis.ru/author/webmaster/" title="View all posts by webmaster">webmaster</a></span></li></ul>						</article>
+											<article class="post-534 post type-post status-publish format-standard has-post-thumbnail hentry category-2004-4-31-gis-and-the-environment">
+							<div class="post-thumbnail">
+								<img width="146" height="183" src="https://arcreview.esri-cis.ru/wp-content/uploads/2004/10/file-3-ttl2.jpg" class="size-carousel wp-post-image" alt="" /><div class="post-more"><a href="https://arcreview.esri-cis.ru/2004/10/15/money-to-wind/" class="btn-link"><span>Читать</span></a></div>							  <a href="https://arcreview.esri-cis.ru/2004/10/15/money-to-wind/"></a>
+							</div>
+							<span class="meta-category"><ul class="post-categories">
+	<li><a href="https://arcreview.esri-cis.ru/category/2004/2004-4-31-gis-and-the-environment/" rel="category tag">Выпуск 2004 №4 (31) ГИС и окружающая среда</a></li></ul></span>							<h2 class="entry-title"><a href="https://arcreview.esri-cis.ru/2004/10/15/money-to-wind/">Деньги на ветер</a></h2>
+							<ul class="post-meta d-none"><li class="meta-date"><span class="screen-reader-text">Posted on</span> <a href="https://arcreview.esri-cis.ru/2004/10/15/money-to-wind/" rel="bookmark"><time class="entry-date published" datetime="2004-10-15T07:13:38+00:00">15.10.2004</time><time class="updated" datetime="2021-09-07T18:40:01+00:00">07.09.2021</time></a></li><li class="meta-author"><span class="meta-separator">by</span><span class="author vcard"><a class="url fn n" href="https://arcreview.esri-cis.ru/author/webmaster/" title="View all posts by webmaster">webmaster</a></span></li></ul>						</article>
+											<article class="post-550 post type-post status-publish format-standard hentry category-2004-4-31-gis-and-the-environment">
+							<div class="post-thumbnail">
+								<div class="post-more"><a href="https://arcreview.esri-cis.ru/2004/10/14/paleoreconstruction-of-the-environment/" class="btn-link"><span>Читать</span></a></div>							  <a href="https://arcreview.esri-cis.ru/2004/10/14/paleoreconstruction-of-the-environment/"></a>
+							</div>
+							<span class="meta-category"><ul class="post-categories">
+	<li><a href="https://arcreview.esri-cis.ru/category/2004/2004-4-31-gis-and-the-environment/" rel="category tag">Выпуск 2004 №4 (31) ГИС и окружающая среда</a></li></ul></span>							<h2 class="entry-title"><a href="https://arcreview.esri-cis.ru/2004/10/14/paleoreconstruction-of-the-environment/">Палеореконструкция окружающей среды</a></h2>
+							<ul class="post-meta d-none"><li class="meta-date"><span class="screen-reader-text">Posted on</span> <a href="https://arcreview.esri-cis.ru/2004/10/14/paleoreconstruction-of-the-environment/" rel="bookmark"><time class="entry-date published" datetime="2004-10-14T21:15:35+00:00">14.10.2004</time><time class="updated" datetime="2021-09-09T23:06:25+00:00">09.09.2021</time></a></li><li class="meta-author"><span class="meta-separator">by</span><span class="author vcard"><a class="url fn n" href="https://arcreview.esri-cis.ru/author/webmaster/" title="View all posts by webmaster">webmaster</a></span></li></ul>						</article>
+											<article class="post-538 post type-post status-publish format-standard hentry category-2004-4-31-gis-and-the-environment">
+							<div class="post-thumbnail">
+								<div class="post-more"><a href="https://arcreview.esri-cis.ru/2004/10/14/growth-of-pine-stands/" class="btn-link"><span>Читать</span></a></div>							  <a href="https://arcreview.esri-cis.ru/2004/10/14/growth-of-pine-stands/"></a>
+							</div>
+							<span class="meta-category"><ul class="post-categories">
+	<li><a href="https://arcreview.esri-cis.ru/category/2004/2004-4-31-gis-and-the-environment/" rel="category tag">Выпуск 2004 №4 (31) ГИС и окружающая среда</a></li></ul></span>							<h2 class="entry-title"><a href="https://arcreview.esri-cis.ru/2004/10/14/growth-of-pine-stands/">Рост сосновых древостоев в горной местности с высоким уровнем загрязнения атмосферы промышленными выбросами</a></h2>
+							<ul class="post-meta d-none"><li class="meta-date"><span class="screen-reader-text">Posted on</span> <a href="https://arcreview.esri-cis.ru/2004/10/14/growth-of-pine-stands/" rel="bookmark"><time class="entry-date published" datetime="2004-10-14T10:05:50+00:00">14.10.2004</time><time class="updated" datetime="2021-09-09T22:55:56+00:00">09.09.2021</time></a></li><li class="meta-author"><span class="meta-separator">by</span><span class="author vcard"><a class="url fn n" href="https://arcreview.esri-cis.ru/author/webmaster/" title="View all posts by webmaster">webmaster</a></span></li></ul>						</article>
+											<article class="post-553 post type-post status-publish format-standard hentry category-2004-4-31-gis-and-the-environment">
+							<div class="post-thumbnail">
+								<div class="post-more"><a href="https://arcreview.esri-cis.ru/2004/10/13/wildfire-monitoring-russia/" class="btn-link"><span>Читать</span></a></div>							  <a href="https://arcreview.esri-cis.ru/2004/10/13/wildfire-monitoring-russia/"></a>
+							</div>
+							<span class="meta-category"><ul class="post-categories">
+	<li><a href="https://arcreview.esri-cis.ru/category/2004/2004-4-31-gis-and-the-environment/" rel="category tag">Выпуск 2004 №4 (31) ГИС и окружающая среда</a></li></ul></span>							<h2 class="entry-title"><a href="https://arcreview.esri-cis.ru/2004/10/13/wildfire-monitoring-russia/">Российская система дистанционного мониторинга лесных пожаров</a></h2>
+							<ul class="post-meta d-none"><li class="meta-date"><span class="screen-reader-text">Posted on</span> <a href="https://arcreview.esri-cis.ru/2004/10/13/wildfire-monitoring-russia/" rel="bookmark"><time class="entry-date published" datetime="2004-10-13T13:38:35+00:00">13.10.2004</time><time class="updated" datetime="2021-09-09T23:22:06+00:00">09.09.2021</time></a></li><li class="meta-author"><span class="meta-separator">by</span><span class="author vcard"><a class="url fn n" href="https://arcreview.esri-cis.ru/author/webmaster/" title="View all posts by webmaster">webmaster</a></span></li></ul>						</article>
+											<article class="post-549 post type-post status-publish format-standard hentry category-2004-4-31-gis-and-the-environment">
+							<div class="post-thumbnail">
+								<div class="post-more"><a href="https://arcreview.esri-cis.ru/2004/10/12/collecting-dragon-seeds/" class="btn-link"><span>Читать</span></a></div>							  <a href="https://arcreview.esri-cis.ru/2004/10/12/collecting-dragon-seeds/"></a>
+							</div>
+							<span class="meta-category"><ul class="post-categories">
+	<li><a href="https://arcreview.esri-cis.ru/category/2004/2004-4-31-gis-and-the-environment/" rel="category tag">Выпуск 2004 №4 (31) ГИС и окружающая среда</a></li></ul></span>							<h2 class="entry-title"><a href="https://arcreview.esri-cis.ru/2004/10/12/collecting-dragon-seeds/">ГИС помогают в сборе Семян Дракона</a></h2>
+							<ul class="post-meta d-none"><li class="meta-date"><span class="screen-reader-text">Posted on</span> <a href="https://arcreview.esri-cis.ru/2004/10/12/collecting-dragon-seeds/" rel="bookmark"><time class="entry-date published" datetime="2004-10-12T16:53:16+00:00">12.10.2004</time><time class="updated" datetime="2021-09-09T23:05:19+00:00">09.09.2021</time></a></li><li class="meta-author"><span class="meta-separator">by</span><span class="author vcard"><a class="url fn n" href="https://arcreview.esri-cis.ru/author/webmaster/" title="View all posts by webmaster">webmaster</a></span></li></ul>						</article>
+											<article class="post-539 post type-post status-publish format-standard hentry category-2004-4-31-gis-and-the-environment">
+							<div class="post-thumbnail">
+								<div class="post-more"><a href="https://arcreview.esri-cis.ru/2004/10/12/pollution-of-khibiny-rivers-and-lakes/" class="btn-link"><span>Читать</span></a></div>							  <a href="https://arcreview.esri-cis.ru/2004/10/12/pollution-of-khibiny-rivers-and-lakes/"></a>
+							</div>
+							<span class="meta-category"><ul class="post-categories">
+	<li><a href="https://arcreview.esri-cis.ru/category/2004/2004-4-31-gis-and-the-environment/" rel="category tag">Выпуск 2004 №4 (31) ГИС и окружающая среда</a></li></ul></span>							<h2 class="entry-title"><a href="https://arcreview.esri-cis.ru/2004/10/12/pollution-of-khibiny-rivers-and-lakes/">ГИС-анализ техногенного загрязнения хибинских рек и озер в результате деятельности горного и обогатительного производства</a></h2>
+							<ul class="post-meta d-none"><li class="meta-date"><span class="screen-reader-text">Posted on</span> <a href="https://arcreview.esri-cis.ru/2004/10/12/pollution-of-khibiny-rivers-and-lakes/" rel="bookmark"><time class="entry-date published" datetime="2004-10-12T02:14:23+00:00">12.10.2004</time><time class="updated" datetime="2021-09-09T22:56:43+00:00">09.09.2021</time></a></li><li class="meta-author"><span class="meta-separator">by</span><span class="author vcard"><a class="url fn n" href="https://arcreview.esri-cis.ru/author/webmaster/" title="View all posts by webmaster">webmaster</a></span></li></ul>						</article>
+									</div>
+				<div class="owl-dots"></div>
+			</div>
+
+						</section>
+
+	
+
+				</article>
+
+				
+				
+			
+		</main>
+
+		
+	</div><!-- .content-area -->
+
+
+	<aside id="secondary" class="sidebar-area widget-area" role="complementary">
+
+		
+		<div class="sidebar sidebar-1">
+						<div class="widget categories-3 widget_categories"><h5 class="title-block title-widget">Выпуски</h5><form action="https://arcreview.esri-cis.ru" method="get"><label class="screen-reader-text" for="cat">Выпуски</label><select  name='cat' id='cat' class='postform' >
+	<option value='-1'>Выберите рубрику</option>
+	<option class="level-0" value="131">2001&nbsp;&nbsp;(71)</option>
+	<option class="level-1" value="44">&nbsp;&nbsp;&nbsp;Выпуск 2001 №1 (16) ГИС и картография&nbsp;&nbsp;(13)</option>
+	<option class="level-1" value="43">&nbsp;&nbsp;&nbsp;Выпуск 2001 №2 (17) ГИС и ДДЗ&nbsp;&nbsp;(19)</option>
+	<option class="level-1" value="42">&nbsp;&nbsp;&nbsp;Выпуск 2001 №3 (18) ГИС и урбанистика&nbsp;&nbsp;(22)</option>
+	<option class="level-1" value="41">&nbsp;&nbsp;&nbsp;Выпуск 2001 №4 (19) Новейшие технологии ГИС&nbsp;&nbsp;(17)</option>
+	<option class="level-0" value="132">2002&nbsp;&nbsp;(111)</option>
+	<option class="level-1" value="40">&nbsp;&nbsp;&nbsp;Выпуск 2002 №1 (20) ГИС и природные ресурсы&nbsp;&nbsp;(32)</option>
+	<option class="level-1" value="39">&nbsp;&nbsp;&nbsp;Выпуск 2002 №2 (21) ГИС и образование&nbsp;&nbsp;(27)</option>
+	<option class="level-1" value="38">&nbsp;&nbsp;&nbsp;Выпуск 2002 №3 (22) ГИС и данные дистанционного зондирования&nbsp;&nbsp;(29)</option>
+	<option class="level-1" value="37">&nbsp;&nbsp;&nbsp;Выпуск 2002 №4 (23) ГИС в нефтяной и газовой промышленности&nbsp;&nbsp;(23)</option>
+	<option class="level-0" value="133">2003&nbsp;&nbsp;(103)</option>
+	<option class="level-1" value="36">&nbsp;&nbsp;&nbsp;Выпуск 2003 №1 (24) ГИС и транспорт&nbsp;&nbsp;(31)</option>
+	<option class="level-1" value="35">&nbsp;&nbsp;&nbsp;Выпуск 2003 №2 (25) ГИС для земельного кадастра&nbsp;&nbsp;(20)</option>
+	<option class="level-1" value="33">&nbsp;&nbsp;&nbsp;Выпуск 2003 №3 (26) Чрезвычайные ситуации и ГИС&nbsp;&nbsp;(23)</option>
+	<option class="level-1" value="61">&nbsp;&nbsp;&nbsp;Выпуск 2003 №4 (27) ГИС в нефтегазовой промышленности&nbsp;&nbsp;(29)</option>
+	<option class="level-1" value="34">&nbsp;&nbsp;&nbsp;Спецвыпуск 2003 Специальный выпуск&nbsp;&nbsp;(1)</option>
+	<option class="level-0" value="143">2004&nbsp;&nbsp;(108)</option>
+	<option class="level-1" value="62">&nbsp;&nbsp;&nbsp;Выпуск 2004 №1 (28) Гис, Гис, Гис&#8230;&nbsp;&nbsp;(28)</option>
+	<option class="level-1" value="30">&nbsp;&nbsp;&nbsp;Выпуск 2004 №2 (29) ГИС в сельском хозяйстве&nbsp;&nbsp;(28)</option>
+	<option class="level-1" value="29">&nbsp;&nbsp;&nbsp;Выпуск 2004 №3 (30) ArcGIS 9&nbsp;&nbsp;(28)</option>
+	<option class="level-1" value="28">&nbsp;&nbsp;&nbsp;Выпуск 2004 №4 (31) ГИС и окружающая среда&nbsp;&nbsp;(24)</option>
+	<option class="level-0" value="144">2005&nbsp;&nbsp;(91)</option>
+	<option class="level-1" value="27">&nbsp;&nbsp;&nbsp;Выпуск 2005 №1 (32) ГИС в нефтегазовой отрасли&nbsp;&nbsp;(20)</option>
+	<option class="level-1" value="26">&nbsp;&nbsp;&nbsp;Выпуск 2005 №2 (33) Земельный кадастр и городские ГИС&nbsp;&nbsp;(19)</option>
+	<option class="level-1" value="25">&nbsp;&nbsp;&nbsp;Выпуск 2005 №3 (34) Новые технологии дистанционного зондирования и работы с ДДЗ&nbsp;&nbsp;(24)</option>
+	<option class="level-1" value="24">&nbsp;&nbsp;&nbsp;Выпуск 2005 №4 (35) ГИС в торговле и сфере услуг&nbsp;&nbsp;(28)</option>
+	<option class="level-0" value="145">2006&nbsp;&nbsp;(93)</option>
+	<option class="level-1" value="23">&nbsp;&nbsp;&nbsp;Выпуск 2006 №1 (36) ГИС и водные ресурсы&nbsp;&nbsp;(25)</option>
+	<option class="level-1" value="22">&nbsp;&nbsp;&nbsp;Выпуск 2006 №2 (37) Инфраструктура пространственных данных&nbsp;&nbsp;(26)</option>
+	<option class="level-1" value="21">&nbsp;&nbsp;&nbsp;Выпуск 2006 №3 (38) ГИС для управления городами и территориями&nbsp;&nbsp;(19)</option>
+	<option class="level-1" value="20">&nbsp;&nbsp;&nbsp;Выпуск 2006 №4 (39) ГИС и окружающая среда&nbsp;&nbsp;(23)</option>
+	<option class="level-0" value="150">2007&nbsp;&nbsp;(83)</option>
+	<option class="level-1" value="19">&nbsp;&nbsp;&nbsp;Выпуск 2007 №1 (40) ГИС в сфере производства&nbsp;&nbsp;(21)</option>
+	<option class="level-1" value="18">&nbsp;&nbsp;&nbsp;Выпуск 2007 №2 (41) ГИС и ТЭК&nbsp;&nbsp;(21)</option>
+	<option class="level-1" value="17">&nbsp;&nbsp;&nbsp;Выпуск 2007 №3 (42) ГИС и транспорт&nbsp;&nbsp;(23)</option>
+	<option class="level-1" value="16">&nbsp;&nbsp;&nbsp;Выпуск 2007 №4 (43) ГИС, ГИС, ГИС &#8230;&nbsp;&nbsp;(18)</option>
+	<option class="level-0" value="151">2008&nbsp;&nbsp;(80)</option>
+	<option class="level-1" value="15">&nbsp;&nbsp;&nbsp;Выпуск 2008 №1 (44) ГИС на северо-западе&nbsp;&nbsp;(17)</option>
+	<option class="level-1" value="14">&nbsp;&nbsp;&nbsp;Выпуск 2008 №2 (45) ГИС в Казахстане&nbsp;&nbsp;(22)</option>
+	<option class="level-1" value="13">&nbsp;&nbsp;&nbsp;Выпуск 2008 №3 (46) Муниципальные ГИС&nbsp;&nbsp;(18)</option>
+	<option class="level-1" value="12">&nbsp;&nbsp;&nbsp;Выпуск 2008 №4 (47) ГИС, ГИС, ГИС&#8230;&nbsp;&nbsp;(23)</option>
+	<option class="level-0" value="152">2009&nbsp;&nbsp;(77)</option>
+	<option class="level-1" value="11">&nbsp;&nbsp;&nbsp;Выпуск 2009 №1 (48) ГИС и картография&nbsp;&nbsp;(22)</option>
+	<option class="level-1" value="10">&nbsp;&nbsp;&nbsp;Выпуск 2009 №2 (49) Корпоративные ГИС&nbsp;&nbsp;(20)</option>
+	<option class="level-1" value="9">&nbsp;&nbsp;&nbsp;Выпуск 2009 №3 (50) Юбилейный номер!&nbsp;&nbsp;(20)</option>
+	<option class="level-1" value="8">&nbsp;&nbsp;&nbsp;Выпуск 2009 №4 (51) GIS ГИС ГИС&nbsp;&nbsp;(15)</option>
+	<option class="level-0" value="153">2010&nbsp;&nbsp;(73)</option>
+	<option class="level-1" value="7">&nbsp;&nbsp;&nbsp;Выпуск 2010 №1 (52) GIS is GIS&nbsp;&nbsp;(21)</option>
+	<option class="level-1" value="6">&nbsp;&nbsp;&nbsp;Выпуск 2010 №2 (53) Долгожданная «десятка»&nbsp;&nbsp;(15)</option>
+	<option class="level-1" value="5">&nbsp;&nbsp;&nbsp;Выпуск 2010 №3 (54) ArcGIS В ОБЛАКЕ&nbsp;&nbsp;(17)</option>
+	<option class="level-1" value="4">&nbsp;&nbsp;&nbsp;Выпуск 2010 №4 (55) ГИС в меняющемся мире&nbsp;&nbsp;(20)</option>
+	<option class="level-0" value="149">2011&nbsp;&nbsp;(71)</option>
+	<option class="level-1" value="46">&nbsp;&nbsp;&nbsp;Выпуск 2011 №1 (56) Нефть, Газ и ГИС&nbsp;&nbsp;(18)</option>
+	<option class="level-1" value="47">&nbsp;&nbsp;&nbsp;Выпуск 2011 №2 (57) ГИС на службе обществу&nbsp;&nbsp;(13)</option>
+	<option class="level-1" value="45">&nbsp;&nbsp;&nbsp;Выпуск 2011 №3 (58) Географическое Знание: наша новая инфраструктура&nbsp;&nbsp;(18)</option>
+	<option class="level-1" value="48">&nbsp;&nbsp;&nbsp;Выпуск 2011 №4 (59) Географическое Знание: Esri: от истоков до наших дней&nbsp;&nbsp;(22)</option>
+	<option class="level-0" value="148">2012&nbsp;&nbsp;(69)</option>
+	<option class="level-1" value="49">&nbsp;&nbsp;&nbsp;Выпуск 2012 №1 (60) ГИС в здравоохранении и медицине&nbsp;&nbsp;(18)</option>
+	<option class="level-1" value="50">&nbsp;&nbsp;&nbsp;Выпуск 2012 №2 (61) ГИС в электроэнергетике: интеллектуальные энергосистемы&nbsp;&nbsp;(11)</option>
+	<option class="level-1" value="51">&nbsp;&nbsp;&nbsp;Выпуск 2012 №3 (62) ГИС: теория и практика. ArcGIS 10.1&nbsp;&nbsp;(18)</option>
+	<option class="level-1" value="52">&nbsp;&nbsp;&nbsp;Выпуск 2012 №4 (63) Профессиональные ГИС-услуги: Проектная деятельность компании DATA+. ArcGIS 10.1&nbsp;&nbsp;(22)</option>
+	<option class="level-0" value="147">2013&nbsp;&nbsp;(68)</option>
+	<option class="level-1" value="53">&nbsp;&nbsp;&nbsp;Выпуск 2013 №1 (64) Корпоративные ГИС для всех и для каждого&nbsp;&nbsp;(17)</option>
+	<option class="level-1" value="54">&nbsp;&nbsp;&nbsp;Выпуск 2013 №2 (65) ГИС в странах СНГ&nbsp;&nbsp;(18)</option>
+	<option class="level-1" value="55">&nbsp;&nbsp;&nbsp;Выпуск 2013 №3 (66) ГИС в Мире&nbsp;&nbsp;(18)</option>
+	<option class="level-1" value="56">&nbsp;&nbsp;&nbsp;Выпуск 2013 №4 (67) ГИС для всех&nbsp;&nbsp;(15)</option>
+	<option class="level-0" value="146">2014&nbsp;&nbsp;(66)</option>
+	<option class="level-1" value="57">&nbsp;&nbsp;&nbsp;Выпуск 2014 №1 (68) IBM и Esri: Развитие сотрудничества в России&nbsp;&nbsp;(13)</option>
+	<option class="level-1" value="58">&nbsp;&nbsp;&nbsp;Выпуск 2014 №2 (69) ГИС для городов и регионов&nbsp;&nbsp;(15)</option>
+	<option class="level-1" value="59">&nbsp;&nbsp;&nbsp;Выпуск 2014 №3 (70) ГИС для энергетики&nbsp;&nbsp;(23)</option>
+	<option class="level-1" value="60">&nbsp;&nbsp;&nbsp;Выпуск 2014 №4 (71) ГИС – Созидая лучшее будущее&nbsp;&nbsp;(15)</option>
+	<option class="level-0" value="142">2015&nbsp;&nbsp;(76)</option>
+	<option class="level-1" value="63">&nbsp;&nbsp;&nbsp;Выпуск 2015 №1 (72) ArcGIS для профессионалов в своем деле: первые 20 лет&nbsp;&nbsp;(14)</option>
+	<option class="level-1" value="64">&nbsp;&nbsp;&nbsp;Выпуск 2015 №2 (73) ГИС в городском планировании и строительстве&nbsp;&nbsp;(16)</option>
+	<option class="level-1" value="65">&nbsp;&nbsp;&nbsp;Выпуск 2015 №3 (74) ГИС в горном деле и геологии&nbsp;&nbsp;(23)</option>
+	<option class="level-1" value="66">&nbsp;&nbsp;&nbsp;Выпуск 2015 №4 (75) ГИС в крупных интеграционных проектах&nbsp;&nbsp;(23)</option>
+	<option class="level-0" value="141">2016&nbsp;&nbsp;(69)</option>
+	<option class="level-1" value="67">&nbsp;&nbsp;&nbsp;Выпуск 2016 №1 (76) ГИС в решении транспортных проблем&nbsp;&nbsp;(17)</option>
+	<option class="level-1" value="68">&nbsp;&nbsp;&nbsp;Выпуск 2016 №2 (77) ГИС для Бизнеса&nbsp;&nbsp;(17)</option>
+	<option class="level-1" value="69">&nbsp;&nbsp;&nbsp;Выпуск 2016 №3 (78) ГИС для сельского хозяйства&nbsp;&nbsp;(17)</option>
+	<option class="level-1" value="70">&nbsp;&nbsp;&nbsp;Выпуск 2016 №4 (79) ArcGIS в 2016 и дальнейшие инновации&nbsp;&nbsp;(18)</option>
+	<option class="level-0" value="140">2017&nbsp;&nbsp;(60)</option>
+	<option class="level-1" value="71">&nbsp;&nbsp;&nbsp;Выпуск 2017 №1 (80) ГИС и здоровье общества&nbsp;&nbsp;(15)</option>
+	<option class="level-1" value="72">&nbsp;&nbsp;&nbsp;Выпуск 2017 №2 (81) ГИС и природные ресурсы&nbsp;&nbsp;(17)</option>
+	<option class="level-1" value="73">&nbsp;&nbsp;&nbsp;Выпуск 2017 №3 (82) ГИС для развития бизнеса&nbsp;&nbsp;(15)</option>
+	<option class="level-1" value="74">&nbsp;&nbsp;&nbsp;Выпуск 2017 №4 (83) Esri и ArcGIS: 2017&nbsp;&nbsp;(13)</option>
+	<option class="level-0" value="136">2018&nbsp;&nbsp;(64)</option>
+	<option class="level-1" value="75">&nbsp;&nbsp;&nbsp;Выпуск 2018 №1 (84) ГИС для логистических и почтовых служб&nbsp;&nbsp;(17)</option>
+	<option class="level-1" value="76">&nbsp;&nbsp;&nbsp;Выпуск 2018 №2 (85) ГИС для Сетевого коммунального хозяйства&nbsp;&nbsp;(17)</option>
+	<option class="level-1" value="77">&nbsp;&nbsp;&nbsp;Выпуск 2018 №3 (86) Веб-ГИС в приложении к бизнесу&nbsp;&nbsp;(15)</option>
+	<option class="level-1" value="78">&nbsp;&nbsp;&nbsp;Выпуск 2018 №4 (87) ArcGIS в 2018 году и Перспективы&nbsp;&nbsp;(15)</option>
+	<option class="level-0" value="135">2019&nbsp;&nbsp;(60)</option>
+	<option class="level-1" value="137">&nbsp;&nbsp;&nbsp;Выпуск 2019 №1 (88) ГИС для управления активами&nbsp;&nbsp;(18)</option>
+	<option class="level-1" value="154">&nbsp;&nbsp;&nbsp;Выпуск 2019 №2 (89) ГИС и 4-я промышленная революция&nbsp;&nbsp;(15)</option>
+	<option class="level-1" value="155">&nbsp;&nbsp;&nbsp;Выпуск 2019 №3 (90) ArcGIS 2019&nbsp;&nbsp;(11)</option>
+	<option class="level-1" value="156">&nbsp;&nbsp;&nbsp;Выпуск 2019 №4 (91) ГИС: данные, карты, анализ&nbsp;&nbsp;(16)</option>
+	<option class="level-0" value="250">2020&nbsp;&nbsp;(28)</option>
+	<option class="level-1" value="230">&nbsp;&nbsp;&nbsp;Выпуск 2020 №1 (92) ГИС для управления инфраструктурой&nbsp;&nbsp;(13)</option>
+	<option class="level-1" value="251">&nbsp;&nbsp;&nbsp;Выпуск 2020 №2 (93) ГИС на передовых рубежах &#8212; и при COVID-19&nbsp;&nbsp;(15)</option>
+	<option class="level-0" value="282">2021&nbsp;&nbsp;(18)</option>
+	<option class="level-1" value="283">&nbsp;&nbsp;&nbsp;Выпуск 2021 №1 (94) ГИС от конференции к конференции&nbsp;&nbsp;(18)</option>
+</select>
+</form>
+<script type='text/javascript'>
+/* <![CDATA[ */
+(function() {
+	var dropdown = document.getElementById( "cat" );
+	function onCatChange() {
+		if ( dropdown.options[ dropdown.selectedIndex ].value > 0 ) {
+			dropdown.parentNode.submit();
+		}
+	}
+	dropdown.onchange = onCatChange;
+})();
+/* ]]> */
+</script>
+
+</div><div class="widget tag_cloud-2 widget_tag_cloud"><h5 class="title-block title-widget">Отрасли</h5><div class="tagcloud"><a href="https://arcreview.esri-cis.ru/tag/arcgis/" class="tag-cloud-link tag-link-214 tag-link-position-1" style="font-size: 16.909090909091pt;" aria-label="ArcGIS (36 элементов)">ArcGIS<span class="tag-link-count"> (36)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/arcgis-%d0%b4%d0%bb%d1%8f-%d0%b2%d1%83%d0%b7%d0%be%d0%b2/" class="tag-cloud-link tag-link-96 tag-link-position-2" style="font-size: 11.272727272727pt;" aria-label="ArcGIS для ВУЗов (17 элементов)">ArcGIS для ВУЗов<span class="tag-link-count"> (17)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b0%d0%b2%d0%b8%d0%b0%d1%86%d0%b8%d1%8f/" class="tag-cloud-link tag-link-82 tag-link-position-3" style="font-size: 13.454545454545pt;" aria-label="Авиация (23 элемента)">Авиация<span class="tag-link-count"> (23)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b0%d0%b2%d1%82%d0%be%d0%b4%d0%be%d1%80%d0%be%d0%b3%d0%b8/" class="tag-cloud-link tag-link-87 tag-link-position-4" style="font-size: 13.818181818182pt;" aria-label="Автодороги (24 элемента)">Автодороги<span class="tag-link-count"> (24)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b1%d0%b5%d0%b7%d0%be%d0%bf%d0%b0%d1%81%d0%bd%d0%be%d1%81%d1%82%d1%8c-%d0%b8-%d1%87%d1%81/" class="tag-cloud-link tag-link-80 tag-link-position-5" style="font-size: 16pt;" aria-label="Безопасность и ЧС (32 элемента)">Безопасность и ЧС<span class="tag-link-count"> (32)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b1%d0%b8%d0%b7%d0%bd%d0%b5%d1%81/" class="tag-cloud-link tag-link-192 tag-link-position-6" style="font-size: 15.272727272727pt;" aria-label="Бизнес (29 элементов)">Бизнес<span class="tag-link-count"> (29)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b2%d0%be%d0%b4%d0%bd%d1%8b%d0%b5-%d1%80%d0%b5%d1%81%d1%83%d1%80%d1%81%d1%8b/" class="tag-cloud-link tag-link-98 tag-link-position-7" style="font-size: 17.272727272727pt;" aria-label="Водные ресурсы (38 элементов)">Водные ресурсы<span class="tag-link-count"> (38)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b2%d0%be%d0%b4%d0%bd%d1%8b%d0%b9-%d1%82%d1%80%d0%b0%d0%bd%d1%81%d0%bf%d0%be%d1%80%d1%82/" class="tag-cloud-link tag-link-119 tag-link-position-8" style="font-size: 9.2727272727273pt;" aria-label="Водный транспорт (13 элементов)">Водный транспорт<span class="tag-link-count"> (13)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b2%d0%be%d0%b4%d0%be%d1%81%d0%bd%d0%b0%d0%b1%d0%b6%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b8-%d0%ba%d0%b0%d0%bd%d0%b0%d0%bb%d0%b8%d0%b7%d0%b0%d1%86%d0%b8%d1%8f/" class="tag-cloud-link tag-link-110 tag-link-position-9" style="font-size: 9.2727272727273pt;" aria-label="Водоснабжение и канализация (13 элементов)">Водоснабжение и канализация<span class="tag-link-count"> (13)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b3%d0%b5%d0%be%d0%bb%d0%be%d0%b3%d0%b8%d1%8f-%d0%b8-%d0%b3%d0%be%d1%80%d0%bd%d0%be%d0%b5-%d0%b4%d0%b5%d0%bb%d0%be/" class="tag-cloud-link tag-link-99 tag-link-position-10" style="font-size: 22pt;" aria-label="Геология и горное дело (70 элементов)">Геология и горное дело<span class="tag-link-count"> (70)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b3%d0%b5%d0%be%d0%bc%d0%b0%d1%80%d0%ba%d0%b5%d1%82%d0%b8%d0%bd%d0%b3/" class="tag-cloud-link tag-link-180 tag-link-position-11" style="font-size: 10.727272727273pt;" aria-label="Геомаркетинг (16 элементов)">Геомаркетинг<span class="tag-link-count"> (16)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b3%d0%b8%d0%b4%d1%80%d0%be%d0%bc%d0%b5%d1%82%d0%b5%d0%be%d1%80%d0%be%d0%bb%d0%be%d0%b3%d0%b8%d1%8f/" class="tag-cloud-link tag-link-97 tag-link-position-12" style="font-size: 9.2727272727273pt;" aria-label="Гидрометеорология (13 элементов)">Гидрометеорология<span class="tag-link-count"> (13)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b3%d0%be%d1%81%d1%83%d0%b4%d0%b0%d1%80%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%bd%d0%be%d0%b5-%d1%83%d0%bf%d1%80%d0%b0%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-213 tag-link-position-13" style="font-size: 11.636363636364pt;" aria-label="Государственное управление (18 элементов)">Государственное управление<span class="tag-link-count"> (18)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b4%d0%b5%d0%bc%d0%be%d0%b3%d1%80%d0%b0%d1%84%d0%b8%d1%8f/" class="tag-cloud-link tag-link-272 tag-link-position-14" style="font-size: 10.181818181818pt;" aria-label="Демография (15 элементов)">Демография<span class="tag-link-count"> (15)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b4%d0%b8%d1%81%d1%82%d0%b0%d0%bd%d1%86%d0%b8%d0%be%d0%bd%d0%bd%d0%be%d0%b5-%d0%b7%d0%be%d0%bd%d0%b4%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-106 tag-link-position-15" style="font-size: 17.636363636364pt;" aria-label="Дистанционное зондирование (40 элементов)">Дистанционное зондирование<span class="tag-link-count"> (40)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b7%d0%b4%d1%80%d0%b0%d0%b2%d0%be%d0%be%d1%85%d1%80%d0%b0%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-81 tag-link-position-16" style="font-size: 17.454545454545pt;" aria-label="Здравоохранение (39 элементов)">Здравоохранение<span class="tag-link-count"> (39)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b8%d0%bd%d1%84%d1%80%d0%b0%d1%81%d1%82%d1%80%d1%83%d0%ba%d1%82%d1%83%d1%80%d0%b0-%d0%bf%d1%80%d0%be%d1%81%d1%82%d1%80%d0%b0%d0%bd%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%bd%d1%8b%d1%85/" class="tag-cloud-link tag-link-90 tag-link-position-17" style="font-size: 19.454545454545pt;" aria-label="Инфраструктура пространственных данных (50 элементов)">Инфраструктура пространственных данных<span class="tag-link-count"> (50)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%ba%d0%b0%d0%b4%d0%b0%d1%81%d1%82%d1%80-%d0%bd%d0%b5%d0%b4%d0%b2%d0%b8%d0%b6%d0%b8%d0%bc%d0%be%d1%81%d1%82%d0%b8/" class="tag-cloud-link tag-link-91 tag-link-position-18" style="font-size: 12.727272727273pt;" aria-label="Кадастр недвижимости (21 элемент)">Кадастр недвижимости<span class="tag-link-count"> (21)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%ba%d0%b0%d1%80%d1%82%d0%be%d0%b3%d1%80%d0%b0%d1%84%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%be%d0%b5-%d0%bf%d1%80%d0%be%d0%b8%d0%b7%d0%b2%d0%be%d0%b4%d1%81%d1%82%d0%b2%d0%be/" class="tag-cloud-link tag-link-86 tag-link-position-19" style="font-size: 20.363636363636pt;" aria-label="Картографическое производство (57 элементов)">Картографическое производство<span class="tag-link-count"> (57)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%bb%d0%b5%d1%81%d0%bd%d1%8b%d0%b5-%d1%80%d0%b5%d1%81%d1%83%d1%80%d1%81%d1%8b/" class="tag-cloud-link tag-link-103 tag-link-position-20" style="font-size: 11.272727272727pt;" aria-label="Лесные ресурсы (17 элементов)">Лесные ресурсы<span class="tag-link-count"> (17)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%bb%d0%be%d0%b3%d0%b8%d1%81%d1%82%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-89 tag-link-position-21" style="font-size: 11.272727272727pt;" aria-label="Логистика (17 элементов)">Логистика<span class="tag-link-count"> (17)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%bd%d0%b0%d1%83%d1%87%d0%bd%d1%8b%d0%b5-%d0%b8%d1%81%d1%81%d0%bb%d0%b5%d0%b4%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f/" class="tag-cloud-link tag-link-107 tag-link-position-22" style="font-size: 18.909090909091pt;" aria-label="Научные исследования (47 элементов)">Научные исследования<span class="tag-link-count"> (47)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/oil-and-gas/" class="tag-cloud-link tag-link-185 tag-link-position-23" style="font-size: 14.363636363636pt;" aria-label="Нефть и газ (26 элементов)">Нефть и газ<span class="tag-link-count"> (26)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%be%d1%85%d1%80%d0%b0%d0%bd%d0%b0-%d0%bf%d1%80%d0%b8%d1%80%d0%be%d0%b4%d1%8b/" class="tag-cloud-link tag-link-109 tag-link-position-24" style="font-size: 18.181818181818pt;" aria-label="Охрана природы (43 элемента)">Охрана природы<span class="tag-link-count"> (43)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%bf%d0%b5%d1%80%d0%b5%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%ba%d0%b0-%d0%b8-%d1%81%d0%b1%d1%8b%d1%82/" class="tag-cloud-link tag-link-113 tag-link-position-25" style="font-size: 10.181818181818pt;" aria-label="Переработка и сбыт нефтепродуктов (15 элементов)">Переработка и сбыт нефтепродуктов<span class="tag-link-count"> (15)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%bf%d1%80%d0%b8%d1%80%d0%be%d0%b4%d0%bd%d1%8b%d0%b5-%d1%80%d0%b5%d1%81%d1%83%d1%80%d1%81%d1%8b/" class="tag-cloud-link tag-link-221 tag-link-position-26" style="font-size: 12pt;" aria-label="Природные ресурсы (19 элементов)">Природные ресурсы<span class="tag-link-count"> (19)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%bf%d1%80%d0%be%d0%b5%d0%ba%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-%d0%b8-%d1%81%d1%82%d1%80%d0%be%d0%b8%d1%82%d0%b5%d0%bb%d1%8c%d1%81%d1%82%d0%b2%d0%be/" class="tag-cloud-link tag-link-120 tag-link-position-27" style="font-size: 16pt;" aria-label="Проектирование и строительство (32 элемента)">Проектирование и строительство<span class="tag-link-count"> (32)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%bf%d1%80%d0%be%d0%b8%d0%b7%d0%b2%d0%be%d0%b4%d1%81%d1%82%d0%b2%d0%be/" class="tag-cloud-link tag-link-79 tag-link-position-28" style="font-size: 8.5454545454545pt;" aria-label="Производство (12 элементов)">Производство<span class="tag-link-count"> (12)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/exploration-and-extraction/" class="tag-cloud-link tag-link-95 tag-link-position-29" style="font-size: 19.636363636364pt;" aria-label="Разведка и добыча (51 элемент)">Разведка и добыча<span class="tag-link-count"> (51)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d1%80%d0%b5%d0%b3%d0%b8%d0%be%d0%bd%d0%b0%d0%bb%d1%8c%d0%bd%d1%8b%d0%b5/" class="tag-cloud-link tag-link-275 tag-link-position-30" style="font-size: 20.181818181818pt;" aria-label="Региональные (55 элементов)">Региональные<span class="tag-link-count"> (55)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d1%80%d0%b8%d1%82%d0%b5%d0%b9%d0%bb/" class="tag-cloud-link tag-link-85 tag-link-position-31" style="font-size: 12pt;" aria-label="Ритейл (19 элементов)">Ритейл<span class="tag-link-count"> (19)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d1%81%d0%b5%d0%bb%d1%8c%d1%81%d0%ba%d0%be%d0%b5-%d1%85%d0%be%d0%b7%d1%8f%d0%b9%d1%81%d1%82%d0%b2%d0%be/" class="tag-cloud-link tag-link-88 tag-link-position-32" style="font-size: 14.909090909091pt;" aria-label="Сельское хозяйство (28 элементов)">Сельское хозяйство<span class="tag-link-count"> (28)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d1%82%d0%b5%d1%80%d1%80%d0%b8%d1%82%d0%be%d1%80%d0%b8%d0%b0%d0%bb%d1%8c%d0%bd%d0%be%d0%b5-%d0%bf%d0%bb%d0%b0%d0%bd%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-93 tag-link-position-33" style="font-size: 13.818181818182pt;" aria-label="Территориальное планирование (24 элемента)">Территориальное планирование<span class="tag-link-count"> (24)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d1%82%d1%80%d0%b0%d0%bd%d1%81%d0%bf%d0%be%d1%80%d1%82-%d0%b8-%d0%bb%d0%be%d0%b3%d0%b8%d1%81%d1%82%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-222 tag-link-position-34" style="font-size: 11.272727272727pt;" aria-label="Транспорт и логистика (17 элементов)">Транспорт и логистика<span class="tag-link-count"> (17)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d1%82%d1%80%d1%83%d0%b1%d0%be%d0%bf%d1%80%d0%be%d0%b2%d0%be%d0%b4%d0%bd%d1%8b%d0%b9-%d1%82%d1%80%d0%b0%d0%bd%d1%81%d0%bf%d0%be%d1%80%d1%82/" class="tag-cloud-link tag-link-102 tag-link-position-35" style="font-size: 10.181818181818pt;" aria-label="Трубопроводный транспорт (15 элементов)">Трубопроводный транспорт<span class="tag-link-count"> (15)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d1%82%d1%83%d1%80%d0%b8%d0%b7%d0%bc/" class="tag-cloud-link tag-link-277 tag-link-position-36" style="font-size: 12.727272727273pt;" aria-label="Туризм (21 элемент)">Туризм<span class="tag-link-count"> (21)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d1%83%d0%bf%d1%80%d0%b0%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b0%d0%ba%d1%82%d0%b8%d0%b2%d0%b0%d0%bc%d0%b8/" class="tag-cloud-link tag-link-112 tag-link-position-37" style="font-size: 17.636363636364pt;" aria-label="Управление активами (40 элементов)">Управление активами<span class="tag-link-count"> (40)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d1%84%d0%b5%d0%b4%d0%b5%d1%80%d0%b0%d0%bb%d1%8c%d0%bd%d1%8b%d0%b5-%d0%b3%d0%b8%d1%81/" class="tag-cloud-link tag-link-92 tag-link-position-38" style="font-size: 13.090909090909pt;" aria-label="Федеральные ГИС (22 элемента)">Федеральные ГИС<span class="tag-link-count"> (22)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d1%84%d0%b8%d0%bd%d0%b0%d0%bd%d1%81%d1%8b/" class="tag-cloud-link tag-link-118 tag-link-position-39" style="font-size: 8pt;" aria-label="Финансы (11 элементов)">Финансы<span class="tag-link-count"> (11)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d1%8d%d0%ba%d0%be%d0%bb%d0%be%d0%b3%d0%b8%d1%8f-%d0%b8-%d0%b1%d0%b5%d0%b7%d0%be%d0%bf%d0%b0%d1%81%d0%bd%d0%be%d1%81%d1%82%d1%8c/" class="tag-cloud-link tag-link-114 tag-link-position-40" style="font-size: 17.090909090909pt;" aria-label="Экология и безопасность (37 элементов)">Экология и безопасность<span class="tag-link-count"> (37)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d1%8d%d0%bb%d0%b5%d0%ba%d1%82%d1%80%d0%be%d1%81%d0%bd%d0%b0%d0%b1%d0%b6%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b8-%d1%82%d0%b5%d0%bf%d0%bb%d0%be%d1%81%d0%bd%d0%b0%d0%b1%d0%b6%d0%b5%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-105 tag-link-position-41" style="font-size: 16.727272727273pt;" aria-label="Электроснабжение и теплоснабжение (35 элементов)">Электроснабжение и теплоснабжение<span class="tag-link-count"> (35)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%b2%d1%8b%d0%b1%d0%be%d1%80%d1%8b/" class="tag-cloud-link tag-link-274 tag-link-position-42" style="font-size: 10.181818181818pt;" aria-label="выборы (15 элементов)">выборы<span class="tag-link-count"> (15)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d0%bc%d1%83%d0%bd%d0%b8%d1%86%d0%b8%d0%bf%d0%b0%d0%bb%d1%8c%d0%bd%d1%8b%d0%b5-%d0%b3%d0%b8%d1%81/" class="tag-cloud-link tag-link-276 tag-link-position-43" style="font-size: 20.181818181818pt;" aria-label="муниципальные ГИС (55 элементов)">муниципальные ГИС<span class="tag-link-count"> (55)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d1%80%d0%b5%d0%ba%d1%80%d0%b5%d0%b0%d1%86%d0%b8%d1%8f/" class="tag-cloud-link tag-link-278 tag-link-position-44" style="font-size: 12.727272727273pt;" aria-label="рекреация (21 элемент)">рекреация<span class="tag-link-count"> (21)</span></a>
+<a href="https://arcreview.esri-cis.ru/tag/%d1%81%d1%82%d0%b0%d1%82%d0%b8%d1%81%d1%82%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-273 tag-link-position-45" style="font-size: 10.181818181818pt;" aria-label="статистика (15 элементов)">статистика<span class="tag-link-count"> (15)</span></a></div>
+</div>					</div>
+		<div class="sidebar sidebar-2"></div>
+
+		
+	</aside><!-- .sidebar-area .widget-area -->
+
+
+					
+				</div><!-- .main-content -->
+
+				
+			</div><!-- .container -->
+
+			
+		</div><!-- .site-content -->
+
+		
+		
+		<footer class="site-footer">
+
+			
+			
+<div class="footer-section">
+	<div class="container">
+		<div class="footer-widgets">
+		  <div class="footer-sidebars">
+
+							<div class="sidebar-footer">
+					<div class="widget_text widget custom_html-3 widget_custom_html"><div class="textwidget custom-html-widget"><a href="https://www.esri-cis.com/ru-ru/newsroom/arcreview/subscribe" target="_blank">Подписка</a></div></div>				</div>
+			
+							<div class="sidebar-footer">
+					<div class="widget_text widget custom_html-5 widget_custom_html"><div class="textwidget custom-html-widget"><a href="https://www.esri-cis.com/ru-ru/newsroom/arcreview/submit-article-guidelines" target="_blank">Стать автором</a></div></div>				</div>
+			
+							<div class="sidebar-footer">
+					<div class="widget_text widget custom_html-6 widget_custom_html"><div class="textwidget custom-html-widget"><a href="https://www.esri-cis.com/ru-ru/newsroom/arcreview/about" target="_blank">Об издании</a></div></div>				</div>
+			
+		  </div><!-- .footer-sidebars -->
+		</div><!-- .footer-widgets -->
+	</div><!-- .container -->
+</div><!-- .footer-section -->
+
+<div class="footer-section">
+	<div class="container">
+		<div class="footer-info">
+
+						<a href="https://www.esri-cis.ru" class="site-logo">
+				<img class="logo-image" src="https://arcreview.esri-cis.ru/wp-content/uploads/2020/10/footer-logo-44-1.png" srcset="https://arcreview.esri-cis.ru/wp-content/uploads/2020/10/footer-logo-44-1.png 1x, https://arcreview.esri-cis.ru/wp-content/uploads/2020/10/footer-logo-88-1.png 2x" alt="ArcReview">
+			</a>
+			
+			
+			<nav class="nav navbar-footer navbar-lonely"><ul id="menu-%d0%bc%d0%b5%d0%bd%d1%8e-%d1%81%d0%be%d1%86%d0%b8%d0%b0%d0%bb%d1%8c%d0%bd%d1%8b%d1%85-%d1%81%d1%81%d1%8b%d0%bb%d0%be%d0%ba" class="nav navbar-nav"><li id="menu-item-12745" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12745"><a href="https://t.me/esrirus"><img alt="►" id="FooterImage4" src="https://arcreview.esri-cis.ru/wp-content/uploads/2020/10/footer-telegram.png"></a></li>
+<li id="menu-item-9512" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9512"><a href="https://vk.com/esricis"><img alt="vk" id="FooterImage5" src="https://arcreview.esri-cis.ru/wp-content/uploads/2020/10/footer_vk_grey.png"></a></li>
+<li id="menu-item-9513" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9513"><a href="https://www.youtube.com/user/esricis"><img alt="►" id="FooterImage4" src="https://arcreview.esri-cis.ru/wp-content/uploads/2020/10/footer-youtube.png"></a></li>
+</ul></nav>
+							<div class="footer-copyright">+7 (495) 755-88-89<br /><a href="mailto:market@esri-cis.ru">market@esri-cis.ru</a><br />124445 Россия, Москва, ул. Смольная д. 52 стр. 6<br />© Esri CIS, 2008-2026</div>
+			
+		</div><!-- .footer-info -->
+	</div><!-- .container -->
+</div><!-- .footer-section -->
+
+			
+		</footer>
+
+		
+	</div><!-- .site-inner -->
+
+	
+</div><!-- .site -->
+
+<a href="#top" class="scroll-to-top d-none d-sm-block"></a>
+
+
+<div class="site-search" id="search">
+	<button type="button" class="close"></button>
+	<div class="form-container">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 ml-lg-auto mr-lg-auto">
+					
+<form role="search" method="get" class="search-form form" action="https://arcreview.esri-cis.ru/">
+	<label class="sr-only">Поиск:</label>
+	<div class="input-group">
+		<input type="search" value="" name="s" class="search-field form-control" placeholder="Ключ. Слово" required>
+		<span class="input-group-btn">
+			<button type="submit" class="search-submit btn btn-primary btn-effect"><span>Поиск</span><span><i class="icon icon-search"></i></span></button>
+		</span>
+	</div>
+</form>
+					<p>Введите фразу для поиска и нажмите Enter.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wp_data = {"ajax_url":"https:\/\/arcreview.esri-cis.ru\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/plugins/basic-mailchimp/public/js/basic-mailchimp-public.js?ver=1.1.4'></script>
+<script type='text/javascript'>
+$ = jQuery;
+</script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/js/bootstrap/util.js?ver=4.0.0'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/js/bootstrap/alert.js?ver=4.0.0'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/js/bootstrap/collapse.js?ver=4.0.0'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/js/bootstrap/tab.js?ver=4.0.0'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-includes/js/imagesloaded.min.js?ver=3.2.0'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/js/owl.carousel.min.js?ver=2.2.0'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/js/jquery.justifiedGallery.min.js?ver=3.6.3'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/js/jquery.magnific-popup.min.js?ver=1.1.0'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/js/colcade.js?ver=0.2.0'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/js/jquery.waypoints.min.js?ver=4.0.1'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/js/sticky.min.js?ver=4.0.1'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/js/ofi.min.js?ver=3.2.3'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/js/jarallax.min.js?ver=1.9.1'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/js/jarallax-video.min.js?ver=1.9.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var translation = {"next":"\u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0430\u044f","previous":"\u041f\u0440\u0435\u0434\u044b\u0434\u0443\u0449\u0430\u044f","close":"\u0417\u0430\u043a\u0440\u044b\u0442\u044c","loading":"\u0417\u0430\u0433\u0440\u0443\u0437\u043a\u0430"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/js/scripts.js?ver=4.9.10'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-includes/js/wp-embed.min.js?ver=4.9.10'></script>
+<script type='text/javascript' src='https://arcreview.esri-cis.ru/wp-content/themes/authentic/framework/includes/kirki/modules/webfont-loader/vendor-typekit/webfontloader.js?ver=3.0.28'></script>
+<script type='text/javascript'>
+WebFont.load({google:{families:['Montserrat:400,400,400i,700,700i,600,500:cyrillic,cyrillic-ext,devanagari,greek,greek-ext,khmer,latin,latin-ext,vietnamese,hebrew,arabic,bengali,gujarati,tamil,telugu,thai']}});
+WebFont.load({google:{families:['Montserrat:400,400,400i,700,700i,600,500:cyrillic,cyrillic-ext,devanagari,greek,greek-ext,khmer,latin,latin-ext,vietnamese,hebrew,arabic,bengali,gujarati,tamil,telugu,thai']}});
+</script>
+	<script type="text/javascript">
+		"use strict";
+
+		(function($) {
+
+			$( window ).load( function() {
+
+				// Get all accounts.
+				var bsaIds = [],
+					bsaRestBox = $( '.bsa-mode-rest' );
+
+				bsaRestBox.find( '.bsa-item' ).each( function() {
+					if ( $( this ).attr( 'data-id' ).length > 0 ) {
+						bsaIds.push( $( this ).attr( 'data-id' ) );
+					}
+				});
+
+				// Generate accounts data.
+				var bsaData = {};
+
+				if( bsaIds.length > 0 ) {
+					bsaData = { 'ids' : bsaIds.join() };
+				}
+
+				// Get results by REST API.
+				$.ajax({
+					type: 'GET',
+					url: 'https://arcreview.esri-cis.ru/wp-json/social-counts/v1/get-counts',
+					data: bsaData,
+					beforeSend: function(){
+
+						// Add Loading Class.
+						bsaRestBox.addClass( 'bsa-loading' );
+					},
+					success: function( response ) {
+
+						if ( ! $.isEmptyObject( response ) && ! response.hasOwnProperty( 'code' ) ) {
+
+							// Accounts loop.
+							$.each( response, function( index, data ) {
+
+								// Find Bsa Item.
+								var bsaItem = bsaRestBox.find( '.bsa-item[data-id="' + index + '"]');
+
+								// Set Class.
+								if ( data.hasOwnProperty( 'class' ) ) {
+									bsaItem.addClass( data.class );
+								}
+
+								// Set Count.
+								if ( data.hasOwnProperty( 'result' ) && data.result !== null && data.result.hasOwnProperty( 'count' ) ) {
+
+									// Bsa Item.
+									bsaItem.addClass( 'bsa-item-count' );
+
+									// Count item.
+									bsaItem.find( '.bsa-count-rest' ).addClass( 'bsa-count' ).html( data.result.count );
+								} else {
+									bsaItem.addClass( 'bsa-no-count' );
+								}
+
+							});
+						}
+
+						// Remove Loading Class.
+						bsaRestBox.removeClass( 'bsa-loading' );
+					},
+					error: function() {
+
+						// Remove Loading Class.
+						bsaRestBox.removeClass( 'bsa-loading' );
+					}
+				});
+			});
+
+		})(jQuery);
+	</script>
+	</body>
+</html>

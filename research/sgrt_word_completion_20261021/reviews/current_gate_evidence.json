@@ -31,25 +31,35 @@
       "next_repair": "Сверить все source entities/неаддитивные записи/неразмещённые18558 по региону, типу и размеру; не суммировать пересекающиеся территориальные единицы."
     },
     "W03": {
-      "state": "IN_PROGRESS",
-      "implementation": "IN_PROGRESS",
-      "data": "IN_PROGRESS",
-      "scientific": "NEEDS_REPAIR",
-      "author": "research_team",
+      "state": "CLOSED",
+      "implementation": "CLOSED",
+      "data": "CLOSED",
+      "scientific": "CLOSED",
+      "author": "root_axis_builder_and_reviewed_legacy_sources",
       "reviewer": "strict_guardian",
       "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {
-        "independent_source_axis_checks": {
+        "immutable_population_and_coordinate_provenance": {
           "status": "PASS",
           "verified_by": "strict_guardian",
-          "review_rationale": "173527 source entities; all legacy populations and 12 identity/quality fields preserved. This does not prove all new historical identities or national geographic completeness.",
-          "artifact": "research/sgrt_word_completion_20261021/reviews/cycle02_verified_partial_criteria.json",
-          "sha256": "81420f1c367cea81a3b6ca2bf6c6414003f4d46ad2784e4c8345ce610f8638b3",
+          "review_rationale": "All legacylat/lon,sourceIDs and populations preserved exactly; all173527entities have source-ledger provenance;5719reviewed-primary/raw divergences explicitly bridged with acceptedsourceclaims and actual5primaryfileSHA.",
+          "artifact": "research/sgrt_word_completion_20261021/reviews/axis_preservation_independent_audit.json",
+          "sha256": "ca6f8a11482ed10597cee725f576eaf42c9b2b60a6cc0811c509514fa061ed50",
           "assertions": [
             {
-              "pointer": "claims.axis_independent_checks.pass",
+              "pointer": "n_failed",
               "operator": "eq",
-              "expected": true
+              "expected": 0
+            },
+            {
+              "pointer": "status",
+              "operator": "eq",
+              "expected": "AXIS_PRESERVATION_VERIFIED"
+            },
+            {
+              "pointer": "source_ledger_rows",
+              "operator": "eq",
+              "expected": 465928
             }
           ],
           "source_artifacts": [
@@ -58,85 +68,171 @@
               "sha256": "29fa9586278e08a937651fb4fcddbc929a02d46e6dcbe44f5f14793ae6fab3fc"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/education/education_objects.parquet",
-              "sha256": "d08c0ccc284a09397cf1a7f10afc0b29df3f4fd6501202d1e269eef757453866"
+              "artifact": "research/sgrt_word_completion_20261021/axis/source_observations_all.parquet",
+              "sha256": "421ee615a4b067a3f9365828c8bede8b53626c900106a4629e0c03a09da9d540"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/education/education_objects_2021.parquet",
-              "sha256": "7a011ba75eb99d793d37bbd9e96388945413ad26a51c470b51c45c58337f8ab9"
+              "artifact": "research/sgrt_national_integration_20261019/core/feature_master.parquet",
+              "sha256": "8c98d5a113eec4c3bf131232b1d7e5c6362dc3a50ee484e964420de58c377f85"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/education/settlement_features_full_axis.parquet",
-              "sha256": "eaf4aaee000c1af6281cfcf4ae345489d6a01a3f2a364a9d7e70a852bcb7ebbb"
+              "artifact": "research/sgrt_word_completion_20261021/axis/inherited_reviewed_population2010_provenance_bridge.parquet",
+              "sha256": "9c0980dd294e17e828399557e832c4861891825acb9282eb783a976738b90a99"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/education/settlement_features_2021_full_axis.parquet",
-              "sha256": "96ba3777cb09cd83f49cb92e7d5faf846b034e8b1b2d4e3b3df91199e9b8910f"
+              "artifact": "/workspace/scratch/frozen_primary_recovery/national2010_candidate_0_42cb939d80.pdf",
+              "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/medical/current_20261019/osm_medical_inventory.parquet",
-              "sha256": "d66629c2781f5b268996ae490688f8341c2562cc7a5a1ba83d30f1b8f5f07a6c"
+              "artifact": "/workspace/scratch/sgrt_demography2010/frozen_primary_recovery/tula_2010_official_Tom1.pdf",
+              "sha256": "af106d17032ed614af762a8be09608aa090f239d4e7fce5b3419b8374f7e8a65"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/medical/current_20261019/settlement_features.parquet",
-              "sha256": "cc7f41ac5e4c717aade8ae9a774993aaf6c1a4fea2b041a7de3f27ff61b458f9"
+              "artifact": "/workspace/russian-settlements-research/research_rebuild/evidence/official_population_residual_sources_20261008/leningrad_2010_official_archived.pdf",
+              "sha256": "57cb1e6e9ea1c5803a860048941ddd51b40640372797229d0010e758155b8792"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/medical/history_20210101/osm_medical_inventory.parquet",
-              "sha256": "d41067cd655a1ff008b1565edac4595ef8a02e326185c69bb39833322f6e1c5c"
+              "artifact": "/workspace/russian-settlements-research/research_rebuild/evidence/next67_primary_source_routes/perm_2010_original_archived.xls",
+              "sha256": "a9cbc026ef543ab2a3fd1e79eb2ba9cdf842457bb93217383a96baa208d271ed"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/medical/history_20210101/settlement_features.parquet",
-              "sha256": "98d1f4c9370f460293e60c929062b2877a8f5a78c7b95c644df07cbb1526f065"
+              "artifact": "/workspace/russian-settlements-research/research_rebuild/evidence/next67_primary_source_routes/prim_2010_original_archived.mht",
+              "sha256": "9aa794fece2c21fe3a72273cce3435490f38276f8d4558ae7399ece0751436ea"
+            }
+          ]
+        },
+        "census_zeros_and_missing_values_preserved": {
+          "status": "PASS",
+          "verified_by": "strict_guardian",
+          "review_rationale": "All2002/2010/2021legacyzero and NULLmasks retained exactly; completeaxis values nonnegativeinteger or missing. Rawledger retained; reviewedoverrides do not erase raw observations.",
+          "artifact": "research/sgrt_word_completion_20261021/reviews/axis_preservation_independent_audit.json",
+          "sha256": "ca6f8a11482ed10597cee725f576eaf42c9b2b60a6cc0811c509514fa061ed50",
+          "assertions": [
+            {
+              "pointer": "n_failed",
+              "operator": "eq",
+              "expected": 0
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/medical/udmurt_official_2025/physical_fap_inventory.parquet",
-              "sha256": "d88845bdc5ad793845c1fb4a87aa825b43fb05c1142a48becf10b349d27b4433"
+              "pointer": "status",
+              "operator": "eq",
+              "expected": "AXIS_PRESERVATION_VERIFIED"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/medical/udmurt_official_2025/settlement_features.parquet",
-              "sha256": "d76a37a713b9f7e72db65e0addec2c2ad1445da52cead932dc691d540cbf2300"
+              "pointer": "source_ledger_rows",
+              "operator": "eq",
+              "expected": 465928
+            }
+          ],
+          "source_artifacts": [
+            {
+              "artifact": "research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet",
+              "sha256": "29fa9586278e08a937651fb4fcddbc929a02d46e6dcbe44f5f14793ae6fab3fc"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/context/municipal_selected_source_observations.parquet",
-              "sha256": "de73bea0dc1866fcf8a3832fc1cee8f8646fc1c9918e6c3b10ee5ded3244b988"
+              "artifact": "research/sgrt_word_completion_20261021/axis/source_observations_all.parquet",
+              "sha256": "421ee615a4b067a3f9365828c8bede8b53626c900106a4629e0c03a09da9d540"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/context/municipal_annual_context.parquet",
-              "sha256": "951e58971e7fafd4bf6f4824356a1fdae96e50f8a400c1b13fd5945ca34dc77f"
+              "artifact": "research/sgrt_national_integration_20261019/core/feature_master.parquet",
+              "sha256": "8c98d5a113eec4c3bf131232b1d7e5c6362dc3a50ee484e964420de58c377f85"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/context/municipal_annual_wide.parquet",
-              "sha256": "dc4237d8ab602c02bfe19cd271c113d59eff60aed5785421ec2c84994d5cd9fc"
+              "artifact": "research/sgrt_word_completion_20261021/axis/inherited_reviewed_population2010_provenance_bridge.parquet",
+              "sha256": "9c0980dd294e17e828399557e832c4861891825acb9282eb783a976738b90a99"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/context/municipal_settlement_features.parquet",
-              "sha256": "1c31548d7e50d2ff4b2ffa1c2b32757a738265f444329c63f20e0890ed3f46bf"
+              "artifact": "/workspace/scratch/frozen_primary_recovery/national2010_candidate_0_42cb939d80.pdf",
+              "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/context/climate_settlement_features.parquet",
-              "sha256": "e4ea2f22b0d6635ff8027b0a4bc12eed181279c0d5b706dc312bc2ac35a89851"
+              "artifact": "/workspace/scratch/sgrt_demography2010/frozen_primary_recovery/tula_2010_official_Tom1.pdf",
+              "sha256": "af106d17032ed614af762a8be09608aa090f239d4e7fce5b3419b8374f7e8a65"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/typology/settlement_features.parquet",
-              "sha256": "126cbb31953ab5890a909e23076d675753ca0306bb93e1b30a7ab92c67066cff"
+              "artifact": "/workspace/russian-settlements-research/research_rebuild/evidence/official_population_residual_sources_20261008/leningrad_2010_official_archived.pdf",
+              "sha256": "57cb1e6e9ea1c5803a860048941ddd51b40640372797229d0010e758155b8792"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/calibration/services_2021_objects.parquet",
-              "sha256": "734e8bd4b6bdafbeca967f9c25237fed709196bb1ae44a8d16075c37104d24de"
+              "artifact": "/workspace/russian-settlements-research/research_rebuild/evidence/next67_primary_source_routes/perm_2010_original_archived.xls",
+              "sha256": "a9cbc026ef543ab2a3fd1e79eb2ba9cdf842457bb93217383a96baa208d271ed"
             },
             {
-              "artifact": "research/sgrt_word_completion_20261021/calibration/services_2021_settlement_features.parquet",
-              "sha256": "0e58411c913ee36cde18e3b0b572336150bee5cacae4803899bc1f7e65ad1908"
+              "artifact": "/workspace/russian-settlements-research/research_rebuild/evidence/next67_primary_source_routes/prim_2010_original_archived.mht",
+              "sha256": "9aa794fece2c21fe3a72273cce3435490f38276f8d4558ae7399ece0751436ea"
+            }
+          ]
+        },
+        "independent_source_axis_checks": {
+          "status": "PASS",
+          "verified_by": "strict_guardian",
+          "review_rationale": "Independent33all-rowchecks passed, linking173527axisentities and465928sourceyearobservations. Criterion closes retention/provenance only, not historicalterritoryequivalence or primarytruth of everysecondaryvalue.",
+          "artifact": "research/sgrt_word_completion_20261021/reviews/axis_preservation_independent_audit.json",
+          "sha256": "ca6f8a11482ed10597cee725f576eaf42c9b2b60a6cc0811c509514fa061ed50",
+          "assertions": [
+            {
+              "pointer": "n_failed",
+              "operator": "eq",
+              "expected": 0
+            },
+            {
+              "pointer": "status",
+              "operator": "eq",
+              "expected": "AXIS_PRESERVATION_VERIFIED"
+            },
+            {
+              "pointer": "source_ledger_rows",
+              "operator": "eq",
+              "expected": 465928
+            }
+          ],
+          "source_artifacts": [
+            {
+              "artifact": "research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet",
+              "sha256": "29fa9586278e08a937651fb4fcddbc929a02d46e6dcbe44f5f14793ae6fab3fc"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/axis/source_observations_all.parquet",
+              "sha256": "421ee615a4b067a3f9365828c8bede8b53626c900106a4629e0c03a09da9d540"
+            },
+            {
+              "artifact": "research/sgrt_national_integration_20261019/core/feature_master.parquet",
+              "sha256": "8c98d5a113eec4c3bf131232b1d7e5c6362dc3a50ee484e964420de58c377f85"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/axis/inherited_reviewed_population2010_provenance_bridge.parquet",
+              "sha256": "9c0980dd294e17e828399557e832c4861891825acb9282eb783a976738b90a99"
+            },
+            {
+              "artifact": "/workspace/scratch/frozen_primary_recovery/national2010_candidate_0_42cb939d80.pdf",
+              "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+            },
+            {
+              "artifact": "/workspace/scratch/sgrt_demography2010/frozen_primary_recovery/tula_2010_official_Tom1.pdf",
+              "sha256": "af106d17032ed614af762a8be09608aa090f239d4e7fce5b3419b8374f7e8a65"
+            },
+            {
+              "artifact": "/workspace/russian-settlements-research/research_rebuild/evidence/official_population_residual_sources_20261008/leningrad_2010_official_archived.pdf",
+              "sha256": "57cb1e6e9ea1c5803a860048941ddd51b40640372797229d0010e758155b8792"
+            },
+            {
+              "artifact": "/workspace/russian-settlements-research/research_rebuild/evidence/next67_primary_source_routes/perm_2010_original_archived.xls",
+              "sha256": "a9cbc026ef543ab2a3fd1e79eb2ba9cdf842457bb93217383a96baa208d271ed"
+            },
+            {
+              "artifact": "/workspace/russian-settlements-research/research_rebuild/evidence/next67_primary_source_routes/prim_2010_original_archived.mht",
+              "sha256": "9aa794fece2c21fe3a72273cce3435490f38276f8d4558ae7399ece0751436ea"
             }
           ]
         }
       },
       "attempted_repairs": [
-        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance",
+        "Additional axis/source-ledger audit26/27PASS;5719all2010values differ, so prior narrowly-scoped sourceaxiscriterion acceptance suspended pending explicit provenance bridge.",
+        "5719source-provenance discrepancy repair independently verified: unique acceptedbridge, exact5primaryfiles allSHA recovered;33/33all-rowchecksPASS."
       ],
       "external_blocker": null,
-      "next_repair": "Доказать источниковую идентичность новых записей и нули/пропуски по каждому году; проверить исторические территории и координатное происхождение."
+      "next_repair": "CLOSED в точном объёме сохранения/происхождения предоставленных данных. Историческая территориальная сопоставимость и sourcecoverage остаются отдельными W11/W21/W31; modelprimaryoverrides18909 отдельно версионированы."
     },
     "W04": {
       "state": "IN_PROGRESS",
@@ -316,19 +412,69 @@
         "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
       ],
       "external_blocker": null,
-      "next_repair": "Добыть2010/2021сельхозугодья либо обосновать корректную доступную альтернативу; почвенный балл/проверяемый proxy. GAEZ SAT и летний P/PET получены для154968НП, климатический блок больше не отсутствует."
+      "next_repair": "Добыть2010/2021сельхозугодья либо обосновать корректную доступную альтернативу; почвенный балл/проверяемый proxy. GAEZ SAT и летний P/PET получены для154968НП, климатический блок больше не отсутствует.",
+      "reviewed_modules": [
+        {
+          "artifact": "reviews/climate_soil_sampled_independent_audit.json",
+          "status": "200points x3TIFF + soilbounds checks13/13PASS; exactRussianbonitet notaccepted"
+        }
+      ]
     },
     "W10": {
       "state": "IN_PROGRESS",
       "implementation": "IN_PROGRESS",
       "data": "IN_PROGRESS",
       "scientific": "NEEDS_REPAIR",
-      "author": "research_team",
+      "author": "road_accessibility",
       "reviewer": "strict_guardian",
       "target_run_id": "sgrt_word_completion_20261021_cycle02",
-      "criteria": {},
+      "criteria": {
+        "versioned_directed_road_graph_and_speed_profile": {
+          "status": "PASS",
+          "verified_by": "strict_guardian",
+          "review_rationale": "Independently loaded actual11,959,027node/29,527,197arc CSR: finite nonnegative times, indexbounds, directed asymmetry87/5000samples. The2zero-timearcs join coincident coordinatevertices. Versionedyearround/accessprofile explicit; speed model minutes not observedtraffic, noferries/turnrestrictions. Does not accept pending routes or isochrones.",
+          "artifact": "research/sgrt_word_completion_20261021/reviews/graph_spec_independent_audit.json",
+          "sha256": "0a2449e8cfbf4a9b583dfd6925442c2bf5ed26bcd99b1ffc5c6caa4ab726f396",
+          "assertions": [
+            {
+              "pointer": "n_failed",
+              "operator": "eq",
+              "expected": 0
+            },
+            {
+              "pointer": "nodes",
+              "operator": "eq",
+              "expected": 11959027
+            },
+            {
+              "pointer": "arcs",
+              "operator": "eq",
+              "expected": 29527197
+            }
+          ],
+          "source_artifacts": [
+            {
+              "artifact": "research/sgrt_word_completion_20261021/transport/routing_graph.npz",
+              "sha256": "fc517e8fe7119fc7189a23b183ee5cff198ac0d7acecf116e74a4a3ffc033e01"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/transport/graph_receipt.json",
+              "sha256": "2b4965038ce682fe8d561edc56c53b0301a0e8e457be9b6fd82b841bd1854292"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/transport/yearround_profile_receipt.json",
+              "sha256": "15a1b0faefbf7e06093c825a213e605f16e9b20415c60a3030c5b1f4782ac35d"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/transport/access_repair_receipt.json",
+              "sha256": "62ff2b9cc453e00d36f92fed4f2b46e1ccaa0c4201821368e7c1f790d6266d91"
+            }
+          ]
+        }
+      },
       "attempted_repairs": [
-        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance",
+        "Actual frozen graph independently inspected:13/13checks passed; pending route matrix not read."
       ],
       "external_blocker": null,
       "next_repair": "Дождаться маршрутов/isochrones; проверить направленность, snap, неполные пары vs unreachable, независимые время/барьеры; current2026networkproxy отдельно от2021среза."
@@ -751,7 +897,13 @@
         "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
       ],
       "external_blocker": null,
-      "next_repair": "Картографировать только actual final memberships/routes/types с показом unresolved/missing/источниковой уверенности, затем сверить легенды и суммы."
+      "next_repair": "Картографировать только actual final memberships/routes/types с показом unresolved/missing/источниковой уверенности, затем сверить легенды и суммы.",
+      "reviewed_modules": [
+        {
+          "artifact": "reviews/static_map_visual_review.json",
+          "status": "2staticPNG inspected; finalSGRTmaps pending"
+        }
+      ]
     },
     "W29": {
       "state": "OPEN",
