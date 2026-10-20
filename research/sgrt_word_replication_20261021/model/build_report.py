@@ -155,7 +155,7 @@ def build_text(r,ext,scaffold,reg,intervals):
  bib=pd.read_csv(ROOT/'literature/bibliography.csv').fillna('')
  for _,b in bib.iterrows():
   state='оригинальный тематический фрагмент' if b.current_read_status.startswith('original') else 'вторичное изложение / оригинал не прочитан'
-  rows.append(('p',f'[{b.source_id}] {b.author}. {b.title}. {b.year}. Прочитано: {b.read_locator}. Статус: {state}. {b.url}'))
+  rows.append(('ref',f'[{b.source_id}] {b.author}. {b.title}. {b.year}. Прочитано: {b.read_locator}. Статус: {state}. {b.url}'))
  return rows
 
 def clean_prose(text):
@@ -167,13 +167,13 @@ def clean_prose(text):
  return text
 
 def render(rows,basename,brief=False):
- rows=[(typ,clean_prose(c) if typ in ['h','h2','p'] else ((c[0],clean_prose(c[1])) if typ=='image' else c)) for typ,c in rows]
+ rows=[(typ,clean_prose(c) if typ in ['h','h2','p','ref'] else ((c[0],clean_prose(c[1])) if typ=='image' else c)) for typ,c in rows]
  pdfmetrics.registerFont(TTFont('DejaVu','/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'));pdfmetrics.registerFont(TTFont('DejaVuBold','/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'))
  styles=getSampleStyleSheet();styles.add(ParagraphStyle(name='BodyRU',fontName='DejaVu',fontSize=9.5,leading=14,spaceAfter=8));styles.add(ParagraphStyle(name='TitleRU',fontName='DejaVuBold',fontSize=20,leading=26,spaceAfter=16));styles.add(ParagraphStyle(name='HeadRU',fontName='DejaVuBold',fontSize=13,leading=18,spaceBefore=13,spaceAfter=8));styles.add(ParagraphStyle(name='CaptionRU',fontName='DejaVu',fontSize=8,leading=11,textColor=colors.HexColor('#54636b'),spaceAfter=12))
  story=[];doc=Document();normal=doc.styles['Normal'];normal.font.name='DejaVu Sans';normal.font.size=Pt(10)
  for typ,content in rows:
-  if typ in ['h','h2','p']:
-   style={'h':'TitleRU','h2':'HeadRU','p':'BodyRU'}[typ];story.append(Paragraph(escape(content),styles[style]))
+  if typ in ['h','h2','p','ref']:
+   style={'h':'TitleRU','h2':'HeadRU','p':'BodyRU','ref':'CaptionRU'}[typ];story.append(Paragraph(escape(content),styles[style]))
    if typ=='h':doc.add_heading(content,0)
    elif typ=='h2':doc.add_heading(content,1)
    else:doc.add_paragraph(content)
@@ -200,7 +200,7 @@ def render(rows,basename,brief=False):
  for typ,c in rows:
   if typ=='h':md.append('# '+c)
   elif typ=='h2':md.append('## '+c)
-  elif typ=='p':md.append(c)
+  elif typ in ['p','ref']:md.append(c)
   elif typ=='image':md.append(f'![{c[1]}](../figures/{c[0]}.png)')
   elif typ=='table':
    header,data=c;md.append('| '+' | '.join(header)+' |\n| '+' | '.join(['---']*len(header))+' |\n'+'\n'.join('| '+' | '.join(map(str,row))+' |' for row in data))
