@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Explicit demographic scaffold from Word; provisional municipal maxima, no centrality claim."""
 from pathlib import Path
+import os
 import json
 import numpy as np
 import pandas as pd
 from run_model import ROOT,OLD,MASTER,counts,mass,assign,hierarchy,aggregate,xyz
 
 def run():
- out=ROOT/'results/demographic_scaffold';out.mkdir(exist_ok=True)
+ out=Path(os.environ.get('SGRT_RESULT_DIR',str(ROOT/'results')))/'demographic_scaffold';out.mkdir(exist_ok=True)
  d=pd.read_parquet(MASTER);d['axis_kind']='ordinary';n=len(d)
  cp=counts(d);fm,_=mass(cp);base=(cp.gt(0).sum(axis=1)>=2)|(d.places_baseline_school_count>0)|(d.places_baseline_hospital_count>0)
  urban=d.settlement_type_2002.fillna('').isin(['город','пгт','посёлок городского типа','рабочий посёлок'])

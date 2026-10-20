@@ -1,0 +1,215 @@
+{
+  "status": "PASS_DESCRIPTIVE_ONLY",
+  "checks": [
+    {
+      "check": "2002-2021_same_complete304rows",
+      "pass": true,
+      "n": 304,
+      "regions": 48
+    },
+    {
+      "check": "2002-2021_fold0_region_disjoint",
+      "pass": true
+    },
+    {
+      "check": "2002-2021_fold1_region_disjoint",
+      "pass": true
+    },
+    {
+      "check": "2002-2021_fold2_region_disjoint",
+      "pass": true
+    },
+    {
+      "check": "2002-2021_fold3_region_disjoint",
+      "pass": true
+    },
+    {
+      "check": "2002-2021_fold4_region_disjoint",
+      "pass": true
+    },
+    {
+      "check": "2002-2021_M1_targets_exact",
+      "pass": true
+    },
+    {
+      "check": "2002-2021_M1_linear_algebra_predictions",
+      "pass": true,
+      "max_error": 1.5959455978986625e-16
+    },
+    {
+      "check": "2002-2021_M1_RMSE_MAE",
+      "pass": true
+    },
+    {
+      "check": "2002-2021_M2_targets_exact",
+      "pass": true
+    },
+    {
+      "check": "2002-2021_M2_linear_algebra_predictions",
+      "pass": true,
+      "max_error": 1.6653345369377348e-16
+    },
+    {
+      "check": "2002-2021_M2_RMSE_MAE",
+      "pass": true
+    },
+    {
+      "check": "2002-2021_M3_targets_exact",
+      "pass": true
+    },
+    {
+      "check": "2002-2021_M3_linear_algebra_predictions",
+      "pass": true,
+      "max_error": 2.220446049250313e-16
+    },
+    {
+      "check": "2002-2021_M3_RMSE_MAE",
+      "pass": true
+    },
+    {
+      "check": "2010-2021_same_complete304rows",
+      "pass": true,
+      "n": 304,
+      "regions": 48
+    },
+    {
+      "check": "2010-2021_fold0_region_disjoint",
+      "pass": true
+    },
+    {
+      "check": "2010-2021_fold1_region_disjoint",
+      "pass": true
+    },
+    {
+      "check": "2010-2021_fold2_region_disjoint",
+      "pass": true
+    },
+    {
+      "check": "2010-2021_fold3_region_disjoint",
+      "pass": true
+    },
+    {
+      "check": "2010-2021_fold4_region_disjoint",
+      "pass": true
+    },
+    {
+      "check": "2010-2021_M1_targets_exact",
+      "pass": true
+    },
+    {
+      "check": "2010-2021_M1_linear_algebra_predictions",
+      "pass": true,
+      "max_error": 6.938893903907228e-17
+    },
+    {
+      "check": "2010-2021_M1_RMSE_MAE",
+      "pass": true
+    },
+    {
+      "check": "2010-2021_M2_targets_exact",
+      "pass": true
+    },
+    {
+      "check": "2010-2021_M2_linear_algebra_predictions",
+      "pass": true,
+      "max_error": 1.5265566588595902e-16
+    },
+    {
+      "check": "2010-2021_M2_RMSE_MAE",
+      "pass": true
+    },
+    {
+      "check": "2010-2021_M3_targets_exact",
+      "pass": true
+    },
+    {
+      "check": "2010-2021_M3_linear_algebra_predictions",
+      "pass": true,
+      "max_error": 1.5959455978986625e-16
+    },
+    {
+      "check": "2010-2021_M3_RMSE_MAE",
+      "pass": true
+    },
+    {
+      "check": "all_error_improvement_intervals_include_zero",
+      "pass": true
+    },
+    {
+      "check": "2002-2021_M2_vs_M1_reported_point_reduction",
+      "pass": true
+    },
+    {
+      "check": "2002-2021_M3_vs_M1_reported_point_reduction",
+      "pass": true
+    },
+    {
+      "check": "2010-2021_M2_vs_M1_reported_point_reduction",
+      "pass": true
+    },
+    {
+      "check": "2010-2021_M3_vs_M1_reported_point_reduction",
+      "pass": true
+    }
+  ],
+  "n_checks": 35,
+  "n_failed": 0,
+  "implementation_independence": "Features rebuilt from master+memberships+checked municipal context. Ridge solved as centered closed-form normal equations, no author import or sklearn Ridge/StandardScaler/Pipeline. GroupKFold shared only for deterministic split definition.",
+  "results": [
+    {
+      "period": "2002-2021",
+      "model": "M1",
+      "rows": 304,
+      "regions": 48,
+      "rmse": 0.01937249152871657,
+      "mae": 0.011306687892251371
+    },
+    {
+      "period": "2002-2021",
+      "model": "M2",
+      "rows": 304,
+      "regions": 48,
+      "rmse": 0.018773295857470326,
+      "mae": 0.011243373309156202
+    },
+    {
+      "period": "2002-2021",
+      "model": "M3",
+      "rows": 304,
+      "regions": 48,
+      "rmse": 0.01837701763813119,
+      "mae": 0.010975309524026854
+    },
+    {
+      "period": "2010-2021",
+      "model": "M1",
+      "rows": 304,
+      "regions": 48,
+      "rmse": 0.016141684987400377,
+      "mae": 0.011296578818087197
+    },
+    {
+      "period": "2010-2021",
+      "model": "M2",
+      "rows": 304,
+      "regions": 48,
+      "rmse": 0.015777752270960947,
+      "mae": 0.011398589594769235
+    },
+    {
+      "period": "2010-2021",
+      "model": "M3",
+      "rows": 304,
+      "regions": 48,
+      "rmse": 0.015438189964083322,
+      "mae": 0.01100887933161903
+    }
+  ],
+  "interpretation": "304 complete strict systems across48regions. M2/M3 reduce heldout RMSE point estimate; all paired region bootstrap intervals include zero. No robust incremental benefit established. Contemporary fixed geometry, source and boundary uncertainty prevent causal/predictive historical claims.",
+  "scope_limits": [
+    "Early municipal and organization variables remain moderncode-linked or retrospective-source variables",
+    "Region heldout is spatial separation, not blind pre-registered independent validation",
+    "Bootstrap conditional on fitted cross-validation predictions does not cover data-generation/model-fit/geometry uncertainty"
+  ],
+  "script_sha256": "d8fa611318308d1fd802e6872fc48557b29154afff35c469cb162639f7e3292e"
+}

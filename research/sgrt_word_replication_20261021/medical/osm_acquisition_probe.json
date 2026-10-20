@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://overpass-api.de/api/interpreter",
+    "query": "[out:json][timeout:50];area[\"ISO3166-1\"=\"RU\"][\"admin_level\"=\"2\"]->.a;(nwr[\"amenity\"~\"^(hospital|clinic|doctors)$\"](area.a);nwr[\"healthcare\"~\"^(hospital|clinic|doctor|centre|health_post)$\"](area.a););out center tags;",
+    "retrieved_utc": "2026-10-20T21:09:38.002797+00:00",
+    "error": "TimeoutError('The read operation timed out')"
+  },
+  {
+    "url": "https://overpass.kumi.systems/api/interpreter",
+    "query": "[out:json][timeout:50];area[\"ISO3166-1\"=\"RU\"][\"admin_level\"=\"2\"]->.a;(nwr[\"amenity\"~\"^(hospital|clinic|doctors)$\"](area.a);nwr[\"healthcare\"~\"^(hospital|clinic|doctor|centre|health_post)$\"](area.a););out center tags;",
+    "retrieved_utc": "2026-10-20T21:09:38.003565+00:00",
+    "error": "TimeoutError('The read operation timed out')"
+  }
+]

@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Fresh catalog sensitivity, function disagreement, postdevelopment documents and register history."""
 from pathlib import Path
+import os
 import json
 import numpy as np
 import pandas as pd
 from run_model import ROOT,OLD,MASTER,GROUPS,LEGAL,counts,mass,assign,xyz,typology
 
 def run():
- out=ROOT/'results';d=pd.read_parquet(MASTER);d['axis_kind']='ordinary'
+ out=Path(os.environ.get('SGRT_RESULT_DIR',str(ROOT/'results')));d=pd.read_parquet(MASTER);d['axis_kind']='ordinary'
  member=pd.read_parquet(out/'memberships.parquet');pts=xyz(d.lat.values,d.lon.values)
  frozen=counts(d);m,_=mass(frozen);anchors=(d.places_baseline_school_count>0)|(d.places_baseline_hospital_count>0)
  # Exact ordinary-axis modern catalog sensitivity; federal sources kept out of this auxiliary experiment.

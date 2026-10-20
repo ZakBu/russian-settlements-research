@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Same-row region-held-out descriptive M1/M2/M3; never feeds catchment masses."""
 from pathlib import Path
+import os
 import hashlib,json
 import numpy as np
 import pandas as pd
@@ -10,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import Ridge
 ROOT=Path(__file__).resolve().parents[1];OLD=ROOT.parent/'sgrt_national_integration_20261019'
 def run():
- out=ROOT/'results';s=pd.read_parquet(out/'systems_all_levels.parquet');s=s[(s.level==1)&s.has_rural_periphery&s.center_axis_kind.eq('ordinary')].copy()
+ out=Path(os.environ.get('SGRT_RESULT_DIR',str(ROOT/'results')));s=pd.read_parquet(out/'systems_all_levels.parquet');s=s[(s.level==1)&s.has_rural_periphery&s.center_axis_kind.eq('ordinary')].copy()
  ctx=pd.read_csv(out/'municipal_dominant_context.csv');s=s.merge(ctx,on='center_index',validate='one_to_one')
  mem=pd.read_parquet(out/'memberships.parquet',columns=['id','center_index_l1','distance','population_2002'])
  cols=['id','econ_native_2011_legal_entities','econ_native_2011_direct_consumer_function_diversity']
