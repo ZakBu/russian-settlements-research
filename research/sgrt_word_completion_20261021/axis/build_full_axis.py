@@ -11,7 +11,9 @@ def build():
  master=REPO/'research/sgrt_national_integration_20261019/core/feature_master.parquet'
  source=REPO/'publication/stage71/applied_state_observations.parquet'
  points=REPO/'publication/stage71/applied_point_snapshot.parquet'
- old=pd.read_parquet(master,columns=['id','name','type','region','lat','lon','population_2002','population_2010','population_2021','source_record_id_2002','source_record_id_2010','source_record_id_2021','municipality_oktmo8_2021','municipality_upper_2021'])
+ old_columns=['id','name','type','region','lat','lon','population_2002','population_2010','population_2021','source_record_id_2002','source_record_id_2010','source_record_id_2021','municipality_oktmo8_2021','municipality_upper_2021']
+ old_columns += [f'{field}_{year}' for year in [2002,2010,2021] for field in ['population_value_quality','district_raw','oktmo','okato']]
+ old=pd.read_parquet(master,columns=old_columns)
  s=pd.read_parquet(source);assert not s.duplicated(['root','census_year']).any()
  source_to_old={}
  for y in [2002,2010,2021]:
@@ -23,6 +25,8 @@ def build():
  rooted=s.dropna(subset=['old_id']).groupby('root').old_id.agg(lambda x:sorted(set(x)))
  assert rooted.map(len).max()==1
  root_to_old={root:values[0] for root,values in rooted.items()}
+ old['root']=old.id.map({v:k for k,v in root_to_old.items()})
+ old['latest_observation_year']=2021
  s['id']=[root_to_old.get(root,uid(root)) for root in s.root]
  assert set(old.id)<=set(s.id)
  p=pd.read_parquet(points,columns=['target_source_record_id','latitude','longitude','coordinate_admission_status','point_origin_kind','coordinate_measurement_date_unknown'])
@@ -53,13 +57,19 @@ def build():
  fed=a.name.isin(['Москва','Санкт-Петербург','Севастополь'])&a.type.fillna('').str.contains('город',case=False)
  a.loc[fed,'axis_kind']='federal_territory_source_unit'
  old['axis_kind']='baseline_accepted_complete_chain';old['three_census_complete']=True;old['is_additive_source_unit']=True;old['geography_status']='frozen_accepted_chain_point'
+ old['population_scope']=old.source_record_id_2021.map(s.set_index('source_record_id').population_scope)
  frame=pd.concat([old,a.reset_index()],ignore_index=True,sort=False)
  assert frame.id.is_unique and len(frame)==s.id.nunique()
  for c in ['lat','lon','population_2002','population_2010','population_2021']:frame[c]=pd.to_numeric(frame[c],errors='raise')
  for y in [2002,2010,2021]:
   joined=frame.set_index('id').reindex(old.id)[f'population_{y}']
   np.testing.assert_array_equal(joined.values,old[f'population_{y}'].values)
- frame.to_parquet(OUT/'full_settlement_axis.parquet',index=False)
+ for col in old_columns:
+  pd.testing.assert_series_equal(frame.set_index('id').reindex(old.id)[col].reset_index(drop=True),old[col].reset_index(drop=True),check_dtype=False,check_names=False) if col!='id' else None
+ axis_target=OUT/'full_settlement_axis.parquet'
+ axis_temporary=OUT/'full_settlement_axis.parquet.building'
+ frame.to_parquet(axis_temporary,index=False)
+ axis_temporary.replace(axis_target)
  s[['id','root','source_record_id','census_year','population','population_value_quality','is_additive_settlement_record','latitude_accepted','longitude_accepted','coordinate_admission_status','point_origin_kind']].to_parquet(OUT/'source_observations_all.parquet',index=False)
  frame[frame.lat.isna()|~frame.is_additive_source_unit].to_csv(OUT/'unlocated_or_nonadditive_queue.csv.gz',index=False)
  receipt={'status':'EXPANDED_SOURCE_ENTITY_AXIS_NOT_CLAIMED_EXHAUSTIVE_PHYSICAL_CENSUS','rows':len(frame),'old_stable_ids_preserved':len(old),'additional_entities':len(a),'located':int(frame.lat.notna().sum()),'unlocated':int(frame.lat.isna().sum()),'latest2021_rows':int(frame.population_2021.notna().sum()),'year_counts':{str(y):int(frame[f'population_{y}'].notna().sum()) for y in [2002,2010,2021]},'missing_populations_filled':False,'frozen_values_modified':False,'identity_source':'stage71acceptedcomponentroot; no new name-based unions','source_scope':'additional existing accepted components may be incomplete or territorial; axis_kind and additive flags mandatory filters','inputs':{str(p.relative_to(REPO)):sha(p) for p in [master,source,points]}}

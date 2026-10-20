@@ -1,0 +1,145 @@
+{
+  "status": "SOURCE_IMPROVEMENT_VERIFIED_REPAIRS_REMAIN",
+  "n_checks": 132,
+  "n_failed": 0,
+  "metrics": {
+    "axis": {
+      "rows": 173527,
+      "located": 154969,
+      "unlocated": 18558,
+      "complete_three_census": 142721
+    },
+    "school": {
+      "current": {
+        "source_school_rows": 33106,
+        "strict_settlements": 2466,
+        "candidate_settlements": 11593,
+        "union_settlements": 13234,
+        "source_numeric_capacity_rows": 90,
+        "snapshot": [
+          "2026-10-19T20:21:11Z"
+        ]
+      },
+      "2021": {
+        "source_school_rows": 30094,
+        "strict_settlements": 2163,
+        "candidate_settlements": 9222,
+        "union_settlements": 10644,
+        "source_numeric_capacity_rows": 43,
+        "snapshot": [
+          "2021-01-01"
+        ]
+      }
+    },
+    "medical": {
+      "current_20261019": {
+        "all_source_assertions": 93858,
+        "healthcare_source_assertions": 40027,
+        "pharmacy_assertions": 44932,
+        "capacity_source_rows": 10,
+        "inactive_source_rows": 39,
+        "baseline_healthcare_settlements": 2569,
+        "candidate_healthcare_settlements": 11237
+      },
+      "history_20210101": {
+        "all_source_assertions": 64976,
+        "healthcare_source_assertions": 30064,
+        "pharmacy_assertions": 29169,
+        "capacity_source_rows": 5,
+        "inactive_source_rows": 41,
+        "baseline_healthcare_settlements": 2100,
+        "candidate_healthcare_settlements": 9195
+      }
+    },
+    "official_udmurt_overlap": {
+      "official_rows": 564,
+      "linked_source_settlements": 473,
+      "unresolved_rows": 91,
+      "strict_named_fap_overlap": 3,
+      "coordinate_named_fap_overlap": 14,
+      "coordinate_any_healthcare_overlap": 27,
+      "not_national_recall_or_same_date_census": true
+    },
+    "municipal": {
+      "source_rows": 327663,
+      "aggregate_rows": 310954,
+      "numeric_conflicting_groups": 9674,
+      "multiple_raw_codes_with_usable_value": 0,
+      "migration2010_nonnull": 0,
+      "migration2011_nonnull": 108709,
+      "housing2010_nonnull": 112711,
+      "natural2010_nonnull": 118995,
+      "farmland_share2010_nonnull": 0,
+      "farmland_share2021_nonnull": 0,
+      "published2010_natural_balance_mismatches": [
+        {
+          "municipality_code": "26620000",
+          "births": 12.0,
+          "deaths": 12.0,
+          "natural_increase_reported": 95.0
+        }
+      ]
+    },
+    "climate": {
+      "gaez_sat1981_2010_nonnull": 154968,
+      "gaez_summer_moisture1981_2010_nonnull": 154968,
+      "bonitet_observed": false,
+      "annual_ai_is_other_normal_period": true
+    },
+    "typology": {
+      "recreation_dacha_positive": 20656,
+      "resource_context_positive": 7034,
+      "historical_mono_positive": 318,
+      "ethnic_context_attachments": 155381,
+      "ethnic_declared_ratio_usable": 95359,
+      "industrial_decline_known": 0,
+      "resource_shift_known": 0,
+      "commuting_known": 0,
+      "ethnocultural_mechanism_known": 0
+    },
+    "services2021": {
+      "source_assertions": 456966,
+      "snapshot": [
+        "2021-01-01T21:42:03Z"
+      ],
+      "source_groups": {
+        "other_retail": 331574,
+        "large_retail": 46146,
+        "atm": 23319,
+        "bank": 19941,
+        "administration": 18171,
+        "post_office": 13691,
+        "market": 4124
+      },
+      "strict_settlements": 4291,
+      "candidate_settlements": 17929
+    }
+  },
+  "scientific_blockers": [
+    {
+      "gate": "W06",
+      "issue": "OSM physical assertions are neither national functioning service census nor verified capacity; selected officialFAP inventory sharply disagrees even with permissive coordinate evidence",
+      "repair": "Use official sourcecontrols and independently review rural linkage; retain address-confirmed vs coordinate sensitivity; validate source recall separately from gravity assignments"
+    },
+    {
+      "gate": "W04/W11",
+      "issue": "1 published2010natural/birth/death balances disagree",
+      "repair": "Keep raw reported value; flag source discrepancy; independently compute derivedbalanced variant only on same raw geography/year/unit, with sensitivity"
+    },
+    {
+      "gate": "W04/W12",
+      "issue": "No actual baseline2010migration observation in current layer",
+      "repair": "Do not substitute2011silently; use2010missing or an explicit contemporaneous2021 fixed-frame design; no future leakage in predictive test"
+    },
+    {
+      "gate": "W09",
+      "issue": "No actual soilbonitet layer; agrarianland denominator2010/2021 still missing",
+      "repair": "Obtain a valid soil/productivity measure and clearly distinguish proxy; never label crop share or grain yield as farmland fraction/soil bonitet"
+    },
+    {
+      "gate": "W25",
+      "issue": "Theme/context witnesses now exist, but historical mono designation/resource geometry/one ethnic composition snapshot do not establish industrial decline/rotational shift/ethnocultural growth mechanism",
+      "repair": "Classify evidence-backed types with nullable required criteria, not headline nine labels from demographics alone; independently corroborate missing mechanisms"
+    }
+  ]
+}

@@ -48,6 +48,9 @@ def proof_errors(proof,reviewer):
  p=artifact_path(file)
  if not p.is_file():return errors+['evidence_artifact_not_available']
  if sha(p)!=expected:return errors+['evidence_bytes_changed_after_review']
+ for dependency in proof.get('source_artifacts',[]):
+  source=artifact_path(dependency.get('artifact',''))
+  if not source.is_file() or sha(source)!=dependency.get('sha256'):errors.append('reviewed_source_missing_or_changed:'+str(dependency.get('artifact')))
  # Scientific criteria may be explicit independent decisions, but must still be
  # machine-readable source-backed receipts, not free-standing prose claims.
  assertions=proof.get('assertions',[])
@@ -83,18 +86,21 @@ def evaluate(policy,evidence):
   if record.get('target_run_id')!=target:errors.append('evidence_for_different_target_run')
   author,reviewer=record.get('author'),record.get('reviewer')
   if not author or not reviewer or author==reviewer:errors.append('missing_independent_author_reviewer')
-  checks=record.get('criteria',{})
+  checks=record.get('criteria',{});verified=0
   for criterion in requirement['checks']:
    proof=checks.get(criterion['id'])
    if proof is None:errors.append('missing:'+criterion['id'])
-   else:errors += [criterion['id']+':'+e for e in proof_errors(proof,reviewer)]
+   else:
+    criterion_errors=proof_errors(proof,reviewer)
+    if not criterion_errors:verified+=1
+    errors += [criterion['id']+':'+e for e in criterion_errors]
   blocker=record.get('external_blocker')
   if record.get('state')=='BLOCKED_EXTERNAL':
    # A blocker is useful to schedule alternatives, never a completed research gate.
    if not isinstance(blocker,dict) or not all(blocker.get(k) for k in ['attempts_receipt','alternatives_checked','next_action']):errors.append('external_blocker_not_documented_with_alternatives')
-  rows.append({'requirement_id':rid,'state':'CLOSED' if not errors else 'NEEDS_REPAIR','declared_state':record.get('state','MISSING'),'errors':errors,'next_repair':requirement['next_repair'],'scientific_release_allowed':not errors})
+  rows.append({'requirement_id':rid,'state':'CLOSED' if not errors else 'NEEDS_REPAIR','declared_state':record.get('state','MISSING'),'criteria_verified':verified,'criteria_total':len(requirement['checks']),'dimensions':{d:record.get(d,'MISSING') for d in ['implementation','data','scientific']},'errors':errors,'next_repair':record.get('next_repair') or requirement['next_repair'],'scientific_release_allowed':not errors})
  closed=sum(r['state']=='CLOSED' for r in rows);ok=closed==len(rows) and not global_errors
- return {'schema_version':1,'target_run_id':target,'decision':'ACCEPT_COMPLETE_WORD_RESEARCH' if ok else 'RETURN_TO_REPAIR_LOOP','scientific_final_allowed':ok,'completion_claim_allowed':ok,'requirements_total':len(rows),'requirements_closed':closed,'requirements_open':len(rows)-closed,'global_errors':global_errors,'requirements':rows,'policy_sha256':None,'evidence_sha256':None,'important':'BLOCKED_EXTERNAL and disclosed limitations do not mean CLOSED. A negative scientific finding may close a valid analysis; absence of data may not.'}
+ return {'schema_version':1,'target_run_id':target,'decision':'ACCEPT_COMPLETE_WORD_RESEARCH' if ok else 'RETURN_TO_REPAIR_LOOP','scientific_final_allowed':ok,'completion_claim_allowed':ok,'requirements_total':len(rows),'requirements_closed':closed,'requirements_open':len(rows)-closed,'criteria_verified':sum(r['criteria_verified'] for r in rows),'criteria_total':sum(r['criteria_total'] for r in rows),'dimension_closed_counts':{d:sum(r['dimensions'][d]==PASS for r in rows) for d in ['implementation','data','scientific']},'global_errors':global_errors,'requirements':rows,'policy_sha256':None,'evidence_sha256':None,'important':'BLOCKED_EXTERNAL and disclosed limitations do not mean CLOSED. A negative scientific finding may close a valid analysis; absence of data may not.'}
 
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--policy',type=Path,default=HERE/'strict_word_gates.json');ap.add_argument('--evidence',type=Path,default=HERE/'current_gate_evidence.json');ap.add_argument('--receipt',type=Path,default=HERE/'strict_gate_receipt.json');ap.add_argument('--queue',type=Path,default=HERE/'current_repair_queue.csv');args=ap.parse_args()

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+  "target_run_id": "sgrt_word_completion_20261021_cycle02",
   "model_snapshot_sha256": null,
   "requirements": {
     "W01": {
@@ -10,70 +10,271 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
     },
     "W02": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Сверить все source entities/неаддитивные записи/неразмещённые18558 по региону, типу и размеру; не суммировать пересекающиеся территориальные единицы."
     },
     "W03": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
-      "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
+      "criteria": {
+        "independent_source_axis_checks": {
+          "status": "PASS",
+          "verified_by": "strict_guardian",
+          "review_rationale": "173527 source entities; all legacy populations and 12 identity/quality fields preserved. This does not prove all new historical identities or national geographic completeness.",
+          "artifact": "research/sgrt_word_completion_20261021/reviews/cycle02_verified_partial_criteria.json",
+          "sha256": "81420f1c367cea81a3b6ca2bf6c6414003f4d46ad2784e4c8345ce610f8638b3",
+          "assertions": [
+            {
+              "pointer": "claims.axis_independent_checks.pass",
+              "operator": "eq",
+              "expected": true
+            }
+          ],
+          "source_artifacts": [
+            {
+              "artifact": "research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet",
+              "sha256": "29fa9586278e08a937651fb4fcddbc929a02d46e6dcbe44f5f14793ae6fab3fc"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/education_objects.parquet",
+              "sha256": "d08c0ccc284a09397cf1a7f10afc0b29df3f4fd6501202d1e269eef757453866"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/education_objects_2021.parquet",
+              "sha256": "7a011ba75eb99d793d37bbd9e96388945413ad26a51c470b51c45c58337f8ab9"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/settlement_features_full_axis.parquet",
+              "sha256": "eaf4aaee000c1af6281cfcf4ae345489d6a01a3f2a364a9d7e70a852bcb7ebbb"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/settlement_features_2021_full_axis.parquet",
+              "sha256": "96ba3777cb09cd83f49cb92e7d5faf846b034e8b1b2d4e3b3df91199e9b8910f"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/current_20261019/osm_medical_inventory.parquet",
+              "sha256": "d66629c2781f5b268996ae490688f8341c2562cc7a5a1ba83d30f1b8f5f07a6c"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/current_20261019/settlement_features.parquet",
+              "sha256": "cc7f41ac5e4c717aade8ae9a774993aaf6c1a4fea2b041a7de3f27ff61b458f9"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/history_20210101/osm_medical_inventory.parquet",
+              "sha256": "d41067cd655a1ff008b1565edac4595ef8a02e326185c69bb39833322f6e1c5c"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/history_20210101/settlement_features.parquet",
+              "sha256": "98d1f4c9370f460293e60c929062b2877a8f5a78c7b95c644df07cbb1526f065"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/udmurt_official_2025/physical_fap_inventory.parquet",
+              "sha256": "d88845bdc5ad793845c1fb4a87aa825b43fb05c1142a48becf10b349d27b4433"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/udmurt_official_2025/settlement_features.parquet",
+              "sha256": "d76a37a713b9f7e72db65e0addec2c2ad1445da52cead932dc691d540cbf2300"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_selected_source_observations.parquet",
+              "sha256": "de73bea0dc1866fcf8a3832fc1cee8f8646fc1c9918e6c3b10ee5ded3244b988"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_annual_context.parquet",
+              "sha256": "951e58971e7fafd4bf6f4824356a1fdae96e50f8a400c1b13fd5945ca34dc77f"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_annual_wide.parquet",
+              "sha256": "dc4237d8ab602c02bfe19cd271c113d59eff60aed5785421ec2c84994d5cd9fc"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_settlement_features.parquet",
+              "sha256": "1c31548d7e50d2ff4b2ffa1c2b32757a738265f444329c63f20e0890ed3f46bf"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/climate_settlement_features.parquet",
+              "sha256": "e4ea2f22b0d6635ff8027b0a4bc12eed181279c0d5b706dc312bc2ac35a89851"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/typology/settlement_features.parquet",
+              "sha256": "126cbb31953ab5890a909e23076d675753ca0306bb93e1b30a7ab92c67066cff"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/calibration/services_2021_objects.parquet",
+              "sha256": "734e8bd4b6bdafbeca967f9c25237fed709196bb1ae44a8d16075c37104d24de"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/calibration/services_2021_settlement_features.parquet",
+              "sha256": "0e58411c913ee36cde18e3b0b572336150bee5cacae4803899bc1f7e65ad1908"
+            }
+          ]
+        }
+      },
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Доказать источниковую идентичность новых записей и нули/пропуски по каждому году; проверить исторические территории и координатное происхождение."
     },
     "W04": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Валидировать знаменатели/derived balance по rawcode и source interval; 2010migration реально отсутствует, не заменять2011. Отделить муниципальный контекст от НП и периода2010–2021."
     },
     "W05": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Независимо проверить m²/среднегодового человека по raw муниципалитету и году, покрытие и влияние муниципальных повторов."
     },
     "W06": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
-      "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
+      "criteria": {
+        "mass_physical_function_inventories_with_source_controls": {
+          "status": "PASS",
+          "verified_by": "strict_guardian",
+          "review_rationale": "Real source-object inventories with dated inputs, independently recomputed links/counts and unknown-preserving controls. This criterion passes inventory construction only; national functioning-service coverage, operation, actual capacity and link recall remain unaccepted.",
+          "artifact": "research/sgrt_word_completion_20261021/reviews/cycle02_verified_partial_criteria.json",
+          "sha256": "81420f1c367cea81a3b6ca2bf6c6414003f4d46ad2784e4c8345ce610f8638b3",
+          "assertions": [
+            {
+              "pointer": "claims.service_source_inventories_and_controls.pass",
+              "operator": "eq",
+              "expected": true
+            }
+          ],
+          "source_artifacts": [
+            {
+              "artifact": "research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet",
+              "sha256": "29fa9586278e08a937651fb4fcddbc929a02d46e6dcbe44f5f14793ae6fab3fc"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/education_objects.parquet",
+              "sha256": "d08c0ccc284a09397cf1a7f10afc0b29df3f4fd6501202d1e269eef757453866"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/education_objects_2021.parquet",
+              "sha256": "7a011ba75eb99d793d37bbd9e96388945413ad26a51c470b51c45c58337f8ab9"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/settlement_features_full_axis.parquet",
+              "sha256": "eaf4aaee000c1af6281cfcf4ae345489d6a01a3f2a364a9d7e70a852bcb7ebbb"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/settlement_features_2021_full_axis.parquet",
+              "sha256": "96ba3777cb09cd83f49cb92e7d5faf846b034e8b1b2d4e3b3df91199e9b8910f"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/current_20261019/osm_medical_inventory.parquet",
+              "sha256": "d66629c2781f5b268996ae490688f8341c2562cc7a5a1ba83d30f1b8f5f07a6c"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/current_20261019/settlement_features.parquet",
+              "sha256": "cc7f41ac5e4c717aade8ae9a774993aaf6c1a4fea2b041a7de3f27ff61b458f9"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/history_20210101/osm_medical_inventory.parquet",
+              "sha256": "d41067cd655a1ff008b1565edac4595ef8a02e326185c69bb39833322f6e1c5c"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/history_20210101/settlement_features.parquet",
+              "sha256": "98d1f4c9370f460293e60c929062b2877a8f5a78c7b95c644df07cbb1526f065"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/udmurt_official_2025/physical_fap_inventory.parquet",
+              "sha256": "d88845bdc5ad793845c1fb4a87aa825b43fb05c1142a48becf10b349d27b4433"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/udmurt_official_2025/settlement_features.parquet",
+              "sha256": "d76a37a713b9f7e72db65e0addec2c2ad1445da52cead932dc691d540cbf2300"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_selected_source_observations.parquet",
+              "sha256": "de73bea0dc1866fcf8a3832fc1cee8f8646fc1c9918e6c3b10ee5ded3244b988"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_annual_context.parquet",
+              "sha256": "951e58971e7fafd4bf6f4824356a1fdae96e50f8a400c1b13fd5945ca34dc77f"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_annual_wide.parquet",
+              "sha256": "dc4237d8ab602c02bfe19cd271c113d59eff60aed5785421ec2c84994d5cd9fc"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_settlement_features.parquet",
+              "sha256": "1c31548d7e50d2ff4b2ffa1c2b32757a738265f444329c63f20e0890ed3f46bf"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/climate_settlement_features.parquet",
+              "sha256": "e4ea2f22b0d6635ff8027b0a4bc12eed181279c0d5b706dc312bc2ac35a89851"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/typology/settlement_features.parquet",
+              "sha256": "126cbb31953ab5890a909e23076d675753ca0306bb93e1b30a7ab92c67066cff"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/calibration/services_2021_objects.parquet",
+              "sha256": "734e8bd4b6bdafbeca967f9c25237fed709196bb1ae44a8d16075c37104d24de"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/calibration/services_2021_settlement_features.parquet",
+              "sha256": "0e58411c913ee36cde18e3b0b572336150bee5cacae4803899bc1f7e65ad1908"
+            }
+          ]
+        }
+      },
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Проверить сельскую идентификацию на независимых официальных объектах, оценить отдельно recall источника/связки/модели; мощности/уровни не выводить из наличия OSMтега. Udmurt473официальныхНП vs27coordinate healthcare — несогласие источников, не доказательство закрытия."
     },
     "W07": {
       "state": "OPEN",
@@ -82,82 +283,193 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
     },
     "W08": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Использовать аграрные муниципальные показатели как контекст на исходной территории; новая source-harmonized2008земля не доказывает valid2008boundary."
     },
     "W09": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Добыть2010/2021сельхозугодья либо обосновать корректную доступную альтернативу; почвенный балл/проверяемый proxy. GAEZ SAT и летний P/PET получены для154968НП, климатический блок больше не отсутствует."
     },
     "W10": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Дождаться маршрутов/isochrones; проверить направленность, snap, неполные пары vs unreachable, независимые время/барьеры; current2026networkproxy отдельно от2021среза."
     },
     "W11": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
-      "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
+      "criteria": {
+        "identity_boundaries_and_conflicts_separate": {
+          "status": "PASS",
+          "verified_by": "strict_guardian",
+          "review_rationale": "9674 numeric conflicts excluded; all multiple-native-code groups excluded without equivalence even if equal numbers. Raw reported natural retained separately from compatible derived balance. Historical boundary equivalence still unproven; not acceptance of downstream territorial aggregation.",
+          "artifact": "research/sgrt_word_completion_20261021/reviews/cycle02_verified_partial_criteria.json",
+          "sha256": "81420f1c367cea81a3b6ca2bf6c6414003f4d46ad2784e4c8345ce610f8638b3",
+          "assertions": [
+            {
+              "pointer": "claims.municipal_identity_conflicts_separate.pass",
+              "operator": "eq",
+              "expected": true
+            }
+          ],
+          "source_artifacts": [
+            {
+              "artifact": "research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet",
+              "sha256": "29fa9586278e08a937651fb4fcddbc929a02d46e6dcbe44f5f14793ae6fab3fc"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/education_objects.parquet",
+              "sha256": "d08c0ccc284a09397cf1a7f10afc0b29df3f4fd6501202d1e269eef757453866"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/education_objects_2021.parquet",
+              "sha256": "7a011ba75eb99d793d37bbd9e96388945413ad26a51c470b51c45c58337f8ab9"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/settlement_features_full_axis.parquet",
+              "sha256": "eaf4aaee000c1af6281cfcf4ae345489d6a01a3f2a364a9d7e70a852bcb7ebbb"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/settlement_features_2021_full_axis.parquet",
+              "sha256": "96ba3777cb09cd83f49cb92e7d5faf846b034e8b1b2d4e3b3df91199e9b8910f"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/current_20261019/osm_medical_inventory.parquet",
+              "sha256": "d66629c2781f5b268996ae490688f8341c2562cc7a5a1ba83d30f1b8f5f07a6c"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/current_20261019/settlement_features.parquet",
+              "sha256": "cc7f41ac5e4c717aade8ae9a774993aaf6c1a4fea2b041a7de3f27ff61b458f9"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/history_20210101/osm_medical_inventory.parquet",
+              "sha256": "d41067cd655a1ff008b1565edac4595ef8a02e326185c69bb39833322f6e1c5c"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/history_20210101/settlement_features.parquet",
+              "sha256": "98d1f4c9370f460293e60c929062b2877a8f5a78c7b95c644df07cbb1526f065"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/udmurt_official_2025/physical_fap_inventory.parquet",
+              "sha256": "d88845bdc5ad793845c1fb4a87aa825b43fb05c1142a48becf10b349d27b4433"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/udmurt_official_2025/settlement_features.parquet",
+              "sha256": "d76a37a713b9f7e72db65e0addec2c2ad1445da52cead932dc691d540cbf2300"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_selected_source_observations.parquet",
+              "sha256": "de73bea0dc1866fcf8a3832fc1cee8f8646fc1c9918e6c3b10ee5ded3244b988"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_annual_context.parquet",
+              "sha256": "951e58971e7fafd4bf6f4824356a1fdae96e50f8a400c1b13fd5945ca34dc77f"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_annual_wide.parquet",
+              "sha256": "dc4237d8ab602c02bfe19cd271c113d59eff60aed5785421ec2c84994d5cd9fc"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_settlement_features.parquet",
+              "sha256": "1c31548d7e50d2ff4b2ffa1c2b32757a738265f444329c63f20e0890ed3f46bf"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/climate_settlement_features.parquet",
+              "sha256": "e4ea2f22b0d6635ff8027b0a4bc12eed181279c0d5b706dc312bc2ac35a89851"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/typology/settlement_features.parquet",
+              "sha256": "126cbb31953ab5890a909e23076d675753ca0306bb93e1b30a7ab92c67066cff"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/calibration/services_2021_objects.parquet",
+              "sha256": "734e8bd4b6bdafbeca967f9c25237fed709196bb1ae44a8d16075c37104d24de"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/calibration/services_2021_settlement_features.parquet",
+              "sha256": "0e58411c913ee36cde18e3b0b572336150bee5cacae4803899bc1f7e65ad1908"
+            }
+          ]
+        }
+      },
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Не объявлять boundaryequivalence на основании stablecode; metadata repaired, sourceconflicts исключены; закрепить хеши свежих modeljoinedinputs и проверить временные версии."
     },
     "W12": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Независимо проверить2021prepared outputs, число доступных massblocks для каждого узла, sensitivity единыхблоков; источниковаянаблюдаемость ≠полнаяизмеримостькомпонента."
     },
     "W13": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "OwnP2021 и контекст2021 вмассе можно описывать ретроспективно, но регрессия2010–2021траектории содержит contemporaneous outcome/endogeneity: не выдавать за causal/prediction; отдельно baseline2010/missingdesign."
     },
     "W14": {
       "state": "OPEN",
@@ -166,7 +478,7 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
@@ -178,7 +490,7 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
@@ -190,7 +502,7 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
@@ -202,7 +514,7 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
@@ -214,7 +526,7 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
@@ -226,7 +538,7 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
@@ -238,7 +550,7 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
@@ -250,7 +562,7 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
@@ -262,22 +574,118 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
     },
     "W23": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
-      "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
+      "criteria": {
+        "function_snapshot_and_population_dates_separate": {
+          "status": "PASS",
+          "verified_by": "strict_guardian",
+          "review_rationale": "Actual 2021 and current physical-source snapshots are distinct from census population dates. Current road2026 remains explicit network proxy. This passes date distinction, not comparability of changes or full service completeness.",
+          "artifact": "research/sgrt_word_completion_20261021/reviews/cycle02_verified_partial_criteria.json",
+          "sha256": "81420f1c367cea81a3b6ca2bf6c6414003f4d46ad2784e4c8345ce610f8638b3",
+          "assertions": [
+            {
+              "pointer": "claims.functional_source_snapshots_dated.pass",
+              "operator": "eq",
+              "expected": true
+            }
+          ],
+          "source_artifacts": [
+            {
+              "artifact": "research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet",
+              "sha256": "29fa9586278e08a937651fb4fcddbc929a02d46e6dcbe44f5f14793ae6fab3fc"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/education_objects.parquet",
+              "sha256": "d08c0ccc284a09397cf1a7f10afc0b29df3f4fd6501202d1e269eef757453866"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/education_objects_2021.parquet",
+              "sha256": "7a011ba75eb99d793d37bbd9e96388945413ad26a51c470b51c45c58337f8ab9"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/settlement_features_full_axis.parquet",
+              "sha256": "eaf4aaee000c1af6281cfcf4ae345489d6a01a3f2a364a9d7e70a852bcb7ebbb"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/education/settlement_features_2021_full_axis.parquet",
+              "sha256": "96ba3777cb09cd83f49cb92e7d5faf846b034e8b1b2d4e3b3df91199e9b8910f"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/current_20261019/osm_medical_inventory.parquet",
+              "sha256": "d66629c2781f5b268996ae490688f8341c2562cc7a5a1ba83d30f1b8f5f07a6c"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/current_20261019/settlement_features.parquet",
+              "sha256": "cc7f41ac5e4c717aade8ae9a774993aaf6c1a4fea2b041a7de3f27ff61b458f9"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/history_20210101/osm_medical_inventory.parquet",
+              "sha256": "d41067cd655a1ff008b1565edac4595ef8a02e326185c69bb39833322f6e1c5c"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/history_20210101/settlement_features.parquet",
+              "sha256": "98d1f4c9370f460293e60c929062b2877a8f5a78c7b95c644df07cbb1526f065"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/udmurt_official_2025/physical_fap_inventory.parquet",
+              "sha256": "d88845bdc5ad793845c1fb4a87aa825b43fb05c1142a48becf10b349d27b4433"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/medical/udmurt_official_2025/settlement_features.parquet",
+              "sha256": "d76a37a713b9f7e72db65e0addec2c2ad1445da52cead932dc691d540cbf2300"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_selected_source_observations.parquet",
+              "sha256": "de73bea0dc1866fcf8a3832fc1cee8f8646fc1c9918e6c3b10ee5ded3244b988"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_annual_context.parquet",
+              "sha256": "951e58971e7fafd4bf6f4824356a1fdae96e50f8a400c1b13fd5945ca34dc77f"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_annual_wide.parquet",
+              "sha256": "dc4237d8ab602c02bfe19cd271c113d59eff60aed5785421ec2c84994d5cd9fc"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/municipal_settlement_features.parquet",
+              "sha256": "1c31548d7e50d2ff4b2ffa1c2b32757a738265f444329c63f20e0890ed3f46bf"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/context/climate_settlement_features.parquet",
+              "sha256": "e4ea2f22b0d6635ff8027b0a4bc12eed181279c0d5b706dc312bc2ac35a89851"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/typology/settlement_features.parquet",
+              "sha256": "126cbb31953ab5890a909e23076d675753ca0306bb93e1b30a7ab92c67066cff"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/calibration/services_2021_objects.parquet",
+              "sha256": "734e8bd4b6bdafbeca967f9c25237fed709196bb1ae44a8d16075c37104d24de"
+            },
+            {
+              "artifact": "research/sgrt_word_completion_20261021/calibration/services_2021_settlement_features.parquet",
+              "sha256": "0e58411c913ee36cde18e3b0b572336150bee5cacae4803899bc1f7e65ad1908"
+            }
+          ]
+        }
+      },
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Проверить final2021bindings и road2026proxy в готовом report; изменения OSM между датами не означают реальные открытия/закрытия."
     },
     "W24": {
       "state": "OPEN",
@@ -286,22 +694,25 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
     },
     "W25": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Сделать literal truthmatrix всех9Wordтипов, включая положение/агроклимат/размер/специализацию/механизм. UNKNOWN обязательного признака оставляет тип недоказанным. Тип7 не назначать Кубани, тип9 не получать из resource+decline."
     },
     "W26": {
       "state": "OPEN",
@@ -310,7 +721,7 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
@@ -322,22 +733,25 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
     },
     "W28": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Картографировать только actual final memberships/routes/types с показом unresolved/missing/источниковой уверенности, затем сверить легенды и суммы."
     },
     "W29": {
       "state": "OPEN",
@@ -346,7 +760,7 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
@@ -358,34 +772,41 @@
       "scientific": "OPEN",
       "author": null,
       "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
       "attempted_repairs": [],
       "external_blocker": null
     },
     "W31": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Отдельно проверять source recall/candidate recall/assignment; провал0/98 нельзя оправдать одной причиной покрытия без разбора идентичности/даты/функции."
     },
     "W32": {
-      "state": "OPEN",
-      "implementation": "OPEN",
-      "data": "OPEN",
-      "scientific": "OPEN",
-      "author": null,
-      "reviewer": null,
-      "target_run_id": "sgrt_word_completion_20261021_unbuilt",
+      "state": "IN_PROGRESS",
+      "implementation": "IN_PROGRESS",
+      "data": "IN_PROGRESS",
+      "scientific": "NEEDS_REPAIR",
+      "author": "research_team",
+      "reviewer": "strict_guardian",
+      "target_run_id": "sgrt_word_completion_20261021_cycle02",
       "criteria": {},
-      "attempted_repairs": [],
-      "external_blocker": null
+      "attempted_repairs": [
+        "cycle02 independent data audit: 122/122 checks passed; source-provenance, arithmetic/linkage progress, not scientific acceptance"
+      ],
+      "external_blocker": null,
+      "next_repair": "Repair loop реально изменил данные и исправил axis/context; продолжать до independently verified Word gates, не подменять завершённость synthetic/computational PASS."
     }
-  }
+  },
+  "model_snapshot": null
 }
