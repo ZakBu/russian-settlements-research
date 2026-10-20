@@ -4,6 +4,8 @@
 
 **Научная полнота концепции пока не принята.** Решение определяет исполняемая [строгая приёмка](reviews/strict_gate_receipt.json), прежде всего поля `decision`, `scientific_final_allowed`, `completion_claim_allowed`. Успешный расчёт или выпуск PDF не заменяет это решение. Текущие доказательства по каждому требованию — [current_gate_evidence.json](reviews/current_gate_evidence.json) и [матрица прогресса](reviews/cycle02_word_progress.csv), следующая работа — [current_repair_queue.csv](reviews/current_repair_queue.csv). Старые проходы и прежние численности нельзя переносить на обновлённую модель.
 
+Текущее независимое заключение — [FINAL_VERDICT.md](reviews/FINAL_VERDICT.md); зафиксированные результаты и контрольные суммы — [final_family_snapshot_manifest.json](reviews/final_family_snapshot_manifest.json). Старый `reviews/VERDICT.md` описывает отвергнутый первоначальный проход и не характеризует нынешний дорожный расчёт.
+
 ## С чего начать
 
 - [Материалы для руководителя и GIS](delivery/README.md): краткая записка, полный отчёт, атлас, GeoPackage ZIP и проверка их происхождения.

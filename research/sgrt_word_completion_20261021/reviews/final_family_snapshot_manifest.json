@@ -1,0 +1,1653 @@
+{
+  "schema_version": 1,
+  "target_run_id": "sgrt_word_completion_20261021_cycle03_word_ci",
+  "snapshot_type": "actual_computed_research_package_not_full_scientific_acceptance",
+  "assembled_by": "strict_guardian from independently reviewed producers; no claim to original authorship",
+  "selected_primary": "model/output_word_ci_2021_baseline + typology/canonical/output_word_ci_2021_baseline",
+  "created_utc": "2026-10-20T23:44:20.361203+00:00",
+  "git_base_commit": "7111830919f8bb3294386f2f49623115053182e7",
+  "root_final_pdf_sha256": {
+    "SGRT_RESEARCH_REPORT_20261021.pdf": "f6c28f9a73a623982d622605a2da85b10de761e8f0e81308cfb92622c2d014da",
+    "SGRT_SUPERVISOR_BRIEF_20261021.pdf": "4d2fd682db29ed0d55470383eaa8f63bab24c68d01695bf207a817e708f079f3",
+    "SGRT_ATLAS_20261021.pdf": "7ec934b78979db39743493b74ea8063d9ec71fcf620322b910df96d9ab9a7bfe"
+  },
+  "files": {
+    "research/sgrt_word_completion_20261021/analysis/README.md": {
+      "sha256": "2777888ea07c306f28ea29a6c131168a1051d325b00dba16b94df90515c5493a",
+      "bytes": 18085
+    },
+    "research/sgrt_word_completion_20261021/analysis/RESULTS.md": {
+      "sha256": "2c85a3326d68fbc8f18eb4dd7216c823a937a3232088c74319647d55b5880507",
+      "bytes": 12824
+    },
+    "research/sgrt_word_completion_20261021/analysis/analysis_artifact_manifest.json": {
+      "sha256": "217c123153b35869decb6780a1c2e82324665ea6ffa4103e7adc2d37c5b625cf",
+      "bytes": 4950
+    },
+    "research/sgrt_word_completion_20261021/analysis/analysis_inputs.json": {
+      "sha256": "77976da73ca086f0e5daa1f3c59089c36b4db8de6128a258e0e19b702d629b53",
+      "bytes": 5617
+    },
+    "research/sgrt_word_completion_20261021/analysis/coefficient_intervals.csv": {
+      "sha256": "09f5c7aa4e422044db14abbd824bd1cc4464091bf088836cac913f059be1944e",
+      "bytes": 72731
+    },
+    "research/sgrt_word_completion_20261021/analysis/coefficients_level1.png": {
+      "sha256": "c93dc92caf31ff4e9914f1f412b49e4b9049ec7d9596e32183fe219571940a92",
+      "bytes": 159170
+    },
+    "research/sgrt_word_completion_20261021/analysis/coefficients_level2.png": {
+      "sha256": "4df818704aa09dad4bbf9ae8b85c5a14a41e95a22ac1f903a7a8c7dd8c9fe875",
+      "bytes": 158755
+    },
+    "research/sgrt_word_completion_20261021/analysis/common_sample_membership.parquet": {
+      "sha256": "16be012cfba62e32d0b25760536ec54f636a2dc922db6251098fa34a5af11742",
+      "bytes": 496693
+    },
+    "research/sgrt_word_completion_20261021/analysis/effective_analysis_inputs.json": {
+      "sha256": "06ff7d95b2b01ea63441f2d1c6be517598cab32b16206dcd0c056abe2d1cca0e",
+      "bytes": 5650
+    },
+    "research/sgrt_word_completion_20261021/analysis/figure_export_receipt.json": {
+      "sha256": "a664fafe85bd3d023503a12fbadff616f134f02b34966483ff7cd0344a658b7a",
+      "bytes": 1435
+    },
+    "research/sgrt_word_completion_20261021/analysis/grouped_cv_folds.csv": {
+      "sha256": "668b76cb80b94f3be578122797ca65f84a0a1a9a2197fe3856a18f1d5d5bab35",
+      "bytes": 28114
+    },
+    "research/sgrt_word_completion_20261021/analysis/implementation_checks.json": {
+      "sha256": "5d30259adbd57a6495d9e5976d18733883ed40ac2600fc6db303c4aa6eb41e34",
+      "bytes": 430
+    },
+    "research/sgrt_word_completion_20261021/analysis/model_metrics.csv": {
+      "sha256": "ee37789e824ef6fc8b8a5fce986d80faea3bb9d461952b7efa7539333e9addf8",
+      "bytes": 12258
+    },
+    "research/sgrt_word_completion_20261021/analysis/node_2010_sourcequality_by_region_and_rural.csv": {
+      "sha256": "95d4cd8aa85fbb0d3c2a2e3e582376c3392c04877e6c6b04998303db91529cff",
+      "bytes": 56848
+    },
+    "research/sgrt_word_completion_20261021/analysis/node_source2010_recovery_audit.parquet": {
+      "sha256": "bac99d69114ec82db35029b72258f7e1997b75554009a26ebea2fe6fca4829d6",
+      "bytes": 9508699
+    },
+    "research/sgrt_word_completion_20261021/analysis/node_source_coverage_by_region.csv": {
+      "sha256": "803eb35348ff46284f42e647fa4917a0c2bc75be8a99546f55c710e189a63579",
+      "bytes": 5896
+    },
+    "research/sgrt_word_completion_20261021/analysis/original_axis_population2010_source_quality_counts.csv": {
+      "sha256": "a1e70eabc248204bf5d0099863b09be0b4cd130a868d1bf31dbffc9ad5ffe9d1",
+      "bytes": 389
+    },
+    "research/sgrt_word_completion_20261021/analysis/regional_residual_summary.csv": {
+      "sha256": "c76f79d693659900dde64349ca7bb36214b661bc3637ddf8bd2198bf78a48a47",
+      "bytes": 72085
+    },
+    "research/sgrt_word_completion_20261021/analysis/render_regression_figures.py": {
+      "sha256": "118bbac5f29a3a1a15b699d6a1c6db51f9969a823754e19a563a9b415a8efd15",
+      "bytes": 4959
+    },
+    "research/sgrt_word_completion_20261021/analysis/residual_geography_level1.png": {
+      "sha256": "b052ef9c0bd3920ba4bb60f74aa0620f004cd0e3ae5149c71f99877827bbffcf",
+      "bytes": 142648
+    },
+    "research/sgrt_word_completion_20261021/analysis/residual_geography_level2.png": {
+      "sha256": "908749a138a2f0dbad12d5374b1de3a7a4bfbfdba1f8b2385529584a06c63631",
+      "bytes": 151313
+    },
+    "research/sgrt_word_completion_20261021/analysis/run_receipt.json": {
+      "sha256": "e0df4d91abd0a18e3e75b0cf3439a4ca6954056396d042bbca6494438e9a4164",
+      "bytes": 10244
+    },
+    "research/sgrt_word_completion_20261021/analysis/run_regressions.py": {
+      "sha256": "e74eb67004195aa3bb38c18a37f8a1426108cecad75f7b48aa9209a3031feac8",
+      "bytes": 31651
+    },
+    "research/sgrt_word_completion_20261021/analysis/same_sample_model_comparisons.csv": {
+      "sha256": "fb8078b3f08022b67a492e29d8ff6db2e9a7221a70b1024cb4f84c93b9ea7116",
+      "bytes": 4333
+    },
+    "research/sgrt_word_completion_20261021/analysis/sample_gates.csv": {
+      "sha256": "7eb2f831e7ce7dc582d87436a622087b214285c4e69191c66711be7779f1dc6b",
+      "bytes": 8557
+    },
+    "research/sgrt_word_completion_20261021/analysis/source_coverage_findings.md": {
+      "sha256": "87e05be5046e181d53e01d42e4077287fb9233cf595044e18dba4d24c7799ee4",
+      "bytes": 4982
+    },
+    "research/sgrt_word_completion_20261021/analysis/source_coverage_receipt.json": {
+      "sha256": "abbf141d2ae84e0487b9d381bad8d32ea17466c45ad1e4391e9c38ca77b471f1",
+      "bytes": 1591
+    },
+    "research/sgrt_word_completion_20261021/analysis/source_coverage_summary.csv": {
+      "sha256": "dd39a5a2358f631b4f28a0a9c2507ef6493ac102392d722deccdeb684f1f3646",
+      "bytes": 2070
+    },
+    "research/sgrt_word_completion_20261021/analysis/spatial_residual_diagnostics.csv": {
+      "sha256": "61c661e8125e4cb893261b43642f9e60b783189ba6f5a915963c8e6386e5432c",
+      "bytes": 13265
+    },
+    "research/sgrt_word_completion_20261021/analysis/system_analysis_features.parquet": {
+      "sha256": "91e731a564d263640b0b7a5bd60b0a566d54ffd661f09b6fee222d289296b247",
+      "bytes": 2034771
+    },
+    "research/sgrt_word_completion_20261021/analysis/system_population_source_quality_composition.parquet": {
+      "sha256": "4010bae44ef70dfdaebe257b99b9f12345144785b59c9f0e1ee28e0a24844f2e",
+      "bytes": 39020598
+    },
+    "research/sgrt_word_completion_20261021/analysis/system_predictions.parquet": {
+      "sha256": "156ee41c795fee69733b26bdc29a3f5bcb59bc5a8e855aa2e29b373279f7ea8b",
+      "bytes": 295707
+    },
+    "research/sgrt_word_completion_20261021/coordination/history2021_raw_cache_eviction.json": {
+      "sha256": "e97c70d2620d1b49f65d7a14403b314ff66cbc2c8b2affbf9b6d339da22fa0a7",
+      "bytes": 811
+    },
+    "research/sgrt_word_completion_20261021/delivery/BUILDER_NOTES.md": {
+      "sha256": "0b83eed0e745dddf91e4f97fc823d4684403558a205ec27d99ee19326e152a92",
+      "bytes": 1741
+    },
+    "research/sgrt_word_completion_20261021/delivery/README.md": {
+      "sha256": "5620349a4d5d539377ddd1abbc7e80668181f194e42fbe8bc1d296363e4365b0",
+      "bytes": 5271
+    },
+    "research/sgrt_word_completion_20261021/delivery/SGRT_ATLAS_20261021.pdf": {
+      "sha256": "7ec934b78979db39743493b74ea8063d9ec71fcf620322b910df96d9ab9a7bfe",
+      "bytes": 36110997
+    },
+    "research/sgrt_word_completion_20261021/delivery/SGRT_RESEARCH_REPORT_20261021.docx": {
+      "sha256": "56a061b4c65a749838bb302970121ef2330ea61b53ff4c695187f0d51cbb0975",
+      "bytes": 4486939
+    },
+    "research/sgrt_word_completion_20261021/delivery/SGRT_RESEARCH_REPORT_20261021.md": {
+      "sha256": "8442600d5b7e45b7bc0eb032529e0124aaca9c8caf9f7abd604e56245bb09181",
+      "bytes": 65657
+    },
+    "research/sgrt_word_completion_20261021/delivery/SGRT_RESEARCH_REPORT_20261021.pdf": {
+      "sha256": "f6c28f9a73a623982d622605a2da85b10de761e8f0e81308cfb92622c2d014da",
+      "bytes": 4229155
+    },
+    "research/sgrt_word_completion_20261021/delivery/SGRT_SUPERVISOR_BRIEF_20261021.docx": {
+      "sha256": "f65b54b5cbbc1f63bdfc385e9233b6a9086f7a2eb3480ebb032d841af2f90ee0",
+      "bytes": 39672
+    },
+    "research/sgrt_word_completion_20261021/delivery/SGRT_SUPERVISOR_BRIEF_20261021.md": {
+      "sha256": "1286549c852fcf143fb5ee107057d2af341ae5a40e4d525a337fe036ffda60fa",
+      "bytes": 7750
+    },
+    "research/sgrt_word_completion_20261021/delivery/SGRT_SUPERVISOR_BRIEF_20261021.pdf": {
+      "sha256": "4d2fd682db29ed0d55470383eaa8f63bab24c68d01695bf207a817e708f079f3",
+      "bytes": 55248
+    },
+    "research/sgrt_word_completion_20261021/delivery/SGRT_output_word_ci_2021_baseline.gpkg": {
+      "sha256": "aa46e3feffb7b069407455a393acb0e50c7275f6d8d522a060c78ee8504cc803",
+      "bytes": 272711680
+    },
+    "research/sgrt_word_completion_20261021/delivery/SGRT_output_word_ci_2021_baseline.gpkg.zip": {
+      "sha256": "180e1aaec1d406e74a513ba11de13d774a677d085851fc2f5491c3f2b6571a3e",
+      "bytes": 48388149
+    },
+    "research/sgrt_word_completion_20261021/delivery/SGRT_output_word_ci_2021_baseline.receipt.json": {
+      "sha256": "1249001131e3cd3b347d42dce92321d88d4f583426a9d1fdf704c22ab3e1bede",
+      "bytes": 5008
+    },
+    "research/sgrt_word_completion_20261021/delivery/build_research_package.py": {
+      "sha256": "f259de83d30f89589b4c5c14c70afc1ac77496dad720cb156f2ef50812a1f589",
+      "bytes": 34223
+    },
+    "research/sgrt_word_completion_20261021/delivery/export_geopackage.py": {
+      "sha256": "5c31c3575f07aeef5dfb11637c907b8d6c84caf4fab0b33ca8d6391eb2295dca",
+      "bytes": 12729
+    },
+    "research/sgrt_word_completion_20261021/delivery/package_inputs.json": {
+      "sha256": "7bb58909454156b1423fc6679e64afaadf37eed5f332e4d63562e27bf4bd2894",
+      "bytes": 17169
+    },
+    "research/sgrt_word_completion_20261021/delivery/render_checks.json": {
+      "sha256": "52f7ca219edcac4dfb1aca4615495eb6b398b96540c2d48803e7affa40807d88",
+      "bytes": 544
+    },
+    "research/sgrt_word_completion_20261021/delivery/report_enrichment.py": {
+      "sha256": "71c7d3b245520ebf65b481b71efc9d2ad056586d944cbe8a21a74662b744a3b1",
+      "bytes": 66297
+    },
+    "research/sgrt_word_completion_20261021/delivery/report_named_type_cases.parquet": {
+      "sha256": "ce5c6080dfc36615ed1826febb80166ab411ea4e1fb7f342414e2f95cbec6d0a",
+      "bytes": 28678
+    },
+    "research/sgrt_word_completion_20261021/delivery/report_population_source_summary.json": {
+      "sha256": "938b32f1ac304ee7bcb44add0f0c7f6499b0990cd240829cd19604791b0002ca",
+      "bytes": 786
+    },
+    "research/sgrt_word_completion_20261021/delivery/report_types_all_levels.csv": {
+      "sha256": "e8a9bbdf4063d9acb814083cad8e6ecd32fbcb793aef04b8aac9f2f7a129153a",
+      "bytes": 513
+    },
+    "research/sgrt_word_completion_20261021/maps/01_axis_road_coverage.pdf": {
+      "sha256": "6fa9ec839bb5c230790de0feec677f1e6e9dcdcc332a148ccb0172bdabf971e4",
+      "bytes": 1175726
+    },
+    "research/sgrt_word_completion_20261021/maps/01_axis_road_coverage.png": {
+      "sha256": "490ad8d6c257c9aaf63a2b173d8aefaa55f12457bc236b9a3887ed008ce27cb5",
+      "bytes": 1816591
+    },
+    "research/sgrt_word_completion_20261021/maps/01_axis_road_coverage.svg": {
+      "sha256": "319b4c4842431b2db13d33318296b712c9e9f6a4a03f16a829af69415476f9ab",
+      "bytes": 1800271
+    },
+    "research/sgrt_word_completion_20261021/maps/02_functional_evidence.pdf": {
+      "sha256": "8c64a654df6162c0182e6e8f214697e97c24a53d297a063541f6adb55c4f142e",
+      "bytes": 588375
+    },
+    "research/sgrt_word_completion_20261021/maps/02_functional_evidence.png": {
+      "sha256": "b012824f282066916a98be49c5b4d0d7e18938eb2c6de1df4fe3f98945fae925",
+      "bytes": 1151708
+    },
+    "research/sgrt_word_completion_20261021/maps/02_functional_evidence.svg": {
+      "sha256": "195745bca8bf4de39a2be71fc0e34e7922296dcc1341e12a2dd22aa7f41e1ae7",
+      "bytes": 1258510
+    },
+    "research/sgrt_word_completion_20261021/maps/03_road_hierarchy_output_2021_restricted_baseline.pdf": {
+      "sha256": "7981e24da61da320a22727ff28bda2482363daad89281dd632d0a0a17c68b222",
+      "bytes": 1137519
+    },
+    "research/sgrt_word_completion_20261021/maps/03_road_hierarchy_output_2021_restricted_baseline.png": {
+      "sha256": "fe429566aede0e406bfbd4093e9e98ec5e89b1326455c054b873f0b7bf0b714c",
+      "bytes": 1388157
+    },
+    "research/sgrt_word_completion_20261021/maps/03_road_hierarchy_output_2021_restricted_baseline.svg": {
+      "sha256": "0acc6da1bd32ebb4afc6c947b914640c7efecc735b3dbd1ea27c01102d1ce037",
+      "bytes": 1629693
+    },
+    "research/sgrt_word_completion_20261021/maps/03_road_hierarchy_output_word_ci_2021_baseline.pdf": {
+      "sha256": "4c43c4bcbb12add34e961b0e7f9e2730ba5ecb1fc14237f9f44564f065a7ad79",
+      "bytes": 2054297
+    },
+    "research/sgrt_word_completion_20261021/maps/03_road_hierarchy_output_word_ci_2021_baseline.png": {
+      "sha256": "618cf9b8b9599f91460e3dc4b2e69f218d4c2d65873286a24fac96623179c014",
+      "bytes": 2503859
+    },
+    "research/sgrt_word_completion_20261021/maps/03_road_hierarchy_output_word_ci_2021_baseline.svg": {
+      "sha256": "41e448841b67a119ef71838e31dce23fd9b93b3367e95187edec5d8fd4fc0f4b",
+      "bytes": 3035014
+    },
+    "research/sgrt_word_completion_20261021/maps/03_road_hierarchy_output_word_ci_2021_inclusive.pdf": {
+      "sha256": "646f2c83695919b2245d294e6811c2649f4a0d58af563770379e0104ac117461",
+      "bytes": 2554423
+    },
+    "research/sgrt_word_completion_20261021/maps/03_road_hierarchy_output_word_ci_2021_inclusive.png": {
+      "sha256": "f52cbde98fcf19bdff490f8ebecd423ca7eae4dfb7f9c5e12e3a695510bf6b27",
+      "bytes": 3090711
+    },
+    "research/sgrt_word_completion_20261021/maps/03_road_hierarchy_output_word_ci_2021_inclusive.svg": {
+      "sha256": "c63cacef8f5095971cadee10e898cbf8fbd4eda19d2ab3a42838386ede7d051b",
+      "bytes": 3787061
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_2021_restricted_baseline.pdf": {
+      "sha256": "6ebeb685849bd65fec2b12f536d9b4fa385d69967858f6baa2065c1a97a2b026",
+      "bytes": 1389323
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_2021_restricted_baseline.png": {
+      "sha256": "3d08c2daec62bba0dd64c2f1a000c2f25c8d2fdbd5cf9b93f124de9db08a602c",
+      "bytes": 2001465
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_2021_restricted_baseline.svg": {
+      "sha256": "4f389ffe9663cb22cd0b0f93a276fcd679a21311e1ed9ce169022ad04449d549",
+      "bytes": 2985678
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_2021_restricted_baseline_level1.pdf": {
+      "sha256": "d3a720cb805e85751374c9e08a5d3d5dae65d6fa22e14f4892885d8ca186dbae",
+      "bytes": 1367326
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_2021_restricted_baseline_level1.png": {
+      "sha256": "963aeb08b2d8305436a3679af5a01c81d09e83886c5690dc4b9a668c7351e002",
+      "bytes": 1947690
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_2021_restricted_baseline_level1.svg": {
+      "sha256": "54cb09d461ed6763e057a62123f0e552df9c82ee2d6ae16761c23720f431b57e",
+      "bytes": 2885598
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_2021_restricted_baseline_level2.pdf": {
+      "sha256": "d328a0ca02462ffe24f276be4121ced7058afbb57bcb68efaa0dc387a1585e64",
+      "bytes": 1255495
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_2021_restricted_baseline_level2.png": {
+      "sha256": "869e011826c1f3d58088c594f9af7563dcfb808bdfa23ccac3e55c82c7e6ec3b",
+      "bytes": 1835602
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_2021_restricted_baseline_level2.svg": {
+      "sha256": "8510e93721d77d74629d4dd5fa972a1c16c995ae42fb61110cb126a9f6138258",
+      "bytes": 2586569
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline.pdf": {
+      "sha256": "bfa669f0b7933864b2f45c62249b6c25567e8a9dbce2c27f3907da438c974dc2",
+      "bytes": 1459132
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline.png": {
+      "sha256": "fa8e28fda5669fae920878139409f833f53c2e1a5618fcd2bfbc67ec1f3ea7ad",
+      "bytes": 2039843
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline.svg": {
+      "sha256": "ddc825942d9799ee86f3df330664d9648cc1d8249abc7932dee4d5105cb2c36f",
+      "bytes": 3046383
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline_level1.pdf": {
+      "sha256": "88a06e4387e2ebc8f6314f77d4a191c564c2471a2a8a467e9bb98f2d766f1bd4",
+      "bytes": 1307184
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline_level1.png": {
+      "sha256": "808d8c7a3954bb8f50cc3df61bc899e724e6590e19e7703097a914eb3c183840",
+      "bytes": 1955261
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline_level1.svg": {
+      "sha256": "1ff15f2b783e07dc3ff3180cba52e788f62afd130a8dfc47685ca4c5ccef5d25",
+      "bytes": 2885003
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline_level2.pdf": {
+      "sha256": "9658be970c3d9a4c58c611f7c1f1257ffb68ecc9c3e46dfef6edb33ba5eaf577",
+      "bytes": 1240182
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline_level2.png": {
+      "sha256": "7118663bb67fb844547ef8a62e25f6e655e76250975b90480e1ea54215d78934",
+      "bytes": 1881403
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline_level2.svg": {
+      "sha256": "0511572148270adb7fb8024cf7991c77d5008cfcccdc0cabe2b0dbb3566f2469",
+      "bytes": 2677684
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline_level3.pdf": {
+      "sha256": "6cd28309e7041ce66c7176af1d88f3cc5c0cd7301b9a6e069efd05a4e4eb0cd8",
+      "bytes": 1120774
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline_level3.png": {
+      "sha256": "9901d6248b4ca84c57cccf2e8b15c11235673f32075ef8a669cd161791de7ad5",
+      "bytes": 1735452
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline_level3.svg": {
+      "sha256": "3bdda73474fbc07757d4e12bd19a28608e9686521770e77f10599542e0372e64",
+      "bytes": 2357509
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline_level4.pdf": {
+      "sha256": "167eac8e54aafa3ba52192bf5ca7cc0e4abb2026536e964cc7a4cb08285939be",
+      "bytes": 1041987
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline_level4.png": {
+      "sha256": "582767f4f3193be2ffd928426d8008cd440f4afd21bb5bf82fc49fa467d53b70",
+      "bytes": 1648407
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline_level4.svg": {
+      "sha256": "e1dd2400941555710665cfbc498cf76c4f32f2e03d90e0f95a9ca2f5134af198",
+      "bytes": 2125423
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive.pdf": {
+      "sha256": "1337d0279e86c997632d088605a6e48470e76dfc3d427458363fe08a7550aaf1",
+      "bytes": 1513191
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive.png": {
+      "sha256": "97d630153ae8381e2eb57d3c0319864d8965734add2daabfd42557273ae88dfb",
+      "bytes": 2197756
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive.svg": {
+      "sha256": "ed7959413ce8514fa5c0eccebf39122b2c88012f5fdc4d0d83a8b1e11ba2c25c",
+      "bytes": 3403511
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level1.pdf": {
+      "sha256": "d0588f1143339b12730cac5562fcfe1944e88d695ba7a4adae0e65f57163c55c",
+      "bytes": 1429505
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level1.png": {
+      "sha256": "7f0ac389f0e1593934ebb8aa1cf81e55edbb328f327b5c1acfb50e115490368a",
+      "bytes": 2094571
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level1.svg": {
+      "sha256": "299faf17ab0edcb90ca22369bee57e2c125acb7cfcbc7735ff1cb5c3880ca3d0",
+      "bytes": 3235103
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level2.pdf": {
+      "sha256": "49caa48719b12a82a3f1ff17096933bd628a59ac8a64fe7638a96db4e4216039",
+      "bytes": 1369537
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level2.png": {
+      "sha256": "a7b42c08f980a1f9de0f44001658de3094305408d8b444e61f7a19cb7122e788",
+      "bytes": 2032179
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level2.svg": {
+      "sha256": "d10d479321c977c93ef35d37789e168b64654fc13e4a23935ee0fc38391d3ecd",
+      "bytes": 3054667
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level3.pdf": {
+      "sha256": "b42e3baec95c433a14c69e682fc7debc87afe56fb24e5afc9d46d6017b29968e",
+      "bytes": 1196614
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level3.png": {
+      "sha256": "46928105a373972d6e62491759501b999e49aad23c127fa095525b660de10035",
+      "bytes": 1812071
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level3.svg": {
+      "sha256": "7c22498ced461292da353f940b19691761d19cdfb88fef4a21e36bdb0b227d23",
+      "bytes": 2549125
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level4.pdf": {
+      "sha256": "ff690930644fc67427452f403572f7fab91409133bf4a82f7e70b00d3370894f",
+      "bytes": 1101181
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level4.png": {
+      "sha256": "4d9b9fb3dfc6262e3976b36b3abdcbb58c4f3f84f6bc27232e4770119b8649b1",
+      "bytes": 1715193
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level4.svg": {
+      "sha256": "1c39f11dd1615f9843b96a2bc689c3fa0c8696dc8a8f434ed0d77d12c5c5cc97",
+      "bytes": 2290735
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level5.pdf": {
+      "sha256": "83856aa28e26a4d7895d972f8654e06aa2395f40a29dc52ae12be7cd223543c9",
+      "bytes": 1042034
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level5.png": {
+      "sha256": "196d53b7e660c3dbae6228bc8d79e7a594fd600dc898daa600afa939f03d9e97",
+      "bytes": 1646574
+    },
+    "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_inclusive_level5.svg": {
+      "sha256": "23e9eb5e3f85ae3cf89c5fcb785bc4085f7374c0f5404c73c7b795de40030ca5",
+      "bytes": 2119645
+    },
+    "research/sgrt_word_completion_20261021/maps/04b_broad_prototypes_output_word_ci_2021_baseline.pdf": {
+      "sha256": "ba09af30e8574da6d821a264d16387d0d3b36ec8b4d969cdadbf36b1bd166edf",
+      "bytes": 981524
+    },
+    "research/sgrt_word_completion_20261021/maps/04b_broad_prototypes_output_word_ci_2021_baseline.png": {
+      "sha256": "d83dd2cbe311e5c8fde48a8b586441a3fbef2d9986e3fea98e36f86a252e0462",
+      "bytes": 1552741
+    },
+    "research/sgrt_word_completion_20261021/maps/04b_broad_prototypes_output_word_ci_2021_baseline.svg": {
+      "sha256": "39b2d115e7802e969569dcd2949c2d9971598dbfb6968bcb0aab32994188245f",
+      "bytes": 1995395
+    },
+    "research/sgrt_word_completion_20261021/maps/04b_broad_prototypes_output_word_ci_2021_inclusive.pdf": {
+      "sha256": "14ec2815e45a32f58df169150a00390238245c346b0eab81627b8b013a6a8746",
+      "bytes": 976816
+    },
+    "research/sgrt_word_completion_20261021/maps/04b_broad_prototypes_output_word_ci_2021_inclusive.png": {
+      "sha256": "8839ef2d54062381bb9596ac028248e2bfb89432bec4942b4856b73b2774ba3c",
+      "bytes": 1550378
+    },
+    "research/sgrt_word_completion_20261021/maps/04b_broad_prototypes_output_word_ci_2021_inclusive.svg": {
+      "sha256": "2d79a017b0c5d050ccf08eacfe8bda6c4f95c84def186fe03b31dee1df210e2a",
+      "bytes": 1991746
+    },
+    "research/sgrt_word_completion_20261021/maps/05_settlement_demographic_dynamics.pdf": {
+      "sha256": "e2cf923e9d36f05dc97d2f3b38dceebfb843ab40002677cd7f0db62a19d28f40",
+      "bytes": 1025154
+    },
+    "research/sgrt_word_completion_20261021/maps/05_settlement_demographic_dynamics.png": {
+      "sha256": "09afbd67f4e14c30d0099d5e0d8d921c2c2f575ca0c9879e171db982f5480c6a",
+      "bytes": 1271209
+    },
+    "research/sgrt_word_completion_20261021/maps/05_settlement_demographic_dynamics.svg": {
+      "sha256": "76518c43cfc67bb37672bdcc753b05791cffb1b4a37e4f2900a4bc55121e03b3",
+      "bytes": 1415759
+    },
+    "research/sgrt_word_completion_20261021/maps/06_ethnic_composition_context.pdf": {
+      "sha256": "8b7d555513f82237957c35be89171270b99009a9d1b5761a00775124c17e9e72",
+      "bytes": 221175
+    },
+    "research/sgrt_word_completion_20261021/maps/06_ethnic_composition_context.png": {
+      "sha256": "cbaa18449e6eb48bf6a0896edc0b4f409f92ec7f362559efcb22711950485271",
+      "bytes": 1089409
+    },
+    "research/sgrt_word_completion_20261021/maps/06_ethnic_composition_context.svg": {
+      "sha256": "2fb12608d9b23dbbe8af2c17a038835fe22b0ca55d3db1b01edb802690ca71a6",
+      "bytes": 285321
+    },
+    "research/sgrt_word_completion_20261021/maps/07_agro_climate_soil.pdf": {
+      "sha256": "a8ee3ff5df3957159920f52f84fc5578a55459585a3a6934f5ce54be3c2baad5",
+      "bytes": 422591
+    },
+    "research/sgrt_word_completion_20261021/maps/07_agro_climate_soil.png": {
+      "sha256": "2e07aaf20d35a707bfc304b899ebdf346ad0930bcd6cb44193bb0613ac082c13",
+      "bytes": 1816274
+    },
+    "research/sgrt_word_completion_20261021/maps/07_agro_climate_soil.svg": {
+      "sha256": "3e1c73223f0dc51de448a9a95ac6f0f844362b297f278fca3e8b6533301a0a73",
+      "bytes": 638640
+    },
+    "research/sgrt_word_completion_20261021/maps/08_municipal_sown_share_2008.pdf": {
+      "sha256": "f36b59da216187df86709f15765d1fa0d2075e57ecf588dd6b3dac23ec3ed84d",
+      "bytes": 146192
+    },
+    "research/sgrt_word_completion_20261021/maps/08_municipal_sown_share_2008.png": {
+      "sha256": "6ebbba9c78ec9339cb6960ccc2736b59457d616928f5372770cdfba7e286b3c0",
+      "bytes": 682231
+    },
+    "research/sgrt_word_completion_20261021/maps/08_municipal_sown_share_2008.svg": {
+      "sha256": "7938450343a5adef866113f94e919cca7663a36874a8caa12f9ac6325bb8b150",
+      "bytes": 192821
+    },
+    "research/sgrt_word_completion_20261021/maps/09_current_monotowns_2026.pdf": {
+      "sha256": "34c4851febd75268127a33d77517cd13313d308b2bb42afcfea9aaec068df254",
+      "bytes": 190511
+    },
+    "research/sgrt_word_completion_20261021/maps/09_current_monotowns_2026.png": {
+      "sha256": "c188f5e62e1f409199372a6a628a904691d2fdc38a7437d7139219391ba1b040",
+      "bytes": 456804
+    },
+    "research/sgrt_word_completion_20261021/maps/09_current_monotowns_2026.svg": {
+      "sha256": "5c89f3cc3f6bb4729e74d565d7e219c32b4838f349abd6f6aa47777a9bcad2be",
+      "bytes": 286268
+    },
+    "research/sgrt_word_completion_20261021/maps/10_center_rural_dynamics_output_2021_restricted_baseline.pdf": {
+      "sha256": "79d2a44797b990c47b3ac2df1e52811eb5250d3322f66c3641f7af604c5c23cd",
+      "bytes": 138106
+    },
+    "research/sgrt_word_completion_20261021/maps/10_center_rural_dynamics_output_2021_restricted_baseline.png": {
+      "sha256": "4fbc08f8a105a524e66446aa23f669c48c245ccaf57e28db78998cdd9b378e31",
+      "bytes": 306609
+    },
+    "research/sgrt_word_completion_20261021/maps/10_center_rural_dynamics_output_2021_restricted_baseline.svg": {
+      "sha256": "e60128b5e7874963756c031d3b1d5e4f3c390348051d38bcf5b63fb631bf06b2",
+      "bytes": 153992
+    },
+    "research/sgrt_word_completion_20261021/maps/10_center_rural_dynamics_output_word_ci_2021_baseline.pdf": {
+      "sha256": "aaa3fc14edc96e57acf553cb5d90edb924ce281124d7c562cbc047ce32f84b2a",
+      "bytes": 164230
+    },
+    "research/sgrt_word_completion_20261021/maps/10_center_rural_dynamics_output_word_ci_2021_baseline.png": {
+      "sha256": "0ab4b0fd329c6c67c95573bccf65cb2c2300f5de428a74d697ff92e10ba05ec3",
+      "bytes": 371626
+    },
+    "research/sgrt_word_completion_20261021/maps/10_center_rural_dynamics_output_word_ci_2021_baseline.svg": {
+      "sha256": "2e8f5722fef6b88183c23732d24f557f42b67a6e43e8fc98a28c265d53a1720f",
+      "bytes": 191826
+    },
+    "research/sgrt_word_completion_20261021/maps/10_center_rural_dynamics_output_word_ci_2021_inclusive.pdf": {
+      "sha256": "d1bc12fe5f1f9d2cfabecc041c80897644941aedc189806a07c796cd1f91699d",
+      "bytes": 205038
+    },
+    "research/sgrt_word_completion_20261021/maps/10_center_rural_dynamics_output_word_ci_2021_inclusive.png": {
+      "sha256": "376bf0d5ae9f4af8327eb48728584952365383ffd47d808e1c9123b77e17a93c",
+      "bytes": 428327
+    },
+    "research/sgrt_word_completion_20261021/maps/10_center_rural_dynamics_output_word_ci_2021_inclusive.svg": {
+      "sha256": "77731057b4d49084d21bdb41507f36c92e7106d3a3260ef445be1bbd744f8519",
+      "bytes": 247749
+    },
+    "research/sgrt_word_completion_20261021/maps/11_regional_sgrt_output_2021_restricted_baseline.pdf": {
+      "sha256": "4685c61438429dd9539b5c256a1b9e85f3fcc35235b2b0ff9a88c2ab0a4498e6",
+      "bytes": 987955
+    },
+    "research/sgrt_word_completion_20261021/maps/11_regional_sgrt_output_2021_restricted_baseline.png": {
+      "sha256": "b9a0667b014eb3dce4087e7b971073fac3d5f172724a07fc8ab88fe83cc2de7a",
+      "bytes": 1394961
+    },
+    "research/sgrt_word_completion_20261021/maps/11_regional_sgrt_output_2021_restricted_baseline.svg": {
+      "sha256": "04de2df904bae1ee35c75be058c8a659edd6716b9b6fa6a9b0c933614452506f",
+      "bytes": 1430133
+    },
+    "research/sgrt_word_completion_20261021/maps/11_regional_sgrt_output_word_ci_2021_baseline.pdf": {
+      "sha256": "61ad5c860f8ff0c0266504c75119f2228b15d77541a02134ea589fbeaaba93e0",
+      "bytes": 963346
+    },
+    "research/sgrt_word_completion_20261021/maps/11_regional_sgrt_output_word_ci_2021_baseline.png": {
+      "sha256": "3f1c1ff5927ba56469d91373e650669a9d590e1326363b4fe278b556d9b10bdd",
+      "bytes": 1362634
+    },
+    "research/sgrt_word_completion_20261021/maps/11_regional_sgrt_output_word_ci_2021_baseline.svg": {
+      "sha256": "af66cf827141fd385fab6f034d4389a96f603e4db9d25b8de80d9c30b78dcba7",
+      "bytes": 1384062
+    },
+    "research/sgrt_word_completion_20261021/maps/11_regional_sgrt_output_word_ci_2021_inclusive.pdf": {
+      "sha256": "eb219572231648e1403e0732cbd04949b2138275327f354777f70b5feee1cb30",
+      "bytes": 993370
+    },
+    "research/sgrt_word_completion_20261021/maps/11_regional_sgrt_output_word_ci_2021_inclusive.png": {
+      "sha256": "8e4087a5f9159bc573f4e49b5b119d1483a72b58b9a6ffdde206d83efdeb90e6",
+      "bytes": 1319846
+    },
+    "research/sgrt_word_completion_20261021/maps/11_regional_sgrt_output_word_ci_2021_inclusive.svg": {
+      "sha256": "87183960d8d1462d788ff8208216f9553e54c07a3beab82d67e848aa0c4578c0",
+      "bytes": 1371535
+    },
+    "research/sgrt_word_completion_20261021/maps/12_experimental_bonitet_intervals.pdf": {
+      "sha256": "95abbc1ea7349c69833054c744baf11643b6ac21066b0973ceb451cea828225f",
+      "bytes": 119136
+    },
+    "research/sgrt_word_completion_20261021/maps/12_experimental_bonitet_intervals.png": {
+      "sha256": "6461bbb38b2368fc08aa95fa18f99ed6b97fef1a1e06f75bb0d059260bbb9f28",
+      "bytes": 590698
+    },
+    "research/sgrt_word_completion_20261021/maps/12_experimental_bonitet_intervals.svg": {
+      "sha256": "4e2772c44c144f61e31f3d3109f0fe2626a3f8e866424818ba3e4ec470d46595",
+      "bytes": 169907
+    },
+    "research/sgrt_word_completion_20261021/maps/13_demographic_source_recovery_output_2021_restricted_baseline.pdf": {
+      "sha256": "c47a95dc14b072a51c9cc6d5ca3afecc37e23dc4479c891d8ab875bc3ceeba75",
+      "bytes": 230152
+    },
+    "research/sgrt_word_completion_20261021/maps/13_demographic_source_recovery_output_2021_restricted_baseline.png": {
+      "sha256": "b738839fa4653482e71554cef527890416fb712426b14169b82258a26df7304f",
+      "bytes": 519529
+    },
+    "research/sgrt_word_completion_20261021/maps/13_demographic_source_recovery_output_2021_restricted_baseline.svg": {
+      "sha256": "cb38819f44d555577784aa391953e00e34bb544d0c8dcce22825130ab4ad9dfe",
+      "bytes": 329875
+    },
+    "research/sgrt_word_completion_20261021/maps/13_demographic_source_recovery_output_word_ci_2021_baseline.pdf": {
+      "sha256": "692042ac26be9773741c9f0424ba0641c7500bffa9c8761e245a39f743558ce6",
+      "bytes": 227144
+    },
+    "research/sgrt_word_completion_20261021/maps/13_demographic_source_recovery_output_word_ci_2021_baseline.png": {
+      "sha256": "5ee8953d422a0b663eac09337400cb190b201886915687d8b9d0c16148900466",
+      "bytes": 518553
+    },
+    "research/sgrt_word_completion_20261021/maps/13_demographic_source_recovery_output_word_ci_2021_baseline.svg": {
+      "sha256": "c320889bba3e50bdcc1ab67a3298401d2d05cbab3825673f26389c2f3c7a4589",
+      "bytes": 326172
+    },
+    "research/sgrt_word_completion_20261021/maps/13_demographic_source_recovery_output_word_ci_2021_inclusive.pdf": {
+      "sha256": "80fe929d9c4b6f97cb3ea2742de29449ce80884bc6332bb6d0f2609caa2b8861",
+      "bytes": 234725
+    },
+    "research/sgrt_word_completion_20261021/maps/13_demographic_source_recovery_output_word_ci_2021_inclusive.png": {
+      "sha256": "6ce7ab130f7b41cc25133827a7da9352175734be7db139bf1937449b380aab25",
+      "bytes": 526055
+    },
+    "research/sgrt_word_completion_20261021/maps/13_demographic_source_recovery_output_word_ci_2021_inclusive.svg": {
+      "sha256": "3ccb87d50990fdf5a44b0fb3ce144287181bf693b673646f9d8ef5d5a22807b9",
+      "bytes": 338778
+    },
+    "research/sgrt_word_completion_20261021/maps/14_municipal2008_vs_regional2021_land.pdf": {
+      "sha256": "96525a013dbfa4166b8a0e687f7be386f74fdcc627da8d1e797a2a5a0621bf85",
+      "bytes": 249446
+    },
+    "research/sgrt_word_completion_20261021/maps/14_municipal2008_vs_regional2021_land.png": {
+      "sha256": "a7a69bc531fe2a216cd326d981a7266fb799c687a5522c97e0d5fb6f6c669c98",
+      "bytes": 1106307
+    },
+    "research/sgrt_word_completion_20261021/maps/14_municipal2008_vs_regional2021_land.svg": {
+      "sha256": "8c8e7faa340afdc13a837d26ace9511d7584cf5c2ab91035814c7bdb38a82475",
+      "bytes": 386182
+    },
+    "research/sgrt_word_completion_20261021/maps/README.md": {
+      "sha256": "10dd9d2758679529e225239cb27fc2312c8af001ce01f9f8d63759bbcc0e52c8",
+      "bytes": 12308
+    },
+    "research/sgrt_word_completion_20261021/maps/atlas_output_2021_restricted_baseline.pdf": {
+      "sha256": "9e788ddd9fe525e1cd2bb4c538b47fcc6e0a106f202dbe1d6600e3b928e94c31",
+      "bytes": 8030063
+    },
+    "research/sgrt_word_completion_20261021/maps/atlas_output_2021_restricted_baseline_receipt.json": {
+      "sha256": "101616eb12cfdbf1fb6ce5d18ac8d640da94060cd9ce73408eab52271b873088",
+      "bytes": 2064
+    },
+    "research/sgrt_word_completion_20261021/maps/atlas_output_word_ci_2021_baseline.pdf": {
+      "sha256": "7a1d19a8033711ef464c03ee62c9f4b73f6b142a64d91e416c1170b8027cb05b",
+      "bytes": 9014367
+    },
+    "research/sgrt_word_completion_20261021/maps/atlas_output_word_ci_2021_baseline_receipt.json": {
+      "sha256": "86d6842b103adf9ccb9c9f61b8b910c10671163bfb5bd5ee9a191eecb0769b4e",
+      "bytes": 2043
+    },
+    "research/sgrt_word_completion_20261021/maps/atlas_output_word_ci_2021_inclusive.pdf": {
+      "sha256": "0ea13a91b94e025c3a541c7e721f150da2419c398141fb051c0028a8190d45d5",
+      "bytes": 9647936
+    },
+    "research/sgrt_word_completion_20261021/maps/atlas_output_word_ci_2021_inclusive_receipt.json": {
+      "sha256": "22b0934e2e64499021423257db7cf090d11e1ec4332fdf92bf9f0cb43ab73c88",
+      "bytes": 2050
+    },
+    "research/sgrt_word_completion_20261021/maps/bundle_atlas.py": {
+      "sha256": "7b3f83fb8c20a83c58ce9b9ffd4962dd9eacbc79e68b1d9c3569d640d9cc3f53",
+      "bytes": 3327
+    },
+    "research/sgrt_word_completion_20261021/maps/map_manifest.json": {
+      "sha256": "67f8e43c9148211b9ec84fb8b2597c4cc661f61cff2f4b05e6309cd8004b2165",
+      "bytes": 58552
+    },
+    "research/sgrt_word_completion_20261021/maps/regional_windows.json": {
+      "sha256": "bb3c76907197da8ddf91f0000ce6891721760b81c2cdddad2dddae7d7548b696",
+      "bytes": 625
+    },
+    "research/sgrt_word_completion_20261021/maps/render_atlas.py": {
+      "sha256": "fc6f90c9a23e0187652c1d89a1fbb2e00c048c8a93eedd9a5648e55bde063f0d",
+      "bytes": 44092
+    },
+    "research/sgrt_word_completion_20261021/maps/validate_atlas.py": {
+      "sha256": "65419992ac5889ef908bf66c8fe9171e40809c66a533c1f388c3ad21d4da5cb6",
+      "bytes": 1537
+    },
+    "research/sgrt_word_completion_20261021/maps/validation_receipt.json": {
+      "sha256": "82a519baf237ca0c5c574c2d6fc82ff75426a7f0f0ddfdee656389be70e4babf",
+      "bytes": 1433
+    },
+    "research/sgrt_word_completion_20261021/model/apply_literal_typology.py": {
+      "sha256": "aa2ef1c01136abe51f99ee6342d6cf1c94b55a3137d68e722ddf5940f791cc05",
+      "bytes": 9936
+    },
+    "research/sgrt_word_completion_20261021/model/calibrate_admin_mass.py": {
+      "sha256": "9aca0f97fbf65b7a66893c85dd6163797b0751445da9ed5f3b9bc3f2b4d405da",
+      "bytes": 5900
+    },
+    "research/sgrt_word_completion_20261021/model/compare_linkage_scenarios.py": {
+      "sha256": "fa0c2a94795df0fb5910a32756d6cef2237cdc5c68a55359e8d9cd824f9300d9",
+      "bytes": 2070
+    },
+    "research/sgrt_word_completion_20261021/model/compare_scenarios.py": {
+      "sha256": "a172ee22934344d03be70316a09f91abce59f873c963bebd21eb57225a859218",
+      "bytes": 6923
+    },
+    "research/sgrt_word_completion_20261021/model/functional_agreement_fast.py": {
+      "sha256": "8e07995fcc9450046db79301df3fd2f2d3524f56b78e7c98ec07c0eb9846f001",
+      "bytes": 1630
+    },
+    "research/sgrt_word_completion_20261021/model/model_inputs.json": {
+      "sha256": "5fa9e33ad97cbaa0be458f04d02dd44b630cb6d702738b9383e80e8c689c612b",
+      "bytes": 5179
+    },
+    "research/sgrt_word_completion_20261021/model/model_inputs_2021.json": {
+      "sha256": "950425f7c8f4a3de9e17d98ec5003baab9621c4defb988044fe0a3843a16e9cc",
+      "bytes": 6996
+    },
+    "research/sgrt_word_completion_20261021/model/model_inputs_2021_inclusive.json": {
+      "sha256": "ef0474015fa1bcfdd3c79374ddc563bd9798bdf4c39691987be2d56e1ca24a4a",
+      "bytes": 8841
+    },
+    "research/sgrt_word_completion_20261021/model/model_inputs_2021_restricted.json": {
+      "sha256": "350787c5a45e240836e147b71a4137be5552225a4f93635ca8b1923a393b1a7b",
+      "bytes": 9940
+    },
+    "research/sgrt_word_completion_20261021/model/model_inputs_2021_restricted_allrankslow_sensitivity.json": {
+      "sha256": "f57ffec964ae296b6800f9af1998de5f6a8e629c76ba4c6987ba22d656202a5a",
+      "bytes": 9930
+    },
+    "research/sgrt_word_completion_20261021/model/model_inputs_2021_restricted_inclusive.json": {
+      "sha256": "ee19bb871957b680d688ece8fb226255075f53bb05683bdc011d320eb76b3b51",
+      "bytes": 11785
+    },
+    "research/sgrt_word_completion_20261021/model/model_inputs_2021_restricted_inclusive_allrankslow_sensitivity.json": {
+      "sha256": "6caf31062d434fa68f75c75be70b9a27e6b6e07913c725c69ff6066cda9fbade",
+      "bytes": 11775
+    },
+    "research/sgrt_word_completion_20261021/model/model_inputs_2021_restricted_inclusive_outside1_sensitivity.json": {
+      "sha256": "4bb19c494615e1f6d0f9a034f27418b8cfce63a9fa4f3e75f50e2348fb6828b2",
+      "bytes": 11617
+    },
+    "research/sgrt_word_completion_20261021/model/model_inputs_2021_restricted_outside1_sensitivity.json": {
+      "sha256": "1e697b988e851a71d613d7509763bec780dbce16de2cb81324603439a5f9ad82",
+      "bytes": 9772
+    },
+    "research/sgrt_word_completion_20261021/model/model_inputs_2021_restricted_p0_sensitivity.json": {
+      "sha256": "8cb292e240eccd92d7c36bce6a6a5c451d2da6be03db60617d6587c023ebcc9a",
+      "bytes": 10118
+    },
+    "research/sgrt_word_completion_20261021/model/model_inputs_inclusive.json": {
+      "sha256": "a0e911c613d6e1fdafa670d4a0290c30ced8ee4983a7cbb1ddf91f67d6a90a0d",
+      "bytes": 5472
+    },
+    "research/sgrt_word_completion_20261021/model/model_inputs_word_ci_2021.json": {
+      "sha256": "7509df4c8ea93b4be9195d0593ac2c75cd4cd64164771e6a630439b4bc529140",
+      "bytes": 12356
+    },
+    "research/sgrt_word_completion_20261021/model/model_inputs_word_ci_2021_inclusive.json": {
+      "sha256": "ceac0524907eed317778b3f80e2967a7b5d579959bc9c3017da3c0255d480fb4",
+      "bytes": 14241
+    },
+    "research/sgrt_word_completion_20261021/model/model_inputs_word_ci_2021_p0_sensitivity.json": {
+      "sha256": "1b8cad6c4f0a61e6dfeac65cee61243c27ef74126bc7036a25798b3af8c8010b",
+      "bytes": 12541
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/candidate_centers.parquet": {
+      "sha256": "58beb7e3cb52a805b284f903c0c7efd1bc641a3e8befa9af7fd9846d0807f4b2",
+      "bytes": 793667
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/demographic_source_recovery_sensitivity.parquet": {
+      "sha256": "2a65260bf0f5b6b524d883f65adcdb3d5086ac75d3a72b82f54af63ad8f19c15",
+      "bytes": 606512
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/empirical_ranks.json": {
+      "sha256": "e5135077acc7abc0d709eeefe7cf04cdec49a559715b4f78b7628e90abfe1afd",
+      "bytes": 3206
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/function_specific_memberships.parquet": {
+      "sha256": "f998202e8234efbd72e8837142925a1ef3ccf6cdd4f668ffb81d65e85bd62f9c",
+      "bytes": 90279040
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/functional_leader_agreement.parquet": {
+      "sha256": "e5bc280e9f7b9e2e40800f4db80acd4b6eaaacb8b0890c79ebe225323b17ef05",
+      "bytes": 10057000
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/hierarchy.parquet": {
+      "sha256": "a1f7056d1ae8793d5e3c796a304d4de32c43f6f4eb765a001aa38ac5164c36bc",
+      "bytes": 4709416
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/mass_components.json": {
+      "sha256": "7692280f20837cfa12e79f340be2c41f1dacee172b7f15417d8d1dc3b4315a7f",
+      "bytes": 5965
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/memberships.parquet": {
+      "sha256": "807ae9d628d7a15257ca162d37a55afebe4ab474d3c0ea2b54b045035c576f66",
+      "bytes": 53657401
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/network_accessibility.parquet": {
+      "sha256": "a58f86e4d69f90a428501cc352f50a55a73e31a406951a21fb829ef6175dbccc",
+      "bytes": 17030444
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/nodes.parquet": {
+      "sha256": "dba61c9c95ef004d3f0384aaea193d91f236b63a6b83c3a77124d2c32c1e9bc5",
+      "bytes": 60885702
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/operational_type_candidates.parquet": {
+      "sha256": "f03dcc1f12a04e1fd31c72c1af0a867c558e4884b261253993af0b1661a2e783",
+      "bytes": 19407
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/output_manifest.json": {
+      "sha256": "a6e96df23acfb85fd35e08f2ef5f699428a5fb5b9dca9af46c19f89bff930fce",
+      "bytes": 3775
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/own_mass_components.parquet": {
+      "sha256": "79d6c52c00361207469680ae3137088f1a7adbf30f97183911837687f139d4c6",
+      "bytes": 11955639
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/population_balances.csv": {
+      "sha256": "c4983699d35f21ffd1db3c920b13e29e0fae6274712d77558fc1248b50f6b3d7",
+      "bytes": 531
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/primary_source_supported_systems_sensitivity.parquet": {
+      "sha256": "db5a51e3da2ba93e0082099fe26b278abe855d5449ad0aa59206b0d97456588f",
+      "bytes": 363617
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/primary_source_supported_types_sensitivity.parquet": {
+      "sha256": "d438a95bec997f5b08f67c7a772156fb253fb2f46135941ed18b5a80fdcae97b",
+      "bytes": 189938
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/rank_mass_profile_completeness.csv": {
+      "sha256": "b75fa9cf9b4ebce3675480f773512581cd3ab74c705b80866873fd0b4155ef9a",
+      "bytes": 715
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/run_receipt.json": {
+      "sha256": "1a0407f724730b90e28bfad0031c96f77ee4ec0397d01ff81d61e7cd38545428",
+      "bytes": 50862
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/system_configurations.parquet": {
+      "sha256": "75b3f39235317f4941a17df03a2a50830cbdaa5a19c7ef0355fa1cd74644afdb",
+      "bytes": 202793
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/systems.parquet": {
+      "sha256": "b3032b5a0d3ecaf2d2178d5ce9ffd1dee27c642b63c511ea542be2d83a7bde92",
+      "bytes": 920289
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline/word_type_hypotheses.parquet": {
+      "sha256": "66ab08de0b4fa27e230a7fa4e4646f48ae707b78ddaa3bd875f0cb8195ec5210",
+      "bytes": 436321
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/candidate_centers.parquet": {
+      "sha256": "c607b3e300304f9b0fc472d7b93f560244f0d56ee1d48bd750c0702f80ff14c5",
+      "bytes": 1353593
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/demographic_source_recovery_sensitivity.parquet": {
+      "sha256": "03b144958690e3918f2af1c61342011554e5da81fdc5f8f7d828762aa3cb81f4",
+      "bytes": 1237207
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/empirical_ranks.json": {
+      "sha256": "15867550560bc2a02562fe3239fe2c0c3daa77c414695d1ec6fd0e9261680056",
+      "bytes": 3924
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/function_specific_memberships.parquet": {
+      "sha256": "352c803cb0fe8a4f702be8fe99236a0810b87e667a404bc0b6a408b3c8939108",
+      "bytes": 90195647
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/functional_leader_agreement.parquet": {
+      "sha256": "eefccff641be5ddfad5d64e7fcb558f1190c23a3e15f52f6c89864a87a22f161",
+      "bytes": 10988320
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/hierarchy.parquet": {
+      "sha256": "d090bbebd3daffbd9264a4d2cb6e116d4cd9e92b896a054ed2fd82ecbdfbc04b",
+      "bytes": 7342717
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/mass_components.json": {
+      "sha256": "597728f6f130480a1640be45f4051f6c1a6641de1fd87893dfcab79ed383b2e4",
+      "bytes": 5984
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/memberships.parquet": {
+      "sha256": "b443e99467c26038e9ec941be4cc8236a73474b292937c9ef434718fdd31dae5",
+      "bytes": 54206693
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/network_accessibility.parquet": {
+      "sha256": "269572858271a21369ebc15be8ce77796d1023f52dab96dc8a3fa0590e972d3d",
+      "bytes": 17038192
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/nodes.parquet": {
+      "sha256": "bb6af7fb61a16cf9015862c83ff8304b04d3a2418302571162169319c8407a38",
+      "bytes": 61148330
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/operational_type_candidates.parquet": {
+      "sha256": "144667069505e7cc9431e57fb4474f37b240181f0fed6af7a3b714c7c6ab4fe1",
+      "bytes": 19719
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/output_manifest.json": {
+      "sha256": "6a954368754440989595b0ec6036d398b7e4b2928856cab8be1209f21b28ac77",
+      "bytes": 3784
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/own_mass_components.parquet": {
+      "sha256": "31912fa37a0068a62aea9160976ebe528ab248def780b3a0cf3adbf843d97b56",
+      "bytes": 12239647
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/population_balances.csv": {
+      "sha256": "3485e835f5f016fb881d36c6ba1e35b17c8c41568b37de0bf7e4046aa26688a8",
+      "bytes": 926
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/primary_source_supported_systems_sensitivity.parquet": {
+      "sha256": "98a56bea582f003922eb878c3cc146de1b6853c01db48045949a3e07aec8d2d3",
+      "bytes": 729100
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/primary_source_supported_types_sensitivity.parquet": {
+      "sha256": "08894d95e442b059da1391dec8ced4c98f05bb2e7ab6f54eb6ce170f3a27591c",
+      "bytes": 380846
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/rank_mass_profile_completeness.csv": {
+      "sha256": "59df60b78e0b84a5e9a810461e0ff6e23d5c9efc818f8d51ab99161379501361",
+      "bytes": 1356
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/run_receipt.json": {
+      "sha256": "89cc0901dd0d0a2715f7a82524f4670566389840c76877d2e7bd1895f11adf18",
+      "bytes": 50949
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/system_configurations.parquet": {
+      "sha256": "308d586e1a0555a48ba68a3270aae834f3f161eb83b8caca08d5fd0f8b821e12",
+      "bytes": 406157
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/systems.parquet": {
+      "sha256": "311b5eea6e8118c3da6e0a6389c9334beef93b28f36191696985d7929a352a4a",
+      "bytes": 1974289
+    },
+    "research/sgrt_word_completion_20261021/model/output_2021_restricted_inclusive/word_type_hypotheses.parquet": {
+      "sha256": "01503bd5efdaab59dd837078c189d22b6b50dabf2426c71d6bd7d392d020f246",
+      "bytes": 955412
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/candidate_centers.parquet": {
+      "sha256": "971b6d48044465ebcd8b4bec71b86113cbb65aff4a8377819940a9349c58f820",
+      "bytes": 832333
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/demographic_source_recovery_sensitivity.parquet": {
+      "sha256": "1a17e9bbc18c6abcc0b01b7ddb352f7da3b138ae9f58a26654fc30f0f24d92d3",
+      "bytes": 680778
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/empirical_ranks.json": {
+      "sha256": "8deecbef39d407eedb3d1d2b68b8497b78f05cedb997269a3dc4d32bef629c3a",
+      "bytes": 3896
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/function_specific_memberships.parquet": {
+      "sha256": "f998202e8234efbd72e8837142925a1ef3ccf6cdd4f668ffb81d65e85bd62f9c",
+      "bytes": 90279040
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/functional_leader_agreement.parquet": {
+      "sha256": "b095fda1abf3108f135b7db01e4c34b9eb2fb15e927f9d9b76ba94a82d52097e",
+      "bytes": 10052977
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/hierarchy.parquet": {
+      "sha256": "ba66fcc0c94fbbf89f20e9f4fe58a4bb047f6f6809ba599f2723c49d044d6371",
+      "bytes": 7437416
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/mass_components.json": {
+      "sha256": "7692280f20837cfa12e79f340be2c41f1dacee172b7f15417d8d1dc3b4315a7f",
+      "bytes": 5965
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/memberships.parquet": {
+      "sha256": "5c4c9cbd2764718e9a7192127326d9fa1f9aaf7c1f61eccc98f7743f0ed74414",
+      "bytes": 53671222
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/network_accessibility.parquet": {
+      "sha256": "e378d77aa92335df30145d13baf385127fae25f5457a12bcd7e6de4aec4ea5c9",
+      "bytes": 17001275
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/nodes.parquet": {
+      "sha256": "a30b83f875c74bb07f316fde61c20ad0fa5d9475ea961e2bcf1d5cf731ce540a",
+      "bytes": 61277269
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/operational_type_candidates.parquet": {
+      "sha256": "f6285e7fe1c7ab4771116c24d38f3a2d92a832e17ffaf44dda4f7541e3199ea7",
+      "bytes": 20826
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/output_manifest.json": {
+      "sha256": "112c17634f65444e422cc1d30cf4db997e471b082907865371b1504c71047074",
+      "bytes": 3786
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/own_mass_components.parquet": {
+      "sha256": "20e1198250e3957f821ec9a6dffe12c04d833d5d7bd8d150575a70668fed77d1",
+      "bytes": 11998026
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/population_balances.csv": {
+      "sha256": "18c6d9f1cf611aa897881f6678678baf72a7a896bbbbd1f39fc55d6b4b7f5d83",
+      "bytes": 926
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/primary_source_supported_systems_sensitivity.parquet": {
+      "sha256": "db083fac7bfc9e63fe42936efc7e73d9e56632662dc265bd7335e6c47576c94c",
+      "bytes": 463654
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/primary_source_supported_types_sensitivity.parquet": {
+      "sha256": "72a6e4188b0936be10a394fc109ddbbd5f51ef65754ddb6dcf82f8676fd03775",
+      "bytes": 227912
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/rank_mass_profile_completeness.csv": {
+      "sha256": "fda8d9212b5620c9b3c878b11757d125b14ecc7fa75c6963a1022bb9da91b629",
+      "bytes": 1346
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/run_receipt.json": {
+      "sha256": "ea4d9dfb6a658e1f61641656e6981ce1412f93b2cef6159ff48f1e19a0757a19",
+      "bytes": 58764
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/system_configurations.parquet": {
+      "sha256": "44d8552c0cd6f4e1cd4df4b58f32557aec45236ec093b492e0c6ee7563862666",
+      "bytes": 211982
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/systems.parquet": {
+      "sha256": "8ad69b189fbef079a10e0ba595f12e2e62f02cb4dd7a890124ee82f4b9df270e",
+      "bytes": 1167372
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/word_type_hypotheses.parquet": {
+      "sha256": "514143847efd7c10800d60483962188abf9f0741867f6b65221843c246cac800",
+      "bytes": 507161
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/candidate_centers.parquet": {
+      "sha256": "839aaad3be3ea76e10941529eeb30c2191bd69127841313b647132eb8cdc8db7",
+      "bytes": 1427504
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/demographic_source_recovery_sensitivity.parquet": {
+      "sha256": "9856efcc878ad73cc7f5dc2e43d9fffadc869bc532305f7e1df613ba1f114c06",
+      "bytes": 1188998
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/empirical_ranks.json": {
+      "sha256": "7cd1ff7978b99af995fbb0123f1b6a9f2c61f022b941bc3d7d91b87c639f4331",
+      "bytes": 4278
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/function_specific_memberships.parquet": {
+      "sha256": "352c803cb0fe8a4f702be8fe99236a0810b87e667a404bc0b6a408b3c8939108",
+      "bytes": 90195647
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/functional_leader_agreement.parquet": {
+      "sha256": "0d5aac6fce7b21f058f1f47c07e6c014623a0fb946751f98d3ee5536c99a0e87",
+      "bytes": 10989013
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/hierarchy.parquet": {
+      "sha256": "162ffb05a9c055e0c764a148c3e3fa541330cf3c7f8639e5cf3be2b34e9fc6d2",
+      "bytes": 8940648
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/mass_components.json": {
+      "sha256": "597728f6f130480a1640be45f4051f6c1a6641de1fd87893dfcab79ed383b2e4",
+      "bytes": 5984
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/memberships.parquet": {
+      "sha256": "86155f3fdfa759ffc72bb24b285d9f9235c0046edc89c3ed539300e520096396",
+      "bytes": 54026790
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/network_accessibility.parquet": {
+      "sha256": "929fe08014131d5544ab34a739c5341286375f9d91f812f6c063cf733d49aa7b",
+      "bytes": 16984454
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/nodes.parquet": {
+      "sha256": "ec8182bd84976cd1245b3e18258716f0bb2b1246a907a5ec0fb6b830f63cab34",
+      "bytes": 61780104
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/operational_type_candidates.parquet": {
+      "sha256": "be6c9645279a1f1d50eb4d5cab459b1d932aba74dbcd2ffc3655c1a749045759",
+      "bytes": 20266
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/output_manifest.json": {
+      "sha256": "9d028bfcaafec742aef92f42a2b10a194bd156d02e650fc573b251aa84e393da",
+      "bytes": 3793
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/own_mass_components.parquet": {
+      "sha256": "77e9d1b103a63b4a152b934a934b8b6e1134e01814ce78b20443f58f10e5b7c7",
+      "bytes": 12320917
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/population_balances.csv": {
+      "sha256": "82be05f222827c8f79868d16fce0fbb7fc5793b1128c9ec63a63f8517c9a27a5",
+      "bytes": 1120
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/primary_source_supported_systems_sensitivity.parquet": {
+      "sha256": "4f160c919c6dbb58030da17c263a8a520e26127744987ee546d65051bb78a14b",
+      "bytes": 678892
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/primary_source_supported_types_sensitivity.parquet": {
+      "sha256": "43e0a343b0406b92f128c803b8c49a2d00756d6a8f86be28944a03919fff7ac9",
+      "bytes": 349099
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/rank_mass_profile_completeness.csv": {
+      "sha256": "9e61c5e97be875d20fa84f6208d3ddf707cdf1a42ddcb16b4bef99bbd5a71cdc",
+      "bytes": 1549
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/run_receipt.json": {
+      "sha256": "2e4373f836d49005a14e4759937ac54f183064f4aecc63407070a8ba8545930a",
+      "bytes": 68075
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/system_configurations.parquet": {
+      "sha256": "6deb1694d9544fe711b416f2fb3f78b883a23b5c542e5f14760377453f5a3225",
+      "bytes": 402912
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/systems.parquet": {
+      "sha256": "e86599a992d42aeaa0d3719aa10a6780748844fa7dfb4cf6ea50f1ce7284161f",
+      "bytes": 1903102
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_inclusive/word_type_hypotheses.parquet": {
+      "sha256": "773762de621aab8ddfd1809b0bdb19090769f22e9f56668e4b49ee66f6d93fb8",
+      "bytes": 910087
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/candidate_centers.parquet": {
+      "sha256": "971b6d48044465ebcd8b4bec71b86113cbb65aff4a8377819940a9349c58f820",
+      "bytes": 832333
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/demographic_source_recovery_sensitivity.parquet": {
+      "sha256": "1cd42d545663328aa694974ba4aa6d79272ae25a9d303629d4ffc0f0f41bc324",
+      "bytes": 674969
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/empirical_ranks.json": {
+      "sha256": "8deecbef39d407eedb3d1d2b68b8497b78f05cedb997269a3dc4d32bef629c3a",
+      "bytes": 3896
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/function_specific_memberships.parquet": {
+      "sha256": "b805087e3312f89bfaf70605812c94c0d2ea642ed229b68c6ece762c1bf31300",
+      "bytes": 92521228
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/functional_leader_agreement.parquet": {
+      "sha256": "c02bcdd11ae0a8a01eec3cf66b948ede7e2d0a7af07b06f3c8f33d67f24b7a24",
+      "bytes": 11702530
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/hierarchy.parquet": {
+      "sha256": "c645a06c727089ac56966e83069ab8bf229a3dda914010a9c87ab78b13dcf99e",
+      "bytes": 634465
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/mass_components.json": {
+      "sha256": "7692280f20837cfa12e79f340be2c41f1dacee172b7f15417d8d1dc3b4315a7f",
+      "bytes": 5965
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/memberships.parquet": {
+      "sha256": "21526a0662c06e3c717390a352d4388a2a3c920330b17a261b5a0dc371011aaa",
+      "bytes": 54350272
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/network_accessibility.parquet": {
+      "sha256": "e378d77aa92335df30145d13baf385127fae25f5457a12bcd7e6de4aec4ea5c9",
+      "bytes": 17001275
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/nodes.parquet": {
+      "sha256": "a30b83f875c74bb07f316fde61c20ad0fa5d9475ea961e2bcf1d5cf731ce540a",
+      "bytes": 61277269
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/operational_type_candidates.parquet": {
+      "sha256": "81aba909c1fdf503b3733c19f200026b7b7ce7a4bb1346f94862c86b5b729c18",
+      "bytes": 23569
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/output_manifest.json": {
+      "sha256": "7ac2ef588cf1106b66ece8a23dee774ea20a06590cd97f866bb89c00dd405ca3",
+      "bytes": 3783
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/own_mass_components.parquet": {
+      "sha256": "20e1198250e3957f821ec9a6dffe12c04d833d5d7bd8d150575a70668fed77d1",
+      "bytes": 11998026
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/population_balances.csv": {
+      "sha256": "d3e7501a63af942ccc6bda56269324501fd8e4264f1a8d01a71e681f46d1752d",
+      "bytes": 918
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/primary_source_supported_systems_sensitivity.parquet": {
+      "sha256": "82f6c7e3f55a19e0d81028563b2c19ec877c080c11f153da56af97ffc2aec316",
+      "bytes": 372889
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/primary_source_supported_types_sensitivity.parquet": {
+      "sha256": "41afbbb26dd2b579def2a0e44a862fc896c408e94188dc23071d492ba76c6dd0",
+      "bytes": 183741
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/rank_mass_profile_completeness.csv": {
+      "sha256": "fda8d9212b5620c9b3c878b11757d125b14ecc7fa75c6963a1022bb9da91b629",
+      "bytes": 1346
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/run_receipt.json": {
+      "sha256": "47312bcbf3d0704af29a6687ce67f8d81e1277ffc6194a2219d12460008d8d91",
+      "bytes": 58750
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/system_configurations.parquet": {
+      "sha256": "6d673ef30d5fd2fe8b802577faa66f04bb6b4445f56d498351d7b238ce80e812",
+      "bytes": 215140
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/systems.parquet": {
+      "sha256": "dd22941b6106cd633dde9fc8c5491b921ae6eecc224b4d82d87c3385c17d7d8f",
+      "bytes": 1206319
+    },
+    "research/sgrt_word_completion_20261021/model/output_word_ci_2021_p0_sensitivity/word_type_hypotheses.parquet": {
+      "sha256": "551dee31b6b81d7e4d1a5177a046157ce6be51455f806fbcc3a314233bad4b3f",
+      "bytes": 489422
+    },
+    "research/sgrt_word_completion_20261021/model/prepare_word_ci.py": {
+      "sha256": "60588624e761e58199720124f7ec491fd2a24e66d4267cfcaaf5e5b7c76acfb2",
+      "bytes": 7780
+    },
+    "research/sgrt_word_completion_20261021/model/prepare_word_ci_config.py": {
+      "sha256": "811aa7ba67502341531967db1ad45831e18373951c063d28f9a729579212c6fd",
+      "bytes": 4433
+    },
+    "research/sgrt_word_completion_20261021/model/recompute_choice_edges.py": {
+      "sha256": "ba01a807e74c7812e37226488a79070573875969a7f3f2900d2ddb3d776a59d6",
+      "bytes": 4135
+    },
+    "research/sgrt_word_completion_20261021/model/run_selected_word_model.py": {
+      "sha256": "a301a52e4af0ca82e8a6f885772e1222ddc64420343f321bf5c1be98c263f0c1",
+      "bytes": 1054
+    },
+    "research/sgrt_word_completion_20261021/model/run_synthetic_full_check.py": {
+      "sha256": "54e751e0f6aeb1b7edabee2a92a6c1040bbc1fd2a303cef436de27f00b04e8f6",
+      "bytes": 5979
+    },
+    "research/sgrt_word_completion_20261021/model/run_word_model.py": {
+      "sha256": "f79fe894e55e6047eda2d823b806ba2e021643e552b66a5d98a4182705b666e3",
+      "bytes": 75107
+    },
+    "research/sgrt_word_completion_20261021/model/test_word_model.py": {
+      "sha256": "6f04ca2f0b350759fee57fc008e599e66f25ecf903153f32bff144c5290e1560",
+      "bytes": 17294
+    },
+    "research/sgrt_word_completion_20261021/model/word_ci_provisional_observed2021/provisional_all_center_memberships.parquet": {
+      "sha256": "8c99d9ee2331fc4ecb6dc99221307544bfb41bc4f24d07aa01117961e6047094",
+      "bytes": 45500049
+    },
+    "research/sgrt_word_completion_20261021/model/word_ci_provisional_observed2021/receipt.json": {
+      "sha256": "519b9f69bd2dcdf3ce9ef7fae862b5f3eda07643d6de8f619dba58408a41cbbc",
+      "bytes": 61811
+    },
+    "research/sgrt_word_completion_20261021/model/word_ci_provisional_observed2021/word_ci_center_features.parquet": {
+      "sha256": "9efd79ec5ce3e990abe19a7838284734ec3722b159cde50339b132ce91517221",
+      "bytes": 398440
+    },
+    "research/sgrt_word_completion_20261021/model/word_ci_provisional_observed2021_inclusive/provisional_all_center_memberships.parquet": {
+      "sha256": "edf0d15efb3638f4155d41584b9b751c238a7943b8bdac0ec55d407e9199bac6",
+      "bytes": 45462923
+    },
+    "research/sgrt_word_completion_20261021/model/word_ci_provisional_observed2021_inclusive/receipt.json": {
+      "sha256": "28240744eedcd2813e47d4b9ecf6f790399e545fe999bc0a916b3b9f73739ef2",
+      "bytes": 61822
+    },
+    "research/sgrt_word_completion_20261021/model/word_ci_provisional_observed2021_inclusive/word_ci_center_features.parquet": {
+      "sha256": "bdd8a934e1af84d655d9a4342af87747080e8eeb330b2767fad3574fd8fdd48a",
+      "bytes": 705843
+    },
+    "research/sgrt_word_completion_20261021/model/write_output_manifest.py": {
+      "sha256": "a5ca3cdc5b072bdf11acaa3b4a77396357aa4148201bc1ab3137bde183ad45ee",
+      "bytes": 1969
+    },
+    "research/sgrt_word_completion_20261021/reviews/empirical_ci_ranks_independent_audit.json": {
+      "sha256": "a657985066f4ddd3339c09a346a236dc143c3dfa9fc6a8dcadcd1d6c3ee3a0d1",
+      "bytes": 2840
+    },
+    "research/sgrt_word_completion_20261021/reviews/gis_delivery_independent_audit.json": {
+      "sha256": "5838531d830a7342274c9d6fa87102ee84281ae90ae643840af55ebbd001cf99",
+      "bytes": 7161
+    },
+    "research/sgrt_word_completion_20261021/reviews/native2021_frame_independent_audit.json": {
+      "sha256": "dce97d66356a99abe77f877eb244e80d483ca8b7e83a217058dbfc8e36358630",
+      "bytes": 1188
+    },
+    "research/sgrt_word_completion_20261021/reviews/original_word_source.txt": {
+      "sha256": "40b7ba0e5ded5f0f43db9812e8f90797a87bbc80a78a136f0bb2b71f63c610c0",
+      "bytes": 40800
+    },
+    "research/sgrt_word_completion_20261021/reviews/output_word_ci_2021_baseline_huff_independent_sample.json": {
+      "sha256": "fe08203c22bc02f367d20c857eff2dcd28db483cb564f51f92771fa7f3d13ca1",
+      "bytes": 19661
+    },
+    "research/sgrt_word_completion_20261021/reviews/output_word_ci_2021_baseline_independent_audit.json": {
+      "sha256": "cd4270e859a57385f502b6f9276015054d05f1b40502373db0c336556ee539b5",
+      "bytes": 13768
+    },
+    "research/sgrt_word_completion_20261021/reviews/output_word_ci_2021_baseline_literal_typology_independent_audit.json": {
+      "sha256": "e7e8311992ddf2dfa6070d60e4611b28eb2a2905db75cd08d2e3587be7e8303b",
+      "bytes": 109675
+    },
+    "research/sgrt_word_completion_20261021/reviews/regression_independent_audit.json": {
+      "sha256": "3e9cb920f77f7550dd58cbac44db3d97f794cecf2c60603e29d333041e102b9a",
+      "bytes": 46825
+    },
+    "research/sgrt_word_completion_20261021/reviews/word_ci_frame_independent_audit.json": {
+      "sha256": "b1b8fbb46718b88842c1732394a28c5b09ea68b62ad27f4a3a383fc1de96eb91",
+      "bytes": 2212
+    },
+    "research/sgrt_word_completion_20261021/reviews/word_ci_inclusive_frame_independent_audit.json": {
+      "sha256": "02aa7a095dc85ff009f7e4177069b3e33c5be305f8fe4388eae04902ff992b37",
+      "bytes": 2242
+    },
+    "research/sgrt_word_completion_20261021/reviews/word_ci_inclusive_road_extension_independent_audit.json": {
+      "sha256": "322c264a14267791a6be4579ea145ecdec48222955163ee416dda87229854dac",
+      "bytes": 3336
+    },
+    "research/sgrt_word_completion_20261021/reviews/word_ci_road_extension_independent_audit.json": {
+      "sha256": "1ee76c73210197be9e3247105e5d0e7afedccdf69f67c4f22fad11e833954d10",
+      "bytes": 3833
+    },
+    "research/sgrt_word_completion_20261021/reviews/wordci_main_map_visual_review.json": {
+      "sha256": "95c633bf5f5896b87a20e946c984f16fbab7cc1d58761e6cbcb644f83ac61a80",
+      "bytes": 2918
+    },
+    "research/sgrt_word_completion_20261021/transport/access_profile_precedence_audit.json": {
+      "sha256": "c43e66c0495a0cffb85a6fda547602bf9b080d4e4746d8d91c3f7da852454e55",
+      "bytes": 10019
+    },
+    "research/sgrt_word_completion_20261021/transport/access_repair_receipt.json": {
+      "sha256": "62ff2b9cc453e00d36f92fed4f2b46e1ccaa0c4201821368e7c1f790d6266d91",
+      "bytes": 81294
+    },
+    "research/sgrt_word_completion_20261021/transport/archive_url_probe.json": {
+      "sha256": "7ac3bac35c007e57abc9f3c8f099167c95b2be568968e7fd30f9cdad6f0b7414",
+      "bytes": 987
+    },
+    "research/sgrt_word_completion_20261021/transport/candidate_travel_times_manifest.json": {
+      "sha256": "919e7735e20adf54c63d183485d224cec2cf833d8629edb141c4174f7a1fbc34",
+      "bytes": 56009
+    },
+    "research/sgrt_word_completion_20261021/transport/checkpoint_reuse_compatibility.json": {
+      "sha256": "1449b6868ab7645c72142852938ad291322f048afd8ccce982612b0062d6aa9e",
+      "bytes": 814
+    },
+    "research/sgrt_word_completion_20261021/transport/compact_encoding_probe.json": {
+      "sha256": "9e9bd3d35af7ced0fb5d72866a965ae38ed78f16b7dc2c3541036a30966b5309",
+      "bytes": 363
+    },
+    "research/sgrt_word_completion_20261021/transport/compression_receipt.json": {
+      "sha256": "1e4af04802f499f6b8af413fc5cc1ce9b1f3af13f177e6c773d3dc632c0159b0",
+      "bytes": 339
+    },
+    "research/sgrt_word_completion_20261021/transport/context_poi_receipt.json": {
+      "sha256": "1b6f1ed807c5fb7e7c03417266098a8620b4033e6969a76fb6defe5e3558d722",
+      "bytes": 545
+    },
+    "research/sgrt_word_completion_20261021/transport/cpp_route_smoke_check.json": {
+      "sha256": "0c9f7da02607e0d41e10ecd69a914c51c687986f70abe3ec4a46e05cf905930f",
+      "bytes": 310
+    },
+    "research/sgrt_word_completion_20261021/transport/download_receipt.json": {
+      "sha256": "84270dfc5f3afa9022861dd6ee0b39cb0e26b1e3f0da65e258b1bf2f311138a2",
+      "bytes": 54939
+    },
+    "research/sgrt_word_completion_20261021/transport/durable_delivery_receipt.json": {
+      "sha256": "70b7629362214ff3cb9f3a4abb205e2cd77abfb957fb25280f593c311bd38ddc",
+      "bytes": 267
+    },
+    "research/sgrt_word_completion_20261021/transport/extraction_receipt.json": {
+      "sha256": "ab35843679db29adfc0960edc71f62557db24e12fc6f91ee16afe249c3b5fbd0",
+      "bytes": 1298
+    },
+    "research/sgrt_word_completion_20261021/transport/federal_context_alias_receipt.json": {
+      "sha256": "67ac9893d1746f5c4fb96e7fc50eace8f236b8697bf0cb51a16d0937b0c3e9e3",
+      "bytes": 636
+    },
+    "research/sgrt_word_completion_20261021/transport/ferry_connectivity_receipt.json": {
+      "sha256": "c370f89814ccb37d4b5055cf7e4051e1092d7155eb95ae71c7c4cb3464676cf5",
+      "bytes": 602
+    },
+    "research/sgrt_word_completion_20261021/transport/graph_receipt.json": {
+      "sha256": "2b4965038ce682fe8d561edc56c53b0301a0e8e457be9b6fd82b841bd1854292",
+      "bytes": 507
+    },
+    "research/sgrt_word_completion_20261021/transport/isochrone_receipt.json": {
+      "sha256": "867ff1cb03e13b84e6f278f072c065575bceac4a36f6a956b39aa769e5d8e0e4",
+      "bytes": 2879
+    },
+    "research/sgrt_word_completion_20261021/transport/matrix_storage_size_probe.json": {
+      "sha256": "4c210c83aabfe1c7b8a535fa17d3c195b45cff545ca350a3eadb2de1b44db959",
+      "bytes": 96
+    },
+    "research/sgrt_word_completion_20261021/transport/matrix_verification.json": {
+      "sha256": "eeac291ea482cf4b8706b2a0b317cbf35dfdc5ca5444addf2566a2707369a4f7",
+      "bytes": 2753
+    },
+    "research/sgrt_word_completion_20261021/transport/osm_header.json": {
+      "sha256": "86bfc560ee3bb198b8d564852acea98b250dc29faa965038ffee3d944b590bd1",
+      "bytes": 206
+    },
+    "research/sgrt_word_completion_20261021/transport/poi_manifest.json": {
+      "sha256": "c92ee08411c5549e94dc1f47a733fe1c7e650b212e941968f29d6f5362cb3d4f",
+      "bytes": 3449
+    },
+    "research/sgrt_word_completion_20261021/transport/reconstruction_smoke_check.json": {
+      "sha256": "913335d1f8f1c388355c078e5c8bc4ca40dd6b2f97164dc65970c97fad9ef37e",
+      "bytes": 316
+    },
+    "research/sgrt_word_completion_20261021/transport/road_temporal_conditions_audit.json": {
+      "sha256": "134d25f90fad27faf5e4a2337df00b7e39a6d8fcfec11cf2a0020806dc941290",
+      "bytes": 49012
+    },
+    "research/sgrt_word_completion_20261021/transport/routing_benchmark100_receipt.json": {
+      "sha256": "44b4453c62b7dbf0fb63cf095e4fba5a510360e324e087a8cb6add99cf162b76",
+      "bytes": 1707
+    },
+    "research/sgrt_word_completion_20261021/transport/routing_initial_execution.json": {
+      "sha256": "98ff056a7dc3c5a48f8b633da556f9125033866ef6aef7be328c3ae0ae98e707",
+      "bytes": 589
+    },
+    "research/sgrt_word_completion_20261021/transport/routing_receipt.json": {
+      "sha256": "7c9a7397e21c54db00bb59295ccb6d7124103148239b87235ff708e8423a4791",
+      "bytes": 3353
+    },
+    "research/sgrt_word_completion_20261021/transport/snap_receipt.json": {
+      "sha256": "4422b8e9a6e03bde28818a9607424539244f3c410c5a3f003dbabff0e78506d2",
+      "bytes": 617
+    },
+    "research/sgrt_word_completion_20261021/transport/source_probe.json": {
+      "sha256": "a2cf4aa1889212dc0ac36984c1bc7f6690b8faba2549e1dce6841fc7d15d6c08",
+      "bytes": 7279
+    },
+    "research/sgrt_word_completion_20261021/transport/temporary_storage_cleanup.json": {
+      "sha256": "3e6ed0fdea0b45226650b189d5427d4352efb3246e27e63bbb74761053080347",
+      "bytes": 624
+    },
+    "research/sgrt_word_completion_20261021/transport/transport_coverage_receipt.json": {
+      "sha256": "c4599f6a361f36f9fcb4c2402ee706d4cc851611b6a91098839df4603dad66f4",
+      "bytes": 721
+    },
+    "research/sgrt_word_completion_20261021/transport/validation_routing_receipt.json": {
+      "sha256": "16f7a74a62575630ebbfc4fe8f080272ed0e45d66b50fa9eedcb196d9ca2f5f6",
+      "bytes": 1028
+    },
+    "research/sgrt_word_completion_20261021/transport/word_ci_extension360/candidate_travel_times_manifest.json": {
+      "sha256": "c94a5970b733ea54436dfd050bbd769b023106af585cf971968c76205a278d0a",
+      "bytes": 57289
+    },
+    "research/sgrt_word_completion_20261021/transport/word_ci_extension360/federal_context_alias_receipt.json": {
+      "sha256": "67ac9893d1746f5c4fb96e7fc50eace8f236b8697bf0cb51a16d0937b0c3e9e3",
+      "bytes": 636
+    },
+    "research/sgrt_word_completion_20261021/transport/word_ci_extension360/matrix_verification.json": {
+      "sha256": "61699f3712821fe75e8ba0b29026567fc508da45313bfbe474f1a9bca92c09fb",
+      "bytes": 5526
+    },
+    "research/sgrt_word_completion_20261021/transport/word_ci_extension360/routing_receipt.json": {
+      "sha256": "759f9b2c6ebb346b714a93ad754a212a181e1d2c90d4514376c6665134ed90d4",
+      "bytes": 5061
+    },
+    "research/sgrt_word_completion_20261021/transport/word_ci_inclusive_extension360/candidate_travel_times_manifest.json": {
+      "sha256": "403e2fe52160b8fcb51f5214b4a0b2405f017456e04f23c23275d1aeadcd6a63",
+      "bytes": 63855
+    },
+    "research/sgrt_word_completion_20261021/transport/word_ci_inclusive_extension360/federal_context_alias_receipt.json": {
+      "sha256": "67ac9893d1746f5c4fb96e7fc50eace8f236b8697bf0cb51a16d0937b0c3e9e3",
+      "bytes": 636
+    },
+    "research/sgrt_word_completion_20261021/transport/word_ci_inclusive_extension360/matrix_verification.json": {
+      "sha256": "0e5b5c87234b05919dc8be3f4857cd0344f1ba18533d64d8bc08512cdf4c7536",
+      "bytes": 11756
+    },
+    "research/sgrt_word_completion_20261021/transport/word_ci_inclusive_extension360/routing_receipt.json": {
+      "sha256": "475cada99cb86ea1940af9a6e018946d5e5e1b2df2053292956ac2752c3e55bc",
+      "bytes": 5197
+    },
+    "research/sgrt_word_completion_20261021/transport/yearround_profile_receipt.json": {
+      "sha256": "15a1b0faefbf7e06093c825a213e605f16e9b20415c60a3030c5b1f4782ac35d",
+      "bytes": 653
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_baseline/broad_prototypes.parquet": {
+      "sha256": "7522524186ba714c1dd84451cb9697832fbdc6b761c95d0a4fec528743a7d2fb",
+      "bytes": 23036
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_baseline/manifest.json": {
+      "sha256": "243a1eb353d99f97b1b8ba202035e3d3ff137f9bdb1617778ee83622e2bdad8f",
+      "bytes": 1042
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_baseline/operational_type_candidates.parquet": {
+      "sha256": "f86d9d66c5f9f17a3f6ce130331a38d9198e000bc9d97d49ec864b5c84a59932",
+      "bytes": 25670
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_baseline/receipt.json": {
+      "sha256": "a356ec09f361a6c2bf5faf721887669acd37246a344c9e6dcf2f40ac54502f77",
+      "bytes": 49370
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_baseline/recreation_location_sensitivity.parquet": {
+      "sha256": "53250bc1a5bd8099a578af764a747c8a18f82f80da2ab6de6f5c2c1a86e29e86",
+      "bytes": 5978
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_baseline/word_type_hypotheses.parquet": {
+      "sha256": "cb3c7f233768879574a34a592e033d74e65f4a5f0fc394435b505e135d976999",
+      "bytes": 677022
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_inclusive/broad_prototypes.parquet": {
+      "sha256": "c12836045015a1d1e04b173c65f75497edc22848f86b30c62184729656368dda",
+      "bytes": 22435
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_inclusive/manifest.json": {
+      "sha256": "111d268de97165710e37081e5b9f0a872b0f81f053460ac3421a1e01d94145f6",
+      "bytes": 1043
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_inclusive/operational_type_candidates.parquet": {
+      "sha256": "e94c0604b7b4170078bdc16ec2425112bc07efbbd0dccc952ee76166486309fe",
+      "bytes": 24093
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_inclusive/receipt.json": {
+      "sha256": "737289ce9378684e1b41867f7d869ef28b588ab0ef5fce3887896dfff62fc5ae",
+      "bytes": 49584
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_inclusive/recreation_location_sensitivity.parquet": {
+      "sha256": "101c737516c3931d62de10ac993ce1fa7bed9dc93f91565a194064134a615650",
+      "bytes": 5710
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_inclusive/word_type_hypotheses.parquet": {
+      "sha256": "dc1c29c98523edad792f1545fca562af96d5b3419d16a4ca10800152f70bba43",
+      "bytes": 1221927
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_p0_sensitivity/broad_prototypes.parquet": {
+      "sha256": "0adc605deceb6e1083285aa7667e2a411d31356c622dadf733a0613d1bfe22d7",
+      "bytes": 26070
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_p0_sensitivity/manifest.json": {
+      "sha256": "791f1cac9c1664d7fd057e8b818c4b172d262522eb84985e1b4aa9ae3af6e5f3",
+      "bytes": 1042
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_p0_sensitivity/operational_type_candidates.parquet": {
+      "sha256": "a0c0a6f8e7c1b07b5d83984648a8f07b3004035f80b7e8a3ac68088e0770da75",
+      "bytes": 26602
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_p0_sensitivity/receipt.json": {
+      "sha256": "c3cfd352814097e032abf09b88d876af82d874b790c65bca68196efc0b7a0e36",
+      "bytes": 49434
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_p0_sensitivity/recreation_location_sensitivity.parquet": {
+      "sha256": "ec4e2399b9c60d47ca377072518043e5d2a95245f39668f0c687be61ac70fe14",
+      "bytes": 7617
+    },
+    "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_p0_sensitivity/word_type_hypotheses.parquet": {
+      "sha256": "c8517707d60c82a3d4fe35142620f12b6614c21b7898c697ff4aea4e5f84a835",
+      "bytes": 635487
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_acquisition_final_candidates.json": {
+      "sha256": "991f9b8097edbd0b3a71dfc75e17ce83ccca3a84d9fd0bfc1e8f500b2fd48c6e",
+      "bytes": 1805
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_acquisition_followup.json": {
+      "sha256": "d3e6833324ab717db56dffa8cb88edb1375c72c40d8d5e01ae781112f79a688d",
+      "bytes": 6781
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_acquisition_initial.json": {
+      "sha256": "291e7eaada785e18315f13b04ec770219427ab303bcdbac2dbc3a987ac623b4e",
+      "bytes": 1113
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_address_enriched_linkage_sidecar.parquet": {
+      "sha256": "0ec9f3c3d5a753384ab9996f505451349ae8b9bad6b0708173415401b621b225",
+      "bytes": 46501
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_address_feasibility_receipt.json": {
+      "sha256": "9b286aa4fbba55bef0cfba63267a2b49d5a0a6336851cd4e793cb9ce61e86427",
+      "bytes": 2402
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_address_integration_checks.json": {
+      "sha256": "095ff720393742b0be62c2772b4cefda7ffaf18714c7c17d36bd4c4f7205948b",
+      "bytes": 199
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_address_join_sourcecells.parquet": {
+      "sha256": "77cf4c6f6d942770d20df5b7587897b999776a915ded174964fc43091fa0a861",
+      "bytes": 22691
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_all_table_schemas.json": {
+      "sha256": "9f54411f2c82c191efbaa86112e6d7db57e7c37d923d5f096947c01fe6e42c20",
+      "bytes": 75519
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_attachment_rows.csv": {
+      "sha256": "6ba565b7e56f65bf7925be732cc3b3a835c1413a2d3acbfeab10392002760c8e",
+      "bytes": 631920
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_attachment_rows.parquet": {
+      "sha256": "29de4668bec92c7807dabb3eca24f7d03a2f0ace2c03eda203067efc0b80fc87",
+      "bytes": 80062
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_healthcare_presence_review.csv": {
+      "sha256": "91594ad10b7bd81d6280756a79f35221f662436824452d4568a970b0a2512994",
+      "bytes": 4779
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_healthcare_presence_review.json": {
+      "sha256": "57fbc1c6b20fd18e8062d59677d0186c1b6790c753b9ed330043d52b157e2c63",
+      "bytes": 3121
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_independent_source_review.csv": {
+      "sha256": "4c22c631c6f68887141b2b696f9fc6a205f74fa695a23e49b760c9bd4e1a4bef",
+      "bytes": 52540
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_independent_source_review.json": {
+      "sha256": "370694ed3b0367d009c1e27024c78f485b6cedd304847d9b483710ddcbec527d",
+      "bytes": 13816
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_model_freeze_receipt.json": {
+      "sha256": "63a6e4fa23525a5e54b6b8181403a3cbdca909dd3dcabb1c2c7cd97850d1157f",
+      "bytes": 682
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_official_last_route_acquisition.json": {
+      "sha256": "08693dfe3c53fefc5ff9709efd9a1e4db17d486db70d04c1f88a3c0049b2d4ce",
+      "bytes": 1331
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_official_pravo_acquisition.json": {
+      "sha256": "c80213c446f2d2738051ee8a421b4fcb9b46c10e6382f85e353b12042a4994c2",
+      "bytes": 1305
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_protocol.json": {
+      "sha256": "0d08f16114e5dd7438289133b5c5a68fef72c49eb3e38604b8b236fe8a1daf47",
+      "bytes": 1341
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_raw_row_ledger.parquet": {
+      "sha256": "168d61f09de30caae76f10d1d43bf5b7a2a211e5eda4604471a372c74e36cbce",
+      "bytes": 49512
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_same_document_address_inventory.parquet": {
+      "sha256": "c743ab12a6005b66ae58527e94694e2fa2336c75d6d2d24e4aa4ab7d9e2f215a",
+      "bytes": 100702
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_source_freeze_receipt.json": {
+      "sha256": "0c0acdf57df0dd97c085c7a32c8631163615a57e946fc30c740663b01beec717",
+      "bytes": 2400
+    },
+    "research/sgrt_word_completion_20261021/validation/holdout2021_sourceclass_amendment.json": {
+      "sha256": "996d388d76df785d6de677e87156a8c9ca4b753da97dc0e53a649d1f39c4e1f8",
+      "bytes": 1151
+    }
+  },
+  "scientific_final_allowed": false,
+  "open_scientific_limits": [
+    "Observed national functional trips and service capacities/programs incomplete",
+    "Historical municipal and settlement boundary equivalence unproven",
+    "118244secondary2010values remain scope-unverified",
+    "Exact Russianbonitet unavailable; atlasintervals experimental",
+    "Prospective2021 source review accepted0externalpairs in40reviewed rows;602not independently reviewed, additional39joins pending",
+    "Road2026proxy and mixed functional dates; contemporary2021Mi/Ci creates outcome dependence"
+  ]
+}
