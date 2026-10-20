@@ -1,0 +1,131 @@
+{
+  "model_output": "research/sgrt_word_completion_20261021/model/output_2021_restricted_baseline",
+  "axis": "research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet",
+  "context_directory": "research/sgrt_word_completion_20261021/context",
+  "minimum_weighted_feature_coverage": 0.8,
+  "minimum_sample": 80,
+  "minimum_regions": 10,
+  "cv_folds": 5,
+  "seed": 20261021,
+  "moran_permutations": 499,
+  "moran_neighbors": 8,
+  "rural_excluded_types": [
+    "город",
+    "пгт",
+    "посёлок городского типа",
+    "рабочий посёлок"
+  ],
+  "rural_features": {
+    "rural_road_minutes": {
+      "table": "network_accessibility.parquet",
+      "field": "nearest_higher_urban_network_minutes",
+      "unit": "modeled shortest-path minutes, contemporary graph"
+    },
+    "rural_suburban_share": {
+      "table": "network_accessibility.parquet",
+      "field": "network_suburban_30_60_minutes",
+      "unit": "population-weighted share within60min, not commuting"
+    },
+    "agro_grain_yield2010": {
+      "table": "municipal_settlement_features.parquet",
+      "field": "context_grain_yield_centner_per_ha_2010",
+      "unit": "centner/harvestedha,source-reported2010 municipalcontext via2021stablebridge; historicalboundaryequivalenceunproven"
+    },
+    "sat_normal": {
+      "table": "climate_settlement_features.parquet",
+      "field": "climate_gaez_sat_above10_cday_1981_2010",
+      "unit": "degC*days, daily-derived climate normal1981-2010"
+    },
+    "summer_moisture_normal": {
+      "table": "climate_settlement_features.parquet",
+      "field": "climate_gaez_summer_precipitation_over_pet_1981_2010",
+      "unit": "P/PET April-September,1981-2010normal"
+    },
+    "soil_rating_midpoint": {
+      "table": "soil_settlement_features.parquet",
+      "fields": [
+        "soil_gaez_low_input_most_limiting_rating_class_rating_lower",
+        "soil_gaez_low_input_most_limiting_rating_class_rating_upper"
+      ],
+      "unit": "0..1 classinterval midpoint;low-inputmaize soil quality,not Russianbonitet"
+    },
+    "sown_farmland2008_source_harmonized": {
+      "table": "municipal_settlement_features.parquet",
+      "field": "context_sown_share_of_farmland_source_harmonized_usable_2008",
+      "unit": "ratio0..1;retrospective code geography, sensitivity only"
+    },
+    "sown_farmland2010_strict": {
+      "table": "municipal_settlement_features.parquet",
+      "field": "context_sown_share_of_farmland_usable_2010",
+      "unit": "ratio0..1;missing retained,excluded fromprimarymodels"
+    },
+    "bonitet_experimental_lower": {
+      "path": "research/sgrt_word_completion_20261021/soil_bonitet_recovery/experimental_bonitet_settlement_intervals.parquet",
+      "table": "experimental_bonitet_settlement_intervals.parquet",
+      "field": "soil_bonitet_atlas_experimental_interval_lower",
+      "unit": "Atlas1:30M soil district interval bound;experimental nonblind georeference,notadopted;notNPmeasurement"
+    },
+    "bonitet_experimental_upper": {
+      "path": "research/sgrt_word_completion_20261021/soil_bonitet_recovery/experimental_bonitet_settlement_intervals.parquet",
+      "table": "experimental_bonitet_settlement_intervals.parquet",
+      "field": "soil_bonitet_atlas_experimental_interval_upper",
+      "unit": "Atlas1:30M soil district interval bound;experimental nonblind georeference,notadopted;notNPmeasurement"
+    }
+  },
+  "model_terms": {
+    "M1": [
+      "log_own_mass2021",
+      "log_baseline_system_population2010",
+      "log_rural_road_minutes"
+    ],
+    "M2": [
+      "log_own_mass2021",
+      "log_baseline_system_population2010",
+      "log_rural_road_minutes",
+      "log_agro_grain_yield2010",
+      "sat_normal",
+      "summer_moisture_normal",
+      "soil_rating_midpoint"
+    ],
+    "M3": [
+      "log_own_mass2021",
+      "log_baseline_system_population2010",
+      "log_rural_road_minutes",
+      "log_agro_grain_yield2010",
+      "sat_normal",
+      "summer_moisture_normal",
+      "soil_rating_midpoint",
+      "polycentric_potential",
+      "configuration_ambiguity",
+      "rural_suburban_share",
+      "mass_x_suburban",
+      "yield_x_polycentric"
+    ]
+  },
+  "primary_population_quality_2010": [
+    "direct_published_census_value",
+    "reviewed_primary_reported_value",
+    "reviewed_primary_source_value_or_null",
+    "direct_official_city_value",
+    "fresh_primary_r5_source",
+    "reviewed_primary_source_child_partition"
+  ],
+  "primary_population_quality_2021": [
+    "direct_published_census_value",
+    "reviewed_primary_reported_value",
+    "reviewed_primary_source_value_or_null",
+    "direct_official_city_value",
+    "fresh_primary_r5_source",
+    "reviewed_primary_source_child_partition"
+  ],
+  "secondary_population_quality_2010": "secondary_confidentiality_protected_value_exact_scope_unverified",
+  "primary_supported_population_quality_2010": [
+    "direct_published_census_value",
+    "reviewed_primary_reported_value",
+    "reviewed_primary_source_value_or_null",
+    "direct_official_city_value",
+    "fresh_primary_r5_source",
+    "reviewed_primary_source_child_partition",
+    "reviewed_primary_control_derived_zero"
+  ]
+}

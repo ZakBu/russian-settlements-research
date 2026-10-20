@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+"""Independent raster point sampling; no source builder imported."""
+from pathlib import Path
+import hashlib,json
+import numpy as np,pandas as pd,rasterio
+H=Path(__file__).resolve().parent;ROOT=H.parent;RAW=Path('/workspace/scratch/sgrt_context_completion')
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+axis=pd.read_parquet(ROOT/'axis/full_settlement_axis.parquet',columns=['id','lat','lon']);climate=pd.read_parquet(ROOT/'context/climate_settlement_features.parquet').set_index('id');soil=pd.read_parquet(ROOT/'context/soil_settlement_features.parquet').set_index('id');valid=axis.dropna(subset=['lat','lon']).sort_values('id');sample=valid.iloc[np.linspace(0,len(valid)-1,200,dtype=int)];checks=[];evidence=[]
+def check(name,ok):checks.append({'check':name,'pass':bool(ok)})
+for filename,column,scale,frame in [('ts3_CRUTS32_Hist_8110.tif','climate_gaez_sat_above10_cday_1981_2010',1.,climate),('riS_CRUTS32_Hist_8110.tif','climate_gaez_summer_precipitation_over_pet_1981_2010',.01,climate),('SQ0_mze_v9aL.tif','soil_gaez_low_input_most_limiting_rating_class',1.,soil)]:
+ p=RAW/filename;initialsha=sha(p)
+ with rasterio.open(p) as src:
+  check(filename+'_geographic_CRS',str(src.crs)=='EPSG:4326');raw=np.array([float(v[0]) if not np.ma.is_masked(v[0]) else np.nan for v in src.sample(list(zip(sample.lon,sample.lat)),masked=True)]);expected=raw*scale;observed=frame.reindex(sample.id)[column].to_numpy(float);check(filename+'_200_sampled_points_match_actual_raster',np.allclose(expected,observed,equal_nan=True));evidence.append({'raster':str(p),'sha256':initialsha,'points':len(sample),'column':column,'scale':scale,'raster_nodata':src.nodata,'matched':bool(np.allclose(expected,observed,equal_nan=True))})
+ check(filename+'_bytes_stable',sha(p)==initialsha)
+base='soil_gaez_low_input_most_limiting_rating_class';code=soil[base];lower=soil[base+'_rating_lower'];upper=soil[base+'_rating_upper'];rated=code.between(1,10);check('soil_class1to10_lower_mapping',np.allclose(lower[rated],(code[rated]-1)/10));check('soil_class1to10_upper_mapping',np.allclose(upper[rated],code[rated]/10));check('soil_otherclasses_have_unknown_rating',lower[~rated].isna().all() and upper[~rated].isna().all());check('Russian_bonitet_not_mislabeled_from_FAO_rating',soil.soil_russian_bonitet_score.isna().all())
+result={'status':'VERIFIED_WITHIN_SAMPLED_RASTER_SCOPE' if all(c['pass'] for c in checks) else 'RETURN_TO_REPAIR_LOOP','n_checks':len(checks),'n_failed':sum(not c['pass'] for c in checks),'checks':checks,'samples':evidence,'sample_rule':'200 equally spaced positions in lexicographically sorted locatedaxisIDs, fixed before reading rastervalues','sample_ids':sample.id.to_list(),'soil_rating_nonnull':int(lower.notna().sum()),'scope':'Raster extraction positions, unit scalings and soilclassbounds; no independent validation of original climate modeling or measured soilbonitet. Soilrating is lowinputmaize parameterization, not Russianbonitet.','scientific_final_allowed':False};(H/'climate_soil_sampled_independent_audit.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items() if k not in ['checks','sample_ids']},ensure_ascii=False,indent=2))

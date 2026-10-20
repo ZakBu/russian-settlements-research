@@ -1,0 +1,176 @@
+{
+  "status": "AXIS_PRESERVATION_VERIFIED",
+  "n_checks": 33,
+  "n_failed": 0,
+  "checks": [
+    {
+      "check": "source_ledger_unique_settlement_year",
+      "pass": true
+    },
+    {
+      "check": "all_ledger_ids_represented_in_axis",
+      "pass": true
+    },
+    {
+      "check": "axis_entities_exact_union_ledger_ids",
+      "pass": true
+    },
+    {
+      "check": "legacy_lat_exactly_preserved",
+      "pass": true
+    },
+    {
+      "check": "legacy_lon_exactly_preserved",
+      "pass": true
+    },
+    {
+      "check": "all2002_nonnegative_integer_or_missing",
+      "pass": true
+    },
+    {
+      "check": "legacy2002_population_exact",
+      "pass": true
+    },
+    {
+      "check": "legacy2002_zero_mask_exact",
+      "pass": true
+    },
+    {
+      "check": "legacy2002_missing_mask_exact",
+      "pass": true
+    },
+    {
+      "check": "legacy2002_source_record_exact",
+      "pass": true
+    },
+    {
+      "check": "all2002_population_matches_source_ledger",
+      "pass": true
+    },
+    {
+      "check": "all2002_source_record_matches_ledger",
+      "pass": true
+    },
+    {
+      "check": "all2010_nonnegative_integer_or_missing",
+      "pass": true
+    },
+    {
+      "check": "legacy2010_population_exact",
+      "pass": true
+    },
+    {
+      "check": "legacy2010_zero_mask_exact",
+      "pass": true
+    },
+    {
+      "check": "legacy2010_missing_mask_exact",
+      "pass": true
+    },
+    {
+      "check": "legacy2010_source_record_exact",
+      "pass": true
+    },
+    {
+      "check": "bridge_exactly_all5719_raw_vs_accepted_discrepancies",
+      "pass": true
+    },
+    {
+      "check": "bridge_preserves_raw_values",
+      "pass": true
+    },
+    {
+      "check": "bridge_binds_accepted_values",
+      "pass": true
+    },
+    {
+      "check": "bridge_binds_original_source_record",
+      "pass": true
+    },
+    {
+      "check": "every_bridge_claim_explicit_accepted_unique_value_and_source",
+      "pass": true
+    },
+    {
+      "check": "bridge_does_not_claim_new_source_reading",
+      "pass": true
+    },
+    {
+      "check": "all_primary_source_bytes_recovered_and_sha_verified",
+      "pass": true
+    },
+    {
+      "check": "all2010_source_record_matches_ledger",
+      "pass": true
+    },
+    {
+      "check": "all2021_nonnegative_integer_or_missing",
+      "pass": true
+    },
+    {
+      "check": "legacy2021_population_exact",
+      "pass": true
+    },
+    {
+      "check": "legacy2021_zero_mask_exact",
+      "pass": true
+    },
+    {
+      "check": "legacy2021_missing_mask_exact",
+      "pass": true
+    },
+    {
+      "check": "legacy2021_source_record_exact",
+      "pass": true
+    },
+    {
+      "check": "all2021_population_matches_source_ledger",
+      "pass": true
+    },
+    {
+      "check": "all2021_source_record_matches_ledger",
+      "pass": true
+    },
+    {
+      "check": "inputs_stable_during_review",
+      "pass": true
+    }
+  ],
+  "metrics": {
+    "2002": {
+      "known": 158200,
+      "zero": 13075,
+      "missing": 15327,
+      "ledger_rows": 158200
+    },
+    "2010": {
+      "known": 152313,
+      "zero": 24096,
+      "missing": 21214,
+      "ledger_rows": 152314
+    },
+    "2021": {
+      "known": 155414,
+      "zero": 24758,
+      "missing": 18113,
+      "ledger_rows": 155414
+    }
+  },
+  "axis_rows": 173527,
+  "source_ledger_rows": 465928,
+  "source_sha256": {
+    "research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet": "29fa9586278e08a937651fb4fcddbc929a02d46e6dcbe44f5f14793ae6fab3fc",
+    "research/sgrt_word_completion_20261021/axis/source_observations_all.parquet": "421ee615a4b067a3f9365828c8bede8b53626c900106a4629e0c03a09da9d540",
+    "research/sgrt_national_integration_20261019/core/feature_master.parquet": "8c98d5a113eec4c3bf131232b1d7e5c6362dc3a50ee484e964420de58c377f85",
+    "research/sgrt_word_completion_20261021/axis/inherited_reviewed_population2010_provenance_bridge.parquet": "9c0980dd294e17e828399557e832c4861891825acb9282eb783a976738b90a99"
+  },
+  "verified_primary_source_files": {
+    "/workspace/scratch/frozen_primary_recovery/national2010_candidate_0_42cb939d80.pdf": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+    "/workspace/scratch/sgrt_demography2010/frozen_primary_recovery/tula_2010_official_Tom1.pdf": "af106d17032ed614af762a8be09608aa090f239d4e7fce5b3419b8374f7e8a65",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/official_population_residual_sources_20261008/leningrad_2010_official_archived.pdf": "57cb1e6e9ea1c5803a860048941ddd51b40640372797229d0010e758155b8792",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next67_primary_source_routes/perm_2010_original_archived.xls": "a9cbc026ef543ab2a3fd1e79eb2ba9cdf842457bb93217383a96baa208d271ed",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/next67_primary_source_routes/prim_2010_original_archived.mht": "9aa794fece2c21fe3a72273cce3435490f38276f8d4558ae7399ece0751436ea"
+  },
+  "scope": "All-row retention of provided census observations and provenance, not independent proof of historic territorial equivalence or primary truth of secondary-source values. Reviewed modelprimary overrides remain separately versioned with originalvalues retained.",
+  "scientific_final_allowed": false
+}

@@ -31,6 +31,15 @@ for tr in table.xpath('.//tr'):
  rows.append(dict(registry_row=int(ix[:-1]),municipal_designation=label,region=region,category2026=category,linked_id=accepted,candidate_count=len(c),link_status='literal_settlement_name_region_unique_municipal_label' if accepted else 'unresolved_adjectival_municipality_or_homonym_or_axis_scope',legal_entity_is_municipality=True,settlement_link_is_named_context=True,source_document_date='2026-03-11',source_amendment_date='2026-04-13',effective_date='2026-06-01',snapshot_date='2026-10-21',source_url='https://bazanpa.ru/pravitelstvo-rf-rasporiazhenie-n469-r-ot11032026-h7045605/',primary_publication_retrieval='HTTP503_not_retrieved',source_class='reproduced_official_legal_text'))
 d=pd.DataFrame(rows);assert d.registry_row.tolist()==list(range(1,265));assert d.category2026.value_counts().to_dict()=={2:149,3:63,1:52}
 d.to_csv(H/'current_monotowns2026.csv',index=False)
+# Cross-check the independently hosted legal reproduction on its retrievable prefix.
+other=html.fromstring((H/'sources/monotowns2026_garant.html').read_text('cp1251'));checks=[]
+for tr in other.xpath('//tr'):
+ x=[' '.join(' '.join(z.itertext()).split()) for z in tr.xpath('./td|./th')]
+ if len(x)==3 and re.fullmatch(r'\d+\.',x[0]):
+  rr=d[d.registry_row.eq(int(x[0][:-1]))].iloc[0]
+  checks.append(dict(row=int(x[0][:-1]),name_equal=norm(x[1])==norm(rr.municipal_designation),region_equal=norm(x[2])==norm(rr.region)))
+assert checks and all(z['name_equal'] and z['region_equal'] for z in checks)
+(H/'current_monotown_cross_source_check.json').write_text(json.dumps({'garant_parsed_rows':len(checks),'agreed_name_region_rows':len(checks),'disagreements':[],'semantics':'Independent legal reproductions agree on overlap; primary official publication not retrieved.'},ensure_ascii=False,indent=2))
 assert not d.loc[d.linked_id.notna(),'linked_id'].duplicated().any(), 'A named center unexpectedly represents multiple legal rows'
 f=pd.read_parquet(H/'settlement_features.parquet');by=d[d.linked_id.notna()].set_index('linked_id')
 f['current_monotown_category2026']=pd.array(f.id.map(by.category2026),dtype='Int8')

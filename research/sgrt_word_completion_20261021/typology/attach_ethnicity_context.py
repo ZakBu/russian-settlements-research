@@ -19,7 +19,7 @@ def run():
  old=pd.read_parquet(REPO/'research/sgrt_national_integration_20261019/core/feature_master.parquet',columns=['id','settlement_name_2021','oktmo_2021','population_2021'])
  a=pd.read_parquet(ROOT/'axis/full_settlement_axis.parquet');a=a.merge(old[['id','settlement_name_2021','oktmo_2021']].rename(columns={'oktmo_2021':'old_code'}),on='id',how='left',validate='one_to_one')
  a['join_code']=a.old_code.fillna(a.oktmo_2021).map(code);a['name_norm']=a.settlement_name_2021.fillna(a.name).map(norm);a['region_norm']=a.region.map(region)
- # Only unique native11-digit code candidates; never trust the old version's row number after content drift.
+ # Only unique native11-digit code candidates; source-row positions are not an identity bridge.
  unique=new[new.join_code.notna()&~new.join_code.duplicated(False)]
  b=a[['id','join_code','name_norm','region_norm','population_2021']].merge(unique,on='join_code',how='left',suffixes=('_axis','_source'),validate='many_to_one')
  b['population_signature_matches']=b.population_2021.eq(b.population)
@@ -31,7 +31,7 @@ def run():
  features['ethnicity_context_attachment_verified']=features.id.isin(joined.index)
  for dst,src in [('ethnicity_declared_persons2021_raw','Указавшие национальную принадлежность'),('ethnicity_russian_responses2021_raw','Русские (русаки, сибиряки)')]:
   features[dst]=features.id.map(joined[src]);features[dst.removesuffix('_raw')]=features[dst].where(features[dst]>=0)
- features['ethnicity_suppressed2021']=features.ethnicity_declared_persons2021_raw.eq(-9)|features.ethnicity_russian_responses2021_raw.eq(-9)
+ features['ethnicity_suppressed2021']=pd.array((features.ethnicity_declared_persons2021_raw.eq(-9)|features.ethnicity_russian_responses2021_raw.eq(-9)).where(features.ethnicity_context_attachment_verified,pd.NA),dtype='boolean')
  den=features.ethnicity_declared_persons2021.replace(0,np.nan);rus=features.ethnicity_russian_responses2021
  features['share_declared_not_russian_response2021']=1-rus/den
  # Disclosure inconsistencies do not become usable rates.
