@@ -10,7 +10,9 @@ def main():
  def check(name,condition):
   if not condition:raise AssertionError(name)
   checks.append({'check':name,'pass':True})
- r=evaluate(policy,evidence);check('all_open_blocks_release',not r['scientific_final_allowed'] and r['requirements_open']==32)
+ opened=copy.deepcopy(evidence)
+ for row in opened['requirements'].values():row.update(state='OPEN',implementation='OPEN',data='OPEN',scientific='OPEN')
+ r=evaluate(policy,opened);check('all_open_blocks_release',not r['scientific_final_allowed'] and r['requirements_open']==32)
  p=copy.deepcopy(policy);p['requirements']=p['requirements'][:1]
  try:evaluate(p,evidence);rejected=False
  except ValueError:rejected=True
@@ -39,7 +41,7 @@ def main():
   file.write_text(json.dumps({'verified':False}))
   r=evaluate(policy,e);check('changed_frozen_bytes_invalidates_acceptance',not r['scientific_final_allowed'])
  e=copy.deepcopy(evidence);e['requirements']['W06']['state']='BLOCKED_EXTERNAL'
- r=evaluate(policy,e);check('external_blocker_never_counts_closed',not r['scientific_final_allowed'] and r['requirements_open']==32)
+ r=evaluate(policy,e);check('external_blocker_never_counts_closed',not r['scientific_final_allowed'] and next(x for x in r['requirements'] if x['requirement_id']=='W06')['state']!='CLOSED')
  receipt={'status':'PASS_GATE_IMPLEMENTATION_ONLY','checks':checks,'synthetic_accept_fixture_persisted':False,'scientific_word_research_accepted':False}
  (HERE/'gate_selftest_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n');print(json.dumps(receipt,ensure_ascii=False,indent=2))
 

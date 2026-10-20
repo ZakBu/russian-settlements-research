@@ -1,0 +1,61 @@
+{
+  "status": "DEMOGRAPHIC_RATES_AND_THRESHOLD_SENSITIVITY_INDEPENDENTLY_COMPUTED",
+  "n_checks": 10,
+  "n_failed": 0,
+  "checks": [
+    {
+      "check": "center_rates_independently_recomputed",
+      "pass_": true
+    },
+    {
+      "check": "rural_rates_independently_recomputed",
+      "pass_": true
+    },
+    {
+      "check": "threshold0.001_all_systems_accounted",
+      "pass_": true
+    },
+    {
+      "check": "threshold0.001_baselinezero_never_as_stable",
+      "pass_": true
+    },
+    {
+      "check": "threshold0.0025_all_systems_accounted",
+      "pass_": true
+    },
+    {
+      "check": "threshold0.0025_baselinezero_never_as_stable",
+      "pass_": true
+    },
+    {
+      "check": "threshold0.005_all_systems_accounted",
+      "pass_": true
+    },
+    {
+      "check": "threshold0.005_baselinezero_never_as_stable",
+      "pass_": true
+    },
+    {
+      "check": "threshold0.01_all_systems_accounted",
+      "pass_": true
+    },
+    {
+      "check": "threshold0.01_baselinezero_never_as_stable",
+      "pass_": true
+    }
+  ],
+  "systems": 8163,
+  "complete_center_rural_pairs": 1468,
+  "thresholds_percent_per_year": [
+    0.1,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "default_percent_per_year": 0.25,
+  "source_sha256": {
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/systems.parquet": "8ad69b189fbef079a10e0ba595f12e2e62f02cb4dd7a890124ee82f4b9df270e",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/word_type_hypotheses.parquet": "514143847efd7c10800d60483962188abf9f0741867f6b65221843c246cac800"
+  },
+  "scope": "Fixed selectedWordCi memberships; center/ruralannualCAGR and all9trajectorycells plus explicitundefined. Scenario thresholds not confidenceintervals, causaltypes or groundtruth. Exactprimarysupported values still do not prove historicalboundaryequivalence."
+}

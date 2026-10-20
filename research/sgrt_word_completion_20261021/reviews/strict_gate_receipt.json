@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
-  "target_run_id": "sgrt_word_completion_20261021_cycle02",
+  "target_run_id": "sgrt_word_completion_20261021_cycle03_word_ci",
   "decision": "RETURN_TO_REPAIR_LOOP",
   "scientific_final_allowed": false,
   "completion_claim_allowed": false,
   "requirements_total": 32,
-  "requirements_closed": 1,
-  "requirements_open": 31,
-  "criteria_verified": 7,
+  "requirements_closed": 6,
+  "requirements_open": 26,
+  "criteria_verified": 24,
   "criteria_total": 96,
   "dimension_closed_counts": {
-    "implementation": 1,
-    "data": 1,
-    "scientific": 1
+    "implementation": 29,
+    "data": 8,
+    "scientific": 6
   },
   "global_errors": [
     "missing_frozen_current_model_snapshot"
@@ -21,25 +21,23 @@
     {
       "requirement_id": "W01",
       "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
+      "declared_state": "NEEDS_REPAIR",
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
+        "implementation": "CLOSED",
+        "data": "IN_PROGRESS",
+        "scientific": "NEEDS_REPAIR"
       },
       "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
+        "state=NEEDS_REPAIR",
+        "data=IN_PROGRESS",
+        "scientific=NEEDS_REPAIR",
         "missing:national_memberships_and_functional_scope",
         "missing:outside_admin_boundaries_without_forced_coverage",
         "missing:external_service_geometry_validated"
       ],
-      "next_repair": "Строгие назначения на дорожном времени, раздельные уровни функций и внешний проверочный корпус.",
+      "next_repair": "Freeze chosen WordCi and audit external geometries by function, not assume integral equals medical.",
       "scientific_release_allowed": false
     },
     {
@@ -49,20 +47,19 @@
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "IN_PROGRESS",
+        "implementation": "CLOSED",
         "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
         "state=IN_PROGRESS",
-        "implementation=IN_PROGRESS",
         "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
+        "scientific=IN_PROGRESS",
         "missing:declared_national_universe_with_source_controls",
         "missing:all_source_rows_accounted_for_by_status",
         "missing:coverage_report_by_region_type_size"
       ],
-      "next_repair": "Сверить все source entities/неаддитивные записи/неразмещённые18558 по региону, типу и размеру; не суммировать пересекающиеся территориальные единицы.",
+      "next_repair": "Complete region/type/size frame coverage and admitted2010 quality tables from final run.",
       "scientific_release_allowed": false
     },
     {
@@ -83,24 +80,24 @@
     {
       "requirement_id": "W04",
       "state": "NEEDS_REPAIR",
-      "declared_state": "IN_PROGRESS",
+      "declared_state": "BLOCKED_EXTERNAL",
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "IN_PROGRESS",
+        "implementation": "CLOSED",
         "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "scientific": "BLOCKED_EXTERNAL"
       },
       "errors": [
-        "state=IN_PROGRESS",
-        "implementation=IN_PROGRESS",
+        "state=BLOCKED_EXTERNAL",
         "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
+        "scientific=BLOCKED_EXTERNAL",
         "missing:dated_natural_and_migration_inputs",
         "missing:correct_unit_and_temporal_crosswalk",
-        "missing:component_coverage_and_mass_balance"
+        "missing:component_coverage_and_mass_balance",
+        "external_blocker_not_documented_with_alternatives"
       ],
-      "next_repair": "Валидировать знаменатели/derived balance по rawcode и source interval; 2010migration реально отсутствует, не заменять2011. Отделить муниципальный контекст от НП и периода2010–2021.",
+      "next_repair": "Historical municipal equivalence and settlement allocation unproven; retain source-grain context and excluded ambiguity.",
       "scientific_release_allowed": false
     },
     {
@@ -110,67 +107,57 @@
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "IN_PROGRESS",
+        "implementation": "CLOSED",
         "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
         "state=IN_PROGRESS",
-        "implementation=IN_PROGRESS",
         "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
+        "scientific=IN_PROGRESS",
         "missing:dated_housing_source_and_units",
         "missing:per_capita_formula_and_coverage",
         "missing:housing_component_used_without_target_leakage"
       ],
-      "next_repair": "Независимо проверить m²/среднегодового человека по raw муниципалитету и году, покрытие и влияние муниципальных повторов.",
+      "next_repair": "Audit final per-capita component joins/coverage, retain municipal support and sameyear endpoint endogeneity.",
       "scientific_release_allowed": false
     },
     {
       "requirement_id": "W06",
       "state": "NEEDS_REPAIR",
-      "declared_state": "IN_PROGRESS",
+      "declared_state": "BLOCKED_EXTERNAL",
       "criteria_verified": 1,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "IN_PROGRESS",
-        "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "implementation": "CLOSED",
+        "data": "BLOCKED_EXTERNAL",
+        "scientific": "BLOCKED_EXTERNAL"
       },
       "errors": [
-        "state=IN_PROGRESS",
-        "implementation=IN_PROGRESS",
-        "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
+        "state=BLOCKED_EXTERNAL",
+        "data=BLOCKED_EXTERNAL",
+        "scientific=BLOCKED_EXTERNAL",
         "missing:rural_urban_region_strata_and_unmatched_audit",
-        "missing:independent_linkage_recall_and_external_function_checks"
+        "missing:independent_linkage_recall_and_external_function_checks",
+        "external_blocker_not_documented_with_alternatives"
       ],
-      "next_repair": "Проверить сельскую идентификацию на независимых официальных объектах, оценить отдельно recall источника/связки/модели; мощности/уровни не выводить из наличия OSMтега. Udmurt473официальныхНП vs27coordinate healthcare — несогласие источников, не доказательство закрытия.",
+      "next_repair": "Official rural physical subdivision/date/capacity recovery remains necessary; OSM counts are observed inventory, not complete functions.",
       "scientific_release_allowed": false
     },
     {
       "requirement_id": "W07",
-      "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
-      "criteria_verified": 0,
+      "state": "CLOSED",
+      "declared_state": "CLOSED",
+      "criteria_verified": 3,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
+        "implementation": "CLOSED",
+        "data": "CLOSED",
+        "scientific": "CLOSED"
       },
-      "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
-        "missing:available_labour_or_budget_proxy_source",
-        "missing:registration_vs_jobs_distinction",
-        "missing:documented_condition_for_word_when_available"
-      ],
-      "next_repair": "Получить доступные занятые/налогоплательщики/местные бюджеты; если реальных показателей нет, допустимый косвенный показатель обосновать и проверить отдельно.",
-      "scientific_release_allowed": false
+      "errors": [],
+      "next_repair": "Preserve explicit proxy semantics and positive-only zeroavailability sensitivity; no employment claim.",
+      "scientific_release_allowed": true
     },
     {
       "requirement_id": "W08",
@@ -179,87 +166,78 @@
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "IN_PROGRESS",
+        "implementation": "CLOSED",
         "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
         "state=IN_PROGRESS",
-        "implementation=IN_PROGRESS",
         "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
+        "scientific=IN_PROGRESS",
         "missing:agricultural_source_grain_and_units",
         "missing:municipality_system_crosswalk_and_no_mass_duplication",
         "missing:agricultural_context_validity_for_modelled_zone"
       ],
-      "next_repair": "Использовать аграрные муниципальные показатели как контекст на исходной территории; новая source-harmonized2008земля не доказывает valid2008boundary.",
+      "next_repair": "Audit final zone weighted coverage; regional stock ratio cannot become own settlement agricultural specialization.",
       "scientific_release_allowed": false
     },
     {
       "requirement_id": "W09",
       "state": "NEEDS_REPAIR",
-      "declared_state": "IN_PROGRESS",
-      "criteria_verified": 0,
+      "declared_state": "BLOCKED_EXTERNAL",
+      "criteria_verified": 1,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "IN_PROGRESS",
+        "implementation": "CLOSED",
         "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "scientific": "BLOCKED_EXTERNAL"
       },
       "errors": [
-        "state=IN_PROGRESS",
-        "implementation=IN_PROGRESS",
+        "state=BLOCKED_EXTERNAL",
         "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
-        "missing:sown_area_over_agricultural_land_formula",
+        "scientific=BLOCKED_EXTERNAL",
         "missing:temperature_moisture_and_soil_inputs",
-        "missing:geographic_year_and_unit_validation"
+        "missing:geographic_year_and_unit_validation",
+        "external_blocker_not_documented_with_alternatives"
       ],
-      "next_repair": "Добыть2010/2021сельхозугодья либо обосновать корректную доступную альтернативу; почвенный балл/проверяемый proxy. GAEZ SAT и летний P/PET получены для154968НП, климатический блок больше не отсутствует.",
+      "next_repair": "Retain exact source/grain and uncertainty; exact national municipal historical bonitet remains unverified.",
       "scientific_release_allowed": false
     },
     {
       "requirement_id": "W10",
-      "state": "NEEDS_REPAIR",
-      "declared_state": "IN_PROGRESS",
-      "criteria_verified": 1,
+      "state": "CLOSED",
+      "declared_state": "CLOSED",
+      "criteria_verified": 3,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "IN_PROGRESS",
-        "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "implementation": "CLOSED",
+        "data": "CLOSED",
+        "scientific": "CLOSED"
       },
-      "errors": [
-        "state=IN_PROGRESS",
-        "implementation=IN_PROGRESS",
-        "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
-        "missing:shortest_path_minutes_snap_and_disconnected_audit",
-        "missing:network_isochrones_and_independent_route_checks"
-      ],
-      "next_repair": "Дождаться маршрутов/isochrones; проверить направленность, snap, неполные пары vs unreachable, независимые время/барьеры; current2026networkproxy отдельно от2021среза.",
-      "scientific_release_allowed": false
+      "errors": [],
+      "next_repair": "Preserve2026networkproxy/turnrestriction/ferry limitations in final delivery.",
+      "scientific_release_allowed": true
     },
     {
       "requirement_id": "W11",
       "state": "NEEDS_REPAIR",
-      "declared_state": "IN_PROGRESS",
+      "declared_state": "BLOCKED_EXTERNAL",
       "criteria_verified": 1,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "IN_PROGRESS",
+        "implementation": "CLOSED",
         "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "scientific": "BLOCKED_EXTERNAL"
       },
       "errors": [
-        "state=IN_PROGRESS",
-        "implementation=IN_PROGRESS",
+        "state=BLOCKED_EXTERNAL",
         "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
+        "scientific=BLOCKED_EXTERNAL",
         "missing:source_versions_and_temporal_grain",
-        "missing:no_implicit_zero_or_temporal_backcast"
+        "missing:no_implicit_zero_or_temporal_backcast",
+        "external_blocker_not_documented_with_alternatives"
       ],
-      "next_repair": "Не объявлять boundaryequivalence на основании stablecode; metadata repaired, sourceconflicts исключены; закрепить хеши свежих modeljoinedinputs и проверить временные версии.",
+      "next_repair": "Historical boundary equivalence unproven; do not claim same administrative polygons or settlement-level allocation.",
       "scientific_release_allowed": false
     },
     {
@@ -269,20 +247,19 @@
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "IN_PROGRESS",
+        "implementation": "CLOSED",
         "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
         "state=IN_PROGRESS",
-        "implementation=IN_PROGRESS",
         "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
+        "scientific=IN_PROGRESS",
         "missing:word_mass_component_coverage_and_transforms",
         "missing:positive_gravity_mass_with_preregistered_weights",
         "missing:mass_component_ablation_and_independent_validity"
       ],
-      "next_repair": "Независимо проверить2021prepared outputs, число доступных massblocks для каждого узла, sensitivity единыхблоков; источниковаянаблюдаемость ≠полнаяизмеримостькомпонента.",
+      "next_repair": "Audit chosen final Mi unchanged and ablation; source incompleteness prevents attraction-validation claim.",
       "scientific_release_allowed": false
     },
     {
@@ -292,236 +269,202 @@
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "IN_PROGRESS",
+        "implementation": "CLOSED",
         "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
         "state=IN_PROGRESS",
-        "implementation=IN_PROGRESS",
         "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
+        "scientific=IN_PROGRESS",
         "missing:no_model_catchment_used_to_fit_own_mass",
         "missing:no_outcome_or_future_feature_leakage",
         "missing:independent_training_validation_partition"
       ],
-      "next_repair": "OwnP2021 и контекст2021 вмассе можно описывать ретроспективно, но регрессия2010–2021траектории содержит contemporaneous outcome/endogeneity: не выдавать за causal/prediction; отдельно baseline2010/missingdesign.",
+      "next_repair": "Check WordCi constructive two-pass never feeds ruralzone back into Mi; causal/ex ante claims prohibited.",
       "scientific_release_allowed": false
     },
     {
       "requirement_id": "W14",
       "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
-      "criteria_verified": 0,
+      "declared_state": "NEEDS_REPAIR",
+      "criteria_verified": 1,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
+        "implementation": "CLOSED",
+        "data": "IN_PROGRESS",
+        "scientific": "NEEDS_REPAIR"
       },
       "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
-        "missing:empirical_rank_input_not_single_population_threshold",
+        "state=NEEDS_REPAIR",
+        "data=IN_PROGRESS",
+        "scientific=NEEDS_REPAIR",
         "missing:clustering_selection_stability_and_labels",
         "missing:rank_function_level_geographic_validation"
       ],
-      "next_repair": "Выделить порядки по независимой центральности/кластеризации с выбором числа кластеров и устойчивостью; квантильный сценарий оставить альтернативой.",
+      "next_repair": "Verify rankselection/boundaries and source/functionlevelvalidity; preserve ownmass/Ci distinction and measuredsensitivity.",
       "scientific_release_allowed": false
     },
     {
       "requirement_id": "W15",
-      "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
-      "criteria_verified": 0,
+      "state": "CLOSED",
+      "declared_state": "CLOSED",
+      "criteria_verified": 3,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
+        "implementation": "CLOSED",
+        "data": "CLOSED",
+        "scientific": "CLOSED"
       },
-      "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
-        "missing:candidate_edge_weights_and_alternatives_saved",
-        "missing:network_time_huff_normalization_and_confidence",
-        "missing:independent_winner_and_probability_semantics_checks"
-      ],
-      "next_repair": "На сетевом времени пересчитать полного множества конкурентов, внешнюю/самообслуживающую альтернативу и калибровку уверенности.",
-      "scientific_release_allowed": false
+      "errors": [],
+      "next_repair": "Preservefrozeninputs and rerunindependentchecks if selectedphysics changes; externalgeographicvalidity remainsseparate.",
+      "scientific_release_allowed": true
     },
     {
       "requirement_id": "W16",
       "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
+      "declared_state": "IN_PROGRESS",
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
+        "implementation": "CLOSED",
+        "data": "IN_PROGRESS",
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
+        "state=IN_PROGRESS",
+        "data=IN_PROGRESS",
+        "scientific=IN_PROGRESS",
         "missing:self_local_outside_states_distinct",
         "missing:no_forced_far_assignment_or_zero_mass_provider",
         "missing:core_retention_ablation_and_external_plausibility"
       ],
-      "next_repair": "Самообслуживание как наблюдаемая возможность; обосновать Outside-опцию и не удерживать все кандидаты ядрами без проверки.",
+      "next_repair": "Audit final states and outside sensitivity; core retention model assumption separate from trips.",
       "scientific_release_allowed": false
     },
     {
       "requirement_id": "W17",
       "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
+      "declared_state": "IN_PROGRESS",
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
+        "implementation": "CLOSED",
+        "data": "IN_PROGRESS",
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
+        "state=IN_PROGRESS",
+        "data=IN_PROGRESS",
+        "scientific=IN_PROGRESS",
         "missing:bottom_up_multilevel_memberships",
         "missing:functional_rank_consistent_parent_eligibility",
         "missing:independent_level_interpretation_not_just_node_count"
       ],
-      "next_repair": "Собрать несколько функционально обоснованных порядков снизу вверх; сохранить полный путь и самостоятельные низовые системы.",
+      "next_repair": "Audit final hierarchy/rank semantics; empirical rank not established school/medical service level.",
       "scientific_release_allowed": false
     },
     {
       "requirement_id": "W18",
-      "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
-      "criteria_verified": 0,
+      "state": "CLOSED",
+      "declared_state": "CLOSED",
+      "criteria_verified": 3,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
+        "implementation": "CLOSED",
+        "data": "CLOSED",
+        "scientific": "CLOSED"
       },
-      "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
-        "missing:one_parent_and_acyclic_hierarchy",
-        "missing:whole_child_membership_and_no_double_count",
-        "missing:all_year_level_population_balances"
-      ],
-      "next_repair": "Пересчитать всю вложенность и балансы нового решения другим алгоритмом; сохранение старого не принимает новый граф.",
-      "scientific_release_allowed": false
+      "errors": [],
+      "next_repair": "Preservefrozeninputs and rerunindependentchecks if selectedphysics changes; externalgeographicvalidity remainsseparate.",
+      "scientific_release_allowed": true
     },
     {
       "requirement_id": "W19",
       "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
+      "declared_state": "BLOCKED_EXTERNAL",
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
+        "implementation": "CLOSED",
+        "data": "IN_PROGRESS",
+        "scientific": "BLOCKED_EXTERNAL"
       },
       "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
+        "state=BLOCKED_EXTERNAL",
+        "data=IN_PROGRESS",
+        "scientific=BLOCKED_EXTERNAL",
         "missing:mono_poly_rules_and_overlap_metrics",
         "missing:same_rank_competition_not_poi_count",
-        "missing:external_multifunction_or_overlap_validation"
+        "missing:external_multifunction_or_overlap_validation",
+        "external_blocker_not_documented_with_alternatives"
       ],
-      "next_repair": "Рассчитать модельные моно/полицентрические конфигурации на уровнях, общую периферию и сопоставимость масс; проверить реальные многопоставочные связи.",
+      "next_repair": "Audit numeric metrics and label as modeled configuration; acquire independent multifunction/flow evidence.",
       "scientific_release_allowed": false
     },
     {
       "requirement_id": "W20",
       "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
+      "declared_state": "IN_PROGRESS",
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
+        "implementation": "CLOSED",
+        "data": "CLOSED",
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
+        "state=IN_PROGRESS",
+        "scientific=IN_PROGRESS",
         "missing:large_center_network_isochrones",
         "missing:suburban_peripheral_rule_and_sensitivity",
         "missing:accessibility_not_asserted_commuting"
       ],
-      "next_repair": "Крупные центры/изохроны,30–60мин сценарии; отдельный пригородный/периферийный показатель и проверка.",
+      "next_repair": "Inspect final belts and sensitivity; retain accessibility estimand and do not assert commuting without flows.",
       "scientific_release_allowed": false
     },
     {
       "requirement_id": "W21",
       "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
+      "declared_state": "IN_PROGRESS",
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
+        "implementation": "CLOSED",
+        "data": "IN_PROGRESS",
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
+        "state=IN_PROGRESS",
+        "data=IN_PROGRESS",
+        "scientific=IN_PROGRESS",
         "missing:three_part_demography_all_levels",
         "missing:same_membership_or_exact_reassignment_decomposition",
         "missing:source_quality_boundary_coverage_and_balances"
       ],
-      "next_repair": "Рассчитать центр/сельскую периферию/целое для нового принятого решения, строго фиксированный состав либо декомпозиция изменившегося.",
+      "next_repair": "Repeat final sum/decomposition and exactprimary coverage audit; no boundarychange causal interpretation.",
       "scientific_release_allowed": false
     },
     {
       "requirement_id": "W22",
       "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
+      "declared_state": "IN_PROGRESS",
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
+        "implementation": "CLOSED",
+        "data": "IN_PROGRESS",
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
+        "state=IN_PROGRESS",
+        "data=IN_PROGRESS",
+        "scientific=IN_PROGRESS",
         "missing:center_share_and_periphery_gradient",
         "missing:network_time_gradient_and_zero_handling",
         "missing:robustness_and_noncausal_interpretation"
       ],
-      "next_repair": "По сетевому времени пересчитать центр-периферийные градиенты и динамику доли; нули/уровни отдельно.",
+      "next_repair": "Independently audit final gradients/zero cases and source-quality sensitivity.",
       "scientific_release_allowed": false
     },
     {
@@ -531,47 +474,80 @@
       "criteria_verified": 1,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "IN_PROGRESS",
+        "implementation": "CLOSED",
         "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
         "state=IN_PROGRESS",
-        "implementation=IN_PROGRESS",
         "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
+        "scientific=IN_PROGRESS",
         "missing:one_valid_functional_snapshot_or_explicit_design_revision",
         "missing:no_registry_change_claimed_physical_open_close"
       ],
-      "next_repair": "Проверить final2021bindings и road2026proxy в готовом report; изменения OSM между датами не означают реальные открытия/закрытия.",
+      "next_repair": "Verify final source dates and immutable inventory manifest; education levels/capacity limited.",
       "scientific_release_allowed": false
     },
     {
       "requirement_id": "W24",
       "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
+      "declared_state": "IN_PROGRESS",
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
+        "implementation": "CLOSED",
+        "data": "IN_PROGRESS",
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
+        "state=IN_PROGRESS",
+        "data=IN_PROGRESS",
+        "scientific=IN_PROGRESS",
         "missing:demographic_classes_from_fixed_data",
         "missing:threshold_sensitivity_and_undefined_cases",
         "missing:classification_of_accepted_systems_with_denominators"
       ],
-      "next_repair": "Сохранить воспроизводимую демографическую ось на новом принятом районировании; не принимать её за весь результат Word.",
+      "next_repair": "Integrate/check dedicatedfixedmembershiptrajectorytable andthresholdsensitivity againstfinalreport; avoid treatingdemographicquadrants asfunctionaltypes.",
       "scientific_release_allowed": false
     },
     {
       "requirement_id": "W25",
+      "state": "CLOSED",
+      "declared_state": "CLOSED",
+      "criteria_verified": 3,
+      "criteria_total": 3,
+      "dimensions": {
+        "implementation": "CLOSED",
+        "data": "CLOSED",
+        "scientific": "CLOSED"
+      },
+      "errors": [],
+      "next_repair": "Preservehypothesis/source-date labels, thresholdsensitivity andunknowns; actualcausal/completefunctionvalidation remainsW01/W06/W31.",
+      "scientific_release_allowed": true
+    },
+    {
+      "requirement_id": "W26",
+      "state": "NEEDS_REPAIR",
+      "declared_state": "IN_PROGRESS",
+      "criteria_verified": 1,
+      "criteria_total": 3,
+      "dimensions": {
+        "implementation": "CLOSED",
+        "data": "IN_PROGRESS",
+        "scientific": "IN_PROGRESS"
+      },
+      "errors": [
+        "state=IN_PROGRESS",
+        "data=IN_PROGRESS",
+        "scientific=IN_PROGRESS",
+        "missing:complete_word_predictor_design_and_same_rows",
+        "missing:spatial_validation_and_source_selection_bias_audit"
+      ],
+      "next_repair": "Inspect finalinterpretation, source-selectiontables, geographicresidualPNG and exactWordpredictordesign; never interpretendogenous2021Mi/Ci ascausal.",
+      "scientific_release_allowed": false
+    },
+    {
+      "requirement_id": "W27",
       "state": "NEEDS_REPAIR",
       "declared_state": "IN_PROGRESS",
       "criteria_verified": 0,
@@ -579,66 +555,18 @@
       "dimensions": {
         "implementation": "IN_PROGRESS",
         "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
         "state=IN_PROGRESS",
         "implementation=IN_PROGRESS",
         "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
-        "missing:nine_word_hypotheses_with_feature_rules",
-        "missing:evidence_backed_functional_type_assignments",
-        "missing:unclassified_and_absent_types_distinguished_without_forcing"
-      ],
-      "next_repair": "Сделать literal truthmatrix всех9Wordтипов, включая положение/агроклимат/размер/специализацию/механизм. UNKNOWN обязательного признака оставляет тип недоказанным. Тип7 не назначать Кубани, тип9 не получать из resource+decline.",
-      "scientific_release_allowed": false
-    },
-    {
-      "requirement_id": "W26",
-      "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
-      "criteria_verified": 0,
-      "criteria_total": 3,
-      "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
-      },
-      "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
-        "missing:complete_word_predictor_design_and_same_rows",
-        "missing:spatial_validation_and_source_selection_bias_audit",
-        "missing:independent_statistics_and_negative_results_retained"
-      ],
-      "next_repair": "Проверить массу/ранг/моно-поли/пригородность/сетевое время/аграрность/агроклимат на одинаковых строках; пространственная проверка без подбора значимости.",
-      "scientific_release_allowed": false
-    },
-    {
-      "requirement_id": "W27",
-      "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
-      "criteria_verified": 0,
-      "criteria_total": 3,
-      "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
-      },
-      "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
+        "scientific=IN_PROGRESS",
         "missing:national_parameter_and_source_ablation",
         "missing:membership_rank_type_stability_not_confidence_interval",
         "missing:independent_spatial_validation_of_robustness"
       ],
-      "next_repair": "Пересчитать источник/граф/массу/кластер/назначения/типы на полной оси, выделить устойчивые/неопределённые и географически проверить.",
+      "next_repair": "Compute final membership/rank/type sensitivity and show unstable/unresolved, not parameter range as CI.",
       "scientific_release_allowed": false
     },
     {
@@ -650,70 +578,22 @@
       "dimensions": {
         "implementation": "IN_PROGRESS",
         "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
         "state=IN_PROGRESS",
         "implementation=IN_PROGRESS",
         "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
+        "scientific=IN_PROGRESS",
         "missing:all_word_map_topics_from_final_tables",
         "missing:projection_geography_legends_missingness_export_checks",
         "missing:visual_and_numeric_independent_map_review"
       ],
-      "next_repair": "Картографировать только actual final memberships/routes/types с показом unresolved/missing/источниковой уверенности, затем сверить легенды и суммы.",
+      "next_repair": "Inspect final hierarchy/type/regional zoom/2010source sensitivity PNGs and numeric source SHA.",
       "scientific_release_allowed": false
     },
     {
       "requirement_id": "W29",
-      "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
-      "criteria_verified": 0,
-      "criteria_total": 3,
-      "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
-      },
-      "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
-        "missing:report_claims_match_final_evidence",
-        "missing:word_requirement_completion_not_just_caveats",
-        "missing:independent_scientific_and_stakeholder_acceptance"
-      ],
-      "next_repair": "Отчёт соответствует всем закрытым Word-блокам, честный научный вывод без объявления недостижимой полноты; до gateclosed нельзя научныйfinal.",
-      "scientific_release_allowed": false
-    },
-    {
-      "requirement_id": "W30",
-      "state": "NEEDS_REPAIR",
-      "declared_state": "OPEN",
-      "criteria_verified": 0,
-      "criteria_total": 3,
-      "dimensions": {
-        "implementation": "OPEN",
-        "data": "OPEN",
-        "scientific": "OPEN"
-      },
-      "errors": [
-        "state=OPEN",
-        "implementation=OPEN",
-        "data=OPEN",
-        "scientific=OPEN",
-        "missing_independent_author_reviewer",
-        "missing:source_code_output_hash_manifests",
-        "missing:actual_fresh_replay_and_independent_checks",
-        "missing:durable_git_and_available_large_inputs"
-      ],
-      "next_repair": "Каждую итерацию закреплять входами/кодом/хэшами/реальным replay; новый национальный результат и источники в Git, независимый reviewer замороженных выходов.",
-      "scientific_release_allowed": false
-    },
-    {
-      "requirement_id": "W31",
       "state": "NEEDS_REPAIR",
       "declared_state": "IN_PROGRESS",
       "criteria_verified": 0,
@@ -721,18 +601,62 @@
       "dimensions": {
         "implementation": "IN_PROGRESS",
         "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
         "state=IN_PROGRESS",
         "implementation=IN_PROGRESS",
+        "data=IN_PROGRESS",
+        "scientific=IN_PROGRESS",
+        "missing:report_claims_match_final_evidence",
+        "missing:word_requirement_completion_not_just_caveats",
+        "missing:independent_scientific_and_stakeholder_acceptance"
+      ],
+      "next_repair": "Check final report against chosen model, actual types, negative validation and external limitations.",
+      "scientific_release_allowed": false
+    },
+    {
+      "requirement_id": "W30",
+      "state": "NEEDS_REPAIR",
+      "declared_state": "IN_PROGRESS",
+      "criteria_verified": 0,
+      "criteria_total": 3,
+      "dimensions": {
+        "implementation": "CLOSED",
+        "data": "IN_PROGRESS",
+        "scientific": "IN_PROGRESS"
+      },
+      "errors": [
+        "state=IN_PROGRESS",
+        "data=IN_PROGRESS",
+        "scientific=IN_PROGRESS",
+        "missing:source_code_output_hash_manifests",
+        "missing:actual_fresh_replay_and_independent_checks",
+        "missing:durable_git_and_available_large_inputs"
+      ],
+      "next_repair": "Freeze all family input/output/code SHA, archive unavailable large data with retrievable source, verify Git commit.",
+      "scientific_release_allowed": false
+    },
+    {
+      "requirement_id": "W31",
+      "state": "NEEDS_REPAIR",
+      "declared_state": "NEEDS_REPAIR",
+      "criteria_verified": 0,
+      "criteria_total": 3,
+      "dimensions": {
+        "implementation": "CLOSED",
+        "data": "IN_PROGRESS",
+        "scientific": "NEEDS_REPAIR"
+      },
+      "errors": [
+        "state=NEEDS_REPAIR",
         "data=IN_PROGRESS",
         "scientific=NEEDS_REPAIR",
         "missing:preregistered_external_validation_design",
         "missing:independent_geographic_function_service_evidence",
         "missing:candidate_recall_and_assignment_metrics_by_stratum"
       ],
-      "next_repair": "Отдельно проверять source recall/candidate recall/assignment; провал0/98 нельзя оправдать одной причиной покрытия без разбора идентичности/даты/функции.",
+      "next_repair": "Independently audit32eligible reasons and fresh WordCi metrics; do not fit thresholds to corpus or call diagnostic blind holdout.",
       "scientific_release_allowed": false
     },
     {
@@ -742,24 +666,22 @@
       "criteria_verified": 0,
       "criteria_total": 3,
       "dimensions": {
-        "implementation": "IN_PROGRESS",
-        "data": "IN_PROGRESS",
-        "scientific": "NEEDS_REPAIR"
+        "implementation": "CLOSED",
+        "data": "CLOSED",
+        "scientific": "IN_PROGRESS"
       },
       "errors": [
         "state=IN_PROGRESS",
-        "implementation=IN_PROGRESS",
-        "data=IN_PROGRESS",
-        "scientific=NEEDS_REPAIR",
+        "scientific=IN_PROGRESS",
         "missing:actual_agent_tasks_and_artifacts",
         "missing:separate_authorship_and_review",
         "missing:repair_loop_runs_until_word_gates_close"
       ],
-      "next_repair": "Repair loop реально изменил данные и исправил axis/context; продолжать до independently verified Word gates, не подменять завершённость synthetic/computational PASS.",
+      "next_repair": "Maintain active repair feedback and frozen evidence; stop scientific completion only when allgatesclosed or deliver explicitly incomplete package.",
       "scientific_release_allowed": false
     }
   ],
-  "policy_sha256": "aaa2447a1f324a95f81febe985484d161b1a3c0c70f0914dc2b8b34da3df30e7",
-  "evidence_sha256": "5b5e8223c1fd59aa7afd011c625f3c5b34f3e58a09812bc0eb31fec8237c05da",
+  "policy_sha256": "5c72cb80d5d0ea178f1cdf28a955ef351ba4291b49a70332729020eb877f59a3",
+  "evidence_sha256": "aaf1f3ad9465194a74d62b21d721a0df839d8afe83f00f4253ddbedb15150c79",
   "important": "BLOCKED_EXTERNAL and disclosed limitations do not mean CLOSED. A negative scientific finding may close a valid analysis; absence of data may not."
 }

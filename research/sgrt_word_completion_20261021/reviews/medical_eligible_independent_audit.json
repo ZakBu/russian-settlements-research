@@ -1,0 +1,68 @@
+{
+  "status": "INDEPENDENT_MEDICAL_ELIGIBLE_DIAGNOSIS_NOT_VALIDATION",
+  "n_checks": 9,
+  "n_failed": 0,
+  "checks": [
+    {
+      "check": "external_unique_pairs222",
+      "pass_": true
+    },
+    {
+      "check": "eligible_pairs32",
+      "pass_": true
+    },
+    {
+      "check": "eligibility_matches_candidate_id_set",
+      "pass_": true
+    },
+    {
+      "check": "observed_healthcare_flag_matches_provider_own_count",
+      "pass_": true
+    },
+    {
+      "check": "integral_lowest_match_recomputed",
+      "pass_": true
+    },
+    {
+      "check": "receipt_membership_hash_current",
+      "pass_": true
+    },
+    {
+      "check": "receipt_candidate_hash_current",
+      "pass_": true
+    },
+    {
+      "check": "receipt_lowest_metric_recomputed",
+      "pass_": true
+    },
+    {
+      "check": "stable_inputs",
+      "pass_": true
+    }
+  ],
+  "external_pairs": 222,
+  "eligible_pairs": 32,
+  "eligible_observed_healthcare": 12,
+  "eligible_lowest_matches": 8,
+  "all_lowest_matches": 8,
+  "reason_counts": {
+    "provider_not_observed_healthcare2021": 20,
+    "integral_lowest_match": 8,
+    "integral_outside_or_diffuse": 4
+  },
+  "provider_names": {
+    "Приозерск": 10,
+    "Бокситогорск": 9,
+    "Токсово": 4,
+    "Всеволожск": 3,
+    "Луга": 3,
+    "Красный Бор": 3
+  },
+  "source_sha256": {
+    "independent_medical_relation_audit.parquet": "5228f70d3ba7757836406e0137a0d9b3175d3486ef17472244a15631c3796d9f",
+    "independent_medical_validation_receipt.json": "f6db7e40e4400d99d92c4e25956d3107ce2bb41e8ee0594946ec94d7c769663d",
+    "candidate_centers.parquet": "58beb7e3cb52a805b284f903c0c7efd1bc641a3e8befa9af7fd9846d0807f4b2",
+    "memberships.parquet": "807ae9d628d7a15257ca162d37a55afebe4ab474d3c0ea2b54b045035c576f66"
+  },
+  "scope": "All32eligible external normative2024pairs inspected through source-bound model provider/function/rank fields. Integral candidate status is not healthcare provider availability. Postdevelopment diagnostic, not blind holdout or measured2021trips. No thresholds fitted. WordCi final scenario requires repeat."
+}

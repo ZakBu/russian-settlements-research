@@ -173,6 +173,52 @@ def test_source_correction_sensitivity_keeps_identical_membership_grid():
  assert row.membership_grid_identical_between_source_variants
  assert row.system_annual_rate_original_source!=row.system_annual_rate_reviewed_source
 
+def test_monotonic_gmm_boundaries_remove_low_tail_high_rank():
+ means=np.array([0.,3.]);variances=np.array([.1,9.]);weights=np.array([.8,.2])
+ boundary,details,order=m.monotonic_gmm_boundaries(means,variances,weights)
+ assert 0<boundary[0]<3 and 'intersection' in details[0]['method']
+ point=boundary[0];density=weights/np.sqrt(variances)*np.exp(-.5*(point-means)**2/variances)
+ assert np.isclose(density[0],density[1])
+ values=np.array([-5.,0.,1.,3.,8.]);ranks=np.searchsorted(boundary,values,side='right')+1
+ assert ranks[0]==1 and np.all(np.diff(ranks)>=0)
+ # Raw unequal-variance Gaussian label would wrongly call this weak -5 tail high.
+ raw=weights/np.sqrt(variances)*np.exp(-.5*(-5-means)**2/variances)
+ assert raw.argmax()==1
+
+def test_higher_rank_parent_must_also_have_stronger_own_mass():
+ n,c,t,g=fixture();c.loc[c.id.eq('h'),'own_positive_mass']=.5
+ x,e=m.huff_assign(n,c,t,g);levels,h=m.build_hierarchy(x,c,t,g)
+ assert h.set_index('child_id').loc['c','self_retained']
+
+def test_custom_word_ci_rank_index_is_copied_without_mass_refit():
+ n,c,t,g=fixture();n['custom_ci']=[0.,.25,.9,np.nan]
+ cfg={'mass_reference_year':2021,'rank_feature_columns':['custom_ci'],'rank_index':{'column':'custom_ci','transform':'identity','uses_modeled_catchment':True},'model':{'random_seed':1,'maximum_rank_components':2,'minimum_rank_cluster_size':1},'physical_features':{'education':[],'healthcare':[],'hospital':[],'trade':[],'finance':[],'administration':[]},'components':[{'name':'population','block':'demography','columns':['population_2021'],'transform':'log1p','year':2021}]}
+ mass,components=m.build_mass(n,cfg);pd.testing.assert_series_equal(mass.custom_ci,n.custom_ci)
+ ordered,metadata=m.empirical_ranks(mass,cfg)
+ assert ordered.sort_values('custom_ci').intrinsic_empirical_rank.is_monotonic_increasing
+ assert metadata['catchment_size_used_for_ranks'] and not metadata['mass_refit_on_catchment']
+ altered=n.copy();altered['custom_ci']=[1.,.9,.1,0.];other,_=m.build_mass(altered,cfg)
+ pd.testing.assert_series_equal(mass.own_positive_mass,other.own_positive_mass)
+
+def test_observed2021_frame_excludes_unmatched_history_without_imputing_it_zero():
+ n,c,t,g=fixture();n['source_record_id_2021']=['s:v','s:c','s:h',None]
+ n.loc[n.id.eq('u'),['lat','lon','routable_coordinate']]=[55.,40.,True]
+ t=pd.concat([t,pd.DataFrame({'origin_id':['u'],'destination_id':['h'],'travel_minutes':[20.],'route_status':['routed']})],ignore_index=True)
+ x,e=m.huff_assign(n,c,t,g);systems,balance=m.aggregate(n,x,{1:x.assigned_center_id.copy()},g);row=systems.set_index('center_id').loc['h']
+ assert not row.rural_external_population_complete_2021
+ assert row.rural_population_observed2021_frame_complete
+ assert row.n_system_historical_units_without_native2021_record==1
+ assert pd.isna(n.set_index('id').loc['u','population_2021'])
+
+def test_word_ci_parent_strength_is_ci_while_gravity_remains_mi():
+ n,c,t,g=fixture();c['own_positive_mass']=[3.,1.];c['ci']=[.2,.8];g['hierarchy_strength_column']='ci'
+ x,e=m.huff_assign(n,c,t,g);levels,h=m.build_hierarchy(x,c,t,g)
+ link=h[h.child_id.eq('c')].iloc[0]
+ assert link.parent_id=='h' and link.parent_strength>link.child_strength
+ assert link.hierarchy_strength_column=='ci'
+ g['hierarchy_strength_column']='own_positive_mass'
+ _,h=m.build_hierarchy(x,c,t,g);assert h[h.child_id.eq('c')].iloc[0].self_retained
+
 if __name__=='__main__':
- tests=[test_network_choice_and_self_core_diagnostics,test_hierarchy_preserves_every_child_and_population,test_unknown_thematic_attributes_never_become_ethnic_or_dacha,test_mass_has_no_outcome_or_modeled_catchment_feedback,test_categorical_network_and_exact_word_suburban_belt,test_type5_and6_allow_stable_rural_without_causal_claim,test_rural_context_uses_rural_members_not_city_context,test_restricted_center_eligibility_does_not_protect_grocery_or_atm,test_nonnull_secondary_population_is_not_exact_primary_coverage,test_hierarchy_requires_conditional_parent_threshold,test_arrow_route_filter_keeps_required_long_hierarchy_and_context,test_lowest_first_protects_higher_cores_without_stealing_local_village,test_pending_dependent_can_first_join_at_higher_level,test_observed_final_zero_declines_but_unknown_and_zero_baseline_stay_undefined,test_source_correction_sensitivity_keeps_identical_membership_grid]
+ tests=[test_word_ci_parent_strength_is_ci_while_gravity_remains_mi,test_network_choice_and_self_core_diagnostics,test_hierarchy_preserves_every_child_and_population,test_unknown_thematic_attributes_never_become_ethnic_or_dacha,test_mass_has_no_outcome_or_modeled_catchment_feedback,test_categorical_network_and_exact_word_suburban_belt,test_type5_and6_allow_stable_rural_without_causal_claim,test_rural_context_uses_rural_members_not_city_context,test_restricted_center_eligibility_does_not_protect_grocery_or_atm,test_nonnull_secondary_population_is_not_exact_primary_coverage,test_hierarchy_requires_conditional_parent_threshold,test_arrow_route_filter_keeps_required_long_hierarchy_and_context,test_lowest_first_protects_higher_cores_without_stealing_local_village,test_pending_dependent_can_first_join_at_higher_level,test_observed_final_zero_declines_but_unknown_and_zero_baseline_stay_undefined,test_source_correction_sensitivity_keeps_identical_membership_grid,test_monotonic_gmm_boundaries_remove_low_tail_high_rank,test_higher_rank_parent_must_also_have_stronger_own_mass,test_custom_word_ci_rank_index_is_copied_without_mass_refit,test_observed2021_frame_excludes_unmatched_history_without_imputing_it_zero]
  for test in tests:test();print(test.__name__,'PASS')
