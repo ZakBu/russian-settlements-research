@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "axis_rows": 173527,
+  "legacy_rows": 142570,
+  "source_rows": 76713,
+  "canonical_site_ids": 76563,
+  "general_school_rows": 33106,
+  "school_explicit_program_tag_rows": 737,
+  "school_name_only_level_signal_rows": 10134,
+  "school_numeric_capacity_rows": 90,
+  "rural_type_proxy_axis_rows": 171006,
+  "rural_type_proxy_school_baseline_settlements": 1818,
+  "rural_type_proxy_school_with_candidates_settlements": 11314,
+  "external_unresolved_rows": 29403,
+  "rural_definition": "type proxy excludes город, пгт, поселок городского типа; not an independent official urban/rural register",
+  "checks": [
+    "full and legacy unique UID cardinality",
+    "raw OSM identity uniqueness",
+    "baseline/candidate disjointness and foreign keys",
+    "all group count conservation",
+    "explicit link <=5km and candidate <=2.5km",
+    "unknown capacity not invented",
+    "unknown presence never false"
+  ]
+}
