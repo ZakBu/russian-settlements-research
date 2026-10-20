@@ -5,7 +5,7 @@ No model-generated catchment population trains the mass. Missing network routes 
 become Euclidean minutes. Numerical outputs never imply fulfilled scientific/data gates.
 """
 from pathlib import Path
-import argparse, hashlib, json, math, time
+import argparse, hashlib, json, math, time, inspect
 import numpy as np
 import pandas as pd
 import pyarrow.parquet as pq
@@ -17,6 +17,7 @@ HERE=Path(__file__).resolve().parent
 ROOT=HERE.parent
 REPO=ROOT.parents[1]
 VALID_ROUTE={'routed','reachable','ok'}
+BUDGET_FLOAT_TOLERANCE_MINUTES=1e-4
 
 def sha(path):
  h=hashlib.sha256()
@@ -31,6 +32,8 @@ def path(value):
 
 def load_nodes(config):
  p=path(config['axis']);watched={p:sha(p)};axis=pd.read_parquet(p)
+ for sidecar in config.get('provenance_sidecars',[]):
+  source=path(sidecar);watched[source]=sha(source)
  if config.get('axis_id','id')!='id':axis=axis.rename(columns={config['axis_id']:'id'})
  required={'id','name','lat','lon'}
  if not required<=set(axis):raise ValueError('Axis missing '+repr(required-set(axis)))
@@ -151,7 +154,7 @@ def build_mass(nodes,config):
   # A constant feature supplies no cross-sectional ranking information.
   z=(transformed-mu)/sd if sd>1e-12 else pd.Series(np.nan,index=nodes.index)
   mass[c['name']+'_raw']=val;mass[c['name']+'_z']=z
-  components.append({**c,'bound_columns':sources,'n_observed':int(observed.sum()),'n_used_in_z':int(z.notna().sum()),'mean_transformed':mu,'sd_transformed':sd,'computed_from_own_source_features':True})
+  components.append({**c,'bound_columns':sources,'n_observed':int(observed.sum()),'n_numeric_component_values':int(val.notna().sum()),'n_positive_witness_values':int(val.gt(0).sum()),'n_source_reported_zero_values':int(val.eq(0).sum()),'n_used_in_z':int(z.notna().sum()),'mean_transformed':mu,'sd_transformed':sd,'computed_from_own_source_features':True})
  blocks={}
  for block in sorted({c['block'] for c in components}):
   cols=[c['name']+'_z' for c in components if c['block']==block]
@@ -183,28 +186,50 @@ def build_mass(nodes,config):
  mass['candidate_basis']=basis
  mass['center_eligibility_scenario']=config.get('center_eligibility','broad_catalogue_sensitivity')
  mass['candidate_is_documented_external_center']=False
+ for column in config.get('rank_feature_columns',[]):mass[column]=nodes[column]
  return mass,components
 
+def monotonic_gmm_boundaries(means,variances,weights):
+ order=np.argsort(means);mu=np.asarray(means)[order];v=np.asarray(variances)[order];w=np.asarray(weights)[order];boundaries=[];details=[]
+ for i in range(len(mu)-1):
+  left,right=float(mu[i]),float(mu[i+1]);mid=(left+right)/2.
+  aa=.5/v[i+1]-.5/v[i];bb=mu[i]/v[i]-mu[i+1]/v[i+1]
+  cc=-.5*mu[i]**2/v[i]+.5*mu[i+1]**2/v[i+1]+np.log(w[i]/np.sqrt(v[i]))-np.log(w[i+1]/np.sqrt(v[i+1]))
+  roots=np.roots([aa,bb,cc]) if abs(aa)>1e-12 else (np.array([-cc/bb]) if abs(bb)>1e-12 else np.array([]))
+  admissible=[float(np.real(t)) for t in roots if abs(np.imag(t))<1e-8 and left<float(np.real(t))<right]
+  value=min(admissible,key=lambda t:(abs(t-mid),t)) if admissible else mid
+  boundaries.append(value);details.append({'adjacent_means':[left,right],'weighted_density_roots_between_means':sorted(admissible),'boundary':value,'method':'weighted_posterior_density_intersection_between_means' if admissible else 'explicit_adjacent_mean_midpoint_fallback'})
+ if len(boundaries)>1 and not np.all(np.diff(boundaries)>0):raise ValueError('Non-increasing empirical ordinal boundaries')
+ return np.asarray(boundaries),details,order
+
 def empirical_ranks(mass,config):
- cand=mass[mass.candidate_center].copy();x=np.log(cand.own_positive_mass.to_numpy(float))[:,None]
+ cand=mass[mass.candidate_center].copy();spec=config.get('rank_index',{});column=spec.get('column','own_positive_mass');values=cand[column].to_numpy(float)
+ n_missing=int((~np.isfinite(values)).sum())
+ if n_missing:
+  if spec.get('missing_policy')!='exclude_from_integral_rank_preserve_function_providers':raise ValueError('Missing rank index on eligible candidates')
+  cand=cand[np.isfinite(values)].copy();values=values[np.isfinite(values)]
+ x=(np.log(values) if spec.get('transform','log')=='log' else values)[:,None]
  if len(cand)<2:raise ValueError('Too few candidate centers')
  rng=np.random.default_rng(config['model']['random_seed']);sample=x if len(x)<=12000 else x[np.sort(rng.choice(len(x),12000,replace=False))]
- selection=[];models={}
+ selection=[];models={};boundaries_by_k={}
  maxk=min(config['model']['maximum_rank_components'],len(cand)//config['model']['minimum_rank_cluster_size'])
  for k in range(1,max(1,maxk)+1):
   g=GaussianMixture(n_components=k,covariance_type='full',reg_covar=1e-4,random_state=config['model']['random_seed'],n_init=3,max_iter=250).fit(sample)
-  label=g.predict(x);sizes=np.bincount(label,minlength=k)
+  bounds,details,order=monotonic_gmm_boundaries(g.means_[:,0],g.covariances_[:,0,0],g.weights_)
+  label=g.predict(x);raw_sizes=np.bincount(label,minlength=k);ordinal=np.searchsorted(bounds,x[:,0],side='right');sizes=np.bincount(ordinal,minlength=k)
   eligible=bool(sizes.min()>=config['model']['minimum_rank_cluster_size'])
-  selection.append({'components':k,'bic_on_fixed_training_sample':float(g.bic(sample)),'aic_on_fixed_training_sample':float(g.aic(sample)),'cluster_sizes':sizes.tolist(),'minimum_cluster_size_pass':eligible,'converged':bool(g.converged_)})
-  if eligible and g.converged_:models[k]=g
+  selection.append({'components':k,'bic_on_fixed_training_sample':float(g.bic(sample)),'aic_on_fixed_training_sample':float(g.aic(sample)),'raw_component_sizes':raw_sizes.tolist(),'ordered_interval_sizes':sizes.tolist(),'minimum_ordered_interval_size_pass':eligible,'converged':bool(g.converged_)})
+  if eligible and g.converged_:models[k]=g;boundaries_by_k[k]=(bounds,details,order)
  if not models:raise ValueError('No admissible empirical clustering')
- best=min(models,key=lambda k:next(s['bic_on_fixed_training_sample'] for s in selection if s['components']==k));g=models[best]
- order=np.argsort(g.means_[:,0]);rankmap={int(label):int(rank+1) for rank,label in enumerate(order)}
- cand['intrinsic_empirical_rank']=[rankmap[int(t)] for t in g.predict(x)]
+ best=min(models,key=lambda k:next(t['bic_on_fixed_training_sample'] for t in selection if t['components']==k));g=models[best];bounds,details,order=boundaries_by_k[best]
+ rankmap={int(label):int(rank+1) for rank,label in enumerate(order)}
+ cand['raw_gmm_component_rank']=[rankmap[int(t)] for t in g.predict(x)]
+ cand['intrinsic_empirical_rank']=np.searchsorted(bounds,x[:,0],side='right')+1
+ cand['rank_raw_label_disagrees_with_monotonic_interval']=cand.raw_gmm_component_rank.ne(cand.intrinsic_empirical_rank)
  cand['rank_max_posterior']=g.predict_proba(x).max(axis=1)
- means=[float(g.means_[label,0]) for label in order]
- cand['rank_method']='GMM_BIC_intrinsic_log_mass_not_quantiles_or_validated_service_order'
- return cand,{'selection':selection,'chosen_components':best,'means_log_mass_ordered':means,'training_sample_rows':len(sample),'full_candidate_rows':len(x),'catchment_size_used_for_ranks':False,'rank_hierarchy_claim':'empirical_statistical_orders_of_intrinsic_mass_not_proven_functional_service_levels'}
+ cand['rank_method']='GMM_BIC_monotonic_weighted_density_boundaries_not_quantiles_or_validated_service_order'
+ return cand,{'selection':selection,'chosen_components':best,'means_rank_index_ordered':[float(g.means_[j,0]) for j in order],'ordinal_boundary_details':details,'rank_index_column':column,'rank_index_transform':spec.get('transform','log'),'training_sample_rows':len(sample),'full_candidate_rows':len(x),'catchment_size_used_for_ranks':bool(spec.get('uses_modeled_catchment',False)),'mass_refit_on_catchment':False,'eligible_candidates_missing_rank_index':n_missing,'raw_label_ordinal_disagreements':int(cand.rank_raw_label_disagrees_with_monotonic_interval.sum()),'rank_hierarchy_claim':'empirical_statistical_orders_not_proven_functional_service_levels'}
+
 
 def verify_routing_scope(config,nodes,centers,mass):
  base=travel_source(config).parent
@@ -278,7 +303,7 @@ def load_compact_travel(config,nodes,centers,mass):
    keep=allowed[di]&origin_filter[oi];oi=oi[keep];di=di[keep];network=network[keep]
    connector=(oc[oi]+dc[di]).astype('float32');minutes=(network+connector).astype('float32');same=origin_codes[oi]==destination_codes[di];minutes[same]=0.
    longpair=(center_orig[oi]&center_dest[di])|higher_dest[di]
-   usable=np.isfinite(minutes)&(minutes>=0)&((minutes<=low)|(longpair&(minutes<=upper)))
+   usable=np.isfinite(minutes)&(minutes>=0)&((minutes<=low+BUDGET_FLOAT_TOLERANCE_MINUTES)|(longpair&(minutes<=upper+BUDGET_FLOAT_TOLERANCE_MINUTES)))
    os.append(origin_codes[oi[usable]].astype('int32'));ds.append(destination_codes[di[usable]].astype('int32'));ts.append(minutes[usable])
  if not os:raise ValueError('No compact route rows')
  d=pd.DataFrame({'origin_id':pd.Categorical.from_codes(np.concatenate(os),categories=ids),'destination_id':pd.Categorical.from_codes(np.concatenate(ds),categories=ids),'travel_minutes':np.concatenate(ts)})
@@ -306,9 +331,9 @@ def load_travel(config,nodes,centers=None,mass=None):
  for batch in table.iter_batches(batch_size=500000,columns=required):
   if config.get('origin_id_filter'):batch=batch.filter(pc.is_in(batch.column('origin_id'),value_set=pa.array(config['origin_id_filter'])))
   if allowed is not None:
-   low=pc.less_equal(batch.column('travel_minutes'),config['model']['max_travel_minutes'])
+   low=pc.less_equal(batch.column('travel_minutes'),config['model']['max_travel_minutes']+BUDGET_FLOAT_TOLERANCE_MINUTES)
    long_pair=pc.or_(pc.and_(pc.is_in(batch.column('origin_id'),value_set=center_ids),pc.is_in(batch.column('destination_id'),value_set=center_ids)),pc.is_in(batch.column('destination_id'),value_set=high_ids))
-   time_usable=pc.or_(low,pc.and_(long_pair,pc.less_equal(batch.column('travel_minutes'),config['model'].get('hierarchy_max_travel_minutes',360.))))
+   time_usable=pc.or_(low,pc.and_(long_pair,pc.less_equal(batch.column('travel_minutes'),config['model'].get('hierarchy_max_travel_minutes',360.)+BUDGET_FLOAT_TOLERANCE_MINUTES)))
    batch=batch.filter(pc.and_(pc.is_in(batch.column('destination_id'),value_set=allowed),time_usable))
   d=batch.to_pandas();valid=d.route_status.isin(VALID_ROUTE)&np.isfinite(d.travel_minutes)&d.travel_minutes.ge(0)
   d=d.loc[valid];o=ids.get_indexer(d.origin_id.replace(config.get('route_id_aliases',{})));t=ids.get_indexer(d.destination_id.replace(config.get('route_id_aliases',{})))
@@ -323,7 +348,7 @@ def load_travel(config,nodes,centers=None,mass=None):
 
 def huff_assign(nodes,centers,travel,config,preserve_cores=True,core_centers=None):
  pars=config['model'];mass=centers.set_index('id').own_positive_mass
- edges=travel[travel.destination_id.isin(mass.index)&travel.travel_minutes.le(pars['max_travel_minutes'])].copy()
+ edges=travel[travel.destination_id.isin(mass.index)&travel.travel_minutes.le(pars['max_travel_minutes']+BUDGET_FLOAT_TOLERANCE_MINUTES)].copy()
  edges['destination_mass']=edges.destination_id.map(mass)
  edges['gravity']=edges.destination_mass*np.exp(-edges.travel_minutes/pars['time_decay_minutes'])
  edges=edges[edges.gravity.gt(0)].sort_values(['origin_id','gravity','destination_id'],ascending=[True,False,True])
@@ -355,14 +380,16 @@ def huff_assign(nodes,centers,travel,config,preserve_cores=True,core_centers=Non
 
 def build_hierarchy(members,centers,travel,config):
  ranks=centers.set_index('id').intrinsic_empirical_rank.to_dict();masses=centers.set_index('id').own_positive_mass.to_dict()
+ strength_column=config.get('hierarchy_strength_column','own_positive_mass');strengths=centers.set_index('id')[strength_column].to_dict()
+ if not np.isfinite(list(strengths.values())).all():raise ValueError('Hierarchy strength must be finite for every center')
  active=set(members.assigned_center_id.dropna());current=members.assigned_center_id.copy();levels={1:current.copy()};edges=[]
  routes=travel[travel.origin_id.isin(centers.id)&travel.destination_id.isin(centers.id)].copy()
  # No invented radius expansion: all steps use explicit graph travel budget.
  for target_rank in range(2,int(centers.intrinsic_empirical_rank.max())+1):
   nextmap={u:u for u in active}
   eligible={u for u in active if ranks[u]>=target_rank}
-  r=routes[routes.origin_id.isin(active)&routes.destination_id.isin(eligible)&routes.travel_minutes.le(config['model'].get('hierarchy_max_travel_minutes',config['model']['max_travel_minutes']))].copy()
-  r=r[r.origin_id.map(ranks)<r.destination_id.map(ranks)]
+  r=routes[routes.origin_id.isin(active)&routes.destination_id.isin(eligible)&routes.travel_minutes.le(config['model'].get('hierarchy_max_travel_minutes',config['model']['max_travel_minutes'])+BUDGET_FLOAT_TOLERANCE_MINUTES)].copy()
+  r=r[(r.origin_id.map(ranks)<r.destination_id.map(ranks))&(r.origin_id.map(strengths)<r.destination_id.map(strengths))]
   r['gravity']=r.destination_id.map(masses)*np.exp(-r.travel_minutes/config['model']['time_decay_minutes'])
   totals=r.groupby('origin_id',observed=True).gravity.sum()
   r['conditional_parent_probability']=r.gravity/(r.origin_id.map(totals)+config['model']['outside_mass'])
@@ -372,14 +399,14 @@ def build_hierarchy(members,centers,travel,config):
   for u in sorted(active):
    if ranks[u]<target_rank and u in winners.index:
     w=winners.loc[u];nextmap[u]=w.destination_id
-   edges.append({'level':target_rank,'child_id':u,'parent_id':nextmap[u],'child_rank':int(ranks[u]),'parent_rank':int(ranks[nextmap[u]]),'self_retained':u==nextmap[u],'network_time_minutes':0. if u==nextmap[u] else float(winners.loc[u].travel_minutes),'conditional_parent_probability':None if u==nextmap[u] else float(winners.loc[u].conditional_parent_probability),'pending_dependent_singleton_attachment':False})
+   edges.append({'level':target_rank,'child_id':u,'parent_id':nextmap[u],'child_rank':int(ranks[u]),'parent_rank':int(ranks[nextmap[u]]),'self_retained':u==nextmap[u],'network_time_minutes':0. if u==nextmap[u] else float(winners.loc[u].travel_minutes),'conditional_parent_probability':None if u==nextmap[u] else float(winners.loc[u].conditional_parent_probability),'pending_dependent_singleton_attachment':False,'hierarchy_strength_column':strength_column,'child_strength':float(strengths[u]),'parent_strength':float(strengths[nextmap[u]])})
   current=current.map(nextmap)
   # A dependent settlement without a lowest-order unit remains NA at L1.
   # At a higher level it can join directly as a pending singleton, without
   # inventing a rural service center or splitting any already formed system.
   pending_ids=set(members.loc[current.isna()&members.routable_coordinate,'id'])
   if pending_ids and eligible:
-   q=travel[travel.origin_id.isin(pending_ids)&travel.destination_id.isin(eligible)&travel.travel_minutes.le(config['model'].get('pending_singleton_max_travel_minutes',config['model']['max_travel_minutes']))].copy()
+   q=travel[travel.origin_id.isin(pending_ids)&travel.destination_id.isin(eligible)&travel.travel_minutes.le(config['model'].get('pending_singleton_max_travel_minutes',config['model']['max_travel_minutes'])+BUDGET_FLOAT_TOLERANCE_MINUTES)].copy()
    q['gravity']=q.destination_id.map(masses)*np.exp(-q.travel_minutes/config['model']['time_decay_minutes'])
    qt=q.groupby('origin_id',observed=True).gravity.sum();q['conditional_parent_probability']=q.gravity/(q.origin_id.map(qt)+config['model']['outside_mass'])
    q=q[q.conditional_parent_probability.ge(config['model']['minimum_choice_probability'])].sort_values(['origin_id','gravity','destination_id'],ascending=[True,False,True]).drop_duplicates('origin_id')
@@ -424,16 +451,35 @@ def function_specific_assignments(nodes,mass,centers,travel,config):
  return pd.concat(result,ignore_index=True) if result else pd.DataFrame()
 
 
+def function_input_signature(nodes,mass,config):
+ h=hashlib.sha256();h.update(pd.util.hash_pandas_object(nodes[['id','routable_coordinate']],index=False).to_numpy().tobytes())
+ cols=['id']+['physical_'+f+'_count_proxy' for f in ['education','healthcare','hospital','trade','finance','administration'] if 'physical_'+f+'_count_proxy' in mass]
+ h.update(pd.util.hash_pandas_object(mass[cols],index=False).to_numpy().tobytes())
+ h.update(json.dumps({'model':config['model'],'route_aliases':config.get('route_id_aliases',{}),'budget_float_tolerance':BUDGET_FLOAT_TOLERANCE_MINUTES},sort_keys=True).encode());h.update(sha(travel_source(config)).encode());h.update(inspect.getsource(huff_assign).encode())
+ return h.hexdigest()
+
+def compute_or_reuse_function_assignments(nodes,mass,centers,travel,config):
+ signature=function_input_signature(nodes,mass,config);reuse=config.get('reuse_function_memberships_from')
+ if reuse:
+  base=path(reuse);prior=json.loads((base/'run_receipt.json').read_text());manifest=json.loads((base/'output_manifest.json').read_text());fp=base/'function_specific_memberships.parquet'
+  if prior.get('function_input_signature')!=signature:raise ValueError('Sector model inputs differ from proposed reusable outputs')
+  if sha(fp)!=manifest['files'][fp.name]['sha256']:raise ValueError('Reusable sector memberships bytes differ')
+  return pd.read_parquet(fp),signature,{'source_path':str(base),'file_sha256':sha(fp),'all_sector_input_signature_equal':True}
+ return function_specific_assignments(nodes,mass,centers,travel,config),signature,None
+
 def functional_agreement(members,function_assignments):
- """Retain independent sector leaders instead of hiding them in one integral parent."""
  if function_assignments.empty:return pd.DataFrame(columns=['id','n_sector_leaders'])
  z=function_assignments.merge(members[['id','assigned_center_id']].rename(columns={'assigned_center_id':'integrated_center_id'}),on='id',validate='many_to_one')
- z['sector_matches_integrated']=z.assigned_center_id.eq(z.integrated_center_id)&z.assigned_center_id.notna()
- rows=[]
- for uid,g in z.groupby('id',sort=False):
-  leaders=g.assigned_center_id.dropna();n=int(leaders.nunique());observed=len(leaders)
-  rows.append({'id':uid,'n_assigned_sector_models':observed,'n_sector_leaders':n,'sector_model_integrated_agreement_fraction':float(g.loc[g.assigned_center_id.notna(),'sector_matches_integrated'].mean()) if observed else np.nan,'different_sector_leaders_potential':n>=2,'sector_leaders_json':json.dumps(dict(zip(g.function_group,g.assigned_center_id.astype(object).where(g.assigned_center_id.notna(),None))),ensure_ascii=False),'actual_multicenter_flows_observed':False})
- return pd.DataFrame(rows)
+ order=pd.Index(z.id.drop_duplicates(),name='id');functions=z.function_group.drop_duplicates().tolist()
+ valid=z.assigned_center_id.notna();matches=z.assigned_center_id.eq(z.integrated_center_id)&valid
+ counts=valid.groupby(z.id,sort=False,observed=True).sum().reindex(order).astype(int)
+ unique=z.groupby('id',sort=False,observed=True).assigned_center_id.nunique(dropna=True).reindex(order).astype(int)
+ agree=matches.groupby(z.id,sort=False,observed=True).sum().reindex(order)
+ fraction=np.divide(agree.to_numpy(float),counts.to_numpy(float),out=np.full(len(order),np.nan),where=counts.to_numpy()>0)
+ leaders=z.pivot(index='id',columns='function_group',values='assigned_center_id').reindex(index=order,columns=functions)
+ values=leaders.astype(object).where(leaders.notna(),None).to_numpy()
+ encoded=[json.dumps(dict(zip(functions,row)),ensure_ascii=False) for row in values]
+ return pd.DataFrame({'id':order.to_numpy(),'n_assigned_sector_models':counts.to_numpy(),'n_sector_leaders':unique.to_numpy(),'sector_model_integrated_agreement_fraction':fraction,'different_sector_leaders_potential':unique.to_numpy()>=2,'sector_leaders_json':encoded,'actual_multicenter_flows_observed':False})
 
 def configuration_table(nodes,members,systems,levels,centers):
  source=members.set_index('id');ranks=centers.set_index('id').intrinsic_empirical_rank.to_dict();rows=[]
@@ -479,6 +525,13 @@ def aggregate(nodes,members,levels,config):
     row[f'population_exact_primary_supported_known_population_share_{year}']=float(gp[primary].sum()/denom) if pd.notna(denom) and denom>0 else np.nan
     row[f'population_secondary_protected_scope_unverified_known_population_share_{year}']=float(gp[protected].sum()/denom) if pd.notna(denom) and denom>0 else np.nan
     row[f'population_quality_counts_json_{year}']=json.dumps(qualities.value_counts().to_dict(),ensure_ascii=False)
+   if 'source_record_id_2021' in d:
+    native=g.id.map(d.source_record_id_2021.notna());q=g.loc[native,'population_2021'];qr=g.loc[native&ext,'population_2021']
+    row['n_system_observed_native2021_units']=int(native.sum());row['n_system_historical_units_without_native2021_record']=int((~native).sum())
+    row['system_population_observed2021_frame_known_sum']=float(q.sum(min_count=1)) if len(q) and q.notna().any() else (0. if not len(q) else np.nan)
+    row['system_population_observed2021_frame_complete']=bool(q.notna().all())
+    row['rural_population_observed2021_frame_known_sum']=float(qr.sum(min_count=1)) if len(qr) and qr.notna().any() else (0. if not len(qr) else np.nan)
+    row['rural_population_observed2021_frame_complete']=bool(qr.notna().all())
    # Rural-zone context uses rural population weights; repeated municipal hectares
    # are never summed. Equal observations within a municipality receive its TOTAL
    # rural population weight, equivalent to grouping that context by unique MO.
@@ -486,13 +539,15 @@ def aggregate(nodes,members,levels,config):
    row['rural_context_population_weights_complete2021']=bool(weights.notna().all())
    row['rural_context_population_denominator2021']=float(den) if pd.notna(den) else np.nan
    row['rural_context_n_unique_municipalities2021']=int(rural_nodes.municipality_oktmo8_2021.nunique()) if 'municipality_oktmo8_2021' in rural_nodes else 0
-   for flag in ['agro_high_productivity_evidence','agro_decline_evidence']:
+   if 'land2021_region_farmland2021_source_subject_code' in rural_nodes:
+    row['rural_land2021_n_distinct_source_regions']=int(rural_nodes.land2021_region_farmland2021_source_subject_code.nunique());row['farmland2021_is_coarse_regional_context_not_own_NP']=True
+   for flag in ['agro_high_productivity_evidence','agro_decline_evidence']+config.get('rural_context_boolean_columns',[]):
     vals=rural_nodes[flag] if flag in rural_nodes else pd.Series(pd.NA,index=rural_ids,dtype='boolean')
     usable=vals.notna()&weights.notna()&weights.ge(0);known=weights[usable].sum();coverage=known/den if pd.notna(den) and den>0 else np.nan
     share=float((weights[usable]*vals[usable].astype(float)).sum()/known) if known>0 else np.nan
     row['rural_'+flag+'_population_coverage2021']=coverage;row['rural_'+flag+'_weighted_true_fraction2021']=share
     row['rural_'+flag]=bool(share>=.5) if np.isfinite(coverage) and coverage>=.8 and np.isfinite(share) else None
-   for column in ['climate_gaez_sat_above10_cday_1981_2010','climate_gaez_summer_precipitation_over_pet_1981_2010','context_grain_yield_centner_per_ha_2021']:
+   for column in ['climate_gaez_sat_above10_cday_1981_2010','climate_gaez_summer_precipitation_over_pet_1981_2010','context_grain_yield_centner_per_ha_2021']+config.get('rural_context_numeric_columns',[]):
     vals=pd.to_numeric(rural_nodes[column],errors='coerce') if column in rural_nodes else pd.Series(np.nan,index=rural_ids)
     usable=vals.notna()&weights.notna()&weights.ge(0);known=weights[usable].sum();coverage=known/den if pd.notna(den) and den>0 else np.nan
     row['rural_'+column+'_population_coverage2021']=coverage
@@ -587,10 +642,14 @@ def classify_word_types(systems,nodes,config):
   center_nonincrease=None if cgrow is None else not cgrow
   # Mandatory Word criteria are separate tri-state cells. Missing causal/functional
   # evidence must not be silently replaced by a regional name or municipal proxy.
+  sown=tri(r.get('rural_land2021_regional_high_sown_share2021_evidence',None))
+  if 'regional_sown_share_high_threshold' in config:
+   ratio=r.get('rural_land2021_region_farmland2021_sown_share_weighted_mean',np.nan)
+   sown=bool(ratio>=config['regional_sown_share_high_threshold']) if pd.notna(ratio) else None
   criteria={
    1:{'center_nondecline':center_nondecline,'suburban_30_60_minutes':suburban,'own_positive_migration':evidence('own_positive_migration_evidence'),'own_high_housing':evidence('own_high_housing_evidence'),'observed_commuting':evidence('commuting_observed'),'small_rural_perimeter':evidence('small_rural_perimeter_evidence'),'high_mass_and_within_rank_centrality':evidence('high_mass_and_within_rank_centrality_evidence'),'negative_demographic_distance_gradient':evidence('negative_demographic_distance_gradient_evidence')},
-   2:{'center_nondecline':center_nondecline,'rural_decline':rdecl,'high_agro_productivity':agro,'peripheral_access':peripheral,'high_sown_farmland_share':evidence('high_sown_farmland_share_evidence'),'agro_processing_function':evidence('agro_processing_function_evidence'),'trade_and_administration_function':evidence('trade_and_administration_function_evidence')},
-   3:{'center_stable':cstable,'rural_stable':rstable,'high_agro_productivity':agro,'high_sown_farmland_share':evidence('high_sown_farmland_share_evidence'),'favorable_agroclimate':evidence('favorable_agroclimate_evidence'),'developed_agro_infrastructure':evidence('developed_agro_infrastructure_evidence')},
+   2:{'center_nondecline':center_nondecline,'rural_decline':rdecl,'high_agro_productivity':agro,'peripheral_access':peripheral,'high_sown_farmland_share':sown,'agro_processing_function':evidence('agro_processing_function_evidence'),'trade_and_administration_function':evidence('trade_and_administration_function_evidence')},
+   3:{'center_stable':cstable,'rural_stable':rstable,'high_agro_productivity':agro,'high_sown_farmland_share':sown,'favorable_agroclimate':evidence('favorable_agroclimate_evidence'),'developed_agro_infrastructure':evidence('developed_agro_infrastructure_evidence')},
    4:{'center_stable':cstable,'rural_stable':rstable,'peripheral_access':peripheral,'basic_administrative_service_function':evidence('basic_administrative_service_function_evidence'),'low_or_moderate_mass_centrality':evidence('low_or_moderate_mass_centrality_evidence')},
    5:{'center_decline_or_stagnation':center_nonincrease,'rural_growth_or_stability':rural_nondecline,'recreation_dacha_context':recreation,'high_housing_outside_center':evidence('high_housing_outside_center_evidence')},
    6:{'center_decline':cdecl,'rural_growth_or_stability':rural_nondecline,'descriptive_ethnic_composition_contrast':ethno,'ethnocultural_demographic_mechanism':evidence('ethnocultural_demographic_evidence')},
@@ -622,6 +681,8 @@ def classify_word_types(systems,nodes,config):
    8:{'center_decline':cdecl,'rural_decline':rdecl,'industrial_decline':industry,'historical_industrial_function':evidence('historical_industrial_function_evidence'),'low_ci_le0_5':lowci},
    9:{'center_decline':cdecl,'small_center_population_le50000':None if pd.isna(c1) else bool(c1<=50000),'north_latitude_ge60':None if pd.isna(source.lat) else bool(source.lat>=60),'tiny_agro':evidence('tiny_agro_component_evidence'),'resource_origin':evidence('resource_origin_evidence'),'resource_shift':resource}
   }
+  if config.get('operational_agrarian_requires_sown_share2021'):
+   core[2]['high_sown_farmland_share2021_regional_context']=sown;core[3]['high_sown_farmland_share2021_regional_context']=sown
   names={1:'Урбанизирующиеся маятниково-миграционные (пригородные) СГРТ',2:'Урбанизирующиеся аграрно-сервисные СГРТ (региональные узлы)',3:'Стабильные аграрно-сервисные СГРТ в зонах высокой аграрной продуктивности',4:'Стабильные периферийные СГРТ',5:'Контрурбанизационные рекреационно-дачные СГРТ',6:'Контрурбанизационные этнические (анклавные) СГРТ',7:'Депрессивные аграрно-сервисные СГРТ Нечерноземья',8:'Депрессивные старопромышленные СГРТ',9:'Депрессивные ресурсно-вахтовые СГРТ северных территорий'}
   for typ,conditions in criteria.items():
    status=tri_all(*conditions.values())
@@ -633,6 +694,7 @@ def classify_word_types(systems,nodes,config):
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--inputs',type=Path,default=HERE/'model_inputs_2021_restricted.json');ap.add_argument('--output',type=Path,default=HERE/'output_2021_restricted_baseline');ap.add_argument('--stage',choices=['prepare','full'],default='prepare');a=ap.parse_args();a.output.mkdir(parents=True,exist_ok=True);start=time.monotonic();config=json.loads(a.inputs.read_text())
  execution_sources={Path(__file__).resolve():sha(Path(__file__)),a.inputs.resolve():sha(a.inputs)}
+ marker=a.output/'run_receipt.json.tmp';dump(marker,{'status':'RUNNING','stage':a.stage,'configuration_sha256':execution_sources[a.inputs.resolve()],'model_code_sha256':execution_sources[Path(__file__).resolve()]});marker.replace(a.output/'run_receipt.json')
  nodes,watched=load_nodes(config);watched.update(execution_sources);mass,components=build_mass(nodes,config);centers,ranks=empirical_ranks(mass,config)
  nodes.to_parquet(a.output/'nodes.parquet',index=False);mass.to_parquet(a.output/'own_mass_components.parquet',index=False);centers.merge(nodes[['id','name','type','region','lat','lon']],on='id',validate='one_to_one').to_parquet(a.output/'candidate_centers.parquet',index=False)
  dump(a.output/'mass_components.json',components);dump(a.output/'empirical_ranks.json',ranks)
@@ -650,10 +712,11 @@ def main():
    members,choice=huff_assign(nodes,initial_centers,travel,config,core_centers=centers);levels,hierarchy=build_hierarchy(members,centers,travel,config)
    n_integral_choice_edges=len(choice)
    if not config.get('persist_full_choice_edges',False):del choice
+   receipt['hierarchy_strength_column']=config.get('hierarchy_strength_column','own_positive_mass')
    receipt['initial_assignment_center_scope']=config.get('initial_assignment_center_scope','all_ranks_compete')
    receipt['n_low_level_competing_centers']=len(initial_centers)
    higher_ids=set(centers.loc[centers.intrinsic_empirical_rank.gt(centers.intrinsic_empirical_rank.min()),'id'])
-   higher_reachable=set(travel.loc[travel.destination_id.isin(higher_ids)&travel.travel_minutes.le(config['model'].get('hierarchy_max_travel_minutes',360.)),'origin_id'])
+   higher_reachable=set(travel.loc[travel.destination_id.isin(higher_ids)&travel.travel_minutes.le(config['model'].get('hierarchy_max_travel_minutes',360.)+BUDGET_FLOAT_TOLERANCE_MINUTES),'origin_id'])
    members['reachable_only_higher_order_provider']=members.raw_model_center_id.isna()&members.id.isin(higher_reachable)&~members.protected_core
    members.loc[members.reachable_only_higher_order_provider,'assignment_status']='pending_at_lowest_level_reachable_only_higher_order_provider'
    members['dependent_service_eligibility_budget_minutes']=config['model'].get('pending_singleton_max_travel_minutes',config['model']['max_travel_minutes'])
@@ -662,7 +725,8 @@ def main():
    for level,assignment in levels.items():
     members[f'center_id_l{level}']=assignment.values
     newly=members.first_assigned_hierarchy_level.isna()&assignment.notna();members.loc[newly,'first_assigned_hierarchy_level']=level
-   systems,balances=aggregate(nodes,members,levels,config);systems=descriptive_centrality(systems,centers,int(config['mass_reference_year']));types=classify_word_types(systems,nodes,config);configuration=configuration_table(nodes,members,systems,levels,centers);function_assignments=function_specific_assignments(nodes,mass,centers,travel,config)
+   systems,balances=aggregate(nodes,members,levels,config);systems=descriptive_centrality(systems,centers,int(config['mass_reference_year']));types=classify_word_types(systems,nodes,config);configuration=configuration_table(nodes,members,systems,levels,centers);function_assignments,function_signature,function_reuse=compute_or_reuse_function_assignments(nodes,mass,centers,travel,config)
+   receipt['function_input_signature']=function_signature;receipt['function_memberships_reuse']=function_reuse
    demographic_source_recovery_sensitivity(nodes,members,levels,systems,config).to_parquet(a.output/'demographic_source_recovery_sensitivity.parquet',index=False)
    function_assignments.to_parquet(a.output/'function_specific_memberships.parquet',index=False);functional_agreement(members,function_assignments).to_parquet(a.output/'functional_leader_agreement.parquet',index=False)
    accessibility.to_parquet(a.output/'network_accessibility.parquet',index=False);configuration.to_parquet(a.output/'system_configurations.parquet',index=False)

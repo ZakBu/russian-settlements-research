@@ -5,6 +5,7 @@ import json,hashlib,time,requests
 import pandas as pd
 import numpy as np
 import pyarrow.parquet as pq
+import pyarrow.compute as pc
 ROOT=Path(__file__).resolve().parents[1];OUT=Path(__file__).resolve().parent
 PIN='bde9b8b129a8be582b66de4e30ed79c9187a8515'
 URL=f'https://huggingface.co/datasets/irlspbru/RFSD/resolve/{PIN}/RFSD/year=2021/part-0.parquet?download=true'
@@ -32,7 +33,13 @@ def main():
    temp.replace(raw)
   except Exception as e:
    receipt.update(status='ACQUISITION_FAILED_NOT_REVERIFIED',error=str(e));(OUT/'source_recheck_receipt.json').write_text(json.dumps(receipt,indent=2));print(json.dumps(receipt,indent=2));return
- receipt['verified_full_source_sha256']=sha(raw)
+ receipt['verified_full_source_sha256']=sha(raw);receipt['full_source_bytes']=raw.stat().st_size
+ assert receipt['full_source_bytes']==547323604
+ inn_column=pq.read_table(raw,columns=['inn']).column('inn')
+ receipt['source_distinct_nonnull_INN']=int(pc.count_distinct(inn_column).as_py())
+ receipt['source_nonnull_INN']=int(pc.count(inn_column).as_py())
+ assert receipt['source_distinct_nonnull_INN']==receipt['source_nonnull_INN'],'Duplicate upstream entity identities'
+ del inn_column
  # Syntax-valid INN10 matches the inherited row-universe definition; no checksum invention.
  counts={};valid=0;invalid=0;total=0
  for batch in pq.ParquetFile(raw).iter_batches(columns=['inn','oktmo'],batch_size=200000):
