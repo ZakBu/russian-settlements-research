@@ -1,0 +1,112 @@
+{
+  "status": "EMPIRICAL_CI_RANK_SELECTION_INDEPENDENTLY_VERIFIED",
+  "n_checks": 23,
+  "n_failed": 0,
+  "checks": [
+    {
+      "check": "k1_BIC_refit",
+      "pass_": true
+    },
+    {
+      "check": "k1_AIC_refit",
+      "pass_": true
+    },
+    {
+      "check": "k2_BIC_refit",
+      "pass_": true
+    },
+    {
+      "check": "k2_AIC_refit",
+      "pass_": true
+    },
+    {
+      "check": "k3_BIC_refit",
+      "pass_": true
+    },
+    {
+      "check": "k3_AIC_refit",
+      "pass_": true
+    },
+    {
+      "check": "k4_BIC_refit",
+      "pass_": true
+    },
+    {
+      "check": "k4_AIC_refit",
+      "pass_": true
+    },
+    {
+      "check": "k5_BIC_refit",
+      "pass_": true
+    },
+    {
+      "check": "k5_AIC_refit",
+      "pass_": true
+    },
+    {
+      "check": "k6_BIC_refit",
+      "pass_": true
+    },
+    {
+      "check": "k6_AIC_refit",
+      "pass_": true
+    },
+    {
+      "check": "chosen_minimum_BIC_among_admissible",
+      "pass_": true
+    },
+    {
+      "check": "fitted_means_reproduced",
+      "pass_": true
+    },
+    {
+      "check": "boundary0_density_roots_numerically_independent",
+      "pass_": true
+    },
+    {
+      "check": "boundary0_intersection_or_declared_midpoint",
+      "pass_": true
+    },
+    {
+      "check": "boundary1_density_roots_numerically_independent",
+      "pass_": true
+    },
+    {
+      "check": "boundary1_intersection_or_declared_midpoint",
+      "pass_": true
+    },
+    {
+      "check": "boundary2_density_roots_numerically_independent",
+      "pass_": true
+    },
+    {
+      "check": "boundary2_intersection_or_declared_midpoint",
+      "pass_": true
+    },
+    {
+      "check": "every_ordinal_rank_recomputed",
+      "pass_": true
+    },
+    {
+      "check": "minimum_interval_cluster_sizes",
+      "pass_": true
+    },
+    {
+      "check": "rank_input_not_population_only",
+      "pass_": true
+    }
+  ],
+  "chosen_orders": 4,
+  "ordered_interval_sizes": [
+    2189,
+    853,
+    743,
+    112
+  ],
+  "source_sha256": {
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/model/model_inputs_word_ci_2021.json": "7509df4c8ea93b4be9195d0593ac2c75cd4cd64164771e6a630439b4bc529140",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/candidate_centers.parquet": "971b6d48044465ebcd8b4bec71b86113cbb65aff4a8377819940a9349c58f820",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/empirical_ranks.json": "8deecbef39d407eedb3d1d2b68b8497b78f05cedb997269a3dc4d32bef629c3a"
+  },
+  "scope": "Independent refit all6GMM and numericalbracketing ofweighted-density intersections, explicitmidpointfallback. This verifies empirical reproducibility, not bootstraprankstability or observedfunctionalservicetiers."
+}

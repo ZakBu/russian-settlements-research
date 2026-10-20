@@ -12,6 +12,13 @@ def run(model):
     source=ROOT/'validation/medical_territories_2024_all_rows.parquet'
     membership=model/'memberships.parquet';candidates=model/'candidate_centers.parquet'
     if not membership.exists():raise FileNotFoundError('Actual routed memberships required; preparation is not an assignment')
+    mr=model/'run_receipt.json';manifest_path=model/'output_manifest.json'
+    run_receipt=json.loads(mr.read_text());manifest=json.loads(manifest_path.read_text())
+    if not run_receipt.get('status','').startswith('COMPUTED') or manifest['run_receipt_sha256']!=sha(mr):raise ValueError('Committed completed model snapshot required')
+    model_inputs=[mr,membership,candidates,model/'function_specific_memberships.parquet',model/'own_mass_components.parquet']
+    model_before={str(p):sha(p) for p in model_inputs}
+    for p in model_inputs[1:]:
+        if manifest['files'][p.name]['sha256']!=model_before[str(p)]:raise ValueError('Model artifact differs from completed snapshot: '+p.name)
     s=pd.read_parquet(source);m=pd.read_parquet(membership);c=pd.read_parquet(candidates)
     # Published attachment is a relation set, not one exclusive destination per village.
     resolved=s[s.origin_id.notna()&s.destination_id.notna()&~s.origin_is_partial_address_scope.fillna(True)].copy()
@@ -61,6 +68,7 @@ def run(model):
     external=relation[relation.origin_id.ne(relation.destination_id)]
     eligible=external[external.provider_is_candidate]
     byorigin=external.groupby('origin_id').agg(documented_destinations=('destination_id','nunique'),any_documented_lowest_level_agreement=('lowest_level_agreement','any'),any_documented_ancestor_agreement=('any_ancestor_agreement','any'),any_documented_provider_eligible=('provider_is_candidate','any'))
+    if model_before!={p:sha(Path(p)) for p in model_before}:raise ValueError('Model inputs changed during independent medical comparison')
     relation.to_parquet(model/'independent_medical_relation_audit.parquet',index=False)
     byorigin.reset_index().to_csv(model/'independent_medical_origin_audit.csv',index=False)
     receipt={'status':'COMPUTED_EXTERNAL_NORMATIVE_RELATION_AUDIT','source_rows':len(s),'source_origin_resolved_rows':int(s.origin_id.notna().sum()),'source_provider_resolved_rows':int(s.destination_id.notna().sum()),'source_partial_address_rows_excluded':int(s.origin_is_partial_address_scope.fillna(True).sum()),'unique_external_resolved_pairs':len(external),'unique_external_origin_count':len(byorigin),'documented_external_provider_candidate_recall':float(external.provider_is_candidate.mean()) if len(external) else None,'exact_lowest_agreement_all_resolved_pairs':float(external.lowest_level_agreement.mean()) if len(external) else None,'exact_lowest_agreement_eligible_pairs':float(eligible.lowest_level_agreement.mean()) if len(eligible) else None,'any_documented_provider_lowest_agreement_by_origin':float(byorigin.any_documented_lowest_level_agreement.mean()) if len(byorigin) else None,'any_ancestor_agreement_is_not_lowest_agreement':True,'any_documented_ancestor_agreement_by_origin':float(byorigin.any_documented_ancestor_agreement.mean()) if len(byorigin) else None,'used_for_training_or_threshold_selection':False,'blind_preregistered_holdout':False,'generalization_to_national_service_system_proven':False,'scope':'2024 normative primary-care territorial attachments in Leningrad oblast; not observed trips, not all-function catchment ground truth','source_sha256':sha(source),'membership_sha256':sha(membership),'candidate_sha256':sha(candidates)}

@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+"""Publication exports from frozen numeric results; does not refit any model."""
+from pathlib import Path
+import json,hashlib
+import pandas as pd,numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+ROOT=Path(__file__).resolve().parent
+LABELS={'log_own_mass2021':'Собственная масса центра (log)','log_baseline_system_population2010':'Население системы 2010 (log)','log_rural_road_minutes':'Дорожное время сельского окружения (log)','log_agro_grain_yield2010':'Урожайность зерновых 2010 (log)','sat_normal':'Сумма активных температур','summer_moisture_normal':'Летнее увлажнение P/PET','soil_rating_midpoint':'Почвенный рейтинг FAO','configuration_ambiguity':'Неопределённость конфигурации','rural_suburban_share':'Доля сельского населения в пределах 60 мин','mass_x_suburban':'Масса × пригородная доля','polycentric_potential':'Модельная полицентричность','yield_x_polycentric':'Урожайность × полицентричность'}
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def main():
+ paths=[ROOT/'coefficient_intervals.csv',ROOT/'system_predictions.parquet',ROOT/'model_metrics.csv',ROOT/'run_receipt.json'];before={p.name:sha(p) for p in paths};c=pd.read_csv(paths[0]);p=pd.read_parquet(paths[1]);m=pd.read_csv(paths[2]);receipt=json.loads(paths[3].read_text());assert receipt['status']=='ACTUALLY_COMPUTED_DESCRIPTIVE_REGRESSIONS'
+ outputs=[]
+ for level in sorted(m[m.scenario.eq('primary')].level.unique()):
+  z=c[c.scenario.eq('primary')&c.level.eq(level)&c.model.eq('M3')&c.term.ne('intercept')];meta=m[m.scenario.eq('primary')&m.level.eq(level)&m.model.eq('M3')].iloc[0];n=int(meta.n);g=int(meta.regions)
+  fig,ax=plt.subplots(figsize=(12,6.3));fig.subplots_adjust(left=.39,right=.97,bottom=.20,top=.80);yy=np.arange(len(z));ax.errorbar(z.beta,yy,xerr=[z.beta-z.ci95_lower,z.ci95_upper-z.beta],fmt='o',capsize=3,color='#256391');ax.set_yticks(yy,[LABELS.get(term,term) for term in z.term],fontsize=10);ax.axvline(0,color='#555555',lw=.8);ax.grid(axis='x',alpha=.15);ax.set_xlabel('Коэффициент на 1σ признака, п.п.; 95% CI с кластеризацией по регионам',fontsize=10);fig.suptitle(f'M3 · уровень {level} · сетка WordCi\n{n} систем, {g} регионов; одна выборка для M1–M3',fontsize=13,y=.96);fig.text(.04,.055,'Условные описательные ассоциации по смешанным источникам 2010.\nМасса и сетка используют данные 2021; причинный эффект не оценивается.',fontsize=9,color='#444444');file=ROOT/f'coefficients_level{level}.png';fig.savefig(file,dpi=180,bbox_inches='tight',pad_inches=.18);plt.close(fig);outputs.append(file)
+  z=p[p.scenario.eq('primary')&p.level.eq(level)&p.model.eq('M3')].copy();z['plot_lon']=np.where(z.lon<0,z.lon+360,z.lon);limit=max(float(np.quantile(np.abs(z.group_oof_residual),.95)),1e-8);fig,ax=plt.subplots(figsize=(12,6));fig.subplots_adjust(left=.08,right=.92,bottom=.20,top=.82);artist=ax.scatter(z.plot_lon,z.lat,c=z.group_oof_residual,s=15,cmap='RdBu_r',vmin=-limit,vmax=limit,alpha=.9,edgecolors='white',linewidths=.25);ax.set_xlabel('Долгота, ° (отрицательные значения перенесены на +360°)',fontsize=10);ax.set_ylabel('Широта, °',fontsize=10);ax.grid(alpha=.12);cb=fig.colorbar(artist,ax=ax,fraction=.035,pad=.03);cb.set_label('Ошибка проверки по регионам, п.п.',fontsize=10);fig.suptitle(f'M3 · уровень {level} · география ошибок\nРегион исключён из обучения; {n} систем',fontsize=13,y=.96);fig.text(.04,.045,f'Точки — центры систем, не площадные границы. Цвет ограничен ±{limit:.1f} п.п. (95-й процентиль |ошибки|).\nСмешанные первичные/вторичные значения 2010; проверка OLS условна относительно фиксированной сетки WordCi.',fontsize=9,color='#444444');file=ROOT/f'residual_geography_level{level}.png';fig.savefig(file,dpi=180,bbox_inches='tight',pad_inches=.18);plt.close(fig);outputs.append(file)
+ after={p.name:sha(p) for p in paths};assert before==after
+ (ROOT/'figure_export_receipt.json').write_text(json.dumps(dict(status='EXPORTED_FROM_FROZEN_NUMERICAL_RESULTS_NO_REFIT',numerical_sha256_before=before,numerical_sha256_after=after,export_code_sha256=sha(Path(__file__)),figure_sha256={p.name:sha(p) for p in outputs}),ensure_ascii=False,indent=2));print('EXPORTED',len(outputs))
+if __name__=='__main__':main()
