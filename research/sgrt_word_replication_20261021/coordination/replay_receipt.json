@@ -1,0 +1,297 @@
+{
+  "status": "PASS",
+  "output": "/tmp/sgrt_word_replay_j83tsryu",
+  "commands": [
+    {
+      "script": "run_model.py",
+      "exit_code": 0,
+      "seconds": 27.728,
+      "log": "coordination/replay_run_model.log",
+      "script_sha256": "339c635195c0264cffe4908bf27b96ba2d4fcf146c265a29fc8719ef20f8b7cd"
+    },
+    {
+      "script": "compare_models.py",
+      "exit_code": 0,
+      "seconds": 1.528,
+      "log": "coordination/replay_compare_models.log",
+      "script_sha256": "b268b5622110f6d89d57a968dacbb68717af0e9bf13b71b1ebdaf0ee9f3a50f1"
+    },
+    {
+      "script": "extended_checks.py",
+      "exit_code": 0,
+      "seconds": 13.279,
+      "log": "coordination/replay_extended_checks.log",
+      "script_sha256": "ebe22f0be6dcb07dba0c308577e5a951710895f93569fde952527db8383d64ba"
+    },
+    {
+      "script": "run_demographic_scaffold.py",
+      "exit_code": 0,
+      "seconds": 7.465,
+      "log": "coordination/replay_run_demographic_scaffold.log",
+      "script_sha256": "9e735ea6e9ed68c1620bb36524c1282a2e670f8cdf73daff27fde720c24b0bc7"
+    }
+  ],
+  "comparisons": [
+    {
+      "table": "candidate_legal_function_history_2011_2025.parquet",
+      "rows": 73350,
+      "columns": 5,
+      "matches": true,
+      "original_sha256": "b9e529505dc1df27bdc7b3ebe72978d26239eaa39c04d917daa9d1e2db4d02e4",
+      "replay_sha256": "b9e529505dc1df27bdc7b3ebe72978d26239eaa39c04d917daa9d1e2db4d02e4"
+    },
+    {
+      "table": "center_mass_components.csv.gz",
+      "rows": 142572,
+      "columns": 7,
+      "matches": true,
+      "original_sha256": "81fe424f78483ee852ec86e4be7e03054e49fc42171d5020cbcf59b3f0649624",
+      "replay_sha256": "6af066ddae14c05dcb00a23c5153382abbc4b4b1e119cdf6dbc3def7bea33ef9"
+    },
+    {
+      "table": "demographic_scaffold/hierarchy.csv",
+      "rows": 9966,
+      "columns": 11,
+      "matches": true,
+      "original_sha256": "97de1f26df790e54e858febabc27cd561429ddd676989ab1bf541c419799d301",
+      "replay_sha256": "97de1f26df790e54e858febabc27cd561429ddd676989ab1bf541c419799d301"
+    },
+    {
+      "table": "demographic_scaffold/memberships.parquet",
+      "rows": 142570,
+      "columns": 16,
+      "matches": true,
+      "original_sha256": "d5f0c8dfd4517a87f600f4712db336ffbc240bf2ff897da57a85665f1870588a",
+      "replay_sha256": "d5f0c8dfd4517a87f600f4712db336ffbc240bf2ff897da57a85665f1870588a"
+    },
+    {
+      "table": "demographic_scaffold/population_balances.csv",
+      "rows": 12,
+      "columns": 8,
+      "matches": true,
+      "original_sha256": "324fdc1fa2b04ab920829013197e6c7d2e5e4d8d9e3512d2469297d729e73679",
+      "replay_sha256": "324fdc1fa2b04ab920829013197e6c7d2e5e4d8d9e3512d2469297d729e73679"
+    },
+    {
+      "table": "demographic_scaffold/systems_all_levels.csv.gz",
+      "rows": 10173,
+      "columns": 39,
+      "matches": true,
+      "original_sha256": "8e0b184491f62546fab6593664de6fc86b410f3a875316180fd226b021678acb",
+      "replay_sha256": "0e3c71d2a3bded935539079643c5237e9f8aecd2392829419d75d2890c41dba4"
+    },
+    {
+      "table": "demographic_scaffold/systems_all_levels.parquet",
+      "rows": 10173,
+      "columns": 39,
+      "matches": true,
+      "original_sha256": "9631c6ca422dbaca2c607f8441745131466479575d1b2cc145ba5e034a6103b9",
+      "replay_sha256": "9631c6ca422dbaca2c607f8441745131466479575d1b2cc145ba5e034a6103b9"
+    },
+    {
+      "table": "documented_education_model_comparison.csv",
+      "rows": 98,
+      "columns": 94,
+      "matches": true,
+      "original_sha256": "9f49b8402a82b084a38128ce8ac9ce583e72beda09a4950d225e372948440dc0",
+      "replay_sha256": "9f49b8402a82b084a38128ce8ac9ce583e72beda09a4950d225e372948440dc0"
+    },
+    {
+      "table": "federal_context_assignments.csv",
+      "rows": 2,
+      "columns": 53,
+      "matches": true,
+      "original_sha256": "764daf3888f4993a98b3ed23effb988a37e3a8b7f91ec235dd146387b5302d1a",
+      "replay_sha256": "764daf3888f4993a98b3ed23effb988a37e3a8b7f91ec235dd146387b5302d1a"
+    },
+    {
+      "table": "fresh_wb_membership_sensitivity.parquet",
+      "rows": 142570,
+      "columns": 4,
+      "matches": true,
+      "original_sha256": "756625d0dfe2c9cf226204e8714323b0653cef9b569fe1d56bafd319e893267c",
+      "replay_sha256": "756625d0dfe2c9cf226204e8714323b0653cef9b569fe1d56bafd319e893267c"
+    },
+    {
+      "table": "function_provider_disagreement.csv",
+      "rows": 3,
+      "columns": 4,
+      "matches": true,
+      "original_sha256": "7a9355ce6ba5866f40e5ad204b894cf39099f8623bebe0abfd0ee68f91f09153",
+      "replay_sha256": "7a9355ce6ba5866f40e5ad204b894cf39099f8623bebe0abfd0ee68f91f09153"
+    },
+    {
+      "table": "functional_count_components.parquet",
+      "rows": 142572,
+      "columns": 12,
+      "matches": true,
+      "original_sha256": "944335b4ab7de11cf115336f61370653a3182e1c09b693804da90c2c843d2de8",
+      "replay_sha256": "944335b4ab7de11cf115336f61370653a3182e1c09b693804da90c2c843d2de8"
+    },
+    {
+      "table": "hierarchy.csv",
+      "rows": 8074,
+      "columns": 11,
+      "matches": true,
+      "original_sha256": "a9f3e54e104862a580035737303bae5906a325536705cb7e80700cbe0c8c4cc7",
+      "replay_sha256": "a9f3e54e104862a580035737303bae5906a325536705cb7e80700cbe0c8c4cc7"
+    },
+    {
+      "table": "memberships.csv.gz",
+      "rows": 142570,
+      "columns": 53,
+      "matches": true,
+      "original_sha256": "fe34c765c75f227b81734b8adda8a1ce26951eb6857ebf54cdf8a40c756c93d0",
+      "replay_sha256": "4bcab1d10bb93827345fd8f350d9f4edc953710b9976af5a6e4720a59975bf9c"
+    },
+    {
+      "table": "memberships.parquet",
+      "rows": 142570,
+      "columns": 53,
+      "matches": true,
+      "original_sha256": "19af59fd287925c13ba86c2f9b43b4ff00474142853e1877ad035a13db68ead5",
+      "replay_sha256": "19af59fd287925c13ba86c2f9b43b4ff00474142853e1877ad035a13db68ead5"
+    },
+    {
+      "table": "municipal_dominant_context.csv",
+      "rows": 4891,
+      "columns": 14,
+      "matches": true,
+      "original_sha256": "b98f6c2aa8bc0bae4103012f04ae65ff5990d3fdfb2f308520bfacf8b3712096",
+      "replay_sha256": "b98f6c2aa8bc0bae4103012f04ae65ff5990d3fdfb2f308520bfacf8b3712096"
+    },
+    {
+      "table": "municipal_overlap.parquet",
+      "rows": 9734,
+      "columns": 6,
+      "matches": true,
+      "original_sha256": "aaf7292b63c645fbf6fc72c11a61efff8c0c07e4b86381d6ad4d3f00e0fbf5d2",
+      "replay_sha256": "aaf7292b63c645fbf6fc72c11a61efff8c0c07e4b86381d6ad4d3f00e0fbf5d2"
+    },
+    {
+      "table": "population_balances.csv",
+      "rows": 12,
+      "columns": 8,
+      "matches": true,
+      "original_sha256": "a8a9f36ddfad08debcb091ae118a33479a2f026215572694ed2f67fe1b809ceb",
+      "replay_sha256": "a8a9f36ddfad08debcb091ae118a33479a2f026215572694ed2f67fe1b809ceb"
+    },
+    {
+      "table": "registered_mass_year_scenario_summary.csv",
+      "rows": 4,
+      "columns": 4,
+      "matches": true,
+      "original_sha256": "6275b8098e55b45c35cfcf70ee6d96142f33e56ef90ae36ddd3b65d7d4a928e8",
+      "replay_sha256": "6275b8098e55b45c35cfcf70ee6d96142f33e56ef90ae36ddd3b65d7d4a928e8"
+    },
+    {
+      "table": "registered_mass_year_scenarios.parquet",
+      "rows": 570280,
+      "columns": 5,
+      "matches": true,
+      "original_sha256": "24a7572ea6e9127d52143bd9951cfca2bac34242a8ed27f4b23f3f230e4b0666",
+      "replay_sha256": "24a7572ea6e9127d52143bd9951cfca2bac34242a8ed27f4b23f3f230e4b0666"
+    },
+    {
+      "table": "regression_coefficients.csv",
+      "rows": 36,
+      "columns": 5,
+      "matches": true,
+      "original_sha256": "bf7f395962f883b381e2a51f9a3285b741a816c9d7ec1fdf1c68edccd7413cda",
+      "replay_sha256": "bf7f395962f883b381e2a51f9a3285b741a816c9d7ec1fdf1c68edccd7413cda"
+    },
+    {
+      "table": "regression_comparison.csv",
+      "rows": 6,
+      "columns": 8,
+      "matches": true,
+      "original_sha256": "eafce869dbec97af9477384475e3f810704eebdaef4f0d07fb09feb6afc786c0",
+      "replay_sha256": "eafce869dbec97af9477384475e3f810704eebdaef4f0d07fb09feb6afc786c0"
+    },
+    {
+      "table": "regression_exclusions.csv",
+      "rows": 2,
+      "columns": 6,
+      "matches": true,
+      "original_sha256": "496a5517bbe9b88f94db25c1d9432b17d15c3e53559d9b1a5092baf96ad5dde9",
+      "replay_sha256": "496a5517bbe9b88f94db25c1d9432b17d15c3e53559d9b1a5092baf96ad5dde9"
+    },
+    {
+      "table": "regression_out_of_region_predictions.parquet",
+      "rows": 1824,
+      "columns": 6,
+      "matches": true,
+      "original_sha256": "727bfec7cbaeaeebdc35f190f6612ff98a9d3b7126c8b0c0faac063427b63d29",
+      "replay_sha256": "727bfec7cbaeaeebdc35f190f6612ff98a9d3b7126c8b0c0faac063427b63d29"
+    },
+    {
+      "table": "regression_paired_error_intervals.csv",
+      "rows": 4,
+      "columns": 7,
+      "matches": true,
+      "original_sha256": "d1ef0a787f2ed3d59099797f49525648032424c11ca68b86f2503daa5827e298",
+      "replay_sha256": "d1ef0a787f2ed3d59099797f49525648032424c11ca68b86f2503daa5827e298"
+    },
+    {
+      "table": "rural_gradient_points.parquet",
+      "rows": 133868,
+      "columns": 7,
+      "matches": true,
+      "original_sha256": "d68d4a303f9b17e889e27916b53239825c37c700063f8e6c435c616ac93f2542",
+      "replay_sha256": "d68d4a303f9b17e889e27916b53239825c37c700063f8e6c435c616ac93f2542"
+    },
+    {
+      "table": "rural_gradients.csv",
+      "rows": 1662,
+      "columns": 5,
+      "matches": true,
+      "original_sha256": "b8c35c903d18de8ce80b1a6d787d4c7a1ca620fe0ccf65a48a34e6124d5452fe",
+      "replay_sha256": "b8c35c903d18de8ce80b1a6d787d4c7a1ca620fe0ccf65a48a34e6124d5452fe"
+    },
+    {
+      "table": "sensitivity.csv",
+      "rows": 11,
+      "columns": 8,
+      "matches": true,
+      "original_sha256": "489ae38649b28ade5af6e4c4e57f310fcc5c30d0cfa8fd156dc04c099551b101",
+      "replay_sha256": "489ae38649b28ade5af6e4c4e57f310fcc5c30d0cfa8fd156dc04c099551b101"
+    },
+    {
+      "table": "systems_all_levels.csv.gz",
+      "rows": 8232,
+      "columns": 39,
+      "matches": true,
+      "original_sha256": "a728c586d17447a6de3d4d075171dc499f667e183c7d9367a3a377aefca244d4",
+      "replay_sha256": "ee28928fde5759588ede2d62d5bc117a297ae7afa4bbf0fd0e6d7609ee68cf1d"
+    },
+    {
+      "table": "systems_all_levels.parquet",
+      "rows": 8232,
+      "columns": 39,
+      "matches": true,
+      "original_sha256": "38e8a9af94881d6d96c523390d9d962c4ccc0ab65da70631f5c2d3fb22a49d06",
+      "replay_sha256": "38e8a9af94881d6d96c523390d9d962c4ccc0ab65da70631f5c2d3fb22a49d06"
+    },
+    {
+      "table": "typology_threshold_sensitivity.csv",
+      "rows": 81,
+      "columns": 4,
+      "matches": true,
+      "original_sha256": "7e7bc9ff8a3e5a6bf49ea416c03bd8839375a5f0664f70a9b509e955af5f3d4b",
+      "replay_sha256": "7e7bc9ff8a3e5a6bf49ea416c03bd8839375a5f0664f70a9b509e955af5f3d4b"
+    }
+  ],
+  "scope": "author computation replay; independent algorithms in reviews/statistics",
+  "source_bytes_unchanged": true,
+  "input_sha256": {
+    "research/sgrt_national_integration_20261019/core/feature_master.parquet": "8c98d5a113eec4c3bf131232b1d7e5c6362dc3a50ee484e964420de58c377f85",
+    "research/sgrt_national_integration_20261019/core/external_federal_features.csv": "9e334ca72c82e83145b43ded9b56c1989602323d0793d2c149d64325ddc12f5b",
+    "research/sgrt_national_integration_20261019/screening/support_point_profiles.parquet": "39f950fa9401e6d3f5b9b008342b33546b0dc5b65cb16c19012213617b31dc65",
+    "research/sgrt_word_replication_20261021/medical/settlement_features.parquet": "848295570ebc091e75800f8aafce0afc4d18678587a2cbc25f02094f03037b33",
+    "research/sgrt_word_replication_20261021/education/settlement_features.parquet": "66836dda2e2c8291286b237201778b8c63091c57221687387baf593cae0cdb84",
+    "research/sgrt_word_replication_20261021/commerce/settlement_features.parquet": "221ad132691e148b2c30d6a01d3a522f5e82a9973cbbf48d3e254d0a1164c94e",
+    "research/sgrt_word_replication_20261021/education/validation_external_edges.csv": "adf830c04e9979e501cf85378664f252d186ad26c7086974cf55e229e9d8869b"
+  },
+  "tables_compared": 31,
+  "seconds": 55.655
+}
