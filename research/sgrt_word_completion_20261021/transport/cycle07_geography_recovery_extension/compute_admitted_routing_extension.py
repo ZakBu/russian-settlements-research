@@ -1,0 +1,70 @@
+"""Actual source-admitted origin/provider extension; old2021 graph and161m pairs immutable."""
+from pathlib import Path
+import argparse,json,hashlib,os,subprocess,time,concurrent.futures
+import numpy as np,pandas as pd,pyarrow as pa,pyarrow.parquet as pq
+H=Path(__file__).resolve().parent;R=H.parents[1];OLD=R/'transport/cycle06_network2021_access_v2_seventh_extension';B=Path('/tmp/sgrt_network2021_access_v2');T=Path('/tmp/sgrt_cycle07_geography_recovery_routes');DT=np.dtype([('query','<u4'),('point','<u4'),('network_minutes','<f4')]);OLDMANIFESTSHA='2acefee0640418d5b4114f86e26cc6d5dff927eed4478ad65412b5e519eba40b'
+
+def sha(p):
+ h=hashlib.sha256()
+ with p.open('rb') as f:
+  for b in iter(lambda:f.read(4194304),b''):h.update(b)
+ return h.hexdigest()
+def seeds(d,direction):
+ out=[]
+ for z in d.itertuples():
+  value=getattr(z,direction+'_seeds_json',None)
+  out.append(json.loads(value) if isinstance(value,str) else [{'node':int(z.road_node_index),'minutes':0.}])
+ return out
+def prep(mode,q,t,jobkey=None):
+ folder=T/(jobkey or mode);folder.mkdir(parents=True,exist_ok=True)
+ for n in ['rev_indptr.bin','rev_indices.bin','rev_weights.bin']:
+  if not (folder/n).exists():(folder/n).symlink_to(B/n)
+ qs=seeds(q,'outgoing' if mode=='forward' else 'incoming');ts=seeds(t,'incoming' if mode=='forward' else 'outgoing');flat=[v for s in qs for v in s];np.r_[0,np.cumsum([len(s) for s in qs])].astype('uint64').tofile(folder/'query_seed_offsets.bin');np.array([v['node'] for v in flat],dtype='uint32').tofile(folder/'query_seed_nodes.bin');np.array([v['minutes'] for v in flat],dtype='float64').tofile(folder/'query_seed_minutes.bin');q.snap_km.mul(4).to_numpy('float32').astype('float64').tofile(folder/'query_connectors.bin');np.full(len(q),180.,dtype='float64').tofile(folder/'query_budgets.bin');flat=[(i,v) for i,s in enumerate(ts) for v in s];np.array([v['node'] for i,v in flat],dtype='uint32').tofile(folder/'target_seed_nodes.bin');np.array([i for i,v in flat],dtype='uint32').tofile(folder/'target_seed_points.bin');np.array([v['minutes'] for i,v in flat],dtype='float64').tofile(folder/'target_seed_minutes.bin');t.snap_km.mul(4).to_numpy('float32').astype('float64').tofile(folder/'target_connectors.bin');np.full(len(t),180.,dtype='float64').tofile(folder/'target_budgets.bin');return folder
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--stage',choices=['prepare','compute'],default='compute');ap.add_argument('--approved-coordinate-overlay',type=Path,required=True);ap.add_argument('--approved-coordinate-patch',type=Path,required=True);ap.add_argument('--coordinate-overlay-independent-admission',type=Path,required=True);ap.add_argument('--new-provider-preflight',type=Path,required=True,help='Actual source relink provider table with id and eligible_source_provider; include ALL newly eligible source providers, not selected outcome ranks');ap.add_argument('--provider-preflight-independent-admission',type=Path,required=True);args=ap.parse_args();provider_guard=json.loads(args.provider_preflight_independent_admission.read_text());assert any(k in str(provider_guard.get('status','')).upper() for k in ['ACCEPT','ADMIT']) and provider_guard.get('all_checks_passed',True);assert sha(args.new_provider_preflight) in args.provider_preflight_independent_admission.read_text();start=time.monotonic();mfile=OLD/'candidate_travel_times_manifest.json';assert sha(mfile)==OLDMANIFESTSHA;old=json.loads(mfile.read_text());overlayreceipt=json.loads((args.approved_coordinate_overlay.parent/'coordinate_overlay_receipt.json').read_text());assert overlayreceipt['output_node_frame_sha256']==sha(args.approved_coordinate_overlay);guard=args.coordinate_overlay_independent_admission.read_text();assert overlayreceipt['output_node_frame_sha256'] in guard and any(k in guard.upper() for k in ['ACCEPT','ADMIT']);geom_admission=R/'reviews/cycle07_partial_edge_geometry_independent/audit.json';ga=json.loads(geom_admission.read_text());assert ga['all_checks_passed'] and ga['accepted_attachment_sha256']==sha(H/'sourcepoint_partial_edge_attachments.parquet') and ga['admitted_ID_filter_sha256']==sha(args.approved_coordinate_patch);patch=pd.read_parquet(args.approved_coordinate_patch);nodes=pd.read_parquet(args.approved_coordinate_overlay,columns=['id','name','region','lat','lon']);att=pd.read_parquet(H/'sourcepoint_partial_edge_attachments.parquet');a=att[att.id.isin(patch.id)].copy();assert len(a)==len(patch);assert a.snap_km.le(10).all();assert np.isfinite(a.snap_km).all();o=pd.read_parquet(OLD/old['origin_mapping']['path']);d=pd.read_parquet(OLD/old['destination_mapping']['path']);assert not a.id.isin(o.canonical_id).any();a['lat']=a.source_NP_lat;a['lon']=a.source_NP_lon;a['road_snap_lat']=a.projection_lat;a['road_snap_lon']=a.projection_lon;a['road_node_index']=np.nan;a['road_osm_node']=np.nan;a['canonical_id']=a.id;a['accepted_snap']=True;a['snap_status']=np.where(a.snap_km.le(2),'within2km',np.where(a.snap_km.le(5),'2to5km','5to10km'));a['point_coordinates_available']=True;a['point_role']='source2021_ordinary_native_NP_cycle07_recovered';a['network_source_timestamp_utc']='2021-01-01T21:42:03Z';a['connector_scenario_kmh']=15.;a['tie_policy']='nearest_original_segment_lex_way_segment_1e-7km_roundoff';a['accepted_new_origin_budget_minutes']=180.;a['coordinate_source_identity_adopted']=True;a['region']=a.id.map(nodes.set_index('id').region)
+ for i,z in a.iterrows():
+  if z.attachment_endpoint_case=='left_retained_vertex':a.at[i,'road_node_index']=z.left_graph_node;a.at[i,'road_osm_node']=z.left_osm_node
+  elif z.attachment_endpoint_case=='right_retained_vertex':a.at[i,'road_node_index']=z.right_graph_node;a.at[i,'road_osm_node']=z.right_osm_node
+ endpoints=np.unique(np.r_[a.left_graph_node.to_numpy('int64'),a.right_graph_node.to_numpy('int64')]);components=pd.read_parquet(B/'road_nodes.parquet',columns=['node_index','weak_component'],filters=[('node_index','in',endpoints.tolist())]).set_index('node_index').weak_component;assert a.left_graph_node.map(components).equals(a.right_graph_node.map(components));a['weak_component']=a.left_graph_node.map(components).astype('float64');a['old_vertex_tie_fields_not_applicable']=True
+ for col in o.columns:
+  if o[col].dtype==bool and col not in a:a[col]=False
+ no=a.copy();no['origin_index']=np.arange(len(o),len(o)+len(no),dtype='uint32');orig=pd.concat([o,no],ignore_index=True,sort=False);pd.testing.assert_frame_equal(orig.iloc[:len(o)][o.columns].reset_index(drop=True),o,check_exact=True,check_dtype=True);assert orig.canonical_id.is_unique
+ providers=pd.read_parquet(args.new_provider_preflight);assert providers.id.is_unique and 'eligible_source_provider' in providers;wanted=set(providers.loc[providers.eligible_source_provider.fillna(False),'id'])-set(d.canonical_id);known=pd.concat([o,a],ignore_index=True,sort=False);assert known.canonical_id.is_unique;unrouted=wanted-set(known.canonical_id);missing=providers[providers.id.isin(unrouted)].copy();rawsnap=pd.read_parquet(B/'settlement_road_snap.parquet',columns=['id','snap_km','snap_status']);missing=missing.merge(rawsnap,on='id',how='left',validate='one_to_one');missing['routing_scope_reason']=np.where(missing.snap_km.gt(10),'existing_source_point_over10km_unchanged','source_eligible_coordinate_or_attachment_not_available');missing.to_parquet(H/'eligible_source_providers_without_accepted_routing.parquet',index=False);wanted=wanted&set(known.canonical_id);nd=known[known.canonical_id.isin(wanted)].copy();nd['attachment_policy']=np.where(nd.id.isin(a.id),'new_source_point_original_segment_directed_partials','old_admitted_original_geometry_vertex_protected_in_fixed_CSR');
+ nd['destination_index']=np.arange(len(d),len(d)+len(nd),dtype='uint32');nd['routing_budget_minutes']=180;nd['eligible_cycle07_source_provider']=True
+ for col in d.columns:
+  if d[col].dtype==bool and col not in nd:nd[col]=False
+ nd['routing_budget_minutes']=nd.routing_budget_minutes.astype(d.routing_budget_minutes.dtype)
+ dest=pd.concat([d,nd],ignore_index=True,sort=False);pd.testing.assert_frame_equal(dest.iloc[:len(d)][d.columns].reset_index(drop=True),d,check_exact=True,check_dtype=True);assert dest.canonical_id.is_unique
+ orig.to_parquet(H/'route_origin_index.parquet',index=False);dest.to_parquet(H/'route_destination_index.parquet',index=False);pd.concat([no.assign(extension_role='new_source_origin'),nd.assign(extension_role='new_source_provider_destination')],ignore_index=True,sort=False).to_parquet(H/'accepted_new_coordinate_routing_scope.parquet',index=False);protocol={'status':'FIXED_BEFORE_ROUTE_VALUES','old_manifest_sha256':OLDMANIFESTSHA,'approved_overlay_sha256':sha(args.approved_coordinate_overlay),'approved_patch_sha256':sha(args.approved_coordinate_patch),'overlay_independent_admission_sha256':sha(args.coordinate_overlay_independent_admission),'source_provider_preflight_sha256':sha(args.new_provider_preflight),'provider_preflight_independent_admission_sha256':sha(args.provider_preflight_independent_admission),'new_origins':len(no),'new_destinations':len(nd),'source_eligible_still_unrouted':len(missing),'all_local_and_upper_admin_seats_follow_exact_source_preflight':True,'uniform_new_scope_minutes':180.,'old_origin_indices_and_old_destination_indices_unchanged':True,'old161364118pairs_unchanged':True,'new_origin_bound_not_360_legacy_Word_Ci_scope':True,'sourcepartialgraphattachments_sha256':sha(H/'sourcepoint_partial_edge_attachments.parquet'),'geometry_independent_admission_sha256':sha(geom_admission)};(H/'routing_scope_preregistration.json').write_text(json.dumps(protocol,indent=2)+'\n')
+ if args.stage=='prepare':
+  print(json.dumps(dict(protocol,status='NONNUMERIC_JOBMAPS_PREPARED_NO_ROUTE_VALUES')),flush=True);return
+ T.mkdir(exist_ok=True);subprocess.run(['g++','-O3','-std=c++17',str(H/'route_attached_points.cpp'),'-o',str(T/'route_attached_points')],check=True);jobs=[('forward','forward',no,d)]+[('reverse_'+str(i),'reverse',q,orig) for i,q in enumerate(np.array_split(nd,4)) if len(q)];chunks=[]
+ def run_job(item):
+  key,mode,q,t=item;folder=prep(mode,q,t,key)
+  with (folder/'progress.log').open('w') as log:subprocess.run([str(T/'route_attached_points'),str(folder),mode],stderr=log,check=True)
+  return item,folder
+ with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:finished=list(pool.map(run_job,jobs))
+ for (key,mode,q,t),folder in finished:
+  z=np.fromfile(folder/'attached_pairs.bin',dtype=DT)
+  if mode=='forward':x=pd.DataFrame({'origin_index':no.origin_index.to_numpy('uint32')[z['query']],'destination_index':d.destination_index.to_numpy('uint32')[z['point']],'network_minutes':z['network_minutes']})
+  else:x=pd.DataFrame({'origin_index':orig.origin_index.to_numpy('uint32')[z['point']],'destination_index':q.destination_index.to_numpy('uint32')[z['query']],'network_minutes':z['network_minutes']})
+  chunks.append(x)
+ short=[]
+ for s in no.itertuples():
+  for t in nd[nd.way_id.notna()].itertuples():
+   if s.id==t.id:cost=0.
+   elif s.way_id==t.way_id and s.left_osm_node==t.left_osm_node and s.right_osm_node==t.right_osm_node:
+    delta=t.left_partial_minutes-s.left_partial_minutes
+    if not ((delta>=0 and s.oneway>=0) or (delta<=0 and s.oneway<=0)):continue
+    cost=abs(delta)
+   else:continue
+   if cost+4*s.snap_km+4*t.snap_km<=180:short.append({'origin_index':s.origin_index,'destination_index':t.destination_index,'network_minutes':np.float32(cost)})
+ if short:chunks.append(pd.DataFrame(short))
+ add=pd.concat(chunks,ignore_index=True).groupby(['origin_index','destination_index'],as_index=False,sort=True).network_minutes.min();add=add.astype({'origin_index':'uint32','destination_index':'uint32','network_minutes':'float32'});assert not add.duplicated(['origin_index','destination_index']).any();assert ((add.origin_index>=len(o))|(add.destination_index>=len(d))).all();total=add.network_minutes.to_numpy('float64')+4*orig.snap_km.to_numpy()[add.origin_index]+4*dest.snap_km.to_numpy()[add.destination_index];assert np.isfinite(total).all() and (total<=180.0001).all();parts=[]
+ folder=H/'additional_parts';folder.mkdir(exist_ok=False)
+ for offset in range(0,len(add),1000000):
+  f=folder/f'part_{len(parts):03d}.parquet';pq.write_table(pa.Table.from_pandas(add.iloc[offset:offset+1000000],preserve_index=False),f,compression='zstd',use_dictionary=['origin_index','destination_index'],use_byte_stream_split=['network_minutes']);parts.append({'path':str(f.relative_to(H)),'rows':min(1000000,len(add)-offset),'bytes':f.stat().st_size,'sha256':sha(f)})
+ oldparts=[dict(p,path=os.path.relpath((OLD/p['path']).resolve(),H)) for p in old['parts']]
+ for p in oldparts:assert sha(H/p['path'])==p['sha256']
+ manifest=dict(old,rows=old['rows']+len(add),parts=oldparts+parts,origin_mapping={'path':'route_origin_index.parquet','sha256':sha(H/'route_origin_index.parquet'),'index_column':'origin_index'},destination_mapping={'path':'route_destination_index.parquet','sha256':sha(H/'route_destination_index.parquet'),'index_column':'destination_index'},base_manifest={'path':os.path.relpath(mfile,H),'sha256':OLDMANIFESTSHA},extension_scope='cycle07 source-admitted NP origins→allold17913targets≤180; allold/neworigins→actualnewsourceproviders≤180; originalpairsunchanged',per_origin_extended_scope_minutes=180.,old_360_scope_not_claimed_for_neworigins=True,sourcepartialattachment_receipt={'path':'all_selected_geometry_readback_receipt.json','sha256':sha(H/'all_selected_geometry_readback_receipt.json')});(H/'candidate_travel_times_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n');assert sha(mfile)==OLDMANIFESTSHA;receipt=dict(protocol,status='ACTUAL_ROUTING_EXTENSION_COMPUTED_PENDING_ALLROW_AND_SCIPY_QA',new_pairs=len(add),combined_pairs=manifest['rows'],direct_same_source_edge_shortcut_candidates=len(short),old_pairs_and_indices_unchanged=True,output_manifest_sha256=sha(H/'candidate_travel_times_manifest.json'),elapsed_seconds=time.monotonic()-start);(H/'routing_receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt),flush=True)
+if __name__=='__main__':main()

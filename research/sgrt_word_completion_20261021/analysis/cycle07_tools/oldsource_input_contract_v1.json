@@ -1,0 +1,145 @@
+{
+  "protocol": "analysis/cycle07_tools/PROTOCOL_v1.json",
+  "source_regression_design": "analysis/cycle06_tools/actual_inputs_access_v2_baseline.json",
+  "source_family": "OLD_SOURCE_GEOGRAPHY_INCLUSIVE_Q7_CHECKPOINT_WITH_ACCEPTED353_POPULATION",
+  "nodes": "model/output_cycle06_access_v2_source_geography_inclusive/nodes.parquet",
+  "own_mass": "model_inputs_cycle06/provisional_access_v2_source_geography_inclusive/fixed_own_mass_components.parquet",
+  "population_view": "typology/cycle07_complete/population_source353_v1/effective_population_source_view.parquet",
+  "population_admission": "reviews/cycle07_population_source353_projection_independent/audit.json",
+  "context_features": {
+    "rural_suburban_share": {
+      "path": "model/output_cycle06_access_v2_baseline/network_accessibility.parquet",
+      "fields": [
+        "network_suburban_30_60_minutes"
+      ],
+      "unit": "population-weighted share in30–60minute band to nearestlargecity, not allwithin60min and not commuting"
+    },
+    "agro_grain_yield2010": {
+      "path": "research/sgrt_word_completion_20261021/analysis/cycle05_tools/context_source_freeze_v4/primary_parent_municipal_context.parquet",
+      "fields": [
+        "context_grain_yield_centner_per_ha_2010"
+      ],
+      "unit": "centner/harvestedha; historicalmunicipal context admitted by either independent same-series-current-identity or direct historicalnativecode==datedprimaryparent +owninterval/unchangedhistory/unit/unique path; directpath doesnotrequire futuremeasurement; historicallegalboundariesunproven"
+    },
+    "sat_normal": {
+      "path": "model/output_cycle06_access_v2_source_geography_inclusive/nodes.parquet",
+      "fields": [
+        "climate_gaez_sat_above10_cday_1981_2010"
+      ],
+      "unit": "degC*days, daily-derived climate normal1981-2010"
+    },
+    "summer_moisture_normal": {
+      "path": "model/output_cycle06_access_v2_source_geography_inclusive/nodes.parquet",
+      "fields": [
+        "climate_gaez_summer_precipitation_over_pet_1981_2010"
+      ],
+      "unit": "P/PET April-September,1981-2010normal"
+    },
+    "soil_rating_midpoint": {
+      "path": "model/output_cycle06_access_v2_source_geography_inclusive/nodes.parquet",
+      "fields": [
+        "soil_gaez_low_input_most_limiting_rating_class_rating_lower",
+        "soil_gaez_low_input_most_limiting_rating_class_rating_upper"
+      ],
+      "unit": "0..1 classinterval midpoint;low-inputmaize soil quality,not Russianbonitet"
+    },
+    "agro_grain_yield2021": {
+      "path": "research/sgrt_word_completion_20261021/analysis/cycle05_tools/context_source_freeze_v4/primary_parent_municipal_context.parquet",
+      "fields": [
+        "context_grain_yield_centner_per_ha_2021"
+      ],
+      "unit": "published2021 municipal centner/harvestedha; primary2021 NP parent, not own NP crop yield; source-year declared code interval must include2021"
+    },
+    "rural_large_city_minutes": {
+      "path": "model/output_cycle06_access_v2_baseline/network_accessibility.parquet",
+      "fields": [
+        "nearest_large_city_network_minutes"
+      ],
+      "unit": "direct time to nearest population-defined large-city context anchor, not own system center; contextual modifier only"
+    }
+  },
+  "direct_focal_pairs": {
+    "path": "model/cycle07_scale_hierarchy/direct_pairs_oldsource_v1/directed_member_to_focal_pairs.parquet",
+    "receipt": "model/cycle07_scale_hierarchy/direct_pairs_oldsource_v1/directed_member_focal_receipt.json",
+    "columns": {
+      "center_id": "core_id",
+      "direct_minutes": "direct_network_minutes"
+    }
+  },
+  "views": [
+    {
+      "candidate_cap": 30,
+      "normalized_units": "typology/cycle07_complete/normalized_primary_v3/cap030_supported_end_forest/normalized_units.parquet",
+      "normalization_admission": "reviews/cycle07_normalization_v3_independent/cap030/audit.json",
+      "raw_units": "model/cycle07_scale_hierarchy/output_primary_v4/cap_030_raw_units.parquet",
+      "raw_memberships": "model/cycle07_scale_hierarchy/output_primary_v4/cap_030_raw_memberships.parquet"
+    },
+    {
+      "candidate_cap": 45,
+      "normalized_units": "typology/cycle07_complete/normalized_primary_v3/cap045_supported_end_forest/normalized_units.parquet",
+      "normalization_admission": "reviews/cycle07_normalization_v3_independent/cap045/audit.json",
+      "raw_units": "model/cycle07_scale_hierarchy/output_primary_v4/cap_045_raw_units.parquet",
+      "raw_memberships": "model/cycle07_scale_hierarchy/output_primary_v4/cap_045_raw_memberships.parquet"
+    },
+    {
+      "candidate_cap": 60,
+      "normalized_units": "typology/cycle07_complete/normalized_primary_v3/cap060_supported_end_forest/normalized_units.parquet",
+      "normalization_admission": "reviews/cycle07_normalization_v3_independent/cap060/audit.json",
+      "raw_units": "model/cycle07_scale_hierarchy/output_primary_v4/cap_060_raw_units.parquet",
+      "raw_memberships": "model/cycle07_scale_hierarchy/output_primary_v4/cap_060_raw_memberships.parquet"
+    },
+    {
+      "candidate_cap": 90,
+      "normalized_units": "typology/cycle07_complete/normalized_primary_v3/cap090_supported_end_forest/normalized_units.parquet",
+      "normalization_admission": "reviews/cycle07_normalization_v3_independent/cap090/audit.json",
+      "raw_units": "model/cycle07_scale_hierarchy/output_primary_v4/cap_090_raw_units.parquet",
+      "raw_memberships": "model/cycle07_scale_hierarchy/output_primary_v4/cap_090_raw_memberships.parquet"
+    },
+    {
+      "candidate_cap": 120,
+      "normalized_units": "typology/cycle07_complete/normalized_primary_v3/cap120_supported_end_forest/normalized_units.parquet",
+      "normalization_admission": "reviews/cycle07_normalization_v3_independent/cap120/audit.json",
+      "raw_units": "model/cycle07_scale_hierarchy/output_primary_v4/cap_120_raw_units.parquet",
+      "raw_memberships": "model/cycle07_scale_hierarchy/output_primary_v4/cap_120_raw_memberships.parquet"
+    }
+  ],
+  "source_admissions": [
+    "reviews/cycle07_controller_independent/controller_admission_v4.json"
+  ],
+  "expected_sha256": {
+    "analysis/cycle07_tools/PROTOCOL_v1.json": "75bceeca5240abd76ca5dd26999f33b02668ba864c8cef4985f55fd681ecc403",
+    "analysis/cycle06_tools/actual_inputs_access_v2_baseline.json": "8e84038d86a696f28a81143cdfc5ba8fd956d8794334966a9c3d730e9737cc73",
+    "model/output_cycle06_access_v2_source_geography_inclusive/nodes.parquet": "0e3f257540fe5fe694cd6cd6240bd672c7974e13710cd6142780c03ea1ae33cd",
+    "model_inputs_cycle06/provisional_access_v2_source_geography_inclusive/fixed_own_mass_components.parquet": "1b43b33a291a12764e95afe6174193e988e9f20005006cd1943086b796df9fc1",
+    "typology/cycle07_complete/population_source353_v1/effective_population_source_view.parquet": "c4477e03e475ca8c84208c7a5020b578eeb5f7802012cb62a62664fe625b94b8",
+    "reviews/cycle07_population_source353_projection_independent/audit.json": "19d1b3e713b1baf1f1c8f43dcdbb89023d1af878e476deb03b173fdd98108868",
+    "reviews/cycle07_controller_independent/controller_admission_v4.json": "64013ac0ac5ca47ab8bef98d477ab032cca0cbabe7138b80f1515bc9236666d0",
+    "research/sgrt_word_completion_20261021/analysis/cycle05_tools/context_source_freeze_v4/primary_parent_municipal_context.parquet": "1ae1dd297735a49dd60fdaaa9496589490b590eb548a88a2dd48dd477b86e760",
+    "model/output_cycle06_access_v2_baseline/network_accessibility.parquet": "5954a11f749cb026ba52173b55464cb2cbfc0aa01b5960f7a05788948d7d853b",
+    "model/cycle07_scale_hierarchy/direct_pairs_oldsource_v1/directed_member_to_focal_pairs.parquet": "0e36f2d393f81b046934e1d732f00721b319f81091945224165615603a166a7f",
+    "model/cycle07_scale_hierarchy/direct_pairs_oldsource_v1/directed_member_focal_receipt.json": "ed5d93e9032d4a3ac5051d72e84517440c7f6eb7ed7aa27d1cbc1a63e2d2c6ad",
+    "typology/cycle07_complete/normalized_primary_v3/cap030_supported_end_forest/normalized_units.parquet": "cec28b3f992536f4b3e03e234bcf33bbee0109f3badb4b3abdd24c2ea4fe739e",
+    "reviews/cycle07_normalization_v3_independent/cap030/audit.json": "95125e7ad5ecc4b8851af7e987bf2aecaa80893a2301056c8d4e522327dda3f8",
+    "model/cycle07_scale_hierarchy/output_primary_v4/cap_030_raw_units.parquet": "0754677874c38d277997d5a40f046b9d4c42069ef0cf215f148b510182031447",
+    "model/cycle07_scale_hierarchy/output_primary_v4/cap_030_raw_memberships.parquet": "b12fec2f360428447b3a84a6772fffd47c3b1ead4b96744f96f1abe999543b36",
+    "typology/cycle07_complete/normalized_primary_v3/cap045_supported_end_forest/normalized_units.parquet": "c02ed328f9cd18fae3a318a071dd59273a60f9545fda861b9f1bd8bfba6df414",
+    "reviews/cycle07_normalization_v3_independent/cap045/audit.json": "9cd0e78c256a6c6b42f1ae636fa0f6c82778aa1bf7253ed57e98a76492bf8f59",
+    "model/cycle07_scale_hierarchy/output_primary_v4/cap_045_raw_units.parquet": "99b1edb692a831dd805c98aa575927ce14bc07fd14d81a2dcd3f99e569d01baa",
+    "model/cycle07_scale_hierarchy/output_primary_v4/cap_045_raw_memberships.parquet": "f6791303171c66bb14a0d1a2096b9ed39b7612aed9aaa7f6d478442bc12f1d2d",
+    "typology/cycle07_complete/normalized_primary_v3/cap060_supported_end_forest/normalized_units.parquet": "d3eed244f8e1cdaf606dd7729fc17605cf08cc0a827397695d81be01ae873809",
+    "reviews/cycle07_normalization_v3_independent/cap060/audit.json": "33beec45765abe06ca8c9217ba7245fb2d01570a773b1e7ef39592fe98a98cb0",
+    "model/cycle07_scale_hierarchy/output_primary_v4/cap_060_raw_units.parquet": "5f9c5990cd9ea9da3eb008054356282a27ff0a846d172681441848656323ac44",
+    "model/cycle07_scale_hierarchy/output_primary_v4/cap_060_raw_memberships.parquet": "89ad52bc71c599de7debe70927c903b66a8f242394656f4d476636958cdfb371",
+    "typology/cycle07_complete/normalized_primary_v3/cap090_supported_end_forest/normalized_units.parquet": "031aab0ac1361b5167274e16eb1f27ea25a2df1308fadd4e818792e2c3d46177",
+    "reviews/cycle07_normalization_v3_independent/cap090/audit.json": "cf561e82089ad0c8cdcdccc9eb6862f199cf0ec5021c169ec13b862057a032d4",
+    "model/cycle07_scale_hierarchy/output_primary_v4/cap_090_raw_units.parquet": "32cc770a8166b68f46374215e9dbc75da031d3f4259e221492293875322fc634",
+    "model/cycle07_scale_hierarchy/output_primary_v4/cap_090_raw_memberships.parquet": "0a3fc6fdb2e7ff5bc01e4cb7cab8564cc4cfc2568959f7becaaa7cbcd6b4ba15",
+    "typology/cycle07_complete/normalized_primary_v3/cap120_supported_end_forest/normalized_units.parquet": "a55b720cebe2dfeca827ddd37eb35dac4b4f8d591242b9842f45d4fba4e9ee17",
+    "reviews/cycle07_normalization_v3_independent/cap120/audit.json": "50e92cca9020309f4c4ad8924683d393c8ab159da5bf5e48aaf790e488ccf2a8",
+    "model/cycle07_scale_hierarchy/output_primary_v4/cap_120_raw_units.parquet": "1259d017b34df1da72451869c6b07c345bdb69d5d165f3bc205187e007e2b9a5",
+    "model/cycle07_scale_hierarchy/output_primary_v4/cap_120_raw_memberships.parquet": "5bab9be814b47025b0878a9ecef85507da3c43d91a90519276955a4a777c13d4"
+  },
+  "large_city_reuse_proof_required_before_source_preparation_admission": true,
+  "nearest_large_city_time_budget_minutes": 360,
+  "own_focal_pair_time_budget_minutes": 180
+}
