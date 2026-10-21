@@ -1,0 +1,13 @@
+"""Keep territorial fields separate from protected carries in persistence summaries."""
+from pathlib import Path
+import json,hashlib
+import pandas as pd
+HERE=Path(__file__).resolve().parent;REG=HERE.parent/'empirical_registry_source477_v1'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+a=HERE/'per_unit_resolution_transitions.parquet';b=REG/'all_empirical_raw_units.parquet';u=pd.read_parquet(b,columns=['unit_id','unit_role','n_provider_seeds']);d=pd.read_parquet(a).merge(u,on='unit_id',validate='one_to_one');source={str(a):sha(a),str(b):sha(b),str(Path(__file__)):sha(Path(__file__))}
+rows=[]
+for (lo,hi,role,kind),g in d.groupby(['lower_resolution','upper_resolution','unit_role','change_kind']):
+ total=len(d[(d.lower_resolution==lo)&(d.upper_resolution==hi)&(d.unit_role==role)]);p=pd.to_numeric(g.core_population2021,errors='coerce');rows.append({'lower_resolution':int(lo),'upper_resolution':int(hi),'unit_role':role,'change_kind':kind,'n_units':len(g),'n_role_units_in_upper_resolution':total,'fraction_upper_role_units':len(g)/total,'n_members':int(g.n_members.sum()),'focalP_known':int(p.notna().sum()),'focalP_unknown':int(p.isna().sum()),'focalP_median':p.median(),'fixedMi_median':g.core_fixed_own_mass.median(),'persistent_unit_is_NOT_new_functional_order':True})
+pd.DataFrame(rows).to_csv(HERE/'unit_role_stratified_transition_summary.csv',index=False)
+new=d[d.change_kind.eq('union_of_at_least_two_lower_territorial_fields')].copy();new['descriptive_focal_population_band']=pd.cut(new.core_population2021,[-float('inf'),50000,100000,500000,1000000,float('inf')],right=False,labels=['below50000','50000_to99999','100000_to499999','500000_to999999','1000000plus']).astype('string').fillna('ownP_unknown_including_external_contexts');bands=new.groupby(['lower_resolution','upper_resolution','descriptive_focal_population_band']).size().reset_index(name='n_new_territorial_field_unions');bands['population_bands_used_for_selection']=False;bands.to_csv(HERE/'new_field_unions_descriptive_population_bands.csv',index=False)
+assert all(sha(Path(p))==h for p,h in source.items());(HERE/'role_summary_receipt.json').write_text(json.dumps({'status':'DESCRIPTIVE_PERSISTENCE_ROLE_STRATIFICATION_NOT_NEW_RANK_ASSIGNMENT','source_pins':source,'outputs_sha256':{p.name:sha(p)for p in [HERE/'unit_role_stratified_transition_summary.csv',HERE/'new_field_unions_descriptive_population_bands.csv']},'protected_carry_separated_from_territorial_denominators':True,'population_bands_used_for_selection':False},indent=2));print(pd.DataFrame(rows).query("unit_role=='territorial_unit'").to_string(index=False));print(bands.to_string(index=False))
