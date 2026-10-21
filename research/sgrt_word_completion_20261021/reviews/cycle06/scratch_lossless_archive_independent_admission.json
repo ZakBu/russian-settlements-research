@@ -1,0 +1,68 @@
+{
+  "status": "ACCEPTED",
+  "all_checks_passed": true,
+  "n_checks": 12,
+  "n_failed": 0,
+  "checks": [
+    {
+      "check": "CURRENT_full_source_hash_road_ways.parquet",
+      "pass_": true
+    },
+    {
+      "check": "CURRENT_full_source_hash_road_ways_all_static.parquet",
+      "pass_": true
+    },
+    {
+      "check": "archive_excluded_raw_rows.parquet",
+      "pass_": true
+    },
+    {
+      "check": "archive_original_footer.bin",
+      "pass_": true
+    },
+    {
+      "check": "actual_code_SHA",
+      "pass_": true
+    },
+    {
+      "check": "direct_byte_comparator_success_not_just_row_equality",
+      "pass_": true
+    },
+    {
+      "check": "full_common_typed_float_bit_semantics",
+      "pass_": true
+    },
+    {
+      "check": "359_original_rowgroup_boundaries",
+      "pass_": true
+    },
+    {
+      "check": "8044_complete_exclusive_sorted_positions",
+      "pass_": true
+    },
+    {
+      "check": "original_source_unchanged_after_full_proof",
+      "pass_": true
+    },
+    {
+      "check": "no_deletion_by_author",
+      "pass_": true
+    },
+    {
+      "check": "runtime_version_pinned",
+      "pass_": true
+    }
+  ],
+  "scope": "LOSSLESS_REDUNDANT_SCRATCH_CACHE_REPRESENTATION_DIRECT_BYTE_PROOF_REVIEW",
+  "proof_code_independently_reviewed": true,
+  "full218second_source_loop_rerun_by_reviewer": false,
+  "direct_full_byte_comparison_code": "CompareSink verifies each reconstructed stream write against original source bytes, detects trailing originals, and updates complete streamedSHA; it raises on first differing offset.",
+  "reconstructed_source_sha256": "d3ed3a460012dd3a1d9f6d2877e0568a70d7dd07c172d2c2a266887cfd532191",
+  "reconstructed_source_bytes": 1663687103,
+  "receipt_sha256": "1df6dd8c1f9bc3c927db6ca628b97e31d0b7f3f19cf40a1a8927f97aba576290",
+  "reconstruction_manifest_sha256": "45060928b1773b576f577a12ac085291c0a0e04d786f5f2d6776c14125b980e2",
+  "retained_common_file_required": "/workspace/scratch/sgrt_transport/road_ways.parquet",
+  "accepted_disposable_file_ONLY": "/workspace/scratch/sgrt_transport/road_ways_all_static.parquet",
+  "archive_and_retained_common_must_remain": true,
+  "scientific_data_removed": false
+}
