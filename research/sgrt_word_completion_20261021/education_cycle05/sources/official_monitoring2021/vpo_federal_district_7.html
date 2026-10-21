@@ -1,0 +1,953 @@
+<!-- Cached copy, generated 23:29 -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="yandex-verification" content="68c75751805dfb0d" />
+<title>Мониторинг (ВО)</title>
+<link rel="shortcut icon" href="../../../img/icon/micon.ico">
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/materials.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/kendo.css" />
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/kendo.js"></script>
+<script src="https://api-maps.yandex.ru/2.1/?apikey=c7ebcb8f-8d1e-464e-bd09-f9a0f2601a46&lang=ru_RU&coordorder=longlat" type="text/javascript"></script>
+<style>
+  .blockcontent>p {
+    color: #000;
+    font:normal 400 16px/17px Calibri;
+    text-align:justify;
+    padding-top:10px;
+  }
+
+  .blockcontent p.snoska {
+    font: normal normal 400 11px/12px Arial;
+    color:#676767;
+  }
+</style>
+
+<script type="text/javascript">
+
+$(function() {
+  $(window).scroll(function(){
+     $('#instheader').css('top',-1*Math.min($('#instheader #doc_name').height()+$('#instheader #fo_name').height()+19,$(window).scrollTop()));
+     $('#instheader #gerb').css('background-size','auto '+Math.min(72,98-Math.min($('#instheader #doc_name').height()+$('#instheader #fo_name').height()+19,$(window).scrollTop()))+'px');
+     $('#instheader #gerb').css('padding-right', parseInt(0*Math.min(72,98-Math.min($('#instheader #doc_name').height()+$('#instheader #fo_name').height()+19,$(window).scrollTop()))+15)+'px');
+  });
+
+  $(document).ready(function(){
+     $('body').css('padding-top',$('#instheader').height()+parseInt($('#instheader').css('padding-bottom'))).children('#instheader').css('position','fixed');
+     createChart();
+  });
+
+  $('.inst').hover(function(e) {
+                      if ($('#add'+$(this).attr('id')+' #another_city_vuz').html()=='') {
+                        if($('td.inst[city="'+$(this).attr('city')+'"][id!='+$(this).attr('id')+']').length==0) {
+                          $('#add'+$(this).attr('id')+' #another_city_vuz').html('-');
+                        } else {
+                          var ss = '';
+                          $('td.inst[city="'+$(this).attr('city')+'"][id!='+$(this).attr('id')+']').each(function(idx,el){
+                            ss = ss + '<div class="anothervuz" style="background:url(../../../img/temp/st_'+$(el).attr('icon')+'_0.png) 0px 1px no-repeat;">'+$(el).children('a').text()+'</div>';
+                          });
+                          $('#add'+$(this).attr('id')+' #another_city_vuz').html(ss);
+                        }
+                      }
+                      $('.inst_add').stop(0).fadeOut(500);
+                      $('#add'+$(this).attr('id')).delay(300).appendTo(this).fadeIn(600);
+                  }
+                  ,function(e) {
+                      $('.inst_add').clearQueue().fadeOut(500);
+                  });
+
+  $('#tr_ugs td[id=td_ugs]').click(function(){
+    $(this).parent('tr').children('#td_ugs').toggleClass('td_ugs_n td_ugs_v');
+    $('#trud tr[ugs='+$(this).attr('ugs')+']').fadeToggle(0);
+  });
+
+
+  $('.show_map').click(function(){
+     $('#maps').parent('div').width($(window).width()*0.8)
+                            .height($(window).height()*0.8)
+                            .css('left',($(window).width()*0.1))
+                            .css('top',($(window).height()*0.1))
+                            .fadeIn(300);
+
+
+     if($('#maps').html()=='') {
+         $('#maps').height($(window).height()*0.8);
+
+
+        ymaps.ready(function() {
+              var myMap;
+              myMap = new ymaps.Map('maps', {
+                                       center: [37.3, 55.495],
+                                       zoom: 7,
+                                       behaviors: ['default', 'scrollZoom'],
+                                       controls: ['zoomControl','fullscreenControl']
+                                   });
+
+
+              $('.inst[coordinates]').each(function(idx,el){
+                if($(el).attr('coordinates')!='') {
+  	            myMap.geoObjects.add(
+  	              new ymaps.GeoObject({
+                                       geometry: {
+                                             type: "Point",
+                                             coordinates: $(el).attr('coordinates').split(/\s*,\s*/)
+
+                                       },
+                                       properties: {
+                                             iconContent: '',
+                                             hintContent: $(el).children('a').text(),
+                                             balloonContent: ''
+                                       }
+                                    }, {
+
+                                             iconLayout: 'default#image',
+                                             iconImageHref: '../../../img/temp/st_map_'+$(el).attr('icon')+'.png',
+                                             iconImageSize: [19, 15],
+											         iconImageOffset: [-6, -6]
+                                    })
+
+                );
+              }
+
+              myMap.setBounds(myMap.geoObjects.getBounds(),{zoomMargin: [10,10,10,10]});
+            });
+        }); //ymaps.ready
+     }
+   });
+
+
+});
+
+   function createChart() {
+
+            $('#chart_specific').kendoChart({
+	                  legend: {position: "bottom",padding :{top:0}, visible: false,labels: {font:"italic 10px Arial", color:"#799"}},
+	                  seriesDefaults: {type: "bar", stack: true, gap: 0.5, labels: {visible: true,
+												   	                                background: "transparent",
+												   	                                color:"#000", font:"700 11px Tahoma",
+												   	                                format: "N0"    }
+	                  },
+	                  series: [{name: "",
+	                            data: [4,5,5,2,5],
+	                            color: "#591d45"
+	                          }],
+	                  valueAxis: {min:0, max: 6, line: {visible: false }, minorGridLines: { visible: false },majorGridLines: { visible: false }, labels: false},
+	                  categoryAxis: [{categories: ["медицинской","сельскохозяйственной","творческой","спортивной","транспортной"],
+	                                  labels: {margin: 9, font: "11px Tahoma"},
+	                                  majorGridLines: {visible: false}
+	                                }],
+	                  tooltip: {visible: false, template: "#= series.name # - <b>#= value #</b>", font:"11px Tahoma",format: "${0} bln"}
+                    });
+
+
+
+
+
+	            $("#chart_kont_otr").kendoChart({
+                    title: {              visible: false               },
+	                legend: {             visible: false               },
+	                chartArea: {               background: ""          },
+	                seriesDefaults: {
+	                    labels: {
+	                        visible: true,
+	                        background: "transparent",
+	                        template: "#= category # - #= kendo.format('{0:P}', percentage)#",
+	                        position: "outsideEnd"
+	                    }
+	                },
+	                series: [{
+	                    type: "donut",padding: 45,startAngle: 100,
+	                    overlay: {gradient: "none"},
+	                    border: {width:0.2, color:"#123"},
+	                    data: [
+	                    {category: "Математические и есте-\nственные науки",
+						        value: 5470.1499999999996,
+						        color:"#DD0000"},{category: "Инженерное дело, технологии\nи технические науки",
+						        value: 35139.550000000003,
+						        color:"#CC8800"},{category: "Здравоохранение и ме-\nдицинские науки",
+						        value: 14932.5,
+						        color:"#EDED84"},{category: "Сельское хозяйство и сельско-\nхозяйственные науки",
+						        value: 5857.1000000000004,
+						        color:"#00EE00"},{category: "Науки об обществе",
+						        value: 30438.5,
+						        color:"#00DB6D"},{category: "Образование и педаго-\nгические науки",
+						        value: 13167.75,
+						        color:"#00CCBB"},{category: "Гуманитарные науки",
+						        value: 6362.25,
+						        color:"#0000CC"},{category: "Искусство и культура",
+						        value: 3093.0999999999999,
+						        color:"#8800CC"},						        ]
+	                }],
+	                tooltip: {                visible: true,	template: "Приведенный контингент студентов - <b>#= value #</b> чел." , font:"11px Tahoma"                }
+	                });
+try {
+  $('#chart_specific g text[fill=#232323]:first').parents('div').append("<span class='tdel' style='font:11px Tahoma;color:transparent;'>сельскохозяйственной</span>");
+  var bw = $('.tdel').width();
+  $('.tdel').remove();
+
+  $('#chart_specific g text[fill=#232323]').each(function(idx, el){ dd = $(el).html();//alert(dd);
+    var ss ='<image xlink:href="../../../img/temp/specific_'+parseInt(idx+2)+'.png" src="../../../img/temp/specific_'+parseInt(idx+2)+'.png" height="17" width="17" y="'+parseInt($(el).attr('y')-13)+'" x="'+parseInt(bw+9)+'" />';
+    $(el).attr('x',parseInt($(el).attr('x')-9));
+
+    $(el).parent('g').html($(el).parent('g').html()+ss);
+  });
+ } catch(e) {
+
+ }
+ }
+</script>
+
+
+<body id="body" style="display:block; min-width:1200px;padding:0px;font:normal 400 16px Calibri;">
+
+  <div style='display:none;height:0px;width:0px;position:fixed;z-index:1000;box-shadow:0px 0px 50px 10px rgba(0,0,0,0.7);background:url(../../../img/bg_map.png);'>
+    <div id='maps'></div>
+    <div style='float:right;position:absolute;top:0px;right:-38px;padding:0px 1px;cursor:pointer;background:url(../../../img/1433338524_close.png) no-repeat;width:32px;height:32px;' onclick='$(this).parent("div").fadeOut(100);'></div>
+  </div>
+
+
+
+<table id="instheader" style="box-shadow:0px 2px 5px rgba(0,0,0,0.7);width: 100%;min-width:1200px;background: url(../../../img/monitoring_logo/lh_rr.png);position:fixed;top:0px;z-index:999;">
+  <tr style="height:124px; background: url(../../../img/monitoring_logo/lh_mm.png) 0px -16px;">
+    <td style="border:none;background: url(../../../img/monitoring_logo/bb_l.png) repeat-y right, url(../../../img/monitoring_logo/lh_rr.png) 0px -16px;"></td>
+    <td style="border:none;min-width:1200px;width:1200px !important; background: url(../../../img/monitoring_logo/lh_m_material.png)  0px -16px no-repeat;text-align:right;vertical-align:top;">
+      <div id='doc_name' style="text-align:right;position:relative;padding:1px 30px 3px 0px;background:rgba(0,0,0,0.2);font:normal 400 13px Tahoma; color:#E3E4E8;">
+	               <a href='/' style='font-size:12px;background:url(../../../img/ti_home.svg) left top 1px no-repeat;padding-left:15px;'></a> | 
+				   <a href='/?m=vpo&year=2022' style='font-size:12px;color:#E3E4E8;text-decoration:none;'>Информационно-аналитические материалы по результатам проведения мониторинга
+	                эффективности деятельности образовательных организаций высшего образования 2022 года</a>
+	  </div>
+      <div id='gerb' style="position:relative;height:72px;margin-top:10px;
+                  left:-30px;
+                  padding-right: 0px;
+                  background: url(../../../img/temp/gerb/.png) right bottom no-repeat;
+                  background-size: auto 72px;
+                  text-shadow: -1px -1px 1px rgba(0,0,0,0.75);">
+        <div id='fo_name' style='font:normal normal 700 17px/27px Arial; color:#C3C7DB;padding-bottom:10px;padding-top:6px;height:27px;'> </div>
+        <div style='font:normal normal 400 32px/27px Arial; color:#E8EAF4;'>ДАЛЬНЕВОСТОЧНЫЙ ФЕДЕРАЛЬНЫЙ ОКРУГ</div>
+	  </div>
+    </td>
+    <td style="border:none;background: url(../../../img/monitoring_logo/bb_r.png) repeat-y left, url(../../../img/monitoring_logo/lh_rr.png) 0px -16px;"></td>
+  </tr>
+</table>
+
+
+
+<table style="width: 100%;">
+  <tr style="height:255px;">
+    <td style="background: url(../../../img/monitoring_logo/bb_l.png) repeat-y right, #ddd;border:none;"></td>
+    <td style="width:1200px !important; background: #fff;border:none;padding-top:10px;position:relative;">
+
+
+
+<div>
+  <div style="font:normal 700 30px/30px Calibri;color:#123;padding:15px;padding-left:30px;">ХАРАКТЕРИСТИКА СИСТЕМЫ ВЫСШЕГО ОБРАЗОВАНИЯ</div>
+  <div class="blockcontent" style="display:block;">
+    <div id="statistic" style='width:100%;height:550px;position:relative;margin:10px 0px 25px;'>
+      <svg id="map_of_russia" width="1109" height="550" style='position:absolute;'>
+        <g id='map' transform='scale(0.82) translate(0, 0)'></g>
+        <g id="metka" transform="scale(1) translate(0,0)">
+          <path id="m_line" d="" stroke="#678" stroke-width="3" stroke-dasharray="1,6" fill="none" stroke-linecap="round" />
+          <circle cx="-100" cy="" r="7"  stroke-width = "1" stroke = "#566" fill = "#fff" />
+          <circle cx="-100" cy="" r="4.75"  stroke-width = "1" stroke = "#566" fill = "#234" />
+        </g>
+      </svg>
+
+      <div id='statistic_info_reg' style='opacity:0.95;height:60px;left:25px;position:absolute;bottom:15px;padding-left: 0px;box-shadow:0px 0px 10px 5px #fff;text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+                   text-align:left;background: url(../../../img/temp/gerb/.png) left top no-repeat, #fff;background-size: auto 60px;'>
+        <div id='fo_name' style='font:normal normal 400 15px Tahoma; color:#a3a7bB;padding-top:4px;height:23px;'> </div>
+        <div style='padding:0px;background:#fff;font:700 23px Arial;color:#678;'>ДАЛЬНЕВОСТОЧНЫЙ ФЕДЕРАЛЬНЫЙ ОКРУГ</div>
+      </div>
+
+
+
+
+      <div class='statistic_info' style='position:absolute;padding:4px 9px;' id='statistic_info_all'>
+        <table style='border-bottom:1px solid #aaa;'>
+          <tr><td style='text-align:right;'><span class='val'>67</span></td><td>организаций высшего образования<sup style='font:8px Calibri;'>*</sup></td></tr>
+          <tr><td style='text-align:right;'>в т.ч.: <span class='val'>28</span></td><td>филиалов</td></tr>
+                    <tr><td style='text-align:right;'><span class='val'>2</span></td><td>федеральных университета</td></tr>                    <tr><td style='text-align:right;'><span class='val'>1</span></td><td>участник проекта 5-100</td></tr>        </table>
+        <table style='width:100%;margin-top:4px;'>
+          <tr style=''>
+            <td style='padding-top:1px;vertical-align:top;font:normal 400 11px/10px Tahoma;text-align:right;'>государственных<br />и муниципальных</td>
+            <td style='vertical-align:top;text-align:right;'><span class='val'>57</span></td>
+            <td style='text-align:center;width:154px;'>
+              <svg width="154" height="23"><g transform="translate(2,0)">
+                <linearGradient id="kdef2" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset="0" style="stop-color:#fff;stop-opacity:0;"></stop><stop offset="0.25" style="stop-color:#fff;stop-opacity:0.25;"></stop><stop offset="1" style="stop-color:#fff;stop-opacity:0;"></stop></linearGradient>
+                <path d="M128.5 7.5v11H0.5  v-11z" stroke-width="0.5" stroke-opacity="0.9" stroke="#000" fill="#83A2D3" > </path>
+                <path d="M128.5 7.5v11H150.5v-11z" stroke-width="0.5" stroke-opacity="0.5" stroke="#000" fill="#FFB27F" > </path>
+                <path d="M0.5 7.5H150.5v11H0.5z" stroke="none" fill="url(#kdef2)"/>
+                <path d="M128 5v16" stroke="#456" stroke-width="2" />
+              </g></svg>
+            </td>
+            <td style='vertical-align:top;text-align:right;'><span class='val'>10</span></td>
+            <td style='padding-top:5px;vertical-align:top;font-size:11px;text-align:left;'>частных</td></tr>
+        </table>
+
+        <div class='statistic_info show_map' style='position:absolute;cursor:pointer;box-shadow: 1px 1px 3px rgba(0,0,0,0.3);padding:3px 6px 3px 27px;background:url(../../../img/struct_icon_1.png) center left 5px no-repeat, rgba(227,239,234,0.75);font:normal 700 11px/normal Arial;bottom:-27px;left:0px;text-decoration:underline;text-decoration-style:dotted;color:#456;'>на карте</div>
+      </div>
+
+
+     <div class='statistic_info' style='position:absolute;bottom:15px;' id='statistic_info_chart_kont'>
+       <table style='margin:4px 9px;'>
+         <tr><td style='text-align:right;'><span class='val'>172 837</span></td><td>студентов бакалавриата, специалитета, магистратуры<p style='font-size:11px'>(4,24% от контингента по РФ)</p></td></tr>
+         <tr><td style='text-align:right;'>в т.ч. <span class='val'>106 999</span></td><td>очной формы обучения</td>
+         <tr><td style='text-align:right;'><span class='val'>101 016</span></td><td>за счет бюджетных средств бюджетной системы РФ</td></tr>
+       </table>
+       <hr style='border:none;border-bottom:1px solid #aaa;margin:0px 9px;'>
+       <table style='margin:4px 9px;'>
+	      <tr style=''>
+            <td style='padding-top:1px;vertical-align:top;font:normal 400 11px/10px Tahoma;text-align:right;'>обучаются в государственных<br />и муниципальных вузах</td>
+            <td style='vertical-align:top;text-align:right;'><span class='val'>98,5<span style='font-size:12px;'>%</span></span></td>
+            <td style='text-align:center;'>
+              <svg width='154px' height='23px'><g transform="translate(2,0)">
+                <linearGradient id="kdef2" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset="0" style="stop-color:#fff;stop-opacity:0;"></stop><stop offset="0.25" style="stop-color:#fff;stop-opacity:0.25;"></stop><stop offset="1" style="stop-color:#fff;stop-opacity:0;"></stop></linearGradient>
+                <path d="M148.5 7.5v11H0.5  v-11z" stroke-width="0.5" stroke-opacity="0.9" stroke="#000" fill="#83A2D3"/>
+                <path d="M148.5 7.5v11H150.5v-11z" stroke-width="0.5" stroke-opacity="0.6" stroke="#000" fill="#FFB27F"/>
+                <path d="M0.5 7.5H150.5v11H0.5z" stroke="none" fill="url(#kdef2)"/>
+                <path d="M148 5v16" stroke="#456" stroke-width="2" />
+              </g></svg>
+            </td>
+            <td style='vertical-align:top;text-align:right;'><span class='val'>1,5<span style='font-size:12px;'>%</span></span></td>
+            <td style='padding-top:1px;vertical-align:top;font:normal 400 11px/10px Tahoma;text-align:left;'>в частных<br />вузах</td></tr>
+
+          </table>
+       <hr style='border:none;border-bottom:1px solid #aaa;margin:0px 9px;'>
+       <div id='chart_kont_otr' style='width:510px;height:200px;padding-top:15px;'></div>
+     </div>
+       <script>
+
+
+         var X = 0;
+         var Y = 0;
+         var r = true;
+           var scale = 0.85;
+         var translate_x = 130;
+         var translate_y = Math.max(0,165-$('[fo=7]').attr('yc')*scale);
+             X = Math.ceil((parseInt($('[fo=7]').attr('xc'))+translate_x)*scale);
+             Y = Math.ceil((parseInt($('[fo=7]').attr('yc'))+translate_y)*scale);
+             r = (X < 1109/2);
+         $('#map_of_russia g#map').attr('transform','scale('+scale+') translate('+translate_x+', '+translate_y+')');
+         $('#map_of_russia g [fo=7]').css('fill','#AEB8C1');
+         $('#map_of_russia g#metka path#m_line').attr('d',((($('#statistic_info_all').innerWidth()>X && r) || (1109-$('#statistic_info_all').innerWidth()<X  && !r)) ? 'M'+parseInt(X)+' '+parseInt($('#statistic_info_all').innerHeight()+3) : 'M'+(r ? $('#statistic_info_all').innerWidth()+3 : 1109-$('#statistic_info_all').innerWidth()-3)+' 50.5H'+parseInt(X-(r ? 7 : -7))+'a7 7 0 0 '+(r ? 1 : 0)+' '+(r ? 7 : -7)+' 7')+'V541.5a7 7 0 0 '+(r ? 0 : 1)+' '+(r ? 7 : -7)+' 7H'+(r ? 1100 : 9)+'a7 7 0 0 '+(r ? 0 : 1)+' '+(r ? 7 : -7)+'-7V407.5a7 7 0 0 '+(r ? 0 : 1)+' '+(r ? -7 : 7)+'-7H'+(r ? 1109-20 : 20));
+         $('#map_of_russia g#metka circle').attr('cx',X).attr('cy',Y);
+
+  
+         $('#statistic_info_all').css((r ? 'left' : 'right'), '0px');
+         $('#statistic_info_chart_kont').css((!r ? 'left' : 'right'), '20px');
+         $('#statistic_info_reg').css((r ? 'bottom' : 'top'), '15px');
+
+       </script>
+
+</div>
+
+  <p class='snoska' style='padding-top:5px;margin-bottom:10px;'><sup style=''>*)</sup> Из числа принявших участие в мониторинге. Кроме образовательных организаций федеральных государственных органов, осуществляющих подготовку кадров в интересах обороны и безопасности государства, обеспечения законности и правопорядка, а также организаций, не предоставивших сведения в рамках мониторинга.</p>
+
+  <p>В мониторинге выделяется пять групп организаций, имеющих отраслевую специфику деятельности, которая устанавливается в соответствии с долей контингента студентов 1 курса, обучающихся по выделенной группе направлений подготовки и специальностей.</p>
+  <div id='chart_specific' style='height:110px;margin-top:10px;'></div>
+  <p style='border-top:1px solid #222;padding-top:0px;font-size:13px;width:75%;'><i>Число образовательных организаций и филиалов, обладающих отраслевой спецификой деятельности</i></p>
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+<div>
+  <div style="font:normal 700 30px/30px Calibri;color:#123;padding:15px;padding-left:30px;">РЕЗУЛЬТАТЫ МОНИТОРИНГА ДЕЯТЕЛЬНОСТИ ОБРАЗОВАТЕЛЬНЫХ ОРГАНИЗАЦИЙ</div>
+  <div class="blockcontent" style="display:block;">
+        <table class='an' width="100%"><thead id='otr'>
+          <tr>
+            <td colspan='2' rowspan='2' style='background:none;border-top:none;border-left:none;vertical-align:top;text-align:left;'></td>
+            <td colspan='9'>Распределение приведенного контингента студентов по отраслям наук</td>
+          </tr>
+          <tr>
+            <td>Матема-<br />тические и<br />естествен-<br />ные науки</td>
+            <td>Инженерное<br />дело,<br />технологии и<br />технические<br />науки</td>
+            <td>Здраво-<br />охранение и<br />медицинские<br />науки</td>
+            <td>Сельское<br />хозяйство и<br />сельско-<br />хозяйствен-<br />ные науки</td>
+            <td>Науки об<br />обществе</td>
+            <td>Образова-<br />ние и педа-<br />гогические<br />науки</td>
+            <td>Гуманитар-<br />ные науки</td>
+            <td>Искусство и<br />культура</td>
+            <td>Оборона и<br />безопасность<br />государства,<br />военные<br />науки</td>
+          </tr></thead>
+       <tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110436
+                         icon='_2'
+                         city='г. Якутск'
+                         coordinates='129.708022, 62.025469'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110436'>Автономная некоммерческая образовательная организация высшего образования "Якутский гуманитарный институт"</a><div id='add110436' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Якутск</b></p><p style='padding:7px 0px;'>677000, Республика Саха (Якутия), г.Якутск, ул.Петровского 19</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Васильев Андрей Васильевич</p><p style='padding-bottom:4px;'>- Васильев Денис Андреевич</p><p style='padding-bottom:4px;'>- Мамедова Елена Васильенва</p><p style='padding-bottom:4px;'>- Мамедов Агамали Кулам оглы</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>3,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110822
+                         icon='_2'
+                         city='г. Якутск'
+                         coordinates='129.690811, 62.030795'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110822'>Восточно-Сибирский институт экономики и менеджмента</a><div id='add110822' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Якутск</b></p><p style='padding:7px 0px;'>677008, Республика Саха (Якутия), г. Якутск,  Вилюйский тр. 4 км., д.3</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Цой Илья Сергеевич</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>79,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110173
+                         icon='_2'
+                         city='г. Якутск'
+                         coordinates='129.647943, 61.964175'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_4.png) right top no-repeat;'>
+                       <a href='inst.php?id=110173'>Государственное бюджетное образовательное учреждение высшего образования "Высшая школа музыки Республики Саха (Якутия) (институт) имени В. А. Босикова"</a><div id='add110173' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Якутск</b></p><p style='padding:7px 0px;'>677007, Республика Саха (Якутия), г. Якутск,  Покровский тракт, 16км</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Правительство Республики Саха (Якутия)</p><p style='padding-bottom:4px;'>- Министерство имущественных и земельных отношений Республики Саха (Якутия)</p><p style='padding-bottom:4px;'>- Министерство культуры и духовного развития Республики Саха (Якутия)</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>102</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1520
+                         icon='_2'
+                         city='г. Владивосток'
+                         coordinates='131.892563, 43.117313'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1520'>федеральное государственное автономное образовательное учреждение высшего образования «Дальневосточный федеральный университет»</a><div id='add1520' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владивосток</b></p><p style='padding:7px 0px;'>690950, Приморский край, г. Владивосток, ул. Суханова, 8</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:9.4195904222535% 100%'>1620</td><td class='dkont' style='background-size:31.795187868498% 100%'>5468,2</td><td class='dkont' style='background-size:9.1753788187136% 100%'>1578</td><td class='dkont' style='background-size:0.15117861171518% 100%'>26</td><td class='dkont' style='background-size:33.268016420323% 100%'>5721,5</td><td class='dkont' style='background-size:6.9873591422358% 100%'>1201,7</td><td class='dkont' style='background-size:7.8310520868463% 100%'>1346,8</td><td class='dkont' style='background-size:1.3722366294147% 100%'>236</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1527
+                         icon='_2'
+                         city='г. Якутск'
+                         coordinates='129.709756, 62.022085'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1527'>Федеральное государственное автономное образовательное учреждение высшего образования «Северо-Восточный федеральный университет имени М.К. Аммосова»</a><div id='add1527' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Якутск</b></p><p style='padding:7px 0px;'>677000, Республика Саха (Якутия), г.Якутск, ул. Белинского, д.58</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:9.7112646368009% 100%'>1128,8</td><td class='dkont' style='background-size:28.251068991921% 100%'>3283,7</td><td class='dkont' style='background-size:14.572274178145% 100%'>1693,8</td><td class='dkont' style='background-size:0.67107742340684% 100%'>78</td><td class='dkont' style='background-size:14.034551883749% 100%'>1631,3</td><td class='dkont' style='background-size:21.180666087361% 100%'>2461,9</td><td class='dkont' style='background-size:9.6093124897833% 100%'>1116,9</td><td class='dkont' style='background-size:1.9697843088333% 100%'>229</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=6
+                         icon='_2'
+                         city='г. Комсомольск-на-Амуре'
+                         coordinates='137.028924, 50.540032'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=6'>федеральное государственное бюджетное образовательное учреждение высшего образования "Амурский гуманитарно-педагогический государственный университет"</a><div id='add6' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Комсомольск-на-Амуре</b></p><p style='padding:7px 0px;'>681000, Хабаровский край, г. Комсомольск-на-Амуре, ул. Кирова, д. 17, корп.2</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство просвещения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:2.3386342376052% 100%'>30</td><td class='dkont' style='background-size:2.9622700343% 100%'>38</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:9.6585594013096% 100%'>123,9</td><td class='dkont' style='background-size:76.040692235734% 100%'>975,5</td><td class='dkont' style='background-size:7.5966635484877% 100%'>97,5</td><td class='dkont' style='background-size:1.4031805425631% 100%'>18</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=21
+                         icon='_2'
+                         city='г. Благовещенск'
+                         coordinates='127.540864, 50.256806'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=21'>Федеральное государственное бюджетное образовательное учреждение высшего образования "Благовещенский государственный педагогический университет"</a><div id='add21' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Благовещенск</b></p><p style='padding:7px 0px;'>675000, Амурская область, г. Благовещенск, ул. Ленина, 104</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство просвещения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:7.2668205522784% 100%'>170</td><td class='dkont' style='background-size:4.458408138839% 100%'>104,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:77.374540480465% 100%'>1810,1</td><td class='dkont' style='background-size:10.900230828418% 100%'>255</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1779
+                         icon='_2'
+                         city='г. Хабаровск'
+                         coordinates='135.050833, 48.476216'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_5.png) right top no-repeat;'>
+                       <a href='inst.php?id=1779'>Федеральное государственное бюджетное образовательное учреждение высшего образования "Дальневосточная государственная академия физической культуры"</a><div id='add1779' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Хабаровск</b></p><p style='padding:7px 0px;'>680028, г. Хабаровск, Амурский бульвар, д.1</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство спорта Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>523,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1751
+                         icon='_2'
+                         city='г. Благовещенск'
+                         coordinates='127.556602, 50.265138'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1751'>федеральное государственное бюджетное образовательное учреждение высшего образования "Дальневосточный государственный аграрный университет"</a><div id='add1751' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Благовещенск</b></p><p style='padding:7px 0px;'>675005, Амурская область, г. Благовещенск, ул.Политехничсекая, 86</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство сельского хозяйства Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:3.9635199557818% 100%'>86,1</td><td class='dkont' style='background-size:38.824531908524% 100%'>842,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:48.888786531862% 100%'>1061,4</td><td class='dkont' style='background-size:8.3231616038322% 100%'>180,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=328
+                         icon='_2'
+                         city='г. Чита'
+                         coordinates='113.529643, 52.032018'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=328'>Федеральное государственное бюджетное образовательное учреждение высшего образования "Забайкальский государственный университет"</a><div id='add328' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Чита</b></p><p style='padding:7px 0px;'>672039, Забайкальский край, г.Чита, ул.Александро-Заводская, дом30</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:2.6845873104997% 100%'>153</td><td class='dkont' style='background-size:30.416549691185% 100%'>1733,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:29.650652723189% 100%'>1689,9</td><td class='dkont' style='background-size:32.487015721505% 100%'>1851,5</td><td class='dkont' style='background-size:4.2883211678832% 100%'>244,4</td><td class='dkont' style='background-size:0.47287338573835% 100%'>27</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1750
+                         icon='_2'
+                         city='г. Петропавловск-Камчатский'
+                         coordinates='158.649252, 53.035637'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1750'>Федеральное государственное бюджетное образовательное учреждение высшего образования "Камчатский государственный технический университет"</a><div id='add1750' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Петропавловск-Камчатский</b></p><p style='padding:7px 0px;'>683003, Камчатский край, г.Петропавловск-Камчатский ул. Ключевская, 35</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Федеральное агентство по рыболовству</p>  </div></div>   </td><td class='dkont' style='background-size:5.9199921848288% 100%'>60,6</td><td class='dkont' style='background-size:82.00068382748% 100%'>839,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:4.9626337126948% 100%'>50,8</td><td class='dkont' style='background-size:7.1166902749963% 100%'>72,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=95
+                         icon='_2'
+                         city='г. Петропавловск-Камчатский'
+                         coordinates='158.664623, 53.035280'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=95'>Федеральное государственное бюджетное образовательное учреждение высшего образования "Камчатский государственный университет имени Витуса Беринга"</a><div id='add95' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Петропавловск-Камчатский</b></p><p style='padding:7px 0px;'>683032, Камчатский край, г. Петропавловск-Камчатский, ул. Пограничная, 4</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:9.6521466624882% 100%'>77</td><td class='dkont' style='background-size:5.1707928549044% 100%'>41,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:33.782513318709% 100%'>269,5</td><td class='dkont' style='background-size:42.369163271702% 100%'>338</td><td class='dkont' style='background-size:9.0253838921968% 100%'>72</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=66
+                         icon='_2'
+                         city='г. Биробиджан'
+                         coordinates='132.941364, 48.773155'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=66'>федеральное государственное бюджетное образовательное учреждение высшего образования "Приамурский государственный университет имени Шолом-Алейхема"</a><div id='add66' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Биробиджан</b></p><p style='padding:7px 0px;'>679015, Еврейская автономная область, г. Биробиджан, Широкая ул., д. 70а</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:3.2351123016691% 100%'>31,4</td><td class='dkont' style='background-size:12.930146301257% 100%'>125,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:35.040181331135% 100%'>340,1</td><td class='dkont' style='background-size:39.72800329693% 100%'>385,6</td><td class='dkont' style='background-size:5.3575108180507% 100%'>52</td><td class='dkont' style='background-size:3.7090459509582% 100%'>36</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1695
+                         icon='_2'
+                         city='г. Уссурийск'
+                         coordinates='131.983473, 43.806544'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_3.png) right top no-repeat;'>
+                       <a href='inst.php?id=1695'>федеральное государственное бюджетное образовательное учреждение высшего образования "Приморская государственная сельскохозяйственная академия"</a><div id='add1695' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Уссурийск</b></p><p style='padding:7px 0px;'>692510, Приморский край, г. Уссурийск, проспект Блюхера, 44</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство сельского хозяйства Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:9.1510666086199% 100%'>105,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:88.049629952111% 100%'>1011,3</td><td class='dkont' style='background-size:2.7993034392686% 100%'>32,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=260
+                         icon='_2'
+                         city='г. Южно-Сахалинск'
+                         coordinates='142.731519, 46.946274'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=260'>федеральное государственное бюджетное образовательное учреждение высшего образования "Сахалинский государственный университет"</a><div id='add260' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Южно-Сахалинск</b></p><p style='padding:7px 0px;'>693008, Сахалинская область, г.Южно-Сахалинск, ул. Ленина, д. 290</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:13.931087790231% 100%'>234,3</td><td class='dkont' style='background-size:20.551773344829% 100%'>345,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:1.218895858727% 100%'>20,5</td><td class='dkont' style='background-size:10.024675208847% 100%'>168,6</td><td class='dkont' style='background-size:49.100692689598% 100%'>825,8</td><td class='dkont' style='background-size:5.1728751077682% 100%'>87</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=261
+                         icon='_2'
+                         city='г. Магадан'
+                         coordinates='150.793117, 59.564426'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=261'>федеральное государственное бюджетное образовательное учреждение высшего образования "Северо-Восточный государственный университет"</a><div id='add261' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Магадан</b></p><p style='padding:7px 0px;'>685000, г. Магадан, Портовая,13</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:2.7596780375623% 100%'>36</td><td class='dkont' style='background-size:34.18167880414% 100%'>445,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:21.019547719433% 100%'>274,2</td><td class='dkont' style='background-size:42.000766577233% 100%'>547,9</td><td class='dkont' style='background-size:0.03832886163281% 100%'>0,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=321
+                         icon='_2'
+                         city='г. Хабаровск'
+                         coordinates='135.050779, 48.527192'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=321'>Федеральное государственное бюджетное образовательное учреждение высшего образования "Хабаровский государственный университет экономики и права"</a><div id='add321' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Хабаровск</b></p><p style='padding:7px 0px;'>680042, г. Хабаровск, ул. Тихоокеанская, 134</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:8.0908338972855% 100%'>107,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:91.909166102714% 100%'>1222,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1622
+                         icon='_2'
+                         city='г. Чита'
+                         coordinates='113.509907, 52.037242'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_2.png) right top no-repeat;'>
+                       <a href='inst.php?id=1622'>Федеральное государственное бюджетное образовательное учреждение высшего образования "Читинская государственная медицинская академия" Министерства здравоохранения Российской Федерации</a><div id='add1622' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Чита</b></p><p style='padding:7px 0px;'>672090, Забайкальский край, г.Чита, ул. Горького, д. 39, к. А</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство здравоохранения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>2610</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1795
+                         icon='_2'
+                         city='с. Чурапча'
+                         coordinates='132.419659, 61.992468'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_5.png) right top no-repeat;'>
+                       <a href='inst.php?id=1795'>Федеральное государственное бюджетное образовательное учреждение высшего образования "Чурапчинский государственный институт физической культуры и спорта"</a><div id='add1795' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>с. Чурапча</b></p><p style='padding:7px 0px;'>678671, Республика Саха (Якутия), Чурапчинский район, с.Чурапча, ул.Спортивная, 2</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство спорта Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0.48613096940234% 100%'>1,7</td><td class='dkont' style='background-size:18.558764655419% 100%'>64,9</td><td class='dkont' style='background-size:80.955104375179% 100%'>283,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1578
+                         icon='_2'
+                         city='г. Благовещенск'
+                         coordinates='127.546083, 50.265472'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_2.png) right top no-repeat;'>
+                       <a href='inst.php?id=1578'>федеральное государственное бюджетное образовательное учреждение высшего образования «Амурская государственная медицинская академия» Министерства здравоохранения Российской Федерации</a><div id='add1578' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Благовещенск</b></p><p style='padding:7px 0px;'>675000, Амурская область, г. Благовещенск, ул. Горького. 95</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство здравоохранения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>1913</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=5
+                         icon='_2'
+                         city='г. Благовещенск'
+                         coordinates='127.510276, 50.298461'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=5'>федеральное государственное бюджетное образовательное учреждение высшего образования «Амурский государственный университет»</a><div id='add5' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Благовещенск</b></p><p style='padding:7px 0px;'>675027, Амурская область, г. Благовещенск, Игнатьевское шоссе, 21</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:2.4690018178365% 100%'>91</td><td class='dkont' style='background-size:32.65051414928% 100%'>1203,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:44.979244105597% 100%'>1657,8</td><td class='dkont' style='background-size:7.556230838104% 100%'>278,5</td><td class='dkont' style='background-size:9.6318202783732% 100%'>355</td><td class='dkont' style='background-size:2.7131888108093% 100%'>100</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1742
+                         icon='_2'
+                         city='г. Якутск'
+                         coordinates='129.687568, 62.010290'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_3.png) right top no-repeat;'>
+                       <a href='inst.php?id=1742'>федеральное государственное бюджетное образовательное учреждение высшего образования «Арктический государственный агротехнологический университет»</a><div id='add1742' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Якутск</b></p><p style='padding:7px 0px;'>677007, Республика Саха (Якутия), г. Якутск, ул. Красильникова, 15</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство сельского хозяйства Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:3.947110675808% 100%'>60,5</td><td class='dkont' style='background-size:17.96278158668% 100%'>275,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:69.111981717271% 100%'>1058,5</td><td class='dkont' style='background-size:8.9781260202416% 100%'>137,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1693
+                         icon='_2'
+                         city='г. Якутск'
+                         coordinates='129.740218, 62.034086'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_4.png) right top no-repeat;'>
+                       <a href='inst.php?id=1693'>федеральное государственное бюджетное образовательное учреждение высшего образования «Арктический государственный институт культуры и искусств»</a><div id='add1693' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Якутск</b></p><p style='padding:7px 0px;'>677000, Республика Саха (Якутия), г.Якутск, ул.Орджоникидзе,4</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:7.5680810639645% 100%'>47,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:92.431918936035% 100%'>583,8</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1686
+                         icon='_2'
+                         city='г. Улан-Удэ'
+                         coordinates='107.590224, 51.845365'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_3.png) right top no-repeat;'>
+                       <a href='inst.php?id=1686'>федеральное государственное бюджетное образовательное учреждение высшего образования «Бурятская государственная сельскохозяйственная академия имени В.Р. Филиппова»</a><div id='add1686' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Улан-Удэ</b></p><p style='padding:7px 0px;'>Республика Бурятия, г. Улан-Удэ,Железнодорожный район,ул.Пушкина,8</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство сельского хозяйства Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:1.9627700617284% 100%'>40,7</td><td class='dkont' style='background-size:19.970100308642% 100%'>414,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:67.144097222222% 100%'>1392,3</td><td class='dkont' style='background-size:10.923032407407% 100%'>226,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=27
+                         icon='_2'
+                         city='г. Улан-Удэ'
+                         coordinates='107.579481, 51.834692'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=27'>федеральное государственное бюджетное образовательное учреждение высшего образования «Бурятский государственный университет имени Доржи Банзарова»</a><div id='add27' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Улан-Удэ</b></p><p style='padding:7px 0px;'>670000, Республика Бурятия, г. Улан-Удэ, ул. Смолина, 24 "а"</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:16.966813670284% 100%'>806</td><td class='dkont' style='background-size:7.0351229883485% 100%'>334,2</td><td class='dkont' style='background-size:18.461408919155% 100%'>877</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:30.903388100075% 100%'>1468,1</td><td class='dkont' style='background-size:13.297687587492% 100%'>631,7</td><td class='dkont' style='background-size:13.335578734646% 100%'>633,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=28
+                         icon='_2'
+                         city='г. Владивосток'
+                         coordinates='131.905284, 43.125499'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=28'>федеральное государственное бюджетное образовательное учреждение высшего образования «Владивостокский государственный университет экономики и сервиса»</a><div id='add28' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владивосток</b></p><p style='padding:7px 0px;'>690014, Приморский край, г. Владивосток, ул. Гоголя, 41</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:2.5441366077502% 100%'>125,3</td><td class='dkont' style='background-size:14.541984345337% 100%'>716,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:71.229733708287% 100%'>3508,1</td><td class='dkont' style='background-size:3.4659546603588% 100%'>170,7</td><td class='dkont' style='background-size:4.2639161023746% 100%'>210</td><td class='dkont' style='background-size:3.9542745758926% 100%'>194,8</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1737
+                         icon='_2'
+                         city='г. Улан-Удэ'
+                         coordinates='107.605702, 51.808038'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_4.png) right top no-repeat;'>
+                       <a href='inst.php?id=1737'>Федеральное государственное бюджетное образовательное учреждение высшего образования «Восточно-Сибирский государственный институт культуры»</a><div id='add1737' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Улан-Удэ</b></p><p style='padding:7px 0px;'>670031, Республика Бурятия, г. Улан-Удэ, ул, Терешковой ,1</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство культуры Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:1.8616241571387% 100%'>12,7</td><td class='dkont' style='background-size:0.49838756962768% 100%'>3,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:97.639988273234% 100%'>666,1</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=46
+                         icon='_2'
+                         city='г. Улан-Удэ'
+                         coordinates='107.640557, 51.820131'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=46'>федеральное государственное бюджетное образовательное учреждение высшего образования «Восточно-Сибирский государственный университет технологий и управления»</a><div id='add46' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Улан-Удэ</b></p><p style='padding:7px 0px;'>670013, Республика Бурятия, г. Улан-Удэ, улица Ключевская, дом 40В, строение 1</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:4.0352878969193% 100%'>145</td><td class='dkont' style='background-size:64.588261486656% 100%'>2320,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:4.282971085075% 100%'>153,9</td><td class='dkont' style='background-size:25.924637519829% 100%'>931,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:1.1688420115214% 100%'>42</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1800
+                         icon='_2'
+                         city='г. Владивосток'
+                         coordinates='131.892590, 43.115523'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_4.png) right top no-repeat;'>
+                       <a href='inst.php?id=1800'>федеральное государственное бюджетное образовательное учреждение высшего образования «Дальневосточный государственный институт искусств»</a><div id='add1800' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владивосток</b></p><p style='padding:7px 0px;'>690990, Приморский край, г. Владивосток, ул Петра Великого 3 "а"</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство культуры Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>369,3</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1626
+                         icon='_2'
+                         city='г. Хабаровск'
+                         coordinates='135.070713, 48.481047'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_2.png) right top no-repeat;'>
+                       <a href='inst.php?id=1626'>федеральное государственное бюджетное образовательное учреждение высшего образования «Дальневосточный государственный медицинский университет» Министерства здравоохранения Российской Федерации</a><div id='add1626' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Хабаровск</b></p><p style='padding:7px 0px;'>680000, г. Хабаровск, ул. Муравьева-Амурского, 35</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство здравоохранения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:96.239588013687% 100%'>2784,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:3.7604119863132% 100%'>108,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1756
+                         icon='_2'
+                         city='г. Владивосток'
+                         coordinates='131.942483, 43.128953'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1756'>федеральное государственное бюджетное образовательное учреждение высшего образования «Дальневосточный государственный технический рыбохозяйственный университет»</a><div id='add1756' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владивосток</b></p><p style='padding:7px 0px;'>690087, Приморский край, г. Владивосток ул Луговая, 52-Б</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Федеральное агентство по рыболовству</p>  </div></div>   </td><td class='dkont' style='background-size:4.6368939851137% 100%'>115,3</td><td class='dkont' style='background-size:51.780325890163% 100%'>1287</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:15.481794407564% 100%'>384,8</td><td class='dkont' style='background-size:28.10098571716% 100%'>698,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1691
+                         icon='_2'
+                         city='г. Хабаровск'
+                         coordinates='135.063176, 48.493510'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1691'>федеральное государственное бюджетное образовательное учреждение высшего образования «Дальневосточный государственный университет путей сообщения»</a><div id='add1691' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Хабаровск</b></p><p style='padding:7px 0px;'>680021, г. Хабаровск, ул. Серышева, д. 47</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Федеральное агентство железнодорожного транспорта</p>  </div></div>   </td><td class='dkont' style='background-size:1.1460608031718% 100%'>74</td><td class='dkont' style='background-size:72.42717093342% 100%'>4676,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:26.084498753272% 100%'>1684,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0.34226951013644% 100%'>22,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=103
+                         icon='_2'
+                         city='г. Комсомольск-на-Амуре'
+                         coordinates='137.003699, 50.546672'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=103'>федеральное государственное бюджетное образовательное учреждение высшего образования «Комсомольский-на-Амуре государственный университет»</a><div id='add103' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Комсомольск-на-Амуре</b></p><p style='padding:7px 0px;'>681013, Хабаровский край, г. Комсомольск-на-Амуре, пр. Ленина, 27</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:1.8269783807558% 100%'>54</td><td class='dkont' style='background-size:81.830023344724% 100%'>2418,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:10.033156274317% 100%'>296,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:6.309842000203% 100%'>186,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1709
+                         icon='_2'
+                         city='г. Владивосток'
+                         coordinates='131.868192, 43.103037'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_6.png) right top no-repeat;'>
+                       <a href='inst.php?id=1709'>Федеральное государственное бюджетное образовательное учреждение высшего образования «Морской государственный университет имени адмирала Г.И. Невельского»</a><div id='add1709' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владивосток</b></p><p style='padding:7px 0px;'>690059, Приморский край, г. Владивосток, Верхнепортовая, д. 50а</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Федеральное агентство морского и речного транспорта</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:79.034998301053% 100%'>2442,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:20.325874148504% 100%'>628,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0.63912755044254% 100%'>19,8</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1560
+                         icon='_2'
+                         city='г. Владивосток'
+                         coordinates='131.902436, 43.129216'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_2.png) right top no-repeat;'>
+                       <a href='inst.php?id=1560'>федеральное государственное бюджетное образовательное учреждение высшего образования «Тихоокеанский государственный медицинский университет» Министерства здравоохранения Российской Федерации</a><div id='add1560' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владивосток</b></p><p style='padding:7px 0px;'>690002, Приморский край, г. Владивосток, проспект Острякова, 2</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство здравоохранения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:94.895243294888% 100%'>3476,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:5.1047567051116% 100%'>187</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=288
+                         icon='_2'
+                         city='г. Хабаровск'
+                         coordinates='135.052414, 48.530963'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=288'>Федеральное государственное бюджетное образовательное учреждение высшего образования «Тихоокеанский государственный университет»</a><div id='add288' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Хабаровск</b></p><p style='padding:7px 0px;'>680035, г. Хабаровск, ул. Тихоокеанская, д. 136</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:2.5366890231755% 100%'>191</td><td class='dkont' style='background-size:39.620160701242% 100%'>2983,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:2.0027890298161% 100%'>150,8</td><td class='dkont' style='background-size:25.242047944751% 100%'>1900,6</td><td class='dkont' style='background-size:19.770901122252% 100%'>1488,7</td><td class='dkont' style='background-size:10.040507337805% 100%'>756</td><td class='dkont' style='background-size:0.7869048409589% 100%'>59,3</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1704
+                         icon='_2'
+                         city='г. Хабаровск'
+                         coordinates='135.112000, 48.446444'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_4.png) right top no-repeat;'>
+                       <a href='inst.php?id=1704'>федеральное государственное бюджетное образовательное учреждение высшего образования «Хабаровский государственный институт культуры»</a><div id='add1704' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Хабаровск</b></p><p style='padding:7px 0px;'>680045, г. Хабаровск, ул. Краснореченская, д. 112</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство культуры Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:8.1506090808416% 100%'>36,8</td><td class='dkont' style='background-size:4.031007751938% 100%'>18,2</td><td class='dkont' style='background-size:87.81838316722% 100%'>396,5</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110157
+                         icon='_2'
+                         city='г. Улан-Удэ'
+                         coordinates='107.624127, 51.811329'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110157'>Частное образовательное учреждение высшего образования "Байкальский экономико-правовой институт"</a><div id='add110157' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Улан-Удэ</b></p><p style='padding:7px 0px;'>670047, Республика Бурятия, г. Улан-Удэ, ул. Сахьяновой,9</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Общество с ограниченнойс ответственностью "Планета"</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>34,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110192
+                         icon='_2'
+                         city='г. Владивосток'
+                         coordinates='131.945636, 43.114489'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_6.png) right top no-repeat;'>
+                       <a href='inst.php?id=110192'>Частное образовательное учреждение высшего образования «Дальневосточный институт коммуникаций»</a><div id='add110192' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владивосток</b></p><p style='padding:7px 0px;'>690013, Приморский край, г. Владивосток, ул. Каплунова, 7</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Богданов Виктор Сергеевич</p><p style='padding-bottom:4px;'>- Вогнерубова Ольга Алексеевна</p><p style='padding-bottom:4px;'>- Манько Владимир Юрьевич</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>15,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006819
+                         icon='_0'
+                         city='г. Свободный'
+                         coordinates='128.137462, 51.367944'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006819'>Амурский институт железнодорожного транспорта - филиал федерального государственного бюджетного образовательного учреждения высшего образования "Дальневосточный государственный университет путей сообщения" в г. Свободном</a><div id='add10006819' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Свободный</b></p><p style='padding:7px 0px;'>676450, Амурская область, г. Свободный, ул. 40 лет Октября, д. 86</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Федеральное агентство железнодорожного транспорта</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:95.541731467081% 100%'>92,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:4.4582685329186% 100%'>4,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006820
+                         icon='_0'
+                         city='г. Тында'
+                         coordinates='124.757443, 55.153714'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_6.png) right top no-repeat;'>
+                       <a href='inst.php?id=10006820'>Байкало-Амурский институт железнодорожного транспорта - филиал федерального государственного бюджетного образовательного учреждения высшего образования "Дальневосточный государственный университет путей сообщения" в г. Тынде</a><div id='add10006820' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Тында</b></p><p style='padding:7px 0px;'>676282, Амурская область, г. Тында, ул. Кирова, д.5</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Федеральное агентство железнодорожного транспорта</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:96.052631578947% 100%'>36,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:3.9473684210526% 100%'>1,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=12012936
+                         icon='_0'
+                         city='г. Улан-Удэ'
+                         coordinates='107.623992, 51.81335'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012936'>Байкальский филиал Автономной некоммерческой организации высшего образования "Гуманитарный институт" (г. Москва)</a><div id='add12012936' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Улан-Удэ</b></p><p style='padding:7px 0px;'>670047, Улан-Удэ, Сахьяновой, д.7.</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Асташкина Надежда Викторовна</p><p style='padding-bottom:4px;'>- ООО "Альма Матер ХХI век"</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>22,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006639
+                         icon='_0'
+                         city='г. Улан-Удэ'
+                         coordinates='107.618539, 51.817197'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006639'>Бурятский институт инфокоммуникаций (филиал) федерального государственного бюджетного образовательного учреждения высшего образования "Сибирский государственный университет телекоммуникаций и информатики" в г.Улан-Удэ</a><div id='add10006639' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Улан-Удэ</b></p><p style='padding:7px 0px;'>670031, Республика Бурятия, г.Улан-Удэ, ул.Трубачеева, д.152</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Федеральное агентство связи</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>205</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006747
+                         icon='_0'
+                         city='г. Владивосток'
+                         coordinates='131.950217, 43.105466'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006747'>Владивостокский филиал государственного казенного образовательного учреждения высшего образования "Российская таможенная академия"</a><div id='add10006747' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владивосток</b></p><p style='padding:7px 0px;'>690034, Приморский край, г. Владивосток, ул. Стрелковая, 16-в</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Федеральная таможенная служба</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>906,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006805
+                         icon='_0'
+                         city='г. Хабаровск'
+                         coordinates='135.181305, 48.456418'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006805'>Дальневосточный институт (филиал) федерального государственного бюджетного образовательного учреждения высшего образования «Всероссийский государственный университет юстиции (РПА Минюста России)» в г. Хабаровске</a><div id='add10006805' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Хабаровск</b></p><p style='padding:7px 0px;'>680052, г. Хабаровск, ул. Воровского 24а</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство юстиции Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>510,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006731
+                         icon='_0'
+                         city='г. Хабаровск'
+                         coordinates='135.069985, 48.479465'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006731'>Дальневосточный институт управления - филиал федерального государственного бюджетного образовательного учреждения высшего образования "Российская академия народного хозяйства и государственной службы при Президенте Российской Федерации" </a><div id='add10006731' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Хабаровск</b></p><p style='padding:7px 0px;'>680000, г. Хабаровск, ул.Муравьева-Амурского, д.33</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Правительство Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>1228,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=1811
+                         icon='_0'
+                         city='г. Петропавловск-Камчатский'
+                         coordinates='158.643557, 53.035377'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1811'>Дальневосточный филиал ФГБОУ ВО ВАВТ Минэкономразвития России</a><div id='add1811' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Петропавловск-Камчатский</b></p><p style='padding:7px 0px;'>683003, Камчатский край, г. Петропавловск-Камчатский, ул.Вилюйская 25</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство экономического развития Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>239,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006946
+                         icon='_0'
+                         city='г. Хабаровск'
+                         coordinates='135.122061, 48.475977'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006946'>Дальневосточный филиал Федерального государственного бюджетного образовательного учреждения высшего образования "Российский государственный университет правосудия" (г. Хабаровск)</a><div id='add10006946' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Хабаровск</b></p><p style='padding:7px 0px;'>680014, г. Хабаровск, Восточное шоссе, 49</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Верховный суд Российской Федерации, Высший арбитражный суд Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>365,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006538
+                         icon='_0'
+                         city='г. Чита'
+                         coordinates='113.263642, 51.986139'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_3.png) right top no-repeat;'>
+                       <a href='inst.php?id=10006538'>Забайкальский аграрный институт - филиал Федерального государственного бюджетного образовательного учреждения высшего образования "Иркутский государственный аграрный университет имени А.А. Ежевского"</a><div id='add10006538' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Чита</b></p><p style='padding:7px 0px;'>672023, Забайкальский край, г.Чита  пос. Восточный ул.Юбилейная ,4</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство сельского хозяйства Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:7.6946847960445% 100%'>37,4</td><td class='dkont' style='background-size:7.1075401730532% 100%'>34,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:72.579316028018% 100%'>352,3</td><td class='dkont' style='background-size:12.618459002884% 100%'>61,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006936
+                         icon='_0'
+                         city='г. Чита'
+                         coordinates='113.428268, 52.026875'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_6.png) right top no-repeat;'>
+                       <a href='inst.php?id=10006936'>Забайкальский институт железнодорожного транспорта – филиал Федерального государственного бюджетного образовательного учреждения высшего образования «Иркутский государственный университет путей сообщения»</a><div id='add10006936' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Чита</b></p><p style='padding:7px 0px;'>672040, Забайкальский край, г.Чита, ул. Магистральная, д.11</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Федеральное агентство железнодорожного транспорта</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:82.709465695826% 100%'>806,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:17.290534304174% 100%'>168,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=12013105
+                         icon='_0'
+                         city='г. Чита'
+                         coordinates='113.498606, 52.028942'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12013105'>Забайкальский институт предпринимательства - филиал автономной некоммерческой образовательной организации высшего образования Центросоюза Российской Федерации "Сибирский университет потребительской кооперации" </a><div id='add12013105' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Чита</b></p><p style='padding:7px 0px;'>672086, Забайкальский край, г Чита, ул.Ленинградская, д.16</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Центральный союз потребительских обществ Российской Федерации (Центросоюз РФ)</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:6.1045234958278% 100%'>13,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:93.895476504172% 100%'>213,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=12012724
+                         icon='_0'
+                         city='г. Петропавловск-Камчатский'
+                         coordinates='158.640629, 53.034116'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012724'>Камчатский филиал автономной некоммерческой образовательной организации высшего образования Центросоюза Российской Федерации "Российский университет кооперации"</a><div id='add12012724' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Петропавловск-Камчатский</b></p><p style='padding:7px 0px;'>683003, Камчатский край, г. Петропавловск-Камчатский, улица Ключевская, дом 11</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Центральный союз потребительских обществ Российской Федерации (Центросоюз РФ)</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0.59880239520958% 100%'>1,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:99.40119760479% 100%'>232,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006769
+                         icon='_0'
+                         city='с. Октемцы'
+                         coordinates='129.425349, 61.674134'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_3.png) right top no-repeat;'>
+                       <a href='inst.php?id=10006769'>Октёмский филиал федерального государственного бюджетного образовательного учреждения "Арктический государственный агротехнологический университет"</a><div id='add10006769' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>с. Октемцы</b></p><p style='padding:7px 0px;'>678011, Республика Саха (Якутия), Хангаласский улус (район), с. Октёмцы, пер. Моисеева,16</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство сельского хозяйства Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>116,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10001821
+                         icon='_0'
+                         city='г. Петропавловск-Камчатский'
+                         coordinates='158.645893, 53.070684'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10001821'>Петропавловск-Камчатский филиал федерального государственного бюджетного образовательного учреждения высшего образования "Российская академия народного хозяйства и государственной службы при Президенте Российской Федерации" </a><div id='add10001821' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Петропавловск-Камчатский</b></p><p style='padding:7px 0px;'>683031, Камчатский край, г. Петропавловск-Камчатский, ул. Бохняка, 13</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Правительство Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>21,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10001379
+                         icon='_0'
+                         city='г. Мирный'
+                         coordinates='113.966763, 62.536191'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10001379'>Политехнический институт (филиал) федерального государственного автономного образовательного учреждения высшего образования «Северо-Восточный федеральный университет имени М.К.Аммосова» в г. Мирном</a><div id='add10001379' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Мирный</b></p><p style='padding:7px 0px;'>678170, Республика Саха (Якутия), г. Мирный, ул. Тихонова, д.5, корп.1.</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:16.116352201258% 100%'>82</td><td class='dkont' style='background-size:68.887578616352% 100%'>350,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0.56996855345912% 100%'>2,9</td><td class='dkont' style='background-size:5.9748427672956% 100%'>30,4</td><td class='dkont' style='background-size:8.4512578616352% 100%'>43</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006821
+                         icon='_0'
+                         city='г. Уссурийск'
+                         coordinates='131.978281, 43.800793'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_6.png) right top no-repeat;'>
+                       <a href='inst.php?id=10006821'>Приморский институт железнодорожного транспорта - филиал федерального государственного бюджетного образовательного учреждения высшего образования "Дальневосточный государственный университет путей сообщения" в г. Уссурийске</a><div id='add10006821' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Уссурийск</b></p><p style='padding:7px 0px;'>692522, Приморский край, г. Уссурийск, ул. Тургенева, д.3</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Федеральное агентство железнодорожного транспорта</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:85.953488372093% 100%'>92,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:14.046511627907% 100%'>15,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006822
+                         icon='_0'
+                         city='г. Южно-Сахалинск'
+                         coordinates='142.743251, 46.951878'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006822'>Сахалинский институт железнодорожного транспорта - филиала федерального государственного бюджетного образовательного учреждения высшего образования "Дальневосточный государственный университет путей сообщения" в г. Южно-Сахалинске</a><div id='add10006822' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Южно-Сахалинск</b></p><p style='padding:7px 0px;'>693007, Сахалинская область, г.Южно-Сахалинск, ул.Физкультурная, д. 126в</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Федеральное агентство железнодорожного транспорта</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:14.746953660055% 100%'>82,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:85.253046339945% 100%'>479,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10001378
+                         icon='_0'
+                         city='г. Нерюнгри'
+                         coordinates='124.723882, 56.662090'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10001378'>Технический институт (филиал) федерального государственного автономного образовательного учреждения высшего образования «Северо-Восточный федеральный университет имени М.К. Аммосова» в г. Нерюнгри </a><div id='add10001378' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Нерюнгри</b></p><p style='padding:7px 0px;'>678960, Республика Саха (Якутия), г.Нерюнгри, ул. Кравченко, д. 16</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:4.8% 100%'>21</td><td class='dkont' style='background-size:66.628571428571% 100%'>291,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0.41142857142857% 100%'>1,8</td><td class='dkont' style='background-size:14.674285714286% 100%'>64,2</td><td class='dkont' style='background-size:13.485714285714% 100%'>59</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=140143626
+                         icon='_0'
+                         city='г. Якутск'
+                         coordinates='129.746605, 62.059253'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=140143626'>Филиал Автономной некоммерческой организации Высшего Образования "Институт деловой карьеры" в  Республике Саха (Якутия)</a><div id='add140143626' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Якутск</b></p><p style='padding:7px 0px;'>677009, г. Якутск, Ул Авиационная, д.3</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Аляев Александр Александрович</p><p style='padding-bottom:4px;'>- Назаров Андрей Валерьевич</p><p style='padding-bottom:4px;'>- ООО "Консалтинг групп"</p><p style='padding-bottom:4px;'>- ООО Частная охранная организация "Страж"</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>28,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10000074
+                         icon='_0'
+                         city='г. Находка'
+                         coordinates='132.817298, 42.818641'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000074'>Филиал ФГБОУ ВО "Владивостокский государственный университет экономики и сервиса" в г. Находке</a><div id='add10000074' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Находка</b></p><p style='padding:7px 0px;'>692902, Приморский край, г. Находка, ул. Озерная, д.2</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:80.427046263345% 100%'>56,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:19.572953736655% 100%'>13,8</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10003329
+                         icon='_0'
+                         city='г. Арсеньев'
+                         coordinates='133.275529, 44.157466'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10003329'>филиал федерального государственного автономного образовательного учреждения высшего образования «Дальневосточный федеральный университет» в г. Арсеньеве</a><div id='add10003329' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Арсеньев</b></p><p style='padding:7px 0px;'>692331, Приморский край, г. Арсеньев, ул. Островского, д. 20</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>53</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006637
+                         icon='_0'
+                         city='г. Хабаровск'
+                         coordinates='135.089263, 48.481824'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006637'>Хабаровский институт инфокоммуникаций (филиал) федерального государственного бюджетного образовательного учреждения высшего образования "Сибирский государственный университет телекоммуникаций и информатики" (ХИИК СибГУТИ)</a><div id='add10006637' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Хабаровск</b></p><p style='padding:7px 0px;'>680013, г. Хабаровск, ул. Ленина 73</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Федеральное агентство связи</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>141,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10000037
+                         icon='_0'
+                         city='г. Чита'
+                         coordinates='113.506026, 52.028848'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000037'>Читинский институт (филиал) федерального государственного бюджетного образовательного учреждения высшего образования "Байкальский государственный университет"</a><div id='add10000037' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Чита</b></p><p style='padding:7px 0px;'>672000, Забайкальский край, г.Чита, ул. Анохина, д.56</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:11.472148541114% 100%'>51,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:88.527851458886% 100%'>400,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10003334
+                         icon='_0'
+                         city='г. Анадырь'
+                         coordinates='177.501522, 64.731434'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10003334'>Чукотский филиал федерального государственного автономного образовательного учреждения высшего  образования "Северо-Восточный федеральный университет имени М.К. Аммосова"</a><div id='add10003334' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Анадырь</b></p><p style='padding:7px 0px;'>689000, Чукотский автономный округ, г.Анадырь, ул.Студенческая, д.3</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>47,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006793
+                         icon='_0'
+                         city='г. Якутск'
+                         coordinates='129.754214, 62.040911'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006793'>Якутский институт водного транспорта - филиал Федерального государственного бюджетного образовательного учреждения высшего образования "Сибирский государственный университет водного транспорта"</a><div id='add10006793' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Якутск</b></p><p style='padding:7px 0px;'>677000, Республика Саха (Якутия), г.Якутск, ул. Водников,1</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Федеральное агентство морского и речного транспорта</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>222,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=12012914
+                         icon='_0'
+                         city='г. Якутск'
+                         coordinates='129.712559, 62.027600'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012914'>Якутский филиал частное учреждение высшего образования "Институт государственного администрирования"</a><div id='add12012914' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Якутск</b></p><p style='padding:7px 0px;'>677000, Республика Саха (Якутия), г.Якутск, ул. Ойунского, д.6 Г.</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Тараканов Александр Валериевич</p><p style='padding-bottom:4px;'>- Тараканов Иван Валериевич</p><p style='padding-bottom:4px;'>- Тараканова Наталья Львовна</p><p style='padding-bottom:4px;'>- Тараканов Валерий Александрович</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:96.833773087071% 100%'>18,4</td><td class='dkont' style='background-size:3.1662269129288% 100%'>0,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=12012926
+                         icon='_0'
+                         city='г. Якутск'
+                         coordinates='129.718892, 62.016623'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012926'>Якутский экономико-правовой институт (филиал) Образовательного учреждения профсоюзов высшего образования «Академия труда и социальных отношений»</a><div id='add12012926' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Якутск</b></p><p style='padding:7px 0px;'>677007, Республика Саха (Якутия), г. Якутск, ул. Дежнева, д. 16</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Общероссийский союз "Федерация Независимых Профсоюзов России"</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>168,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr>
+
+        </table>
+       <div style='font: normal normal 400 10px/17px Tahoma;color:#677;padding-top:5px;'>
+       <p style='min-height:17px;padding-left:17px;background:url(../../../img/temp/st__2_0.png) 0px 2px no-repeat;'> &ndash; образовательные организации высшего образования</p>
+       <p style='min-height:17px;padding-left:17px;background:url(../../../img/temp/st__0_0.png) 0px 2px no-repeat;'> &ndash; филиалы</p>
+       <p style='min-height:17px;padding-left:17px;background:url(../../../img/temp/st_3_0.png)  0px 2px no-repeat;'> &ndash; вузы (филиалы), находящиеся в стадии реорганизации/ реорганизованные</p>
+
+       <hr style='height:0px; width:50%;margin:3px 0px;' align='left'>
+       <p style='min-height:17px;padding-left:20px;background:url(../../../img/temp/specific_2.png) no-repeat;'> &ndash; образовательные организации медицинской направленности</p>
+       <p style='min-height:17px;padding-left:20px;background:url(../../../img/temp/specific_3.png) no-repeat;'> &ndash; образовательные организации сельскохозяйственной направленности</p>
+       <p style='min-height:17px;padding-left:20px;background:url(../../../img/temp/specific_4.png) no-repeat;'> &ndash; образовательные организации творческой направленности</p>
+       <p style='min-height:17px;padding-left:20px;background:url(../../../img/temp/specific_5.png) no-repeat;'> &ndash; образовательные организации спортивной направленности</p>
+       <p style='min-height:17px;padding-left:20px;background:url(../../../img/temp/specific_6.png) no-repeat;'> &ndash; образовательные организации транспортной направленности</p>
+       </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+  <div id="copyright" style='font-size:11px;  margin:25px 30px 0px 30px; padding:3px 0px;color:#777777; border-top:5px solid #A5C0D3;background:#fff;box-shadow:0px -5px 15px 15px #fff;'>
+    <div style='float:left;'>&copy;</div>
+    <div style='float:left;'>
+      <a href='http://www.miccedu.ru/'>
+        <img style='margin:0px 2px;' src='/img/footer_logo.gif' width='40' height='15' border='0' alt='ГИВЦ'>
+      </a>
+    </div>
+    <div style='float:left; font:normal 400 11px Tahoma;color:500;padding:0px 8px;'>При использовании материалов сайта ссылка на сайт www.miccedu.ru обязательна</div>
+    <div style='float:right; text-align:right;'>Телефон/факс: +7 (499) 269-46-87, e-mail: <a href="mailto:general@miccedu.ru">general@miccedu.ru</a><br/>107996, Москва, ул.Стромынка, д.20, офис 231</div>
+    <div style='clear:both; width:800px; height:0px; margin:0px auto; overflow:hidden;'>&nbsp;</div> 
+	  </div>
+  
+  <script>
+  
+    function set_Copyright() {
+      document.getElementById('copyright').style.marginTop = '25px' ;
+      if (window.innerHeight > $('#copyright').offset().top+50) {
+        document.getElementById('copyright').style.marginTop = window.innerHeight - $('#copyright').offset().top - 20 + 'px';
+        }
+    }
+    $(window).ready(function(){
+      set_Copyright();
+    });
+	
+	
+	window.onresize = function() {
+      set_Copyright();
+    };
+	
+	
+    set_Copyright();
+  </script>
+  
+  
+  
+<script>
+	
+    $(document).ready(function(){     
+	  $('body>table:eq(1)>tbody>tr>td:eq(0)').attr('style','background: url(../../..//img/temp/arch_background_2022.svg) top left,  url(/img/monitoring_logo/bb_l.png) repeat-y right, #ddd;border:none;');
+	  $('body>table:eq(1)>tbody>tr>td:eq(2)').attr('style','background: url(../../..//img/temp/arch_background_2022.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+	  $('body').attr('style',$('body').attr('style')+' background: url(../../..//img/temp/arch_background_2022.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+    });
+		
+	
+  </script>  
+
+  <div id='to_begin' style='display:none;position:fixed;bottom:20px;left:20px;padding:6px 15px 6px 48px;background:url(../../../img/arrow_up_778.png) left 15px center no-repeat, #eee;background-size:25px 10px;box-shadow:3px 3px 5px 0px rgba(0,0,0,0.3);border-radius:3px;font:normal 700 16px Calibri;color:#778;cursor:pointer;'>Наверх</div>
+<script>
+
+$(function() {
+  $(window).scroll(function(){
+    if ($(window).scrollTop()>0)
+      $('#to_begin').fadeIn(300);
+    else 
+	  $('#to_begin').fadeOut(300);
+  });
+  
+ $('#to_begin').click(function(){
+    $(window).scrollTop(0);
+  }); 
+
+});
+</script>
+
+ <!--копирайт-->
+    </td>
+    <td style="background: url(../../../img/monitoring_logo/bb_r.png) repeat-y left, #ddd;border:none;"></td>
+  </tr>
+</table>
+<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter38124250 = new Ya.Metrika({ id:38124250, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true, ut:"noindex" }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/38124250?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+</body>
+</html>
+
+
+
+
+

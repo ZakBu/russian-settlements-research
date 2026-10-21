@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+"""Freeze external source provider identity before any model comparison.
+
+No source here is proposed as a fitted/training functional model input. Allseven
+providers of the selected complete decree are retained, including sixunresolved.
+"""
+from pathlib import Path
+import json,hashlib,datetime
+import pandas as pd
+HERE=Path(__file__).resolve().parent;BASE=HERE.parent
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def main():
+ ledger=pd.read_parquet(HERE/'andreapol2021_complete_source_ledger.parquet');axis=pd.read_parquet(BASE/'axis/full_settlement_axis.parquet');src=HERE/'sources/bologov_selfreport2021.pdf';providers=[]
+ for name in ledger.provider_source_name.unique():
+  r={'provider_source_name':name,'physical_provider_source':'not_recovered_yet','physical_provider_settlement_uid':None,'physical_provider_source_sha256':None,'physical_provider_source_year':None,'source_locator':None,'source_kind':'unresolved_no_location_in_attachment','source_population_programmes':None,'source_enrolled_students':None,'source_capacity_seats':None,'eligible_for_external_comparison':False,'not_added_to_model_training_input':True}
+  if name=='МОУ Бологовская СОШ':
+   z=axis[axis.region.eq('тверская')&axis.district_raw_2021.fillna('').str.contains('андреаполь',case=False)&axis.name.eq('Бологово')&axis.type.eq('посёлок')];assert len(z)==1
+   r.update(physical_provider_source='Officialschoolselfreportfor2021 approved06.04.2022',physical_provider_settlement_uid=z.iloc[0].id,physical_provider_source_sha256=sha(src),physical_provider_source_year=2021,source_locator='PDFp1schooladdressТверскаяоблАндреапольскийрайонпБологовоулНазимова54;PDFp2explicitphysicalschoollocationпБологово;PDFp25enrollment31.12.2021',source_kind='original_school_annual_selfreport_dated2021_physical_locality_and_actual_enrollment',source_population_programmes='primary20;lower_secondary24;upper_secondary4',source_enrolled_students=48,eligible_for_external_comparison=True)
+  if name in ['МОУ АСОШ № 2','МОУ АСОШ № 3']:
+   number=2 if name.endswith('2')else 3;source=HERE/f'sources/asosh{number}_selfreport2021.pdf';z=axis[axis.region.eq('тверская')&axis.name.eq('Андреаполь')&axis.type.eq('город')];assert len(z)==1
+   programmes='primary194;lower_secondary248;upper_secondary50'if number==2 else'primary112;lower_secondary104;upper_secondary36'
+   r.update(physical_provider_source=f'OfficialASOШ{number}schoolselfreportfor2021 approvedMarch/April2022',physical_provider_settlement_uid=z.iloc[0].id,physical_provider_source_sha256=sha(source),physical_provider_source_year=2021,source_locator='ASOШ2PDFp1addressгАндреаполь8Марта37,p2explicitphysicalschoollocation,p15actualenrollment492=194+248+50'if number==2 else'ASOШ3PDFp1addressгАндреапольАвиаторов52+physicalschoollocationstatement,p12actualenrollment252=112+104+36',source_kind='original_school_annual_selfreport_dated2021_physical_locality_and_actual_enrollment',source_population_programmes=programmes,source_enrolled_students=492 if number==2 else 252,eligible_for_external_comparison=True)
+  providers.append(r)
+ pro=pd.DataFrame(providers);pro.to_parquet(HERE/'andreapol2021_provider_witnesses.parquet',index=False)
+ pairs=ledger.merge(pro,on='provider_source_name',how='left',validate='many_to_one');pairs['external_comparison_eligible']=pairs.unit_kind.eq('settlement')&pairs.origin_uid.notna()&pairs.eligible_for_external_comparison&~pairs.origin_uid.eq(pairs.physical_provider_settlement_uid);pairs['source_relation_type']='normative_child_accounting_territory_NOT_observed_attendance';pairs['source_kind_stratum']='school_accounting_territory2021';pairs['source_must_not_be_pooled_with_observed_trips']=True
+ pairs.to_parquet(HERE/'andreapol2021_prospective_external_pairs.parquet',index=False)
+ accepted=pairs[pairs.external_comparison_eligible].drop_duplicates(['origin_uid','physical_provider_settlement_uid']);accepted.to_parquet(HERE/'andreapol2021_eligible_unique_external_pairs.parquet',index=False)
+ receipt={'status':'SOURCE_IDENTITIES_FROZEN_BEFORE_MODEL_COMPARISON_PENDING_INDEPENDENT_REVIEW','source_freeze_version':2,'previous_partial_freeze_receipt_sha256':sha(HERE/'history/provider_freeze_v1_bologovo_only/andreapol2021_provider_freeze_receipt.json'),'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'entire_source_provider_roster':len(pro),'accepted_dated_physical_provider_locality_witnesses':int(pro.eligible_for_external_comparison.sum()),'unresolved_providers_preserved':int((~pro.eligible_for_external_comparison).sum()),'source_item_rows':len(pairs),'eligible_external_unique_pairs':len(accepted),'self_local_rows_with_dated_provider':int((pairs.origin_uid.notna()&pairs.eligible_for_external_comparison&pairs.origin_uid.eq(pairs.physical_provider_settlement_uid)).sum()),'model_assignments_or_agreement_read':False,'source_provider_witness_not_added_to_model_features':True,'performance_metrics_computed':False,'source_contract':'Complete2021officialchildrenaccountingterritories, notactualattendedschool, notobservedtrip; all unresolved origins/providers retained; no source selected by agreement','source_selfreport_internal_quality_warning':'PDFp2states66%near school and44%nearbyvillages=110%; do notuse thesepercentages ascommuting proportions or normalize them. Actualenrollment48/20+24+4 internallyagrees. Capacity remainsunknown.','code_sha256':sha(Path(__file__)),'source_files_sha256':{str(p):sha(p)for p in [HERE/'source_protocol.json',HERE/'andreapol2021_complete_source_ledger.parquet',HERE/'sources/andreapol20210303_63.pdf',src,HERE/'sources/asosh2_selfreport2021.pdf',HERE/'sources/asosh3_selfreport2021.pdf',BASE/'axis/full_settlement_axis.parquet']},'output_files_sha256':{p.name:sha(p)for p in [HERE/'andreapol2021_provider_witnesses.parquet',HERE/'andreapol2021_prospective_external_pairs.parquet',HERE/'andreapol2021_eligible_unique_external_pairs.parquet']}}
+ (HERE/'andreapol2021_provider_freeze_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2));print(json.dumps(receipt,ensure_ascii=False,indent=2))
+if __name__=='__main__':main()
