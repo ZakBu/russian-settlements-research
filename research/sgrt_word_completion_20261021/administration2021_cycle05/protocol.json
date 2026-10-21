@@ -1,0 +1,25 @@
+{
+  "status": "PREREGISTERED_BEFORE_ADMIN_CENTER_LINKAGE",
+  "created_utc": "2026-10-21T06:00:52.804098+00:00",
+  "source_snapshot": "2021-01-18",
+  "source_max_DateVved": "2021-01-01",
+  "source_claim": "OfficialhistoricalJanuary2021classifier, notexactOct2021censusgeometry; changesafterJanuarynotbackcast",
+  "municipal_rows": "RAZDEL1 withnonemptyexplicitCentrum. KOD2==000 uppermunicipality;nonzeroKOD2 lowersettlementmunicipality. SourceNAME1andcodesretained, no district-name guessing.",
+  "center_source_NP_identity": "explicitCentrum typedliteral vsRAZDEL2 nativeNPName1; firstunique withinownmunicipalitycode8(lower)orupperprefix5(upper); otherwiseuniquewithinTER; ambiguous0/multiple retained",
+  "axis_identity": "source2021nativeNPcode exact(unique) plusliteralbasenames andno urban/ruralclassconflict; no codecrosswalkbackcast. 10digitnumericNPfieldleftpad0to11 separatelyflagged;8digitmunicipalitycodesneverconverted.",
+  "source_type_class": "normativerulesapplyONLY11digitNPcodewithKOD3!=000;001..049city,051..099PGT,101..999rural;000/050/100unknown",
+  "flags": "positiveevidenceTrueonly foracceptednative2021NPidentity; allothersNA; upper/district/settlementlevelsseparate; noall-service-absenceclaims",
+  "new_model_agreements_read_for_linkage": false,
+  "source_sha256": {
+    "research/sgrt_word_completion_20261021/administration2021_cycle05/sources/data-20210118-structure-20150128.csv": "ac724b628c036d9aeb63b84f43f37ce326ebd18e7b5f77f223872257206aa867",
+    "research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet": "29fa9586278e08a937651fb4fcddbc929a02d46e6dcbe44f5f14793ae6fab3fc",
+    "research/sgrt_word_completion_20261021/administration2021_cycle05/sources/VvedOKTMO.docx": "2eaac308260cf13af91bf12de2a9669f3133573f82d76acee505f05f65bb8b5b",
+    "research/sgrt_word_completion_20261021/administration2021_cycle05/sources/oktmo_structure2015.csv": "098099e8f4d5a576e20e953a78bc7fc38b5b25d406614775e82a7d9956809cce"
+  },
+  "explicit_primary_type_amendment": {
+    "created_utc": "2026-10-21T06:04:14.581209+00:00",
+    "reason": "IndependentsourcePopulationidentifiedactualofficial2021CSVexceptions: NAME1explicitпгт/рп/кп withcode101+. A genericnormativecoderule mustnotdefeatconcreteprimaryrow.",
+    "action": "Preservecodeseriesclass andexplicitNAME1typeclass; explicitprimarycity/PGT/ruralprefixoverridesgenericseries; ambiguousprefixfallsbackonlytoknownnormativeNPseries. Name/codeconflictsagainstaxisremainunaccepted.",
+    "new_model_agreements_used": false
+  }
+}

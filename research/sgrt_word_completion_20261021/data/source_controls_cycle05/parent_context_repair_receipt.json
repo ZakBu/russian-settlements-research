@@ -1,0 +1,101 @@
+{
+  "status": "EXPLICIT_TYPED_SOURCE_PARENT_REPAIRED_AND_RATE_GUARDED",
+  "n_checks": 5,
+  "n_failed": 0,
+  "checks": [
+    {
+      "check": "every155411_accepted2021_np_has_one_explicit_source_parent",
+      "passed": true
+    },
+    {
+      "check": "all_parent_entities_are_explicit_typed_upper_municipalities",
+      "passed": true
+    },
+    {
+      "check": "all2336_upper_municipal_source_mass_controls_exact",
+      "passed": true
+    },
+    {
+      "check": "repaired_parent_context_preserves_all_axis_ids_order",
+      "passed": true
+    },
+    {
+      "check": "frozen_source_inputs_unchanged",
+      "passed": true
+    }
+  ],
+  "source_np_parent_rows": 155411,
+  "parent_mass_controls": 2336,
+  "axis_lower_or_other_parent_grain_repaired": 9245,
+  "statistics": {
+    "housing": {
+      "frozen_original_axis_nonnull": 135843,
+      "original_bridge_strict_nonnull": 133980,
+      "repaired_bridge_strict_nonnull": 142171,
+      "newly_recovered_vs_frozen": 8191,
+      "newly_recovered_candidate_centers": 27,
+      "previous_values_now_held": 1863,
+      "held_candidate_centers": 23,
+      "both_known_value_changed": 0,
+      "changed_candidate_centers": 0,
+      "net_coverage_change": 6328
+    },
+    "natural": {
+      "frozen_original_axis_nonnull": 134666,
+      "original_bridge_strict_nonnull": 132803,
+      "repaired_bridge_strict_nonnull": 140948,
+      "newly_recovered_vs_frozen": 8145,
+      "newly_recovered_candidate_centers": 34,
+      "previous_values_now_held": 1863,
+      "held_candidate_centers": 23,
+      "both_known_value_changed": 0,
+      "changed_candidate_centers": 0,
+      "net_coverage_change": 6282
+    },
+    "migration": {
+      "frozen_original_axis_nonnull": 135281,
+      "original_bridge_strict_nonnull": 133418,
+      "repaired_bridge_strict_nonnull": 141768,
+      "newly_recovered_vs_frozen": 8350,
+      "newly_recovered_candidate_centers": 35,
+      "previous_values_now_held": 1863,
+      "held_candidate_centers": 23,
+      "both_known_value_changed": 0,
+      "changed_candidate_centers": 0,
+      "net_coverage_change": 6487
+    }
+  },
+  "model_old_modified": false,
+  "historical_boundary_equivalence_proven": false,
+  "inputs_sha256": {
+    "research/sgrt_word_completion_20261021/typology/sources/allsettlements_20260925/data_allsettlements_anon_156_v20260925.parquet": "7abd7f1abd16c02a764e4bb8e0518cbb7d50019dc94d28a0e312da283af77e5f",
+    "research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet": "29fa9586278e08a937651fb4fcddbc929a02d46e6dcbe44f5f14793ae6fab3fc",
+    "research/sgrt_word_completion_20261021/data/source_controls_cycle05/latest2021_np_roster_complete_accounting.parquet": "a60e9a11531acb602497956c3167c62d75ea3d7b263c35e96ff7ebb1817c4d5e",
+    "research/sgrt_word_completion_20261021/data/source_controls_cycle05/housing_native_year_rate_audit.parquet": "75254215a796b3570430da2014a06b434175cc71046c84e7547689e6db3e3d34",
+    "research/sgrt_word_completion_20261021/data/source_controls_cycle05/demographic2021_native_year_rate_audit.parquet": "ea5eebd9a9c8459d8255e7d8d91d9ab6e9b793324a5865078b1d38dff088c448",
+    "research/sgrt_word_completion_20261021/context/municipal_source2021_to_stable_crosswalk.parquet": "c8cdd6e2e8bbd36312cee911a484d6950847926daae9ad0bbeeb37a3319871e5",
+    "research/sgrt_word_completion_20261021/context/municipal_settlement_features.parquet": "1c31548d7e50d2ff4b2ffa1c2b32757a738265f444329c63f20e0890ed3f46bf"
+  },
+  "outputs": {
+    "repair_explicit_source_parent.py": {
+      "sha256": "b97f0cd6c04e577c0e957496617bfb91cc41935592325b41c766f0e322ffabc6",
+      "bytes": 9562
+    },
+    "repaired_source_parent_municipal_mass_controls.csv": {
+      "sha256": "c64ed917436b09c0cd81d8458aa0b9ef08307090210ea11a497ff106f51fad9c",
+      "bytes": 299774
+    },
+    "explicit2021_source_parent_bridge.parquet": {
+      "sha256": "3b88fc1c7e6f0a99456122d4bb0395f95a8bd45e6e544ecb9a9a1b74c04aa02a",
+      "bytes": 10946783
+    },
+    "parent_repaired_strict2021_settlement_context.parquet": {
+      "sha256": "4daa2048b766f63234302cc77939109c53ba1f11602041413d07c3d4d0ca080d",
+      "bytes": 12415148
+    },
+    "parent_context_repair_before_after.parquet": {
+      "sha256": "3490cdf235e71bac394f85feb215ee8cc0a3b9a32907996393413b5716e3e1e6",
+      "bytes": 8839442
+    }
+  }
+}

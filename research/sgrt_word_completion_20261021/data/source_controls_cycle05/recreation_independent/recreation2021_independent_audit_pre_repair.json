@@ -1,0 +1,130 @@
+{
+  "status": "RETURN_TO_REPAIR_LOOP",
+  "n_checks": 25,
+  "n_failed": 2,
+  "checks": [
+    {
+      "check": "full_actual_historical_PBF_SHA_exact",
+      "passed": true
+    },
+    {
+      "check": "historical_reference_complete_PBF_SHA_exact",
+      "passed": true
+    },
+    {
+      "check": "all132265_raw_predicate_records_retained_by_filtered_reference",
+      "passed": true
+    },
+    {
+      "check": "filtered_literal_versions_timestamps_tags_exact_actual_full_raw",
+      "passed": true
+    },
+    {
+      "check": "actual_raw_all_selected_edits_no_later_than_snapshot",
+      "passed": true
+    },
+    {
+      "check": "derived_site_keys_unique",
+      "passed": true
+    },
+    {
+      "check": "all132232_geometry_records_are_actual_selected_raw_records",
+      "passed": true
+    },
+    {
+      "check": "exact33_unassembled_relations_account_for_all_source_geometry_omissions",
+      "passed": true
+    },
+    {
+      "check": "every_geometry_version_and_timestamp_binds_raw_object",
+      "passed": false
+    },
+    {
+      "check": "every_selected_tag_literal_matches_full_raw",
+      "passed": false
+    },
+    {
+      "check": "raw_node_coordinates_exact",
+      "passed": true
+    },
+    {
+      "check": "source_group_and_inactive_flags_exact_raw_predicate",
+      "passed": true
+    },
+    {
+      "check": "all107880_way_and_relation_geometries_covered_by_actual_source_geometry",
+      "passed": true,
+      "checked": 107880
+    },
+    {
+      "check": "all_nearestNP_distances_equal_independent_haversine_BallTree",
+      "passed": true,
+      "maximum_km_error": 1.3500311979441904e-12
+    },
+    {
+      "check": "all_nearestNP_ids_in_declared_2021_population_frame",
+      "passed": true
+    },
+    {
+      "check": "all_selected_nearestIDs_attain_independent_distance_minimum",
+      "passed": true
+    },
+    {
+      "check": "same_name50m_dedup_exact_independent_haversine_neighbour_components",
+      "passed": true,
+      "multi_record_name_groups": 1483
+    },
+    {
+      "check": "anonymous_sites_not_deduplicated",
+      "passed": true
+    },
+    {
+      "check": "all_feature_axis_ids_exact_original_order",
+      "passed": true
+    },
+    {
+      "check": "accommodation_all_counts_from_actual_inrange_active_distinct_sites",
+      "passed": true
+    },
+    {
+      "check": "accommodation_positiveTRUE_missingUNKNOWN_never_absenceFALSE",
+      "passed": true
+    },
+    {
+      "check": "allotments_all_counts_from_actual_inrange_active_distinct_sites",
+      "passed": true
+    },
+    {
+      "check": "allotments_positiveTRUE_missingUNKNOWN_never_absenceFALSE",
+      "passed": true
+    },
+    {
+      "check": "all_snapshots20210101_and_positive_context_not_operation_census",
+      "passed": true
+    },
+    {
+      "check": "producer_files_and_filtered_reference_unchanged_during_review",
+      "passed": true
+    }
+  ],
+  "raw_objects": 132265,
+  "geometry_objects": 132232,
+  "unassembled_relations": 33,
+  "positive_accommodation_NP": 6559,
+  "positive_allotment_NP": 15097,
+  "source_SHA256": {
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/typology2021_cycle05/extract_recreation2021.py": "fce9607d37758c3df91119fa597b1e62eaf34a187a9b81d34a84f0bacfcfd119",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/typology2021_cycle05/recreation2021_receipt.json": "d02351e6dc8a7029d16ba501b5c129eed17a0eacfbcbcf67dc83f5f8d6495f2c",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/typology2021_cycle05/recreation_objects_2021.parquet": "48fc963165150c22dcc91ffe32dcfc5077f606c830ba4d6fab72344dcb65535f",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/typology2021_cycle05/raw_relation_geometry_ledger.parquet": "abd3fb16db6a373c5b21580999d5300b4f7ae0b8d7c4c27210510839a5defb4a",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/typology2021_cycle05/settlement_recreation_features_2021.parquet": "cb5d0d648bc7d7c3d8a85f46a084f168a36e0793e195277ddbc529718988f77a",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet": "29fa9586278e08a937651fb4fcddbc929a02d46e6dcbe44f5f14793ae6fab3fc",
+    "/workspace/scratch/sgrt_validation/recreation2021_reference_complete.osm.pbf": "0b40f91712ff06ac92625e431df5656082551f10dd710a1fb9f060733120f6f2"
+  },
+  "raw_source_sha256": "1b7c5e9f160afa4cd5889ea1d2ecbebb6dfaaa7f67a1e53efe92c21779d920fe",
+  "reviewer_code_sha256": "84b9a0a49ebfe392b0ade9726ab5dd47103a14d2b02a7b1193c05e10e3c07c6e",
+  "physical_operation_verified": false,
+  "unknown_not_absence": true,
+  "source_year_date_limitations": "Source immutablePBF20210101; nearestNP geographies may be later referencepoint; no physicalopening/closure causalclaim",
+  "raw_proof_file": "raw_source_predicate_receipt.json"
+}

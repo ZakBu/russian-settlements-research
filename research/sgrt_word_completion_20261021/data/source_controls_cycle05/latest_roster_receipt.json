@@ -1,0 +1,49 @@
+{
+  "status": "LATEST2021_SOURCE_ROSTER_FULLY_ACCOUNTED_WITH_UNMODELLED_FEDERAL_CHILDREN",
+  "n_checks": 6,
+  "n_failed": 0,
+  "checks": [
+    {
+      "check": "latest_np_native_codes_unique",
+      "passed": true
+    },
+    {
+      "check": "accepted2021_np_native_codes_unique",
+      "passed": true
+    },
+    {
+      "check": "every_accepted2021_np_in_independent_latest_roster",
+      "passed": true
+    },
+    {
+      "check": "every_accepted2021_population_exact_latest_raw",
+      "passed": true
+    },
+    {
+      "check": "all155747_latest_np_rows_explicitly_accounted",
+      "passed": true
+    },
+    {
+      "check": "upper_bridge_uses_only_unique_region_and_source_name",
+      "passed": true
+    }
+  ],
+  "latest_np_rows": 155747,
+  "accepted_axis_np_matches": 155411,
+  "accepted_name_containment": 155381,
+  "extra_source_np_rows": 336,
+  "extra_federal_children": 335,
+  "extra_nonfederal_scope_conflicts": 1,
+  "unmodelled_federal_population_already_in_territory_totals": 742897,
+  "single_source_np_municipalities_with_census_mass_control": 250,
+  "single_np_with_strict_housing2021": 193,
+  "no_automatic_new_identity_or_geography_acceptance": true,
+  "no_population_double_count": true,
+  "own_settlement_housing_verified": false,
+  "inputs_sha256": {
+    "research/sgrt_word_completion_20261021/typology/sources/allsettlements_20260925/data_allsettlements_anon_156_v20260925.parquet": "7abd7f1abd16c02a764e4bb8e0518cbb7d50019dc94d28a0e312da283af77e5f",
+    "research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet": "29fa9586278e08a937651fb4fcddbc929a02d46e6dcbe44f5f14793ae6fab3fc",
+    "publication/stage71/applied_state_observations.parquet": "bd195dcf60a283c8286e410b507a983a2e6a9b3506a535a2ee3df45aeb332a54",
+    "research/sgrt_word_completion_20261021/data/source_controls_cycle05/housing_native_year_rate_audit.parquet": "75254215a796b3570430da2014a06b434175cc71046c84e7547689e6db3e3d34"
+  }
+}
