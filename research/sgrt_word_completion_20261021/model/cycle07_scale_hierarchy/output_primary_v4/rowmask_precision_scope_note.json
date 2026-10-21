@@ -1,0 +1,39 @@
+{
+  "status": "CURRENT_SOURCE_V2_ACTUAL_DATA_EQUIVALENT_NOT_GENERIC_CODE_EQUIVALENCE",
+  "remaining_code_literal": "forest.py rowmask uses t<=cap+1e-4 (float32 comparison), unlike declared genericwithin_cap; preservefrozenrun, fixinNEWsourceexecutionversion",
+  "source_cache_sha256": "6779694b009f26ab65d4325972877bf559ad04f6c2d4d1c2811ab7057ac0e78b",
+  "checks": [
+    {
+      "cap_minutes": 30,
+      "rows_checked": 57944770,
+      "float32_vs_float64_inclusion_mismatches": 0
+    },
+    {
+      "cap_minutes": 45,
+      "rows_checked": 57944770,
+      "float32_vs_float64_inclusion_mismatches": 0
+    },
+    {
+      "cap_minutes": 60,
+      "rows_checked": 57944770,
+      "float32_vs_float64_inclusion_mismatches": 0
+    },
+    {
+      "cap_minutes": 90,
+      "rows_checked": 57944770,
+      "float32_vs_float64_inclusion_mismatches": 0
+    },
+    {
+      "cap_minutes": 120,
+      "rows_checked": 57944770,
+      "float32_vs_float64_inclusion_mismatches": 0
+    },
+    {
+      "cap_minutes": 180,
+      "rows_checked": 57944770,
+      "float32_vs_float64_inclusion_mismatches": 0
+    }
+  ],
+  "why": "Primaryfloat32thresholdsrounddownwith no intervening representablefloat32;180cachealreadyfloat64filtered. Positiveenvelope independentlyusesfloat64guard. No falsepositiveactualterritory inferred.",
+  "code_edited_during_run": false
+}
