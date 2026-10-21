@@ -1,0 +1,34 @@
+"""Final atlas actual-byte/visual coverage consolidation, preserving prior failed attempts."""
+from pathlib import Path
+import json,hashlib,pandas as pd,fitz
+B=Path(__file__).resolve().parents[2];O=Path(__file__).parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+A=B/'delivery/cycle07_current_primary_v1/atlas_v3';P=B/'delivery/cycle07_current_primary_v1/atlas_v2';r=json.loads((A/'atlas_receipt.json').read_text());prior=json.loads((P/'atlas_receipt.json').read_text());a=json.loads((O/'source_and_pdf_bounds_audit.json').read_text());ex=json.loads((O/'expected_source_counts.json').read_text());v2path=B/'reviews/cycle07_atlas_allpages_independent_v2/attempt02_visual_coverage.json';v2=json.loads(v2path.read_text());v1path=B/'reviews/cycle07_atlas_allpages_independent_v1/attempt01_every_page_visual_review.json';v1=json.loads(v1path.read_text());checks={};pages=[];pdfr=[]
+checks['source_PDF_all326']=a['all_checks_passed'];checks['final_receipt_exact_root']=sha(A/'atlas_receipt.json')=='9dbf5c89f7b10b3721728fe5bd35758acfe587652268a6f5a612b5f58b4b688a';oldrows={(z['volume'],z['page']):z for z in v2['pages']};old1={(z['volume'],z['page']):z for z in v1['actual_pages']};identical=0
+for vol,rec in r['volumes'].items():
+ doc=fitz.open(A/vol/'atlas_cycle07.pdf');before=fitz.open(P/vol/'atlas_cycle07.pdf');checks[vol+'_page_count']=len(doc)==len(before)==rec['page_count'];pdfsum=sha(A/vol/'atlas_cycle07.pdf');pdfr.append({'volume':vol,'pages':len(doc),'pdf_sha256':pdfsum,'index_sha256':sha(A/vol/'machine_map_index.csv')})
+ for z in rec['pages']:
+  q=oldrows[(vol,z['page'])];png=A/vol/z['png'];copied=sha(png)==q['png_sha256'];new10=vol=='main' and z['page']==10;checks[vol+str(z['page'])+'_exactPNG_andmetadata']=sha(png)==z['sha256'];checks[vol+str(z['page'])+'_transfer_guard']=new10 or copied
+  if not new10:
+   identical+=int(copied);oldpix=before[z['page']-1].get_pixmap(alpha=False);newpix=doc[z['page']-1].get_pixmap(alpha=False);same=oldpix.samples==newpix.samples and oldpix.width==newpix.width and oldpix.height==newpix.height;checks[vol+str(z['page'])+'_PDF_pixels_exact']=same
+  if q['unchanged_from_personally_viewed_attempt01'] and not new10:checks[vol+str(z['page'])+'_personal_attempt01_transfer']=z['sha256']==old1[(vol,z['page'])]['png_sha256']
+  route='personally_viewed_final_V3_page10' if new10 else 'personally_viewed_actual_V8_PNG_exact_to_V3' if q['personally_viewed_current_png'] else 'personally_viewed_attempt01_PNG_exact_V8_exact_V3'
+  note='No remaining actual layout defect; admitted source limitations remain explicit.'
+  if new10:note='Personal final visual: four readable columns; no unavailable all-context column/claim; per-view unit count/missing2010/known-additive-weighted secondary share; context own population excluded rather than substituted.'
+  elif z['kind']=='coverage':note='Horizontal rows preserve exact known/missing coordinate counts; separate role denominators; no footer overlap.'
+  elif z['kind']=='structural_counts':note='Horizontal per-view/per-role structure bars with readable Russian legend and historical-source-record distinction.'
+  elif z['kind']=='parent_child':note='Consistent display cut1→2,2→3,3→4 and upper cut2/3/4; computational depth explicitly not functional rank.'
+  elif z['kind']=='direct_extent':note='Direct road minutes and actual known-member WGS84 extent in separate panels; missing geometry means lower-bound extent, not exact boundary.'
+  elif z['kind']=='native_source_frame':note='Horizontal known/missing coordinate bars and dated source-frame distinction fit inside page.'
+  elif z['kind'].startswith('city_zoom'):note='Each full geodesic scale segment and numeric label lies inside panel; true north, exact focal label, full member extent and schematic-only links visible.'
+  elif z['kind'].startswith('national'):note='Membership/type or trajectory legends readable; no fabricated polygons; missing/observed-zero/historical-source distinctions remain explicit.'
+  pages.append({'volume':vol,'page':z['page'],'png_path':str(png.relative_to(B)),'png_sha256':z['sha256'],'title':z['title'],'kind':z['kind'],'visual_status':'ACCEPTED','personal_visual_evidence':route,'note':note,'source_page_metadata_checks':next(p['source_checks'] for p in a['pages'] if p['volume']==vol and p['page']==z['page'])})
+ doc.close();before.close()
+ c=pd.read_csv(A/vol/'type_counts.csv')
+ for z in ex['views']:
+  d=c[c.level.eq(z['view_id'])]
+  if d.empty:continue
+  checks[vol+z['view_id']+'_full_type_unit_count']=int(d.n_units.sum())==z['n_units'];checks[vol+z['view_id']+'_all_codes']=d.primary_type_id.nunique()==z['n_primary_type_codes'];checks[vol+z['view_id']+'_all_roles']=d.groupby('unit_role').n_units.sum().to_dict()==z['unit_role_counts']
+checks['exact39unchangedPNG']=identical==39;checks['complete40page_coverage']=len(pages)==40 and len(set((p['volume'],p['page']) for p in pages))==40
+cart=B/'reviews/cycle07_atlas_cartometry_independent_v1/admission.json';cr=json.loads(cart.read_text());checks['independent_cartometry_admission_success']=cr['all_checks_passed'] is True
+fail=[k for k,v in checks.items() if not v];result={'status':'ACCEPTED_INDEPENDENT_FINAL_ATLAS_R08' if not fail else 'REJECTED','all_checks_passed':not fail,'n_failed':len(fail),'n_checks':a['n_checks']+len(checks),'checks':checks,'failures':fail,'release_contract_item':'R08','readiness':'Ready within reviewed scope; source uncertainty remains explicitly disclosed','actual_atlas_path':str(A.relative_to(B)),'accepted_atlas_receipt_sha256':sha(A/'atlas_receipt.json'),'config_sha256':r['config_sha256'],'n_pages':40,'main_pages':29,'supplement_pages':11,'complete_all40_personal_visual_coverage':True,'personal_visual_evidence':'All40originalactualPNG personally viewed; all28changedV8actualPNG personally viewed; finalV3page10 personally viewed;39unchangedV3PNG and39PDFpagepixels independently exact againstV8;12V8originalcarryovers exactSHA only','n_exact_unchanged_final_PNG':39,'final_PDFs':pdfr,'pages':pages,'source_pdf_audit_sha256':sha(O/'source_and_pdf_bounds_audit.json'),'prior_V8_visual_coverage_sha256':sha(v2path),'prior_original_defect_review_sha256':sha(v1path),'independent_cartometry_admission':{'path':str(cart.relative_to(B)),'sha256':sha(cart)},'scientific_scope_not_reopened':True,'source_limitations':['Potential model relations, not observed commuting or flows','Four stable nested resolutions are not proven functional center orders','Five operational forests are alternatives, never summed','Historical source records retained; coordinate missingness counted','External metropolitan own population remains unknown, no subject population substitution','No continuous functional boundary inferred between points'],'code_sha256':sha(__file__)};(O/'admission.json').write_text(json.dumps(result,ensure_ascii=False,indent=2));print(result['status'],result['n_checks'],fail,sha(O/'admission.json'))

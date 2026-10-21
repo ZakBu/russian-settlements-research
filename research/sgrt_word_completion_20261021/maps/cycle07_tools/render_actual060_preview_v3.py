@@ -1,0 +1,23 @@
+"""Actual accepted060 inspection pages only; does not substitute incomplete50-ledger with invented diagnostics."""
+from pathlib import Path
+import importlib.util,json,argparse,hashlib
+P=Path(__file__).resolve().parent
+ap=argparse.ArgumentParser();ap.add_argument('--config',required=True);ap.add_argument('--output',required=True);a=ap.parse_args();cp=Path(a.config);c=json.loads(cp.read_text());out=Path(a.output);assert not out.exists();assert c['status']=='ACTUAL060_PREVIEW_ONLY_NOT_ALL5_ALL50_ATLAS';sp=importlib.util.spec_from_file_location('frozen_atlas_v5',P/'render_atlas_v5.py');r=importlib.util.module_from_spec(sp);sp.loader.exec_module(r);code_sha=r.sha(P/'render_atlas_v5.py');ownsha=r.sha(__file__);cfgsha=r.sha(cp);n,u,z,watched=r.load(c,require_admission=True);out.mkdir(parents=True);atlas=r.Atlas(out,n,u,z,c,watched)
+original_finish=atlas.finish
+def finish_checkpoint(fig,title,caption,kind,metadata=None):
+ coverage=(f'Всего в этом варианте: {len(z)} членств; {int(z._coordinate_valid.sum())} с координатами, {int((~z._coordinate_valid).sum())} без координат сохранены в журнале. ' if kind.startswith('national') else '')
+ return original_finish(fig,title,'ПРОВЕРОЧНЫЙ вариант прежнего геометрически допустимого ядра; не итоговые агломерации. '+coverage+caption,kind,metadata)
+atlas.finish=finish_checkpoint
+try:
+ atlas.textpage('СГРТ: проверочный картографический фрагмент основного варианта',[
+ 'ПРОВЕРОЧНЫЙ ФРАГМЕНТ. Здесь показан один фактически рассчитанный вариант: дорожный охват60 минут. Это проверка прежнего правила геометрически допустимого ядра, а не итоговые агломерации или географические ступени. Новая основная версия требует, чтобы сам доминантный по фиксированной массе центр удовлетворял охвату. Полный атлас новой версии рассчитывается отдельно.',
+ 'Население2010 обновлено353 новыми первичными свидетельствами. Показанные функции, собственные массы и маршруты относятся к прежнему источниковому кадру q7: новая версия477 координат и перепривязка учреждений ещё не включены в эти районы.',
+ 'Все28501 единицы имеют полный тип:3056 территориальных объединений и25445 отдельных объектов без подтверждённого функционального присоединения. На картах используется явно обозначенная структурная либо демографическая сводка, полные46 кодов неизменны.',
+ f'Все {len(z)} членств сохранены в таблице. Координаты известны у {int(z._coordinate_valid.sum())} членов: они нанесены точками. Ещё {int((~z._coordinate_valid).sum())} членов без координат остаются только в журнале состава. Границы между точками неизвестны; линии к ядру схематические. Географический состав:173856 обычныхНП и2 контекстных объекта; полный популяционный источник:173864 строки, иной знаменатель.',
+ 'Собственное население двух федеральных контекстных городов неизвестно в этой рамке. Полнота населения всей системы запрещена при таком участнике независимо от того, выбран ли он ядром; известный обычный/сельский итог сохранён. Их обычные сельские участники остаются на карте, а население субъекта не прибавляется к собственной численности ядра.'
+ ],'preview_scope')
+ for level in c['retained_resolutions']:atlas.national(level);atlas.national_trajectories(level)
+ atlas.zooms()
+finally:atlas.close()
+(out/'atlas_cycle07.pdf').rename(out/'actual060_preview.pdf');u.to_csv(out/'all_actual060_types.csv.gz',index=False,compression='gzip');z[['unit_id','id','level','is_overlay_membership','_coordinate_valid']].to_csv(out/'all_actual060_memberships.csv.gz',index=False,compression='gzip');assert all(r.sha(p)==s for p,s in watched.items()) and r.sha(cp)==cfgsha and r.sha(P/'render_atlas_v5.py')==code_sha and r.sha(__file__)==ownsha
+receipt={'status':'COMPUTED_ACTUAL060_PREVIEW_PENDING_INDEPENDENT_VISUAL_REVIEW','actual_final_all5_all50_atlas':False,'scientific_word_completion_claimed':False,'renderer_sha256':code_sha,'preview_code_sha256':ownsha,'config_sha256':cfgsha,'sources':watched,'counts':{'source_nodes':len(n),'units':len(u),'membership_rows':len(z),'full_types':int(u.primary_type_id.nunique())},'source_integration_status':c['component_integration_status'],'page_count':len(atlas.pages),'pages':atlas.pages,'files':{p.name:r.sha(p) for p in out.iterdir() if p.is_file()}};(out/'preview_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n');print(json.dumps({'output':str(out),'pages':len(atlas.pages)}))

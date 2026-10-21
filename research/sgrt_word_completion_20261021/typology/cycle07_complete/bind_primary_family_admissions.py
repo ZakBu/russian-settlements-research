@@ -1,0 +1,11 @@
+"""Bind nine actual current477 views to independent source/type admissions."""
+import argparse,json,hashlib
+from pathlib import Path
+B=Path(__file__).resolve().parent;BASE=B.parents[1]
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--summary',required=True);ap.add_argument('--output',required=True);a=ap.parse_args();s=Path(a.summary);out=Path(a.output);assert not out.exists();rows=[]
+ for entry in json.loads((s/'source_binding.json').read_text()):
+  empirical=entry['view_id'].startswith('empirical');label=int(entry['view_id'].rsplit('_',1)[1]);code=f'level_{label:03}' if empirical else f'cap{label:03}';source=BASE/'reviews/cycle07_source477_normalization_independent'/f"{code}_{'final_v2' if label==60 and not empirical else 'v1'}/audit.json";types=BASE/'reviews/cycle07_typology_independent'/f'{code}_source477_v1/audit.json';sr=json.loads(source.read_text());tr=json.loads(types.read_text());assert sr['all_checks_passed'] and sr['n_failed']==0 and tr['all_checks_passed'] and tr['n_failed']==0;assert sr['accepted_units_sha256']==entry['normalized_units_sha256']==tr['source_normalized_units_sha256'];assert tr['accepted_typology_sha256']==entry['types_sha256'];assert sr['rural_excludes_exact_central_set'] and sr['whole_members_counted_once'];rows.append({'view_id':entry['view_id'],'source_admission_path':str(source),'source_admission_sha256':sha(source),'n_source_checks':sr['n_checks'],'type_admission_path':str(types),'type_admission_sha256':sha(types),'n_type_checks':tr['n_checks'],'accepted_units_sha256':entry['normalized_units_sha256'],'accepted_types_sha256':entry['types_sha256']})
+ out.mkdir();r={'status':'BOUND_ALL9_CURRENT477_INDEPENDENT_SOURCE_AND_COMPLETE_TYPE_ADMISSIONS','all_source_and_type_inputs_admitted':True,'n_views':len(rows),'entries':rows,'summary_receipt_sha256':sha(s/'receipt.json'),'source_binding_sha256':sha(s/'source_binding.json'),'scientific_final_allowed':False,'stakeholder_final_verdict':None,'no_causal_mechanism_admission_claimed':True,'code_sha256':sha(__file__)};(out/'receipt.json').write_text(json.dumps(r,ensure_ascii=False,indent=2));print(json.dumps({'n_views':len(rows),'all_source_and_type_inputs_admitted':True,'receipt_sha256':sha(out/'receipt.json')}))
+if __name__=='__main__':main()

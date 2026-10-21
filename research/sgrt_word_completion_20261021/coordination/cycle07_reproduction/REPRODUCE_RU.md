@@ -4,6 +4,22 @@
 
 **Это инструкция по сохранённой фактической конфигурации, а не обещание переносимого полного запуска одной командой.** В контрактах нормализации, предварительных регистрациях и квитанциях есть зафиксированные абсолютные пути `/workspace/russian-settlements-research/...`. Замена этих строк меняет байты конфигурации, её SHA и область допуска. Установка Python-пакетов не восстанавливает научные данные и не заменяет источниковые проверки.
 
+## Лёгкая проверка готового пакета
+
+Обычному читателю не нужно заново рассчитывать модель или пересобирать PDF. Достаточно прочитать готовые материалы и проверить сохранённые байты:
+
+```bash
+cd /workspace/russian-settlements-research
+export SGRT_BASE="$PWD/research/sgrt_word_completion_20261021"
+python "$SGRT_BASE/coordination/cycle07_reproduction/verify_release.py" \
+  --root "$SGRT_BASE" \
+  --manifest "$SGRT_BASE/delivery/cycle07_current_primary_v1/final_bundle_manifest.json"
+```
+
+`verify_release.py` использует только стандартную библиотеку Python и читает файлы: он проверяет существование, размеры и SHA256 путей из manifest, ничего не создаёт и не меняет. `PASS` означает совпадение сохранённых байтов, а не новую научную проверку. При lazy Git checkout чтение отсутствующих опубликованных blobs может потребовать доступа к origin. Финальный manifest формируется после закрытия выходов; до его появления эта команда закономерно не даёт приёмку. Финальный акт стейкхолдера — `coordination/cycle07_release_contract/final_release_verdict_v1.json`. Manifest и акт не включают сами себя в свои SHA-списки; их вместе фиксирует Git.
+
+Ниже отдельно приведена тяжёлая пересборка: она нужна для воспроизведения вычислений или документов, использует исходные данные и зависимости и пишет исключительно в свежие каталоги. Верификатор не запускает эти стадии.
+
 ## Сначала читать готовые результаты
 
 Все пути в таблице отсчитываются от `research/sgrt_word_completion_20261021/`.
@@ -23,10 +39,14 @@
 | Все четыре нормализованных и классифицированных вложенных среза | `typology/cycle07_complete/normalized_empirical_source477_v1/level_000..003/`, `classified_empirical_source477_v1/level_000..003/` | Каждый нормализованный срез проверен 670 проверками, типология — 39; соответствующие contracts в `contracts_empirical_source477_v2/`. |
 | Популяционная чувствительность: 31 представление | `typology/cycle07_complete/normalized_sensitivity_light_source477_v2/`, `classified_sensitivity_light_source477_v1/` | `reviews/cycle07_sensitivity_population_types_independent_v1/combined_admission.json`, 4557 проверок; контекстные слои не проецировались. |
 | Все девять принятых статистических представлений | `analysis/cycle07_all9_admitted_handoff_v1/handoff.json` | 177 fits, 108 gates, 1307 интервалов; единый перечень точных директорий результатов, графиков и ограничений. |
+| Основной итоговый атлас | `delivery/cycle07_current_primary_v1/atlas_v3/main/atlas_cycle07.pdf` | Основной том: четыре вложенных разрешения и городские фрагменты; общий `atlas_v3/atlas_receipt.json`, затем final manifest/verdict. |
+| Операционное картографическое приложение | `delivery/cycle07_current_primary_v1/atlas_v3/operational_supplement/atlas_cycle07.pdf` | Все пять отдельных operational forests, собственный `render_receipt.json`; не складывать их как уровни одной иерархии. |
+| Исследовательский отчёт | `delivery/cycle07_current_primary_v1/report_v2/SGRT_RESEARCH_REPORT.pdf` (также `.docx`, `.md`) | `report_v2/report_input_binding.json`, итоговый manifest и акт стейкхолдера. |
+| Записка научному руководителю | `delivery/cycle07_current_primary_v1/report_v2/SUPERVISOR_BRIEF.pdf` (также `.docx`, `.md`) | Тот же exact input bundle; короткое изложение не меняет ограничений исследования. |
 | Фактический картографический просмотр 60 минут | `maps/cycle07_newsource060_preview_v1/actual060_preview.pdf` | `maps/cycle07_newsource060_preview_binding_v1/map_config.json`, `reviews/cycle07_newsource060_preview_independent/admission.json`, последующая визуальная проверка. Это предварительный просмотр одного сценария, а не полный итоговый атлас. |
 | Библиография | `literature/cycle07_classics_final/READOUT_RU.md`, `bibliography.csv` | `source_receipts.json`; выборочное чтение первичных материалов не объявляется чтением всех книг. |
 
-На момент составления инструкции полный атлас всех четырёх вложенных срезов и пяти лесов и итоговый отчёт **ещё не имели закрытых фактических input bundles и выходов**. Их нельзя заменить старым атласом или объявить готовыми по наличию скрипта. Актуальные пути после сборки должны быть указаны в текущем выпуске/его manifest; см. последнюю секцию этого документа.
+Конечная семья выпуска — `delivery/cycle07_current_primary_v1/`. Основной атлас и операционное приложение находятся в `atlas_v3/`, отчёт и записка руководителю — в `report_v2/`. Выходы атласа и документов сформированы и связаны конкретными receipts. Наличие файлов не заменяет финальную проверку manifest и акта стейкхолдера: общий выпуск считается закрытым по этим двум документам. Старый `atlas/` — отклонённая по оформлению attempt01, не итоговый атлас.
 
 ## Среда и зависимости
 
@@ -377,29 +397,55 @@ python "$SGRT_BASE/analysis/cycle07_tools/assemble_all9_handoff_v1.py" \
 
 Новый численный результат требует самостоятельной фактической приёмки; renderer/assembler выше читают исходные уже принятые расчёты. Исходные captions и ограничения хранят различие между пятью operational forests и четырьмя retained candidate partitions.
 
-## Карты и отчёт: фактический просмотр и ещё не закрытый полный выпуск
+## Пересборка итогового атласа и отчёта
 
-Воспроизводимый фактический просмотр 060:
+Это создание новых документов из сохранённых принятых результатов; оно не требует повторного национального расчёта модели и 177 fits. Чтение больших Parquet и отрисовка десятков страниц всё равно требуют времени и памяти. Сначала завершить раздел переменных (`SGRT_BASE`, свежий `SGRT_REPLAY`), затем перейти в базу исследования. Не передавать исходные `atlas_v2/`, `atlas_v3/` или `report_v2/` как новые выходы.
+
+### Атлас V8: два тома
+
+Конфигурация `maps/cycle07_current_primary_binding_v1/map_config.json` имеет SHA256 `85a60267b7b1642ca41d0ca9cc7299843b44a01baa8cb673919ec8e2e1be2476`. Для окончательной косметической правки используется source config с теми же входами; exact V8 delta admission хранится в финальном source manifest/акте. Wrapper `render_volumes_v2.py` импортирует `render_atlas_v8.py`, а не старый V7.
 
 ```bash
 cd "$SGRT_BASE"
-python "$SGRT_BASE/maps/cycle07_tools/render_newsource060_preview_v1.py" \
-  --config "$SGRT_BASE/maps/cycle07_newsource060_preview_binding_v1/map_config.json" \
-  --output "$SGRT_REPLAY/map060_preview"
+python "$SGRT_BASE/maps/cycle07_tools/render_volumes_v2.py" \
+  --config "$SGRT_BASE/maps/cycle07_current_primary_binding_v1/map_config.json" \
+  --output "$SGRT_REPLAY/atlas_v2"
 ```
 
-Он создаёт `actual060_preview.pdf`, CSV полных типов/членств и собственный `preview_receipt.json`. Его независимый binding admission — `reviews/cycle07_newsource060_preview_independent/admission.json`. Это не команда создания полного итогового атласа. Карты показывают точечный состав единиц; сплошные доказанные границы между поселениями не восстанавливаются автоматически.
+Команда создаёт `main/atlas_cycle07.pdf`, `operational_supplement/atlas_cycle07.pdf`, общую квитанцию `atlas_receipt.json`, машиночитаемые индексы страниц, полные таблицы типов и членств. Для основного тома сохраняется бюджет 20–30 страниц. Эта полная отрисовка воспроизводит родительский `atlas_v2/`; конечный атлас — `atlas_v3/` после описанной ниже версионной правки одной страницы. Новая отрисовка не подменяет исходные файлы. Визуальная и binding-приёмка нового результата — отдельная стадия. Точечное членство не доказывает сплошные географические границы или реальные поездки.
 
-Сохранённый CLI `maps/cycle07_tools/render_atlas_v6.py` имеет форму `--config FILE --output FRESH --stage preregister|render`. Более поздняя attempt01 получила 29 binding и 11 visual проверок, но отклонена по презентации (поля/масштабная линейка); ожидается косметический renderer V8 и отдельный финальный atlas output. Attempt01 не считается финальным выпуском. Нельзя использовать старый map admission для изменившегося renderer или другой конфигурации. Для полного атласа нужны фактически принятые все представления, точный config, frozen renderer, предварительная регистрация и actual binding admission, затем визуальная проверка выходов.
+### Версионная правка одной страницы: atlas_v2 → atlas_v3
 
-`delivery/cycle07_tools/build_report_v4.py` имеет CLI:
+На странице 10 родительского атласа обнаружен недоступный столбец с `nan`. `patch_quality_page_v1.py` удаляет этот столбец и соответствующее утверждение, сохраняя 39 остальных PNG побайтово; в PDF заменяется одна страница, её таблица качества и квитанции получают новые SHA. Численные источники и типология не меняются. Parent receipt SHA и код patch сохраняются в новом `atlas_receipt.json`.
 
-```text
-python .../build_report_v4.py --inputs EXACT_ACTUAL_INPUTS.json --output FRESH_DIRECTORY --stage preregister
-python .../build_report_v4.py --inputs EXACT_ACTUAL_INPUTS.json --output ANOTHER_FRESH_DIRECTORY --stage build
+```bash
+cd "$SGRT_BASE"
+python "$SGRT_BASE/maps/cycle07_tools/patch_quality_page_v1.py" \
+  --parent "$SGRT_REPLAY/atlas_v2" \
+  --config "$SGRT_BASE/maps/cycle07_current_primary_binding_v1/map_config.json" \
+  --output "$SGRT_REPLAY/atlas_v3"
 ```
 
-Это **синтаксис кандидата**, не готовая команда принятого итогового отчёта: на момент проверки его фактический input config и полный output ещё не существовали. Старый допуск reportv3 не распространяется наv4. После появления итогового bundle здесь должны быть указаны конкретные пути, SHA renderer/config, соответствующие prospective/actual admissions и реальные PDF/DOCX/MD-выходы. Наличие `--help` подтверждает CLI, но не научную или визуальную приёмку отчёта.
+Это продолжение команды полной отрисовки выше. Можно вместо свежего parent указать сохранённый `delivery/cycle07_current_primary_v1/atlas_v2`, сохранив свежий output. Patch проверяет точный config SHA родителя и научные source pins, но не требует исторического SHA его PDF, поэтому новый родитель допускается при совпавших источниках и конфигурации. Он использует hard links: parent и output должны находиться на одной файловой системе; изменяемые копии перед записью отвязываются от родителя. Инвариант 39 остальных PNG проверяется самим инструментом. Фактическая итоговая приёмка исходного `atlas_v3/` остаётся отдельной от запуска новой копии.
+
+### Отчёт: фактический конечный builder V7
+
+Конечный entrypoint — `delivery/cycle07_tools/build_report_v7.py`: он сохраняет Word crosswalk и полные агрегатные CSV, добавляет читательские названия и компактное представление таблиц. Исходные числа и научные входы не менялись. Ранний 57-страничный `report/` сохранён как история; итоговый `report_v2/` содержит 25 страниц отчёта и одну страницу записки. Справки V4–V6 сохранены как исторические снимки и не подставляются вместо V7. Точный actual input bundle — `delivery/cycle07_current_primary_v1/report_inputs_v1.json`. Он связывает принятые типы, результаты всех девяти анализов, фактический итоговый атлас и библиографию. SHA exact bundle — `fec489225955d20119a143bf104907ff04a4a8399b167603a93a10f4914cb15d`. При несовпадении source guards пересборка останавливается; не создавать фиктивный config из шаблона.
+
+```bash
+cd "$SGRT_BASE"
+python "$SGRT_BASE/delivery/cycle07_tools/build_report_v7.py" \
+  --inputs "$SGRT_BASE/delivery/cycle07_current_primary_v1/report_inputs_v1.json" \
+  --output "$SGRT_REPLAY/report_v2_prereg_v1" --stage preregister
+
+python "$SGRT_BASE/delivery/cycle07_tools/build_report_v7.py" \
+  --inputs "$SGRT_BASE/delivery/cycle07_current_primary_v1/report_inputs_v1.json" \
+  --output "$SGRT_REPLAY/report_v2" --stage build
+```
+
+Обе стадии требуют нового каталога, поэтому для preregister и build заданы разные выходы. В build создаются `SGRT_RESEARCH_REPORT.pdf/.docx/.md` и `SUPERVISOR_BRIEF.pdf/.docx/.md`, полный реестр единиц/типов и собственная input binding квитанция. Конечные сохранённые документы лежат в `delivery/cycle07_current_primary_v1/report_v2/`. Пересборка из исходного input bundle использует исходный принятый atlas, а не автоматически `$SGRT_REPLAY/atlas_v3`: новое изображение нужно отдельно проверить и перепривязать с SHA, если планируется включить именно его.
+
+Состояние научной приёмки и допусков не определяется названием `REPORT`: конечный пакет остаётся предварительным исследовательским результатом с явной неполнотой наблюдений и гипотезами Word. Для приёмки сохранённого выпуска использовать final manifest/verdict, а не исторические `pending` внутри неизменённых авторских receipts.
 
 ## Перенос на другую машину
 
@@ -411,10 +457,6 @@ python .../build_report_v4.py --inputs EXACT_ACTUAL_INPUTS.json --output ANOTHER
 
 Инструкция не содержит команд удаления, перезаписи принятых результатов, отключения проверок или повторного скачивания многогигабайтных первичных файлов без необходимости.
 
-Проверка состояния v4: все пять лесов имеют принятые источники, численные и пространственные проверки и финальные графики; сводка содержит 97 fits. Все четыре вложенных анализа также независимо приняты по источникам, числам, пространственным проверкам и финальным графикам. Единый handoff девяти представлений: `analysis/cycle07_all9_admitted_handoff_v1/handoff.json`, SHA `1d3fb616d06503bc24b86898e81ca48640e8a04031f050c045911c4f45a725b1`; всего 177 fits, 108 gates (71 вычисленный, 37 не оценены) и 1307 интервалов. Индексы пространственного разрешения 0–3 не становятся наблюдаемыми функциональными порядками. Исполнители полного атласа и отчёта продолжают prospective review; SHA их CLI в этой папке — снимок, который не превращает кандидата в принятый выпуск.
+Текущее состояние вычислительного блока: все девять представлений независимо приняты; `analysis/cycle07_all9_admitted_handoff_v1/handoff.json`, SHA `1d3fb616d06503bc24b86898e81ca48640e8a04031f050c045911c4f45a725b1`. Всего 177 fits, 108 gates (71 вычисленный, 37 не оценены) и 1307 интервалов. Все 31 light-представление нормализованы и классифицированы с отдельной независимой приёмкой. Индексы пространственного разрешения 0–3 не являются наблюдаемыми функциональными порядками.
 
-Исправление v2: downstream-команды явно переходят в базу исследования; исходный снимок инструкции и её квитанций сохранён в `history_v1/`. Синтаксис всех shell-примеров проверен без запуска расчётов.
-
-Обновление v3: добавлены новые источниковые/статистические handoffs, light batch semantics и три актуальных CLI-снимка в `cli_help_additions_v3.json`. Снимок v2 сохранён в `history_v2/`.
-
-Обновление v4: конечный статистический блок всех девяти представлений независимо закрыт; источник `analysis/cycle07_all9_admitted_handoff_v1/handoff.json`. Итоговая семья выпуска — `delivery/cycle07_current_primary_v1/`; попытка атласа attempt01 не является финальной (требуется косметическая правка), отчёт ещё не выпущен. Конечные пути PDF/DOCX будут добавлены после фактического handoff. Снимок v3 сохранён в `history_v3/`.
+Инструкция v6 фиксирует фактические закрытые выходы: atlas_v3 (29 страниц основного тома и 11 страниц приложения), report_v2 (25 страниц отчёта и одна страница записки). Точные конечные SHA и source-owner receipts — [delivery_bindings_v6.json](delivery_bindings_v6.json). Final manifest и verdict закрывают выпуск в целом; они формируются root после финального reader review. Исходные инструкции и квитанции v1–v5 сохранены в `history_v1/`–`history_v5/`. Проверки этой инструкции ограничены CLI, синтаксисом команд, чтением исходников/контрактов и ранее выполненными prepare-only; расчёты и отрисовка здесь не запускались.
