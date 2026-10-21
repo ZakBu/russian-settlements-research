@@ -1,0 +1,1046 @@
+<!-- Cached copy, generated 14:28 -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="yandex-verification" content="68c75751805dfb0d" />
+<title>Мониторинг (ВО)</title>
+<link rel="shortcut icon" href="../../../img/icon/micon.ico">
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/materials.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/kendo.css" />
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/kendo.js"></script>
+<script src="https://api-maps.yandex.ru/2.1/?apikey=c7ebcb8f-8d1e-464e-bd09-f9a0f2601a46&lang=ru_RU&coordorder=longlat" type="text/javascript"></script>
+<style>
+  .blockcontent>p {
+    color: #000;
+    font:normal 400 16px/17px Calibri;
+    text-align:justify;
+    padding-top:10px;
+  }
+
+  .blockcontent p.snoska {
+    font: normal normal 400 11px/12px Arial;
+    color:#676767;
+  }
+</style>
+
+<script type="text/javascript">
+
+$(function() {
+  $(window).scroll(function(){
+     $('#instheader').css('top',-1*Math.min($('#instheader #doc_name').height()+$('#instheader #fo_name').height()+19,$(window).scrollTop()));
+     $('#instheader #gerb').css('background-size','auto '+Math.min(72,98-Math.min($('#instheader #doc_name').height()+$('#instheader #fo_name').height()+19,$(window).scrollTop()))+'px');
+     $('#instheader #gerb').css('padding-right', parseInt(0*Math.min(72,98-Math.min($('#instheader #doc_name').height()+$('#instheader #fo_name').height()+19,$(window).scrollTop()))+15)+'px');
+  });
+
+  $(document).ready(function(){
+     $('body').css('padding-top',$('#instheader').height()+parseInt($('#instheader').css('padding-bottom'))).children('#instheader').css('position','fixed');
+     createChart();
+  });
+
+  $('.inst').hover(function(e) {
+                      if ($('#add'+$(this).attr('id')+' #another_city_vuz').html()=='') {
+                        if($('td.inst[city="'+$(this).attr('city')+'"][id!='+$(this).attr('id')+']').length==0) {
+                          $('#add'+$(this).attr('id')+' #another_city_vuz').html('-');
+                        } else {
+                          var ss = '';
+                          $('td.inst[city="'+$(this).attr('city')+'"][id!='+$(this).attr('id')+']').each(function(idx,el){
+                            ss = ss + '<div class="anothervuz" style="background:url(../../../img/temp/st_'+$(el).attr('icon')+'_0.png) 0px 1px no-repeat;">'+$(el).children('a').text()+'</div>';
+                          });
+                          $('#add'+$(this).attr('id')+' #another_city_vuz').html(ss);
+                        }
+                      }
+                      $('.inst_add').stop(0).fadeOut(500);
+                      $('#add'+$(this).attr('id')).delay(300).appendTo(this).fadeIn(600);
+                  }
+                  ,function(e) {
+                      $('.inst_add').clearQueue().fadeOut(500);
+                  });
+
+  $('#tr_ugs td[id=td_ugs]').click(function(){
+    $(this).parent('tr').children('#td_ugs').toggleClass('td_ugs_n td_ugs_v');
+    $('#trud tr[ugs='+$(this).attr('ugs')+']').fadeToggle(0);
+  });
+
+
+  $('.show_map').click(function(){
+     $('#maps').parent('div').width($(window).width()*0.8)
+                            .height($(window).height()*0.8)
+                            .css('left',($(window).width()*0.1))
+                            .css('top',($(window).height()*0.1))
+                            .fadeIn(300);
+
+
+     if($('#maps').html()=='') {
+         $('#maps').height($(window).height()*0.8);
+
+
+        ymaps.ready(function() {
+              var myMap;
+              myMap = new ymaps.Map('maps', {
+                                       center: [37.3, 55.495],
+                                       zoom: 7,
+                                       behaviors: ['default', 'scrollZoom'],
+                                       controls: ['zoomControl','fullscreenControl']
+                                   });
+
+
+              $('.inst[coordinates]').each(function(idx,el){
+                if($(el).attr('coordinates')!='') {
+  	            myMap.geoObjects.add(
+  	              new ymaps.GeoObject({
+                                       geometry: {
+                                             type: "Point",
+                                             coordinates: $(el).attr('coordinates').split(/\s*,\s*/)
+
+                                       },
+                                       properties: {
+                                             iconContent: '',
+                                             hintContent: $(el).children('a').text(),
+                                             balloonContent: ''
+                                       }
+                                    }, {
+
+                                             iconLayout: 'default#image',
+                                             iconImageHref: '../../../img/temp/st_map_'+$(el).attr('icon')+'.png',
+                                             iconImageSize: [19, 15],
+											         iconImageOffset: [-6, -6]
+                                    })
+
+                );
+              }
+
+              myMap.setBounds(myMap.geoObjects.getBounds(),{zoomMargin: [10,10,10,10]});
+            });
+        }); //ymaps.ready
+     }
+   });
+
+
+});
+
+   function createChart() {
+
+            $('#chart_specific').kendoChart({
+	                  legend: {position: "bottom",padding :{top:0}, visible: false,labels: {font:"italic 10px Arial", color:"#799"}},
+	                  seriesDefaults: {type: "bar", stack: true, gap: 0.5, labels: {visible: true,
+												   	                                background: "transparent",
+												   	                                color:"#000", font:"700 11px Tahoma",
+												   	                                format: "N0"    }
+	                  },
+	                  series: [{name: "",
+	                            data: [5,2,1,,2],
+	                            color: "#591d45"
+	                          }],
+	                  valueAxis: {min:0, max: 6, line: {visible: false }, minorGridLines: { visible: false },majorGridLines: { visible: false }, labels: false},
+	                  categoryAxis: [{categories: ["медицинской","сельскохозяйственной","творческой","спортивной","транспортной"],
+	                                  labels: {margin: 9, font: "11px Tahoma"},
+	                                  majorGridLines: {visible: false}
+	                                }],
+	                  tooltip: {visible: false, template: "#= series.name # - <b>#= value #</b>", font:"11px Tahoma",format: "${0} bln"}
+                    });
+
+
+
+
+
+	            $("#chart_kont_otr").kendoChart({
+                    title: {              visible: false               },
+	                legend: {             visible: false               },
+	                chartArea: {               background: ""          },
+	                seriesDefaults: {
+	                    labels: {
+	                        visible: true,
+	                        background: "transparent",
+	                        template: "#= category # - #= kendo.format('{0:P}', percentage)#",
+	                        position: "outsideEnd"
+	                    }
+	                },
+	                series: [{
+	                    type: "donut",padding: 45,startAngle: 100,
+	                    overlay: {gradient: "none"},
+	                    border: {width:0.2, color:"#123"},
+	                    data: [
+	                    {category: "Математические и есте-\nственные науки",
+						        value: 6807.8000000000002,
+						        color:"#DD0000"},{category: "Инженерное дело, технологии\nи технические науки",
+						        value: 21718.599999999999,
+						        color:"#CC8800"},{category: "Здравоохранение и ме-\nдицинские науки",
+						        value: 28473.5,
+						        color:"#EDED84"},{category: "Сельское хозяйство и сельско-\nхозяйственные науки",
+						        value: 5920.75,
+						        color:"#00EE00"},{category: "Науки об обществе",
+						        value: 33314.099999999999,
+						        color:"#00DB6D"},{category: "Образование и педаго-\nгические науки",
+						        value: 16909.150000000001,
+						        color:"#00CCBB"},{category: "Гуманитарные науки",
+						        value: 7147.3000000000002,
+						        color:"#0000CC"},{category: "Искусство и культура",
+						        value: 924.29999999999995,
+						        color:"#8800CC"},						        ]
+	                }],
+	                tooltip: {                visible: true,	template: "Приведенный контингент студентов - <b>#= value #</b> чел." , font:"11px Tahoma"                }
+	                });
+try {
+  $('#chart_specific g text[fill=#232323]:first').parents('div').append("<span class='tdel' style='font:11px Tahoma;color:transparent;'>сельскохозяйственной</span>");
+  var bw = $('.tdel').width();
+  $('.tdel').remove();
+
+  $('#chart_specific g text[fill=#232323]').each(function(idx, el){ dd = $(el).html();//alert(dd);
+    var ss ='<image xlink:href="../../../img/temp/specific_'+parseInt(idx+2)+'.png" src="../../../img/temp/specific_'+parseInt(idx+2)+'.png" height="17" width="17" y="'+parseInt($(el).attr('y')-13)+'" x="'+parseInt(bw+9)+'" />';
+    $(el).attr('x',parseInt($(el).attr('x')-9));
+
+    $(el).parent('g').html($(el).parent('g').html()+ss);
+  });
+ } catch(e) {
+
+ }
+ }
+</script>
+
+
+<body id="body" style="display:block; min-width:1200px;padding:0px;font:normal 400 16px Calibri;">
+
+  <div style='display:none;height:0px;width:0px;position:fixed;z-index:1000;box-shadow:0px 0px 50px 10px rgba(0,0,0,0.7);background:url(../../../img/bg_map.png);'>
+    <div id='maps'></div>
+    <div style='float:right;position:absolute;top:0px;right:-38px;padding:0px 1px;cursor:pointer;background:url(../../../img/1433338524_close.png) no-repeat;width:32px;height:32px;' onclick='$(this).parent("div").fadeOut(100);'></div>
+  </div>
+
+
+
+<table id="instheader" style="box-shadow:0px 2px 5px rgba(0,0,0,0.7);width: 100%;min-width:1200px;background: url(../../../img/monitoring_logo/lh_rr.png);position:fixed;top:0px;z-index:999;">
+  <tr style="height:124px; background: url(../../../img/monitoring_logo/lh_mm.png) 0px -16px;">
+    <td style="border:none;background: url(../../../img/monitoring_logo/bb_l.png) repeat-y right, url(../../../img/monitoring_logo/lh_rr.png) 0px -16px;"></td>
+    <td style="border:none;min-width:1200px;width:1200px !important; background: url(../../../img/monitoring_logo/lh_m_material.png)  0px -16px no-repeat;text-align:right;vertical-align:top;">
+      <div id='doc_name' style="text-align:right;position:relative;padding:1px 30px 3px 0px;background:rgba(0,0,0,0.2);font:normal 400 13px Tahoma; color:#E3E4E8;">
+	               <a href='/' style='font-size:12px;background:url(../../../img/ti_home.svg) left top 1px no-repeat;padding-left:15px;'></a> | 
+				   <a href='/?m=vpo&year=2022' style='font-size:12px;color:#E3E4E8;text-decoration:none;'>Информационно-аналитические материалы по результатам проведения мониторинга
+	                эффективности деятельности образовательных организаций высшего образования 2022 года</a>
+	  </div>
+      <div id='gerb' style="position:relative;height:72px;margin-top:10px;
+                  left:-30px;
+                  padding-right: 0px;
+                  background: url(../../../img/temp/gerb/.png) right bottom no-repeat;
+                  background-size: auto 72px;
+                  text-shadow: -1px -1px 1px rgba(0,0,0,0.75);">
+        <div id='fo_name' style='font:normal normal 700 17px/27px Arial; color:#C3C7DB;padding-bottom:10px;padding-top:6px;height:27px;'> </div>
+        <div style='font:normal normal 400 32px/27px Arial; color:#E8EAF4;'>СЕВЕРО-КАВКАЗСКИЙ ФЕДЕРАЛЬНЫЙ ОКРУГ</div>
+	  </div>
+    </td>
+    <td style="border:none;background: url(../../../img/monitoring_logo/bb_r.png) repeat-y left, url(../../../img/monitoring_logo/lh_rr.png) 0px -16px;"></td>
+  </tr>
+</table>
+
+
+
+<table style="width: 100%;">
+  <tr style="height:255px;">
+    <td style="background: url(../../../img/monitoring_logo/bb_l.png) repeat-y right, #ddd;border:none;"></td>
+    <td style="width:1200px !important; background: #fff;border:none;padding-top:10px;position:relative;">
+
+
+
+<div>
+  <div style="font:normal 700 30px/30px Calibri;color:#123;padding:15px;padding-left:30px;">ХАРАКТЕРИСТИКА СИСТЕМЫ ВЫСШЕГО ОБРАЗОВАНИЯ</div>
+  <div class="blockcontent" style="display:block;">
+    <div id="statistic" style='width:100%;height:550px;position:relative;margin:10px 0px 25px;'>
+      <svg id="map_of_russia" width="1109" height="550" style='position:absolute;'>
+        <g id='map' transform='scale(0.82) translate(0, 0)'></g>
+        <g id="metka" transform="scale(1) translate(0,0)">
+          <path id="m_line" d="" stroke="#678" stroke-width="3" stroke-dasharray="1,6" fill="none" stroke-linecap="round" />
+          <circle cx="-100" cy="" r="7"  stroke-width = "1" stroke = "#566" fill = "#fff" />
+          <circle cx="-100" cy="" r="4.75"  stroke-width = "1" stroke = "#566" fill = "#234" />
+        </g>
+      </svg>
+
+      <div id='statistic_info_reg' style='opacity:0.95;height:60px;left:25px;position:absolute;bottom:15px;padding-left: 0px;box-shadow:0px 0px 10px 5px #fff;text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+                   text-align:left;background: url(../../../img/temp/gerb/.png) left top no-repeat, #fff;background-size: auto 60px;'>
+        <div id='fo_name' style='font:normal normal 400 15px Tahoma; color:#a3a7bB;padding-top:4px;height:23px;'> </div>
+        <div style='padding:0px;background:#fff;font:700 23px Arial;color:#678;'>СЕВЕРО-КАВКАЗСКИЙ ФЕДЕРАЛЬНЫЙ ОКРУГ</div>
+      </div>
+
+
+
+
+      <div class='statistic_info' style='position:absolute;padding:4px 9px;' id='statistic_info_all'>
+        <table style='border-bottom:1px solid #aaa;'>
+          <tr><td style='text-align:right;'><span class='val'>79</span></td><td>организаций высшего образования<sup style='font:8px Calibri;'>*</sup></td></tr>
+          <tr><td style='text-align:right;'>в т.ч.: <span class='val'>38</span></td><td>филиалов</td></tr>
+                    <tr><td style='text-align:right;'><span class='val'>1</span></td><td>федеральный университет</td></tr>                            </table>
+        <table style='width:100%;margin-top:4px;'>
+          <tr style=''>
+            <td style='padding-top:1px;vertical-align:top;font:normal 400 11px/10px Tahoma;text-align:right;'>государственных<br />и муниципальных</td>
+            <td style='vertical-align:top;text-align:right;'><span class='val'>57</span></td>
+            <td style='text-align:center;width:154px;'>
+              <svg width="154" height="23"><g transform="translate(2,0)">
+                <linearGradient id="kdef2" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset="0" style="stop-color:#fff;stop-opacity:0;"></stop><stop offset="0.25" style="stop-color:#fff;stop-opacity:0.25;"></stop><stop offset="1" style="stop-color:#fff;stop-opacity:0;"></stop></linearGradient>
+                <path d="M108.5 7.5v11H0.5  v-11z" stroke-width="0.5" stroke-opacity="0.9" stroke="#000" fill="#83A2D3" > </path>
+                <path d="M108.5 7.5v11H150.5v-11z" stroke-width="0.5" stroke-opacity="0.5" stroke="#000" fill="#FFB27F" > </path>
+                <path d="M0.5 7.5H150.5v11H0.5z" stroke="none" fill="url(#kdef2)"/>
+                <path d="M108 5v16" stroke="#456" stroke-width="2" />
+              </g></svg>
+            </td>
+            <td style='vertical-align:top;text-align:right;'><span class='val'>22</span></td>
+            <td style='padding-top:5px;vertical-align:top;font-size:11px;text-align:left;'>частных</td></tr>
+        </table>
+
+        <div class='statistic_info show_map' style='position:absolute;cursor:pointer;box-shadow: 1px 1px 3px rgba(0,0,0,0.3);padding:3px 6px 3px 27px;background:url(../../../img/struct_icon_1.png) center left 5px no-repeat, rgba(227,239,234,0.75);font:normal 700 11px/normal Arial;bottom:-27px;left:0px;text-decoration:underline;text-decoration-style:dotted;color:#456;'>на карте</div>
+      </div>
+
+
+     <div class='statistic_info' style='position:absolute;bottom:15px;' id='statistic_info_chart_kont'>
+       <table style='margin:4px 9px;'>
+         <tr><td style='text-align:right;'><span class='val'>203 219</span></td><td>студентов бакалавриата, специалитета, магистратуры<p style='font-size:11px'>(4,99% от контингента по РФ)</p></td></tr>
+         <tr><td style='text-align:right;'>в т.ч. <span class='val'>109 678</span></td><td>очной формы обучения</td>
+         <tr><td style='text-align:right;'><span class='val'>98 384</span></td><td>за счет бюджетных средств бюджетной системы РФ</td></tr>
+       </table>
+       <hr style='border:none;border-bottom:1px solid #aaa;margin:0px 9px;'>
+       <table style='margin:4px 9px;'>
+	      <tr style=''>
+            <td style='padding-top:1px;vertical-align:top;font:normal 400 11px/10px Tahoma;text-align:right;'>обучаются в государственных<br />и муниципальных вузах</td>
+            <td style='vertical-align:top;text-align:right;'><span class='val'>93,2<span style='font-size:12px;'>%</span></span></td>
+            <td style='text-align:center;'>
+              <svg width='154px' height='23px'><g transform="translate(2,0)">
+                <linearGradient id="kdef2" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset="0" style="stop-color:#fff;stop-opacity:0;"></stop><stop offset="0.25" style="stop-color:#fff;stop-opacity:0.25;"></stop><stop offset="1" style="stop-color:#fff;stop-opacity:0;"></stop></linearGradient>
+                <path d="M140.5 7.5v11H0.5  v-11z" stroke-width="0.5" stroke-opacity="0.9" stroke="#000" fill="#83A2D3"/>
+                <path d="M140.5 7.5v11H150.5v-11z" stroke-width="0.5" stroke-opacity="0.6" stroke="#000" fill="#FFB27F"/>
+                <path d="M0.5 7.5H150.5v11H0.5z" stroke="none" fill="url(#kdef2)"/>
+                <path d="M140 5v16" stroke="#456" stroke-width="2" />
+              </g></svg>
+            </td>
+            <td style='vertical-align:top;text-align:right;'><span class='val'>6,8<span style='font-size:12px;'>%</span></span></td>
+            <td style='padding-top:1px;vertical-align:top;font:normal 400 11px/10px Tahoma;text-align:left;'>в частных<br />вузах</td></tr>
+
+          </table>
+       <hr style='border:none;border-bottom:1px solid #aaa;margin:0px 9px;'>
+       <div id='chart_kont_otr' style='width:510px;height:200px;padding-top:15px;'></div>
+     </div>
+       <script>
+
+
+         var X = 0;
+         var Y = 0;
+         var r = true;
+           var scale = 0.85;
+         var translate_x = 130;
+         var translate_y = Math.max(0,165-$('[fo=25]').attr('yc')*scale);
+             X = Math.ceil((parseInt($('[fo=25]').attr('xc'))+translate_x)*scale);
+             Y = Math.ceil((parseInt($('[fo=25]').attr('yc'))+translate_y)*scale);
+             r = (X < 1109/2);
+         $('#map_of_russia g#map').attr('transform','scale('+scale+') translate('+translate_x+', '+translate_y+')');
+         $('#map_of_russia g [fo=25]').css('fill','#AEB8C1');
+         $('#map_of_russia g#metka path#m_line').attr('d',((($('#statistic_info_all').innerWidth()>X && r) || (1109-$('#statistic_info_all').innerWidth()<X  && !r)) ? 'M'+parseInt(X)+' '+parseInt($('#statistic_info_all').innerHeight()+3) : 'M'+(r ? $('#statistic_info_all').innerWidth()+3 : 1109-$('#statistic_info_all').innerWidth()-3)+' 50.5H'+parseInt(X-(r ? 7 : -7))+'a7 7 0 0 '+(r ? 1 : 0)+' '+(r ? 7 : -7)+' 7')+'V541.5a7 7 0 0 '+(r ? 0 : 1)+' '+(r ? 7 : -7)+' 7H'+(r ? 1100 : 9)+'a7 7 0 0 '+(r ? 0 : 1)+' '+(r ? 7 : -7)+'-7V407.5a7 7 0 0 '+(r ? 0 : 1)+' '+(r ? -7 : 7)+'-7H'+(r ? 1109-20 : 20));
+         $('#map_of_russia g#metka circle').attr('cx',X).attr('cy',Y);
+
+  
+         $('#statistic_info_all').css((r ? 'left' : 'right'), '0px');
+         $('#statistic_info_chart_kont').css((!r ? 'left' : 'right'), '20px');
+         $('#statistic_info_reg').css((r ? 'bottom' : 'top'), '15px');
+
+       </script>
+
+</div>
+
+  <p class='snoska' style='padding-top:5px;margin-bottom:10px;'><sup style=''>*)</sup> Из числа принявших участие в мониторинге. Кроме образовательных организаций федеральных государственных органов, осуществляющих подготовку кадров в интересах обороны и безопасности государства, обеспечения законности и правопорядка, а также организаций, не предоставивших сведения в рамках мониторинга.</p>
+
+  <p>В мониторинге выделяется пять групп организаций, имеющих отраслевую специфику деятельности, которая устанавливается в соответствии с долей контингента студентов 1 курса, обучающихся по выделенной группе направлений подготовки и специальностей.</p>
+  <div id='chart_specific' style='height:110px;margin-top:10px;'></div>
+  <p style='border-top:1px solid #222;padding-top:0px;font-size:13px;width:75%;'><i>Число образовательных организаций и филиалов, обладающих отраслевой спецификой деятельности</i></p>
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+<div>
+  <div style="font:normal 700 30px/30px Calibri;color:#123;padding:15px;padding-left:30px;">РЕЗУЛЬТАТЫ МОНИТОРИНГА ДЕЯТЕЛЬНОСТИ ОБРАЗОВАТЕЛЬНЫХ ОРГАНИЗАЦИЙ</div>
+  <div class="blockcontent" style="display:block;">
+        <table class='an' width="100%"><thead id='otr'>
+          <tr>
+            <td colspan='2' rowspan='2' style='background:none;border-top:none;border-left:none;vertical-align:top;text-align:left;'></td>
+            <td colspan='9'>Распределение приведенного контингента студентов по отраслям наук</td>
+          </tr>
+          <tr>
+            <td>Матема-<br />тические и<br />естествен-<br />ные науки</td>
+            <td>Инженерное<br />дело,<br />технологии и<br />технические<br />науки</td>
+            <td>Здраво-<br />охранение и<br />медицинские<br />науки</td>
+            <td>Сельское<br />хозяйство и<br />сельско-<br />хозяйствен-<br />ные науки</td>
+            <td>Науки об<br />обществе</td>
+            <td>Образова-<br />ние и педа-<br />гогические<br />науки</td>
+            <td>Гуманитар-<br />ные науки</td>
+            <td>Искусство и<br />культура</td>
+            <td>Оборона и<br />безопасность<br />государства,<br />военные<br />науки</td>
+          </tr></thead>
+       <tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110389
+                         icon='_2'
+                         city='г. Ставрополь'
+                         coordinates='41.984076, 45.046349'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110389'>Автономная некоммерческая организация высшего образования "Северо-Кавказский социальный институт"</a><div id='add110389' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ставрополь</b></p><p style='padding:7px 0px;'>355012, г. Ставрополь, ул. Голенева, 59А</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Шиянов Сергей Евгеньевич</p><p style='padding-bottom:4px;'>- Шиянова Татьяна Ивановна</p><p style='padding-bottom:4px;'>- Леденева Юлия Евгеньевна</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:17.097983223273% 100%'>95,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:82.902016776727% 100%'>464,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110255
+                         icon='_2'
+                         city='г. Пятигорск'
+                         coordinates='43.043001, 44.048232'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110255'>Аккредитованное частное образовательное учреждение высшего образования "Институт Управления, Бизнеса и Права" (г. Пятигорск)</a><div id='add110255' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Пятигорск</b></p><p style='padding:7px 0px;'>357538, Ставропольский край, г.Пятигорск, переулок Зеленый, 1</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Биттиров Хамангерий Чапаевич</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>96,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110189
+                         icon='_2'
+                         city='г. Махачкала'
+                         coordinates='47.473834, 42.98703'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110189'>Государственное автономное образовательное учреждение высшего образования "Дагестанский государственный университет народного хозяйства"</a><div id='add110189' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Махачкала</b></p><p style='padding:7px 0px;'>367008, Республика Дагестан, г. Махачкала, ул. Д.Атаева, д.5</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Министерство финансов Республики Дагестан</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:19.739820157821% 100%'>484,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:72.144852476398% 100%'>1769,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:8.115327365781% 100%'>199</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110345
+                         icon='_2'
+                         city='г. Невинномысск'
+                         coordinates='41.942044, 44.640185'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110345'>Государственное автономное образовательное учреждение высшего образования "Невинномысский государственный гуманитарно-технический институт"</a><div id='add110345' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Невинномысск</b></p><p style='padding:7px 0px;'>357108, Ставропольский край, г. Невинномысск, Бульвар Мира, 17</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Министерство образования Ставропольского края</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:15.120854412591% 100%'>107,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:19.814502529511% 100%'>141</td><td class='dkont' style='background-size:65.064643057898% 100%'>463</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110402
+                         icon='_2'
+                         city='г. Ставрополь'
+                         coordinates='41.919613, 45.042757'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110402'>государственное бюджетное образовательное учреждение высшего образования "Ставропольский государственный педагогический институт"</a><div id='add110402' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ставрополь</b></p><p style='padding:7px 0px;'>355029, г. Ставрополь, ул. Ленина, 417 «А»</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Министерство образования Ставропольского края</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:96.450484255362% 100%'>1902,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:3.5495157446377% 100%'>70</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110391
+                         icon='_2'
+                         city='г. Владикавказ'
+                         coordinates='44.673453, 43.025948'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110391'>Государственное бюджетное образовательное учреждение высшего образования «Северо-Осетинский государственный педагогический институт»</a><div id='add110391' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владикавказ</b></p><p style='padding:7px 0px;'>362003, Республика Северная Осетия-Алания, г. Владикавказ, ул. Карла Маркса, 36</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- </p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>156</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110190
+                         icon='_2'
+                         city='г. Махачкала'
+                         coordinates='47.494270, 42.962321'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_2.png) right top no-repeat;'>
+                       <a href='inst.php?id=110190'>Негосударственное образовательное учреждение высшего образования "Дагестанский медицинский стоматологический институт"</a><div id='add110190' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Махачкала</b></p><p style='padding:7px 0px;'>367015, Республика Дагестан, г. Махачкала, ул.Азиза Алиева, д.25</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Расулов Магомедкамил Мирзаевич</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>90</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1871
+                         icon='_2'
+                         city='г. Назрань'
+                         coordinates='44.809759, 43.243394'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1871'>Негосударственное образовательное учреждение высшего образования "Институт экономики и правоведения (г. Назрань)"</a><div id='add1871' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Назрань</b></p><p style='padding:7px 0px;'>386132, Республика Ингушетия, г. Назрань, Гамурзиевский м/о, ул. Магистральная, д. 1</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Холохоев Сулабмек Татриевич</p><p style='padding-bottom:4px;'>- Холохоев Ибрагим Суламбекович</p><p style='padding-bottom:4px;'>- Холохоева Хава Эскаевна</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>130,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110346
+                         icon='_2'
+                         city='г. Невинномысск'
+                         coordinates='41.926288, 44.625130'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110346'>Некоммерческое частное образовательное учреждение высшего образования "Невинномысский институт экономики, управления и права"</a><div id='add110346' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Невинномысск</b></p><p style='padding:7px 0px;'>357101, Ставропольский край, г. Невинномысск, ул. Зои Космодемьянской, д. 1</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Научно-управленческая ассоциация "Невинномысский институт управления"</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:2.3455119530898% 100%'>5,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:97.65448804691% 100%'>216,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1887
+                         icon='_2'
+                         city='г. Махачкала'
+                         coordinates='47.494001, 42.969241'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1887'>Образовательная автономная некоммерческая организация высшего образования "Дагестанский гуманитарный институт"</a><div id='add1887' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Махачкала</b></p><p style='padding:7px 0px;'>367000, Республика Дагестан, г. Махачкала, ул. Дахадаева, 136</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Образовательная автономная некоммерческая организация высшего образования «Дагестанский гуманитарный институт»</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:28.720890988863% 100%'>85,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:71.279109011137% 100%'>211,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1925
+                         icon='_2'
+                         city='г. Кисловодск'
+                         coordinates='42.719635, 43.916811'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1925'>Образовательная организация высшего образования (Ассоциация) "Кисловодский гуманитарно-технический институт"</a><div id='add1925' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Кисловодск</b></p><p style='padding:7px 0px;'>357700, Ставропольский край, г.Кисловодск, пр.Победы, 37а</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Общество с ограниченной ответственностью "Алим"</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>3,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=2094
+                         icon='_2'
+                         city='г. Дербент'
+                         coordinates='48.285920, 42.062067'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=2094'>Профессиональная образовательная организация высшего образования "Дагестанская академия образования и культуры"</a><div id='add2094' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Дербент</b></p><p style='padding:7px 0px;'>368600, Республика Дагестан, г. Дербент, ул. Шахбазова, 67</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Мирзоев Гасан Мамедалиевич</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:64.864864864865% 100%'>21,6</td><td class='dkont' style='background-size:33.933933933934% 100%'>11,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:1.2012012012012% 100%'>0,4</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110261
+                         icon='_2'
+                         city='г. Махачкала'
+                         coordinates='47.457978, 42.995669'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110261'>Учреждение высшего образования "Институт финансов и права"</a><div id='add110261' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Махачкала</b></p><p style='padding:7px 0px;'>367035, Республика Дагестан, г. Махачкала, ул.Магомедтагирова А.М. 39"А"</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>283</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=266
+                         icon='_2'
+                         city='г. Ставрополь'
+                         coordinates='41.962184, 45.042623'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=266'>федеральное государственное автономное образовательное учреждение высшего образования «Северо-Кавказский федеральный университет»</a><div id='add266' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ставрополь</b></p><p style='padding:7px 0px;'>355009, г. Ставрополь, ул. Пушкина, д.1</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:8.3305483326677% 100%'>1022</td><td class='dkont' style='background-size:32.380727251979% 100%'>3972,5</td><td class='dkont' style='background-size:2.9018348399508% 100%'>356</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:40.342025252484% 100%'>4949,2</td><td class='dkont' style='background-size:7.4196493344528% 100%'>910,3</td><td class='dkont' style='background-size:8.0737848566608% 100%'>990,5</td><td class='dkont' style='background-size:0.55143013180525% 100%'>67,7</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1558
+                         icon='_2'
+                         city='г. Махачкала'
+                         coordinates='47.504951, 42.983706'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_2.png) right top no-repeat;'>
+                       <a href='inst.php?id=1558'>федеральное государственное бюджетное образовательное учреждение высшего образования "Дагестанский государственный медицинский университет" Министерства здравоохранения Российской Федерации</a><div id='add1558' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Махачкала</b></p><p style='padding:7px 0px;'>367000, Республика Дагестан, г. Махачкала, пл. Ленина,1</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство здравоохранения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>6944</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=62
+                         icon='_2'
+                         city='г. Махачкала'
+                         coordinates='47.508392, 42.971088'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=62'>федеральное государственное бюджетное образовательное учреждение высшего образования "Дагестанский государственный педагогический университет"</a><div id='add62' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Махачкала</b></p><p style='padding:7px 0px;'>367003, Республика Дагестан, г. Махачкала, ул. М. Ярагского, д. 57</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство просвещения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0.66428571428571% 100%'>27,9</td><td class='dkont' style='background-size:96.778571428571% 100%'>4064,7</td><td class='dkont' style='background-size:0.67619047619048% 100%'>28,4</td><td class='dkont' style='background-size:1.8809523809524% 100%'>79</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=63
+                         icon='_2'
+                         city='г. Махачкала'
+                         coordinates='47.506425, 42.957095'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=63'>федеральное государственное бюджетное образовательное учреждение высшего образования "Дагестанский государственный технический университет"</a><div id='add63' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Махачкала</b></p><p style='padding:7px 0px;'>367026, Республика Дагестан, г. Махачкала, проспект Имама Шамиля, 70</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:3.1162355874104% 100%'>65</td><td class='dkont' style='background-size:84.577030946616% 100%'>1764,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:12.222834815543% 100%'>255</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0.08389865043028% 100%'>1,8</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=64
+                         icon='_2'
+                         city='г. Махачкала'
+                         coordinates='47.494531, 42.985632'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=64'>федеральное государственное бюджетное образовательное учреждение высшего образования "Дагестанский государственный университет"</a><div id='add64' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Махачкала</b></p><p style='padding:7px 0px;'>367000, Республика Дагестан, г. Махачкала, ул. М.Гаджиева, д.43"а"</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:17.36311186106% 100%'>1178,2</td><td class='dkont' style='background-size:10.438204151408% 100%'>708,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:1.0625363819236% 100%'>72,1</td><td class='dkont' style='background-size:48.759514563822% 100%'>3308,7</td><td class='dkont' style='background-size:1.5444356841275% 100%'>104,8</td><td class='dkont' style='background-size:20.10271676258% 100%'>1364,1</td><td class='dkont' style='background-size:0.72948059507932% 100%'>49,5</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=85
+                         icon='_2'
+                         city='г. Нальчик'
+                         coordinates='43.596139, 43.494775'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=85'>Федеральное государственное бюджетное образовательное учреждение высшего образования "Кабардино-Балкарский государственный университет им. Х.М. Бербекова"</a><div id='add85' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Нальчик</b></p><p style='padding:7px 0px;'>Кабардино-Балкарская Республика, г. Нальчик, ул. Чернышевского 173</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:8.4068035699753% 100%'>774,8</td><td class='dkont' style='background-size:14.328730705586% 100%'>1320,5</td><td class='dkont' style='background-size:46.897973577842% 100%'>4322</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:19.13626129181% 100%'>1763,6</td><td class='dkont' style='background-size:3.008979193229% 100%'>277,3</td><td class='dkont' style='background-size:7.8723923717549% 100%'>725,5</td><td class='dkont' style='background-size:0.34885928980278% 100%'>32,2</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=96
+                         icon='_2'
+                         city='г. Черкесск'
+                         coordinates='42.043257, 44.213309'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=96'>федеральное государственное бюджетное образовательное учреждение высшего образования "Северо-Кавказская государственная академия"</a><div id='add96' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Черкесск</b></p><p style='padding:7px 0px;'>369000, Карачаево-Черкесская Республика, г. Черкесск, ул. Ставропольская 36</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:4.3437268502929% 100%'>129</td><td class='dkont' style='background-size:21.930769748805% 100%'>651,3</td><td class='dkont' style='background-size:47.376927739242% 100%'>1407</td><td class='dkont' style='background-size:9.2363122095764% 100%'>274,3</td><td class='dkont' style='background-size:14.497609266617% 100%'>430,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:1.5623947740589% 100%'>46,4</td><td class='dkont' style='background-size:1.0522594114082% 100%'>31,3</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1574
+                         icon='_2'
+                         city='г. Владикавказ'
+                         coordinates='44.696971, 43.035945'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_2.png) right top no-repeat;'>
+                       <a href='inst.php?id=1574'>федеральное государственное бюджетное образовательное учреждение высшего образования "Северо-Осетинская государственная медицинская академия" Министерства здравоохранения Российской Федерации</a><div id='add1574' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владикавказ</b></p><p style='padding:7px 0px;'>362019, Республика Северная Осетия-Алания, г. Владикавказ, Пушкинская, д. 40</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство здравоохранения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>3330</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1642
+                         icon='_2'
+                         city='г. Ставрополь'
+                         coordinates='41.960738, 45.037681'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1642'>Федеральное государственное бюджетное образовательное учреждение высшего образования "Ставропольский государственный аграрный университет" (ФГБОУ ВО Ставропольский ГАУ)</a><div id='add1642' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ставрополь</b></p><p style='padding:7px 0px;'>355017, г. Ставрополь, переулок Зоотехнический, 12</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство сельского хозяйства Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:2.9425502101822% 100%'>132,3</td><td class='dkont' style='background-size:23.191210159916% 100%'>1042,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:37.545873090011% 100%'>1688,1</td><td class='dkont' style='background-size:36.32036653989% 100%'>1633</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=326
+                         icon='_2'
+                         city='г. Грозный'
+                         coordinates='45.713783, 43.324420'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=326'>Федеральное государственное бюджетное образовательное учреждение высшего образования "Чеченский государственный педагогический университет"</a><div id='add326' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Грозный</b></p><p style='padding:7px 0px;'>364051, Чеченская Республика, г. Грозный, ул. Киевская д. 33</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство просвещения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:3.3655949256343% 100%'>123,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:1.8208661417323% 100%'>66,6</td><td class='dkont' style='background-size:92.916119860018% 100%'>3398,5</td><td class='dkont' style='background-size:1.0772090988626% 100%'>39,4</td><td class='dkont' style='background-size:0.82020997375328% 100%'>30</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=327
+                         icon='_2'
+                         city='г. Грозный'
+                         coordinates='45.767421, 43.254999'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=327'>Федеральное государственное бюджетное образовательное учреждение высшего образования "Чеченский государственный университет имени Ахмата Абдулхамидовича Кадырова"</a><div id='add327' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Грозный</b></p><p style='padding:7px 0px;'>364051, Чеченская Республика, г.Грозный  ул. А.Шерипова 32</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:17.657963528052% 100%'>1695,5</td><td class='dkont' style='background-size:4.6975077849176% 100%'>451,1</td><td class='dkont' style='background-size:28.233995355086% 100%'>2711</td><td class='dkont' style='background-size:5.622845478499% 100%'>539,9</td><td class='dkont' style='background-size:30.738187233777% 100%'>2951,5</td><td class='dkont' style='background-size:3.136879159333% 100%'>301,2</td><td class='dkont' style='background-size:8.6378737541528% 100%'>829,4</td><td class='dkont' style='background-size:1.2747477061832% 100%'>122,4</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1636
+                         icon='_2'
+                         city='г. Владикавказ'
+                         coordinates='44.679696, 43.035339'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_3.png) right top no-repeat;'>
+                       <a href='inst.php?id=1636'>федеральное государственное бюджетное образовательное учреждение высшего образования «Горский государственный аграрный университет»</a><div id='add1636' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владикавказ</b></p><p style='padding:7px 0px;'>362040, Республика Северная Осетия-Алания, г. Владикавказ, Кирова, д. 37</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство сельского хозяйства Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:25.314128102973% 100%'>454,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:57.069623603488% 100%'>1024,2</td><td class='dkont' style='background-size:17.616248293539% 100%'>316,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=61
+                         icon='_2'
+                         city='г. Грозный'
+                         coordinates='45.698197, 43.317992'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=61'>федеральное государственное бюджетное образовательное учреждение высшего образования «Грозненский государственный нефтяной технический университет имени академика М.Д. Миллионщикова»</a><div id='add61' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Грозный</b></p><p style='padding:7px 0px;'>364051, Чеченская Республика, г. Грозный, пл. Орджоникидзе, 100</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:2.1424173504392% 100%'>85,3</td><td class='dkont' style='background-size:74.60889888544% 100%'>2968,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:23.24868376412% 100%'>925,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1665
+                         icon='_2'
+                         city='г. Махачкала'
+                         coordinates='47.473313, 42.994759'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_3.png) right top no-repeat;'>
+                       <a href='inst.php?id=1665'>федеральное государственное бюджетное образовательное учреждение высшего образования «Дагестанский государственный аграрный университет имени М.М.Джамбулатова»</a><div id='add1665' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Махачкала</b></p><p style='padding:7px 0px;'>367032, Республика Дагестан, г. Махачкала, ул. М.Гаджиева, 180</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство сельского хозяйства Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:3.6469022131011% 100%'>65,8</td><td class='dkont' style='background-size:27.439125852793% 100%'>494,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:60.516390260136% 100%'>1091,1</td><td class='dkont' style='background-size:8.3975816739697% 100%'>151,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=80
+                         icon='_2'
+                         city='г. Назрань'
+                         coordinates='44.808950, 43.242886'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=80'>федеральное государственное бюджетное образовательное учреждение высшего образования «Ингушский государственный университет»</a><div id='add80' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Назрань</b></p><p style='padding:7px 0px;'>386132, Республика Ингушетия, г.Назрань, Гамурзиевский округ, ул.Магистральная, 39</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:15.59670409272% 100%'>689</td><td class='dkont' style='background-size:9.545907279971% 100%'>421,7</td><td class='dkont' style='background-size:22.99891343716% 100%'>1016</td><td class='dkont' style='background-size:7.1916877942774% 100%'>317,7</td><td class='dkont' style='background-size:15.933991307497% 100%'>703,9</td><td class='dkont' style='background-size:13.357931908729% 100%'>590,1</td><td class='dkont' style='background-size:15.374864179645% 100%'>679,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1658
+                         icon='_2'
+                         city='г. Нальчик'
+                         coordinates='43.584362, 43.470318'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1658'>федеральное государственное бюджетное образовательное учреждение высшего образования «Кабардино-Балкарский государственный аграрный университет имени В.М.Кокова»</a><div id='add1658' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Нальчик</b></p><p style='padding:7px 0px;'>360030, Кабардино-Балкарская Республика, г. Нальчик, пр. Ленина, 1 в</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство сельского хозяйства Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:35.503448948254% 100%'>728,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:44.526775050576% 100%'>913,4</td><td class='dkont' style='background-size:13.042630462866% 100%'>267,6</td><td class='dkont' style='background-size:6.927145538304% 100%'>142,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=97
+                         icon='_2'
+                         city='г. Карачаевск'
+                         coordinates='41.904045, 43.769404'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=97'>федеральное государственное бюджетное образовательное учреждение высшего образования «Карачаево-Черкесский государственный университет имени У.Д. Алиева»</a><div id='add97' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Карачаевск</b></p><p style='padding:7px 0px;'>369202, Карачаево-Черкесская Республика, г. Карачаевск, ул. Ленина, 29</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:16.852409373404% 100%'>478,6</td><td class='dkont' style='background-size:6.6832162538073% 100%'>189,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:10.751949858272% 100%'>305,4</td><td class='dkont' style='background-size:60.180636983045% 100%'>1709,1</td><td class='dkont' style='background-size:4.1479603514146% 100%'>117,8</td><td class='dkont' style='background-size:1.383827180056% 100%'>39,3</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=207
+                         icon='_2'
+                         city='г. Пятигорск'
+                         coordinates='43.068064, 44.053506'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=207'>федеральное государственное бюджетное образовательное учреждение высшего образования «Пятигорский государственный университет»</a><div id='add207' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Пятигорск</b></p><p style='padding:7px 0px;'>357532, Ставропольский край, г.Пятигорск, пр.Калинина, 9</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:6.8738319237226% 100%'>217</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:41.103614305173% 100%'>1297,6</td><td class='dkont' style='background-size:7.6689157084482% 100%'>242,1</td><td class='dkont' style='background-size:41.673793911749% 100%'>1315,6</td><td class='dkont' style='background-size:2.6798441509075% 100%'>84,6</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=265
+                         icon='_2'
+                         city='г. Владикавказ'
+                         coordinates='44.668162, 43.059479'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=265'>федеральное государственное бюджетное образовательное учреждение высшего образования «Северо-Кавказский горно-металлургический институт (государственный технологический университет)»</a><div id='add265' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владикавказ</b></p><p style='padding:7px 0px;'>362021, Республика Северная Осетия-Алания, г. Владикавказ, ул. Николаева, 44</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:85.097970996157% 100%'>2690,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:14.625274777411% 100%'>462,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0.2767542264324% 100%'>8,8</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1712
+                         icon='_2'
+                         city='г. Нальчик'
+                         coordinates='43.584362, 43.470318'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_4.png) right top no-repeat;'>
+                       <a href='inst.php?id=1712'>федеральное государственное бюджетное образовательное учреждение высшего образования «Северо-Кавказский государственный институт искусств» </a><div id='add1712' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Нальчик</b></p><p style='padding:7px 0px;'>360000, Кабардино-Балкарская Республика, г. Нальчик, пр. Ленина,1</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство культуры Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>207,2</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=267
+                         icon='_2'
+                         city='г. Владикавказ'
+                         coordinates='44.691572, 43.027042'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=267'>Федеральное государственное бюджетное образовательное учреждение высшего образования «Северо-Осетинский государственный университет имени Коста Левановича Хетагурова» </a><div id='add267' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владикавказ</b></p><p style='padding:7px 0px;'>362025, Республика Северная Осетия-Алания, г. Владикавказ, ул. Ватутина, 44-46</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:10.122425225001% 100%'>487</td><td class='dkont' style='background-size:3.0762195755648% 100%'>148</td><td class='dkont' style='background-size:14.528901914323% 100%'>699</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:41.31487601588% 100%'>1987,7</td><td class='dkont' style='background-size:18.320134688533% 100%'>881,4</td><td class='dkont' style='background-size:11.785246617198% 100%'>567</td><td class='dkont' style='background-size:0.85219596350107% 100%'>41</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1606
+                         icon='_2'
+                         city='г. Ставрополь'
+                         coordinates='41.959310, 45.035891'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_2.png) right top no-repeat;'>
+                       <a href='inst.php?id=1606'>федеральное государственное бюджетное образовательное учреждение высшего образования «Ставропольский государственный медицинский университет» Министерства здравоохранения Российской Федерации</a><div id='add1606' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ставрополь</b></p><p style='padding:7px 0px;'>355017, г. Ставрополь, Мира, д. 310</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство здравоохранения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:1.1833401229898% 100%'>61</td><td class='dkont' style='background-size:94.996993152146% 100%'>4897</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:2.3046033870686% 100%'>118,8</td><td class='dkont' style='background-size:1.3598711905178% 100%'>70,1</td><td class='dkont' style='background-size:0.15519214727735% 100%'>8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1904
+                         icon='_2'
+                         city='г. Дербент'
+                         coordinates='48.289109, 42.052929'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1904'>Частная образовательная организация высшего образования "Институт мировой экономики"</a><div id='add1904' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Дербент</b></p><p style='padding:7px 0px;'>368608, Республика Дагестан, г. Дербент, ул. Буйнакского, 61 "А"</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Садыкова Севиль Эйюбовна</p><p style='padding-bottom:4px;'>- Садыков Ахад Айдынбекович</p><p style='padding-bottom:4px;'>- Амирова Эсмира Фирутдиновна</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:5.420054200542% 100%'>5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:81.680216802168% 100%'>75,4</td><td class='dkont' style='background-size:12.89972899729% 100%'>11,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1988
+                         icon='_2'
+                         city='г. Владикавказ'
+                         coordinates='44.687332, 43.029988'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1988'>Частное образовательное учреждение высшего образования "Владикавказский институт управления"</a><div id='add1988' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владикавказ</b></p><p style='padding:7px 0px;'>362025, Республика Северная Осетия-Алания, г. Владикавказ, ул. Бородинская, 14</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Дзгоев Валерий Дмитриевич</p><p style='padding-bottom:4px;'>- Черджиев Александр Владимирович</p><p style='padding-bottom:4px;'>- Салбиева Зита Ибрагимовна</p><p style='padding-bottom:4px;'>- Туганов Казбек Хазбиевич</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>164</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=110202
+                         icon='_2'
+                         city='г. Ессентуки'
+                         coordinates='42.869402, 44.038551'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110202'>Частное образовательное учреждение высшего образования "Ессентукский институт управления, бизнеса и права"</a><div id='add110202' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ессентуки</b></p><p style='padding:7px 0px;'>357600, Ставропольский край, г.Ессентуки, улица Ермолова, дом номер 2</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Аралова Наталья Ивановна</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:4.4210526315789% 100%'>16,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:95.578947368421% 100%'>363,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=2000
+                         icon='_2'
+                         city='г. Ставрополь'
+                         coordinates='41.996114, 45.055563'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=2000'>Частное образовательное учреждение высшего образования "ИНСТИТУТ ДРУЖБЫ НАРОДОВ КАВКАЗА"</a><div id='add2000' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ставрополь</b></p><p style='padding:7px 0px;'>355008, г. Ставрополь, пр. К.Маркса, 7</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Ледович Татьяна Сергеевна</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:96.245210727969% 100%'>125,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:3.7547892720307% 100%'>4,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1935
+                         icon='_2'
+                         city='г. Ставрополь'
+                         coordinates='41.945422, 45.032101'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1935'>Частное образовательное учреждение высшего образования "Северо-Кавказский гуманитарный институт"</a><div id='add1935' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ставрополь</b></p><p style='padding:7px 0px;'>355041, г. Ставрополь, ул. Лермонтова, 312А</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Саруханян Артур Рафаэлович</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>13,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__2_0.png) 2px 2px no-repeat;'></td>  <td id=1826
+                         icon='_2'
+                         city='г. Дербент'
+                         coordinates='48.29237, 42.08677'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1826'>Частное образовательное учреждение высшего образования "Социально-педагогический институт"</a><div id='add1826' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Дербент</b></p><p style='padding:7px 0px;'>368600, Республика Дагестан, г. Дербент, ул. Хандадаша Тагиева, 33 "з"</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Агабалаев Имамедин Агабалаевич</p><p style='padding-bottom:4px;'>- </p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:8.0939947780679% 100%'>9,3</td><td class='dkont' style='background-size:91.906005221932% 100%'>105,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006970
+                         icon='_0'
+                         city='г. Владикавказ'
+                         coordinates='44.672716, 43.049947'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006970'>Владикавказский филиал федерального государственного образовательного бюджетного учреждения высшего образования "Финансовый университет при Правительстве Российской Федерации" (Владикавказский филиал Финуниверситета)</a><div id='add10006970' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Владикавказ</b></p><p style='padding:7px 0px;'>362002, Республика Северная Осетия-Алания, г. Владикавказ, ул. Молодежная, д. 7</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Правительство Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>519</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=14013138
+                         icon='_0'
+                         city='г. Гудермес'
+                         coordinates='46.121052, 43.350700'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=14013138'>Гудермесский филиал Учреждения высшего образования "Институт финансов и права"</a><div id='add14013138' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Гудермес</b></p><p style='padding:7px 0px;'>366201, Чеченская Республика, г. Гудермес, ул. Пушкина, 10.</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>225,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=14014359
+                         icon='_0'
+                         city='г. Буйнакск'
+                         coordinates='47.119835, 42.826106'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=14014359'>Дагестанский гуманитарный институт (филиал) Образовательного учреждения профсоюзов высшего образования «Академия труда и социальных отношений»</a><div id='add14014359' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Буйнакск</b></p><p style='padding:7px 0px;'>368220, Республика Дагестан, город Буйнакск, улица Имама Гази- Магомеда, д. 46</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Общероссийский союз "Федерация Независимых Профсоюзов России"</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:99.040976460331% 100%'>113,6</td><td class='dkont' style='background-size:0.9590235396687% 100%'>1,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10000743
+                         icon='_0'
+                         city='г. Махачкала'
+                         coordinates='47.554368, 42.949625'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000743'>Дагестанский филиал федерального государственного бюджетного образовательного учреждения высшего образования "Российский государственный педагогический университет им. А. И. Герцена"</a><div id='add10000743' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Махачкала</b></p><p style='padding:7px 0px;'>367018, Республика Дагестан, г. Махачкала, ул. Насрутдинова, 80</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство просвещения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>29,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=14013538
+                         icon='_0'
+                         city='г. Дербент'
+                         coordinates='48.300769, 42.056518'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=14013538'>Дербентский филиал федерального государственного бюджетного образовательного учреждения высшего образования «Московский педагогический государственный университет»</a><div id='add14013538' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Дербент</b></p><p style='padding:7px 0px;'>368600, Республика Дагестан, г. Дербент, ул. Буйнакского, д. 18</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство просвещения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>44,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=12013242
+                         icon='_0'
+                         city='г. Черкесск'
+                         coordinates='42.047758, 44.217147'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12013242'>Карачаево-Черкесский филиал Негосударственного образовательного частного учреждения высшего образования "Московский финансово - промышленный университет "Синергия" </a><div id='add12013242' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Черкесск</b></p><p style='padding:7px 0px;'>369000, Карачаево-Черкесская Республика г. Черкесск, пр-т. Ленина, д.83</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Общество с ограниченной ответственностью «Общество любителей коммерческих знаний»</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:90.826521344233% 100%'>200</td><td class='dkont' style='background-size:2.36148955495% 100%'>5,2</td><td class='dkont' style='background-size:6.8119891008174% 100%'>15</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10000400
+                         icon='_0'
+                         city='г. Махачкала'
+                         coordinates='47.451699, 42.978766'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000400'>Махачкалинский филиал федерального государственного бюджетного образовательного учреждения высшего образования "Московский автомобильно-дорожный государственный технический университет (МАДИ)"</a><div id='add10000400' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Махачкала</b></p><p style='padding:7px 0px;'>367026, Республика Дагестан, г. Махачкала,просп.Акушинского д.13</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:72.784125075165% 100%'>302,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:27.215874924835% 100%'>113,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10001035
+                         icon='_0'
+                         city='г. Невинномысск'
+                         coordinates='41.940104, 44.646092'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10001035'>Невинномысский технологический институт (филиал) федерального государственного автономного образовательного учреждения высшего образования "Северо-Кавказский федеральный университет"</a><div id='add10001035' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Невинномысск</b></p><p style='padding:7px 0px;'>357108, Ставропольский край, г. Невинномысск, ул. Гагарина, дом 1</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>386,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10001036
+                         icon='_0'
+                         city='г. Пятигорск'
+                         coordinates='43.082824, 44.037683'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10001036'>Пятигорский институт (филиал) федерального государственного автономного образовательного учреждения высшего образования "Северо-Кавказский федеральный университет"</a><div id='add10001036' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Пятигорск</b></p><p style='padding:7px 0px;'>357500, Ставропольский край, г.Пятигорск, пр. 40 лет Октября, 56</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:39.919464548076% 100%'>733,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:58.611307612777% 100%'>1077,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:1.4692278391468% 100%'>27</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006531
+                         icon='_0'
+                         city='г. Пятигорск'
+                         coordinates='43.066322, 44.053558'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_2.png) right top no-repeat;'>
+                       <a href='inst.php?id=10006531'>Пятигорский медико-фармацевтический институт - филиал федерального государственного бюджетного образовательного учреждения высшего образования "Волгоградский государственный медицинский университет" Министерства здравоохранения Российской Федерации</a><div id='add10006531' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Пятигорск</b></p><p style='padding:7px 0px;'>357532, Ставропольский край, г.Пятигорск, пр. Калинина,11</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство здравоохранения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:99.543092965843% 100%'>2701,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0.45690703415749% 100%'>12,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10001829
+                         icon='_0'
+                         city='г. Пятигорск'
+                         coordinates='43.064291, 44.033970'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10001829'>Северо-Кавказский институт - филиал федерального государственного бюджетного образовательного учреждения высшего образования "Российская академия народного хозяйства и государственной службы при Президенте Российской Федерации" </a><div id='add10001829' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Пятигорск</b></p><p style='padding:7px 0px;'>357502, Ставропольский край, г.Пятигорск, ул. Дунаевского, 5                                                                  357528 Ставропольский край, г. Пятигорск, ул. Февральская, 54</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Правительство Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>442,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=12013073
+                         icon='_0'
+                         city='г. Минеральные Воды'
+                         coordinates='43.143721, 44.210221'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12013073'>Северо-Кавказский институт (филиал) Автономной некоммерческой организации высшего образования Московского гуманитарно-экономического университета</a><div id='add12013073' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Минеральные Воды</b></p><p style='padding:7px 0px;'>357209, Ставропольский край, г. Минеральные Воды, ул. Пушкина, 10</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Демидова Любовь Анисимовна</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>502,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006815
+                         icon='_0'
+                         city='г. Махачкала'
+                         coordinates='47.478083, 42.979901'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006815'>Северо-Кавказский институт (филиал) федерального государственного бюджетного образовательного учреждения высшего образования «Всероссийский государственный университет юстиции (РПА Минюста России)» в г. Махачкале</a><div id='add10006815' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Махачкала</b></p><p style='padding:7px 0px;'>367008, Республика Дагестан, г. Махачкала, ул. Агасиева 87</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство юстиции Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>941,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10000404
+                         icon='_0'
+                         city='г. Лермонтов'
+                         coordinates='42.960320, 44.116412'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_6.png) right top no-repeat;'>
+                       <a href='inst.php?id=10000404'>Северо-Кавказский Филиал федерального государственного бюджетного образовательного учреждения высшего образования "Московский автомобильно-дорожный государственный технический университет (МАДИ)" </a><div id='add10000404' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Лермонтов</b></p><p style='padding:7px 0px;'>357340, Ставропольский край, г. Лермонтов ул. Промышленная 20</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:98.665297741273% 100%'>96,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:1.3347022587269% 100%'>1,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10000052
+                         icon='_0'
+                         city='г. Минеральные Воды'
+                         coordinates='43.118101, 44.217237'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000052'>Северо-Кавказский филиал федерального государственного бюджетного образовательного учреждения высшего образования «Белгородский государственный технологический университет им. В.Г. Шухова» (г. Минеральные Воды)</a><div id='add10000052' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Минеральные Воды</b></p><p style='padding:7px 0px;'>357202, Ставропольский край, г. Минеральные Воды, ул. Железноводская,  д. 24</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:87.926711668274% 100%'>228</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:12.073288331726% 100%'>31,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=12012737
+                         icon='_0'
+                         city='г. Ставрополь'
+                         coordinates='41.984355, 45.048807'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012737'>Ставропольский институт кооперации (филиал) Автономной некоммерческой организации высшего образования "Белгородский университет кооперации, экономики и права"</a><div id='add12012737' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ставрополь</b></p><p style='padding:7px 0px;'>355035, г. Ставрополь, ул. Голенева, д. 36</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Белгородский областной союз потребительских обществ</p><p style='padding-bottom:4px;'>- Потребительское общество "Содружество"</p><p style='padding-bottom:4px;'>- Межрегиональный кооперативный союз "Наука"</p><p style='padding-bottom:4px;'>- Теплов Виталий Иванович</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:1.9894233190632% 100%'>7,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:98.010576680937% 100%'>389,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=12013074
+                         icon='_0'
+                         city='г. Ставрополь'
+                         coordinates='41.986457, 45.040623'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12013074'>Ставропольский филиал Автономной некоммерческой организации высшего образования Московского гуманитарно-экономического университета</a><div id='add12013074' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ставрополь</b></p><p style='padding:7px 0px;'>355012, г. Ставрополь, ул. Маяковского, 10А</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Демидова Любовь Анисимовна</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>84,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10001833
+                         icon='_0'
+                         city='г. Ставрополь'
+                         coordinates='41.968832, 45.035222'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10001833'>Ставропольский филиал федерального государственного бюджетного образовательного учреждения высшего образования "Российская академия народного хозяйства и государственной службы при Президенте Российской Федерации" </a><div id='add10001833' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ставрополь</b></p><p style='padding:7px 0px;'>355002, г. Ставрополь, ул. Лермонтова, 189</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Правительство Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>416,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=14013542
+                         icon='_0'
+                         city='г. Ставрополь'
+                         coordinates='41.925264, 44.996877'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=14013542'>Ставропольский филиал федерального государственного бюджетного образовательного учреждения высшего образования «Московский педагогический государственный университет»</a><div id='add14013542' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ставрополь</b></p><p style='padding:7px 0px;'>355037, Ставропольский край, г. Ставрополь, ул.Доваторцев, д.66-г</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство просвещения Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:12.787878787879% 100%'>42,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:45.272727272727% 100%'>149,4</td><td class='dkont' style='background-size:35.848484848485% 100%'>118,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:6.0909090909091% 100%'>20,1</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006998
+                         icon='_0'
+                         city='г. Ставрополь'
+                         coordinates='41.928318, 45.068327'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006998'>ТЕХНОЛОГИЧЕСКИЙ ИНСТИТУТ СЕРВИСА (ФИЛИАЛ) ДГТУ В Г. СТАВРОПОЛЕ СТАВРОПОЛЬСКОГО КРАЯ</a><div id='add10006998' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ставрополь</b></p><p style='padding:7px 0px;'>355000, г. Ставрополь, пр-т  Кулакова, 41/1</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:67.511994516792% 100%'>197</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:32.488005483208% 100%'>94,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=140143625
+                         icon='_0'
+                         city='г. Черкесск'
+                         coordinates='42.042278, 44.246257'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=140143625'>Филиал Автономной некоммерческой организации Высшего Образования "Институт деловой карьеры" в Карачаево - Черкесской Республике</a><div id='add140143625' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Черкесск</b></p><p style='padding:7px 0px;'>369009, Карачаево-Черкесская Республика, г.Черкесск, ул. Крайняя, д.86</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Аляев Александр Александрович</p><p style='padding-bottom:4px;'>- Назаров Андрей Валерьевич</p><p style='padding-bottom:4px;'>- ООО "Консалтинг групп"</p><p style='padding-bottom:4px;'>- ООО Частная охранная организация "Страж"</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>46,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=12013030
+                         icon='_0'
+                         city='г. Ессентуки'
+                         coordinates='42.888581, 44.049729'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12013030'>Филиал государственного бюджетного образовательного учреждения высшего образования "Ставропольский государственный педагогический институт" в г. Ессентуки</a><div id='add12013030' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ессентуки</b></p><p style='padding:7px 0px;'>357600, Ставропольский край, г.Ессентуки, ул. Долина Роз, 7</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Министерство образования Ставропольского края</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>739,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=12013031
+                         icon='_0'
+                         city='п.г.т. Иноземцево'
+                         coordinates='43.089525, 44.097155'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12013031'>Филиал государственного бюджетного образовательного учреждения высшего образования "Ставропольский государственный педагогический институт" в г. Железноводске</a><div id='add12013031' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>п.г.т. Иноземцево</b></p><p style='padding:7px 0px;'>357430, Ставропольский край, г. Железноводск, п. Иноземцево, проспект Свободы, д. 14</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Министерство образования Ставропольского края</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>300,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=12013029
+                         icon='_0'
+                         city='г. Буденновск'
+                         coordinates='44.137868, 44.776467'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12013029'>Филиал государственного бюджетного образовательного учреждения высшего образования "Ставропольский государственный педагогический институт" в г.Буденновске</a><div id='add12013029' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Буденновск</b></p><p style='padding:7px 0px;'>356800, Ставропольский край, г. Будённовск, ул.Льва Толстого, дом 123</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p style='padding-bottom:4px;'>- Министерство образования Ставропольского края</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>328,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006903
+                         icon='_0'
+                         city='г. Дербент'
+                         coordinates='48.288947, 42.087674'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006903'>Филиал федерального государственного бюджетного образовательного учреждения высшего образования "Дагестанский государственный технический университет" в г. Дербенте</a><div id='add10006903' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Дербент</b></p><p style='padding:7px 0px;'>368600, Республика Дагестан, г. Дербент, ул. Х.Тагиева 35.</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:93.571188152137% 100%'>139</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:6.4288118478627% 100%'>9,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006905
+                         icon='_0'
+                         city='г. Каспийск'
+                         coordinates='47.647595, 42.887352'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006905'>Филиал федерального государственного бюджетного образовательного учреждения высшего образования "Дагестанский государственный технический университет" в г. Каспийске</a><div id='add10006905' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Каспийск</b></p><p style='padding:7px 0px;'>368000, Республика Дагестан, г. Каспийск, ул. Алферова , 3, Республика Дагестан</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>67,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006904
+                         icon='_0'
+                         city='г. Кизляр'
+                         coordinates='46.711577, 43.852665'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_6.png) right top no-repeat;'>
+                       <a href='inst.php?id=10006904'>Филиал федерального государственного бюджетного образовательного учреждения высшего образования "Дагестанский государственный технический университет" в г. Кизляре</a><div id='add10006904' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Кизляр</b></p><p style='padding:7px 0px;'>368830, Республика Дагестан, г. Кизляр, ул. Ленина, 6</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:85.403726708075% 100%'>55</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:14.596273291925% 100%'>9,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10000197
+                         icon='_0'
+                         city='г. Избербаш'
+                         coordinates='47.883160, 42.546745'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000197'>филиал федерального государственного бюджетного образовательного учреждения высшего образования "Дагестанский государственный университет" в г. Избербаше</a><div id='add10000197' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Избербаш</b></p><p style='padding:7px 0px;'>368502, Республика Дагестан, г. Избербаш, ул. Буйнакского, 35</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>247</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10000195
+                         icon='_0'
+                         city='г. Кизляр'
+                         coordinates='46.723282, 43.848465'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000195'>филиал федерального государственного бюджетного образовательного учреждения высшего образования "Дагестанский государственный университет" в г. Кизляре</a><div id='add10000195' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Кизляр</b></p><p style='padding:7px 0px;'>368832, Республика Дагестан, г. Кизляр, ул. С.Стальского, 1"е"</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:2.1385128506965% 100%'>5,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:95.546399843045% 100%'>243,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:2.3150873062586% 100%'>5,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10000194
+                         icon='_0'
+                         city='г. Хасавюрт'
+                         coordinates='46.585148, 43.250521'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000194'>филиал федерального государственного бюджетного образовательного учреждения высшего образования "Дагестанский государственный университет" в г. Хасавюрте</a><div id='add10000194' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Хасавюрт</b></p><p style='padding:7px 0px;'>368009, Республика Дагестан, г. Хасавюрт, ул. А.Абукова, 36</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>283,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10000838
+                         icon='_0'
+                         city='г. Махачкала'
+                         coordinates='47.406900, 42.967803'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000838'>Филиал федерального государственного бюджетного образовательного учреждения высшего образования "Российский государственный университет туризма и сервиса" в г. Махачкале</a><div id='add10000838' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Махачкала</b></p><p style='padding:7px 0px;'>367017, Республика Дагестан, г. Махачкала, пр. Акушинского, 109</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>89,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10000877
+                         icon='_0'
+                         city='г. Черкесск'
+                         coordinates='42.046770, 44.226863'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000877'>Филиал федерального государственного бюджетного образовательного учреждения высшего образования "Ростовский государственный экономический университет (РИНХ)" в г. Черкесске Карачаево-Черкесской Республики</a><div id='add10000877' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Черкесск</b></p><p style='padding:7px 0px;'>369000, Карачаево-Черкесская Республика, г. Черкесск, ул. Красная, д.3</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:6.3917525773196% 100%'>3,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:93.60824742268% 100%'>45,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10000886
+                         icon='_0'
+                         city='г. Кисловодск'
+                         coordinates='42.729103, 43.904362'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000886'>Филиал федерального государственного бюджетного образовательного учреждения высшего образования "Ростовский государственный экономический университет (РИНХ)" в г.Кисловодске Ставропольского края</a><div id='add10000886' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Кисловодск</b></p><p style='padding:7px 0px;'>357700, Ставропольский края, г.Кисловодск, пр. Дзержинского, д.22/24</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:6.981981981982% 100%'>3,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:93.018018018018% 100%'>41,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10000888
+                         icon='_0'
+                         city='г. Махачкала'
+                         coordinates='47.509003, 42.984630'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000888'>Филиал федерального государственного бюджетного образовательного учреждения высшего образования "Ростовский государственный экономический университет (РИНХ)" в г.Махачкале Республики Дагестан</a><div id='add10000888' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Махачкала</b></p><p style='padding:7px 0px;'>367000, Республика Дагестан, г. Махачкала ул.Буйнакского, д.11</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>46,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10000193
+                         icon='_0'
+                         city='г. Дербент'
+                         coordinates='48.294364, 42.063533'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000193'>филиал федерального государственного бюджетного образовательного учреждения высшего образования «Дагестанский государственный университет» в г. Дербенте</a><div id='add10000193' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Дербент</b></p><p style='padding:7px 0px;'>368600, Республика Дагестан, г. Дербент, ул. Советская, 11 "г"</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>262,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=14013186
+                         icon='_0'
+                         city='г. Ставрополь'
+                         coordinates='41.920943, 45.061777'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=14013186'>филиал федерального государственного бюджетного образовательного учреждения высшего образования «МИРЭА - Российский технологический университет» в г. Ставрополе</a><div id='add14013186' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Ставрополь</b></p><p style='padding:7px 0px;'>355044, Ставропольский край, г. Ставрополь, просп. Кулакова, д. 18</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:34.531407457172% 100%'>257</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:63.822640241854% 100%'>475</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:1.6459523009741% 100%'>12,3</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10003273
+                         icon='_0'
+                         city='г. Пятигорск'
+                         coordinates='43.066609, 44.051245'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10003273'>филиал федерального государственного бюджетного образовательного учреждения высшего образования «Российский экономический университет имени Г.В. Плеханова» в г. Пятигорске Ставропольского края</a><div id='add10003273' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Пятигорск</b></p><p style='padding:7px 0px;'>357500, Ставропольский край, г. Пятигорск, ул. Ермолова, д. 20</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:20.892580599747% 100%'>74,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:79.107419400253% 100%'>281</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr>  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st__0_0.png) 2px 2px no-repeat;'></td>  <td id=10006845
+                         icon='_0'
+                         city='г. Кизляр'
+                         coordinates='46.711290, 43.856396'
+                         class='inst'
+                         style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006845'>филиал федерального государственного бюджетного образовательного учреждения высшего образования «Санкт-Петербургский государственный экономический университет» в г. Кизляре</a><div id='add10006845' class='inst_add'>  <div class='adr'><p><b style='font:normal 700 15px Arial;'>г. Кизляр</b></p><p style='padding:7px 0px;'>368830, Республика Дагестан, г. Кизляр, ул. Дзержинского, д. 7</p>    <p style='font-size:11px;'><b>Также в этом городе расположены:</b></p>
+                       <div id='another_city_vuz' style='overflow-y:auto;max-height:300px;'></div>  </div>  <div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b>Учредитель(и):</b></p><p>- Министерство науки и высшего образования Российской Федерации</p>  </div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>38,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr>
+
+        </table>
+       <div style='font: normal normal 400 10px/17px Tahoma;color:#677;padding-top:5px;'>
+       <p style='min-height:17px;padding-left:17px;background:url(../../../img/temp/st__2_0.png) 0px 2px no-repeat;'> &ndash; образовательные организации высшего образования</p>
+       <p style='min-height:17px;padding-left:17px;background:url(../../../img/temp/st__0_0.png) 0px 2px no-repeat;'> &ndash; филиалы</p>
+       <p style='min-height:17px;padding-left:17px;background:url(../../../img/temp/st_3_0.png)  0px 2px no-repeat;'> &ndash; вузы (филиалы), находящиеся в стадии реорганизации/ реорганизованные</p>
+
+       <hr style='height:0px; width:50%;margin:3px 0px;' align='left'>
+       <p style='min-height:17px;padding-left:20px;background:url(../../../img/temp/specific_2.png) no-repeat;'> &ndash; образовательные организации медицинской направленности</p>
+       <p style='min-height:17px;padding-left:20px;background:url(../../../img/temp/specific_3.png) no-repeat;'> &ndash; образовательные организации сельскохозяйственной направленности</p>
+       <p style='min-height:17px;padding-left:20px;background:url(../../../img/temp/specific_4.png) no-repeat;'> &ndash; образовательные организации творческой направленности</p>
+       <p style='min-height:17px;padding-left:20px;background:url(../../../img/temp/specific_5.png) no-repeat;'> &ndash; образовательные организации спортивной направленности</p>
+       <p style='min-height:17px;padding-left:20px;background:url(../../../img/temp/specific_6.png) no-repeat;'> &ndash; образовательные организации транспортной направленности</p>
+       </div>
+
+  </div>
+</div>
+
+
+
+
+<div>
+  <div style="font:normal 700 30px/30px Calibri;color:#123;padding:15px;padding-left:30px;">Перечень образовательных организаций, не предоставивших информацию для проведения мониторинга эффективности</div>
+  <div class="blockcontent" style="display:block;">
+     <table class='ifail' style='width:100%;'> <tr style='border-bottom:1px solid #cbb;vertical-align:top;'>
+                  <td class='inst' style='border:none;padding:3px 5px;''>Дагестанский теологический институт имени Саида Афанди</td>
+                  <td style='border:none;padding:3px 5px;background:#866;white-space:nowrap;color:#eff;'>&#10008; не предоставлен отчет</td>
+                </tr>     </table>
+  </div>
+</div>
+
+
+
+  <div id="copyright" style='font-size:11px;  margin:25px 30px 0px 30px; padding:3px 0px;color:#777777; border-top:5px solid #A5C0D3;background:#fff;box-shadow:0px -5px 15px 15px #fff;'>
+    <div style='float:left;'>&copy;</div>
+    <div style='float:left;'>
+      <a href='http://www.miccedu.ru/'>
+        <img style='margin:0px 2px;' src='/img/footer_logo.gif' width='40' height='15' border='0' alt='ГИВЦ'>
+      </a>
+    </div>
+    <div style='float:left; font:normal 400 11px Tahoma;color:500;padding:0px 8px;'>При использовании материалов сайта ссылка на сайт www.miccedu.ru обязательна</div>
+    <div style='float:right; text-align:right;'>Телефон/факс: +7 (499) 269-46-87, e-mail: <a href="mailto:general@miccedu.ru">general@miccedu.ru</a><br/>107996, Москва, ул.Стромынка, д.20, офис 231</div>
+    <div style='clear:both; width:800px; height:0px; margin:0px auto; overflow:hidden;'>&nbsp;</div> 
+	  </div>
+  
+  <script>
+  
+    function set_Copyright() {
+      document.getElementById('copyright').style.marginTop = '25px' ;
+      if (window.innerHeight > $('#copyright').offset().top+50) {
+        document.getElementById('copyright').style.marginTop = window.innerHeight - $('#copyright').offset().top - 20 + 'px';
+        }
+    }
+    $(window).ready(function(){
+      set_Copyright();
+    });
+	
+	
+	window.onresize = function() {
+      set_Copyright();
+    };
+	
+	
+    set_Copyright();
+  </script>
+  
+  
+  
+<script>
+	
+    $(document).ready(function(){     
+	  $('body>table:eq(1)>tbody>tr>td:eq(0)').attr('style','background: url(../../..//img/temp/arch_background_2022.svg) top left,  url(/img/monitoring_logo/bb_l.png) repeat-y right, #ddd;border:none;');
+	  $('body>table:eq(1)>tbody>tr>td:eq(2)').attr('style','background: url(../../..//img/temp/arch_background_2022.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+	  $('body').attr('style',$('body').attr('style')+' background: url(../../..//img/temp/arch_background_2022.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+    });
+		
+	
+  </script>  
+
+  <div id='to_begin' style='display:none;position:fixed;bottom:20px;left:20px;padding:6px 15px 6px 48px;background:url(../../../img/arrow_up_778.png) left 15px center no-repeat, #eee;background-size:25px 10px;box-shadow:3px 3px 5px 0px rgba(0,0,0,0.3);border-radius:3px;font:normal 700 16px Calibri;color:#778;cursor:pointer;'>Наверх</div>
+<script>
+
+$(function() {
+  $(window).scroll(function(){
+    if ($(window).scrollTop()>0)
+      $('#to_begin').fadeIn(300);
+    else 
+	  $('#to_begin').fadeOut(300);
+  });
+  
+ $('#to_begin').click(function(){
+    $(window).scrollTop(0);
+  }); 
+
+});
+</script>
+
+ <!--копирайт-->
+    </td>
+    <td style="background: url(../../../img/monitoring_logo/bb_r.png) repeat-y left, #ddd;border:none;"></td>
+  </tr>
+</table>
+<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter38124250 = new Ya.Metrika({ id:38124250, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true, ut:"noindex" }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/38124250?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+</body>
+</html>
+
+
+
+
+
