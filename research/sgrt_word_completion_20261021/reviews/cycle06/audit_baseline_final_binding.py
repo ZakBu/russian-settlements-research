@@ -1,0 +1,30 @@
+from pathlib import Path
+import json,hashlib,pyarrow.parquet as pq,pandas as pd
+B=Path('/workspace/russian-settlements-research/research/sgrt_word_completion_20261021');R=B.parents[1];C=B/'model_inputs_cycle06/final_access_v2/config_baseline_final.json';c=json.loads(C.read_text());checks=[];sources={}
+def sha(p):
+ h=hashlib.sha256()
+ with open(p,'rb') as f:
+  for x in iter(lambda:f.read(4194304),b''):h.update(x)
+ return h.hexdigest()
+def ck(n,v):checks.append(dict(check=n,pass_=bool(v)))
+for l in c['layers']:
+ p=R/l['path'];ck('source_exists_'+l['path'],p.exists());sources[l['path']]=sha(p)
+mp=R/c['travel_manifest'];sp=R/next(l['path'] for l in c['layers'] if l.get('prefix')=='road_');ad=B/'reviews/cycle06/network2021_access_v2_transport_combined_independent_admission.json';a=json.loads(ad.read_text());ck('actual_matrix_and_snap_direct_admitted',sha(mp)==a['matrix_manifest_sha256'] and sha(sp)==a['snap_sha256'] and a['all_checks_passed'] is True)
+P=B/'model_inputs_cycle06/provisional_access_v2_baseline';pr=json.loads((P/'receipt.json').read_text());pc=B/'model_inputs_cycle06/access_v2_bound/config_baseline_provisional.json';ck('new_exact_provisional_source_config',pr['input_sha256'][str(pc)]==sha(pc)==c['cycle06_final_binding']['provisional_config_sha256']);ck('new_exact_Ci_and_receipt',sha(P/'word_ci_center_features.parquet')==c['cycle06_final_binding']['actual_Ci_sha256'] and sha(P/'receipt.json')==c['cycle06_final_binding']['actual_provisional_receipt_sha256']);ck('one_pass_no_refit',pr['provisional_iterations']==1 and pr['own_mass_refit'] is False and not pr['input_bytes_changed']);ck('Ci_binds_rank_hierarchy_features',c['hierarchy_strength_column']==c['rank_index']['column']=='wordci_word_centrality_observed2021_frame_0_1' and c['rank_feature_columns']==['wordci_word_centrality_observed2021_frame_0_1']);ck('actual_center_Ci_scope',len(pd.read_parquet(P/'word_ci_center_features.parquet'))==4009)
+# Independent schema-only replay of explicit retained-column selection; no producer imports.
+required={v for a in c['components'] for v in a.get('columns',[])}|{v for a in c['physical_features'].values() for v in a}|set(c.get('required_input_columns',[]))|{v for a in c['center_eligibility_2021_features'].values() for v in a}|set(c.get('center_eligibility_2021_admin_columns',[]))|{v['source'] for v in c.get('evidence_overrides',[])}|{v[k] for v in c.get('population_overrides',[]) for k in ['value','quality','allowed','root_review_status']}|{v for a in c.get('derived_features',[]) for v in a.get('columns',[])}
+role=c['settlement_role_policy'];required|={role.get('rural_column'),role.get('dated_column'),role.get('subtype_column'),'official_prefix','primary202101_exact_code_and_normalized_name','source2021_effective_settlement_type','source2021_role_evidence'};theme=['network_suburban_30_60_minutes','network_peripheral_evidence','commuting_observed','recreation_dacha_evidence','ethnocultural_demographic_evidence','resource_shift_evidence','industrial_decline_evidence','agro_high_productivity_evidence','agro_decline_evidence'];retained={};paths=[]
+for l in c['layers']:
+ prefix=l.get('prefix','');schema=pq.read_schema(R/l['path']).names;need=required|{prefix+t for t in theme};selected=[x for x in schema if x!=l.get('key','id') and(prefix+x in need or any(x.startswith(k) for k in l.get('retain_prefixes',[])) or(l.get('retain_evidence_suffix',False) and x.endswith('_evidence')))];paths.append(l['path'])
+ for x in selected:
+  k=prefix+x;ck('no_cross_layer_shadow_'+k,k not in retained);retained[k]=l['path']
+for x in ['agro_high_productivity_evidence','agro_decline_evidence','context_grain_yield_centner_per_ha_2021','trade_and_administration_function_evidence','basic_administrative_service_function_evidence','developed_agro_infrastructure_evidence','agro_processing_function_evidence','recreation_dacha_evidence','nonchernozem_geographic_evidence','nonchernozem_exact_contemporary_geographic_evidence','wordci_word_centrality_observed2021_frame_0_1']:
+ ck('required_nonmass_or_rank_column_retained_'+x,x in retained)
+ck('current_theme_exactly_once',sum('/thematic2021/' in p for p in paths)==1);ck('no_old_Ci_membership_layer',all('/model_inputs_cycle05/provisional' not in p for p in paths));ck('accepted_geographicV3_current_source_present',any('/geographic_agro_v3/' in p for p in paths));ck('all_new_source_road_epoch2021',c['transport_reference_year']==2021 and c['network_source_snapshot_utc'].startswith('2021-01-01'))
+for f in ['cycle06_access_v2_baseline_own_mass_independent_audit.json','cycle06_access_v2_baseline_Ci_independent_audit.json']:
+ d=json.loads((B/'reviews/cycle06'/f).read_text());ck('independent_actual_'+f,d['n_failed']==0)
+# Final binder is already independently executed against synthetic missing/extra candidate/fingerprint counterexamples.
+r=json.loads((B/'reviews/cycle06/literal_binding_independent/synthetic_independent_audit.json').read_text());ck('binder_actual_counterexamples_reviewed',r['all_checks_passed'] and r['n_failed']==0)
+for p,s in pr['input_sha256'].items():ck('actual_provisional_input_bytes_unchanged_'+Path(p).name,sha(Path(p))==s)
+d=dict(status='ACCEPTED' if all(x['pass_'] for x in checks) else 'REJECTED',all_checks_passed=all(x['pass_'] for x in checks),n_checks=len(checks),n_failed=sum(not x['pass_'] for x in checks),checks=checks,configuration_sha256=sha(C),actual_provisional_Ci_sha256=sha(P/'word_ci_center_features.parquet'),actual_provisional_receipt_sha256=sha(P/'receipt.json'),matrix_manifest_sha256=sha(mp),snap_sha256=sha(sp),source_layers_sha256=sources,scope='ACTUAL_BASELINE_FINAL_BINDING_FIXED_OWN_MI_FRESH_ONEPASS_CI_AND_REQUIRED_NONMASS_SCHEMA_BEFORE_FULL_MODEL',full_national_model_outputs_accepted=False,actual_typology_configuration_analysis_results_accepted=False)
+(B/'reviews/cycle06/baseline_final_binding_independent_admission.json').write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n');print(d['status'],d['n_checks'],d['n_failed']);print([x for x in checks if not x['pass_']])

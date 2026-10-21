@@ -1,0 +1,18 @@
+from pathlib import Path
+import json,hashlib,pandas as pd,numpy as np,pyarrow.parquet as pq
+B=Path('/workspace/russian-settlements-research/research/sgrt_word_completion_20261021');R=B.parents[1];C=B/'model_inputs_cycle06/final_access_v2/config_baseline_final.json';M=B/'model/output_cycle06_access_v2_baseline';c=json.loads(C.read_text());checks=[]
+def ck(n,v):checks.append(dict(check=n,pass_=bool(v)))
+def same(x,y):
+ if pd.api.types.is_numeric_dtype(x.dtype) or pd.api.types.is_bool_dtype(x.dtype):return np.allclose(pd.to_numeric(x,errors='coerce').to_numpy(dtype=float,na_value=np.nan),pd.to_numeric(y,errors='coerce').to_numpy(dtype=float,na_value=np.nan),equal_nan=True,atol=0,rtol=0)
+ return x.astype('string').equals(y.astype('string'))
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();cols=pq.read_schema(M/'nodes.parquet').names;source_paths=[]
+for l in c['layers']:
+ if not any(z in l['path'] for z in ['/geographic_agro_v3/','/own_function_nonmass_projection','/agro_processing_v1/','/thematic2021/','/nonchernozem_context_v1/']):continue
+ p=R/l['path'];s=pd.read_parquet(p).set_index('id');pref=l.get('prefix','');present=[x for x in s if pref+x in cols and (any(x.startswith(t) for t in l.get('retain_prefixes',[])) or x in ['recreation_dacha_evidence','ethnocultural_demographic_evidence','resource_shift_evidence','industrial_decline_evidence','commuting_observed','agro_high_productivity_evidence','agro_decline_evidence'])];d=pd.read_parquet(M/'nodes.parquet',columns=['id']+[pref+x for x in present]).set_index('id');s=s.reindex(d.index);source_paths.append(str(p))
+ for x in present:
+  expected=s[x]
+  if pref+x in ['industrial_decline_evidence','historical_industrial_function_evidence']:
+   ip=R/next(y['path'] for y in c['layers'] if y.get('prefix')=='industrialcase_');w=pd.read_parquet(ip).set_index('id').industrial_decline_2010_2021_primary.reindex(d.index);expected=w.astype('boolean').combine_first(expected.astype('boolean'))
+  ck('ACTUAL_node_exact_nonmass_source_'+pref+x,same(d[pref+x],expected))
+rolepath=B/'data/source_controls_cycle05/statistical_role_primary/source_settlement_statistical_role_primary2021_v3.parquet';r=pd.read_parquet(rolepath).set_index('id');d=pd.read_parquet(M/'nodes.parquet',columns=['id','accepted_statistical_rural_role2021','source_record_id_2021','_population_axis_row']).set_index('id');ck('actual_v3_role_values_exact',same(d.accepted_statistical_rural_role2021,r.source2021_rural_role.reindex(d.index)));ck('source_record_identity_for_native_frame_preserved',(d.source_record_id_2021.notna()&d._population_axis_row).sum()==155746)
+p=P=B/'model_inputs_cycle06/provisional_access_v2_baseline/fixed_own_mass_components.parquet';a=pd.read_parquet(p);b=pd.read_parquet(M/'own_mass_components.parquet');ck('ACTUAL_full_ownMi_all_rows_raw_z_blocks_exact_provisional',a.equals(b[a.columns]));ck('full_candidate_IDs_exact_actualprovisional',set(pd.read_parquet(M/'candidate_centers.parquet').id)==set(a.loc[a.candidate_center,'id']));d=dict(status='ACCEPTED' if all(x['pass_'] for x in checks) else 'REJECTED',all_checks_passed=all(x['pass_'] for x in checks),n_checks=len(checks),n_failed=sum(not x['pass_'] for x in checks),checks=checks,scope='ACTUAL_FRESH_BASELINE_NODE_SOURCE_WIRING_AND_FIXED_MASS_NOT_YET_COMPLETE_MODEL_RESULT',configuration_sha256=sha(C),actual_nodes_sha256=sha(M/'nodes.parquet'),actual_mass_sha256=sha(M/'own_mass_components.parquet'),source_paths=source_paths,completed_run_receipt_required_later=True);(B/'reviews/cycle06/baseline_actual_node_sources_independent_audit.json').write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n');print(d['status'],d['n_checks'],d['n_failed']);print([x for x in checks if not x['pass_']])
