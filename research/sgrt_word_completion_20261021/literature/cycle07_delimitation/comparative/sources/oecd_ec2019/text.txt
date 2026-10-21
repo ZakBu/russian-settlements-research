@@ -1,0 +1,702 @@
+
+===PDF PAGE 1===
+OECD Regional Development Working Papers 2019/11
+The EU-OECD definition
+of a functional urban area
+Lewis Dijkstra,
+Hugo Poelman,
+Paolo Veneri
+https://dx.doi.org/10.1787/d58cb34d-en
+
+
+===PDF PAGE 2===
+  
+  
+OECD Regional Development Working Papers 
+  
+  
+  
+  
+  
+  
+  
+  
+The EU-OECD Definition of a 
+Functional Urban Area  
+ 
+By: Lewis Dijkstra, Hugo Poelman, Paolo 
+Veneri 
+  
+  
+ 
+This paper describes the EU-OECD method to define functional urban areas 
+(FUAs). Being composed of a city and its commuting zone, FUAs encompass the 
+economic and functional extent of cities based on daily people’s movements. The 
+paper first presents briefly the methodological approach and subsequently 
+provides a detailed description of the identification algorithm, together with the 
+data needed to apply it. This definition has been applied to 33 OECD member 
+countries and Colombia, as well as to all European Union member countries.  
+ 
+  
+ 
+JEL codes:  O18, P25, R23, R58 
+Keywords: Functional Urban Area, City, Metropolitan area, Delineation  
+  
+  
+  
+  
+PUBE  
+  
+                                                          
+ European Commission, Department for Regional and Urban Policy.  
+ European Commission, Department for Regional and Urban Policy.  
+ OECD Centre for Entrepreneurship, SMEs, Regions and Cities. 
+
+
+===PDF PAGE 3===
+2 
+ 
+  
+ABOUT THE OECD   
+The OECD is a multi-disciplinary inter-governmental organisation of 36 member countries 
+which engages in its work an increasing number of non-members from all regions of the 
+world.  
+The Organisation’s core mission today is to help governments work together towards a 
+stronger, cleaner, fairer global economy. Through its network of 250 specialised 
+committees and working groups, the OECD provides a setting where governments 
+compare policy experiences, seek answers to common problems, identify good practice, 
+and co-ordinate domestic and international policies. More information available at: 
+www.oecd.org.    
+  
+   
+ABOUT OECD REGIONAL DEVELOPMENT WORKING PAPERS   
+Working papers from the Regional Development Policy Division of the OECD cover a full 
+range of topics including regional statistics and analysis, urban governance and 
+economics, rural governance and economics, and multi-level governance. Depending on 
+the programme of work, the papers can cover specific topics such as regional innovation 
+and networks, the determinants of regional growth or fiscal consolidation at the sub-
+national level. OECD Regional Development Working Papers are published on 
+http://www.oecd.org/cfe/regional-policy.    
+OECD Working Papers should not be reported as representing the official views of the 
+OECD or of its member countries. The opinions expressed and arguments employed are 
+those of the author(s).   
+ 
+Working Papers describe preliminary results or research in progress by the author(s) and 
+are published to stimulate discussion on a broad range of issues on which the OECD 
+works. Comments on Working Papers are welcome, and may be sent to the Centre for 
+Entrepreneurship, SMEs, Regions and Cities, OECD, 2 rue André-Pascal, 75775 Paris 
+Cedex 16, France.   
+   
+This paper is authorised for publication by Lamia Kamal-Chaoui, Director, Centre for 
+Entrepreneurship, SMEs, Regions and Cities, OECD.   
+  
+  
+This document, as well as any statistical data and map included herein, are without 
+prejudice to the status of or sovereignty over any territory, to the delimitation of 
+international frontiers and boundaries and to the name of any territory, city or area.  
+  
+ 
+ 
+ 
+© OECD 2019  
+You can copy, download or print OECD content for your own use, and you can include excerpts from OECD 
+publications, databases and multimedia products in your own documents, presentations, blogs, websites and 
+teaching materials, provided that suitable acknowledgement of OECD as source and copyright owner is given. 
+All requests for public or commercial use and translation rights should be submitted to rights@oecd.org.   
+  
+ 
+For contacts: paolo.veneri@oecd.org  
+  
+  
+
+
+===PDF PAGE 4===
+3 
+ 
+Table of contents 
+1. Introduction ......................................................................................................................... 4 
+2. The short definition ........................................................................................................... 5 
+2.1. Definition of an urban centre ....................................................................................... 5 
+2.2. Definition of a city .......................................................................................................... 6 
+2.3. Definition of a Commuting Zone ................................................................................. 7 
+3. Detailed methodology ....................................................................................................... 9 
+3.1. Defining an urban centre ............................................................................................. 9 
+3.2. Defining a city .............................................................................................................. 10 
+A city has two urban centres ............................................................................................. 11 
+An urban centre covers two distinct cities ....................................................................... 11 
+3.3. What is a greater city? ............................................................................................... 12 
+3.4. Defining a commuting zone ....................................................................................... 12 
+Checking for connected cities: the polycentricity check ............................................... 12 
+Creating the commuting zone ........................................................................................... 13 
+4. What local units to use?................................................................................................. 13 
+4.1. Large units may lead to the over-, under- or non-representation of an urban 
+centre by a city .................................................................................................................... 13 
+4.2. Small units may lead to a loss of the link to the city government or to less 
+statistical data ...................................................................................................................... 14 
+4.3. Adjusting the city to ensure a better representation of the urban centre or a 
+better link to local government .......................................................................................... 15 
+4.4. Cities without an urban centre .................................................................................. 16 
+5. Terminology ...................................................................................................................... 17 
+References ............................................................................................................................. 18 
+Annex I. Overview of the FUAs per country .................................................................. 18 
+ 
+  
+  
+  
+  
+ 
+
+
+===PDF PAGE 5===
+4 
+ 
+1. Introduction 
+Comparing cities in different countries is a challenging task. National definitions of cities are rarely 
+consistent across countries and they rely on administrative or legal boundaries that do not 
+necessarily reflect the functional and economic extent of cities. One main problem that emerges 
+when comparing cities using national definitions is that the size of local units – i.e. administrative 
+or legal units identifying city boundaries formally – can be starkly different across countries. Such 
+differences potentially biases international comparative analyses through the modifiable areas unit 
+problem (Openshaw, 1977).  
+Making sound international comparisons of cities requires using units of comparable size. 
+However, there are also other aspects to consider, primarily related to the concept that scholars 
+and policy makers use to understand cities, their evolution and economic performance. For 
+simplicity, we can identify two main different but complementary concepts to describe the extent of 
+cities. The first encompasses the space covered by an area of high population density with a 
+minimum size of population. Such a definition, which we call ‘city’ from now on, accounts only for 
+the agglomeration of people in space using a consistent threshold of density and total population.  
+A second concept considers the functional and economic extent of cities, beyond the consideration 
+of density and population size only. Such concept includes also other lower density areas 
+surrounding the city but closely linked to the latter from an economic and functional point of view. 
+We call this second concept ‘Functional Urban Area’ (FUA). A FUA is composed of a ‘city’ and its 
+surrounding, less densely populated local units that are part of the city’s labour market (‘commuting 
+zone’). 
+The European Union and the OECD have jointly developed a methodology to define functional 
+urban areas in a consistent way across countries (Dijkstra and Poelman 2012, OECD, 2012). This 
+paper describes such methodology in detail so that it can be replicated in any country once the 
+necessary information is available.  
+FUAs are defined in several steps. First, a population grid makes it possible to define ‘urban 
+centres’ independently from administrative or statistical boundaries. An urban centre is a pure grid-
+based concept, a cluster of contiguous cells of high density and with more than 50,000 inhabitants. 
+This means that an urban centre inside a large local unit and one spread out over multiple local 
+units could be easily identified using the same approach, something which definitions relying only 
+on local unit data struggled to do.  
+Subsequently, this dense, urban centre is adapted to the closest local units to define a city. Next, 
+commuting flows are used to identify which of the surrounding, less densely populated local units 
+were part of the city’s labour market (commuting zone). Commuting flows are based on travel to 
+work i.e. the travel that employed residents in a local unit make to reach the place of work. 
+However, commuting flows also capture some of the flows to access education, health, culture, 
+sports or shops.  
+FUAs are a powerful tool to compare socio-economic and spatial trends in cities and to design 
+urban development policy. FUAs are better suited than administrative areas to capture 
+agglomeration economies and they encompass the full extent of the city’s labour market. It can 
+guide national and city governments when they plan infrastructure, transportation, housing, 
+schools, and spaces for culture and recreation. In summary, FUAs can trigger a change in the way 
+policies are planned and implemented by providing the right scale to address issues that affect 
+both the city and its surrounding commuting zone. 
+Our definition of urban centres, cities and FUAs is people-based because it only uses density and 
+size of population and the daily mobility of the latter. It is not a definition based on built-up area or 
+morphology. Historically, the data on buildings, i.e. maps, had a higher spatial resolution than the 
+population data. The indirect approach of using building data to identify population centres is no 
+longer necessary as the population grid provides the needed spatial resolution. Furthermore, built-
+up area per capita varies between cities of different sizes, between developed and less developed 
+
+
+===PDF PAGE 6===
+5 
+ 
+countries and tends to grow over time. These three aspects reduce the comparability of definitions 
+using built-up area between cities, countries and over time.  
+The EU-OECD functional urban area definition is linked to the ‘degree of urbanisation’ (Eurostat, 
+2018). Both use the identical city definition, but the degree of urbanisation classifies the remaining 
+local units into towns & suburbs, and rural areas. Both definitions are included in the amended 
+European NUTS regulation (REGULATION (EU) 2017/2391). 
+The remainder of the paper is organised as follows. Section 2 provides a short description of the 
+method to identify FUAs. Section 3 describes the methodology in more detail. Section 4 discusses 
+what local units to use and the issues linked to this choice. Section 5 lists the terminology used in 
+this definition. 
+A separate Annex provides the detailed list of all FUAs in all EU and OECD countries, with a map 
+showing FUA boundaries in each country.  
+2. The short definition 
+A functional urban area can be defined in four steps:  
+1) Identify an urban centre: a set of contiguous, high density (1,500 residents per square 
+kilometre) grid cells with a population of 50,000 in the contiguous cells; 
+2) Identify a city: one or more local units that have at least 50% of their residents inside 
+an urban centre;  
+3) Identify a commuting zone: a set of contiguous local units that have at least 15% of 
+their employed residents working in the city; 
+4) A functional urban area is the combination of the city with its commuting zone.  
+ 
+Figure 1 shows visually the different concepts that are used in the method and that compose a 
+FUA, notably the urban centre, the city, and the commuting zone.  
+Figure 1. Urban centre, city, commuting zone and functional urban area of Graz, Austria 
+ 
+ 
+Applying this definition requires the following data sources: 
+● 
+A residential population grid with the number of people per cell of 1-square kilometre and 
+the share of land in each cell; 
+● 
+Digital boundaries of the local units; 
+● 
+Commuting flows between the local units and number of employed residents per local unit. 
+2.1. Definition of an urban centre 
+The first step focuses on the concentration of population in space, which is the simplest and most 
+uncontroverted feature of a city. It is the starting point of this definition. The idea of a city as a place 
+with a relatively high concentration of population in space is common to many disciplines that 
+describe a city including economic, social, cultural and geographical ones.  
+
+
+===PDF PAGE 7===
+6 
+ 
+Many national city definitions rely the population size and density of a local unit. This causes two 
+types of problems. A big city in a large local unit will have a very low or rural population density. 
+For example, Ulaanbaatar, the capital city of Mongolia, has a population of 1.4 million but only a 
+density of 270 inhabitants per square kilometre. The population size of a city is difficult to determine 
+when it is spread out over multiple local units. For example, how many people live in Paris?  
+An urban centre, as defined in this paper, relies on a population grid which can identify spatial 
+concentrations of population independently from political or administrative boundaries, using 
+spatial units of the same shape and size.  
+An urban centre or high-density cluster is a new spatial concept based on grid cells of 1 square 
+kilometre. It is defined in three steps, as indicated below and represented in Figure 2. 
+● 
+Step 1: All grid cells with a density of more than 1,500 inhabitants per square kilometre of 
+land are selected.  
+● 
+Step 2: The contiguous high-density cells are then clustered. Only the clusters with at least 
+50,000 inhabitants are kept. To avoid over-aggregation, cells with only the corners 
+touching are not considered contiguous. 
+● 
+Step 3: Gaps in each cluster are filled separately and its edges smoothed (Fig. 2).  
+Figure 2. High density cells, high density clusters, urban centre in Toulouse, France 
+ 
+2.2. Definition of a city 
+A city consists of one or more local units with at least 50% of their population in an urban centre. 
+A local unit can be either administrative or statistical. Examples of administrative units include a 
+municipality, a district, a neighbourhood or metropolitan area. Some of these administrative units 
+also play a political role as electoral districts or local government areas. Statistical units can be 
+enumeration areas, census blocks, census tracts, wards, super output areas, named places or 
+small areas.  
+Examples of local units used in OECD countries are communes in France, municipalities in Italy, 
+sigungu in Korea and Census Subdivisions in Canada. The best local unit for this definition is the 
+smallest unit for which commuting data is available.1 Figure 3 shows, visually, the process through 
+which a ‘city’ is identified by intersecting the grid-based urban centre with local units.   
+                                                          
+1 In principle, commuting data at grid level would be another usable option, if available.  
+
+
+===PDF PAGE 8===
+7 
+ 
+Figure 3 Share of population in an urban centre in Toulouse, France 
+ 
+2.3. Definition of a Commuting Zone 
+Once all cities have been defined, commuting zones can be identified using the following steps: 
+1) If 15% of employed persons living in one city work in another city, these cities are treated 
+as a single destination.  
+2) All local units with at least 15% of their employed residents working in a city are identified 
+as part of the commuting zone of that city (Figure 4). 
+3) Enclaves, i.e. local units entirely surrounded by other local units that belong to a 
+commuting zone or a city are included and exclaves or non-contiguous local units are 
+dropped (Figure 4, third panel). 
+A Functional Urban Area consists of the city and its respective commuting zone. It can happen 
+that, due to a low intensity of commuting flows, there is no commuting zone. In this case, there is 
+a perfect correspondence between the FUA and the city. The method to delineate FUAs is also 
+visually summarised in Figure 5. 
+Figure 4. A city and its commuting zone 
+ 
+ 
+ 
+ 
+
+
+===PDF PAGE 9===
+8 
+ 
+Figure 5. The algorithm to identify a functional urban area 
+ 
+ 
+Methodology to define the functional urban areas
+STEP 1:
+Create urban centres
+STEP 3:
+Create commuting
+zones
+≥ 1 500 inhabitants per km2 
+≥ 50 00 inhabitants
+If 50% of the population of the local 
+unit lives within the urban centre
+If more than 15% of the population of 
+one city commutes to work to another 
+city. If this applies, those cities will be 
+treated as a single destination in the 
+next step.
+Select local units that surrounds the city and that are part of its labour
+market
+Check whether two or more cities will belong to the same functional 
+urban area (‘polycentricity check’)
+Select the local units that have the majority  of their residents living in 
+an urban centre to create a ‘city’
+Select a cluster of contiguous high-density grid cells 
+with a total population above the population threshold
+Apply the threshold to identify densely populated grid cells 
+If more than 15% of the population of a 
+local unit commutes to work to in the 
+city
+STEP 2:
+Create cities
+STEP 4:
+Create a FUA
+Combine the city and its commuting zone
+
+
+===PDF PAGE 10===
+ 9  
+3. Detailed methodology 
+This section describes the methodology in more detail.  
+3.1. Defining an urban centre 
+An urban centre is based on a population grid. Many statistical offices already produce their own grid. 
+For example, the 2011 GEOSTAT grid covers all the EU member states.2  Brazil, Colombia and Egypt 
+either have their own grid or are developing one. Many more statistical offices will produce an official 
+population grid by geo-coding their next census. Because these grids are based on points, they are 
+called bottom up grids. In other words, the grid is created from the bottom up using data with a higher 
+spatial resolution. 
+In addition, various institutions provide modelled global population grids that are publicly available. The 
+Joint Research Centre has produced a global disaggregation grid (GHS-POP) using the Global Human 
+Settlement Layer (GHSL3) for 2015. It is based on a combination of high-resolution layer of built-up 
+areas and population data collected by CIESIN (GPW v4). WorldPop 4 has also created a global 
+residential population.  
+The method to define an urban centre is the following: 
+1) Select all 1-square kilometre grid cells with a density of more than 1,500 residents per square 
+kilometre of land (i.e. for each cell the share of land should be calculated by excluding bodies 
+of water). 
+2) Cluster all contiguous cells above this density threshold using only four points of contiguity, in 
+other words do not consider the diagonals. For example, in Figure 6 cells 2, 4, 5 and 7 are 
+contiguous with the central cell, while cells 1, 3, 6 and 9 are not considered contiguous. 
+3) Remove all clusters with less than 50,000 residents. 
+4) Fill the gaps using the majority rule iteratively until no more cells are added. The majority rule 
+means that if at least five of the eight cells surrounding a cell are part of the same urban centre, 
+this cell is added to that urban centre. The majority rule should be applied to single clusters 
+and not to all clusters at once. This rule should be repeated until no more cells are added. 
+In countries with relatively low-density urban development, a very accurate population grid and a strong 
+separation of land uses, this approach may lead to an excessive fragmentation of urban centres. In 
+such places, the grid cells with shopping malls, transport infrastructure or business parks will not reach 
+the residential density threshold to be included in the urban centre and will create breaks between 
+adjacent areas that do meet the threshold.  
+                                                          
+2 http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/population-distribution-
+demography/geostat  
+3 http://ghsl.jrc.ec.europa.eu/  
+4 http://www.worldpop.org.uk/  
+
+
+===PDF PAGE 11===
+ 10  
+The quality of the population grid also plays a role. In a disaggregation grid, some population would still 
+be attributed to commercial or industrial areas, where as a bottom-up grid would not. Therefore, this 
+issue is less likely to occur when using a disaggregation grid.  
+To resolve this issue, grid cells that are 50% built-up can be added to the urban centre. This resolves 
+the problem in this specific type of city and has little to no impact on higher density cities, as virtually 
+all the cells that are 50% built-up have a high enough population density or are added as part of the 
+gap filling process. 
+Figure 6. Contiguous grid cells 
+ 
+  
+3.2. Defining a city 
+In most cases, defining a city is simple. There is a single urban centre located in a single local unit. It 
+means that all of the urban centre population is located in that local unit and the share of the local unit 
+population in that urban centre is very high. See figure 7.  
+Figure 7: High density, cells, urban centre and city of Graz, Austria 
+ 
+However, in some cases the relationship is more complex. We discuss two cases: a) a city contains 
+more than one urban centre and b) an urban centre covers two distinct cities. 
+1
+2
+3
+4
+5
+6
+7
+8
+
+
+===PDF PAGE 12===
+ 11  
+A city has two urban centres  
+This is the most benign situation. It may be that a wide river, a steep slope or an industrial area has led 
+to a split in the urban centre. In this case, the local unit simply represents both urban centres. For 
+example, Budapest has two separate urban centres. They both fall within the same local unit (Figure 
+8).   
+Figure 8. Two urban centres can fall in the same local unit, i.e. Budapest, Hungary 
+ 
+ 
+An urban centre covers two distinct cities 
+Some urban centres cover two distinct cities, in the sense of two distinct urban settlements with their 
+own centre and name. This can happen because these cities have almost grown together but remain 
+functionally distinct. If the population grid is estimated, that situation might occur because the estimated 
+population is often more evenly distributed than the actual population.   
+In some cases, the urban centre can become too big to be plausible as the centre of a daily urban 
+system, meaning that it is too large to be considered as a space encompassed by the daily movements 
+of people between residence and work places. 
+When a single urban centre covers two or more distinct cities, a statistical office can choose to create 
+multiple cities. For example, Poole and Bournemouth in the United Kingdom share a single urban centre 
+(see Figure 9) but are two separate cities. Each of these cities, however, should have a population of 
+at least 50,000. If there is at least a one-way commuting flow of more than 15% between these two 
+cities, they should have joint commuting zone and therefore being part of the same FUA. If, instead, 
+there is less than 15% of commuting between the two cities, those two cities could be kept separate.   
+
+
+===PDF PAGE 13===
+ 12  
+Figure 9. High density cells, urban centre, local units and cities 
+ 
+3.3. What is a greater city?  
+In some cases, an urban centre stretches far beyond the boundaries of the central local unit that gives 
+it its name. This is often the case for (large) capital cities that have outgrown the small central local 
+unit, such as Athens, Copenhagen, Paris and Valletta. To avoid the confusion the pre-fix ‘greater’ is 
+often added to the name. This is already common practice in several countries, see for example Greater 
+London, Greater Dublin, Grand Paris etc.  
+The EU-OECD FUA definition ensures that the most comparable boundaries are selected. It does this 
+by first defining an urban centre independently from administrative boundaries and only in a second 
+step identifying the administrative boundaries that correspond best to this urban centre. In this way, we 
+ensure we do not compare central Paris with all of London or Berlin. Countries with relatively small 
+local units, such as France and Switzerland, are more prone to this problem of under bounding.  
+So in short, a greater city is a city. The addition of the term greater functions only as a warning to the 
+data users that this EU-OECD definition of the city contains more local units than the central local unit 
+which gives this city its name (see Section 4 for a discussion on how local units are selected). The term 
+‘Greater City’ was previously used by Eurostat with a separate code to identify cities that had two 
+geographical levels: city and greater city. This has been discontinued as it was difficult to communicate 
+and create a risk that city residents would be double counted.  
+3.4. Defining a commuting zone 
+Checking for connected cities: the polycentricity check 
+The definition of the commuting zone starts with the ‘polycentricity check’, in other words check if two 
+or more cities are linked by strong commuting flows. If city A has 15% of its employed residents 
+commuting to city B, then these two cities will share a single commuting zone. It is sufficient that 15% 
+is reached in one direction. For example, if city B has a commuting flow of less 15% to city A, it will still 
+share the same commuting zone.  
+The polycentricity check is applied only once. It is not an iterative rule. For example: City C has a 
+commuting flow of 20% to city D. City F has a commuting flow of 10% to city C and 10% to city D. Then 
+
+
+===PDF PAGE 14===
+ 13  
+cities C and D will have a shared commuting zone, but city F will have its own commuting zone because 
+the flow to each individual city is too small.  
+If city H and city I both have a commuting flow over 15% to city J, then all three will share a single 
+commuting zone.  
+Creating the commuting zone 
+The next step is identifying all local units with at least 15% of their employed residents working in a 
+single city (or both cities in the case of cities linked by commuting flows).  
+If a local unit has a commuting flow of more than 15% to two different cities, it will become part of the 
+commuting zone of the city to which the flow is biggest. So if a local unit has a commuting flow of 20% 
+to city K and 17% to city L, it will be part of the commuting zone of city K.  
+Enclaves, i.e. local units surrounded by a single functional area, are included and exclaves or non-
+contiguous local units are dropped. An enclave is defined as a local unit that shares 100% of its land 
+border with the functional area (city or commuting zone). Water borders are not considered.  
+Destination of the commuting flows should be the best approximation of the urban centre, i.e. all the 
+units with at least 50% of their population in the urban centre. If the city boundary is adjusted by adding 
+or dropping a few small local units or shifted to a higher administrative level (see next section), this 
+adjusted city should not be used for the commuting analysis. The only exception is where a single 
+urban centre is covered by multiple cities.  
+4. What local units to use?  
+The population grid helps to address the modifiable areal unit problem. Yet when these grid concepts 
+are used to classify local units, the problem that different shape and sizes of local units will lead to 
+different results reappears.  
+Many countries have more than one local administrative levels and more than one potential statistical 
+unit that might be chosen as ‘local units’ to delineate cities and FUAs. Smaller units will ensure a close 
+match between an urban centre and a city. Statistical offices, however, may not be able to provide 
+annual data for many indicators at this level. Smaller units, such as wards or districts, may not have as 
+strong a political role as municipalities do.  
+This section describes some of the issues encountered when using different sizes of local units and 
+proposes, where feasible, options of how to address them.  
+4.1. Large units may lead to the over-, under- or non-representation of an urban 
+centre by a city 
+The population of the urban centre and that of the city can differ quite a bit if a country has large local 
+units. Here we describe three types of issues that arise when using large local units to define a city. 
+
+
+===PDF PAGE 15===
+ 14  
+4.1.1. Overrepresentation 
+A city can have almost double the population of an urban centre. For example, an urban centre of 
+50,001 inhabitants in a local unit of 100,000 would mean that this local unit will be defined as a city. 
+This is a tricky problem to solve as the only alternative to the overrepresentation is non-representation, 
+i.e. by not defining this local unit as a city.  
+4.1.1. Underrepresentation 
+A city can also have a much smaller population than the urban centre it represents. Take for example, 
+an urban centre of 200,000 inhabitants that is split across four local units. One local unit has a 
+population of 50,000 and all of them live in the urban centre. The other three local units each have a 
+population of 150,000 of which respectively 60,000, 50,000 and 40,000 live in that urban centre. As a 
+result, the city will consist just of that one local unit with a population of 50,000 and not the other three 
+other local units.  
+This underrepresentation can be reduced by adding the local unit with the highest share of its population 
+in that urban centre to the city (local unit B with 60,000 of its 150,000 inhabitants in the urban centre). 
+This would bring the population of the city up to 200,000 and 110,000 would live in the urban centre. 
+(See rule 1 in section 4.2). 
+4.1.2. Non-representation 
+The most extreme form of under-representation is non-representation. For example, a local unit with a 
+population of 200,000 with a single urban centre of 75,000 inhabitants will not be classified as city. As 
+a result, this urban centre will not be represented by a city, i.e. non-representation, something which is 
+more likely to happen to small urban centres.  
+In a country where all the local units are large, all the small urban centres will not have a city 
+representing it. This would create a quite skewed representation of urban centres as all the small ones 
+would be missing. 
+One option to address this problem is that for half of the small urban centres without a city, their local 
+unit is classified as a city even though their share of population in an urban centre is less than 50%. 
+4.2. Small units may lead to a loss of the link to the city government or to less 
+statistical data 
+In a country with large local units, most cities will consist of a single unit. As a result, each city will have 
+a single local government. This makes it easier to communicate the indicators to local politicians and 
+ensures good input to polity making.  
+In countries with small local units, most cities will consist of multiple units. These small local units will 
+ensure that there is a close match between the population in the urban centre and the population in the 
+city. The price to pay is that the city will not match a single local government, which makes it more 
+complicated to communicate this data to local politicians.   
+This effect can be shown in Portugal, which has both municipalities (municipio or concelho) and 
+parishes (freguesia). If the urban centre of Braga in Figure 10 is used to define the municipal level (left 
+panel), there is a simple one-to-one relationship. The local government of Braga is organised at the 
+
+
+===PDF PAGE 16===
+ 15  
+municipal level. If the urban centre is used to define a city at the parish level (Figure 10, right panel), 
+the relationship becomes a more complicated one-to-many relationship. The simple link with local 
+government of Braga is also lost. 
+When statistical units are used as building blocks to define a city and/or a FUA, the latter can be 
+adapted ex post to the closest administrative local units. For example, cities and their commuting zones 
+in the United States have been delineated using census tracts as building block units, but subsequently 
+adapted to the closest county boundaries, by including the counties where the share of population living 
+in cities and FUAs was higher than 50%.  
+The imperfect match between the cities (and FUAs) and their respective urban centres can be 
+informative to policy makers. Administrative boundaries of cities often remain unchanged for decades, 
+while cities expand or shrink. Many OECD countries, following the process of urbanisation and urban 
+expansion occurred in the last few decades, have created new levels of government for large cities 
+encompassing multiple local units. For example, France has created metropoles to help govern their 
+21 biggest cities.  
+ 
+Figure 10. Braga, Portugal, as defined at parish level and at municipal level 
+ 
+4.3. Adjusting the city to ensure a better representation of the urban centre or a better 
+link to local government 
+If a country wishes to adjust its cities to get a better link between a city and its urban centre or a city 
+and its local government, it can add or drop a local unit as long as the two following rules are respected:  
+1) Rule 1: A local unit with less than 50% of its population in an urban centre can be added to a 
+city if at least 50% of the population of this expanded city lives in an urban centre.  
+2) Rule 2: A local unit with 50% of its population in an urban centre can be excluded from a city 
+as long as 75% of that urban centre population lives in a city after excluding that local unit.  
+
+
+===PDF PAGE 17===
+ 16  
+These two rules were designed to provide statistical limits to these optional changes that can be made: 
+A city should have 50% of its population in an urban centre and an urban centre should have 75% of 
+its population in a city.   
+4.3.1. City adds a few local units 
+If Braga was defined at the parish level it would only contain some of the parishes in the municipality 
+of Braga. Defining Braga at municipal level amounts to adding the surrounding parishes to the city. As 
+still more than 50% of the population of the municipality of Braga lives in the urban centre, this complies 
+with rule 1. This also ensures a direct link to the Braga local government.  
+4.3.1. City drops a few local units 
+An example of the application of rule 2 is Vienna. A number of small local units just south of the city of 
+Vienna have 50% or more of their population in the urban centre of Vienna. As more than 75% of the 
+population of the urban centre live in the city of Vienna, these smaller units can be dropped without 
+significantly compromising the comparability of the result (see Figure 11). 
+Figure 11 Dropping a few local units from a city. The case of Vienna, Austria 
+ 
+4.4. Cities without an urban centre 
+The methodology developed provides an estimate of the population of an urban centre. Two elements 
+may reduce the accuracy of this estimate: 1) geographic features and 2) the source of the population 
+grid data. 
+The methodology does not take into account the specific geography of a city. Some geographic 
+features, such as steep slopes, cliffs or bodies of water may lead to an underestimation of the 
+population of the urban centre. This affects in particular cities with a small centre.  
+This method works best when a bottom up grid (based on point data) or a high resolution, hybrid grid 
+(based on a mixture of points and smaller statistical units), is available, which ensure that the population 
+per square kilometre is very accurate. In the countries where such a grid is not yet available, local unit 
+population had to be disaggregated based on a given criterion, such as land use data in the case of 
+the GHS-POP grid produced by the Joint Research Centre. This is called a top-down method, which is 
+
+
+===PDF PAGE 18===
+ 17  
+less accurate. It tends to underestimate the population cells with a moderate to high density and 
+overestimate population in grid cells with a low population density. Due to this imprecision, there 
+remains a margin of error, especially for smaller centres. 
+Therefore, a statistical office may opt to classify a local unit as a city when it lacks an urban centre of 
+more than 50,000 inhabitants, but fulfils two conditions: 
+1) The presence of an urban centre of 50,000 inhabitants, which the method does not capture 
+due to geographic features or population grid estimation methods. 
+2) The local unit has a population of more than 50,000 inhabitants 
+For example, a local unit which has two clusters of high density cells separated by a river of bay which 
+together have a population of 50,000 can be argued to have an undetected urban centre. A local unit 
+with a high density cluster of 49,000 inhabitants based on a top-down population grid can be argued to 
+have an undetected urban centre.  
+5. Terminology 
+This section summarises the terms used in the paper and that are necessary to distinguish the different 
+concepts used for the definition of ‘Functional Urban Area’ and ‘Degree of Urbanisation’ (Table 1). As 
+both the Functional Urban Area and the Degree of Urbanisation definitions were developed some time 
+ago, there are terms used in the past which are now discontinued. Table 1 clarifies the terminology 
+currently is use with respect to synonyms or discontinued terms.  
+Table 1. Terminology related to functional urban areas 
+Preferred term 
+Synonym 
+Discontinued terms 
+Geographic level 
+Urban centre 
+High-density cluster (HDC) 
+Grid 
+City 
+Densely populated area 
+City core 
+Urban core 
+Local unit 
+Commuting zone 
+ 
+Hinterland 
+Local unit 
+Functional urban area (FUA) 
+ 
+Larger urban zone (LUZ) 
+Local unit 
+Metropolitan area 
+FUA of at least 250 000 
+inhabitants 
+ 
+Local unit 
+ 
+In non-technical reports, it may be easier to use a shorter term than functional urban area. If a text uses 
+the term city to refer to the functional urban area, it should explain clearly that it is used in this sense.  
+The terms ‘urban core’ and ‘city core’ are discontinued, but the term ‘core’ can be still be used as a 
+synonym for either the city or the urban centre as long as this is clearly indicated that it is used as a 
+short term.  
+Previously, Eurostat had a greater city level with the code K instead of C to identify a greater city that 
+had one or more smaller cities within it. For example, Dublin had both a city and a greater city level. 
+This was confusing to the users and created the risk of double counting of some city residents. For this 
+reason, only one city level is now reported which is the former greater city level, if there was one, or 
+the city level.  
+
+
+===PDF PAGE 19===
+ 18  
+References 
+Dijkstra, L. and Poelman, H. (2012). Cities in Europe: the new OECD-EC definition. Regional Focus, 
+1/2012. European Commission 
+https://ec.europa.eu/regional_policy/sources/docgener/focus/2012_01_city.pdf 
+Eurostat (2018), Methodological manual on territorial typologies. 2018 edition.  Publication Office of the 
+European Union, Luxembourg. https://ec.europa.eu/eurostat/documents/3859598/9507230/KS-
+GQ-18-008-EN-N.pdf 
+Openshaw, S. (1977), “Optimal zoning systems for spatial interaction models”, Environment and 
+Planning, Vol. A9, pp. 169 – 184. 
+OECD (2012), Redefining “Urban”: A New Way to Measure Metropolitan Areas, OECD Publishing. 
+http://dx.doi.org/10.1787/9789264174108-en  
+ 
+Annex I. Overview of the FUAs per country 
+The Annex I is available on-line at the web-link below, which is regularly updated.  
+https://www.oecd.org/cfe/regional-policy/All%20OECD%20countries%20-
+%20Functionnal%20urban%20areas.pdf  
+ 
+  
+  
+  
+  

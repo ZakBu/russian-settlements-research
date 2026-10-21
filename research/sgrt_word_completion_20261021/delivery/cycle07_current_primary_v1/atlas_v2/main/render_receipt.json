@@ -1,0 +1,994 @@
+{
+  "status": "ACTUAL_VOLUME_COMPUTED_PENDING_INDEPENDENT_VISUAL_REVIEW",
+  "page_count": 29,
+  "pages": [
+    {
+      "page": 1,
+      "kind": "scope",
+      "title": "Иерархия потенциальных районов: основной атлас",
+      "png": "01_scope.png",
+      "sha256": "bbead780bc634ca736a11d0c7895f74bdfd0103c2367808aa2554e6b3bc233d3",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки.",
+      "wrapped_title": "Иерархия потенциальных районов: основной атлас",
+      "title_font_points": 16,
+      "title_bbox_within_page": true
+    },
+    {
+      "page": 2,
+      "kind": "scope",
+      "title": "Потенциальные районы и источниковый кадр",
+      "png": "02_scope.png",
+      "sha256": "11c73b4b620eb4bc1c99fe540ad4d99a03369ab69519adf02e5fdd27d18efb31",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки.",
+      "wrapped_title": "Потенциальные районы и источниковый кадр",
+      "title_font_points": 16,
+      "title_bbox_within_page": true
+    },
+    {
+      "page": 3,
+      "kind": "coverage",
+      "title": "Покрытие и знаменатели",
+      "png": "03_coverage.png",
+      "sha256": "ab72a933c3f28d7998425349fe973f0607d98d657855c815f169d90f193028fc",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Каждый горизонтальный ряд — отдельное представление, они не суммируются. Исторические записи включены; отсутствие координат сохранено.",
+      "wrapped_title": "Покрытие и знаменатели",
+      "title_font_points": 16,
+      "title_bbox_within_page": true
+    },
+    {
+      "page": 4,
+      "kind": "all_type_frequencies",
+      "title": "Частоты всех полных измеренных типов",
+      "png": "04_all_type_frequencies.png",
+      "sha256": "e4846f611b771b57e1b21de9e3254466b968ae2a5974b8a7270ef782af3eb389",
+      "caption": "Ни один код не объединён в «прочее». Коды/названия/роли и точные частоты — type_counts.csv. Оси ранжирования не означают качество типа.",
+      "wrapped_title": "Частоты всех полных измеренных типов",
+      "title_font_points": 16,
+      "title_bbox_within_page": true
+    },
+    {
+      "page": 5,
+      "kind": "structural_counts",
+      "title": "Структурная компонента типа",
+      "png": "05_structural_counts.png",
+      "sha256": "4657086e1a928a9f3fc5bd5ca8ad3a37a73dc0b57cbe30b31615a8c5894a6ea6",
+      "caption": "Отдельный ряд на каждое представление и роль; альтернативы не суммируются. Структурные цвета не заменяют полные измеренные типы.",
+      "wrapped_title": "Структурная компонента типа",
+      "title_font_points": 16,
+      "title_bbox_within_page": true
+    },
+    {
+      "page": 6,
+      "kind": "parent_child",
+      "title": "Связь родитель — дети",
+      "png": "06_parent_child.png",
+      "sha256": "0ad915dd6aada2e7935ee718cda758d3d7ab0f302839a8f0102e093ec7b0d61b",
+      "caption": "Только фактический реестр соседних вложенных разрешений. Глубина вычислительного дерева и raw n_children не являются географическими рангами или числом географических детей.",
+      "wrapped_title": "Связь родитель — дети",
+      "title_font_points": 16,
+      "title_bbox_within_page": true
+    },
+    {
+      "page": 7,
+      "kind": "merge_objective",
+      "title": "Действительный путь целевой функции",
+      "png": "07_merge_objective.png",
+      "sha256": "e2f0838a957150d094e7add0082e153f4a14a6c1638f73f324493253804ba81a",
+      "caption": "Взвешенная модульность условного потенциала: наша инженерная адаптация. Охваты не переименованы в географические уровни. Значения Q между разными охватами напрямую не сравниваются.",
+      "wrapped_title": "Действительный путь целевой функции",
+      "title_font_points": 16,
+      "title_bbox_within_page": true
+    },
+    {
+      "page": 8,
+      "kind": "knee_stability",
+      "title": "Решение о перегибе и устойчивость",
+      "png": "08_knee_stability.png",
+      "sha256": "cf285b549b1144692605ad9ba10559fcb42756240c7f0af2ec0612d7423b0799",
+      "caption": "Показаны все испытанные охваты, включая no-knee/неустойчивые исходы. Это не метод, приписанный Райсиху или OECD.",
+      "wrapped_title": "Решение о перегибе и устойчивость",
+      "title_font_points": 16,
+      "title_bbox_within_page": true
+    },
+    {
+      "page": 9,
+      "kind": "direct_extent",
+      "title": "Прямой охват известных членов",
+      "png": "09_direct_extent.png",
+      "sha256": "5a38a264541331b946682a63c644e7f1f8883c8e69f5d16fc08b0d4c8a789c61",
+      "caption": "Дорожные минуты и геодезические километры различаются. Геодезический максимум рассчитан по наблюдаемым точкам членов и ведущего центра; при пропусках это нижняя оценка, а не ноль. Все единицы и счётчики пропусков — cartometric_known_member_extent.csv.gz. Это не площадь и не измеренная функциональная граница.",
+      "wrapped_title": "Прямой охват известных членов",
+      "title_font_points": 16,
+      "title_bbox_within_page": true
+    },
+    {
+      "page": 10,
+      "kind": "source_quality",
+      "title": "Географическая и источниковая полнота",
+      "png": "10_source_quality.png",
+      "sha256": "4860d31aba6123e094c09e492416c470fbdd5cf76274853b5c4cbc099fb8f522",
+      "caption": "Каждая строка — отдельное представление, без суммирования альтернатив. Доля вторичного населения взвешена известным неотрицательным аддитивным населением 2010 внутри этой строки; полный знаменатель сохранён в source_quality_by_view.csv. Пропуски населения и неизвестные собственные числа контекстных городов показаны отдельно. Нулевой знаменатель остаётся неизвестным.",
+      "wrapped_title": "Географическая и источниковая полнота",
+      "title_font_points": 16,
+      "title_bbox_within_page": true
+    },
+    {
+      "page": 11,
+      "kind": "native_source_frame",
+      "title": "Национальный исходный кадр и неизвестные местоположения",
+      "png": "11_native_source_frame.png",
+      "sha256": "0a2e4d1c1390f95b63fbc582d853aa5027f13a7a68eaf699e441c4683b45191c",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Первичные наблюдения 2021 отделены от прочих, в том числе исторических, записей. Неизвестные координаты посчитаны, а не удалены.",
+      "wrapped_title": "Национальный исходный кадр и неизвестные местоположения",
+      "title_font_points": 16,
+      "title_bbox_within_page": true
+    },
+    {
+      "page": 12,
+      "kind": "bootstrap_outcomes",
+      "title": "Bootstrap: доступность и все неудачные исходы",
+      "png": "12_bootstrap_outcomes.png",
+      "sha256": "e601b45bfd56b5c177bccba338d7225bfc59748bf1224908fbf416f421876f99",
+      "caption": "Показаны все 50 повторов для каждого охвата. НедоступныеARI остаютсяNA; допуск по числу пригодных повторов задаёт исходный протокол, а не картограф.",
+      "wrapped_title": "Bootstrap: доступность и все неудачные исходы",
+      "title_font_points": 16,
+      "title_bbox_within_page": true
+    },
+    {
+      "page": 13,
+      "kind": "provenance",
+      "title": "Источники и воспроизводимость",
+      "png": "13_provenance.png",
+      "sha256": "95b339bf9f15916943ee95a531cea7a65ebd31d6735351d416f3f41e04218e5f",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки.",
+      "wrapped_title": "Источники и воспроизводимость",
+      "title_font_points": 16,
+      "title_bbox_within_page": true
+    },
+    {
+      "page": 14,
+      "kind": "national_13",
+      "title": "Устойчивое вложенное разрешение 1: национальная картина",
+      "png": "14_national_13.png",
+      "sha256": "f117d6f8966fd55d19a24a57bfa0875092a43a1d8d4dc8a7121242b8d576b4ee",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Цвета групп могут повторяться; это не уникальный справочник единиц. Полные типы: type_counts.csv; роли считаются отдельно.",
+      "wrapped_title": "Устойчивое вложенное разрешение 1: национальная картина",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "promoted_empirical_level_000_source477_v1",
+      "n_membership_rows": 173858,
+      "missing_coordinates": 18076
+    },
+    {
+      "page": 15,
+      "kind": "national_trajectory_14",
+      "title": "Устойчивое вложенное разрешение 1: измеренные демографические сочетания",
+      "png": "15_national_trajectory_14.png",
+      "sha256": "2d5bde2c5977e8a8589746015403e6577c431f5d55bf1ec5c2df30a996433d71",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Отдельных источниковых записей 24909; без первичной записи 2021 — 18110. Недоступная динамика не означает нынешний НП без данных: здесь сохранены и исторические записи.  В бивариатной сводке появление из нуля → направление роста, обнуление → направление убыли; это не рассчитанный годовой темп. Два наблюдаемых нуля, отсутствие сельского ряда и неизвестность раздельны. У атомов все семь исходных состояний показаны отдельно. Полные типы/исходные состояния неизменны в CSV.",
+      "wrapped_title": "Устойчивое вложенное разрешение 1: измеренные демографические сочетания",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "promoted_empirical_level_000_source477_v1",
+      "territorial_visual_group_counts": {
+        "decline|decline": 5053,
+        "unavailable_pair": 2198,
+        "growth|decline": 545,
+        "stable|decline": 477,
+        "decline|growth": 429,
+        "growth|growth": 343,
+        "observed_zero_pair": 243,
+        "decline|stable": 166,
+        "stable|growth": 129,
+        "growth|stable": 81,
+        "stable|stable": 72,
+        "no_rural_series": 13
+      },
+      "atomic_visual_group_counts": {
+        "own:unavailable": 19363,
+        "own:decline": 2864,
+        "own:observed_zero_both": 1213,
+        "own:extinction_observed": 527,
+        "own:growth": 503,
+        "own:emergence_observed": 222,
+        "own:stable": 217
+      },
+      "atomic_source_frame_counts": {
+        "records": 24909,
+        "without_native2021_record": 18110,
+        "with_native2021_record": 6799
+      }
+    },
+    {
+      "page": 16,
+      "kind": "national_15",
+      "title": "Устойчивое вложенное разрешение 2: национальная картина",
+      "png": "16_national_15.png",
+      "sha256": "c4d14bbc672ed4b572749ca68e53b60a36607060060eaf7bbd6ece824ce221ec",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Цвета групп могут повторяться; это не уникальный справочник единиц. Полные типы: type_counts.csv; роли считаются отдельно.",
+      "wrapped_title": "Устойчивое вложенное разрешение 2: национальная картина",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "promoted_empirical_level_001_source477_v1",
+      "n_membership_rows": 173858,
+      "missing_coordinates": 18076
+    },
+    {
+      "page": 17,
+      "kind": "national_trajectory_16",
+      "title": "Устойчивое вложенное разрешение 2: измеренные демографические сочетания",
+      "png": "17_national_trajectory_16.png",
+      "sha256": "6912da9a1043d30d68fd9eca2aa584ee21fb6c14fd0e4b0e8a863834c25652eb",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Отдельных источниковых записей 22717; без первичной записи 2021 — 18110. Недоступная динамика не означает нынешний НП без данных: здесь сохранены и исторические записи.  В бивариатной сводке появление из нуля → направление роста, обнуление → направление убыли; это не рассчитанный годовой темп. Два наблюдаемых нуля, отсутствие сельского ряда и неизвестность раздельны. У атомов все семь исходных состояний показаны отдельно. Полные типы/исходные состояния неизменны в CSV.",
+      "wrapped_title": "Устойчивое вложенное разрешение 2: измеренные демографические сочетания",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "promoted_empirical_level_001_source477_v1",
+      "territorial_visual_group_counts": {
+        "decline|decline": 2934,
+        "unavailable_pair": 1678,
+        "growth|decline": 270,
+        "stable|decline": 254,
+        "decline|growth": 173,
+        "growth|growth": 152,
+        "decline|stable": 95,
+        "stable|growth": 64,
+        "observed_zero_pair": 55,
+        "growth|stable": 51,
+        "stable|stable": 42,
+        "no_rural_series": 7
+      },
+      "atomic_visual_group_counts": {
+        "own:unavailable": 19213,
+        "own:decline": 1816,
+        "own:observed_zero_both": 742,
+        "own:extinction_observed": 349,
+        "own:growth": 318,
+        "own:emergence_observed": 145,
+        "own:stable": 134
+      },
+      "atomic_source_frame_counts": {
+        "records": 22717,
+        "without_native2021_record": 18110,
+        "with_native2021_record": 4607
+      }
+    },
+    {
+      "page": 18,
+      "kind": "national_17",
+      "title": "Устойчивое вложенное разрешение 3: национальная картина",
+      "png": "18_national_17.png",
+      "sha256": "06356fdb5957247e639697ec6d69f21d03617e4afa8a62d3767644a5fd640878",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Цвета групп могут повторяться; это не уникальный справочник единиц. Полные типы: type_counts.csv; роли считаются отдельно.",
+      "wrapped_title": "Устойчивое вложенное разрешение 3: национальная картина",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "promoted_empirical_level_002_source477_v1",
+      "n_membership_rows": 173858,
+      "missing_coordinates": 18076
+    },
+    {
+      "page": 19,
+      "kind": "national_trajectory_18",
+      "title": "Устойчивое вложенное разрешение 3: измеренные демографические сочетания",
+      "png": "19_national_trajectory_18.png",
+      "sha256": "707fad28942563fb9af4563103011be457e0b01350daa35794d9190be42a2a07",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Отдельных источниковых записей 21671; без первичной записи 2021 — 18110. Недоступная динамика не означает нынешний НП без данных: здесь сохранены и исторические записи.  В бивариатной сводке появление из нуля → направление роста, обнуление → направление убыли; это не рассчитанный годовой темп. Два наблюдаемых нуля, отсутствие сельского ряда и неизвестность раздельны. У атомов все семь исходных состояний показаны отдельно. Полные типы/исходные состояния неизменны в CSV.",
+      "wrapped_title": "Устойчивое вложенное разрешение 3: измеренные демографические сочетания",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "promoted_empirical_level_002_source477_v1",
+      "territorial_visual_group_counts": {
+        "decline|decline": 1687,
+        "unavailable_pair": 1218,
+        "stable|decline": 163,
+        "growth|decline": 155,
+        "decline|growth": 84,
+        "growth|growth": 75,
+        "decline|stable": 56,
+        "stable|growth": 36,
+        "observed_zero_pair": 32,
+        "growth|stable": 31,
+        "stable|stable": 18,
+        "no_rural_series": 8
+      },
+      "atomic_visual_group_counts": {
+        "own:unavailable": 19131,
+        "own:decline": 1353,
+        "own:observed_zero_both": 487,
+        "own:extinction_observed": 252,
+        "own:growth": 243,
+        "own:emergence_observed": 103,
+        "own:stable": 102
+      },
+      "atomic_source_frame_counts": {
+        "records": 21671,
+        "without_native2021_record": 18110,
+        "with_native2021_record": 3561
+      }
+    },
+    {
+      "page": 20,
+      "kind": "national_19",
+      "title": "Устойчивое вложенное разрешение 4: национальная картина",
+      "png": "20_national_19.png",
+      "sha256": "eea5b04803d643e73c6bfa744c83b94aeab62487f78d33a87cbde8b4e04a382b",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Цвета групп могут повторяться; это не уникальный справочник единиц. Полные типы: type_counts.csv; роли считаются отдельно.",
+      "wrapped_title": "Устойчивое вложенное разрешение 4: национальная картина",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "promoted_empirical_level_003_source477_v1",
+      "n_membership_rows": 173858,
+      "missing_coordinates": 18076
+    },
+    {
+      "page": 21,
+      "kind": "national_trajectory_20",
+      "title": "Устойчивое вложенное разрешение 4: измеренные демографические сочетания",
+      "png": "21_national_trajectory_20.png",
+      "sha256": "468827377fddb45f298b6be50ad8acdfdbc403343de66b12bf72839c43e653d9",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Отдельных источниковых записей 21261; без первичной записи 2021 — 18110. Недоступная динамика не означает нынешний НП без данных: здесь сохранены и исторические записи.  В бивариатной сводке появление из нуля → направление роста, обнуление → направление убыли; это не рассчитанный годовой темп. Два наблюдаемых нуля, отсутствие сельского ряда и неизвестность раздельны. У атомов все семь исходных состояний показаны отдельно. Полные типы/исходные состояния неизменны в CSV.",
+      "wrapped_title": "Устойчивое вложенное разрешение 4: измеренные демографические сочетания",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "promoted_empirical_level_003_source477_v1",
+      "territorial_visual_group_counts": {
+        "decline|decline": 875,
+        "unavailable_pair": 771,
+        "stable|decline": 98,
+        "growth|decline": 83,
+        "growth|growth": 51,
+        "decline|stable": 33,
+        "decline|growth": 32,
+        "growth|stable": 20,
+        "stable|growth": 19,
+        "observed_zero_pair": 17,
+        "no_rural_series": 10,
+        "stable|stable": 9
+      },
+      "atomic_visual_group_counts": {
+        "own:unavailable": 19108,
+        "own:decline": 1129,
+        "own:observed_zero_both": 420,
+        "own:extinction_observed": 217,
+        "own:growth": 208,
+        "own:stable": 90,
+        "own:emergence_observed": 89
+      },
+      "atomic_source_frame_counts": {
+        "records": 21261,
+        "without_native2021_record": 18110,
+        "with_native2021_record": 3151
+      }
+    },
+    {
+      "page": 22,
+      "kind": "city_zoom_1",
+      "title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "png": "22_city_zoom_1.png",
+      "sha256": "e9189491dfc598c90042edcf5672ab7675338871874e5f78f3f29cca110394b8",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Охват панели включает всех членов; дальние участники не обрезаны. Звезда — фактическое ядро единицы, оно может отличаться от города в заголовке.",
+      "wrapped_title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+      "selections": [
+        {
+          "anchor_id": "ctx:RU-FED-MOW",
+          "anchor_name": "Москва",
+          "unit_id": "cap_060:supported_end_forest:u:18809293ec07bbdb9a11a34de31dd3bed33e2353815f222a9299cf4dccf10c24",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 856,
+          "cartographic_reference": {
+            "distance_km": 20.0,
+            "start_lon": 38.05858522141289,
+            "start_lat": 55.573240089949024,
+            "end_lon": 38.3756480265134,
+            "end_lat": 55.57283010320737,
+            "measured_geodesic_km": 20.0000000000002,
+            "bar_start_x": -3340776.242310828,
+            "bar_start_y": 1159965.8233365344,
+            "bar_end_x": -3328820.645691143,
+            "bar_end_y": 1144197.8714634501,
+            "axis_bounds": [
+              -3415481.3946721433,
+              -3286679.4078422897,
+              1118354.9992092387,
+              1257057.7463002242
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        },
+        {
+          "anchor_id": "ctx:RU-FED-SPB",
+          "anchor_name": "Санкт-Петербург",
+          "unit_id": "cap_060:supported_end_forest:u:a42c4fd49afcdcab58e31f0f5df16d3cb368260291906feb57b744a5c9fc202e",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 167,
+          "cartographic_reference": {
+            "distance_km": 20.0,
+            "start_lon": 30.690961886149054,
+            "start_lat": 59.96815155498326,
+            "end_lon": 31.049037206457474,
+            "end_lat": 59.96766591698207,
+            "measured_geodesic_km": 20.00000000000003,
+            "bar_start_x": -3172320.1634547818,
+            "bar_start_y": 1795433.9516202288,
+            "bar_end_x": -3162207.9859280284,
+            "bar_end_y": 1778522.6787001924,
+            "axis_bounds": [
+              -3236518.2491081064,
+              -3125831.894533409,
+              1761656.643918873,
+              1874247.669590059
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        }
+      ]
+    },
+    {
+      "page": 23,
+      "kind": "city_zoom_2",
+      "title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "png": "23_city_zoom_2.png",
+      "sha256": "3b6fd22cc5382de27c9375ab441731ba2fe85402821696b723895e2dca4c442e",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Охват панели включает всех членов; дальние участники не обрезаны. Звезда — фактическое ядро единицы, оно может отличаться от города в заголовке.",
+      "wrapped_title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+      "selections": [
+        {
+          "anchor_id": "np3:pr4vb0ikeu4Ti964UBZUqSXZ0ZwWPEfS64yJxFRuHbA",
+          "anchor_name": "Новосибирск",
+          "unit_id": "cap_060:supported_end_forest:u:cd21697e423625074ef197097e0538a65d90f901acce3b7c490dfd9e28016395",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 117,
+          "cartographic_reference": {
+            "distance_km": 20.0,
+            "start_lon": 83.3570703352821,
+            "start_lat": 54.67768677247731,
+            "end_lon": 83.66711656396771,
+            "end_lat": 54.67729014390259,
+            "measured_geodesic_km": 20.000000000000263,
+            "bar_start_x": -1052783.6833812299,
+            "bar_start_y": -469166.1738409615,
+            "bar_end_x": -1033573.5732854086,
+            "bar_end_y": -474024.1635605065,
+            "axis_bounds": [
+              -1124430.2390445,
+              -1000901.6947974823,
+              -486634.5367813017,
+              -377457.2684041753
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        },
+        {
+          "anchor_id": "np3:eEZB6Z6H6TPZbKFH7H_1NrmaTmHBc5IK3lrfGXqE49k",
+          "anchor_name": "Екатеринбург",
+          "unit_id": "cap_060:supported_end_forest:u:50d5ed884f301d571aa1b6ff08c4ef249be4035b87fd700cdf47bff5d1856d6e",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 76,
+          "cartographic_reference": {
+            "distance_km": 10.0,
+            "start_lon": 60.93173365215216,
+            "start_lat": 56.60705688526787,
+            "end_lon": 61.094569972078624,
+            "end_lat": 56.606950338526154,
+            "measured_geodesic_km": 10.000000000000025,
+            "bar_start_x": -2239141.4322180506,
+            "bar_start_y": 286992.09373473347,
+            "bar_end_x": -2230885.459533111,
+            "bar_end_y": 281564.28336941224,
+            "axis_bounds": [
+              -2290272.7842598185,
+              -2202115.280739529,
+              272381.66610348236,
+              363696.8387988019
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        }
+      ]
+    },
+    {
+      "page": 24,
+      "kind": "city_zoom_3",
+      "title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "png": "24_city_zoom_3.png",
+      "sha256": "8ac31f43265cbd27d1e53f6e2b717d636c502244e8f1c42af598d862ea7cd68e",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Охват панели включает всех членов; дальние участники не обрезаны. Звезда — фактическое ядро единицы, оно может отличаться от города в заголовке.",
+      "wrapped_title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+      "selections": [
+        {
+          "anchor_id": "np3:1ohaiJ4TVIFjC-VtmqcqbAenrkRQ-Q2Zk1H6Wk-PBZQ",
+          "anchor_name": "Казань",
+          "unit_id": "cap_060:supported_end_forest:u:97e353e2bf633158434f98a409f5afae62d9d04883f73874c34e79b3c4e6d174",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 106,
+          "cartographic_reference": {
+            "distance_km": 10.0,
+            "start_lon": 49.65038889134114,
+            "start_lat": 55.58503380194218,
+            "end_lon": 49.80896864501769,
+            "end_lat": 55.58493125980497,
+            "measured_geodesic_km": 9.999999999999838,
+            "bar_start_x": -2855345.7763578277,
+            "bar_start_y": 624927.5152830364,
+            "bar_end_x": -2848103.262789206,
+            "bar_end_y": 618187.055795801,
+            "axis_bounds": [
+              -2902448.900461162,
+              -2821236.6175243785,
+              608720.2107426107,
+              710015.8641202712
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        },
+        {
+          "anchor_id": "np3:oriDuOV3aYqVwT3FdxRP6S7xOvPCqPwe-okYg5Nv9oI",
+          "anchor_name": "Нижний Новгород",
+          "unit_id": "cap_060:supported_end_forest:u:cdde0490dce2c3fe383c77249b52ccc2af3daafbdab64b0ea57bb3fba820c0f1",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 320,
+          "cartographic_reference": {
+            "distance_km": 20.0,
+            "start_lon": 44.212433936993506,
+            "start_lat": 56.24490686126506,
+            "end_lon": 44.535024515632614,
+            "end_lat": 56.24448644994475,
+            "measured_geodesic_km": 20.00000000000007,
+            "bar_start_x": -3039230.9229029296,
+            "bar_start_y": 915978.6659626898,
+            "bar_end_x": -3025895.5732635492,
+            "bar_end_y": 901383.6270997522,
+            "axis_bounds": [
+              -3097594.466598918,
+              -2996967.667123076,
+              886672.1662152344,
+              984360.4987067524
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        }
+      ]
+    },
+    {
+      "page": 25,
+      "kind": "city_zoom_4",
+      "title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "png": "25_city_zoom_4.png",
+      "sha256": "8fcf87e01146fb3a292ab427f777ffe87b45c01fd7210223fff47ecbba439379",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Охват панели включает всех членов; дальние участники не обрезаны. Звезда — фактическое ядро единицы, оно может отличаться от города в заголовке.",
+      "wrapped_title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+      "selections": [
+        {
+          "anchor_id": "np3:3lffODvNf9APd3xijR0iVIN6Lj-QRAzFmb-dv4wcefc",
+          "anchor_name": "Челябинск",
+          "unit_id": "cap_060:supported_end_forest:u:f7d6aa4286bca67f999c692f60959db9d72bd703c7bcf2fbd6e1f1918fd87ba7",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 130,
+          "cartographic_reference": {
+            "distance_km": 20.0,
+            "start_lon": 61.40035662428462,
+            "start_lat": 55.181577715801374,
+            "end_lon": 61.714302547477295,
+            "end_lat": 55.18117364487704,
+            "measured_geodesic_km": 19.999999999999858,
+            "bar_start_x": -2302550.820990297,
+            "bar_start_y": 136744.6231395013,
+            "bar_end_x": -2285930.678313486,
+            "bar_end_y": 125984.2342073912,
+            "axis_bounds": [
+              -2366603.595167475,
+              -2256167.7776206164,
+              107344.92341816219,
+              205343.9224892925
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        },
+        {
+          "anchor_id": "np3:D_PRsRi5YXCfqeUlyHRUiPel7WKnrKrwJlubHN5e8eE",
+          "anchor_name": "Красноярск",
+          "unit_id": "cap_060:supported_end_forest:u:af54bdd33dc481d8cbbc1a7b9f590baa1bac3cf6e77a277c9186c3d64b68e8c9",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 75,
+          "cartographic_reference": {
+            "distance_km": 20.0,
+            "start_lon": 93.02390787492303,
+            "start_lat": 55.852650124331284,
+            "end_lon": 93.34324164165615,
+            "end_lat": 55.85223584476068,
+            "measured_geodesic_km": 20.00000000000022,
+            "bar_start_x": -431334.85879160813,
+            "bar_start_y": -445688.08099661267,
+            "bar_end_x": -411661.1551764084,
+            "bar_end_y": -447738.1668516531,
+            "axis_bounds": [
+              -501144.04535506567,
+              -380783.37886634574,
+              -460534.3785988984,
+              -367745.01858461264
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        }
+      ]
+    },
+    {
+      "page": 26,
+      "kind": "city_zoom_5",
+      "title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "png": "26_city_zoom_5.png",
+      "sha256": "2e83245a51346f61fea57a60ac218677d95f307a20c26f4ecbdf9829c52919a0",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Охват панели включает всех членов; дальние участники не обрезаны. Звезда — фактическое ядро единицы, оно может отличаться от города в заголовке.",
+      "wrapped_title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+      "selections": [
+        {
+          "anchor_id": "np3:-gi5L12guVB7cXCeJgeNtDhRJaqpmaC_qbW6RK8BlAY",
+          "anchor_name": "Самара",
+          "unit_id": "cap_060:supported_end_forest:u:1025e55a447f73430cadb54d90ea2644aee178ebe68d9e15f559453e396be93d",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 44,
+          "cartographic_reference": {
+            "distance_km": 10.0,
+            "start_lon": 50.658695392703756,
+            "start_lat": 52.79774398400101,
+            "end_lon": 50.80695195897707,
+            "end_lat": 52.79765138127296,
+            "measured_geodesic_km": 10.000000000000167,
+            "bar_start_x": -3018676.8462119843,
+            "bar_start_y": 350209.1387969807,
+            "bar_end_x": -3011299.186407511,
+            "bar_end_y": 343547.34939577733,
+            "axis_bounds": [
+              -3065941.2159728133,
+              -2984450.9232817288,
+              335902.67534388835,
+              425318.07192571566
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        },
+        {
+          "anchor_id": "np3:ljZ58-KLqvBWuQJ_3yYf2yqtrmY-pE32UZpdLy3qpYU",
+          "anchor_name": "Уфа",
+          "unit_id": "cap_060:supported_end_forest:u:cb018c451bc9d91f0751ab58c117728ee6436ec8c6332e775d014c51e85bf4ba",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 185,
+          "cartographic_reference": {
+            "distance_km": 20.0,
+            "start_lon": 56.16276799911744,
+            "start_lat": 54.6816150782159,
+            "end_lon": 56.4728441614658,
+            "end_lat": 54.681218392336014,
+            "measured_geodesic_km": 19.999999999999826,
+            "bar_start_x": -2606666.999930547,
+            "bar_start_y": 282241.5744335528,
+            "bar_end_x": -2590923.0688979346,
+            "bar_end_y": 270210.277577094,
+            "axis_bounds": [
+              -2665251.5504210615,
+              -2564243.704747761,
+              247525.07091437752,
+              363246.7493116284
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        }
+      ]
+    },
+    {
+      "page": 27,
+      "kind": "city_zoom_6",
+      "title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "png": "27_city_zoom_6.png",
+      "sha256": "61b600f992efa8a1cebf941e7d801da923eb5ea925567d6ae6b504af03929db6",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Охват панели включает всех членов; дальние участники не обрезаны. Звезда — фактическое ядро единицы, оно может отличаться от города в заголовке.",
+      "wrapped_title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+      "selections": [
+        {
+          "anchor_id": "np3:w_DGpco2THD7BiXk_XftbAl0Yspgv5E7OzQPS66PgtU",
+          "anchor_name": "Ростов-на-Дону",
+          "unit_id": "cap_060:supported_end_forest:u:0fa0024ab4dc539d469d624a778d60f4cbf16c1f773b0491310d5c0677726e65",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 150,
+          "cartographic_reference": {
+            "distance_km": 20.0,
+            "start_lon": 39.96625138707291,
+            "start_lat": 47.04400899144849,
+            "end_lon": 40.22943071255559,
+            "end_lat": 47.04370659739226,
+            "measured_geodesic_km": 19.999999999999837,
+            "bar_start_x": -4008926.3030907833,
+            "bar_start_y": 470105.82303767826,
+            "bar_end_x": -3996295.419111693,
+            "bar_end_y": 454403.47935090883,
+            "axis_bounds": [
+              -4077099.0446885647,
+              -3959559.8350372175,
+              438886.1957712358,
+              542951.6199927108
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        },
+        {
+          "anchor_id": "np3:thQLtdrsqvS00DbKNYj8wDkBaKfPjdTf4LbSFQKmq48",
+          "anchor_name": "Омск",
+          "unit_id": "cap_060:supported_end_forest:u:00fbf0b5c63ba41ff52d3c6a09a19431eaaafa56fd085b30f16df56bf03f04be",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 103,
+          "cartographic_reference": {
+            "distance_km": 20.0,
+            "start_lon": 73.52345451000488,
+            "start_lat": 54.70590943940591,
+            "end_lon": 73.83371595647621,
+            "end_lat": 54.70551239887962,
+            "measured_geodesic_km": 19.999999999999698,
+            "bar_start_x": -1647398.669666578,
+            "bar_start_y": -268159.62621071085,
+            "bar_end_x": -1629103.459276986,
+            "bar_end_y": -275767.4073072352,
+            "axis_bounds": [
+              -1714244.5300671908,
+              -1598993.0466178586,
+              -285668.5154957319,
+              -176237.9574643503
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        }
+      ]
+    },
+    {
+      "page": 28,
+      "kind": "city_zoom_7",
+      "title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "png": "28_city_zoom_7.png",
+      "sha256": "5b4aafc02264fc6a5b8586f1f521bf3e3aeb95be008f13c05c3aa38318e84be3",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Охват панели включает всех членов; дальние участники не обрезаны. Звезда — фактическое ядро единицы, оно может отличаться от города в заголовке.",
+      "wrapped_title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+      "selections": [
+        {
+          "anchor_id": "np3:103fhYeArtRmSOgPEgH0ta9KNvA3KfxzSPtmeh-Kv4A",
+          "anchor_name": "Краснодар",
+          "unit_id": "cap_060:supported_end_forest:u:df44cb9fe2b25a4193c3114eed5474908454dd120bf902c874342ee6864aedd7",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 135,
+          "cartographic_reference": {
+            "distance_km": 20.0,
+            "start_lon": 39.25763724113092,
+            "start_lat": 44.94720482093397,
+            "end_lon": 39.51106013666348,
+            "end_lat": 44.94692364804139,
+            "measured_geodesic_km": 19.999999999999993,
+            "bar_start_x": -4223949.6038336465,
+            "bar_start_y": 369987.55638465076,
+            "bar_end_x": -4211408.023550693,
+            "bar_end_y": 354057.04210353614,
+            "axis_bounds": [
+              -4297274.27696294,
+              -4170852.426740021,
+              337617.7347630067,
+              445517.14016848704
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        },
+        {
+          "anchor_id": "np3:rebUXjihrrBFSKAr1J88b25gcG85wIl4JEzJp9vQm-U",
+          "anchor_name": "Воронеж",
+          "unit_id": "cap_060:supported_end_forest:u:b1551302d284c7d2e335d3a0724a39fe1c161ade3da073bfee37ebd7ee9ad679",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 117,
+          "cartographic_reference": {
+            "distance_km": 20.0,
+            "start_lon": 39.52823508171423,
+            "start_lat": 51.58146460065574,
+            "end_lon": 39.81676456894052,
+            "end_lat": 51.5811099784251,
+            "measured_geodesic_km": 19.999999999999815,
+            "bar_start_x": -3635193.423945635,
+            "bar_start_y": 809366.3641866008,
+            "bar_end_x": -3622805.7730171536,
+            "bar_end_y": 793754.5449989054,
+            "axis_bounds": [
+              -3699233.0592634287,
+              -3588819.8949224055,
+              778478.7255418242,
+              881437.5210244127
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        }
+      ]
+    },
+    {
+      "page": 29,
+      "kind": "city_zoom_8",
+      "title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "png": "29_city_zoom_8.png",
+      "sha256": "4b471165718c80624414681d8c505ef32a4eeaebbe72a775a31e6c71ac095481",
+      "caption": "Точки — точная принадлежность НП. Границы между НП неизвестны; линии к ядру схематические, не дороги и не потоки. Охват панели включает всех членов; дальние участники не обрезаны. Звезда — фактическое ядро единицы, оно может отличаться от города в заголовке.",
+      "wrapped_title": "Крупные города: состав модельного района. Операционный охват 60 мин",
+      "title_font_points": 16,
+      "title_bbox_within_page": true,
+      "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+      "selections": [
+        {
+          "anchor_id": "np3:_ore7j-b92i7e7BcykVpz_f2VDgPU7-IHQboVR_idcQ",
+          "anchor_name": "Пермь",
+          "unit_id": "cap_060:supported_end_forest:u:6d89432a0003137248ab7bcedc26425a28cee7ae4126e046846047ce1f862d4f",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 235,
+          "cartographic_reference": {
+            "distance_km": 20.0,
+            "start_lon": 56.68870429390119,
+            "start_lat": 57.938915425711016,
+            "end_lon": 57.02634810069377,
+            "end_lat": 57.938467017359685,
+            "measured_geodesic_km": 19.999999999999968,
+            "bar_start_x": -2359370.9129302977,
+            "bar_start_y": 555193.8123964346,
+            "bar_end_x": -2343600.555228891,
+            "bar_end_y": 543334.0018067319,
+            "axis_bounds": [
+              -2428227.0277459105,
+              -2309509.588408647,
+              522112.9771286498,
+              632382.4280212655
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        },
+        {
+          "anchor_id": "np3:JhK1jXfcI2ZMBXnNH2muBtHPptx2EEAQM8Lv5dXeDiA",
+          "anchor_name": "Волгоград",
+          "unit_id": "cap_060:supported_end_forest:u:520f7d31e55ec02b977af8a96568b6f61dff3f6365f1cf36c201590b81c57488",
+          "resolution": "source477_adminall_v2_cap060_supported_end_forest",
+          "n_members": 98,
+          "cartographic_reference": {
+            "distance_km": 10.0,
+            "start_lon": 45.05670088147246,
+            "start_lat": 48.60980515405506,
+            "end_lon": 45.1923092877937,
+            "end_lat": 48.609725315653975,
+            "measured_geodesic_km": 9.999999999999815,
+            "bar_start_x": -3627091.2272936115,
+            "bar_start_y": 294245.4309432032,
+            "bar_end_x": -3620229.437844657,
+            "bar_end_y": 286924.2274776606,
+            "axis_bounds": [
+              -3679684.9062845563,
+              -3589006.1494036173,
+              272781.5624999403,
+              406930.7402703338
+            ],
+            "bar_endpoints_inside_axis_with_margin": true,
+            "datum": "WGS84",
+            "north": "local true geodetic north",
+            "graticule": "actual projected latitude/longitude curves"
+          }
+        }
+      ]
+    }
+  ],
+  "input_binding_sha256": "e229a2afef5342a5d30b3f1a99ca89a5e325603959a6a90d3add131fb8e3fd47",
+  "files": {
+    "27_city_zoom_6.png": "61b600f992efa8a1cebf941e7d801da923eb5ea925567d6ae6b504af03929db6",
+    "01_scope.png": "bbead780bc634ca736a11d0c7895f74bdfd0103c2367808aa2554e6b3bc233d3",
+    "24_city_zoom_3.png": "8ac31f43265cbd27d1e53f6e2b717d636c502244e8f1c42af598d862ea7cd68e",
+    "12_bootstrap_outcomes.png": "e601b45bfd56b5c177bccba338d7225bfc59748bf1224908fbf416f421876f99",
+    "03_coverage.png": "ab72a933c3f28d7998425349fe973f0607d98d657855c815f169d90f193028fc",
+    "14_national_13.png": "f117d6f8966fd55d19a24a57bfa0875092a43a1d8d4dc8a7121242b8d576b4ee",
+    "source_quality_by_view.csv": "6d61a0288661badedfd8512dd7d17c7efe3f4ea2c808f277920db254f7652ed9",
+    "city_zoom_selection.csv": "4a6c33092dd8fa5f4bfc208fbca02268dd349f471aac9bad56fe37dfa76fd315",
+    "08_knee_stability.png": "cf285b549b1144692605ad9ba10559fcb42756240c7f0af2ec0612d7423b0799",
+    "05_structural_counts.png": "4657086e1a928a9f3fc5bd5ca8ad3a37a73dc0b57cbe30b31615a8c5894a6ea6",
+    "input_binding.json": "e229a2afef5342a5d30b3f1a99ca89a5e325603959a6a90d3add131fb8e3fd47",
+    "source_references.csv": "f56d1bc8af7af589867994f7d3db00cbd42889b54e1f3f2721be5e01ef454f9a",
+    "knee_decisions.csv": "aed4a7aedfb68af04b9421b4ca64ea2f8d8522ef6680dc28642505145769302a",
+    "22_city_zoom_1.png": "e9189491dfc598c90042edcf5672ab7675338871874e5f78f3f29cca110394b8",
+    "20_national_19.png": "eea5b04803d643e73c6bfa744c83b94aeab62487f78d33a87cbde8b4e04a382b",
+    "unit_type_registry.csv.gz": "0ab28c29182b274bffb0ced68265d08b4bb1a045933b1a48b2816f2f607318c2",
+    "machine_map_index.csv": "e28b16910989e9d74c2ffd90305796876c6d5c74d5b45f3be1f17588bd770ae2",
+    "04_all_type_frequencies.png": "e4846f611b771b57e1b21de9e3254466b968ae2a5974b8a7270ef782af3eb389",
+    "structural_counts_by_view_role.csv": "d1fe01c6f17a2ed65830dde04606a9751c3034689bdb5922f0c57853534889bb",
+    "23_city_zoom_2.png": "3b6fd22cc5382de27c9375ab441731ba2fe85402821696b723895e2dca4c442e",
+    "10_source_quality.png": "4860d31aba6123e094c09e492416c470fbdd5cf76274853b5c4cbc099fb8f522",
+    "15_national_trajectory_14.png": "2d5bde2c5977e8a8589746015403e6577c431f5d55bf1ec5c2df30a996433d71",
+    "cartometric_known_member_extent.csv.gz": "227dc410f6c8d1240e0ea3b415917659ab8d7732f392ba1cd257976d34a9d313",
+    "26_city_zoom_5.png": "2e83245a51346f61fea57a60ac218677d95f307a20c26f4ecbdf9829c52919a0",
+    "06_parent_child.png": "0ad915dd6aada2e7935ee718cda758d3d7ab0f302839a8f0102e093ec7b0d61b",
+    "07_merge_objective.png": "e2f0838a957150d094e7add0082e153f4a14a6c1638f73f324493253804ba81a",
+    "13_provenance.png": "95b339bf9f15916943ee95a531cea7a65ebd31d6735351d416f3f41e04218e5f",
+    "28_city_zoom_7.png": "5b4aafc02264fc6a5b8586f1f521bf3e3aeb95be008f13c05c3aa38318e84be3",
+    "29_city_zoom_8.png": "4b471165718c80624414681d8c505ef32a4eeaebbe72a775a31e6c71ac095481",
+    "source_membership_coverage_by_view.csv": "30423a5acd95299fb8f92ceabf9681b57e2d6e5429af1b446d14755741da47fb",
+    "25_city_zoom_4.png": "8fcf87e01146fb3a292ab427f777ffe87b45c01fd7210223fff47ecbba439379",
+    "16_national_15.png": "c4d14bbc672ed4b572749ca68e53b60a36607060060eaf7bbd6ece824ce221ec",
+    "02_scope.png": "11c73b4b620eb4bc1c99fe540ad4d99a03369ab69519adf02e5fdd27d18efb31",
+    "17_national_trajectory_16.png": "6912da9a1043d30d68fd9eca2aa584ee21fb6c14fd0e4b0e8a863834c25652eb",
+    "11_native_source_frame.png": "0a2e4d1c1390f95b63fbc582d853aa5027f13a7a68eaf699e441c4683b45191c",
+    "21_national_trajectory_20.png": "468827377fddb45f298b6be50ad8acdfdbc403343de66b12bf72839c43e653d9",
+    "atlas_cycle07.pdf": "85b750c23c6cba8bf60545bcc00f9a86c495993b5e0dac626c66db460eff75d5",
+    "09_direct_extent.png": "5a38a264541331b946682a63c644e7f1f8883c8e69f5d16fc08b0d4c8a789c61",
+    "all_actual_unit_type_registry.csv.gz": "ad019fbdd61eb29c422be86df4a362873efde1957f26848d4e679e0b51122ff7",
+    "type_counts.csv": "027c14d4da5351675f2b446bb444172e84bf3c38bf8cca83c741c4ba5508a45f",
+    "native2021_source_frame_counts.csv": "567efa847c3a5f9221a193681764930f97807c94cf57dfdcf8d88a21b3469665",
+    "trajectory_visual_summary_1.csv.gz": "aab965aca74d9c7723e55d4c43fbd4c361baf0ca991369c04946255b97aea406",
+    "18_national_17.png": "06356fdb5957247e639697ec6d69f21d03617e4afa8a62d3767644a5fd640878",
+    "trajectory_visual_summary_3.csv.gz": "7b33ab9ca128865098169bd04f32cb22b50c30e6bd67ef7d310043f9dc2d6867",
+    "actual_geographic_parent_links.csv.gz": "3043394e1a6404ba600d256de69276c3b9b228051179ea9b61d59ac7b3db44db",
+    "19_national_trajectory_18.png": "707fad28942563fb9af4563103011be457e0b01350daa35794d9190be42a2a07",
+    "trajectory_visual_summary_2.csv.gz": "2910690a21d551335e20fbf7ce32ffaacd67976371363cf45f4946ad59308de4",
+    "trajectory_visual_summary_0.csv.gz": "a73908b3aa9e477588213605e96e0f5bcee94f73a5eff1ebee03dfa4502070b6",
+    "all_bootstrap_outcomes.csv": "49abf6a6d4a730156ec1ffbedc4bcf51f03c9dd4b9025ce645e0ad23be87845e"
+  },
+  "whole_family_receipt": "../atlas_receipt.json"
+}

@@ -1,0 +1,29 @@
+"""Source-bound actual atlas volumes; registry resolutions and operational alternatives separate."""
+from pathlib import Path
+import argparse,importlib.util,json,hashlib,pandas as pd
+P=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--config',required=True);ap.add_argument('--output',required=True);a=ap.parse_args();cp=Path(a.config);cfg=json.loads(cp.read_text());out=Path(a.output);assert not out.exists();spec=importlib.util.spec_from_file_location('admitted_cartography',P/'render_atlas_v7.py');r=importlib.util.module_from_spec(spec);spec.loader.exec_module(r);n,u,z,w=r.load(cfg,True);code=sha(__file__);render=sha(P/'render_atlas_v7.py');config=sha(cp);meta=cfg['view_metadata'];emp=sorted([k for k,v in meta.items()if v['resolution_kind']=='empirical_resolution'],key=lambda k:meta[k]['registry_level']);ops=sorted([k for k,v in meta.items()if v['resolution_kind']=='operational_forest'],key=lambda k:meta[k]['candidate_cap']);assert len(ops)==5 and {meta[k]['candidate_cap']for k in ops}=={30,45,60,90,120};primary=cfg['zoom_resolution'];assert primary in ops and meta[primary]['candidate_cap']==60;out.mkdir(parents=True);receipts={}
+ for volume,views,national,diagnostic in [('main',emp+[primary],emp if emp else [primary],True),('operational_supplement',ops,ops,False)]:
+  selected=list(dict.fromkeys(views));uc=u[u.level.isin(selected)].copy();zc=z[z.level.isin(selected)].copy();c={**cfg,'retained_resolutions':selected,'national_map_resolutions':national};dest=out/volume;dest.mkdir();atlas=r.Atlas(dest,n,uc,zc,c,w)
+  try:
+   atlas.textpage('Иерархия потенциальных районов: '+('основной атлас'if volume=='main'else'операционные сценарии'),[
+    'Устойчивые вложенные разрешения показывают воспроизводимые срезы потенциального тяготения. Это ещё не доказанные функциональные порядки. Операционные охваты30/45/60/90/120 минут — отдельные альтернативные сценарии; они не суммируются и не переименовываются в ступени.',
+    'Основной атлас показывает все принятые вложенные разрешения и городские фрагменты60-минутного сценария. Полноразмерное приложение сохраняет национальные карты всех пяти операционных лесов. Полные коды и частоты всех типов сохранены без скрытого «прочее».',
+    'Включены477 принятых координат и перепривязки учреждений/расширенные маршруты. Собственные массы фиксированы; доминантный центр сам обязан удовлетворять прямому дорожному охвату.353 первичных подтверждения2010 уже включены без повторного численного вмешательства.',
+    'Состав включает исторические источниковые записи без первичной записи2021: они не объявлены нынешними поселениями без данных. Точки показывают точный состав источниковой рамки, а географические границы между ними неизвестны. Историческая сопоставимость территорий не доказана. Собственное население двух контекстных городов неизвестно; население субъекта вместо него не подставляется.',
+    'На городских фрагментах сохранены все дальние члены, показаны географическая сетка, местный истинный север и геодезическая шкала расстояний. Схематические связи с ядром не являются дорогами или наблюдаемыми потоками.'
+   ],'scope')
+   if diagnostic:atlas.diagnostics()
+   for level in national:atlas.national(level);atlas.national_trajectories(level)
+   if volume=='main':atlas.zooms()
+  finally:atlas.close()
+  if not(dest/'type_counts.csv').exists():uc.groupby(['level','unit_role','primary_type_id','primary_type_name','structural_class'],dropna=False).size().reset_index(name='n_units').to_csv(dest/'type_counts.csv',index=False)
+  uc[[x for x in ['unit_id','level','unit_role','core_id','primary_type_id','primary_type_name','structural_class','trajectory_class','classification_confidence']if x in uc]].to_csv(dest/'unit_type_registry.csv.gz',index=False,compression='gzip')
+  vb={'config_sha256':config,'wrapper_sha256':code,'renderer_sha256':render,'source_sha256':w,'selected_views':selected,'national_views':national,'whole_family_receipt':'../atlas_receipt.json'};(dest/'input_binding.json').write_text(json.dumps(vb,ensure_ascii=False,indent=2))
+  vr={'status':'ACTUAL_VOLUME_COMPUTED_PENDING_INDEPENDENT_VISUAL_REVIEW','page_count':len(atlas.pages),'pages':atlas.pages,'input_binding_sha256':sha(dest/'input_binding.json'),'files':{p.name:sha(p)for p in dest.iterdir()if p.is_file()},'whole_family_receipt':'../atlas_receipt.json'};(dest/'render_receipt.json').write_text(json.dumps(vr,ensure_ascii=False,indent=2))
+  receipts[volume]={'page_count':len(atlas.pages),'views':selected,'national_views':national,'pages':atlas.pages,'files':{p.name:sha(p)for p in dest.iterdir()if p.is_file()}}
+ alltypes=u[[x for x in ['unit_id','level','unit_role','core_id','primary_type_id','primary_type_name','structural_class','trajectory_class','classification_confidence']if x in u]];alltypes.to_csv(out/'all_view_types.csv.gz',index=False,compression='gzip');z[['unit_id','id','level','is_overlay_membership','_coordinate_valid']].to_csv(out/'all_view_memberships.csv.gz',index=False,compression='gzip');assert all(sha(p)==h for p,h in w.items())and sha(__file__)==code and sha(P/'render_atlas_v7.py')==render and sha(cp)==config
+ result={'status':'ACTUAL_TWO_VOLUME_ATLAS_COMPUTED_PENDING_INDEPENDENT_VISUAL_REVIEW','config_sha256':config,'wrapper_sha256':code,'renderer_sha256':render,'sources':w,'resolution_meaning':'stable nested resolutions, not proved functional orders','empirical_views':emp,'operational_views':ops,'main_page_budget':[20,30],'main_page_budget_met':20<=receipts['main']['page_count']<=30,'volumes':receipts,'all_units':len(u),'all_type_codes_by_view':u.groupby('level').primary_type_id.nunique().to_dict(),'files':{p.name:sha(p)for p in out.iterdir()if p.is_file()}};(out/'atlas_receipt.json').write_text(json.dumps(result,ensure_ascii=False,indent=2));print(json.dumps({k:v['page_count']for k,v in receipts.items()}))
+if __name__=='__main__':main()
