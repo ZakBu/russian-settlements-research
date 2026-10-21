@@ -18,7 +18,11 @@
 | Нормализованное население и контексты пяти лесов | `typology/cycle07_complete/normalized_source477_v1/capXXX_supported_end_forest/` | Собственный `receipt.json` и допуск соответствующего `capXXX` в `reviews/cycle07_source477_normalization_independent/`. |
 | Полная измеренная типология | `typology/cycle07_complete/classified_source477_v1/capXXX_supported_end_forest/complete_typology.parquet`, `type_counts.csv` | Допуск соответствующего представления в `reviews/cycle07_typology_independent/`. Наличие Parquet само по себе не означает, что независимая проверка уже завершена. |
 | Принятый статистический срез 60 минут | `analysis/cycle07_newsource060_admitted_handoff_v2.json`, `analysis/cycle07_newsource060_interpretation_v3.md`, `analysis/cycle07_newsource060_baseline_v1/` | Handoff связывает конкретные источники, результаты, численные и визуальные проверки. Другие срезы не считаются готовыми по аналогии с 60 минутами. |
-| Принятый статистический срез 120 минут | `analysis/cycle07_newsource120_admitted_handoff_v1.json`, `analysis/cycle07_newsource120_interpretation_v1.md`, `analysis/cycle07_newsource120_baseline_v1/` | Отдельные источниковый, numerical, spatial и visual допуски в handoff; остальные семь представлений ещё не объявляются готовыми. |
+| Принятый статистический срез 120 минут | `analysis/cycle07_newsource120_admitted_handoff_v1.json`, `analysis/cycle07_newsource120_interpretation_v1.md`, `analysis/cycle07_newsource120_baseline_v1/` | Отдельные источниковый, numerical, spatial и visual допуски в handoff; сводка остальных принятых лесов приведена ниже; вложенные срезы проверяются отдельно. |
+| Принятая статистика остальных лесов 030/045/090 | `analysis/cycle07_newsource030045090_admitted_handoff_v1.json` | Все пять лесов вместе: `analysis/cycle07_supported_forests_numeric_summary_v1/receipt.json` и `interpretation_ru.md`; 97 фактических fits. |
+| Все четыре нормализованных и классифицированных вложенных среза | `typology/cycle07_complete/normalized_empirical_source477_v1/level_000..003/`, `classified_empirical_source477_v1/level_000..003/` | Каждый нормализованный срез проверен 670 проверками, типология — 39; соответствующие contracts в `contracts_empirical_source477_v2/`. |
+| Популяционная чувствительность: 31 представление | `typology/cycle07_complete/normalized_sensitivity_light_source477_v2/`, `classified_sensitivity_light_source477_v1/` | `reviews/cycle07_sensitivity_population_types_independent_v1/combined_admission.json`, 4557 проверок; контекстные слои не проецировались. |
+| Все девять принятых статистических представлений | `analysis/cycle07_all9_admitted_handoff_v1/handoff.json` | 177 fits, 108 gates, 1307 интервалов; единый перечень точных директорий результатов, графиков и ограничений. |
 | Фактический картографический просмотр 60 минут | `maps/cycle07_newsource060_preview_v1/actual060_preview.pdf` | `maps/cycle07_newsource060_preview_binding_v1/map_config.json`, `reviews/cycle07_newsource060_preview_independent/admission.json`, последующая визуальная проверка. Это предварительный просмотр одного сценария, а не полный итоговый атлас. |
 | Библиография | `literature/cycle07_classics_final/READOUT_RU.md`, `bibliography.csv` | `source_receipts.json`; выборочное чтение первичных материалов не объявляется чтением всех книг. |
 
@@ -171,6 +175,31 @@ python "$SGRT_BASE/typology/cycle07_complete/normalize_unit_populations_source47
 
 Нужны реальные `raw_units_path`, `memberships_path`, `base_nodes_path`, контекстные слои и **все** допуски из контракта. Исполнитель откажется при несовпадении источников, кода или prospective admission. Ускорители v5/v6 имеют отдельные допуски в `reviews/cycle07_controller_independent/fast_source477_normalizer*_admission_v1.json`; фактический построчный source/math review каждой новой таблицы остаётся самостоятельным требованием.
 
+### Популяционная чувствительность: отдельная light-стадия
+
+31 представление фактически нормализовано V7 fast и классифицировано тем же frozen классификатором. Полные контекстные функции для этой проверки не проецировались; пустой реестр контекстов означает `NOT_PROJECTED`, а не наблюдаемое отсутствие функций. Эта стадия не заменяет полный функциональный сравнительный анализ.
+
+У batch-исполнителя `--output` задаёт только каталог логов: каталоги данных берутся из `normalized_output_path` каждой записи manifest. Поэтому исходный manifest нельзя передать для нового запуска поверх принятых результатов. Для повтора создаётся отдельная копия manifest, меняющая только назначения выходов, с сохранением exact контрактов/SHA:
+
+```bash
+cd "$SGRT_BASE"
+python - "$SGRT_BASE" "$SGRT_REPLAY" <<'PYMANIFEST'
+import json,sys
+from pathlib import Path
+base,replay=map(Path,sys.argv[1:])
+data=json.loads((base/'typology/cycle07_complete/contracts_sensitivity_light_source477_v2/execution_manifest.json').read_text())
+for entry in data['entries']:
+    entry['normalized_output_path']=str(replay/'light_normalized'/entry['scenario']/('cap%03d_supported_end_forest'%entry['cap_minutes']))
+(replay/'light_execution_manifest.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+PYMANIFEST
+python "$SGRT_BASE/typology/cycle07_complete/run_light_sensitivity_batch.py" \
+  --manifest "$SGRT_REPLAY/light_execution_manifest.json" \
+  --normalizer "$SGRT_BASE/typology/cycle07_complete/normalize_unit_populations_source477_v7_fast.py" \
+  --output "$SGRT_REPLAY/light_logs" --workers 2
+```
+
+Новая light-нормализация не получает автоматически фактический допуск старых результатов. Для классификации свежих файлов нужен contract binder V4 с соответствующей источниковой проверкой и точным совпадением admitted units/nodes SHA, как описано ниже. Оригинальный manifest и принятые каталоги остаются неизменными.
+
 ## Полная измеренная классификация
 
 Пример повтора классификации из готового принятого контракта 060:
@@ -260,6 +289,94 @@ python "$SGRT_BASE/analysis/cycle07_tools/render_analysis.py" \
 
 Новый повторный расчёт потребует собственного пострасчётного numerical review или проверки точного совпадения с исходным принятым результатом перед использованием его review. Другие четыре леса и четыре вложенных среза не включаются в 060 по умолчанию и требуют собственных источниковых контрактов/регистраций.
 
+### Остальные принятые статистические проходы и единая сводка
+
+Для 120 минут, совместного прохода 030/045/090 и четырёх вложенных срезов ниже приведены точные источники и proof-флаги из их сохранённых регистраций. Это самостоятельные прогоны: выполнение `--stage full` действительно запускает соответствующие оценки. Сначала выполнить только `preregister` в свежем выходе; сверка SHA обязательна. Команды не перепривязывают новые агрегаты автоматически.
+
+Проход `120`, ожидаемая регистрация `e25f99495256d6ccbf350cccd166ad97a66c4755ee060eb78ad7399e3e394eff`:
+
+```bash
+cd "$SGRT_BASE"
+SGRT_ANALYSIS_FLAGS=(
+  --source-receipt "analysis/cycle07_newsource120_aggregates_v1/receipt.json"
+  --source-proof "model/cycle07_scale_hierarchy/city_context180_independent_v1/v2_admission.json"
+  --source-proof "reviews/cycle07_source477_normalization_independent/cap120_v1/audit.json"
+  --source-proof "reviews/cycle07_analysis_prospective_independent/code_protocol_v2_admission.json"
+  --output "$SGRT_REPLAY/analysis120"
+)
+python "$SGRT_BASE/analysis/cycle07_tools/run_analysis.py" "${SGRT_ANALYSIS_FLAGS[@]}" --stage preregister
+python - "$SGRT_REPLAY/analysis120/preregistration.json" "reviews/cycle07_analysis_new120_source_independent/preregistration_execution_admission.json" <<'PYREG'
+import hashlib,json,sys
+from pathlib import Path
+assert hashlib.sha256(Path(sys.argv[1]).read_bytes()).hexdigest()==json.loads(Path(sys.argv[2]).read_text())["preregistration_sha256"]
+PYREG
+python "$SGRT_BASE/analysis/cycle07_tools/run_analysis.py" "${SGRT_ANALYSIS_FLAGS[@]}" \
+  --stage full --review "reviews/cycle07_analysis_new120_source_independent/preregistration_execution_admission.json"
+```
+
+Проход `030045090`, ожидаемая регистрация `51b89b2bed4f384baba6465a1bf05a895080ebec84617b4a21f55ad99b82566b`:
+
+```bash
+cd "$SGRT_BASE"
+SGRT_ANALYSIS_FLAGS=(
+  --source-receipt "analysis/cycle07_newsource030045090_aggregates_v1/receipt.json"
+  --source-proof "model/cycle07_scale_hierarchy/city_context180_independent_v1/v2_admission.json"
+  --source-proof "reviews/cycle07_source477_normalization_independent/cap030_v1/audit.json"
+  --source-proof "reviews/cycle07_source477_normalization_independent/cap045_v1/audit.json"
+  --source-proof "reviews/cycle07_source477_normalization_independent/cap090_v1/audit.json"
+  --source-proof "reviews/cycle07_analysis_prospective_independent/code_protocol_v2_admission.json"
+  --output "$SGRT_REPLAY/analysis030045090"
+)
+python "$SGRT_BASE/analysis/cycle07_tools/run_analysis.py" "${SGRT_ANALYSIS_FLAGS[@]}" --stage preregister
+python - "$SGRT_REPLAY/analysis030045090/preregistration.json" "reviews/cycle07_analysis_new030045090_source_independent/preregistration_execution_admission.json" <<'PYREG'
+import hashlib,json,sys
+from pathlib import Path
+assert hashlib.sha256(Path(sys.argv[1]).read_bytes()).hexdigest()==json.loads(Path(sys.argv[2]).read_text())["preregistration_sha256"]
+PYREG
+python "$SGRT_BASE/analysis/cycle07_tools/run_analysis.py" "${SGRT_ANALYSIS_FLAGS[@]}" \
+  --stage full --review "reviews/cycle07_analysis_new030045090_source_independent/preregistration_execution_admission.json"
+```
+
+Проход `empirical`, ожидаемая регистрация `794812f5387849425bec690db1f2d311c76425c014fe856c9fa6d1c89791d14b`:
+
+```bash
+cd "$SGRT_BASE"
+SGRT_ANALYSIS_FLAGS=(
+  --source-receipt "analysis/cycle07_newsource_empirical_aggregates_v1/receipt.json"
+  --source-proof "model/cycle07_scale_hierarchy/city_context180_independent_v1/v2_admission.json"
+  --source-proof "reviews/cycle07_source477_normalization_independent/level_000_v1/audit.json"
+  --source-proof "reviews/cycle07_source477_normalization_independent/level_001_v1/audit.json"
+  --source-proof "reviews/cycle07_source477_normalization_independent/level_002_v1/audit.json"
+  --source-proof "reviews/cycle07_source477_normalization_independent/level_003_v1/audit.json"
+  --source-proof "reviews/cycle07_analysis_prospective_independent/code_protocol_v2_admission.json"
+  --source-proof "reviews/cycle07_partition_analysis_adapter_independent/admission.json"
+  --source-proof "reviews/cycle07_empirical_registry_independent/audit.json"
+  --output "$SGRT_REPLAY/analysisempirical"
+)
+python "$SGRT_BASE/analysis/cycle07_tools/run_analysis.py" "${SGRT_ANALYSIS_FLAGS[@]}" --stage preregister
+python - "$SGRT_REPLAY/analysisempirical/preregistration.json" "reviews/cycle07_analysis_empirical_source_independent/preregistration_execution_admission.json" <<'PYREG'
+import hashlib,json,sys
+from pathlib import Path
+assert hashlib.sha256(Path(sys.argv[1]).read_bytes()).hexdigest()==json.loads(Path(sys.argv[2]).read_text())["preregistration_sha256"]
+PYREG
+python "$SGRT_BASE/analysis/cycle07_tools/run_analysis.py" "${SGRT_ANALYSIS_FLAGS[@]}" \
+  --stage full --review "reviews/cycle07_analysis_empirical_source_independent/preregistration_execution_admission.json"
+```
+
+Графики вложенных срезов и единая сводка из сохранённых принятых результатов:
+
+```bash
+cd "$SGRT_BASE"
+python "$SGRT_BASE/analysis/cycle07_tools/render_analysis_empirical_v1.py" \
+  --analysis analysis/cycle07_newsource_empirical_baseline_v1 \
+  --review reviews/cycle07_newsource_empirical_regression_independent/audit.json \
+  --output "$SGRT_REPLAY/empirical_figures"
+python "$SGRT_BASE/analysis/cycle07_tools/assemble_all9_handoff_v1.py" \
+  --output "$SGRT_REPLAY/all9_handoff"
+```
+
+Новый численный результат требует самостоятельной фактической приёмки; renderer/assembler выше читают исходные уже принятые расчёты. Исходные captions и ограничения хранят различие между пятью operational forests и четырьмя retained candidate partitions.
+
 ## Карты и отчёт: фактический просмотр и ещё не закрытый полный выпуск
 
 Воспроизводимый фактический просмотр 060:
@@ -273,7 +390,7 @@ python "$SGRT_BASE/maps/cycle07_tools/render_newsource060_preview_v1.py" \
 
 Он создаёт `actual060_preview.pdf`, CSV полных типов/членств и собственный `preview_receipt.json`. Его независимый binding admission — `reviews/cycle07_newsource060_preview_independent/admission.json`. Это не команда создания полного итогового атласа. Карты показывают точечный состав единиц; сплошные доказанные границы между поселениями не восстанавливаются автоматически.
 
-`maps/cycle07_tools/render_atlas_v6.py` имеет CLI `--config FILE --output FRESH --stage preregister|render`; кандидатv7 добавляет новые страницы/индекс и нуждается в собственном допуске. Нельзя использовать старый map admission для изменившегося renderer или другой конфигурации. Для полного атласа нужны фактически принятые все представления, точный config, frozen renderer, предварительная регистрация и actual binding admission, затем визуальная проверка выходов.
+Сохранённый CLI `maps/cycle07_tools/render_atlas_v6.py` имеет форму `--config FILE --output FRESH --stage preregister|render`. Более поздняя attempt01 получила 29 binding и 11 visual проверок, но отклонена по презентации (поля/масштабная линейка); ожидается косметический renderer V8 и отдельный финальный atlas output. Attempt01 не считается финальным выпуском. Нельзя использовать старый map admission для изменившегося renderer или другой конфигурации. Для полного атласа нужны фактически принятые все представления, точный config, frozen renderer, предварительная регистрация и actual binding admission, затем визуальная проверка выходов.
 
 `delivery/cycle07_tools/build_report_v4.py` имеет CLI:
 
@@ -294,6 +411,10 @@ python .../build_report_v4.py --inputs EXACT_ACTUAL_INPUTS.json --output ANOTHER
 
 Инструкция не содержит команд удаления, перезаписи принятых результатов, отключения проверок или повторного скачивания многогигабайтных первичных файлов без необходимости.
 
-Проверка состояния при завершении этого аудита: независимый статистический пакет 120 минут уже закрыт отдельно (handoff v1 выше); 030/045/090 и четыре вложенных среза ещё не объявлены полностью готовыми. Исполнители полного атласа и отчёта продолжают prospective review; SHA их CLI в этой папке — снимок, который не превращает кандидата в принятый выпуск.
+Проверка состояния v4: все пять лесов имеют принятые источники, численные и пространственные проверки и финальные графики; сводка содержит 97 fits. Все четыре вложенных анализа также независимо приняты по источникам, числам, пространственным проверкам и финальным графикам. Единый handoff девяти представлений: `analysis/cycle07_all9_admitted_handoff_v1/handoff.json`, SHA `1d3fb616d06503bc24b86898e81ca48640e8a04031f050c045911c4f45a725b1`; всего 177 fits, 108 gates (71 вычисленный, 37 не оценены) и 1307 интервалов. Индексы пространственного разрешения 0–3 не становятся наблюдаемыми функциональными порядками. Исполнители полного атласа и отчёта продолжают prospective review; SHA их CLI в этой папке — снимок, который не превращает кандидата в принятый выпуск.
 
 Исправление v2: downstream-команды явно переходят в базу исследования; исходный снимок инструкции и её квитанций сохранён в `history_v1/`. Синтаксис всех shell-примеров проверен без запуска расчётов.
+
+Обновление v3: добавлены новые источниковые/статистические handoffs, light batch semantics и три актуальных CLI-снимка в `cli_help_additions_v3.json`. Снимок v2 сохранён в `history_v2/`.
+
+Обновление v4: конечный статистический блок всех девяти представлений независимо закрыт; источник `analysis/cycle07_all9_admitted_handoff_v1/handoff.json`. Итоговая семья выпуска — `delivery/cycle07_current_primary_v1/`; попытка атласа attempt01 не является финальной (требуется косметическая правка), отчёт ещё не выпущен. Конечные пути PDF/DOCX будут добавлены после фактического handoff. Снимок v3 сохранён в `history_v3/`.
