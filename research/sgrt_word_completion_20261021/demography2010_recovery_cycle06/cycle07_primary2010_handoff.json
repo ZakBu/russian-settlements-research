@@ -1,0 +1,38 @@
+{
+  "status": "INDEPENDENTLY_ADMITTED_PRIMARY2010_FULL_AXIS_OVERLAY_READY_FOR_CYCLE07",
+  "accepted_overlay_path": "demography2010_recovery_cycle06/admitted_overlay_v1/full_axis_primary2010_overlay.parquet",
+  "accepted_overlay_sha256": "566971ceceb267809617df4000ba67d9f1e40408523e8a513b69915c2901d9d2",
+  "source_checks_passed": 228,
+  "overlay_checks_passed": 50,
+  "full_axis_rows": 173862,
+  "old_primary_four_region_rows_preserved": 18909,
+  "newly_primary_rows": 169,
+  "numeric_changes": 148,
+  "quality_changes": 169,
+  "same_numeric_value_new_primary_evidence": 21,
+  "cumulative_override_allowed": 19078,
+  "integration_contract": {
+    "join": "Exact id only; preserve coordinate/roles independently",
+    "numeric": "reviewed_primary2010_population",
+    "quality": "reviewed_primary2010_quality",
+    "sourceUID": "reviewed_primary2010_sourceUID",
+    "source_override_allowed": "reviewed_primary2010_override_allowed",
+    "new_member_count_flag": "primary2010_new_primary_recovery_applied",
+    "prior_numeric": "prior_effective_population2010",
+    "prior_quality": "prior_effective_quality2010",
+    "source_admission": "source_primary2010_admission_sha256"
+  },
+  "limitations": [
+    "No2010/2021boundaryequivalence assumed.15new rows historical-only do not manufacture335currentNPidentitybridges.",
+    "All unadmitted rows preserve priorvalue/sourcequality; unknown does notmean0.",
+    "Adygea separate184candidates pendingindependentreview, notincluded.",
+    "No source/proof gate was relaxed to obtain Wordtypes; oldmain untouched."
+  ],
+  "files_sha256": {
+    "demography2010_recovery_cycle06/admitted_overlay_v1/full_axis_primary2010_overlay.parquet": "566971ceceb267809617df4000ba67d9f1e40408523e8a513b69915c2901d9d2",
+    "demography2010_recovery_cycle06/admitted_overlay_v1/overlay_receipt.json": "697638789a0b0666d766e801c61dc3b7e1ae5bb3376e73da500f8d1b9d433264",
+    "demography2010_recovery_cycle06/admitted_overlay_v1/freeze_manifest.json": "b813162815fbe7cb02ac46d155afeec8fa548234749b12b9a039f1bd220e42d0",
+    "reviews/cycle07_primary2010_independent/overlay_admission.json": "8045ec78a05220998f2cfa7dbe48e547ea889cf78eb564d20b856de29c81ee56",
+    "reviews/cycle07_primary2010_independent/source_admission.json": "d7ed53f9facc507f47310d61559383a5bf9a0d5cae0bcc9171672a250b5a52bf"
+  }
+}

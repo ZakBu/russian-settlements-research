@@ -1,0 +1,46 @@
+{
+  "status": "INDEPENDENTLY_ADMITTED_PRIMARY2010_FULL_AXIS_OVERLAY_READY_FOR_CYCLE07",
+  "accepted_overlay_path": "demography2010_recovery_cycle06/admitted_overlay_v2_table5_adygea/full_axis_primary2010_overlay.parquet",
+  "accepted_overlay_sha256": "9698cc45ce64a2773a320c266d88837c457ac3dd51178f62b75c032676094f86",
+  "source_checks_passed": {
+    "national_Table5": 228,
+    "Adygea_complete": 344
+  },
+  "overlay_checks_passed": 86,
+  "full_axis_rows": 173862,
+  "old_primary_four_region_rows_preserved": 18909,
+  "newly_primary_rows": 353,
+  "numeric_changes": 292,
+  "quality_changes": 353,
+  "same_numeric_value_new_primary_evidence": 61,
+  "cumulative_override_allowed": 19262,
+  "integration_contract": {
+    "join": "Exact id only; preserve coordinate/roles independently",
+    "numeric": "reviewed_primary2010_population",
+    "quality": "reviewed_primary2010_quality",
+    "sourceUID": "reviewed_primary2010_sourceUID",
+    "source_override_allowed": "reviewed_primary2010_override_allowed",
+    "new_member_count_flag": "primary2010_new_primary_recovery_applied",
+    "prior_numeric": "prior_effective_population2010",
+    "prior_quality": "prior_effective_quality2010",
+    "source_admission": "source_primary2010_admission_sha256"
+  },
+  "limitations": [
+    "No2010/2021boundaryequivalenceassumed, nofabricatedidentitybridge.",
+    "All unadmittedpopulation/quality/sourceUIDunchanged.",
+    "No countorclassificationgate relaxation/no modelweighttuning."
+  ],
+  "files_sha256": {
+    "demography2010_recovery_cycle06/admitted_overlay_v2_table5_adygea/full_axis_primary2010_overlay.parquet": "9698cc45ce64a2773a320c266d88837c457ac3dd51178f62b75c032676094f86",
+    "reviews/cycle07_primary2010_independent/overlay353_admission.json": "52acdbf59b17329b48a06f314ed826fd09c0e521cd4fba68628e03bfa0f9f77b",
+    "demography2010_recovery_cycle06/admitted_overlay_v2_table5_adygea/overlay_receipt.json": "7ef7d6f05bb25a9fc9c65d8f64825823df775282d163cf2e10a1e80eba8f4f04",
+    "reviews/cycle07_adygea2010_independent/audit.json": "b9d8778a8bcb57445210cf4deb19d10b8fe131419bd8e5a0c8d1d28563c8eb64",
+    "reviews/cycle07_primary2010_independent/source_admission.json": "d7ed53f9facc507f47310d61559383a5bf9a0d5cae0bcc9171672a250b5a52bf"
+  },
+  "overlay_admission_path": "reviews/cycle07_primary2010_independent/overlay353_admission.json",
+  "prior_basis": "Originalacceptedmainbefore169 includingpreviousfourregionalprimaryoverlay18909",
+  "source_families": {
+    "national_Table5": 169,
+    "new_complete_Adygea": 184
+  }
+}

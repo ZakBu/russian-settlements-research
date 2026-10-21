@@ -1,0 +1,71 @@
+{
+  "status": "ACTUAL_FULL_TABLE5_SOURCE_EXTRACTION_AND_IDENTITY_CANDIDATES_PENDING_INDEPENDENT_REVIEW",
+  "created_utc": "2026-10-21T09:25:54.584647+00:00",
+  "source_pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+  "source_text_sha256": "faefc63c57908513c4f6ebef5359e38ef86ddb3e1321a28efda4bb037e655c92",
+  "source_axis_sha256": "ac7a6f84a2ce4fea4e8c34d7227c91027cfa6cf22081983620b45ba03cb7ecac",
+  "code_sha256": "a2de7a8789c77f70e1e2074169b84d8751974c8572428862ccb9d9d82dbe915e",
+  "table5_pdf_pages": [
+    13,
+    210
+  ],
+  "all_source_numeric_or_dash_rows": 9682,
+  "all_literal_NP_rows": 4316,
+  "literal_types": {
+    "пгт": 1294,
+    "село": 1287,
+    "город": 1098,
+    "посёлок": 336,
+    "станица": 205,
+    "деревня": 50,
+    "аул": 22,
+    "хутор": 17,
+    "станция": 4,
+    "железнодорожная станция": 2,
+    "населённый пункт": 1
+  },
+  "literal_regions": 81,
+  "aggregate_grains": {
+    "literal_settlement": 4316,
+    "aggregate_or_unresolved": 3180,
+    "native2010_parent_aggregate": 2029,
+    "region_aggregate": 81,
+    "intracity_subdivision_aggregate": 66,
+    "federal_district_aggregate": 8,
+    "federalcity_region_urban_aggregate_not_auto_owncity": 2
+  },
+  "all_numerical_sex_sums_exact": true,
+  "numeric_sex_sum_rows": 9671,
+  "identity_status_counts": {
+    "unique_literal_2010_region_type_name_in_both_source_and_native_axis_inventories": 3694,
+    "unmatched_literal_region_type_name": 442,
+    "ambiguous_literal_identity_requires_native2010_parent": 123,
+    "unique_literal_native2010_region_type_name_parent_in_both_sources": 57
+  },
+  "numeric_strict_candidates": 3743,
+  "candidate_original_quality_counts": {
+    "reviewed_primary_reported_value": 2472,
+    "direct_official_city_value": 1029,
+    "secondary_confidentiality_protected_value_exact_scope_unverified": 172,
+    "reviewed_primary_source_value_or_null": 41,
+    "fresh_primary_r5_source": 26
+  },
+  "literal_dash_population_remains_unknown": 8,
+  "scope_caveats": [
+    "All urban settlements plus ruraldistrictcenters/ruralNP>=3000; not all153124ruralNP.",
+    "Federalcityregion and subordinate/municipal totals not ownNP. No universal±10 count interval.",
+    "Unique typedidentity uses no populationselection; regional/national corpus exactcounts do not certify2010→2021sameboundary.",
+    "Alreadyprimary rows are readback controls, never counted asnewrecoveries; candidate layer not yet applied."
+  ],
+  "output_sha256": {
+    "national_table5_initial_all_rows.parquet": "9b60750d7a63f00c3262cb0ef2a8ab4b1e707dcd6f2bc5b5dfe3d33206a154e4",
+    "national_table5_full_identity_and_recovery_candidates.parquet": "fbbd536c464f2cdece9cad6b1ba4f89e24f808fa2a051f60ac4d5f8d1c82439d",
+    "national_table5_numeric_strict_review_candidates.parquet": "efb6144edebe3b2d566870a1b9f71772f7f341abb19322c1de25405efee71413",
+    "national_table5_predeclared_name_controls.csv": "ae03424aa622a4b66372905403bb021165fe745353abd2ab8636afac22e8f9c2",
+    "national_table5_all_source_rows.parquet": "6e6465c0e28e205f7f3902d0078a68e30499fb0f39cd201ea67cb15740ef7653",
+    "national_table5_aggregate_and_unresolved_rows.parquet": "5c4698c8b79bf7de10f290ac237a70038455989e8237f1be29c2a2baf350e5b4",
+    "national_table5_literal_NP_inventory.parquet": "77f57a40bbd4cb294531dacb818a75665d9a9aed54b02e8dcf5576ca5a61462a",
+    "national_table5_parse_link_receipt.json": "cf5380351c64ee4b94763e2ef784e15db716930ae8d044d59a5094c71b04cea8",
+    "national_table5_unparsed_text_lines.json": "39a68bfd481c0bb9fd6360a1ae27cb2cece9d8e0d81e7fb08d3328002f5ca785"
+  }
+}
