@@ -1,0 +1,180 @@
+{
+  "status": "BOUND_ACTUAL_INDEPENDENTLY_RECONSTRUCTED_UNITS_FOR_COMPLETE_TYPING",
+  "units_path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/typology/cycle07_complete/normalized_sensitivity_light_source477_v2/tau90/cap030_supported_end_forest/normalized_units.parquet",
+  "units_sha256": "357b3a86637a65ccccfeff504a0164f5f42533a5a07acdd4efe876b9bd2f70d3",
+  "unit_id_column": "unit_id",
+  "unit_name_column": "name",
+  "kind_column": "kind",
+  "unit_role_column": "unit_role",
+  "level_column": "level",
+  "central_object_ids_column": "central_object_ids_json",
+  "central_object_definition_column": "central_object_definition",
+  "rural_member_count_column": "n_rural_external_settlements",
+  "unknown_role_member_count_column": "n_unknown_role_external_settlements",
+  "primary_annual_delta": 0.0025,
+  "protocol_admission_path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle07_scale_typology_contract/complete_typology_prospective_code_admission.json",
+  "protocol_admission_sha256": "eaf1744ca686f7c9a29264d77036f6c5309a66239aa7487b9c65a704f1a9b110",
+  "central_set_audit_path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle07_sensitivity_population_types_independent_v1/tau90_cap030_population_audit.json",
+  "central_set_audit_sha256": "861b19cc09d53a9ac0440e583362cb81ac2ed7600014f3dd89aa0ad6ddbfa01a",
+  "hierarchy_admission_path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle07_sensitivity_population_types_independent_v1/tau90_cap030_population_audit.json",
+  "hierarchy_admission_sha256": "861b19cc09d53a9ac0440e583362cb81ac2ed7600014f3dd89aa0ad6ddbfa01a",
+  "objects": {
+    "own": {
+      "population": {
+        "2002": "own_population_2002",
+        "2010": "own_population_2010",
+        "2021": "own_population_2021"
+      },
+      "complete": {
+        "2002": "own_population_complete_2002",
+        "2010": "own_population_complete_2010",
+        "2021": "own_population_complete_2021"
+      }
+    },
+    "center": {
+      "population": {
+        "2002": "center_population_2002",
+        "2010": "center_population_2010",
+        "2021": "center_population_2021"
+      },
+      "complete": {
+        "2002": "center_population_complete_2002",
+        "2010": "center_population_complete_2010",
+        "2021": "center_population_complete_2021"
+      }
+    },
+    "rural": {
+      "population": {
+        "2002": "rural_external_population_known_sum_2002",
+        "2010": "rural_external_population_known_sum_2010",
+        "2021": "rural_external_population_known_sum_2021"
+      },
+      "complete": {
+        "2002": "rural_population_complete_2002",
+        "2010": "rural_population_complete_2010",
+        "2021": "rural_population_complete_2021"
+      }
+    },
+    "system": {
+      "population": {
+        "2002": "system_population_known_sum_2002",
+        "2010": "system_population_known_sum_2010",
+        "2021": "system_population_known_sum_2021"
+      },
+      "complete": {
+        "2002": "system_population_complete_2002",
+        "2010": "system_population_complete_2010",
+        "2021": "system_population_complete_2021"
+      }
+    }
+  },
+  "quality_columns": [
+    "center_scope",
+    "population_quality_share_denominator_scope",
+    "primary2010_population_share",
+    "protected_secondary2010_population_share",
+    "population2010_known_denominator",
+    "2010_missing_population_count",
+    "unknown_nonadditive_central_population_slots2010",
+    "n_members_primary2010_newly_recovered",
+    "n_members_primary2010_numeric_changed",
+    "n_members_primary2010_quality_changed",
+    "primary2010_newly_recovered_population_share",
+    "prior_secondary2010_population_share",
+    "current_secondary2010_population_share",
+    "historical_boundary_equivalence_proven",
+    "population_quality_counts_json_2002",
+    "center_population_quality_counts_json_2002",
+    "classification_population_exact_primary_supported_2002",
+    "classification_secondary_population_share_2002",
+    "population_quality_counts_json_2010",
+    "center_population_quality_counts_json_2010",
+    "classification_population_exact_primary_supported_2010",
+    "classification_secondary_population_share_2010",
+    "population_quality_counts_json_2021",
+    "center_population_quality_counts_json_2021",
+    "classification_population_exact_primary_supported_2021",
+    "classification_secondary_population_share_2021",
+    "unknown_nonadditive_metropolitan_all_population_slots_2002",
+    "unknown_nonadditive_metropolitan_focal_population_slots_2002",
+    "unknown_nonadditive_metropolitan_nonfocal_population_slots_2002",
+    "unknown_nonadditive_metropolitan_all_population_slots_2010",
+    "unknown_nonadditive_metropolitan_focal_population_slots_2010",
+    "unknown_nonadditive_metropolitan_nonfocal_population_slots_2010",
+    "unknown_nonadditive_metropolitan_all_population_slots_2021",
+    "unknown_nonadditive_metropolitan_focal_population_slots_2021",
+    "unknown_nonadditive_metropolitan_nonfocal_population_slots_2021"
+  ],
+  "quality_uncertainty_rules": [
+    {
+      "column": "classification_population_exact_primary_supported_2010",
+      "rule": "not_true",
+      "label": "recent2010_not_all_exact_primary_supported"
+    },
+    {
+      "column": "classification_population_exact_primary_supported_2021",
+      "rule": "not_true",
+      "label": "recent2021_not_all_exact_primary_supported"
+    },
+    {
+      "column": "historical_boundary_equivalence_proven",
+      "rule": "not_true",
+      "label": "historical_boundary_equivalence_unproven"
+    }
+  ],
+  "source_admissions": [
+    {
+      "path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle07_sensitivity_population_types_independent_v1/tau90_cap030_population_audit.json",
+      "sha256": "861b19cc09d53a9ac0440e583362cb81ac2ed7600014f3dd89aa0ad6ddbfa01a",
+      "required_fields": {
+        "status": "ACCEPTED_INDEPENDENT_LIGHT_POPULATION_AND_CENTRAL_SETS",
+        "all_checks_passed": true
+      }
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle07_scale_typology_contract/complete_typology_prospective_code_admission.json",
+      "sha256": "eaf1744ca686f7c9a29264d77036f6c5309a66239aa7487b9c65a704f1a9b110",
+      "required_fields": {
+        "status": "ACCEPTED",
+        "all_checks_passed": true
+      }
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle07_primary2010_independent/overlay353_admission.json",
+      "sha256": "52acdbf59b17329b48a06f314ed826fd09c0e521cd4fba68628e03bfa0f9f77b",
+      "required_fields": {
+        "status": "ACCEPTED",
+        "all_checks_passed": true
+      }
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle07_sensitivity_actual_independent/raw_source_batch_admission.json",
+      "sha256": "5f3e047f30fdfba2384cf892f736e310de0d52d83d426589a0207109a8634a6d",
+      "required_fields": {
+        "status": "ACCEPTED_SIX_ACTUAL_SENSITIVITY_RAW_SOURCE_PARTITIONS_FOR_DESCRIPTIVE_NORMALIZATION_TYPING",
+        "all_checks_passed": true
+      }
+    }
+  ],
+  "population_source_version": {
+    "mode": "admitted_versioned_overlay",
+    "base_nodes_sha256": "37d99b1ff7387ac40ec0aa52025a7642ab682c2bd5485d440bd37b37825c86f7",
+    "effective_nodes_sha256": "d70ea782326dd2f072efe5c94b06e6684b5e13653e3504114507b9751e6c3067",
+    "overlay_path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/demography2010_recovery_cycle06/admitted_overlay_v2_table5_adygea/full_axis_primary2010_overlay.parquet",
+    "overlay_sha256": "9698cc45ce64a2773a320c266d88837c457ac3dd51178f62b75c032676094f86",
+    "admission_path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle07_primary2010_independent/overlay353_admission.json",
+    "admission_sha256": "52acdbf59b17329b48a06f314ed826fd09c0e521cd4fba68628e03bfa0f9f77b",
+    "unit_quality_change_columns": [
+      "n_members_primary2010_newly_recovered",
+      "primary2010_newly_recovered_population_share",
+      "n_members_primary2010_numeric_changed",
+      "n_members_primary2010_quality_changed",
+      "prior_secondary2010_population_share",
+      "current_secondary2010_population_share"
+    ]
+  },
+  "context_witnesses": [],
+  "scientific_scope": "Complete measured NEWsource477-adminall-dominantcore partition in one actual operationalcap/forest view; empirical geographical levels/causal Word9 mechanisms not thereby established",
+  "normalized_receipt_path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/typology/cycle07_complete/normalized_sensitivity_light_source477_v2/tau90/cap030_supported_end_forest/receipt.json",
+  "normalized_receipt_sha256": "c0c25bdd2f0b13740f1d9975e52a7f8710f20c9e882624be43ec37154a5b0b46"
+}

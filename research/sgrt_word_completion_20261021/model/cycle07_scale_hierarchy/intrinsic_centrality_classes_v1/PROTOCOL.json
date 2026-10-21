@@ -1,0 +1,38 @@
+{
+  "status": "PREMETRIC_SOURCE_ONLY_INTRINSIC_CENTRALITY_CLASSIFICATION_NOT_FUNCTIONAL_ORDERS",
+  "source_eligibility": "ALL independently admitted eligible ordinary2021providers, INCLUDING unrouted sources; two external metropolitan contexts excluded from fit and separately retained with ownP unknown",
+  "feature": "One unweighted provider observation: natural log of positive fixed ownMi. NO catchment/rural/whole population, predicted geography, empirical resolution, demographics outcome, institutionbreadth or population bands in fit",
+  "interpretation_only": "Observed positive witness breadth across five source domains(education inclpreschool/higher, health inclhospital,trade,finance,physicaladministration) and officialadministrative role separately; zero observed breadth is NOT absence or capacity. OwnP bands only descriptive",
+  "candidates": {
+    "K": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "algorithm": "sklearnKMeans Lloyd, n_init10, max_iter300, tol1e-6, random_state20261021+K; weightedregionalreplicates use same parameters",
+    "min_positive_weight_unique_providers_per_class": 10,
+    "ordinal_class_ids": "sortcentroidmeans ascending0up; boundaries adjacentcentroid midpoints in logMi; exactboundary ties go to lowerclass"
+  },
+  "elbow": {
+    "objective": "weighted withinclass SSE for K1..10, scaled by K1SSE; hinge-linear fit a+bK+c*max(0,K-k) against singleline on all10points; candidatek2..9, min2points eachside includingcommonk",
+    "selection": "Primary normalized Kneedle/chord distance between K1 andK10: earliestinteriork2..9 maximum chord-minusnormalizedSSE gap(atol1e-12), gap>=.1. Atthat K hinge-line adequacy relativeSSEgain>=.25, negativeleftslope, positiveslopechange andabs(rightslope)<abs(leftslope); actualSSEcurve monotone. SelectedKallclasses>=10; otherwise no_elbow/invalid_class_size. Synthetic3-separatedmeans mustrecoverK3; linear/degeneratecurves no_elbow. No realsourcefit inspected before this protocol.",
+    "not_claimed": "SSE elbow is engineering quantization, NOT a statistical proof of natural multimodality or observed functional order"
+  },
+  "stability": {
+    "replicates": 50,
+    "seed": 20261021,
+    "scheme": "multinomial(R,1/R) regionweights; fixedsourceMi values andsameprovideraxis, contextanchorsunfitted",
+    "gate": "baseline meaningful elbow K>=2; at least40of50meaningfulreplicates selecting SAME baselineK; ARI on positive-weight providers median>=.8 andp10>=.6; eachordinal boundaryIQR divided fullbaseline logMi range<=.15 acrosssameKreplicates; all50failures/K/coverage reported, no failureARI0",
+    "interpretation": "Conditional regionweight stability, NOT probabilityconfidence interval; stable class labels source-only and separatefromgeographic hierarchy"
+  },
+  "output": "allK SSEscree+centroids/classsizes; all50replicateledger+all500curves; selectedboundaries; everyeligibleordinaryprovider sourceclass or explicit unassigned ifgatefails; twoctxseparate; crosswalktoexistingpromotedunitfocals only, NEVER mutate geography, center/rural/whole mass or demographictypes",
+  "compute_budget_minutes": 5,
+  "no_new_fit_until": "independent exactprotocol/code/source-admission review"
+}
