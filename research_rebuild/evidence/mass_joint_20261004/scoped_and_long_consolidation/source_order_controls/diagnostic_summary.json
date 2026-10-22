@@ -1,0 +1,54 @@
+{
+  "status": "bounded_independent_parser_control_replay_complete",
+  "scope": "Only the ten deterministic controls embedded in the frozen source-order summary were replayed. No candidate identities were generated or admitted; no producer or canonical files changed.",
+  "frozen_summary": {
+    "path": "/workspace/settlements-work/continuation_20261004/R4/source_order_anchor_bracketed_localdistrict_final_20261004/summary.json",
+    "candidate_rows": 0,
+    "historical_control_flags": {
+      "control_old_raw_pair_not_unique": 10,
+      "control_new_raw_pair_not_unique": 10
+    },
+    "historical_flag_counts_detail": "The immutable summary stores boolean stage flags but not whether the matching raw token count was 0 or greater than 1."
+  },
+  "replay_method": {
+    "producer_function": "AST-extracted typed_raw_rows() from stage_anchor_bracketed_source_block_20261004.py; producer module was not imported and no national candidate stage was run.",
+    "graph_snapshot_for_brackets": "/workspace/settlements-work/continuation_20261004/accepted_mass_sixth_reviewed/accepted_identity_edges.parquet",
+    "graph_sha256": "cc62fc8d3184c43f6ce09cea0ce71618077347ea4dee0f53ad9709f5c20a8241",
+    "selected_snapshot": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+    "selected_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "raw_label_profile_source": "/workspace/settlements-work/continuation_20261004/root/R4/source_order_context_all_residual_2010_20261004/supplemental_raw_context_index_20261004/seven_row_source_context.csv",
+    "raw_label_profile_current_sha256": "ee825b55067449c6216680754fe1486681dc6cd640ff11c6981c71f5cff3a03a",
+    "raw_source_scope": "Only the source workbooks and sheets needed for the ten controls were opened; raw byte hashes are included per control in control_row_summary.csv and match frozen raw_source_pins.csv.",
+    "producer_script_pin_mismatch": {
+      "frozen_summary_script_sha256": "809e2f8f2c56733bad487a5342f5a68b97e4aee345079ac14e2dbeeab5aa0472",
+      "current_script_sha256": "819d6c3230ca8d866626dd371b92dcdecb733efa858081199f3e6f53144d847e",
+      "raw_label_profile_index_hash_was_in_summary_input_pins": false,
+      "effect": "The immutable zero-candidate receipt cannot be reproduced from its own complete input pins; its script and profile-index inputs do not match or pin the current diagnostic context."
+    }
+  },
+  "replay_results": {
+    "fixed_control_pairs": 10,
+    "old_and_new_raw_target_rows_replayed": 20,
+    "producer_parser_target_name_type_exact": 20,
+    "local_bracket_exact_raw_token_counts": {
+      "old_2002": {"count_1": 10, "count_0": 0, "count_gt_1": 0},
+      "new_2010": {"count_1": 10, "count_0": 0, "count_gt_1": 0}
+    },
+    "all_ten_controls_have_exactly_one_raw_typed_pair_per_year_inside_the_reconstructed_local_bracket": true,
+    "full_sheet_occurrences_are_not_local_ambiguity": "Each exact typed name occurs more than once somewhere in its complete workbook sheet, but the replayed local brackets contain exactly one occurrence per year. Full-sheet duplicates outside the bracket do not explain the historical flags."
+  },
+  "parser_issue_found": {
+    "function": "typed_raw_rows() secondary prefix stripping for separate type/name columns",
+    "bug": "When a separate type column is present and contains only a label such as 'село', source_text becomes that type cell; suffix is empty, so name_value falls back to the name cell. If that name cell itself contains a prefixed label such as 'село Березовка', the secondary cleanup builds a regex by re.escape()'ing TYPE_PREFIX regex values (for example '(?:село|с\\.)'); this cannot strip the literal prefix. The parsed name becomes 'село березовка' instead of 'березовка'.",
+    "control_relevance": "All 20 control-row profiles in the current raw context index use one prefixed name column (type_col is null); this bug does not trigger for these fixed controls. Thus the bug is real for separate-column profiles, but it does not explain the current replayed controls.",
+    "recommended_correction_for_a_successor": "Use the same compiled TYPE_RE against the raw name cell and strip by match.end() when the name cell carries a recognized prefix. Do not re.escape() regex patterns from TYPE_PREFIX. Keep source type/name literals unchanged in evidence."
+  },
+  "interpretation": "The old immutable 'not unique' flags are not supported by the current exact replay. In the current pinned sources all ten controls have local raw count 1 in both years; none is a parser-zero case and none is a true local duplicate. Because the historical summary did not record these counts and its script hash differs, treat that old diagnostic as unreproducible rather than rewriting it.",
+  "next_step_proposal": {
+    "status": "proposal_only_not_run",
+    "new_folder": "/workspace/settlements-work/continuation_20261004/root/source_order_anchor_bracketed_localdistrict_corrected_successor_20261004",
+    "preflight": "Pin the current raw profile index, exact producer script, raw workbook hashes, selected snapshot, graph and accepted point snapshot; require 10/10 old and new control block counts exactly one before candidate generation.",
+    "candidate_scope": "Only after this preflight, run a new candidate-only source-order scan with corrected separate-column prefix parsing; preserve all existing graph/point/source values and report no identity gains until a distinct review.",
+    "no_admission": true
+  }
+}

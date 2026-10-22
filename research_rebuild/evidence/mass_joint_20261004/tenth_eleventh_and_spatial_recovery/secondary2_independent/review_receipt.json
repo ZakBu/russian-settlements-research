@@ -1,0 +1,74 @@
+{
+  "status": "independent_review_complete_scoped_secondary_trajectory_eligible_no_primary_population_admission",
+  "reviewed_at_utc": "2026-10-04T11:52:20.132474+00:00",
+  "counts": {
+    "historic_primary_observations_replayed": 4,
+    "secondary_2021_claims_replayed": 2,
+    "eligible_scoped_physical_trajectories": 2,
+    "selected_2021_atomic_rows_created": 0,
+    "primary_population_values_changed": 0,
+    "national_or_federal_population_transfers": 0
+  },
+  "inputs": {
+    "/workspace/settlements-work/continuation_20261004/root/accepted_old_city_points5/temporal_projection_candidates/two_2021_secondary_claim_trajectory_candidates.csv": "e84fdee817a13546d75b7b891a04ace2ce6aa7750a91636e21c36b6a091361d5",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_old_city_points5/accepted_old_city_point_use_map.csv": "7c71f5b06f063613accc7fb0fedeb76dfc5877010bef8713d8629c0f46a5e480",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_old_city_points5_applied/accepted_point_uses.parquet": "55d48c286527d8ba367b4f2b7df7646724df246d592d8e3e62d49779cd798ede",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/large_historical_transformation_deepening_20261004/wbgetentities_old_current_6.json": "8451e40e4c55479b23ece090bf7486a851779002e3cde21606d0a4651c0ae932",
+    "/workspace/settlements-work/continuation_20261004/federal_and_history/large_historical_transformation_deepening_20261004/wbgetentities_troitsk_qids.json": "6f52e7c3ff975cfdc005946092292df67ab16865f844f629f15c6e1fb496aa98",
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "/workspace/settlements-raw/data/raw/2010_official_tom11/pub-11-1-4.pdf": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500"
+  },
+  "old_primary_values": {
+    "Троицк": {
+      "2002": 32653,
+      "2010": 39873
+    },
+    "Щербинка": {
+      "2002": 28043,
+      "2010": 32450
+    }
+  },
+  "secondary_values": {
+    "Троицк": {
+      "year": 2021,
+      "population": 65043,
+      "precision": 9,
+      "statement": "Q196691$A6B7E829-D408-4F82-A7D9-BE8187A39F5C"
+    },
+    "Щербинка": {
+      "year": 2021,
+      "population": 56531,
+      "precision": 9,
+      "statement": "Q198388$285BC1A7-7EAD-4668-9FE7-3AFFB14FEB87"
+    }
+  },
+  "decision_basis": [
+    "actual full Wikidata payload re-read: exact QID subject, P1082 value, year precision 9, rank, P248 Q126684906 reference, direct statement GUID",
+    "actual selected primary source rows re-read from pinned selected_observations; raw 2002 workbook and 2010 PDF reopened and their file hashes recorded",
+    "accepted historic point-use map and applied point ledger independently joined by exact source_record_id; both old rows per city carry the same QID/P625, and point coordinates equal that QID own P625",
+    "historic classifier exact code/name/type/province uniqueness carried by frozen candidate evidence and checked alongside the exact historic source records"
+  ],
+  "limits": [
+    "The two 2021 P1082 observations remain secondary Wikidata claims; they are not selected current census rows.",
+    "P585 is year-only (precision 9); no exact day/date asserted.",
+    "Census population scope/grain and 2002/2010/2021 boundary comparability remain unknown.",
+    "Coordinates are retrospective current representative physical-place context, not 2021 census measurement.",
+    "No 2021 selected atomic identity rows or current native identifier bindings are created.",
+    "Do not add these city values to the Moscow aggregate or compare/sum them with Moscow territorial population.",
+    "Historic 2002 Shcherbinka workbook has parent and urban-population subrows at the same 28,043 value; retained the explicit urban-population row only, no sum/double count."
+  ],
+  "zheleznodorozhny_event": {
+    "subject": "Q136023",
+    "P1366_guid": "Q136023$fdc0fba7-4ebe-47fa-d001-06ee9abb1010",
+    "target": "Q104557",
+    "interpretation": "typed successor event only; not same-place identity; event date unknown in P1366",
+    "status": "secondary Wikidata structured successor claim; no same-place identity; no population transfer; no event date evidenced in P1366"
+  },
+  "outputs": {
+    "six_observation_review.csv": "e0b6471323f858c2d95077af3c9c9ab34e5a37f8dc3c44274b7065fecee288e5",
+    "six_observation_review.parquet": "7b0494de0ec337256b36cd3c884f418b91a8ac0fe156febf480f83cf73a986e9",
+    "eligible_physical_trajectory_decisions.csv": "32695b27883f1ea318057349d673b941a01f8e21bdedf907fc555c45872ee576",
+    "zheleznodorozhny_event_disposition.json": "270e6dda84cac25cef49751e20c50d447499a5549e34f4da87ed0dc3408bf141"
+  }
+}

@@ -11,7 +11,9 @@ from pathlib import PurePosixPath, Path
 def allowed(path, policy):
     p = PurePosixPath(path)
     return (
-        path in policy['exact_paths']
+        path in policy.get('_protected_context_paths', policy.get('protected_context_paths', []))
+        or p.suffix in policy.get('context_extensions', [])
+        or path in policy['exact_paths']
         or p.name in policy['instruction_or_license_names']
         or p.suffix in policy['code_extensions']
         or p.suffix in policy['configuration_extensions']
@@ -27,13 +29,19 @@ def allowed(path, policy):
 
 def check(entries, policy):
     errors = []
+    protected = set(policy.get('protected_context_paths', []))
+    policy = {**policy, '_protected_context_paths': protected}
+    present = {entry['path'] for entry in entries}
+    for path in sorted(protected - present):
+        errors.append({'path': path, 'reason': 'protected_research_context_missing'})
     total = 0
     for entry in entries:
         path, size = entry['path'], entry.get('size', 0)
         total += size
         if not allowed(path, policy):
             errors.append({'path': path, 'reason': 'path_not_allowed'})
-        if size > policy['max_file_bytes']:
+        limit = policy.get('protected_context_max_file_bytes', policy['max_file_bytes']) if path in protected else policy['max_file_bytes']
+        if size > limit:
             errors.append({'path': path, 'reason': 'file_too_large', 'bytes': size})
     if total > policy['max_snapshot_bytes']:
         errors.append({'reason': 'snapshot_too_large', 'bytes': total})

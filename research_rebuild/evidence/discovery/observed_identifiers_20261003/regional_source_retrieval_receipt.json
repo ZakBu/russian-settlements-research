@@ -1,0 +1,84 @@
+{
+  "retrieved_at_utc": "2026-10-02T21:41:33.940609+00:00",
+  "note": "Only availability and hash check; source content not used; root review required before parsing or integration.",
+  "items": [
+    {
+      "filename": "murmansk_population.doc",
+      "expected_sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+      "retrievals": [
+        {
+          "route": "official_origin",
+          "requested_url": "https://51.rosstat.gov.ru/storage/mediabank/14(1).doc",
+          "error_type": "HTTPError",
+          "error": "HTTP Error 503: Service Unavailable",
+          "tls_verify": true
+        },
+        {
+          "route": "recorded_archive",
+          "requested_url": "https://web.archive.org/web/20240718144234id_/https://51.rosstat.gov.ru/storage/mediabank/14(1).doc",
+          "final_url": "https://web.archive.org/web/20240718144234id_/https://51.rosstat.gov.ru/storage/mediabank/14(1).doc",
+          "status_code": 200,
+          "content_type": "application/msword",
+          "bytes": 384000,
+          "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+          "sha_matches_reviewed_source": true,
+          "tls_verify": true
+        }
+      ],
+      "accepted_download_path": "/workspace/settlements-work/sources/r2-missing/murmansk_population.doc",
+      "retrieval_used": "recorded_archive"
+    },
+    {
+      "filename": "murmansk_grouping.doc",
+      "expected_sha256": "2ea4bfc26203662fc7d000936d385a85e06f4a023bbc29ff75efb1908548c418",
+      "retrievals": [
+        {
+          "route": "official_origin",
+          "requested_url": "https://51.rosstat.gov.ru/storage/mediabank/02(2).doc",
+          "error_type": "HTTPError",
+          "error": "HTTP Error 503: Service Unavailable",
+          "tls_verify": true
+        },
+        {
+          "route": "recorded_archive",
+          "requested_url": "https://web.archive.org/web/20240718144159id_/https://51.rosstat.gov.ru/storage/mediabank/02(2).doc",
+          "final_url": "https://web.archive.org/web/20240718144159id_/https://51.rosstat.gov.ru/storage/mediabank/02(2).doc",
+          "status_code": 200,
+          "content_type": "application/msword",
+          "bytes": 70656,
+          "sha256": "2ea4bfc26203662fc7d000936d385a85e06f4a023bbc29ff75efb1908548c418",
+          "sha_matches_reviewed_source": true,
+          "tls_verify": true
+        }
+      ],
+      "accepted_download_path": "/workspace/settlements-work/sources/r2-missing/murmansk_grouping.doc",
+      "retrieval_used": "recorded_archive"
+    },
+    {
+      "filename": "kaliningrad_tom1.xlsx",
+      "expected_sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+      "retrievals": [
+        {
+          "route": "official_origin",
+          "requested_url": "https://39.rosstat.gov.ru/storage/mediabank/Итоги+ВПН-2010_том1.xlsx",
+          "error_type": "UnicodeEncodeError",
+          "error": "'ascii' codec can't encode characters in position 23-27: ordinal not in range(128)",
+          "tls_verify": true
+        },
+        {
+          "route": "recorded_archive",
+          "requested_url": "https://web.archive.org/web/20250619171623id_/https://39.rosstat.gov.ru/storage/mediabank/%D0%98%D1%82%D0%BE%D0%B3%D0%B8+%D0%92%D0%9F%D0%9D-2010_%D1%82%D0%BE%D0%BC1.xlsx",
+          "final_url": "https://web.archive.org/web/20250619171623id_/https://39.rosstat.gov.ru/storage/mediabank/%D0%98%D1%82%D0%BE%D0%B3%D0%B8+%D0%92%D0%9F%D0%9D-2010_%D1%82%D0%BE%D0%BC1.xlsx",
+          "status_code": 200,
+          "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "bytes": 306344,
+          "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+          "sha_matches_reviewed_source": true,
+          "tls_verify": true
+        }
+      ],
+      "accepted_download_path": "/workspace/settlements-work/sources/r2-missing/kaliningrad_tom1.xlsx",
+      "retrieval_used": "recorded_archive"
+    }
+  ]
+}

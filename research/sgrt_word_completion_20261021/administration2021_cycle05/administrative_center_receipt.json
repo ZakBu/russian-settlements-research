@@ -1,0 +1,101 @@
+{
+  "status": "ACTUAL_OFFICIAL_JANUARY2021_ADMIN_CENTER_ROLES_LINKED_PENDING_INDEPENDENT_REVIEW",
+  "created_utc": "2026-10-21T06:04:36.486595+00:00",
+  "source_sha256": {
+    "research/sgrt_word_completion_20261021/administration2021_cycle05/sources/data-20210118-structure-20150128.csv": "ac724b628c036d9aeb63b84f43f37ce326ebd18e7b5f77f223872257206aa867",
+    "research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet": "29fa9586278e08a937651fb4fcddbc929a02d46e6dcbe44f5f14793ae6fab3fc",
+    "research/sgrt_word_completion_20261021/administration2021_cycle05/sources/VvedOKTMO.docx": "2eaac308260cf13af91bf12de2a9669f3133573f82d76acee505f05f65bb8b5b",
+    "research/sgrt_word_completion_20261021/administration2021_cycle05/sources/oktmo_structure2015.csv": "098099e8f4d5a576e20e953a78bc7fc38b5b25d406614775e82a7d9956809cce"
+  },
+  "inputs_unchanged": true,
+  "code_sha256": "9d2ff7bd1f5c5215301cbbed51d89b75bcfe8327af7ad487afe65d49809fa11a",
+  "source_snapshot": "2021-01-18",
+  "latest_source_DateVved": "2021-01-01",
+  "all_CSV_rows": 197743,
+  "native_NP_rows": 155627,
+  "municipality_source_rows_with_explicit_Centrum": 20172,
+  "summary_by_municipal_level": [
+    {
+      "municipal_level": "lower_settlement_municipality",
+      "source_role_rows": 17831,
+      "source_role_rows_resolved_to_native_NP": 17826,
+      "role_rows_accepted_axis_native2021": 17200,
+      "unique_axis_NP_role_centers": 17148,
+      "source_link_statuses": {
+        "exact_typed_Centrum_unique_within_native_municipality_scope": 17769,
+        "exact_typed_Centrum_unique_in_native_subject_may_lie_outside_municipality": 57,
+        "ambiguous_typed_Centrum_within_municipality": 3,
+        "Centrum_not_found_as_exact_typed_native_NP": 2
+      },
+      "axis_link_statuses": {
+        "accepted_exact_native2021_NP_code_literal_name_compatible_class": 17200,
+        "no_axis_native2021_exact_code_match": 466,
+        "source2021Jan_vs_axis2021_name_conflict_not_backcast": 160,
+        "source_NP_unresolved": 5
+      }
+    },
+    {
+      "municipal_level": "upper_municipality",
+      "source_role_rows": 2341,
+      "source_role_rows_resolved_to_native_NP": 2336,
+      "role_rows_accepted_axis_native2021": 2252,
+      "unique_axis_NP_role_centers": 2101,
+      "source_link_statuses": {
+        "exact_typed_Centrum_unique_within_native_municipality_scope": 2184,
+        "exact_typed_Centrum_unique_in_native_subject_may_lie_outside_municipality": 152,
+        "Centrum_not_found_as_exact_typed_native_NP": 3,
+        "ambiguous_typed_Centrum_within_municipality": 2
+      },
+      "axis_link_statuses": {
+        "accepted_exact_native2021_NP_code_literal_name_compatible_class": 2252,
+        "no_axis_native2021_exact_code_match": 76,
+        "source2021Jan_vs_axis2021_name_conflict_not_backcast": 8,
+        "source_NP_unresolved": 5
+      }
+    }
+  ],
+  "positive_upper_role_unique_axis_NP": 2101,
+  "positive_district_role_unique_axis_NP": 1565,
+  "positive_lower_role_unique_axis_NP": 17148,
+  "positive_any_role_unique_axis_NP": 17824,
+  "axis_rows": 173527,
+  "source_explicit_type_vs_normative_series_disagreements": 70,
+  "explicit_primary_NAME1_type_overrides_normative_code_series_for_published_exceptions": true,
+  "source_role_vs_native_NP_not_assumed_from_municipality_name": true,
+  "crossyear_or_codechange_equivalence_inferred": false,
+  "centroid_or_geonames2026_used": false,
+  "population_used_to_choose_identity": false,
+  "source2021_role_not_assumed_october2021_unchanged": true,
+  "role_is_not_physical_institution_count": true,
+  "raw_Status_retained_without_reinterpreting_as_current_annulment_filter": true,
+  "output_files": {
+    "administration2021_settlement_features.parquet": {
+      "sha256": "cf00e5247b73ba973183915e5a9a38756b6d58ffada6c93c181f62bba92e5feb",
+      "bytes": 8039980
+    },
+    "administrative_center_axis_linkage.parquet": {
+      "sha256": "dae6ed2589e70b207ab557c3bfc174054cb00a4407b83e96235c9ac35b52ec08",
+      "bytes": 3927228
+    },
+    "official20210118_municipality_center_to_native_NP.parquet": {
+      "sha256": "51a733543928e9feddc5b9f9404d7a32221c8f84b5e760cf156a3bf4c2769fd9",
+      "bytes": 1803255
+    },
+    "official20210118_native_np_roster.parquet": {
+      "sha256": "590246128aa6ebe747ba42cdb8179bd47866cde3cd347a4c594e191d9fa273e3",
+      "bytes": 6700554
+    },
+    "coverage_by_population_size.csv": {
+      "sha256": "eba509ff3fe4cab28366b501381a7beef708185bef15936d7b04c8a5ed206e1c",
+      "bytes": 257
+    },
+    "coverage_by_region.csv": {
+      "sha256": "7bb5cd86f3a78ee41a50b07cb8cf0930460e6742105709454fd5c9e106799bfd",
+      "bytes": 3078
+    },
+    "coverage_by_rural_urban_class.csv": {
+      "sha256": "6f820437d532df4e94dfbac1a57e2ae7df3bbac3813ccb432dcbb9e8c63868e8",
+      "bytes": 211
+    }
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "manifest_version": "eao71_point879_on_graph14",
+  "reviewed_at_utc": "2026-10-04T20:21:16.577695+00:00",
+  "frozen": {
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+    },
+    "legacy_availability": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/legacy_availability_projected_r5.parquet",
+      "sha256": "3c21c2edbc7ab0813929775c1d5100d5e15bb25b6c5cdb31d3fe46edd80270d5"
+    }
+  },
+  "base": {
+    "graph": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fourteenth_primary22/accepted_identity_edges.parquet",
+      "sha256": "2814367aa4801097a2a358df8f9d321a55bedb93baaa460ccf4df9c0c74197d4"
+    },
+    "points": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_fourteenth_primary22/accepted_point_uses.parquet",
+      "sha256": "0a50fd1697a44aebd961f7da203339c96df42c54c4a8e3713334a04cfbb0ce3c"
+    }
+  },
+  "identity_sources": [
+    {
+      "candidate": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/eao71_point879_manifest_preparation/eao71_adapter.csv",
+        "sha256": "5603428844e929660a25abb6c5154f9e388186d264b616c95d725ed309e1cbae"
+      },
+      "eligible": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/eao71_point879_manifest_preparation/eao71_eligible.csv",
+        "sha256": "8ba5067462f0ea0d7f8ce65f3e859fa6f9f8803ab839bcc7d76df2b1ecc686f9"
+      },
+      "review_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/eao_2002_region_binding71_review_v1/receipt.json",
+        "sha256": "8c229fe6f491621f6f6183c883eb4567fd7a5b381ca45a549629cf22e475377a"
+      },
+      "candidate_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "integration_rule_family",
+        "id": "decision_id",
+        "status": "integration_layer",
+        "collision": "same_year_collision",
+        "event": "verified_successor_event",
+        "global_block": "global_block"
+      },
+      "eligible_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "family"
+      },
+      "accepted_candidate_statuses": [
+        "staged_candidate_pending_independent_review"
+      ],
+      "canonical_columns": {
+        "relation": "relation",
+        "decision_class": "integration_rule_family"
+      },
+      "exclude_if_true": [
+        "collision",
+        "event",
+        "global_block"
+      ]
+    }
+  ],
+  "point_sources": [
+    {
+      "candidate": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/point870_manifest_preparation/current870.csv",
+        "sha256": "96011b38a32e3c9a83ae98a4795eb094ad78e389b320889b29d945eb84ace552"
+      },
+      "approved": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/point870_manifest_preparation/current870.csv",
+        "sha256": "96011b38a32e3c9a83ae98a4795eb094ad78e389b320889b29d945eb84ace552"
+      },
+      "review_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/point_only_full3_reserve_v3/receipt.json",
+        "sha256": "a1894df980ecbcff9c4f55ba62221868f2f20b6679f0bf3afa2f0b2d66662d49"
+      },
+      "origin": {
+        "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+        "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+      },
+      "candidate_columns": {
+        "target": "target_source_record_id",
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "origin_file": "point_origin_file",
+        "origin_sha256": "point_origin_sha256",
+        "origin_locator": "point_origin_locator"
+      },
+      "approved_columns": {
+        "target": "target_source_record_id",
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "origin_file": "point_origin_file",
+        "origin_sha256": "point_origin_sha256",
+        "origin_locator": "point_origin_locator"
+      },
+      "output_columns": {
+        "coordinate_admission_rule": "manual_review_rule",
+        "coordinate_source_record_id": "source_year_current_carrier_id"
+      },
+      "output_values": {
+        "point_origin_kind": "tochno_2021_dadata_raw_parquet_point",
+        "coordinate_provenance": "Raw 2021 named FIAS level6 locality point; independent rule/source replay. Undated representative point; historical use only via existing accepted graph.",
+        "direct_historical_coordinate_measurement": false,
+        "census_date_point_measurement_proven": false,
+        "native_id_binding_asserted": false
+      }
+    },
+    {
+      "candidate": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/point879_manifest_preparation/alias_current9.csv",
+        "sha256": "c4f86acfa24f2511c7958cb4c699dda338015bab3957baeb2a093339938e7108"
+      },
+      "approved": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/point879_manifest_preparation/alias_current9.csv",
+        "sha256": "c4f86acfa24f2511c7958cb4c699dda338015bab3957baeb2a093339938e7108"
+      },
+      "review_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/point_only_full3_reserve_alias_successor_v1/receipt.json",
+        "sha256": "85ec7ff2bbcf512bc3ffa9c95c20675067581e349a497803c82cc65d2e1a666e"
+      },
+      "origin": {
+        "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+        "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+      },
+      "candidate_columns": {
+        "target": "target_source_record_id",
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "origin_file": "point_origin_file",
+        "origin_sha256": "point_origin_sha256",
+        "origin_locator": "point_origin_locator"
+      },
+      "approved_columns": {
+        "target": "target_source_record_id",
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "origin_file": "point_origin_file",
+        "origin_sha256": "point_origin_sha256",
+        "origin_locator": "point_origin_locator"
+      },
+      "output_columns": {
+        "coordinate_admission_rule": "manual_review_rule",
+        "coordinate_source_record_id": "source_year_current_carrier_id"
+      },
+      "output_values": {
+        "point_origin_kind": "tochno_2021_dadata_raw_parquet_point",
+        "coordinate_provenance": "Raw 2021 named FIAS level6 locality point; independent rule/source replay. Undated representative point; historical use only via existing accepted graph.",
+        "direct_historical_coordinate_measurement": false,
+        "census_date_point_measurement_proven": false,
+        "native_id_binding_asserted": false
+      }
+    }
+  ],
+  "blocked_targets": {
+    "path": "/workspace/settlements-work/continuation_20261004/root/eao71_point879_manifest_preparation/blocked_point_reuse_targets.json",
+    "sha256": "20882fa230288f20904f3fd2e670fc18f9ad8cd5bdc8e7a883b436c389f56b5d"
+  },
+  "federal_points": {
+    "path": "/workspace/settlements-work/continuation_20261004/federal_application/accepted_territory_reference_points.parquet",
+    "sha256": "3b366d9a513b0396e90813f03c4e3af1cd0b1caef92379a9ae95cae43451d6e3"
+  },
+  "federal_chains": {
+    "path": "/workspace/settlements-work/continuation_20261004/federal_application/accepted_typed_city_continuity.parquet",
+    "sha256": "ee5898e3e5495d691f230e18fce08191fcc287ed35e06d969140bb05df75c695"
+  },
+  "legacy_collision_resolution_reviews": [],
+  "review_context_inputs": [
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/point_only_full3_reserve_v3/receipt.json",
+      "sha256": "a1894df980ecbcff9c4f55ba62221868f2f20b6679f0bf3afa2f0b2d66662d49"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/point_only_full3_reserve_v3/fixed_stratified_random_sample.csv",
+      "sha256": "7a58168c1586a0a59b11f1ac56ef0449002625d89cd86b072c9a743b7af5005a"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/point_only_full3_reserve_v3/separate_large_risk_review.csv",
+      "sha256": "df8af98a38c77a0296edc4285ba5e9362f208b84da81f49de5dea37642333d03"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/root/prepare_point870_batch.py",
+      "sha256": "904eecb92ef00eab22993cc2ba03d8e80478d06e0a8e26de1da62f0956c10e79"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/root/point870_manifest_preparation/apply_reviewed_mass_extensions_20261004.py",
+      "sha256": "79ad6ff818084698903570c1ee7c1281e8cbfcb4e9b03853075211326ab734fa"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/point_only_full3_reserve_alias_successor_v1/receipt.json",
+      "sha256": "85ec7ff2bbcf512bc3ffa9c95c20675067581e349a497803c82cc65d2e1a666e"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/point_only_full3_reserve_alias_successor_v1/alias_successor_review.csv",
+      "sha256": "4d044308351b7ff299346cfb31324367005e4a600b2af89927b6b10940b832e5"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/root/prepare_point879_successor.py",
+      "sha256": "e049b618695835f0ed6eea0c80a44aa56e4aed54d80a9c4757cff81fb6b4cd3b"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/eao_2002_region_binding71_review_v1/receipt.json",
+      "sha256": "8c229fe6f491621f6f6183c883eb4567fd7a5b381ca45a549629cf22e475377a"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/eao_2002_region_binding71_review_v1/source_hash_pins.json",
+      "sha256": "eea39d843105a3924fd9f8380982caa0bfd13baec1e870b4180116bea321a2c9"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/eao_2002_region_binding71_review_v1/review_summary.json",
+      "sha256": "d9b97f28540ea6afcc47d5afcadb60ad6e7d5ea988802516a49ab559402fe1e1"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/root/prepare_eao71_point879_batch.py",
+      "sha256": "9fba1ebf2fb7de15287b65198e305b6b9cfb5cd8c4eff6b83ac2e56dc3503efc"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/root/eao71_point879_manifest_preparation/apply_reviewed_mass_extensions_20261004.py",
+      "sha256": "79ad6ff818084698903570c1ee7c1281e8cbfcb4e9b03853075211326ab734fa"
+    }
+  ],
+  "current_user_goal_population_fraction": 0.99,
+  "application_scope": "870 new current own settlement-level DaData points; graph unchanged; historical point uses only through existing accepted graph. No population edits, historical measurement or boundary equivalence. Nine separately reviewed explicit locality type/name aliases; no wrong-object-level point waiver. 71 reviewed EAO2002 physical links using publisher-scoped region binding, retain raw region token; two historical point uses held explicitly."
+}

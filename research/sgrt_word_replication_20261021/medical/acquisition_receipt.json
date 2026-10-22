@@ -1,0 +1,99 @@
+{
+  "status": "PASS_RECOVERED_BASELINE_WITH_EXPLICIT_LIMITS",
+  "axis_rows": 142570,
+  "uid_equal_master": true,
+  "uid_unique": true,
+  "master_sha256": "8c98d5a113eec4c3bf131232b1d7e5c6362dc3a50ee484e964420de58c377f85",
+  "places_hospital_baseline_records": 4061,
+  "places_healthcare_baseline_records": 5798,
+  "places_hospital_baseline_settlements": 331,
+  "places_healthcare_baseline_settlements": 303,
+  "physical_baseline_settlements": 385,
+  "physical_baseline_urban_settlements": 374,
+  "physical_baseline_other_settlements": 11,
+  "pilot_object_rows": 59,
+  "pilot_linked_rows": 53,
+  "pilot_link_status": {
+    "exact_name_region_administrative_context_pilot": 52,
+    "ambiguous_or_context_mismatch": 3,
+    "missing_name_or_region": 2,
+    "explicit_city_name_region_type_pilot": 1,
+    "name_region_absent": 1
+  },
+  "pilot_deduplicated_linked_sites": 48,
+  "pilot_subtype_counts": {
+    "FAP": 27,
+    "ambulatory": 11,
+    "local_hospital": 6,
+    "district_hospital": 3,
+    "outpatient_clinic": 1
+  },
+  "physical_evidence_union_settlements": 433,
+  "tariff_snapshot_rows": 49,
+  "history_summary": [
+    {
+      "snapshot_date": "2025-01-01",
+      "listed_units": 25,
+      "medical_worker_present": 19,
+      "registered_population": 6422,
+      "linked_rows": 21,
+      "population_semantics": "tariff_registered_population_not_census_or_actual_visits"
+    },
+    {
+      "snapshot_date": "2026-01-01",
+      "listed_units": 24,
+      "medical_worker_present": 19,
+      "registered_population": 6286,
+      "linked_rows": 21,
+      "population_semantics": "tariff_registered_population_not_census_or_actual_visits"
+    }
+  ],
+  "national_subtype_history_available": false,
+  "national_inpatient_capacity_available": false,
+  "official_registry_downloaded": false,
+  "sources": {
+    "research/sgrt_functional_dynamics_20261019/medical/objects.csv": "fa0bf1768137645d66673e37d68e06609adc7c7da6c3c0e5ff44091db2591408",
+    "research/sgrt_functional_dynamics_20261019/medical/object_aliases.csv": "fc7a3914437b520916e2079acf09a71bea1f5c0c596e956987bca7915e80c83f",
+    "research/sgrt_functional_dynamics_20261019/medical/tariff_snapshots.csv": "8b91cd156daf0f5984b9047480c00d0bb635e334e1c2010963e78e6660fa4db7",
+    "research/sgrt_functional_dynamics_20261019/medical/tariff_changes.csv": "ce2a927070ec7ebeebb72afcbe9b5014d3447401351dd3232823186e826919d4"
+  },
+  "limitations": [
+    "Placeshospital is a provider category, not confirmed inpatient beds or active hospital campus.",
+    "Healthcare excludes no subtype silently: clinics, FAP, ambulatory and inpatient capacity remain unknown nationally.",
+    "Pilot territorial/context binding is separate and not a national completeness estimate.",
+    "RFSDhealth86 is legal reporting presence, not physical-site service history.",
+    "Present list absence is unknown, not closure.",
+    "Urban sites are preserved; no rural-only filter applied."
+  ],
+  "outputs": {
+    "objects.parquet": {
+      "bytes": 26856,
+      "sha256": "5f5fee67f92210c23cc8fa322e8eef80cb01ebd66c549e24f9126f68d7480e71"
+    },
+    "documented_history_summary.csv": {
+      "bytes": 269,
+      "sha256": "6d8aa3f5e900f0a3d3ee4fb0dd12a985f3a67b4b0b8f08ff63179c46109c1c1b"
+    },
+    "settlement_features.parquet": {
+      "bytes": 6741597,
+      "sha256": "848295570ebc091e75800f8aafce0afc4d18678587a2cbc25f02094f03037b33"
+    },
+    "documented_tariff_history.csv": {
+      "bytes": 39730,
+      "sha256": "98d0ee92ffe93b11fa0299aa5639c1fb0abdd7361048e56b3b77bbc4dce108d5"
+    },
+    "documented_tariff_changes.csv": {
+      "bytes": 5655,
+      "sha256": "35eede881b5be211dac1908349ff4288daaa461618efa0ce0fe27c156d4f3c62"
+    },
+    "objects.csv": {
+      "bytes": 42333,
+      "sha256": "de5a3f03abc7e601dad1c53c57e037d52dc28f4f6f0ab06f2ac3d9b033cd2add"
+    },
+    "documented_tariff_history.parquet": {
+      "bytes": 23485,
+      "sha256": "969068473c5772402dba3d1801bb18e159f5926a14905e4e3430032df5787b8e"
+    }
+  },
+  "master_bytes_unchanged_during_build": true
+}

@@ -1,0 +1,81 @@
+{
+  "created_utc": "2026-10-09",
+  "scope": "A112 Turgoiak source-bound temporal candidate review. Read-only; no canonical graph/config/source changes.",
+  "selected_rows": [
+    {
+      "source_record_id": "2002:1_TOM_01_04.xls:0:8028",
+      "census_year": 2002,
+      "settlement_name": "Тургояк",
+      "settlement_type": "пгт",
+      "region_raw": "челябинская",
+      "municipality_raw": null,
+      "population": 2292.0
+    },
+    {
+      "source_record_id": "2010:003_eb441570b1_11._20Урал_ФО_2010.xls:Урал:5988",
+      "census_year": 2010,
+      "settlement_name": "Тургояк",
+      "settlement_type": "посёлок",
+      "region_raw": "челябинская",
+      "municipality_raw": null,
+      "population": 2618.0
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161448",
+      "census_year": 2021,
+      "settlement_name": "Тургояк",
+      "settlement_type": "посёлок",
+      "region_raw": "Челябинская область",
+      "municipality_raw": "Миасский городской округ",
+      "population": 2766.0
+    }
+  ],
+  "source_sha256": {
+    "2002": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "2010": "042e8e141831b431d8b7addd9674959625ddbdf6fa79986e81e968d941ab1156",
+    "2021": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "classifier": "343c0f5af1f52b9276699d9fe8d883b58def5aeabdd904063389606d29bc2b81",
+    "geokladr": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+    "selected": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "points": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502"
+  },
+  "source_row_ids": [
+    "2002:1_TOM_01_04.xls:0:8028",
+    "2010:003_eb441570b1_11._20Урал_ФО_2010.xls:Урал:5988",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161448"
+  ],
+  "current_accepted_point": {
+    "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161448",
+    "latitude": "55.152781",
+    "longitude": "60.119009",
+    "coordinate_admission_status": "reviewed_extension_rule_accepted",
+    "coordinate_source_record_id": "GeoKLADR2011:OKATO:75442000022",
+    "point_origin_file": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+    "point_origin_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "point_origin_locator": "raw_dbf_record_number_1based=124825;byte_offset_0based=49306185",
+    "point_origin_kind": "geokladr_2011_raw_dbf_coordinate"
+  },
+  "current_raw_2021_geo": {
+    "latitude": 55.0672484,
+    "longitude": 59.9895444,
+    "okato": "75442000022",
+    "oktmo": "75742000211",
+    "qc_geo": 3,
+    "qc": 0,
+    "type": "поселок",
+    "municipality": "Миасский городской округ",
+    "distance_from_accepted_point_km": 12.58
+  },
+  "competing_objects": [
+    "2002 same-name village row, population 22 under Syrostan council; distinct from 2002 Tom 1 urban pgt row.",
+    "2010 row 5989 railway station population 11, separate from main locality.",
+    "2021 row 161449 railway station population 7, separate OKATO 75442000023."
+  ],
+  "edge_candidate_count": 2,
+  "edge_status": "Candidate only pending root graph year-collision/union replay.",
+  "point_status": "No new point candidate; current accepted point is GeoKLADR-derived. A conflicting publisher point is 12.56 km away.",
+  "data_file_sha256": {
+    "turgoyak_temporal_edge_candidates.csv": "ba7875a3c10eebaf2b09ba02cb39f85b13f5e82ac8c02a592db6b32e10149579",
+    "current_point_coordinate_conflict.csv": "713418f8fc5ee5c0a959ca041e25efd1acdf03c5ff3c88aa4228256893885699"
+  }
+}

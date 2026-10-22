@@ -1,0 +1,94 @@
+{
+  "created_utc": "2026-10-05",
+  "scope": "Read-only exact source replay and Graph24 connectivity reconciliation for 923 independently reviewed P1082/source pairs. No population or canonical identity/point data changed.",
+  "inputs": [
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/wd_population_signatures_final923/eligible_qid_source_pairs.csv",
+      "sha256": "cd43b3bf4abe881a7e2ad378e3e40c2ad5bd5cf4fe00cc0d15ca62cf812ce99a",
+      "bytes": 518005
+    },
+    {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327",
+      "bytes": 132412248
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_graph24_anapa_20261005/accepted_identity_edges.parquet",
+      "sha256": "31773a37a3d48488c955bb84d644f24b434fadcc4dc587400c9ba1db20597fc3",
+      "bytes": 66704912
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet",
+      "sha256": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+      "bytes": 928249
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "bytes": 15230814
+    }
+  ],
+  "outputs": {
+    "endpoint_replay.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/wd_p1082_official_source_replay_20261005/endpoint_replay.csv",
+      "sha256": "9fe09b142ab8f0ceee8545cabf0fd24d9460eac65de5703249aec0066793bc81",
+      "bytes": 1080987
+    },
+    "2010_unique_table5_exact_value_candidates.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/wd_p1082_official_source_replay_20261005/2010_unique_table5_exact_value_candidates.csv",
+      "sha256": "a59a22571fd6e60b1aa33447d0b003b7565e22917e22bd70629980ae63baf20e",
+      "bytes": 21001
+    },
+    "2010_table5_ambiguous_keys.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/wd_p1082_official_source_replay_20261005/2010_table5_ambiguous_keys.csv",
+      "sha256": "1d9fcfa522ab90a17802b24b0f4c30c7d3a84c3f7917d7a3289eb1b42e9392d8",
+      "bytes": 1111
+    }
+  },
+  "results": {
+    "2002": {
+      "candidate_pairs": 923,
+      "raw_source_locator_exact_typed_name_type_region_and_count": 923,
+      "p1082_population_sum": 822654,
+      "selected_population_sum": 822654,
+      "source_match_unique_key_collision_count": 0,
+      "Graph24_active_endpoint_connectivity_to_current_2021_source": "923/923",
+      "clean_population_coverage_gain": 0
+    },
+    "2010_official_Table5": {
+      "candidate_pairs": 923,
+      "typed_name_type_region_key_candidates": 103,
+      "unique_Table5_key_candidates": 101,
+      "ambiguous_Table5_key_candidates": 2,
+      "no_Table5_key_candidates": 820,
+      "unique_key_and_exact_P1082_matches": 46,
+      "unique_exact_Table5_P1082_sum": 219553,
+      "selected_population_sum_for_these_46": 219516,
+      "selected_equals_Table5_and_P1082_count": 8,
+      "selected_equal_subset_population_sum": 42805,
+      "selected_population_differs_count": 38,
+      "ambiguous_key_with_a_matching_value_hold_count": 2,
+      "Graph24_active_endpoint_connectivity_to_current_2021_source": "923/923",
+      "clean_population_coverage_gain": 0
+    },
+    "Graph24": {
+      "active_projected_edge_rows_used": 348606,
+      "unique_graph_nodes": 419358,
+      "connected_pairs_2002_to_current": 923,
+      "connected_pairs_2010_to_current": 923,
+      "candidate_pairs_checked": 923,
+      "marginal_gain_for_this_cohort": 0
+    },
+    "interpretation": "The 46 2010 Table 5 matches improve source-level provenance and expose population-value discrepancies for separate review; they do not add linked source-year coverage because all 923 pairs are already connected in Graph24. Do not overwrite selected populations. Table 5 scope is limited and the 820 no-key cases are not evidence of error."
+  },
+  "limitations": [
+    "P1082 statement replay and Table 5 row agreement establish source corroboration, not historic place identity by themselves.",
+    "The 2 ambiguous Table 5 key matches remain held even where one competing row matches the P1082 count.",
+    "Selected populations and canonical graph/point ledgers were not modified."
+  ]
+}

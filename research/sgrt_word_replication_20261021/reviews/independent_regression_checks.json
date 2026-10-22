@@ -1,0 +1,83 @@
+{
+  "independent_algorithm": "closed-form numpy ridge with independently reconstructed features and train-only scaling",
+  "checks": {
+    "2002-2021_target_recomputed": true,
+    "2002-2021_regions_disjoint_all_folds": true,
+    "2002-2021_M1_same_ids": true,
+    "2002-2021_M1_closed_form_predictions": true,
+    "2002-2021_M1_rmse_mae": true,
+    "2002-2021_M2_same_ids": true,
+    "2002-2021_M2_closed_form_predictions": true,
+    "2002-2021_M2_rmse_mae": true,
+    "2002-2021_M3_same_ids": true,
+    "2002-2021_M3_closed_form_predictions": true,
+    "2002-2021_M3_rmse_mae": true,
+    "2010-2021_target_recomputed": true,
+    "2010-2021_regions_disjoint_all_folds": true,
+    "2010-2021_M1_same_ids": true,
+    "2010-2021_M1_closed_form_predictions": true,
+    "2010-2021_M1_rmse_mae": true,
+    "2010-2021_M2_same_ids": true,
+    "2010-2021_M2_closed_form_predictions": true,
+    "2010-2021_M2_rmse_mae": true,
+    "2010-2021_M3_same_ids": true,
+    "2010-2021_M3_closed_form_predictions": true,
+    "2010-2021_M3_rmse_mae": true,
+    "all_comparison_intervals_include_zero": true
+  },
+  "n_checks": 23,
+  "n_passed": 23,
+  "all_pass": true,
+  "results": [
+    {
+      "period": "2002-2021",
+      "model": "M1",
+      "n": 304,
+      "max_prediction_abs_difference": 1.6306400674181987e-16,
+      "rmse": 0.019372491528716583,
+      "mae": 0.011306687892251385
+    },
+    {
+      "period": "2002-2021",
+      "model": "M2",
+      "n": 304,
+      "max_prediction_abs_difference": 1.6653345369377348e-16,
+      "rmse": 0.018773295857470337,
+      "mae": 0.011243373309156212
+    },
+    {
+      "period": "2002-2021",
+      "model": "M3",
+      "n": 304,
+      "max_prediction_abs_difference": 2.185751579730777e-16,
+      "rmse": 0.018377017638131196,
+      "mae": 0.010975309524026863
+    },
+    {
+      "period": "2010-2021",
+      "model": "M1",
+      "n": 304,
+      "max_prediction_abs_difference": 6.938893903907228e-17,
+      "rmse": 0.01614168498740038,
+      "mae": 0.011296578818087199
+    },
+    {
+      "period": "2010-2021",
+      "model": "M2",
+      "n": 304,
+      "max_prediction_abs_difference": 1.5959455978986625e-16,
+      "rmse": 0.01577775227096095,
+      "mae": 0.011398589594769236
+    },
+    {
+      "period": "2010-2021",
+      "model": "M3",
+      "n": 304,
+      "max_prediction_abs_difference": 1.6479873021779667e-16,
+      "rmse": 0.015438189964083323,
+      "mae": 0.011008879331619034
+    }
+  ],
+  "interpretation": "304 complete systems in48regions; all four paired error intervals include0; no established robust agrarian/economic incremental gain or causal effect",
+  "source_predictions_sha256": "727bfec7cbaeaeebdc35f190f6612ff98a9d3b7126c8b0c0faac063427b63d29"
+}

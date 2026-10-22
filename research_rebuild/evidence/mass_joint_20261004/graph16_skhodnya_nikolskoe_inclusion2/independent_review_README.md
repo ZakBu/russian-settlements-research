@@ -1,0 +1,13 @@
+# Independent review: Сходня and Никольско-Архангельский
+
+Both 2002 rows are ready for root-level review as secondary reported inclusion-context references, with separate candidate uses for each locality's own historical Wikidata P625 point. They add no population and no ordinary identity edge. The old records remain residual in graph16, and neither source ID appears in the 33 already-applied inclusion references.
+
+The official 2002 census workbook was replayed at sheet 0, rows 1373 and 1062: `г. Сходня` has 19,119 and `пгт Никольско-Архангельский` has 18,637. Each is an additive named-settlement record in the selected source layer. The separate same-year city-proper rows—Химки at row 1372 (141,000) and Балашиха at row 1061 (147,909)—are recorded only as context; they receive no inclusion credit and are not summed with the candidate references. No exact named child observation exists in the selected 2010 layer.
+
+Each current receiver is an already-selected city-proper row whose accepted graph16 component has direct 2002→2010→2021 same-place links and an accepted 2021 point. The 2010 parent values were checked against official Tom 11 Table 1.4 PDF rows (Химки 207,425; Балашиха 215,494), and the current 2021 rows were bound back to their raw locality-level DaData source rows by source row and native OKTMO. Receiver populations—Химки 257,128 and Балашиха 520,962—are context only.
+
+The frozen Russian Wikipedia revision for Сходня (152031660; SHA-1 `c35b12a152559c4658756cc20ac9dfa4f0f79e02`) reports inclusion in Химки on 15 September 2004 and cites governor resolution 209-ПГ. The frozen Никольско-Архангельский revision (149392040; SHA-1 `8550a8d58862bb91028d33113c468befe9d61bd5`) identifies it as a Балашиха microdistrict, reports PGT status through 10 June 2003, and says it was included in Балашиха in 2003. These are secondary reports; legal implementation was not independently verified.
+
+The two exact P625 claims were verified from their pinned Wikidata entity snapshots: Q2362296 at 55.95, 37.3 and Q4320939 at 55.75194444, 37.92. Their measurement dates are unknown. These points are retrospective locality context only, with no ordinary coordinate-ledger admission or population-boundary comparability claim.
+
+`accepted_scoped_inclusion_references.json` and `accepted_scoped_point_uses.json` provide the normalized, candidate-only handoff schema used by the existing root application scripts. `case_review.csv`, `review_evidence.json`, and `review_receipt.json` preserve the row-level replay, graph16 parent evidence, pins, and output hashes. Gross old source-value context is 37,756; actual marginal gain is not claimed.

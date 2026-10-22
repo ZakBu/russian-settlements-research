@@ -1,0 +1,31 @@
+{
+  "review": "independent_same_census_2010_pgt_publication_binding_rule",
+  "verdict": "approve_780_same_census_bindings_for_separate_application_review",
+  "scope": "2010 Table 5 primary population source binding only; no cross-year identity or district-history claim",
+  "approved_pairs": 780,
+  "held_ids": [
+    "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:1654",
+    "2010:008_342f3c208b_16._20Сиб_ФО_2010.xls:Sib:1627"
+  ],
+  "old_population": 4801715,
+  "table5_population": 4899554,
+  "gross_same_census_delta": 97839,
+  "mapping_csv": "approved_old_new_binding_mapping.csv",
+  "mapping_sha256": "9f2689ca54db557329eb33bcdc97acf23f39c641009b4432865321ce743ab1db",
+  "critical_limits": [
+    "Do not infer cross-year identity or district history.",
+    "Preserve the old population assertion and original quality tag; do not explain the delta as within-ten correction.",
+    "entity_grain_status is missing on all 780 rows; source-row grain is supported by directly re-read PGT labels and population_scope=settlement.",
+    "Тура and Диксон explicit district conflicts remain held pending precise proof."
+  ],
+  "sample": {
+    "n": 60,
+    "selection": "30 largest absolute deltas plus 30 fixed-seed rows stratified by region and district evidence",
+    "seed": 20261003,
+    "workbooks": 17,
+    "pdf_pages": 50,
+    "raw_workbook_rows_passed": 60,
+    "pypdf_and_poppler_lines_passed": 60,
+    "interpretation": "bounded audit sample; no probability claim"
+  }
+}

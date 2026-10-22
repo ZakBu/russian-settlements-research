@@ -1,0 +1,132 @@
+{
+  "status": "independent_rule_review_complete_candidate_only_no_admissions",
+  "approved_candidate_count": 11,
+  "new_2021_target_count": 11,
+  "candidate_point_ids": [
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:69320",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:65260",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:159291",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:99241",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:32522",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49258",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:159866",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:71748",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:48840",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:116670",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25288"
+  ],
+  "candidate_direct_GN_count": 10,
+  "scoped_quarantine_resolution_count": 1,
+  "held_ambiguous_current_GN_alias_count": 2,
+  "candidate_source_csv": "/workspace/settlements-work/continuation_20261004/R4/current_full_chain_native_geonames_points_20261004/staged_point_uses.csv",
+  "candidate_source_sha256": "bbccccf492309738882603e486c8444e453440c8d30be8501e8bd0f4e7a6ebce",
+  "candidate_source_count": 12,
+  "candidate_ledger": "/workspace/settlements-work/continuation_20261004/R4/current_full_chain_native_geonames_points_20261004/point_candidate_ledger.jsonl",
+  "candidate_ledger_sha256": "67987ae32befc808be699e2a3003a4c834d8a7c2a81a0ef03ef4dfc63da8fd5e",
+  "raw_replay": "/workspace/settlements-work/continuation_20261004/independent_review/gn12_independent_raw_source_replay.json",
+  "raw_replay_sha256": "35c7f9f693893aad7ebc1d1822b3a86f26f9586ba2a365bc65ffbd9f61b099c8",
+  "eligible_point_uses_csv": "/workspace/settlements-work/continuation_20261004/independent_review/gn_point_reviewed_eligible_point_uses.csv",
+  "eligible_point_uses_sha256": "c5eb1d624c837468a45404d080768211a2f1de8841c70647e4bb3a0fae5d54c9",
+  "eligible_point_uses_columns": [
+    "point_use_id",
+    "target_source_record_id",
+    "target_year",
+    "latitude",
+    "longitude",
+    "coordinate_source",
+    "coordinate_admission_status",
+    "candidate_only",
+    "candidate_rule_family",
+    "historical_witness_json",
+    "geo_names_witness_json",
+    "provider_identifier_binding_asserted",
+    "GN_upstream_measurement_independence_proven",
+    "census_date_measurement_proven",
+    "coordinate_precision_upgraded"
+  ],
+  "holds_json": "/workspace/settlements-work/continuation_20261004/independent_review/gn12_exact_alias_point_choice_holds.json",
+  "holds_sha256": "33f3cded703cbf9c27872caa8e3d7d0820d432f44f63b38c5538e983435a57ac",
+  "scope_quarantine_receipt": "/workspace/settlements-work/continuation_20261004/R4/point_quarantine_scope_recovery_20261004/receipt.json",
+  "scope_quarantine_receipt_sha256": "653b87cb8a3b8a04993d47eea80b43e36a7e6e6b7fdaeff70cab0034417c9533",
+  "scope_quarantine_candidate_sha256": "912c0bf149f80cb7c7da0cf96b0eb550807a71c9715072bbf6fc1905733a9cab",
+  "inputs": {
+    "GeoNames_RU_zip_sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4",
+    "RU_txt_member": "RU.txt",
+    "RU_txt_uncompressed_sha256": "3ef8f69d9c6b8adbd53afc35f6dc774b1d01b04f566622e1892a6d2f00d2f4d0",
+    "2011_OKATO_DBF_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "2009_OKATO_SQL_sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+    "current_Tochno_parquet_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "baseline_graph_sha256": "9273cc06dec342fd09de6d392e0450d4a5a7a0729b0c7f1680452219772ec98e",
+    "baseline_points_sha256": "8ca8a5279483ddedac5b8958905e9bdc7919b8a74760db718d30988b9bca5f06"
+  },
+  "raw_checks": {
+    "all_12_candidate_current_records_raw_source_fields_match_selected_source_frame": true,
+    "all_12_historical_SQL_and_DBF_raw_names_types_codes_coordinates_reopened": true,
+    "all_GN_lines_byte_offsets_line_hashes_IDs_coordinates_replayed": true,
+    "10_of_12_unique_GN_ID_within_5km_of_historic_point": true,
+    "two_ambiguous_exact_GN_point_targets_remain_held": true
+  },
+  "rule": "For direct GN points, accept only when the current source row is additive/proper and its whole-ADM1 exact literal alias maps to exactly one physical GeoNames ID within 5 km of a unique exact typed 2009/2011 native historical point, and every matching GN raw line has been reopened with exact offset/hash/coordinate checks. No GN feature code alone establishes identity. A separate candidate may resolve a prior coordinate-choice-only hold only with an exact unique current city source/QID context plus a unique named typed native historic city point and one whole-ADM1 exact GN alias in the same local point cluster; Ust-Kut uses this narrow exception and no OKATO code continuity is claimed.",
+  "holds": [
+    {
+      "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:127281",
+      "name": "Иноземцево кп",
+      "hold_reason": "two exact-name whole-ADM1 GeoNames PPL IDs fall within 5 km of the unique historical typed point",
+      "candidate_distances": [
+        {
+          "geonameid": "556320",
+          "distance_km": 0.5155491702063059,
+          "feature_code": "PPL",
+          "line": 95412
+        },
+        {
+          "geonameid": "841374",
+          "distance_km": 3.5952358135662976,
+          "feature_code": "PPL",
+          "line": 148285
+        }
+      ]
+    },
+    {
+      "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:164139",
+      "name": "Шумерля",
+      "hold_reason": "two exact-name whole-ADM1 GeoNames PPL IDs fall within 5 km of the unique historical typed point",
+      "candidate_distances": [
+        {
+          "geonameid": "493462",
+          "distance_km": 3.8373860994370745,
+          "feature_code": "PPL",
+          "line": 32912
+        },
+        {
+          "geonameid": "493463",
+          "distance_km": 0.34614579866753303,
+          "feature_code": "PPL",
+          "line": 32913
+        }
+      ]
+    }
+  ],
+  "claims_not_made": [
+    "No provider-ID binding.",
+    "No GN upstream independence evidence.",
+    "No census-date coordinate measurement or precision upgrade.",
+    "No identity or population changes.",
+    "GN point is a representative locality point only under bounded continuity assumptions."
+  ],
+  "direct_GN_findings": {
+    "historical_name": "all raw 2009/2011 name/type keys were unique for approved candidates",
+    "direct_alias_ambiguities": "Иноземцево and Шумерля each have two different exact-name PPL IDs within 5 km and remain held; nearest-point choice is not accepted."
+  },
+  "ustkut_exception": {
+    "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25288",
+    "point_use_id": "GNQ-9f893c83ebec5326b5",
+    "selected_raw_GN_geonameid": "2013923",
+    "distance_to_2011_native_point_km": 3.2478619967674,
+    "distance_to_raw_2021_source_coordinate_km": 3.1429051778866,
+    "distance_to_current_QID_P625_km": 2.8568665357802,
+    "2011_native_city_unique_by_exact_name_type_region": true,
+    "current_OKATO_differs_from_historic_OKATO": true,
+    "hold_interpreted": "point choice only; this new GN point clusters with both current raw source point and the single reviewed P625 point. Historical OKATO 25440000000 is not current OKATO 25244501000, so no code-continuity inference is made."
+  }
+}

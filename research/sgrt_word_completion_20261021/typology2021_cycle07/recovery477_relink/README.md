@@ -1,0 +1,9 @@
+This source-only version repeats the fixed January 2021 industry/resource, recreation and literal agro-processing rules after 477 formerly coordinate-unknown settlements received independently admitted source points. No mass, hierarchy, source population, physical-site partition or source predicates are changed.
+
+Existing nearest ownership is retained unless a new point is more than 1e-7 km closer. All competitive new ties are preserved. The old-owner tie rule is a deterministic allocation of geographic context, not strict settlement identity. Counts are recomputed for all affected old and new settlements, including withdrawals. Positive counts give presence evidence; missing evidence remains unknown. Industrial decline, shift work, dominance, physical operation and developed agro infrastructure are not inferred.
+
+The 72 literal agro-processing assertions are checked again against all 154,609 eligible settlement points using the original explicit-locality, five-kilometre homonym and canonical-conflict rules. Literal tags do not independently verify a business function. A separate replay applies unchanged own-function co-presence rules to the independently admitted institution relink; expanding provider eligibility to local legal seats does not expand the old upper-seat thematic predicate.
+
+Actual changes and pending independent review are recorded in receipt.json and own_function_replay_receipt.json. All frozen inputs are hashed before and after computation. These are versioned full source sidecars, not accepted model results.
+
+The strict agro assertion table retains inherited geographic-nearest context columns only as frozen source history. Its operative strict identity columns are strict_explicit_uid, explicit_locality_link_status and all_same_name_candidate_UIDs_json, recomputed against the complete new frame; do not substitute the inherited nearest_axis_id for explicit source locality.

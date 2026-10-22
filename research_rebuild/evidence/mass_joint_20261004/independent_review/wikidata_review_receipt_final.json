@@ -1,0 +1,97 @@
+{
+  "status": "bounded_independent_review_wikidata_complete",
+  "rule": "ordinary 2021 physical NP: exact P764/native code + exact Russian label + source row physically atomic + unique source/QID + one valid P625 + P31/P279 physical lineage + inside expected ADM1; P625 is a representative point for linked locality",
+  "input_hashes": {
+    "staged_ledger_sha256": "ccec095383f0017634f94d2e5f53697c66a43775bcebeee987be836d3d7086a1",
+    "fixed_sample_sha256": "bf99c253a1eb2535183526147fba0d84b580f5d2d4ef0a9f4e6320e76aef2a63",
+    "raw_geonames_review_sha256": "9ccc938ee4b820be8758d2494b5431e5b46f69601c181de2b9bf5f47b215b516",
+    "stage_summary_sha256": "5ea346e1325c75165384ebf18774dc5eea304ea8b9cde31e3e4069951e0a50d3",
+    "raw_2021_source_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "frozen_selected_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "p279_ancestry_metadata_sha256": "2c7971afa183285909e068c2ba9ac3ac7f95df1c71b3ada716e867c103b0ebda",
+    "p279_manifest_expected_sha256": "2c7971afa183285909e068c2ba9ac3ac7f95df1c71b3ada716e867c103b0ebda",
+    "raw_geonames_zip_sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4"
+  },
+  "raw_source_integrity": {
+    "rows_checked": 12803,
+    "all_source_rows_are_atomic_named_settlements": true,
+    "all_raw_region_population_oktmo_match": true,
+    "all_frozen_name_type_region_code_population_match_with_bilateral_null_optional_types_allowed": true,
+    "missing_source_type_metadata_rows": 1,
+    "all_stage_source_hashes_match": true
+  },
+  "truthy_claim_bytes": {
+    "raw_claim_lines_checked": 40699,
+    "all_P764_P625_P31_lines_match_source_file_property_item_value": true,
+    "unique_qid_count": 12803,
+    "candidates_with_raw_claim_coverage": 12803,
+    "limitations": "Truthy cache omits rank, qualifiers, and references, so independence and official provenance of P764 cannot be demonstrated from these rows."
+  },
+  "p279_graph_dfs": {
+    "raw_hierarchy_entity_count": 458,
+    "physical_anchor_qids": [
+      "Q10354598",
+      "Q486972",
+      "Q515",
+      "Q532",
+      "Q7930989"
+    ],
+    "admin_anchor_qids": [
+      "Q15642541",
+      "Q56061"
+    ],
+    "direct_p31_paths_checked": 15093,
+    "every_direct_p31_qid_in_graph": true,
+    "all_recorded_physical_admin_unresolved_profiles_reproduced": true,
+    "profile_manifest_sha256": "2c7971afa183285909e068c2ba9ac3ac7f95df1c71b3ada716e867c103b0ebda"
+  },
+  "fixed_independent_sample": {
+    "rows": 200,
+    "candidate_population": 1409668,
+    "review_labels": {
+      "verified_consistent_independent_GeoNames_literal_current_populated_place_within_5km": 164,
+      "not_independently_resolved_no_exact_literal_current_GeoNames_populated_place": 15,
+      "verified_consistent_GeoNames_literal_nearby_place_cluster_within_5km": 10,
+      "not_independently_resolved_multiple_exact_GeoNames_current_place_witnesses": 6,
+      "genuine_point_conflict_independent_literal_GeoNames_place_over_10km_hold": 3,
+      "not_independently_resolved_single_exact_GeoNames_point_5_to_10km_diagnostic_only": 2
+    },
+    "raw_literal_GeoNames_witness_rows_checked": 309,
+    "all_raw_GeoNames_record_values_match": true,
+    "sample_is_purposive_and_PPS_mixed_not_a_precision_estimate": true
+  },
+  "decision": {
+    "eligible_point_uses": 12800,
+    "eligible_population": 3306365,
+    "eligible_ids_and_fields_sha256": "dff13202debde56b51fad8a5582a197aa355ec43f3010ef85a68324c62054da4",
+    "held_rows_present_in_candidate_pool": 3,
+    "hard_geo_point_choice_hold_ids": [
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:152555",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:24291",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:24325"
+    ],
+    "additional_unresolved_P31_classes_with_physical_path_included": [
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118666",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:56671"
+    ],
+    "four_frozen_known_holds_not_in_candidate_pool": [
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:149473",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:155218",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25288",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50511"
+    ],
+    "5_10km_raw_GeoNames_diagnostics_ids": [
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:155118",
+      "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:166164"
+    ],
+    "treatment_of_5_10km": "diagnostic rows remain eligible under the locality-representative-point assumption; if applying a strict >5km concordance rule, hold BOTH IDs consistently. They are not evidence of a Wikidata QID/point binding error by themselves."
+  },
+  "interpretation": "This is a scoped point-use admission rule for physical 2021 rows. It does not create temporal identity edges, precision probabilities, exact census-date centroids, FIAS bindings, or historic boundary comparability. GeoNames agreement validates the locality context of a sample row, while the P764 source lineage remains unverified.",
+  "outputs_sha256": {
+    "wikidata_review_eligible_point_uses_final.csv": "dff13202debde56b51fad8a5582a197aa355ec43f3010ef85a68324c62054da4",
+    "wikidata_review_holds_and_diagnostics_final.csv": "a89f6c1ef01b3b2a677cd43a032bb2078b13995b5a9bf82bee1b3fca333491e1",
+    "wikidata_raw_source_all_candidates.csv": "80c341fb0f7c8ca724f46972c6b087c796443a8de84991858e4141175f500d8f",
+    "wikidata_p31_p279_independent_dfs.csv": "cc9e222d5a6bf25a3237f932e88303eef83f7d650c84f4deff461a6f18c58210",
+    "wikidata_raw_geonames_independent_check_rows.csv": "711b04d2bc956fd58b3de35bd3529878b99294452aca029d2e0a288baec3b969"
+  }
+}

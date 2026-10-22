@@ -1,0 +1,89 @@
+{
+  "checkpoint": "continuation_20261003_stage2",
+  "status": "working_locally_not_published",
+  "selected_census_rows": 465800,
+  "accepted_point_uses": 316263,
+  "identity_edges": 175448,
+  "full_census_chains": 44758,
+  "population_2010_replacements": 564,
+  "source_only_federal_named_population_rows_not_selected": 32,
+  "target_99_9_achieved": false,
+  "receipts": {
+    "primary_population_application": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_population_application_v1/acceptance_receipt.json",
+      "sha256": "9a53e21a13c411a08bf609230f064025b5c493feb697fc0ebf4ed07c00aab327"
+    },
+    "primary_population_application_review": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_population_application_review_v1/review.json",
+      "sha256": "e3afa01ec136b9b3b9707d7c29961c161f7081f581268fb747b8b7dc751068f4"
+    },
+    "graph_point_reuse_application": {
+      "path": "/workspace/settlements-work/continuation_20261003/accepted_graph_point_reuse_delta_v1/acceptance_receipt.json",
+      "sha256": "d5afd31b135b305bfa95f21b1f1f2fccae1427caea5e2978ce11c47fbeb7734b"
+    },
+    "graph_point_reuse_review": {
+      "path": "/workspace/settlements-work/continuation_20261003/graph_point_reuse_review_v1/review.json",
+      "sha256": "d017b61ff1c53bf2f6811c0d5fea5a693f0254954d9a1f2ed446b3fc66eafe29"
+    },
+    "stable_city_point_choice_review": {
+      "path": "/workspace/settlements-work/continuation_20261003/legacy_city_point_choice_review_v1/review.json",
+      "sha256": "c8791e211f0d1c7b337e566714e221085aff0ca3ad643a0168a472a37ca6733e"
+    },
+    "stable_city_application": {
+      "path": "/workspace/settlements-work/continuation_20261003/accepted_stable_city_modern_reuse_delta_v1/acceptance_receipt.json",
+      "sha256": "04406913e409de010927076dd0d05cf5028bf7d45775e22a45cc5651c9e9aa3c"
+    },
+    "stable_city_independent_application_review": {
+      "path": "/workspace/settlements-work/continuation_20261003/stable_city_modern_reuse_application_review_v1/review.json",
+      "sha256": "3cae45d8d507da708dd65b911cf383c8a804728f3dde1db37f115df16c166e1f"
+    },
+    "primary_control_verification": {
+      "path": "/workspace/settlements-work/continuation_20261003/control_primary_verification_v1/verification.json",
+      "sha256": "7aab3b2a9177a52a0b9085066b7dd29074855e2844533d0b3ab7568989cb5840"
+    },
+    "coverage": {
+      "path": "/workspace/settlements-work/continuation_20261003/coverage_final_checkpoint_v1.json",
+      "sha256": "d143f11d24dc77a7d114c2a32940b6e720fa46fc0475c1290098483d34221e84"
+    },
+    "own_point_residual_diagnostic": {
+      "path": "/workspace/settlements-work/continuation_20261003/own_point_residual_evidence_diagnostic_v1/receipt.json",
+      "sha256": "b9c949ef339052c595b857ab8467363b9f003a154eb630668ac3948b7f528a50"
+    },
+    "federal_named_np_grain_review": {
+      "path": "/workspace/settlements-work/continuation_20261003/federal_named_np_primary_review_v1/review.json",
+      "sha256": "fcaa8194eb41d2d2a65d1d14b672f8f0f9480d2395633d52e739a3a0d488f012"
+    },
+    "federal_named_np_source_only_stage": {
+      "path": "/workspace/settlements-work/continuation_20261003/federal_named_population_stage_v1/receipt.json",
+      "sha256": "369b07aeb93fb65db7cad974765b146b7dfdb5c784f194c6aefbd24ac24341d2"
+    }
+  },
+  "outputs": {
+    "selected": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_population_application_v1/selected_observations.parquet",
+      "sha256": "cc247f3f474b2801251d556a39f90773b42541feda0845d7f1362637d8185c88"
+    },
+    "graph": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_population_application_v1/accepted_identity_edges.parquet",
+      "sha256": "cada0d9c96c6f20796f84d46791e55a15f34383401c25db9523a5636bb3fef57"
+    },
+    "points": {
+      "path": "/workspace/settlements-work/continuation_20261003/accepted_stable_city_modern_reuse_delta_v1/accepted_point_uses.parquet",
+      "sha256": "260798bf180d5c87ab36fadae253f99bd614760b78db0333df24233770c5b63f"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_population_application_v1/source_evidence.parquet",
+      "sha256": "aaaab02b2699c8e5426855c67747291c7b4d9739779429d0f3f8b479828788eb"
+    },
+    "long_table": {
+      "path": "/workspace/settlements-delivery/continuation-20261003/settlements_long.parquet",
+      "sha256": "8e981bf54db6167cba99edc7a20831b3ed86d2ca5fed2a99c519f6bfc8726b45"
+    }
+  },
+  "limits": [
+    "Source-only federal rows do not enter selected population or coverage.",
+    "Population/identity/point/boundary evidence are independent axes.",
+    "Historical event and legal OKTMO interval coverage remain unmeasured.",
+    "Restricted annual and literal secondary series have no national denominator."
+  ]
+}

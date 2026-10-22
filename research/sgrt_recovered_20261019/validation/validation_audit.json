@@ -1,0 +1,102 @@
+{
+  "inputs_sha256": {
+    "data/panel.parquet": "a2b5544c0d3c5581144a5439113a96c4a771697dc87a38c2abf979e1ead1467b",
+    "data/municipality_bridge.parquet": "b1256e5a3a217cea20a320da57a09aff657652458c33a2c8ca78c69ba1c39f68",
+    "model/nearest_membership.parquet": "33525bf31429c7b4ae183f2f63fc6ecdc9526d0b6537c2e388fe6c0b2c4e8684",
+    "model/centers.parquet": "f049ac6a001b5377e4c2f12bb0fa9e3efb25da205efde1229e2a93a98306dfb4",
+    "validation/cases_sources.json": "b02e24b696066c576823f5005190e8300f5e560518b61135a6822509f433f441",
+    "model/flat_gravity_membership.parquet": "3a131b0fe54ac18645adc404d922c59bde6da8ddf3159571c0d956faa21dd1e1"
+  },
+  "flat_file_independently_checked": true,
+  "n_model": 142570,
+  "n_noncenters": 127193,
+  "n_jointly_covered_noncenters": 122774,
+  "noncenter_coverage": 0.9652575220334453,
+  "excluded_noncenters": 4419,
+  "excluded_flat_external": 4417,
+  "excluded_nearest_external": 0,
+  "excluded_unassigned_either": 2,
+  "n_bridge_upper": 142570,
+  "n_admissible_upper": 142570,
+  "bridge_context_counts": {
+    "exact_unique_source_context": 142569,
+    "verified_parent_code_multiple_source_claims": 1
+  },
+  "summary": [
+    {
+      "scope": "all_paired_noncenters",
+      "n": 122774,
+      "population2010": 20015415.0,
+      "nearest_admin_concordance": 0.8047795135777933,
+      "flat_admin_concordance": 0.2895808558815384,
+      "delta_nearest_minus_flat": 0.515198657696255,
+      "population2010_weighted_nearest": 0.7372047994008618,
+      "population2010_weighted_flat": 0.3005548473514039,
+      "population2010_weighted_delta": 0.4366499520494579,
+      "same_assignment_fraction": 0.16466841513675534
+    },
+    {
+      "scope": "strict_exact_contexts",
+      "n": 122774,
+      "population2010": 20015415.0,
+      "nearest_admin_concordance": 0.8047795135777933,
+      "flat_admin_concordance": 0.2895808558815384,
+      "delta_nearest_minus_flat": 0.515198657696255,
+      "population2010_weighted_nearest": 0.7372047994008618,
+      "population2010_weighted_flat": 0.3005548473514039,
+      "population2010_weighted_delta": 0.4366499520494579,
+      "same_assignment_fraction": 0.16466841513675534
+    }
+  ],
+  "spatial_bootstrap": [
+    {
+      "block_km": 250,
+      "n_blocks": 243,
+      "n_replicates": 399,
+      "point_delta": 0.515198657696255,
+      "percentile025": 0.4815414141707162,
+      "percentile975": 0.5412558959530932,
+      "population2010_weighted_point_delta": 0.4366499520494579,
+      "population2010_weighted_percentile025": 0.4081590400628575,
+      "population2010_weighted_percentile975": 0.4723069887952015
+    },
+    {
+      "block_km": 400,
+      "n_blocks": 120,
+      "n_replicates": 399,
+      "point_delta": 0.515198657696255,
+      "percentile025": 0.4669253911086385,
+      "percentile975": 0.5452275105528982,
+      "population2010_weighted_point_delta": 0.4366499520494579,
+      "population2010_weighted_percentile025": 0.3948564230998657,
+      "population2010_weighted_percentile975": 0.4709162122231022
+    },
+    {
+      "block_km": 600,
+      "n_blocks": 68,
+      "n_replicates": 399,
+      "point_delta": 0.515198657696255,
+      "percentile025": 0.4883077879215587,
+      "percentile975": 0.5376590880147988,
+      "population2010_weighted_point_delta": 0.4366499520494579,
+      "population2010_weighted_percentile025": 0.3919029417328995,
+      "population2010_weighted_percentile975": 0.4721808925360067
+    }
+  ],
+  "cases": {
+    "n_cases": 13,
+    "n_regions": 10,
+    "n_unique_primary_url": 10,
+    "nearest_direct_match": 2,
+    "nearest_chain_match": 4,
+    "flat_direct_match": 2,
+    "flat_chain_match": 4,
+    "direct_observed_OD_cases": 0,
+    "synchronous2010_cases": 0,
+    "nonprobability_sample": true,
+    "without_qualified_C05_n": 12,
+    "without_qualified_C05_nearest_chain_match": 3
+  },
+  "method": "Post-fit administrative concordance with source-key rejoin; no model fitting. Native municipal reference2021, exact effective boundary date unknown; not historical2010 membership or observed flows.",
+  "uncertainty": "Spherical Lambert azimuthal equal-area60N100E,R6371008.8m fixed-origin squares; sample occupied complete blocks with replacement399times. Finite observed spatial ensemble; descriptive percentile envelope, not census-error CI or a probability sample of Russia."
+}

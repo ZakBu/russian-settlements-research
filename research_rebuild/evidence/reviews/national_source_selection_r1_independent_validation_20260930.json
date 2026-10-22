@@ -1,0 +1,191 @@
+{
+  "review_id": "national_source_selection_r1_independent_validation_20260930",
+  "review_status": "accept_source_selection_with_scope_limits",
+  "scope": "Independent validation of selection-only release R1. This validates two source-grain corrections and preservation elsewhere; it does not validate national input completeness, identity links, or coordinates.",
+  "release_manifest_sha256": "37b4bf695087032e13baac88e7c432849bf3aa4543e40bcd2a5df6e8429242f6",
+  "release_manifest_path": "research_rebuild/evidence/releases/national_source_selection_r1_20260930/release_manifest.json",
+  "release_manifest_id": "national_source_selection_r1_20260930",
+  "release_status_in_manifest": "selection_only_no_new_identity_or_coordinate_admissions",
+  "selected_parquet_sha256": "dd8d437c1a1f5cebf2b45c55e7a6e2015f3c1a295cade827a71bb76189a485df",
+  "baseline_parquet_sha256": "b42a1230519c8303079ce2465bb28d3c4af357ece5dbdd26e4f5de2c3de02c2b",
+  "builder_sha256": "ddff5109aa98115de3b6cac5b970b2894c01d31fff05d34e62cfd0c8bbed75c7",
+  "artifact_hash_checks": {
+    "annual_controls.json": {
+      "sha256": "9b9a42cc32c77b2bc2babce02a5054a6cbc7a2115455073428c7f24372cfdc1d",
+      "expected_sha256": "9b9a42cc32c77b2bc2babce02a5054a6cbc7a2115455073428c7f24372cfdc1d",
+      "bytes": 882,
+      "expected_bytes": 882,
+      "matches": true
+    },
+    "component_ledger.csv": {
+      "sha256": "f733c9ff8c63acc98fa87ba52568d52eca3b393dda711c15e6ad8fdcc4363226",
+      "expected_sha256": "f733c9ff8c63acc98fa87ba52568d52eca3b393dda711c15e6ad8fdcc4363226",
+      "bytes": 75396,
+      "expected_bytes": 75396,
+      "matches": true
+    },
+    "excluded_source_rows.csv": {
+      "sha256": "86778134f7b9fb3c3af43788d9007c6c8a0d3350d17fc2653d45c224172776ad",
+      "expected_sha256": "86778134f7b9fb3c3af43788d9007c6c8a0d3350d17fc2653d45c224172776ad",
+      "bytes": 1403,
+      "expected_bytes": 1403,
+      "matches": true
+    },
+    "selected_observations.parquet": {
+      "sha256": "dd8d437c1a1f5cebf2b45c55e7a6e2015f3c1a295cade827a71bb76189a485df",
+      "expected_sha256": "dd8d437c1a1f5cebf2b45c55e7a6e2015f3c1a295cade827a71bb76189a485df",
+      "bytes": 37070618,
+      "expected_bytes": 37070618,
+      "matches": true
+    },
+    "source_selection_assertions.csv": {
+      "sha256": "7abd4faf10b404e0571cc778363a76603cd6708aa578922ddf966ab836b6a081",
+      "expected_sha256": "7abd4faf10b404e0571cc778363a76603cd6708aa578922ddf966ab836b6a081",
+      "bytes": 483464,
+      "expected_bytes": 483464,
+      "matches": true
+    }
+  },
+  "annual_counts_and_sums": {
+    "2002": {
+      "rows": 158072,
+      "population_sum": 145155005,
+      "unique_source_ids": 158072,
+      "null_population_rows": 0,
+      "negative_population_rows": 0,
+      "manifest_expected_rows": 158072,
+      "manifest_expected_population": 145155005
+    },
+    "2010": {
+      "rows": 152313,
+      "population_sum": 142172038,
+      "unique_source_ids": 152313,
+      "null_population_rows": 0,
+      "negative_population_rows": 0,
+      "manifest_expected_rows": 152313,
+      "manifest_expected_population": 142172038
+    },
+    "2021": {
+      "rows": 155414,
+      "population_sum": 147182123,
+      "unique_source_ids": 155414,
+      "null_population_rows": 0,
+      "negative_population_rows": 0,
+      "manifest_expected_rows": 155414,
+      "manifest_expected_population": 147182123
+    }
+  },
+  "baseline_to_selected_2021_comparison": {
+    "selected_common_columns": 39,
+    "baseline_rows": 155414,
+    "selected_rows": 155414,
+    "baseline_only_ids": 0,
+    "selected_only_ids": 0,
+    "same_id_rows_with_any_common_field_difference": 0
+  },
+  "admission_status_distribution": [
+    {
+      "identity_admission": "<null>",
+      "coordinate_admission": "<null>",
+      "rows": 464994
+    },
+    {
+      "identity_admission": "none",
+      "coordinate_admission": "none",
+      "rows": 805
+    }
+  ],
+  "moscow_2002_replacement": {
+    "operation": "replace aggregate parent row 2154 by source-disjoint census children",
+    "removed_parent_id": "2002:1_TOM_01_04.xls:0:2154",
+    "removed_population": 10382754,
+    "added_children": [
+      {
+        "source_record_id": "ROSSTAT2002:T1:T4:sheet01-04:excel_row02155",
+        "raw_name": "  г. Москва",
+        "population": 10126424,
+        "men": 4831405.0,
+        "women": 5295019.0
+      },
+      {
+        "source_record_id": "ROSSTAT2002:T1:T4:sheet01-04:excel_row02292",
+        "raw_name": "  г. Зеленоград",
+        "population": 215727,
+        "men": 100415.0,
+        "women": 115312.0
+      },
+      {
+        "source_record_id": "ROSSTAT2002:T1:T4:sheet01-04:excel_row02299",
+        "raw_name": "  пгт Восточный",
+        "population": 12700,
+        "men": 6853.0,
+        "women": 5847.0
+      },
+      {
+        "source_record_id": "ROSSTAT2002:T1:T4:sheet01-04:excel_row02300",
+        "raw_name": "  пгт Внуково",
+        "population": 20100,
+        "men": 9431.0,
+        "women": 10669.0
+      },
+      {
+        "source_record_id": "ROSSTAT2002:T1:T4:sheet01-04:excel_row02301",
+        "raw_name": "  пгт Некрасовка",
+        "population": 7803,
+        "men": 3715.0,
+        "women": 4088.0
+      }
+    ],
+    "added_child_rows": 5,
+    "child_population_sum": 10382754,
+    "child_men_sum": 4951819.0,
+    "child_women_sum": 5430935.0,
+    "children_equal_parent_population": true,
+    "children_source_manifest_sha256": "b61dd7f9320a18c62c6ab7e555653bbbd45e6ec53cba8b7b44108845d4cc0aa8",
+    "review_evidence_sha256": "893959b9cb59e8e3c35a0aff0b072042e45359c4fbbb542bde474c5df4a30721",
+    "same_subject_competitor_result": "predecessor independent review found no same-region selected child observations except aggregate parent being removed; other-region same-name records remain competitors and are not merged",
+    "limits": "Changes observation grain in Moscow federal-city scope; not a cross-year identity or coordinate admission."
+  },
+  "karelia_2010_primary_replacement": {
+    "removed_rows": 799,
+    "removed_population": 638764,
+    "added_rows": 800,
+    "added_population": 643548,
+    "row_delta": 1,
+    "population_delta": 4784,
+    "urban_count": 24,
+    "urban_population": 502217,
+    "rural_count": 776,
+    "rural_population": 141331,
+    "rural_zero_rows": 109,
+    "rows_with_docx_source_path": 776,
+    "rows_with_tom1_source_path": 24,
+    "primary_docx_sha256": "dcc79b64b15dc44d62f12868293f8f8dfa124c2d14b2f5f08167b9faefe06a59",
+    "primary_tom1_pdf_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+    "source_manifest_sha256": "0988f9092c385b7aaa506bd2da6724bb6fb65593c1843a98ee0479158f06104e",
+    "receipt_sha256": "6f747abd8b0bf7b456de5d8969bae736e8169578a3df5d920a9c9f38a95ec650",
+    "limits": "One regional source-layer correction; not evidence of population-based identity."
+  },
+  "unchanged_source_selection": {
+    "2002_baseline_rows": 158068,
+    "2002_selected_rows": 158072,
+    "2002_removed_ids": 1,
+    "2002_added_ids": 5,
+    "2002_population_delta": 0,
+    "2010_baseline_rows": 152312,
+    "2010_selected_rows": 152313,
+    "2010_removed_ids": 799,
+    "2010_added_ids": 800,
+    "2021_baseline_rows": 155414,
+    "2021_selected_rows": 155414,
+    "2021_same_ids_and_all_common_field_values": true
+  },
+  "independent_checks": [
+    "Verified release output file hashes and byte lengths against frozen manifest.",
+    "Recomputed annual selected row counts and population sums; checked unique IDs, nulls, negatives.",
+    "Verified 2021 source IDs and all baseline-common field values are unchanged.",
+    "Verified 2002 Moscow children reproduce parent population and sex totals from independently reviewed raw workbook evidence.",
+    "Verified Karelia 2010 selection source hashes and parser receipt; checked 24 urban and 776 rural controls."
+  ],
+  "overall_limit": "National census-universe coverage and source correctness outside the two reviewed components remain baseline assumptions. Dataset population sums are not a claim that all three census totals reconcile. Existing coordinates are not newly validated by this selection release."
+}

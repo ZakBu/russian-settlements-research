@@ -1,0 +1,324 @@
+{
+  "status": "independent_official_2021_all_upper_municipality_external_control_review",
+  "source_workbook": "/workspace/settlements-raw/data/raw/rosstat_2021/Tom1_tab-5_VPN-2020.xlsx",
+  "source_workbook_sha256": "0b232b3d2ab5daa231568acc719ac6fda4fb0979a01a0da6bacc69be6f252474",
+  "source_workbook_bytes": 1658676,
+  "source_sheet": "таб. 5",
+  "source_columns_used": "A (territory label), B (2021 population); no other columns read for values",
+  "source_hierarchy_rule": "Official A/B rows at indentation 1 below a recognized non-federal region heading are candidate upper-municipality controls. Indent-2 rows are considered only when their immediate indent-1 parent is an explicit Rosstat region-excluding-autonomous-area scope subtotal or a nested autonomous-region subject heading (e.g. Khanty-Mansi/Yamal under Tyumen); all other indent-2+ breakdowns are excluded. Upper parent label is text before explicit urban/rural population qualifiers where present.",
+  "inventory_path": "/workspace/settlements-work/continuation_20261004/independent_review/regional_municipal_controls_20261004/upper_municipality_control_comparison_2021.csv",
+  "inventory_sha256": "71213ff5cccc7c957c8d3625c3194bc9a4fd926a8cb0b6aa89e47c928dbb4ae3",
+  "inventory_rows": 2364,
+  "region_inventory_path": "/workspace/settlements-work/continuation_20261004/independent_review/regional_municipal_controls_20261004/region_control_comparison_2021.csv",
+  "region_inventory_sha256": "918bae16c751f9908f6719587b77a983b997b16c355d0ebc33b41b4214dae79c",
+  "selected_observations_path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+  "selected_observations_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+  "publisher_parquet_path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+  "publisher_parquet_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+  "coverage": {
+    "inventory_rows": 2364,
+    "unique_exact_region_upper_municipality_rows": 2317,
+    "paired_numeric_comparisons": 2294,
+    "unique_official_rows_without_selected_population": 23,
+    "nonzero_exact_discrepancies": 0,
+    "missing_or_null_official_rows": 47,
+    "selected_groups_without_exact_official_row": 41,
+    "selected_population_without_exact_official_row": 1551780,
+    "ambiguous_exact_official_rows": 0,
+    "ambiguous_inventory_groups_preserved": 2,
+    "unbound_indent1_official_rows": 52,
+    "inventory_status_counts": {
+      "matched_same_publisher_internal_check": 2304,
+      "selected_group_without_exact_publisher_control_key": 29,
+      "publisher_control_without_selected_group": 29,
+      "ambiguous_duplicate_publisher_control_key": 2
+    },
+    "official_match_status_counts": {
+      "unique_exact_region_upper_municipality_row": 2317,
+      "no_exact_region_upper_municipality_row": 47
+    },
+    "paired_selected_population": 126470500,
+    "paired_official_population": 126470500,
+    "sum_absolute_difference": 0,
+    "maximum_absolute_difference": 0,
+    "largest_true_differences": [],
+    "largest_missing_population_groups": [
+      {
+        "region": "Смоленская область",
+        "municipality_key": "Городской округ",
+        "selected_settlement_population": 341984.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Томская область",
+        "municipality_key": "Городской округ \"Город Северск\" (ЗАТО)",
+        "selected_settlement_population": 112971.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Нижегородская область",
+        "municipality_key": "Городской округ город Саров (ЗАТО)",
+        "selected_settlement_population": 93357.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Красноярский край",
+        "municipality_key": "Городской округ город Железногорск (ЗАТО)",
+        "selected_settlement_population": 90290.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Челябинская область",
+        "municipality_key": "Озерский городской округ (ЗАТО)",
+        "selected_settlement_population": 87182.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Свердловская область",
+        "municipality_key": "Новоуральский городской округ (ЗАТО)",
+        "selected_settlement_population": 81053.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Республика Алтай",
+        "municipality_key": "Городское население - г. Горно-Алтайск",
+        "selected_settlement_population": 65342.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Пензенская область",
+        "municipality_key": "Городской округ город Заречный (ЗАТО)",
+        "selected_settlement_population": 58510.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Красноярский край",
+        "municipality_key": "Городской округ город Зеленогорск (ЗАТО)",
+        "selected_settlement_population": 54279.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Челябинская область",
+        "municipality_key": "Снежинский городской округ (ЗАТО)",
+        "selected_settlement_population": 50814.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Мурманская область",
+        "municipality_key": "Городской округ город Североморск (ЗАТО)",
+        "selected_settlement_population": 50796.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Свердловская область",
+        "municipality_key": "Городской округ \"город Лесной\" (ЗАТО)",
+        "selected_settlement_population": 49583.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Московская область",
+        "municipality_key": "Городской округ Краснознаменск (ЗАТО)",
+        "selected_settlement_population": 43868.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Челябинская область",
+        "municipality_key": "Трехгорный городской округ (ЗАТО)",
+        "selected_settlement_population": 32463.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Мурманская область",
+        "municipality_key": "Городской округ Александровск (ЗАТО)",
+        "selected_settlement_population": 32459.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Воронежская область",
+        "municipality_key": "Городской округ",
+        "selected_settlement_population": 30658.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Московская область",
+        "municipality_key": "Городской округ Власиха (ЗАТО)",
+        "selected_settlement_population": 28240.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Приморский край",
+        "municipality_key": "Городской округ город Фокино (ЗАТО)",
+        "selected_settlement_population": 27398.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Архангельская область",
+        "municipality_key": "Городской округ \"Мирный\" (ЗАТО)",
+        "selected_settlement_population": 27262.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Астраханская область",
+        "municipality_key": "Городской округ Знаменск (ЗАТО)",
+        "selected_settlement_population": 24628.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      }
+    ],
+    "largest_unmatched_selected_groups": [
+      {
+        "region": "Смоленская область",
+        "municipality_key": "Городской округ",
+        "selected_settlement_population": 341984.0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Томская область",
+        "municipality_key": "Городской округ \"Город Северск\" (ЗАТО)",
+        "selected_settlement_population": 112971.0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Нижегородская область",
+        "municipality_key": "Городской округ город Саров (ЗАТО)",
+        "selected_settlement_population": 93357.0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Красноярский край",
+        "municipality_key": "Городской округ город Железногорск (ЗАТО)",
+        "selected_settlement_population": 90290.0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Челябинская область",
+        "municipality_key": "Озерский городской округ (ЗАТО)",
+        "selected_settlement_population": 87182.0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      }
+    ],
+    "ambiguous_groups": [
+      {
+        "region": "Смоленская область",
+        "municipality_key": "Городской округ",
+        "selected_settlement_population": 341984.0,
+        "official_candidate_count": 0,
+        "official_candidate_rows": "",
+        "match_status": "no_exact_region_upper_municipality_row"
+      },
+      {
+        "region": "Камчатский край",
+        "municipality_key": "Алеутский муниципальный округ",
+        "selected_settlement_population": 654.0,
+        "official_candidate_count": 1,
+        "official_candidate_rows": "26743:Алеутский муниципальный округ - сельское население:654",
+        "match_status": "unique_exact_region_upper_municipality_row"
+      }
+    ]
+  },
+  "scope_notes": [
+    "This is a separate official Rosstat workbook control, independent of the Tochno-derived selected observations and their same-publisher municipal control table.",
+    "All 2,364 input inventory rows are carried through, including selected-side missing rows, publisher-control-only rows, and ambiguous groups; nulls remain null.",
+    "Exact matching requires the identical normalized selected region and upper-municipality label after removing only whitespace/punctuation normalization; indent-2 municipality rows are eligible only beneath explicit base-area scope subtotals or nested autonomous-region subject headings.",
+    "No same-name candidate from another region or from an ineligible lower hierarchy tier is used.",
+    "Nested autonomous-area subject umbrellas and their component subject controls remain at region level and are not joined as upper municipalities. Municipality-level urban/rural breakdown rows and federal-city intra-city districts are excluded by indentation.",
+    "A numeric discrepancy is emitted only where one unique exact official row with a numeric population exists.",
+    "No source observations, identity associations, repository files, score settings, or denominators were changed."
+  ],
+  "outputs": [
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_all_upper_municipal_controls_v2/README.md",
+      "sha256": "9dec60d80baa4fa14f67daaf224aac7278840b45fba5d98bfcdb5b83196ca99e",
+      "bytes": 3482
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_all_upper_municipal_controls_v2/all_upper_municipality_control_matches_2021.csv",
+      "sha256": "06279e62cce281b83ad8c9600632b7e51b06837c0d6e32df80a287fb2706346b",
+      "bytes": 1082121
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_all_upper_municipal_controls_v2/ambiguous_exact_upper_municipality_controls_2021.csv",
+      "sha256": "c5390f0961bb7e043b40852bc5dee0394a004a90b43fbfc5ac58840f9ba89139",
+      "bytes": 1011
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_all_upper_municipal_controls_v2/build_review.py",
+      "sha256": "6dd5088cd69ba832520541ad2cdfa2fa603c72773cfb15402c90f1e21f99fb3c",
+      "bytes": 19934
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_all_upper_municipal_controls_v2/missing_or_null_upper_municipality_controls_2021.csv",
+      "sha256": "36614c3904fdceaa2bc923e5f72c746f6cd31af357a46b6d69514f29e96266ab",
+      "bytes": 10282
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_all_upper_municipal_controls_v2/nonzero_exact_upper_municipality_discrepancies_2021.csv",
+      "sha256": "7b0604f3381b837d5876e2e888e809cbc639b8ac69eb582b1f888629383d4b5e",
+      "bytes": 356
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_all_upper_municipal_controls_v2/official_upper_municipality_candidate_rows_2021.csv",
+      "sha256": "a450a12640327cc2b3f2246f932dffacbd6f9eb08a0b24a7aaa922563c23438a",
+      "bytes": 1137091
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_all_upper_municipal_controls_v2/paired_exact_upper_municipality_comparisons_2021.csv",
+      "sha256": "c18ba83c18cfb3d5ffb11b9aaf16781025456830963d68924894572093a245e1",
+      "bytes": 1060046
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_all_upper_municipal_controls_v2/unbound_eligible_official_rows_2021.csv",
+      "sha256": "c167b538aa892ce13f6d789e5be27f35dd63b9b7041c55eb33eae5fd862e575a",
+      "bytes": 20221
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/official2021_all_upper_municipal_controls_v2/unique_exact_upper_municipality_controls_2021.csv",
+      "sha256": "4244a8c167013043ee46a97bd4454400e7cf144f5da31eee055066a614c1dde1",
+      "bytes": 1072195
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "status": "CANDIDATES_ONLY_NO_AXIS_ADOPTION",
+  "source_snapshot": "2021-01-01T21:42:03Z",
+  "identity": "exact current source node name + exact raw addr:district and addr:region to dated census parent/region, explicit ru:formaltype; exact dated Jan2021 parent8 and NPcode official corroboration",
+  "source_places": [
+    "city",
+    "town",
+    "village",
+    "hamlet",
+    "isolated_dwelling"
+  ],
+  "names": [
+    "name",
+    "name:ru",
+    "official_name"
+  ],
+  "normalization": "casefold, ё→е, whitespace, Unicode dash; no administrative aliases or district→GO equivalence",
+  "uniqueness": "one exact TYPED census NP/name within exact parent across full roster; one explicit same-legal-type sourcepoint under actual literal parent+region across all source nodes; any unknown-type same-name sourcepoint is competing",
+  "conflicts": "any conflicting literal native11code/name/type/lifecycle => review",
+  "coordinate_measurement_date": "unknown",
+  "precision": "uncalibrated",
+  "no_centroid_no_road_selection": true
+}

@@ -1,0 +1,70 @@
+{
+  "status": "supplemental_actual_source_context_check_complete_candidate_only",
+  "scope": "Only the two candidate endpoints retaining an old administrative_conflict legacy pointer reason; all prior review outputs are unchanged.",
+  "result": "Both pass the new source-order identity rule. The old administrative_conflict label is not an actual conflicting publisher assertion in the raw 2010 worksheet: district column D is blank on both rows. The candidate CSV raw-district convenience value \"в\" does not match the literal workbook cell and must not be interpreted as a district assertion. The 2002 selected rows are exact typed NP rows under the printed Сельские округа Унинского района > Сардыкский/Сосновский сельский округ hierarchy. No district is inferred across years.",
+  "raw_sources": [
+    {
+      "path": "/workspace/settlements-raw/data/raw/2010/014_5ca759eea0_5._20Nizheg_Kirov_202010.xls",
+      "sha256": "c286aa10e8ebd8a4594b5623affa0ca1aacb6b69ac09a4a9288eeb754aa81c27",
+      "sheet": "Data Sheet",
+      "rows": [
+        {
+          "row": 8261,
+          "colA_index": 8255,
+          "region_C": "Кировская",
+          "district_D": "",
+          "settlement_E": "д.Сардык",
+          "population_F": 0
+        },
+        {
+          "row": 8262,
+          "colA_index": 8256,
+          "region_C": "Кировская",
+          "district_D": "",
+          "settlement_E": "село Сосновка",
+          "population_F": 166
+        }
+      ]
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2002/047_9960082a3e_02c_Kirovskaja_new.xls",
+      "sha256": "dc256b090569a40a10eb82ed809f99a6ac5891da0103394f361d5a6299202d4e",
+      "sheet": "Sheet1",
+      "rows": [
+        {
+          "row": 4381,
+          "literal_name": "деревня Сардык",
+          "population": 1,
+          "heading_context": "Унинский район - все сельское население > Сельские округа Унинского района > Сардыкский сельский округ"
+        },
+        {
+          "row": 4383,
+          "literal_name": "село Сосновка",
+          "population": 235,
+          "heading_context": "Унинский район - все сельское население > Сельские округа Унинского района > Сосновский сельский округ"
+        }
+      ]
+    }
+  ],
+  "candidate_rows": [
+    {
+      "from_source_record_id": "2010:014_5ca759eea0_5._20Nizheg_Kirov_202010.xls:Data Sheet:8261",
+      "to_source_record_id": "2002:047_9960082a3e_02c_Kirovskaja_new.xls:Sheet1:4381",
+      "name": "Сардык",
+      "type": "деревня",
+      "region": "Кировская"
+    },
+    {
+      "from_source_record_id": "2010:014_5ca759eea0_5._20Nizheg_Kirov_202010.xls:Data Sheet:8262",
+      "to_source_record_id": "2002:047_9960082a3e_02c_Kirovskaja_new.xls:Sheet1:4383",
+      "name": "Сосновка",
+      "type": "село",
+      "region": "Кировская"
+    }
+  ],
+  "limits": "Does not clear or rewrite the legacy administrative_conflict flags. It establishes only that these two selected raw 2010 publisher rows make no direct district claim, so the old pointer flag is not an actual-source district contradiction. No district continuity, legal transition date, boundary comparability, or population-quality claim is made.",
+  "eligible_csv_path": "/workspace/settlements-work/continuation_20261004/independent_review/anchor_bracket10614_review/eligible_source_order_identity_edges.csv",
+  "eligible_csv_sha256": "49914ff4aad066b0bb4519ba2d69e03a431451b5d21cf71bd9a15be5004c7307",
+  "review_receipt_path": "/workspace/settlements-work/continuation_20261004/independent_review/anchor_bracket10614_review/review_receipt.json",
+  "review_receipt_sha256": "75439fd733cf61974dc1511a8689ac8350947bf0ebca989cab1491f29d9e34a8"
+}

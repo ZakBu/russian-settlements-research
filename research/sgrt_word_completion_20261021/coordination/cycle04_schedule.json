@@ -1,0 +1,29 @@
+{
+  "run_id": "cycle04_final_editorial_repair_and_gate",
+  "selection_rule": "Explicit WordCi two-pass main; fixed own mass, observed native2021 census rural-volume component. Independent review may reject scientific completion.",
+  "stages": [
+    {
+      "id": "scientific_report_brief_and_atlas",
+      "command": [
+        "python",
+        "research/sgrt_word_completion_20261021/delivery/build_research_package.py",
+        "--model",
+        "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline"
+      ],
+      "requirements": [
+        "W28",
+        "W29",
+        "W30",
+        "W31"
+      ],
+      "required_inputs": [
+        "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline/output_manifest.json",
+        "research/sgrt_word_completion_20261021/analysis/run_receipt.json",
+        "research/sgrt_word_completion_20261021/maps/04_nine_word_types_output_word_ci_2021_baseline.pdf",
+        "research/sgrt_word_completion_20261021/maps/11_regional_sgrt_output_word_ci_2021_baseline.pdf",
+        "research/sgrt_word_completion_20261021/typology/canonical/output_word_ci_2021_baseline/receipt.json"
+      ]
+    }
+  ],
+  "repair_reason": "Improve headings and readable Russian wording; distinguish scope40reviewed vs602pending, geographic-linkage vsP0 sensitivity, and feature dates. Reuse alreadyverified GIS, medical, mass and model data."
+}

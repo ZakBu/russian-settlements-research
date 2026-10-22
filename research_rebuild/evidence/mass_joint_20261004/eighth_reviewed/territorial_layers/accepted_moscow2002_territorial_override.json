@@ -1,0 +1,69 @@
+{
+  "year": 2002,
+  "source_record_id": "ROSSTAT2002:T1:T4:sheet01-04:excel_row02154:territory_parent",
+  "source_file": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+  "source_sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+  "source_sheet": "01-04",
+  "source_excel_row": 2154,
+  "population": 10382754,
+  "male": 4951819,
+  "female": 5430935,
+  "row_locator": "sheet 01-04 row 2154",
+  "excluded_child_source_record_ids": [
+    "ROSSTAT2002:T1:T4:sheet01-04:excel_row02155",
+    "ROSSTAT2002:T1:T4:sheet01-04:excel_row02292",
+    "ROSSTAT2002:T1:T4:sheet01-04:excel_row02299",
+    "ROSSTAT2002:T1:T4:sheet01-04:excel_row02300",
+    "ROSSTAT2002:T1:T4:sheet01-04:excel_row02301"
+  ],
+  "excluded_child_names": [
+    "Москва",
+    "Зеленоград",
+    "Восточный",
+    "Внуково",
+    "Некрасовка"
+  ],
+  "scope": "Moscow federal territory including physical city, Zelenograd, and three named suburban localities",
+  "population_boundary_comparability_asserted": false,
+  "atomic_same_place_identity_edge": false,
+  "selected_observations_modified": false,
+  "coordinate_carrier_id": "2010:pub-11-1-4.pdf:pdf_page_11:41",
+  "coordinate_point_role": "territory_reference",
+  "coordinate_latitude": "55.750556",
+  "coordinate_longitude": "37.6175",
+  "coordinate_admission_status": "reviewed_territory_reference_accepted",
+  "coordinate_semantics": "current city entity point reused as representative territory reference; not a population centroid or physical-NP point",
+  "coordinate_use": "retrospective territory reference only; not 2002 measurement/centroid/physical settlement point",
+  "exact_sum_replay": {
+    "parent_population": 10382754,
+    "children_population_sum": 10382754,
+    "parent_minus_child_sum": 0,
+    "parent_male": 4951819,
+    "children_male_sum": 4951819,
+    "parent_female": 5430935,
+    "children_female_sum": 5430935,
+    "pass": true
+  },
+  "inputs": {
+    "candidate_json": {
+      "path": "/workspace/settlements-work/continuation_20261004/root/moscow2002_territory_parent_candidates/candidate.json",
+      "sha256": "977d6accca54c241781162ad427893546b8e6f82f36385fce42d7cee5f51ec92"
+    },
+    "raw_xls": {
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3"
+    },
+    "selected_observations": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "territory_reference_points": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/federal_territory_reference_points.parquet",
+      "sha256": "3b366d9a513b0396e90813f03c4e3af1cd0b1caef92379a9ae95cae43451d6e3"
+    }
+  },
+  "source_review_status": "independently_supported_territory_scope_projection_candidate_only",
+  "decision_status": "accepted_exclusive_territorial_view_override",
+  "additivity_rule": "replace all five listed children by the published parent only in territorial view",
+  "canonical_atomic_population_modified": false
+}

@@ -1,0 +1,140 @@
+{
+  "status": "COMPLETE_SHARED_OSM",
+  "axis_rows": 173527,
+  "legacy_rows": 142570,
+  "poi_partition_count": 14,
+  "source_education_rows": 76713,
+  "source_osm_rows_seen": 269238,
+  "axis_sha256": "407185618ccc1ed993fe1f2626ef199f7ac033df1707037829260499954b38e5",
+  "poi_partitions": [
+    {
+      "file": "/workspace/scratch/sgrt_transport/poi_000000000.parquet",
+      "sha256": "134649dcea0abaa1fd771f38d487facf7cccda6f2a4136a2796e4bbd8b15d54d",
+      "bytes": 2009462
+    },
+    {
+      "file": "/workspace/scratch/sgrt_transport/poi_000020000.parquet",
+      "sha256": "b4e643125ec9e96655dee00753e127313e5eaf14525d6e3a2310cde039d9f3b3",
+      "bytes": 2045237
+    },
+    {
+      "file": "/workspace/scratch/sgrt_transport/poi_000040000.parquet",
+      "sha256": "0944322a7734f2d9ddabfd34f0df354d7a67c8a0fa3735b77500a0bb499a7cb6",
+      "bytes": 2195760
+    },
+    {
+      "file": "/workspace/scratch/sgrt_transport/poi_000060000.parquet",
+      "sha256": "61b31bea70fb7d82e1dbc83959dc018e78bebbe12b3d2b0ac0a6fc610f2343f8",
+      "bytes": 2070950
+    },
+    {
+      "file": "/workspace/scratch/sgrt_transport/poi_000080000.parquet",
+      "sha256": "ec942aae28c3507de4a0164bd1d309ce6e7e93002845a071dfadc74024b42083",
+      "bytes": 2092858
+    },
+    {
+      "file": "/workspace/scratch/sgrt_transport/poi_000100000.parquet",
+      "sha256": "6244207b82e4fcf9fb5cc29a1ce65ffe9c2cd40d3b460564198f9e5ef4c9228c",
+      "bytes": 1938287
+    },
+    {
+      "file": "/workspace/scratch/sgrt_transport/poi_000120000.parquet",
+      "sha256": "b845abd27d52a2cb762e7b0c3409b3c981671831894b4389709f207793c225d2",
+      "bytes": 1771024
+    },
+    {
+      "file": "/workspace/scratch/sgrt_transport/poi_000140000.parquet",
+      "sha256": "71b80fffe12efb0139ade099f1acf2369f7dc0d302b15578bf737a47d6eb6dc0",
+      "bytes": 1702843
+    },
+    {
+      "file": "/workspace/scratch/sgrt_transport/poi_000160000.parquet",
+      "sha256": "9910d815a5dec028dc61b9b81ec264f52973e5bf4e366db4e914fba3fbdafe49",
+      "bytes": 2262093
+    },
+    {
+      "file": "/workspace/scratch/sgrt_transport/poi_000180000.parquet",
+      "sha256": "9097d3ea1583e0af80c993702a4ab1118f9c6749f6ee6428bbfc6f25fae84c07",
+      "bytes": 2179257
+    },
+    {
+      "file": "/workspace/scratch/sgrt_transport/poi_000200000.parquet",
+      "sha256": "ab9e28ee4eb8ffbf1dda4ba67b3392026dff3b29225d5d5697d8d3b2c4cb1d72",
+      "bytes": 2127078
+    },
+    {
+      "file": "/workspace/scratch/sgrt_transport/poi_000220000.parquet",
+      "sha256": "1641dcf7792815961bb82ee8f9bd823fc73610a69e804a0bc6fa8c869fdc31b7",
+      "bytes": 1958808
+    },
+    {
+      "file": "/workspace/scratch/sgrt_transport/poi_000240000.parquet",
+      "sha256": "34ef0c2cd3256a2dd5140e4a6f43a53603d170b4de8683f37a3ef6a1d800de89",
+      "bytes": 1835377
+    },
+    {
+      "file": "/workspace/scratch/sgrt_transport/poi_000260000.parquet",
+      "sha256": "4a2b7a70c2d127f4868fe65deb4d47b6c9245df6aaf051e2dcff1023d4d36806",
+      "bytes": 796436
+    }
+  ],
+  "coverage": [
+    {
+      "group": "school",
+      "source_rows": 33106,
+      "canonical_site_ids": 33046,
+      "baseline_objects": 3929,
+      "candidate_objects": 18508,
+      "baseline_settlements": 2466,
+      "candidate_settlements": 11593,
+      "union_settlements": 13234
+    },
+    {
+      "group": "preschool",
+      "source_rows": 35475,
+      "canonical_site_ids": 35390,
+      "baseline_objects": 3697,
+      "candidate_objects": 16211,
+      "baseline_settlements": 1797,
+      "candidate_settlements": 6791,
+      "union_settlements": 7835
+    },
+    {
+      "group": "college",
+      "source_rows": 4182,
+      "canonical_site_ids": 4178,
+      "baseline_objects": 672,
+      "candidate_objects": 1863,
+      "baseline_settlements": 358,
+      "candidate_settlements": 938,
+      "union_settlements": 1110
+    },
+    {
+      "group": "university",
+      "source_rows": 2713,
+      "canonical_site_ids": 2712,
+      "baseline_objects": 498,
+      "candidate_objects": 1133,
+      "baseline_settlements": 174,
+      "candidate_settlements": 362,
+      "union_settlements": 425
+    },
+    {
+      "group": "specialized_non_general_school",
+      "source_rows": 1237,
+      "canonical_site_ids": 1237,
+      "baseline_objects": 193,
+      "candidate_objects": 606,
+      "baseline_settlements": 160,
+      "candidate_settlements": 468,
+      "union_settlements": 589
+    }
+  ],
+  "duplicate_rule": "same normalized name crossnode/way within50m, raw assertions retained",
+  "baseline_rule": "explicit source address settlement literal unique within5km on current2021axis",
+  "candidate_rule": "nearest within2.5km,second separated by>=max(1.5xdistance,+0.25km),no address conflict; candidate not identity proof",
+  "physical_census_complete": false,
+  "unknown_is_not_absent": true,
+  "capacity_and_actual_users_not_invented": true,
+  "seconds": 16.478008031845093
+}

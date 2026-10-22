@@ -1,0 +1,95 @@
+{
+  "status": "independent_same_census_source_mapping_complete_candidate_only",
+  "mapping_rows": 7,
+  "new_physical_source_endpoints": 1,
+  "source_alias_mappings": 6,
+  "same_census_partition_relations": 1,
+  "same_year_identity_merges": 0,
+  "population_replacements_or_mutations": 0,
+  "legacy_flags_cleared": 0,
+  "kalinin_qid_code_binding": "unresolved and unused",
+  "inputs": {
+    "F": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "EVID": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+    },
+    "official_table4": {
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3"
+    },
+    "official_krasnodar_parts": {
+      "path": "/workspace/settlements-raw/data/raw/2002/036_81b258bc42_02c_Krasnodarski-krai.xls",
+      "sha256": "9588f5aa5f8de40a290739a880e624a6d34ea566377b9a7f4df1674f1cf99121"
+    },
+    "official_table5": {
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+    },
+    "old_selected_kalin2002": {
+      "path": "/workspace/settlements-raw/data/raw/2002/010_3e630cc803_02c_Moskovskaya-oblast.xls",
+      "sha256": "f2d9f7fba8c898e5e201e8b57e872a9323a1b37c3819434ae7d78e2a8db76147"
+    },
+    "old_selected_kalin2010_vlas2010": {
+      "path": "/workspace/settlements-raw/data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls",
+      "sha256": "cf5b5d57327bf0d32723a7f49bb58db503a201af83a6e2bda4b874986f864167"
+    },
+    "old_selected_trud2010": {
+      "path": "/workspace/settlements-raw/data/raw/2010/009_81f8a0e73c_17._20ДВ_ФО_2010.xls",
+      "sha256": "a8fd7aa55513e73a205ebff1da2ce35fd8ca0f61c286e54491cf49c6132470c4"
+    }
+  },
+  "outputs": {
+    "official_to_selected_source_mapping.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_same_census_source_mapping/official_to_selected_source_mapping.csv",
+      "sha256": "d1613388a6af1ee73700b8bf8c59b3b8d1cf8a4b6fdac6d9dfba62836db92818",
+      "rows": 7
+    },
+    "selected_source_rows.json": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_same_census_source_mapping/selected_source_rows.json",
+      "sha256": "982bc12136c06caccc4c2804190a09a25db4e2b56acd0ede52de4a26aa88372b",
+      "rows": null
+    },
+    "mapping_review_context.json": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_same_census_source_mapping/mapping_review_context.json",
+      "sha256": "7e3dc8980f4dce1b2cb39c862b428bd754b1902ee277807203c8ee98822a9a6f",
+      "rows": null
+    },
+    "source_row_replay.json": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_same_census_source_mapping/source_row_replay.json",
+      "sha256": "d640017fdb3a1c3f0198241e82c11af1b21fcee8cd79b1b605660492ab26c892",
+      "rows": null
+    },
+    "official_publication_competitor_scan.json": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_same_census_source_mapping/official_publication_competitor_scan.json",
+      "sha256": "dca2b75402b5e9e186b08d3c0cba0f8268015c30fdff86abb1261d3b6d775bfe",
+      "rows": null
+    },
+    "pair_scoped_legacy_flag_resolution_candidates.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_same_census_source_mapping/pair_scoped_legacy_flag_resolution_candidates.csv",
+      "sha256": "7f997f9e2c78c43b409c61e0a6eb00e9ba84c93e29e2725204cd9b42cd06e255",
+      "rows": 2
+    }
+  },
+  "limitations": "This maps reviewed official publication rows to selected source records/provenance and scoped continuity targets. It is not a new source quality audit or admission; source values/coordinates/selected entities remain unchanged. Protected regional claims are retained alongside official primary counts. 2002 Vlasikha is absent for Moscow. Kushchevskaya 2002 parts are an exclusive same-census projection. Exact legacy identity/admin flags remain attached and require only these pair-scoped decisions.",
+  "source_mapping_counts": {
+    "exact_raw_locator_aliases": 2,
+    "distinct_official_publisher_observations_mapped_to_existing_physical_places": 4,
+    "new_official_historical_observations": 1
+  },
+  "pair_scoped_flag_review_rows": 2,
+  "reviewed_candidate_packet": {
+    "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_20261004/candidate_corridor_edges.csv",
+    "sha256": "1102f3be2e6675caad3e710451081a2d0f79d38ab5541dc32fb896f387a14663",
+    "producer_receipt_path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_20261004/receipt.json",
+    "producer_receipt_sha256": "0df69dc95f160b9275c3f2cad3c9ebe4c6f00beb3785916b61f8bc773cce4d6a",
+    "independent_edge_review_receipt_path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_review/review_receipt.json",
+    "independent_edge_review_receipt_sha256": "d6245c021fcd7c71ce255b8a858ecca0a274f8d85633067a543d8ac027db77a1",
+    "independent_eligible_edge_list_sha256": "18c2d6e73951eb23392fd048638583719b79764ec94f61f2c18690452980b491"
+  },
+  "mapping_is_provenance_only": true,
+  "no_same_year_graph_merges_or_mutations": true
+}

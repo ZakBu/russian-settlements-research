@@ -1,0 +1,469 @@
+{
+  "status": "COMPUTED_POPULATION_NORMALIZATION_PENDING_INDEPENDENT_ADMISSION",
+  "raw_units_sha256": "5f9c5990cd9ea9da3eb008054356282a27ff0a846d172681441848656323ac44",
+  "raw_input_unit_count": 58097,
+  "scope_filter": {
+    "partition_role": "supported_end_forest"
+  },
+  "raw_scoped_units_sha256": "661a53f591b5bc7888a6039d3fe531db8a9124ad447bcfd66ba4735aecd93dfb",
+  "scoped_memberships_sha256": "ade6eaf60e8df571d8fde58d9fd31872b292524f502143a514e6fc570469ad85",
+  "normalized_units_sha256": "063e75ffe81512ee6219cab84363c7a9f96ea34466b0fa98ae86e9c6142ed900",
+  "effective_nodes_sha256": "a3d6a80309d8e9a1e4fc146584810cd0522fcd44190aed9156118ae18ae4ed2c",
+  "base_nodes_sha256": "0e3f257540fe5fe694cd6cd6240bd672c7974e13710cd6142780c03ea1ae33cd",
+  "central_definition_policy": "one_focal_core_primary",
+  "n_units": 28501,
+  "unit_role_counts": {
+    "protected_carry": 25445,
+    "territorial_unit": 3056
+  },
+  "n_primary2010_overrides": 353,
+  "context_layers": [
+    {
+      "path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/model_inputs_cycle06/nonchernozem_context_v1/settlement_nonchernozem_hypothesis_only.parquet",
+      "sha256": "c2ec83bd83107807e7cf37638a291256bc6452dca9504730987b722d7ba15b9e",
+      "admission_path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle06/nonchernozem_projection_independent_admission.json",
+      "admission_sha256": "47acd3ec64c43c29c450fb05561fe646470022e80545f1f96380b62b2ab2fcb1",
+      "id_column": "id",
+      "column_mapping": {
+        "source_unit_1974": "nc1974_source_unit"
+      }
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/data/geographic_agro_v3/municipal_agro_evidence_full_axis.parquet",
+      "sha256": "45f0b8af10ab6ea249e9f18e004f99c1eb567febb490424589174c3b2bfd22e3",
+      "admission_path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle05/geographic_agro_v3_independent_audit.json",
+      "admission_sha256": "99bcc922de94919fa1691d1b1fed44efe3aeb2d2423fb3d917577f0319182792",
+      "id_column": "id",
+      "column_mapping": {
+        "context_sown_area2021_over2010_usable_ratio": "agroV3_sown_ratio",
+        "native_source_parent_oktmo8": "primary2021_source_parent_oktmo8_context_key"
+      }
+    }
+  ],
+  "context_projection": [
+    {
+      "output_column": "focal_strict_own_address2021_school",
+      "columns": [
+        "school_education_osm2021_school_baseline_count"
+      ],
+      "kind": "positive_count",
+      "scope": "focal",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 2021,
+      "grain": "own_NP_accepted_source_address_link; positive mapped site, not census of operating institutions",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_column": "focal_strict_own_address2021_health_general_dental",
+      "columns": [
+        "medical_medical_osm_baseline_general_and_dental_clinical_sites_count"
+      ],
+      "kind": "positive_count",
+      "scope": "focal",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 2021,
+      "grain": "own_NP_accepted_source_address_link; positive mapped site, not census of operating institutions",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_column": "focal_strict_own_address2021_large_retail",
+      "columns": [
+        "services_services_osm2021_large_retail_baseline_count"
+      ],
+      "kind": "positive_count",
+      "scope": "focal",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 2021,
+      "grain": "own_NP_accepted_source_address_link; positive mapped site, not census of operating institutions",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_column": "focal_strict_own_address2021_bank",
+      "columns": [
+        "services_services_osm2021_bank_baseline_count"
+      ],
+      "kind": "positive_count",
+      "scope": "focal",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 2021,
+      "grain": "own_NP_accepted_source_address_link; positive mapped site, not census of operating institutions",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_column": "focal_strict_own_address2021_physical_admin",
+      "columns": [
+        "services_services_osm2021_administration_baseline_count"
+      ],
+      "kind": "positive_count",
+      "scope": "focal",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 2021,
+      "grain": "own_NP_accepted_source_address_link; positive mapped site, not census of operating institutions",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_column": "focal_geographic_catalogue2021_school",
+      "columns": [
+        "source_geography_union2021_school_education_osm2021_school_count"
+      ],
+      "kind": "positive_count",
+      "scope": "focal",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 2021,
+      "grain": "source-linked NP strict+disjoint coordinate channels; not own-institution identity proof",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_column": "focal_geographic_catalogue2021_health_general_dental",
+      "columns": [
+        "source_geography_union2021_medical_medical_osm_general_and_dental_clinical_sites_count"
+      ],
+      "kind": "positive_count",
+      "scope": "focal",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 2021,
+      "grain": "source-linked NP strict+disjoint coordinate channels; not own-institution identity proof",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_column": "focal_geographic_catalogue2021_large_retail",
+      "columns": [
+        "source_geography_union2021_services_services_osm2021_large_retail_count"
+      ],
+      "kind": "positive_count",
+      "scope": "focal",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 2021,
+      "grain": "source-linked NP strict+disjoint coordinate channels; not own-institution identity proof",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_column": "focal_geographic_catalogue2021_bank",
+      "columns": [
+        "source_geography_union2021_services_services_osm2021_bank_count"
+      ],
+      "kind": "positive_count",
+      "scope": "focal",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 2021,
+      "grain": "source-linked NP strict+disjoint coordinate channels; not own-institution identity proof",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_column": "focal_geographic_catalogue2021_physical_admin",
+      "columns": [
+        "source_geography_union2021_services_services_osm2021_administration_count"
+      ],
+      "kind": "positive_count",
+      "scope": "focal",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 2021,
+      "grain": "source-linked NP strict+disjoint coordinate channels; not own-institution identity proof",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_column": "rural_municipal_high_grain2021_proxy",
+      "columns": [
+        "agro_high_productivity_evidence"
+      ],
+      "kind": "boolean",
+      "scope": "rural_members",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 2021,
+      "grain": "current_native_municipal_grain_yield_proxy_not_own_farm_productivity",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "context_grain_yield_centner_per_ha_2021_native_code"
+      ]
+    },
+    {
+      "output_column": "rural_municipal_sown_decline2010_2021_proxy",
+      "columns": [
+        "agro_decline_evidence"
+      ],
+      "kind": "boolean",
+      "scope": "rural_members",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": "2010–2021",
+      "grain": "municipal_sown_area_source_pair2010_2021_boundary_equivalence_unproven",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "context_sown_area_native_code_2010",
+        "context_sown_area_native_code_2021"
+      ]
+    },
+    {
+      "output_column": "rural_historical_region1974_nonchernozem",
+      "columns": [
+        "nonchernozem_geographic_evidence"
+      ],
+      "kind": "boolean",
+      "scope": "rural_members",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 1974,
+      "grain": "historical_regional1974_only_not_modern_exact_zone",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "nc1974_source_unit"
+      ]
+    },
+    {
+      "output_column": "rural_recreation_map2021",
+      "columns": [
+        "recreation_facility_evidence"
+      ],
+      "kind": "boolean",
+      "scope": "rural_members",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 2021,
+      "grain": "NP_2021_OSM_thematic_map_context_positive_only",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_column": "rural_dacha_map2021",
+      "columns": [
+        "dacha_landuse_evidence"
+      ],
+      "kind": "boolean",
+      "scope": "rural_members",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 2021,
+      "grain": "NP_2021_OSM_thematic_map_context_positive_only",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_column": "focal_literal_agro_processing2021",
+      "columns": [
+        "agro_processing_function_evidence"
+      ],
+      "kind": "boolean",
+      "scope": "focal",
+      "source": "accepted frozen source node fields / exact underlying source admissions in actual bound contract",
+      "year": 2021,
+      "grain": "own_NP_literal_OSM_processing_tag_not_output_volume",
+      "absence_is_unknown": true,
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    }
+  ],
+  "context_numeric_projection": [
+    {
+      "output_prefix": "rural_grain2021_municipal_context",
+      "value_column": "context_grain_yield_centner_per_ha_2021",
+      "scope": "rural_members",
+      "source": "accepted explicit current node/layer fields; no new source thresholds",
+      "year": 2021,
+      "unit": "centner/ha",
+      "grain": "strict_native2021_municipal",
+      "independent_source_unit_columns": [
+        "context_grain_yield_centner_per_ha_2021_native_code"
+      ]
+    },
+    {
+      "output_prefix": "rural_grain2010_strict_native_context",
+      "value_column": "context_grain_yield_centner_per_ha_2010",
+      "scope": "rural_members",
+      "source": "accepted explicit current node/layer fields; no new source thresholds",
+      "year": 2010,
+      "unit": "centner/ha",
+      "grain": "strict_geoV3_native2010_bridge_not_analysisV4_additional86",
+      "independent_source_unit_columns": [
+        "context_grain_yield_centner_per_ha_2010_native_code"
+      ]
+    },
+    {
+      "output_prefix": "rural_sown2021_over2010_municipal_context",
+      "value_column": "agroV3_sown_ratio",
+      "scope": "rural_members",
+      "source": "accepted explicit current node/layer fields; no new source thresholds",
+      "year": "2010–2021",
+      "unit": "ratio",
+      "grain": "municipal_same_source_pair_boundary_legal_equivalence_unproven",
+      "independent_source_unit_columns": [
+        "context_sown_area_native_code_2010",
+        "context_sown_area_native_code_2021"
+      ]
+    },
+    {
+      "output_prefix": "rural_agri2021_sown_share_municipal_context",
+      "value_column": "agri2021_sown_share_of_census_farmland2021_usable",
+      "scope": "rural_members",
+      "source": "accepted explicit current node/layer fields; no new source thresholds",
+      "year": 2021,
+      "unit": "share",
+      "grain": "agricultural_census2021_municipal_available10regions",
+      "independent_source_unit_columns": [
+        "agri2021_source_municipality_oktmo8"
+      ]
+    },
+    {
+      "output_prefix": "rural_rosreestr2021_sown_share_regional_context",
+      "value_column": "land2021_region_farmland2021_sown_share",
+      "scope": "rural_members",
+      "source": "accepted explicit current node/layer fields; no new source thresholds",
+      "year": 2021,
+      "unit": "share",
+      "grain": "Rosreestr_subject2021_coarse_context_different_denominator",
+      "independent_source_unit_columns": [
+        "region"
+      ]
+    },
+    {
+      "output_prefix": "rural_gaez_sat_NPsample_context",
+      "value_column": "climate_gaez_sat_above10_cday_1981_2010",
+      "scope": "rural_members",
+      "source": "accepted explicit current node/layer fields; no new source thresholds",
+      "year": "1981–2010",
+      "unit": "degreeC_day",
+      "grain": "GAEZ_raster_sample_at_NP_source_point_gridcell_independence_unknown",
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_prefix": "rural_gaez_summer_precip_pet_NPsample_context",
+      "value_column": "climate_gaez_summer_precipitation_over_pet_1981_2010",
+      "scope": "rural_members",
+      "source": "accepted explicit current node/layer fields; no new source thresholds",
+      "year": "1981–2010",
+      "unit": "ratio",
+      "grain": "GAEZ_raster_sample_at_NP_source_point_gridcell_independence_unknown",
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_prefix": "rural_gaez_soil_limiting_rating_lower_NPsample_context",
+      "value_column": "soil_gaez_low_input_most_limiting_rating_class_rating_lower",
+      "scope": "rural_members",
+      "source": "accepted explicit current node/layer fields; no new source thresholds",
+      "year": "source_raster_period_as_admitted",
+      "unit": "rating_percent",
+      "grain": "GAEZ_soil_rating_interval_bound_sample_not_Russian_bonitet",
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_prefix": "rural_gaez_soil_limiting_rating_upper_NPsample_context",
+      "value_column": "soil_gaez_low_input_most_limiting_rating_class_rating_upper",
+      "scope": "rural_members",
+      "source": "accepted explicit current node/layer fields; no new source thresholds",
+      "year": "source_raster_period_as_admitted",
+      "unit": "rating_percent",
+      "grain": "GAEZ_soil_rating_interval_bound_sample_not_Russian_bonitet",
+      "independent_source_unit_columns": [
+        "id"
+      ]
+    },
+    {
+      "output_prefix": "rural_natural_strict_municipal2021_context",
+      "value_column": "context_natural_increase_per1000_parent_strict2021",
+      "scope": "rural_members",
+      "source": "accepted explicit current node/layer fields; no new source thresholds",
+      "year": 2021,
+      "unit": "per1000",
+      "grain": "strict_current_municipal_parent_PMO_context_not_own_NP",
+      "independent_source_unit_columns": [
+        "primary2021_source_parent_oktmo8_context_key"
+      ]
+    },
+    {
+      "output_prefix": "rural_migration_strict_municipal2021_context",
+      "value_column": "context_migration_increase_per1000_parent_strict2021",
+      "scope": "rural_members",
+      "source": "accepted explicit current node/layer fields; no new source thresholds",
+      "year": 2021,
+      "unit": "per1000",
+      "grain": "strict_current_municipal_parent_PMO_context_not_own_NP",
+      "independent_source_unit_columns": [
+        "primary2021_source_parent_oktmo8_context_key"
+      ]
+    }
+  ],
+  "source_admissions": [
+    {
+      "path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle07_controller_independent/controller_admission_v4.json",
+      "sha256": "64013ac0ac5ca47ab8bef98d477ab032cca0cbabe7138b80f1515bc9236666d0"
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle07_population_source353_projection_independent/audit.json",
+      "sha256": "19d1b3e713b1baf1f1c8f43dcdbb89023d1af878e476deb03b173fdd98108868"
+    },
+    {
+      "path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle05/relinked_v4_independent/audit.json",
+      "sha256": "27f6584fe4c3767fca8f76482813f81a2d32890fd035a5bcaf7ef718fcc7f63a"
+    }
+  ],
+  "watched_inputs": {
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/typology/cycle07_complete/contracts_primary_v1/normalize_cap060_supported_end_forest.json": "5eeb19a810e52fccf9c5d72a988a3e96ab82d924aa2d997afc576445705a4c35",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/typology/cycle07_complete/normalize_unit_populations.py": "0ac94658c7824cf241595d73f072a2d31f242471fb7272a6e649e5d60cee5c29",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/typology/cycle07_complete/atomic_normalization.py": "b79dc4e80ebeb26f5319a7900ea460f6e4fd910af60aa59cee982c1338aa32e1",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/model/cycle07_scale_hierarchy/output_primary_v4/cap_060_raw_units.parquet": "5f9c5990cd9ea9da3eb008054356282a27ff0a846d172681441848656323ac44",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/model/cycle07_scale_hierarchy/output_primary_v4/cap_060_raw_memberships.parquet": "89ad52bc71c599de7debe70927c903b66a8f242394656f4d476636958cdfb371",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/model/output_cycle06_access_v2_source_geography_inclusive/nodes.parquet": "0e3f257540fe5fe694cd6cd6240bd672c7974e13710cd6142780c03ea1ae33cd",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle07_controller_independent/controller_admission_v4.json": "64013ac0ac5ca47ab8bef98d477ab032cca0cbabe7138b80f1515bc9236666d0",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle07_population_source353_projection_independent/audit.json": "19d1b3e713b1baf1f1c8f43dcdbb89023d1af878e476deb03b173fdd98108868",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle05/relinked_v4_independent/audit.json": "27f6584fe4c3767fca8f76482813f81a2d32890fd035a5bcaf7ef718fcc7f63a",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/model_inputs_cycle06/nonchernozem_context_v1/settlement_nonchernozem_hypothesis_only.parquet": "c2ec83bd83107807e7cf37638a291256bc6452dca9504730987b722d7ba15b9e",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle06/nonchernozem_projection_independent_admission.json": "47acd3ec64c43c29c450fb05561fe646470022e80545f1f96380b62b2ab2fcb1",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/data/geographic_agro_v3/municipal_agro_evidence_full_axis.parquet": "45f0b8af10ab6ea249e9f18e004f99c1eb567febb490424589174c3b2bfd22e3",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle05/geographic_agro_v3_independent_audit.json": "99bcc922de94919fa1691d1b1fed44efe3aeb2d2423fb3d917577f0319182792",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/typology/cycle07_complete/population_source353_v1/effective_population_source_view.parquet": "c4477e03e475ca8c84208c7a5020b578eeb5f7802012cb62a62664fe625b94b8"
+  },
+  "overlay": null,
+  "accepted_population_source_view": {
+    "path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/typology/cycle07_complete/population_source353_v1/effective_population_source_view.parquet",
+    "sha256": "c4477e03e475ca8c84208c7a5020b578eeb5f7802012cb62a62664fe625b94b8",
+    "admission_path": "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle07_population_source353_projection_independent/audit.json",
+    "admission_sha256": "19d1b3e713b1baf1f1c8f43dcdbb89023d1af878e476deb03b173fdd98108868"
+  },
+  "shared_effective_source_view": null,
+  "hierarchy_or_mi_or_coordinates_changed": false,
+  "historical_boundary_equivalence_claimed": false,
+  "code_sha256": "0ac94658c7824cf241595d73f072a2d31f242471fb7272a6e649e5d60cee5c29",
+  "files": {
+    "applied_primary2010_ids.csv": "fde4336376ed896f397c9b3fdd76d08d4f38b5290f25abe40dd881beae32628a",
+    "normalized_units.parquet": "063e75ffe81512ee6219cab84363c7a9f96ea34466b0fa98ae86e9c6142ed900",
+    "raw_units_scoped.parquet": "661a53f591b5bc7888a6039d3fe531db8a9124ad447bcfd66ba4735aecd93dfb",
+    "memberships_scoped.parquet": "ade6eaf60e8df571d8fde58d9fd31872b292524f502143a514e6fc570469ad85",
+    "effective_population_source_view.parquet": "a3d6a80309d8e9a1e4fc146584810cd0522fcd44190aed9156118ae18ae4ed2c"
+  }
+}

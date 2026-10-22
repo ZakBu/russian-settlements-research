@@ -1,0 +1,45 @@
+{
+  "status": "ACCEPTED_ALL_FOUR_ACTUAL_PNG_AND_REVIEWED_SCALARS",
+  "all_checks_passed": true,
+  "checks": {
+    "region_validation_chart_values.csv": {
+      "rows": 15,
+      "columns": 20,
+      "same_strings_null_masks_and_numeric_values_within_1e_12": true,
+      "max_absolute_numeric_CSV_roundtrip_difference": 0.0
+    },
+    "coefficient_chart_values.csv": {
+      "rows": 111,
+      "columns": 14,
+      "same_strings_null_masks_and_numeric_values_within_1e_12": true,
+      "max_absolute_numeric_CSV_roundtrip_difference": 4.440892098500626e-16
+    },
+    "sample_chart_values.csv": {
+      "rows": 6,
+      "columns": 12,
+      "same_strings_null_masks_and_numeric_values_within_1e_12": true,
+      "max_absolute_numeric_CSV_roundtrip_difference": 0.0
+    }
+  },
+  "receipt_sha256": "b20a8e22330b1c95c4f7966d0964e7efe35e876346f502b68ee1ceec2230030c",
+  "output_sha256": {
+    "common_samples.png": "c06429ba0e7b095423014f1003422329cc0593bd9fff12f2c8abc49162cd0de0",
+    "A_M1_M2_coefficients.pdf": "35766454c5aaecfced52c41a0caaff1ff6b7b345bd984e7301db4dbff15e4a7f",
+    "B_M1_M2_M3_inventory_coefficients.png": "f792a06e6b4486e73f88d49ba2509ca248df2e34dc013e6362f0fd0dbf2ea0c2",
+    "sample_chart_values.csv": "50c88eb5692d08800fa006ebd7fdbfa70dc95c02a9b00436c1e8456767da4495",
+    "region_validation.pdf": "5c427f7456e8bf7460b1f44f314070c595781b6a8ee84f0820a7df52762909ff",
+    "region_validation_chart_values.csv": "b9d6e70d34c6e4a6345606b1400e19eb6f634f1c9741a9e79fd2f3ff256b83a2",
+    "coefficient_chart_values.csv": "a9f78f02b9c4b6f3358e7743ec7bf7f8bf74d0535129c101453c94a45bcb8241",
+    "A_M1_M2_coefficients.png": "b55cff69400a44717a6d3b4b1c8f3d1b9e2470650bf3e7aa4e4ed2367c127724",
+    "B_M1_M2_M3_inventory_coefficients.pdf": "0605bf78ab015ba9a51eadd5868d98fa5b4b793c56da24cd9783009f605db8d7",
+    "region_validation.png": "9acc4c23e5c07ca09e0a6074a185f1078305fc36d60e16b28dabdf2ccdee70cc"
+  },
+  "root_personally_viewed": [
+    "region_validation.png",
+    "A_M1_M2_coefficients.png",
+    "B_M1_M2_M3_inventory_coefficients.png",
+    "common_samples.png"
+  ],
+  "visual_findings": "All four actual PNGs viewed. Russian legends, per-scenario n ranges and separate family comparisons explicit; no clipped titles or overlapping labels. Three coefficient panels visibly preserve very different uncertainty and influence at30min. Different cohorts across caps cannot establish a causal scale effect.",
+  "scalar_scope": "Exact string/null masks; explicit 1e-12 numeric tolerance permits final CSV parsing/serialization roundoff, not refitting or altered coefficients."
+}

@@ -1,0 +1,88 @@
+{
+  "status": "AGRO_CONTEXT_RECOVERED_AND_WIRED_PENDING_INDEPENDENT_RAW_AUDIT",
+  "created_utc": "2026-10-21T07:04:48.888791+00:00",
+  "checks": [
+    {
+      "check": "all173862_axisIDs_exactorder",
+      "passed": true
+    },
+    {
+      "check": "rawgrain_matches_accepted_freeze_on_valid_rows",
+      "passed": true
+    },
+    {
+      "check": "national_threshold1732distinct_actualvalidmunicipal_codes",
+      "passed": true
+    },
+    {
+      "check": "newgrain2021_matches_existing_accepted_parent_context",
+      "passed": false
+    },
+    {
+      "check": "uncertain_sownpairs_not_false_or_zero",
+      "passed": true
+    },
+    {
+      "check": "all_declineknown_has_nativeparent_andhistoryguards",
+      "passed": true
+    },
+    {
+      "check": "no_positive_legal_boundary_claim",
+      "passed": true
+    },
+    {
+      "check": "all_input_bytes_unchanged",
+      "passed": true
+    }
+  ],
+  "n_failed": 1,
+  "axis_rows": 173862,
+  "raw_source_cells": 6310,
+  "municipal_metric_records": 6174,
+  "grain2021_valid_distinct_municipal_records": 1732,
+  "high_grain_threshold_q75": 29.6,
+  "grain_unit": "centner per hectare of harvested grain-and-leguminous crops; all farm categories",
+  "grain2021_NP_context_nonnull": 137636,
+  "high_grain_true": 31322,
+  "high_grain_false": 106314,
+  "sownarea_valid_municipal_pairs": 732,
+  "sownarea_valid_NP_context_pairs": 28358,
+  "agro_decline_true": 2905,
+  "agro_decline_false": 25453,
+  "not_total_farm_productivity_or_soil_bonitet": true,
+  "no_own_Mi_or_population_changes": true,
+  "native_parent_bridge": true,
+  "threshold_not_NP_weighted": true,
+  "source_historical_code_history_not_proof_of_legal_boundaries": true,
+  "inputs_sha256": {
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/data/source_controls_cycle05/full_settlement_axis_cycle05_federal_children.parquet": "ac7a6f84a2ce4fea4e8c34d7227c91027cfa6cf22081983620b45ba03cb7ecac",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/analysis/cycle05_tools/context_source_freeze_v2/primary_parent_municipal_context.parquet": "32f5904681f3ca07fb873a9f7e926e478fc7c2bb6da2d59f689d2af2f3422bc6",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/analysis/cycle05_tools/context_source_freeze_v2/grain_source_row_witnesses.parquet": "11921991f33112a7c53b802fbb559c7b1336ef498fa21745df7e00db2875739a",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/data/source_controls_cycle05/explicit2021_source_parent_bridge.parquet": "3b88fc1c7e6f0a99456122d4bb0395f95a8bd45e6e544ecb9a9a1b74c04aa02a",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/context/municipal_source2021_to_stable_crosswalk.parquet": "c8cdd6e2e8bbd36312cee911a484d6950847926daae9ad0bbeeb37a3319871e5",
+    "/workspace/scratch/sgrt_context_completion/data_section7_112_v20260928.parquet": "074ad308bc6ef4ce25dcfc62e01e571d32296910ec6ae907e4c99aee9422c3e1"
+  },
+  "code_sha256": "816381aa1f123f4502fa74bb8003bad4b65b4c7abd8b8d771aab443e291a1c7c",
+  "outputs": {
+    "national_distinct_valid_grain2021_threshold_frame.parquet": {
+      "sha256": "d2822bd127f6af225515f5d62c01411c6d8d1157eda91702f97cb56ba91a18ee",
+      "bytes": 63758
+    },
+    "all_municipal_sownarea_pair_controls.parquet": {
+      "sha256": "77aaf80c2ef3b8fcdbf7190ee966ad5bdcd133361e5906dc6f82793d4dc564f5",
+      "bytes": 175532
+    },
+    "municipal_agro_evidence_full_axis.parquet": {
+      "sha256": "760ca770a12dfc75f017c4a172092476e1fb65edd8fe77bc361a81dcf7b589d2",
+      "bytes": 8766202
+    },
+    "municipal_source_metric_controls.parquet": {
+      "sha256": "10f30ff8f8606e97c2bdca9db1db0af0cceb46d472ba73879bfedabcc456c2b1",
+      "bytes": 161136
+    },
+    "raw_grain_sown2010_2021_source_cells.parquet": {
+      "sha256": "27c98c479797dff58ae3e6023298f9f6177c8b619b580d689e4bd2260d0210fa",
+      "bytes": 207523
+    }
+  }
+}

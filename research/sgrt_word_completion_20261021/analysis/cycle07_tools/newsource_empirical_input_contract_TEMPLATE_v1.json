@@ -1,0 +1,135 @@
+{
+  "protocol": "analysis/cycle07_tools/PROTOCOL_v2.json",
+  "source_regression_design": "analysis/cycle06_tools/actual_inputs_access_v2_baseline.json",
+  "source_family": "NEW477_ALL_LOCAL_ADMIN_DOMINANT_CORE_EMPIRICALLY_RETAINED_PARTITIONS",
+  "nodes": "model_inputs_cycle07/institutional_mass477_v2/computed/effective_full_nodes.parquet",
+  "own_mass": "model_inputs_cycle07/institutional_mass477_v2/computed/fixed_own_mass_components.parquet",
+  "population_view": "typology/cycle07_complete/population_source353_v1/effective_population_source_view.parquet",
+  "population_admission": "reviews/cycle07_population_source353_projection_independent/audit.json",
+  "context_features": {
+    "rural_suburban_share": {
+      "path": "analysis/cycle07_source477_city_context180_v2/large_city_context180.parquet",
+      "fields": [
+        "network_suburban_30_60_minutes"
+      ],
+      "unit": "population-weighted share in30–60minute band to nearestlargecity, not allwithin60min and not commuting"
+    },
+    "agro_grain_yield2010": {
+      "path": "research/sgrt_word_completion_20261021/analysis/cycle05_tools/context_source_freeze_v4/primary_parent_municipal_context.parquet",
+      "fields": [
+        "context_grain_yield_centner_per_ha_2010"
+      ],
+      "unit": "centner/harvestedha; historicalmunicipal context admitted by either independent same-series-current-identity or direct historicalnativecode==datedprimaryparent +owninterval/unchangedhistory/unit/unique path; directpath doesnotrequire futuremeasurement; historicallegalboundariesunproven"
+    },
+    "sat_normal": {
+      "path": "context/cycle07_coordinate_recovery/climate_settlement_features.parquet",
+      "fields": [
+        "climate_gaez_sat_above10_cday_1981_2010"
+      ],
+      "unit": "degC*days, daily-derived climate normal1981-2010"
+    },
+    "summer_moisture_normal": {
+      "path": "context/cycle07_coordinate_recovery/climate_settlement_features.parquet",
+      "fields": [
+        "climate_gaez_summer_precipitation_over_pet_1981_2010"
+      ],
+      "unit": "P/PET April-September,1981-2010normal"
+    },
+    "soil_rating_midpoint": {
+      "path": "context/cycle07_coordinate_recovery/soil_settlement_features.parquet",
+      "fields": [
+        "soil_gaez_low_input_most_limiting_rating_class_rating_lower",
+        "soil_gaez_low_input_most_limiting_rating_class_rating_upper"
+      ],
+      "unit": "0..1 classinterval midpoint;low-inputmaize soil quality,not Russianbonitet"
+    },
+    "agro_grain_yield2021": {
+      "path": "research/sgrt_word_completion_20261021/analysis/cycle05_tools/context_source_freeze_v4/primary_parent_municipal_context.parquet",
+      "fields": [
+        "context_grain_yield_centner_per_ha_2021"
+      ],
+      "unit": "published2021 municipal centner/harvestedha; primary2021 NP parent, not own NP crop yield; source-year declared code interval must include2021"
+    },
+    "rural_large_city_minutes": {
+      "path": "analysis/cycle07_source477_city_context180_v2/large_city_context180.parquet",
+      "fields": [
+        "nearest_large_city_network_minutes"
+      ],
+      "unit": "direct time to nearest population-defined large-city context anchor, not own system center; contextual modifier only"
+    }
+  },
+  "direct_focal_pairs": {
+    "path": "model/cycle07_scale_hierarchy/direct_pairs_source477_v1/candidate_knee_or_fallback/directed_member_to_focal_pairs.parquet",
+    "receipt": "model/cycle07_scale_hierarchy/direct_pairs_source477_v1/candidate_knee_or_fallback/directed_member_focal_receipt.json",
+    "columns": {
+      "center_id": "core_id",
+      "direct_minutes": "direct_network_minutes"
+    }
+  },
+  "views": [
+    {
+      "candidate_cap": 45,
+      "admitted_empirical_level": 0,
+      "normalized_units": "typology/cycle07_complete/normalized_empirical_source477_v1/level_000/normalized_units.parquet",
+      "normalization_admission": "reviews/cycle07_source477_normalization_independent/level_000_v1/audit.json",
+      "normalization_receipt": "typology/cycle07_complete/normalized_empirical_source477_v1/level_000/receipt.json",
+      "raw_units": "model/cycle07_scale_hierarchy/empirical_registry_source477_v1/level_000_raw_units.parquet",
+      "raw_memberships": "model/cycle07_scale_hierarchy/empirical_registry_source477_v1/level_000_raw_memberships.parquet",
+      "pair_binding_original_raw_units": "model/cycle07_scale_hierarchy/source477_adminall_v2/output_primary_v1/cap_045_raw_units.parquet",
+      "pair_binding_original_raw_memberships": "model/cycle07_scale_hierarchy/source477_adminall_v2/output_primary_v1/cap_045_raw_memberships.parquet"
+    },
+    {
+      "candidate_cap": 60,
+      "admitted_empirical_level": 1,
+      "normalized_units": "typology/cycle07_complete/normalized_empirical_source477_v1/level_001/normalized_units.parquet",
+      "normalization_admission": "reviews/cycle07_source477_normalization_independent/level_001_v1/audit.json",
+      "normalization_receipt": "typology/cycle07_complete/normalized_empirical_source477_v1/level_001/receipt.json",
+      "raw_units": "model/cycle07_scale_hierarchy/empirical_registry_source477_v1/level_001_raw_units.parquet",
+      "raw_memberships": "model/cycle07_scale_hierarchy/empirical_registry_source477_v1/level_001_raw_memberships.parquet",
+      "pair_binding_original_raw_units": "model/cycle07_scale_hierarchy/source477_adminall_v2/output_primary_v1/cap_060_raw_units.parquet",
+      "pair_binding_original_raw_memberships": "model/cycle07_scale_hierarchy/source477_adminall_v2/output_primary_v1/cap_060_raw_memberships.parquet"
+    },
+    {
+      "candidate_cap": 90,
+      "admitted_empirical_level": 2,
+      "normalized_units": "typology/cycle07_complete/normalized_empirical_source477_v1/level_002/normalized_units.parquet",
+      "normalization_admission": "reviews/cycle07_source477_normalization_independent/level_002_v1/audit.json",
+      "normalization_receipt": "typology/cycle07_complete/normalized_empirical_source477_v1/level_002/receipt.json",
+      "raw_units": "model/cycle07_scale_hierarchy/empirical_registry_source477_v1/level_002_raw_units.parquet",
+      "raw_memberships": "model/cycle07_scale_hierarchy/empirical_registry_source477_v1/level_002_raw_memberships.parquet",
+      "pair_binding_original_raw_units": "model/cycle07_scale_hierarchy/source477_adminall_v2/output_primary_v1/cap_090_raw_units.parquet",
+      "pair_binding_original_raw_memberships": "model/cycle07_scale_hierarchy/source477_adminall_v2/output_primary_v1/cap_090_raw_memberships.parquet"
+    },
+    {
+      "candidate_cap": 120,
+      "admitted_empirical_level": 3,
+      "normalized_units": "typology/cycle07_complete/normalized_empirical_source477_v1/level_003/normalized_units.parquet",
+      "normalization_admission": "reviews/cycle07_source477_normalization_independent/level_003_v1/audit.json",
+      "normalization_receipt": "typology/cycle07_complete/normalized_empirical_source477_v1/level_003/receipt.json",
+      "raw_units": "model/cycle07_scale_hierarchy/empirical_registry_source477_v1/level_003_raw_units.parquet",
+      "raw_memberships": "model/cycle07_scale_hierarchy/empirical_registry_source477_v1/level_003_raw_memberships.parquet",
+      "pair_binding_original_raw_units": "model/cycle07_scale_hierarchy/source477_adminall_v2/output_primary_v1/cap_120_raw_units.parquet",
+      "pair_binding_original_raw_memberships": "model/cycle07_scale_hierarchy/source477_adminall_v2/output_primary_v1/cap_120_raw_memberships.parquet"
+    }
+  ],
+  "source_admissions": [
+    "reviews/cycle07_mass_pool477_v2_independent/combined_admission.json",
+    "reviews/cycle07_context477_independent/audit.json",
+    "model/cycle07_scale_hierarchy/city_context180_independent_v1/v2_admission.json",
+    "reviews/cycle07_controller_independent/controller_source477_v2_admission.json",
+    "reviews/cycle07_dominant_core_independent/prospective_admission.json",
+    "reviews/cycle07_empirical_registry_independent/audit.json"
+  ],
+  "nearest_large_city_time_budget_minutes": 180,
+  "own_focal_pair_time_budget_minutes": 180,
+  "status": "TEMPLATE_BLOCKED_PENDING_ALL_PROMOTED_NORMALIZATION_AND_PARTITION_ADAPTER_REVIEW",
+  "additional_source_provenance": [
+    "analysis/cycle07_source477_city_context180_v2/receipt.json",
+    "model/cycle07_scale_hierarchy/source477_adminall_v2/output_primary_v1/pre_execution_binding.json",
+    "model/cycle07_scale_hierarchy/source477_adminall_v2/output_primary_v1/baseline_export_manifest.json",
+    "reviews/cycle07_analysis_prospective_independent/code_protocol_v2_admission.json",
+    "analysis/cycle07_tools/new477_city_context_protocol_v2.json",
+    "model/cycle07_scale_hierarchy/empirical_registry_source477_v1/registry_receipt.json"
+  ],
+  "partition_role": "candidate_knee_or_fallback"
+}

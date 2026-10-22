@@ -1,0 +1,53 @@
+{
+  "status": "candidates_only",
+  "rule_proposal": "unique_region_name_type_plus_exact_named_historical_code_and_independent_point_agreement",
+  "distance_candidate_threshold_km": 1,
+  "modern_records_with_named_historical_code_support": 48570,
+  "candidate_pairs_2010_2021": 47479,
+  "2010_candidate_rows": 47479,
+  "2010_candidate_recorded_population": 14306869,
+  "inputs": {
+    "selected": {
+      "path": "/workspace/settlements-data/research_rebuild/evidence/releases/national_source_selection_r2_regional_2010_20260930/selected_observations.parquet",
+      "sha256": "524e706daa32a69cac9b3e67b3bb8f9113fe2d851f10cdf42e93ba4efa5d72bf"
+    },
+    "classifier": {
+      "path": "/workspace/settlements-work/sources/raw_okato_2009_verification_v1/raw_classifier.parquet",
+      "sha256": "343c0f5af1f52b9276699d9fe8d883b58def5aeabdd904063389606d29bc2b81"
+    },
+    "geo": {
+      "path": "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet",
+      "sha256": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f"
+    },
+    "provider": {
+      "path": "/workspace/settlements-work/coordinates/ledger/coordinate_screen.parquet",
+      "sha256": "a6dfce862364dbae57c7b81d3dded1ae449f014254a74c453dfe2d09e39763a7"
+    },
+    "region_screen": {
+      "path": "/workspace/settlements-work/coordinates/region_screen_v1/region_point_screen.parquet",
+      "sha256": "6c27e8c077808421ae6c202ba95ab4f1aeb58ac1b48d054f5208958b76ac765a"
+    },
+    "pairs": {
+      "path": "/workspace/settlements-work/candidates/optimized_run/pair_candidates.csv.gz",
+      "sha256": "88e606da3bfdcdcd21fa89f094e806eb8e41a0421856db90724a679ef5a8e1b3"
+    },
+    "russia_geometry": {
+      "path": "/workspace/settlements-work/sources/region_geometry/RUS_ADM1_simplified.geojson",
+      "sha256": "47179a0b1f30097226bc057921e674d83a9ac9e2a44023e687351355cdb7fc1b"
+    },
+    "ukraine_geometry": {
+      "path": "/workspace/settlements-work/sources/region_geometry/UKR_ADM1.geojson",
+      "sha256": "b2f9f4ad2e9be5888523219c0bb46a24332ead16b46305409098048fd361a2d6"
+    }
+  },
+  "outputs": {
+    "historical_current_object_screen.parquet": "f849b4d7046afe7504bda3c36fcc00efd02dfc8dede51e9aac4b6ef87379e107",
+    "all_historical_object_context.parquet": "cf8f8cca6923532095cc59af1acf294cafb50cbc72df0a5bb70d0802c55f81ea",
+    "identity_candidates.parquet": "2e22815e3a638a6964e3ed5dc33df1e8d70eb60588597466d77da0fa4f355a82"
+  },
+  "builder_sha256": "9fd54d511c57f79c3996d0603fd0d64c4f2ce84fdb7931270b7c312095cca627",
+  "limitations": [
+    "No identity or coordinate admissions; graph conflicts, source grain, historic events and population comparability require separate review.",
+    "Regional uniqueness is supplemented by a named dated classifier object and spatial agreement; the 1km cutoff is a proposal needing validation."
+  ]
+}

@@ -1,0 +1,179 @@
+version: '1.0'
+project: sgrt_russia
+language: ru
+status: designed_not_instantiated_as_llm_agents
+coordinator_model: choose_from_actually_available_models
+repository: ZakBu/russian-settlements-research
+branch: research/sgrt-final-protocol-20261018
+protocol: research/sgrt_20261018/RESEARCH_PROTOCOL.md
+permissions:
+  primary_data: read_only
+  main: read_only
+  merge_pull_requests: false
+  secrets_in_outputs: false
+  publish_copyright_books: false
+  unapproved_external_messages: false
+rules:
+  - A running script is not a running LLM researcher.
+  - Every empirical claim requires source IDs or a reproducible computation.
+  - Every bibliographic claim requires a verified source; reading status is explicit.
+  - The author of an output is not its only independent reviewer.
+  - Produce negative and inconclusive results; never optimize p-values.
+  - Missing source data is not zero and does not authorize fabrication.
+  - Model weights are not observed commuting probabilities.
+  - Never declare completion while acceptance gates remain open.
+output_contract:
+  required: [task_id, status, input_versions, files, claims, tests, limitations, unresolved, next_dependency]
+  status_enum: [planned, running, produced, independently_checked, accepted, blocked_with_evidence]
+  claim_required: [text, source_or_calculation, scope, uncertainty]
+  failure_policy: preserve_partial_output_and_exact_error
+agents:
+  A0:
+    role: coordinator_and_integrator
+    depends_on: []
+    writes: [coordination, reports]
+    prompt: >-
+      Выполняй утверждённый протокол СГРТ, не создавай новую исследовательскую тему.
+      Раздай специализированные задачи с фиксированными входами. Веди журнал решений,
+      статусы и матрицу покрытия требований исходного DOCX. Не принимай расчёт по одному
+      сообщению исполнителя: требуй таблицы, код, хэши и результаты проверки. Сохраняй
+      отрицательные результаты. Не меняй main и первичные данные. Итоговая приёмка
+      требует отдельных заключений A7 и A8. Укажи фактическую модель и job_id только
+      после подтверждённого запуска.
+    outputs: [coordination/task_registry.json, coordination/decision_log.md, coordination/completion_matrix.csv]
+  A1:
+    role: russian_geographical_literature
+    depends_on: []
+    writes: [literature/russian]
+    prompt: >-
+      Изучи в первую очередь Трейвиша: полимасштабность, город и деревня, центро-периферийные
+      отношения, потенциалы. Затем Поляна, включая метод потенциалов и делимитацию агломераций;
+      Маергойза, Родомана, В. П. Семёнова-Тян-Шанского. Добавь Ковалёва, Алексеева и Нефёдову
+      для сельского расселения. Для каждого тезиса сохрани точную страницу, содержание метода,
+      тип исходных данных и границы применимости. Раздели прочитанный текст и найденное
+      библиографическое описание. Не исправляй неясные фамилии догадками. Передай A2/A4
+      только подтверждённые методические положения, а не заимствованные нормативные пороги
+      как универсальные законы.
+    outputs: [literature/russian/evidence_matrix.csv, literature/russian/methods_review.md, literature/russian/unresolved_names.csv]
+    reviewer: A2
+  A2:
+    role: gravity_models_and_comparative_research
+    depends_on: []
+    writes: [literature/models, methods]
+    prompt: >-
+      Сопоставь модели потенциалов и Хаффа, ближайший центр, оценочные и наблюдаемые
+      функциональные районы. Изучи Карачурину и Мкртчяна без приписывания им отсутствующих
+      алгоритмов. Определи модельный вес, область кандидатов, внешнюю массу, нулевые расстояния
+      и условия вложенности. Проверь, что эмпирическая калибровка не использует результат
+      собственной модели и будущую демографическую динамику. Подготовь базовую спецификацию,
+      альтернативы и независимые критерии проверки. Пороги явно обозначь как сценарные.
+    outputs: [methods/model_specification.md, methods/parameter_grid.json, literature/models/comparison.csv]
+    reviewer: A7
+  A3:
+    role: data_identity_and_provenance
+    depends_on: []
+    writes: [data/derived, audit/data]
+    prompt: >-
+      Читай исходные данные без изменения. Зафиксируй версию, URL, размер, SHA-256, единицу
+      наблюдения, уровень территории, годы, нули/пропуски и дубликаты. Проверь тождество НП,
+      историческую применимость точек и отдельные преобразования границ. Не складывай
+      федеральные агрегаты с дочерними НП. Для 1989 отдели наличное/постоянное/неизвестное
+      население и вторичные оценки. Для 2010 сохрани признаки защищённых значений. Создай
+      точные таблицы связей, не подменяя неизвестное сходством названий.
+    outputs: [audit/data/source_manifest.json, audit/data/grain_audit.json, audit/data/coverage.csv, data/derived/accepted_observations.parquet]
+    reviewer: A7
+  A4:
+    role: catchments_hierarchy_demography
+    depends_on: [A2, A3]
+    writes: [calculations/stage1]
+    prompt: >-
+      По допущенным данным рассчитай геодезические расстояния, потенциалы без собственной
+      массы, локальные принадлежности и альтернативные веса. Сохрани непокрытые точки.
+      Построй вложенность снизу вверх: дети сохраняют UID и состав, один родитель на уровень,
+      без циклов и двойного счёта. Зафиксируй единицы по 2002, контроль по 2010, отдельно
+      пересчитай меняющиеся районы. Для 1989 сравни только одинаковую подвыборку. Опубликуй
+      демографию центра, внешнего/сельского окружения и всей системы, контроль баланса,
+      переключение принадлежностей и устойчивость типов.
+    outputs: [calculations/stage1/membership.parquet, calculations/stage1/hierarchy.csv, calculations/stage1/demography.csv, calculations/stage1/sensitivity.csv]
+    reviewers: [A3, A7]
+  A5:
+    role: agriculture
+    depends_on: [A3, A4]
+    writes: [calculations/stage2]
+    prompt: >-
+      Присоедини муниципальную сельскохозяйственную статистику к фиксированным СГРТ.
+      Проверь категории хозяйств, продуктовые подытоги, единицы, текущие и сопоставимые цены.
+      Измерь взаимное соответствие МО и СГРТ, не принимай гипотезу 99 процентов за факт.
+      Не разрезай экстенсивные суммы по населению. Отдельно представь строгий crosswalk и
+      более широкий контекстный вариант, годы источника и преобразования территорий.
+    outputs: [calculations/stage2/agriculture.csv, calculations/stage2/crosswalk.csv, calculations/stage2/coverage.json]
+    reviewer: A7
+  A6:
+    role: firm_economy
+    depends_on: [A3, A4]
+    writes: [calculations/stage3]
+    prompt: >-
+      Работай с фиксированной ревизией RFSD, сохраняя INN-year, финансовые единицы, наличие
+      отчётности, outlier, imputed и качество адреса. Выручка line_2110 не является ВМП или
+      рабочими местами. 2011 без координат используй только как явно оговорённый муниципальный
+      контекст; проверь применимость кодов. Геокодирование 2021 не переносится назад.
+      Считай число представленных организаций, доли отчётности, отраслевую структуру,
+      диверсификацию и концентрацию. Не заполняй бюджетную сферу и банки нулями. Сохрани
+      непривязанные/неточные записи и варианты без флагов качества.
+    outputs: [calculations/stage3/economy.csv, calculations/stage3/geocoding_audit.csv, calculations/stage3/reporting_bias.md]
+    reviewer: A7
+  A7:
+    role: independent_statistical_reviewer
+    depends_on: [A4, A5, A6]
+    writes: [reviews/statistics]
+    prompt: >-
+      Независимо пересчитай ключевые балансы и оценки из замороженных входов, не проверяй
+      только готовые диаграммы. Сравни M1/M2/M3 на одинаковых строках, с региональной
+      кластеризацией ошибок и пространственно разнесённой проверкой. Проверь утечки,
+      коллинеарность, остаточную автокорреляцию, множественные проверки, выбросы, нули,
+      чувствительность и эффект покрытия. Верни перечень ошибок с приоритетами и решение
+      accept/revise/reject. Значимость не является условием accept; отсутствие прибавки
+      M2/M3 не является ошибкой. Не называй собственную проверку координатора независимой.
+    outputs: [reviews/statistics/recomputed_checks.json, reviews/statistics/models.csv, reviews/statistics/verdict.md]
+    independent_from: [A4, A5, A6]
+  A8:
+    role: geography_and_stakeholder_validity
+    depends_on: [A4, A5, A6]
+    writes: [reviews/geography]
+    prompt: >-
+      На заранее выбранных 12–20 разных территориях проверь реальные опубликованные связи,
+      зоны обслуживания, исследования агломераций и транспортные барьеры. Не выдавай
+      административное совпадение или устойчивость параметров за наблюдение поездок.
+      Данные настройки не используй как независимую проверку. Оцени применимость выводов
+      для жителей, местных администраций и организаций; не имитируй интервью или согласования.
+      Выяви, где модельные районы не соответствуют реальным и что именно ограничивает вывод.
+    outputs: [reviews/geography/case_register.csv, reviews/geography/evidence.csv, reviews/geography/verdict.md]
+    independent_from: [A4]
+  A9:
+    role: scientific_cartography_and_editor
+    depends_on: [A7, A8]
+    writes: [figures, reports]
+    prompt: >-
+      Составь карты и научный отчёт из принятых результатов. Сохрани пропорции России,
+      восточные/западные края и острова, различай нули и отсутствие данных, добавь отдельные
+      региональные увеличения. Экспортируй SVG/PDF и PNG от 4000 пикселей. Итоговая типология
+      имеет прозрачные демографические правила и независимые функциональные признаки.
+      Проверь каждое число и подпись против таблиц, каждую ссылку против источника.
+      Не пиши завершённое исследование в прошедшем времени там, где блок ещё не выполнен.
+    outputs: [reports/research.docx, reports/research.pdf, figures, reports/completion_status.json]
+gates:
+  G0: source_manifest_and_protocol_frozen
+  G1: identity_scope_coordinate_checks_passed
+  G2: assignment_and_mass_conservation_passed
+  G3: comparable_stage2_and_stage3_features_available
+  G4: statistical_reviewer_accepts_or_limits_claims
+  G5: independent_geographic_validation_completed
+  G6: visual_and_citation_QA_passed
+  final: all_required_gates_pass_or_remaining_limitations_explicitly_reported_without_claim_of_full_completion
+actual_execution:
+  llm_agents_started: false
+  cloud_data_preflight_run: 39162490106
+  cloud_source_extraction_run: 39163170414
+  cloud_additional_acquisition_run: 39163132738
+  computational_pilot_workflow: .github/workflows/sgrt-three-stage-pilot.yml
+  computational_pilot_completion: must_be_confirmed_from_run_and_artifact

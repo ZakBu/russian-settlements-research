@@ -1,0 +1,68 @@
+{
+  "status": "reviewed_512_primary_population_override_delta_ready_for_root_integration_no_selected_mutation",
+  "method": "Unique normalized exact name + explicit type + census region across full2929 official locality roster including2241 NULL rows and all2945 selected2010 rows; 512 original XLS captions/population cells read independently by exact source ID/sheet/one-based row; all512 official P/M/F independently crossread from PDF via Poppler. Names/population equality alone were not used to prove scope: exact locality type,2010 source date,region grain and all-competitor uniqueness checked. Source municipal and settlement-group contexts retained. No future2012 census value used.",
+  "reviewed_rows": 512,
+  "old_population_sum": 459122,
+  "new_primary_population_sum": 469600,
+  "delta": 10478,
+  "official_region_control": 1716868,
+  "current_region_selected_sum": 1704555,
+  "projected_new_region_selected_sum": 1715033,
+  "projected_remaining_region_deficit": 1835,
+  "raw_workbook_rows_verified": 512,
+  "source_census_date": "2010-10-14",
+  "publication_date": "2012-04-23",
+  "source_date_evidence": "PDF physical page2 expressly says official statistical data obtained during 14 October2010 census; >100 values are concrete resident counts. PDF page1 title: Итоги Всероссийской переписи населения2010 года;2012 is publication year.",
+  "protected_raw_counts_separate": true,
+  "null_source_presence_rows": 2241,
+  "unallocated_source_population": 54199,
+  "wrapped_name_repairs_outside_reviewed_delta": [
+    {
+      "page": 41,
+      "line": 28,
+      "parsed_name": "трудпосёлок",
+      "correct_complete_source_name": "Ладожский трудпосёлок",
+      "source_prefix_line": "Ладожский",
+      "reason": "PDF name wrapped on two extracted lines"
+    },
+    {
+      "page": 65,
+      "line": 15,
+      "parsed_name": "Пустомержа",
+      "correct_complete_source_name": "Большая Пустомержа",
+      "source_prefix_line": "Большая",
+      "reason": "PDF name wrapped on two extracted lines"
+    },
+    {
+      "page": 92,
+      "line": 32,
+      "parsed_name": "Ручей\"",
+      "correct_complete_source_name": "Дом отдыха \"Живой Ручей\"",
+      "source_prefix_line": "Дом отдыха \"Живой",
+      "reason": "PDF name wrapped on two extracted lines"
+    }
+  ],
+  "inputs": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/official_population_residual_sources_20261008/leningrad_2010_official_archived.pdf": "57cb1e6e9ea1c5803a860048941ddd51b40640372797229d0010e758155b8792",
+    "/workspace/settlements-raw/data/raw/2010/001_723371ec84_1._20NW_2010.xls": "03569e7513579700cb0216869ecbe16712e0fe684f0340517f11484612fab382"
+  },
+  "outputs": {
+    "reviewed_primary_override_delta_512.csv.gz": {
+      "bytes": 36458,
+      "sha256": "d80c87429a458c8b0bcbb987dfc66921b4900491452b3dff30c7a32faad73697"
+    },
+    "old_raw_workbook_cells_and_official_readback_512.csv.gz": {
+      "bytes": 26662,
+      "sha256": "e6324341e1ef0fd6135b24cc70d25ed28f514d8b38582d6a7ab3554876e6d91c"
+    },
+    "source_census_year_and_publisher_context.txt": {
+      "bytes": 4278,
+      "sha256": "1ecb6039e58bc02a523d09fb3ce9aa8fc4391b540b03b2ee4a2d95a8930eaa38"
+    },
+    "wrapped_source_names_corrections.json": {
+      "bytes": 812,
+      "sha256": "ca8d598259fa94a7ffa2312a13c481fe53c6e650fa0f66e94687862603003c7f"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "source_version": "20250918",
+  "observation_year": 2021,
+  "bridge_year": 2021,
+  "source_rows": 8832750,
+  "series_rows": 243202,
+  "municipal_profiles": 2244,
+  "complete_profiles": 858,
+  "inconsistent_profiles": 72,
+  "duplicate_rows": 4260,
+  "municipalities_crosswalk": 2306,
+  "municipalities_split": 2017,
+  "legacy_allocation_diagnostic_classes": {
+    "missing": 9932,
+    "mosaic": 2577,
+    "grain": 2321,
+    "technical": 273,
+    "fodder": 250,
+    "zero_sown": 16,
+    "vegetables": 7,
+    "potato": 2
+  },
+  "scheme_agreement_population2021_count": 0.994667707114059,
+  "mass_checks": 24,
+  "inputs": [
+    {
+      "path": "/workspace/scratch/202266b2aadb/recovery_inputs/columnar/agriculture.parquet",
+      "bytes": 42415006,
+      "sha256": "e6ca2906f49fd0fe561ae98f535206990cebc2675884571bced546c3374c198d"
+    },
+    {
+      "path": "research/sgrt_recovered_20261019/data/panel.parquet",
+      "bytes": 14389261,
+      "sha256": "a2b5544c0d3c5581144a5439113a96c4a771697dc87a38c2abf979e1ead1467b"
+    },
+    {
+      "path": "research/sgrt_recovered_20261019/model/nearest_membership.parquet",
+      "bytes": 24731809,
+      "sha256": "33525bf31429c7b4ae183f2f63fc6ecdc9526d0b6537c2e388fe6c0b2c4e8684"
+    }
+  ],
+  "main_interpretation": "share of settlement points whose 2021 municipality has crop profile; NOT share of crops",
+  "functional_main_classes": {
+    "grain": 6193,
+    "fodder": 4221,
+    "missing": 2049,
+    "potato": 1410,
+    "mixed": 730,
+    "technical": 525,
+    "mosaic": 159,
+    "vegetables": 91
+  },
+  "municipal_class_counts": {
+    "grain": 939,
+    "fodder": 552,
+    "potato": 298,
+    "missing": 220,
+    "mixed": 112,
+    "technical": 65,
+    "vegetables": 58
+  },
+  "functional_count_population2010_agreement": 0.9786708284562362,
+  "functional_count_population2021_agreement": 0.9777604369879048
+}

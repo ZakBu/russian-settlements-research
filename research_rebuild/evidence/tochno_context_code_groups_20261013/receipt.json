@@ -1,0 +1,53 @@
+{
+  "input_context_receipt": "/workspace/russian-settlements-research/research_rebuild/evidence/tochno_context_code_resolution_20261013/receipt.json",
+  "inherited_source_pins": {
+    "/workspace/scratch/tochno-enrichment-20261013/raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "/workspace/scratch/tochno-np-attach-20261013/native_np_municipality_bridge.csv.gz": "1843104679ebb262604d63af9818d0436934dbf0fa78c2a23902b3b6bde2a3dd",
+    "/workspace/shared/tochno-20261013/bdmo_description.txt": "71119653150e1971f37512771f9a848e8ae5864a44aa7596473f2affd57e6283"
+  },
+  "candidate_input_sha256": "6a1fb93a2af526fda2da789c122efff64265f4af36de7b2dc70134d0c811edd6",
+  "code_structure_evidence": "/workspace/russian-settlements-research/research_rebuild/evidence/tochno_context_code_resolution_20261013/code_structure_excerpt.txt",
+  "target_rows": 78,
+  "accepted": [
+    {
+      "role": "lower",
+      "np_records": 77,
+      "np_population": 163836,
+      "preserved_source_claim_rows": 154,
+      "distinct_parent_codes": 9
+    },
+    {
+      "role": "upper",
+      "np_records": 1,
+      "np_population": 654,
+      "preserved_source_claim_rows": 2,
+      "distinct_parent_codes": 1
+    }
+  ],
+  "held_rows": 0,
+  "semantics": {
+    "association": "unique existing parent code; source-row provenance remains multiple",
+    "choose_census_municipality_attribute_row": false,
+    "boundary_comparability_asserted": false,
+    "historical_membership_asserted": false,
+    "population_coverage_gain": false,
+    "frozen_bridge_modified": false
+  },
+  "outputs": {
+    "accepted_code_context_delta.csv": {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/tochno_context_code_groups_20261013/accepted_code_context_delta.csv",
+      "bytes": 48890,
+      "sha256": "4f487f2d1783e0881514e70ace29e5a989583470c58a74de161934a9e5d887b6"
+    },
+    "all_source_claim_rows.csv": {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/tochno_context_code_groups_20261013/all_source_claim_rows.csv",
+      "bytes": 47029,
+      "sha256": "a8815f8413521fa196297891ebdd4f78978143804485f3bc08a5e9391140217d"
+    },
+    "held_code_context.csv": {
+      "path": "/workspace/russian-settlements-research/research_rebuild/evidence/tochno_context_code_groups_20261013/held_code_context.csv",
+      "bytes": 279,
+      "sha256": "b26df2eeb8b910ca7d6e0e303894800bc7367d2cc0f5012ec45b026ddf07aea2"
+    }
+  }
+}

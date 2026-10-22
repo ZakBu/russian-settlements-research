@@ -1,0 +1,5 @@
+# Участок №2: narrow legacy housing address sources
+
+Source-only package for native2002 Moscow Sheet1row3860 population730. Six bounded web-search batches (29 address/property/company/postal/former-label spelling queries) did not recover a literal former settlement to house/street bridge. Exact query/results captures are retained. Merger/legalroster sources demonstrate the known named settlement and event but supply no ownhouse placement; those are handled by Moscow. Generic parcelnumber2 and industrialarea2 hits are not formerNP sources.
+
+Three direct legacyYandexaddress queries returned actual resolved wrongfeatures, explicitly extracted/excluded: distinct2-йБисеровскийучасток, wholeЭлектростальurbanokrug, and FerganaCanal. None is an ownpoint or receivingvillagepoint candidate. No admission or population/scope/loader/Git mutation. No electoralquery or repeatOSMfullmap. Further new evidence can be collected in a new folder; this is an immutable bounded attempt receipt, not a global no-source claim.

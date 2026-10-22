@@ -1,0 +1,68 @@
+{
+  "status": "append_only_secondary_history_display_candidates_no_canonical_changes",
+  "inputs_sha256": {
+    "candidate_claim_parquet": "42d01e3216027c92e727d95c29dbaaeb4fade0b06d3878af9cfd601b8babfc42",
+    "candidate_claims_receipt": "216bdaae9bae1fb85436f3f853407fe6756850d3a0872e65f2caec23ae0a0c96",
+    "reviewed_193_qid_pairs": "08783bd39dd0d10ff2bb5510645a138372aecc2389ecafbd685736d3f25392fd",
+    "reviewed_193_receipt": "4da6bd297ad91599d24d218df1d6aa90993b7f1281689e2704053818a9b72a97",
+    "current_binding_candidate_inventory": "a59d5e5d9f43bc3d7922d9c3af04ffc88bca9582e6b77ff61d9468741a543071",
+    "frozen_secondary_overlay": "a9599f84e97b8c0076614b6e89fce52b31426a0f62ff0056e66ceb0ecbfd3450",
+    "current_selected_2021_source_parquet": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "snapshot_conflict_inventory": "1f9bb5e0771b6c0db675bbde064c94ab38e680b52410e9e1f669469b6037129b"
+  },
+  "source_scope": "New P1082 GUIDs from full-entity cache, restricted to exact current source_record_id/QID pairs among independently reviewed 193 and exact raw current native OKTMO replay against selected 2021 Parquet.",
+  "candidate_input_claims": 384,
+  "eligible_claims_appended_for_display": 309,
+  "eligible_unique_GUIDs": 309,
+  "eligible_QIDs": 137,
+  "eligible_current_source_record_ids": 137,
+  "same_QID_year_groups": 309,
+  "same_QID_year_value_conflict_groups": 0,
+  "all_current_raw_native_code_checks_passed": true,
+  "all_reviewed_name_type_region_and_physical_P31_checks_passed": true,
+  "all_dates_actual_P585_year_precision": true,
+  "date_precision_counts": {
+    "year_precision_only": 309
+  },
+  "rank_counts": {
+    "normal": 308,
+    "preferred": 1
+  },
+  "actual_year_counts": {
+    "2010": 136,
+    "2002": 136,
+    "1999": 2,
+    "2025": 1,
+    "2021": 3,
+    "2012": 8,
+    "2017": 2,
+    "2011": 8,
+    "2016": 2,
+    "2014": 2,
+    "1970": 1,
+    "1959": 2,
+    "1939": 2,
+    "1926": 1,
+    "1905": 1,
+    "1897": 1,
+    "1859": 1
+  },
+  "exact_GUID_duplicates_vs_frozen_overlay": 0,
+  "QID_year_value_duplicates_vs_frozen_overlay": 0,
+  "snapshot_GUID_conflicts_held": 3,
+  "unreviewed_or_unbound_claims_kept_separate": 75,
+  "historical_identity_asserted": false,
+  "historical_coordinates_populated": false,
+  "quantitative_year_eligible": false,
+  "population_scope": "unknown",
+  "primary_census_admission": false,
+  "population_selected_value_modified": false,
+  "limitations": [
+    "The reviewed current source-QID binding links only the contemporary row to its QID; it does not prove that a historical P1082 statement has the same place boundary or settlement grain.",
+    "All 309 retained P585 dates have year precision only; raw literals are preserved and no exact date is synthesized.",
+    "P1082 records are secondary statements, not primary census observations.",
+    "All 3 differing raw-snapshot GUID records remain held; the 75 claims outside the reviewed exact source binding remain separate.",
+    "No historical identity, historical coordinate, census scope, or primary population admission is asserted.",
+    "Existing 363,723-row secondary overlay remains unchanged; claims are a candidate append-only sidecar pending root replay/application."
+  ]
+}

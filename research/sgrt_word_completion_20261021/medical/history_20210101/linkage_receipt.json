@@ -1,0 +1,49 @@
+{
+  "status": "COMPLETE_EXTRACT_LINKED",
+  "source_snapshot_date": "2021-01-01",
+  "axis_rows": 173527,
+  "axis_sha256": "407185618ccc1ed993fe1f2626ef199f7ac033df1707037829260499954b38e5",
+  "unique_uid_rows": 173527,
+  "source_partitions": [
+    {
+      "path": "/workspace/scratch/medical_mass/history2021/poi_history.parquet",
+      "bytes": 6966644,
+      "sha256": "62e5b32b0d3b944dad569c9091114eb0301b0f7325fbb8a573b72dbd9e069ec7",
+      "rows": 64976
+    }
+  ],
+  "inventory_rows": 64976,
+  "source_healthcare_rows": 30064,
+  "coordinate_rows": 64968,
+  "link_status_counts": {
+    "coordinate_candidate_le10km_not_identity_accepted": 38513,
+    "strong_coordinate_candidate_le1km_not_identity_accepted": 16768,
+    "exact_source_address_locality_unique_within10km_distance_le5km": 6258,
+    "outside10km_reference_candidate_radius": 1736,
+    "source_address_locality_conflicts_with_nearest_candidate": 911,
+    "exact_source_address_locality_unique_within10km_distance5to10km": 683,
+    "address_locality_homonym_conflict": 99,
+    "unlocated_source": 8
+  },
+  "medical_class_counts": {
+    "pharmacy_source_tag": 29169,
+    "hospital_source_tag": 10480,
+    "dentist_source_tag": 5743,
+    "polyclinic_name_assertion": 5068,
+    "clinic_source_tag": 4447,
+    "doctor_source_tag": 4390,
+    "fap_name_assertion": 2291,
+    "central_district_hospital_name_assertion": 1105,
+    "other_healthcare_source_tag": 880,
+    "ambulatory_name_assertion": 728,
+    "district_local_hospital_name_assertion": 297,
+    "laboratory_source_tag": 182,
+    "nursing_home_source_tag": 115,
+    "regional_hospital_name_assertion": 74,
+    "midwife_source_tag_not_automatically_fap": 7
+  },
+  "operating_status_not_confirmed": true,
+  "capacity_source_rows": 5,
+  "features_sha256": "98d1f4c9370f460293e60c929062b2877a8f5a78c7b95c644df07cbb1526f065",
+  "seconds": 6.514
+}

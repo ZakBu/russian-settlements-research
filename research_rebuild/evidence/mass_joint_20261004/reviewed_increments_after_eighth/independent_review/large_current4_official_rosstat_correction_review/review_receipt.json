@@ -1,0 +1,1182 @@
+{
+  "status": "independent_official_four_large_source_review_complete_candidate_only",
+  "candidate_source_path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_20261004/candidate_corridor_edges.csv",
+  "candidate_source_sha256": "1102f3be2e6675caad3e710451081a2d0f79d38ab5541dc32fb896f387a14663",
+  "candidate_receipt_path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_20261004/receipt.json",
+  "candidate_receipt_sha256": "0df69dc95f160b9275c3f2cad3c9ebe4c6f00beb3785916b61f8bc773cce4d6a",
+  "candidate_edge_rows": 7,
+  "independently_supported_candidate_edge_rows": 7,
+  "identity_or_population_admissions": 0,
+  "official_2010_T5_raw_rows_reopened": 4,
+  "official_2002_T4_raw_rows_reopened": 3,
+  "sex_totals_match_population": true,
+  "current_selected_endpoints_reopened": 4,
+  "current_whole_province_name_type_counts": {
+    "Кущевская": 1,
+    "Власиха": 1,
+    "Калининец": 1,
+    "Трудовое": 1
+  },
+  "current_source_hardflag_failures": 0,
+  "accepted_current_point_rows_reopened": 4,
+  "historical_classifier_rows_replayed": {
+    "2009_OKATO": 4,
+    "2011_named_typed_point": 4
+  },
+  "kalinin_qid_binding": "held/unasserted: Q1125953 P764 literal 46638155051 differs from selected current OKTMO 46750000056; P721 46238834008 differs from current OKATO 46450556000. Do not call it stale; do not use the QID binding to admit identity. Scoped physical-source continuity remains supported independently.",
+  "vlasikha_2002": "Moscow PGT observation remains missing. The same-label official 2002 Table4 row is an Altai Krai village, population 4,724, and is explicitly excluded.",
+  "kushchevskaya_same_census_relation": "22680 + 6853 = 29533 official whole count. Keep part records as parts with no ordinary identity edge and no duplicate population counting; no part sex counts.",
+  "source_row_selection_guard": {
+    "Кущевская": {
+      "2002": "Official Table4 whole row is new primary place observation (29,533). The two secondary 2002 part rows (22,680 and 6,853) belong to separate rural-admin contexts; retain as partition components, not identity-merge or additive duplicate.",
+      "2010": "Official Table5 row is already represented in the selected frame as ROSSTAT2010:T5:p79:l18 (same page/source/raw locality value; candidate uses alternate extracted line locator l76). Treat candidate row as source-locator alias/primary evidence, not another 2010 entity."
+    },
+    "Власиха": {
+      "2002": "No Moscow-region PGT row in Table4. The exact-name Table4 hit is 2002 Altai Krai village с. Власиха (population 4,724), unrelated; leave Moscow 2002 missing.",
+      "2010": "Table5 official PGT row is primary source evidence for the already connected selected 2010 place; keep older Lingvarium 25,394 as a separate source assertion, not a second place/population."
+    },
+    "Калининец": {
+      "2002": "Table4 official row (п. Калининец, 23,873) is distinct primary publication evidence from selected Lingvarium row (same year/name/population); choose one primary observation and retain the other as alternate provenance, never count both. Existing old selected source conflict flag is not cleared.",
+      "2010": "Table5 official PGT row (21,774) supersedes old Lingvarium comparator 16,336 for primary display; retain old source assertion, do not create a second 2010 settlement."
+    },
+    "Трудовое": {
+      "2002": "Candidate Table4 row 9927 is the exact same workbook row as existing selected ID 2002:1_TOM_01_04.xls:0:9927; treat as source-ID alias, not another observation. Existing 2002-to-2021 accepted path is already present.",
+      "2010": "Table5 locality row 18,522 corrects prior Lingvarium 18,495. Separate administrative row “Трудовое сельское поселение” (2,534) is not the settlement; use only the named settlement row."
+    }
+  },
+  "current_baseline_incident_paths": [
+    {
+      "place": "Кущевская",
+      "current_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:45656",
+      "accepted_incident_edge_count": 1,
+      "existing_edges": [
+        {
+          "from": "ROSSTAT2010:T5:p79:l18",
+          "to": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:45656",
+          "status": "checked_rule_accepted"
+        }
+      ]
+    },
+    {
+      "place": "Власиха",
+      "current_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:70219",
+      "accepted_incident_edge_count": 2,
+      "existing_edges": [
+        {
+          "from": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:14333",
+          "to": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:70219",
+          "status": "checked_rule_accepted"
+        },
+        {
+          "from": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:14333",
+          "to": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:70219",
+          "status": "checked_rule_accepted"
+        }
+      ]
+    },
+    {
+      "place": "Калининец",
+      "current_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:68255",
+      "accepted_incident_edge_count": 2,
+      "existing_edges": [
+        {
+          "from": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:11238",
+          "to": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:68255",
+          "status": "checked_rule_accepted"
+        },
+        {
+          "from": "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:11238",
+          "to": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:68255",
+          "status": "checked_rule_accepted"
+        }
+      ]
+    },
+    {
+      "place": "Трудовое",
+      "current_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:100072",
+      "accepted_incident_edge_count": 1,
+      "existing_edges": [
+        {
+          "from": "2002:1_TOM_01_04.xls:0:9927",
+          "to": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:100072",
+          "status": "checked_rule_accepted"
+        }
+      ]
+    }
+  ],
+  "limitations": "Historical point/location evidence is corroborative only; coordinates are current accepted representative points, no historical measurement or boundary comparability is asserted. Source rows and QID population claims are not population replacements and no measurement date, legal status date, or historical code validity interval is asserted. Repeated summary rows in the 2010 publication and source alternatives must not create extra census entities. No graph, F ledger, population values, or canonical source selection were mutated.",
+  "inputs_sha256": {
+    "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_20261004/candidate_corridor_edges.csv": "1102f3be2e6675caad3e710451081a2d0f79d38ab5541dc32fb896f387a14663",
+    "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_20261004/receipt.json": "0df69dc95f160b9275c3f2cad3c9ebe4c6f00beb3785916b61f8bc773cce4d6a",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_seventh_reviewed/accepted_point_uses.parquet": "2215702e772417bb512da8c0a6c0d31ad9783c6a5345d4c0bbfe18403e11ad22",
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "/workspace/settlements-raw/data/raw/2002/036_81b258bc42_02c_Krasnodarski-krai.xls": "9588f5aa5f8de40a290739a880e624a6d34ea566377b9a7f4df1674f1cf99121",
+    "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "/workspace/settlements-assets/baseline/legacy_database_20260929.duckdb": "26a2fe5b2ce05119d919a196beb57cd655a49ffffb0ff8f194762aa78e6b5b64"
+  },
+  "classifier_database_sha256": "26a2fe5b2ce05119d919a196beb57cd655a49ffffb0ff8f194762aa78e6b5b64",
+  "old_classifier_rows": [
+    {
+      "place": "Кущевская",
+      "2009_row": [
+        "03228816001",
+        "ст-ца Кущевская",
+        "Кущевская",
+        "станица",
+        "станица Кущевская",
+        "t",
+        "Краснодарский край",
+        "краснодарский",
+        "кущевская",
+        "станица",
+        1,
+        true,
+        "142/2009"
+      ],
+      "2011_row": [
+        "03228816001",
+        "ст-ца Кущевская",
+        "ст-ца",
+        "2302000000100",
+        "03628416",
+        0,
+        2.0,
+        "2011/06/20",
+        46.555151,
+        39.620317,
+        true,
+        true,
+        "2012-01-15"
+      ],
+      "interpretation": "historical named/type/OKATO corroboration only; not legal validity interval, official census population, nor current-code binding"
+    },
+    {
+      "place": "Власиха",
+      "2009_row": [
+        "46573000",
+        "Власиха",
+        "Власиха",
+        "поселок городского типа",
+        "поселок городского типа Власиха",
+        "t",
+        "Московская область",
+        "московская",
+        "власиха",
+        "пгт",
+        1,
+        true,
+        "142/2009"
+      ],
+      "2011_row": [
+        "46573000000",
+        "Власиха",
+        "пгт",
+        "5002200200000",
+        null,
+        25165,
+        3.0,
+        "2011/06/20",
+        55.681667,
+        37.190833,
+        true,
+        true,
+        "2012-01-15"
+      ],
+      "interpretation": "historical named/type/OKATO corroboration only; not legal validity interval, official census population, nor current-code binding"
+    },
+    {
+      "place": "Калининец",
+      "2009_row": [
+        "46238834008",
+        "п Калининец",
+        "Калининец",
+        "поселок сельского типа",
+        "поселок сельского типа Калининец",
+        "t",
+        "Московская область",
+        "московская",
+        "калининец",
+        "поселок",
+        1,
+        true,
+        "142/2009"
+      ],
+      "2011_row": [
+        "46238834008",
+        "п Калининец",
+        "пгт",
+        "5002000009900",
+        null,
+        23801,
+        0.0,
+        "2011/06/20",
+        55.559078,
+        36.973589,
+        true,
+        true,
+        "2012-01-15"
+      ],
+      "interpretation": "historical named/type/OKATO corroboration only; not legal validity interval, official census population, nor current-code binding"
+    },
+    {
+      "place": "Трудовое",
+      "2009_row": [
+        "05401000006",
+        "п Трудовое",
+        "Трудовое",
+        "поселок сельского типа",
+        "поселок сельского типа Трудовое",
+        "t",
+        "Приморский край",
+        "приморский",
+        "трудовое",
+        "поселок",
+        1,
+        true,
+        "142/2009"
+      ],
+      "2011_row": [
+        "05401000006",
+        "п Трудовое",
+        "п",
+        "2500000100400",
+        null,
+        0,
+        3.0,
+        "2011/06/20",
+        43.305833,
+        132.081667,
+        true,
+        true,
+        "2012-01-15"
+      ],
+      "interpretation": "historical named/type/OKATO corroboration only; not legal validity interval, official census population, nor current-code binding"
+    }
+  ],
+  "source_row_checks": [
+    {
+      "place": "Кущевская",
+      "year": "2010",
+      "source_record_id": "ROSSTAT2010:T5:p79:l76",
+      "literal_label": "станица Кущевская  (рц)",
+      "population": 28362,
+      "men": 12992,
+      "women": 15370,
+      "raw_check": "pdf_page=79;literal_line=станица Кущевская (рц)                        28362      12992      15370        45,8           54,2",
+      "source_file_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+    },
+    {
+      "place": "Кущевская",
+      "year": "2002",
+      "source_record_id": "ROSSTAT2002:T4:01-04:r4338",
+      "literal_label": "ст-ца Кущевская (рц)",
+      "population": 29533,
+      "men": 13642,
+      "women": 15891,
+      "raw_check": "sheet=01-04;row=4338;cells=['      ст-ца Кущевская (рц)', 29533.0, 13642.0, 15891.0]",
+      "source_file_sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3"
+    },
+    {
+      "place": "Власиха",
+      "year": "2010",
+      "source_record_id": "ROSSTAT2010:T5:p33:l120",
+      "literal_label": "пгт Власиха",
+      "population": 26359,
+      "men": 13819,
+      "women": 12540,
+      "raw_check": "pdf_page=33;literal_line=пгт Власиха                                            26359      13819         12540           52,4           47,6",
+      "source_file_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+    },
+    {
+      "place": "Калининец",
+      "year": "2010",
+      "source_record_id": "ROSSTAT2010:T5:p36:l82",
+      "literal_label": "пгт Калининец рп",
+      "population": 21774,
+      "men": 13153,
+      "women": 8621,
+      "raw_check": "pdf_page=36;literal_line=пгт Калининец рп                        21774      13153       8621        60,4           39,6",
+      "source_file_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+    },
+    {
+      "place": "Калининец",
+      "year": "2002",
+      "source_record_id": "ROSSTAT2002:T4:01-04:r1212",
+      "literal_label": "п. Калининец",
+      "population": 23873,
+      "men": 14553,
+      "women": 9320,
+      "raw_check": "sheet=01-04;row=1212;cells=['      п. Калининец', 23873.0, 14553.0, 9320.0]",
+      "source_file_sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3"
+    },
+    {
+      "place": "Трудовое",
+      "year": "2010",
+      "source_record_id": "ROSSTAT2010:T5:p199:l277",
+      "literal_label": "поселок Трудовое",
+      "population": 18522,
+      "men": 8673,
+      "women": 9849,
+      "raw_check": "pdf_page=199;literal_line=поселок Трудовое                               18522       8673       9849        46,8           53,2",
+      "source_file_sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+    },
+    {
+      "place": "Трудовое",
+      "year": "2002",
+      "source_record_id": "ROSSTAT2002:T4:01-04:r9927",
+      "literal_label": "пгт Трудовое",
+      "population": 18935,
+      "men": 8918,
+      "women": 10017,
+      "raw_check": "sheet=01-04;row=9927;cells=['      пгт Трудовое', 18935.0, 8918.0, 10017.0]",
+      "source_file_sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3"
+    }
+  ],
+  "current_2021_records": [
+    {
+      "place": "Кущевская",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:45656",
+      "name": "Кущевская",
+      "type": "станица",
+      "region_norm": "краснодарский",
+      "population": 30375,
+      "population_scope": "settlement",
+      "additive": true,
+      "oktmo_literal": "3628416101",
+      "okato_literal": "03228816001",
+      "whole_2021_name_region_all_types_count": 1
+    },
+    {
+      "place": "Власиха",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:70219",
+      "name": "Власиха",
+      "type": "пгт",
+      "region_norm": "московская",
+      "population": 28240,
+      "population_scope": "settlement",
+      "additive": true,
+      "oktmo_literal": "46773000051",
+      "okato_literal": "46573000000",
+      "whole_2021_name_region_all_types_count": 1
+    },
+    {
+      "place": "Калининец",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:68255",
+      "name": "Калининец",
+      "type": "пгт",
+      "region_norm": "московская",
+      "population": 25082,
+      "population_scope": "settlement",
+      "additive": true,
+      "oktmo_literal": "46750000056",
+      "okato_literal": "46450556000",
+      "whole_2021_name_region_all_types_count": 1
+    },
+    {
+      "place": "Трудовое",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:100072",
+      "name": "Трудовое",
+      "type": "посёлок",
+      "region_norm": "приморский",
+      "population": 19543,
+      "population_scope": "settlement",
+      "additive": true,
+      "oktmo_literal": "5701000116",
+      "okato_literal": "05401000006",
+      "whole_2021_name_region_all_types_count": 1
+    }
+  ],
+  "current_point_rows": [
+    {
+      "place": "Кущевская",
+      "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:45656",
+      "latitude": 46.569894,
+      "longitude": 39.619836,
+      "coordinate_admission_status": "reviewed_rule_accepted",
+      "coordinate_source": "tochno_dadata",
+      "coordinate_provider_id": "532c6518-06d8-4f1e-a209-428cf10a3867",
+      "point_origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "point_origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "point_origin_locator": "parquet_row_1based=45656;latitude_dadata,longitude_dadata",
+      "point_origin_kind": "tochno_2021_dadata_raw_parquet_point",
+      "measurement_date_unknown": true,
+      "boundary_comparability_asserted": false
+    },
+    {
+      "place": "Власиха",
+      "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:70219",
+      "latitude": 55.685,
+      "longitude": 37.191667,
+      "coordinate_admission_status": "reviewed_extension_rule_accepted",
+      "coordinate_source": "Wikidata P625 representative point",
+      "coordinate_provider_id": "Q1009953",
+      "point_origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0000.jsonl.gz",
+      "point_origin_sha256": "a0d98a1ceb49a64e9e51c11c56ac88a5c4d38fbc1952327e23c339c74051ac1d",
+      "point_origin_locator": "{\"line_number\": 14910, \"locator\": \"batch_0000.jsonl.gz#line=14910\", \"retrieved_at_utc\": \"2026-08-31T20:56:56.149914+00:00\", \"source_file\": \"batch_0000.jsonl.gz\", \"value_raw\": \"POINT(37.191667 55.685000)\"}",
+      "point_origin_kind": "wikidata_P625_point_claim",
+      "measurement_date_unknown": true,
+      "boundary_comparability_asserted": false
+    },
+    {
+      "place": "Калининец",
+      "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:68255",
+      "latitude": 55.559738,
+      "longitude": 36.981914,
+      "coordinate_admission_status": "reviewed_rule_accepted",
+      "coordinate_source": "tochno_dadata",
+      "coordinate_provider_id": "457dc928-40a5-4936-bd00-325143c5ec11",
+      "point_origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "point_origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "point_origin_locator": "parquet_row_1based=68255;latitude_dadata,longitude_dadata",
+      "point_origin_kind": "tochno_2021_dadata_raw_parquet_point",
+      "measurement_date_unknown": true,
+      "boundary_comparability_asserted": false
+    },
+    {
+      "place": "Трудовое",
+      "target_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:100072",
+      "latitude": 43.3002872,
+      "longitude": 132.0632507,
+      "coordinate_admission_status": "reviewed_rule_accepted",
+      "coordinate_source": "tochno_dadata",
+      "coordinate_provider_id": "e59cd439-c9c3-4ef9-86d6-0fff00b13570",
+      "point_origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+      "point_origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "point_origin_locator": "parquet_row_1based=100072;latitude_dadata,longitude_dadata",
+      "point_origin_kind": "tochno_2021_dadata_raw_parquet_point",
+      "measurement_date_unknown": true,
+      "boundary_comparability_asserted": false
+    }
+  ],
+  "current_qid_and_site_index": {
+    "Кущевская": {
+      "qid": "Q1006076",
+      "current_code_exact_site_index_match": "True",
+      "ruwiki_sitelink_exact_title": "",
+      "comparisons": {
+        "source2021_OKTMO_literal": "3628416101",
+        "source2021_OKATO_literal": "03228816001",
+        "P764_literals": [
+          "03628416101"
+        ],
+        "P721_literals": [
+          "03228816001"
+        ],
+        "P764_exact_current_OKTMO": false,
+        "P721_exact_current_OKATO": true,
+        "P1082_selected_year_claims": [
+          {
+            "year": 2002,
+            "value": 29533,
+            "statement_id": "Q1006076$771D130A-62AF-48D9-89AA-B4E670EB6D3A",
+            "rank": "normal",
+            "time_precision": 9,
+            "references_count": 1,
+            "references": [
+              {
+                "hash": "b48aff32c78939d1e780337ef0bc29529d73f5b4",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "2374ad3ef528af847d729b21d4f1ffbddf9f042c",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 126687602,
+                          "id": "Q126687602"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248"
+                ]
+              }
+            ],
+            "methodology_qualifier": [
+              {
+                "snaktype": "value",
+                "property": "P459",
+                "hash": "f34609d440cf44ebaa8a3e704c9369413240618c",
+                "datavalue": {
+                  "value": {
+                    "entity-type": "item",
+                    "numeric-id": 39825,
+                    "id": "Q39825"
+                  },
+                  "type": "wikibase-entityid"
+                },
+                "datatype": "wikibase-item"
+              }
+            ]
+          },
+          {
+            "year": 2010,
+            "value": 28362,
+            "statement_id": "Q1006076$2CE6E2DF-E90A-42C1-8C2D-0CADD22ECA76",
+            "rank": "normal",
+            "time_precision": 9,
+            "references_count": 1,
+            "references": [
+              {
+                "hash": "0c7a936d1902b406da551d7c99ed35ecb1eef619",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "1b0e89e28970a4f2ba6695b5ad9ca1db7a2d35a8",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 127121880,
+                          "id": "Q127121880"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248"
+                ]
+              }
+            ],
+            "methodology_qualifier": [
+              {
+                "snaktype": "value",
+                "property": "P459",
+                "hash": "f34609d440cf44ebaa8a3e704c9369413240618c",
+                "datavalue": {
+                  "value": {
+                    "entity-type": "item",
+                    "numeric-id": 39825,
+                    "id": "Q39825"
+                  },
+                  "type": "wikibase-entityid"
+                },
+                "datatype": "wikibase-item"
+              }
+            ]
+          },
+          {
+            "year": 2021,
+            "value": 30375,
+            "statement_id": "Q1006076$1C42C200-D9F5-4F69-BA07-A78CD1C5F185",
+            "rank": "normal",
+            "time_precision": 9,
+            "references_count": 1,
+            "references": [
+              {
+                "hash": "61c5e60f29a334ac633ed2f369539ff623eb595b",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "0b998d1752688a515bf751ebac4c08ed4719f068",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 126684906,
+                          "id": "Q126684906"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248"
+                ]
+              }
+            ],
+            "methodology_qualifier": [
+              {
+                "snaktype": "value",
+                "property": "P459",
+                "hash": "f34609d440cf44ebaa8a3e704c9369413240618c",
+                "datavalue": {
+                  "value": {
+                    "entity-type": "item",
+                    "numeric-id": 39825,
+                    "id": "Q39825"
+                  },
+                  "type": "wikibase-entityid"
+                },
+                "datatype": "wikibase-item"
+              }
+            ]
+          }
+        ],
+        "P625_literal_coordinates": [
+          "46.55,39.666666666667"
+        ],
+        "current_accepted_point_context": {
+          "latitude": 46.569894,
+          "longitude": 39.619836,
+          "provider": "tochno_dadata",
+          "provider_id": "532c6518-06d8-4f1e-a209-428cf10a3867",
+          "status": "reviewed_rule_accepted",
+          "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+          "origin_locator": "parquet_row_1based=45656;latitude_dadata,longitude_dadata",
+          "historical_coordinate_claim": false
+        }
+      }
+    },
+    "Власиха": {
+      "qid": "Q1009953",
+      "current_code_exact_site_index_match": "True",
+      "ruwiki_sitelink_exact_title": "",
+      "comparisons": {
+        "source2021_OKTMO_literal": "46773000051",
+        "source2021_OKATO_literal": "46573000000",
+        "P764_literals": [
+          "46773000051"
+        ],
+        "P721_literals": [
+          "46573000000"
+        ],
+        "P764_exact_current_OKTMO": true,
+        "P721_exact_current_OKATO": true,
+        "P1082_selected_year_claims": [
+          {
+            "year": 2002,
+            "value": 16309,
+            "statement_id": "Q1009953$92AA0C20-4C15-4226-A511-51AE5AADA2D2",
+            "rank": "normal",
+            "time_precision": 9,
+            "references_count": 0,
+            "references": [],
+            "methodology_qualifier": [
+              {
+                "snaktype": "value",
+                "property": "P459",
+                "hash": "e9424fa287efba7d289bfe21de611f072da12de9",
+                "datavalue": {
+                  "value": {
+                    "entity-type": "item",
+                    "numeric-id": 29051383,
+                    "id": "Q29051383"
+                  },
+                  "type": "wikibase-entityid"
+                },
+                "datatype": "wikibase-item"
+              }
+            ]
+          },
+          {
+            "year": 2010,
+            "value": 26359,
+            "statement_id": "Q1009953$7B310375-32AC-4A98-B7B3-6B764C088F76",
+            "rank": "normal",
+            "time_precision": 9,
+            "references_count": 1,
+            "references": [
+              {
+                "hash": "fef493c0ac015b9c57017e78926022f638232d5f",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "4f754f49f37ff9a21f10bdd2f1d946329067411b",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 126959207,
+                          "id": "Q126959207"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248"
+                ]
+              }
+            ],
+            "methodology_qualifier": [
+              {
+                "snaktype": "value",
+                "property": "P459",
+                "hash": "f34609d440cf44ebaa8a3e704c9369413240618c",
+                "datavalue": {
+                  "value": {
+                    "entity-type": "item",
+                    "numeric-id": 39825,
+                    "id": "Q39825"
+                  },
+                  "type": "wikibase-entityid"
+                },
+                "datatype": "wikibase-item"
+              }
+            ]
+          },
+          {
+            "year": 2021,
+            "value": 28240,
+            "statement_id": "Q1009953$A0A23830-C7EF-44CE-8BCF-D526D0237AF5",
+            "rank": "normal",
+            "time_precision": 9,
+            "references_count": 1,
+            "references": [
+              {
+                "hash": "61c5e60f29a334ac633ed2f369539ff623eb595b",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "0b998d1752688a515bf751ebac4c08ed4719f068",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 126684906,
+                          "id": "Q126684906"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248"
+                ]
+              }
+            ],
+            "methodology_qualifier": [
+              {
+                "snaktype": "value",
+                "property": "P459",
+                "hash": "f34609d440cf44ebaa8a3e704c9369413240618c",
+                "datavalue": {
+                  "value": {
+                    "entity-type": "item",
+                    "numeric-id": 39825,
+                    "id": "Q39825"
+                  },
+                  "type": "wikibase-entityid"
+                },
+                "datatype": "wikibase-item"
+              }
+            ]
+          }
+        ],
+        "P625_literal_coordinates": [
+          "55.685,37.191666666667"
+        ],
+        "current_accepted_point_context": {
+          "latitude": 55.685,
+          "longitude": 37.191667,
+          "provider": "Wikidata",
+          "provider_id": "Q1009953",
+          "status": "reviewed_extension_rule_accepted",
+          "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0000.jsonl.gz",
+          "origin_sha256": "a0d98a1ceb49a64e9e51c11c56ac88a5c4d38fbc1952327e23c339c74051ac1d",
+          "origin_locator": "{\"line_number\": 14910, \"locator\": \"batch_0000.jsonl.gz#line=14910\", \"retrieved_at_utc\": \"2026-08-31T20:56:56.149914+00:00\", \"source_file\": \"batch_0000.jsonl.gz\", \"value_raw\": \"POINT(37.191667 55.685000)\"}",
+          "historical_coordinate_claim": false
+        }
+      }
+    },
+    "Калининец": {
+      "qid": "Q1125953",
+      "current_code_exact_site_index_match": "False",
+      "ruwiki_sitelink_exact_title": "True",
+      "comparisons": {
+        "source2021_OKTMO_literal": "46750000056",
+        "source2021_OKATO_literal": "46450556000",
+        "P764_literals": [
+          "46638155051"
+        ],
+        "P721_literals": [
+          "46238834008"
+        ],
+        "P764_exact_current_OKTMO": false,
+        "P721_exact_current_OKATO": false,
+        "P1082_selected_year_claims": [
+          {
+            "year": 2002,
+            "value": 23873,
+            "statement_id": "Q1125953$CE2F8558-1DEC-46F7-B43E-7D7A78087CC2",
+            "rank": "normal",
+            "time_precision": 9,
+            "references_count": 1,
+            "references": [
+              {
+                "hash": "e91880f56009f738d1a4c4a97b21d59571bc5c6e",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "26d5415dd405dab7afc42a4f536867a6336c4d62",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 46574459,
+                          "id": "Q46574459"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248"
+                ]
+              }
+            ],
+            "methodology_qualifier": [
+              {
+                "snaktype": "value",
+                "property": "P459",
+                "hash": "e9424fa287efba7d289bfe21de611f072da12de9",
+                "datavalue": {
+                  "value": {
+                    "entity-type": "item",
+                    "numeric-id": 29051383,
+                    "id": "Q29051383"
+                  },
+                  "type": "wikibase-entityid"
+                },
+                "datatype": "wikibase-item"
+              }
+            ]
+          },
+          {
+            "year": 2010,
+            "value": 21774,
+            "statement_id": "Q1125953$3FC3AF9F-6A55-4CEB-B09B-1713F6C11EF9",
+            "rank": "normal",
+            "time_precision": 9,
+            "references_count": 1,
+            "references": [
+              {
+                "hash": "fef493c0ac015b9c57017e78926022f638232d5f",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "4f754f49f37ff9a21f10bdd2f1d946329067411b",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 126959207,
+                          "id": "Q126959207"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248"
+                ]
+              }
+            ],
+            "methodology_qualifier": [
+              {
+                "snaktype": "value",
+                "property": "P459",
+                "hash": "f34609d440cf44ebaa8a3e704c9369413240618c",
+                "datavalue": {
+                  "value": {
+                    "entity-type": "item",
+                    "numeric-id": 39825,
+                    "id": "Q39825"
+                  },
+                  "type": "wikibase-entityid"
+                },
+                "datatype": "wikibase-item"
+              }
+            ]
+          },
+          {
+            "year": 2021,
+            "value": 25082,
+            "statement_id": "Q1125953$E5044F94-E043-44AE-9350-FCAC9D894E8E",
+            "rank": "normal",
+            "time_precision": 9,
+            "references_count": 1,
+            "references": [
+              {
+                "hash": "61c5e60f29a334ac633ed2f369539ff623eb595b",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "0b998d1752688a515bf751ebac4c08ed4719f068",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 126684906,
+                          "id": "Q126684906"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248"
+                ]
+              }
+            ],
+            "methodology_qualifier": [
+              {
+                "snaktype": "value",
+                "property": "P459",
+                "hash": "f34609d440cf44ebaa8a3e704c9369413240618c",
+                "datavalue": {
+                  "value": {
+                    "entity-type": "item",
+                    "numeric-id": 39825,
+                    "id": "Q39825"
+                  },
+                  "type": "wikibase-entityid"
+                },
+                "datatype": "wikibase-item"
+              }
+            ]
+          }
+        ],
+        "P625_literal_coordinates": [
+          "55.558468,36.974891"
+        ],
+        "current_accepted_point_context": {
+          "latitude": 55.559738,
+          "longitude": 36.981914,
+          "provider": "tochno_dadata",
+          "provider_id": "457dc928-40a5-4936-bd00-325143c5ec11",
+          "status": "reviewed_rule_accepted",
+          "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+          "origin_locator": "parquet_row_1based=68255;latitude_dadata,longitude_dadata",
+          "historical_coordinate_claim": false
+        }
+      }
+    },
+    "Трудовое": {
+      "qid": "Q1810079",
+      "current_code_exact_site_index_match": "True",
+      "ruwiki_sitelink_exact_title": "",
+      "comparisons": {
+        "source2021_OKTMO_literal": "5701000116",
+        "source2021_OKATO_literal": "05401000006",
+        "P764_literals": [
+          "05701000116"
+        ],
+        "P721_literals": [
+          "05401000006"
+        ],
+        "P764_exact_current_OKTMO": false,
+        "P721_exact_current_OKATO": true,
+        "P1082_selected_year_claims": [
+          {
+            "year": 2002,
+            "value": 18935,
+            "statement_id": "Q1810079$CDB439F0-7D09-475E-AAD9-283965B41716",
+            "rank": "normal",
+            "time_precision": 9,
+            "references_count": 1,
+            "references": [
+              {
+                "hash": "b48aff32c78939d1e780337ef0bc29529d73f5b4",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "2374ad3ef528af847d729b21d4f1ffbddf9f042c",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 126687602,
+                          "id": "Q126687602"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248"
+                ]
+              }
+            ],
+            "methodology_qualifier": [
+              {
+                "snaktype": "value",
+                "property": "P459",
+                "hash": "f34609d440cf44ebaa8a3e704c9369413240618c",
+                "datavalue": {
+                  "value": {
+                    "entity-type": "item",
+                    "numeric-id": 39825,
+                    "id": "Q39825"
+                  },
+                  "type": "wikibase-entityid"
+                },
+                "datatype": "wikibase-item"
+              }
+            ]
+          },
+          {
+            "year": 2010,
+            "value": 18522,
+            "statement_id": "Q1810079$76C30CDB-6608-4F2D-99A6-35147D81854D",
+            "rank": "normal",
+            "time_precision": 9,
+            "references_count": 1,
+            "references": [
+              {
+                "hash": "1170abace87a8b0a6ca229ba8a7a75bda96f79e9",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "1ef3853b50fa7d79a10f303dff6ce525ce3c1086",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 127433118,
+                          "id": "Q127433118"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248"
+                ]
+              }
+            ],
+            "methodology_qualifier": [
+              {
+                "snaktype": "value",
+                "property": "P459",
+                "hash": "f34609d440cf44ebaa8a3e704c9369413240618c",
+                "datavalue": {
+                  "value": {
+                    "entity-type": "item",
+                    "numeric-id": 39825,
+                    "id": "Q39825"
+                  },
+                  "type": "wikibase-entityid"
+                },
+                "datatype": "wikibase-item"
+              }
+            ]
+          },
+          {
+            "year": 2021,
+            "value": 19543,
+            "statement_id": "Q1810079$35896BFE-39DC-4035-988C-BA390ABFDACA",
+            "rank": "preferred",
+            "time_precision": 9,
+            "references_count": 1,
+            "references": [
+              {
+                "hash": "61c5e60f29a334ac633ed2f369539ff623eb595b",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "0b998d1752688a515bf751ebac4c08ed4719f068",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 126684906,
+                          "id": "Q126684906"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248"
+                ]
+              }
+            ],
+            "methodology_qualifier": [
+              {
+                "snaktype": "value",
+                "property": "P459",
+                "hash": "f34609d440cf44ebaa8a3e704c9369413240618c",
+                "datavalue": {
+                  "value": {
+                    "entity-type": "item",
+                    "numeric-id": 39825,
+                    "id": "Q39825"
+                  },
+                  "type": "wikibase-entityid"
+                },
+                "datatype": "wikibase-item"
+              }
+            ]
+          }
+        ],
+        "P625_literal_coordinates": [
+          "43.300392,132.063243"
+        ],
+        "current_accepted_point_context": {
+          "latitude": 43.3002872,
+          "longitude": 132.0632507,
+          "provider": "tochno_dadata",
+          "provider_id": "e59cd439-c9c3-4ef9-86d6-0fff00b13570",
+          "status": "reviewed_rule_accepted",
+          "origin_file": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+          "origin_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+          "origin_locator": "parquet_row_1based=100072;latitude_dadata,longitude_dadata",
+          "historical_coordinate_claim": false
+        }
+      }
+    }
+  },
+  "outputs": {
+    "independently_reviewed_corridor_edges.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_review/independently_reviewed_corridor_edges.csv",
+      "sha256": "18c2d6e73951eb23392fd048638583719b79764ec94f61f2c18690452980b491",
+      "rows": 7
+    },
+    "official_source_row_replay.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_review/official_source_row_replay.csv",
+      "sha256": "aba5f4a4778d3918b95e14ecf8bcf9f42b1d55017dbd4cc1c2c44ec3f99fc784",
+      "rows": 7
+    },
+    "current_point_and_source_context.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_review/current_point_and_source_context.csv",
+      "sha256": "f62bc208923cf779bfeea3107b1000f3ec26f1bd38d9962f8a0946e07d1bb549",
+      "rows": 4
+    }
+  },
+  "review_script_path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_review/review_large_current4.py",
+  "review_script_sha256": "0719822196b8f9928ad97ab19d6e54f6d64f921cdf8891cb7a4968ee1c36f5d0"
+}

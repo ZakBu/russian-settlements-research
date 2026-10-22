@@ -1,0 +1,486 @@
+{
+  "manifest_version": "next_batch_reviewed_mass_extensions_20261004",
+  "reviewed_at_utc": "2026-10-04T00:00:00Z",
+  "frozen": {
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+    },
+    "legacy_availability": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/legacy_availability_projected_r5.parquet",
+      "sha256": "3c21c2edbc7ab0813929775c1d5100d5e15bb25b6c5cdb31d3fe46edd80270d5"
+    }
+  },
+  "base": {
+    "graph": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_extensions/accepted_identity_edges.parquet",
+      "sha256": "1edc2940a27b38bb60514929f1f9c31abf7419d5e26bf1c00033204491f97557"
+    },
+    "points": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_extensions/accepted_point_uses.parquet",
+      "sha256": "9271f132beb9c9a836c280826007ef19c8039cca85e49eb5bda21198910dac90"
+    }
+  },
+  "identity_sources": [
+    {
+      "candidate": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/ready_primary_type_points_final_v2_20261004/primary_final_v3_reviewed_candidate_adapter.parquet",
+        "sha256": "64bb9a09d3f517e7674adf734f2209d12e8fb44cd42fb98a3d67ba3c2a073ba0"
+      },
+      "eligible": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/primary_final_v3_reviewed_eligible_edges.csv",
+        "sha256": "fefa0e3a37ca92c009be411f553ccb9476d555389ca88f7688a4243956ac7048"
+      },
+      "review_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/primary_final_v3_independent_review_receipt.json",
+        "sha256": "c5d0aec708099983741cac340b152fb38edb3deea7d441a4fbe68f4f44148903"
+      },
+      "additional_review_receipts": [],
+      "candidate_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "application_review_family",
+        "id": "edge_id",
+        "status": "application_candidate_status"
+      },
+      "eligible_columns": {
+        "from": "from",
+        "to": "to",
+        "family": "family"
+      },
+      "accepted_candidate_statuses": [
+        "independently_reviewed_eligible_for_manifest_application"
+      ],
+      "canonical_columns": {
+        "relation": "relation",
+        "decision_class": "application_review_family",
+        "source": "application_rule_basis"
+      },
+      "exclude_if_true": []
+    },
+    {
+      "candidate": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/ready_primary_type_points_final_v2_20261004/type_change_mass_v2_independently_reviewed_450_reviewed_candidate_adapter.parquet",
+        "sha256": "93f015a55d0dba1e0fdfbd8015986e5f0bb48838d4e43b4ce43e11f840748246"
+      },
+      "eligible": {
+        "path": "/workspace/settlements-work/continuation_20261004/R4/independent_rural_and_type_review/type_change_mass_v2_review/eligible_type_change_edge_ids.csv",
+        "sha256": "44b6470069dd11add890807955e336d5d084f2f4888d38af9e19569be28351ca"
+      },
+      "review_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/R4/independent_rural_and_type_review/type_change_mass_v2_review/receipt.json",
+        "sha256": "d7ea80503421b5ae0612551955d4ff730e21e768b9d142656f51e3ff553593dc"
+      },
+      "additional_review_receipts": [
+        {
+          "path": "/workspace/settlements-work/continuation_20261004/R4/independent_rural_and_type_review/type_change_mass_v2_review/independent_union_simulation_receipt.json",
+          "sha256": "88df96b2c035e2ee0f5ea7150ea996d8a288c13faf68fc56985fc8580c723275"
+        }
+      ],
+      "candidate_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "application_review_family",
+        "id": "edge_id",
+        "status": "application_candidate_status"
+      },
+      "eligible_columns": {
+        "from": "from_source_record_id",
+        "to": "to_source_record_id",
+        "family": "family"
+      },
+      "accepted_candidate_statuses": [
+        "independently_reviewed_eligible_for_manifest_application"
+      ],
+      "canonical_columns": {
+        "relation": "relation",
+        "decision_class": "application_review_family",
+        "source": "application_rule_basis"
+      },
+      "exclude_if_true": []
+    }
+  ],
+  "point_sources": [
+    {
+      "candidate": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/R4/historical_points/rural_native_extension/source_evidence_verified_final/rural_native_staged_point_uses.parquet",
+        "sha256": "e7ef14902a19352b31ab91bacc221dd81ba7c6af8fbb28161659fec8c55b67bc"
+      },
+      "approved": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/R4/independent_rural_and_type_review/rural_native_point_review/eligible_point_candidate_ids.csv",
+        "sha256": "5f7056fff055bdcec1f0b73a760dedb67e2331bc00aeab2904b8522726c1d748"
+      },
+      "review_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/R4/independent_rural_and_type_review/rural_native_point_review/receipt.json",
+        "sha256": "545ddc427cf234fce44719e8537543c2fb0b689582e3f5c8cac68cdfd5cd8034"
+      },
+      "candidate_columns": {
+        "target": "target_source_record_id",
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "origin_file": "point_origin_file",
+        "origin_sha256": "point_origin_sha256",
+        "origin_locator": "point_origin_locator"
+      },
+      "approved_columns": {
+        "target": "target_source_record_id",
+        "latitude": "latitude_point",
+        "longitude": "longitude_point",
+        "origin_file": "point_source_file",
+        "origin_sha256": "point_source_sha256",
+        "origin_locator": "point_source_locator"
+      },
+      "origin": {
+        "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+        "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+      },
+      "output_columns": {},
+      "output_values": {
+        "coordinate_quality": "independently reviewed named-typed 2011 rural GeoKLADR point; retrospective use; census-date measurement unknown; population-boundary comparability not asserted",
+        "coordinate_application_family": "R_direct_reviewed_rural_native11digit_historical_point_only_20261004",
+        "application_inference_kind": "direct named-typed 2011 point reuse for this census row; no temporal identity",
+        "coordinate_use_interpretation": "reviewed point-only use; temporal identity, modern-point continuity, native target-ID binding, and population-scope comparability are not asserted",
+        "native_id_binding_asserted": false,
+        "provider_binding_status": "historical source-point lineage only; no target native identifier binding"
+      },
+      "exclude_target_ids": []
+    },
+    {
+      "candidate": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/ready_primary_type_points_final_v2_20261004/geonames_262_direct_incremental_60_candidate_adapter.parquet",
+        "sha256": "b0060b8d56202452d25f7eb40032269e4757715f8579fbf34dfa2c4e1e256b1e"
+      },
+      "approved": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_262_direct_incremental_reviewed_eligible.csv",
+        "sha256": "ff6d940311a53b327a9289834041005a36ab609d0f36de3f84c3857c6d35860f"
+      },
+      "review_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_262_direct_independent_review_receipt.json",
+        "sha256": "e24b6895db9ed9b01a3fa73b7d57c9a3be6b720b6da921976f8f803d3da1714f"
+      },
+      "candidate_columns": {
+        "target": "target_source_record_id",
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "origin_file": "point_origin_file",
+        "origin_sha256": "point_origin_sha256",
+        "origin_locator": "point_origin_locator"
+      },
+      "approved_columns": {
+        "target": "target_source_record_id",
+        "latitude": "latitude",
+        "longitude": "longitude"
+      },
+      "origin": {
+        "path": "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip",
+        "sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4"
+      },
+      "output_columns": {
+        "population": "source_population",
+        "source_name": "target_name",
+        "source_type": "target_type",
+        "source_region": "target_region"
+      },
+      "output_values": {
+        "coordinate_quality": "independently reviewed current physical-PPL working representative point; no census-date, coordinate-independence, or precision claim",
+        "coordinate_application_family": "R_direct_GeoNames_physical_PPL_reviewed_20261004",
+        "application_inference_kind": "direct reviewed GeoNames representative point only; no identity propagation",
+        "coordinate_use_interpretation": "GeoNames point is a bounded current representative point. No source-coordinate independence, census-date measurement, precision upgrade, external provider ID binding, native target-ID binding, temporal identity, or population-boundary comparability is asserted.",
+        "coordinate_measurement_date_unknown": true,
+        "boundary_comparability_asserted": false,
+        "population_scope_comparability_asserted": false,
+        "native_id_binding_asserted": false,
+        "provider_binding_status": "coordinate source only; GeoNames identifier binding not asserted",
+        "target_year": 2021
+      },
+      "exclude_target_ids": []
+    },
+    {
+      "candidate": {
+        "path": "/workspace/settlements-work/continuation_20261004/root/next_batch_manifest_preparation/ready_primary_type_points_final_v2_20261004/geonames_566_strict_source_name_region_unique_raw_points_133_candidate_adapter.parquet",
+        "sha256": "a9a80f205706566e40f0b4057360ca18472ab2a53c82f55cff80401ee97e6b99"
+      },
+      "approved": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_final_unique_current_source_eligible.csv",
+        "sha256": "31158feb02478c9c96ef60e01144cd8206125360cc42178ddd0fbd9590eeb3c1"
+      },
+      "review_receipt": {
+        "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_source_name_region_rule_receipt.json",
+        "sha256": "6e1e4f60344d550065ab36bcba4982b44c836b385b2cf8659d6b397a292720d8"
+      },
+      "candidate_columns": {
+        "target": "target_source_record_id",
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "origin_file": "point_origin_file",
+        "origin_sha256": "point_origin_sha256",
+        "origin_locator": "point_origin_locator",
+        "population": "source_population"
+      },
+      "approved_columns": {
+        "target": "source_record_id",
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "population": "population"
+      },
+      "origin": {
+        "path": "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet",
+        "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14"
+      },
+      "output_columns": {},
+      "output_values": {
+        "target_year": 2021,
+        "coordinate_measurement_date_unknown": true,
+        "boundary_comparability_asserted": false,
+        "population_scope_comparability_asserted": false,
+        "coordinate_application_family": "raw_Tochno_source_point_unique_2021_name_region_and_local_GN_PPL_witness",
+        "application_inference_kind": "direct reviewed source-row point only; no identity propagation",
+        "coordinate_use_interpretation": "Exact selected 2021 source name+normalized region unique across all selected physical settlement records regardless type; exact raw current physical-NP row with source population, native code, point, unique raw OKTMO, and type-prefixed locality replay; at least one exact literal RU GeoNames physical PPL point within 1 km in expected ADM1. Far same-name ADM1 aliases remain validity-unknown diagnostics. No GeoNames ID binding, provider independence, precision, or census-date claim.",
+        "native_id_binding_asserted": false,
+        "provider_binding_status": "Tochno row supplies its own point; GeoNames provides a corroborating locality witness only; no external provider ID binding asserted",
+        "coordinate_admission_rule_name": "R_direct_2021_name_region_unique_all_types_raw_code_point_local_GN_witness_v20261004"
+      },
+      "exclude_target_ids": [
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:157687",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:141826",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:156849",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:119959",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:157024",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:156353",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:157044",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:61737",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:157050"
+      ]
+    }
+  ],
+  "blocked_targets": {
+    "path": "/workspace/settlements-work/continuation_20261003/blocked_point_reuse_targets_v1.json",
+    "sha256": "7a715254f965d996541001d08d3422828299f5c300dfae4cbe78b79f9a5b0e70"
+  },
+  "federal_points": {
+    "path": "/workspace/settlements-work/continuation_20261004/federal_application/accepted_territory_reference_points.parquet",
+    "sha256": "3b366d9a513b0396e90813f03c4e3af1cd0b1caef92379a9ae95cae43451d6e3"
+  },
+  "federal_chains": {
+    "path": "/workspace/settlements-work/continuation_20261004/federal_application/accepted_typed_city_continuity.parquet",
+    "sha256": "ee5898e3e5495d691f230e18fce08191fcc287ed35e06d969140bb05df75c695"
+  },
+  "review_context_inputs": [
+    {
+      "role": "primary_v3_candidate_freeze_manifest",
+      "path": "/workspace/settlements-work/continuation_20261004/root/R4/temporal_mass/primary_comparison_extension/review_freeze_v3/freeze_manifest.json",
+      "sha256": "ffb9825bd010483446664b82cf5185428c9fb4541572188bea4f2f902cad28e9"
+    },
+    {
+      "role": "primary_v3_preserved_disjoint_holds",
+      "path": "/workspace/settlements-work/continuation_20261004/root/R4/temporal_mass/primary_comparison_extension/review_freeze_v3/disjoint_holds.csv",
+      "sha256": "7f6785e027abec4815a2f7f7d47edef22a56dc3d1282add57f994a5ae4102750"
+    },
+    {
+      "role": "type_v2_candidate_freeze_context_not_application_input",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/type_change_mass_v2/freeze_manifest.json",
+      "sha256": "7a219c7d72e9d40a766af222306c7f4ffa5c71f71e4b9b4791e09c6aba0762c5"
+    },
+    {
+      "role": "type_v2_9_simulation_redundant_rows_context_not_application_input",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/type_change_mass_v2/simulation_redundant_edges.csv",
+      "sha256": "e8b4a1c37ab2bdbe0ecf81369c8c0738888f1ee38cb6d856eb8f4bae24b6e143"
+    },
+    {
+      "role": "rural_point_full_eligibility_detail_also_pinned_by_review_receipt",
+      "path": "/workspace/settlements-work/continuation_20261004/root/R4/independent_rural_and_type_review/rural_native_point_review/independent_rural_point_eligibility.csv",
+      "sha256": "082768a1f138fd11eb838b7397b94bc61a39a978982938a1452c73849013c47c"
+    },
+    {
+      "role": "type_v2_staged_candidates_pending_review_not_application_input",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/type_change_mass_v2/staged_status_change_edges.csv",
+      "sha256": "e6f2fc712fc2217ac72a5ea47b2d2ea2a96cea5f458b7c63d9ff5e617894bad9"
+    },
+    {
+      "role": "gn_v6_candidate_points_pending_review_not_application_input",
+      "path": "/workspace/settlements-work/continuation_20261004/wikidata_points/extensions/source_point_geonames_recovery/gn_point_recovery_v6/staged_direct_gn_point_candidates.csv",
+      "sha256": "27de0d9b112335f9a64afea6a42a2785db3e7ac9072f35cf6f072d9fcaafcda1"
+    },
+    {
+      "role": "gn_v6_candidate_summary_pending_review_not_application_input",
+      "path": "/workspace/settlements-work/continuation_20261004/wikidata_points/extensions/source_point_geonames_recovery/gn_point_recovery_v6/summary.json",
+      "sha256": "c20d5c98c60b29a97e2e72909a2d9d03a64b1d0058ecac767929008df155cb81"
+    },
+    {
+      "role": "geonames_566_independent_raw_row_check",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_independent_raw_check.csv",
+      "sha256": "4893455a646e0729a6255745e7938706bd7d722d19c33976ba52822f5422e2ff"
+    },
+    {
+      "role": "geonames_566_preserved_current_point_overlap_holds",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_reviewed_holds_current_point_overlap.csv",
+      "sha256": "44e55f06facfb77ca59c6b10db23a29816fa5b0766b3cecdc63f53cff4e91aa7"
+    },
+    {
+      "role": "geonames_raw_archive_corroboration_only",
+      "path": "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip",
+      "sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4"
+    },
+    {
+      "role": "geonames_admin1_lookup_corroboration_only",
+      "path": "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_admin1CodesASCII_20260907.txt",
+      "sha256": "590651498043f674accda2b7f46d21286cda0e290b02f8561c5005eee9a5448c"
+    },
+    {
+      "role": "geonames_262_full_reviewed_eligible_193_context_and_overlap_audit",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_262_direct_reviewed_eligible_application.csv",
+      "sha256": "f54c0b65d5950eaaf12e0d766b04b1720fbf0c699e8b7a35eccc0b726b53aaf4"
+    },
+    {
+      "role": "geonames_262_raw_point_preferred_133_overlap_alternatives_preserved_not_applied",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_262_direct_overlap_raw_point_preferred.csv",
+      "sha256": "2ea85499b097a2805abe82e13786b3efc9fe29cb7e85325b6ea0e912fbbfaafc"
+    },
+    {
+      "role": "geonames_262_independent_holds_69",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_262_direct_reviewed_holds.csv",
+      "sha256": "93bee66cd3feb890c390b2fd19b9467fe045b986ae962cf4c9b8b46ad18d28fb"
+    },
+    {
+      "role": "geonames_566_archived_original_independent_review_receipt_superseded_for_eligible_count_only",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_independent_review_receipt.json",
+      "sha256": "8534cba99e139703eec6251e7b5632e70a39389050e9566f1437ba98e1fb702d"
+    },
+    {
+      "role": "geonames_566_full_alias_corrective_review_receipt",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_full_alias_corrective_review_receipt.json",
+      "sha256": "54148e8e478918728d5db21a331346eefb1560bd19bd3a5b9fd73d84d744207f"
+    },
+    {
+      "role": "geonames_566_full_alias_universe_recheck_188971_records",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_full_alias_universe_recheck.csv",
+      "sha256": "b2edc404a5f890deb13787323cf5ea8d8c8ae7d97c492e380912753092a9f8b0"
+    },
+    {
+      "role": "geonames_566_corrective_full_alias_local_ambiguity_holds_3",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_local_alias_ambiguity_holds_3.csv",
+      "sha256": "2f21007494217351e757d50b79dd6a120fd3458c057bf9be242dd5d05ae7c864"
+    },
+    {
+      "role": "geonames_566_prior_full_source_point_review_receipt",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_independent_review_receipt.json",
+      "sha256": "8534cba99e139703eec6251e7b5632e70a39389050e9566f1437ba98e1fb702d"
+    },
+    {
+      "role": "geonames_566_corrective_full_alias_universe_receipt",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_full_alias_corrective_review_receipt.json",
+      "sha256": "54148e8e478918728d5db21a331346eefb1560bd19bd3a5b9fd73d84d744207f"
+    },
+    {
+      "role": "geonames_566_full_alias_universe_scan",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_full_alias_universe_recheck.csv",
+      "sha256": "b2edc404a5f890deb13787323cf5ea8d8c8ae7d97c492e380912753092a9f8b0"
+    },
+    {
+      "role": "geonames_566_final_source_name_region_rule_receipt",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_source_name_region_rule_receipt.json",
+      "sha256": "6e1e4f60344d550065ab36bcba4982b44c836b385b2cf8659d6b397a292720d8"
+    },
+    {
+      "role": "geonames_566_final_eligible_159",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_final_unique_current_source_eligible.csv",
+      "sha256": "31158feb02478c9c96ef60e01144cd8206125360cc42178ddd0fbd9590eeb3c1"
+    },
+    {
+      "role": "geonames_566_final_strict_holds_395",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_final_strict_rule_holds.csv",
+      "sha256": "e20c1628928350c1b10b20110e4a42c459e94718d1f7d9900652f6cb65b8cf39"
+    },
+    {
+      "role": "geonames_566_source_name_region_uniqueness_vector",
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_source_name_region_uniqueness_554.csv",
+      "sha256": "98ffc3e3124d1652616aa555de79862c2657d2584d3078331d437b8361309a54"
+    },
+    {
+      "role": "type_v2_preserved_holds_context_nonapplication",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/type_change_mass_v2/type_change_holds.csv",
+      "sha256": "8df9e1c6a9defa46348b6c1a81a8808f8aba8eb675533e9e0081ce4d17d899e3"
+    },
+    {
+      "role": "type_v2_observed_type_change_event_pairs_context_nonapplication",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/type_change_mass_v2/observed_type_change_event_pairs.csv",
+      "sha256": "84b8c0398149e3894573b8ca51660eb52771a3f450893690011048d05ca84e9d"
+    },
+    {
+      "role": "type_v2_whole_region_homonym_holds_context_nonapplication",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/type_change_mass_v2/whole_region_homonym_holds.csv",
+      "sha256": "fd55c36824bbf852aa7796158639a31359ca7d0c1db115ae145e2ae8e8c18487"
+    },
+    {
+      "role": "type_v2_reviewed_eligible_450_included",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/independent_rural_and_type_review/type_change_mass_v2_review/eligible_type_change_edge_ids.csv",
+      "sha256": "44b6470069dd11add890807955e336d5d084f2f4888d38af9e19569be28351ca"
+    },
+    {
+      "role": "type_v2_independent_review_receipt_included",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/independent_rural_and_type_review/type_change_mass_v2_review/receipt.json",
+      "sha256": "d7ea80503421b5ae0612551955d4ff730e21e768b9d142656f51e3ff553593dc"
+    },
+    {
+      "role": "type_v2_raw_direct_evidence_and_point_review_959_holds",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/independent_rural_and_type_review/type_change_mass_v2_review/raw_direct_evidence_and_point_review.csv",
+      "sha256": "4f6091d495cc1bf5f05ee182149e9d5831a6d98ab62f8572e4d6fc589c2da499"
+    },
+    {
+      "role": "type_v2_independent_union_simulation_receipt",
+      "path": "/workspace/settlements-work/continuation_20261004/R4/independent_rural_and_type_review/type_change_mass_v2_review/independent_union_simulation_receipt.json",
+      "sha256": "88df96b2c035e2ee0f5ea7150ea996d8a288c13faf68fc56985fc8580c723275"
+    }
+  ],
+  "pending_review_cohorts": [
+    {
+      "name": "geonames_566_local_alias_ambiguity_holds",
+      "status": "3 IDs remain held after supplemental full 188,971-row alias universe review; only 554 of the original 557 are proposed in point_sources",
+      "held_ids": [
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:127023",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:165364",
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:46517"
+      ],
+      "held_count": 3,
+      "held_path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_local_alias_ambiguity_holds_3.csv",
+      "held_sha256": "2f21007494217351e757d50b79dd6a120fd3458c057bf9be242dd5d05ae7c864"
+    },
+    {
+      "name": "geonames_566_strict_rule_holds",
+      "status": "395 rows held under strict selected-source name+region all-type uniqueness; 80 cross-type and 315 same-type multiplicity candidates remain excluded",
+      "eligible_count": 159,
+      "eligible_population": 244096,
+      "eligible_path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_final_unique_current_source_eligible.csv",
+      "eligible_sha256": "31158feb02478c9c96ef60e01144cd8206125360cc42178ddd0fbd9590eeb3c1",
+      "hold_count": 395,
+      "hold_path": "/workspace/settlements-work/continuation_20261004/independent_review/geonames_566_final_strict_rule_holds.csv",
+      "hold_sha256": "e20c1628928350c1b10b20110e4a42c459e94718d1f7d9900652f6cb65b8cf39"
+    },
+    {
+      "name": "type_change_mass_v2_preserved_holds_and_redundancy",
+      "status": "450 independently eligible rows are included in identity_sources. Keep all other 959 candidates as holds and the nine separately simulated redundant pairs as context only; no legal transition date or population/boundary comparability claim.",
+      "candidate_count": 1409,
+      "eligible_count": 450,
+      "held_count": 959,
+      "hold_reason_counts": {
+        "held_tochno_raw_current_source_key_conflict": 508,
+        "held_2009_2011_lineage_raw_name_or_code_conflict": 360,
+        "non_tochno_current_point_origin_replays_pending": 88,
+        "nonunique_selected_name_region_year_key": 3
+      },
+      "hold_detail_path": "/workspace/settlements-work/continuation_20261004/R4/independent_rural_and_type_review/type_change_mass_v2_review/raw_direct_evidence_and_point_review.csv",
+      "hold_detail_sha256": "4f6091d495cc1bf5f05ee182149e9d5831a6d98ab62f8572e4d6fc589c2da499",
+      "simulation_redundant_count": 9,
+      "simulation_redundant_path": "/workspace/settlements-work/continuation_20261004/R4/type_change_mass_v2/simulation_redundant_edges.csv",
+      "simulation_redundant_sha256": "e8b4a1c37ab2bdbe0ecf81369c8c0738888f1ee38cb6d856eb8f4bae24b6e143",
+      "simulation_receipt_path": "/workspace/settlements-work/continuation_20261004/R4/independent_rural_and_type_review/type_change_mass_v2_review/independent_union_simulation_receipt.json",
+      "simulation_receipt_sha256": "88df96b2c035e2ee0f5ea7150ea996d8a288c13faf68fc56985fc8580c723275",
+      "simulated_same_year_collisions": 0
+    }
+  ],
+  "application_scope": "Partial manifest: only independent eligible-list rows from included cohorts are adapted; pending cohorts are excluded; no application has been run."
+}

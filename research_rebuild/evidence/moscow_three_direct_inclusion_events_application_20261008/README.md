@@ -1,0 +1,7 @@
+Root-approved three documented included_in events on a SEPARATE transformation-path coverage axis. The original finalmixed census definition and ordinary3yearsameplace claim are unchanged. Vostryakovo→Domodedovo,Lopatinsky→Voskresensk,Ozherele→Kashira contribute only originalhistoricalnativeIDs with independentownformerlocalitypoints and actualreceivingcity2002/2010/2021 context.
+
+Nativeold counts remain16646(Vostryakovo02),14337(Lopatinsky02),11113/10469(Ozherele02/10); separateaxisnet42096/10469/0 againstactualstage34mixednativeIDbaseline. Receivercores arealreadycreditedcontext and add0. No child2021count, citychildsumreconstruction, modernfixedboundaryprojection, wholecityrosterclosure or ordinarysameplaceedge is asserted.
+
+Vostryakovo19July2004 and Ozherele16November2015 dates are explicitin cachedownWikipediaarticles. Lopatinsky eventyear2004 is coarse SECONDARY INFERENCE from cachedownentityliteraldescription(formerpgt1963–2004,currentVoskresenskmicrodistrict)+P131receivingcity. No exactday or primarylaw isclaimed. Root explicitlyapproved this provenance limit. Historicalownpoints remain separate fromreceivercitycoordinates; GEOnet/Wiki representatives are not measuredcensusdatecoordinates.
+
+accepted_direct_event_native_credit_union.csv is a deduplicatedcandidate-union contributor for the separateaxis only. Existingfinalmixed/strict census metrics gain0 fromthisapplication. application_receipt.json andsource_manifest.json pin inputs/outputs. No sharedloader/helper/report/Git or sourcecounts werechanged.

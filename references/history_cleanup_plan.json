@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.history_cleanup_plan.v1",
-  "state": "FILTERED_HISTORY_PREPARED_AND_CODE_VERIFIED_REQUIRES_OWNER_APPROVAL",
+  "state": "WITHDRAWN_CONTEXT_LOSS_USER_REQUESTED_RESTORATION",
   "reason": "Current tree is about24MiB but historic Git objects remain about10GiB.",
   "safe_completed": [
     "Source-only tree published without rewriting existing history.",
@@ -120,5 +120,8 @@
   "prepared_history_verification": "references/history_verification.json",
   "prepared_history_branch": "maintenance/sgrt-filtered-history-20261022",
   "prepared_history_commit": "6cc093c8970267183fd720a42bc316f87b182147",
-  "proposed_main_after_approval": "Latest reviewed source-only tree on the prepared filtered history; preserve all branch-specific historical code via the preview history."
+  "proposed_main_after_approval": "Latest reviewed source-only tree on the prepared filtered history; preserve all branch-specific historical code via the preview history.",
+  "remote_rewrite_authorized": false,
+  "reason_for_withdrawal": "Code-only filtering removes important scientific context. User explicitly required restoration. Do not execute the previous proposed replacement.",
+  "restoration_manifest": "research_context/restoration_manifest.json"
 }

@@ -1,0 +1,110 @@
+{
+  "status": "WORD_CI_ROAD_EXTENSION_INDEPENDENTLY_VERIFIED",
+  "n_checks": 18,
+  "n_failed": 0,
+  "checks": [
+    {
+      "check": "extension_manifest_atomic_receipt",
+      "pass_": true
+    },
+    {
+      "check": "base_manifest_exact_priorreview",
+      "pass_": true
+    },
+    {
+      "check": "original_parts_immutable_paths_and_hashes",
+      "pass_": true
+    },
+    {
+      "check": "newpart_hash_and_rows",
+      "pass_": true
+    },
+    {
+      "check": "mapping_ids_indices_unchanged",
+      "pass_": true
+    },
+    {
+      "check": "exact_declared_newhighparents",
+      "pass_": true
+    },
+    {
+      "check": "newbudgets360_old180",
+      "pass_": true
+    },
+    {
+      "check": "all_newkeys_above_old180_within360",
+      "pass_": true
+    },
+    {
+      "check": "newkeys_unique",
+      "pass_": true
+    },
+    {
+      "check": "no_added_pair_already_exists_inbase",
+      "pass_": true
+    },
+    {
+      "check": "dest1089_full360pairset_scipy",
+      "pass_": true
+    },
+    {
+      "check": "dest1089_full360times_scipy",
+      "pass_": true
+    },
+    {
+      "check": "dest14768_full360pairset_scipy",
+      "pass_": true
+    },
+    {
+      "check": "dest14768_full360times_scipy",
+      "pass_": true
+    },
+    {
+      "check": "dest16072_full360pairset_scipy",
+      "pass_": true
+    },
+    {
+      "check": "dest16072_full360times_scipy",
+      "pass_": true
+    },
+    {
+      "check": "dest17924_full360pairset_scipy",
+      "pass_": true
+    },
+    {
+      "check": "dest17924_full360times_scipy",
+      "pass_": true
+    }
+  ],
+  "slices": [
+    {
+      "destination_index": 1089,
+      "pairs": 17009,
+      "max_error_minutes": 0.0005230647596476956
+    },
+    {
+      "destination_index": 14768,
+      "pairs": 3,
+      "max_error_minutes": 4.0482692469367976e-06
+    },
+    {
+      "destination_index": 16072,
+      "pairs": 6,
+      "max_error_minutes": 1.2991039142207228e-06
+    },
+    {
+      "destination_index": 17924,
+      "pairs": 438,
+      "max_error_minutes": 0.00017349221377571666
+    }
+  ],
+  "additional_pairs": 94834,
+  "base_target_keys_scanned": 13356,
+  "scope": "All additional keys checked against previously computed destination keys across everybasepart; full360minute destination slices including every zero-addition target independently recomputed with SciPy. No basefile modification. Modeled directed graph travel, not measured traffic.",
+  "source_sha256": {
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/transport/word_ci_inclusive_extension360/routing_receipt.json": "475cada99cb86ea1940af9a6e018946d5e5e1b2df2053292956ac2752c3e55bc",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/transport/word_ci_inclusive_extension360/candidate_travel_times_manifest.json": "403e2fe52160b8fcb51f5214b4a0b2405f017456e04f23c23275d1aeadcd6a63",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/transport/word_ci_inclusive_extension360/additional_part_000.parquet": "154753dc96e5296633f44af4d49f753422c862bffb0a58431fe69530db91316f",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/transport/word_ci_inclusive_extension360/route_destination_index.parquet": "a87883cf4f54d32c3b2d5c754f1a96ad5287056352c4c7f4c44316f8a26d39d0"
+  }
+}

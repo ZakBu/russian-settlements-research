@@ -1,0 +1,11 @@
+# Selected secondary 2010 XLS county context
+
+Bounded top5000 selected2010 orphans with existing accepted2002+2021 same-name/region pairs. Actual secondary source XLS labels/protected population cells and two distinct-name accepted neighbor anchors within20 physical rows support inferred county. Every selected2010 namesake is assigned or blocks uniqueness. Candidate-only: no protected values or admitted graph changed.
+
+Stage13 baseline reproduced exactly. Candidate union adds 2,027 full three-year trajectories with potential population gains 202,140 / 195,636 / 226,238 for2002/2010/2021. These are candidates, not admitted gains. Of the candidate rows,71 have printed-type changes,105 have historical/current county changes, and1,273 have three-year population ratio>2 or an observed zero alongside a positive population. Those flags overlap and require appropriate source/scope review. The conservative partition without those flags has687 trajectories and simulated gains139,443 /133,387 /128,716.
+
+`fixed15_physical_source_checks.csv` and `top5_physical_source_checks.csv` expose actual lower/target/upper XLS rows, labels, unchanged protected populations, hashes and physical locators. Larger witness tables stay outside Git, with literal-check/context CSVs compressed. All2027 selected target rows and both neighboring anchors pass raw label/population readback; candidate endpoints and prospective2010 points are disjoint.
+
+The Altai Sibirsky8786 source row1626 is held: its printed county is absent, it ends an independently region-marked source block, and it lacks two same-county accepted anchors. The second Sibirsky1769 at row836 is a selected competitor; unresolved alternative counties prevent picking one by population. The raw workbook records only the first Altai district at row7, so filling that district down through1626 would create false county evidence.
+
+This batch differs from the earlier source-context pool by using current stage13 accepted component counties and trusted accepted current points. It does not require an accepted current point's optional coordinate_source_record_id to equal the2021 census source ID. Original raw row/type/population and every selected namesake alternative are checked before candidate uniqueness.

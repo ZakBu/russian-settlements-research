@@ -1,0 +1,62 @@
+{
+  "review_id": "target99_plan_independent_review_source_scope_v1",
+  "status": "conditional_pass_with_two_clarifications",
+  "scope": "Concrete read-only review of target arithmetic, population grain/denominators, territory metric semantics, and stated sampling inference. No new point, population, or identity admission.",
+  "inputs": [
+    {
+      "path": "/workspace/russian-settlements-research/docs/AUDIT_AND_PLAN_99_20261003.md",
+      "sha256": "25ca58a043a23be4a5141e97aa72ebe969003391be3b9e1610dba930b15c58a1"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261003/audit_99_20261003/source_scope/audit.md",
+      "sha256": "b061bda745d399fa9c76242a4e4393b5130eafa75921084459670191b561892f"
+    },
+    {
+      "path": "/workspace/settlements-work/continuation_20261003/audit_99_20261003/root/baseline.json",
+      "sha256": "366affa65b9d990e0bbc704ef33750d30241a3ed326c3b513e7c651ef4c8cfab"
+    }
+  ],
+  "findings": [
+    {
+      "id": "integer_threshold_and_gap_arithmetic",
+      "status": "pass",
+      "evidence": "The full-control 99% minimums are 143,715,064 (2002), 141,427,971 (2010), and 145,710,302 (2021), rounded upward. Subtracting the baseline accepted-point populations gives exactly the draft's 23,108,657 / 39,131,767 / 25,483,223 additional populations. The availability shortfalls 1,608,174 and 365,055 also match the baseline available-point inventory minus those thresholds.",
+      "impact": "The table's `needed for 99%` means additional accepted point population from the present accepted-point numerator, not the smaller distance from the theoretical grain ceiling. Those are distinct quantities and the draft currently labels them sufficiently."
+    },
+    {
+      "id": "disjoint_partition_and_scope_denominators",
+      "status": "pass",
+      "evidence": "The baseline independently verifies, for each year, accepted-point population + federal-territory aggregate population + unpointed nonaggregate population + known-source population gap = full official control. Sums are 145,166,731 / 142,856,536 / 147,182,123. The draft separately labels full-control national coverage and the operational physical-selected nonaggregate denominator; the latter's current 85.844656% / 81.200380% / 93.911059% and 99% additions match the baseline.",
+      "impact": "No arithmetic double count or denominator substitution found. Maintain the distinction between current admitted points, theoretical nonaggregate ceiling, physical-selected operational measure, and full-national control."
+    },
+    {
+      "id": "territory_metric_semantics",
+      "status": "pass",
+      "evidence": "The draft explicitly calls the optional measure spatial representation of published territory, states that its point does not become a populated-place point, requires parent-versus-complete-child exclusivity, and says territory points have not been accepted.",
+      "impact": "Do not report this alternative as achieving the atomic physical-place 99% target or relabel federal-city totals as physical settlement rows. The source-scope report's cautions are carried through."
+    },
+    {
+      "id": "target_and_year_scope_wording",
+      "status": "clarification_needed",
+      "location": "Opening paragraph, final sentence: `Возможность достижения 99,9% для всех лет, кроме 2010-го, пока не доказана.`",
+      "issue": "This wording singles out 2010 and can imply a known attainability result for other years or an all-year denominator. The baseline says additional annual national denominators are not defined; only 2002, 2010, and 2021 census controls are available. The draft later correctly says dates are not promised and that only observed annual denominators qualify.",
+      "recommended_edit": "Replace with: `Цели 99% и 99,9% пока не достигнуты; текущие знаменатели позволяют оценивать только переписные годы 2002, 2010 и 2021. Достижение целей не обещается и не установлено для непрерывного годового ряда.` Optionally state the separate 2010 source-scope ceiling is 99.654540%, below 99.9%, if this sentence is intended to summarize the federal-city constraint.",
+      "impact": "Keeps 99% as an explicit target rather than a forecast, and avoids implying there is an all-year denominator or a proven non-2010 attainability result."
+    },
+    {
+      "id": "pps_zero_error_bound",
+      "status": "mathematically_valid_conditionally",
+      "evidence": "For independent with-replacement PPS draws with probabilities exactly proportional to population, zero errors in n draws gives one-sided 95% binomial upper bound `1 - 0.05^(1/n)`: 0.498044% for n=600 and 0.099974% for n=2,995. The draft separates this probability design from its 300–600 stratified pilot and says repeated IDs are checked once while draw count is retained; this is valid when each sampled ID's verified label applies to that fixed unit and repeated draws retain the same outcome.",
+      "conditions": [
+        "Freeze and preserve the exact finite sampling frame and its disjoint population weights; the frame must match the population-mass error-rate estimand.",
+        "Document the per-draw PPS probabilities, independent with-replacement implementation, and the rule mapping each sampled unit to a verified correct/error label.",
+        "Do not apply the simple binomial bound to the stratified pilot, purposive large/conflict cases, or a different candidate frame; those require design-specific analysis or remain descriptive.",
+        "Interpret the bound only for the frozen frame and reviewed decision rule, not as a guarantee of coordinate correctness or transfer to untested rule families/years."
+      ],
+      "recommended_edit": "Add one sentence after the PPS sample-size claim: `Эту границу применяем только к отдельной заранее зафиксированной PPS-выборке с возвращением и документированными непересекающимися весами; стратифицированный пилот и целевые конфликты в неё не объединяем, а вывод относится только к замороженной совокупности и проверенному правилу.`",
+      "impact": "No sampling-math defect found. The concrete improvement is to make the design boundary and estimand explicit so the zero-error bound is not generalized to the separate stratified/targeted review."
+    }
+  ],
+  "recommendation": "Accept the arithmetic, partition, and separate territory-metric treatment. Apply the opening-year-scope wording correction and add the PPS frame/design limitation sentence before relying on the plan as a 99% claim. This review approves no new points or populations.",
+  "no_admissions": true
+}
