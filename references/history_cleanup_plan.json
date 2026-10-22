@@ -1,11 +1,13 @@
 {
   "schema": "sgrt.history_cleanup_plan.v1",
-  "state": "PREPARED_REQUIRES_OWNER_APPROVAL",
+  "state": "FILTERED_HISTORY_PREPARED_AND_CODE_VERIFIED_REQUIRES_OWNER_APPROVAL",
   "reason": "Current tree is about24MiB but historic Git objects remain about10GiB.",
   "safe_completed": [
     "Source-only tree published without rewriting existing history.",
     "Separate one-commit compact preview branch published.",
-    "Original code blob hashes verified; generated artifacts excluded."
+    "Original code blob hashes verified; generated artifacts excluded.",
+    "Filtered history of251 original commits prepared; retained code hashes verified for214 mapped and37 equivalent snapshots.",
+    "All2927 retained historical blobs are present; filtered local mirror is about8.3MiB; preview history branch published."
   ],
   "preview_branch": "maintenance/sgrt-compact-preview-20261022",
   "current_code_branch": "research/sgrt-final-protocol-20261018",
@@ -16,7 +18,7 @@
     "Existing external Release assets unless separately authorized."
   ],
   "steps_after_approval": [
-    "Inventory all affected refs and unique code variants; export source-only backup outside the repository.",
+    "Recheck remote refs against the prepared mapping to detect concurrent changes; retain the compact verified history backup.",
     "Prepare filtered history for all affected refs, preserving code, decisions and source metadata; verify blob coverage and compare resulting size.",
     "Update refs with explicit leases, never overwrite concurrent changes silently.",
     "Coordinate GitHub retention/garbage collection for hidden PR refs and stale objects if required.",
@@ -114,5 +116,9 @@
       "sha": "d9473a551352390465aef736874a497bc495a8f5",
       "type": "commit"
     }
-  ]
+  ],
+  "prepared_history_verification": "references/history_verification.json",
+  "prepared_history_branch": "maintenance/sgrt-filtered-history-20261022",
+  "prepared_history_commit": "6cc093c8970267183fd720a42bc316f87b182147",
+  "proposed_main_after_approval": "Latest reviewed source-only tree on the prepared filtered history; preserve all branch-specific historical code via the preview history."
 }
