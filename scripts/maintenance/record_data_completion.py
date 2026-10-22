@@ -17,6 +17,8 @@ assert not remote['draft'], 'The data release must be public before handoff is c
 server={a['name']:a for a in remote['assets']}
 for asset in catalog['assets']:
  current=server.get(asset['asset']);assert current and current['size']==asset['bytes'] and current.get('digest')=='sha256:'+asset['sha256'],asset['asset']
+ asset['url']=current['browser_download_url']  # Draft 'untagged-*' URLs change at publication.
+ assert '/download/'+catalog['release_tag']+'/' in asset['url']
 legacy=json.loads(subprocess.check_output(['gh','api','repos/'+catalog['repository']+'/releases?per_page=100']))
 catalog['related_releases']=[{'tag':r['tag_name'],'url':r['html_url'],'scope':'Previously published supporting datasets; linked without duplicating their existing archives.','assets':[{'name':a['name'],'bytes':a['size'],'url':a['browser_download_url'],'server_digest':a.get('digest')} for a in r['assets']]} for r in legacy if not r['draft'] and r['tag_name']!=catalog['release_tag']]
 for blob,obj in catalog['objects'].items():
