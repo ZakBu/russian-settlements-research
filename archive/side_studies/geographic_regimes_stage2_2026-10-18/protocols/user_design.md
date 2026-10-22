@@ -211,7 +211,7 @@ research/geographic_regimes_stage2/
 Основание — FINAL_REPORT.md, REPRODUCIBILITY.md и novelty_memo.md из указанного снимка этапаI; это отчёты выполненной работы, не новая внешняя проверка текущим планом.
 
 - Репозиторий и PR2: https://github.com/ZakBu/russian-settlements-research/pull/2
-- Финальный отчёт: https://github.com/ZakBu/russian-settlements-research/blob/6170041d3294db2f040f3d73f0138c86caca7aaa/research/settlement_context_20261018/docs/FINAL_REPORT.md
+- Финальный отчёт: [FINAL_REPORT.md](../../settlement_context_2026-10-18/docs/FINAL_REPORT.md) (в архиве)
 - Разграничение описания, прогноза и причинного вопроса: Shmueli,G.(2025), *To Explain, to Predict, or to Describe: Figuring out the Study Goal*. DOI10.1002/sim.10307. Прочитана издательская аннотация; источник не обосновывает наши конкретные пространственные показатели.
 - Пространственная проверка и соответствие цели переноса: Roberts,D.R. et al.(2017), *Cross-validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure*. DOI10.1111/ecog.02881. Проверены издательские разделы о блокировании и риске экстраполяции; это не автоматическая гарантия корректности конкретного разбиения.
 

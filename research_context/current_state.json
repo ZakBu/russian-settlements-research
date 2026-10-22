@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-22T19:30:00+03:00",
+  "updated_moscow": "2026-10-22T19:40:00+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -26,7 +26,8 @@
   "known_limits": [
     "Численности 2010 года частично восстановлены, а не наблюдены; в проверке это меняло тип динамики примерно у 13% НП.",
     "Покрытие 99,5%+ — доля населения в рабочем слое базы, а не доля правильно связанных НП.",
-    "Реестры Рособрнадзора и bus.gov.ru недоступны с зарубежных серверов."
+    "Реестры Рособрнадзора и bus.gov.ru недоступны с зарубежных серверов.",
+    "Хеши коммитов до 22.10.2026 изменились при очистке истории Git; старые хеши (например, source_commit в каталогах данных) переводятся по commit-map.txt релиза git-history-backup-20261022."
   ],
   "entrypoints": {
     "rules": "AGENTS.md",
@@ -37,6 +38,7 @@
     "literature": "references/sources.json",
     "data_catalog": "data/catalog.json",
     "archive": "archive/README.md",
-    "diary": "research_context/diary/"
+    "diary": "research_context/diary/",
+    "history_backup": "https://github.com/ZakBu/russian-settlements-research/releases/tag/git-history-backup-20261022"
   }
 }
