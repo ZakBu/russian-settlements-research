@@ -1,0 +1,46 @@
+name: Agent bulk operations
+on:
+  push:
+    branches: ['cursor/**']
+    paths: ['.agent-ops/request.sh']
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 1
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Run request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          set +e
+          bash .agent-ops/request.sh > "$RUNNER_TEMP/log.txt" 2>&1
+          code=$?
+          set -e
+          if [ "$code" != 0 ]; then git reset -q --hard; git clean -fdq; rm -f "$RUNNER_TEMP/commit_message"; fi
+          if [ "$code" = 0 ] && [ -f "$RUNNER_TEMP/no_log" ]; then
+            git rm -rq --ignore-unmatch .agent-ops
+            rm -rf .agent-ops
+            git add -A
+          else
+            tail -c 200000 "$RUNNER_TEMP/log.txt" > .agent-ops/log.md
+            echo "exit=$code" >> .agent-ops/log.md
+            git add -A
+            git add -f .agent-ops/log.md
+          fi
+          git commit -q -m "$(cat "$RUNNER_TEMP/commit_message" 2>/dev/null || echo 'chore: agent bulk operations log')" || true
+          if [ ! -f "$RUNNER_TEMP/skip_push" ]; then git push origin HEAD:$BRANCH; fi
