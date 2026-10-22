@@ -325,6 +325,28 @@
       "implementation_status": "conceptual_method_and_literature_basis; not proof of new calibrated nationwide implementation",
       "implementation_paths": [],
       "reading_scope_field": "references/sources.json records[id=KM2023_DIST].read_scope"
+    },
+    {
+      "source_id": "CENSUS_REGISTRY20261013",
+      "used_in": [
+        "README.md",
+        "POPULATION_BASE.md",
+        "AGENTS.md",
+        "AI_START_HERE.md",
+        "scripts/maintenance/build_population_base.py::build",
+        "scripts/verify_population_base.py::verify"
+      ],
+      "purpose": "Authoritative current population dataset/default download. Not a literature-derived model or validation of SGRT boundaries.",
+      "implementation_status": "published_reconstruction_and_clean_public_readback_verified",
+      "implementation_paths": [
+        "scripts/maintenance/build_population_base.py",
+        "scripts/maintenance/publish_population_base.py",
+        "scripts/verify_population_base.py"
+      ],
+      "evidence": [
+        "research_context/reviews/population_base_validation_20261022.json",
+        "research_context/reviews/population_public_handoff_20261022.json"
+      ]
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"

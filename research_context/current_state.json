@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v1",
-  "updated_moscow": "2026-10-22T14:23:50.561508+03:00",
+  "updated_moscow": "2026-10-22T15:48:09.837195+03:00",
   "active_branch": "research/sgrt-final-protocol-20261018",
   "entrypoint": "AI_START_HERE.md",
   "primary_concept": "research_context/primary/word_concept.docx",
@@ -18,28 +18,32 @@
   "data_transfer": {
     "status": "verified_complete",
     "catalog": "data/catalog.json",
-    "release_tag": "sgrt-research-data-20261022-v1",
+    "release_tag": "sgrt-census-population-20261022-v1",
     "counts": {
-      "paths": 8919,
-      "unique_blobs": 7638,
-      "logical_bytes": 18275963965,
-      "unique_bytes": 15480782760,
-      "release_assets": 41,
-      "zip_bytes": 15175454100,
-      "unique_parquet_schemas": 520,
+      "paths": 8925,
+      "unique_blobs": 7642,
+      "logical_bytes": 18378145778,
+      "unique_bytes": 15537154650,
+      "release_assets": 42,
+      "zip_bytes": 15231835337,
+      "unique_parquet_schemas": 522,
       "parquet_schema_errors": 0,
-      "objects_with_sha256": 7638,
+      "objects_with_sha256": 7642,
       "source_logical_bytes": 18275963965,
-      "materialized_logical_bytes": 18321768053
+      "materialized_logical_bytes": 18378145778
     },
-    "verification": "All7638 original objects have SHA-256;41 uploaded ZIP sizes/digests/public URLs independently match GitHub. Fresh shallow clone fetched/verified core6/6 and actually read all six tables. Two resolved historical aliases also read. Classified non-table metadata and two absent historical targets explicitly retained."
+    "verification": "Primary census archive public SHA256/size verified; unmodified clean clone default fetch/verify6/6; three Parquets read and population controls independently recomputed. Previous41-archive recovery remains verified and separately catalogued.",
+    "scope": "All preserved historical structured data plus accepted population foundation; default downloads only the56.38MB population archive.",
+    "primary_default_download_bytes": 56381237
   },
   "known_limits": [
-    "Uncommitted local-only files lost during the runtime restart are not recovered.",
     "Historical reports retain old assumptions and do not override current user instructions.",
     "Existing Git history remains large; no history rewrite is authorized or performed.",
     "No new nationwide functional-gravity model or empirically validated SGRT boundaries are claimed.",
-    "Two historical symlink targets under cycle06_network2021_access_v2_seventh_extension are absent from the published source snapshot; original link metadata is retained. core/current are unaffected."
+    "Two historical symlink targets under cycle06_network2021_access_v2_seventh_extension are absent from the published source snapshot; original link metadata is retained. core/current are unaffected.",
+    "The primary census foundation is now logically reconstructed from accepted published packets; other lost unpublished files remain unavailable. New Parquet bytes are not asserted identical to the historical local export.",
+    "Original XLS/HTML sources were not freshly revalidated in this reconstruction. Coverage99.5%+ is population under accepted working rules, not settlement match-rate or estimated linkage accuracy.",
+    "GitHub About description update was denied by API403 (integration permissions). README and common AI instructions contain the new primary population entry point."
   ],
   "next_scientific_steps": [
     "Start with accepted population foundation (POPULATION_BASE.md), audit functional data and Word requirements against its source IDs/years; do not rebuild or replace it with legacy model outputs.",
@@ -52,15 +56,15 @@
   "navigation": "research_context/INDEX.md",
   "full_narrative_index": "research_context/navigation.json",
   "active_automation": {
-    "workflow": ".github/workflows/portable-research-data.yml",
-    "run_id": 39769912272,
-    "url": "https://github.com/ZakBu/russian-settlements-research/actions/runs/39769912272",
+    "workflow": ".github/workflows/publish-population-base.yml",
+    "run_id": 39780622093,
+    "url": "https://github.com/ZakBu/russian-settlements-research/actions/runs/39780622093",
     "status_at_this_record": "completed_success",
-    "launch_commit": "539aa39d9ce2c078d1e2ce026c545bbfab8b3636",
-    "instruction": "Run completed successfully. Catalog and state committed; main synchronized by ordinary fast-forward."
+    "launch_commit": "acb0b5f5",
+    "instruction": "Census registry rebuilt in a clean GitHub runner from177 hash-pinned inputs; published and committed. main synchronized normally."
   },
-  "handoff_status": "verified_public_core_readable",
-  "handoff_verification": "research_context/reviews/public_handoff_verification_20261022.json",
+  "handoff_status": "verified_public_population_default",
+  "handoff_verification": "research_context/reviews/population_public_handoff_20261022.json",
   "ongoing_handoff_duties": [
     "Append detailed diary after each meaningful research block.",
     "Create a new versioned dataset release for new scientific outputs; retain source provenance and prior snapshots."
@@ -68,13 +72,15 @@
   "independent_handoff_review": {
     "path": "research_context/reviews/handoff_guardian_20261022.json",
     "verdict": "ACCEPTED",
-    "scope": "Portability of published context and datasets; not scientific validation."
+    "scope": "Portability of published context and datasets; not scientific validation.",
+    "historical_scope_only": true,
+    "note": "Earlier reviewer verified previous archive transfer. New census foundation validation and public readback are recorded separately; no new independent source-by-source accuracy estimate is claimed."
   },
   "primary_population_dataset": {
     "id": "census_population_2002_2010_2021_accepted_20261013",
     "documentation": "POPULATION_BASE.md",
     "descriptor": "data/population_dataset.json",
-    "status": "local_reconstruction_verified_publication_pending",
+    "status": "published_and_verified_from_clean_public_clone",
     "default_profiles_after_publication": [
       "core",
       "population",
@@ -111,6 +117,23 @@
         "net_population_gain": 79
       }
     ],
-    "strict_full3": 142765
-  }
+    "strict_full3": 142765,
+    "release_url": "https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-census-population-20261022-v1",
+    "native_observations": 465929,
+    "root_rows": 173242,
+    "accepted_own_points": 447373,
+    "default_download_bytes": 56381237,
+    "validation": "research_context/reviews/population_base_validation_20261022.json",
+    "public_handoff": "research_context/reviews/population_public_handoff_20261022.json"
+  },
+  "completed_automation_history": [
+    {
+      "workflow": ".github/workflows/portable-research-data.yml",
+      "run_id": 39769912272,
+      "url": "https://github.com/ZakBu/russian-settlements-research/actions/runs/39769912272",
+      "status_at_this_record": "completed_success",
+      "launch_commit": "539aa39d9ce2c078d1e2ce026c545bbfab8b3636",
+      "instruction": "Run completed successfully. Catalog and state committed; main synchronized by ordinary fast-forward."
+    }
+  ]
 }
