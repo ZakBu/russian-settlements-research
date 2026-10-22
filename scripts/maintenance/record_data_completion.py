@@ -29,11 +29,9 @@ for blob,obj in catalog['objects'].items():
   obj['sha256']=digest
 catalog['counts']['objects_with_sha256']=sum('sha256' in obj for obj in catalog['objects'].values())
 assert catalog['counts']['objects_with_sha256']==catalog['counts']['unique_blobs']
-errors={sha:obj['parquet_schema_error'] for sha,obj in catalog['objects'].items() if 'parquet_schema_error' in obj}
-core_errors={sha:message for sha,message in errors.items() if 'core' in catalog['objects'][sha]['profiles']}
-assert not core_errors, 'Core Parquet files are unreadable: '+str(core_errors)
-catalog['counts']['parquet_schema_errors']=len(errors)
-catalog['readability']={'core_parquet_schema_errors':core_errors,'historical_parquet_schema_errors':errors,'note':'Byte verification and table readability are separate checks; original problematic objects, if any, are retained unchanged.'}
+from normalize_data_catalog import normalize
+normalize(catalog,json.loads(Path('data/source_special_files.json').read_text()))
+assert not catalog['readability']['core_parquet_schema_errors']
 Path('data/catalog.json').write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+'\n')
 now=datetime.now(ZoneInfo('Europe/Moscow')).isoformat()
 p=Path('research_context/current_state.json');state=json.loads(p.read_text());state['updated_moscow']=now;state['active_automation']={'workflow':'.github/workflows/portable-research-data.yml','run_id':int(os.environ.get('GITHUB_RUN_ID','39765368836')),'url':'https://github.com/'+catalog['repository']+'/actions/runs/'+os.environ.get('GITHUB_RUN_ID','39765368836'),'status_at_this_record':'completed_packaging_verification','launch_commit':os.environ.get('GITHUB_SHA'),'instruction':'The GitHub run can have a final commit step after this record; verify its final conclusion.'};state['data_transfer']={'status':'verified_complete','catalog':'data/catalog.json','release_tag':catalog['release_tag'],'counts':catalog['counts'],'verification':'Every extracted source blob matched Git SHA-1 and SHA-256; each uploaded ZIP matched GitHub server SHA-256 digest. Parquet schemas recorded.'};p.write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n')

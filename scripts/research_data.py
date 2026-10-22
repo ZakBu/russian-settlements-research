@@ -115,7 +115,7 @@ def main():
         if args.show_files:
             for row in rows:
                 obj = objects[row['blob']]
-                print(json.dumps({'path': row['path'], 'bytes': row['bytes'], 'rows': obj.get('rows'), 'schema_id': obj.get('schema_id'), 'asset': obj.get('asset'), 'supplied_by_git': not bool(obj.get('asset'))}, ensure_ascii=False))
+                print(json.dumps({'path': row['path'], 'kind': row.get('kind', 'data'), 'usable_as_table': row.get('usable_as_table'), 'source_provenance': row.get('source_provenance'), 'bytes': row['bytes'], 'rows': obj.get('rows'), 'schema_id': obj.get('schema_id'), 'asset': obj.get('asset'), 'supplied_by_git': not bool(obj.get('asset'))}, ensure_ascii=False))
         if args.show_schema:
             schema_ids = {objects[r['blob']].get('schema_id') for r in rows} - {None}
             for schema_id in sorted(schema_ids):
