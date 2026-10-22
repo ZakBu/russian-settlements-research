@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.repository_policy.v1",
-  "purpose": "Preserve code and full research context; exclude heavy binary outputs and raw matrices.",
+  "purpose": "Full research context, detailed diary, code and verified portable-data catalog; large payloads live in GitHub Releases.",
   "max_file_bytes": 1048576,
   "max_snapshot_bytes": 536870912,
   "target_full_repository_bytes": 4294967296,
@@ -49,6 +49,8 @@
   ],
   "protected_context_max_file_bytes": 16777216,
   "protected_context_paths": [
+    "AGENTS.md",
+    "AI_START_HERE.md",
     "METHODOLOGY.md",
     "SOURCES.md",
     "STATUS.md",
@@ -57,6 +59,7 @@
     "config/mass_linkage_run_20261002.json",
     "config/research_rule_audit_20261003.json",
     "config/research_skills_20261002.json",
+    "data/catalog.json",
     "docs/ACTIVE_RESEARCH_RUN.md",
     "docs/AUDIT_AND_PLAN_99_20261003.md",
     "docs/CONSOLIDATED_LOOP_RESULT_20261003.md",
@@ -2920,6 +2923,8 @@
     "research/sgrt_word_replication_20261021/reviews/word_completion_assessment.csv",
     "research/sgrt_word_replication_20261021/reviews/word_requirements.csv",
     "research_context/conversation_context_20261022.md",
+    "research_context/current_state.json",
+    "research_context/diary/2026-10-22.md",
     "research_context/original_root_README_85aebaf.md",
     "research_context/primary/agent_network.yaml",
     "research_context/primary/pasted_context.txt",
@@ -6561,6 +6566,10 @@
     ".md",
     ".rst",
     ".bib",
-    ".tex"
-  ]
+    ".tex",
+    ".jsonl"
+  ],
+  "file_size_overrides": {
+    "data/catalog.json": 67108864
+  }
 }
