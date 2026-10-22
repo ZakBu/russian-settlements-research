@@ -98,6 +98,16 @@ full3 = pq.read_table('data/population/ordinary_full3.parquet')
   сохраняют исходную единицу учёта и происхождение. Отсутствующий исторический
   код остаётся неизвестным; код не доказывает неизменность границ.
 
+Поля `source_*` и `population_value_quality` относятся к **исходному** числу
+`population`. Для выбранных поправок2010 происхождение хранится отдельно в
+`publication/stage71/applied_primary_population_source_overlay_2010.csv.gz`
+(вход закреплён в манифесте). Не переносите исходную оценку качества автоматически
+на `effective_population`. Подробный реестр поправок можно получить отдельно:
+
+```bash
+python scripts/research_data.py fetch --profile all --match 'publication/stage71/applied_primary_population_source_overlay_2010.csv.gz'
+```
+
 Отсутствующее значение не заменять нулём. Не суммировать все исходные строки с
 федеральными итогами и не складывать несколько версий одной численности. Для
 демографической динамики предпочтителен строгий `ordinary_full3`; даже там

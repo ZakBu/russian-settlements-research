@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "scope": "Downloaded census foundation controls; not source-by-source identity accuracy or SGRT validation.",
+  "native_records": 465929,
+  "accepted_own_points": 447373,
+  "raw_population_nulls_preserved": 1,
+  "coverage_recomputed": [
+    {
+      "census_year": 2002,
+      "credited_population": 144637473,
+      "denominator": 145166731,
+      "coverage_percent": 99.63541370921965,
+      "remaining_to_100": 529258
+    },
+    {
+      "census_year": 2010,
+      "credited_population": 142172049,
+      "denominator": 142856536,
+      "coverage_percent": 99.5208570646008,
+      "remaining_to_100": 684487
+    },
+    {
+      "census_year": 2021,
+      "credited_population": 144329319,
+      "denominator": 144699673,
+      "coverage_percent": 99.7440533262297,
+      "remaining_to_100": 370354
+    }
+  ],
+  "actual_table_reads": [
+    {
+      "path": "data/population/settlements_census_long.parquet",
+      "rows": 465929,
+      "columns_read": [
+        "source_record_id",
+        "root",
+        "census_year",
+        "population",
+        "effective_population",
+        "working_credit_present",
+        "accepted_point_present",
+        "finite_ordinary_full3_all_ownpoints"
+      ]
+    },
+    {
+      "path": "data/population/settlements_census_wide.parquet",
+      "rows": 173242,
+      "columns": 50
+    },
+    {
+      "path": "data/population/ordinary_full3.parquet",
+      "rows": 142765,
+      "columns": 50
+    }
+  ],
+  "time_moscow": "2026-10-22T15:48:09.837195+03:00",
+  "clean_clone": "/workspace/sgrt-population-clean-check",
+  "tested_commit": "b3a781883a41a6f5d095d2fdd64dfd1de9e9db54",
+  "default_command": "python scripts/research_data.py fetch",
+  "profile": "core",
+  "catalog_unmodified": true,
+  "downloaded_files_verified": 6,
+  "archive_bytes": 56381237,
+  "catalog_sha256": "fa288b591ba8b8dbd7dd780c7e075ed6179667913986e009122ef7fd9a892bae",
+  "git_and_release_catalog_byte_identical": true,
+  "release_url": "https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-census-population-20261022-v1",
+  "server_asset_sha256_verified": true,
+  "default_profiles_equal": [
+    "core",
+    "population",
+    "current"
+  ],
+  "legacy_model_files_excluded_from_default": true,
+  "tests": "8/8 targeted transfer/normalization/default-profile tests pass; repository policy passes"
+}
