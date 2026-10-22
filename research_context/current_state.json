@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v1",
-  "updated_moscow": "2026-10-22T14:21:31.226841+03:00",
+  "updated_moscow": "2026-10-22T14:23:50.561508+03:00",
   "active_branch": "research/sgrt-final-protocol-20261018",
   "entrypoint": "AI_START_HERE.md",
   "primary_concept": "research_context/primary/word_concept.docx",
@@ -31,7 +31,7 @@
       "source_logical_bytes": 18275963965,
       "materialized_logical_bytes": 18321768053
     },
-    "verification": "Every extracted source blob matched Git SHA-1 and SHA-256; each uploaded ZIP matched GitHub server SHA-256 digest. Parquet schemas recorded."
+    "verification": "All7638 original objects have SHA-256;41 uploaded ZIP sizes/digests/public URLs independently match GitHub. Fresh shallow clone fetched/verified core6/6 and actually read all six tables. Two resolved historical aliases also read. Classified non-table metadata and two absent historical targets explicitly retained."
   },
   "known_limits": [
     "Uncommitted local-only files lost during the runtime restart are not recovered.",
@@ -47,19 +47,26 @@
     "Check contrasting territories, multiple centers, tiny rural catchments and absence of established links.",
     "Then calculate hierarchy, complete typology and maps with explicit uncertainty."
   ],
-  "next_handoff_checks": [
-    "Complete metadata reclassification and hashes for Git-retained objects.",
-    "Fetch core using public URLs in a fresh destination and read actual Parquet tables.",
-    "Finish independent handoff review, update state/diary and synchronize main."
-  ],
+  "next_handoff_checks": [],
   "navigation": "research_context/INDEX.md",
   "full_narrative_index": "research_context/navigation.json",
   "active_automation": {
     "workflow": ".github/workflows/portable-research-data.yml",
     "run_id": 39769912272,
     "url": "https://github.com/ZakBu/russian-settlements-research/actions/runs/39769912272",
-    "status_at_this_record": "completed_packaging_verification",
+    "status_at_this_record": "completed_success",
     "launch_commit": "539aa39d9ce2c078d1e2ce026c545bbfab8b3636",
-    "instruction": "The GitHub run can have a final commit step after this record; verify its final conclusion."
+    "instruction": "Run completed successfully. Catalog and state committed; main synchronized by ordinary fast-forward."
+  },
+  "handoff_status": "verified_public_core_readable",
+  "handoff_verification": "research_context/reviews/public_handoff_verification_20261022.json",
+  "ongoing_handoff_duties": [
+    "Append detailed diary after each meaningful research block.",
+    "Create a new versioned dataset release for new scientific outputs; retain source provenance and prior snapshots."
+  ],
+  "independent_handoff_review": {
+    "path": "research_context/reviews/handoff_guardian_20261022.json",
+    "verdict": "ACCEPTED",
+    "scope": "Portability of published context and datasets; not scientific validation."
   }
 }
