@@ -1,0 +1,38 @@
+{
+  "schema": "sgrt.independent_handoff_review.v1",
+  "reviewer": "handoff_guardian",
+  "date_moscow": "2026-10-22",
+  "scope": "Published context and data catalog; not independent empirical validation of SGRT.",
+  "findings": {
+    "context_restored_original_hashes": "6500/6500match",
+    "narrative_files": 664,
+    "data_paths": 8919,
+    "unique_data_objects": 7638,
+    "catalog_internal_consistency": "PASS",
+    "git_retained_data_objects": "Expected hashes present",
+    "scope_disclosures": "Previous computation, future model and unavailable uncommitted files clearly distinguished"
+  },
+  "conditions": [
+    {
+      "id": "C1",
+      "requirement": "Recheck existence/size/digest of verified archives on resume",
+      "resolution": "Guard added to pack_research_release.py; changed cache causes explicit failure."
+    },
+    {
+      "id": "C2",
+      "requirement": "Inspect parquet_schema_error in final catalog",
+      "resolution": "Pending final catalog; byte-verification must not be presented as proof of universal table readability."
+    },
+    {
+      "id": "C3",
+      "requirement": "Fetch core in a fresh clone and actually read Parquet",
+      "resolution": "Pending after Release publication."
+    },
+    {
+      "id": "C4",
+      "requirement": "Fast-forward main after final workflow catalog commit",
+      "resolution": "Planned; no history rewriting."
+    }
+  ],
+  "verdict": "CONTEXT_ACCEPTED_DATA_HANDOFF_PENDING_FINITE_CHECKS"
+}

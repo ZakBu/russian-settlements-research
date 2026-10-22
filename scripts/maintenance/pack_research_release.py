@@ -30,8 +30,14 @@ def checkpoint():
  CAT.write_text(json.dumps(cat,ensure_ascii=False,indent=2)+'\n')
  run(['gh','release','upload',TAG,str(CAT),'--repo',REPO,'--clobber'])
 checkpoint()
+server_assets=json.loads(run(['gh','api','repos/'+REPO+'/releases/'+release_id]))['assets']
+server_by_name={a['name']:a for a in server_assets}
 for n,asset in enumerate(cat['assets']):
- if asset['status']=='verified':continue
+ if asset['status']=='verified':
+  saved=server_by_name.get(asset['asset'])
+  if not saved or saved['size']!=asset['bytes'] or saved.get('digest')!='sha256:'+asset['sha256']:
+   raise RuntimeError('Previously verified archive is absent or changed on GitHub: '+asset['asset'])
+  continue
  print(json.dumps({'phase':'fetch','asset':asset['asset'],'index':n+1,'of':len(cat['assets']),'raw_bytes':asset['uncompressed_bytes']}),flush=True)
  run(['git','-c','gc.auto=0','-c','fetch.negotiationAlgorithm=noop','fetch','--no-tags','--no-write-fetch-head','--filter=blob:none','origin','--stdin'],('\n'.join(asset['objects'])+'\n').encode(),E)
  archive=ROOT/asset['asset'];members=[]
@@ -67,6 +73,6 @@ for n,asset in enumerate(cat['assets']):
  for cached in (GD/'objects/pack').iterdir():
   if cached.name not in baseline_pack_files:cached.unlink()
  print(json.dumps({'phase':'verified','asset':asset['asset'],'completed':n+1,'of':len(cat['assets']),'digest':digest}),flush=True)
-cat['status']='verified_complete';cat['counts']['zip_bytes']=sum(a['bytes'] for a in cat['assets']);cat['counts']['unique_parquet_schemas']=len(cat['schemas']);checkpoint()
+cat['counts']['parquet_schema_errors']=sum('parquet_schema_error' in obj for obj in cat['objects'].values());cat['status']='verified_complete';cat['counts']['zip_bytes']=sum(a['bytes'] for a in cat['assets']);cat['counts']['unique_parquet_schemas']=len(cat['schemas']);checkpoint()
 run(['gh','release','edit',TAG,'--repo',REPO,'--draft=false','--latest=false'])
 print(json.dumps({'status':'complete','counts':cat['counts'],'tag':TAG}),flush=True)
