@@ -10,7 +10,7 @@ permissions:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 300
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -31,8 +31,10 @@ jobs:
           bash .agent-ops/request.sh > "$RUNNER_TEMP/log.txt" 2>&1
           code=$?
           set -e
-          tail -c 200000 "$RUNNER_TEMP/log.txt" > .agent-ops/log.txt
-          echo "exit=$code" >> .agent-ops/log.txt
+          if [ "$code" != 0 ]; then git reset -q --hard; git clean -fdq; rm -f "$RUNNER_TEMP/commit_message"; fi
+          tail -c 200000 "$RUNNER_TEMP/log.txt" > .agent-ops/log.md
+          echo "exit=$code" >> .agent-ops/log.md
           git add -A
-          git commit -m "${COMMIT_MESSAGE:-chore: apply agent bulk operations}" -q || true
+          git add -f .agent-ops/log.md
+          git commit -q -m "$(cat "$RUNNER_TEMP/commit_message" 2>/dev/null || echo 'chore: agent bulk operations log')" || true
           git push origin HEAD:$BRANCH
