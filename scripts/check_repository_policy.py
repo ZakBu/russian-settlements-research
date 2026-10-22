@@ -23,6 +23,7 @@ def allowed(path, policy):
             or any(x in {'config', 'configs'} for x in p.parts[:-1])
             or p.name in {'package.json', 'package-lock.json', 'tsconfig.json'}))
         or (p.suffix == '.html' and 'templates' in p.parts[:-1])
+        or (path.startswith('research_context/') and p.suffix in {'.json', '.jsonl', '.md', '.txt', '.yaml'})
         or (path.startswith('references/') and p.suffix in {'.json', '.csv', '.bib'})
     )
 
