@@ -30,3 +30,6 @@ with open('research_context/diary/2026-10-22.md','a') as f:
  f.write('Автоматическая упаковка завершена. Каталог: data/catalog.json. Релиз: '+catalog['release_tag']+'.\n\n')
  f.write('Проверенные итоги: '+json.dumps(catalog['counts'],ensure_ascii=False)+'.\n\n')
  f.write('Каждый объект побайтно сопоставлен с исходным Git-хешем и SHA-256; ZIP проверены по серверным SHA-256 GitHub. Схемы Parquet сохранены в каталоге. Это проверка переноса, а не новая проверка научной модели. Новая функциональная модель не рассчитана.\n')
+
+# Keep the release entry point byte-identical to the catalog committed to Git.
+subprocess.run(['gh','release','upload',catalog['release_tag'],'data/catalog.json','--repo',catalog['repository'],'--clobber'],check=True)

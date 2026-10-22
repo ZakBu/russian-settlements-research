@@ -7,6 +7,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -29,6 +30,8 @@ class DataTransferTests(unittest.TestCase):
     def test_fetch_verifies_and_aliases_are_independent(self):
         result=self.command('fetch');self.assertEqual(result.returncode,0,result.stderr)
         self.assertEqual((self.dest/'a.parquet').read_bytes(),self.data)
+        self.assertFalse((self.root/'cache/data.zip').exists())
+        self.assertEqual(list((self.root/'cache/objects').glob('*')),[])
         (self.dest/'a.parquet').write_bytes(b'changed')
         self.assertEqual((self.dest/'nested/b.parquet').read_bytes(),self.data)
         self.assertEqual(self.command('verify').returncode,1)
@@ -39,6 +42,20 @@ class DataTransferTests(unittest.TestCase):
         self.catalog['assets'][0]['sha256']='0'*64;self.path.write_text(json.dumps(self.catalog))
         self.assertEqual(self.command('fetch').returncode,1)
         self.assertFalse((self.dest/'a.parquet').exists())
+
+    def test_interrupted_copy_is_resumable(self):
+        spec=importlib.util.spec_from_file_location('data',SCRIPT);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        source=self.root/'source';source.write_bytes(self.data);target=self.dest/'file.parquet'
+        row=self.catalog['files'][0];obj=self.catalog['objects'][self.blob]
+        def interrupted(src,dst):
+            Path(dst).write_bytes(b'partial')
+            raise OSError('simulated interrupted copy')
+        with patch.object(module.shutil,'copyfile',side_effect=interrupted):
+            with self.assertRaises(OSError):module.copy_verified(source,target,row,obj)
+        self.assertFalse(target.exists())
+        module.copy_verified(source,target,row,obj)
+        self.assertEqual(target.read_bytes(),self.data)
+        self.assertFalse(target.with_name(target.name+'.sgrt-part').exists())
 
     def test_path_escape_is_rejected(self):
         spec=importlib.util.spec_from_file_location('data',SCRIPT);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)

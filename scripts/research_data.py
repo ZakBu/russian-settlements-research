@@ -67,6 +67,21 @@ def verify_file(path, row, obj):
     return h.hexdigest() == row['blob']
 
 
+def copy_verified(source, target, row, obj):
+    """A failed copy must not turn a partial file into an apparently existing dataset."""
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary = target.with_name(target.name + '.sgrt-part')
+    shutil.copyfile(source, temporary)
+    if not verify_file(temporary, row, obj):
+        raise ValueError('Copied data checksum mismatch: ' + row['path'])
+    if target.exists():
+        if verify_file(target, row, obj):
+            temporary.unlink()
+            return
+        raise ValueError('Destination changed during copy: ' + row['path'])
+    temporary.replace(target)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('command', choices=['list', 'fetch', 'verify'])
@@ -74,6 +89,7 @@ def main():
     parser.add_argument('--profile', choices=['core', 'current', 'all'], default='core')
     parser.add_argument('--dest', type=Path, default=Path('.'))
     parser.add_argument('--cache', type=Path, default=Path('.research-cache'))
+    parser.add_argument('--keep-archives', action='store_true', help='Retain verified ZIP downloads; default materializes one archive at a time and removes its cache')
     args = parser.parse_args()
     cat = load_catalog(args.catalog)
     rows = selected_files(cat, args.profile)
@@ -84,44 +100,61 @@ def main():
     print(json.dumps({'profile': args.profile, 'files': len(rows),
                       'unique_objects': len(selected),
                       'logical_bytes': sum(row['bytes'] for row in rows),
-                      'download_bytes': sum(assets[name].get('bytes', 0) for name in needed_assets),
+                      'download_bytes': sum(assets[name]['bytes'] for name in needed_assets) if all('bytes' in assets[name] for name in needed_assets) else None,
+                      'planned_uncompressed_asset_bytes': sum(assets[name].get('uncompressed_bytes', assets[name].get('bytes', 0)) for name in needed_assets),
                       'catalog_status': cat['status']}, ensure_ascii=False), flush=True)
     if args.command == 'list':
         return 0
     args.dest.mkdir(parents=True, exist_ok=True)
     if args.command == 'fetch':
+        by_blob = {}
+        for row in rows:
+            by_blob.setdefault(row['blob'], []).append(row)
+            target = destination(args.dest, row['path'])
+            if target.exists() and not verify_file(target, row, objects[row['blob']]):
+                raise ValueError('Existing file differs; preserve and inspect it: ' + row['path'])
         for name in sorted(needed_assets):
             asset = assets[name]
             if asset['status'] != 'verified':
                 raise ValueError('Asset is not yet verified: ' + name)
+            relevant = selected.intersection(asset['objects'])
+            pending = {blob for blob in relevant if any(not destination(args.dest, r['path']).exists() for r in by_blob[blob])}
+            if not pending:
+                continue
             archive = args.cache / name
             print('Fetching verified archive: ' + name, flush=True)
             download(asset['url'], archive, asset['sha256'])
             with zipfile.ZipFile(archive) as z:
-                for blob in selected.intersection(asset['objects']):
+                for blob in sorted(pending):
                     obj = objects[blob]
                     local = args.cache / 'objects' / blob
-                    if not local.exists() or sha256(local) != obj['sha256']:
-                        local.parent.mkdir(parents=True, exist_ok=True)
-                        temporary = local.with_name(blob + '.part')
-                        with z.open('objects/' + blob) as src, open(temporary, 'wb') as out:
-                            shutil.copyfileobj(src, out, 4 * 1024 * 1024)
-                        if temporary.stat().st_size != obj['bytes'] or sha256(temporary) != obj['sha256']:
-                            raise ValueError('Data object checksum mismatch: ' + blob)
-                        temporary.replace(local)
+                    local.parent.mkdir(parents=True, exist_ok=True)
+                    temporary = local.with_name(blob + '.part')
+                    with z.open('objects/' + blob) as src, open(temporary, 'wb') as out:
+                        shutil.copyfileobj(src, out, 4 * 1024 * 1024)
+                    if temporary.stat().st_size != obj['bytes'] or sha256(temporary) != obj['sha256']:
+                        raise ValueError('Data object checksum mismatch: ' + blob)
+                    temporary.replace(local)
+                    for row in by_blob[blob]:
+                        target = destination(args.dest, row['path'])
+                        if not target.exists():
+                            target.parent.mkdir(parents=True, exist_ok=True)
+                            # Independent copies prevent one edited historical alias mutating another.
+                            copy_verified(local, target, row, obj)
+                    local.unlink()
+            if not args.keep_archives:
+                archive.unlink()
         for row in rows:
-            obj = objects[row['blob']]
+            if objects[row['blob']].get('asset'):
+                continue
             target = destination(args.dest, row['path'])
             if target.exists():
-                if verify_file(target, row, obj):
-                    continue
-                raise ValueError('Existing file differs; preserve and inspect it: ' + row['path'])
-            if not obj.get('asset'):
-                raise ValueError('File is supplied by Git but absent in destination: ' + row['path'])
-            source = args.cache / 'objects' / row['blob']
+                continue
+            source = destination(Path(__file__).resolve().parents[1], row['path'])
+            if not verify_file(source, row, objects[row['blob']]):
+                raise ValueError('File supplied by Git is absent or changed: ' + row['path'])
             target.parent.mkdir(parents=True, exist_ok=True)
-            # Copy aliases: later edits to one historical path must not mutate another path.
-            shutil.copyfile(source, target)
+            copy_verified(source, target, row, objects[row['blob']])
     failures = [row['path'] for row in rows
                 if not verify_file(destination(args.dest, row['path']), row, objects[row['blob']])]
     print(json.dumps({'verified_files': len(rows) - len(failures), 'failed_files': failures}, ensure_ascii=False))
