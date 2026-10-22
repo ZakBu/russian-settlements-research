@@ -6,6 +6,7 @@ import json
 import subprocess
 import re
 import os
+import hashlib
 catalog=json.loads(Path('data/catalog.json').read_text())
 assert catalog['status']=='verified_complete'
 assert all(a['status']=='verified' for a in catalog['assets'])
@@ -18,6 +19,16 @@ for asset in catalog['assets']:
  current=server.get(asset['asset']);assert current and current['size']==asset['bytes'] and current.get('digest')=='sha256:'+asset['sha256'],asset['asset']
 legacy=json.loads(subprocess.check_output(['gh','api','repos/'+catalog['repository']+'/releases?per_page=100']))
 catalog['related_releases']=[{'tag':r['tag_name'],'url':r['html_url'],'scope':'Previously published supporting datasets; linked without duplicating their existing archives.','assets':[{'name':a['name'],'bytes':a['size'],'url':a['browser_download_url'],'server_digest':a.get('digest')} for a in r['assets']]} for r in legacy if not r['draft'] and r['tag_name']!=catalog['release_tag']]
+for blob,obj in catalog['objects'].items():
+ if obj.get('stored_in_current_git'):
+  raw=Path(obj['source_path']).read_bytes()
+  assert len(raw)==obj['bytes']
+  assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==blob
+  digest=hashlib.sha256(raw).hexdigest()
+  if obj.get('sha256'):assert obj['sha256']==digest
+  obj['sha256']=digest
+catalog['counts']['objects_with_sha256']=sum('sha256' in obj for obj in catalog['objects'].values())
+assert catalog['counts']['objects_with_sha256']==catalog['counts']['unique_blobs']
 errors={sha:obj['parquet_schema_error'] for sha,obj in catalog['objects'].items() if 'parquet_schema_error' in obj}
 core_errors={sha:message for sha,message in errors.items() if 'core' in catalog['objects'][sha]['profiles']}
 assert not core_errors, 'Core Parquet files are unreadable: '+str(core_errors)
