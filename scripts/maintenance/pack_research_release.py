@@ -1,5 +1,5 @@
 """Publish byte-exact structured research data as deduplicated ZIP release assets."""
-import os,json,pathlib,subprocess,hashlib,zipfile,sys,time,argparse,shutil
+import os,json,pathlib,subprocess,hashlib,zipfile,sys,time,argparse,shutil,re
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--workdir',type=pathlib.Path,required=True)
 parser.add_argument('--catalog',type=pathlib.Path,default=pathlib.Path('data/catalog.json'))
@@ -16,13 +16,16 @@ def run(a,data=None,env=None):
 if not GD.exists():
  run(['git','clone','--bare','--filter=blob:none','--single-branch','--branch','research/sgrt-final-protocol-20261018','https://github.com/'+REPO+'.git',str(GD)])
 baseline_pack_files={p.name for p in (GD/'objects/pack').iterdir()}
-remote_probe=subprocess.run(['gh','api','repos/'+REPO+'/releases/tags/'+TAG],capture_output=True,text=True)
-if remote_probe.returncode==0 and any(a['name']=='catalog.json' for a in json.loads(remote_probe.stdout)['assets']):
+remote_probe=subprocess.run(['gh','api','repos/'+REPO+'/releases?per_page=100'],capture_output=True,text=True)
+existing_release=next((r for r in json.loads(remote_probe.stdout) if r['tag_name']==TAG),None) if remote_probe.returncode==0 else None
+if existing_release and any(a['name']=='catalog.json' for a in existing_release['assets']):
  run(['gh','release','download',TAG,'--repo',REPO,'--pattern','catalog.json','--dir',str(ROOT),'--clobber'])
 cat=json.loads(CAT.read_text());cat.setdefault('schemas',{})
 notes=ROOT/'release_notes.md';notes.write_text('Данные исследования СГРТ: исходные опубликованные структурированные файлы в Parquet и других форматах, без изменения значений. ZIP хранит каждый уникальный объект один раз; catalog.json восстанавливает исходные пути и содержит контрольные суммы.\n\nНаличие данных прежнего расчёта не подтверждает фактические связи СГРТ. Новая функциональная модель пока не рассчитана.\n')
 if subprocess.run(['gh','release','view',TAG,'--repo',REPO],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode:
  run(['gh','release','create',TAG,'--repo',REPO,'--target','f06bf2578878c5c6d34d25b6541988cde30bed42','--title','СГРТ: переносимые исследовательские данные, 22.10.2026','--notes-file',str(notes),'--draft'])
+release_url=json.loads(run(['gh','release','view',TAG,'--repo',REPO,'--json','uploadUrl']))['uploadUrl']
+release_id=re.search(r'/releases/(\d+)/',release_url).group(1)
 def checkpoint():
  CAT.write_text(json.dumps(cat,ensure_ascii=False,indent=2)+'\n')
  run(['gh','release','upload',TAG,str(CAT),'--repo',REPO,'--clobber'])
@@ -43,8 +46,11 @@ for n,asset in enumerate(cat['assets']):
    if obj.get('sha256'):assert obj['sha256']==actual
    obj['sha256']=actual
    if obj['source_path'].endswith('.parquet'):
-    p=pq.ParquetFile(rawpath);fields=[{'name':f.name,'type':str(f.type),'nullable':f.nullable} for f in p.schema_arrow]
-    sid=hashlib.sha256(json.dumps(fields,sort_keys=True).encode()).hexdigest();cat['schemas'][sid]={'fields':fields};obj['schema_id']=sid;obj['rows']=p.metadata.num_rows
+    try:
+     p=pq.ParquetFile(rawpath);fields=[{'name':f.name,'type':str(f.type),'nullable':f.nullable} for f in p.schema_arrow]
+     sid=hashlib.sha256(json.dumps(fields,sort_keys=True).encode()).hexdigest();cat['schemas'][sid]={'fields':fields};obj['schema_id']=sid;obj['rows']=p.metadata.num_rows
+    except Exception as error:
+     obj['parquet_schema_error']=str(error)
    compression=zipfile.ZIP_DEFLATED if obj['source_path'].endswith(('.csv','.geojson')) else zipfile.ZIP_STORED
    z.write(rawpath,'objects/'+sha,compress_type=compression,compresslevel=6 if compression else None);rawpath.unlink()
    members.append({'blob':sha,'bytes':count,'sha256':actual})
@@ -54,7 +60,7 @@ for n,asset in enumerate(cat['assets']):
   while b:=f.read(4*1024*1024):h.update(b)
  digest=h.hexdigest();print(json.dumps({'phase':'upload','asset':asset['asset'],'zip_bytes':archive.stat().st_size}),flush=True)
  run(['gh','release','upload',TAG,str(archive),'--repo',REPO,'--clobber'])
- remote=json.loads(run(['gh','api','repos/'+REPO+'/releases/tags/'+TAG]));a=next(a for a in remote['assets'] if a['name']==asset['asset'])
+ remote=json.loads(run(['gh','api','repos/'+REPO+'/releases/'+release_id]));a=next(a for a in remote['assets'] if a['name']==asset['asset'])
  assert a['size']==archive.stat().st_size;assert a['digest']=='sha256:'+digest
  asset.update(status='verified',bytes=a['size'],sha256=digest,url=a['browser_download_url'],asset_id=a['id']);checkpoint();archive.unlink()
  # Only auxiliary cache packs created by this shard are removed; metadata cloned at startup is retained.
