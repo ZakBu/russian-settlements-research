@@ -34,7 +34,7 @@ ls -la "$WORK"
 python .agent-ops/reorganize.py --apply --out "$WORK/plan"
 
 for name in $(ls "$WORK/side"); do
-  (cd "$WORK/side/$name" && find . -type f \( -name '*.md' -o -name '*.py' -o -name '*.yaml' -o -name '*.yml' -o -name '*.txt' -o -name '*.bib' -o -name '*.sql' -o -name '*.ipynb' \) -size -1M) | while read -r f; do
+  (cd "$WORK/side/$name" && find . -type f \( -name '*.md' -o -name '*.py' -o -name '*.yaml' -o -name '*.yml' -o -name '*.txt' -o -name '*.bib' -o -name '*.sql' -o -name '*.ipynb' \) -size -1000k) | while read -r f; do
     mkdir -p "archive/side_studies/$name/$(dirname "$f")"
     cp "$WORK/side/$name/$f" "archive/side_studies/$name/$f"
   done

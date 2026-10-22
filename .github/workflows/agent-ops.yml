@@ -37,4 +37,4 @@ jobs:
           git add -A
           git add -f .agent-ops/log.md
           git commit -q -m "$(cat "$RUNNER_TEMP/commit_message" 2>/dev/null || echo 'chore: agent bulk operations log')" || true
-          git push origin HEAD:$BRANCH
+          if [ ! -f "$RUNNER_TEMP/skip_push" ]; then git push origin HEAD:$BRANCH; fi
