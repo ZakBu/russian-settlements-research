@@ -1,0 +1,118 @@
+{
+  "schema": "sgrt.history_cleanup_plan.v1",
+  "state": "PREPARED_REQUIRES_OWNER_APPROVAL",
+  "reason": "Current tree is about24MiB but historic Git objects remain about10GiB.",
+  "safe_completed": [
+    "Source-only tree published without rewriting existing history.",
+    "Separate one-commit compact preview branch published.",
+    "Original code blob hashes verified; generated artifacts excluded."
+  ],
+  "preview_branch": "maintenance/sgrt-compact-preview-20261022",
+  "current_code_branch": "research/sgrt-final-protocol-20261018",
+  "requested_destructive_scope": "Rewrite or replace artifact-bearing history and update affected branch/tag references. Preserve all code and bibliographic/decision metadata before removing historical artifact reachability.",
+  "preserve": [
+    "All code across affected refs, including branch-specific variants, with a code/commit mapping.",
+    "Literature and source-use records.",
+    "Existing external Release assets unless separately authorized."
+  ],
+  "steps_after_approval": [
+    "Inventory all affected refs and unique code variants; export source-only backup outside the repository.",
+    "Prepare filtered history for all affected refs, preserving code, decisions and source metadata; verify blob coverage and compare resulting size.",
+    "Update refs with explicit leases, never overwrite concurrent changes silently.",
+    "Coordinate GitHub retention/garbage collection for hidden PR refs and stale objects if required.",
+    "Verify fresh clones and measure full advertised history size; do not claim GitHub storage reduction from tree size alone."
+  ],
+  "not_done": [
+    "No existing history rewritten.",
+    "No old branch/tag deleted.",
+    "Default branch unchanged.",
+    "No server-side garbage collection performed."
+  ],
+  "refs_before_final_cleanup": [
+    {
+      "ref": "refs/heads/codex/settlement-progress-report-20261021",
+      "sha": "8e33797c0a22c9ec5d75b707e2e9d9d7ebdc9234",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/heads/main",
+      "sha": "90fe15a2aebc7327b7d525d29c5d70057e320e2e",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/heads/maintenance/sgrt-compact-preview-20261022",
+      "sha": "1c78a98c7959e463339b0ea13e9bfb01de80951a",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/heads/research/geographic-regimes-stage2-2026-10-18",
+      "sha": "5379c39b3199cfe28662bd7f0ede80a3fead3001",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/heads/research/mass-linkage-2026-10-02",
+      "sha": "176d08b1efc23e1dfd9d65d84393c782c66eecd7",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/heads/research/settlement-context-2026-10-18",
+      "sha": "6170041d3294db2f040f3d73f0138c86caca7aaa",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/heads/research/sgrt-final-protocol-20261018",
+      "sha": "6a4e590d898fdef4c13d1ed575fb2caf7f6a9cd8",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/tags/baseline-2026-09-29",
+      "sha": "fea4208340801108b4b331266dab5303a1ced8e9",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/tags/karelia-pilot-inputs-2026-09-29",
+      "sha": "6b600c34fc45d4dd0dacc806251badf2438f731c",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/tags/karelia-pilot-r6-2026-09-30",
+      "sha": "c3500816d63e69e02b01298b17cef43968d2c34d",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/tags/national-reviewed-checkpoint-r1-r2-2026-09-30",
+      "sha": "4304148980d61df980a16da3762e37a1f38a7976",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/tags/national-reviewed-checkpoint-r4-2026-09-30",
+      "sha": "850dcf36827f81e668613fe434e288b9d9c04811",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/tags/national-reviewed-checkpoint-r5b-r2-selection-2026-09-30",
+      "sha": "6b77fe421b8266ae2a9205397832fb35c6cd44be",
+      "type": "tag"
+    },
+    {
+      "ref": "refs/tags/working-settlements-stage67-2026-10-08",
+      "sha": "c169f51145ce3aea0d6180461d4431d49b354f3b",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/tags/working-settlements-stage68-2026-10-08",
+      "sha": "9d17d785d62ffa7c2673660c24c3cf154c9cc66b",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/tags/working-settlements-stage70-2026-10-09",
+      "sha": "a05e88a577ecb7f9b2fc1230dc90ecada33e130b",
+      "type": "commit"
+    },
+    {
+      "ref": "refs/tags/working-settlements-stage71-2026-10-09",
+      "sha": "d9473a551352390465aef736874a497bc495a8f5",
+      "type": "commit"
+    }
+  ]
+}
