@@ -41,6 +41,7 @@ python scripts/research_data.py list
 python scripts/research_data.py fetch
 python scripts/research_data.py verify
 python -m pip install -r requirements-handoff.txt
+python scripts/verify_population_base.py
 ```
 
 Команды без `--profile` получают **эту базу** (`core`). `population` и `current`
