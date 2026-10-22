@@ -4,7 +4,7 @@
 
 ## Клонирование
 
-Клонируй без старой истории — так быстрее:
+Полный клон весит около 400 МБ; для работы достаточно последней версии:
 
 ```bash
 git clone --depth 1 https://github.com/ZakBu/russian-settlements-research.git
