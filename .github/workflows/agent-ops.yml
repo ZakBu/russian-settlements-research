@@ -32,9 +32,15 @@ jobs:
           code=$?
           set -e
           if [ "$code" != 0 ]; then git reset -q --hard; git clean -fdq; rm -f "$RUNNER_TEMP/commit_message"; fi
-          tail -c 200000 "$RUNNER_TEMP/log.txt" > .agent-ops/log.md
-          echo "exit=$code" >> .agent-ops/log.md
-          git add -A
-          git add -f .agent-ops/log.md
+          if [ "$code" = 0 ] && [ -f "$RUNNER_TEMP/no_log" ]; then
+            git rm -rq --ignore-unmatch .agent-ops
+            rm -rf .agent-ops
+            git add -A
+          else
+            tail -c 200000 "$RUNNER_TEMP/log.txt" > .agent-ops/log.md
+            echo "exit=$code" >> .agent-ops/log.md
+            git add -A
+            git add -f .agent-ops/log.md
+          fi
           git commit -q -m "$(cat "$RUNNER_TEMP/commit_message" 2>/dev/null || echo 'chore: agent bulk operations log')" || true
           if [ ! -f "$RUNNER_TEMP/skip_push" ]; then git push origin HEAD:$BRANCH; fi
