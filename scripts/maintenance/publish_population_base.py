@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import subprocess
 import sys
@@ -30,6 +31,7 @@ def publish(work):
     output=work/'data/population'
     subprocess.run([sys.executable,'scripts/maintenance/build_population_base.py','--output',str(output)],cwd=ROOT,check=True)
     metadata=json.loads((output/'dataset.json').read_text())
+    readback=json.loads(run([sys.executable,'scripts/verify_population_base.py','--root',str(work)]))
     cat=json.loads((ROOT/'data/catalog-20261022-recovery-v1.json').read_text())
     # Preserve old computations in explicit archive profiles; none are default.
     for container in [cat['files'],cat['objects'].values()]:
@@ -64,8 +66,9 @@ def publish(work):
     if probe.returncode:
         run(['gh','release','create',TAG,'--repo',REPO,'--target',os.environ.get('GITHUB_SHA',run(['git','rev-parse','HEAD']).strip()),'--title','Главная база НП: переписи2002/2010/2021','--notes-file',str(notes),'--draft'])
     # Refuse to overwrite an already published differing scientific payload.
-    releases=json.loads(run(['gh','api','repos/'+REPO+'/releases?per_page=100']))
-    remote=next(r for r in releases if r['tag_name']==TAG)
+    upload_url=json.loads(run(['gh','release','view',TAG,'--repo',REPO,'--json','uploadUrl']))['uploadUrl']
+    release_id=re.search(r'/releases/(\d+)/',upload_url).group(1)
+    remote=json.loads(run(['gh','api','repos/'+REPO+'/releases/'+release_id]))
     previous=next((a for a in remote['assets'] if a['name']==ASSET),None)
     checksum=digest(archive)
     if previous:
@@ -84,7 +87,7 @@ def publish(work):
     cat['limits'] += ' The primary census registry is a logical reconstruction from frozen accepted packets, not asserted byte-identical to the historical lost local export. Original raw capture rereading was not repeated.'
     (ROOT/'data/catalog.json').write_text(json.dumps(cat,ensure_ascii=False,indent=2)+'\n')
     (ROOT/'data/population_dataset.json').write_text(json.dumps(cat['primary_dataset'],ensure_ascii=False,indent=2)+'\n')
-    validation={'status':'ACCEPTED_CENSUS_RECONSTRUCTION_VERIFIED','metadata':metadata,'archive':cat['assets'][-1],'source_manifest_sha256':digest(ROOT/'research_context/population_source_manifest.json'),'checks':['177 input hashes verified','465929 unique native IDs; original fields unchanged','431948 final credited UID populations/roots/flags match accepted frozen roster','447373 accepted ownpoints;142765 strictfull3 roots','No duplicate(root,census_year)','Coverage numerator/denominator exact for all3years','Public asset serverSHA256/size verified'],'scope':'Census registry reconstruction, not new primary-source validation or empirical SGRT delineation.'}
+    validation={'status':'ACCEPTED_CENSUS_RECONSTRUCTION_VERIFIED','metadata':metadata,'archive':cat['assets'][-1],'source_manifest_sha256':digest(ROOT/'research_context/population_source_manifest.json'),'checks':['177 input hashes verified','465929 unique native IDs; original fields unchanged','431948 final credited UID populations/roots/flags match accepted frozen roster','447373 accepted ownpoints;142765 strictfull3 roots','No duplicate(root,census_year)','Coverage numerator/denominator exact for all3years','Public asset serverSHA256/size verified'],'scope':'Census registry reconstruction, not new primary-source validation or empirical SGRT delineation.','actual_parquet_readback':readback}
     (ROOT/'research_context/reviews/population_base_validation_20261022.json').write_text(json.dumps(validation,ensure_ascii=False,indent=2)+'\n')
     run(['gh','release','upload',TAG,'data/catalog.json','data/population_dataset.json','--repo',REPO,'--clobber'])
     print(json.dumps({'status':'published','release':remote['html_url'],'counts':metadata,'zip_bytes':asset['size']},ensure_ascii=False))
