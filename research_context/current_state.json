@@ -1,139 +1,42 @@
 {
-  "schema": "sgrt.research_state.v1",
-  "updated_moscow": "2026-10-22T15:48:09.837195+03:00",
-  "active_branch": "research/sgrt-final-protocol-20261018",
-  "entrypoint": "AI_START_HERE.md",
-  "primary_concept": "research_context/primary/word_concept.docx",
-  "current_overview": "README.md",
-  "diary": "research_context/diary/2026-10-22.md",
-  "decisions": "decisions.json",
-  "literature_registry": "references/sources.json",
-  "literature_usage": "references/usage.json",
-  "scientific_status": {
-    "previous_computation": "Superseded potential districts/typology retained as legacy_model/legacy_model_full, rejected as final SGRT delineation.",
-    "new_functional_model": "designed_and_literature_supported_not_computed",
-    "requirements": "User clarifications supersede old numeric population bins, universal60minute boundaries and code-only context reduction.",
-    "accepted_empirical_foundation": "Linked census population registry2002/2010/2021 is the primary ready empirical result; see POPULATION_BASE.md."
-  },
-  "data_transfer": {
-    "status": "verified_complete",
-    "catalog": "data/catalog.json",
-    "release_tag": "sgrt-census-population-20261022-v1",
-    "counts": {
-      "paths": 8925,
-      "unique_blobs": 7642,
-      "logical_bytes": 18378145778,
-      "unique_bytes": 15537154650,
-      "release_assets": 42,
-      "zip_bytes": 15231835337,
-      "unique_parquet_schemas": 522,
-      "parquet_schema_errors": 0,
-      "objects_with_sha256": 7642,
-      "source_logical_bytes": 18275963965,
-      "materialized_logical_bytes": 18378145778
+  "schema": "sgrt.research_state.v2",
+  "updated_moscow": "2026-10-22T19:30:00+03:00",
+  "parts": {
+    "population_base": {
+      "status": "ready",
+      "summary": "Переписи 2002/2010/2021 связаны: 465 929 записей, 173 242 цепочки, 142 765 полных рядов; рабочее покрытие населения 99,6/99,5/99,7%.",
+      "doc": "POPULATION_BASE.md",
+      "data_release": "sgrt-census-population-20261022-v1"
     },
-    "verification": "Primary census archive public SHA256/size verified; unmodified clean clone default fetch/verify6/6; three Parquets read and population controls independently recomputed. Previous41-archive recovery remains verified and separately catalogued.",
-    "scope": "All preserved historical structured data plus accepted population foundation; default downloads only the56.38MB population archive.",
-    "primary_default_download_bytes": 56381237
-  },
-  "known_limits": [
-    "Historical reports retain old assumptions and do not override current user instructions.",
-    "Existing Git history remains large; no history rewrite is authorized or performed.",
-    "No new nationwide functional-gravity model or empirically validated SGRT boundaries are claimed.",
-    "Two historical symlink targets under cycle06_network2021_access_v2_seventh_extension are absent from the published source snapshot; original link metadata is retained. core/current are unaffected.",
-    "The primary census foundation is now logically reconstructed from accepted published packets; other lost unpublished files remain unavailable. New Parquet bytes are not asserted identical to the historical local export.",
-    "Original XLS/HTML sources were not freshly revalidated in this reconstruction. Coverage99.5%+ is population under accepted working rules, not settlement match-rate or estimated linkage accuracy.",
-    "GitHub About description update was denied by API403 (integration permissions). README and common AI instructions contain the new primary population entry point."
-  ],
-  "next_scientific_steps": [
-    "Start with accepted population foundation (POPULATION_BASE.md), audit functional data and Word requirements against its source IDs/years; do not rebuild or replace it with legacy model outputs.",
-    "Separate own supply, local demand, missingness, service orders and dated changes.",
-    "Register literature-supported decay families and independent calibration/validation options.",
-    "Check contrasting territories, multiple centers, tiny rural catchments and absence of established links.",
-    "Then calculate hierarchy, complete typology and maps with explicit uncertainty."
-  ],
-  "next_handoff_checks": [],
-  "navigation": "research_context/INDEX.md",
-  "full_narrative_index": "research_context/navigation.json",
-  "active_automation": {
-    "workflow": ".github/workflows/publish-population-base.yml",
-    "run_id": 39780622093,
-    "url": "https://github.com/ZakBu/russian-settlements-research/actions/runs/39780622093",
-    "status_at_this_record": "completed_success",
-    "launch_commit": "acb0b5f5",
-    "instruction": "Census registry rebuilt in a clean GitHub runner from177 hash-pinned inputs; published and committed. main synchronized normally."
-  },
-  "handoff_status": "verified_public_population_default",
-  "handoff_verification": "research_context/reviews/population_public_handoff_20261022.json",
-  "ongoing_handoff_duties": [
-    "Append detailed diary after each meaningful research block.",
-    "Create a new versioned dataset release for new scientific outputs; retain source provenance and prior snapshots."
-  ],
-  "independent_handoff_review": {
-    "path": "research_context/reviews/handoff_guardian_20261022.json",
-    "verdict": "ACCEPTED",
-    "scope": "Portability of published context and datasets; not scientific validation.",
-    "historical_scope_only": true,
-    "note": "Earlier reviewer verified previous archive transfer. New census foundation validation and public readback are recorded separately; no new independent source-by-source accuracy estimate is claimed."
-  },
-  "primary_population_dataset": {
-    "id": "census_population_2002_2010_2021_accepted_20261013",
-    "documentation": "POPULATION_BASE.md",
-    "descriptor": "data/population_dataset.json",
-    "status": "published_and_verified_from_clean_public_clone",
-    "default_profiles_after_publication": [
-      "core",
-      "population",
-      "current"
-    ],
-    "prior_model_profiles": [
-      "legacy_model",
-      "legacy_model_full"
-    ],
-    "source_snapshot": "2026-10-13",
-    "coverage": [
-      {
-        "census_year": 2002,
-        "credited_population": 144637473,
-        "denominator": 145166731,
-        "coverage_percent": 99.63541370921965,
-        "remaining_to_100": 529258,
-        "net_population_gain": 280
-      },
-      {
-        "census_year": 2010,
-        "credited_population": 142172049,
-        "denominator": 142856536,
-        "coverage_percent": 99.5208570646008,
-        "remaining_to_100": 684487,
-        "net_population_gain": 157
-      },
-      {
-        "census_year": 2021,
-        "credited_population": 144329319,
-        "denominator": 144699673,
-        "coverage_percent": 99.7440533262297,
-        "remaining_to_100": 370354,
-        "net_population_gain": 79
-      }
-    ],
-    "strict_full3": 142765,
-    "release_url": "https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-census-population-20261022-v1",
-    "native_observations": 465929,
-    "root_rows": 173242,
-    "accepted_own_points": 447373,
-    "default_download_bytes": 56381237,
-    "validation": "research_context/reviews/population_base_validation_20261022.json",
-    "public_handoff": "research_context/reviews/population_public_handoff_20261022.json"
-  },
-  "completed_automation_history": [
-    {
-      "workflow": ".github/workflows/portable-research-data.yml",
-      "run_id": 39769912272,
-      "url": "https://github.com/ZakBu/russian-settlements-research/actions/runs/39769912272",
-      "status_at_this_record": "completed_success",
-      "launch_commit": "539aa39d9ce2c078d1e2ce026c545bbfab8b3636",
-      "instruction": "Run completed successfully. Catalog and state committed; main synchronized by ordinary fast-forward."
+    "sgrt": {
+      "status": "model_designed_not_computed",
+      "summary": "Постановка с отдельными функциональными массами, затуханием по функциям, полицентричностью и иерархией снизу вверх согласована и подкреплена литературой. Расчёта нет. Предыдущие 4 069 районов отвергнуты.",
+      "doc": "sgrt/README.md",
+      "design": "sgrt/MODEL_DESIGN.md",
+      "main_blocker": "Нет данных о функциях сёл: в OpenStreetMap образование отмечено у 0,4% НП до 100 жителей и у 12,6% НП на 100–999 жителей; рабочих мест по НП нет."
     }
-  ]
+  },
+  "next_steps": [
+    "Ревизия данных по каждой функции: источник, год, уровень, охват по размерам НП, правило для пропусков.",
+    "Получить недостающие данные: реестры лицензий школ и медицины (скачать вручную из России), численность работников организаций (ФНС), показатели муниципальных образований (БДМО).",
+    "Определить, что считается установленной связью (переписные поездки, прикрепление, регулярный транспорт).",
+    "Пилот на 2–3 контрастных регионах с несколькими вариантами затухания и сверкой с наблюдаемыми поездками.",
+    "Только затем — расчёт по России, иерархия, типология и карты."
+  ],
+  "known_limits": [
+    "Численности 2010 года частично восстановлены, а не наблюдены; в проверке это меняло тип динамики примерно у 13% НП.",
+    "Покрытие 99,5%+ — доля населения в рабочем слое базы, а не доля правильно связанных НП.",
+    "Реестры Рособрнадзора и bus.gov.ru недоступны с зарубежных серверов."
+  ],
+  "entrypoints": {
+    "rules": "AGENTS.md",
+    "writing_standard": "docs/WRITING_GUIDE.md",
+    "concept": "research_context/primary/word_concept.docx",
+    "user_clarifications": "research_context/conversation_context_20261022.md",
+    "decisions": "decisions.json",
+    "literature": "references/sources.json",
+    "data_catalog": "data/catalog.json",
+    "archive": "archive/README.md",
+    "diary": "research_context/diary/"
+  }
 }

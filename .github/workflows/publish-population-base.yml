@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
-          ref: research/sgrt-final-protocol-20261018
+          ref: ${{ github.ref_name }}
           fetch-depth: 1
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
@@ -30,4 +30,4 @@ jobs:
           git add -f data/catalog.json data/population_dataset.json
           git add research_context/reviews/population_base_validation_20261022.json
           git commit -m "data: publish accepted three-census population foundation as default"
-          git push origin HEAD:research/sgrt-final-protocol-20261018
+          git push origin HEAD:${{ github.ref_name }}

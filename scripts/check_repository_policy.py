@@ -1,82 +1,50 @@
 #!/usr/bin/env python3
-"""Check the current Git tree, not the size of remote historical objects."""
+"""Check the current Git tree against repository_policy.json (sizes and file types)."""
 import argparse
-import fnmatch
 import json
 import subprocess
 import sys
-from pathlib import PurePosixPath, Path
+from pathlib import Path, PurePosixPath
 
 
-def allowed(path, policy):
-    p = PurePosixPath(path)
-    return (
-        path in policy.get('_protected_context_paths', policy.get('protected_context_paths', []))
-        or p.suffix in policy.get('context_extensions', [])
-        or path in policy['exact_paths']
-        or p.name in policy['instruction_or_license_names']
-        or p.suffix in policy['code_extensions']
-        or p.suffix in policy['configuration_extensions']
-        or (p.name.startswith('requirements') and p.suffix == '.txt')
-        or (p.suffix == '.json' and (
-            'config' in p.name.lower()
-            or any(x in {'config', 'configs'} for x in p.parts[:-1])
-            or p.name in {'package.json', 'package-lock.json', 'tsconfig.json'}))
-        or (p.suffix == '.html' and 'templates' in p.parts[:-1])
-        or (path.startswith('research_context/') and p.suffix in {'.json', '.jsonl', '.md', '.txt', '.yaml'})
-        or (path.startswith('references/') and p.suffix in {'.json', '.csv', '.bib'})
-    )
+def tree_entries(ref):
+    data = subprocess.check_output(['git', 'ls-tree', '-r', '-l', '-z', ref])
+    for item in data.split(b'\0'):
+        if item:
+            meta, path = item.split(b'\t', 1)
+            mode, kind, _, size = meta.split()
+            yield path.decode(), kind.decode(), mode.decode(), 0 if size == b'-' else int(size)
 
 
 def check(entries, policy):
-    errors = []
-    protected = set(policy.get('protected_context_paths', []))
-    policy = {**policy, '_protected_context_paths': protected}
-    present = {entry['path'] for entry in entries}
-    for path in sorted(protected - present):
-        errors.append({'path': path, 'reason': 'protected_research_context_missing'})
-    total = 0
-    for entry in entries:
-        path, size = entry['path'], entry.get('size', 0)
+    errors, total, present = [], 0, set()
+    forbidden = set(policy['forbidden_extensions'])
+    for path, kind, mode, size in entries:
+        present.add(path)
         total += size
-        if not allowed(path, policy):
-            errors.append({'path': path, 'reason': 'path_not_allowed'})
-        limit = policy.get('protected_context_max_file_bytes', policy['max_file_bytes']) if path in protected else policy['max_file_bytes']
-        limit = policy.get('file_size_overrides', {}).get(path, limit)
+        if kind != 'blob':
+            errors.append({'path': path, 'reason': 'submodules_not_allowed'})
+            continue
+        if PurePosixPath(path).suffix.lower() in forbidden and path not in policy['allowed_exceptions']:
+            errors.append({'path': path, 'reason': 'binary_or_data_file_belongs_in_releases'})
+        limit = policy['file_size_overrides'].get(path, policy['max_file_bytes'])
         if size > limit:
-            errors.append({'path': path, 'reason': 'file_too_large', 'bytes': size})
-    if total > policy['max_snapshot_bytes']:
-        errors.append({'reason': 'snapshot_too_large', 'bytes': total})
-    return {'ok': not errors, 'scope': 'current_tree_only', 'files': len(entries),
-            'bytes': total, 'errors': errors}
+            errors.append({'path': path, 'reason': 'file_too_large', 'bytes': size, 'limit': limit})
+    for path in policy['required_paths']:
+        if path not in present:
+            errors.append({'path': path, 'reason': 'required_file_missing'})
+    if total > policy['max_tree_bytes']:
+        errors.append({'reason': 'tree_too_large', 'bytes': total})
+    return {'ok': not errors, 'files': len(present), 'bytes': total, 'errors': errors}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--tree-json', help='GitHub recursive tree response')
     parser.add_argument('--policy', default='repository_policy.json')
     parser.add_argument('--ref', default='HEAD')
     args = parser.parse_args()
     policy = json.loads(Path(args.policy).read_text())
-    if args.tree_json:
-        tree = json.loads(Path(args.tree_json).read_text())
-        if tree.get('truncated'):
-            parser.error('A truncated tree cannot establish compliance')
-        entries = [x for x in tree['tree'] if x['type'] == 'blob']
-        if any(x['type'] == 'commit' for x in tree['tree']):
-            parser.error('Submodules require an explicit policy')
-    else:
-        data = subprocess.check_output(['git', 'ls-tree', '-r', '-l', '-z', args.ref])
-        entries = []
-        for item in data.split(b'\0'):
-            if not item:
-                continue
-            meta, path = item.split(b'\t', 1)
-            mode, kind, sha, size = meta.split()
-            if kind != b'blob':
-                parser.error('Only regular source files are allowed')
-            entries.append({'path': path.decode(), 'size': int(size)})
-    result = check(entries, policy)
+    result = check(tree_entries(args.ref), policy)
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0 if result['ok'] else 1
 

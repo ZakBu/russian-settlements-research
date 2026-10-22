@@ -1,1 +1,0 @@
-/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/delivery/cycle07_tools/build_report_v3.py

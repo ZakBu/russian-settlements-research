@@ -1,0 +1,4 @@
+from pathlib import Path
+import json,hashlib
+import pandas as pd
+B=Path(__file__).parent;P=B/'outputs/point_distances.csv.gz';d=pd.read_csv(P);a=d[d.nn2002_km.notna()];x=(a.nn2021_original_coords_km-a.nn2021_km).abs();r={'point_file_sha256':hashlib.sha256(P.read_bytes()).hexdigest(),'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'origins':len(a),'NN_difference_abs_gt1e_minus9_km':int((x>1e-9).sum()),'NN_difference_abs_gt1m':int((x>.001).sum()),'NN_difference_abs_gt100m':int((x>.1).sum()),'NN_difference_abs_gt1km':int((x>1).sum()),'abs_difference_quantiles_km':x.quantile([.5,.9,.95,.99,.999]).to_dict(),'interpretation':'Coordinate version can change binary positive p90 without demographic change; common fixed2002 geometry primary. This is a diagnostic of source position perturbation, not an extra significance test.'};(B/'outputs/c2_coordinate_diagnostic.json').write_text(json.dumps(r,indent=2))
