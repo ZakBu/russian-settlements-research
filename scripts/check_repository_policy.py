@@ -41,6 +41,7 @@ def check(entries, policy):
         if not allowed(path, policy):
             errors.append({'path': path, 'reason': 'path_not_allowed'})
         limit = policy.get('protected_context_max_file_bytes', policy['max_file_bytes']) if path in protected else policy['max_file_bytes']
+        limit = policy.get('file_size_overrides', {}).get(path, limit)
         if size > limit:
             errors.append({'path': path, 'reason': 'file_too_large', 'bytes': size})
     if total > policy['max_snapshot_bytes']:
