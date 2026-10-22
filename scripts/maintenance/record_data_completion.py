@@ -3,9 +3,26 @@ from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import json
+import subprocess
+import re
 catalog=json.loads(Path('data/catalog.json').read_text())
 assert catalog['status']=='verified_complete'
 assert all(a['status']=='verified' for a in catalog['assets'])
+release_url=json.loads(subprocess.check_output(['gh','release','view',catalog['release_tag'],'--repo',catalog['repository'],'--json','uploadUrl']))['uploadUrl']
+release_id=re.search(r'/releases/(\d+)/',release_url).group(1)
+remote=json.loads(subprocess.check_output(['gh','api','repos/'+catalog['repository']+'/releases/'+release_id]))
+assert not remote['draft'], 'The data release must be public before handoff is complete'
+server={a['name']:a for a in remote['assets']}
+for asset in catalog['assets']:
+ current=server.get(asset['asset']);assert current and current['size']==asset['bytes'] and current.get('digest')=='sha256:'+asset['sha256'],asset['asset']
+legacy=json.loads(subprocess.check_output(['gh','api','repos/'+catalog['repository']+'/releases?per_page=100']))
+catalog['related_releases']=[{'tag':r['tag_name'],'url':r['html_url'],'scope':'Previously published supporting datasets; linked without duplicating their existing archives.','assets':[{'name':a['name'],'bytes':a['size'],'url':a['browser_download_url'],'server_digest':a.get('digest')} for a in r['assets']]} for r in legacy if not r['draft'] and r['tag_name']!=catalog['release_tag']]
+errors={sha:obj['parquet_schema_error'] for sha,obj in catalog['objects'].items() if 'parquet_schema_error' in obj}
+core_errors={sha:message for sha,message in errors.items() if 'core' in catalog['objects'][sha]['profiles']}
+assert not core_errors, 'Core Parquet files are unreadable: '+str(core_errors)
+catalog['counts']['parquet_schema_errors']=len(errors)
+catalog['readability']={'core_parquet_schema_errors':core_errors,'historical_parquet_schema_errors':errors,'note':'Byte verification and table readability are separate checks; original problematic objects, if any, are retained unchanged.'}
+Path('data/catalog.json').write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+'\n')
 now=datetime.now(ZoneInfo('Europe/Moscow')).isoformat()
 p=Path('research_context/current_state.json');state=json.loads(p.read_text());state['updated_moscow']=now;state['data_transfer']={'status':'verified_complete','catalog':'data/catalog.json','release_tag':catalog['release_tag'],'counts':catalog['counts'],'verification':'Every extracted source blob matched Git SHA-1 and SHA-256; each uploaded ZIP matched GitHub server SHA-256 digest. Parquet schemas recorded.'};p.write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n')
 with open('research_context/diary/2026-10-22.md','a') as f:
