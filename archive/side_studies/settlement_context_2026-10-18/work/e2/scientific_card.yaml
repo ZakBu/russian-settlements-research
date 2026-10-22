@@ -1,0 +1,27 @@
+id: E2-context-structure-v1
+status: proposed_before_development
+question: "При учёте собственной людности, прошлой динамики, массы/числа соседей и географического положения помогает ли концентрация и иерархия окружения прогнозировать изменение2010–2021 в новых пространственных блоках?"
+closest_sources: ["центральные места и системы городов: концептуальная связь, без утверждения соответствия геометрического соседства функциям", "литературная проверка L: независимый реестр"]
+exact_gap: "Не доказанная мировая новизна; эмпирическое сравнение добавочной прогнозной информации структуры окружения на harmonized stage71"
+contrasting_possible_outcomes:
+  - "Положительный устойчивый ΔMAE: структура дополняет фиксированный baseline при данном learner"
+  - "ΔMAE около0 или отрицательный: недостаточно информации сверх массы/положения либо нет переносимости"
+  - "Различие CV/holdout или радиусов: неоднородность/неустойчивость, а не универсальный закон"
+scientific_value: "Разделить размер окружения и его распределение; результат может ограничить распространённую интуицию о доминировании центра"
+unit: "ordinary settlement entity_uid stage71"
+risk_set: "P2010>0, P2021>=0 numeric, valid2010 geometry; P2021=0 retained"
+target: "2*(P2021-P2010)/(P2021+P2010)"
+baseline: "Common B from frozen executor; own size/history, mass/count30, center distances, coordinates"
+increment: "r30_maxshare; log1p(r30_effective_n); log1p(nearest_larger_km); log1p(nearest_larger_size_ratio); predeclared missing indicators"
+primary_metric: "MAE(B)-MAE(B+E2), same rows"
+scale_definition: "haversine sphere6371.0088km, radius30km, self UID removed; effectiveN=(sumP)^2/sumP^2"
+planned_sensitivities: ["10/60km only prespecified", "flexible learner31leaves/minleaf50", "same support and boundary-comparable rows", "capital neighborhood sensitivity"]
+missing_and_zero_policy: "No dropna context; missing remainsNaN, indicators recorded; own0 outside risk set, terminal0 included"
+boundary_policy: "Retain flags, do not use future flags asX; comparability sensitivity separate"
+uncertainty_and_multiple_testing: "Development5fold200km-blockCV with60km buffer; final blockbootstrap only after lock; E2 one of3 registered contrasts"
+minimum_meaningful_effect: "relativeMAE reduction2percent, operational convention"
+negative_controls: ["train/test seeded contextual permutation within region-size strata", "time denylist2021", "self exclusion"]
+expected_runtime_and_memory: "Shared HGB executor; no pairwise dense matrix"
+stop_rule: "No geographic substantive claim until federal mass audit resolved; no confirmatoryp without simulation validity"
+prior_exposure: true
+reviewers: ["S", "T", "R"]

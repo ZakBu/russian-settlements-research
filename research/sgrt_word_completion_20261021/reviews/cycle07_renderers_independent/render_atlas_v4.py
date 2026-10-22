@@ -1,1 +1,0 @@
-/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/maps/cycle07_tools/render_atlas_v4.py
