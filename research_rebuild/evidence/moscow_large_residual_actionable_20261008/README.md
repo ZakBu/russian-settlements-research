@@ -1,0 +1,13 @@
+Moscow Oblast large mixed residual: actionable source routes
+
+The top20 tables exclude all existing stage25 ordinary all-component-point credit, qualified source-ID unions, complete publisher partitions, and named merger constituents. They are diagnostic native source IDs, not admitted population. Stage25 additions contain no Moscow Oblast rows, so the stage24 residual extraction is unchanged in this region. The whole residual cohort was496137 in2002 and358203 in2010; neither total is a new-credit claim.
+
+Three ordinary stable localities are prepared separately in moscow_three_stable_native_application_20261008: Ilinskoe(selo,Domodedovo),Zeleny(poselok,Noginsk/Bogorodsky),Rozhdestveno(selo,Istra). Actual new mixed credit11349/11611/9681. Their application has5edges/5historicalpointuses; modern own point sources and every native population/quality remain unchanged.
+
+Ryazanovskoye is a concrete separate complete19-locality municipal transfer candidate: raw2002 complete printed parent+all19children sums14345; raw2010 contiguous19-locality block sums16499; own municipal census claims16500(2010),28810(2021), both explicit census references. The one-person protected-value difference is preserved. Exact native source-ID credit net and membership proofs are in the complete19 packet. This is municipal/event grain, with a receiving Moscow representative, not19 individual full3 ownNP series. No2021 new national credit is claimed because Moscow city is already federal-context credited. Root review and integration remain pending.
+
+Moscow2012 ownNP reserve from the examined caches is0: the selected2021Moscow source contains only the city-wide row, and examined ownNP caches provide no2021census values. Never assign Moscow13m or municipal counts to individual NP. Existing included urban towns require complete recipient event rosters; the top20 status tables identify those holds.
+
+Mosrentgen remains held: raw2010 Dudkino127+zavodaMosrentgen11813+Mamyri410=12350, versus municipal17004; gap4654. Do not distribute this discrepancy. Vnukovskoye requires2011sanatoria14/33former-member expansion; Kievskoye has an additional raw Machikhino village with blank count; Kokoshkino requires documented Sanino historical transfer and Novobryokhovo formation; Voskresenskoye has a raw Knyazevo blank count; Schapovskoye has2010municipal discrepancy214; Sosenskoye raw11NPsum9208 versus municipal9199 difference9 requiring primary proof. Moskovsky named9roster2002sum17611 is not its older10NPcouncil parent17656: extra Dudkino45 belongs to later Mosrentgen scope, so parent count must not be silently substituted.
+
+No accepted loader, report, Git or old packet was changed.

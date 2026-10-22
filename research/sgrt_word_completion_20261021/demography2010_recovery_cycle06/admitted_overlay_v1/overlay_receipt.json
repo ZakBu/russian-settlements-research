@@ -1,0 +1,36 @@
+{
+  "status": "BUILT_FROM_INDEPENDENTLY_ADMITTED_PRIMARY2010_SOURCE_PENDING_FINAL_OVERLAY_SHA_READBACK",
+  "created_utc": "2026-10-21T09:38:56.093510+00:00",
+  "source_sha256": {
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/demography2010_recovery_cycle06/national_table5_all_new_primary2010_numeric_candidates.parquet": "bc9dd419a4d86095f9c02d1d8a8ab2795e1ad7269a0f4b1bb57ee0fdc92dc4ef",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/data/source_controls_cycle05/full_settlement_axis_cycle05_federal_children.parquet": "ac7a6f84a2ce4fea4e8c34d7227c91027cfa6cf22081983620b45ba03cb7ecac",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/demography2010_recovery/root_reviewed_primary2010_four_regions_v1.parquet": "f5e8ee0457f579a410795332db4f63891dba99874a3da2e6e0f8ed9cf570d290",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/demography2010_recovery/root_four_regions_admission_receipt.json": "a8f4e4ae0788555c6acba4b135c03c0456c161e4cd33039e9c0a3d7c78dd5f79",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/demography2010_recovery_cycle06/national_table5_source_freeze_manifest.json": "43c5b05014fc846e0b1dffd7b43ef37b7a40401ba7693ca5473b0d048302e62a",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/reviews/cycle07_primary2010_independent/source_admission.json": "d7ed53f9facc507f47310d61559383a5bf9a0d5cae0bcc9171672a250b5a52bf",
+    "/workspace/russian-settlements-research/research/sgrt_word_completion_20261021/demography2010_recovery_cycle06/build_admitted_primary2010_overlay.py": "41bd75876693522894dc6355c4ccc9606abd9873e840e1cafadb69d54658acad"
+  },
+  "full_axis_records": 173862,
+  "prior_accepted_four_region_records_preserved": 18909,
+  "new_primary2010_recoveries": 169,
+  "new_changed_population": 148,
+  "new_changed_quality": 169,
+  "new_same_numeric_value_quality_only": 21,
+  "cumulative_override_allowed": 19078,
+  "zero_prior_primary_conflicts": true,
+  "source_admission_sha256": "d7ed53f9facc507f47310d61559383a5bf9a0d5cae0bcc9171672a250b5a52bf",
+  "source_controls": "All source candidates independently admitted; exact raw source cells and old/new values/quality/sourceUID retained. Existingprimary readbacks never doubled. No newdash zeros.",
+  "flag_semantics": {
+    "actual_override_applied": "New table5 source changes relative to prior effective axis including existing acceptedfourregions",
+    "reviewed_primary2010_override_allowed": "Cumulative override vs originalrawaxis; oldacceptedfourregions OR newindependentlyadmittedrows",
+    "changed_population": "Finalnumeric differs from prior_effective_population2010; bothmissing isunchanged",
+    "changed_quality": "Finalsourcequality differs from prior_effective_quality2010, including same-number newprimaryproof",
+    "primary2010_new_primary_recovery_applied": "Use to aggregate newprimary membercounts/shares; doesnotcount existingfourregions again"
+  },
+  "no_old_axis_or_model_mutation": true,
+  "no_classification_or_weight_tuning": true,
+  "outputs_sha256": {
+    "full_axis_primary2010_overlay.parquet": "566971ceceb267809617df4000ba67d9f1e40408523e8a513b69915c2901d9d2",
+    "all_new_primary2010_applied_changes.parquet": "ea74f7eb9e16fd3cdafd36cd098532524074934797ecfdd5903f2e8caff97428"
+  }
+}

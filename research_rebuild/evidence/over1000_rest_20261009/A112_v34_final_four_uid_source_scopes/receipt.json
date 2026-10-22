@@ -1,0 +1,46 @@
+{
+  "packet": "A112_v34_final_four_uid_source_scopes",
+  "status": "bounded_four_uid_source_review_complete",
+  "scope": "Exact remaining 4 assigned UIDs: Priuralsky 2002, Igumnovo 2010/2021, Shatalovo-1 2021.",
+  "disposition": {
+    "igumnovo_2010_2021": "retain exact 2010 and 2021 observations in canonical adapter; existing same_place path corroborated; 2002 separate target source grain unknown",
+    "shatalovo1_2021": "retain exact typed 2021 observation; accepted QID-bound representative point is distinct from village QID-bound point though points are about 62m apart; 2002/2010 source-grain scope unknown",
+    "priuralsky_2002": "retain source observation 2219 only; no defensible 2010/2021 object bridge or point; reject fuzzy pointer to distinct current Primorsky",
+    "new_identity_edges": 0,
+    "new_point_uses": 0,
+    "population_edits": 0,
+    "boundary_comparability_asserted": false,
+    "unknown_years_inferred_zero": false
+  },
+  "source_pins": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-raw/data/raw/2002/061_e177b0a77d_Chel_abinskaja1.xls": "0ffd4853815474209972fef66ad1704eb74deb756f869c967620a39e8caeb5f5",
+    "/workspace/settlements-raw/data/raw/2002/048_4f024587eb_02c_Nizhegorod_obl_new.xls": "32aa9a5b76b281d8e27c5a2cba32066ba8830d98e4577b300e4e401d49589cc5",
+    "/workspace/settlements-raw/data/raw/2010/014_5ca759eea0_5._20Nizheg_Kirov_202010.xls": "c286aa10e8ebd8a4594b5623affa0ca1aacb6b69ac09a4a9288eeb754aa81c27",
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "/workspace/settlements-work/continuation_20261003/population2010/tom1_table5_extraction/official_2010_table5_reference.parquet": "4d73ee1a526f4bc684ffe2918f79f25974e49188e93483643a1d1507f3bbbd40",
+    "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+    "/workspace/settlements-work/sources/raw_okato_2009_verification_v1/raw_classifier.parquet": "343c0f5af1f52b9276699d9fe8d883b58def5aeabdd904063389606d29bc2b81",
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "/workspace/settlements-raw/data/raw/coordinate_candidates/rcsi_github_settlements.csv": "50317de1174e35fca893f5c8d965d9c7f40d6a60a06149b96672bb1a134268d0",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_twelfth_primary58_point19/accepted_point_uses.parquet": "024309b8fb2376892cdf51e6cef006f223f9d9c449b531bb2329d748e5c83caf",
+    "/workspace/settlements-work/continuation_20261004/legacy_temporal/candidate_holds.csv": "ce55c6837196010ebb667c1531f9a8118ef0d1849f4a7b331a06961936f0104b",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v24_udmurt_nizh_2002_scope/receipt.json": "81abea91cde85fcc0a6bd6562c0b147dcb80f7a4f1aca3171572c87aefe451dc",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v32_igumnovo_code_point_disambiguation/receipt.json": "b3b75b3948c8126ddc2a7f9dfa84caef197e986b52556e5956db31b6b4764d91",
+    "/workspace/settlements-work/continuation_20261004/independent_review/primary2010_auxiliary2_scope_review_v1/review.json": "ee1046740d8df43ad9adb3c25680cd8cfa34afa9977f45b27aefb4e189353f95",
+    "/workspace/russian-settlements-research/research_rebuild/evidence/over1000_rest_20261009/A112_v33_shatalovo1_source_grain_scope/receipt.json": "102501061448135bed827c53ce0dffb95886ad8eefc73816d4bf9f3b0b9f77b0"
+  },
+  "method": [
+    "Queried only selected rows for the exact UIDs and exact normalized locality-name candidates, plus rows in the pinned regional workbooks and cached classifier/GeoKLADR evidence.",
+    "Opened the 2002 Chelyabinsk Sheet1 source context around rows 258-264: target is under Приуральский сельсовет; a distinct Приморский settlement is under a different сельсовет.",
+    "Checked exact 2010 and 2021 selected name candidates, official 2010 Table 5 Aгаповский context, and 2009 classifier locality rows. Similar names in other regions are not treated as counterparts.",
+    "Read existing accepted point uses for exact Igumnovo and Shatalovo rows. No new point uses or identity edges are proposed."
+  ],
+  "output_sha256": {
+    "README.md": "b9d8ba9f7a9a5edf92f555660ff4177c0cc2e4e79e52b26f337a3c509a438db6",
+    "accepted_actual_available_year_observations.csv": "a586eb88acb7efa7669963876226ce8647a4d4286a253e7892b371d99ac2cdc3",
+    "unresolved_scope_status.csv": "c823860437eb5eb2d56763f44c8755ba4c4750bfa81b722a748e8d345cb4d725",
+    "source_observation_witnesses.csv": "48a0eed7287b1b50cfd6ebdbf521cd9cd7b83c3b248ca1601ff0633fbe87beec",
+    "point_context.csv": "12553e4184e14e4ed6dc6a0698fe498941be69b25332f0b1f407aa73fa790198"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "status": "DESCRIPTIVE_AUDIT",
+  "rows": [
+    {
+      "year": 2016,
+      "scope": "all_valid_INN",
+      "n_entities": 5047774,
+      "n_incomplete_classification": 326445,
+      "fraction": 0.06467108075757749,
+      "n_points_with_incomplete_classification": 5589
+    },
+    {
+      "year": 2016,
+      "scope": "exact_point_code",
+      "n_entities": 2919754,
+      "n_incomplete_classification": 76363,
+      "fraction": 0.0261539157065972,
+      "n_points_with_incomplete_classification": 5589
+    },
+    {
+      "year": 2021,
+      "scope": "all_valid_INN",
+      "n_entities": 3412468,
+      "n_incomplete_classification": 21178,
+      "fraction": 0.006206065522079621,
+      "n_points_with_incomplete_classification": 1004
+    },
+    {
+      "year": 2021,
+      "scope": "exact_point_code",
+      "n_entities": 2305976,
+      "n_incomplete_classification": 4277,
+      "fraction": 0.0018547461031684631,
+      "n_points_with_incomplete_classification": 1004
+    }
+  ],
+  "transitions": [
+    {
+      "scope": "all_common_INN",
+      "incomplete_2016": false,
+      "incomplete_2021": false,
+      "n_entities": 2169753
+    },
+    {
+      "scope": "all_common_INN",
+      "incomplete_2016": false,
+      "incomplete_2021": true,
+      "n_entities": 0
+    },
+    {
+      "scope": "all_common_INN",
+      "incomplete_2016": true,
+      "incomplete_2021": false,
+      "n_entities": 0
+    },
+    {
+      "scope": "all_common_INN",
+      "incomplete_2016": true,
+      "incomplete_2021": true,
+      "n_entities": 18685
+    },
+    {
+      "scope": "same_exact_point_common_INN",
+      "incomplete_2016": false,
+      "incomplete_2021": false,
+      "n_entities": 1373311
+    },
+    {
+      "scope": "same_exact_point_common_INN",
+      "incomplete_2016": false,
+      "incomplete_2021": true,
+      "n_entities": 0
+    },
+    {
+      "scope": "same_exact_point_common_INN",
+      "incomplete_2016": true,
+      "incomplete_2021": false,
+      "n_entities": 0
+    },
+    {
+      "scope": "same_exact_point_common_INN",
+      "incomplete_2016": true,
+      "incomplete_2021": true,
+      "n_entities": 3866
+    }
+  ],
+  "source_interpretation": "RFSD primary paper reports harmonization to OKVED2 and activity-code imputation from adjacent years; this audit measures remaining incompleteness, not a demonstrated version mismatch. Missing classification is not absence of a service.",
+  "source_url": "https://www.nature.com/articles/s41597-025-05150-1",
+  "raw_harmonization_code_independently_reproduced": false,
+  "code_sha256": "8b995f887046035b2a492afd4438cc1cdc2c51698d3bd1aec74cdf194ae691e3"
+}

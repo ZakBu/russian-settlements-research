@@ -1,0 +1,91 @@
+{
+  "artifact": "consolidated_export_review_v2",
+  "verdict": "PASS_CONSOLIDATED_EXPORT_QA_WITH_METADATA_CORRECTIONS",
+  "scope": "Reuse the bounded output-delta QA in v1, verify the frozen corrected-input derivative manifest and correction evidence, and confirm exported table bytes remain the same. No new source audit or table execution is claimed.",
+  "pins": {
+    "corrected_inputs_manifest": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/settlements_long.corrected_inputs.manifest.json",
+      "sha256": "04db07ebab83c17cc062de6df9b8c9886fddf48ede6fb418ae1c05ff53655f45"
+    },
+    "original_execution_manifest": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/settlements_long.manifest.json",
+      "sha256": "cda81a7ae5d7c772d4592903fb703478a37865e4cddd48762af1ae162e37ebd6"
+    },
+    "parquet": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/settlements_long.parquet",
+      "sha256": "0826f554d9100c52b5e430327cb209d030d035f7c52dd19caa7cf7c902969a72"
+    },
+    "csv_gzip": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/settlements_long.csv.gz",
+      "sha256": "11dbd28edede62a6913ecae41e4995388a30eea83edf8bb628b0cb8ecc044e92"
+    },
+    "coverage_derivative_manifest": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/coverage.corrected_inputs.manifest.json",
+      "sha256": "fae96d7e829dcbb1081d7a3059d9eb47fc5dbf7c4e5f8ce18e1989c237a2d8b7"
+    },
+    "prior_delta_review": {
+      "path": "/workspace/settlements-work/continuation_20261003/consolidated_export_review_v1/review.json",
+      "sha256": "f3b5c90975efe0df9ef42e2bd014bf42c4bda8d8da4f58f36f028c3c7aa64921"
+    },
+    "alias_metadata_correction_review": {
+      "path": "/workspace/settlements-work/continuation_20261003/shared_named_point_region_alias_metadata_review_v1/review.json",
+      "sha256": "8e4f5968e390bf3267acbbd5f133b65586c850062951535e1e76f63fad710ea7"
+    },
+    "point_ledger_correction_review": {
+      "path": "/workspace/settlements-work/continuation_20261003/direct_historical_point_2021_ledger_correction_check_v1/review.json",
+      "sha256": "1cb737e7fcf1d2af5e66f61dd7d5ad6d298beb5f622cc561f8c6dbab2e18bc92"
+    },
+    "source_evidence_correction_review": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_review_v1/evidence_correction_review.json",
+      "sha256": "168465b4d86f671a765fc8e8bcc9c002ff5eb03dd4ab3db4feae0ad8658a7b68"
+    },
+    "dagestan_application_review": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_review_v1/application_review.json",
+      "sha256": "5050019b5a6e4fa39943ffdfed2b3f249c88db7f4a423db83dc11ce2941ad02a"
+    }
+  },
+  "checks": {
+    "derivative_manifest_hash_and_parent_execution_manifest_match": true,
+    "derivative_is_not_claimed_as_new_table_execution": true,
+    "export_parquet_and_csv_hashes_match_derivative": true,
+    "all_corrected_and_unchanged_input_pins_match": true,
+    "both_correction_receipt_hashes_match": true,
+    "identity_metadata_independent_review_pin_matches": true,
+    "evidence_correction_independent_review_pin_matches": true,
+    "application_review_pin_matches": true,
+    "effective_input_projection_rationale_present": true,
+    "coverage_derivative_explicitly_preserves_old_calculation": true,
+    "prior_delta_export_checks_all_pass": true,
+    "prior_output_counts_summary_reused": {
+      "rows": 500320,
+      "census": 465800,
+      "annual_official": 516,
+      "wiki": 34004,
+      "unique_observation_ids": 500320,
+      "coordinates": 332500,
+      "census_coordinates": 332005,
+      "annual_coordinates": 495,
+      "wiki_coordinates": 0,
+      "aggregate_source_rows": 6,
+      "aggregate_rows_with_coordinates": 0,
+      "identity_edges": 177707,
+      "linked_census_vertices": 306780,
+      "full_three_year_chain_rows": 134274,
+      "full_three_year_chain_rows_per_year": {
+        "2002": 44758,
+        "2010": 44758,
+        "2021": 44758
+      }
+    },
+    "exact1139_alias_status_metadata_change_reviewed": true,
+    "alias_identity_edges_no_new_scientific_admission": true,
+    "exact56_nested_evidence_id_correction_prior_independent_review_passed": true,
+    "Dagestan evidence source_valueand_is_federal_aggregate_effective_inputs_unchanged": true,
+    "coverage_axes_not_recomputed_but_input_correction_equivalence_pinned": true
+  },
+  "limitations": [
+    "The prior 1120 baseline shared-literal edges retain legacy optional candidate/admission flags; this review does not validate them, and canonical decision_status remains authoritative.",
+    "1344 prior nested source-evidence IDs remain null; top-level source_record_id is authoritative and the builder effective projection is pinned.",
+    "This is a corrected-input derivative manifest for unchanged Parquet/CSV outputs, not a rerun of the table builder or coverage measurement."
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "status": "COMPUTED",
+  "blocks": {
+    "M1": [
+      "log_center2002",
+      "log_rural2002",
+      "log_distance",
+      "initial_center_share"
+    ],
+    "M2": [
+      "log_municipal_ha2010_per2002resident",
+      "log_municipal_production2010_per2002resident"
+    ],
+    "M3": [
+      "log_registered2011_per1000resident2002",
+      "center_2011_registered_diversity"
+    ]
+  },
+  "same_rows_across_models": true,
+  "population2021_predictor": false,
+  "functional_mass_calibrated_by_this_regression": false,
+  "geography": "modern_fixed_systems_not_historical_reconstruction",
+  "municipality": "2021dictionary_link_not_proven_boundary_equivalence2010",
+  "2011_RFSD": "registered_legal_witnesses_in_pinned_retrospective_release_not_complete_physical_2011_services",
+  "results": [
+    {
+      "period": "2002-2021",
+      "model": "M1",
+      "n": 304,
+      "regions": 48,
+      "rmse_annual_log": 0.019372491528716583,
+      "mae_annual_log": 0.011306687892251385,
+      "validation": "5fold_region_held_out_same_rows",
+      "interpretation": "descriptive_association_on_contemporary_fixed_catchments_not_causal_or_independent_historical_backtest"
+    },
+    {
+      "period": "2002-2021",
+      "model": "M2",
+      "n": 304,
+      "regions": 48,
+      "rmse_annual_log": 0.018773295857470337,
+      "mae_annual_log": 0.011243373309156212,
+      "validation": "5fold_region_held_out_same_rows",
+      "interpretation": "descriptive_association_on_contemporary_fixed_catchments_not_causal_or_independent_historical_backtest"
+    },
+    {
+      "period": "2002-2021",
+      "model": "M3",
+      "n": 304,
+      "regions": 48,
+      "rmse_annual_log": 0.018377017638131196,
+      "mae_annual_log": 0.010975309524026863,
+      "validation": "5fold_region_held_out_same_rows",
+      "interpretation": "descriptive_association_on_contemporary_fixed_catchments_not_causal_or_independent_historical_backtest"
+    },
+    {
+      "period": "2010-2021",
+      "model": "M1",
+      "n": 304,
+      "regions": 48,
+      "rmse_annual_log": 0.01614168498740038,
+      "mae_annual_log": 0.011296578818087199,
+      "validation": "5fold_region_held_out_same_rows",
+      "interpretation": "descriptive_association_on_contemporary_fixed_catchments_not_causal_or_independent_historical_backtest"
+    },
+    {
+      "period": "2010-2021",
+      "model": "M2",
+      "n": 304,
+      "regions": 48,
+      "rmse_annual_log": 0.01577775227096095,
+      "mae_annual_log": 0.011398589594769236,
+      "validation": "5fold_region_held_out_same_rows",
+      "interpretation": "descriptive_association_on_contemporary_fixed_catchments_not_causal_or_independent_historical_backtest"
+    },
+    {
+      "period": "2010-2021",
+      "model": "M3",
+      "n": 304,
+      "regions": 48,
+      "rmse_annual_log": 0.015438189964083323,
+      "mae_annual_log": 0.011008879331619034,
+      "validation": "5fold_region_held_out_same_rows",
+      "interpretation": "descriptive_association_on_contemporary_fixed_catchments_not_causal_or_independent_historical_backtest"
+    }
+  ],
+  "row_exclusions": [
+    {
+      "period": "2002-2021",
+      "all_rural_systems": 2006,
+      "same_complete_strict_rows": 304,
+      "regions": 48,
+      "excluded": 1702,
+      "strict_mutual80": 552
+    },
+    {
+      "period": "2010-2021",
+      "all_rural_systems": 2006,
+      "same_complete_strict_rows": 304,
+      "regions": 48,
+      "excluded": 1702,
+      "strict_mutual80": 552
+    }
+  ]
+}

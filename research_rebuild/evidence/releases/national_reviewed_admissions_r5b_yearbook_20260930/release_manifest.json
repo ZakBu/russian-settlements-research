@@ -1,0 +1,111 @@
+{
+  "builder_sha256": "8493de2762c4a96221c4d905e1097798ccb2561e86183a4ee0c3c8d6445a1f07",
+  "coordinate_invariant": "parent coordinate admissions copied byte-for-byte; no new point or historical coordinate admissions",
+  "decisions": {
+    "already_connected_supporting_decisions": 4,
+    "candidate_pairs": 163,
+    "new_edge_endpoint_population_mass_2010": 50109180,
+    "new_edge_endpoint_population_mass_2021": 52504994,
+    "new_identity_edges": 159,
+    "newly_linked_coverage_by_year": [
+      {
+        "newly_linked_selected_population": 0,
+        "newly_linked_selected_rows": 0,
+        "year": 2002
+      },
+      {
+        "newly_linked_selected_population": 1012219,
+        "newly_linked_selected_rows": 6,
+        "year": 2010
+      },
+      {
+        "newly_linked_selected_population": 52504994,
+        "newly_linked_selected_rows": 159,
+        "year": 2021
+      }
+    ],
+    "whole_eligible_endpoint_mass_2010": 53739147,
+    "whole_eligible_endpoint_mass_2021": 56462398
+  },
+  "identity_component_invariant": "all components contain at most one selected source observation per census year",
+  "limitations": [
+    "The 163 rows are a rule-defined high-population candidate family, not a probability sample of all settlements.",
+    "The 24/24 fixed validation is not a national precision estimate.",
+    "Four candidates were already connected in R4 and are recorded as supporting decisions without duplicate graph edges.",
+    "Nine Yearbook exceptions remain held outside this release.",
+    "No coordinate or point-in-time geometry is admitted by Yearbook continuity."
+  ],
+  "outputs": {
+    "accepted_and_deduplicated_yearbook_pairs.csv": {
+      "bytes": 95151,
+      "rows": 163,
+      "sha256": "3b76aa6cd2af70bc3ec6b343bcfa5659ebf1a34392f40eaa2b8a995d02d320dd"
+    },
+    "coordinate_admissions.csv": {
+      "bytes": 164081,
+      "rows": 81,
+      "sha256": "c58c3a573ddc7878f948b69ab53696bb94583408b8368fbef34f1b385b56c07e"
+    },
+    "coverage_by_year.csv": {
+      "bytes": 937,
+      "rows": 3,
+      "sha256": "8575bad5f7407d54bf0cd9297f16b69f27d9dd9752608774b9bf725d3006fb9f"
+    },
+    "identity_edges_accepted.csv": {
+      "bytes": 817601,
+      "rows": 1162,
+      "sha256": "bb9d967cf04c7875578e73fe40b15efbe1e81c58681cc3e222823b161356a2ae"
+    },
+    "publication_bindings.csv": {
+      "bytes": 4613,
+      "rows": 10,
+      "sha256": "561f0c9b5cf2ec3324b7b272ec7f952ee33889d492cb020e7a79772b3f801624"
+    },
+    "reviewed_case_axes.csv": {
+      "bytes": 9586,
+      "rows": 14,
+      "sha256": "7a2a0d17f8be10a5e8b556ad98d29bd5276a17919410afb6dca46f6ee360de51"
+    },
+    "tom11_bridge_decisions.csv": {
+      "bytes": 2881336,
+      "rows": 965,
+      "sha256": "f551b4f5e86f2d7d54e7f07aee92e216f82ad89eb8adb4dfaa1090e302ca475e"
+    },
+    "yearbook_bridge_decisions.csv": {
+      "bytes": 126043,
+      "rows": 163,
+      "sha256": "511dd1af42f29ec0a3addc5c9c88f851097bd35f0fb5faa67a01d31b3bf50f92"
+    },
+    "yearbook_new_identity_edges.csv": {
+      "bytes": 103291,
+      "rows": 159,
+      "sha256": "00b4c26448df0b66d03dcf4b7052f29e8baffbebdb85ee1af9276d42de470913"
+    }
+  },
+  "parent_release_id": "national_reviewed_admissions_r4_metadata_20260930",
+  "population_scope": "source values retained by year; this bridge asserts same-place identity, not equal population scope or boundary harmonization",
+  "release_id": "national_reviewed_admissions_r5b_yearbook_20260930",
+  "review_gate": {
+    "accepted": 24,
+    "candidate_pairs": 163,
+    "held_exceptions": 9,
+    "n_fixed_stratified": 24,
+    "review_manifest": "research_rebuild/evidence/reviews/rosstat_yearbook_2024_table4_9_review_r2_20260930/manifest.json",
+    "review_manifest_sha256": "9bdc8f9055896514a53955e55784157c277bec79a1d71e578675a9bf05343c60",
+    "review_sha256": "8996b7bd4eceec1df6fd5cfc40f2addcbf06887721545c2d68bad5181d63351a",
+    "rounding_rule_note": "nearest-thousand ±500 is an operational compatibility check only; source rounding convention is not asserted"
+  },
+  "scope": "163 ordinary unique official Yearbook 4.9 city rows linking selected 2010 and 2021 observations; coordinates and scope unchanged",
+  "status": "reviewed_identity_admission_release",
+  "verified_inputs": {
+    "research_rebuild/evidence/discovery/official_sources_2010_2021_r2_yearbook/raw/rosstat_russian_statistical_yearbook_2024.pdf": "bac43b438869d7b11ca595acd121726833d2bf2e54004351db825cade4c29da7",
+    "research_rebuild/evidence/discovery/official_sources_2010_2021_r2_yearbook/retrieval_receipt.json": "6aeb580c4b9ed3ab70a8abd46f7cf49e554b102139a42684299d669fe971773d",
+    "research_rebuild/evidence/discovery/yearbook_table49_2010_2021_candidates_r2_20260930/bridge_candidates_2010_2021.csv": "c158e203a8600010acb5a2feef82e7cc158633145924a3ceba1cc91e1cc23ac4",
+    "research_rebuild/evidence/discovery/yearbook_table49_2010_2021_candidates_r2_20260930/manifest.json": "c02e2dd0b596c8e22a3c4441fbcbcd2e65e2405dfed5ee930f9e49f2ec72592b",
+    "research_rebuild/evidence/releases/national_reviewed_admissions_r4_metadata_20260930/release_manifest.json": "93801f54ae9e56838a79b614494e0bfdd5b8c09b9585231bd634c13689d4d92e",
+    "research_rebuild/evidence/releases/national_source_selection_r1_20260930/release_manifest.json": "37b4bf695087032e13baac88e7c432849bf3aa4543e40bcd2a5df6e8429242f6",
+    "research_rebuild/evidence/releases/national_source_selection_r1_20260930/selected_observations.parquet": "dd8d437c1a1f5cebf2b45c55e7a6e2015f3c1a295cade827a71bb76189a485df",
+    "research_rebuild/evidence/reviews/rosstat_yearbook_2024_table4_9_review_r2_20260930/manifest.json": "9bdc8f9055896514a53955e55784157c277bec79a1d71e578675a9bf05343c60",
+    "research_rebuild/evidence/reviews/rosstat_yearbook_2024_table4_9_review_r2_20260930/review.json": "8996b7bd4eceec1df6fd5cfc40f2addcbf06887721545c2d68bad5181d63351a"
+  }
+}

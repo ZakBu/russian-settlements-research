@@ -1,0 +1,38 @@
+{
+  "status": "candidate_held_spatial_conflict",
+  "place_label_candidate": "Светлый, Саратовская область",
+  "accepted_existing_edge": {
+    "from_source_record_id": "2002:1_TOM_01_04.xls:0:7066",
+    "to_source_record_id": "ROSSTAT2010:T5:p143:l47",
+    "decision_id": "mass-temporal-8614f478ce2430ee4214",
+    "status": "accepted in Graph25"
+  },
+  "2002": {
+    "source_record_id": "2002:1_TOM_01_04.xls:0:7066",
+    "population": 12313,
+    "accepted_point": [51.742584, 48.958037],
+    "population_locator": "Official census Tom 1 row 7066"
+  },
+  "2010": {
+    "source_record_id": "ROSSTAT2010:T5:p143:l47",
+    "population": 12493,
+    "accepted_point": [51.742584, 48.958037],
+    "population_locator": "Rosstat Table 5 page 143 line 47"
+  },
+  "2021_candidate": {
+    "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118410",
+    "population": 12702,
+    "oktmo": "63775000101",
+    "point": [51.6761306, 45.6219229],
+    "point_distance_from_2002_2010_km_approx": 225
+  },
+  "nearby_same_name_2021_record": {
+    "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:117246",
+    "population": 0,
+    "oktmo": "63624440166",
+    "type": "rural locality",
+    "district": "Краснопартизанский"
+  },
+  "decision": "Do not admit 2010-to-2021 same_place edge. Candidate label/type is insufficient against the approximately 225 km spatial conflict and a distinct same-name nearby row. Population boundary or migration explanations are unverified.",
+  "external_audit_locator": "/workspace/settlements-work/continuation_20261004/regions/top15_2010_residual_graph24_cached_evidence_audit_v1/top15_dispositions.csv row 4"
+}

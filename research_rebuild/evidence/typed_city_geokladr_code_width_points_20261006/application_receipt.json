@@ -1,0 +1,60 @@
+{
+  "status": "applied_scoped_typed_city_code_width_point_bridge",
+  "rule": "Accept only 2002/2010 additive typed-city candidates with exact selected and historical names/types, unique region/name/type key, no unlocated competitor, literal 8-digit 2009 code matching the first eight characters of literal 11-digit GeoKLADR 2011 code, raw KOD3=000, valid WGS84 point, date 2011-06-20, and source pinned by verified input-manifest asset or selected source hash. Hold raw same-year candidate coordinate collisions and collisions with any already accepted selected point. No identity edge or population/boundary comparability is inferred.",
+  "input_candidates": 1258,
+  "accepted_point_rows": 10,
+  "already_accepted_same_target_rows": 1136,
+  "held_coordinate_collision_rows": 113,
+  "population_by_year": {
+    "2002": 34713,
+    "2010": 32947
+  },
+  "collision_free_raw_code_candidates": 1181,
+  "manifest_hash_pinned_rows": 10,
+  "selected_row_hash_pinned_rows": 0,
+  "point_updated_at_values": {
+    "2011/06/20": 10
+  },
+  "inputs": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+      "bytes": 37372137
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_graph25_bounded_cases_20261005/accepted_point_uses.parquet": {
+      "sha256": "cc2a7cf67d7c25eec2de7f962c49478dd275646138f1303ae3410bf2a6922d23",
+      "bytes": 53104666
+    },
+    "/workspace/settlements-work/coordinates/historical_named_candidates_v4/historical_named_point_candidates.parquet": {
+      "sha256": "cb4449d3f0fec3c833eae1ee7d6e29183aabf1668bad5b8d8edf82bad7b121f8",
+      "bytes": 74463718
+    },
+    "/workspace/settlements-work/continuation_20261003/audit_99_20261003/older_years/current_candidate_priorities.csv": {
+      "sha256": "b9752db547da15cc133b7b621547d273022055562097e8c6592f765fdec06517",
+      "bytes": 56805936
+    },
+    "/workspace/settlements-work/continuation_20261003/audit_99_20261003/older_years/selected_source_manifest_assets.csv": {
+      "sha256": "e9bc13946232faaf5984dcfba22691f1844f1087255975791e10f24133110d92",
+      "bytes": 15252
+    }
+  },
+  "outputs": {
+    "accepted_point_use_delta.csv": {
+      "sha256": "b5323b08f6bfb3611af8ffb907e19251d1df177352a7f1493f8844af50d58bd3",
+      "bytes": 17750
+    },
+    "held_coordinate_collisions.csv": {
+      "sha256": "f726c436e473518c522b4b7ed99c53372610ac1c79feaf058c624376af69884d",
+      "bytes": 310025
+    },
+    "reviewed_candidates.csv": {
+      "sha256": "bcf07358a332a508a02afe3d21db440ee2c68fb31f5c2224dbe3e8db8c62184c",
+      "bytes": 3182719
+    }
+  },
+  "limitations": [
+    "2009/2011 classifier codes are not asserted as native census OKATO/OKTMO values.",
+    "GeoKLADR coordinates date to 2011-06-20, not the census dates.",
+    "No identity links, census population values, legal boundaries, or population comparability were changed.",
+    "Point collisions remain explicit and held."
+  ]
+}

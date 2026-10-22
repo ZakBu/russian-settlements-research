@@ -1,0 +1,190 @@
+{
+  "unpointed_target_universe": {
+    "rows": 24948,
+    "population": 7795201
+  },
+  "any_exact_p764": {
+    "rows": 16228,
+    "population": 4247043
+  },
+  "exact_p764_plus_valid_p625": {
+    "rows": 14662,
+    "population": 4216630
+  },
+  "exact_ru_label_plus_valid_p625": {
+    "rows": 12974,
+    "population": 3807785
+  },
+  "exact_code_name_and_valid_p625": {
+    "rows": 12974,
+    "population": 3807785
+  },
+  "exact_code_name_point_and_known_physical_p31": {
+    "rows": 12972,
+    "population": 3807595
+  },
+  "same_plus_no_multi_qid_and_no_entity_competition": {
+    "rows": 12972,
+    "population": 3807595
+  },
+  "same_plus_single_distinct_p625": {
+    "rows": 12846,
+    "population": 3403847
+  },
+  "scoped_wikidata_core_plus_single_point_inside_adm1": {
+    "rows": 12805,
+    "population": 3372840
+  },
+  "wide_binding_coverage": {
+    "targets_with_any_cached_wide_row": 16931,
+    "wide_rows_including_qid_duplicates": 16938,
+    "target_ids_with_duplicate_qid_rows": 7
+  },
+  "gate_marginals_within_exact_code_name_point": {
+    "physical_known": {
+      "rows": 12972,
+      "population": 3807595
+    },
+    "admin_known": {
+      "rows": 1713,
+      "population": 745825
+    },
+    "p17_russia": {
+      "rows": 12973,
+      "population": 3741492
+    },
+    "has_admin_context": {
+      "rows": 12960,
+      "population": 3804179
+    },
+    "multi_qid": {
+      "rows": 0,
+      "population": 0
+    },
+    "competing_qid": {
+      "rows": 0,
+      "population": 0
+    },
+    "source_code_competition": {
+      "rows": 0,
+      "population": 0
+    },
+    "multi_point_qid": {
+      "rows": 126,
+      "population": 403748
+    },
+    "physical_and_admin_known": {
+      "rows": 1711,
+      "population": 745635
+    },
+    "mixed_p31_lineage": {
+      "rows": 1711,
+      "population": 745635
+    },
+    "single_point_inside_expected_adm1": {
+      "rows": 12807,
+      "population": 3373030
+    }
+  },
+  "known_current_city_holds": {
+    "all_four_hold_rows_in_current_unpointed_universe": 4,
+    "all_four_hold_population": 134948,
+    "hold_detail": [
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:149473",
+        "name": "Межгорье",
+        "population": 15697,
+        "reason": "Mezhgorye: unresolved city point-choice conflict",
+        "overlaps_pre_review_scoped_core": true
+      },
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:155218",
+        "name": "Покачи",
+        "population": 16040,
+        "reason": "Pokachi: multiple distinct eligible P625 coordinates",
+        "overlaps_pre_review_scoped_core": false
+      },
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25288",
+        "name": "Усть-Кут",
+        "population": 36918,
+        "reason": "Ust-Kut: unresolved city point-choice conflict",
+        "overlaps_pre_review_scoped_core": true
+      },
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50511",
+        "name": "Феодосия",
+        "population": 66293,
+        "reason": "Feodosia: multiple distinct eligible P625 coordinates",
+        "overlaps_pre_review_scoped_core": false
+      }
+    ],
+    "overlap_scoped_core_rows": 2,
+    "overlap_scoped_core_population": 52615,
+    "scoped_core_after_quarantining_these_known_holds": {
+      "rows": 12803,
+      "population": 3320225
+    },
+    "status": "candidate_only_no_new_admission"
+  },
+  "provider_distance_review_flags_within_scoped_core": {
+    "distance_available_rows": 11421,
+    "exact_same_coordinate_rows": 8,
+    "nearest_p625_to_selected_source_point_over_1km_rows": 2193,
+    "nearest_p625_to_selected_source_point_over_5km_rows": 1776,
+    "nearest_p625_to_selected_source_point_over_10km_rows": 1426,
+    "distance_quantiles_km": {
+      "0.5": 0.139950463390587,
+      "0.9": 15.456537135100023,
+      "0.99": 81.34682664260976,
+      "1.0": 611.3328349841876
+    },
+    "interpretation": "contextual review flags only; selected source points may be unaccepted or share lineage and distance does not decide point validity by itself"
+  },
+  "full_geo_names_probe_context": {
+    "probe_rows": 2819,
+    "probe_population": 3298376,
+    "strict_candidate_rows": 1047,
+    "strict_candidate_population": 1034555,
+    "already_accepted_point_overlap_rows": 289,
+    "new_candidate_rows": 758,
+    "new_candidate_population": 929241,
+    "note": "Strict GeoNames witness set is candidate-only; 1 km agreement and exact source-row region equality are extra witness constraints, not prerequisites for using a uniquely identified Wikidata P625 point."
+  },
+  "source_hashes_sha256": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/accepted_point_uses.parquet": "a2087db421629ea66fe8c32de05b0aa68a3fff3c6ff3c7deb1cbcd1f286f3ae8",
+    "/workspace/settlements-work/wikidata/wide_v5/wide_point_bindings.parquet": "f59e2a1f26b7165ffccca2d118e04f8507f1c346b27ccf2e82d4c65879c33143",
+    "/workspace/settlements-work/wikidata/wide_v5/provider_code_candidate_screen.parquet": "24b2cc70a42af4d34d2bc87a266c2e15631156f3640abee4438417d0ed1756ec",
+    "/workspace/settlements-work/wikidata/wide_v5/manifest.json": "eb58ac92a995c0a892f5c293a3622dea5646c9ab39f9ae8ab9fcc629e7d48aa6",
+    "/workspace/settlements-work/wikidata/wide_v5/run_summary.json": "7e77be0480fd3df344eea7131809ac8489bca758d5198b16739661d6cb4ec7c1",
+    "/workspace/settlements-work/coordinates/region_screen_v1/region_point_screen.parquet": "6c27e8c077808421ae6c202ba95ab4f1aeb58ac1b48d054f5208958b76ac765a",
+    "/workspace/settlements-work/coordinates/region_screen_v1/receipt.json": "5914a5c884d50bf0543df15849c044c0a8b89b6367bd1ddd2fb953b217372ff9",
+    "/workspace/settlements-work/sources/region_geometry/RUS_ADM1_simplified.geojson": "47179a0b1f30097226bc057921e674d83a9ac9e2a44023e687351355cdb7fc1b",
+    "/workspace/settlements-work/coordinates/validation_packet/wikidata_type_hierarchy_v1/ancestry_metadata.json": "2c7971afa183285909e068c2ba9ac3ac7f95df1c71b3ada716e867c103b0ebda",
+    "/workspace/settlements-raw/data/raw/wikimedia/wikidata_oktmo_entities.tsv": "580e20042d6dfdcc6dd29d5d7fbde59593145b97abbb37e7760e89b567b36d36",
+    "/workspace/settlements-work/coordinates/validation_packet/run_20261002_06/manifest.json": "8d560179a3f178d9fa3cef6e2d8417ba3cd6633f0fcfbc2299104aa6ca113318",
+    "/workspace/settlements-work/coordinates/validation_packet/run_20261002_07/manifest.json": "71c4d6ac7e84ae937d504232acee0cdcedcbf419e3bb729695bb09ba97664ee5",
+    "/workspace/settlements-work/coordinates/independent_review_v1/review.json": "f8081527bd7d555ffe91069f2f4ec1af0459cf112a80befbe5d27587869f8726",
+    "/workspace/settlements-work/continuation_20261003/geonames_wikidata_full_witness_probe_v2/full_2819_witness_evidence.csv": "f071c8fe53962b3fcc00a6d30aed9f667da29088851ffe4b491f1f1b395d1180",
+    "/workspace/settlements-work/continuation_20261003/geonames_wikidata_full_witness_probe_v2/summary.json": "8a643e263ed33d753ab2465dce98594c54a204a59b78cb20cec9aedcc889b94a",
+    "/workspace/settlements-work/continuation_20261003/geonames_wikidata_full_witness_probe_v2/build_probe.py": "e451b4d5b5d6280c56d484c225114fa39fb65496ea10e47fdccab4aadc87c16e",
+    "/workspace/russian-settlements-research/research_rebuild/mass_linkage/coordinate_validation_packet.py": "d04ea6c444c01d7c58ed1e63f6d94e3d02e63cbc97448df5d5bb4079222a908c",
+    "/workspace/russian-settlements-research/research_rebuild/mass_linkage/admit_coordinates.py": "25108739b51e4155e9bbecbda79bfb72d19eb0359ea9629615c13fa997413a97"
+  },
+  "source_manifest_extract": {
+    "wide_manifest": "/workspace/settlements-work/wikidata/wide_v5/manifest.json",
+    "manifest_sha256": "eb58ac92a995c0a892f5c293a3622dea5646c9ab39f9ae8ab9fcc629e7d48aa6",
+    "raw_wikimedia_oktmo_tsv_sha256": "580e20042d6dfdcc6dd29d5d7fbde59593145b97abbb37e7760e89b567b36d36",
+    "truthy_claim_retrieval": "2026-08-31 snapshot; 141 cached files; export omits statement IDs, rank/qualifiers/references",
+    "existing_review": "/workspace/settlements-work/coordinates/independent_review_v1/review.json; C city rule accepted with row-specific holds: 903/910 after holds; fixed C sample 100/100 gates, 98 point eligible after holds",
+    "existing_application_barrier": "coordinate_validation_packet + admit_coordinates retain new points as candidates; admit_coordinates manifest requires independent coordinate review and reports coordinate_admissions_new=0",
+    "limitations": [
+      "P764 source/reference lineage unavailable in truthy export",
+      "OKATO projection is marked non-independent",
+      "Wikimedia TSV/module/truthy/P279 metadata are one Wikidata evidence family, not independent providers",
+      "current-source region copied through exact source_record_id join is not independent WD administrative-region evidence",
+      "ADM1 membership is regional context, not locality identity/extent; for rural/PGT this new audit profile is availability only and not a reviewed rule result"
+    ]
+  }
+}

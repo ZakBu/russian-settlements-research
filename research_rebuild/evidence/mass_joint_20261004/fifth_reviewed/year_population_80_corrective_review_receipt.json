@@ -1,0 +1,150 @@
+{
+  "review": "corrective bounded raw-point and literal-county replay for annual population homonym v2 80 new-union keys",
+  "reviewed_at_utc": "2026-10-04",
+  "candidate_csv": "/workspace/settlements-work/continuation_20261004/R4/year_population_homonym_disambiguation_v2/candidate_rows_pending_review.csv",
+  "candidate_sha256": "31642d949035b66277992f52aa095782b87d35cf08348c1ece5dfaa34a7007c8",
+  "candidate_row_count": 2915,
+  "eligible_key_csv": "/workspace/settlements-work/continuation_20261004/independent_review/year_population_v2_independently_eligible_keys.csv",
+  "eligible_key_sha256": "19679f13f5bdca56e91ff4d2807b1c8684073d77caa25012945a169c300b0f62",
+  "eligible_key_count": 80,
+  "eligible_key_columns": [
+    "family",
+    "from_source_record_id",
+    "to_source_record_id",
+    "year",
+    "rule_family"
+  ],
+  "replay_csv": "/workspace/settlements-work/continuation_20261004/independent_review/year_population_v2_new80_native_point_replay_v2.csv",
+  "replay_sha256": "9b5ddb9308439fc67e1667a4c285dab4fb98d03a5d8d2a15dd0e3e0bbe771a95",
+  "replay_count": 80,
+  "result_counts": {
+    "point_route_pass": 72,
+    "literal_county_route_pass": 8,
+    "failed": 0
+  },
+  "baseline_graph": "/workspace/settlements-work/continuation_20261004/accepted_mass_rule_corrections_origin_corrected/accepted_identity_edges.parquet",
+  "baseline_graph_sha256": "9273cc06dec342fd09de6d392e0450d4a5a7a0729b0c7f1680452219772ec98e",
+  "baseline_points": "/workspace/settlements-work/continuation_20261004/accepted_mass_rule_corrections_origin_corrected/accepted_point_uses.parquet",
+  "baseline_points_sha256": "8ca8a5279483ddedac5b8958905e9bdc7919b8a74760db718d30988b9bca5f06",
+  "raw_source_pins": {
+    "okato_2009_sql": {
+      "path": "/workspace/settlements-raw/data/raw/historical_classifiers/okato_142_2009/dump-142_2009.sql",
+      "sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db"
+    },
+    "okato_2011_dbf": {
+      "path": "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf",
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+    },
+    "karelia_2010_primary_docx": {
+      "path": "/workspace/settlements-karelia-inputs/build/evidence/ingestion/source/karelia_2010_rural_settlements.docx",
+      "sha256": "dcc79b64b15dc44d62f12868293f8f8dfa124c2d14b2f5f08167b9faefe06a59"
+    }
+  },
+  "point_route_checks": {
+    "checks": "all 72 candidate historical SQL locator/code/name/type rows and 2011 DBF record number+byte offset+code+name+type+coordinates; raw DBF same-province same typed-name active set replayed against selected accepted 2021 point",
+    "raw_distance_replay_max_abs_delta_m": 1.1e-09,
+    "selected_historic_points_within_5km": 72,
+    "local_exact_typed_name_dbf_candidates_within_5km": 72,
+    "province_duplicate_cases_resolved_by_actual_point": [
+      {
+        "name": "Кожухово",
+        "near_km": 0.0533,
+        "other_sameprovince_typed_name_km": 117.4107
+      },
+      {
+        "name": "Нелидово",
+        "near_km": 0.0453,
+        "other_sameprovince_typed_name_km": 149.7516
+      },
+      {
+        "name": "Дубрава",
+        "near_km": 0.0678,
+        "other_sameprovince_typed_name_km": 209.8819
+      },
+      {
+        "name": "Агаревка",
+        "near_km": 0.3376,
+        "other_sameprovince_typed_name_km": 75.436
+      }
+    ],
+    "rule": "A province homonym does not pass by name alone: exact native historic source code and source point must align; exactly one active same-province exact typed-name point falls within 5 km of the accepted current point. Other homonym remains recorded in replay JSON."
+  },
+  "literal_county_checks": {
+    "count": 8,
+    "county_labels": "old and current selected publication rows have the same normalized nonblank district; each name+region+county key is unique within its selected year frame across types; candidate old county population and exact-year secondary-value guards pass.",
+    "raw_primary_docx_rows": [
+      {
+        "old_id": "ROSSTAT2010KARELIA:RURAL:DOCX:t38:r21",
+        "locator": "table[38].row[21]",
+        "name": "Погост",
+        "population_reported": "74",
+        "district": "Пудожский муниципальный район"
+      },
+      {
+        "old_id": "ROSSTAT2010KARELIA:RURAL:DOCX:t35:r6",
+        "locator": "table[35].row[6]",
+        "name": "Машезеро",
+        "population_reported": "14",
+        "district": "Прионежский муниципальный район"
+      },
+      {
+        "old_id": "ROSSTAT2010KARELIA:RURAL:DOCX:t26:r49",
+        "locator": "table[26].row[49]",
+        "name": "Уусикюля",
+        "population_reported": "12",
+        "district": "Лахденпохский муниципальный район"
+      },
+      {
+        "old_id": "ROSSTAT2010KARELIA:RURAL:DOCX:t26:r5",
+        "locator": "table[26].row[5]",
+        "name": "Пялозеро",
+        "population_reported": "10",
+        "district": "Кондопожский муниципальный район"
+      },
+      {
+        "old_id": "ROSSTAT2010KARELIA:RURAL:DOCX:t36:r45",
+        "locator": "table[36].row[45]",
+        "name": "Лижма",
+        "population_reported": "6",
+        "district": "Пряжинский муниципальный район"
+      },
+      {
+        "old_id": "ROSSTAT2010KARELIA:RURAL:DOCX:t22:r39",
+        "locator": "table[22].row[39]",
+        "name": "Машезеро",
+        "population_reported": "4",
+        "district": "Беломорский муниципальный район"
+      },
+      {
+        "old_id": "ROSSTAT2010KARELIA:RURAL:DOCX:t29:r38",
+        "locator": "table[29].row[38]",
+        "name": "Погост",
+        "population_reported": "2",
+        "district": "Медвежьегорский муниципальный район"
+      },
+      {
+        "old_id": "ROSSTAT2010KARELIA:RURAL:DOCX:t38:r23",
+        "locator": "table[38].row[23]",
+        "name": "Пялозеро",
+        "population_reported": "- / no count recorded",
+        "district": "Пудожский муниципальный район"
+      }
+    ],
+    "note": "The last source row has no count recorded in the DOCX; its selected-year value is 0 and is a protected/unknown-value case. This is an identity-only route and the population value is not treated as independent evidence."
+  },
+  "common_guards": {
+    "all_153_unique_endpoint_source_rows_additive_physical": true,
+    "federal_aggregate_endpoints": 0,
+    "legacy_same_year_collision_endpoints": 0,
+    "verified_successor_endpoints": 0,
+    "every_current_endpoint_has_exactly_one_accepted_point_and_passes_candidate_P764/P31/name/type/region/source-code binding": true,
+    "candidate baseline simulation": {
+      "new_unions": 80,
+      "already_connected": 2835,
+      "new_year_collisions": 0
+    },
+    "historical_P1082": "secondary/dependent same-census corroboration only; not independent identity or population validation. Protected 2010 ±10 candidate values remain a separate weaker corroboration route, never identity by themselves.",
+    "legacy_pointer_flags": "Old fuzzy legacy_identity_conflict flags remain preserved as provenance. No source event, successor, or same-year physical collision was found among the reviewed 80 pairs; fresh raw typed-point/county evidence, not the old fuzzy pointer, supports the scoped route."
+  },
+  "approved_scope": "The unchanged 80-key list only. This receipt does not revise the annual 2,915-candidate vector or the prior main review receipt."
+}

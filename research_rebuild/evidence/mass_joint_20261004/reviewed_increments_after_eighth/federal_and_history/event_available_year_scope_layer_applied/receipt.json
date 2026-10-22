@@ -1,0 +1,95 @@
+{
+  "status": "root_approved_applied_eventaware_scope_layer",
+  "scope": "Five source-observation rows: Zheleznodorozhny 2002/2010 and Talnakh 2002/2010/2021. This is a separate scope-aware display layer; no canonical graph, source selection, population, or point ledger mutation.",
+  "counts": {
+    "eligible_scoped_observation_rows": 5,
+    "zheleznodorozhny_pre_event_rows": 2,
+    "talnakh_available_year_rows": 3,
+    "typed_relations": 5,
+    "held_controls": 5,
+    "strict_2002_2010_2021_gain": 0,
+    "population_transfer_to_successor": 0,
+    "canonical_mutations": 0
+  },
+  "pins": {
+    "independent_review_receipt_sha256": "6635726c6a40b225cee7093c390e2ce557cdae39c6eb72e0cbcf9e8430955318",
+    "accepted_graph_sha256": "c0f276db44f524845bd9c4d973ce8294f372d942cad292028b3b3984024bf011",
+    "accepted_points_sha256": "797eaf25a7383a9706e84090732cfa62aa9db9f9a7775df99ab0fc880031e337",
+    "selected_observations_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+  },
+  "current_successor_binding": {
+    "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:65202",
+    "QID": "Q104557",
+    "source_OKTMO": "46704000001",
+    "basis": "review-eligible exact current native code/P764 binding; this does not assert historical same_place or population scope"
+  },
+  "parent_child_guardrails": [
+    "Talnakh 2021 district row 47,216 is included in Norilsk 2021 parent 174,453; do not sum.",
+    "Talnakh 2010 district row 47,307 is child of Norilsk 2010 parent 175,365; do not sum.",
+    "Talnakh 2002 Table 5 group row duplicates the 2002 Table 4 city observation 58,654; count once.",
+    "Kayerkan has two exact same-ADM1 P/PPL aliases and remains held; no population-based point selection.",
+    "Zheleznodorozhny 2021 Balashikha 520,962 is context only and is neither a same-place row nor a transferred population."
+  ],
+  "limitations": [
+    "Auxiliary 2010/2021 Talnakh records use explicit event_scope IDs, not canonical source_record_ids.",
+    "Talnakh named GeoNames point is a 2012-updated representative-place candidate, not a census-date measurement, centroid, or provider binding.",
+    "Talnakh city-to-district effective date is unknown within after 2002/by 2010; district boundaries/population comparability are not asserted.",
+    "Zheleznodorozhny event date is secondary and legally unverified.",
+    "This layer adds no strict three-date chain and should be union-counted by entity-year IDs, not by summing population values."
+  ],
+  "inputs": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": {
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_eighth_reviewed/accepted_identity_edges.parquet": {
+      "sha256": "c0f276db44f524845bd9c4d973ce8294f372d942cad292028b3b3984024bf011"
+    },
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_eighth_reviewed/accepted_point_uses.parquet": {
+      "sha256": "797eaf25a7383a9706e84090732cfa62aa9db9f9a7775df99ab0fc880031e337"
+    },
+    "/workspace/settlements-work/continuation_20261004/independent_history_review/review_eligible_current_QID_binding_candidates.csv": {
+      "sha256": "670f2f27fcf7064887149f44a55b0ee0cb6a83db6dedf896febfa01e9d197f42"
+    },
+    "/workspace/settlements-work/continuation_20261004/independent_review/event_available_year_cases/independent_review_receipt.json": {
+      "sha256": "6635726c6a40b225cee7093c390e2ce557cdae39c6eb72e0cbcf9e8430955318"
+    },
+    "/workspace/settlements-work/continuation_20261004/independent_review/event_available_year_cases/reviewed_scope_observations.csv": {
+      "sha256": "ef8ed8183ebd4df74a4c84c7709a1d89e2cf8b8068c3aeeafd639ef60d0a0011"
+    },
+    "/workspace/settlements-work/continuation_20261004/independent_review/event_available_year_cases/reviewed_scope_relations.csv": {
+      "sha256": "e1e054aa2337cca630f881ddb2e9b7ec23aabf77fa1966b3df3f35fa5aef2c04"
+    },
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": {
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3"
+    },
+    "/workspace/settlements-raw/data/raw/2010_official_tom11/pub-11-1-4.pdf": {
+      "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500"
+    },
+    "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": {
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+    },
+    "/workspace/settlements-raw/data/raw/rosstat_2021/Tom1_tab-5_VPN-2020.xlsx": {
+      "sha256": "0b232b3d2ab5daa231568acc719ac6fda4fb0979a01a0da6bacc69be6f252474"
+    },
+    "/workspace/settlements-raw/data/raw/coordinate_candidates/geonames_RU_20260907.zip": {
+      "sha256": "9bf299daaff13de75ddbf610e113469aae80537d66a7de3437967576c6509ff4"
+    },
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": {
+      "sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650"
+    }
+  },
+  "outputs": {
+    "event_available_observations.csv": {
+      "sha256": "076067917386a77d2a74cd71a2898062e7370360b9585729d595e27d188222de",
+      "rows": 5
+    },
+    "typed_scope_relations.csv": {
+      "sha256": "5b7d2edcc06cc5b13e989774d55f747e563d3f4357835bf0e32a7193fac148ad",
+      "rows": 5
+    },
+    "nonadditive_and_held_controls.csv": {
+      "sha256": "98c20cda5f1ebde9d8fbbb8afbbe61506e6ea709da1485fdf6f4909d8f3b845c",
+      "rows": 5
+    }
+  }
+}

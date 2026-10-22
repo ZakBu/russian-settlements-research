@@ -1,0 +1,133 @@
+{
+  "mode": "derivative_inputs_after_metadata_only_corrections",
+  "new_export_execution_claimed": false,
+  "original_execution_manifest": {
+    "path": "settlements_long.manifest.json",
+    "sha256": "cda81a7ae5d7c772d4592903fb703478a37865e4cddd48762af1ae162e37ebd6"
+  },
+  "builder_sha256": "8351c88bbc937e47ecac725fe88669e54b902268fa55c7a6a48e7366ed5eb8a3",
+  "outputs": {
+    "csv_gzip": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/settlements_long.csv.gz",
+      "sha256": "11dbd28edede62a6913ecae41e4995388a30eea83edf8bb628b0cb8ecc044e92"
+    },
+    "parquet": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/settlements_long.parquet",
+      "sha256": "0826f554d9100c52b5e430327cb209d030d035f7c52dd19caa7cf7c902969a72"
+    }
+  },
+  "summary": {
+    "association_status_counts": {
+      "accepted_same_place_component": 306780,
+      "accepted_target_2021_same_place": 507,
+      "current_named_article_association_only": 34004,
+      "separate_statistical_aggregate": 9,
+      "unknown_no_link": 159020
+    },
+    "census_linked_record_count": 306780,
+    "census_record_count": 465800,
+    "census_singleton_unknown_no_link_count": 159020,
+    "coordinate_admission_status_counts": {
+      "frozen_r5b_reviewed_baseline_preserved": 111,
+      "reviewed_case_accepted": 1,
+      "reviewed_extension_rule_accepted": 234748,
+      "reviewed_rule_accepted": 97640
+    },
+    "coordinate_count": 332500,
+    "coordinate_count_by_record_type": {
+      "annual_official": 495,
+      "census": 332005
+    },
+    "duplicate_observation_id_count": 0,
+    "entity_category_counts": {
+      "settlement": 466301,
+      "statistical_aggregate": 15,
+      "wiki_named_series_association": 34004
+    },
+    "record_type_counts": {
+      "annual_official": 516,
+      "census": 465800,
+      "wiki_literal_series": 34004
+    },
+    "row_count": 500320,
+    "wiki_rows_have_coordinates": 0
+  },
+  "inputs": {
+    "annual": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/annual_official_observations.parquet",
+      "sha256": "3f2b0878e547c192470875e6d57355c00738a24da39d6d8206e7e4d7089bf94a"
+    },
+    "census": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_v1/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "coordinates": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_v1/accepted_point_uses.parquet",
+      "sha256": "a2087db421629ea66fe8c32de05b0aa68a3fff3c6ff3c7deb1cbcd1f286f3ae8"
+    },
+    "identity": {
+      "path": "/workspace/settlements-work/continuation_20261003/shared_named_point_region_alias_metadata_correction_v1/accepted_identity_edges.parquet",
+      "sha256": "e9f402c2bda189561d56a4adcee5ecd2fa4d5ed52610b45011eab9f8bc14f075"
+    },
+    "source_evidence": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_evidence_id_correction_v1/source_evidence.parquet",
+      "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+    },
+    "source_manifest": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/input_manifest.parquet",
+      "sha256": "15c03537ad7050138ebda5a198198784d41c776c12cbe6222a0fb76194124a97"
+    },
+    "wiki": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/wiki_literal_associations.parquet",
+      "sha256": "04672327ef9717dfdc8aa628f921b5589c6813b11d410b28717a223fccbbbece"
+    }
+  },
+  "corrections": {
+    "identity": {
+      "original_input": {
+        "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_v1/accepted_identity_edges.parquet",
+        "sha256": "a30c25916ac73507edb2a67a2b3c249be93517f467bbff19fe527ba6c80a8126"
+      },
+      "corrected_input": {
+        "path": "/workspace/settlements-work/continuation_20261003/shared_named_point_region_alias_metadata_correction_v1/accepted_identity_edges.parquet",
+        "sha256": "e9f402c2bda189561d56a4adcee5ecd2fa4d5ed52610b45011eab9f8bc14f075"
+      },
+      "receipt_path": "/workspace/settlements-work/continuation_20261003/shared_named_point_region_alias_metadata_correction_v1/receipt.json",
+      "receipt_sha256": "3575e01d8b30c697d0c558c7f9e128796068dbeeaa0a1a536310a2e229738b18"
+    },
+    "source_evidence": {
+      "original_input": {
+        "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_v1/source_evidence.parquet",
+        "sha256": "66ab5e5c34143a994de5e3dbb44942da9e2c451266ad1435a011d31a0a4118f7"
+      },
+      "corrected_input": {
+        "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_evidence_id_correction_v1/source_evidence.parquet",
+        "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+      },
+      "receipt_path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_evidence_id_correction_v1/receipt.json",
+      "receipt_sha256": "d29d0332538733ea23b2b73eee03ca55090487dd74103518434d1ee92ca064de"
+    }
+  },
+  "logical_equivalence_basis": {
+    "source_evidence": "builder uses top-level source_record_id and is_federal_aggregate, unchanged; only56 nested redundant IDs repaired",
+    "identity": "builder uses accepted decision_status/relation/endpoints; only1139 optional candidate-state fields repaired"
+  },
+  "independent_checks": {
+    "publication_application": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_review_v1/application_review.json",
+      "sha256": "5050019b5a6e4fa39943ffdfed2b3f249c88db7f4a423db83dc11ce2941ad02a"
+    },
+    "evidence_correction": {
+      "path": "/workspace/settlements-work/continuation_20261003/primary_rural_dagestan_application_review_v1/evidence_correction_review.json",
+      "sha256": "168465b4d86f671a765fc8e8bcc9c002ff5eb03dd4ab3db4feae0ad8658a7b68"
+    },
+    "identity_metadata_correction": {
+      "path": "/workspace/settlements-work/continuation_20261003/shared_named_point_region_alias_metadata_review_v1/review.json",
+      "sha256": "8e4f5968e390bf3267acbbd5f133b65586c850062951535e1e76f63fad710ea7"
+    }
+  },
+  "limitations": [
+    "Prior1344 nested evidence IDs remain null; top-level IDs authoritative.",
+    "Prior1120 optional candidate flags remain legacy staging metadata; canonical decision_status determines admission."
+  ]
+}

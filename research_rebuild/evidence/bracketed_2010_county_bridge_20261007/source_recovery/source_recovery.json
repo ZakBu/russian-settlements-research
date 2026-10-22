@@ -1,0 +1,71 @@
+{
+  "status": "source_recovery_complete_from_existing_hash_pinned_full_cell_ledgers",
+  "new_source_downloaded": false,
+  "held_rows_input": 346,
+  "mapped_rows": 346,
+  "source_order_verified_rows": 346,
+  "source_counts": {
+    "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx": 345,
+    "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc": 1
+  },
+  "source_artifacts": {
+    "kaliningrad": {
+      "ledger_sha256": "a95015a3daca967307106f8e77247d905ce79b3a604ac74887e0adf7fef639cf",
+      "manifest_sha256": "e700c24f1ff2e3db7f4a639af49848c4f2ccca555884059d1e6e959f717bd0b2",
+      "source_sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+      "source_bytes": 306344,
+      "source_url": "https://39.rosstat.gov.ru/storage/mediabank/Итоги+ВПН-2010_том1.xlsx",
+      "ledger_path": "/workspace/settlements-work/continuation_20261004/R4/exact_population_source_inventory/parser_runtime/kaliningrad/kaliningrad_2010_tom1_sheet4_full_row_ledger.csv",
+      "manifest_path": "/workspace/settlements-work/continuation_20261004/R4/exact_population_source_inventory/parser_runtime/kaliningrad/source_manifest_kaliningrad_2010_tom1_candidate_r2.json",
+      "ledger_rows": 1257,
+      "row_order_complete": true,
+      "source_manifest_release": "kaliningrad_2010_tom1_settlements_candidate_r2",
+      "source_locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+      "archived_url": "https://web.archive.org/web/20250619171623id_/https://39.rosstat.gov.ru/storage/mediabank/%D0%98%D1%82%D0%BE%D0%B3%D0%B8+%D0%92%D0%9F%D0%9D-2010_%D1%82%D0%BE%D0%BC1.xlsx",
+      "observation_sheet": "4",
+      "observation_sheet_shape": {
+        "rows": 1257,
+        "columns": 6
+      }
+    },
+    "murmansk": {
+      "ledger_sha256": "d773db68c5f8ea96f91b3ad124a6a790a75b4a5ce98b0d61a8219214eb078270",
+      "manifest_sha256": "90d34188af55433037cb8dad634ef8c7712f010ed0168f364cfe91d4bf9ba7f1",
+      "source_sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+      "source_bytes": 384000,
+      "source_url": "https://51.rosstat.gov.ru/storage/mediabank/14(1).doc",
+      "ledger_path": "/workspace/settlements-work/continuation_20261004/R4/exact_population_source_inventory/parser_runtime/murmansk/murmansk_2010_population_by_sex_full_table_ledger.csv",
+      "manifest_path": "/workspace/settlements-work/continuation_20261004/R4/exact_population_source_inventory/parser_runtime/murmansk/source_manifest_murmansk_2010_candidate_r1.json",
+      "ledger_rows": 226,
+      "row_order_complete": true,
+      "source_manifest_release": "murmansk_2010_population_by_sex_candidate_r1",
+      "source_locator": null,
+      "archived_url": "https://web.archive.org/web/20240718144234id_/https://51.rosstat.gov.ru/storage/mediabank/14(1).doc",
+      "observation_sheet": null,
+      "observation_sheet_shape": {
+        "rows": 226,
+        "columns": 6
+      }
+    }
+  },
+  "existing_binary_inventory": "existing_binary_inventory.json",
+  "original_binaries_available_outside_settlements_raw": true,
+  "independent_review_refs": {
+    "kaliningrad": {
+      "path": "research_rebuild/evidence/reviews/kaliningrad_2010_r2_independent_review_20260930/review.json",
+      "status": "accepted_for_primary_observation_migration_with_source_lineage_note"
+    },
+    "murmansk": {
+      "path": "research_rebuild/evidence/reviews/murmansk_2010_candidate_r1_independent_review_20260930/review.json",
+      "status": "PASS_SOURCE_OBSERVATION_SLICE_AND_ZERO_BIN_CLOSURE; HOLD_CROSS_CENSUS_IDENTITY"
+    }
+  },
+  "receipt": "availability_receipt.md",
+  "outputs": {
+    "held_source_recovery_mapping.csv": "fcc399eae9542484564da30d9bd746b3df9a0b688e05f8068d27ffcb74fecfae",
+    "existing_binary_inventory.json": "d6b8c5d5d15661db086bc1e66654c84435ff2802a58dac30841fe40a960dd11e"
+  },
+  "identity_rule_unchanged": true,
+  "accepted_678_packet_unchanged": true,
+  "interpretation": "These artifacts restore literal source-cell and physical-order availability for the already generated held 2010 candidates. They do not create new identity decisions."
+}

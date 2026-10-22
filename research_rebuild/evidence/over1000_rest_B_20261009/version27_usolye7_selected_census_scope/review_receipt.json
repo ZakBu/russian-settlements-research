@@ -1,0 +1,80 @@
+{
+  "packet": "over1000_rest_B_20261009/version27_usolye7_selected_census_scope",
+  "review_status": "PASS_2021_NATIVE_UID_AND_POINT; PRIOR_YEARS_LIMITED_SELECTED_SOURCE_NO_MATCH",
+  "application_approved": true,
+  "coverage_complete": false,
+  "positive_locality_groups": 1,
+  "native_uid_credits": 1,
+  "identity_edges_added": 0,
+  "population_values_or_quality_modified": false,
+  "population_sum_or_transfer": false,
+  "historical_absence_claimed": false,
+  "checks": {
+    "2021_native_UID_and_point_verified": true,
+    "2002_Irkutsk_and_adjoining_Ust_Ordyn_source_scope_checked": true,
+    "2010_Siberian_workbook_and_Tom1_checked": true,
+    "same_name_city_and_village_records_excluded": true,
+    "output_hashes_match": true
+  },
+  "source_pins": {
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_state_observations.parquet": {
+      "sha256": "8cde620020634cf5ac9cfff145cc88c4d7365474cff56194b8a7137a43f6e0b9",
+      "bytes": 12774906
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_point_snapshot.parquet": {
+      "sha256": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502",
+      "bytes": 19713572
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application68_20261008/applied_component_snapshot.csv.gz": {
+      "sha256": "2787384874ab5f56c6cf392e8c5aa13dffa7c48443f6051826ead655a2c49230",
+      "bytes": 2734494
+    },
+    "/workspace/russian-settlements-research/research_rebuild/evidence/main_axis_residual_application70_regional_batch_20261009/remaining_over1000_raw_or_primary.csv": {
+      "sha256": "f74740cf28b30976824d573ee2f07c030ceafb1a668b2fc3331e01ccffb1fc76",
+      "bytes": 119364
+    },
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": {
+      "sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+      "bytes": 36370444
+    },
+    "/workspace/settlements-raw/data/raw/2002/070_48ec6f4a77_Irkut_obl_new.xls": {
+      "sha256": "53cc4d5dc967f6f5d5ee5c5802b25f72314284c4fc21efa285f0115b0c22e28d",
+      "bytes": 378880
+    },
+    "/workspace/settlements-raw/data/raw/2002/071_a3fee31a3e_Ust-Ordynsky.xls": {
+      "sha256": "7e721530b4a43323a5ac692df157ca1a520bb5d142e91da481c9e12c686533f9",
+      "bytes": 179712
+    },
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": {
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "bytes": 1819648
+    },
+    "/workspace/settlements-raw/data/raw/2010/008_342f3c208b_16._20Сиб_ФО_2010.xls": {
+      "sha256": "960feadeb50c27be2d8a2084112349fb0c22ae608929716bcafed5a140c84d0e",
+      "bytes": 10963456
+    },
+    "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": {
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "bytes": 15230814
+    }
+  },
+  "output_pins": {
+    "accepted_native_UID_credits.csv": {
+      "sha256": "60151ecbefea6cea5d8f4bc5b1acc9a2507d54082b60901398bbdc0fe8f45a69",
+      "bytes": 1191
+    },
+    "source_year_statuses.csv": {
+      "sha256": "e3565049176051534690760c6732b2fffa0907060eb2e6850fedc5a19fd003b4",
+      "bytes": 1234
+    },
+    "selected_source_search_witnesses.csv": {
+      "sha256": "6049f6a3aef2b2733a29864bb8d1c6f525569dcd37a95f80044fd29f6a80297e",
+      "bytes": 515
+    }
+  },
+  "notes": [
+    "2021 Q27556871 is an existing admitted own-locality physical point.",
+    "Historical statuses are selected-source findings, not zero or physical/legal absence.",
+    "Other named Усолье census entities are kept distinct; no city population is transferred."
+  ]
+}

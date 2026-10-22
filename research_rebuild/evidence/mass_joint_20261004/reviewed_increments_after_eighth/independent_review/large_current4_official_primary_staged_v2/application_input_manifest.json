@@ -1,0 +1,79 @@
+{
+  "status": "frozen_application_inputs",
+  "inputs": {
+    "edge_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_review/review_receipt.json",
+      "sha256": "d6245c021fcd7c71ce255b8a858ecca0a274f8d85633067a543d8ac027db77a1"
+    },
+    "edge_rows": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_review/independently_reviewed_corridor_edges.csv",
+      "sha256": "18c2d6e73951eb23392fd048638583719b79764ec94f61f2c18690452980b491"
+    },
+    "source_row_replay": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_review/official_source_row_replay.csv",
+      "sha256": "aba5f4a4778d3918b95e14ecf8bcf9f42b1d55017dbd4cc1c2c44ec3f99fc784"
+    },
+    "point_context": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_official_rosstat_correction_review/current_point_and_source_context.csv",
+      "sha256": "f62bc208923cf779bfeea3107b1000f3ec26f1bd38d9962f8a0946e07d1bb549"
+    },
+    "mapping_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_same_census_source_mapping/mapping_receipt.json",
+      "sha256": "d2470e6a563f66163c4ab3eb368853f7d4c58b9d1eddc75f8ef0416b9f4a18f6"
+    },
+    "mapping_rows": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_same_census_source_mapping/official_to_selected_source_mapping.csv",
+      "sha256": "d1613388a6af1ee73700b8bf8c59b3b8d1cf8a4b6fdac6d9dfba62836db92818"
+    },
+    "mapping_source_replay": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/large_current4_same_census_source_mapping/source_row_replay.json",
+      "sha256": "d640017fdb3a1c3f0198241e82c11af1b21fcee8cd79b1b605660492ab26c892"
+    },
+    "selected": {
+      "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+      "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+    },
+    "base_long": {
+      "path": "/workspace/settlements-work/continuation_20261004/root/scoped2014_applied/seventh_long_with_scoped2014.parquet",
+      "sha256": "be04c25f2cdcc1614e2c17865ca8a96593e4308f36ad344281062c37c7bd6360"
+    },
+    "point_ledger": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_seventh_reviewed/accepted_point_uses.parquet",
+      "sha256": "2215702e772417bb512da8c0a6c0d31ad9783c6a5345d4c0bbfe18403e11ad22"
+    },
+    "official_2002": {
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3"
+    },
+    "official_2010": {
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+    },
+    "kush_parts": {
+      "path": "/workspace/settlements-raw/data/raw/2002/036_81b258bc42_02c_Krasnodarski-krai.xls",
+      "sha256": "9588f5aa5f8de40a290739a880e624a6d34ea566377b9a7f4df1674f1cf99121"
+    }
+  },
+  "official_assertion_rows": [
+    "ROSSTAT2002:T4:01-04:r1212",
+    "ROSSTAT2002:T4:01-04:r4338",
+    "ROSSTAT2010:T5:p199:l277",
+    "ROSSTAT2010:T5:p33:l120",
+    "ROSSTAT2010:T5:p36:l82"
+  ],
+  "current_carriers": {
+    "Кущевская": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:45656",
+    "Власиха": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:70219",
+    "Калининец": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:68255",
+    "Трудовое": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:100072"
+  },
+  "producer_code": {
+    "path": "/workspace/russian-settlements-research/research_rebuild/mass_linkage/stage_large_current4_official_primary.py",
+    "sha256": "2411a68f714df423d486017fc2e1293e820992a692c7b5447cd5a0caf699fe18"
+  },
+  "producer_tests": {
+    "path": "/workspace/russian-settlements-research/research_rebuild/mass_linkage/tests/test_stage_large_current4_official_primary.py",
+    "sha256": "e62cc8dd14bfdbdb34cef0df6a7eb70a258bccabbae2e640279b26d36c8f70a2"
+  },
+  "note": "No selected population, canonical graph, or long-table mutation is part of this staging utility."
+}

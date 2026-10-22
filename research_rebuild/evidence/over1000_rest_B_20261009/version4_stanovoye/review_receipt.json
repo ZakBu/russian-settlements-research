@@ -1,0 +1,51 @@
+{
+  "packet": "version4_stanovoye",
+  "application_approved": true,
+  "coverage_complete": false,
+  "scope_source_record_ids": [
+    "2002:011_f46bbaadfd_02c_Orlovskaja.xls:Sheet1:2484",
+    "2010:010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls:Data Sheet:16475",
+    "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:93070"
+  ],
+  "cohort_size": 178,
+  "reason": "Approved only for the three high Становое identity observations and retrospective own-point uses; all other B UIDs remain open. Source count and quality values unchanged; no census-day coordinate or population boundary comparability assertion. The 2010 published own-article count discrepancy (1204 vs imported 1203) is secondary and does not alter source value or identity.",
+  "inputs": [
+    {
+      "path": "/workspace/settlements-raw/data/raw/2002/011_f46bbaadfd_02c_Orlovskaja.xls",
+      "sha256": "62db545028449664bc22fae08d95e9478a4eb3c9b79ba8ae35e4f8606bb578d0"
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2010/010_711691e352_2._20Kostrom_Kur_Lip_Moscow_MoscObl_Orlov_2010.xls",
+      "sha256": "cf5b5d57327bf0d32723a7f49bb58db503a201af83a6e2bda4b874986f864167"
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2021/050_e60b41b2e2_Орловская_54_lg.xlsx",
+      "sha256": "33b14587b41b293905a078f5ec2a7a8ce0b3cd74cb4275aa2e0bbdee284a2e8f"
+    },
+    {
+      "path": "research_rebuild/evidence/over1000_rest_B_20261009/all178_dispositions_v2.csv",
+      "sha256": "57c24aeeebc442bef9df0d613e27716adb3fd20fb95b2c480b30b517b14dd733"
+    },
+    {
+      "path": "research_rebuild/evidence/over1000_rest_B_20261009/version3_shosseynoe/all178_dispositions.csv",
+      "sha256": "de57fbc1a6206a2866f8557862489f0fe5b14feb77455a5dea6596336a4491d6"
+    },
+    {
+      "path": "research_rebuild/evidence/main_axis_residual_application68_20261008/applied_point_snapshot.parquet",
+      "sha256": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502"
+    },
+    {
+      "path": "research_rebuild/evidence/main_axis_residual_application68_20261008/applied_point_snapshot.parquet",
+      "sha256": "b0909dbd10194107effe2d16592ac433e2beafcdd14fc7b3c763691b86613502",
+      "locator": "actual68 point snapshot; low rival UID 93103 point claim"
+    }
+  ],
+  "outputs": {
+    "all178_dispositions.csv": "efd49023f5580fe177cae14c26a6e03d6f48cd5538d7cea62ee6e94863bb0c3b",
+    "source_row_witnesses.csv": "ce9ebdf738dbdf3cce7fb6622f80373e775f3b6886b5c83e5ff8893235408354",
+    "point_rejections.csv": "13e78000634fce64772058c5f5c3e04dff5a8996ba546dc7d2e29804eae1abc5",
+    "source_pins.json": "1e31e2a0c8d9437415bc17a82260349a9dc04ac06773b4bce9009373a5f4e983",
+    "accepted_point_use_delta.csv": "2bcab8599bc2e0cbfac7387b6b9fff7c0dd1d30020aa9568e26457db5255a8c6",
+    "accepted_identity_edge_delta.csv": "bc53434a60778b93c6f1378d01f65f2da849412a6b0a164a56f439c09f34c7f2"
+  }
+}

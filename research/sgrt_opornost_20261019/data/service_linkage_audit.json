@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "author": "anchor_data; demographic axis author",
+  "edges": 79,
+  "both_linked": 72,
+  "distinct_linked_origins": 72,
+  "linked_provider_nodes": 15,
+  "origin_status": {
+    "exact_name_region_municipal_label_unique": 72,
+    "not_in_three_census_cohort_exact_context": 7
+  },
+  "destination_status": {
+    "exact_name_region_municipal_label_unique": 79
+  },
+  "inventory_nodes": 32,
+  "linked_inventory_nodes": 29,
+  "identity_normalization": "case/whitespace/ё-to-е/dash; region administrative suffix and municipal legal-type words removed; no adjectival stemming, no fuzzy match, no distance",
+  "municipal_territory_continuity": "not independently established between source dates and 2021; exact named-context used only for identity disambiguation",
+  "provider_inventory_not_selected_by_external_edge_outdegree": true,
+  "validation_status": "post_development_external_not_blind_holdout",
+  "input_sha256": {
+    "anchor_research_20261019/data/point_axis.parquet": "a2b5544c0d3c5581144a5439113a96c4a771697dc87a38c2abf979e1ead1467b",
+    "anchor_research_20261019/services/service_edges.csv": "ee33dfa17de77fd5fbf465833e1d4562d25a796bb5d02609d3a4f123f8259b92",
+    "anchor_research_20261019/services/school_feature_nodes.csv": "621ca6e6c422dda16f0d00474b1e942ecf51f3798f026e5b6d5c4de76f5736c5",
+    "anchor_research_20261019/services/school_inventory.csv": "58b31c958bc8671b319a31a15f0209e5aa14f96fd5c2b29ee11cb80c90cca02c"
+  },
+  "checks": [
+    {
+      "test": "every_source_edge_retained",
+      "passed": true
+    },
+    {
+      "test": "no_duplicate_edge_ids",
+      "passed": true
+    },
+    {
+      "test": "no_ambiguous_origin_accepted",
+      "passed": true
+    },
+    {
+      "test": "no_ambiguous_destination_accepted",
+      "passed": true
+    },
+    {
+      "test": "all_inventory_nodes_retained",
+      "passed": true
+    },
+    {
+      "test": "only_existing_UIDs",
+      "passed": true
+    }
+  ]
+}

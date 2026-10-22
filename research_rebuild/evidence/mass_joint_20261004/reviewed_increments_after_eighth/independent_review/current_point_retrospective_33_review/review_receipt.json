@@ -1,0 +1,193 @@
+{
+  "status": "independent_current_point_retrospective_review_complete_candidate_only",
+  "review_script_path": "/workspace/settlements-work/continuation_20261004/independent_review/current_point_retrospective_33_review/review_current_point_retrospective_33.py",
+  "review_script_sha256": "86ca47330481a3fdd601ce6ce83b2b6eadab0c893778afb35b737f73381c462d",
+  "candidate_path": "/workspace/settlements-work/continuation_20261004/R4/full_chain_missing_point_seventh/current_accepted_point_retrospective_candidates_v1.csv",
+  "candidate_sha256": "c3547d50cf67484f87519790e3c9910f3b22172929b782de661e5e7d62cffe69",
+  "candidate_receipt_path": "/workspace/settlements-work/continuation_20261004/R4/full_chain_missing_point_seventh/retrospective_candidate_receipt.json",
+  "candidate_receipt_sha256": "75526020216c8036a3290984b29904825f321b604951ffb240ef612e9fe5b2b0",
+  "candidate_rows": 33,
+  "eligible_rows": 29,
+  "held_rows": 4,
+  "eligible_years": {
+    "2010": 28,
+    "2002": 1
+  },
+  "eligible_historical_population": {
+    "2002": 40398.0,
+    "2010": 192292.0
+  },
+  "source_selected_endpoint_rows_replayed": 65,
+  "selected_source_mismatches": 0,
+  "identity_path_edge_references": 33,
+  "identity_path_edges_found_and_accepted": 33,
+  "current_point_carrier_rows_replayed": 32,
+  "current_point_targets_replayed": 32,
+  "canonical_current_point_statuses": {
+    "reviewed_rule_accepted": 7,
+    "reviewed_extension_rule_accepted": 22
+  },
+  "exact_current_point_coordinate_origin_matches": 29,
+  "raw_point_origin_rows_replayed": 29,
+  "raw_point_origin_families": {
+    "wikidata_claim_rows": 22,
+    "tochno_raw_parquet_rows": 5,
+    "geonames_raw_member_lines": 2
+  },
+  "hard_source_flags_among_eligible": 0,
+  "held_historical_legacy_conflict_rows": 4,
+  "old_global_point_block_targets_in_packet": 5,
+  "old_global_point_block_targets_preserved": 5,
+  "global_point_block_list_mutated": false,
+  "scoped_rule": "Use only an already accepted current 2021 physical representative point on an existing accepted full-chain same-place component, paired to the exact selected historical additive NP source record. This is a retrospective continuity assumption only; do not claim historic provider-ID binding, measurement date, coordinate accuracy, or boundary/population comparability. For the two Vyazniki rows, the independently reopened Q134296 P625 claim is the exact accepted carrier origin. Existing global point-reuse blocks remain intact for old routes; these point rows are scoped supplemental uses only.",
+  "limitations": "Candidate source identity, population values, and old provider binding are unchanged. Four source-evidence legacy administrative-conflict rows remain held. Component continuity is accepted existing graph evidence, not a new identity adjudication. Date/boundary comparability are unknown/false. Optional admission booleans do not override canonical reviewed_rule_accepted or reviewed_extension_rule_accepted status.",
+  "input_sha256": {
+    "/workspace/settlements-work/continuation_20261004/R4/full_chain_missing_point_seventh/current_accepted_point_retrospective_candidates_v1.csv": "c3547d50cf67484f87519790e3c9910f3b22172929b782de661e5e7d62cffe69",
+    "/workspace/settlements-work/continuation_20261004/R4/full_chain_missing_point_seventh/retrospective_candidate_receipt.json": "75526020216c8036a3290984b29904825f321b604951ffb240ef612e9fe5b2b0",
+    "/workspace/settlements-work/continuation_20261003/blocked_point_reuse_targets_v1.json": "7a715254f965d996541001d08d3422828299f5c300dfae4cbe78b79f9a5b0e70",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_seventh_reviewed/accepted_identity_edges.parquet": "18bf1edd259808c9e881ac11fa40be26c88be4fb27e1ac735c59e083d6dcd312",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_seventh_reviewed/accepted_point_uses.parquet": "2215702e772417bb512da8c0a6c0d31ad9783c6a5345d4c0bbfe18403e11ad22"
+  },
+  "outputs": {
+    "eligible_retrospective_point_uses.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/current_point_retrospective_33_review/eligible_retrospective_point_uses.csv",
+      "sha256": "2759a10cfea80d6b1392b0bfb86c411476fae107ffef3122a5f6cd3f6e173e25",
+      "rows": 29
+    },
+    "held_retrospective_point_candidates.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/current_point_retrospective_33_review/held_retrospective_point_candidates.csv",
+      "sha256": "43a2b5408c99714b6751308779cb1f16e8b94b07298caa9db7aee460f354f2f3",
+      "rows": 4
+    },
+    "raw_point_origin_replay.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/current_point_retrospective_33_review/raw_point_origin_replay.csv",
+      "sha256": "38b725106d86aa42bb3fb3286f1d163fc55f134e3948af1a03905c0538173d14",
+      "rows": 29
+    }
+  },
+  "held_rows_detail": [
+    {
+      "historical_source_record_id": "2010:005_888282bccc_13._20Краснодарский_край_2010.xls:КК:1717",
+      "year": "2010",
+      "name": "Орел-Изумруд",
+      "hard_flags": {
+        "is_additive_settlement_record": true,
+        "is_federal_aggregate": false,
+        "legacy_identity_conflict": true,
+        "legacy_identity_reasons": "[\"administrative_conflict\"]",
+        "legacy_same_year_collision": false,
+        "legacy_verified_successor_settlement_id": null,
+        "population_scope": "settlement",
+        "population_value_quality": "secondary_confidentiality_protected_value_exact_scope_unverified"
+      },
+      "status": "held_existing_source_evidence_hard_flag"
+    },
+    {
+      "historical_source_record_id": "ROSSTAT2010:T5:p207:l21",
+      "year": "2010",
+      "name": "Уптар",
+      "hard_flags": {
+        "is_additive_settlement_record": true,
+        "is_federal_aggregate": false,
+        "legacy_identity_conflict": true,
+        "legacy_identity_reasons": "[\"administrative_conflict\"]",
+        "legacy_same_year_collision": false,
+        "legacy_verified_successor_settlement_id": null,
+        "population_scope": "settlement",
+        "population_value_quality": "reviewed_primary_reported_value"
+      },
+      "status": "held_existing_source_evidence_hard_flag"
+    },
+    {
+      "historical_source_record_id": "2010:005_888282bccc_13._20Краснодарский_край_2010.xls:КК:1701",
+      "year": "2010",
+      "name": "Вардане-Верино",
+      "hard_flags": {
+        "is_additive_settlement_record": true,
+        "is_federal_aggregate": false,
+        "legacy_identity_conflict": true,
+        "legacy_identity_reasons": "[\"administrative_conflict\"]",
+        "legacy_same_year_collision": false,
+        "legacy_verified_successor_settlement_id": null,
+        "population_scope": "settlement",
+        "population_value_quality": "secondary_confidentiality_protected_value_exact_scope_unverified"
+      },
+      "status": "held_existing_source_evidence_hard_flag"
+    },
+    {
+      "historical_source_record_id": "2010:005_888282bccc_13._20Краснодарский_край_2010.xls:КК:1747",
+      "year": "2010",
+      "name": "Татьяновка",
+      "hard_flags": {
+        "is_additive_settlement_record": true,
+        "is_federal_aggregate": false,
+        "legacy_identity_conflict": true,
+        "legacy_identity_reasons": "[\"administrative_conflict\"]",
+        "legacy_same_year_collision": false,
+        "legacy_verified_successor_settlement_id": null,
+        "population_scope": "settlement",
+        "population_value_quality": "secondary_confidentiality_protected_value_exact_scope_unverified"
+      },
+      "status": "held_existing_source_evidence_hard_flag"
+    }
+  ],
+  "scoped_preexisting_block_rows": [
+    {
+      "historical_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_4:29",
+      "name": "Вязники",
+      "year": "2010",
+      "current_carrier": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:1464",
+      "carrier_provider_id": "Q134296",
+      "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0008.jsonl.gz",
+      "origin_sha256": "14e5efee5e0106aef3014c77102cd8cc80a4c6f799887e204539e3ea3d4ff9a5",
+      "origin_locator": "batch_0008.jsonl.gz:line=12272;entity=Q134296;claim=P625",
+      "prior_block_preserved": true
+    },
+    {
+      "historical_source_record_id": "2002:1_TOM_01_04.xls:0:252",
+      "name": "Вязники",
+      "year": "2002",
+      "current_carrier": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:1464",
+      "carrier_provider_id": "Q134296",
+      "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0008.jsonl.gz",
+      "origin_sha256": "14e5efee5e0106aef3014c77102cd8cc80a4c6f799887e204539e3ea3d4ff9a5",
+      "origin_locator": "batch_0008.jsonl.gz:line=12272;entity=Q134296;claim=P625",
+      "prior_block_preserved": true
+    },
+    {
+      "historical_source_record_id": "2010:004_486e984bdc_12._20Астр_Волгог_Ростов.xls:Южный:240",
+      "name": "Бахаревский",
+      "year": "2010",
+      "current_carrier": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118993",
+      "carrier_provider_id": "Q27536208",
+      "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0096.jsonl.gz",
+      "origin_sha256": "f9fb312fe8b5f72b02abc779f710eebca0e1c0316db663951341054efd388818",
+      "origin_locator": "{\"line_number\": 8222, \"locator\": \"batch_0096.jsonl.gz#line=8222\", \"retrieved_at_utc\": \"2026-08-31T20:59:07.643702+00:00\", \"source_file\": \"batch_0096.jsonl.gz\", \"value_raw\": \"POINT(47.954550 46.807405)\"}",
+      "prior_block_preserved": true
+    },
+    {
+      "historical_source_record_id": "2010:012_5c339c0d0e_4._20Vologod_pskov_2010.xls:Data Sheet:4806",
+      "name": "Светлый Ключ",
+      "year": "2010",
+      "current_carrier": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:10707",
+      "carrier_provider_id": "Q14620442",
+      "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0012.jsonl.gz",
+      "origin_sha256": "25216db47b2236eb9313ad99883e8db7620b65c70086a8b2aaa93e6069221384",
+      "origin_locator": "{\"line_number\": 12345, \"locator\": \"batch_0012.jsonl.gz#line=12345\", \"retrieved_at_utc\": \"2026-08-31T20:57:23.616536+00:00\", \"source_file\": \"batch_0012.jsonl.gz\", \"value_raw\": \"POINT(45.450000 59.500000)\"}",
+      "prior_block_preserved": true
+    },
+    {
+      "historical_source_record_id": "2010:017_68e0e4537e_9._20Basq_Mari_Mord_Tatar_Udm_Chuv_2010.xls:!!!:11904",
+      "name": "Подгорная",
+      "year": "2010",
+      "current_carrier": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:156877",
+      "carrier_provider_id": "Q12145945",
+      "origin_file": "/workspace/settlements-raw/data/raw/wikidata_truthy_claims/batch_0006.jsonl.gz",
+      "origin_sha256": "1e70018733ade66f7436c1ae042f91e40e931ca867f4fa8d616ac328e1053af9",
+      "origin_locator": "{\"line_number\": 9007, \"locator\": \"batch_0006.jsonl.gz#line=9007\", \"retrieved_at_utc\": \"2026-08-31T20:57:16.040450+00:00\", \"source_file\": \"batch_0006.jsonl.gz\", \"value_raw\": \"POINT(52.598333 56.662778)\"}",
+      "prior_block_preserved": true
+    }
+  ]
+}

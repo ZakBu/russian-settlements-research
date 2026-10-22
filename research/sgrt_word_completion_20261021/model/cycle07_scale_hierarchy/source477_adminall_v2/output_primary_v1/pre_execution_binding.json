@@ -1,0 +1,139 @@
+{
+  "numeric_cache_source_hashes": {
+    "cache_receipt.json": "c6814fec0cd03d2b826c52f3e2b1df2dc5e248c7b61c4d5802f3bd5510cdc942",
+    "routes_180.npz": "7e492de3853ac3a1fe74ed503ea94ac4c3188d18841c4857857b8edf6954d997",
+    "origin_mapping.parquet": "dac0aac7ef2e12d75ea2c79f281630b4dc7c504e537e6c7cbd92ba2506cc916c",
+    "provider_mapping.parquet": "328247bfaee753e84a6e63fc8d4285347708426bd1e7183d6f0d882834b42c5b"
+  },
+  "scenario": "primary",
+  "scenario_parameters": {
+    "tau": 60,
+    "gamma": 1,
+    "symmetry": "reciprocal",
+    "extended180": false
+  },
+  "protocol_sha256": "595c741c4fcd68d3135b168911703727057865dd37fd95a8cccf90d03b5fbf6b",
+  "protocol": {
+    "status": "PREMETRIC_NEW_SOURCE_AND_DOMINANT_CORE_POLICY_PENDING_EXECUTABLE_REVIEW",
+    "seed": 20261021,
+    "source_nodes": "model_inputs_cycle07/institutional_mass477_v2/computed/effective_full_nodes.parquet",
+    "source_own_mass": "model_inputs_cycle07/institutional_mass477_v2/computed/fixed_own_mass_components.parquet",
+    "matrix_manifest": "transport/cycle07_geography_recovery_extension/candidate_travel_times_manifest.json",
+    "matrix_sha256": "11c0be3a5b9c2dd6e8980e254352f93bd971b08493c570b6734b1d616d2102f5",
+    "dated_extent_frame": "additive ordinary native source_record_id_2021 notnull and population2021 observed, including known zero; historical-only rows retained in whole memberships but separately outside native extent; native missing population/coordinates/route counted unknown and never zero",
+    "initial_provider_pool": {
+      "routing_universe": "combined dated2021 accepted routing destination mapping; active provider membership is independent admittedsource eligibility intersectionaccepted origin/destination, never allroutingtargets",
+      "ordinary_eligibility": "Independently admitted full source-dated2021 provider ledger: native additive knownownP and positivefixedMi plus physicalfunctions OR ALL local/upper documented municipal administrative seats OR statisticalurban role",
+      "external_eligibility": "two explicitly documented ctx:RU-FED-MOW and ctx:RU-FED-SPB context anchors; own NP population remains unknown; fixed context-scaled mass proxy separately marked",
+      "positive_mass": "finite strictly-positive source-fixed own_positive_mass; mass_uses_modeled_catchment must be false",
+      "coverage": "all eligible unrouted source providers retained in an exclusion/source-gap ledger; outside active routing/provider pool is unknown service coverage, not absence",
+      "reason_per_id_required": true
+    },
+    "local_attachment": {
+      "rule": "directed bounded NP-to-active-provider conditional gravity; protect actual provider cores, other included native source NP chooses maximum gravity within current envelope; ownMi remains fixed; unobserved/unsupported NP retained atomic residual, never invented provider",
+      "initial_envelope_minutes": 30,
+      "later_residuals": "previously residual atomic units may attach at later candidate caps only with actual directed leaf witness and complete union common-core envelope; previously formed children remain whole",
+      "large_city_core_kind": "explicit provider_core_seed/large-city source context; no interpretation of every atomic provider as tiny local village"
+    },
+    "conditional_potential_q": {
+      "formula": "g_ij=Mi_j*exp(-direct_minutes_ij/tau); q_ij=g_ij/sum_k(g_ik) over SAME active provider pool and SAME direct-time budget",
+      "uniform_budget_minutes": 180,
+      "tau_minutes": 60,
+      "tau_sensitivity": [
+        30,
+        90
+      ],
+      "self": "exclude same canonical ID from denominator and interprovider graph; own core retained structurally, not treated as a trip",
+      "outside_option": "none; explicitly conditional on observed bounded provider field, not unconditional destination probability",
+      "missing": "unknown outside bounded or source coverage; q is not observed commuting, never infer nonexistent flow from missing provider index",
+      "symmetry": "w_ij=sqrt(q_ij*q_ji), require both directed source witnesses; save both q values and directed times",
+      "oneway_sensitivity": "max(q_ij,q_ji) on union of observed directed support; missing direction retained NA, never relabeled measured zero"
+    },
+    "aggregate_objective": {
+      "S": "sum_i degree_i = 2*sum unordered atomic w_ij, fixed original graph",
+      "K_A": "sum ORIGINAL degrees of provider seeds in current unit A",
+      "W_AB": "sum unordered original atomic affinities with one endpoint in A and one in B; recompute by exact additive adjacency updates after every union",
+      "delta_Q": "2*W_AB/S - 2*gamma*K_A*K_B/S^2",
+      "gamma": 1,
+      "gamma_sensitivity": [
+        0.5,
+        2
+      ],
+      "merge_choice": "greatest strictly positive admissible delta_Q, lexical stable unit IDs tie-break; lazy priority queue exact; rejected pair can be reconsidered after endpoint union",
+      "not_attributed_algorithm": "weighted modularity objective adapted from Newman-Girvan; this constrained agglomerative potential-graph algorithm is our engineering, not original divisive algorithm or OECD FUA procedure",
+      "source_witness": "every accepted event retains W_AB,K_A,K_B,S,delta_Q,Q,child IDs,source-edge reconstruction keys and actual common core envelope witness",
+      "graph_support": "q denominators use unchanged uniform180-minute active-provider field; at each candidate cap, provider affinity support additionally requires each observed directed contributing route within THAT cap (reciprocal primary requires both directions).",
+      "fixed_graph_scope": "S, original atomic degrees and Q null graph are fixed WITHIN each candidate cap. Candidate-cap support graphs differ, so absolute Q and Q-curve heights are NOT directly comparable across caps; each knee is fitted only within its own cap path."
+    },
+    "extent": {
+      "candidate_caps_minutes": [
+        30,
+        45,
+        60,
+        90,
+        120
+      ],
+      "extended_sensitivity_minutes": 180,
+      "primary_360_forbidden": true,
+      "core": "Dominant_source_core: choose strongestFIXEDMi among ALL originalproviderseeds before feasibility, same descendingknownownP then canonicalIDties. Requirethat exactdominantcore directmemberenvelope forallincludednative source members; rejectunion otherwise. NEVER substituteweaker geometry-feasible center orrelaxcap. ParentfixedMi nondecreasing; preservewholechildren.",
+      "whole_child_union": true,
+      "historical_ledger": "historical-only memberships preserved outside dated extent and reported explicitly; strict full-axis extent is a separate conservative indicator",
+      "unknown": "included native member with unknown direct route cannot support affirmative complete envelope; beyondcap distinct from missing",
+      "morphology": "settlement point network, no invented polygons or claimed continuous built-up morphology"
+    },
+    "retention": {
+      "caps_are_not_levels": true,
+      "path": "publish full positive admissible-merge dendrogram and Q at every merge for each candidate cap; continue next cap from previous full supported forest, so every candidate cut is nested",
+      "knee": "piecewise linear SSE vs merge index, common breakpoint; min each side=max(10,ceil(.05*n_merges)); earliest index tie; relative SSE improvement>=.25; explicit no-knee for flat/linear/short/unstable paths",
+      "bootstrap": "50 fixed-seed geographic-region weight perturbations: multinomial(R;1/R) ordinary-region counts; edge weight multiplied sqrt(b_region_i*b_region_j); context-only anchor multiplier1; fixed ownMi and source graph. This is conditional graph stability, not probability CI",
+      "comparison": "re-run full constrained coalescence for each weighting and cap. ARI on common positive-weight provider seeds; report compared source-seed count/population/region coverage; at least20 comparable seeds and at least2comparison clusters or replicate unassessable",
+      "stable_cut": "at least40/50 meaningful assessable knees; medianARI>=.8,p10ARI>=.6,knee merge-fraction IQR<=.15 conditional on that explicit assessable>=80% subset; ALL50 statuses/failure reasons/coverage retained, failure ARI staysNA; strict50/50 separately reported sensitivity, not primary veto",
+      "levels": "retain only distinct nested admitted stable knee partitions, ordered bottom-up; no imposed number, no target city population bins",
+      "fallback": "If no stable meaningful knee, publish ALL five supported operational-resolution forests (30/45/60/90/120) with main overview60, all equally inspectable, every actual unit typed; no fake numbered empirical levels. Preserve true source ancestry depth separate from functional rank."
+    },
+    "source_population": "own focal actual core; rural excludes exact focal set; whole additive memberships counted once; preserve 2002/2010/2021 missing/zero/quality/geography flags and separate external own-P unknown",
+    "typology": "every actual territorial unit at each retained resolution gets measured profile type; atomic carry/context records counted separately; Word9 annotations retained rather than forced exhaustive nine classes",
+    "no_national_execution_until": "guardian actual code+sourcepool admission; protocol source pins and candidate pool reason ledger frozen before graph objective outcomes",
+    "numerical_boundary_contract": {
+      "minutes_tolerance": 0.0001,
+      "comparison": "convert observed float32 source minutes to float64 BEFORE comparison with float64(cap)+1e-4 in cache, local field, provider graph, feasible-core sets and positive envelope check",
+      "source_only_correction": "four180.00010681152344 records admitted by priorfloat32-rounded threshold are excluded in sourcecacheV2; oldsourcecacheV1 preserved; no hierarchy outcomes were read"
+    },
+    "execution_witnesses": {
+      "all_50_provider_labels_and_objective_curves": true,
+      "memory": "per-cap exports and memoization release; source node projection only; preserve complete RNG prefix on resume",
+      "source_only_changes": "477 admittedcoordinate/relinkedfeatures/fullglobalMi recomputation plus all dated localadmin eligibility;353primary2010 qualityoverlay notmassinput"
+    },
+    "prospective_estimand_change": {
+      "source_frozen_baseline_retained": "Oldsource geometry-constrained forests permit weaker feasiblecenters and are retained as oldestimand, NEVER renamed SPBagglomeration",
+      "new_primary": "Dominant source-core boundedpotentialforests",
+      "adjudication_before_new_national_outcomes": true,
+      "reason": "ActualSPB-containingcap60 unitfocalStaraMi15.7645vsSPB6317 geometrydemotion; substantivecentralitymustnotfollow mere geometriccoverage",
+      "fixed_scientific_fields": "Same q/tau/gamma/S/degrees/aggregate\u0394Q/knee/bootstrap/cap schedule; onlyunioncoreadmissibilitychanged",
+      "actual_counterexample_ledger_sha256": "eedb6d3fe374dbb0f0a3698748bfe4cd28a6e8f3157f6c470516f056651c126b",
+      "previous_rule": "Strongest source core AMONG geometry-feasible provider seeds; could demote an included metropolis",
+      "new_rule": "Strongest source core among ALL sourceproviderseeds chosen BEFOREgeometry feasibility; rejectunion if thatdominantcore fails",
+      "no_new_primary477_national_outcomes_inspected": true
+    }
+  },
+  "inputs": {
+    "reviews/cycle07_mass_pool477_v2_independent/combined_admission.json": "596155ea79b0bdd4eb4c6ea5102eeb582098e1746b6170e9eb20cdc81ed81481",
+    "reviews/cycle07_matrix477_independent/combined_admission.json": "f3d2c6b6cdc8a62346b5ea92728610c9c60c7010decfe4c251124751447bdcd8",
+    "model_inputs_cycle07/cycle07_source_mass_pool_admitted_handoff.json": "ddb391b3918c4be431c63b0638e4683f1d632d1a77872b28f9a619982179c36a",
+    "model_inputs_cycle07/institutional_mass477_v2/computed/effective_full_nodes.parquet": "e006d91a1250576020131da66a1a420f76f55cf3a9b8cae5fd5009f36889ad04",
+    "model_inputs_cycle07/institutional_mass477_v2/computed/fixed_own_mass_components.parquet": "64a2684e998ff1d44ae8028683623c42a60019022f421dcd2b5ba38d8fbe6bd4",
+    "transport/cycle07_geography_recovery_extension/candidate_travel_times_manifest.json": "11c0be3a5b9c2dd6e8980e254352f93bd971b08493c570b6734b1d616d2102f5",
+    "model/cycle07_scale_hierarchy/source477_adminall_v2/source_provider_pool/active_provider_pool.parquet": "328247bfaee753e84a6e63fc8d4285347708426bd1e7183d6f0d882834b42c5b",
+    "model/cycle07_scale_hierarchy/source477_adminall_v2/source_provider_pool/provider_pool_receipt.json": "a56576d70fa410eb6bbd51a7947f47fc64fbcf36eb633ff42fb98017d7419542"
+  },
+  "execution_sources": {
+    "run.py": "bde896097d9c1c6b9ef828e7756a3485ae747eaed33c7e178ec015248d5463c5",
+    "route_field.py": "d524138d934b2851519f22a2cb05d7402bb526703662aca18e52b2de12dfd346",
+    "forest.py": "1ed775810f2f2442ddce429560158ec81d7845e8f6e5f0fa4b3915e60c99a194",
+    "aggregate_modularity.py": "747c3f1ee548a82ee08532ad5ec2d9a460b5b9f5d680769b4998957a20f1de19",
+    "select_cuts.py": "b2fe5e0796c9c2e7d59b9be834c61e163e0e949a2ccbb5333153d699e598c66a",
+    "matrix_query.py": "f49fe3ffc7e18c5e6b50e580ad40d380c22e852306766744a336920d5ba2d232",
+    "build_provider_pool.py": "afd314edc462576f74e770a8c8f63567a583c62e025fd6708f0d9368d4d35adf"
+  },
+  "new_national_outcomes_read": false
+}

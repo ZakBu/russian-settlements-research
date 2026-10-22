@@ -1,0 +1,39 @@
+{
+  "status": "independent_finite_point_use_review_candidates_only_no_admission",
+  "scope": "Reopened the exact six Pokachi/Yuzhny point-use candidates, old selected row evidence flags/source hashes/locators, current raw publisher coordinates, accepted graph path records, and each point-source origin. This packet does not alter canonical data.",
+  "counts": {
+    "candidate_point_uses_replayed": 6,
+    "Pokachi_point_uses": 3,
+    "Yuzhny_point_uses": 3,
+    "eligible_scoped_point_use_candidates_pending_root_application": 6,
+    "canonical_point_uses_admitted": 0,
+    "identity_or_population_mutations": 0
+  },
+  "findings": {
+    "Pokachi": "The directly decoded GeoKLADR OKATO 2011 DBF record 121362 is Покачи, city (г), TER 71, raw OKATO 71184000000, at 61.743937,75.596928. The direct current raw publisher point at 61.7422837,75.5940895 is about 0.237 km away. Two cached Wikidata P625 alternatives are retained as conflicts and not used. This checks a retrospective named physical-place point source; it does not bind an OKATO/provider identifier over time or date the coordinate to either census.",
+    "Yuzhny": "Cached Q1669677 has exact RU name Южный, RU description “рабочий посёлок” in Altai Krai, physical P31 Q20019082, one live P625 at 53.25,83.683333, and same-year P1082 statements equal to selected 2002/2010/2021 populations. The direct current raw source coordinate is about 0.773 km away. The same-year Wikidata counts are corroboration only. The direct native OKTMO 1701000056 and P764 01701000056 remain different raw strings; no numeric padding/code/provider-binding equivalence is asserted. The old GeoKLADR point 54.010621,83.422049 is 86.314 km away and rejected for this candidate.",
+    "all_six": "Four historical-to-2021 rows retain the exact already-reviewed one-edge accepted identity paths; the two 2021 self rows have no edge path. All source evidence flags say additive settlement, not federal aggregate, no legacy conflict, no same-year collision, no verified successor event. Historical/current population source rows and values are preserved."
+  },
+  "limits": [
+    "No coordinate measurement date or census-date observation asserted.",
+    "No historical population boundary comparability asserted and no population value changed.",
+    "No native provider-ID binding inferred from point proximity or code appearance.",
+    "Q1669677 P1082 values are corroboration only; they do not replace any selected source value.",
+    "Pokachi Wikidata P625 alternatives and Yuzhny rejected GeoKLADR point remain explicitly preserved."
+  ],
+  "inputs": {
+    "/workspace/settlements-work/continuation_20261004/R4/full_chain_missing_point_seventh/named_physical_point_recovery_v2/candidate_point_uses.csv": "50008fe3cd85b76abff3fdb4705e0310db79c785ddfaa5f7ec7a0ab0673345f7",
+    "/workspace/settlements-work/continuation_20261004/R4/full_chain_missing_point_seventh/named_physical_point_recovery_v2/receipt.json": "c4799777f521a790101987173b205c24f15e9a95249d7047d66c074b1bd3cedd",
+    "/workspace/settlements-work/continuation_20261004/R4/full_chain_missing_point_seventh/named_physical_point_recovery_v2/Q1669677.json": "05efe4c032eacb0d3e353404c6583ef6598b75414171789162a1bb22ceb2b82f",
+    "/workspace/settlements-raw/data/interim/2021_tochno/data_allsettlements_anon_156_v20251217.parquet": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+    "/workspace/settlements-raw/data/raw/2010_official_tom11/pub-11-1-4.pdf": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+    "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3"
+  },
+  "output": {
+    "path": "/workspace/settlements-work/continuation_20261004/independent_review/pokachi_yuzhny_point_use_review/eligible_scoped_point_use_candidates.csv",
+    "sha256": "4d2b58d29dc61ccaf8bc96c05843415f147d1c2e141be9ade6259f5d6912ef89",
+    "rows": 6
+  }
+}

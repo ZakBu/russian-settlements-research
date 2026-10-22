@@ -1,0 +1,36 @@
+{
+  "status": "independent_bounded_fixed10_primary_source_review_complete",
+  "sample_path": "research_rebuild/evidence/next67_primary_source_routes/fixed10_primary_claim_review.csv",
+  "sample_sha256": "4b9a425812f78305b8cd7731dcf88cbe93dcf127f6b40625bcd01ee5f30c3dae",
+  "sample_selection": "producer fixed deterministic: top5 positive delta, top3 negative delta, smallest2 official counts; deduplicated",
+  "review_method": "opened official primary XLS/MHT bytes directly and checked all ten exact cited settlement rows, literal count/sex cells, printed county header row, plus all ten underlying imported 2010 rows and pinned stage66 accepted UID roster; did not import producer scripts or load State",
+  "source_table_scope": {
+    "Perm": "XLS `01-04`, title explicitly includes municipal units, urban/rural settlement units and populated places; row2 says results of 2010 All-Russian census. Administrative rows and totals are not credited as NP records. 3699 classified proper NP rows; numeric NP values sum to official regional total 2635276 after excluding indent-4 inter-settlement administrative parents and retaining deeper physical-NP children; dash stays NULL.",
+    "Prim": "MHT embedded sheet001, census dated 14 Oct 2010 in title. Title explicitly includes municipal units and urban/rural populated places. 659 proper-NP rows; includes literal маяк/железнодорожный разъезд captions as proper NP types, with 11 numeric and 2 dash values. Sum of 648 numeric proper-NP values closes to regional 1956497; municipality/subtotal rows are not treated as NPs."
+  },
+  "result_counts": {
+    "direct_primary_rows_checked": 10,
+    "literal_caption_count_and_sex_cells_match": 10,
+    "literal_county_header_context_rows_match": 10,
+    "old_import_rows_hash_and_literal_cells_match": 10,
+    "source_to_existing_stage66_UID_credit": 9,
+    "outside_stage66_UID_credit_but_source_population_binding_candidate": 1
+  },
+  "population_source_binding_not_identity_proof": true,
+  "important_case": "Малая Романова source row and official count cells pass; this sample has no post66 entity UID and is not in the accepted UID roster. It remains outside existing identity credit; this does not invalidate same-census population-source matching and does not prove a new node/identity.",
+  "name_rival_note": "Красный Берег has a same-region different-type 2010 rural namesake (деревня, Кунгурский district) in the primary source inventory; the sampled поселок is uniquely typed and in Соликамский district. Thus typed-name and county binding are material. All other nine sampled literal official names/types each have one inventory row; 10-й км is normalized with hyphen separated.",
+  "limits": [
+    "Fixed ten is a mechanism check, not a national accuracy estimate.",
+    "No source-only identity, coordinates, lifecycle, or population update was applied.",
+    "Perm date caption gives census-year results but not a printed as-of day; the exact 14 Oct date is explicitly printed in Prim MHT. Both are direct 2010 census publications."
+  ],
+  "source_hashes": {
+    "research_rebuild/evidence/next67_primary_source_routes/fixed10_primary_claim_review.csv": "4b9a425812f78305b8cd7731dcf88cbe93dcf127f6b40625bcd01ee5f30c3dae",
+    "research_rebuild/evidence/next67_primary_source_routes/primary_claims_candidate_receipt.json": "bc997c522840b93d40446af4e4f9086bc5605c75cbdb7b78058184967f4bd066",
+    "research_rebuild/evidence/next67_primary_source_routes/primary_parse_receipt.json": "a41cfede30455eb583fdf50f3c50d1a8126af30cd539ae6845364b779728b228",
+    "research_rebuild/evidence/next67_primary_source_routes/perm_2010_original_archived.xls": "a9cbc026ef543ab2a3fd1e79eb2ba9cdf842457bb93217383a96baa208d271ed",
+    "research_rebuild/evidence/next67_primary_source_routes/prim_2010_original_archived.mht": "9aa794fece2c21fe3a72273cce3435490f38276f8d4558ae7399ece0751436ea",
+    "research_rebuild/evidence/next67_primary_source_routes/parsed_primary_2010_NP_inventory.csv.gz": "7615b244441d621229f26ce1cb4ea939ad7c19ad7816c18d0f5e1b4021e1d7e3",
+    "research_rebuild/evidence/main_axis_residual_application66_20261008/applied_primary_credited_UID_roster.csv.gz": "66bae9302059bebddbd7fb48c383a9411314201f424d53bfca57571fe816d4e6"
+  }
+}

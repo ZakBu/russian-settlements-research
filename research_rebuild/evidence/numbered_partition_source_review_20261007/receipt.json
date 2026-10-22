@@ -1,0 +1,38 @@
+{
+  "scope": "Selected numbered-part observation groups in census years 2002, 2010, 2021; raw source row replay and available official whole-row controls.",
+  "input": {
+    "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+    "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+  },
+  "official_sources": [
+    {
+      "path": "/workspace/settlements-raw/data/raw/2002_official_tom1/1_TOM_01_04.xls",
+      "sha256": "745a24599719c877a8ddf015aadf22d3cb859444819a32f8197ae525d91483f3",
+      "use": "2002 settlement-level whole population controls; Sheet 01-04 physical row locators, nearest district and subject context."
+    },
+    {
+      "path": "/workspace/settlements-raw/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "use": "2010 Tom 1 Table 1 text extracted with pdftotext -layout; line locators and nearest administrative context."
+    }
+  ],
+  "counts": {
+    "groups": 34,
+    "selected_part_rows": 66,
+    "complete_multi_part_sets": 32,
+    "complete_multi_part_sets_by_year": {
+      "2002": 19,
+      "2010": 9,
+      "2021": 4
+    },
+    "exact_2002_official_whole_groups": 12
+  },
+  "outputs": [
+    "partition_groups.csv",
+    "selected_partition_source_rows.csv",
+    "origin_partition_rows.csv",
+    "official_whole_row_candidates.csv",
+    "complete_2002_groups_exact_official_whole.csv"
+  ],
+  "non_mutation": "No selected observations, accepted graph, diary, commits, or source bytes changed."
+}

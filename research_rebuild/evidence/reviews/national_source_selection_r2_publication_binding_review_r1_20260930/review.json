@@ -1,0 +1,2349 @@
+{
+  "review_id": "national_source_selection_r2_publication_binding_review_r1_20260930",
+  "verdict": "PASS: accept 50 unique 2010 publication bindings; eligible to restore 54 pre-existing same_place edge records to replacement endpoints.",
+  "upstream_manifest_sha256": "19beeaaf0caab6dbb79c04046b43abc6fcc0884ff6c37668406344643ab9630f",
+  "input_hashes": {
+    "R2_manifest": {
+      "path": "/Users/zakbu/russian_cities/settlements_pipeline/research_rebuild/evidence/releases/national_source_selection_r2_regional_2010_20260930/release_manifest.json",
+      "sha256": "19beeaaf0caab6dbb79c04046b43abc6fcc0884ff6c37668406344643ab9630f",
+      "bytes": 9859
+    },
+    "packet": {
+      "path": "/Users/zakbu/russian_cities/settlements_pipeline/research_rebuild/evidence/releases/national_source_selection_r2_regional_2010_20260930/affected_identity_edges_publication_binding_review_packet.csv",
+      "sha256": "a6abf610ad86d8eb870be9df24efe5d100e01f494fe2bcd72092c048d966ac00",
+      "bytes": 86841
+    },
+    "Tom11_pdf": {
+      "path": "/Users/zakbu/russian_cities/settlements_pipeline/data/raw/2010_official_tom11/pub-11-1-4.pdf",
+      "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+      "bytes": 657985
+    },
+    "Tom1_pdf": {
+      "path": "/Users/zakbu/russian_cities/settlements_pipeline/data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+      "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+      "bytes": 15230814
+    },
+    "Murmansk_DOC": {
+      "path": "/Users/zakbu/russian_cities/settlements_pipeline/research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+      "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+      "bytes": 384000
+    },
+    "Kaliningrad_XLSX": {
+      "path": "/Users/zakbu/russian_cities/settlements_pipeline/research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+      "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+      "bytes": 306344
+    },
+    "Ark_HTML": {
+      "path": "/Users/zakbu/russian_cities/settlements_pipeline/research_rebuild/evidence/ingestion/arkhangelsk_2010_archived_page_audit_r2_region_join/arkhangelsk_2010_archived_original.html",
+      "sha256": "729fecf5845bd9f1e049c85b2659bfd077dfd2d2a01fecbc9d21cb83b7b9e486",
+      "bytes": 5947561
+    },
+    "Murmansk_component": {
+      "path": "/Users/zakbu/russian_cities/settlements_pipeline/research_rebuild/evidence/releases/2010_nw_primary_source_selection_proposals_r4_20260930/murmansk_2010_primary_population_selection_proposal.csv",
+      "sha256": "9dbdda25da3a40153eec246cb8da75df4a3b628637095040065bb8bbf9e5edcb",
+      "bytes": 197682
+    },
+    "Kaliningrad_component": {
+      "path": "/Users/zakbu/russian_cities/settlements_pipeline/research_rebuild/evidence/releases/2010_nw_primary_source_selection_proposals_r4_20260930/kaliningrad_2010_primary_population_selection_proposal.csv",
+      "sha256": "dcacb3c41807a7a81323783badcca65d28574a1acf029694ae4fbbaffc447132",
+      "bytes": 1365989
+    },
+    "Ark_component": {
+      "path": "/Users/zakbu/russian_cities/settlements_pipeline/research_rebuild/evidence/releases/arkhangelsk_2010_primary_selection_component_r1_20260930/arkhangelsk_2010_primary_selection_component.csv",
+      "sha256": "96857bb4943b2a66f1fedd018a7087fc884210f77afacd797fe97357ff9ae4fa",
+      "bytes": 3412675
+    }
+  },
+  "selection_scope_recomputed": [
+    {
+      "year": 2002,
+      "rows_R1": 158072,
+      "rows_R2": 158072,
+      "known_population_R1": 145155005,
+      "known_population_R2": 145155005,
+      "delta": 0,
+      "R2_null_rows": 0
+    },
+    {
+      "year": 2010,
+      "rows_R1": 152313,
+      "rows_R2": 152314,
+      "known_population_R1": 142172038,
+      "known_population_R2": 142202712,
+      "delta": 30674,
+      "R2_null_rows": 1
+    },
+    {
+      "year": 2021,
+      "rows_R1": 155414,
+      "rows_R2": 155414,
+      "known_population_R1": 147182123,
+      "known_population_R2": 147182123,
+      "delta": 0,
+      "R2_null_rows": 0
+    }
+  ],
+  "binding_summary": {
+    "packet_rows": 54,
+    "unique_displaced_2010_endpoints": 50,
+    "unique_replacement_2010_endpoints": 50,
+    "accepted_bindings": 50,
+    "held": 0,
+    "affected_identity_edges": 54
+  },
+  "binding_reviews": [
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_1:33",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R164",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-e91c3f3a6d53709b249faf50"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.1, extracted row 33",
+        "raw_line": "Апатиты Мурманская область 64405 59672",
+        "name": "апатиты",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 59672
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R164",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "городское население – г. Апатиты",
+        "name": "апатиты",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 59672,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_1:48",
+      "replacement_2010_source_record_id": "ROSSTAT2010:T5:p58:l12",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-12628fc2aa6619aa72a73bf2",
+        "YB49-BRIDGE-a3d3d5c7e18ea449aa169412"
+      ],
+      "affected_edge_count": 2,
+      "verdict": "accept_publication_binding",
+      "component": "arkhangelsk_nao",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.1, extracted row 48",
+        "raw_line": "Архангельск Архангельская область 356051 348783",
+        "name": "архангельск",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 348783
+      },
+      "replacement_source": {
+        "path": "data/raw/2010_official_tom1/tom-1-chislennost-i-razmeshchenie-naseleniya.pdf",
+        "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+        "record_id": "ROSSTAT2010:T5:p58:l12",
+        "locator": "ROSSTAT2010:T5:p58:l12",
+        "raw_label": "Городское население - г. Архангельск",
+        "name": "архангельск",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 348783,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": {
+        "locator": "Tom 1 Table 5 p.58, extracted row 12",
+        "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+        "raw_line": "Городское население - г. Архангельск 348783  155805  192978  44,7  55,3",
+        "direct_name_and_population_match": true
+      },
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_2:8",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0055",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-f85ec98f61f10d6f3fa7e6c6"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.2, extracted row 8",
+        "raw_line": "Багратионовск  Калининградская область 7216 6400",
+        "name": "багратионовск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 6400
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0055",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A55:F55",
+        "raw_label": "г. Багратионовск",
+        "name": "багратионовск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 6400,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_2:19",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0152",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-4019e6849cc0265198830408"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.2, extracted row 19",
+        "raw_line": "Балтийск  Калининградская область 33252 32697",
+        "name": "балтийск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 32697
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0152",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A152:F152",
+        "raw_label": "г. Балтийск",
+        "name": "балтийск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 32697,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_3:37",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr0065",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-a2ea6a8260006372507d496d"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "arkhangelsk_nao",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.3, extracted row 37",
+        "raw_line": "Вельск Архангельская область 26241 23885",
+        "name": "вельск",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 23885
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/arkhangelsk_2010_archived_page_audit_r2_region_join/arkhangelsk_2010_archived_original.html",
+        "sha256": "729fecf5845bd9f1e049c85b2659bfd077dfd2d2a01fecbc9d21cb83b7b9e486",
+        "record_id": "ARK2010:archive20131022:html_table1_tr0065",
+        "locator": "archive HTML table 1; source row 66",
+        "raw_label": "г. Вельск",
+        "name": "вельск",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 23885,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": {
+        "locator": "Tom 1 Table 5 p.58, extracted row 42",
+        "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+        "raw_line": "г. Вельск (рц) 23885  10604  13281  44,4  55,6",
+        "direct_name_and_population_match": true
+      },
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_4:35",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R194",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-7844772cf37500f25d0815dd"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.4, extracted row 35",
+        "raw_line": "Гаджиево Мурманская область 12180 11068",
+        "name": "гаджиево",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 11068
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R194",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "г. Гаджиево",
+        "name": "гаджиево",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 11068,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_4:39",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0171",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-54e575e13eb023b432b56b8d"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.4, extracted row 39",
+        "raw_line": "Гвардейск Калининградская область 14572 13899",
+        "name": "гвардейск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 13899
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0171",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A171:F171",
+        "raw_label": "г. Гвардейск",
+        "name": "гвардейск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 13899,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_5:10",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0242",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-5e42096989685f34b6d09b94"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.5, extracted row 10",
+        "raw_line": "Гурьевск Калининградская область 10913 12431",
+        "name": "гурьевск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 12431
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0242",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A242:F242",
+        "raw_label": "г. Гурьевск",
+        "name": "гурьевск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 12431,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_5:11",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0401",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-a7df14cadab60a10025c0b98"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.5, extracted row 11",
+        "raw_line": "Гусев Калининградская область 28467 28260",
+        "name": "гусев",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 28260
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0401",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A401:F401",
+        "raw_label": "г. Гусев",
+        "name": "гусев",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 28260,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:27",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R222",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-1ec474b60cb0b487dbd6d863"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.6, extracted row 27",
+        "raw_line": "Заозерск Мурманская область 12687 11199",
+        "name": "заозерск",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 11199
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R222",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "городское население – г. Заозёрск",
+        "name": "заозерск",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 11199,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:29",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R115",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-8ed8f51773ac497ec466f7a8"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.6, extracted row 29",
+        "raw_line": "Заполярный Мурманская область 18640 15825",
+        "name": "заполярный",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 15825
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R115",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "городское население – г. Заполярный",
+        "name": "заполярный",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 15825,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:38",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0451",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-9d16f891f1f793f3f9768edf"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.6, extracted row 38",
+        "raw_line": "Зеленоградск Калининградская область 12509 13026",
+        "name": "зеленоградск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 13026
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0451",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A451:F451",
+        "raw_label": "г. Зеленоградск",
+        "name": "зеленоградск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 13026,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_7:20",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0008",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-7e8a4ee2c7ca55757834afc5",
+        "YB49-BRIDGE-ad56e65845e809097721316e"
+      ],
+      "affected_edge_count": 2,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.7, extracted row 20",
+        "raw_line": "Калининград Калининградская область 430003 431902",
+        "name": "калининград",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 431902
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0008",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A8:F8",
+        "raw_label": "г. Калининград",
+        "name": "калининград",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 431902,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_7:36",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R063",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-876a2235fec9d11c9ec9be59"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.7, extracted row 36",
+        "raw_line": "Кандалакша Мурманская область 40564 35654",
+        "name": "кандалакша",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 35654
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R063",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "городское население – г. Кандалакша",
+        "name": "кандалакша",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 35654,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_7:45",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr1012",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-6ef9640f26b31004aba9cf65"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "arkhangelsk_nao",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.7, extracted row 45",
+        "raw_line": "Каргополь Архангельская область 11192 10214",
+        "name": "каргополь",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 10214
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/arkhangelsk_2010_archived_page_audit_r2_region_join/arkhangelsk_2010_archived_original.html",
+        "sha256": "729fecf5845bd9f1e049c85b2659bfd077dfd2d2a01fecbc9d21cb83b7b9e486",
+        "record_id": "ARK2010:archive20131022:html_table1_tr1012",
+        "locator": "archive HTML table 1; source row 1013",
+        "raw_label": "г. Каргополь",
+        "name": "каргополь",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 10214,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": {
+        "locator": "Tom 1 Table 5 p.58, extracted row 55",
+        "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+        "raw_line": "Городское население - г. Каргополь (рц) 10214  4705  5509  46,1  53,9",
+        "direct_name_and_population_match": true
+      },
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_8:21",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R169",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-f25aeb5cac51149c88eeaf54"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.8, extracted row 21",
+        "raw_line": "Кировск Мурманская область 31593 28625",
+        "name": "кировск",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 28625
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R169",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "городское население – г. Кировск",
+        "name": "кировск",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 28625,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_8:30",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R156",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-707aebf17d41407e97db650f"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.8, extracted row 30",
+        "raw_line": "Ковдор Мурманская область 20867 18820",
+        "name": "ковдор",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 18820
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R156",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "городское население – г. Ковдор",
+        "name": "ковдор",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 18820,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_8:38",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R011",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-081ed92900b309c390a5a8c4"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.8, extracted row 38",
+        "raw_line": "Кола Мурманская область 11060 10437",
+        "name": "кола",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 10437
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R011",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "городское население – г. Кола",
+        "name": "кола",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 10437,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_8:57",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr0027",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-262c9148c2f5b57a9b69e447"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "arkhangelsk_nao",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.8, extracted row 57",
+        "raw_line": "Коряжма Архангельская область 42811 39641",
+        "name": "коряжма",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 39641
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/arkhangelsk_2010_archived_page_audit_r2_region_join/arkhangelsk_2010_archived_original.html",
+        "sha256": "729fecf5845bd9f1e049c85b2659bfd077dfd2d2a01fecbc9d21cb83b7b9e486",
+        "record_id": "ARK2010:archive20131022:html_table1_tr0027",
+        "locator": "archive HTML table 1; source row 28",
+        "raw_label": "г. Коряжма",
+        "name": "коряжма",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 39641,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": {
+        "locator": "Tom 1 Table 5 p.58, extracted row 26",
+        "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+        "raw_line": "г. Коряжма 39641  18119  21522  45,7  54,3",
+        "direct_name_and_population_match": true
+      },
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_9:8",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr0030",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-95ce0d164671353a955f21e8"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "arkhangelsk_nao",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.9, extracted row 8",
+        "raw_line": "Котлас Архангельская область 60647 60562",
+        "name": "котлас",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 60562
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/arkhangelsk_2010_archived_page_audit_r2_region_join/arkhangelsk_2010_archived_original.html",
+        "sha256": "729fecf5845bd9f1e049c85b2659bfd077dfd2d2a01fecbc9d21cb83b7b9e486",
+        "record_id": "ARK2010:archive20131022:html_table1_tr0030",
+        "locator": "archive HTML table 1; source row 31",
+        "raw_label": "г. Котлас",
+        "name": "котлас",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 60562,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": {
+        "locator": "Tom 1 Table 5 p.58, extracted row 30",
+        "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+        "raw_line": "г. Котлас 60562  28059  32503  46,3  53,7",
+        "direct_name_and_population_match": true
+      },
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_9:20",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0572",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-1c95bb0578404cdb544dd4bb"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.9, extracted row 20",
+        "raw_line": "Краснознаменск Калининградская область 3751 3522",
+        "name": "краснознаменск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 3522
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0572",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A572:F572",
+        "raw_label": "г. Краснознаменск",
+        "name": "краснознаменск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 3522,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_10:7",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0015",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-b57f7d16ee8ff5cf0bde1185"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.10, extracted row 7",
+        "raw_line": "Ладушкин Калининградская область 3796 3787",
+        "name": "ладушкин",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 3787
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0015",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A15:F15",
+        "raw_label": "г. Ладушкин",
+        "name": "ладушкин",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 3787,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_10:57",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0022",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-feda3980958d6ada864c2821"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.10, extracted row 57",
+        "raw_line": "Мамоново Калининградская область 7393 7761",
+        "name": "мамоново",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 7761
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0022",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A22:F22",
+        "raw_label": "г. Мамоново",
+        "name": "мамоново",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 7761,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_11:37",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R175",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-2bd89046483a3f6c4bba0d5d"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.11, extracted row 37",
+        "raw_line": "Мончегорск Мурманская область 52242 45361",
+        "name": "мончегорск",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 45361
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R175",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "городское население – г. Мончегорск",
+        "name": "мончегорск",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 45361,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_11:45",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R151",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-cf691c30a9f2343dac49c29c",
+        "YB49-BRIDGE-9044c34cf0a33e3a31dcc5b3"
+      ],
+      "affected_edge_count": 2,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.11, extracted row 45",
+        "raw_line": "Мурманск Мурманская область 336137 307257",
+        "name": "мурманск",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 307257
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R151",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "г. Мурманск",
+        "name": "мурманск",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 307257,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_11:62",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr4308",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-7b1ade7442c978899d3adc10"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "arkhangelsk_nao",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.11, extracted row 62",
+        "raw_line": "Нарьян-Мар Ненецкий автономный округ 18611 21658",
+        "name": "нарьян-мар",
+        "type": "город",
+        "region": "ненецкий",
+        "population_2010": 21658
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/arkhangelsk_2010_archived_page_audit_r2_region_join/arkhangelsk_2010_archived_original.html",
+        "sha256": "729fecf5845bd9f1e049c85b2659bfd077dfd2d2a01fecbc9d21cb83b7b9e486",
+        "record_id": "ARK2010:archive20131022:html_table1_tr4308",
+        "locator": "archive HTML table 1; source row 4309",
+        "raw_label": "г. Нарьян-Мар",
+        "name": "нарьян-мар",
+        "type": "город",
+        "region": "ненецкий",
+        "population_2010": 21658,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": {
+        "locator": "Tom 1 Table 5 p.60, extracted row 26",
+        "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+        "raw_line": "г. Нарьян-Мар 21658  10224  11434  47,2  52,8",
+        "direct_name_and_population_match": true
+      },
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_12:13",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0636",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-1387d9b07c12f6902dd4074b"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.12, extracted row 13",
+        "raw_line": "Неман Калининградская область 12714 11798",
+        "name": "неман",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 11798
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0636",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A636:F636",
+        "raw_label": "г. Неман",
+        "name": "неман",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 11798,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_12:17",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0693",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-30bc8e0d4d9b350836be56cf"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.12, extracted row 17",
+        "raw_line": "Нестеров Калининградская область 5049 4595",
+        "name": "нестеров",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 4595
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0693",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A693:F693",
+        "raw_label": "г. Нестеров",
+        "name": "нестеров",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 4595,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_12:43",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr0045",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-18d96d98640a2e62a4097ae2"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "arkhangelsk_nao",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.12, extracted row 43",
+        "raw_line": "Новодвинск Архангельская область 43383 40615",
+        "name": "новодвинск",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 40615
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/arkhangelsk_2010_archived_page_audit_r2_region_join/arkhangelsk_2010_archived_original.html",
+        "sha256": "729fecf5845bd9f1e049c85b2659bfd077dfd2d2a01fecbc9d21cb83b7b9e486",
+        "record_id": "ARK2010:archive20131022:html_table1_tr0045",
+        "locator": "archive HTML table 1; source row 46",
+        "raw_label": "г. Новодвинск",
+        "name": "новодвинск",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 40615,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": {
+        "locator": "Tom 1 Table 5 p.58, extracted row 34",
+        "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+        "raw_line": "г. Новодвинск 40615  18197  22418  44,8  55,2",
+        "direct_name_and_population_match": true
+      },
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_13:19",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr2405",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-b1a151333e96a9b0280f6df2"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "arkhangelsk_nao",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.13, extracted row 19",
+        "raw_line": "Няндома Архангельская область 22619 22356",
+        "name": "няндома",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 22356
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/arkhangelsk_2010_archived_page_audit_r2_region_join/arkhangelsk_2010_archived_original.html",
+        "sha256": "729fecf5845bd9f1e049c85b2659bfd077dfd2d2a01fecbc9d21cb83b7b9e486",
+        "record_id": "ARK2010:archive20131022:html_table1_tr2405",
+        "locator": "archive HTML table 1; source row 2406",
+        "raw_label": "г. Няндома",
+        "name": "няндома",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 22356,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": {
+        "locator": "Tom 1 Table 5 p.59, extracted row 35",
+        "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+        "raw_line": "Городское население - г. Няндома (рц) 22356  10443  11913  46,7  53,3",
+        "direct_name_and_population_match": true
+      },
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_13:27",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0755",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-c963e51580eaee1bf0ca4037"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.13, extracted row 27",
+        "raw_line": "Озерск Калининградская область 5801 4740",
+        "name": "озерск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 4740
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0755",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A755:F755",
+        "raw_label": "г. Озерск",
+        "name": "озерск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 4740,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_13:33",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R181",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-4df83387ce0fa52cdce3c31c"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.13, extracted row 33",
+        "raw_line": "Оленегорск Мурманская область 25166 23072",
+        "name": "оленегорск",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 23072
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R181",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "городское население – г. Оленегорск",
+        "name": "оленегорск",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 23072,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_13:37",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr2570",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-2615f4f7fc84e4ef3d7681bb"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "arkhangelsk_nao",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.13, extracted row 37",
+        "raw_line": "Онега Архангельская область 23430 21359",
+        "name": "онега",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 21359
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/arkhangelsk_2010_archived_page_audit_r2_region_join/arkhangelsk_2010_archived_original.html",
+        "sha256": "729fecf5845bd9f1e049c85b2659bfd077dfd2d2a01fecbc9d21cb83b7b9e486",
+        "record_id": "ARK2010:archive20131022:html_table1_tr2570",
+        "locator": "archive HTML table 1; source row 2571",
+        "raw_label": "г. Онега",
+        "name": "онега",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 21359,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": {
+        "locator": "Tom 1 Table 5 p.58, extracted row 35",
+        "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+        "raw_line": "г. Онега 21359  9919  11440  46,4  53,6",
+        "direct_name_and_population_match": true
+      },
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_13:48",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R212",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-504e5b1940fe42e3692e5fa9"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.13, extracted row 48",
+        "raw_line": "Островной Мурманская область 5032 2171",
+        "name": "островной",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 2171
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R212",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "городское население – г. Островной",
+        "name": "островной",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 2171,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_14:23",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0028",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-52648c3c6d6c13216e6a23f1"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.14, extracted row 23",
+        "raw_line": "Пионерский Калининградская область 11816 11016",
+        "name": "пионерский",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 11016
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0028",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A28:F28",
+        "raw_label": "г. Пионерский",
+        "name": "пионерский",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 11016,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_14:35",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0866",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-d961ad0cf03f4ca01ccc1ac1"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.14, extracted row 35",
+        "raw_line": "Полесск Калининградская область 7681 7581",
+        "name": "полесск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 7581
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0866",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A866:F866",
+        "raw_label": "г. Полесск",
+        "name": "полесск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 7581,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_14:37",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R188",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-4b314f80806b982e23b9ee04"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.14, extracted row 37",
+        "raw_line": "Полярные Зори Мурманская область 15910 15096",
+        "name": "полярные зори",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 15096
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R188",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "городское население – г. Полярные Зори",
+        "name": "полярные зори",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 15096,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_14:38",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R195",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-67469759732700b03299d269"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.14, extracted row 38",
+        "raw_line": "Полярный Мурманская область 18552 17293",
+        "name": "полярный",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 17293
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R195",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "г. Полярный",
+        "name": "полярный",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 17293,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_14:45",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0943",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-019588300d87e908bf508df5"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.14, extracted row 45",
+        "raw_line": "Правдинск Калининградская область 4480 4323",
+        "name": "правдинск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 4323
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0943",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A943:F943",
+        "raw_label": "г. Правдинск",
+        "name": "правдинск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 4323,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_14:47",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0156",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-49c651464e2a02006df54540"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.14, extracted row 47",
+        "raw_line": "Приморск Калининградская область 2150 1956",
+        "name": "приморск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 1956
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0156",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A156:F156",
+        "raw_label": "г. Приморск",
+        "name": "приморск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 1956,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_15:49",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R1069",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-55e7abda50fefcaadc4fc5a5"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.15, extracted row 49",
+        "raw_line": "Светлогорск Калининградская область 10950 10772",
+        "name": "светлогорск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 10772
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R1069",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A1069:F1069",
+        "raw_label": "г. Светлогорск",
+        "name": "светлогорск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 10772,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_15:51",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0032",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-05b0bae7890509a924ee500c"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.15, extracted row 51",
+        "raw_line": "Светлый Калининградская область 21745 21375",
+        "name": "светлый",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 21375
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0032",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A32:F32",
+        "raw_label": "г. Светлый",
+        "name": "светлый",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 21375,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_15:57",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr0048",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-c26d8c5702b03402372f8e2d",
+        "YB49-BRIDGE-50ef3e2a4a774e7d676bfd64"
+      ],
+      "affected_edge_count": 2,
+      "verdict": "accept_publication_binding",
+      "component": "arkhangelsk_nao",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.15, extracted row 57",
+        "raw_line": "Северодвинск Архангельская область 201551 192353",
+        "name": "северодвинск",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 192353
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/arkhangelsk_2010_archived_page_audit_r2_region_join/arkhangelsk_2010_archived_original.html",
+        "sha256": "729fecf5845bd9f1e049c85b2659bfd077dfd2d2a01fecbc9d21cb83b7b9e486",
+        "record_id": "ARK2010:archive20131022:html_table1_tr0048",
+        "locator": "archive HTML table 1; source row 49",
+        "raw_label": "г. Северодвинск",
+        "name": "северодвинск",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 192353,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": {
+        "locator": "Tom 1 Table 5 p.58, extracted row 38",
+        "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+        "raw_line": "Городское население - г. Северодвинск 192353  88733  103620  46,1  53,9",
+        "direct_name_and_population_match": true
+      },
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_15:59",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R205",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-42d7ceff8e97c2062bfb023b"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.15, extracted row 59",
+        "raw_line": "Североморск Мурманская область 55102 50060",
+        "name": "североморск",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 50060
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R205",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "г. Североморск",
+        "name": "североморск",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 50060,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_16:25",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R1084",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-5b6f984f910174d2a295a98a"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.16, extracted row 25",
+        "raw_line": "Славск Калининградская область 5172 4614",
+        "name": "славск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 4614
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R1084",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A1084:F1084",
+        "raw_label": "г. Славск",
+        "name": "славск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 4614,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_16:32",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R196",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-b16c0d2eb41c94f34bccc67d"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "murmansk",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.16, extracted row 32",
+        "raw_line": "Снежногорск Мурманская область 12737 12683",
+        "name": "снежногорск",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 12683
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "sha256": "d4bdb36d541ed3f90594ba95ee209fabafc5f02088758e46a143e1155f5fbc57",
+        "record_id": "MURMANSK2010:POPSEX:T1:R196",
+        "locator": "research_rebuild/evidence/ingestion/sources/murmansk_2010_official/murmansk_population_by_sex_municipalities.doc",
+        "raw_label": "г. Снежногорск",
+        "name": "снежногорск",
+        "type": "город",
+        "region": "мурманская",
+        "population_2010": 12683,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_16:35",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0044",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-a91d7854c2c845e56cb738b3"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.16, extracted row 35",
+        "raw_line": "Советск Калининградская область 43224 41705",
+        "name": "советск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 41705
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R0044",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A44:F44",
+        "raw_label": "г. Советск",
+        "name": "советск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 41705,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_16:43",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr1517",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-2ac1228502bd5a7dfcca1ca7"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "arkhangelsk_nao",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.16, extracted row 43",
+        "raw_line": "Сольвычегодск Архангельская область 2843 2460",
+        "name": "сольвычегодск",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 2460
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/arkhangelsk_2010_archived_page_audit_r2_region_join/arkhangelsk_2010_archived_original.html",
+        "sha256": "729fecf5845bd9f1e049c85b2659bfd077dfd2d2a01fecbc9d21cb83b7b9e486",
+        "record_id": "ARK2010:archive20131022:html_table1_tr1517",
+        "locator": "archive HTML table 1; source row 1518",
+        "raw_label": "г. Сольвычегодск",
+        "name": "сольвычегодск",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 2460,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": {
+        "locator": "Tom 1 Table 5 p.59, extracted row 11",
+        "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+        "raw_line": "г. Сольвычегодск 2460  1106  1354  45,0  55,0",
+        "direct_name_and_population_match": true
+      },
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_19:39",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R1151",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-104d89b4a052b449805e99f0"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "kaliningrad",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.19, extracted row 39",
+        "raw_line": "Черняховск Калининградская область 44323 40449",
+        "name": "черняховск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 40449
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx",
+        "sha256": "7e17a4bdb54e3ee8ff014c4311396f84c01b7f3ed38d12f4f9c1f9e6b100705f",
+        "record_id": "KAL2010:TOM1:S4:R1151",
+        "locator": "research_rebuild/evidence/ingestion/sources/kaliningrad_2010_official/kaliningrad_2010_tom1.xlsx#4!A1151:F1151",
+        "raw_label": "г. Черняховск",
+        "name": "черняховск",
+        "type": "город",
+        "region": "калининградская",
+        "population_2010": 40449,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": null,
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    },
+    {
+      "old_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_19:60",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr4038",
+      "affected_identity_edge_ids": [
+        "TOM11-BRIDGE-deca381428913ee877635655"
+      ],
+      "affected_edge_count": 1,
+      "verdict": "accept_publication_binding",
+      "component": "arkhangelsk_nao",
+      "old_source": {
+        "sha256": "db2528e6db3c6089351bd09d253c9dfa607e2f2dff6cc45d1174fb21fa96d500",
+        "locator": "Tom 11 Table 1.4 p.19, extracted row 60",
+        "raw_line": "Шенкурск Архангельская область 6151 5702",
+        "name": "шенкурск",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 5702
+      },
+      "replacement_source": {
+        "path": "research_rebuild/evidence/ingestion/arkhangelsk_2010_archived_page_audit_r2_region_join/arkhangelsk_2010_archived_original.html",
+        "sha256": "729fecf5845bd9f1e049c85b2659bfd077dfd2d2a01fecbc9d21cb83b7b9e486",
+        "record_id": "ARK2010:archive20131022:html_table1_tr4038",
+        "locator": "archive HTML table 1; source row 4039",
+        "raw_label": "г. Шенкурск",
+        "name": "шенкурск",
+        "type": "город",
+        "region": "архангельская",
+        "population_2010": 5702,
+        "population_scope": "settlement-level named-city row; selected R2 endpoint"
+      },
+      "same_region_name_type_competitor_count_in_selected_R2": 1,
+      "exact_name_type_population_candidate_count_in_source_component": 1,
+      "Tom1_Table5_crosscheck": {
+        "locator": "Tom 1 Table 5 p.60, extracted row 21",
+        "sha256": "42cb939d8024042ffcf8a708676cef3f159a93e4dad697086c80465d445887c3",
+        "raw_line": "Городское население - г. Шенкурск (рц) 5702  2607  3095  45,7  54,3",
+        "direct_name_and_population_match": true
+      },
+      "reason": "Name, type, region and exact 2010 population agree on inspected source rows; replacement endpoint is selected exactly once and unique within its same-region name/type context. This is same-census publication equivalence only; original cross-year identity decision and evidence are unchanged."
+    }
+  ],
+  "edge_dispositions": [
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-e91c3f3a6d53709b249faf50",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_1:33",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R164",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-12628fc2aa6619aa72a73bf2",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_1:48",
+      "replacement_2010_source_record_id": "ROSSTAT2010:T5:p58:l12",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-f85ec98f61f10d6f3fa7e6c6",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_2:8",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0055",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-4019e6849cc0265198830408",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_2:19",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0152",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-a2ea6a8260006372507d496d",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_3:37",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr0065",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-7844772cf37500f25d0815dd",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_4:35",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R194",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-54e575e13eb023b432b56b8d",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_4:39",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0171",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-5e42096989685f34b6d09b94",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_5:10",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0242",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-a7df14cadab60a10025c0b98",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_5:11",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0401",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-1ec474b60cb0b487dbd6d863",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:27",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R222",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-8ed8f51773ac497ec466f7a8",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:29",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R115",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-9d16f891f1f793f3f9768edf",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_6:38",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0451",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-7e8a4ee2c7ca55757834afc5",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_7:20",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0008",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-876a2235fec9d11c9ec9be59",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_7:36",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R063",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-6ef9640f26b31004aba9cf65",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_7:45",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr1012",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-f25aeb5cac51149c88eeaf54",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_8:21",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R169",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-707aebf17d41407e97db650f",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_8:30",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R156",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-081ed92900b309c390a5a8c4",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_8:38",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R011",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-262c9148c2f5b57a9b69e447",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_8:57",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr0027",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-95ce0d164671353a955f21e8",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_9:8",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr0030",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-1c95bb0578404cdb544dd4bb",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_9:20",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0572",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-b57f7d16ee8ff5cf0bde1185",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_10:7",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0015",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-feda3980958d6ada864c2821",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_10:57",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0022",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-2bd89046483a3f6c4bba0d5d",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_11:37",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R175",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-cf691c30a9f2343dac49c29c",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_11:45",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R151",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-7b1ade7442c978899d3adc10",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_11:62",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr4308",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-1387d9b07c12f6902dd4074b",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_12:13",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0636",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-30bc8e0d4d9b350836be56cf",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_12:17",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0693",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-18d96d98640a2e62a4097ae2",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_12:43",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr0045",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-b1a151333e96a9b0280f6df2",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_13:19",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr2405",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-c963e51580eaee1bf0ca4037",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_13:27",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0755",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-4df83387ce0fa52cdce3c31c",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_13:33",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R181",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-2615f4f7fc84e4ef3d7681bb",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_13:37",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr2570",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-504e5b1940fe42e3692e5fa9",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_13:48",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R212",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-52648c3c6d6c13216e6a23f1",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_14:23",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0028",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-d961ad0cf03f4ca01ccc1ac1",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_14:35",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0866",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-4b314f80806b982e23b9ee04",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_14:37",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R188",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-67469759732700b03299d269",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_14:38",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R195",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-019588300d87e908bf508df5",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_14:45",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0943",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-49c651464e2a02006df54540",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_14:47",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0156",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-55e7abda50fefcaadc4fc5a5",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_15:49",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R1069",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-05b0bae7890509a924ee500c",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_15:51",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0032",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-c26d8c5702b03402372f8e2d",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_15:57",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr0048",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-42d7ceff8e97c2062bfb023b",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_15:59",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R205",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-5b6f984f910174d2a295a98a",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_16:25",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R1084",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-b16c0d2eb41c94f34bccc67d",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_16:32",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R196",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-a91d7854c2c845e56cb738b3",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_16:35",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0044",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-2ac1228502bd5a7dfcca1ca7",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_16:43",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr1517",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-104d89b4a052b449805e99f0",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_19:39",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R1151",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "TOM11-BRIDGE-deca381428913ee877635655",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_19:60",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr4038",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "YB49-BRIDGE-a3d3d5c7e18ea449aa169412",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_1:48",
+      "replacement_2010_source_record_id": "ROSSTAT2010:T5:p58:l12",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "YB49-BRIDGE-ad56e65845e809097721316e",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_7:20",
+      "replacement_2010_source_record_id": "KAL2010:TOM1:S4:R0008",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "YB49-BRIDGE-9044c34cf0a33e3a31dcc5b3",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_11:45",
+      "replacement_2010_source_record_id": "MURMANSK2010:POPSEX:T1:R151",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    },
+    {
+      "affected_identity_edge_id": "YB49-BRIDGE-50ef3e2a4a774e7d676bfd64",
+      "displaced_2010_source_record_id": "2010:pub-11-1-4.pdf:pdf_page_15:57",
+      "replacement_2010_source_record_id": "ARK2010:archive20131022:html_table1_tr0048",
+      "binding_verdict": "accept_publication_binding",
+      "effect": "eligible_to_restore_original_same_place_edge_endpoint",
+      "identity_decision": "preserved unchanged"
+    }
+  ],
+  "limitations": [
+    "Review establishes only equivalence between two 2010 census-publication rows; it does not newly establish cross-year physical-place identity or coordinate validity.",
+    "Ark HTML retains its archive/preliminary-label caveat; the named urban replacement rows are separately corroborated by exact Tom 1 Table 5 city rows.",
+    "Murmansk city rows have no district/municipality parent context in the selected source row; same-city name, type, region, and population row evidence are direct."
+  ]
+}

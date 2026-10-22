@@ -1,0 +1,11 @@
+# Головчино: complete primary partition and confirmed whole-locality point
+
+One additional whole-locality series is accepted on explicit stage 21: 5,288 people in 2002, 4,716 in 2010 and 4,621 in 2021. The exclusive projection contains four original selected source IDs: two 2002 parts and one whole row in each later census. Net additional population credit is 5,288 / 4,716 / 4,621, measured by the union of selected IDs. There are no ordinary same-place edges between parts and no individual-part coordinate admissions.
+
+The original 2002 worksheet contains the complete two-part roster, 3,316 plus 1,972. The national primary 2002 whole row prints exactly 5,288 under Грайворонский район, Белгородская область. Original source values and the protected secondary quality of the 2010 row remain unchanged. The cached secondary 2002 alternative of 5,291 is retained as a disagreement; it does not replace the actual primary whole count.
+
+The own article Головчино (Белгородская область), revision 149888854, identifies a village in Грайворонский район, Белгородская область. Its DMS location and Q2075571 P625 agree at 50.536389, 35.808333, 0.246 km from the retained accepted GeoNames point. The current selected row is unique by name, type, region and county. This supports the physical locality coordinate; GeoNames provider-ID census binding remains explicitly unassessed. No coordinate is taken from a parent administrative unit. Wikipedia and its imported P625 are treated as one source family, not independent measurements.
+
+The coordinate applies to the complete whole locality. Its use in earlier censuses is representative-point continuity; historical coordinate measurements, individual-part locations, native provider-ID confirmation and contemporary-boundary equivalence are not asserted. Frozen source proofs, original population qualities, own-point witnesses and input hashes accompany the accepted sidecar.
+
+Raw own article and entity bytes are stored in `/workspace/settlements-work/additional_complete_partition_application_20261007`. Reproduce with `apply.py` and `replay.py`. Existing eleven-partition files, ordinary loader, reports and Git remain untouched; root owns later dynamic sidecar integration.

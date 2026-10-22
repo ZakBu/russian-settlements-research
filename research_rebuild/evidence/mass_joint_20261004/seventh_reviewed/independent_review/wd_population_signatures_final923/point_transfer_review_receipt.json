@@ -1,0 +1,81 @@
+{
+  "candidate_components": 923,
+  "component_propagated_marginal_gains_after_corridor47": {
+    "2002": 822654,
+    "2010": 799082,
+    "2021": 831350
+  },
+  "component_transfer_increment_over_direct_ownpoint": {
+    "2002": 181239,
+    "2010": 765071,
+    "2021": 0
+  },
+  "current_point_rows_superseded_since_original_conditional_supplement": 861,
+  "current_point_values_used": true,
+  "direct_ownpoint_candidate_marginal_gains_after_corridor47": {
+    "2002": 641415,
+    "2010": 34011,
+    "2021": 831350
+  },
+  "eligible_components_with_all_existing_accepted_seeds_within_5km_of_2021_carrier": 922,
+  "eligible_point_transfer_targets": {
+    "2002": 215,
+    "2010": 902,
+    "total": 1117
+  },
+  "eligible_transfer_population_sum": {
+    "2002": 181239,
+    "2010": 765071
+  },
+  "eligible_transfer_targets_csv": {
+    "path": "/workspace/settlements-work/continuation_20261004/independent_review/wd_population_signatures_final923/conditional_point_transfer_targets.csv",
+    "rows": 1117,
+    "sha256": "9ab9348a9fd10be4266551d5ac354e11179dc75af6553dfdb70187e29359d78d"
+  },
+  "held_components": 1,
+  "held_qid": "Q6715055",
+  "hold_reason": "current 2021 carrier at 51.645411,94.264444; accepted 2002 point seed at 25.55668697 km; both historic endpoints already have direct points, so no continuity transfer admitted",
+  "input_pins": {
+    "approved_47_corridor_edges": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/named_typed_native_np_corridors_independent_review_20261004/independently_eligible_identity_edges.csv",
+      "sha256": "5487e9ebde32e253b85fe835a8e819b59c060da6ab409729f69f43e08e3fe95c"
+    },
+    "base_identity_graph": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_sixth_reviewed/accepted_identity_edges.parquet",
+      "sha256": "cc62fc8d3184c43f6ce09cea0ce71618077347ea4dee0f53ad9709f5c20a8241"
+    },
+    "candidate_csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/R4/residual_population_qid_signature_mass_20261004_v2/expanded_fetch/final_candidate_packet/unique_signature_current_binding_source_evidence_candidates.csv",
+      "sha256": "1495f9b6c217680a04c703018d14ce780bba8d7e3ca64306965cebc5a575c725"
+    },
+    "current_corrected_point_uses": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_sixth_point_corrected/accepted_point_uses.parquet",
+      "sha256": "07ecad72f4919ee60a3ae5b715b4b4ad20437d6ecd0026182abbe311f3383e71"
+    },
+    "direct_eligible_edges": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/wd_population_signatures_final923/eligible_identity_edges.csv",
+      "sha256": "0c1864fbe98c9d8b6512fbac75cedd564e3c6ff2a8f7a5cc5d4d58b9b3c6956e"
+    },
+    "direct_review_receipt": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/wd_population_signatures_final923/independent_review_receipt.json",
+      "sha256": "e6794a13054e4d040c0bbc7da66ce7562314e6666a59703e2d3e2c350ad2a95d"
+    },
+    "superseded_point_uses": {
+      "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_sixth_point_corrected/superseded_point_uses.parquet",
+      "sha256": "bc89dcd28532fc78ce7ab1b718b29eea599b138d5d4828113a79efc73d03dac9"
+    }
+  },
+  "limitations": [
+    "All point transfers remain candidate-only and require the root application’s explicit reviewed point continuity path.",
+    "Candidate identity links are source-based secondary identity evidence. Population values and quality categories are unchanged.",
+    "One component remains held on a 25.56 km accepted-seed conflict; do not transfer its carrier point."
+  ],
+  "point_rule": "For each candidate component, use its exact accepted 2021 current-source point as the proposed representative point. Independently re-evaluate every accepted point seed in the union of the current accepted graph, reviewed 47 corridor edges, and 923 reviewed temporal candidate pairs against the current corrected point ledger; allow continuity only when maximum distance is at most 5 km. Do not claim point-provider binding, historical measurement date, accuracy or boundary comparability.",
+  "review_vectors_csv": {
+    "path": "/workspace/settlements-work/continuation_20261004/independent_review/wd_population_signatures_final923/point_transfer_current_corrected_recheck.csv",
+    "rows": 923,
+    "sha256": "df7f8d855ce34479a0a6d6a479c65ad83e8f7bd1c664a98b59d0ede7c750bb67"
+  },
+  "status": "independent_current_point_continuity_supplement_candidate_only_not_applied",
+  "superseded_point_seed_membership_in_candidate_components": 1
+}

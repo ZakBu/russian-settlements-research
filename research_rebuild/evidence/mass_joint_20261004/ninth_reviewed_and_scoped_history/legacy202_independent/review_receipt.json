@@ -1,0 +1,126 @@
+{
+  "status": "independent_legacy_oktmo_currentpoint_review_complete_candidate_only",
+  "review_decision": "approve exact 204 marginal same_place candidate edges under the frozen scoped rule; retain 1455 already-connected source rows as confirmations and do not append them as new edges",
+  "candidate_artifact": {
+    "path": "/workspace/settlements-work/continuation_20261004/R4/legacy_oktmo_currentpoint_physical_cohort_20261004/candidate_edges_for_independent_review.csv",
+    "sha256": "bacf22337d5fbd7259c82cf59e0b0e219d55c82ddc640070ac27e05b01a78fa9",
+    "expected_sha256": "bacf22337d5fbd7259c82cf59e0b0e219d55c82ddc640070ac27e05b01a78fa9"
+  },
+  "base_graph": {
+    "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_eighth_reviewed/accepted_identity_edges.parquet",
+    "sha256": "c0f276db44f524845bd9c4d973ce8294f372d942cad292028b3b3984024bf011"
+  },
+  "base_selected": {
+    "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet",
+    "sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657"
+  },
+  "base_points": {
+    "path": "/workspace/settlements-work/continuation_20261004/accepted_mass_eighth_reviewed/accepted_point_uses.parquet",
+    "sha256": "797eaf25a7383a9706e84090732cfa62aa9db9f9a7775df99ab0fc880031e337"
+  },
+  "base_source_evidence": {
+    "path": "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet",
+    "sha256": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327"
+  },
+  "source_family_classifier_inputs": {
+    "raw_2009_path": "/workspace/settlements-work/sources/raw_okato_2009_verification_v1/raw_classifier.parquet",
+    "raw_2009_sha256": "343c0f5af1f52b9276699d9fe8d883b58def5aeabdd904063389606d29bc2b81",
+    "raw_2011_path": "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet",
+    "raw_2011_sha256": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+    "historical_named_candidate_path": "/workspace/settlements-work/coordinates/historical_named_candidates_v4/historical_named_point_candidates.parquet",
+    "historical_named_candidate_sha256": "cb4449d3f0fec3c833eae1ee7d6e29183aabf1668bad5b8d8edf82bad7b121f8"
+  },
+  "frozen_producer_receipt_sha256": "2282eb4e3beb0fed8a2d61a6ecc8d8fa8fd066190a4d6b2842bed4004f891d5d",
+  "rule": "Candidate-key-only legacy projected OKTMO must equal one unique literal current selected native OKTMO, but is not historical code binding evidence. Identity support is exact old/current physical name+type+province, exact raw 2009 and 2011 native classifier code/name/type rows with unique whole source keys and physical settlement status, accepted current point, additive nonfederal no-collision source, and old-source-to-current-target fan-in uniqueness. No population equality used as identity proof.",
+  "admission_scope": {
+    "eligible_edge_rows": 204,
+    "redundant_confirmation_rows": 1455,
+    "current_population_2010_secondary_total": 730527.0,
+    "historical_point_distance_cap_used_by_candidate_rule_km": 5.0,
+    "boundary_comparability_asserted": false,
+    "historical_2010_coordinate_measurement_claimed": false,
+    "historical_native_OKTMO_binding_claimed": false,
+    "population_quality_upgraded": false
+  },
+  "holds": {
+    "union_year_collision": 0,
+    "raw_source_replay_failures": 0,
+    "classifier_locator_failures": 0,
+    "accepted_current_point_mismatches": 0,
+    "native_code_uniqueness_failures": 0
+  },
+  "output_files": {
+    "eligible_identity_edges.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/legacy_oktmo_currentpoint_1659_review/eligible_identity_edges.csv",
+      "sha256": "037d67fb4f91bae7f47d7f910c0c1a368d413da523c9df9529a30e8d5a48ffba",
+      "bytes": 314193,
+      "rows": 204
+    },
+    "redundant_same_component_confirmations.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/legacy_oktmo_currentpoint_1659_review/redundant_same_component_confirmations.csv",
+      "sha256": "85765da3ca9d69a4f044a535ce0240e6d3a2c1cff273ebfc578448ecf067b073",
+      "bytes": 586698,
+      "rows": 1455
+    },
+    "fixed_raw_source_review_sample.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/legacy_oktmo_currentpoint_1659_review/fixed_raw_source_review_sample.csv",
+      "sha256": "ea118f04e6c8b0ca90112a8a549a16b86add19bfb6cd469ff8f852fbaa1e87bc",
+      "bytes": 699912,
+      "rows": 303
+    },
+    "conditional_full3_component_population.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/legacy_oktmo_currentpoint_1659_review/conditional_full3_component_population.csv",
+      "sha256": "ee92aa82e4a5e5777f2d6e8b83246400418d91324879ac199971f9024b74fcdf",
+      "bytes": 69190,
+      "rows": 187
+    },
+    "review_summary.json": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/legacy_oktmo_currentpoint_1659_review/review_summary.json",
+      "sha256": "cd13fc1991a84e0aabe464810d1e8e657bde2707f22c9e26ecab9537fa7c148d",
+      "bytes": 5812,
+      "rows": null
+    }
+  },
+  "limitations": [
+    "This review approves physical same-place edges only; it does not certify 2010 protected counts as primary.",
+    "2011 historical coordinate distance can be source-dependent when the accepted current point itself comes from the 2011 GeoKLADR source; no independent coordinate claim is made for those rows.",
+    "Publisher district blanks remain unknown; the source row selected/inherited district field is not direct publisher evidence.",
+    "A nonblank district/header value is retained literally; no general administrative-boundary crosswalk is asserted.",
+    "Native 2009/2011 OKATO evidence does not prove old 2010 publisher OKTMO binding; do not carry or repair codes across systems.",
+    "Modern point reuse is retrospective stable-place continuity with unknown coordinate measurement date, not exact 2010 census geometry."
+  ],
+  "review_outputs": {
+    "eligible_identity_edges.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/legacy_oktmo_currentpoint_1659_review/eligible_identity_edges.csv",
+      "sha256": "037d67fb4f91bae7f47d7f910c0c1a368d413da523c9df9529a30e8d5a48ffba",
+      "bytes": 314193,
+      "rows": 204
+    },
+    "redundant_same_component_confirmations.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/legacy_oktmo_currentpoint_1659_review/redundant_same_component_confirmations.csv",
+      "sha256": "85765da3ca9d69a4f044a535ce0240e6d3a2c1cff273ebfc578448ecf067b073",
+      "bytes": 586698,
+      "rows": 1455
+    },
+    "fixed_raw_source_review_sample.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/legacy_oktmo_currentpoint_1659_review/fixed_raw_source_review_sample.csv",
+      "sha256": "ea118f04e6c8b0ca90112a8a549a16b86add19bfb6cd469ff8f852fbaa1e87bc",
+      "bytes": 699912,
+      "rows": 303
+    },
+    "conditional_full3_component_population.csv": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/legacy_oktmo_currentpoint_1659_review/conditional_full3_component_population.csv",
+      "sha256": "ee92aa82e4a5e5777f2d6e8b83246400418d91324879ac199971f9024b74fcdf",
+      "bytes": 69190,
+      "rows": 187
+    },
+    "review_summary.json": {
+      "path": "/workspace/settlements-work/continuation_20261004/independent_review/legacy_oktmo_currentpoint_1659_review/review_summary.json",
+      "sha256": "cd13fc1991a84e0aabe464810d1e8e657bde2707f22c9e26ecab9537fa7c148d",
+      "bytes": 5812,
+      "rows": null
+    }
+  },
+  "review_script_path": "/workspace/settlements-work/continuation_20261004/independent_review/legacy_oktmo_currentpoint_1659_review/review_legacy_currentpoint_cohort.py",
+  "review_script_sha256": "568b10185530d8eec988988ddabefdcb6cf1db21a16fbb7e498fcf90e7f503e9"
+}

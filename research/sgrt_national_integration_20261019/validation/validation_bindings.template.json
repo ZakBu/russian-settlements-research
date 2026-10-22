@@ -1,0 +1,38 @@
+{
+  "status": "TEMPLATE_NOT_EXECUTABLE_EVIDENCE",
+  "axis_id": "id",
+  "master_id": "id",
+  "axis_columns": ["name", "type", "region", "lat", "lon", "population_2002", "population_2010", "population_2021", "population_1989"],
+  "axis_column_mapping": {},
+  "axis_overrides": [],
+  "coverage_features": [],
+  "coverage_status_bindings": [],
+  "nonnegative_columns": [],
+  "source_bindings": [],
+  "object_bindings": [],
+  "raw_checks": [],
+  "source_binding_example": {
+    "name": "explicit_name_required",
+    "path": "relative/to/workspace/source.parquet",
+    "filters": [{"column": "year", "op": "eq", "value": 2025}],
+    "source_keys": ["id"],
+    "master_keys": ["id"],
+    "columns": {"actual_master_column": "actual_source_column"},
+    "source_grain": "one_settlement_one_year",
+    "master_evidence_meaning": "legal_registration_not_physical_service",
+    "missing_policy": "keep_unknown",
+    "units": "legal_entities",
+    "source_date": "2025",
+    "replicated_municipal_context_not_additive": false
+  },
+  "object_binding_example": {
+    "name": "explicit_object_source",
+    "path": "relative/source.parquet",
+    "object_key": "object_id",
+    "source_settlement_key": "settlement_uid",
+    "master_count_column": "actual_master_count_column",
+    "accepted_filters": [{"column": "link_status", "op": "eq", "value": "name_coordinate_concordance"}],
+    "units": "distinct_published_objects_not_observed_users",
+    "source_date": "2026-10-19"
+  }
+}

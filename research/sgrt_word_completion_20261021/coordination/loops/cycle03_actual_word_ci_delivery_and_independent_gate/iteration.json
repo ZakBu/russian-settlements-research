@@ -1,0 +1,86 @@
+{
+  "run_id": "cycle03_actual_word_ci_delivery_and_independent_gate",
+  "state": "RETURN_TO_REPAIR_LOOP",
+  "stages": [
+    {
+      "id": "independent_medical_relation_diagnostic",
+      "command": [
+        "python",
+        "research/sgrt_word_completion_20261021/validation/evaluate_medical_assignments.py",
+        "--model",
+        "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline"
+      ],
+      "repair_requirements": [
+        "W06",
+        "W31"
+      ],
+      "state": "PRODUCED_REQUIRES_INDEPENDENT_REVIEW",
+      "exit_code": 0,
+      "seconds": 6.592,
+      "log": "coordination/loops/cycle03_actual_word_ci_delivery_and_independent_gate/independent_medical_relation_diagnostic.log",
+      "log_sha256": "53e8af543192db040081b3b6a4f41f9ca086b098b6fd39b51411f238c9e49cc5"
+    },
+    {
+      "id": "observed_mass_block_and_zero_availability_sensitivity",
+      "command": [
+        "python",
+        "research/sgrt_word_completion_20261021/validation/analyze_mass_ablation.py",
+        "--model",
+        "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline"
+      ],
+      "repair_requirements": [
+        "W07",
+        "W12"
+      ],
+      "state": "PRODUCED_REQUIRES_INDEPENDENT_REVIEW",
+      "exit_code": 0,
+      "seconds": 0.781,
+      "log": "coordination/loops/cycle03_actual_word_ci_delivery_and_independent_gate/observed_mass_block_and_zero_availability_sensitivity.log",
+      "log_sha256": "e02d20d755a67b85e471a9da1cc49800cb116cf4ba8e497038122c70637096d3"
+    },
+    {
+      "id": "portable_gis_export_with_independent_gdal_reader",
+      "command": [
+        "python",
+        "research/sgrt_word_completion_20261021/delivery/export_geopackage.py",
+        "--model",
+        "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline"
+      ],
+      "repair_requirements": [
+        "W28",
+        "W30"
+      ],
+      "state": "PRODUCED_REQUIRES_INDEPENDENT_REVIEW",
+      "exit_code": 0,
+      "seconds": 15.599,
+      "log": "coordination/loops/cycle03_actual_word_ci_delivery_and_independent_gate/portable_gis_export_with_independent_gdal_reader.log",
+      "log_sha256": "1d95cb95fb2d1d29a383905002907c04cb2d3d431096b96bc61970a94dd4aed0"
+    },
+    {
+      "id": "scientific_report_brief_and_atlas",
+      "command": [
+        "python",
+        "research/sgrt_word_completion_20261021/delivery/build_research_package.py",
+        "--model",
+        "research/sgrt_word_completion_20261021/model/output_word_ci_2021_baseline"
+      ],
+      "repair_requirements": [
+        "W28",
+        "W29",
+        "W30",
+        "W31"
+      ],
+      "state": "PRODUCED_REQUIRES_INDEPENDENT_REVIEW",
+      "exit_code": 0,
+      "seconds": 4.656,
+      "log": "coordination/loops/cycle03_actual_word_ci_delivery_and_independent_gate/scientific_report_brief_and_atlas.log",
+      "log_sha256": "0bede4434848c38a03be09458dccaa263bc58a9e0888bda8c0ac6073f8d7b879"
+    }
+  ],
+  "schedule_sha256": "27cd91b9a8172986a9c2770f287b092a02c1f625c41be405df680fe11620c8a2",
+  "agents_are_managed_by": "root collaboration tools; this process runs only declared subprocess stages",
+  "gate_exit_code": 1,
+  "gate_log_sha256": "78d4ac2f0461c8b48e2dff1d222661af7d30b38f30fa897984200d85842a7bc4",
+  "scientific_release_allowed": false,
+  "next_action": "Use current_repair_queue.csv; obtain missing evidence, repair and recalculate, then request another independent review."
+}

@@ -1,0 +1,125 @@
+{
+  "verdict": "PASS_DATA_ONLY_EXPORT_INTEGRATION",
+  "manifest_path": "/workspace/settlements-delivery/continuation-loop-20261003/settlements_long.manifest.json",
+  "manifest_input_output_pins_match": true,
+  "frozen_R4_inputs_match_manifest": {
+    "annual": true,
+    "census": true,
+    "coordinates": true,
+    "identity": true,
+    "source_evidence": true,
+    "source_manifest": true,
+    "wiki": true
+  },
+  "export_rows": 500320,
+  "unique_observation_ids": 500320,
+  "record_type_counts": {
+    "census": 465800,
+    "wiki_literal_series": 34004,
+    "annual_official": 516
+  },
+  "association_status_counts": {
+    "accepted_same_place_component": 304502,
+    "unknown_no_link": 161298,
+    "current_named_article_association_only": 34004,
+    "accepted_target_2021_same_place": 507,
+    "separate_statistical_aggregate": 9
+  },
+  "coordinate_counts_by_record_type": {
+    "census": 327430,
+    "annual_official": 495,
+    "wiki_literal_series": 0
+  },
+  "wiki_series_rows": 34004,
+  "wiki_series_coordinates": 0,
+  "census_rows_match_frozen_selected_core_and_native_oktmo": true,
+  "oktmo_native_raw_literal_match": true,
+  "current_oktmo_literal_2021_entity_mapping_matches_builder": true,
+  "no_new_legal_OKTMO_interval_fields": true,
+  "census_point_rows_exact_match_frozen_327430_uses": true,
+  "canonical_point_origin_fields_match": true,
+  "coordinate_uncertainty_json_matches_all_points": true,
+  "GeoNames_direct_2021_rows": 9044,
+  "GeoNames_canonical_origin_rows": 11168,
+  "GeoNames_historical_reuse_rows": 2124,
+  "source_evidence_target_annotations": 780,
+  "untargeted_source_evidence_rows_unchanged": 465020,
+  "selected_input_unchanged_R4": true,
+  "coverage_axes_recomputed_against_full_national_controls": true,
+  "coverage_2002_2010_2021_admitted_population_share": [
+    0.8308129980553189,
+    0.716065808847556,
+    0.8100126942726598
+  ],
+  "coverage_graph_counts": {
+    "edges": 176568,
+    "linked_vertices": 304502,
+    "components": 129872,
+    "full_census_components": 44758
+  },
+  "csv_parquet_id_type_order_parity": true,
+  "csv_rows": 500320,
+  "reused_review_pins": {
+    "urban_application": "8e704f58c19ac1da563aa97c03385c5ce46f7e9d78400476557bcfe3e737aa48",
+    "urban_context_addendum": "2ba6d3a44c87eeacf7efbc0ab577d36a1d7e0d84d3c45f619d3b36316e5c12fd",
+    "geonames_application": "cb1b23a4e6a46981f7af5e63580a9fe26292784b1a6baeaa5fbca0ab3059234d",
+    "identity_application": "fc101dbe1cb741ead209f32ccb1be7db1c1865f0684103a69d14195589de02cc",
+    "publication_binding": "dff3787ea31fa5abff61de1f8a1997026668dc591a5390b52a3383666d65f343"
+  },
+  "all_manifest_pins": {
+    "manifest_input:annual": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/annual_official_observations.parquet",
+      "expected": "3f2b0878e547c192470875e6d57355c00738a24da39d6d8206e7e4d7089bf94a",
+      "actual": "3f2b0878e547c192470875e6d57355c00738a24da39d6d8206e7e4d7089bf94a",
+      "match": true
+    },
+    "manifest_input:census": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/selected_observations.parquet",
+      "expected": "94ae62cfa8a37820db09416b1fd63cc43cac4aae371b5d26ca2fb14f68163356",
+      "actual": "94ae62cfa8a37820db09416b1fd63cc43cac4aae371b5d26ca2fb14f68163356",
+      "match": true
+    },
+    "manifest_input:coordinates": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/accepted_point_uses.parquet",
+      "expected": "18865bc7a8a9fb181c71c49dbaca35775f6f2ec3925afa5ec35e21d04be01b77",
+      "actual": "18865bc7a8a9fb181c71c49dbaca35775f6f2ec3925afa5ec35e21d04be01b77",
+      "match": true
+    },
+    "manifest_input:identity": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/accepted_identity_edges.parquet",
+      "expected": "98741f9b695283f390355c34077ca4fd090ecdbb576e9bae323292a585220622",
+      "actual": "98741f9b695283f390355c34077ca4fd090ecdbb576e9bae323292a585220622",
+      "match": true
+    },
+    "manifest_input:source_evidence": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/source_evidence.parquet",
+      "expected": "612f84c3de4030ad192046cbd597a1446684b9275a93037af0d2c71017ab78a2",
+      "actual": "612f84c3de4030ad192046cbd597a1446684b9275a93037af0d2c71017ab78a2",
+      "match": true
+    },
+    "manifest_input:source_manifest": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/input_manifest.parquet",
+      "expected": "15c03537ad7050138ebda5a198198784d41c776c12cbe6222a0fb76194124a97",
+      "actual": "15c03537ad7050138ebda5a198198784d41c776c12cbe6222a0fb76194124a97",
+      "match": true
+    },
+    "manifest_input:wiki": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/wiki_literal_associations.parquet",
+      "expected": "04672327ef9717dfdc8aa628f921b5589c6813b11d410b28717a223fccbbbece",
+      "actual": "04672327ef9717dfdc8aa628f921b5589c6813b11d410b28717a223fccbbbece",
+      "match": true
+    },
+    "manifest_output:csv_gzip": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/settlements_long.csv.gz",
+      "expected": "99ecb4190f87a1094a97e75fb2f7119f094413e9f74eb366152b9c41951a2752",
+      "actual": "99ecb4190f87a1094a97e75fb2f7119f094413e9f74eb366152b9c41951a2752",
+      "match": true
+    },
+    "manifest_output:parquet": {
+      "path": "/workspace/settlements-delivery/continuation-loop-20261003/settlements_long.parquet",
+      "expected": "a9f902a66745326f199db7f8447eaa40a42319aab0011b8b29866cceda4ce92f",
+      "actual": "a9f902a66745326f199db7f8447eaa40a42319aab0011b8b29866cceda4ce92f",
+      "match": true
+    }
+  }
+}

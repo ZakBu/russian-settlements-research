@@ -1,0 +1,122 @@
+{
+  "design_version": "1.0",
+  "stage": "post_integration_mass_audit",
+  "status": "PRECOMMITTED_BEFORE_MASTER",
+  "axis_rows": 142570,
+  "axis_path": "anchor_research_20261019/data/point_axis.parquet",
+  "axis_sha256": "a2b5544c0d3c5581144a5439113a96c4a771697dc87a38c2abf979e1ead1467b",
+  "master_default": "national_integration_20261019/core/feature_master.parquet",
+  "binding_contract": "validation_bindings.json",
+  "hard_invariants": [
+    "Every frozen-axis id occurs exactly once; no foreign id or row deletion",
+    "Frozen names, region, type, coordinates and observed census values remain unchanged unless explicit sourced overrides are supplied",
+    "Missing census values remain missing; all observed zeros remain zeros",
+    "Every joined source is unique on declared keys after explicitly declared filters",
+    "Every mapped master column equals an independently joined source column on all rows, not merely national totals",
+    "Accepted object counts balance source records; unresolved/ambiguous records remain separately countable",
+    "Native municipal context is not summed across settlement rows as if it were additive settlement output",
+    "Every financial, population, institution and organization feature retains units, date, source grain and evidence meaning",
+    "Federal cities outside the ordinary settlement axis remain in source balances; a national attraction model must represent external federal nodes or explicitly flag their excluded pressure, without inventing ordinary settlement ids"
+  ],
+  "source_verification": {
+    "raw_RFSD": "Re-read declared raw columns and reproduce exact-code aggregates with an independent implementation after field semantics are fixed",
+    "agriculture": "Re-read declared native municipality/year/indicator/category/unit keys; inspect nonunique and unresolved crosswalks",
+    "objects": "Count distinct declared object identities by accepted settlement link; preserve rejected, ambiguous and unmatched records",
+    "no_silent_source_selection": true,
+    "no_missing_to_zero_without_feature_specific_rule": true
+  },
+  "coverage": {
+    "groupings": [
+      "region",
+      "population_size_2021",
+      "region_x_population_size_2021"
+    ],
+    "size_bins": [
+      "0",
+      "1-99",
+      "100-499",
+      "500-999",
+      "1000-4999",
+      "5000-19999",
+      "20000-99999",
+      "100000+",
+      "unknown"
+    ],
+    "statistics": [
+      "rows",
+      "numeric_nonmissing",
+      "numeric_missing",
+      "numeric_positive",
+      "numeric_zero",
+      "numeric_negative",
+      "declared_baseline_link",
+      "declared_positive_witness",
+      "declared_known_observed_zero",
+      "declared_unknown",
+      "declared_conditional_only",
+      "declared_conflict"
+    ],
+    "interpretation": "Numeric completeness is separate from declared source-specific evidence coverage. A zero accepted-record count is not a known absence of physical service. Municipal linkage is context identity, not observed external attraction."
+  },
+  "conflict_queue": [
+    {
+      "kind": "duplicate_master_key",
+      "severity": "ERROR"
+    },
+    {
+      "kind": "foreign_or_missing_axis_key",
+      "severity": "ERROR"
+    },
+    {
+      "kind": "altered_frozen_axis_value",
+      "severity": "ERROR_UNLESS_SOURCED_OVERRIDE"
+    },
+    {
+      "kind": "nonunique_source_join_key",
+      "severity": "ERROR"
+    },
+    {
+      "kind": "source_value_mismatch",
+      "severity": "ERROR"
+    },
+    {
+      "kind": "coordinate_conflict_or_low_linkage_quality",
+      "severity": "REVIEW"
+    },
+    {
+      "kind": "zero_census_population_with_later_function_evidence",
+      "severity": "REVIEW_NOT_AUTOMATIC_ERROR"
+    },
+    {
+      "kind": "extreme_function_or_registration_density",
+      "severity": "REVIEW_NOT_AUTOMATIC_ERROR"
+    },
+    {
+      "kind": "missing_source_or_crosswalk_evidence",
+      "severity": "COVERAGE_UNKNOWN"
+    }
+  ],
+  "sampling": {
+    "seed": 20261019,
+    "selection": "One lowest SHA256(seed|stratum|id) observation in each occupied region x size stratum; add up to 75 risk-queue cases, de-duplicate by id",
+    "split": "SHA256(seed|external_split|id) modulo 3: zero is holdout_no_calibration, others exploratory_audit",
+    "external_review_status_on_creation": "not_yet_reviewed",
+    "geographic_diversity_required": true,
+    "training_on_holdout_labels_forbidden_without_new_evaluation": true,
+    "missing_external_evidence_is_not_negative": true
+  },
+  "outputs": [
+    "AUDIT.json",
+    "source_schemas.json",
+    "coverage_by_region.csv",
+    "coverage_by_size.csv",
+    "coverage_by_region_size.csv",
+    "conflict_queue.csv",
+    "external_audit_sample.csv",
+    "source_balance.csv"
+  ],
+  "claim_boundary": "A passing integration audit establishes join and aggregation fidelity in the observed source corpus. It does not validate actual attraction, physical functions, flows or correctness of modeled SGRT. Number of checks is not model accuracy.",
+  "design_amendments": [
+    "Federal-centre domain requirement added after intermediate master, before final national master and external-label review; no external labels inspected."
+  ]
+}

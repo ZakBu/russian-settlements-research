@@ -1,0 +1,139 @@
+{
+  "counts": {
+    "2009_classifier_candidate_row_occurrences": 735,
+    "2009_classifier_unique_candidate_codes": 732,
+    "2009_codes_with_exact_duplicate_rows": 3,
+    "2011_codes_with_duplicate_cache_rows_same_raw_DBf_record": 3,
+    "2011_parsed_GeoKLADR_unique_candidate_codes": 732,
+    "2011_parsed_candidate_row_occurrences": 735,
+    "actual_2009_classifier_settlement_rows": 735,
+    "candidate_2009_equals_2011_code": 735,
+    "candidate_2021_source_ids_unique": 732,
+    "candidate_current_direct_accepted_point_distance_le_5km": 735,
+    "candidate_edges": 735,
+    "candidate_old_source_ids_unique": 735,
+    "candidate_old_years": {
+      "2002": 709,
+      "2010": 26
+    },
+    "candidate_rule_replay_pass_after_identical_classifier_duplicates_are_collapsed": 735,
+    "candidate_source_rows": 735,
+    "current_direct_tochno_point_sources_for_candidate_ids": 729,
+    "current_event_aggregate_hard_hold_rows": 0,
+    "current_source_name_type_province_unique_in_full_selected_year": 735,
+    "held_rows_excluded": 2,
+    "old_legacy_administrative_conflict_rows": 695,
+    "old_name_matches_classifier_2011_parsed_geography": 735,
+    "old_source_name_type_province_unique_in_full_selected_year": 735,
+    "old_type_matches_classifier_2011_parsed_geography": 735,
+    "point_only_candidates": 40,
+    "point_only_current_direct_point_found": 40,
+    "point_only_raw_DBf_replay_pass": 40,
+    "point_only_within_5km": 40,
+    "rule_replay_fail_counts": {},
+    "source_district_exact_parent_match_claims_replayed": 712,
+    "source_district_match_disagreements": 0,
+    "source_district_unknown": 23
+  },
+  "district_context_disagreements": [],
+  "input_sha256": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/source_evidence.parquet": "e915df1c3533e104d15e55d1063036ea76a0ac0ace28591b18d4d05c28d45327",
+    "/workspace/settlements-raw/data/raw/historical_classifiers/okato_142_2009/dump-142_2009.sql": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+    "/workspace/settlements-raw/data/raw/historical_geography/geokladr_okato_2011/okato.dbf": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+    "/workspace/settlements-work/continuation_20261004/R4/typed_native_physical_corridor_v2_rerunfinal/candidate_point_only_uses.csv": "a29a6f11a94e2f1e5d3d0fee43496ceec34156ddad5fdacdbb281c428ecad8c3",
+    "/workspace/settlements-work/continuation_20261004/R4/typed_native_physical_corridor_v2_rerunfinal/independently_reviewable_candidate_edges.csv": "85cacab778c0c39c18bcb3cc9a663cde6ce481e6ca0ed4cdceab4e6ba8c13115",
+    "/workspace/settlements-work/continuation_20261004/R4/typed_native_physical_corridor_v2_rerunfinal/receipt.json": "34ea063d32c380c34ba89c056f9f0c968e99513a981e5b238a3fd4f1e14a0af3",
+    "/workspace/settlements-work/continuation_20261004/R4/typed_native_physical_corridor_v2_rerunfinal/residual_year_vertex_candidates.csv": "69413cda0c13a02dfabe8605a473fe97af1e259cb0ecf4563ad8ad1933bd88be",
+    "/workspace/settlements-work/continuation_20261004/R4/typed_native_physical_corridor_v2_rerunfinal/summary.json": "51da4969517b4b7d65488156cebea7141c95876d20caebc358e8333c28d344ae",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_rule_corrections_origin_corrected/accepted_point_uses.parquet": "8ca8a5279483ddedac5b8958905e9bdc7919b8a74760db718d30988b9bca5f06",
+    "/workspace/settlements-work/sources/geokladr_raw_verification/geokladr_okato_2011_raw_parsed.parquet": "c778b841d22a65ac01a8658957044b66390bc32fe7f095cb2ca38489858ce17f",
+    "/workspace/settlements-work/sources/raw_okato_2009_verification_v1/raw_classifier.parquet": "343c0f5af1f52b9276699d9fe8d883b58def5aeabdd904063389606d29bc2b81",
+    "/workspace/settlements-work/sources/raw_okato_2009_verification_v1/receipt.json": "7e21e6e6e2b7e18a19a021efd58ff2f0c9ca5429803a94ebcf6cfa7c4d568dbb"
+  },
+  "interpretation": [
+    "A candidate can use exact actual classifier and GeoKLADR OKATO as a lookup key for a named typed historical object; the code is not asserted as the census publisher native identifier.",
+    "The 2009 classifier/2011 DBF are snapshots with source update metadata; no validity interval is inferred for 2002/2010 and no historical administrative boundary is asserted.",
+    "Point-only rows are not identity admissions. Their source-native code binding is explicitly not claimed.",
+    "Legacy administrative-conflict reasons remain visible. A candidate row passing this replay only clears the independent names/types/geography/point gate; it does not rewrite the legacy evidence or authorize a graph edge/population value."
+  ],
+  "outputs": {
+    "all_735_key_and_geometry_replay.csv": "317469b40e9cf74595395852c2497ed611cc5d6d6faee568b388776cec298a8a",
+    "build_review.py": "174bd5981b0a314a78eb93f9bf544fda747b92ab08a88dafc84f307a7e1aa9b1",
+    "point_only_40_raw_point_replay.csv": "6610f105427ae3ff57eb029c495f54daec420501fd86f8e76c3bc1424845cc8a",
+    "sample_60_source_replay.csv": "a6f93cf87ba4cfbc705f71c42a8dfcb44848af887bae33a791440ccc04c41fb2"
+  },
+  "producer_candidate_receipt_pinned_sha256": "34ea063d32c380c34ba89c056f9f0c968e99513a981e5b238a3fd4f1e14a0af3",
+  "producer_full_graph_conditional_simulation_pinned_not_recomputed": {
+    "baseline_coverage_reproduced_by_producer": true,
+    "baseline_graph_sha256": "9273cc06dec342fd09de6d392e0450d4a5a7a0729b0c7f1680452219772ec98e",
+    "conditional_nonredundant_coverage_delta": {
+      "2002": {
+        "full_chain": {
+          "population": 133983,
+          "rows": 658
+        },
+        "joint_point_full_chain": {
+          "population": 133983,
+          "rows": 658
+        }
+      },
+      "2010": {
+        "full_chain": {
+          "population": 143532,
+          "rows": 658
+        },
+        "joint_point_full_chain": {
+          "population": 143532,
+          "rows": 658
+        }
+      },
+      "2021": {
+        "full_chain": {
+          "population": 173046,
+          "rows": 658
+        },
+        "joint_point_full_chain": {
+          "population": 173046,
+          "rows": 658
+        }
+      }
+    },
+    "summary_sha256": "51da4969517b4b7d65488156cebea7141c95876d20caebc358e8333c28d344ae"
+  },
+  "producer_summary_pinned_sha256": "51da4969517b4b7d65488156cebea7141c95876d20caebc358e8333c28d344ae",
+  "sample_60": {
+    "counts": {
+      "sample_2002": 34,
+      "sample_2010": 26,
+      "sample_accepted_direct_point_within_5km": 60,
+      "sample_context_ok_or_unknown": 60,
+      "sample_current_actual_hard_holds": 0,
+      "sample_n": 60,
+      "sample_named_type_region_match": 60,
+      "sample_raw_dbf_pass": 60
+    },
+    "point_source_counts": {
+      "Own named typed 2021 NP provider point; exact historical OKATO named object and administrative context in 2009+2011, expected region and <=1km GeoKladr agreement": 3,
+      "actual raw selected source point": 3,
+      "tochno_dadata": 54
+    },
+    "sample_failures": [],
+    "selection": "all 26 2010 rows plus 34 deterministic SHA-256 ranked 2002 rows round-robin stratified by province, population band, and settlement type",
+    "type_pairs": {
+      "('деревня', 'деревня')": 33,
+      "('посёлок', 'посёлок')": 13,
+      "('село', 'село')": 14
+    }
+  },
+  "scope": "735 frozen nonredundant identity-edge candidates and all 40 point-only candidates; source-key replay uses complete selected Parquet key frame, cached full 2009 classifier / 2011 GeoKLADR parses, and fixed raw-source sample. No official publisher-code assertion, legal temporal interval, population-grain match, or admission.",
+  "source_evidence_preserved": {
+    "actual_candidate_current_hard_holds": {},
+    "old_legacy_flags": {
+      "('False', 'False', 'False', 'None')": 23,
+      "('False', 'False', 'False', '[]')": 17,
+      "('True', 'False', 'False', '[\"administrative_conflict\"]')": 695
+    }
+  },
+  "status": "independent_candidate_only_replay_no_identity_or_point_admissions"
+}

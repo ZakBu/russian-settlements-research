@@ -1,0 +1,206 @@
+{
+  "rows": 142570,
+  "columns": 64,
+  "source_shape": [
+    142570,
+    135
+  ],
+  "source_sha256": "d40273e13a8ecf8f31bf367ddc414e21bd026eea325192629fb2f81f6dfa374c",
+  "all2010_included": true,
+  "metadata_not_evidence_of_value_error": true,
+  "2010_zero_is_observed_not_missing": true,
+  "modern": {
+    "2002": {
+      "observed": 142570,
+      "missing": 0,
+      "zero": 8882,
+      "sum": 127397236.0,
+      "population_quality_metadata_only": {
+        "direct_published_census_value": 142545,
+        "verified_count_in_secondary_census_compilation": 25
+      },
+      "source_id_duplicate": 0
+    },
+    "2010": {
+      "observed": 142570,
+      "missing": 0,
+      "zero": 21246,
+      "sum": 124684805.0,
+      "population_quality_metadata_only": {
+        "secondary_confidentiality_protected_value_exact_scope_unverified": 127900,
+        "reviewed_primary_reported_value": 9349,
+        "reviewed_primary_source_value_or_null": 3507,
+        "direct_official_city_value": 1023,
+        "fresh_primary_r5_source": 761,
+        "reviewed_context_specific_dash_interpretation": 27,
+        "MISSING": 3
+      },
+      "source_id_duplicate": 0
+    },
+    "2021": {
+      "observed": 142570,
+      "missing": 0,
+      "zero": 20782,
+      "sum": 125132003.0,
+      "population_quality_metadata_only": {
+        "direct_published_census_value": 142570
+      },
+      "source_id_duplicate": 0
+    }
+  },
+  "municipality": {
+    "input_rows": 466242,
+    "master_context_rows": 427710,
+    "upper_attached": 142570,
+    "code_attached": 142570,
+    "input_upper_duplicate_source_ids": 0,
+    "statuses": {
+      "exact_unique_source_context": 142569,
+      "verified_parent_code_multiple_source_claims": 1
+    },
+    "ambiguous_source_row_attached": 1,
+    "historical_administrative_membership_asserted": false,
+    "territorial_effective_dates_unknown": true
+  },
+  "historical1989": {
+    "input_rows": 20453,
+    "exact_unique_linked_rows": 19863,
+    "primary_source_kind_rows": 7778,
+    "unmatched_historical_rows": 588,
+    "held_candidate_links": 2,
+    "input_anchors_duplicate_nonmissing": 0,
+    "source_kind_counts": {
+      "secondary_encyclopedia_census_series": 5424,
+      "wikidata_dated_claim": 5084,
+      "primary_regional_census": 4359,
+      "official_census_transcription": 3419,
+      "wikipedia_cached_literal": 1550,
+      "wikipedia_comparative_locality_table": 15,
+      "scholarly_secondary_census_comparative_table": 12
+    },
+    "population_basis_counts": {
+      "presence/permanent not specified in encyclopedia": 5424,
+      "UNKNOWN": 5111,
+      "present": 3419,
+      "publisher_1989_count_basis_not_yet_verified": 2861,
+      "UNKNOWN_literal_1989_secondary_article": 1550,
+      "permanent": 1498
+    },
+    "boundary_comparability_counts": {
+      "UNKNOWN": 19158,
+      "official_1989_values_adjusted_for_post_census_administrative_changes_not_native_boundary_observation": 705
+    },
+    "nationally_complete": false,
+    "no_spatial_or_fuzzy_binding": true
+  },
+  "checks": [
+    {
+      "test": "source_SHA256",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "source_shape",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "source_unique_entity_uid",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "exact_population_2002_preserved",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "nonnegative_population_2002",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "exact_population_2010_preserved",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "nonnegative_population_2010",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "exact_population_2021_preserved",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "nonnegative_population_2021",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "coordinate_domain",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "all2010_source_values_and_zeros_retained",
+      "passed": true,
+      "details": {
+        "zeros": 21246
+      }
+    },
+    {
+      "test": "historical_root_unique",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "historical_join_unique",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "held1989_not_assigned",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "historical_link_count",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "panel_rows_preserved",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "input_SHA256_unchanged",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "passed": 17,
+  "failed": 0,
+  "inputs": {
+    "publication/stage71/ordinary_full3_with_primary_population_sources.csv.gz": {
+      "sha256": "d40273e13a8ecf8f31bf367ddc414e21bd026eea325192629fb2f81f6dfa374c",
+      "bytes": 26266958
+    },
+    "research_rebuild/evidence/tochno_enrichment_application_20261013/native_np_municipality_bridge.csv.gz": {
+      "sha256": "114ae2fe00421f894a1e811bb40cbc5c5101274e8a1177509247f3b89e7682cf",
+      "bytes": 7175354
+    },
+    "research_rebuild/evidence/historical_sources_integration_20261014/population_1989_selected_long.parquet": {
+      "sha256": "06a6735ab206b81240ed1e9fa4e42c599add6449bb3a70a93ce796b2dc5cb136",
+      "bytes": 2903930
+    },
+    "publication/stage71/accepted_common_federal_territory_axis.csv": {
+      "sha256": "d527db11401f36353e76a331f8dbe838d552454b145171a934ada7c54bb3ab2b",
+      "bytes": 5578
+    }
+  },
+  "panel_sha256": "a2b5544c0d3c5581144a5439113a96c4a771697dc87a38c2abf979e1ead1467b"
+}

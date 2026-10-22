@@ -1,0 +1,67 @@
+{
+  "status": "eighth_accepted_scoped_joint_measurement_target99_not_reached",
+  "results": {
+    "2002": {
+      "control_population": 145166731,
+      "strict_NP_joint_population": 123633213,
+      "strict_NP_joint_rows": 128882,
+      "strict_with_existing_federal_typed_three_census_population": 138420856,
+      "strict_with_federal_percent": 95.35301583666578,
+      "available_scope_joint_population": 138677186,
+      "available_scope_joint_percent": 95.5295921074368,
+      "remaining_population_to_99": 5037878,
+      "scope_adjustments": [
+        {
+          "kind": "exclusive_Moscow2002_published_parent_instead_of_all_children",
+          "removed_already_counted_population": 10126424,
+          "parent_population": 10382754
+        }
+      ]
+    },
+    "2010": {
+      "control_population": 142856536,
+      "strict_NP_joint_population": 120780996,
+      "strict_NP_joint_rows": 128883,
+      "strict_with_existing_federal_typed_three_census_population": 137164063,
+      "strict_with_federal_percent": 96.01525197279038,
+      "available_scope_joint_population": 137164063,
+      "available_scope_joint_percent": 96.01525197279038,
+      "remaining_population_to_99": 4263908,
+      "scope_adjustments": []
+    },
+    "2021": {
+      "control_population": 147182123,
+      "strict_NP_joint_population": 121457215,
+      "strict_NP_joint_rows": 128916,
+      "strict_with_existing_federal_typed_three_census_population": 140069238,
+      "strict_with_federal_percent": 95.16729011987414,
+      "available_scope_joint_population": 142328659,
+      "available_scope_joint_percent": 96.70240930007512,
+      "remaining_population_to_99": 3381643,
+      "scope_adjustments": [
+        {
+          "kind": "accepted_scope2014_to2021_crimea_NP_paths",
+          "rows": 993,
+          "population": 1711601
+        },
+        {
+          "kind": "accepted_Sevastopol2021_to2022_2023_2024_territorial_path",
+          "population": 547820
+        }
+      ]
+    }
+  },
+  "definition": "Ordinary accepted coordinate+full Russian3 chain; separate federal territorial chains; replace2002 Moscow childpartition by exactpublishedparent exclusively; Crimea actual2014->21 paths; Sevastopolactual2021->22/23/24 paths. No invented oldRussianrecords. This scope-aware metric is separate from strict3.",
+  "input_pins": {
+    "/workspace/settlements-delivery/continuation-consolidated-20261003/selected_observations.parquet": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_eighth_reviewed/accepted_identity_edges.parquet": "c0f276db44f524845bd9c4d973ce8294f372d942cad292028b3b3984024bf011",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_eighth_reviewed/accepted_point_uses.parquet": "797eaf25a7383a9706e84090732cfa62aa9db9f9a7775df99ab0fc880031e337",
+    "/workspace/settlements-work/continuation_20261004/accepted_mass_eighth_reviewed/receipt.json": "11ca42568e0c0f173a899b9a002af7a9f556da60ee478fd03e1818a59e11263b",
+    "/workspace/settlements-work/continuation_20261004/R4/final_long_preparation/seventh_canonical_long/federal_typed_city_continuity.parquet": "ee5898e3e5495d691f230e18fce08191fcc287ed35e06d969140bb05df75c695",
+    "/workspace/settlements-work/continuation_20261004/root/scoped2014_applied/accepted_scoped_observations_2014.parquet": "042a991650054c5a1ad99935474b25201cae61640986fc8f2d12368e4c654a20",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_territorial_scope_layers_seventh/application_receipt.json": "dd61fe3283416afbcf9a8b0d5fa087fc2effaa7e7ab95f16afff52dd325fe89f",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_territorial_scope_layers_seventh/accepted_moscow2002_territorial_override.json": "577274fd777c7a0a12c3df771fe78695b6d4e06cc185bf934dadead0422438b5",
+    "/workspace/settlements-work/continuation_20261004/root/accepted_territorial_scope_layers_seventh/accepted_annual_federal9_territorial_edges.csv": "bbe5d70756a8a290cc596a0850231bfb4c3c3cb6bf705c85f392856ec8c3cdc1"
+  },
+  "script_sha256": "2f800cb7bca5d7b6ab61baad1d729a21fdcabe1c413dd60b4defe06b8c8c6e24"
+}

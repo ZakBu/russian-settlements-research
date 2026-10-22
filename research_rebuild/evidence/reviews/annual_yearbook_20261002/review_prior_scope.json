@@ -1,0 +1,154 @@
+{
+  "review_id": "annual_yearbook_identity_rule_independent_review_20261002",
+  "reviewer_status": "PASS_SCOPED_IDENTITY_RULE",
+  "verdict": {
+    "supports_annual_identity_links": 489,
+    "link_basis": "163 directly named city rows with independently reviewed unique 2021 endpoints × three annual observation years (2022, 2023, 2024)",
+    "unresolved_observations": 27,
+    "unresolved_rows": 9,
+    "identity_scope": "same published city identity in the official table series; retain year-specific published population observations",
+    "coordinate_admissions": 0,
+    "population_boundary_harmonization": "not established"
+  },
+  "checked_rule": {
+    "criterion": "Direct named city row in the same official comparative table, with a previously reviewed exact city-row binding to one selected 2021 settlement observation; admit only the identity relationship for the 2022–2024 annual rows.",
+    "row_binding_checks": {
+      "source_rows": 172,
+      "source_row_ids_unique": true,
+      "reviewed_2021_bindings": 163,
+      "binding_row_ids_unique": true,
+      "target_2021_record_ids_unique": true,
+      "target_2021_records_present_in_selected_observations": 163,
+      "target_year_is_2021_for_all": true,
+      "bound_city_labels_unique": true,
+      "annual_observations": 516,
+      "one_observation_per_source_row_and_year": true,
+      "year_set": [
+        2022,
+        2023,
+        2024
+      ],
+      "bound_annual_identity_links": 489,
+      "held_annual_observations": 27,
+      "conflicting_or_duplicate_target_bindings_found": 0
+    },
+    "population_fields": {
+      "unit": "thousand persons as published",
+      "derived_person_count": "published integer × 1000 only; does not add precision",
+      "reference_date": "January 1 of each annual year, per footnote 1",
+      "rounding": "published as thousands; rounding convention unspecified, so no precision interval inferred",
+      "population_observations_preserved_by_year": true,
+      "national_denominator": false
+    },
+    "footnotes": {
+      "footnote_1": "2002, 2010 and 2021 refer to census dates; other years are estimates as of January 1 of the corresponding year.",
+      "footnote_2": "Balashikha's 2010 and 2021 values include the 2015 boundary change; corresponding row remains held.",
+      "footnote_3": "Moscow includes its 2012 boundary change; corresponding row remains held.",
+      "held_exception_count": 9,
+      "all_9_exception_rows_unbound_in_annual_output": true,
+      "no_aggregate_or_federal_city_scope_exception_silently_admitted": true
+    }
+  },
+  "independent_checks": {
+    "official_source": "Compared frozen extracted rows and raw table lines with official Russian Statistical Yearbook 2024, table 4.9, printed pages 90–92 (PDF pages 91–93).",
+    "independent_pdf_extraction": {
+      "tool": "Poppler pdftotext -layout",
+      "result": "All 172 source row annual triplets (516 cells) match the 2022, 2023, 2024 columns parsed from PDF pages 91–93; the January 1 estimate footnote is present.",
+      "saved_text_sha256": "194e4aadac4100292e6f1fbe0148f1e9d6ceb381e923afdd7c5979bef60b3ea4"
+    },
+    "fixed_sample": {
+      "method": "12 rows sampled deterministically with Python random seed 20261002, four rows from each PDF page containing the table; this is a source-reading check, not a precision sample.",
+      "source_row_ids": [
+        "ROSSTAT2024:YB4.9:pdf_page_91:line_59",
+        "ROSSTAT2024:YB4.9:pdf_page_91:line_58",
+        "ROSSTAT2024:YB4.9:pdf_page_91:line_73",
+        "ROSSTAT2024:YB4.9:pdf_page_91:line_75",
+        "ROSSTAT2024:YB4.9:pdf_page_92:line_52",
+        "ROSSTAT2024:YB4.9:pdf_page_92:line_18",
+        "ROSSTAT2024:YB4.9:pdf_page_92:line_70",
+        "ROSSTAT2024:YB4.9:pdf_page_92:line_47",
+        "ROSSTAT2024:YB4.9:pdf_page_93:line_24",
+        "ROSSTAT2024:YB4.9:pdf_page_93:line_37",
+        "ROSSTAT2024:YB4.9:pdf_page_93:line_45",
+        "ROSSTAT2024:YB4.9:pdf_page_93:line_54"
+      ],
+      "result": "Rows’ Russian labels, source raw lines, and annual cells matched the PDF. Includes high population values Samara and an intentionally held Balashikha; no discrepancy found."
+    },
+    "high_population_source_rows_inspected": [
+      "ROSSTAT2024:YB4.9:pdf_page_91:line_74 (Волгоград)",
+      "ROSSTAT2024:YB4.9:pdf_page_91:line_78 (Воронеж)",
+      "ROSSTAT2024:YB4.9:pdf_page_92:line_10 (Екатеринбург)",
+      "ROSSTAT2024:YB4.9:pdf_page_92:line_21 (Казань)",
+      "ROSSTAT2024:YB4.9:pdf_page_92:line_38 (Краснодар)",
+      "ROSSTAT2024:YB4.9:pdf_page_92:line_39 (Красноярск)",
+      "ROSSTAT2024:YB4.9:pdf_page_92:line_68 (Новосибирск)",
+      "ROSSTAT2024:YB4.9:pdf_page_93:line_24 (Самара)",
+      "ROSSTAT2024:YB4.9:pdf_page_92:line_49 (Москва3), held federal-city/boundary exception)",
+      "ROSSTAT2024:YB4.9:pdf_page_93:line_25 (Санкт-Петербург, held federal-city exception)"
+    ],
+    "all_held_exceptions_reviewed": [
+      {
+        "source_row_id": "ROSSTAT2024:YB4.9:pdf_page_91:line_59",
+        "city": "Балашиха",
+        "reason": "2015 boundary change footnote; held."
+      },
+      {
+        "source_row_id": "ROSSTAT2024:YB4.9:pdf_page_92:line_9",
+        "city": "Евпатория",
+        "reason": "2010 is ellipsis and has no selected Russian-2010 endpoint; not zero or a failed name match; held."
+      },
+      {
+        "source_row_id": "ROSSTAT2024:YB4.9:pdf_page_92:line_15",
+        "city": "Зеленодольск",
+        "reason": "2010 cell blank; missing value preserved; held."
+      },
+      {
+        "source_row_id": "ROSSTAT2024:YB4.9:pdf_page_92:line_28",
+        "city": "Керчь",
+        "reason": "2010 is ellipsis and has no selected Russian-2010 endpoint; not zero or a failed name match; held."
+      },
+      {
+        "source_row_id": "ROSSTAT2024:YB4.9:pdf_page_92:line_49",
+        "city": "Москва",
+        "reason": "2012 boundary change and federal-city scope; held."
+      },
+      {
+        "source_row_id": "ROSSTAT2024:YB4.9:pdf_page_93:line_25",
+        "city": "Санкт-Петербург",
+        "reason": "Federal-city scope requires separate case review; held."
+      },
+      {
+        "source_row_id": "ROSSTAT2024:YB4.9:pdf_page_93:line_28",
+        "city": "Севастополь",
+        "reason": "2010 is ellipsis, no selected Russian-2010 endpoint; outside that census universe; held."
+      },
+      {
+        "source_row_id": "ROSSTAT2024:YB4.9:pdf_page_93:line_32",
+        "city": "Симферополь",
+        "reason": "2010 is ellipsis and has no selected Russian-2010 endpoint; held."
+      },
+      {
+        "source_row_id": "ROSSTAT2024:YB4.9:pdf_page_93:line_53",
+        "city": "Ханты-Мансийск",
+        "reason": "2010 cell blank; missing value preserved; held."
+      }
+    ]
+  },
+  "limitations": [
+    "This is a scoped rule-family review plus deterministic reuse of the prior reviewed bindings; the 12-row check is not evidence of a national error rate.",
+    "Annual values are estimates rounded to thousand persons; the source gives no rounding convention. They must not be represented as exact counts or assigned an assumed error interval.",
+    "2021 is a census observation as of October 1; 2022–2024 are January 1 estimates. Identity continuity does not make those measurement dates equivalent.",
+    "The table covers only listed cities with population of at least 100,000 and is not a national settlement denominator.",
+    "Year-specific boundaries and population scopes remain; no boundary harmonization, coordinate transfer, or spatial identity is approved by this review."
+  ],
+  "pinned_inputs": {
+    "official_pdf_sha256": "bac43b438869d7b11ca595acd121726833d2bf2e54004351db825cade4c29da7",
+    "candidate_source_rows_sha256": "43d97c7d655c7e48d23d742191a063b92e56892431c38604bad8e8951ed77688",
+    "r5b_accepted_bindings_sha256": "3b76aa6cd2af70bc3ec6b343bcfa5659ebf1a34392f40eaa2b8a995d02d320dd",
+    "selected_observations_sha256": "524e706daa32a69cac9b3e67b3bb8f9113fe2d851f10cdf42e93ba4efa5d72bf",
+    "r5b_release_manifest_sha256": "0bf4c442df7e1e3a0c9148c08c7cde2f43235ebde6ca608b762891d8ee26093c",
+    "prior_held_scope_cases_sha256": "3e4ffcf02752174ce79747370c0f93868e784dacc643ac20e564fd92e24f0844",
+    "annual_observations_sha256": "6c455e4d3806ebb340506df775b21be5de5c67f5e0f74b6c80d53418c03456fa",
+    "annual_builder_sha256": "86d503dcbdfe9fe54111661806c290eadf1f1a4acb557805797d903d8e747f2d"
+  }
+}

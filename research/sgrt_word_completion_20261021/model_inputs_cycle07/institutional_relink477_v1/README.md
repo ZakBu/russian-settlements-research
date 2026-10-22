@@ -1,0 +1,11 @@
+# Frozen institutional source relink onto477 recovered2021 settlement points
+
+The dated physical facility inventory is unchanged:74998 education assertions,458727 commerce assertions and64976 medical assertions. The reference adds all477 independently admitted2021 settlement points (154132→154609) to the original173862 source-axis IDs. Source objects, dated tags, geometry, classes and capacities are unchanged. No model predictions or provider agreement scores enter this source layer.
+
+The accepted V4 literal address and distance rules, canonical campus precedence and medical nearest-distance tie quarantine are retained. Full inventories were replayed, including previously linked objects. Old V4 link/count fields are retained under cycle05_v4_*. Education/commerce candidate observations and medical coordinate candidates remain geographic proxies, separate from strict locality identity.
+
+The actual change affects31 NP feature rows:4 education feature cells across2 NP,43 commerce cells across20 NP,69 medical cells across11 NP (overlapping families). All42 changed raw counted-link assertions lie within the new477 geometry influence or its canonical-site closure. New477 have0 strict identity-positive NP across all families; commerce contributes12 geographic candidate sites across9 new NP, medicine6 across5. Two preschool candidate links disappear under the original separation condition. One old strict medical assertion becomes an explicit source-locality homonym conflict after an additional same-name point enters the10km lookup. This is retained as uncertainty; no arbitrary nearest identity is assigned.
+
+There are196 medical raw nearest ties (195 before); counted coordinate ties remain excluded, while valid strict locality identities are retained. This source release does not alter Mi, provider pools, route matrices or old model files. Since actual source features change, downstream mass and provider eligibility must be recomputed under the declared scenario before routing extensions are selected. Zero observed accepted assertions mean unknown real absence; partial capacities retain NA.
+
+Read source_relink_protocol.json and finite_impact_readback_receipt.json. The latter is an author readback, not independent admission. Source must receive independent review before model use.

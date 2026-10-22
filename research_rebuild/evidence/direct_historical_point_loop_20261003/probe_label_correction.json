@@ -1,0 +1,46 @@
+{
+  "artifact": "direct_historical_point_to_2021_gain_probe_v1_label_addendum",
+  "base_summary_path": "/workspace/settlements-work/continuation_20261003/direct_historical_point_to_2021_gain_probe_v1/summary.json",
+  "base_summary_sha256": "aae00ddd903d1f9ee4814991d9d9399329166d0ac780b9c7d5f681d36b21f490",
+  "correction_scope": "Label and inventory interpretation only. No candidate ledger, candidate count, population sum, hold, or decision is changed.",
+  "corrected_interpretations": {
+    "historical_direct_origin_inventory.earlier_2002_2010_coordinate_rows": {
+      "original_label": "earlier_2002_2010_coordinate_rows",
+      "original_value": 310386,
+      "corrected_label": "earlier_2002_2010_selected_census_rows_all_coordinate_statuses",
+      "corrected_value": 310386,
+      "explanation": "This is the total of 2002 and 2010 selected census rows, not the number of rows with accepted coordinates. Accepted point-use count is 121,906 + 79,636 = 201,542."
+    },
+    "historical_direct_origin_inventory.all_historical_coordinate_rows_by_origin_kind.null": {
+      "original_value": 108844,
+      "corrected_label": "historical_selected_rows_with_missing_point_origin_kind_no_accepted_point_use",
+      "corrected_value": 108844,
+      "explanation": "The null point-origin category denotes rows without an accepted coordinate use, not coordinate rows with an unknown origin."
+    },
+    "historical_direct_origin_inventory.excluded_GeoKLADR_origin_rows_by_rule": {
+      "original_label": "excluded_GeoKLADR_origin_rows_by_rule",
+      "corrected_label": "GeoKLADR_raw_origin_inventory_by_rule_including_eligible_direct_inputs",
+      "original_rows": [
+        {"point_source_kind": "geokladr_2011_raw_dbf_coordinate", "coordinate_temporal_basis": "dated_historical_source_point_candidate", "coordinate_admission_rule": "extension_review_v1_conditional_generic_historical_geokladr_point", "rows": 108849},
+        {"point_source_kind": "geokladr_2011_raw_dbf_coordinate", "coordinate_temporal_basis": "retrospective_continuity_from_accepted_2021_point", "coordinate_admission_rule": "R_graph_accepted_2021_carrier_continuity", "rows": 340},
+        {"point_source_kind": "raw_named_typed_geo2011_object", "coordinate_temporal_basis": "historical_spatial_continuity_from_2011_named_point", "coordinate_admission_rule": "historical_city_typed_code_and_accepted_modern_point_1km_v1", "rows": 22}
+      ],
+      "actual_exclusions": [
+        {"reason": "graph-inferred from accepted 2021 point; excluded from direct historical input", "rows": 340},
+        {"reason": "modern-corroborated named-city Geo point with identity-path support; excluded from this non-circular direct-input cohort", "rows": 22}
+      ],
+      "eligible_direct_inputs": 108849,
+      "explanation": "The original list is a complete raw-origin inventory by rule, not a list of exclusions. The first 108,849 rows are the eligible direct historical GeoKLADR point uses; the latter 362 rows are excluded under this probe's direct/non-circular source rule."
+    }
+  },
+  "unchanged_results": {
+    "candidate_gain_ledger_sha256": "16db10c080114b1eb5c5c5a3d339033a31fa54048f3c51d8f5c29f2c80051b68",
+    "candidate_rows": 4680,
+    "candidate_population": 1031445,
+    "unheld_diagnostic_candidate_rows": 4595,
+    "unheld_diagnostic_candidate_population": 1018900,
+    "held_rows": 85,
+    "held_population": 12545,
+    "point_staging_or_admission": false
+  }
+}

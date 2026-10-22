@@ -1,0 +1,1 @@
+Independent groupby replay of every actual output unit. Admitted original sourcefields reconstructed; all16positive/11numericcontexts and sourcegrains checked, no producer import. NEWprimary2010flags353/292numeric+61same and CUMULATIVE19262old+newpopulation/qualities checked as distinct scopes. No477frameintegration, historicalboundary or observedabsence claim.

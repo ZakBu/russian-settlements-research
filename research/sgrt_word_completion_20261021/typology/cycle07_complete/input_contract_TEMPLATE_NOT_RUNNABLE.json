@@ -1,0 +1,111 @@
+{
+  "status": "INPUT_CONTRACT_TEMPLATE_NOT_RUNNABLE",
+  "units_path": null,
+  "units_sha256": null,
+  "protocol_admission_path": null,
+  "protocol_admission_sha256": null,
+  "central_set_audit_path": null,
+  "central_set_audit_sha256": null,
+  "source_admissions": [],
+  "unit_id_column": "unit_id",
+  "kind_column": "kind",
+  "unit_role_column": "unit_role",
+  "level_column": "resolution_index",
+  "central_object_ids_column": "central_object_ids_json",
+  "central_object_definition_column": "central_object_definition",
+  "rural_member_count_column": "n_rural_external_settlements",
+  "unknown_role_member_count_column": "n_unknown_role_external_settlements",
+  "primary_annual_delta": 0.0025,
+  "objects": {
+    "own": {
+      "population": {
+        "2002": "own_population_2002",
+        "2010": "own_population_2010",
+        "2021": "own_population_2021"
+      },
+      "complete": {
+        "2002": "own_population_complete_2002",
+        "2010": "own_population_complete_2010",
+        "2021": "own_population_complete_2021"
+      }
+    },
+    "center": {
+      "population": {
+        "2002": "center_population_2002",
+        "2010": "center_population_2010",
+        "2021": "center_population_2021"
+      },
+      "complete": {
+        "2002": "center_population_complete_2002",
+        "2010": "center_population_complete_2010",
+        "2021": "center_population_complete_2021"
+      }
+    },
+    "rural": {
+      "population": {
+        "2002": "rural_external_population_known_sum_2002",
+        "2010": "rural_external_population_known_sum_2010",
+        "2021": "rural_external_population_known_sum_2021"
+      },
+      "complete": {
+        "2002": "rural_population_complete_2002",
+        "2010": "rural_population_complete_2010",
+        "2021": "rural_population_complete_2021"
+      }
+    },
+    "system": {
+      "population": {
+        "2002": "system_population_known_sum_2002",
+        "2010": "system_population_known_sum_2010",
+        "2021": "system_population_known_sum_2021"
+      },
+      "complete": {
+        "2002": "system_population_complete_2002",
+        "2010": "system_population_complete_2010",
+        "2021": "system_population_complete_2021"
+      }
+    }
+  },
+  "quality_columns": [
+    "classification_secondary_population_share_2010",
+    "classification_population_exact_primary_supported_2010",
+    "historical_boundary_equivalence_proven"
+  ],
+  "quality_uncertainty_rules": [
+    {
+      "column": "classification_secondary_population_share_2010",
+      "rule": "positive_or_missing",
+      "label": "secondary2010_or_quality_unavailable"
+    },
+    {
+      "column": "classification_population_exact_primary_supported_2010",
+      "rule": "not_true",
+      "label": "primary2010_not_established"
+    },
+    {
+      "column": "historical_boundary_equivalence_proven",
+      "rule": "not_true",
+      "label": "historical_boundary_equivalence_unproven"
+    }
+  ],
+  "context_witnesses": [],
+  "population_source_version": {
+    "mode": null,
+    "base_nodes_sha256": null,
+    "effective_nodes_sha256": null,
+    "overlay_path": null,
+    "overlay_sha256": null,
+    "admission_path": null,
+    "admission_sha256": null,
+    "unit_quality_change_columns": [
+      "n_members_primary2010_newly_recovered",
+      "primary2010_newly_recovered_population_share",
+      "n_members_primary2010_numeric_changed",
+      "n_members_primary2010_quality_changed",
+      "prior_secondary2010_population_share",
+      "current_secondary2010_population_share"
+    ]
+  },
+  "hierarchy_admission_path": null,
+  "hierarchy_admission_sha256": null
+}

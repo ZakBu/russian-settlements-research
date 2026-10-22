@@ -1,0 +1,41 @@
+{
+  "review": "independent bounded review of dependency-aware three-census corridor v1",
+  "passed_rule_family": true,
+  "rule": "Exact selected 2002/2010/2021 physical settlement name, type and region with whole-year uniqueness; exact literal 2009 OKATO settlement row and province-unique typed name; exact 2011 GeoKLADR raw DBF record/offset/code/name/type/point and province-unique typed name; coherent 2009–2011 code bridge; no source hard flags. Existing component-point dependencies are labeled as dependent corroboration, not independent identity evidence.",
+  "candidate_sha256": "700dea24254f0251efa8a03adde0e13257fe681f19c0cc8b39beaa8e7e4d1bde",
+  "point_candidate_sha256": "0d7b1a40beb79490d8b8433495e8a039b0d5be15b55c86edaf4536a04d320927",
+  "selected_sha256": "4ff918ae07715e98a37aa5dc77546f3d7b7ac9c241c7c01a041c8f72a6f8c657",
+  "raw_classifier_sql_sha256": "6062e097ad504ba8b4bc130599ca4825c54f2b98486d16aed15ac143fcd705db",
+  "raw_geokladr_dbf_sha256": "d1c8b983f2489724a940bd2a64dedda73b602f6c491d5c09391deaf362fe2650",
+  "raw_2021_tochno_sha256": "86c197cd522e0b63669e9c6e7f43fd3d82b3704c6a126c800a9968ecd16cae14",
+  "baseline_graph_sha256": "9273cc06dec342fd09de6d392e0450d4a5a7a0729b0c7f1680452219772ec98e",
+  "baseline_points_sha256": "8ca8a5279483ddedac5b8958905e9bdc7919b8a74760db718d30988b9bca5f06",
+  "independent_rule_vector_sha256": "027ea6e1b52f60db8cfa20c710ed09982b20512fa835c02844bef018e9a5f4fd",
+  "raw_census_reopen_sha256": "b632cf9375fb072390e4b2ace4740fe1e2261f2fd43f3a09f5897775f4031c25",
+  "raw_2021_reopen_sha256": "4cc51c4220f31ef84ad7e40731c5a4087aa6a0eed0d64ecc398ae844e781f250",
+  "eligible_identity_keys_path": "/workspace/settlements-work/continuation_20261004/independent_review/dependency_corridor_v1_independently_eligible_identity_keys.csv",
+  "eligible_identity_keys_sha256": "05fb017d41b1ecba40fc4f665e05fc2e5daaa11f1cd15a0daa1ecd63fc55bcbf",
+  "already_connected_identity_keys_path": "/workspace/settlements-work/continuation_20261004/independent_review/dependency_corridor_v1_already_connected_identity_keys.csv",
+  "already_connected_identity_keys_sha256": "2f69f3e12be59748a8f41455a9bfe913046d6ffaf11e1f988a3b58751b4e03be",
+  "eligible_point_keys_path": "/workspace/settlements-work/continuation_20261004/independent_review/dependency_corridor_v1_independently_eligible_point_keys.csv",
+  "eligible_point_keys_sha256": "17742b3e311e4cd2aa2fb82e2b45c2fc916c774dd9d2651d1fc1c852067318ab",
+  "point_use_vector_sha256": "4ef161158b2d655f2c618c5afa5cea29d2220ee75fd8ca82adc799ffd8bdf466",
+  "counts": {
+    "candidates": 171,
+    "source_rule_pass": 171,
+    "new_graph_unions": 114,
+    "already_connected_redundant": 57,
+    "year_collisions": 0,
+    "source_hardflag_holds": 0,
+    "point_candidates": 20,
+    "point_raw_row_pass": 20,
+    "point_target_already_has_accepted_point": 17,
+    "new_point_uses": 3
+  },
+  "qualifications": [
+    "87 identity edges use the same raw historical GeoKLADR origin already present in their component; this is dependency context, not a separate independent witness.",
+    "84 edges rely partly on an accepted component-point comparison; this is dependent corroboration, not an independent identity witness.",
+    "The 2011 GeoKLADR coordinates are representative points; no precision or probability claim is made.",
+    "All 20 candidate point rows exactly reopen against raw DBF; only 3 are new for the target/year under the latest point ledger."
+  ]
+}
