@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """List, fetch and verify catalogued research data without rerunning scientific models."""
 import argparse
+import fnmatch
 import hashlib
 import json
 import os
@@ -90,9 +91,16 @@ def main():
     parser.add_argument('--dest', type=Path, default=Path('.'))
     parser.add_argument('--cache', type=Path, default=Path('.research-cache'))
     parser.add_argument('--keep-archives', action='store_true', help='Retain verified ZIP downloads; default materializes one archive at a time and removes its cache')
+    parser.add_argument('--match', action='append', default=[], help='Glob over original paths; repeated patterns are OR-combined')
+    parser.add_argument('--show-files', action='store_true', help='List matching paths with row/schema metadata')
+    parser.add_argument('--show-schema', action='store_true', help='Print unique Parquet schemas for selected paths')
     args = parser.parse_args()
     cat = load_catalog(args.catalog)
     rows = selected_files(cat, args.profile)
+    if args.match:
+        rows = [r for r in rows if any(fnmatch.fnmatchcase(r['path'], pattern) for pattern in args.match)]
+        if not rows:
+            parser.error('No catalogued data paths match the requested patterns')
     objects = cat['objects']
     selected = {row['blob'] for row in rows}
     needed_assets = {objects[blob]['asset'] for blob in selected if objects[blob].get('asset')}
@@ -104,6 +112,14 @@ def main():
                       'planned_uncompressed_asset_bytes': sum(assets[name].get('uncompressed_bytes', assets[name].get('bytes', 0)) for name in needed_assets),
                       'catalog_status': cat['status']}, ensure_ascii=False), flush=True)
     if args.command == 'list':
+        if args.show_files:
+            for row in rows:
+                obj = objects[row['blob']]
+                print(json.dumps({'path': row['path'], 'bytes': row['bytes'], 'rows': obj.get('rows'), 'schema_id': obj.get('schema_id'), 'asset': obj.get('asset'), 'supplied_by_git': not bool(obj.get('asset'))}, ensure_ascii=False))
+        if args.show_schema:
+            schema_ids = {objects[r['blob']].get('schema_id') for r in rows} - {None}
+            for schema_id in sorted(schema_ids):
+                print(json.dumps({'schema_id': schema_id, 'schema': cat.get('schemas', {}).get(schema_id)}, ensure_ascii=False))
         return 0
     args.dest.mkdir(parents=True, exist_ok=True)
     if args.command == 'fetch':
