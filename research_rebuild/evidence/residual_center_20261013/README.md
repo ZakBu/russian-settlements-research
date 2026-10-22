@@ -1,9 +1,0 @@
-Bounded Central/Northwest census identity packet
-
-10 identity edges connect nine full three-census cases: Степной, Скуратовский, Дубки, Торхово, Борисово (two edges), Архангельское (Белгородская), Кулицкая, station Скалино, station Скуратово. All 27 referenced records actually exist; original XLS own rows were reopened and hashes/physical-row locators captured. Existing accepted own points agree within 0.302 km. Full regional typed namesakes were screened; no external nearby typed competitor was found for these cases. No population or source-quality edits and no generic two-year coverage claim.
-
-Literal county/type variations require root review: Алексинский → город Алексин; Ефремовский → город Ефремов; Переславский → Переславль-Залесский; Ленинский → Тула. Кулицкая native ж/д ст. is expanded to железнодорожный объект; Скалино label includes compressed железнодорожнойстанции vs при ж/д ст.; station Скуратово differs only ст./станция prefix but imported census type transitions from пгт to поселок. These are same-place associations, not assertions of unchanged legal status or population boundary.
-
-Torkhovo 2010 original consolidated XLS leaf shows 547; current table effective count is 814 through the accepted primary population overlay. Both observations are retained, without replacing the original raw row/count. Station Skuratovo 2010 is the already accepted ROSSTAT2010:T5:p52:l19 record; its existing point/source provenance is retained.
-
-Chausovo has a distinct nearby village plus sovkhoz record and requires an explicit alias/role witness; Duminichi has village, urban and railway records and cannot be linked by proximity. Monchalovo has two same-county current namesakes at the same accepted point. These routes remain held. Remaining targets require missing-year source discovery or a sourced lifecycle event.
