@@ -87,7 +87,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('command', choices=['list', 'fetch', 'verify'])
     parser.add_argument('--catalog', type=Path, default=Path('data/catalog.json'))
-    parser.add_argument('--profile', choices=['core', 'current', 'all'], default='core')
+    parser.add_argument('--profile', choices=['core', 'population', 'current', 'legacy_model', 'legacy_model_full', 'all'], default='core')
     parser.add_argument('--dest', type=Path, default=Path('.'))
     parser.add_argument('--cache', type=Path, default=Path('.research-cache'))
     parser.add_argument('--keep-archives', action='store_true', help='Retain verified ZIP downloads; default materializes one archive at a time and removes its cache')
