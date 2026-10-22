@@ -10,9 +10,10 @@
   "literature_registry": "references/sources.json",
   "literature_usage": "references/usage.json",
   "scientific_status": {
-    "previous_computation": "cycle07 preliminary potential districts and typology; not proven nationwide observed catchments",
+    "previous_computation": "Superseded potential districts/typology retained as legacy_model/legacy_model_full, rejected as final SGRT delineation.",
     "new_functional_model": "designed_and_literature_supported_not_computed",
-    "requirements": "User clarifications supersede old numeric population bins, universal60minute boundaries and code-only context reduction."
+    "requirements": "User clarifications supersede old numeric population bins, universal60minute boundaries and code-only context reduction.",
+    "accepted_empirical_foundation": "Linked census population registry2002/2010/2021 is the primary ready empirical result; see POPULATION_BASE.md."
   },
   "data_transfer": {
     "status": "verified_complete",
@@ -41,7 +42,7 @@
     "Two historical symlink targets under cycle06_network2021_access_v2_seventh_extension are absent from the published source snapshot; original link metadata is retained. core/current are unaffected."
   ],
   "next_scientific_steps": [
-    "Audit full Word requirements against current available functional data.",
+    "Start with accepted population foundation (POPULATION_BASE.md), audit functional data and Word requirements against its source IDs/years; do not rebuild or replace it with legacy model outputs.",
     "Separate own supply, local demand, missingness, service orders and dated changes.",
     "Register literature-supported decay families and independent calibration/validation options.",
     "Check contrasting territories, multiple centers, tiny rural catchments and absence of established links.",
@@ -68,5 +69,48 @@
     "path": "research_context/reviews/handoff_guardian_20261022.json",
     "verdict": "ACCEPTED",
     "scope": "Portability of published context and datasets; not scientific validation."
+  },
+  "primary_population_dataset": {
+    "id": "census_population_2002_2010_2021_accepted_20261013",
+    "documentation": "POPULATION_BASE.md",
+    "descriptor": "data/population_dataset.json",
+    "status": "local_reconstruction_verified_publication_pending",
+    "default_profiles_after_publication": [
+      "core",
+      "population",
+      "current"
+    ],
+    "prior_model_profiles": [
+      "legacy_model",
+      "legacy_model_full"
+    ],
+    "source_snapshot": "2026-10-13",
+    "coverage": [
+      {
+        "census_year": 2002,
+        "credited_population": 144637473,
+        "denominator": 145166731,
+        "coverage_percent": 99.63541370921965,
+        "remaining_to_100": 529258,
+        "net_population_gain": 280
+      },
+      {
+        "census_year": 2010,
+        "credited_population": 142172049,
+        "denominator": 142856536,
+        "coverage_percent": 99.5208570646008,
+        "remaining_to_100": 684487,
+        "net_population_gain": 157
+      },
+      {
+        "census_year": 2021,
+        "credited_population": 144329319,
+        "denominator": 144699673,
+        "coverage_percent": 99.7440533262297,
+        "remaining_to_100": 370354,
+        "net_population_gain": 79
+      }
+    ],
+    "strict_full3": 142765
   }
 }

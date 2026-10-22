@@ -4,6 +4,8 @@ parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--workdir',type=pathlib.Path,required=True)
 parser.add_argument('--catalog',type=pathlib.Path,default=pathlib.Path('data/catalog.json'))
 args=parser.parse_args()
+if json.loads(args.catalog.read_text()).get('primary_dataset'):
+ raise RuntimeError('This frozen recovery publisher must not replace the primary census catalog. Use its archived recovery catalog and a separate release for new data.')
 ROOT=args.workdir;ROOT.mkdir(parents=True,exist_ok=True)
 REPO='ZakBu/russian-settlements-research';TAG='sgrt-research-data-20261022-v1';CAT=ROOT/'catalog.json';GD=ROOT/'source.git'
 if not CAT.exists():shutil.copyfile(args.catalog,CAT)
