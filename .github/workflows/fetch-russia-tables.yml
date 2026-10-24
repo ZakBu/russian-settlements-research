@@ -21,9 +21,17 @@ jobs:
         env:
           BRANCH: ${{ github.ref_name }}
         run: |
+          set +e
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          python scripts/sgrt_sources/build_russia_settlement_tables.py
+          if command -v sudo >/dev/null; then SUDO=sudo; else SUDO=; fi
+          $SUDO apt-get update -qq
+          $SUDO apt-get install -y -qq unar p7zip-full
+          python scripts/sgrt_sources/build_russia_settlement_tables.py > /tmp/build.log 2>&1
+          code=$?
+          mkdir -p sgrt/sources/russia
+          cp /tmp/build.log sgrt/sources/russia/build.log
           git add -f sgrt/sources/russia
-          git commit -m "Добавить поселенческие таблицы Росстата по регионам России" || exit 0
+          git commit -m "Добавить поселенческие таблицы Росстата по регионам России" || true
           git push origin HEAD:$BRANCH
+          exit $code
