@@ -23,7 +23,7 @@ async function main() {
   let release = JSON.parse(gh(['api', endpoint]));
   if (!release.draft) throw new Error('Refusing to replace a published release');
   Object.assign(process.env, {SGRT_STAGING_NAME:'sgrt-pilot-payload',
-    SGRT_STAGING_BYTES:String(asset.bytes), SGRT_STAGING_SHA256:asset.sha256});
+    SGRT_STAGING_BYTES:String(asset.bytes), SGRT_STAGING_SHA256:asset.sha256, SGRT_RELEASE_TAG:tag});
   await staging.reserve();
   const marker = `<!-- sgrt-pilot-upload-ready:${asset.sha256} -->`;
   let ready = false;
