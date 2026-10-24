@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
-"""Download the Rosstat 2025 settlement workbook archive and write per-region CSV tables.
-
-Files over 1 MB are not produced: each region is its own CSV. Workbooks that the
-archive tool cannot extract are listed in russia/extract_failures.csv.
-"""
+"""Download the Rosstat 2025 settlement workbook archive and write per-region CSV tables."""
 from __future__ import annotations
 
 import csv
+import hashlib
 import re
+import ssl
 import subprocess
 import urllib.request
 from collections import defaultdict
@@ -16,6 +14,7 @@ from pathlib import Path
 import openpyxl
 
 RAR_URL = "https://rosstat.gov.ru/storage/mediabank/stat.info_NP_2025.rar"
+EXPECTED_SHA256 = "520b79e3a7a9263f89712df3715b7f1fe1b121055c8bf56d1d6d0835b13cf9e3"
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "sgrt" / "sources" / "russia"
 WORK = Path("/tmp/rosstat_np_2025")
@@ -29,16 +28,21 @@ def safe(name: str) -> str:
 def download() -> Path:
     WORK.mkdir(parents=True, exist_ok=True)
     dest = WORK / "stat.info_NP_2025.rar"
-    if dest.exists() and dest.stat().st_size > 1_000_000:
-        return dest
-    request = urllib.request.Request(RAR_URL, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(request, timeout=180) as response, dest.open("wb") as handle:
-        while True:
-            chunk = response.read(1 << 20)
-            if not chunk:
-                break
-            handle.write(chunk)
-    print("downloaded", dest.stat().st_size, flush=True)
+    if not (dest.exists() and dest.stat().st_size > 1_000_000):
+        code = subprocess.call(["curl", "-fL", "--retry", "3", "-A", "Mozilla/5.0", "-o", str(dest), RAR_URL])
+        if code != 0:
+            request = urllib.request.Request(RAR_URL, headers={"User-Agent": "Mozilla/5.0"})
+            context = ssl._create_unverified_context()
+            with urllib.request.urlopen(request, timeout=180, context=context) as response, dest.open("wb") as handle:
+                while True:
+                    chunk = response.read(1 << 20)
+                    if not chunk:
+                        break
+                    handle.write(chunk)
+    digest = hashlib.sha256(dest.read_bytes()).hexdigest()
+    print("sha256", digest, "bytes", dest.stat().st_size, flush=True)
+    if digest != EXPECTED_SHA256:
+        raise SystemExit(f"unexpected archive hash {digest}")
     return dest
 
 
@@ -66,7 +70,7 @@ def wanted(paths: list[str]) -> list[tuple[str, str]]:
     return selected
 
 
-def extract(rar: Path, path: str, dest_root: Path) -> Path | None:
+def extract(rar: Path, path: str, dest_root: Path):
     dest = dest_root / path
     if dest.exists() and dest.stat().st_size > 500:
         return dest
@@ -119,7 +123,7 @@ def main() -> None:
     rar = download()
     paths = members(rar)
     failures = []
-    grouped: dict[str, dict[str, list[dict]]] = defaultdict(lambda: defaultdict(list))
+    grouped = defaultdict(lambda: defaultdict(list))
     for kind, path in wanted(paths):
         extracted = extract(rar, path, WORK)
         region = path.split("/")[2] if path.count("/") >= 2 else ""
@@ -131,7 +135,6 @@ def main() -> None:
         except Exception as exc:
             failures.append({"kind": kind, "region": region, "path": path, "error": str(exc)})
             continue
-        indicator = ""
         if kind == "preschool":
             indicator = "preschool_places" if "39_" in extracted.name else "preschool_posts"
             for row in parsed:
