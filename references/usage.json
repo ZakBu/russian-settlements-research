@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.literature_usage.v1",
-  "updated": "2026-10-24",
+  "updated": "2026-10-25",
   "rules": [
     "Each new substantive methodological claim must cite a source ID or be marked as our own proposal.",
     "Code implementation claims require a concrete file/function and validation; empty implementation_paths means no implementation is certified by this map.",
@@ -599,6 +599,97 @@
         "scripts/sgrt_mass/audit.py:extract_argayash_provider_cards"
       ],
       "reading_scope_field": "references/sources.json records[id=ARGCRB74_UNDATED_PROVIDER_LIST].read_scope"
+    },
+    {
+      "source_id": "GHS_FUA2015_R2019A",
+      "used_in": [
+        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+      ],
+      "purpose": "Separate external modelled urban reference, not our L0 or observed Russian commuting.",
+      "implementation_paths": [
+        "scripts/sgrt_zero/logic_checks.py",
+        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+      ],
+      "implementation_status": "level_zero_and_exploratory_upper_scenarios_in_progress_not_observed_flows",
+      "reading_scope_field": "references/sources.json records[id=GHS_FUA2015_R2019A].read_scope"
+    },
+    {
+      "source_id": "SCHIAVINA2019_GHS_FUA_MANUAL",
+      "used_in": [
+        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+      ],
+      "purpose": "Estimated FUA modelling, source population-priority/500000 merging rule, explicit limits of external reference.",
+      "implementation_paths": [
+        "scripts/sgrt_zero/logic_checks.py",
+        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+      ],
+      "implementation_status": "level_zero_and_exploratory_upper_scenarios_in_progress_not_observed_flows",
+      "reading_scope_field": "references/sources.json records[id=SCHIAVINA2019_GHS_FUA_MANUAL].read_scope"
+    },
+    {
+      "source_id": "MORENO_MONROY2021_EFUA",
+      "used_in": [
+        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+      ],
+      "purpose": "Bibliographic connection to GHS-FUA method; no claim of independently reproducing full article.",
+      "implementation_paths": [
+        "scripts/sgrt_zero/logic_checks.py",
+        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+      ],
+      "implementation_status": "level_zero_and_exploratory_upper_scenarios_in_progress_not_observed_flows",
+      "reading_scope_field": "references/sources.json records[id=MORENO_MONROY2021_EFUA].read_scope"
+    },
+    {
+      "source_id": "DIJKSTRA2019_FUA",
+      "used_in": [
+        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+      ],
+      "purpose": "15% denominator employed residents; one-time polycentric-city merging; contiguity and exclaves; service accessibility not observed commuter flow.",
+      "implementation_paths": [
+        "scripts/sgrt_zero/logic_checks.py",
+        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+      ],
+      "implementation_status": "level_zero_and_exploratory_upper_scenarios_in_progress_not_observed_flows",
+      "reading_scope_field": "references/sources.json records[id=DIJKSTRA2019_FUA].read_scope"
+    },
+    {
+      "source_id": "ANSELIN2020_SPATIAL_CLUSTERING",
+      "used_in": [
+        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+      ],
+      "purpose": "Distinguish compactness, graph connectivity, geographic contiguity and attribute similarity; chain merging does not establish a bounded functional area.",
+      "implementation_paths": [
+        "scripts/sgrt_zero/logic_checks.py",
+        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+      ],
+      "implementation_status": "level_zero_and_exploratory_upper_scenarios_in_progress_not_observed_flows",
+      "reading_scope_field": "references/sources.json records[id=ANSELIN2020_SPATIAL_CLUSTERING].read_scope"
+    },
+    {
+      "source_id": "KUROWSKI2023_PARCEL_LOCKER",
+      "used_in": [
+        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+      ],
+      "purpose": "Walking/cycling stated median775m n200 versus500m after37 exclusions; rural cleaned n45 median600m; not a Russian car-trip cutoff.",
+      "implementation_paths": [
+        "scripts/sgrt_zero/logic_checks.py",
+        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+      ],
+      "implementation_status": "level_zero_and_exploratory_upper_scenarios_in_progress_not_observed_flows",
+      "reading_scope_field": "references/sources.json records[id=KUROWSKI2023_PARCEL_LOCKER].read_scope"
+    },
+    {
+      "source_id": "AKBABA2025_RURAL_GROCERY",
+      "used_in": [
+        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+      ],
+      "purpose": "238 customers of five purposively selected stores; Table2 n237 local mean5.2min versus13.5–14.8min other shopping. Supports distinct shopping orders, means not delimitation thresholds.",
+      "implementation_paths": [
+        "scripts/sgrt_zero/logic_checks.py",
+        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+      ],
+      "implementation_status": "level_zero_and_exploratory_upper_scenarios_in_progress_not_observed_flows",
+      "reading_scope_field": "references/sources.json records[id=AKBABA2025_RURAL_GROCERY].read_scope"
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"
