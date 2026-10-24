@@ -61,7 +61,8 @@
         "README.md#функциональные-поля",
         "sgrt/literature/functional_gravity/README.md",
         "sgrt/pilot/LOCAL_SERVICES_AND_ECONOMY.md",
-        "sgrt/local_systems/METHOD.md"
+        "sgrt/local_systems/METHOD.md",
+        "sgrt/mass/LIMITS.md"
       ],
       "purpose": "Jointly investigate decay and variable catchments; rural and urban contexts differ.",
       "implementation_status": "conceptual_method_and_literature_basis; not proof of new calibrated nationwide implementation",
@@ -74,7 +75,8 @@
         "README.md#функциональные-поля",
         "sgrt/literature/functional_gravity/README.md",
         "sgrt/pilot/LOCAL_SERVICES_AND_ECONOMY.md",
-        "sgrt/local_systems/METHOD.md"
+        "sgrt/local_systems/METHOD.md",
+        "sgrt/mass/LIMITS.md"
       ],
       "purpose": "Service-level-specific decay and absolute-versus-relative accessibility. Does not itself infer Russian SGRT.",
       "implementation_status": "conceptual_method_and_literature_basis; not proof of new calibrated nationwide implementation",
@@ -268,7 +270,7 @@
         "README.md#вложенность-и-полицентричность",
         "sgrt/literature/classics/READOUT_RU.md"
       ],
-      "purpose": "Совместное изучение больших и малых городов, региональный подход; критика универсального оптимального размера города200–400тыс. без обоснования.",
+      "purpose": "Совместное изучение больших и малых городов, региональный подход; критика универсального оптимального размера города 200–400 тыс. без обоснования.",
       "implementation_status": "conceptual_method_and_literature_basis; not proof of new calibrated nationwide implementation",
       "implementation_paths": [],
       "reading_scope_field": "references/sources.json records[id=CLASSIC_C07].read_scope"
@@ -365,12 +367,14 @@
       "source_id": "LO610O20231129",
       "used_in": [
         "sgrt/pilot/README.md",
-        "sgrt/pilot/DATA.md"
+        "sgrt/pilot/DATA.md",
+        "sgrt/mass/LIMITS.md"
       ],
-      "purpose": "Check retained source transcription and compare scenarios with resolved normative attachments, excluding context conflicts.",
+      "purpose": "Check retained source transcription and compare scenarios with resolved normative attachments, excluding context conflicts. Current descriptive comparison recomputed on216 resolved external pairs; basic128/216 with normative-provider source coverage190/216; physician78/216 with coverage92/216. Dated normative agreement, not trips or service-tier equivalence.",
       "implementation_paths": [
         "scripts/sgrt_pilot/validate_medical_source.py",
-        "scripts/sgrt_pilot/compare_medical_attachments.py"
+        "scripts/sgrt_pilot/compare_medical_attachments.py",
+        "scripts/sgrt_mass/audit.py:compare_normative_pairs"
       ],
       "implementation_status": "computed_pilot_source_use_not_nationwide_validation",
       "reading_scope_field": "references/sources.json records[id=LO610O20231129].read_scope"
@@ -483,6 +487,115 @@
         "scripts/sgrt_local/medical_registry.py",
         "sgrt/local_systems/registry/medical_registry_2026.csv"
       ]
+    },
+    {
+      "source_id": "SP42_2016_WEB2024_SERVICE_ACCESS",
+      "used_in": [
+        "sgrt/mass/README.md",
+        "sgrt/mass/LIMITS.md"
+      ],
+      "purpose": "Раздельные сценарные ориентиры масштаба конкретной услуги; не время затухания гравитации, не фактические поездки и не заключение о соблюдении действующего права.",
+      "implementation_status": "dated_source_or_planning_scenario_used_in_national_candidate_analysis; not flow validation or current legal compliance",
+      "implementation_paths": [
+        "scripts/sgrt_mass/audit.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=SP42_2016_WEB2024_SERVICE_ACCESS].read_scope"
+    },
+    {
+      "source_id": "SP243648_2020_LYCEUM_COPY",
+      "used_in": [
+        "sgrt/mass/README.md",
+        "sgrt/mass/LIMITS.md"
+      ],
+      "purpose": "Проверка различия километров и минут, пешеходного доступа и организованного подвоза; числовой порог 30 км не подменён 30 минутами.",
+      "implementation_status": "dated_source_or_planning_scenario_used_in_national_candidate_analysis; not flow validation or current legal compliance",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=SP243648_2020_LYCEUM_COPY].read_scope"
+    },
+    {
+      "source_id": "MZ132N_20160227_ACCESS",
+      "used_in": [
+        "sgrt/mass/README.md",
+        "sgrt/mass/LIMITS.md"
+      ],
+      "purpose": "Не переносить 60 пеших минут или экстренную помощь на автомобильный ареал любого ФАПа.",
+      "implementation_status": "dated_source_or_planning_scenario_used_in_national_candidate_analysis; not flow validation or current legal compliance",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=MZ132N_20160227_ACCESS].read_scope"
+    },
+    {
+      "source_id": "ROSSTAT_NP2025_PRIMARY_BOOKS",
+      "used_in": [
+        "sgrt/mass/README.md",
+        "sgrt/mass/LIMITS.md",
+        "sgrt/mass/EDUCATION.md",
+        "sgrt/mass/CONTEXT.md"
+      ],
+      "purpose": "Официальные дошкольные места/воспитанники/ставки/работники и частичная численность организаций по НП. Места не свободная мощность; воспитанники не спрос по месту жительства; подавленные значения не нули; агрегаты городов не НП.",
+      "implementation_status": "dated_source_or_planning_scenario_used_in_national_candidate_analysis; not flow validation or current legal compliance",
+      "implementation_paths": [
+        "scripts/sgrt_mass/education.py",
+        "scripts/sgrt_mass/context.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=ROSSTAT_NP2025_PRIMARY_BOOKS].read_scope"
+    },
+    {
+      "source_id": "TFOMS_VOLOGDA_STRUCTURES_20260902",
+      "used_in": [
+        "sgrt/mass/README.md",
+        "sgrt/mass/LIMITS.md",
+        "sgrt/mass/MEDICAL.md"
+      ],
+      "purpose": "Доказательства адреса деятельности и вида медицинской помощи; регистрационная запись не доказывает прикрепление, работу сегодня или мощность.",
+      "implementation_status": "dated_source_or_planning_scenario_used_in_national_candidate_analysis; not flow validation or current legal compliance",
+      "implementation_paths": [
+        "scripts/sgrt_mass/medical.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=TFOMS_VOLOGDA_STRUCTURES_20260902].read_scope"
+    },
+    {
+      "source_id": "TFOMS_UDMURTIA_STRUCTURES_20261001",
+      "used_in": [
+        "sgrt/mass/README.md",
+        "sgrt/mass/LIMITS.md",
+        "sgrt/mass/MEDICAL.md"
+      ],
+      "purpose": "Адреса подразделений и буквально указанные условия/виды помощи. Не оценка потоков, вместимости или полноты фактической сети.",
+      "implementation_status": "dated_source_or_planning_scenario_used_in_national_candidate_analysis; not flow validation or current legal compliance",
+      "implementation_paths": [
+        "scripts/sgrt_mass/medical.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=TFOMS_UDMURTIA_STRUCTURES_20261001].read_scope"
+    },
+    {
+      "source_id": "OSM_GEOFABRIK_EDUCATION_20210101",
+      "used_in": [
+        "sgrt/mass/README.md",
+        "sgrt/mass/LIMITS.md",
+        "sgrt/mass/GEOMETRY.md",
+        "sgrt/mass/EDUCATION.md"
+      ],
+      "purpose": "Физические точки объектов и отдельные строгие адресные связи с НП. Наблюдение на карте не работа сегодня, стадия школы не выводится из здания, ближайшая географическая точка НП не идентичность.",
+      "implementation_status": "dated_source_or_planning_scenario_used_in_national_candidate_analysis; not flow validation or current legal compliance",
+      "implementation_paths": [
+        "scripts/sgrt_mass/education.py",
+        "scripts/sgrt_mass/site_geometry.py",
+        "scripts/sgrt_mass/routes.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=OSM_GEOFABRIK_EDUCATION_20210101].read_scope"
+    },
+    {
+      "source_id": "ARGCRB74_UNDATED_PROVIDER_LIST",
+      "used_in": [
+        "sgrt/mass/README.md",
+        "sgrt/mass/LIMITS.md"
+      ],
+      "purpose": "Дополнительный адресный перечень одного района; отдельно от строгой датированной действующей сети. «Временно недоступен» у 36 контактов не интерпретируется как закрытие ФАПа.",
+      "implementation_status": "dated_source_or_planning_scenario_used_in_national_candidate_analysis; not flow validation or current legal compliance",
+      "implementation_paths": [
+        "scripts/sgrt_mass/audit.py:extract_argayash_provider_cards"
+      ],
+      "reading_scope_field": "references/sources.json records[id=ARGCRB74_UNDATED_PROVIDER_LIST].read_scope"
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"
