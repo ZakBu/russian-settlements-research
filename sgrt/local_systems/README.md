@@ -4,7 +4,7 @@
 
 Это исследование выбранных функциональных фрагментов, не готовое районирование России. Нормативное прикрепление, сообщение учреждения, модель доступности и реальные поездки различаются во всех таблицах.
 
-**Посмотреть:** [PDF-атлас, 11 страниц](https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-local-systems-20261024-v1/local_systems_atlas.pdf). [Данные и первоисточники](https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-local-systems-20261024-v1).
+**Посмотреть:** [PDF-атлас, 12 страниц](https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-local-systems-20261024-v1/local_systems_atlas.pdf). [Данные и первоисточники](https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-local-systems-20261024-v1).
 
 ## Что найдено
 

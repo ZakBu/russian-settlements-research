@@ -61,7 +61,8 @@ def draw_map(ax,nodes,links,context=None,names=None,main=False):
         a,b=lookup.loc[r.origin_id],lookup.loc[r.destination_id]
         color=COLORS.get(r.service_code,TEAL)
         rad=.09 if r.service_code=='school_upper' else -.1 if r.service_code=='medical_primary_fap' else 0
-        ax.annotate('',xy=(b.x,b.y),xytext=(a.x,a.y),arrowprops=dict(arrowstyle='-|>',color=color,lw=1.4,linestyle='--',connectionstyle=f'arc3,rad={rad}',shrinkA=5,shrinkB=7),zorder=2)
+        style='-.' if r.service_code=='school_upper' else ':' if r.service_code=='school_grade_unspecified' else '--'
+        ax.annotate('',xy=(b.x,b.y),xytext=(a.x,a.y),arrowprops=dict(arrowstyle='-|>',color=color,lw=1.4,linestyle=style,connectionstyle=f'arc3,rad={rad}',shrinkA=5,shrinkB=7),zorder=2)
     centers=set(links.destination_id)
     annotations=[]
     for r in chosen.itertuples():
@@ -105,7 +106,7 @@ def build(root):
     ax=fig.add_axes([.07,.22,.51,.53]);draw_map(ax,nodes,links[links.function.eq('education')],context,names=core,main=True)
     fig.text(.63,.745,'299',fontsize=42,color=BLUE,weight='bold');fig.text(.63,.695,'жителей в Малоказаккулове, перепись 2021',fontsize=10)
     paragraph(fig,.63,.635,'Местная школа объединяет три деревни для 1–9 классов.\nДля 10–11 классов те же деревни закреплены за школой Уральска.\nОдна связь не отменяет другую: Уральск не поглощает нижнюю систему.',width=35,size=12)
-    fig.legend(handles=[Line2D([0],[0],color=BLUE,ls='--',label='1–9 классы'),Line2D([0],[0],color=ORANGE,ls='--',label='10–11 классы')],loc='lower left',bbox_to_anchor=(.06,.09),frameon=False,ncol=2)
+    fig.legend(handles=[Line2D([0],[0],color=BLUE,ls='--',label='1–9 классы'),Line2D([0],[0],color=ORANGE,ls='-.',label='10–11 классы')],loc='lower left',bbox_to_anchor=(.06,.09),frameon=False,ncol=2)
     pages.append(('01_local_system',fig))
 
     fig=page('Две независимые ветви обслуживания','Школьное закрепление: постановление от 12.03.2025 № 03-224УД; выбранные строки акта',2)
@@ -114,7 +115,7 @@ def build(root):
     ax=fig.add_axes([.56,.25,.37,.49]);draw_map(ax,nodes,links[links.service_code.isin(['school_lower_secondary','school_upper'])],context,names=['Курама','Каримово','Комсомольск'])
     ax.set_title('Курама → Комсомольск',loc='left',fontsize=12,pad=12)
     fig.text(.07,.115,'Масштабы панелей различаются. Между ветвями около 70 км: объединяющая их связь не установлена.',fontsize=10)
-    fig.legend(handles=[Line2D([0],[0],color=BLUE,ls='--',label='1–9 классы'),Line2D([0],[0],color=ORANGE,ls='--',label='10–11 классы')],loc='lower left',bbox_to_anchor=(.06,.15),frameon=False,ncol=2)
+    fig.legend(handles=[Line2D([0],[0],color=BLUE,ls='--',label='1–9 классы'),Line2D([0],[0],color=ORANGE,ls='-.',label='10–11 классы')],loc='lower left',bbox_to_anchor=(.06,.15),frameon=False,ncol=2)
     pages.append(('02_two_branches',fig))
 
     fig=page('Полные школьные территории шире ядра','Все 24 отношения из четырёх выбранных строк; самоприкрепления сохранены в таблицах',3)
@@ -219,6 +220,11 @@ def build(root):
     paragraph(fig,.56,.75,'НУЖНО ДОБАВИТЬ\nДети по ступеням, учащиеся и места; фактические маршруты подвоза.\nПолные медицинские услуги, мощности и прикрепления.\nАдреса рабочих площадок, работники по площадкам и направления поездок.\nСовременная локальная аграрная структура.\nЗатем — проверяемое объединение функций и уровней, с сохранением вторичных центров.',width=43,size=12)
     fig.text(.08,.135,'Файлы содержат исходные документы, источники, даты, контрольные суммы и код повторения.',fontsize=11,weight='bold')
     pages.append(('11_next_evidence',fig))
+    fig=page('Источники и смысл показателей','Точные URL, исходные файлы, контрольные суммы и места использования сохранены в комплекте и GitHub',12)
+    paragraph(fig,.08,.75,'ШКОЛЬНОЕ ЗАКРЕПЛЕНИЕ\nАдминистрация Учалинского района. Постановление от 12.03.2025 № 03-224УД. PDF: страницы 10 и 13, строки 15 и 25–27.\nОригинал: uralsk1.ucoz.ru → Obrazovanie → 2025_postanovlenie_territorii.pdf\n\nМЕДИЦИНА\nУчалинская ЦРБ: уцгб.рф/bylo-stalo и /ob-uchrezhdenii/struktura. Именованные фрагменты о ФАП и Уральской УБ.\n\nНАСЕЛЕНИЕ И ДОРОГИ\nСвязанная база переписей проекта, версия 22.10.2026. Дороги: Geofabrik/OSM, 01.01.2021; статическая автомобильная модель.',width=48,size=10)
+    paragraph(fig,.56,.75,'ЗАНЯТОСТЬ\nФНС: 7707329152-sshr2019, выгрузка 25.09.2026 за 2025 год. Первичный XML по ИНН 0270015537. Контакты работодателя: bairamgul.ru.\n\nСЕЛЬСКОЕ ХОЗЯЙСТВО\nРосстат / «Если быть точным»: tochno.st/datasets/bdmo, версия 18.09.2025, раздел 7. Значения имеют муниципальный уровень и категории хозяйств.\n\nМЕТОДИЧЕСКИЕ ОСНОВАНИЯ\nTao, Cheng, Liu (2020): DOI 10.1186/s12939-020-01280-7.\nMcGrail (2012): DOI 10.1186/1476-072X-11-50.\nПрочитаны выбранные разделы; численные коэффициенты для России не заимствованы.',width=46,size=10)
+    fig.text(.08,.115,'Код и обзор: github.com/ZakBu/russian-settlements-research → sgrt/local_systems/',fontsize=11,weight='bold')
+    pages.append(('12_sources',fig))
     with PdfPages(out/'local_systems_atlas.pdf') as pdf:
         pdf.infodict().update(Title='Локальные системы обслуживания Учалинского района',Author='russian-settlements-research',Subject='Документы, доступность, демография и аграрная база')
         for name,fig in pages:
