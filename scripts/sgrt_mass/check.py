@@ -45,6 +45,12 @@ def check(root):
             assert d.loc[local,'zero_cost_np_assumption'].all() and d.loc[local,'cost_minutes'].eq(0).all()
             route_rows+=len(d);paths.append(str(p.relative_to(root)))
     assert len(paths)==14
+    comparison=pd.read_parquet(root/'audit/lo_normative_comparison/pair_level_comparison.parquet')
+    assert not comparison.duplicated(['origin_id','service_code']).any()
+    assert comparison.origin_id.isin(nodes.source_record_id).all()
+    assert not comparison.parameters_fitted_to_these_pairs.any()
+    assert not comparison.service_tier_equivalence_established.any()
+    assert set(comparison.service_code)=={'medical_basic_primary','medical_physician_primary'}
     for p in [root/'audit/national_np_final/concrete_violations.parquet',root/'audit/national_physical_final/concrete_violations.parquet']:
         assert p.is_file(), f'Missing final audit: {p}'
         assert pd.read_parquet(p).empty
@@ -56,6 +62,7 @@ def check(root):
             'every_unit_typed':True,'membership_rows':len(memberships),
             'known_np_with_external_candidates':int(units.loc[units.n_populated_external.gt(0)&units.center_population_role.eq('ordinary_settlement_record'),'center_source_record_id'].nunique()),
             'direct_site_cells_without_proven_np':int(units.is_populated_site_service_cell.sum()),
+            'independent_normative_origins':int(comparison.origin_id.nunique()),
             'observed_journeys_estimated':False}
 
 

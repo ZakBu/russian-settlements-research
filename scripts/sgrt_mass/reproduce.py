@@ -30,6 +30,8 @@ HIST='research/sgrt_word_completion_20261021'
 ROAD_COORDS=HIST+'/transport/cycle06_network2021_access_v2/road_nodes'
 PARENT=HIST+'/data/source_controls_cycle05/explicit2021_source_parent_bridge.parquet'
 PILOT_PATTERNS=[OLD+'/outputs/data/settlements_all_2021.parquet',
+    OLD+'/outputs/data/medical_attachments_lo_2024.parquet',
+    OLD+'/outputs/independent/medical_context_quarantine.parquet',
     OLD+'/inputs/'+HIST+'/education/education_objects_2021.parquet',
     TRANSPORT+'/legacy_nodes_minimal.parquet',TRANSPORT+'/route_origin_index.parquet',
     TRANSPORT+'/graph/graph_npz_parts/*.bin']
@@ -46,6 +48,16 @@ SOURCES={
     'parquet_name':'data_section7_112_v20250918.parquet',
     'parquet_sha256':'e6ca2906f49fd0fe561ae98f535206990cebc2675884571bced546c3374c198d'},
 }
+
+
+PLANNING_SOURCES=[
+ {'source_id':'SP42_2016_WEB2024_SERVICE_ACCESS','name':'SP42.pdf',
+  'url':'https://tiflocentre.ru/download/sp42-13330-2016.pdf',
+  'sha256':'f059645cab53219a5825d1fe5a15780926628c1a1e62937e0895b572b302d106','bytes':997330},
+ {'source_id':'SANPIN3648_URFU','name':'SANPIN3648_URFU.pdf',
+  'url':'https://lyceum.urfu.ru/fileadmin/user_upload/docs/SP_2.4.3648-20.pdf',
+  'sha256':'4890ce3ea20ac962b575714b692ba933bb27de12c8c3316b532658d8f364bc08','bytes':371761},
+]
 
 
 def digest(path,algorithm='sha256'):
@@ -81,7 +93,8 @@ def plan():
             'population':catalog_plan(REPO/'data/catalog.json',['data/population/settlements_census_wide.parquet'],'core'),
             'pilot':catalog_plan(REPO/'data/pilot_catalog_20261024.json',PILOT_PATTERNS,'core'),
             'historical':catalog_plan(REPO/'data/catalog.json',HISTORICAL_PATTERNS,'all')},
-        'dated_primary_sources':SOURCES,'medical_grok_commit':'c5116d1360d5c97e71aeec52a9b8e182dbcfb8ea',
+        'dated_primary_sources':SOURCES,'dated_planning_source_copies':PLANNING_SOURCES,
+        'medical_grok_commit':'c5116d1360d5c97e71aeec52a9b8e182dbcfb8ea',
         'medical_supplements':'Two freshly hash-verified regional primary workbooks; URLs and SHA in medical.py',
         'scope':'Potential service cells and descriptive types; no observed flow or complete nationwide SGRT claim',
         'compact_mode':'Reuse frozen source tables, context and directed road evidence; recompute model/types/audit/figures, not federal scans or new routes',
@@ -123,6 +136,14 @@ def full_prepare(work):
     fetch_catalog(REPO/'data/pilot_catalog_20261024.json',PILOT_PATTERNS,deps,cache,'core')
     fetch_catalog(REPO/'data/catalog.json',HISTORICAL_PATTERNS,deps,cache,'all')
     population=deps/'data/population/settlements_census_wide.parquet'
+    for relative,name in [(OLD+'/outputs/data/medical_attachments_lo_2024.parquet','medical_attachments_leningrad_primary_extract.parquet'),
+                          (OLD+'/outputs/independent/medical_context_quarantine.parquet','medical_context_quarantine.parquet')]:
+        shutil.copy2(deps/relative,work/'inputs'/name)
+    planning=work/'inputs/planning_sources'
+    for entry in PLANNING_SOURCES:download(entry,planning/entry['name'])
+    (planning/'sources.json').write_text(json.dumps({'sources':PLANNING_SOURCES,
+        'role':'Dated planning scenarios and comparison sources, not fitted trip laws or a current-law compliance assessment',
+        'download_does_not_claim_new_full_text_reading':True},ensure_ascii=False,indent=2)+'\n')
     parent=deps/PARENT;shutil.copy2(parent,work/'inputs/primary_parent_bridge.parquet')
     flat=deps/OLD/'outputs/data/settlements_all_2021.parquet'
     shutil.copy2(flat,work/'inputs/settlements_all_2021.parquet')
@@ -217,6 +238,12 @@ def analyses(work):
         if not assignments:raise ValueError('No frozen nearest evidence: '+dirname)
         run(SCRIPT/'audit.py','--assignments',*assignments,'--nodes',work/'routes/endpoints.parquet',
             '--supply',*supply,'--output',work/'audit'/output)
+    run(SCRIPT/'audit.py','compare-normative',
+        '--attachments',work/'inputs/medical_attachments_leningrad_primary_extract.parquet',
+        '--quarantine',work/'inputs/medical_context_quarantine.parquet',
+        '--supply',work/'medical-corrected/supply.parquet',
+        '--assignments',work/'routes/nearest/medical_basic_primary.parquet',work/'routes/nearest/medical_physician_primary.parquet',
+        '--output',work/'audit/lo_normative_comparison')
     run(SCRIPT/'figures.py','--root',work,'--output',work/'figures')
 
 
@@ -258,6 +285,9 @@ def payload_files(work):
 
 def package(work,tag,commit):
     required=['context/census_reference.parquet','context/organisation_headcount_2025.parquet',
+        'inputs/medical_attachments_leningrad_primary_extract.parquet','inputs/medical_context_quarantine.parquet',
+        'inputs/planning_sources/SP42.pdf','inputs/planning_sources/SANPIN3648_URFU.pdf',
+        'audit/lo_normative_comparison/pair_level_comparison.parquet',
         'context/agriculture_selected_source_rows.parquet','education/primary_metric_cells.parquet',
         'medical-corrected/supply.parquet','medical/input/registry_inventory.csv',
         'model/units.parquet','model/memberships.parquet','model/summary.json',

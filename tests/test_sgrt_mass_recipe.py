@@ -89,11 +89,24 @@ class NationalRecipeTests(unittest.TestCase):
             for folder in ['routes','routes_sites']:
                 path=work/folder/'nearest/school_general.parquet';path.parent.mkdir(parents=True);path.touch()
             with patch.object(recipe,'run') as mocked:recipe.analyses(work)
-            audits=[list(call.args[1:]) for call in mocked.call_args_list if Path(call.args[0]).name=='audit.py']
+            audits=[list(call.args[1:]) for call in mocked.call_args_list if Path(call.args[0]).name=='audit.py' and call.args[1]!='compare-normative']
             self.assertEqual(len(audits),2)
             self.assertIn(work/'medical-corrected/supply.parquet',audits[0])
             self.assertIn(work/'education/supply_final_corrected.parquet',audits[0])
             self.assertIn(work/'site_geometry/site_road_seeds.parquet',audits[1])
+
+    def test_independent_comparison_is_recomputed_from_preserved_raw_inputs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            work=Path(tmp)
+            for folder in ['routes','routes_sites']:
+                p=work/folder/'nearest/school.parquet';p.parent.mkdir(parents=True);p.touch()
+            with patch.object(recipe,'run') as mocked:recipe.analyses(work)
+            comparison=[call.args for call in mocked.call_args_list if call.args[1]=='compare-normative']
+            self.assertEqual(len(comparison),1)
+            self.assertIn(work/'inputs/medical_attachments_leningrad_primary_extract.parquet',comparison[0])
+            self.assertIn(work/'inputs/medical_context_quarantine.parquet',comparison[0])
+            self.assertTrue(any('medical_context_quarantine.parquet' in p for p in recipe.PILOT_PATTERNS))
+            self.assertTrue(any('medical_attachments_lo_2024.parquet' in p for p in recipe.PILOT_PATTERNS))
 
 
 if __name__=='__main__':unittest.main()

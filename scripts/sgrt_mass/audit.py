@@ -10,6 +10,7 @@ import argparse
 import json
 import hashlib
 import re
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -318,6 +319,37 @@ def check_metric_aggregation(metrics: pd.DataFrame) -> pd.DataFrame:
     return metrics.loc[bad].assign(check='municipal_total_cannot_be_summed_over_settlements')
 
 
+def select_resolved_normative_pairs(attachments: pd.DataFrame,
+                                   quarantine: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Apply the frozen reviewed source rules, never select by model distance.
+
+    A quarantine is mandatory: literal locality equality alone did not resolve
+    six reviewed source-context conflicts. Missing partial/address/spatial flags
+    are not positive identity evidence. This selector cannot discover new
+    geographical conflicts and must not be advertised as a blind holdout.
+    """
+    keys = ['source_id','sheet','excel_row_1based']
+    required = {*keys,'origin_id','destination_id','origin_present_in_spatial2021',
+                'destination_present_in_spatial2021','origin_is_partial_address_scope'}
+    if not required.issubset(attachments):
+        raise ValueError('normative attachments lack source/identity flags: '+str(sorted(required-set(attachments))))
+    if not set(keys).issubset(quarantine):
+        raise ValueError('reviewed quarantine must contain source_id/sheet/excel_row_1based')
+    if quarantine[keys].isna().any().any():
+        raise ValueError('quarantine source keys cannot be missing')
+    source = attachments.drop(columns='context_conflict',errors='ignore').merge(
+        quarantine[keys].drop_duplicates().assign(context_conflict=True),
+        on=keys,how='left',validate='many_to_one')
+    source['context_conflict'] = source.context_conflict.eq(True)
+    resolved = source.origin_id.notna() & source.destination_id.notna()
+    resolved &= source.origin_present_in_spatial2021.eq(True)
+    resolved &= source.destination_present_in_spatial2021.eq(True)
+    resolved &= source.origin_is_partial_address_scope.eq(False)
+    resolved &= ~source.context_conflict
+    external = source[resolved & source.origin_id.ne(source.destination_id)]
+    return source, external.drop_duplicates(['origin_id','destination_id']).copy()
+
+
 def compare_normative_pairs(relations: pd.DataFrame, assignments: pd.DataFrame,
                             supply: pd.DataFrame) -> pd.DataFrame:
     """Compare pre-resolved independent pairs; never fit or claim trip accuracy.
@@ -354,6 +386,42 @@ def compare_normative_pairs(relations: pd.DataFrame, assignments: pd.DataFrame,
                 parameters_fitted_to_these_pairs=False,
                 preregistered_blind_holdout=False))
     return pd.DataFrame(rows)
+
+
+def run_normative_comparison(attachments_path, quarantine_path, supply_path,
+                             assignment_paths, output):
+    """Rebuild pair selection and current-source comparisons from frozen inputs."""
+    paths = [Path(attachments_path),Path(quarantine_path),Path(supply_path),
+             *(Path(path) for path in assignment_paths)]
+    source, pairs = select_resolved_normative_pairs(read_table(paths[0]),read_table(paths[1]))
+    supply = read_table(paths[2])
+    assignments = pd.concat([read_table(path) for path in paths[3:]],ignore_index=True)
+    result = compare_normative_pairs(pairs,assignments,supply)
+    output = Path(output); output.mkdir(parents=True,exist_ok=True)
+    source.to_parquet(output/'medical_attachments_with_context_flags.parquet',index=False)
+    pairs.to_parquet(output/'resolved_normative_pairs.parquet',index=False)
+    result.to_parquet(output/'pair_level_comparison.parquet',index=False)
+    result.to_csv(output/'pair_level_comparison.csv',index=False)
+    summaries = []
+    for service, group in result.groupby('service_code'):
+        summaries.append(dict(service_code=service,origins=len(group),
+            origin_in_model_frame=int(group.origin_in_model_frame.sum()),
+            candidate_present=int(group.candidate_present.sum()),
+            normative_provider_in_current_service_supply=int(group.any_normative_provider_in_observed_service_supply.sum()),
+            agreement=int(group.agreement.sum()),
+            agreement_given_supply_present=int((group.agreement & group.any_normative_provider_in_observed_service_supply).sum())))
+    summary = dict(source_rows=len(source),source_context_conflict_rows=int(source.context_conflict.sum()),
+        resolved_external_pairs=len(pairs),resolved_origins=int(pairs.origin_id.nunique()),
+        source_document_dates=sorted(set(source.document_date.dropna().astype(str))) if 'document_date' in source else [],
+        normative_not_observed_trip=True,service_tiers_not_proven_equivalent=True,
+        blind_holdout=False,parameters_fitted_or_selected=False,
+        selection_rules=['resolved origin and destination IDs','both present in accepted spatial2021',
+                         'origin_is_partial_address_scope exactly false','exclude reviewed quarantine source keys',
+                         'origin differs from destination','deduplicate origin/destination pairs'],
+        summaries=summaries,input_sha256={str(path):hashlib.sha256(path.read_bytes()).hexdigest() for path in paths},
+        audit_code_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
+    (output/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
+    return summary
 
 
 def extract_argayash_provider_cards(web_text: str) -> pd.DataFrame:
@@ -404,6 +472,16 @@ def read_table(path):
 
 
 def main():
+    if len(sys.argv)>1 and sys.argv[1]=='compare-normative':
+        parser=argparse.ArgumentParser(description='Recompute dated normative pairs; not trip accuracy')
+        parser.add_argument('--attachments',type=Path,required=True)
+        parser.add_argument('--quarantine',type=Path,required=True)
+        parser.add_argument('--supply',type=Path,required=True)
+        parser.add_argument('--assignments',type=Path,required=True,nargs='+')
+        parser.add_argument('--output',type=Path,required=True)
+        args=parser.parse_args(sys.argv[2:])
+        print(json.dumps(run_normative_comparison(args.attachments,args.quarantine,args.supply,args.assignments,args.output),ensure_ascii=False))
+        return
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--assignments', type=Path, required=True, nargs='+')
     parser.add_argument('--nodes', type=Path, required=True)
