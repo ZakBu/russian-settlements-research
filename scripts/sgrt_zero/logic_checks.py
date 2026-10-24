@@ -680,6 +680,48 @@ def audit_historical_primary_scope(directory):
         'interpretation':'Explicit child-only unit names are suspicious for a universal adult-access primary channel even when an aggregated license lists general practice. No claim of current operation follows from historical programme membership.'}
 
 
+def audit_medical_primary_scope(legacy_evidence, federal_care, np_supply, physical_sites):
+    """Reconcile actual accepted primary rows with literal care codes and scope.
+
+    Literal-name review remains a separate source interpretation: agreement of
+    generated flags is internal consistency, not proof of inventory completeness.
+    """
+    primary=['medical_basic_primary','medical_physician_primary']
+    legacy=pd.read_parquet(legacy_evidence)
+    accepted_legacy=legacy[legacy.service_code.isin(primary)&legacy.current_source_eligible.eq(True)]
+    care=pd.read_parquet(federal_care)
+    basic=care.service_codes.fillna('').str.split('|').map(lambda codes:primary[0] in codes)
+    physician=care.service_codes.fillna('').str.split('|').map(lambda codes:primary[1] in codes)
+    accepted=care[basic|physician]
+    failures={
+        'accepted_legacy_unit_scope_explicitly_held':int(accepted_legacy.new_unit_primary_scope_held.eq(True).sum()),
+        'accepted_legacy_named_child_only':int(accepted_legacy.named_child_only_contingent.eq(True).sum()),
+        'accepted_legacy_explicit_restricted_scope':int(accepted_legacy.explicit_restricted_scope.eq(True).sum())}
+    for col in ['named_child_only_contingent','pediatric_only_signal','restricted_access_signal',
+                'narrow_unit_name_ambiguity_signal','organization_oms_participation_ended_asof','telemedicine_only']:
+        failures['accepted_federal_'+col]=int(accepted[col].eq(True).sum())
+    failures['accepted_federal_without_positive_general_primary_unit_literal']=int((~accepted.positive_general_primary_unit_literal.eq(True)).sum())
+    # These predicates use original NSI codes, independently of service labels.
+    p=care.loc[physician]
+    failures['physician_without_original_12_3_adult_general_profile']=int((~p.MPVID.astype(str).eq('12')|~p.MPUSL.astype(str).eq('3')|~p.MPROF.astype(str).isin(['57','58','97'])).sum())
+    failures['basic_without_original_ambulatory_condition']=int((~care.loc[basic,'MPUSL'].astype(str).eq('3')).sum())
+    npdata=pd.read_parquet(np_supply);physical=pd.read_parquet(physical_sites)
+    n=npdata[npdata.service_code.isin(primary)]
+    failures['duplicate_final_np_primary_keys']=int(n.duplicated(['source_record_id','service_code']).sum())
+    failures['final_np_primary_named_child_only']=int(n.named_child_only_contingent.eq(True).sum()) if 'named_child_only_contingent' in n else 0
+    active_physical=physical[physical.service_code.isin(primary)&physical.supply_status.isin(['proxy','observed'])]
+    if 'named_child_only_contingent' in active_physical:
+        failures['accepted_physical_named_child_only']=int(active_physical.named_child_only_contingent.eq(True).sum())
+    paths={'legacy_evidence':legacy_evidence,'federal_care':federal_care,'np_supply':np_supply,'physical_sites':physical_sites}
+    return {'input_sha256':{k:sha(p) for k,p in paths.items()},'failures':failures,
+        'legacy_raw_service_evidence_rows':len(legacy),'accepted_legacy_primary_evidence_rows':len(accepted_legacy),
+        'federal_raw_care_rows_retained':len(care),'accepted_federal_primary_care_rows':len(accepted),
+        'accepted_federal_basic_care_rows':int(basic.sum()),'accepted_federal_physician_care_rows':int(physician.sum()),
+        'final_np_primary_keys':len(n),'final_np_primary_unique_np':int(n.source_record_id.nunique()),
+        'accepted_physical_primary_rows':len(active_physical),
+        'interpretation':'Codes and exclusion flags are reconciled from actual selected inputs. These are source confirmations, not patient flows, staffing, capacity or complete current medical inventories. Age- and need-specific rare care is retained separately; universal hospital suitability is not inferred.'}
+
+
 def audit_upward(directory, level_zero, origin_links_path, reference_path=None):
     """Check complete-child nesting, source-area guards and inherited depth."""
     directory=Path(directory);level_zero=Path(level_zero)
@@ -857,6 +899,8 @@ if __name__=='__main__':
     p=sub.add_parser('check-level-zero');p.add_argument('--directory',type=Path,required=True);p.add_argument('--reference',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     p=sub.add_parser('check-upward');p.add_argument('--directory',type=Path,required=True);p.add_argument('--level-zero',type=Path,required=True);p.add_argument('--origin-links',type=Path,required=True);p.add_argument('--reference',type=Path);p.add_argument('--output',type=Path,required=True)
     p=sub.add_parser('check-historical-primary-scope');p.add_argument('--directory',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
+    p=sub.add_parser('check-medical-primary-scope')
+    for flag in ['legacy-evidence','federal-care','np-supply','physical-sites','output']:p.add_argument('--'+flag,type=Path,required=True)
     p=sub.add_parser('check-extended');p.add_argument('--directory',type=Path,required=True);p.add_argument('--strict-directory',type=Path,required=True);p.add_argument('--reference',type=Path,required=True);p.add_argument('--origin-links',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     p=sub.add_parser('compare-medical-routes');p.add_argument('--before',type=Path,required=True);p.add_argument('--after',type=Path,required=True);p.add_argument('--reference',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     args=parser.parse_args()
@@ -872,6 +916,10 @@ if __name__=='__main__':
         args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     elif args.command=='check-historical-primary-scope':
         result=audit_historical_primary_scope(args.directory)
+        args.output.parent.mkdir(parents=True,exist_ok=True)
+        args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+    elif args.command=='check-medical-primary-scope':
+        result=audit_medical_primary_scope(args.legacy_evidence,args.federal_care,args.np_supply,args.physical_sites)
         args.output.parent.mkdir(parents=True,exist_ok=True)
         args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     elif args.command=='check-upward':

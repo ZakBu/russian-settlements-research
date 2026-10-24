@@ -364,6 +364,28 @@ def canonical_health_supply(work):
  raise ValueError('Canonical healthcare supply missing')
 
 
+def validate_primary_scope_report(path):
+ failures=json.loads(Path(path).read_text()).get('failures')
+ if not isinstance(failures,dict) or not failures:raise ValueError('Missing actual primary-care scope failure counts')
+ bad={key:value for key,value in failures.items() if value!=0}
+ if bad:raise ValueError('Actual primary-care source scope audit failed: '+repr(bad))
+
+
+def check_medical_primary_scope(work):
+ functions=next((work/role for role in ['federal_medical/functions_complete_scope_corrected',
+  'federal_medical/functions_unit_scope_corrected','federal_medical/functions']
+  if (work/role/'care_rows_classified.parquet').is_file()),None)
+ if functions is None:return
+ legacy=work/'health/legacy_final_unit_scope_corrected'
+ if not legacy.is_dir():legacy=work/'health/legacy_primary_child_scope_corrected'
+ health=canonical_health_supply(work).parent;output=work/'checks/medical_primary_scope_actual.json'
+ run(SCRIPT/'logic_checks.py','check-medical-primary-scope',
+     '--legacy-evidence',legacy/'legacy_source_evidence_with_scope.parquet',
+     '--federal-care',functions/'care_rows_classified.parquet','--np-supply',health/'np_supply.parquet',
+     '--physical-sites',health/'physical_sites.parquet','--output',output)
+ validate_primary_scope_report(output)
+
+
 def analyses(work):
  override=grocery_override(work)
  reference=work/'context/analysis_reference.parquet';nearest=materialize_route_view(work)
@@ -391,6 +413,7 @@ def analyses(work):
  run(SCRIPT/'logic_checks.py','check-upward','--directory',work/'upward'/main,'--level-zero',work/'hierarchy'/main,'--origin-links',links,'--output',work/'checks/upward_actual.json')
  run(SCRIPT/'logic_checks.py','check-extended','--directory',work/'upward_extended'/main,'--strict-directory',work/'upward'/main,'--reference',reference,'--origin-links',links,'--output',work/'checks/extended_actual.json')
  validate_actual_audits(work)
+ check_medical_primary_scope(work)
  run(SCRIPT/'logic_checks.py','check-route-arithmetic','--nearest',nearest,'--output',work/'checks/route_arithmetic.json')
  for folder in ['routes_wb','routes_yandex']:
   run(SCRIPT/'logic_checks.py','check-route-arithmetic','--nearest',work/folder/'nearest','--output',work/'checks'/(folder+'_arithmetic.json'))
@@ -565,6 +588,7 @@ def check_complete(work):
   required += ['federal_medical/functions/'+name for name in ['care_rows_classified.parquet','service_evidence_by_care_address.parquet','summary.json']]
   required += ['federal_medical/addresses/F038_current_np_identity.parquet','federal_medical/addresses/address_identity_summary.json']
   required += ['health/legacy_primary_child_scope_corrected/'+name for name in ['legacy_sites_all_rows.parquet','legacy_source_evidence_with_scope.parquet','child_primary_confirmations_held.parquet','physical_child_scope_audit.parquet','summary.json']]
+  required += ['checks/medical_primary_scope_actual.json']
  for scenario in SCENARIOS:required += ['hierarchy/'+scenario+'/level0_units.parquet','hierarchy/'+scenario+'/level0_memberships.parquet','hierarchy/'+scenario+'/summary.json']
  missing=[x for x in required if not (work/x).is_file()]
  if missing:raise ValueError('Cannot package incomplete zero-level result: '+repr(missing))
@@ -575,6 +599,8 @@ def check_complete(work):
   absent=[str(folder/name) for name in names if not (folder/name).is_file()]
   if absent:raise ValueError('Cannot package incomplete actual stages: '+repr(absent))
  validate_actual_audits(work)
+ primary_report=work/'checks/medical_primary_scope_actual.json'
+ if primary_report.is_file():validate_primary_scope_report(primary_report)
  population=json.loads((work/'population_context_readout/summary.json').read_text())
  if len(population.get('tables',{}))!=15 or not population.get('no_population_budgets_or_assignments_changed'):raise ValueError('Incomplete nonadditive city population readout')
  if not {'medical_basic_primary','school_general','daily_grocery'}.issubset(route_view(work)):raise ValueError('Required daily raw source classes missing')

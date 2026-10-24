@@ -321,6 +321,8 @@ def explicit_restricted_scope(name,organization=''):
 def named_child_only_unit(name):
  """Literal unit cohort; broad 'including children' taxonomy is not a cohort."""
  value=clean(name).casefold().replace('ё','е')
+ value=re.sub(r'(?<![а-яa-z])детс\.\s*(?=сад)', 'детский ',value)
+ value=re.sub(r'(?<![а-яa-z])дет\s*пол-?ка', 'детская поликлиника',value)
  value=re.sub(r'\(?\s*в\s+том\s+числе\s+(?:детск[а-я]*|детей|детям|подростк[а-я]*)(?:\s*\))?', ' ',value)
  # Address/locality labels must not turn a village named Detskoe into a cohort.
  value=re.split(r'\b(?:села|поселка|деревни)\b|(?<!\w)(?:с\.|п\.|д\.)\s*',value,maxsplit=1)[0]
@@ -343,23 +345,25 @@ def primary_unit_scope_flags(row):
  name=re.split(r'(?<!\w)(?:ул\.?|улица|пер\.?|переулок)(?=\s|,)',name,maxsplit=1)[0]
  # An actual general-practice/therapy unit can share a mixed label. An
  # organisation-wide profile is deliberately not consulted here.
- general=bool(re.search(r'врач.{0,12}общей практик|общ(?:ая|ей)\s+(?:врачебн[а-я]*\s+)?практик|\b(?:овп|воп|цовп)\b|семейн.{0,12}врач|врач[а-я\s-]{0,8}терапевт|участков[а-я]*\s+терапевт|(?:кабинет|отделение).{0,12}терап(?:ии|евт)|\bтерапевтическ[а-я]*\s+отделен|общетерапевт',name))
+ function_name=name.split('(',1)[0]
+ general=bool(re.search(r'врач.{0,12}общей практик|общ(?:ая|ей)\s+(?:врачебн[а-я]*\s+)?практик|\b(?:овп|воп|цовп)\b|семейн.{0,12}врач|врач[а-я\s-]{0,8}терапевт|участков[а-я]*\s+терапевт|(?:кабинет|отделение).{0,12}\bтерап(?:ии|евт)|\bтерапевтическ[а-я]*\s+отделен|общетерапевт',function_name))
  school=bool(re.search(r'(?:^|\b)(?:школа|школы|школе|школу)\b|(?:кабинет|оомп).{0,25}школ|дошкольно.?школьн|школьного фельдшер|школа.?интернат',name))
  # Patient-education schools are narrow care, not schoolchild cohorts.
  patient_school=bool(re.search(r'школ.{0,15}(?:для больных|пациент|диабет|астм|здоровь)',name))
- specialist=r'кардиолог|кардиодиспанс|диспансеризац|пульмонолог|гастроэнтеролог|невролог|офтальмолог|оториноларинголог|эндокринолог|дермато|уролог|нефролог|онколог|онкодиспанс|хирург|гинеколог|инфекцион|аллерголог|ревматолог|гематолог|психиатр|нарколог|неонатолог|новорожденн|травматолог|диализ|патолог.{0,10}беремен|реабилитац|медицинск.{0,5}профилактик|восстановительного лечения|диагност|эндоскоп|вакцинац|трансфузиолог'
- structure=bool(re.search(r'кабинет|отделени|центр|пункт|клиник|госпитал|корпус|стационар|диспанс',name))
+ specialist=r'кардиолог|кардиодиспанс|диспансеризац|пульмонолог|туберк|гастроэнтеролог|невролог|офтальмолог|оториноларинголог|эндокринолог|дермато|уролог|нефролог|онколог|онкодиспанс|хирург|гинеколог|инфекцион|аллерголог|ревматолог|гематолог|психиатр|нарколог|неонатолог|новорожденн|травматолог|диализ|диабет|патолог.{0,10}беремен|реабилитац|профилактик|восстановительн|диагност|эндоскоп|вакцинац|трансфузиолог|стомат|лаборатор'
+ structure=bool(re.search(r'кабинет|отделени|центр|пункт|клиник|госпитал|корпус|стационар|диспанс|служб',name))
  narrow=(structure and bool(re.search(specialist,name))) or bool(re.search(r'центр\s+(?:здоровья|профилактики)|санатор|профилакторий|^\s*(?:хирург[а-я]*|кардиолог[а-я]*|невролог[а-я]*|травматолог[а-я]*|гинекологи[яи])\s*$',name))
  flags['school_or_preschool_medical_scope_signal']|=school and not patient_school
  flags['restricted_access_signal']|=school and not patient_school
  if not general:flags['narrow_unit_name_ambiguity_signal']|=narrow or patient_school
  if named_child_only_unit(name):flags['pediatric_only_signal']=True
  flags['literal_narrow_primary_unit_scope']=flags['narrow_unit_name_ambiguity_signal']
+ flags['narrow_clinical_domain_literal']=bool(re.search(specialist,name))
  # Positive unit identity is required. A broad organisation licence/profile
  # alone cannot establish a general local provider in an unnamed specialist
  # office, ward, or arbitrary subdivision. Nonpositive rows remain unknown,
  # rather than being interpreted as absent care.
- positive=bool(re.search(r'\b(?:фап|фп|овп|воп|цовп|ва|сва)\b|фельдшерско.?акушерск|фельдшерский\s+пункт|амбулатори|поликлиник|поликлинич|общ(?:ая|ей)\s+(?:врачебн[а-я]*\s+)?практик|врач.{0,12}общей практик|семейн.{0,12}врач|врач[а-я\s-]{0,8}терапевт|участков[а-я]*\s+терапевт|терапевтическ.{0,15}(?:отделен|кабинет)|(?:отделен|кабинет).{0,15}терап(?:ии|евт)',name))
+ positive=bool(re.search(r'\b(?:фап|фп|овп|воп|цовп|ва|сва)\b|фельдшерско.?акушерск|фельдшерский\s+пункт|амбулатори|\bполиклиника\b|\bполиклиническ[а-я]*\s+отделен|\bамбулаторно.?поликлиническ[а-я]*\s+отделен|общ(?:ая|ей)\s+(?:врачебн[а-я]*\s+)?практик|врач.{0,12}общей практик|семейн.{0,12}врач|врач[а-я\s-]{0,8}терапевт|участков[а-я]*\s+терапевт|\bтерапевтическ.{0,15}(?:отделен|кабинет)|(?:отделен|кабинет).{0,15}\bтерап(?:ии|евт)',function_name))
  flags['positive_general_primary_unit_literal']=positive
  flags['universal_primary_unit_function_unknown']=not positive
  flags['narrow_unit_name_ambiguity_signal']|=not positive

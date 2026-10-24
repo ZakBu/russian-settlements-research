@@ -206,5 +206,14 @@ class ReproduceTests(unittest.TestCase):
    self.assertIn('состояние на момент исходного коммита',answer)
    self.assertIn('этими расчётами не установлен',answer)
 
+ def test_actual_primary_scope_failure_cannot_pass_publication_validation(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   path=put(Path(tmp),'scope.json',json.dumps({'failures':{'child_primary_rows':1,'narrow_primary_rows':0}}).encode())
+   with self.assertRaisesRegex(ValueError,'primary-care source scope audit failed'):r.validate_primary_scope_report(path)
+   path.write_text(json.dumps({'failures':{'child_primary_rows':0,'narrow_primary_rows':0}}))
+   r.validate_primary_scope_report(path)
+   path.write_text('{}')
+   with self.assertRaisesRegex(ValueError,'Missing actual'):r.validate_primary_scope_report(path)
+
 
 if __name__=='__main__':unittest.main()

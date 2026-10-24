@@ -48,8 +48,10 @@ def classify_row(row,enums):
   # A generic taxonomy is not a positive unit function and cannot overrule a
   # clear named GP. A literal narrow/child type is a contradictory unit scope.
   type_narrow=typeflags['literal_narrow_primary_unit_scope']
-  explicit_specialist_type=bool(re.search(r'нефролог|офтальмолог|хирург|гинеколог|кардиолог|онколог|психиатр|нарколог|инфекцион|эндокринолог|невролог|гастроэнтеролог|пульмонолог|реабилитац|диспанс|стомат|диагност|лаборатор',unit_type,re.I))
-  positive=flags['positive_general_primary_unit_literal'] or typeflags['positive_general_primary_unit_literal']
+  explicit_specialist_type=typeflags['narrow_clinical_domain_literal']
+  strong_type=bool(re.search(r'\b(?:фап|фп|овп|воп|цовп|ва|сва)\b|фельдшерско.?акушерск|фельдшерский\s+пункт|амбулатори|общ(?:ая|ей)\s+(?:врачебн[а-я]*\s+)?практик',unit_type,re.I))
+  neutral_name=not unit_name or bool(re.fullmatch(r'\s*(?:подразделение|отделение)\s*(?:№\s*)?\d*\s*',unit_name,re.I))
+  positive=flags['positive_general_primary_unit_literal'] or (typeflags['positive_general_primary_unit_literal'] and (strong_type or neutral_name))
   flags['positive_general_primary_unit_literal']=positive
   flags['universal_primary_unit_function_unknown']=not positive
   flags['narrow_unit_name_ambiguity_signal']=flags['literal_narrow_primary_unit_scope'] or type_narrow or explicit_specialist_type or not positive

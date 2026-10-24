@@ -44,4 +44,15 @@ class FunctionalTests(unittest.TestCase):
   self.assertNotIn('medical_physician_primary',self.codes(NAM_SPMO='Поликлиника',VID_SPMO='Офтальмологические',MPROF='97'))
  def test_explicit_general_type_can_identify_unnamed_unit(self):
   self.assertIn('medical_physician_primary',self.codes(NAM_SPMO='Подразделение №7',VID_SPMO='Врачебная амбулатория',MPROF='97'))
+ def test_chemotherapy_is_not_general_therapy(self):
+  self.assertNotIn('medical_physician_primary',self.codes(NAM_SPMO='Онкологическое отделение №1 (химиотерапевтическое)',VID_SPMO='Поликлиники'))
+ def test_parent_clinic_reference_does_not_identify_cabinet_as_gp(self):
+  self.assertNotIn('medical_physician_primary',self.codes(NAM_SPMO='Кабинет Диабетическая стопа (Поликлиника 3)',VID_SPMO='Поликлиники'))
+ def test_child_abbreviations_are_typed_before_primary_admission(self):
+  for name in ['Детпол-ка Дружба','Мед.каб. Мартюшевский детс.сад Искорка']:
+   with self.subTest(name=name):self.assertNotIn('medical_physician_primary',self.codes(NAM_SPMO=name,VID_SPMO='Поликлиники'))
+ def test_same_specialist_type_taxonomy_catches_trauma(self):
+  self.assertNotIn('medical_physician_primary',self.codes(NAM_SPMO='Поликлиника ПКОХЦВЛ',VID_SPMO='Травматологические'))
+ def test_named_tuberculosis_cabinet_not_universal_primary(self):
+  self.assertNotIn('medical_physician_primary',self.codes(NAM_SPMO='Поликлиника. Противотуберкулёзный кабинет. Аромашевская РБ',VID_SPMO='Поликлиники'))
 if __name__=='__main__':unittest.main()

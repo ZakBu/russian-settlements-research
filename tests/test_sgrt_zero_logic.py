@@ -2,6 +2,7 @@ import sys
 from pathlib import Path
 import unittest
 import importlib.util
+import tempfile
 import numpy as np
 import pandas as pd
 
@@ -10,7 +11,7 @@ from logic_checks import (check_direct_admission, profile_coverage, check_profil
     check_nested_unions, check_direct_core_cover, check_promotions, gpkg_wkb, provider_anchor,
     check_external_reference_parents, check_nontrivial_spatial_merges)
 from logic_checks import locate_external_fua_points, check_external_provider_core_edges, check_relaxed_positive_assignments
-from logic_checks import _ellipsoidal_extent, check_upper_need_scope_labels
+from logic_checks import _ellipsoidal_extent, check_upper_need_scope_labels, audit_medical_primary_scope
 
 
 class IndependentExtentTests(unittest.TestCase):
@@ -28,6 +29,22 @@ class IndependentExtentTests(unittest.TestCase):
         self.assertEqual(sum(check_upper_need_scope_labels(d).values()),0)
         d['universal_patient_suitability_established']=True
         self.assertEqual(check_upper_need_scope_labels(d)['unsupported_universal_patient_suitability_claim'],1)
+
+    def test_primary_code_audit_detects_physician_label_without_physician_code(self):
+        service='medical_physician_primary'
+        legacy=pd.DataFrame({'service_code':[service],'current_source_eligible':[True],
+            'new_unit_primary_scope_held':[False],'named_child_only_contingent':[False],'explicit_restricted_scope':[False]})
+        care=pd.DataFrame({'service_codes':[service],'MPVID':['11'],'MPUSL':['3'],'MPROF':['97'],
+            'positive_general_primary_unit_literal':[True],**{k:[False] for k in ['named_child_only_contingent','pediatric_only_signal',
+            'restricted_access_signal','narrow_unit_name_ambiguity_signal','organization_oms_participation_ended_asof','telemedicine_only']}})
+        supply=pd.DataFrame({'service_code':[service],'source_record_id':['v'],'named_child_only_contingent':[False]})
+        physical=supply.assign(supply_status='proxy')
+        with tempfile.TemporaryDirectory() as td:
+            paths=[]
+            for name,frame in [('legacy',legacy),('care',care),('supply',supply),('physical',physical)]:
+                path=Path(td)/(name+'.parquet');frame.to_parquet(path,index=False);paths.append(path)
+            result=audit_medical_primary_scope(*paths)
+        self.assertEqual(result['failures']['physician_without_original_12_3_adult_general_profile'],1)
 
 
 class ExtendedCoreCounterexamples(unittest.TestCase):
