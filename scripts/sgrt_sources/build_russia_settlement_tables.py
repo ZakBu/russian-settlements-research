@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Download the Rosstat 2025 settlement workbook archive and write per-region CSV tables.
 
-Run id: 2026-10-24 second attempt. The runner keeps a log even when extraction fails.
+Files over 1 MB are not produced: each region is its own CSV. Workbooks that the
+archive tool cannot extract are listed in russia/extract_failures.csv.
 """
 from __future__ import annotations
 
@@ -49,7 +50,6 @@ def members(rar: Path) -> list[str]:
         if marker not in line:
             continue
         paths.append(line[line.find(marker):].strip())
-    print("archive members", len(paths), flush=True)
     return paths
 
 
@@ -57,18 +57,12 @@ def wanted(paths: list[str]) -> list[tuple[str, str]]:
     selected = []
     for path in paths:
         name = path.split("/")[-1]
-        if "2-10_\u0422\u0440\u0443\u0434" in path and re.match(r"\u043f\.?\s*9_", name) and name.endswith("_\u041d\u041f.xlsx"):
+        if "2-10_Труд" in path and re.match(r"п\.?\s*9_", name) and name.endswith("_НП.xlsx"):
             selected.append(("headcount", path))
-        elif "\u041e\u0431\u0440\u0430\u0437\u043e\u0432\u0430\u043d" in path and name in ("\u043f. 39_\u0427\u0438\u0441\u043b\u043e \u043c\u0435\u0441\u0442_\u041d\u041f.xlsx", "\u043f. 44_\u0427\u0438\u0441\u043b\u043e \u0441\u0442\u0430\u0432\u043e\u043a_\u041d\u041f.xlsx"):
+        elif "Образован" in path and name in ("п. 39_Число мест_НП.xlsx", "п. 44_Число ставок_НП.xlsx"):
             selected.append(("preschool", path))
-        elif (
-            "\u041e\u0431\u0440\u0430\u0437\u043e\u0432\u0430\u043d" in path
-            and name.endswith("_\u041d\u041f.xlsx")
-            and name.startswith("\u043f. 40_")
-            and "\u0432\u043e\u0441\u043f" in name.lower()
-        ):
+        elif "Образован" in path and name.endswith("_НП.xlsx") and name.startswith("п. 40_") and "восп" in name.lower():
             selected.append(("preschool_children", path))
-    print("selected workbooks", len(selected), flush=True)
     return selected
 
 
@@ -92,14 +86,14 @@ def rows_of(path: Path) -> list[dict]:
         if not row or row[0] in (None, ""):
             continue
         settlement = str(row[0]).strip()
-        if settlement in {"\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435", "\u0410", "\u0411"} or settlement.startswith(("(", "\u0421\u0440\u0435\u0434\u043d", "\u0427\u0438\u0441\u043b", "\u0427\u0438\u0441\u043b\u043e", "\u0414\u0430\u043d\u043d\u044b\u0435")):
+        if settlement in {"Наименование", "А", "Б"} or settlement.startswith(("(", "Средн", "Числ", "Число", "Данные")):
             continue
         cells = [cell for cell in row[1:] if cell not in (None, "")]
         if not cells:
             continue
         oktmo = str(cells[0]).strip() if len(cells) >= 2 else ""
         value = cells[-1]
-        if value in {"...", "\u2026"} or (isinstance(value, str) and set(value.strip()) <= {".", "\u2026"}):
+        if value in {"...", "…"} or (isinstance(value, str) and set(value.strip()) <= {".", "…"}):
             parsed.append({"settlement": settlement, "oktmo": oktmo, "value": "", "value_status": "suppressed"})
         elif isinstance(value, (int, float)) and not isinstance(value, bool):
             text = str(int(value)) if float(value).is_integer() else str(value)
@@ -137,6 +131,7 @@ def main() -> None:
         except Exception as exc:
             failures.append({"kind": kind, "region": region, "path": path, "error": str(exc)})
             continue
+        indicator = ""
         if kind == "preschool":
             indicator = "preschool_places" if "39_" in extracted.name else "preschool_posts"
             for row in parsed:
@@ -156,7 +151,7 @@ def main() -> None:
         for row in failures:
             row.setdefault("error", "archive member could not be extracted")
             writer.writerow(row)
-    print(f"regions written, failures {len(failures)}", flush=True)
+    print(f"regions written, failures {len(failures)}")
 
 
 if __name__ == "__main__":
