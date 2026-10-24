@@ -12,6 +12,25 @@ from scripts.sgrt_zero import publish as p
 
 
 class PublicationTests(unittest.TestCase):
+    def test_changed_federal_archive_is_not_accepted_or_written(self):
+        from io import BytesIO
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            with patch.object(p.urllib.request,'urlopen',return_value=BytesIO(b'PK-changed')):
+                with self.assertRaisesRegex(ValueError,'changed'):
+                    p.freeze_federal(root,'a'*40)
+            self.assertFalse((root/p.FEDERAL_NAME).exists())
+
+    def test_federal_history_requires_intervals_and_no_legal_address_substitution(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);body=b'PK-test'
+            with patch.object(p,'FEDERAL_SHA256',hashlib.sha256(body).hexdigest()), patch.object(p,'FEDERAL_BYTES',len(body)):
+                (root/p.FEDERAL_NAME).write_bytes(body)
+                manifest=p.freeze_federal(root,'a'*40)
+            self.assertTrue(manifest['contains_history_not_just_current_records'])
+            self.assertTrue(manifest['validity_requires_per_record_intervals'])
+            self.assertTrue(manifest['legal_address_is_not_a_care_site'])
+
     def bundle(self, directory):
         root = Path(directory)
         for name in ('zero-data.zip', 'zero_atlas.pdf', 'preview.png'):

@@ -16,6 +16,11 @@ MEDICAL_URL = 'http://www.sartfoms.ru/spravka/archives/2021/list/TERREESTRMO2021
 MEDICAL_SHA256 = 'f8fca17deb75e86b711b3c18a15d909e7341b9baa53b3d93ae6f383835de5c6c'
 MEDICAL_BYTES = 2151654
 MEDICAL_NAME = 'TERREESTRMO2021_31.12.2021.pdf'
+FEDERAL_TAG = 'sgrt-zero-federal-medical-inputs-20261025-v1'
+FEDERAL_URL = 'http://www.xn--j1adfnaco.xn--p1ai/files/nsi/SpravNSI.zip'
+FEDERAL_SHA256 = 'e7bab4fa92ba0273faf18d6bfb97c368c3fd0b66290c3b2a82d82bc47ff6db42'
+FEDERAL_BYTES = 93455460
+FEDERAL_NAME = 'SpravNSI_20261023.zip'
 
 
 def sha(path):
@@ -60,6 +65,33 @@ def freeze_medical(built, source_commit):
     return manifest
 
 
+def freeze_federal(built, source_commit):
+    """Preserve the exact public national NSI response before its URL changes."""
+    if not re.fullmatch('[0-9a-fA-F]{40}', source_commit):
+        raise ValueError('Complete source commit SHA required')
+    built.mkdir(parents=True, exist_ok=True)
+    path = built / FEDERAL_NAME
+    metadata = {'bytes': FEDERAL_BYTES, 'sha256': FEDERAL_SHA256}
+    if not path.exists():
+        req = urllib.request.Request(FEDERAL_URL, headers={'User-Agent': 'sgrt-research/1'})
+        with urllib.request.urlopen(req, timeout=180) as response:
+            body = response.read()
+        if len(body) != FEDERAL_BYTES or hashlib.sha256(body).hexdigest() != FEDERAL_SHA256 or not body.startswith(b'PK'):
+            raise ValueError('Public federal archive changed; no snapshot written')
+        path.write_bytes(body)
+    verify(path, metadata)
+    manifest = {'repository': REPOSITORY, 'release_tag': FEDERAL_TAG,
+                'source_commit': source_commit, 'source_url': FEDERAL_URL,
+                'source_reference_year': 2026, 'snapshot_label': '2026-10-23',
+                'scope': 'Federal FFOMS NSI including F032 organizations, F033 subdivisions, F034 care, F038 actual care addresses; public Stavropol TFOMS mirror',
+                'contains_history_not_just_current_records': True,
+                'validity_requires_per_record_intervals': True,
+                'legal_address_is_not_a_care_site': True,
+                'assets': [{'asset': FEDERAL_NAME, **metadata}]}
+    (built / 'federal_medical_source_manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
+    return manifest
+
+
 def verify_remote(release, files, expected, tag):
     for path in files:
         matches = [a for a in release['assets'] if a['name'] == path.name]
@@ -77,22 +109,24 @@ def verify_remote(release, files, expected, tag):
                 verify(Path(tmp) / path.name, expected[path.name])
 
 
-def publish(built, medical=False):
+def publish(built, medical=False, federal=False):
+    if medical and federal:
+        raise ValueError('Choose one source publication')
     built = Path(built)
-    manifest_name = 'medical_source_manifest.json' if medical else 'zero_catalog.json'
+    manifest_name = 'federal_medical_source_manifest.json' if federal else 'medical_source_manifest.json' if medical else 'zero_catalog.json'
     cat = json.loads((built / manifest_name).read_text())
-    tag = MEDICAL_TAG if medical else RESULT_TAG
+    tag = FEDERAL_TAG if federal else MEDICAL_TAG if medical else RESULT_TAG
     if cat['release_tag'] != tag or cat['repository'] != REPOSITORY:
         raise ValueError('Unexpected publication target')
     if not re.fullmatch('[0-9a-fA-F]{40}', cat['source_commit']):
         raise ValueError('Complete source commit SHA required')
-    names = [MEDICAL_NAME, manifest_name] if medical else ['zero-data.zip', 'zero_catalog.json', 'zero_atlas.pdf', 'preview.png']
+    names = [FEDERAL_NAME, manifest_name] if federal else [MEDICAL_NAME, manifest_name] if medical else ['zero-data.zip', 'zero_catalog.json', 'zero_atlas.pdf', 'preview.png']
     files = [built / name for name in names]
     for path in files:
         if not path.is_file() or not path.stat().st_size:
             raise ValueError('Missing or empty publication asset: ' + path.name)
     expected = {p.name: {'bytes': p.stat().st_size, 'sha256': sha(p)} for p in files}
-    pinned_name = MEDICAL_NAME if medical else 'zero-data.zip'
+    pinned_name = FEDERAL_NAME if federal else MEDICAL_NAME if medical else 'zero-data.zip'
     declared = [a for a in cat['assets'] if a['asset'] == pinned_name]
     if len(declared) != 1:
         raise ValueError('Exactly one declared archive/source asset required')
@@ -101,6 +135,10 @@ def publish(built, medical=False):
         verify(built / MEDICAL_NAME, {'bytes': MEDICAL_BYTES, 'sha256': MEDICAL_SHA256})
         if cat['source_url'] != MEDICAL_URL:
             raise ValueError('Unexpected medical source URL')
+    if federal:
+        verify(built / FEDERAL_NAME, {'bytes': FEDERAL_BYTES, 'sha256': FEDERAL_SHA256})
+        if cat['source_url'] != FEDERAL_URL:
+            raise ValueError('Unexpected federal medical source URL')
     # Paginate so older published versions cannot disappear behind the first 100 results.
     pages = json.loads(gh('api', '--paginate', '--slurp', f'repos/{REPOSITORY}/releases?per_page=100'))
     matches = [r for page in pages for r in page if r['tag_name'] == tag]
@@ -116,6 +154,9 @@ def publish(built, medical=False):
             'Модельные направления не объявляются наблюдёнными поездками. Обзор: https://github.com/' + REPOSITORY + '/blob/main/sgrt/zero/README.md')
     body += '\n\nКод: ' + cat['source_commit']
     title = 'Дополнительный медицинский источник — Саратов, 2021' if medical else 'Россия: нулевой уровень и ограниченные верхние сценарии — 25.10.2026'
+    if federal:
+        body = 'Федеральные справочники ФФОМС от23.10.2026 с историей записей и фактическими адресами оказания помощи. Точная открытая выгрузка ТФОМС Ставропольского края сохранена с SHA; юридические адреса не объявляются местами приёма. Действующие записи требуют проверки собственных периодов действия.\n\nКод: ' + cat['source_commit']
+        title = 'Федеральная медицинская НСИ — снимок 23.10.2026'
     metadata = built / 'publication_request.json'
     if release is None:
         metadata.write_text(json.dumps({'tag_name': tag, 'target_commitish': cat['source_commit'],
@@ -140,8 +181,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--built', type=Path, required=True)
     parser.add_argument('--freeze-medical', action='store_true')
+    parser.add_argument('--freeze-federal', action='store_true')
     parser.add_argument('--source-commit')
     args = parser.parse_args()
     if args.freeze_medical:
         freeze_medical(args.built, args.source_commit or '')
-    publish(args.built, medical=args.freeze_medical)
+    if args.freeze_federal:
+        freeze_federal(args.built, args.source_commit or '')
+    publish(args.built, medical=args.freeze_medical, federal=args.freeze_federal)
