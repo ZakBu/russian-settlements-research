@@ -19,8 +19,10 @@ async function main() {
   if (repo !== 'ZakBu/russian-settlements-research' || catalog.repository !== repo) throw new Error('Unexpected repository');
   const tag = catalog.release_tag;
   if (!/^sgrt-pilot-\d{8}-v\d+$/.test(tag)) throw new Error('Unexpected pilot release tag');
-  const endpoint = `repos/${repo}/releases/tags/${tag}`;
-  let release = JSON.parse(gh(['api', endpoint]));
+  // The tag endpoint omits drafts; discover our draft through the release list.
+  let release = JSON.parse(gh(['api', `repos/${repo}/releases?per_page=100`])).find(r=>r.tag_name===tag);
+  if (!release) throw new Error('Expected pilot draft not found');
+  const endpoint = `repos/${repo}/releases/${release.id}`;
   if (!release.draft) throw new Error('Refusing to replace a published release');
   Object.assign(process.env, {SGRT_STAGING_NAME:'sgrt-pilot-payload',
     SGRT_STAGING_BYTES:String(asset.bytes), SGRT_STAGING_SHA256:asset.sha256, SGRT_RELEASE_TAG:tag});
