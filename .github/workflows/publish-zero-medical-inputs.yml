@@ -1,0 +1,24 @@
+name: Freeze supplemental Saratov medical source
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: publish-zero-medical-inputs-20261025-v1
+  cancel-in-progress: false
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Fetch, verify and publish a separate immutable source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          python scripts/sgrt_zero/publish.py
+          --built "$RUNNER_TEMP/sgrt-zero-medical-source"
+          --freeze-medical --source-commit "$GITHUB_SHA"
