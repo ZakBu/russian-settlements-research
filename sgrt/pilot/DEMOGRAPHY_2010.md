@@ -51,7 +51,7 @@
 
 ## Повторить расчёт
 
-После загрузки основной базы установить зависимости из `requirements-handoff.txt`. Дополнительные входы можно получить так:
+После загрузки основной базы установить зависимости из `requirements-sgrt-pilot.txt`. Дополнительные входы можно получить так:
 
 ```bash
 python scripts/research_data.py fetch --profile all --dest INPUT_ROOT \
