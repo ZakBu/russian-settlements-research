@@ -212,7 +212,7 @@ def build_level_zero(edges,reference,expected_families,core_families=None):
     return out,members,pd.concat(anchor_parts,ignore_index=True) if anchor_parts else pd.DataFrame(),frame
 
 
-def higher_candidates(memberships,higher_edges,reference):
+def higher_candidates_reference(memberships,higher_edges,reference):
     """All candidate next-order links, including split and unobserved coverage."""
     frame=canonical_edges(higher_edges,admission='higher_admitted')
     if not frame.loc[frame.provider_settlement_id.notna(),'provider_settlement_id'].isin(reference.source_record_id.dropna()).all():
@@ -256,6 +256,21 @@ def higher_candidates(memberships,higher_edges,reference):
                         'is_observed_commuting_or_patient_flow':False,'rare_service_alone_defines_agglomeration':False}
                     result.append(row)
     return pd.DataFrame(result)
+
+
+def higher_candidates(memberships,higher_edges,reference):
+    """Policy-equivalent aggregation, with the original reducer kept explicit.
+
+    The optimized reducer is separately fingerprinted by the calling drivers.
+    Categorical memberships retain the original pandas grouping semantics.
+    """
+    if any(isinstance(memberships[c].dtype,pd.CategoricalDtype) for c in ['unit_id','scenario_id']):
+        return higher_candidates_reference(memberships,higher_edges,reference)
+    try:
+        from .higher_candidates_fast import higher_candidates_fast
+    except ImportError:
+        from higher_candidates_fast import higher_candidates_fast
+    return higher_candidates_fast(memberships,higher_edges,reference)
 
 
 def promote_layer(child_units,memberships,candidates,level,previous_families=()):

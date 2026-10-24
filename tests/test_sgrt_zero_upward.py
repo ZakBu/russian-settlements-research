@@ -1,10 +1,11 @@
 import sys
 from pathlib import Path
 import unittest
+import tempfile
 import numpy as np
 import pandas as pd
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts/sgrt_zero'))
-from upward import prepare_stage_edges,one_area_keys
+from upward import prepare_stage_edges,one_area_keys,read_route
 
 
 def route(provider='p',cost=20.):
@@ -17,6 +18,33 @@ def status(key,ids):
 
 
 class UpwardTests(unittest.TestCase):
+ def test_child_rare_profile_is_conditional_offer_not_universal_patient_route(self):
+  from extended import provider_core_edges
+  raw=route();raw['provider_named_child_only_contingent']=True
+  raw['provider_medical_need_scope']='pediatrics'
+  raw['provider_universal_hospital_suitability_verified']=False
+  stage={'name':'hospital','families':['medical_inpatient'],'guard':'same_external_estimated_efua2015','limit_minutes':90.,'source_role':'author_sensitivity'}
+  statuses=status('point_key',{'physical-p':[1]})
+  outputs=[prepare_stage_edges({'medical_inpatient':raw},stage,status('source_record_id',{'a':[1]}),statuses),
+   provider_core_edges({'medical_inpatient':raw},stage,statuses)]
+  for d in outputs:
+   self.assertTrue(d.provider_named_child_only_contingent.iloc[0])
+   self.assertEqual(d.provider_medical_need_scope.iloc[0],'pediatrics')
+   self.assertTrue(d.upper_medical_link_need_conditional.iloc[0])
+   self.assertFalse(d.universal_patient_suitability_established.iloc[0])
+   self.assertFalse(d.rare_service_is_agglomeration_proof.iloc[0])
+   self.assertTrue(d.territorial_merge_admitted.iloc[0])
+
+ def test_source_history_and_nullable_scope_survive_route_reader(self):
+  d=route();d['provider_historical_source_only']=pd.Series([True],dtype='boolean')
+  d['provider_actual_operational_status_verified']=pd.Series([False],dtype='boolean')
+  d['provider_restriction_scope_unknown']=pd.Series([pd.NA],dtype='boolean')
+  with tempfile.TemporaryDirectory() as folder:
+   path=Path(folder)/'route.parquet';d.to_parquet(path,index=False);result=read_route(path)
+  self.assertTrue(result.provider_historical_source_only.iloc[0])
+  self.assertFalse(result.provider_actual_operational_status_verified.iloc[0])
+  self.assertTrue(pd.isna(result.provider_restriction_scope_unknown.iloc[0]))
+
  def test_rural_direct_medical_does_not_require_an_urban_fua(self):
   stage={'name':'physician','families':['physician'],'guard':'direct_bounded_functional_medical_scenario','limit_minutes':30.,'source_role':'explicit_dated_transport_scenario'}
   d=prepare_stage_edges({'physician':route()},stage,status('source_record_id',{'a':[]}),status('point_key',{'physical-p':[]}))

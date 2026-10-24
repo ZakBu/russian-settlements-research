@@ -36,6 +36,24 @@ def admit(d,family='medical_basic',limit=30.,code='medical_basic_primary'):
 
 
 class ZeroScreensTest(unittest.TestCase):
+    def test_historical_address_does_not_become_verified_current_operation(self):
+        x=raw()
+        x['provider_historical_source_only']=[True,False,None]
+        x['provider_actual_operational_status_verified']=[False,False,None]
+        x['provider_restriction_scope_unknown']=[True,False,None]
+        x['provider_medical_need_scope']=['онкология','терапия',None]
+        x['provider_universal_hospital_suitability_verified']=[False,False,None]
+        x.loc[0,'source_year']='["2021"]'
+        d=admit(canonical(x,reference()))
+        self.assertTrue(d.provider_historical_source_only.iloc[0])
+        self.assertFalse(d.provider_actual_operational_status_verified.iloc[0])
+        self.assertTrue(d.provider_restriction_scope_unknown.iloc[0])
+        self.assertEqual(json.loads(d.source_year.iloc[0]),['2021'])
+        self.assertTrue(pd.isna(d.provider_historical_source_only.iloc[2]))
+        self.assertTrue(pd.isna(d.provider_source_status_semantics_verified.iloc[0]))
+        self.assertEqual(d.provider_medical_need_scope.iloc[0],'онкология')
+        self.assertFalse(d.provider_universal_hospital_suitability_verified.iloc[0])
+
     def test_population_does_not_change_daily_travel_limit(self):
         d=admit(canonical(raw(),reference()),'grocery',20,'daily_grocery')
         self.assertEqual(d.service_status.tolist(),['far_known_candidate','far_known_candidate','near_candidate'])
@@ -157,6 +175,27 @@ class ZeroScreensTest(unittest.TestCase):
             self.assertTrue((root/'out/distance_diagnostics.parquet').exists())
             self.assertTrue((root/'out/mixed_operator_pickup_alternative.parquet').exists())
             for p in summary['source_input_sha256']:self.assertTrue(Path(p).is_file())
+
+    def test_current_positive_grocery_override_retains_its_date_and_one_channel(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);routes=root/'nearest';routes.mkdir();reference().to_parquet(root/'ref.parquet')
+            for code in ['medical_basic_primary','school_general','daily_grocery']:
+                d=raw();d['service_code']=code
+                d['source_year']=d.source_year.map(lambda x:None if x is None else str(x))
+                d.to_parquet(routes/(code+'.parquet'))
+            original=(routes/'daily_grocery.parquet').read_bytes()
+            current=pd.read_parquet(routes/'daily_grocery.parquet')
+            current['service_code']='daily_grocery_evidence_union'
+            current.loc[0,'cost_minutes']=5.;current.loc[0,'source_year']='["2026"]'
+            current.to_parquet(root/'combined_grocery.parquet')
+            run(routes,root/'ref.parquet',root/'out',['core3_20_school30'],grocery_nearest_path=root/'combined_grocery.parquet')
+            edges=pd.read_parquet(root/'out/daily_edges.parquet')
+            row=edges[edges.service_family.eq('grocery')&edges.origin_id.eq('a')].iloc[0]
+            self.assertTrue(row.l0_admitted)
+            self.assertEqual(json.loads(row.source_year),['2026'])
+            self.assertEqual(row.source_route_service_code,'daily_grocery_evidence_union')
+            self.assertEqual(edges.service_family.nunique(),3)
+            self.assertEqual(original,(routes/'daily_grocery.parquet').read_bytes())
 
     def test_corrected_medical_route_override_is_used_and_old_input_retained(self):
         with tempfile.TemporaryDirectory() as temp:

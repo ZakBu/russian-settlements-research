@@ -9,7 +9,70 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts/sgrt_zero'))
 from logic_checks import (check_direct_admission, profile_coverage, check_profile_atoms,
     check_nested_unions, check_direct_core_cover, check_promotions, gpkg_wkb, provider_anchor,
     check_external_reference_parents, check_nontrivial_spatial_merges)
-from logic_checks import locate_external_fua_points
+from logic_checks import locate_external_fua_points, check_external_provider_core_edges, check_relaxed_positive_assignments
+from logic_checks import _ellipsoidal_extent, check_upper_need_scope_labels
+
+
+class IndependentExtentTests(unittest.TestCase):
+    def test_wgs84_radius_is_not_diameter_or_road_minutes(self):
+        points=pd.DataFrame({'lat':[0.,0.,0.],'lon':[-1.,0.,1.]})
+        extent=_ellipsoidal_extent(points,0.,0.)
+        self.assertAlmostEqual(extent['anchor_max_distance_km'],111.31949079327357,places=8)
+        self.assertAlmostEqual(extent['wgs84_member_diameter_km'],222.63898158654715,places=8)
+
+    def test_conditional_child_offer_is_not_universal_patient_routing(self):
+        d=pd.DataFrame({'service_family':['medical_inpatient'],'provider_named_child_only_contingent':[True],
+                        'upper_medical_link_need_conditional':[True],
+                        'universal_patient_suitability_established':[False],
+                        'rare_service_is_agglomeration_proof':[False]})
+        self.assertEqual(sum(check_upper_need_scope_labels(d).values()),0)
+        d['universal_patient_suitability_established']=True
+        self.assertEqual(check_upper_need_scope_labels(d)['unsupported_universal_patient_suitability_claim'],1)
+
+
+class ExtendedCoreCounterexamples(unittest.TestCase):
+    def edge(self,o,f,t='efua:1',cost=40.):
+        return dict(origin_id=o,service_family=f,parent_target_key=t,provider_point_key='clinic',cost_minutes=cost,admission_limit_minutes=90.,higher_admitted=True)
+
+    def test_outside_origin_is_allowed_but_outside_provider_is_not(self):
+        # No origin-inside condition exists in this separately labelled scenario.
+        e=pd.DataFrame([self.edge('village_outside2015','hospital')])
+        points=pd.DataFrame({'point_key':['clinic'],'eFUA_ID':[1]})
+        self.assertTrue(check_external_provider_core_edges(e,points).empty)
+        points.eFUA_ID=2
+        self.assertEqual(check_external_provider_core_edges(e,points).check.iloc[0],'provider_outside_claimed_external_core')
+
+    def test_two_clinical_codes_are_not_two_domains(self):
+        m=pd.DataFrame({'child_unit_id':['c'],'origin_id':['v']})
+        a=pd.DataFrame({'child_unit_id':['c'],'parent_target_key':['efua:1']})
+        e=pd.DataFrame([self.edge('v','hospital'),self.edge('v','hightech')])
+        bad=check_relaxed_positive_assignments(m,a,e,{'hospital':'health','hightech':'health'})
+        self.assertIn('insufficient_whole_child_positive_domains',set(bad.check))
+
+    def test_unknown_health_is_preserved_with_two_other_positive_domains(self):
+        m=pd.DataFrame({'child_unit_id':['c','c'],'origin_id':['v','w']})
+        a=pd.DataFrame({'child_unit_id':['c'],'parent_target_key':['efua:1']})
+        e=pd.DataFrame([self.edge(o,f)for o in ['v','w']for f in ['college','shopping']])
+        self.assertTrue(check_relaxed_positive_assignments(m,a,e,{'college':'education','shopping':'commerce'}).empty)
+        self.assertNotIn('hospital',set(e.service_family))
+
+    def test_coverage_cannot_be_filled_by_different_members(self):
+        m=pd.DataFrame({'child_unit_id':['c','c'],'origin_id':['v','w']})
+        a=pd.DataFrame({'child_unit_id':['c'],'parent_target_key':['efua:1']})
+        e=pd.DataFrame([self.edge('v','college'),self.edge('w','shopping')])
+        self.assertIn('insufficient_whole_child_positive_domains',set(check_relaxed_positive_assignments(m,a,e,{'college':'education','shopping':'commerce'}).check))
+
+    def test_competing_complete_service_cannot_be_hidden_by_majority(self):
+        m=pd.DataFrame({'child_unit_id':['c'],'origin_id':['v']})
+        a=pd.DataFrame({'child_unit_id':['c'],'parent_target_key':['efua:1']})
+        e=pd.DataFrame([self.edge('v','college'),self.edge('v','shopping'),self.edge('v','hospital','np:small_town')])
+        bad=check_relaxed_positive_assignments(m,a,e,{'college':'education','shopping':'commerce','hospital':'health'})
+        self.assertIn('competing_complete_positive_core_ignored',set(bad.check))
+
+    def test_long_direct_route_is_not_local_by_core_membership(self):
+        e=pd.DataFrame([self.edge('v','hospital',cost=140.)])
+        points=pd.DataFrame({'point_key':['clinic'],'eFUA_ID':[1]})
+        self.assertIn('provider_core_link_without_direct_bounded_cost',set(check_external_provider_core_edges(e,points).check))
 
 
 class ServiceLogicTests(unittest.TestCase):
