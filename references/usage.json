@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.literature_usage.v1",
-  "updated": "2026-10-22",
+  "updated": "2026-10-24",
   "rules": [
     "Each new substantive methodological claim must cite a source ID or be marked as our own proposal.",
     "Code implementation claims require a concrete file/function and validation; empty implementation_paths means no implementation is certified by this map.",
@@ -22,11 +22,15 @@
       "source_id": "DEVRIES2009",
       "used_in": [
         "README.md#функциональные-поля",
-        "sgrt/literature/functional_gravity/README.md"
+        "sgrt/literature/functional_gravity/README.md",
+        "sgrt/pilot/README.md",
+        "sgrt/pilot/MODEL.md"
       ],
       "purpose": "Compare fitted functional forms, preserve balancing factors and context of observed flows.",
-      "implementation_status": "conceptual_method_and_literature_basis; not proof of new calibrated nationwide implementation",
-      "implementation_paths": [],
+      "implementation_status": "pilot_scenario_code; compares decay forms/conditional alternatives; our half-life parameterization and screening, not transferred fitted coefficients or national validation",
+      "implementation_paths": [
+        "scripts/sgrt_pilot/model.py"
+      ],
       "reading_scope_field": "references/sources.json records[id=DEVRIES2009].read_scope"
     },
     {
@@ -176,11 +180,15 @@
       "source_id": "ESRI_HUFF_DOC",
       "used_in": [
         "README.md#функциональные-поля",
-        "sgrt/literature/functional_gravity/README.md"
+        "sgrt/literature/functional_gravity/README.md",
+        "sgrt/pilot/README.md",
+        "sgrt/pilot/MODEL.md"
       ],
       "purpose": "Operational interpretation, calibration data and retail-purpose differences; not substituted for reading Huff's original article.",
-      "implementation_status": "conceptual_method_and_literature_basis; not proof of new calibrated nationwide implementation",
-      "implementation_paths": [],
+      "implementation_status": "pilot_scenario_code; compares decay forms/conditional alternatives; our half-life parameterization and screening, not transferred fitted coefficients or national validation",
+      "implementation_paths": [
+        "scripts/sgrt_pilot/model.py"
+      ],
       "reading_scope_field": "references/sources.json records[id=ESRI_HUFF_DOC].read_scope"
     },
     {
@@ -347,6 +355,33 @@
         "research_context/reviews/population_base_validation_20261022.json",
         "research_context/reviews/population_public_handoff_20261022.json"
       ]
+    },
+    {
+      "source_id": "LO610O20231129",
+      "used_in": [
+        "sgrt/pilot/README.md",
+        "sgrt/pilot/DATA.md"
+      ],
+      "purpose": "Check retained source transcription and compare scenarios with resolved normative attachments, excluding context conflicts.",
+      "implementation_paths": [
+        "scripts/sgrt_pilot/validate_medical_source.py",
+        "scripts/sgrt_pilot/compare_medical_attachments.py"
+      ],
+      "implementation_status": "computed_pilot_source_use_not_nationwide_validation",
+      "reading_scope_field": "references/sources.json records[id=LO610O20231129].read_scope"
+    },
+    {
+      "source_id": "RMIAC18_FAP_INTERNET_PLAN2026",
+      "used_in": [
+        "sgrt/pilot/README.md",
+        "sgrt/pilot/DATA.md"
+      ],
+      "purpose": "Separate dated selected planning-list scenario; operation/capacity unknown.",
+      "implementation_paths": [
+        "scripts/sgrt_pilot/prepare_data.py"
+      ],
+      "implementation_status": "computed_pilot_source_use_not_nationwide_validation",
+      "reading_scope_field": "references/sources.json records[id=RMIAC18_FAP_INTERNET_PLAN2026].read_scope"
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"

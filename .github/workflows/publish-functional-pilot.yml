@@ -1,0 +1,21 @@
+name: Publish computed functional pilot
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Install pinned GitHub artifact SDK
+        run: npm install --no-save --prefix "$RUNNER_TEMP/pilot-sdk" @actions/artifact@2.3.2
+      - name: Receive exact computed archive and publish draft
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NODE_PATH: ${{ runner.temp }}/pilot-sdk/node_modules
+        with:
+          script: await require(`${process.env.GITHUB_WORKSPACE}/scripts/sgrt_pilot/upload_pilot_artifact.cjs`).main();
