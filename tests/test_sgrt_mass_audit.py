@@ -2,6 +2,8 @@
 import importlib.util
 from pathlib import Path
 import unittest
+import tempfile
+import hashlib
 
 import numpy as np
 import pandas as pd
@@ -215,6 +217,39 @@ class MassAuditTests(unittest.TestCase):
         self.assertFalse(result.loc['missing','any_normative_provider_in_observed_service_supply'])
         self.assertFalse(result.loc['missing','origin_in_model_frame'])
         self.assertFalse(result.preregistered_blind_holdout.any())
+
+    def normative_fixture(self):
+        source=pd.DataFrame({'source_id':['doc']*7,'sheet':['sheet']*7,
+            'excel_row_1based':range(1,8),'origin_id':['near','rural','far','near','town',None,'near'],
+            'destination_id':['town']*7,'origin_present_in_spatial2021':[True]*7,
+            'destination_present_in_spatial2021':[True]*7,
+            'origin_is_partial_address_scope':[False,False,True,None,False,False,False]})
+        quarantine=pd.DataFrame({'source_id':['doc'],'sheet':['sheet'],'excel_row_1based':[2]})
+        return source,quarantine
+
+    def test_normative_selection_excludes_reviewed_conflicts_partial_unknown_self_and_duplicates(self):
+        source,quarantine=self.normative_fixture()
+        marked,pairs=audit.select_resolved_normative_pairs(source,quarantine)
+        self.assertEqual(len(marked),7)
+        self.assertEqual(int(marked.context_conflict.sum()),1)
+        self.assertEqual(pairs[['origin_id','destination_id']].values.tolist(),[['near','town']])
+        with self.assertRaises(ValueError):
+            audit.select_resolved_normative_pairs(source,quarantine.drop(columns='sheet'))
+
+    def test_normative_runner_recomputes_pairs_and_hashes_inputs(self):
+        source,quarantine=self.normative_fixture()
+        supply=pd.DataFrame({'source_record_id':['town'],'service_code':['medical_basic_primary'],'supply_status':['observed']})
+        routes=self.rows.copy();routes.loc[0,'origin_id']='near'
+        with tempfile.TemporaryDirectory() as directory:
+            directory=Path(directory)
+            paths=[directory/name for name in ['source.parquet','quarantine.parquet','supply.parquet','routes.parquet']]
+            for path,frame in zip(paths,[source,quarantine,supply,routes]):frame.to_parquet(path,index=False)
+            result=audit.run_normative_comparison(*paths[:3],[paths[3]],directory/'out')
+            self.assertEqual(result['resolved_external_pairs'],1)
+            self.assertEqual(result['summaries'][0]['agreement'],1)
+            self.assertEqual(result['input_sha256'][str(paths[0])],hashlib.sha256(paths[0].read_bytes()).hexdigest())
+            self.assertEqual(len(pd.read_parquet(directory/'out/resolved_normative_pairs.parquet')),1)
+            self.assertFalse(result['blind_holdout'])
 
     def test_unresolved_origin_stays_out_of_candidate_units(self):
         self.rows.loc[self.rows.origin_id.eq('far'),['provider_settlement_id','cost_minutes']]=[None,np.nan]
