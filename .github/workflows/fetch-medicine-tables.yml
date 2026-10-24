@@ -1,0 +1,44 @@
+name: Fetch medicine registry tables
+on:
+  push:
+    branches: ['cursor/sgrt-schools-medicine-252c']
+    paths: ['sgrt/sources/medicine/registry_inventory.csv']
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - run: pip install openpyxl xlrd
+      - name: Build registry tables and commit them
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          set +e
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          if command -v sudo >/dev/null; then SUDO=sudo; else SUDO=; fi
+          $SUDO apt-get update -qq
+          $SUDO apt-get install -y -qq unar poppler-utils
+          python scripts/sgrt_sources/build_medicine_registry_tables.py > /tmp/medicine_build.log 2>&1
+          code=$?
+          mkdir -p sgrt/sources/medicine
+          cp /tmp/medicine_build.log sgrt/sources/medicine/build.log
+          git add -f sgrt/sources/medicine
+          git commit -m "Добавить текстовые таблицы реестров медорганизаций" || true
+          ok=1
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin "$BRANCH" && git push origin HEAD:"$BRANCH" && ok=0 && break
+            git rebase --abort >/dev/null 2>&1 || true
+            sleep $((i * 5))
+          done
+          if [ "$code" -ne 0 ]; then exit "$code"; fi
+          exit "$ok"
