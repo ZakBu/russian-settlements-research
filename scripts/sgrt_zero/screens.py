@@ -92,6 +92,7 @@ def canonical(raw,reference):
     invalid=d.provider_settlement_id.notna()&~d.provider_settlement_id.isin(ref.source_record_id)
     if invalid.any():raise ValueError('Provider settlement identity is absent from reference')
     d['provider_site_id']=get(raw,['provider_site_id','selected_provider_id','provider_id']).to_numpy()
+    d['source_route_service_code']=get(raw,['service_code']).to_numpy()
     d['provider_lat']=pd.to_numeric(get(raw,['provider_lat','selected_provider_site_lat']),errors='coerce').to_numpy()
     d['provider_lon']=pd.to_numeric(get(raw,['provider_lon','selected_provider_site_lon']),errors='coerce').to_numpy()
     d['provider_name']=get(raw,['provider_provider_name','selected_provider_name']).to_numpy()
@@ -125,6 +126,18 @@ def canonical(raw,reference):
         d[target]=get(raw,names).to_numpy()
     d['source_id']=get(raw,['source_id','provider_source_id']).map(metadata_json).to_numpy()
     d['source_year']=get(raw,['source_year','provider_source_year','observation_year']).map(metadata_json).to_numpy()
+    # A historical address is useful evidence, but its inclusion must not turn
+    # an unverified current operation or public-access scope into a known fact.
+    # Preserve absent flags as unknown rather than filling them with False.
+    for name in ['historical_supply_needs_current_confirmation',
+                 'historical_supply_proxy','historical_source_only',
+                 'saratov_historical_2021_evidence_present',
+                 'restriction_scope_unknown','actual_operational_status_verified',
+                 'actual_operational_status_checked','source_status_semantics_verified',
+                 'source_public_scope_check','medical_need_scope',
+                 'general_adult_profile_evidence','named_child_only_contingent',
+                 'universal_hospital_suitability_verified']:
+        d['provider_'+name]=get(raw,['provider_'+name,name]).to_numpy()
     d['provider_grades_known']=get(raw,['provider_grades_known'],False).fillna(False).astype(bool).to_numpy()
     d['known_offer_records']=pd.to_numeric(get(raw,['known_offer_records','known_provider_sites']),errors='coerce').to_numpy()
     d['routable_external_provider_seeds']=pd.to_numeric(get(raw,['routable_external_provider_seeds','routable_known_provider_sites']),errors='coerce').to_numpy()
@@ -206,7 +219,7 @@ def spatial_diagnostic(frame,family,raw_code,scenario_id,rural_m,urban_m):
     return d
 
 
-def run(routes_dir,reference_path,output,scenario_ids=None,wb_nearest_path=None,medical_nearest_path=None,yandex_nearest_path=None):
+def run(routes_dir,reference_path,output,scenario_ids=None,wb_nearest_path=None,medical_nearest_path=None,yandex_nearest_path=None,grocery_nearest_path=None):
     routes_dir=Path(routes_dir);output=Path(output)
     scenario_ids=list(scenario_ids) if scenario_ids is not None else [*DEFAULT_SCENARIOS,*(['daily_20_school30_yandex'] if yandex_nearest_path else [])]
     if not set(scenario_ids)<=set(SCENARIOS):raise ValueError('Unknown construction scenario')
@@ -217,6 +230,8 @@ def run(routes_dir,reference_path,output,scenario_ids=None,wb_nearest_path=None,
         paths['medical_basic_primary']=Path(medical_nearest_path)
     if yandex_nearest_path and 'parcel_pickup_yandex_current' in required:
         paths['parcel_pickup_yandex_current']=Path(yandex_nearest_path)
+    if grocery_nearest_path and 'daily_grocery' in required:
+        paths['daily_grocery']=Path(grocery_nearest_path)
     missing=[str(paths[code]) for code in sorted(required) if not paths[code].is_file()]
     if missing:raise FileNotFoundError('Required raw nearest layers absent: '+repr(missing))
     reference=pd.read_parquet(reference_path)
@@ -225,7 +240,12 @@ def run(routes_dir,reference_path,output,scenario_ids=None,wb_nearest_path=None,
     for code in sorted(required|{x for x in optional if (routes_dir/(x+'.parquet')).is_file()}):
         path=paths.get(code,routes_dir/(code+'.parquet'));before=digest(path)
         raw=pd.read_parquet(path)
-        if 'service_code' in raw and set(raw.service_code.dropna())!={code}:raise ValueError('Raw service code disagrees with layer filename: '+code)
+        if 'service_code' in raw:
+            declared=set(raw.service_code.dropna())
+            explicit_grocery_union=(code=='daily_grocery' and grocery_nearest_path is not None
+                                    and declared=={'daily_grocery_evidence_union'})
+            if declared!={code} and not explicit_grocery_union:
+                raise ValueError('Raw service code disagrees with layer filename: '+code)
         frames[code]=canonical(raw,reference)
         if before!=digest(path):raise RuntimeError('Input route layer changed while reading: '+str(path))
         inputs[str(path)]=before
@@ -288,4 +308,5 @@ if __name__=='__main__':
     p.add_argument('--wb-nearest',type=Path,help='Separate frozen fresh Wildberries layer; never substitute the generic mixed-operator file')
     p.add_argument('--medical-nearest',type=Path,help='Separate corrected frozen basic-medical layer; preserves the older raw scenario')
     p.add_argument('--yandex-nearest',type=Path,help='Separate frozen Yandex Market network adds an optional operator scenario; does not replace main Wildberries')
-    a=p.parse_args();run(a.routes,a.reference,a.output,a.scenarios,a.wb_nearest,a.medical_nearest,a.yandex_nearest)
+    p.add_argument('--grocery-nearest',type=Path,help='Auditable nearest union of dated grocery evidence; raw source layers remain separate')
+    a=p.parse_args();run(a.routes,a.reference,a.output,a.scenarios,a.wb_nearest,a.medical_nearest,a.yandex_nearest,a.grocery_nearest)

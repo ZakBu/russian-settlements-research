@@ -69,6 +69,33 @@ class ZeroTransportTests(unittest.TestCase):
         out=t.prepare_provider_rows([('test',raw)],[],endpoints())
         self.assertFalse(out.admitted_offer.iloc[0])
 
+    def test_historical_supplement_remains_dated_proxy_in_route_metadata(self):
+        raw=pd.DataFrame([{'provider_id':'historical','service_code':'medical_physician_primary',
+            'source_record_id':'town','supply_status':'proxy','source_year':'["2021"]',
+            'historical_supply_proxy':True,'historical_source_only':True,
+            'restriction_scope_unknown':True,'actual_operational_status_verified':False,
+            'default_external_seed_eligible':True,'service_basis':'explicit_2021_registry_care_condition'}])
+        p=t.prepare_provider_rows([],[('dated_2021',raw)],endpoints())
+        self.assertTrue(p.historical_supply_proxy.iloc[0])
+        self.assertTrue(p.restriction_scope_unknown.iloc[0])
+        self.assertFalse(p.actual_operational_status_verified.iloc[0])
+        self.assertEqual(p.source_year.iloc[0],'["2021"]')
+        self.assertEqual(p.service_basis.iloc[0],'explicit_2021_registry_care_condition')
+
+    def test_clinical_scope_flags_preserve_false_true_and_unknown(self):
+        raw=pd.DataFrame([{'provider_id':'child','service_code':'medical_inpatient','supply_status':'proxy',
+            'medical_need_scope':'literal_specialized_scope','general_adult_profile_evidence':False,
+            'named_child_only_contingent':True,'universal_hospital_suitability_verified':False,
+            'site_lat':50.,'site_lon':40.},
+            {'provider_id':'unknown','service_code':'medical_inpatient','supply_status':'proxy',
+             'site_lat':50.,'site_lon':40.}])
+        p=t.prepare_provider_rows([('scope',raw)],[],endpoints()).set_index('provider_id')
+        self.assertFalse(p.loc['child','general_adult_profile_evidence'])
+        self.assertTrue(p.loc['child','named_child_only_contingent'])
+        self.assertFalse(p.loc['child','universal_hospital_suitability_verified'])
+        self.assertTrue(pd.isna(p.loc['unknown','named_child_only_contingent']))
+        self.assertEqual(p.loc['child','medical_need_scope'],'literal_specialized_scope')
+
     def test_unknown_supply_is_not_automatically_admitted(self):
         raw=pd.DataFrame([{'provider_id':'x','service_code':'shop','source_record_id':None,'supply_status':'unknown',
                            'site_lat':50.,'site_lon':40.}])

@@ -201,12 +201,15 @@
       "source_id": "CLASSIC_C01",
       "used_in": [
         "README.md#вложенность-и-полицентричность",
-        "sgrt/literature/classics/READOUT_RU.md"
+        "sgrt/literature/classics/READOUT_RU.md",
+        "sgrt/zero/LITERATURE_AND_LIMITS.md",
+        "sgrt/zero/METHOD.md"
       ],
       "purpose": "Различение центрометрического и социально-экономического центра; масштабная специфика каркаса; ограничения потенциалов; различие общесетевой и монографической делимитации.",
       "implementation_status": "conceptual_method_and_literature_basis; not proof of new calibrated nationwide implementation",
       "implementation_paths": [],
-      "reading_scope_field": "references/sources.json records[id=CLASSIC_C01].read_scope"
+      "reading_scope_field": "references/sources.json records[id=CLASSIC_C01].read_scope",
+      "current_use": "Разделение потенциального сервисного поля и эмпирического доказательства агломерации; наш сценарий90минут не приписывается Поляну."
     },
     {
       "source_id": "CLASSIC_C02",
@@ -690,6 +693,73 @@
       ],
       "implementation_status": "level_zero_and_exploratory_upper_scenarios_in_progress_not_observed_flows",
       "reading_scope_field": "references/sources.json records[id=AKBABA2025_RURAL_GROCERY].read_scope"
+    },
+    {
+      "source_id": "SARATOV_TFOMS_2021_1231",
+      "used_in": [
+        "sgrt/zero/HEALTH.md",
+        "sgrt/zero/README.md"
+      ],
+      "purpose": "Историческое адресное дополнение отсутствовавшего областного медицинского реестра. Окончание участия в программе31.12.2021 не считается закрытием учреждения; работа в2026 не подтверждается этим источником.",
+      "implementation_status": "primary_dated_data_source_not_calibration_or_observed_trips",
+      "implementation_paths": [
+        "scripts/sgrt_zero/saratov_registry.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=SARATOV_TFOMS_2021_1231].read_scope"
+    },
+    {
+      "source_id": "WILDBERRIES_PUBLIC_MAP",
+      "used_in": [
+        "sgrt/zero/COMMERCE.md",
+        "sgrt/zero/README.md"
+      ],
+      "purpose": "Положительные координатные свидетельства ПВЗ конкретного оператора; независимый от OSM текущий источник. Не полная универсальная торговая функция.",
+      "implementation_status": "primary_dated_data_source_not_calibration_or_observed_trips",
+      "implementation_paths": [
+        "scripts/sgrt_zero/commerce.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=WILDBERRIES_PUBLIC_MAP].read_scope"
+    },
+    {
+      "source_id": "YANDEX_PUBLIC_WIDGET_PICKUP",
+      "used_in": [
+        "sgrt/zero/COMMERCE.md",
+        "sgrt/zero/README.md"
+      ],
+      "purpose": "Отдельный операторский сценарий вместо Wildberries; точки операторов не суммируются как разные функции.",
+      "implementation_status": "primary_dated_data_source_not_calibration_or_observed_trips",
+      "implementation_paths": [
+        "scripts/sgrt_zero/commerce.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=YANDEX_PUBLIC_WIDGET_PICKUP].read_scope"
+    },
+    {
+      "source_id": "FIVEPOST_PUBLIC_WIDGET_PICKUP",
+      "used_in": [
+        "sgrt/zero/COMMERCE.md",
+        "sgrt/zero/README.md"
+      ],
+      "purpose": "Дополнительный самостоятельный операторский слой; явный комментарий о кассе в Пятёрочке/Перекрёстке — датированное положительное свидетельство магазина, не полная сеть продуктовой торговли.",
+      "implementation_status": "primary_dated_data_source_not_calibration_or_observed_trips",
+      "implementation_paths": [
+        "scripts/sgrt_zero/commerce.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=FIVEPOST_PUBLIC_WIDGET_PICKUP].read_scope"
+    },
+    {
+      "source_id": "FEDERAL_F034_F038_20261023",
+      "used_in": [
+        "sgrt/zero/HEALTH.md",
+        "sgrt/zero/README.md"
+      ],
+      "purpose": "Новые национальные сведения об услугах по фактическим адресам. История и сроки действия сохраняются, юрадрес не используется вместо места приёма.",
+      "implementation_status": "national_primary_registry_normalization_and_explicit_clinical_classification",
+      "implementation_paths": [
+        "scripts/sgrt_zero/medical_regional_sources.py",
+        "scripts/sgrt_zero/federal_medical_addresses.py",
+        "scripts/sgrt_zero/federal_medical_functions.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=FEDERAL_F034_F038_20261023].read_scope"
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"

@@ -1,0 +1,304 @@
+{
+  "schema": "sgrt.zero.commerce_source_registry.v1",
+  "acquisition_date": "2026-10-24",
+  "queries": [
+    "Ozon карта пунктов выдачи api locations pvz.ozon.ru",
+    "\"pvz-map\" \"ozon\" api",
+    "Яндекс Доставка карта пунктов выдачи api список pickup points публичная",
+    "Ozon карта ПВЗ открытые данные json api-composer geo"
+  ],
+  "records": [
+    {
+      "id": "OSM_RUSSIA_20210101_COMMERCE",
+      "kind": "historical_mapped_objects",
+      "url": "https://www.openstreetmap.org",
+      "snapshot": "2021-01-01",
+      "catalog_path": "research/sgrt_word_completion_20261021/model_inputs_cycle07/institutional_relink477_v1/commerce/source_objects_relinked.parquet",
+      "sha256": "956c22d7ae3d4b58302e23b7a306d5e0a716c635f14c425ae1bd20f338d601cf",
+      "read_scope": "Whole preserved table processed by code; positive service tags, dates, duplicate flags and explicit-address identity rules inspected, not field verification of every establishment.",
+      "used_in": [
+        "scripts/sgrt_zero/commerce.py",
+        "sgrt/zero/COMMERCE.md"
+      ]
+    },
+    {
+      "id": "WB_PUBLIC_MAP_20261024",
+      "kind": "official_public_locator_snapshot",
+      "url": "https://static-basket-01.wbbasket.ru/vol0/data/all-poo-fr-v11.json",
+      "acquisition_date": "2026-10-24",
+      "raw_gzip": "commerce/source/wb_20261024.json.gz",
+      "gzip_sha256": "b60e322e521149d0501cfde03f1dfd2cda5b92ca571a80d62d91ab2663e9c329",
+      "read_scope": "Whole machine JSON parsed; publisher country section, source types, coordinates, address fields and status presence inspected. Types8/34 are a selected point profile, not all delivery types.",
+      "used_in": [
+        "scripts/sgrt_zero/commerce.py",
+        "sgrt/zero/COMMERCE.md"
+      ]
+    },
+    {
+      "id": "YANDEX_PUBLIC_WIDGET_DOCUMENTATION",
+      "kind": "official_api_client_documentation",
+      "url": "https://yandex.com/support/delivery-profile/ru/modules/widgets",
+      "client_url": "https://widget-pvz.dostavka.yandex.net/widget.js?v=2",
+      "client_sha256": "5239f641c6c41d469810972a006342c5dd248f25c5869416feb09ed709bebc7d",
+      "read_scope": "Selected public widget installation, operator filter and request sections; fetched public JavaScript endpoint inspected. No authenticated B2B endpoint or private token used.",
+      "used_in": [
+        "scripts/sgrt_zero/commerce.py",
+        "sgrt/zero/COMMERCE.md"
+      ]
+    },
+    {
+      "id": "YANDEX_PUBLIC_WIDGET_PICKUP_20261024",
+      "kind": "official_public_widget_snapshot",
+      "url": "https://widget-pvz.dostavka.yandex.net/api/b2b/platform/pickup-points/list",
+      "method": "POST",
+      "request_body": {
+        "type": "pickup_point",
+        "operator_ids": [
+          "market_l4g"
+        ],
+        "is_post_office": false
+      },
+      "acquisition_date": "2026-10-24",
+      "raw_gzip": "commerce/operator_sources/yandex_public_widget_pickup_20261024.json.gz",
+      "gzip_sha256": "4ac16e627dacef6783f1f3a2bdc15b622387574bb93674ef19e6cc323aa76811",
+      "uncompressed_sha256": "e146eea1076acb401c08de1bf97633844a35d74a47c0fe584305d65e93deeb96",
+      "read_scope": "Whole JSON parsed; all16171 points classified by type/country/operator/deactivation and exact address identity. Public tariff subset, no observed customer trips.",
+      "used_in": [
+        "scripts/sgrt_zero/commerce.py",
+        "sgrt/zero/COMMERCE.md"
+      ]
+    },
+    {
+      "id": "FIVEPOST_PUBLIC_WIDGET_PICKUP_20261024",
+      "kind": "partner_network_via_official_yandex_widget",
+      "url": "https://widget-pvz.dostavka.yandex.net/api/b2b/platform/pickup-points/list",
+      "method": "POST",
+      "request_body": {
+        "type": "pickup_point",
+        "operator_ids": [
+          "5post"
+        ],
+        "is_post_office": false
+      },
+      "acquisition_date": "2026-10-24",
+      "raw_gzip": "commerce/operator_sources/fivepost_public_widget_pickup_20261024.json.gz",
+      "gzip_sha256": "25009417f1e87f9219a454362b7b40ac5ad74a29395d33428e36c638dca76669",
+      "read_scope": "Whole JSON parsed; explicit country and retailer-host comment checked. 13334 publisher records,13056 explicitRussia,277country unknown,1Belarus. An explicit cashdesk-inside-store comment supports only a separate proxy food scenario.",
+      "used_in": [
+        "scripts/sgrt_zero/commerce.py",
+        "sgrt/zero/COMMERCE.md"
+      ]
+    },
+    {
+      "id": "OZON_PVZ_MAP_SOURCE_DISCOVERY_20261024",
+      "kind": "source_discovery_without_national_point_inventory",
+      "url": "https://pvz-map.ozon.ru/",
+      "related_official_urls": [
+        "https://pvz.ozon.ru/",
+        "https://www.ozon.ru/geo/",
+        "https://seller-edu.ozon.ru/fbo/warehouses/adresa-skladov-fbo",
+        "https://dev.ozon.ru/community/1851-Spisok-PVZ/"
+      ],
+      "read_scope": "Official map purpose, consumer city directory and developer discussion read via web reader; direct requests gave307 loops. Spreadsheet and national physical points not acquired. Seller acceptance-point method is not a complete consumer pickup inventory.",
+      "used_in": [
+        "scripts/sgrt_zero/commerce.py",
+        "sgrt/zero/COMMERCE.md"
+      ]
+    }
+  ],
+  "attempts": [
+    {
+      "url": "https://pvz-map.ozon.ru/",
+      "acquisition_date": "2026-10-24",
+      "purpose": "public_official_source_discovery",
+      "error_type": "HTTPError",
+      "error": "HTTP Error 307: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nTemporary Redirect"
+    },
+    {
+      "url": "https://pvz.ozon.ru/",
+      "acquisition_date": "2026-10-24",
+      "purpose": "public_official_source_discovery",
+      "error_type": "HTTPError",
+      "error": "HTTP Error 307: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nTemporary Redirect"
+    },
+    {
+      "url": "https://docs.ozon.ru/global/fulfillment/warehouses/adresa-skladov-fbo/",
+      "acquisition_date": "2026-10-24",
+      "purpose": "public_official_source_discovery",
+      "error_type": "HTTPError",
+      "error": "HTTP Error 307: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nTemporary Redirect"
+    },
+    {
+      "url": "https://yandex.com/support/delivery-profile/ru/modules/widgets",
+      "acquisition_date": "2026-10-24",
+      "purpose": "public_official_source_discovery",
+      "status": 200,
+      "final_url": "https://yandex.com/support/delivery-profile/ru/modules/widgets",
+      "bytes": 410076,
+      "sha256": "9eeb6d41842d8c805d69387c12bd3418ca998e8fbaf7b631e182990643edae39",
+      "content_type": "text/html;charset=utf-8",
+      "saved_path": "/workspace/sgrt-zero/commerce/operator_sources/page_3.html",
+      "public_js_assets": [
+        "https://yastatic.net/s3/cloud/docs-viewer-external/static/freeze/ru/uhj3ZMjBHLeX_cbSgD2ql/runtime.445e3032.js",
+        "https://yastatic.net/s3/cloud/docs-viewer-external/static/freeze/ru/uhj3ZMjBHLeX_cbSgD2ql/vendor.3a8d9cff.js",
+        "https://yastatic.net/s3/cloud/docs-viewer-external/static/freeze/ru/uhj3ZMjBHLeX_cbSgD2ql/common.42821ad7.js",
+        "https://yastatic.net/s3/cloud/docs-viewer-external/static/freeze/ru/uhj3ZMjBHLeX_cbSgD2ql/pages/_app.js",
+        "https://yastatic.net/s3/cloud/docs-viewer-external/static/freeze/ru/uhj3ZMjBHLeX_cbSgD2ql/pages/_error.js",
+        "https://yastatic.net/s3/cloud/docs-viewer-external/static/freeze/ru/uhj3ZMjBHLeX_cbSgD2ql/pages/_doc.js",
+        "https://yastatic.net/s3/cloud/docs-viewer-external/static/freeze/ru/uhj3ZMjBHLeX_cbSgD2ql/init.18e71c99.js"
+      ],
+      "spreadsheet_or_json_links": []
+    },
+    {
+      "url": "https://widget-pvz.dostavka.yandex.net/widget.js?v=2",
+      "purpose": "official_documented_public_widget_client",
+      "acquired_date": "2026-10-24",
+      "status": 200,
+      "bytes": 222129,
+      "sha256": "5239f641c6c41d469810972a006342c5dd248f25c5869416feb09ed709bebc7d",
+      "final_url": "https://widget-pvz.dostavka.yandex.net/widget.js?v=2",
+      "saved_path": "/workspace/sgrt-zero/commerce/operator_sources/yandex_widget_0.js",
+      "public_urls": [
+        "http://www.w3.org/1999/xlink",
+        "http://www.w3.org/2000/svg",
+        "https://api-maps.yandex.ru/2.1/",
+        "https://github.com/w3c/IntersectionObserver/tree/master/polyfill",
+        "https://mc.yandex.ru/metrika/tag.js",
+        "https://widget-pvz.dostavka.yandex.net",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Medium.eot);src:url(https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Medium.eot?#iefix)",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Medium.ttf)",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Medium.woff)",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Medium.woff2)",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Regular.eot);src:url(https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Regular.eot?#iefix)",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Regular.ttf)",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Regular.woff)",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Regular.woff2)",
+        "https://widget-pvz.dostavka.yandex.net/module.js?v=2",
+        "https://www.figma.com/api/mcp/asset/4d722ae8-7e98-4dc7-aa9b-d7116c43b8a3"
+      ]
+    },
+    {
+      "url": "https://widget-pvz.dostavka.yandex.net/widget.js",
+      "purpose": "official_documented_public_widget_client",
+      "acquired_date": "2026-10-24",
+      "status": 200,
+      "bytes": 166813,
+      "sha256": "def27857aacb16d842793dc0b95c2e02bc2ae2750f0158efdf1b8c123192e890",
+      "final_url": "https://widget-pvz.dostavka.yandex.net/widget.js",
+      "saved_path": "/workspace/sgrt-zero/commerce/operator_sources/yandex_widget_1.js",
+      "public_urls": [
+        "http://www.w3.org/1999/xlink",
+        "http://www.w3.org/2000/svg",
+        "https://api-maps.yandex.ru/2.1/",
+        "https://github.com/w3c/IntersectionObserver/tree/master/polyfill",
+        "https://mc.yandex.ru/metrika/tag.js",
+        "https://widget-pvz.dostavka.yandex.net",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Medium.eot);src:url(https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Medium.eot?#iefix)",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Medium.ttf)",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Medium.woff)",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Medium.woff2)",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Regular.eot);src:url(https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Regular.eot?#iefix)",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Regular.ttf)",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Regular.woff)",
+        "https://widget-pvz.dostavka.yandex.net/assets/fonts/YandexSansText-Regular.woff2)"
+      ]
+    },
+    {
+      "url": "https://seller-edu.ozon.ru/fbo/warehouses/adresa-skladov-fbo",
+      "purpose": "official_excel_pickup_and_acceptance_source_from_ozon_developer_forum",
+      "referring_source": "https://dev.ozon.ru/community/1851-Spisok-PVZ/",
+      "acquisition_date": "2026-10-24",
+      "error_type": "HTTPError",
+      "error": "HTTP Error 307: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nTemporary Redirect"
+    },
+    {
+      "source_id": "YANDEX_PUBLIC_WIDGET_PICKUP_20261024",
+      "url": "https://widget-pvz.dostavka.yandex.net/api/b2b/platform/pickup-points/list",
+      "method": "POST",
+      "request_body": {
+        "type": "pickup_point",
+        "operator_ids": [
+          "market_l4g"
+        ],
+        "is_post_office": false
+      },
+      "acquisition_date": "2026-10-24",
+      "public_client_provenance": "https://widget-pvz.dostavka.yandex.net/widget.js?v=2",
+      "no_authentication_headers_used": true,
+      "http_status": 201,
+      "bytes": 32623000,
+      "sha256": "e146eea1076acb401c08de1bf97633844a35d74a47c0fe584305d65e93deeb96",
+      "content_type": "application/json; charset=utf-8",
+      "gzip_sha256": "4ac16e627dacef6783f1f3a2bdc15b622387574bb93674ef19e6cc323aa76811",
+      "gzip_bytes": 2252953,
+      "top_keys": [
+        "points"
+      ],
+      "point_count": 16171,
+      "first_point_fields": [
+        "id",
+        "operator_station_id",
+        "operator_id",
+        "name",
+        "type",
+        "position",
+        "address",
+        "instruction",
+        "payment_methods",
+        "contact",
+        "schedule",
+        "is_yandex_branded",
+        "is_market_partner",
+        "is_dark_store",
+        "is_post_office",
+        "dayoffs",
+        "deactivation_date",
+        "deactivation_date_predicted_debt",
+        "available_for_dropoff",
+        "available_for_c2c_dropoff",
+        "pickup_services"
+      ],
+      "point_types": [
+        "pickup_point"
+      ],
+      "request_headers": {
+        "User-Agent": "sgrt-research/1",
+        "Content-Type": "application/json"
+      },
+      "source_observation_date_not_explicit": true
+    },
+    {
+      "url": "https://widget-pvz.dostavka.yandex.net/api/b2b/platform/pickup-points/list",
+      "method": "POST",
+      "request_body": {
+        "type": "pickup_point",
+        "operator_ids": [
+          "5post"
+        ],
+        "is_post_office": false
+      },
+      "acquisition_date": "2026-10-24",
+      "public_client_provenance": "https://widget-pvz.dostavka.yandex.net/widget.js?v=2",
+      "no_authentication_headers_used": true,
+      "purpose": "separate_5post_network_not_yandex_brand",
+      "http_status": 201,
+      "bytes": 24132216,
+      "sha256": "9364bd7c1657cd977b98f43a1b3818fedda1d736a4052553d7be5314729f88c8",
+      "gzip_bytes": 1589497,
+      "gzip_sha256": "25009417f1e87f9219a454362b7b40ac5ad74a29395d33428e36c638dca76669",
+      "point_count": 13334,
+      "operators": [
+        "5post"
+      ],
+      "name_examples": [
+        "5 Post (Пятерочка)",
+        "5 Post (Пятерочка)",
+        "5 Post (Пятерочка)",
+        "5 Post (Пятерочка)",
+        "5 Post (Пятерочка)"
+      ]
+    }
+  ],
+  "no_third_party_unknown_dump_claimed_official": true,
+  "missing_source_not_zero_network": true
+}

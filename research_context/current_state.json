@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-25T00:10:12+03:00",
+  "updated_moscow": "2026-10-25T01:08:35+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -10,12 +10,12 @@
     },
     "sgrt": {
       "status": "level_zero_and_bounded_upward_calculation_in_progress",
-      "summary": "На 153 800 пространственных НП рассчитаны 14 раздельных слоёв ближайших направлений: 2 153 200 строк. Получены 58 333 однофункциональные единицы с типами; 15 488 НП-центров имеют населённых внешних кандидатов хотя бы по одной функции. Функции перекрываются; это не число СГРТ. Общая многофункциональная иерархия ещё не установлена.",
+      "summary": "Посчитан национальный нулевой уровень по общим ближайшим услугам; окончательная версия пересчитывается после расширения медицинских сведений на все85 регионов и исправления возрастного допуска. Строятся вложенные объединения с прямыми дорожными связями и сохранением малых систем.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
-      "main_blocker": "Неполная и разновременная сеть услуг, неизвестные потребности и свободная мощность, нет наблюдаемых поездок. Ближайшая подходящая услуга даёт базовый вариант; общую иерархию и причинные типы Word ещё нужно обосновать.",
+      "main_blocker": "Неравномерная полнота источников и отсутствие наблюдаемых межпоселенческих поездок. Медицинский пробел Саратовской области дополнен историческим реестром2021 и текущими федеральными адресными справочниками2026. Проходит окончательная проверка общедоступности и возрастного назначения подразделений. Уникальный верхний порядок Москвы не задаётся заранее.",
       "workplan": "sgrt/workplan/README.md",
-      "results": "sgrt/mass/README.md",
+      "results": "sgrt/zero/README.md",
       "data_release": "sgrt-mass-local-systems-20261024-v1",
       "publication": {
         "release": "sgrt-mass-local-systems-20261024-v1",
@@ -143,18 +143,51 @@
           "health_official_and_osm2026",
           "education_osm2026_and_preschool_rosstat2025",
           "retail_osm2021",
-          "wildberries_public20261024",
-          "yandex_public_widget20261025_under_verification"
+          "wildberries_frozen_public20261025",
+          "yandex_and_5post_frozen_public20261025",
+          "saratov_tfoms2021_primary_pdf_historical_supplement",
+          "federal_f032_f033_f034_f038_current20261023_exact_care_address"
         ],
         "ordinary_census_origins_unchanged": 153800,
         "additional_nonadditive_city_contexts": 3,
         "analysis_origins": 153803,
         "reference_subjects": 85,
-        "new_directed_raw_service_tables": 19,
+        "new_directed_raw_service_tables": 23,
         "raw_nearest_is_not_a_final_system": true,
         "population_advantage_at_level0": false,
         "target_number_of_levels_is_not_hardcoded": true,
-        "Moscow_unique_upper_order_is_research_goal_not_prescribed_label": true
+        "Moscow_unique_upper_order_is_research_goal_not_prescribed_label": true,
+        "calculation_state": "federal_all85_medical_source_integrated_final_scope_audit_before_final_hierarchy",
+        "source_release": "sgrt-zero-inputs-20261025-v1",
+        "source_manifest_sha256": "d9c8617dadbed91d92cf0cf1e139af67fddf5e9c33c7c50f09cd577c0c664ddc",
+        "level_zero_control": {
+          "inhabited_multi_np_groups_main": 22238,
+          "all_service_profile_units_main": 72717,
+          "population_used_for_assignment": false,
+          "source_snapshot": "manual_24oct_before_historical_saratov_supplement",
+          "final_published_result": false
+        },
+        "federal_medical_source": {
+          "state": "frozen_archive_published_exact_clinical_join_and_strict_np_address_matching_completed",
+          "source_snapshot": "2026-10-23",
+          "release": "sgrt-zero-federal-medical-inputs-20261025-v1",
+          "archive_sha256": "e7bab4fa92ba0273faf18d6bfb97c368c3fd0b66290c3b2a82d82bc47ff6db42",
+          "manifest_sha256": "8062fa9a3c48acf4f8c39df8914afb37eaf22acef0ee60a7cf0208f750ef7397",
+          "actual_care_address_dictionary": "F038",
+          "legal_address_fallback": false,
+          "address_presence_found_in_reference_subjects": 85,
+          "address_presence_is_complete_clinical_inventory": false,
+          "current_care_profile_rows": 897573,
+          "current_subdivision_address_pairs": 152294,
+          "strict_matched_address_rows": 130244,
+          "matched_settlements_or_city_contexts": 37128,
+          "actual_building_coordinates_observed": false
+        },
+        "current_quality_iteration": {
+          "state": "systematic_unit_scope_audit_child_school_narrow_specialist_before_final_provider_freeze",
+          "old_control_data_remains_immutable": true,
+          "raw_medical_source_rows_retained": true
+        }
       }
     }
   },
@@ -194,6 +227,8 @@
     "pilot_results": "sgrt/pilot/README.md",
     "national_results": "sgrt/mass/README.md",
     "national_reproduction": "sgrt/mass/REPRODUCE.md",
-    "national_context": "sgrt/mass/CONTEXT.md"
+    "national_context": "sgrt/mass/CONTEXT.md",
+    "current_zero_level": "sgrt/zero/README.md",
+    "current_user_clarifications": "research_context/conversation_context_20261025.md"
   }
 }

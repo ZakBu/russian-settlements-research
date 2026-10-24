@@ -5,7 +5,10 @@ import json
 from pathlib import Path
 import subprocess
 import sys
-from hierarchy import file_sha256
+try:
+ from .hierarchy import file_sha256
+except ImportError:
+ from hierarchy import file_sha256
 
 
 def main():

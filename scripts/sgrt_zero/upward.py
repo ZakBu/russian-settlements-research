@@ -12,7 +12,10 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import pyarrow.parquet as pq
-from hierarchy import canonical_edges,demographic_summaries,higher_candidates,promote_layer,save
+try:
+ from .hierarchy import canonical_edges,demographic_summaries,higher_candidates,promote_layer,save
+except ImportError:
+ from hierarchy import canonical_edges,demographic_summaries,higher_candidates,promote_layer,save
 
 
 STAGES=[
@@ -45,7 +48,13 @@ def read_route(path):
  names=set(pq.read_schema(path).names)
  required={'origin_id','provider_settlement_id','provider_site_id','provider_lat','provider_lon','cost_minutes'}
  if not required.issubset(names):raise ValueError('Route source missing fields: '+str(sorted(required-names)))
- d=pd.read_parquet(path,columns=[c for c in ROUTE_COLUMNS if c in names])
+ # Provider metadata is source evidence, including nullable operational and
+ # historical flags. Keep actual source values rather than recreating them.
+ metadata={c for c in names if c.startswith('provider_') or c.startswith('historical_')
+           or c in {'service_basis','restriction_scope_unknown','actual_operational_status_verified',
+                    'source_public_scope_check','saratov_historical_2021_evidence_present',
+                    'actual_operational_status_checked','source_status_semantics_verified','supply_status','source_input'}}
+ d=pd.read_parquet(path,columns=sorted((set(ROUTE_COLUMNS)&names)|metadata))
  if not d.origin_id.is_unique:raise ValueError('More than one selected nearest provider per origin: '+str(path))
  d['provider_name']=d.get('provider_provider_name',pd.Series(pd.NA,index=d.index))
  return d
@@ -63,12 +72,20 @@ def one_area_keys(status,key):
  return out
 
 
+def mark_medical_need_scope(frame,family):
+ """A shared reported care profile is not a hospital suitable for every person."""
+ frame['upper_medical_link_need_conditional']=family.startswith('medical_')
+ frame['universal_patient_suitability_established']=False
+ frame['rare_service_is_agglomeration_proof']=False
+ return frame
+
+
 def prepare_stage_edges(routes,stage,origin_status,provider_status):
  """Admit direct source costs; external areas are targets, never provider IDs."""
  origin_area=one_area_keys(origin_status,'source_record_id');provider_area=one_area_keys(provider_status,'point_key')
  parts=[]
  for family in stage['families']:
-  d=routes[family].copy();d['service_family']=family;d['scenario_id']='explicit_higher_function_scenario'
+  d=mark_medical_need_scope(routes[family].copy(),family);d['service_family']=family;d['scenario_id']='explicit_higher_function_scenario'
   cost=pd.to_numeric(d.cost_minutes,errors='coerce')
   provider_known=d.provider_settlement_id.notna()|d.provider_site_id.notna()
   d['higher_admitted']=provider_known&np.isfinite(cost)&cost.ge(0)&cost.le(stage['limit_minutes']+1e-8)
@@ -104,7 +121,10 @@ def prepare_stage_edges(routes,stage,origin_status,provider_status):
 
 
 def prepare_provider_lookup(routes,polygons,output):
- from logic_checks import locate_external_fua_points
+ try:
+  from .logic_checks import locate_external_fua_points
+ except ImportError:
+  from logic_checks import locate_external_fua_points
  points=[]
  for d in routes.values():
   x=d[['provider_site_id','provider_lat','provider_lon']].dropna(subset=['provider_site_id']).drop_duplicates()
@@ -150,13 +170,17 @@ def run(root,l0_directory,reference_path,fua_directory,physician_route,output,me
   else:paths[family]=root/'routes/nearest'/f'{family}.parquet'
  for family,path in paths.items():
   if not path.is_file():raise ValueError('Higher function route missing: '+family+' '+str(path))
- source_paths=[reference_path,l0_directory/'level0_units.parquet',l0_directory/'level0_memberships.parquet',fua_directory/'analysis_frame_efua_2015.parquet',fua_directory/'settlement_external_fua_status.parquet',*paths.values()]
+ source_paths=[reference_path,l0_directory/'level0_units.parquet',l0_directory/'level0_memberships.parquet',fua_directory/'analysis_frame_efua_2015.parquet',fua_directory/'settlement_external_fua_status.parquet',*paths.values(),
+  Path(__file__),Path(__file__).with_name('hierarchy.py'),Path(__file__).with_name('higher_candidates_fast.py')]
  snapshots={str(p):digest(p) for p in source_paths}
  routes={family:read_route(path) for family,path in paths.items()}
  polygons=pd.read_parquet(fua_directory/'analysis_frame_efua_2015.parquet');origin_status=pd.read_parquet(fua_directory/'settlement_external_fua_status.parquet')
  lookup_output=output/'reference_lookup';lookup_manifest=lookup_output/'lookup_cache.json'
  lookup_inputs={str(path):snapshots[str(path)] for path in [fua_directory/'analysis_frame_efua_2015.parquet',*paths.values()]}
- from logic_checks import locate_external_fua_points
+ try:
+  from .logic_checks import locate_external_fua_points
+ except ImportError:
+  from logic_checks import locate_external_fua_points
  import inspect
  lookup_function_hash=hashlib.sha256(inspect.getsource(locate_external_fua_points).encode()).hexdigest()
  cached=json.loads(lookup_manifest.read_text()) if lookup_manifest.exists() else {}
@@ -195,6 +219,8 @@ def run(root,l0_directory,reference_path,fua_directory,physician_route,output,me
   'observed_agglomeration_hierarchy_established':False,'source_of_external_reference':'GHS_FUA2015_R2019A_independent_estimated_boundary_epoch2015',
   'Moscow_only_top_forced':False,'population_used_for_assignment':False,'input_sha256':snapshots,
   'code_sha256':digest(Path(__file__)),'hierarchy_code_sha256':digest(Path(__file__).with_name('hierarchy.py')),
+  'candidate_engine':'higher_candidates_fast_with_original_reference_reducer_retained',
+  'candidate_engine_sha256':digest(Path(__file__).with_name('higher_candidates_fast.py')),
   'halt_reason':'all_available_declared_new_function_sets_attempted_no_additional_evidence_for_further_order',
   'further_order_needs_new_inter_system_or_functional_evidence_not_larger_unbounded_catchments':True}
  (output/'summary.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');return result
