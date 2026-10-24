@@ -82,6 +82,9 @@ def check_reference_metrics(metrics, comparison):
     require(not reference.duplicated(['run', 'model']).any(), 'Duplicated reference comparison key')
     require(set(zip(reference.run, reference.model)) == set(expected), 'Reference model/source keys changed')
     for row in reference.itertuples():
+        require(row.source_scenario == 'spatial_proxy' and row.observation_year == 2021, 'Unexpected source scenario/year')
+        require(row.service_order == 'broad_recorded_function_not_service_order', 'Unexpected service-order claim')
+        require(row.supply_transform == ('binary' if row.run == 'medical_presence' else 'object_count'), 'Unexpected supply-proxy interpretation')
         require(row.resolved_external_origins == 216 and row.origins_in_model_frame == 216,
                 'Reference denominator is not the same 216 resolved origins')
         require(row.origins_exactly_matching_any_normative_provider == expected[row.run, row.model],
@@ -142,7 +145,9 @@ def check_outputs(root, catalog_path):
     require(anchors.source_record_id.isna().all() and anchors.root.isna().all() and not anchors.working_credit_present.any(),
             'External contexts given fabricated census IDs or population credit')
     atlas = root/'pilot_atlas.pdf'
-    require(atlas.exists() and atlas.open('rb').read(5) == b'%PDF-', 'Atlas is missing/not a PDF')
+    require(atlas.exists(), 'Atlas is missing')
+    with atlas.open('rb') as stream:
+        require(stream.read(5) == b'%PDF-', 'Atlas is not a PDF')
     print('Reproduced source-first comparisons: 216 origins; reference matches 40/9/1; nine typed cases; no observed-trip/hierarchy claim.')
 
 
