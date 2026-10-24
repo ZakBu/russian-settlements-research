@@ -2,7 +2,7 @@
   "schema": "sgrt.literature_registry.v2",
   "review_date": "2026-10-24",
   "status": "LITERATURE_AND_PILOT_SCENARIOS_NOT_VALIDATED_NATIONWIDE_SGRT",
-  "scope": "Functional-gravity and Russian delimitation literature plus two freshly rechecked official pilot sources. Dated pilot scenarios are computed; nationwide SGRT and observed-flow validation are not established.",
+  "scope": "Functional-gravity literature and dated empirical pilots, including documented local school/FAP systems, agriculture and organisation-level employment. Not nationwide validated SGRT.",
   "records": [
     {
       "id": "HUFF1964",
@@ -490,6 +490,76 @@
       "locator": "25 sheets; row-level source record_id and excel_row retained",
       "use": "Separate selected planning-list presence scenario; not complete operating network and not2021 supply.",
       "sha256": "34322c8ef538efa79617af0f80ecc330c99d7f60539216478ef4e6f64dcd070c"
+    },
+    {
+      "id": "UCH2025_03224",
+      "authors": "Муниципалитет Учалинского района / Учалинская ЦРБ",
+      "title": "Постановление о закреплении муниципальных образовательных организаций Учалинского района, 12.03.2025 №03-224УД",
+      "url": "https://uralsk1.ucoz.ru/Obrazovanie/2025_postanovlenie_territorii.pdf",
+      "read_scope": "selected_original_scanned_PDF_pages1_3_10_13",
+      "retrieved_date": "2026-10-24",
+      "retrieved_sha256": "6914efd5c8e33f3ef5410726098fc78876379649d097f41370782d32a71fea08",
+      "locator": "PDF страницы1,3,10,13, строки15,25–27",
+      "use": "Документированные услуги и закрепления локального фрагмента; не измеренные поездки.",
+      "does_not_establish": "Юридический адрес не координата здания; дата численности ФАП и мощностей УБ неизвестна."
+    },
+    {
+      "id": "UCH_FAP_REPORT",
+      "authors": "Муниципалитет Учалинского района / Учалинская ЦРБ",
+      "title": "Учалинская ЦРБ: ФАП Малоказаккулова, раздел «Было-стало»",
+      "url": "https://www.xn--90ad1cm.xn--p1ai/bylo-stalo",
+      "read_scope": "selected_provider_statement_or_structure",
+      "retrieved_date": "2026-10-24",
+      "retrieved_sha256": "7d87016c73d7a9a00d3e3f7c16046e9383259c499b4ffc485befa338fae7a0e3",
+      "locator": "Именованный фрагмент о ФАП / таблица структуры, строка16",
+      "use": "Документированные услуги и закрепления локального фрагмента; не измеренные поездки.",
+      "does_not_establish": "Юридический адрес не координата здания; дата численности ФАП и мощностей УБ неизвестна."
+    },
+    {
+      "id": "UCH_STRUCTURE",
+      "authors": "Муниципалитет Учалинского района / Учалинская ЦРБ",
+      "title": "Учалинская ЦРБ: структура учреждения, Уральская участковая больница",
+      "url": "https://xn--90ad1cm.xn--p1ai/ob-uchrezhdenii/struktura",
+      "read_scope": "selected_provider_statement_or_structure",
+      "retrieved_date": "2026-10-24",
+      "retrieved_sha256": "3e5d7662286163e05eef17a8141ee51d4b7e55c65d5ab0c35b2c910efa8102e7",
+      "locator": "Именованный фрагмент о ФАП / таблица структуры, строка16",
+      "use": "Документированные услуги и закрепления локального фрагмента; не измеренные поездки.",
+      "does_not_establish": "Юридический адрес не координата здания; дата численности ФАП и мощностей УБ неизвестна."
+    },
+    {
+      "id": "FNS_SSHR_20260925",
+      "authors": "Федеральная налоговая служба",
+      "title": "Сведения о среднесписочной численности работников организаций за2025, публикация25.09.2026",
+      "url": "https://file.nalog.ru/opendata/7707329152-sshr2019/data-20260925-structure-20200408.zip",
+      "retrieved_sha256": "a4a2972b5d424d49424723cb77837f4605f390ee6edef42f382a0b9504f3f85a",
+      "read_scope": "Full ZIP scan of 2,049,517 XML documents; six requested INNs, one matching primary record 0270015537; original matching XML retained.",
+      "locator": "ИдДок8f071746-a810-4043-9425-41b3da747477; СведССЧРКолРаб205",
+      "use": "205 среднесписочных работников юрлица за2025.",
+      "does_not_establish": "Не рабочие места Уральска; нет адресов площадок и поездок работников."
+    },
+    {
+      "id": "BDMO_SECTION7_20250918",
+      "authors": "Росстат; выгрузка «Если быть точным»",
+      "title": "Муниципальная сельскохозяйственная статистика, раздел7, версия18.09.2025",
+      "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_section/data_section7_112_v20250918_section_file.zip",
+      "retrieved_parquet_sha256": "e6ca2906f49fd0fe561ae98f535206990cebc2675884571bced546c3374c198d",
+      "read_scope": "Full scan of redistributed Parquet: 8,832,750 rows; 3,698 raw municipal observations selected; the full federal series was not interpreted.",
+      "locator": "ОКТМО80653410,80653491,80653000; показатели и категории сохранены построчно.",
+      "use": "Аграрный контекст двух сельсоветов и Учалинского района с датами/единицами.",
+      "does_not_establish": "Нет распределения районных итогов по сёлам, не доказана эквивалентность исторических границ."
+    },
+    {
+      "id": "BAIRAMGUL_WEBSITE_20261024",
+      "authors": "ООО «Агрофирма Байрамгул»",
+      "title": "Официальный сайт: контакты, описание производства и категории вакансий",
+      "url": "https://bairamgul.ru/",
+      "application_url": "https://bairamgul.ru/assets/index-BB7BIiY9.js?v=20260929",
+      "retrieved_sha256": "bf6ccf93dd503019c0e64e696b8a0a29f1a0ab4f164f840f4cdc3bc7ac5da134",
+      "read_scope": "Fetched HTML and application bundle; read contact address/map, production self-description and five occupation entries.",
+      "locator": "Контакты: Уральск, Советская6; массивP2вприложении.",
+      "use": "Подтверждённый контакт работодателя и виды профессий.",
+      "does_not_establish": "Точка офиса не координаты ферм; категории профессий не число вакансий."
     }
   ],
   "record_count": 30
