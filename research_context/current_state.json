@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-24T20:52:01+03:00",
+  "updated_moscow": "2026-10-25T00:10:12+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,7 +9,7 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "national_local_service_candidates_computed_not_integrated_multilevel_sgrt",
+      "status": "level_zero_and_bounded_upward_calculation_in_progress",
       "summary": "На 153 800 пространственных НП рассчитаны 14 раздельных слоёв ближайших направлений: 2 153 200 строк. Получены 58 333 однофункциональные единицы с типами; 15 488 НП-центров имеют населённых внешних кандидатов хотя бы по одной функции. Функции перекрываются; это не число СГРТ. Общая многофункциональная иерархия ещё не установлена.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
@@ -128,6 +128,33 @@
           "scope": "Fixed present-day scenario composition; not historical service links or causal Word types",
           "filter_and_full_table": "sgrt/mass/README.md"
         }
+      },
+      "current_task": {
+        "goal": "Повседневное обслуживание всех регионов без весового преимущества крупных городов; последующий проверяемый переход вверх",
+        "user_decisions": [
+          "D32",
+          "D33",
+          "D34",
+          "D35",
+          "D36"
+        ],
+        "logic_checks_and_literature": "sgrt/zero/LITERATURE_AND_LIMITS.md",
+        "new_source_sectors": [
+          "health_official_and_osm2026",
+          "education_osm2026_and_preschool_rosstat2025",
+          "retail_osm2021",
+          "wildberries_public20261024",
+          "yandex_public_widget20261025_under_verification"
+        ],
+        "ordinary_census_origins_unchanged": 153800,
+        "additional_nonadditive_city_contexts": 3,
+        "analysis_origins": 153803,
+        "reference_subjects": 85,
+        "new_directed_raw_service_tables": 19,
+        "raw_nearest_is_not_a_final_system": true,
+        "population_advantage_at_level0": false,
+        "target_number_of_levels_is_not_hardcoded": true,
+        "Moscow_unique_upper_order_is_research_goal_not_prescribed_label": true
       }
     }
   },

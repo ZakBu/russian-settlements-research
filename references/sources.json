@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.literature_registry.v2",
-  "review_date": "2026-10-24",
+  "review_date": "2026-10-25",
   "status": "NATIONAL_CANDIDATE_LOCAL_SERVICE_CELLS_NOT_VALIDATED_SGRT",
   "scope": "Functional accessibility literature, documented local service evidence and national candidate service cells on the accepted census base. National functional cells are scenarios, not observed journeys or completed validated SGRT.",
   "records": [
@@ -697,6 +697,118 @@
       "read_scope": "Через веб-чтение получен полный кешированный текст официальной страницы; 44 карточки с 36 ФАПами и 8 ЦОВП извлечены воспроизводимой функцией. Оригинальный HTML прямым запросом 503; дата состояния сети неизвестна.",
       "locator": "audit/sources/pilot_registry/CHEL_ARGAYASH_FAP.web.txt; исходные номера строк сохранены",
       "use": "Дополнительный адресный перечень одного района; отдельно от строгой датированной действующей сети. «Временно недоступен» у 36 контактов не интерпретируется как закрытие ФАПа."
+    },
+    {
+      "title": "GHS-FUA R2019A: GHS functional urban areas, derived from GHS-UCDB R2019A",
+      "authors": [
+        "Schiavina, M.",
+        "Moreno-Monroy, A.I.",
+        "Maffenini, L.",
+        "Veneri, P."
+      ],
+      "year": 2019,
+      "doi": "10.2905/347F0337-F2DA-4592-87B3-E25975EC2C95",
+      "primary_url": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/GHSL/GHS_FUA_UCDB2015_GLOBE_R2019A/V1-0/GHS_FUA_UCDB2015_GLOBE_R2019A_54009_1K_V1_0.zip",
+      "read_scope": "Downloaded original global GeoPackage and extracted source attributes/geometries; 175 source-RUS polygons plus 6 polygons intersecting adopted point frame. Dataset epoch2015.",
+      "russian_trip_calibration": false,
+      "id": "GHS_FUA2015_R2019A",
+      "url": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/GHSL/GHS_FUA_UCDB2015_GLOBE_R2019A/V1-0/GHS_FUA_UCDB2015_GLOBE_R2019A_54009_1K_V1_0.zip",
+      "use": "Separate external modelled urban reference, not our L0 or observed Russian commuting."
+    },
+    {
+      "title": "GHSL-OECD Functional Urban Areas: Public release of GHS-FUA",
+      "authors": [
+        "Schiavina, M.",
+        "Moreno-Monroy, A.I.",
+        "Maffenini, L.",
+        "Veneri, P."
+      ],
+      "year": 2019,
+      "doi": "10.2760/67415",
+      "primary_url": "https://ghsl.jrc.ec.europa.eu/documents/GHSL_FUA_2019.pdf",
+      "read_scope": "Actual primary PDF, selected method text printed pages4–5; not a claim to reading full report.",
+      "russian_trip_calibration": false,
+      "id": "SCHIAVINA2019_GHS_FUA_MANUAL",
+      "url": "https://ghsl.jrc.ec.europa.eu/documents/GHSL_FUA_2019.pdf",
+      "use": "Estimated FUA modelling, source population-priority/500000 merging rule, explicit limits of external reference."
+    },
+    {
+      "title": "Metropolitan areas in the world. Delineation and population trends",
+      "authors": [
+        "Moreno-Monroy, A.I.",
+        "Schiavina, M.",
+        "Veneri, P."
+      ],
+      "year": 2021,
+      "doi": "10.1016/j.jue.2020.103242",
+      "primary_url": "https://doi.org/10.1016/j.jue.2020.103242",
+      "read_scope": "Publisher abstract and institutional bibliographic metadata only. Full journal article inaccessible; implementation relies on separately read primary technical report.",
+      "russian_trip_calibration": false,
+      "id": "MORENO_MONROY2021_EFUA",
+      "url": "https://doi.org/10.1016/j.jue.2020.103242",
+      "use": "Bibliographic connection to GHS-FUA method; no claim of independently reproducing full article."
+    },
+    {
+      "title": "The EU-OECD definition of a functional urban area",
+      "authors": [
+        "Dijkstra, L.",
+        "Poelman, H.",
+        "Veneri, P."
+      ],
+      "year": 2019,
+      "doi": "10.1787/d58cb34d-en",
+      "primary_url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2019/12/the-eu-oecd-definition-of-a-functional-urban-area_cef4a128/d58cb34d-en.pdf",
+      "read_scope": "Actual primary PDF, printed pages5–7 and12–13.",
+      "russian_trip_calibration": false,
+      "id": "DIJKSTRA2019_FUA",
+      "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2019/12/the-eu-oecd-definition-of-a-functional-urban-area_cef4a128/d58cb34d-en.pdf",
+      "use": "15% denominator employed residents; one-time polycentric-city merging; contiguity and exclaves; service accessibility not observed commuter flow."
+    },
+    {
+      "title": "GeoDa workbook: Spatial clustering; spatially constrained hierarchical clustering",
+      "authors": [
+        "Anselin, L."
+      ],
+      "year": 2020,
+      "doi": null,
+      "primary_url": "https://geodacenter.github.io/workbook/9a_spatial1/lab9a.html",
+      "read_scope": "Actual web sections Clustering on Geographical Coordinates and Adding coordinates; companion https://geodacenter.github.io/workbook/9c_spatial3/lab9c.html Introduction and SCHC Principle.",
+      "russian_trip_calibration": false,
+      "id": "ANSELIN2020_SPATIAL_CLUSTERING",
+      "url": "https://geodacenter.github.io/workbook/9a_spatial1/lab9a.html",
+      "use": "Distinguish compactness, graph connectivity, geographic contiguity and attribute similarity; chain merging does not establish a bounded functional area."
+    },
+    {
+      "title": "Geometrical Parcel Locker Network Design with Consideration of Users’ Preferences as a Solution for Sustainable Last Mile Delivery",
+      "authors": [
+        "Kurowski, Mateusz",
+        "Sobolewski, Marek",
+        "Koszorek, Maciej"
+      ],
+      "year": 2023,
+      "doi": "10.3390/su152015114",
+      "primary_url": "https://mdpi-res.com/d_attachment/sustainability/sustainability-15-15114/article_deploy/sustainability-15-15114.pdf?version=1697815115",
+      "read_scope": "Actual primary PDF read through browser, pages5–10, sections3 and4.1, Tables2–4; executor download denied403, no local PDF digest claimed.",
+      "russian_trip_calibration": false,
+      "id": "KUROWSKI2023_PARCEL_LOCKER",
+      "url": "https://mdpi-res.com/d_attachment/sustainability/sustainability-15-15114/article_deploy/sustainability-15-15114.pdf?version=1697815115",
+      "use": "Walking/cycling stated median775m n200 versus500m after37 exclusions; rural cleaned n45 median600m; not a Russian car-trip cutoff."
+    },
+    {
+      "title": "The Role of Small Rural Grocery Stores in Northern Bavaria: Findings of a Quantitative Customer Survey",
+      "authors": [
+        "Akbaba, Pinar",
+        "Rauh, Jürgen",
+        "Rauch, Sebastian"
+      ],
+      "year": 2025,
+      "doi": "10.3390/su17020388",
+      "primary_url": "https://www.mdpi.com/2071-1050/17/2/388",
+      "read_scope": "Publisher-indexed primary full-text fragments: abstract, section3 methods, section4/Table2. Direct HTML429; no claim of full-PDF reading.",
+      "russian_trip_calibration": false,
+      "id": "AKBABA2025_RURAL_GROCERY",
+      "url": "https://www.mdpi.com/2071-1050/17/2/388",
+      "use": "238 customers of five purposively selected stores; Table2 n237 local mean5.2min versus13.5–14.8min other shopping. Supports distinct shopping orders, means not delimitation thresholds."
     }
   ],
   "record_count": 30
