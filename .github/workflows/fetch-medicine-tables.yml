@@ -2,7 +2,9 @@ name: Fetch medicine registry tables
 on:
   push:
     branches: ['cursor/sgrt-schools-medicine-252c']
-    paths: ['sgrt/sources/medicine/registry_inventory.csv']
+    paths:
+      - 'sgrt/sources/medicine/inventory_part_03.csv'
+      - 'sgrt/sources/medicine/registry_inventory.csv'
 permissions:
   contents: write
 jobs:
@@ -28,6 +30,18 @@ jobs:
           if command -v sudo >/dev/null; then SUDO=sudo; else SUDO=; fi
           $SUDO apt-get update -qq
           $SUDO apt-get install -y -qq unar poppler-utils
+          python3 - << 'PY'
+          from pathlib import Path
+          root = Path("sgrt/sources/medicine")
+          parts = sorted(root.glob("inventory_part_*.csv"))
+          if parts:
+              rows = []
+              for index, part in enumerate(parts):
+                  lines = part.read_text(encoding="utf-8").splitlines(True)
+                  rows.extend(lines if index == 0 else lines[1:])
+              (root / "registry_inventory.csv").write_text("".join(rows), encoding="utf-8")
+              print(f"assembled {len(parts)} inventory parts")
+          PY
           python scripts/sgrt_sources/build_medicine_registry_tables.py > /tmp/medicine_build.log 2>&1
           code=$?
           mkdir -p sgrt/sources/medicine
