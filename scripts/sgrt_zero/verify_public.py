@@ -87,16 +87,23 @@ def verify_and_recompute(bundle, work, output, source_commit):
             target = work / relative
             if not target.is_file():
                 raise ValueError('Recomputed scientific table missing: ' + str(relative))
-            a, b = pd.read_parquet(original), pd.read_parquet(target)
+            identical_bytes = sha(original) == sha(target)
             exact = True
-            try:
-                pd.testing.assert_frame_equal(a, b, check_exact=True)
-            except AssertionError:
-                exact = False
-                pd.testing.assert_frame_equal(a, b, check_exact=False, rtol=1e-12, atol=1e-12)
-            comparisons.append({'path': relative.as_posix(), 'rows': len(a),
+            if identical_bytes:
+                import pyarrow.parquet as pq
+                row_count = pq.ParquetFile(original).metadata.num_rows
+            else:
+                a, b = pd.read_parquet(original), pd.read_parquet(target)
+                row_count = len(a)
+                try:
+                    pd.testing.assert_frame_equal(a, b, check_exact=True)
+                except AssertionError:
+                    exact = False
+                    pd.testing.assert_frame_equal(a, b, check_exact=False, rtol=1e-12, atol=1e-12)
+                del a, b
+            comparisons.append({'path': relative.as_posix(), 'rows': row_count,
                                 'values_equal_exactly': exact,
-                                'byte_identical': sha(original) == sha(target)})
+                                'byte_identical': identical_bytes})
     if not comparisons:
         raise ValueError('No scientific tables compared')
     png = []
