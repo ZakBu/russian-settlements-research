@@ -33,8 +33,14 @@ jobs:
         run: python research/ecommerce_cloud/extension/outcomes/acquire_bdmo_population.py
       - name: Calculate nonshop-selected conditional population contexts
         run: python research/ecommerce_cloud/extension/outcomes/nonshop_population_contexts.py
+      - name: Diagnose exact-code coverage and excluded shared centres
+        run: python research/ecommerce_cloud/extension/outcomes/nonshop_source_coverage.py
       - name: Independently verify derived-source arithmetic
         run: python research/ecommerce_cloud/continuation/check_nonshop_population.py work/ecommerce_extension_outcomes/nonshop_population_contexts
+      - name: Render factual figures and execute a fresh-kernel notebook
+        run: |
+          python research/ecommerce_cloud/continuation/render_nonshop.py
+          python research/ecommerce_cloud/continuation/build_nonshop_notebook.py
       - name: Record environment
         run: python -m pip freeze > work/ecommerce_extension_outcomes/nonshop_population_contexts/environment.txt
       - name: Preserve complete new tables
@@ -42,7 +48,9 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: nonshop-population-contexts
-          path: work/ecommerce_extension_outcomes/nonshop_population_contexts/
+          path: |
+            work/ecommerce_extension_outcomes/nonshop_population_contexts/
+            work/ecommerce_continuation/
           retention-days: 30
           if-no-files-found: warn
   historical-wb:

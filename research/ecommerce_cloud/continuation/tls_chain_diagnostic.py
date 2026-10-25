@@ -12,7 +12,7 @@ report={'ca_provenance':provenance,'source_data_accepted':False,
 paths=[out/'russian_trusted_root_ca_pem.crt',out/'russian_trusted_sub_ca_pem.crt']
 if all(p.exists() for p in paths):
     bundle=out/'scoped_official_chain.pem'
-    bundle.write_bytes(b''.join(p.read_bytes() for p in paths))
+    bundle.write_bytes(b'\n'.join(p.read_bytes().strip() for p in paths)+b'\n')
     command=['openssl','s_client','-connect','rosstat.gov.ru:443',
              '-servername','rosstat.gov.ru','-showcerts','-verify_return_error',
              '-verify_hostname','rosstat.gov.ru','-CAfile',str(bundle)]
