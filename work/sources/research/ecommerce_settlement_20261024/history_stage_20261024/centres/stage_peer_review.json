@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-24",
+  "checks": [
+    {
+      "name": "network_2022-09-29",
+      "passed": true,
+      "objects": 22792
+    },
+    {
+      "name": "network_2022-11-18",
+      "passed": true,
+      "objects": 23944
+    },
+    {
+      "name": "network_2023-01-01",
+      "passed": true,
+      "objects": 24701
+    },
+    {
+      "name": "network_2023-05-30",
+      "passed": true,
+      "objects": 26713
+    },
+    {
+      "name": "network_2023-07-06",
+      "passed": true,
+      "objects": 26616
+    },
+    {
+      "name": "network_2023-08-15",
+      "passed": true,
+      "objects": 26744
+    },
+    {
+      "name": "network_2024-03-11",
+      "passed": true,
+      "objects": 35105
+    },
+    {
+      "name": "retail_cell_trace_rosstat_physical_retail_annual_2020_2025_long.csv",
+      "passed": true,
+      "checked_cells": 4200,
+      "errors": []
+    },
+    {
+      "name": "retail_cell_trace_rosstat_physical_retail_quarterly_2022_2024_long.csv",
+      "passed": true,
+      "checked_cells": 18176,
+      "errors": []
+    }
+  ],
+  "result": "PASS",
+  "limits": [
+    "Network: verified local decoded source hashes, ru record counts and within-snapshot IDs; acquisition script additionally verifies Wayback compressed CDX digests. Capture is not opening date.",
+    "Historical pickupType/isWb/dtype flags have changing, unverified semantics; historical records cannot automatically be equated to current focus types8/34.",
+    "Retail cell values reproduce primary workbook cells. Series is regional/nested regional, not settlement-level. Category and reporting-form breaks remain.",
+    "No retail cells were allocated to settlements, and no historical network point was automatically treated as a dated opening."
+  ]
+}

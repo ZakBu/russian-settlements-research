@@ -1,0 +1,107 @@
+{
+  "audit_date": "2026-10-24",
+  "analysis": "national descriptive placement profile, no causal effects",
+  "accepted_population_release": "census accepted20261022",
+  "all_accepted_wide_roots": 173242,
+  "target_definition": "Accepted working_credit_present=True current2021 own physical additive settlement observations with effective population. Historical completeness and accepted coordinate availability are not required. All physical source rows are retained separately as inventory sensitivity.",
+  "target_settlements2021_n": 144151,
+  "all_physical_source2021_inventory_n": 155411,
+  "physical2021_not_working_credited_n": 11260,
+  "all_physical_inventory_national": {
+    "settlements_n": 155411,
+    "known_population_2021_sum": 128022280.0,
+    "WB_positive_n": 7991,
+    "WB_zero_accepted_records_not_confirmed_absence_n": 134579,
+    "WB_unknown_n": 12841,
+    "WB_positive_share_all_target_settlements": 0.05141849676020359,
+    "WB_positive_share_source_observed_settlements": 0.056049659816230626,
+    "population_in_WB_positive_settlements": 106182931.0,
+    "population_share_in_WB_positive_settlements": 0.829409779297791,
+    "accepted_points_present_n": 153800,
+    "historical_trend_unknown_n": 8355
+  },
+  "notcredited_population_known_sum_do_not_add_to_main_total": 2304984.0,
+  "federal_territory2021_n": 3,
+  "historical_only_no_source2021_n": 17828,
+  "regions_in_target_n": 81,
+  "WB_status_counts": {
+    "zero_accepted_records_not_confirmed_absence": 134577,
+    "positive": 7991,
+    "unknown_no_commerce_bridge": 1583
+  },
+  "WB_sensitivity_status_counts": {
+    "zero_accepted_records_not_confirmed_absence": 134574,
+    "positive": 7990,
+    "unknown_no_commerce_bridge": 1583,
+    "unknown_point_shift_over1km": 4
+  },
+  "national": {
+    "settlements_n": 144151,
+    "known_population_2021_sum": 125717296.0,
+    "WB_positive_n": 7991,
+    "WB_zero_accepted_records_not_confirmed_absence_n": 134577,
+    "WB_unknown_n": 1583,
+    "WB_positive_share_all_target_settlements": 0.055434925876338005,
+    "WB_positive_share_source_observed_settlements": 0.056050446102912294,
+    "population_in_WB_positive_settlements": 106182931.0,
+    "population_share_in_WB_positive_settlements": 0.8446167264049331,
+    "accepted_points_present_n": 144149,
+    "historical_trend_unknown_n": 660
+  },
+  "national_sensitivity": {
+    "settlements_n": 144151,
+    "known_population_2021_sum": 125717296.0,
+    "WB_positive_n": 7990,
+    "WB_zero_accepted_records_not_confirmed_absence_n": 134574,
+    "WB_unknown_n": 1587,
+    "WB_positive_share_all_target_settlements": 0.05542798870628716,
+    "WB_positive_share_source_observed_settlements": 0.05604500434892399,
+    "population_in_WB_positive_settlements": 106181841.0,
+    "population_share_in_WB_positive_settlements": 0.8446080561580007,
+    "accepted_points_present_n": 144149,
+    "historical_trend_unknown_n": 660
+  },
+  "positive_WB_settlements_with_2002_2021_decrease_n": 4678,
+  "positive_WB_settlements_with_unknown_2002_2021_trend_n": 0,
+  "point_shift_over1km_target_n": 4,
+  "point_shift_over1km_positive_n": 1,
+  "sensitivity_rule": "Keep full target denominator; reclassify WB observations whose accepted-vs-legacy point displacement exceeds1km or cannot be measured as unknown. Do not encode them as zero.",
+  "join_rule": "Current commerce legacy id -> unique legacy source_record_id2021 -> exact accepted source_record_id2021; metadata conflicts are unknown. No legacy root/population/geometry used for accepted population or location.",
+  "population_rule": "population_YYYY=accepted effective_population_YYYY; source-reported counts and overlay flags retained.",
+  "WB_rule": "Positive means accepted WB types8/34 in current snapshot2026-10-21; zero accepted records is not proven physical absence or lack of service. No WB treatment assigned to2002/2010/2021.",
+  "trend_rule": "Compare effective2002 vs2021: decrease/increase/unchanged; zero baseline separated; unknown retained. No historical completeness restriction.",
+  "source_scope": "Territory and regions follow the accepted census source; region totals of federal cities are stored separately from physical settlement units. No full national territorial coverage claim follows from these counts.",
+  "inputs": [
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/pilot/inputs/data/population/settlements_census_wide.parquet",
+      "sha256": "f0f4dad4733e081d661ece6fa0d42d9f32ccb423d2b4ece77fed65945ae797b3"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/pilot/inputs/data/population/settlements_census_long.parquet",
+      "sha256": "2b0a1e3cd20819f6b99d1e6a200e4365fa7296e128dc22b023327b9e572f60c4"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/sgrt_word_completion_20261021/axis/full_settlement_axis.parquet",
+      "sha256": "29fa9586278e08a937651fb4fcddbc929a02d46e6dcbe44f5f14793ae6fab3fc"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/commerce_current.parquet",
+      "sha256": "221ad132691e148b2c30d6a01d3a522f5e82a9973cbbf48d3e254d0a1164c94e"
+    }
+  ],
+  "verification": {
+    "wide_partition_reconciled": true,
+    "source2021_unique": true,
+    "no_legacy_root_join": true,
+    "all_aggregate_denominators_reconciled": true,
+    "all_WB_status_partitions_reconciled": true
+  },
+  "limitations": [
+    "Descriptive selection/placement, not influence on population or functional areas.",
+    "Snapshot lacks opening dates and consumer flows.",
+    "Unknown and zero accepted records do not establish absence.",
+    "Point-transfer sensitivity is a diagnostic; original source binding can still contain address errors.",
+    "Census historical values retain source quality flags; numerical availability does not prove longitudinal comparability.",
+    "Surrounding settlements can use another settlement pickup point; node presence is not household access."
+  ]
+}

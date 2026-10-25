@@ -1,0 +1,42 @@
+Независимый аудит национального эмпирического блока — 24.10.2026
+{"PASS": 27, "WARN": 5}
+Проверка воспроизводится audit.py; точные схемы и SHA256 входов в audit.json.
+
+PASS target_unique_keys: {"rows": 144151, "unique_source_ids": 144151}
+PASS target_unique_roots: "One inter-census root per target row"
+PASS target_grain: {"regions": 81, "analysis_populations": {"target_credited_physical_settlement2021": 144151}}
+PASS target_inventory_subset: {"allwide": 173242, "physical2021": 155411, "target": 144151}
+PASS combined_preserves_target: "Exact target keys retained in platform comparison"
+PASS combined_preserves_target_values: {"changed_rows": 0}
+PASS wb_status_counts: {"zero_accepted_records_not_confirmed_absence": 134577, "positive": 7991, "unknown_no_commerce_bridge": 1583}
+PASS wb_status_count_consistency: {"inconsistent_rows": 0}
+PASS population_domain: {"known": 144151, "unknown": 0, "zero": 21013, "positive": 123138, "sum_known": 125717296.0}
+WARN population_quality_missing_label: [{"id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:31481", "name": "Хийденсельга", "region": "карелия", "population_2021": 1054.0}]
+PASS coordinate_accounting: {"near_rows": 144149, "coordinate_missing": 2}
+PASS distance_domain: "Combined nearest distance is finite, nonnegative and no larger than WB-only"
+PASS ozon_object_key: {"objects": 92503, "raw_p": {"0": 87505, "1": 4998}, "snapshot": {"2026-08-06 17:20": 92503}}
+PASS ozon_pickup_1km_reaggregation: {"count_mismatches": 0, "objects_main_target": 25515, "positive_target_settlements": 15720}
+PASS ozon_locker_1km_reaggregation: {"count_mismatches": 0, "objects_main_target": 520, "positive_target_settlements": 298}
+PASS ozon_1km_link_constraints: {"accepted": 26581, "statuses": {"federal_city_label_context_not_distributed": 10101, "unresolved_named_candidates_outside_radius": 53833, "accepted_unique_exact_name_within_radius": 26581, "unresolved_no_exact_name_on_accepted_coordinate_axis": 1864, "ambiguous_multiple_exact_name_candidates_within_radius": 124}}
+PASS ozon_pickup_5km_reaggregation: {"count_mismatches": 0, "objects_main_target": 57159, "positive_target_settlements": 16735}
+PASS ozon_locker_5km_reaggregation: {"count_mismatches": 0, "objects_main_target": 2380, "positive_target_settlements": 416}
+PASS ozon_5km_link_constraints: {"accepted": 60557, "statuses": {"federal_city_label_context_not_distributed": 10101, "accepted_unique_exact_name_within_radius": 60557, "unresolved_named_candidates_outside_radius": 19429, "ambiguous_multiple_exact_name_candidates_within_radius": 552, "unresolved_no_exact_name_on_accepted_coordinate_axis": 1864}}
+PASS ozon_pickup_10km_reaggregation: {"count_mismatches": 0, "objects_main_target": 68660, "positive_target_settlements": 16649}
+PASS ozon_locker_10km_reaggregation: {"count_mismatches": 0, "objects_main_target": 3555, "positive_target_settlements": 418}
+PASS ozon_10km_link_constraints: {"accepted": 73299, "statuses": {"federal_city_label_context_not_distributed": 10101, "accepted_unique_exact_name_within_radius": 73299, "unresolved_named_candidates_outside_radius": 6220, "ambiguous_multiple_exact_name_candidates_within_radius": 1019, "unresolved_no_exact_name_on_accepted_coordinate_axis": 1864}}
+PASS both_platforms_5km: {"both_positive": 6415}
+PASS wb_single_snapshot: {"rows": 91043, "snapshot": {"2026-10-21": 91043}, "opening_dates_nonnull": 0, "actual_consumer_flows": {"False": 91043}}
+PASS urban_unique_keys: {"urban_target": 2253}
+PASS urban_completeness: {"complete2023_2025": 2149, "incomplete": 104}
+PASS urban_long_unique_keys: {"observations": 8784, "by_year": {"2022": 2193, "2023": 2157, "2024": 2217, "2025": 2217}}
+PASS urban_provenance: "Source URL, Excel row and file populated for each linked observation"
+WARN urban_time_and_boundaries: {"boundary_comparability": {"unknown_not_independently_verified": 2253}, "2022_2023_growth_permitted": {"False": 2253}, "causal_interpretation": {"not_identified": 2253}}
+WARN history_not_ready_for_changes_or_causal_effects: {"wb_current_snapshots": 1, "wb_opening_dates_nonnull": 0, "ozon_current_snapshots": 1, "pilot_presence_records": 6, "pilot_precise_opening_records": 0, "commerce_rows": 142570, "physical_network_comparable_series_flag": {"False": 142570}, "legal_retail_columns": ["econ_native_2011_retail47_legal_entities", "econ_native_2012_retail47_legal_entities", "econ_native_2013_retail47_legal_entities", "econ_native_2014_retail47_legal_entities", "econ_native_2015_retail47_legal_entities", "econ_native_2016_retail47_legal_entities", "econ_native_2017_retail47_legal_entities", "econ_native_2018_retail47_legal_entities", "econ_native_2019_retail47_legal_entities", "econ_native_2020_retail47_legal_entities", "econ_native_2021_retail47_legal_entities", "econ_native_2022_retail47_legal_entities", "econ_native_2023_retail47_legal_entities", "econ_native_2024_retail47_legal_entities", "econ_native_2025_retail47_legal_entities"], "ozon_index_history_note": "Local Git history records same-day repackaging on 2026-08-06, not repeated observation years."}
+WARN coverage_and_zero_interpretation: "81-region accepted census-source territory; federal cities separate. Unlinked/zero accepted objects do not establish absence. Ozon unofficial, dates differ; no platform market-share comparisons."
+WARN distance_interpretation: "Straight-line proximity to known linked points; not road time, observed choice, actual service catchment or improvement over time."
+
+Допустим современный описательный анализ и анализ селективности размещения.
+Изменения сети во времени и причинные эффекты пока не идентифицированы: нет сопоставимых повторных национальных срезов ПВЗ и физической торговли.
+Старые START_HERE/пилотные записки содержат архивные выводы о доступности данных; действующая рамка — national/RESULTS и исправленный RESEARCH_PLAN.
+Файлы других агентов на момент запуска: {"geography": ["geography/summary.json", "geography/by_class_size.csv", "geography/small_inhabited.csv", "geography/by_class.csv", "geography/by_region.csv", "geography/by_size.csv", "geography/by_type.csv", "geography/size_concentration.csv", "geography/joint_evidence.csv", "geography/size_linkage_sensitivity.csv", "geography/verification.json", "geography/joint_with_unknown.csv", "geography/findings.txt", "geography/linkage_sensitivity.csv", "geography/analyze_geography.py"], "demography": ["demography/common_support_strata.csv", "demography/analyze_demography.py", "demography/audit.json", "demography/run_summary.json", "demography/trajectory_standardized.csv", "demography/baseline2002_common_strata.csv", "demography/independent_check.txt", "demography/trajectory_raw.csv", "demography/urban_2023_2025_descriptive.csv", "demography/trajectory_baseline2002_standardized.csv", "demography/presence_by_size_and_decline.csv", "demography/findings.txt"]}
+Их содержательные выводы требуют отдельного итогового ревью после готовности.

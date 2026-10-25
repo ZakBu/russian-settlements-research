@@ -1,0 +1,98 @@
+{
+  "inputs": [
+    {
+      "path": "national/ozon_WB_comparison_main_target_experimental.parquet",
+      "sha256": "cdc06702c38d91957572827cd244d0c260bd5a0b05663e4216cb945f6f8ec694"
+    },
+    {
+      "path": "history_stage_20261024/centres/settlement_admin_context_main2021.parquet",
+      "sha256": "a3a8f05ca233e190a77e7c42323a53120002eef95685a48987be27c4556c44d5"
+    }
+  ],
+  "roles2021_5km": [
+    {
+      "vintage": "20211103",
+      "ozon_link_radius_km": 5,
+      "role": "documented_centre",
+      "settlements": 2056,
+      "population2021": 87969772.0,
+      "positive_settlements": 1991,
+      "positive_population2021": 87471597.0,
+      "positive_settlements_pct": 96.8385214007782,
+      "positive_population2021_pct": 99.43369752055285
+    },
+    {
+      "vintage": "20211103",
+      "ozon_link_radius_km": 5,
+      "role": "other_accepted_member",
+      "settlements": 133971,
+      "population2021": 33763603.0,
+      "positive_settlements": 15314,
+      "positive_population2021": 22435340.0,
+      "positive_settlements_pct": 11.430832045741242,
+      "positive_population2021_pct": 66.44829937136744
+    },
+    {
+      "vintage": "20211103",
+      "ozon_link_radius_km": 5,
+      "role": "unknown_context",
+      "settlements": 8124,
+      "population2021": 3983921.0,
+      "positive_settlements": 1006,
+      "positive_population2021": 3122695.0,
+      "positive_settlements_pct": 12.383062530773019,
+      "positive_population2021_pct": 78.3824528649037
+    }
+  ],
+  "categories2021_5km": [
+    {
+      "vintage": "20211103",
+      "ozon_link_radius_km": 5,
+      "category": "no_inhabited_other_members_observed",
+      "centres": 139,
+      "observed_other_members": 1,
+      "observed_inhabited_other_members": 0
+    },
+    {
+      "vintage": "20211103",
+      "ozon_link_radius_km": 5,
+      "category": "no_positive_records_in_observed_context",
+      "centres": 30,
+      "observed_other_members": 464,
+      "observed_inhabited_other_members": 413
+    },
+    {
+      "vintage": "20211103",
+      "ozon_link_radius_km": 5,
+      "category": "positive_centre_and_other_members",
+      "centres": 1681,
+      "observed_other_members": 122548,
+      "observed_inhabited_other_members": 105179
+    },
+    {
+      "vintage": "20211103",
+      "ozon_link_radius_km": 5,
+      "category": "positive_centre_no_positive_other_members",
+      "centres": 172,
+      "observed_other_members": 8122,
+      "observed_inhabited_other_members": 5997
+    },
+    {
+      "vintage": "20211103",
+      "ozon_link_radius_km": 5,
+      "category": "positive_other_members_no_positive_centre",
+      "centres": 34,
+      "observed_other_members": 2836,
+      "observed_inhabited_other_members": 2494
+    }
+  ],
+  "checks": "PASS: one-to-one merge; all target rows and positive totals reconciled; unique centre contexts; count bounds",
+  "limits": [
+    "Administrative centres are independently documented proxies, not observed shopping centres.",
+    "Contexts contain accepted target members only; incomplete correspondence is explicit.",
+    "A shared administrative centre is counted once; its municipal member sets are combined.",
+    "No-positive-record categories do not establish absent service.",
+    "Network dates2026; administrative contexts2020/2021. This is no network time comparison.",
+    "Unchanged administrative codes and names do not establish unchanged boundaries."
+  ]
+}

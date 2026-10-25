@@ -1,0 +1,139 @@
+{
+  "inputs": [
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/history_stage_20261024/network/wb_history_normalized.parquet",
+      "sha256": "b422933171144d2d83bb88a63a655c72df6c08769359e595abdbbf930748702b"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/wb20261021_objects.parquet",
+      "sha256": "2c5dfebcfbf1918ee081715d5bef4cb0c330871747f5139c6ce26cec662921b7"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/national_target_source2021.parquet",
+      "sha256": "89fce76fe330dd33bd3b5f8496f3e46e7faffaf55d045193bd4070f8a2d017f2"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/history_stage_20261024/centres/settlement_admin_context_main2021.parquet",
+      "sha256": "a3a8f05ca233e190a77e7c42323a53120002eef95685a48987be27c4556c44d5"
+    }
+  ],
+  "objects_ru": 277658,
+  "snapshots": [
+    "2022-09-29",
+    "2022-11-18",
+    "2023-01-01",
+    "2023-05-30",
+    "2023-07-06",
+    "2023-08-15",
+    "2024-03-11",
+    "2026-10-21"
+  ],
+  "link_rule": "Unique exact settlement-name match to one of first four comma-separated address components, recognized type prefix/parenthetical region removed, plus distance1/5/10km on fixed credited2021 coordinates.",
+  "different_from_previous_WB_linkage": true,
+  "main_5km_footprints": [
+    {
+      "archive_date": "2022-09-29",
+      "radius_km": 5,
+      "profile": "all_catalogue",
+      "context_vintage": "20211103",
+      "positive_nodes": 3063,
+      "population2021": 94488063.0,
+      "inhabited_positive_nodes": 3063,
+      "centre_positive_nodes": 1631,
+      "other_known_positive_nodes": 1260,
+      "unknown_context_positive_nodes": 172
+    },
+    {
+      "archive_date": "2022-11-18",
+      "radius_km": 5,
+      "profile": "all_catalogue",
+      "context_vintage": "20211103",
+      "positive_nodes": 3205,
+      "population2021": 95129135.0,
+      "inhabited_positive_nodes": 3205,
+      "centre_positive_nodes": 1670,
+      "other_known_positive_nodes": 1349,
+      "unknown_context_positive_nodes": 186
+    },
+    {
+      "archive_date": "2023-01-01",
+      "radius_km": 5,
+      "profile": "all_catalogue",
+      "context_vintage": "20211103",
+      "positive_nodes": 3277,
+      "population2021": 95279024.0,
+      "inhabited_positive_nodes": 3277,
+      "centre_positive_nodes": 1679,
+      "other_known_positive_nodes": 1409,
+      "unknown_context_positive_nodes": 189
+    },
+    {
+      "archive_date": "2023-05-30",
+      "radius_km": 5,
+      "profile": "all_catalogue",
+      "context_vintage": "20211103",
+      "positive_nodes": 3701,
+      "population2021": 97339706.0,
+      "inhabited_positive_nodes": 3701,
+      "centre_positive_nodes": 1774,
+      "other_known_positive_nodes": 1714,
+      "unknown_context_positive_nodes": 213
+    },
+    {
+      "archive_date": "2023-07-06",
+      "radius_km": 5,
+      "profile": "all_catalogue",
+      "context_vintage": "20211103",
+      "positive_nodes": 3726,
+      "population2021": 97484665.0,
+      "inhabited_positive_nodes": 3726,
+      "centre_positive_nodes": 1781,
+      "other_known_positive_nodes": 1730,
+      "unknown_context_positive_nodes": 215
+    },
+    {
+      "archive_date": "2023-08-15",
+      "radius_km": 5,
+      "profile": "all_catalogue",
+      "context_vintage": "20211103",
+      "positive_nodes": 3747,
+      "population2021": 97567391.0,
+      "inhabited_positive_nodes": 3747,
+      "centre_positive_nodes": 1781,
+      "other_known_positive_nodes": 1751,
+      "unknown_context_positive_nodes": 215
+    },
+    {
+      "archive_date": "2024-03-11",
+      "radius_km": 5,
+      "profile": "all_catalogue",
+      "context_vintage": "20211103",
+      "positive_nodes": 5491,
+      "population2021": 102228020.0,
+      "inhabited_positive_nodes": 5491,
+      "centre_positive_nodes": 1895,
+      "other_known_positive_nodes": 3293,
+      "unknown_context_positive_nodes": 303
+    },
+    {
+      "archive_date": "2026-10-21",
+      "radius_km": 5,
+      "profile": "all_catalogue",
+      "context_vintage": "20211103",
+      "positive_nodes": 16089,
+      "population2021": 111606060.0,
+      "inhabited_positive_nodes": 16084,
+      "centre_positive_nodes": 1987,
+      "other_known_positive_nodes": 13327,
+      "unknown_context_positive_nodes": 775
+    }
+  ],
+  "limits": [
+    "All catalogue types retained; typePoint changed meaning across dates.",
+    "Observed catalogue footprint changes are not actual openings/closures or complete network growth.",
+    "Fitting-room reporting improved; positive-or-unknown is a sensitivity profile, not confirmed customer points.",
+    "One fixed census2021 point/name axis used; historical names and administrative changes may reduce matches.",
+    "Address-coordinate match does not establish location inside settlement boundaries.",
+    "Main linkage differs from the earlier current WB bridge, so previous7991 count is not the denominator here."
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "checked_on": "2026-10-24",
+  "base_input": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/national_target_source2021.parquet",
+  "base_sha256": "89fce76fe330dd33bd3b5f8496f3e46e7faffaf55d045193bd4070f8a2d017f2",
+  "accepted_working_target_rows": 144151,
+  "accepted_working_urban_city_pgt_rows": 2253,
+  "all_physical_city_pgt_rows": 2326,
+  "all_target_urban_preserved_in_wide": 2253,
+  "linked_year_records": 8784,
+  "linked_counts_by_year": {
+    "2022": 2193,
+    "2023": 2157,
+    "2024": 2217,
+    "2025": 2217
+  },
+  "complete_2023_2025_rows": 2149,
+  "all_four_post_years_rows": 2118,
+  "review_records": 383,
+  "peryear_status": {
+    "2022": {
+      "matched_unique_region_name_compatible_type": 2193,
+      "no_compatible_unique_target": 82
+    },
+    "2023": {
+      "matched_unique_region_name_compatible_type": 2157,
+      "no_compatible_unique_target": 136,
+      "ambiguous_source_key": 4
+    },
+    "2024": {
+      "matched_unique_region_name_compatible_type": 2217,
+      "no_compatible_unique_target": 78
+    },
+    "2025": {
+      "matched_unique_region_name_compatible_type": 2217,
+      "no_compatible_unique_target": 83
+    }
+  },
+  "join_rule": "Unique normalized region+settlement name+compatible type (г=город,пгт/рп/urban-п=пгт); redundant terminal рп/пгт/кп/дп markers removed for pgt names. Also unique across all physical source2021 inventory. No TERSON/OKTMO guess, no municipal population transfer, no duplicate aggregation.",
+  "unknown_rule": "Unlinked urban targets remain in wide with null population and explicit unknown status. Rural target unchanged in authoritative base.",
+  "comparability": "Identity linkage only; boundary identity across dates is unknown.2022pre-census vs2023post-census break preserved; no2022–2023growth. Census2021 vsJan2023different reference dates.",
+  "not_done": [
+    "No causal regression",
+    "No population-growth attribution to current WB/Ozon",
+    "No general claim that date of first source appearance is an opening date",
+    "No assumption all source urban candidate rows are unique own settlements; federal-city internal units excluded by accepted target matching"
+  ],
+  "verification": {
+    "unique_target_year": true,
+    "unique_source_row_link": true,
+    "all_target_urban_rows_retained": true,
+    "source_2022_2023_growth_prohibited": true,
+    "all_linked_population_values_rechecked_against_raw_excel_cells": true,
+    "all_linked_names_rechecked_against_raw_excel_cells": true,
+    "original_base_unchanged": true
+  }
+}

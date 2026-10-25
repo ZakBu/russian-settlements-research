@@ -1,0 +1,83 @@
+{
+  "trade_panel_medium_by_category": {
+    "Магазины": 174,
+    "Специализированные непродовольственные магазины": 161
+  },
+  "joined_rows": 2010,
+  "positive_centre_both_dates_rows": 1517,
+  "main5km_allcatalog": [
+    {
+      "category": "Магазины",
+      "radius_km": 5,
+      "catalogue_profile": "allcatalog_objects",
+      "receipt_category": "net_increase_in_other_positive_catalogue_NP",
+      "centres_n": 72,
+      "stock_decline_n": 22,
+      "share_loss_atleast1pp_n": 12,
+      "share_gain_atleast1pp_n": 31,
+      "share_between_minus1_plus1pp_n": 29,
+      "median_trade_share_change_pp": 0.7584392877852153,
+      "catalogue_window": "2022-09-29_to_2024-03-11",
+      "trade_window": "IVquarter2022_to_IVquarter2024",
+      "source_profiles_harmonized": false,
+      "causal_interpretation": false
+    },
+    {
+      "category": "Магазины",
+      "radius_km": 5,
+      "catalogue_profile": "allcatalog_objects",
+      "receipt_category": "no_net_increase_in_other_positive_catalogue_NP",
+      "centres_n": 76,
+      "stock_decline_n": 24,
+      "share_loss_atleast1pp_n": 9,
+      "share_gain_atleast1pp_n": 43,
+      "share_between_minus1_plus1pp_n": 24,
+      "median_trade_share_change_pp": 1.3640125890571184,
+      "catalogue_window": "2022-09-29_to_2024-03-11",
+      "trade_window": "IVquarter2022_to_IVquarter2024",
+      "source_profiles_harmonized": false,
+      "causal_interpretation": false
+    },
+    {
+      "category": "Специализированные непродовольственные магазины",
+      "radius_km": 5,
+      "catalogue_profile": "allcatalog_objects",
+      "receipt_category": "net_increase_in_other_positive_catalogue_NP",
+      "centres_n": 68,
+      "stock_decline_n": 20,
+      "share_loss_atleast1pp_n": 19,
+      "share_gain_atleast1pp_n": 17,
+      "share_between_minus1_plus1pp_n": 32,
+      "median_trade_share_change_pp": 0.0,
+      "catalogue_window": "2022-09-29_to_2024-03-11",
+      "trade_window": "IVquarter2022_to_IVquarter2024",
+      "source_profiles_harmonized": false,
+      "causal_interpretation": false
+    },
+    {
+      "category": "Специализированные непродовольственные магазины",
+      "radius_km": 5,
+      "catalogue_profile": "allcatalog_objects",
+      "receipt_category": "no_net_increase_in_other_positive_catalogue_NP",
+      "centres_n": 70,
+      "stock_decline_n": 17,
+      "share_loss_atleast1pp_n": 5,
+      "share_gain_atleast1pp_n": 7,
+      "share_between_minus1_plus1pp_n": 58,
+      "median_trade_share_change_pp": 0.0,
+      "catalogue_window": "2022-09-29_to_2024-03-11",
+      "trade_window": "IVquarter2022_to_IVquarter2024",
+      "source_profiles_harmonized": false,
+      "causal_interpretation": false
+    }
+  ],
+  "checks": "PASS unique centre-category and centre-radius-profile keys; one-to-many join; category sums",
+  "limitations": [
+    "Shop C/S is lower-municipal-unit stock divided by whole district; exact NP interpretation remains conditional.",
+    "Singleton status witnessed in2020/2021/2022/2026, not verified for every2023/2024 observation.",
+    "Administrative context and reported store counts do not measure customer catchments or trade capacity.",
+    "Positive catalogue-node change is not a measured change of the complete operating network.",
+    "Catalogue and trade windows differ and source profiles are not fully harmonized.",
+    "Groups are descriptive observed categories, not treated/control groups; no platform effect estimated."
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "source": "national/nearest_marketplaces_experimental.parquet",
+  "source_sha256": "dee8c8d83587bd237cb1dd6405464ac83c7a1ba48c9ff0fdabef83438370452d",
+  "input_rows": 144149,
+  "inhabited_rows": 123137,
+  "population2021": 125717257.0,
+  "median_wb_km": 10.687094950353918,
+  "median_either_km": 5.4820682784872155,
+  "thresholds": [
+    {
+      "dimension": "national",
+      "group": "accepted_81_regions_inhabited_with_coordinates",
+      "radius_km": 5,
+      "inhabited_settlements": 123137,
+      "census_population2021": 125717257.0,
+      "wb_near_settlements": 30310,
+      "either_near_settlements": 57319,
+      "additional_near_settlements": 27009,
+      "wb_near_population": 111546025.0,
+      "either_near_population": 118577523.0,
+      "additional_near_population": 7031498.0,
+      "wb_near_np_pct": 24.614859871525212,
+      "either_near_np_pct": 46.54896578607568,
+      "wb_near_population_pct": 88.72769551438749,
+      "either_near_population_pct": 94.32080036553772
+    },
+    {
+      "dimension": "national",
+      "group": "accepted_81_regions_inhabited_with_coordinates",
+      "radius_km": 10,
+      "inhabited_settlements": 123137,
+      "census_population2021": 125717257.0,
+      "wb_near_settlements": 58051,
+      "either_near_settlements": 91410,
+      "additional_near_settlements": 33359,
+      "wb_near_population": 116371972.0,
+      "either_near_population": 122317298.0,
+      "additional_near_population": 5945326.0,
+      "wb_near_np_pct": 47.1434256153715,
+      "either_near_np_pct": 74.23438933870405,
+      "wb_near_population_pct": 92.56642626238656,
+      "either_near_population_pct": 97.29555107935579
+    },
+    {
+      "dimension": "national",
+      "group": "accepted_81_regions_inhabited_with_coordinates",
+      "radius_km": 20,
+      "inhabited_settlements": 123137,
+      "census_population2021": 125717257.0,
+      "wb_near_settlements": 97610,
+      "either_near_settlements": 114268,
+      "additional_near_settlements": 16658,
+      "wb_near_population": 121947762.0,
+      "either_near_population": 124382165.0,
+      "additional_near_population": 2434403.0,
+      "wb_near_np_pct": 79.26943160869601,
+      "either_near_np_pct": 92.79745324313569,
+      "wb_near_population_pct": 97.00160893583607,
+      "either_near_population_pct": 98.9380201001363
+    }
+  ],
+  "checks": [
+    "unique source_record_id",
+    "nonnegative population",
+    "finite distances",
+    "either=min(WB,Ozon)",
+    "threshold inclusion and population bounds"
+  ],
+  "limitations": [
+    "Accepted comparable source territory: 81 ordinary regions; federal cities excluded as targets.",
+    "Distances to known accepted points only, measured in straight line from settlement reference points.",
+    "WB snapshot2026-10-21 versus unofficial Ozon archive declared2026-08-06: unequal sources and dates.",
+    "Adding Ozon to the observed point set is an arithmetic scenario, not a temporal improvement or causal effect.",
+    "Population weights are census2021; no claim about resident counts in2026.",
+    "No road routing, actual trips, service quality or real catchments measured."
+  ]
+}

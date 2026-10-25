@@ -1,0 +1,31 @@
+{
+  "status": "PASS_with_temporal_identity_limit",
+  "full_np_count_rule": "upper first5; lower first8; all official section2 NP rows, before any census-axis linkage; include unlinked/zero-population records",
+  "available_vintages": [
+    "20150128",
+    "20200110",
+    "20211103",
+    "20220927",
+    "20261001"
+  ],
+  "missing_observation_specific_vintages": [
+    2023,
+    2024
+  ],
+  "real_municipality_rule": "section1,nonzero KOD1,zero KOD3,explicitCentrum; non-group code; empty-centre actual units conservatively excluded",
+  "stable2020_2026_singleton_municipalities_n": 2730,
+  "stable2015_2026_singleton_municipalities_n": 2711,
+  "shops_exact_category_source_rows": 481858,
+  "conflicting_keys_excluded_n": 400,
+  "conflicting_rows_excluded_n": 800,
+  "equal_value_duplicate_keys_collapsed_n": 35,
+  "annual_candidate_rows": 16084,
+  "quarterIV_candidate_rows": 6721,
+  "limits": [
+    "No2023/2024 verified full-register rosters downloaded; TLS validation kept enabled and failed.",
+    "Singleton at available vintages is stability candidacy, not verified boundaries or per-year membership.",
+    "One named settlement in municipality does not geolocate each outlet inside its built-up boundary.",
+    "Exact shops category and time periods retained; annual series and quarterIV series never concatenated.",
+    "No physical openings/closures or marketplace causal effects inferred."
+  ]
+}

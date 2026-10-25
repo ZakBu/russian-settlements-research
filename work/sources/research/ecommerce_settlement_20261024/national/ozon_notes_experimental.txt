@@ -1,0 +1,15 @@
+ЭКСПЕРИМЕНТАЛЬНЫЙ слой Ozon из стороннего архива. Сам архив не публикуется.
+Основной профиль: уникальный НП с точно совпадающим нормализованным city_label и WGS84 расстоянием≤5км;1/10км — чувствительность. Все координаты НП взяты из accepted census20261022.
+Кандидатная ось включает все физические строки2021 с accepted coordinates. Основные суммы используют только working_credit_present=True; notcredited не суммируются с основной осью.
+Москва, Санкт-Петербург, Севастополь вынесены в федеральный context и не распределены по малым НП.
+Коды raw_p:0 — предполагаемый ПВЗ,1 — предполагаемый постамат. Это интерпретация стороннего архива, не независимо проверенная схема Ozon. raw_k сохранён без толкования.
+Два среза неодновременны: Ozon объявлен архивом06.08.2026, WB21.10.2026. Даты открытия неизвестны.
+Ozon partial unknown: ноль принятых объектов не означает отсутствие ПВЗ. Ни neither accepted, ни WB-only accepted не доказывают отсутствия услуги другой платформы.
+Сравнение имеет четыре категории для известного WB: both accepted; WB positive/no accepted Ozon; Ozon positive/no accepted WB; neither accepted. Неизвестный WB показан ещё двумя отдельными категориями с Ozon-positive либо без принятого Ozon.
+Профиль5км: {"federal_city_label_context_not_distributed": 10101, "accepted_unique_exact_name_within_radius": 60557, "unresolved_named_candidates_outside_radius": 19429, "ambiguous_multiple_exact_name_candidates_within_radius": 552, "unresolved_no_exact_name_on_accepted_coordinate_axis": 1864}
+Main pickup5км coverage: {"settlements_n": 144151, "ozon_archive_partial": true, "ozon_type_inferred": "pickup", "geolink_radius_km": 5, "WB_variant": "baseline", "both_positive_accepted_n": 6415, "WB_positive_no_accepted_Ozon_partial_unknown_n": 1576, "Ozon_positive_no_accepted_WB_n": 10143, "neither_accepted_not_confirmed_absence_n": 124434, "WB_unknown_Ozon_positive_n": 177, "WB_unknown_Ozon_no_accepted_partial_unknown_n": 1406, "ozon_positive_n": 16735, "ozon_zero_accepted_partial_unknown_n": 127416, "WB_unknown_n": 1583, "ozon_positive_share_all_main_target": 0.11609354080096565}
+В ozon_pilot_six_centres_three_WBpositive_neighbours.csv проверены6центров и3уникальных WB-positive НП окружения. Исходные файлы пилота и WB national не изменены.
+Не применены nearest-only, fuzzy, адресная спасательная привязка и вывод о функциональном ареале. Нужна независимая адресная проверка принятых связей.
+Правила сопоставления платформ различаются: Ozon city-label5км,p0; WB исходная адресно-именная привязка10км,типы8/34. Вместе с разными датами/полнотой это запрещает вывод о превосходстве рыночного охвата Ozon из простого отношения числа НП.
+Дополнительно все486пар НП окружения проверены в ozon_pilot_neighbourhood_screening.csv. Круги20км остаются скринингом, радиусы1/5/10км относятся к привязке ОБЪЕКТА к НП, а не обслуживанию клиента.
+В окружении принято Ozon-p0 в 16 уникальныхНП; 13 изних не имели положительного принятогоWB. Это дополнительные положительные свидетельства Ozon, не доказательство физического отсутствия WB и не датированное новое открытие.

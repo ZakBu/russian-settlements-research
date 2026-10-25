@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "id": "dated-wb-footprint",
+      "title": "Нынешние положительные записи WB без принятой записи старого каталога",
+      "queries": [
+        {
+          "id": "wb-2024-2026-named-footprint",
+          "source": {
+            "label": "Архив WB11.03.2024, срез WB21.10.2026 и ОКТМО2021",
+            "files": [
+              "wb_catalogue_footprint_changes.csv",
+              "link_history_symmetrically.py",
+              "centres/settlement_admin_context_main2021.parquet"
+            ],
+            "filters": [
+              "Одна принятая база зачтённых НП2021 в81 обычном регионе",
+              "Исходный раздел страныru",
+              "Нынешние типы8/34; в старом каталоге любой тип",
+              "Точное имя среди первых четырёх адресных компонентов и единственный кандидат в указанном радиусе"
+            ],
+            "caveats": [
+              "Каталоги менялись по составу и полноте. Разность положительных записей не равна числу реальных открытий и не является нижней границей открытий.",
+              "Один пространственный алгоритм не устраняет изменения адресов, типов и полноты исходников.",
+              "Административные центры определены по официальному ОКТМО2021; административное окружение не является измеренным торговым ареалом."
+            ],
+            "metricDefinitions": [
+              {
+                "name": "Добавочные положительные записи на уровнеНП",
+                "definition": "Поселения с принятым нынешним объектом типа8/34, для которых тем же правилом не получено ни одной принятой записи любого типа в каталоге11.03.2024."
+              }
+            ]
+          },
+          "reportingPeriod": "Архив WB11.03.2024 и срез21.10.2026; фиксированная ось НП2021",
+          "columns": [
+            "radius_km",
+            "old_catalogue_nodes",
+            "current_focus_nodes",
+            "current_focus_without_old_any",
+            "documented_centres2021",
+            "other_known_members2021"
+          ],
+          "rows": [
+            {
+              "radius_km": 1,
+              "old_catalogue_nodes": 4906,
+              "current_focus_nodes": 7398,
+              "current_focus_without_old_any": 2660,
+              "documented_centres2021": 178,
+              "other_known_members2021": 2332
+            },
+            {
+              "radius_km": 5,
+              "old_catalogue_nodes": 5491,
+              "current_focus_nodes": 7933,
+              "current_focus_without_old_any": 2616,
+              "documented_centres2021": 66,
+              "other_known_members2021": 2399
+            },
+            {
+              "radius_km": 10,
+              "old_catalogue_nodes": 5454,
+              "current_focus_nodes": 7888,
+              "current_focus_without_old_any": 2608,
+              "documented_centres2021": 68,
+              "other_known_members2021": 2390
+            }
+          ],
+          "preview": {
+            "kind": "aggregate",
+            "note": "Три варианта правила привязки. Радиус не является ареалом обслуживания."
+          }
+        }
+      ]
+    }
+  ]
+}

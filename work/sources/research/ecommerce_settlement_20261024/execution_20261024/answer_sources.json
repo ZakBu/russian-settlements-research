@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "id": "settlement-network-configuration",
+      "title": "Современное размещение ПВЗ в принятой базе",
+      "queries": [
+        {
+          "id": "national-configuration",
+          "source": {
+            "label": "Принятая база поселений и положительные записи WB/Ozon",
+            "files": [
+              "ozon_WB_comparison_main_target_experimental.parquet",
+              "geography/analyze_geography.py"
+            ],
+            "filters": [
+              "Зачтённые физические НП2021 в81 обычном регионе",
+              "WB: выбранные типы8/34",
+              "Ozon: предполагаемые ПВЗ raw_p0 с однозначной привязкой5км"
+            ],
+            "caveats": [
+              "Источники WB21.10.2026 и Ozon06.08.2026 различаются полнотой и происхождением.",
+              "Ноль принятых записей не означает подтверждённого отсутствия ПВЗ.",
+              "Доли жителей используют население НП по переписи2021, а не текущих покупателей."
+            ],
+            "metricDefinitions": [
+              {
+                "name": "НП с положительной записью",
+                "definition": "Поселения с хотя бы одной принятой записью выбранных типов WB или предполагаемого ПВЗ Ozon."
+              }
+            ]
+          },
+          "reportingPeriod": "Перепись2021; WB21.10.2026; архив Ozon06.08.2026",
+          "columns": [
+            "settlements",
+            "positive_settlements",
+            "population2021",
+            "positive_population2021"
+          ],
+          "rows": [
+            {
+              "settlements": 144151,
+              "positive_settlements": 18311,
+              "population2021": 125717296,
+              "positive_population2021": 113029632
+            }
+          ],
+          "preview": {
+            "kind": "aggregate",
+            "note": "Национальные агрегаты принятой совокупности"
+          }
+        }
+      ]
+    }
+  ]
+}

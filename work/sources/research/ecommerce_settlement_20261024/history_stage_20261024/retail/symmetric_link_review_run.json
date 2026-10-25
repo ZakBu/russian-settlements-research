@@ -1,0 +1,96 @@
+{
+  "review_scope": "catalogue linkage validity and independent arithmetic, not ground-truth completeness or operational history",
+  "input_rows": 277658,
+  "snapshots": [
+    "2022-09-29",
+    "2022-11-18",
+    "2023-01-01",
+    "2023-05-30",
+    "2023-07-06",
+    "2023-08-15",
+    "2024-03-11",
+    "2026-10-21"
+  ],
+  "sample100_rows": 100,
+  "sample_design": "SHA256(date|id), stratified 8dates and 3main5km statuses; 68accepted+16ambiguous+16unresolved",
+  "independent_recalculation": "different haversine formula plus inverted-name index, no imported linker functions",
+  "sample_status_id_distance_checks": "PASS: 300 radius-specific status/id/distance comparisons; distance tolerances1e-6km",
+  "inventory_rows_verified": 24,
+  "footprint_rows_verified": 144,
+  "change_rows_verified": 21,
+  "beyond_first4_unique5km_candidates": 6,
+  "beyond_first4_by_date": {
+    "2026-10-21": 6
+  },
+  "explicit_city_matched_nonurban_type_cases": 6,
+  "ambiguous_explicit_city_village_homonyms": 101,
+  "ambiguous_explicit_city_village_by_date": {
+    "2022-09-29": 12,
+    "2022-11-18": 11,
+    "2023-01-01": 11,
+    "2023-05-30": 12,
+    "2023-07-06": 12,
+    "2023-08-15": 13,
+    "2024-03-11": 14,
+    "2026-10-21": 16
+  },
+  "nonmonotonic_radius_diagnostics": [
+    {
+      "archive_date": "2022-09-29",
+      "accepted1_becomes_ambiguous5": 64,
+      "accepted5_becomes_ambiguous10": 85
+    },
+    {
+      "archive_date": "2022-11-18",
+      "accepted1_becomes_ambiguous5": 66,
+      "accepted5_becomes_ambiguous10": 96
+    },
+    {
+      "archive_date": "2023-01-01",
+      "accepted1_becomes_ambiguous5": 70,
+      "accepted5_becomes_ambiguous10": 99
+    },
+    {
+      "archive_date": "2023-05-30",
+      "accepted1_becomes_ambiguous5": 79,
+      "accepted5_becomes_ambiguous10": 114
+    },
+    {
+      "archive_date": "2023-07-06",
+      "accepted1_becomes_ambiguous5": 80,
+      "accepted5_becomes_ambiguous10": 114
+    },
+    {
+      "archive_date": "2023-08-15",
+      "accepted1_becomes_ambiguous5": 78,
+      "accepted5_becomes_ambiguous10": 115
+    },
+    {
+      "archive_date": "2024-03-11",
+      "accepted1_becomes_ambiguous5": 110,
+      "accepted5_becomes_ambiguous10": 158
+    },
+    {
+      "archive_date": "2026-10-21",
+      "accepted1_becomes_ambiguous5": 369,
+      "accepted5_becomes_ambiguous10": 453
+    }
+  ],
+  "can_describe_catalogue_footprint_change": true,
+  "strict_profile_note": "current_fitting_positive_without_old_catalogue_record is a stricter observed-evidence contrast, NOT a lower bound on true openings/growth",
+  "claim_scope": "change in positively observed catalogue evidence under a fixed name/coordinate linkage rule, explicit source and field-coverage caveats; not complete network or true customer-PVZ changes",
+  "material_risks": [
+    "First-four-component parsing may miss nested localities; address formatting changes across dates.",
+    "One centroid point and no settlement polygons preferentially miss urban peripheries at1/5km; distances are linkage rules, not service distance.",
+    "Region text is discarded and prefix/type ignored; exact homonyms or changed administrative status need extra review.",
+    "Uniqueness is evaluated inside each radius; accepted1/5km can become ambiguous at5/10km, so linked sets are not nested.",
+    "Alltype current catalogue includes objects outside narrow pickup8/34; typePoint is not comparable across snapshots.",
+    "Fitting metadata missingness differs strongly by date; fitting-positive is evidence of a field, not validated operational classification.",
+    "Catalogue object IDs cannot automatically be used as persistent physical-unit identities.",
+    "Fixed2021 names/points and administrative contexts omit historical renamings, relocations and boundary/status changes.",
+    "An unobserved old catalogue record is not a verified absence, opening date or proof of retail function gain."
+  ],
+  "not_established": "no independently ground-truthed sample or operational validation; arithmetic agreement does not imply no false matches",
+  "script_sha256": "1605af39ce39f5c6cd734ec6a622007009b4e10cc2f09f5a25b579287ee80e3d",
+  "linker_sha256": "3c074b41889a9bdcfa3b2f0d0e0aa35cddf262b41c29e0297b4e5993abe5fd57"
+}

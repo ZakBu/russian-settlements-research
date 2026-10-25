@@ -1,0 +1,165 @@
+{
+  "status": "PASS",
+  "inputs": [
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/national_target_source2021.parquet",
+      "sha256": "89fce76fe330dd33bd3b5f8496f3e46e7faffaf55d045193bd4070f8a2d017f2"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/history_stage_20261024/centres/settlement_admin_context_main2021.parquet",
+      "sha256": "a3a8f05ca233e190a77e7c42323a53120002eef95685a48987be27c4556c44d5"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/history_stage_20261024/wb_history_settlement_counts.parquet",
+      "sha256": "0f9f4b298ff34222a55fe87530b1b3131f72f470b2ecd80f4d8f27753f3ea359"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/urban_population_panel_main_wide.parquet",
+      "sha256": "3f1438e791d67e5f9f4d76ab98d47a4dabf4afd7b910d55d2eaf36d975dc8d3a"
+    }
+  ],
+  "main_axis_n": 144151,
+  "admin_centres2020_n": 1953,
+  "unique_context_member_ids_n": 127189,
+  "overlapping_member_ids_n": 0,
+  "overlapping_member_ids": {},
+  "context_roster_membership_definition": "union by unique centre ID of strict main-axis administrative members plus centre once",
+  "medium_primary_definition": "administrative centre in official2020 register, population2002 between5000 inclusive and50000 exclusive; threshold is an explicit analytical convention, not a measured functional rank",
+  "history_population_definition": "same2020 administrative-context roster projected on accepted inter-census identities; direct2002 and2021 observations only; >=90% of represented2021 population covered; not historical municipal totals",
+  "no_causal_interpretation": true,
+  "no_actual_catchments": true,
+  "periods_not_aligned_for_effect_estimation": true,
+  "summaries": [
+    {
+      "selection": "medium2002",
+      "centres_n": 1273,
+      "supported_demographic_n": 1195,
+      "recent_observed_n": 840,
+      "recent_declining_n": 732,
+      "median_recent_change_pct": -1.6053398618611159,
+      "demographic_types": {
+        "shrinking_centre_population_concentration": 752,
+        "growing_centre_population_concentration": 194,
+        "centre_population_decline_stable_share": 106,
+        "shrinking_centre_relative_weight_loss": 76,
+        "centre_population_growth_stable_share": 35,
+        "growing_centre_relative_deconcentration": 32
+      },
+      "median_historical_centre_change_pct": -11.497936605496529,
+      "median_historical_centre_share_change_pp": 4.063733791920058
+    },
+    {
+      "selection": "medium2021",
+      "centres_n": 1192,
+      "supported_demographic_n": 1110,
+      "recent_observed_n": 802,
+      "recent_declining_n": 697,
+      "median_recent_change_pct": -1.580144576251169,
+      "demographic_types": {
+        "shrinking_centre_population_concentration": 661,
+        "growing_centre_population_concentration": 200,
+        "centre_population_decline_stable_share": 104,
+        "shrinking_centre_relative_weight_loss": 78,
+        "centre_population_growth_stable_share": 35,
+        "growing_centre_relative_deconcentration": 32
+      },
+      "median_historical_centre_change_pct": -10.666196321364385,
+      "median_historical_centre_share_change_pp": 3.7650995645316776
+    },
+    {
+      "selection": "all_centres2020",
+      "centres_n": 1953,
+      "supported_demographic_n": 1794,
+      "recent_observed_n": 1244,
+      "recent_declining_n": 1043,
+      "median_recent_change_pct": -1.4354209392358042,
+      "demographic_types": {
+        "shrinking_centre_population_concentration": 1033,
+        "growing_centre_population_concentration": 275,
+        "centre_population_decline_stable_share": 199,
+        "shrinking_centre_relative_weight_loss": 135,
+        "centre_population_growth_stable_share": 83,
+        "growing_centre_relative_deconcentration": 69
+      },
+      "median_historical_centre_change_pct": -10.75786629767621,
+      "median_historical_centre_share_change_pp": 3.4898108205201197
+    }
+  ],
+  "catalogue_typology_medium2002_main5km": [
+    {
+      "comparison": "cross_schema_not_harmonized",
+      "catalogue_type": "centre_retained_and_other_footprint_expands",
+      "centres_n": 1064
+    },
+    {
+      "comparison": "cross_schema_not_harmonized",
+      "catalogue_type": "centre_retained_without_other_footprint_expansion",
+      "centres_n": 67
+    },
+    {
+      "comparison": "cross_schema_not_harmonized",
+      "catalogue_type": "earlier_centre_only_catalogue_record",
+      "centres_n": 2
+    },
+    {
+      "comparison": "cross_schema_not_harmonized",
+      "catalogue_type": "later_centre_record_not_earlier",
+      "centres_n": 36
+    },
+    {
+      "comparison": "cross_schema_not_harmonized",
+      "catalogue_type": "no_centre_record_both_dates",
+      "centres_n": 26
+    },
+    {
+      "comparison": "earlier_to_later_observed_schema_not_harmonized",
+      "catalogue_type": "centre_retained_and_other_footprint_expands",
+      "centres_n": 438
+    },
+    {
+      "comparison": "earlier_to_later_observed_schema_not_harmonized",
+      "catalogue_type": "centre_retained_without_other_footprint_expansion",
+      "centres_n": 552
+    },
+    {
+      "comparison": "earlier_to_later_observed_schema_not_harmonized",
+      "catalogue_type": "earlier_centre_only_catalogue_record",
+      "centres_n": 2
+    },
+    {
+      "comparison": "earlier_to_later_observed_schema_not_harmonized",
+      "catalogue_type": "later_centre_record_not_earlier",
+      "centres_n": 143
+    },
+    {
+      "comparison": "earlier_to_later_observed_schema_not_harmonized",
+      "catalogue_type": "no_centre_record_both_dates",
+      "centres_n": 60
+    },
+    {
+      "comparison": "same_url_v2_short_interval",
+      "catalogue_type": "centre_retained_and_other_footprint_expands",
+      "centres_n": 36
+    },
+    {
+      "comparison": "same_url_v2_short_interval",
+      "catalogue_type": "centre_retained_without_other_footprint_expansion",
+      "centres_n": 955
+    },
+    {
+      "comparison": "same_url_v2_short_interval",
+      "catalogue_type": "earlier_centre_only_catalogue_record",
+      "centres_n": 23
+    },
+    {
+      "comparison": "same_url_v2_short_interval",
+      "catalogue_type": "later_centre_record_not_earlier",
+      "centres_n": 22
+    },
+    {
+      "comparison": "same_url_v2_short_interval",
+      "catalogue_type": "no_centre_record_both_dates",
+      "centres_n": 159
+    }
+  ]
+}

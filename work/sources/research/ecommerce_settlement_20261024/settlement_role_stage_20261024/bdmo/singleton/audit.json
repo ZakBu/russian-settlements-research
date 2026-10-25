@@ -1,0 +1,184 @@
+{
+  "status": "PASS_with_temporal_identity_limit",
+  "register_audit": [
+    {
+      "vintage": "20150128",
+      "raw_rows": 203132,
+      "all_official_np_rows": 155801,
+      "real_municipality_rows_with_explicit_centre": 22719,
+      "future_rows_excluded": 1,
+      "encoding": "cp1251"
+    },
+    {
+      "vintage": "20200110",
+      "raw_rows": 199347,
+      "all_official_np_rows": 155735,
+      "real_municipality_rows_with_explicit_centre": 20895,
+      "future_rows_excluded": 0,
+      "encoding": "cp1251"
+    },
+    {
+      "vintage": "20211103",
+      "raw_rows": 197277,
+      "all_official_np_rows": 155563,
+      "real_municipality_rows_with_explicit_centre": 19977,
+      "future_rows_excluded": 0,
+      "encoding": "utf8"
+    },
+    {
+      "vintage": "20220927",
+      "raw_rows": 195767,
+      "all_official_np_rows": 155456,
+      "real_municipality_rows_with_explicit_centre": 19285,
+      "future_rows_excluded": 5,
+      "encoding": "utf8"
+    },
+    {
+      "vintage": "20261001",
+      "raw_rows": 186531,
+      "all_official_np_rows": 158181,
+      "real_municipality_rows_with_explicit_centre": 13538,
+      "future_rows_excluded": 0,
+      "encoding": "utf8"
+    }
+  ],
+  "full_np_count_rule": "upper first5; lower first8; all official section2 NP rows, before any census-axis linkage; include unlinked/zero-population records",
+  "available_vintages": [
+    "20150128",
+    "20200110",
+    "20211103",
+    "20220927",
+    "20261001"
+  ],
+  "missing_observation_specific_vintages": [
+    2023,
+    2024
+  ],
+  "real_municipality_rule": "section1,nonzero KOD1,zero KOD3,explicitCentrum; non-group code; empty-centre actual units conservatively excluded",
+  "bridge_status_counts": [
+    {
+      "register_vintage": "20150128",
+      "bridge_status": "multiple_settlements_not_allocated",
+      "municipalities_n": 18282
+    },
+    {
+      "register_vintage": "20150128",
+      "bridge_status": "singleton_exact_np_axis2021",
+      "municipalities_n": 3755
+    },
+    {
+      "register_vintage": "20150128",
+      "bridge_status": "singleton_no_unique_exact_main_axis_link",
+      "municipalities_n": 682
+    },
+    {
+      "register_vintage": "20200110",
+      "bridge_status": "multiple_settlements_not_allocated",
+      "municipalities_n": 16874
+    },
+    {
+      "register_vintage": "20200110",
+      "bridge_status": "singleton_exact_np_axis2021",
+      "municipalities_n": 3639
+    },
+    {
+      "register_vintage": "20200110",
+      "bridge_status": "singleton_no_unique_exact_main_axis_link",
+      "municipalities_n": 382
+    },
+    {
+      "register_vintage": "20211103",
+      "bridge_status": "multiple_settlements_not_allocated",
+      "municipalities_n": 16128
+    },
+    {
+      "register_vintage": "20211103",
+      "bridge_status": "singleton_exact_np_axis2021",
+      "municipalities_n": 3641
+    },
+    {
+      "register_vintage": "20211103",
+      "bridge_status": "singleton_no_unique_exact_main_axis_link",
+      "municipalities_n": 208
+    },
+    {
+      "register_vintage": "20220927",
+      "bridge_status": "multiple_settlements_not_allocated",
+      "municipalities_n": 15529
+    },
+    {
+      "register_vintage": "20220927",
+      "bridge_status": "singleton_exact_np_axis2021",
+      "municipalities_n": 3608
+    },
+    {
+      "register_vintage": "20220927",
+      "bridge_status": "singleton_no_unique_exact_main_axis_link",
+      "municipalities_n": 148
+    },
+    {
+      "register_vintage": "20261001",
+      "bridge_status": "multiple_settlements_not_allocated",
+      "municipalities_n": 10652
+    },
+    {
+      "register_vintage": "20261001",
+      "bridge_status": "singleton_exact_np_axis2021",
+      "municipalities_n": 2750
+    },
+    {
+      "register_vintage": "20261001",
+      "bridge_status": "singleton_no_unique_exact_main_axis_link",
+      "municipalities_n": 136
+    }
+  ],
+  "stable2020_2026_singleton_municipalities_n": 2730,
+  "stable2015_2026_singleton_municipalities_n": 2711,
+  "shops_exact_category_source_rows": 481858,
+  "conflicting_keys_excluded_n": 400,
+  "conflicting_rows_excluded_n": 800,
+  "equal_value_duplicate_keys_collapsed_n": 35,
+  "annual_candidate_rows": 16084,
+  "quarterIV_candidate_rows": 6721,
+  "limits": [
+    "No2023/2024 verified full-register rosters downloaded; TLS validation kept enabled and failed.",
+    "Singleton at available vintages is stability candidacy, not verified boundaries or per-year membership.",
+    "One named settlement in municipality does not geolocate each outlet inside its built-up boundary.",
+    "Exact shops category and time periods retained; annual series and quarterIV series never concatenated.",
+    "No physical openings/closures or marketplace causal effects inferred."
+  ],
+  "inputs": [
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/history_stage_20261024/centres/raw/data-20150128T1701-structure-20260210T1102.csv",
+      "sha256": "357b35f5e5c871081581bff21ae4ad7ca5f4211538d1bb907496fc93f6db46af"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/history_stage_20261024/centres/raw/data-20200110T1001-structure-20260210T1102.csv",
+      "sha256": "a46d05af271efe640fe234f9df92c52db7ee2f7079ee4e78ac2cc03d9d45eac9"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/history_stage_20261024/centres/raw/data-20211103T1311-structure-20260210T1102.csv",
+      "sha256": "c323245383b6f3f2ab832994aa6b69c821d6cdf0e8ff9b03e42e0ae4311bf97f"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/history_stage_20261024/centres/raw/data-20220927T1309-structure-20260210T1102.csv",
+      "sha256": "833efa787faaad70547166c4009ae6ef0bb9e9272ccd064b76703775010da404"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/history_stage_20261024/centres/raw/data-20261001T1110-structure-20260210T1102.csv",
+      "sha256": "2e3f1d24ebfcbcf050a1a706a77e7e9639a686749194bf5c6a8200ba598cf37a"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/settlement_role_stage_20261024/bdmo/shop_object_counts_all_municipal_levels.parquet",
+      "sha256": "3d7b8ee68221e6b237fe7a343e4e345a513b268ccfa1623d834629d6b9f4181a"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/national_target_source2021.parquet",
+      "sha256": "89fce76fe330dd33bd3b5f8496f3e46e7faffaf55d045193bd4070f8a2d017f2"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/pilot/inputs/data/population/settlements_census_long.parquet",
+      "sha256": "2b0a1e3cd20819f6b99d1e6a200e4365fa7296e128dc22b023327b9e572f60c4"
+    }
+  ]
+}

@@ -1,0 +1,463 @@
+{
+  "run_date": "2026-10-24",
+  "scope": "Independent input audit, no external source acquisition",
+  "checks": [
+    {
+      "name": "target_unique_keys",
+      "status": "PASS",
+      "detail": {
+        "rows": 144151,
+        "unique_source_ids": 144151
+      }
+    },
+    {
+      "name": "target_unique_roots",
+      "status": "PASS",
+      "detail": "One inter-census root per target row"
+    },
+    {
+      "name": "target_grain",
+      "status": "PASS",
+      "detail": {
+        "regions": 81,
+        "analysis_populations": {
+          "target_credited_physical_settlement2021": 144151
+        }
+      }
+    },
+    {
+      "name": "target_inventory_subset",
+      "status": "PASS",
+      "detail": {
+        "allwide": 173242,
+        "physical2021": 155411,
+        "target": 144151
+      }
+    },
+    {
+      "name": "combined_preserves_target",
+      "status": "PASS",
+      "detail": "Exact target keys retained in platform comparison"
+    },
+    {
+      "name": "combined_preserves_target_values",
+      "status": "PASS",
+      "detail": {
+        "changed_rows": 0
+      }
+    },
+    {
+      "name": "wb_status_counts",
+      "status": "PASS",
+      "detail": {
+        "zero_accepted_records_not_confirmed_absence": 134577,
+        "positive": 7991,
+        "unknown_no_commerce_bridge": 1583
+      }
+    },
+    {
+      "name": "wb_status_count_consistency",
+      "status": "PASS",
+      "detail": {
+        "inconsistent_rows": 0
+      }
+    },
+    {
+      "name": "population_domain",
+      "status": "PASS",
+      "detail": {
+        "known": 144151,
+        "unknown": 0,
+        "zero": 21013,
+        "positive": 123138,
+        "sum_known": 125717296.0
+      }
+    },
+    {
+      "name": "population_quality_missing_label",
+      "status": "WARN",
+      "detail": [
+        {
+          "id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:31481",
+          "name": "Хийденсельга",
+          "region": "карелия",
+          "population_2021": 1054.0
+        }
+      ]
+    },
+    {
+      "name": "coordinate_accounting",
+      "status": "PASS",
+      "detail": {
+        "near_rows": 144149,
+        "coordinate_missing": 2
+      }
+    },
+    {
+      "name": "distance_domain",
+      "status": "PASS",
+      "detail": "Combined nearest distance is finite, nonnegative and no larger than WB-only"
+    },
+    {
+      "name": "ozon_object_key",
+      "status": "PASS",
+      "detail": {
+        "objects": 92503,
+        "raw_p": {
+          "0": 87505,
+          "1": 4998
+        },
+        "snapshot": {
+          "2026-08-06 17:20": 92503
+        }
+      }
+    },
+    {
+      "name": "ozon_pickup_1km_reaggregation",
+      "status": "PASS",
+      "detail": {
+        "count_mismatches": 0,
+        "objects_main_target": 25515,
+        "positive_target_settlements": 15720
+      }
+    },
+    {
+      "name": "ozon_locker_1km_reaggregation",
+      "status": "PASS",
+      "detail": {
+        "count_mismatches": 0,
+        "objects_main_target": 520,
+        "positive_target_settlements": 298
+      }
+    },
+    {
+      "name": "ozon_1km_link_constraints",
+      "status": "PASS",
+      "detail": {
+        "accepted": 26581,
+        "statuses": {
+          "federal_city_label_context_not_distributed": 10101,
+          "unresolved_named_candidates_outside_radius": 53833,
+          "accepted_unique_exact_name_within_radius": 26581,
+          "unresolved_no_exact_name_on_accepted_coordinate_axis": 1864,
+          "ambiguous_multiple_exact_name_candidates_within_radius": 124
+        }
+      }
+    },
+    {
+      "name": "ozon_pickup_5km_reaggregation",
+      "status": "PASS",
+      "detail": {
+        "count_mismatches": 0,
+        "objects_main_target": 57159,
+        "positive_target_settlements": 16735
+      }
+    },
+    {
+      "name": "ozon_locker_5km_reaggregation",
+      "status": "PASS",
+      "detail": {
+        "count_mismatches": 0,
+        "objects_main_target": 2380,
+        "positive_target_settlements": 416
+      }
+    },
+    {
+      "name": "ozon_5km_link_constraints",
+      "status": "PASS",
+      "detail": {
+        "accepted": 60557,
+        "statuses": {
+          "federal_city_label_context_not_distributed": 10101,
+          "accepted_unique_exact_name_within_radius": 60557,
+          "unresolved_named_candidates_outside_radius": 19429,
+          "ambiguous_multiple_exact_name_candidates_within_radius": 552,
+          "unresolved_no_exact_name_on_accepted_coordinate_axis": 1864
+        }
+      }
+    },
+    {
+      "name": "ozon_pickup_10km_reaggregation",
+      "status": "PASS",
+      "detail": {
+        "count_mismatches": 0,
+        "objects_main_target": 68660,
+        "positive_target_settlements": 16649
+      }
+    },
+    {
+      "name": "ozon_locker_10km_reaggregation",
+      "status": "PASS",
+      "detail": {
+        "count_mismatches": 0,
+        "objects_main_target": 3555,
+        "positive_target_settlements": 418
+      }
+    },
+    {
+      "name": "ozon_10km_link_constraints",
+      "status": "PASS",
+      "detail": {
+        "accepted": 73299,
+        "statuses": {
+          "federal_city_label_context_not_distributed": 10101,
+          "accepted_unique_exact_name_within_radius": 73299,
+          "unresolved_named_candidates_outside_radius": 6220,
+          "ambiguous_multiple_exact_name_candidates_within_radius": 1019,
+          "unresolved_no_exact_name_on_accepted_coordinate_axis": 1864
+        }
+      }
+    },
+    {
+      "name": "both_platforms_5km",
+      "status": "PASS",
+      "detail": {
+        "both_positive": 6415
+      }
+    },
+    {
+      "name": "wb_single_snapshot",
+      "status": "PASS",
+      "detail": {
+        "rows": 91043,
+        "snapshot": {
+          "2026-10-21": 91043
+        },
+        "opening_dates_nonnull": 0,
+        "actual_consumer_flows": {
+          "False": 91043
+        }
+      }
+    },
+    {
+      "name": "urban_unique_keys",
+      "status": "PASS",
+      "detail": {
+        "urban_target": 2253
+      }
+    },
+    {
+      "name": "urban_completeness",
+      "status": "PASS",
+      "detail": {
+        "complete2023_2025": 2149,
+        "incomplete": 104
+      }
+    },
+    {
+      "name": "urban_long_unique_keys",
+      "status": "PASS",
+      "detail": {
+        "observations": 8784,
+        "by_year": {
+          "2022": 2193,
+          "2023": 2157,
+          "2024": 2217,
+          "2025": 2217
+        }
+      }
+    },
+    {
+      "name": "urban_provenance",
+      "status": "PASS",
+      "detail": "Source URL, Excel row and file populated for each linked observation"
+    },
+    {
+      "name": "urban_time_and_boundaries",
+      "status": "WARN",
+      "detail": {
+        "boundary_comparability": {
+          "unknown_not_independently_verified": 2253
+        },
+        "2022_2023_growth_permitted": {
+          "False": 2253
+        },
+        "causal_interpretation": {
+          "not_identified": 2253
+        }
+      }
+    },
+    {
+      "name": "history_not_ready_for_changes_or_causal_effects",
+      "status": "WARN",
+      "detail": {
+        "wb_current_snapshots": 1,
+        "wb_opening_dates_nonnull": 0,
+        "ozon_current_snapshots": 1,
+        "pilot_presence_records": 6,
+        "pilot_precise_opening_records": 0,
+        "commerce_rows": 142570,
+        "physical_network_comparable_series_flag": {
+          "False": 142570
+        },
+        "legal_retail_columns": [
+          "econ_native_2011_retail47_legal_entities",
+          "econ_native_2012_retail47_legal_entities",
+          "econ_native_2013_retail47_legal_entities",
+          "econ_native_2014_retail47_legal_entities",
+          "econ_native_2015_retail47_legal_entities",
+          "econ_native_2016_retail47_legal_entities",
+          "econ_native_2017_retail47_legal_entities",
+          "econ_native_2018_retail47_legal_entities",
+          "econ_native_2019_retail47_legal_entities",
+          "econ_native_2020_retail47_legal_entities",
+          "econ_native_2021_retail47_legal_entities",
+          "econ_native_2022_retail47_legal_entities",
+          "econ_native_2023_retail47_legal_entities",
+          "econ_native_2024_retail47_legal_entities",
+          "econ_native_2025_retail47_legal_entities"
+        ],
+        "ozon_index_history_note": "Local Git history records same-day repackaging on 2026-08-06, not repeated observation years."
+      }
+    },
+    {
+      "name": "coverage_and_zero_interpretation",
+      "status": "WARN",
+      "detail": "81-region accepted census-source territory; federal cities separate. Unlinked/zero accepted objects do not establish absence. Ozon unofficial, dates differ; no platform market-share comparisons."
+    },
+    {
+      "name": "distance_interpretation",
+      "status": "WARN",
+      "detail": "Straight-line proximity to known linked points; not road time, observed choice, actual service catchment or improvement over time."
+    }
+  ],
+  "summary": {
+    "PASS": 27,
+    "WARN": 5
+  },
+  "inputs": {
+    "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/national_target_source2021.parquet": {
+      "rows": 144151,
+      "columns": 37,
+      "sha256": "89fce76fe330dd33bd3b5f8496f3e46e7faffaf55d045193bd4070f8a2d017f2",
+      "schema": "root_accepted20261022: string\nsource_record_id_2021: string\nanalysis_population: string\nname_2021: string\ntype_2021: string\nregion_2021: string\ndistrict_2021: string\npopulation_scope_2021: string\nis_additive_settlement_record_2021: bool\naccepted_point_present_2021: bool\naccepted_latitude_2021: double\naccepted_longitude_2021: double\nordinary_full3: bool\nsize2021: string\ntrend_2002_2021: string\nWB_focus20261021_count: int64\nWB_focus20261021_within5km_count: int64\nWB_evidence_status: string\nWB_evidence_status_sensitivity: string\nlegacy_commerce_id_bridge_only: string\nsource_metadata_agreement: bool\naccepted_vs_legacy_point_distance_km: double\nworking_credit_present_2021: bool\nsource_record_id_2002: string\npopulation_value_quality_2002: string\npopulation_overlay_applied_2002: bool\nreported_population_2002: double\npopulation_2002: double\nsource_record_id_2010: string\npopulation_value_quality_2010: string\npopulation_overlay_applied_2010: bool\nreported_population_2010: double\npopulation_2010: double\npopulation_value_quality_2021: string\npopulation_overlay_applied_2021: bool\nreported_population_2021: double\npopulation_2021: double"
+    },
+    "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/ozon_WB_comparison_main_target_experimental.parquet": {
+      "rows": 144151,
+      "columns": 59,
+      "sha256": "cdc06702c38d91957572827cd244d0c260bd5a0b05663e4216cb945f6f8ec694",
+      "schema": "root_accepted20261022: string\nsource_record_id_2021: string\nanalysis_population: string\nname_2021: string\ntype_2021: string\nregion_2021: string\ndistrict_2021: string\npopulation_scope_2021: string\nis_additive_settlement_record_2021: bool\naccepted_point_present_2021: bool\naccepted_latitude_2021: double\naccepted_longitude_2021: double\nordinary_full3: bool\nsize2021: string\ntrend_2002_2021: string\nWB_focus20261021_count: int64\nWB_focus20261021_within5km_count: int64\nWB_evidence_status: string\nWB_evidence_status_sensitivity: string\nlegacy_commerce_id_bridge_only: string\nsource_metadata_agreement: bool\naccepted_vs_legacy_point_distance_km: double\nworking_credit_present_2021: bool\nsource_record_id_2002: string\npopulation_value_quality_2002: string\npopulation_overlay_applied_2002: bool\nreported_population_2002: double\npopulation_2002: double\nsource_record_id_2010: string\npopulation_value_quality_2010: string\npopulation_overlay_applied_2010: bool\nreported_population_2010: double\npopulation_2010: double\npopulation_value_quality_2021: string\npopulation_overlay_applied_2021: bool\nreported_population_2021: double\npopulation_2021: double\nozon_pickup_inferred_accepted_1km_count: int64\nozon_locker_inferred_accepted_1km_count: int64\nozon_all_inferred_accepted_1km_count: int64\nozon_pickup_inferred_accepted_5km_count: int64\nozon_locker_inferred_accepted_5km_count: int64\nozon_all_inferred_accepted_5km_count: int64\nozon_pickup_inferred_accepted_10km_count: int64\nozon_locker_inferred_accepted_10km_count: int64\nozon_all_inferred_accepted_10km_count: int64\nozon_zero_evidence_interpretation: string\nplatform_category_pickup_1km_baseline: string\nplatform_category_pickup_1km_pointshift_sensitivity: string\nplatform_category_all_1km_baseline: string\nplatform_category_all_1km_pointshift_sensitivity: string\nplatform_category_pickup_5km_baseline: string\nplatform_category_pickup_5km_pointshift_sensitivity: string\nplatform_category_all_5km_baseline: string\nplatform_category_all_5km_pointshift_sensitivity: string\nplatform_category_pickup_10km_baseline: string\nplatform_category_pickup_10km_pointshift_sensitivity: string\nplatform_category_all_10km_baseline: string\nplatform_category_all_10km_pointshift_sensitivity: string"
+    },
+    "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/national_base_all_wide.parquet": {
+      "rows": 173242,
+      "columns": 37,
+      "sha256": "19a166873b9829d2a4cb7937ac59dd9c92b18b74796f1dccb3a8e15a6a623c2e",
+      "schema": "root_accepted20261022: string\nsource_record_id_2021: string\nanalysis_population: string\nname_2021: string\ntype_2021: string\nregion_2021: string\ndistrict_2021: string\npopulation_scope_2021: string\nis_additive_settlement_record_2021: bool\naccepted_point_present_2021: bool\naccepted_latitude_2021: double\naccepted_longitude_2021: double\nordinary_full3: bool\nsize2021: string\ntrend_2002_2021: string\nWB_focus20261021_count: int64\nWB_focus20261021_within5km_count: int64\nWB_evidence_status: string\nWB_evidence_status_sensitivity: string\nlegacy_commerce_id_bridge_only: string\nsource_metadata_agreement: bool\naccepted_vs_legacy_point_distance_km: double\nworking_credit_present_2021: bool\nsource_record_id_2002: string\npopulation_value_quality_2002: string\npopulation_overlay_applied_2002: bool\nreported_population_2002: double\npopulation_2002: double\nsource_record_id_2010: string\npopulation_value_quality_2010: string\npopulation_overlay_applied_2010: bool\nreported_population_2010: double\npopulation_2010: double\npopulation_value_quality_2021: string\npopulation_overlay_applied_2021: bool\nreported_population_2021: double\npopulation_2021: double"
+    },
+    "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/all_physical_source2021_inventory.parquet": {
+      "rows": 155411,
+      "columns": 37,
+      "sha256": "557e091aea6441154485a624f1377c264100d73f8d7342e7d01786c2f83c32b1",
+      "schema": "root_accepted20261022: string\nsource_record_id_2021: string\nanalysis_population: string\nname_2021: string\ntype_2021: string\nregion_2021: string\ndistrict_2021: string\npopulation_scope_2021: string\nis_additive_settlement_record_2021: bool\naccepted_point_present_2021: bool\naccepted_latitude_2021: double\naccepted_longitude_2021: double\nordinary_full3: bool\nsize2021: string\ntrend_2002_2021: string\nWB_focus20261021_count: int64\nWB_focus20261021_within5km_count: int64\nWB_evidence_status: string\nWB_evidence_status_sensitivity: string\nlegacy_commerce_id_bridge_only: string\nsource_metadata_agreement: bool\naccepted_vs_legacy_point_distance_km: double\nworking_credit_present_2021: bool\nsource_record_id_2002: string\npopulation_value_quality_2002: string\npopulation_overlay_applied_2002: bool\nreported_population_2002: double\npopulation_2002: double\nsource_record_id_2010: string\npopulation_value_quality_2010: string\npopulation_overlay_applied_2010: bool\nreported_population_2010: double\npopulation_2010: double\npopulation_value_quality_2021: string\npopulation_overlay_applied_2021: bool\nreported_population_2021: double\npopulation_2021: double"
+    },
+    "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/ozon_objectlinks_experimental.parquet": {
+      "rows": 92503,
+      "columns": 32,
+      "sha256": "94c224d44a0af185633d25e9b5a3afe6416bb4255c293dfa7c2e604ad767c392",
+      "schema": "objectid: string\ncity_label: string\nnormalized_city_label: string\naddress: string\nlatitude: double\nlongitude: double\nraw_p: string\npoint_type_inferred: string\nraw_k: string\nsource_shard: string\ndeclared_snapshot: string\nsource_kind: string\nfederal_territory_context_source2021: string\neligible_exact_name_candidates_n: int64\nlink_status_1km: string\nnamed_candidates_within_1km_n: int64\naccepted_source_record_id_2021_1km: string\naccepted_distance_WGS84_km_1km: double\naccepted_region_1km: string\naccepted_working_credit_1km: bool\nlink_status_5km: string\nnamed_candidates_within_5km_n: int64\naccepted_source_record_id_2021_5km: string\naccepted_distance_WGS84_km_5km: double\naccepted_region_5km: string\naccepted_working_credit_5km: bool\nlink_status_10km: string\nnamed_candidates_within_10km_n: int64\naccepted_source_record_id_2021_10km: string\naccepted_distance_WGS84_km_10km: double\naccepted_region_10km: string\naccepted_working_credit_10km: bool"
+    },
+    "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/urban_population_panel_main_wide.parquet": {
+      "rows": 2253,
+      "columns": 74,
+      "sha256": "3f1438e791d67e5f9f4d76ab98d47a4dabf4afd7b910d55d2eaf36d975dc8d3a",
+      "schema": "root_accepted20261022: string\nsource_record_id_2021: string\nanalysis_population: string\nname_2021: string\ntype_2021: string\nregion_2021: string\ndistrict_2021: string\npopulation_scope_2021: string\nis_additive_settlement_record_2021: bool\naccepted_point_present_2021: bool\naccepted_latitude_2021: double\naccepted_longitude_2021: double\nordinary_full3: bool\nsize2021: string\ntrend_2002_2021: string\nWB_focus20261021_count: int64\nWB_focus20261021_within5km_count: int64\nWB_evidence_status: string\nWB_evidence_status_sensitivity: string\nlegacy_commerce_id_bridge_only: string\nsource_metadata_agreement: bool\naccepted_vs_legacy_point_distance_km: double\nworking_credit_present_2021: bool\nsource_record_id_2002: string\npopulation_value_quality_2002: string\npopulation_overlay_applied_2002: bool\nreported_population_2002: double\npopulation_2002: double\nsource_record_id_2010: string\npopulation_value_quality_2010: string\npopulation_overlay_applied_2010: bool\nreported_population_2010: double\npopulation_2010: double\npopulation_value_quality_2021: string\npopulation_overlay_applied_2021: bool\nreported_population_2021: double\npopulation_2021: double\nurban_post2021_link_method: string\nboundary_comparability: string\ncomplete_2023_2025: bool\npopulation_2022_2023_growth_permitted: bool\ncausal_interpretation: string\npopulation_2022: int64\nlink_status_2022: string\nsource_excel_row_2022: int64\nsource_sheet_2022: string\nsource_filename_2022: string\nsource_url_2022: string\nsource_territory_code_raw_2022: string\nobservation_date_2022: string\npopulation_2023: int64\nlink_status_2023: string\nsource_excel_row_2023: int64\nsource_sheet_2023: string\nsource_filename_2023: string\nsource_url_2023: string\nsource_territory_code_raw_2023: string\nobservation_date_2023: string\npopulation_2024: int64\nlink_status_2024: string\nsource_excel_row_2024: int64\nsource_sheet_2024: string\nsource_filename_2024: string\nsource_url_2024: string\nsource_territory_code_raw_2024: string\nobservation_date_2024: string\npopulation_2025: int64\nlink_status_2025: string\nsource_excel_row_2025: int64\nsource_sheet_2025: string\nsource_filename_2025: string\nsource_url_2025: string\nsource_territory_code_raw_2025: string\nobservation_date_2025: string"
+    },
+    "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/urban_population_panel_linked_long.parquet": {
+      "rows": 8784,
+      "columns": 32,
+      "sha256": "b00777cef37127d091ab6219f32404ff1858a8ca3dbc9f83125ea067d7dcdc42",
+      "schema": "year: int64\nregion_raw: string\nregion_normalized: string\nname_raw: string\ntype_compatible: string\nsource_excel_row: int64\nsource_sheet: string\nsource_filename: string\nsource_territory_code_raw: string\ntarget_candidates_n: int64\nsource_key_rows_n: int64\nall_physical_key_rows_n: int64\nlink_status: string\nroot_accepted20261022: string\nsource_record_id_2021: string\nname_2021: string\ntype_2021: string\nregion_2021: string\ndistrict_2021: string\npopulation_2021: double\npopulation_persons: int64\nobservation_date: string\nsource_url: string\nunit: string\npopulation_scope: string\nboundary_comparability: string\ncensus_base_2022_2023_comparability: string\nWB_focus20261021_count: int64\nWB_evidence_status: string\nWB_evidence_status_sensitivity: string\nhistorical_exposure_status: string\ncausal_interpretation: string"
+    },
+    "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/nearest_marketplaces_experimental.parquet": {
+      "rows": 144149,
+      "columns": 18,
+      "sha256": "dee8c8d83587bd237cb1dd6405464ac83c7a1ba48c9ff0fdabef83438370452d",
+      "schema": "source_record_id: string\ncensus_year: int64\nsettlement_name: string\nregion_norm: string\neffective_population: double\npopulation_scope: string\nis_additive_settlement_record: bool\nworking_credit_present: bool\naccepted_point_present: bool\naccepted_latitude: double\naccepted_longitude: double\nnearest_linked_wb_straight_km: double\nnearest_wb_object_id: string\nnearest_wb_link_kind: string\nsize_2021: dictionary<values=string, indices=int8, ordered=1>\nnearest_experimental_ozon_straight_km: double\nnearest_experimental_ozon_objectid: string\nnearest_either_straight_km_experimental: double\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 2669"
+    },
+    "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/wb20261021_objects.parquet": {
+      "rows": 91043,
+      "columns": 28,
+      "sha256": "2c5dfebcfbf1918ee081715d5bef4cb0c330871747f5139c6ce26cec662921b7",
+      "schema": "object_id: string\nsource_object_id: string\naddress: string\nlatitude: double\nlongitude: double\ntypePoint: int64\nsource_status: double\nfitting_rooms: double\nwork_time: string\nsource_country: string\nprovider: string\nsnapshot_date: string\nsource_url: string\nopening_date: null\nactual_consumer_flows_observed: bool\nbaseline_uid: string\nconditional_uid: string\nfederal_territory_uid: string\nlink_status: string\nlinked_distance_km: double\nnamed_candidates: string\nnearest_uid_unaccepted: string\nnearest_distance_km: double\nbaseline_stricter_within5km: bool\nquarantined_coordinates_excluded: bool\nfocus_types_8_34: bool\nexpanded_types_8_34_28_53_54: bool\ntechnical_types_2_85: bool\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 3738"
+    },
+    "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/commerce_current.parquet": {
+      "rows": 142570,
+      "columns": 181,
+      "sha256": "221ad132691e148b2c30d6a01d3a522f5e82a9973cbbf48d3e254d0a1164c94e",
+      "schema": "id: string\nwb_strict_all_types_locations: int32\nwb_strict_focus_types_locations: int32\nwb_strict_expanded_types_locations: int32\nwb_strict_technical_types_locations: int32\nwb_strict_type_2_locations: int32\nwb_strict_type_8_locations: int32\nwb_strict_type_11_locations: int32\nwb_strict_type_12_locations: int32\nwb_strict_type_13_locations: int32\nwb_strict_type_14_locations: int32\nwb_strict_type_16_locations: int32\nwb_strict_type_17_locations: int32\nwb_strict_type_28_locations: int32\nwb_strict_type_31_locations: int32\nwb_strict_type_33_locations: int32\nwb_strict_type_34_locations: int32\nwb_strict_type_36_locations: int32\nwb_strict_type_37_locations: int32\nwb_strict_type_39_locations: int32\nwb_strict_type_40_locations: int32\nwb_strict_type_41_locations: int32\nwb_strict_type_42_locations: int32\nwb_strict_type_53_locations: int32\nwb_strict_type_54_locations: int32\nwb_strict_type_57_locations: int32\nwb_strict_type_77_locations: int32\nwb_strict_type_81_locations: int32\nwb_strict_type_85_locations: int32\nwb_strict_type_86_locations: int32\nwb_strict_type_91_locations: int32\nwb_coordinate_candidate_all_types_locations: int32\nwb_coordinate_candidate_focus_types_locations: int32\nwb_coordinate_candidate_expanded_types_locations: int32\nwb_coordinate_candidate_technical_types_locations: int32\nwb_coordinate_candidate_type_2_locations: int32\nwb_coordinate_candidate_type_8_locations: int32\nwb_coordinate_candidate_type_11_locations: int32\nwb_coordinate_candidate_type_12_locations: int32\nwb_coordinate_candidate_type_13_locations: int32\nwb_coordinate_candidate_type_14_locations: int32\nwb_coordinate_candidate_type_16_locations: int32\nwb_coordinate_candidate_type_17_locations: int32\nwb_coordinate_candidate_type_28_locations: int32\nwb_coordinate_candidate_type_31_locations: int32\nwb_coordinate_candidate_type_33_locations: int32\nwb_coordinate_candidate_type_34_locations: int32\nwb_coordinate_candidate_type_36_locations: int32\nwb_coordinate_candidate_type_37_locations: int32\nwb_coordinate_candidate_type_39_locations: int32\nwb_coordinate_candidate_type_40_locations: int32\nwb_coordinate_candidate_type_41_locations: int32\nwb_coordinate_candidate_type_42_locations: int32\nwb_coordinate_candidate_type_53_locations: int32\nwb_coordinate_candidate_type_54_locations: int32\nwb_coordinate_candidate_type_57_locations: int32\nwb_coordinate_candidate_type_77_locations: int32\nwb_coordinate_candidate_type_81_locations: int32\nwb_coordinate_candidate_type_85_locations: int32\nwb_coordinate_candidate_type_86_locations: int32\nwb_coordinate_candidate_type_91_locations: int32\nwb_candidate_within_0p25km_locations: int32\nwb_candidate_within_1km_locations: int32\nwb_candidate_within_2km_locations: int32\nwb_candidate_within_5km_locations: int32\nwb_candidate_within_20km_locations: int32\nwb_candidate_distance_km_max: double\nwb_snapshot_date: string\nwb_observation_scope: string\nwb_zero_means: string\nwb_external_catchments_measured: bool\nwb_name_relaxed_inclusive_all_types_locations: int32\nwb_name_relaxed_additional_locations: int32\nwb_name_relaxed_inclusive_type_2_locations: int32\nwb_name_relaxed_inclusive_type_8_locations: int32\nwb_name_relaxed_inclusive_type_11_locations: int32\nwb_name_relaxed_inclusive_type_12_locations: int32\nwb_name_relaxed_inclusive_type_13_locations: int32\nwb_name_relaxed_inclusive_type_14_locations: int32\nwb_name_relaxed_inclusive_type_16_locations: int32\nwb_name_relaxed_inclusive_type_17_locations: int32\nwb_name_relaxed_inclusive_type_28_locations: int32\nwb_name_relaxed_inclusive_type_31_locations: int32\nwb_name_relaxed_inclusive_type_33_locations: int32\nwb_name_relaxed_inclusive_type_34_locations: int32\nwb_name_relaxed_inclusive_type_36_locations: int32\nwb_name_relaxed_inclusive_type_37_locations: int32\nwb_name_relaxed_inclusive_type_39_locations: int32\nwb_name_relaxed_inclusive_type_40_locations: int32\nwb_name_relaxed_inclusive_type_41_locations: int32\nwb_name_relaxed_inclusive_type_42_locations: int32\nwb_name_relaxed_inclusive_type_53_locations: int32\nwb_name_relaxed_inclusive_type_54_locations: int32\nwb_name_relaxed_inclusive_type_57_locations: int32\nwb_name_relaxed_inclusive_type_77_locations: int32\nwb_name_relaxed_inclusive_type_81_locations: int32\nwb_name_relaxed_inclusive_type_85_locations: int32\nwb_name_relaxed_inclusive_type_86_locations: int32\nwb_name_relaxed_inclusive_type_91_locations: int32\nwb_name_relaxed_inclusive_focus_locations: int32\nwb_name_relaxed_inclusive_expanded_locations: int32\nplaces_baseline_bank_count: int32\nplaces_baseline_atm_count: int32\nplaces_baseline_post_office_count: int32\nplaces_baseline_postal_collection_point_count: int32\nplaces_baseline_market_count: int32\nplaces_baseline_retail_store_count: int32\nplaces_baseline_food_service_count: int32\nplaces_baseline_name_signal_market_count: int32\nplaces_baseline_name_signal_ozon_count: int32\nplaces_baseline_name_signal_wildberries_count: int32\nplaces_conditional_bank_count: int32\nplaces_conditional_atm_count: int32\nplaces_conditional_post_office_count: int32\nplaces_conditional_postal_collection_point_count: int32\nplaces_conditional_market_count: int32\nplaces_conditional_retail_store_count: int32\nplaces_conditional_food_service_count: int32\nplaces_conditional_name_signal_market_count: int32\nplaces_conditional_name_signal_ozon_count: int32\nplaces_conditional_name_signal_wildberries_count: int32\nplaces_nearest_candidate_bank_count: int32\nplaces_nearest_candidate_atm_count: int32\nplaces_nearest_candidate_post_office_count: int32\nplaces_nearest_candidate_postal_collection_point_count: int32\nplaces_nearest_candidate_market_count: int32\nplaces_nearest_candidate_retail_store_count: int32\nplaces_nearest_candidate_food_service_count: int32\nplaces_nearest_candidate_name_signal_market_count: int32\nplaces_nearest_candidate_name_signal_ozon_count: int32\nplaces_nearest_candidate_name_signal_wildberries_count: int32\necon_native_2011_retail47_legal_entities: int64\necon_native_2012_retail47_legal_entities: int64\necon_native_2013_retail47_legal_entities: int64\necon_native_2014_retail47_legal_entities: int64\necon_native_2015_retail47_legal_entities: int64\necon_native_2016_retail47_legal_entities: int64\necon_native_2017_retail47_legal_entities: int64\necon_native_2018_retail47_legal_entities: int64\necon_native_2019_retail47_legal_entities: int64\necon_native_2020_retail47_legal_entities: int64\necon_native_2021_retail47_legal_entities: int64\necon_native_2022_retail47_legal_entities: int64\necon_native_2023_retail47_legal_entities: int64\necon_native_2024_retail47_legal_entities: int64\necon_native_2025_retail47_legal_entities: int64\necon_native_2011_food56_legal_entities: int64\necon_native_2012_food56_legal_entities: int64\necon_native_2013_food56_legal_entities: int64\necon_native_2014_food56_legal_entities: int64\necon_native_2015_food56_legal_entities: int64\necon_native_2016_food56_legal_entities: int64\necon_native_2017_food56_legal_entities: int64\necon_native_2018_food56_legal_entities: int64\necon_native_2019_food56_legal_entities: int64\necon_native_2020_food56_legal_entities: int64\necon_native_2021_food56_legal_entities: int64\necon_native_2022_food56_legal_entities: int64\necon_native_2023_food56_legal_entities: int64\necon_native_2024_food56_legal_entities: int64\necon_native_2025_food56_legal_entities: int64\ncommerce_wb20261021_baseline_all_types_count: int32\ncommerce_wb20261021_baseline_focus_count: int32\ncommerce_wb20261021_baseline_expanded_count: int32\ncommerce_wb20261021_baseline_technical_count: int32\ncommerce_wb20261021_baseline_focus_within5km_count: int32\ncommerce_wb20261021_conditional_additional_all_types_count: int32\ncommerce_wb20261021_conditional_additional_focus_count: int32\ncommerce_wb20261021_conditional_additional_expanded_count: int32\ncommerce_wb20261021_conditional_additional_technical_count: int32\ncommerce_goods_access_baseline_present: bool\ncommerce_goods_access_log_mass: double\ncommerce_food_baseline_present: bool\ncommerce_food_log_mass: double\ncommerce_finance_baseline_present: bool\ncommerce_postal_baseline_present: bool\ncommerce_ozon_name_signal_not_verified_pvz_count: int32\ncommerce_historical_legal_retail_2011_2025_available: bool\ncommerce_physical_network_comparable_time_series_available: bool\ncommerce_external_catchment_measured: bool\ncommerce_zero_means: string\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 35330\nPANDAS_ATTRS: '{\"role\": \"national_settlement_feature_master_not_demonstra' + 3975"
+    }
+  },
+  "historical_inventory": {
+    "wb_current_snapshots": 1,
+    "wb_opening_dates_nonnull": 0,
+    "ozon_current_snapshots": 1,
+    "pilot_presence_records": 6,
+    "pilot_precise_opening_records": 0,
+    "commerce_rows": 142570,
+    "physical_network_comparable_series_flag": {
+      "False": 142570
+    },
+    "legal_retail_columns": [
+      "econ_native_2011_retail47_legal_entities",
+      "econ_native_2012_retail47_legal_entities",
+      "econ_native_2013_retail47_legal_entities",
+      "econ_native_2014_retail47_legal_entities",
+      "econ_native_2015_retail47_legal_entities",
+      "econ_native_2016_retail47_legal_entities",
+      "econ_native_2017_retail47_legal_entities",
+      "econ_native_2018_retail47_legal_entities",
+      "econ_native_2019_retail47_legal_entities",
+      "econ_native_2020_retail47_legal_entities",
+      "econ_native_2021_retail47_legal_entities",
+      "econ_native_2022_retail47_legal_entities",
+      "econ_native_2023_retail47_legal_entities",
+      "econ_native_2024_retail47_legal_entities",
+      "econ_native_2025_retail47_legal_entities"
+    ],
+    "ozon_index_history_note": "Local Git history records same-day repackaging on 2026-08-06, not repeated observation years."
+  },
+  "peer_files_at_run": {
+    "geography": [
+      "geography/summary.json",
+      "geography/by_class_size.csv",
+      "geography/small_inhabited.csv",
+      "geography/by_class.csv",
+      "geography/by_region.csv",
+      "geography/by_size.csv",
+      "geography/by_type.csv",
+      "geography/size_concentration.csv",
+      "geography/joint_evidence.csv",
+      "geography/size_linkage_sensitivity.csv",
+      "geography/verification.json",
+      "geography/joint_with_unknown.csv",
+      "geography/findings.txt",
+      "geography/linkage_sensitivity.csv",
+      "geography/analyze_geography.py"
+    ],
+    "demography": [
+      "demography/common_support_strata.csv",
+      "demography/analyze_demography.py",
+      "demography/audit.json",
+      "demography/run_summary.json",
+      "demography/trajectory_standardized.csv",
+      "demography/baseline2002_common_strata.csv",
+      "demography/independent_check.txt",
+      "demography/trajectory_raw.csv",
+      "demography/urban_2023_2025_descriptive.csv",
+      "demography/trajectory_baseline2002_standardized.csv",
+      "demography/presence_by_size_and_decline.csv",
+      "demography/findings.txt"
+    ]
+  },
+  "allowed_claims": [
+    "Current infrastructure configuration on accepted national frame",
+    "Descriptive association with demographic history with quality filters",
+    "Potential straight-line proximity to observed points"
+  ],
+  "unsupported_claims": [
+    "Causal effect of PVZ on population or retail",
+    "Observed shopping-trip reduction or actual catchment expansion",
+    "Historical redistribution based only on current snapshots",
+    "Legal-entity counts interpreted as physical stores"
+  ]
+}

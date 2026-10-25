@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "id": "centre-stock-and-share",
+      "title": "Число магазинов и относительный торговый вес центра",
+      "queries": [
+        {
+          "id": "matched-quarterly-stock-share",
+          "source": {
+            "label": "БДПМО Росстата, обработка «Если быть точным», версия28.09.2026",
+            "files": [
+              "bdmo/singleton/internal_centre_district_common_panels2022_2024.csv",
+              "bdmo/singleton/concentration_audit.json"
+            ],
+            "filters": [
+              "IV кварталы2022/2023/2024, без смешения с годовыми значениями",
+              "Внутренний административный центр одного района по ОКТМО2020",
+              "Людность центра2002 от5000 до49999",
+              "Однопоселенческий состав нижнего МО совпадает в доступных2020/2021/2022/2026"
+            ],
+            "caveats": [
+              "Это выбранные пригодные территории, не репрезентативная оценка всех центров России.",
+              "Точная поселенческая интерпретация условна: составы2023/2024 и неизменность границ не подтверждены.",
+              "Показатель описывает физические объекты, а не юридические лица, реальные закрытия или причинное влияние ПВЗ."
+            ],
+            "metricDefinitions": [
+              {
+                "name": "Торговая доля центра",
+                "definition": "Торговая доля C/S — число магазинов нижнего муниципалитета центра в процентах от числа магазинов всего района в том же периоде и категории."
+              }
+            ]
+          },
+          "reportingPeriod": "IV квартал2022 → IV квартал2024",
+          "columns": [
+            "category",
+            "centres",
+            "stock_decline",
+            "stock_growth",
+            "stock_stable",
+            "share_decline",
+            "median_share_change_pp",
+            "stock_decline_without_share_loss"
+          ],
+          "rows": [
+            {
+              "category": "Магазины",
+              "centres": 174,
+              "stock_decline": 55,
+              "stock_growth": 84,
+              "stock_stable": 35,
+              "share_decline": 49,
+              "median_share_change_pp": 0.8814869341185165,
+              "stock_decline_without_share_loss": 23
+            },
+            {
+              "category": "Специализированные непродовольственные магазины",
+              "centres": 161,
+              "stock_decline": 43,
+              "stock_growth": 55,
+              "stock_stable": 63,
+              "share_decline": 39,
+              "median_share_change_pp": 0.0,
+              "stock_decline_without_share_loss": 18
+            }
+          ],
+          "preview": {
+            "kind": "aggregate",
+            "note": "Агрегаты двух выбранных магазинных панелей."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ozon-partial-history",
+      "title": "Полученная частичная история Ozon",
+      "queries": [
+        {
+          "id": "ozon-archive-acquisition",
+          "source": {
+            "label": "Архивные официальные Ozon API и geo-страницы",
+            "files": [
+              "ozon/acquisition_manifest.json",
+              "ozon/normalization_summary.json",
+              "ozon/findings.txt"
+            ],
+            "caveats": [
+              "API2023 охватывает Москву/Подмосковье, API2024 — более узкую часть Москвы; исходные viewport неизвестны.",
+              "Разность числа записей не является изменением сети, дата архивирования не является открытием.",
+              "Геостраницы — сохранившаяся архивная выборка, не равномерная национальная история."
+            ]
+          },
+          "summary": "Получены два массовых координатных архивных ответа и32положительных объектных свидетельства2021–2025.",
+          "reportingPeriod": "API19.03.2023 и09.06.2024; geo-свидетельства2021–2025"
+        }
+      ]
+    }
+  ]
+}

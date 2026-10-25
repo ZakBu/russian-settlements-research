@@ -1,0 +1,569 @@
+{
+  "analysis": "EXPERIMENTAL third-party Ozon name-coordinate geolink; descriptive cross-platform presence",
+  "declared_Ozon_snapshot": "2026-08-06 17:20",
+  "WB_snapshot": "2026-10-21",
+  "snapshots_are_contemporaneous": false,
+  "Ozon_source_is_official_verified_registry": false,
+  "Ozon_archive_total_unique_objects": 92503,
+  "Ozon_type_scale": {
+    "raw_p0": {
+      "inferred_label": "pickup_point",
+      "objects_n": 87505
+    },
+    "raw_p1": {
+      "inferred_label": "parcel_locker",
+      "objects_n": 4998
+    },
+    "raw_k": "retained without semantic interpretation; p0/p1 interpretation comes from third-party archive normalization, not independently confirmed platform schema"
+  },
+  "physical_source2021_n": 155411,
+  "physical_source2021_with_accepted_coordinates_n": 153800,
+  "main_working_credit_target_n": 144151,
+  "link_rule": "NFKC/lowercase/yo-e/quotes/hyphen-space/explicit-type-prefix normalization; city_label must equal normalized settlement name; unique exact-name candidate within WGS84 geodesic radius; no nearest-only, no fuzzy or address rescue. Candidate axis includes notcredited physical source records, which are excluded from main sums.",
+  "federal_rule": "Moscow/SaintPetersburg/Sevastopol city_label -> separate territory context, never distributed to small settlements.",
+  "source2021_join_rule": "Exact accepted source_record_id2021; WB national output remains unchanged.",
+  "link_status_counts": {
+    "1": {
+      "federal_city_label_context_not_distributed": 10101,
+      "unresolved_named_candidates_outside_radius": 53833,
+      "accepted_unique_exact_name_within_radius": 26581,
+      "unresolved_no_exact_name_on_accepted_coordinate_axis": 1864,
+      "ambiguous_multiple_exact_name_candidates_within_radius": 124
+    },
+    "5": {
+      "federal_city_label_context_not_distributed": 10101,
+      "accepted_unique_exact_name_within_radius": 60557,
+      "unresolved_named_candidates_outside_radius": 19429,
+      "ambiguous_multiple_exact_name_candidates_within_radius": 552,
+      "unresolved_no_exact_name_on_accepted_coordinate_axis": 1864
+    },
+    "10": {
+      "federal_city_label_context_not_distributed": 10101,
+      "accepted_unique_exact_name_within_radius": 73299,
+      "unresolved_named_candidates_outside_radius": 6220,
+      "ambiguous_multiple_exact_name_candidates_within_radius": 1019,
+      "unresolved_no_exact_name_on_accepted_coordinate_axis": 1864
+    }
+  },
+  "accepted_type_counts_by_radius": {
+    "1": {
+      "0": 26058,
+      "1": 523
+    },
+    "5": {
+      "1": 2384,
+      "0": 58173
+    },
+    "10": {
+      "1": 3559,
+      "0": 69740
+    }
+  },
+  "accepted_settlement_counts_by_radius": {
+    "1": {
+      "all_physical_source2021": 16134,
+      "working_credit_main": 15735
+    },
+    "5": {
+      "all_physical_source2021": 17174,
+      "working_credit_main": 16749
+    },
+    "10": {
+      "all_physical_source2021": 17089,
+      "working_credit_main": 16663
+    }
+  },
+  "main_coverage": {
+    "pickup_1km_baseline": {
+      "settlements_n": 144151,
+      "ozon_archive_partial": true,
+      "ozon_type_inferred": "pickup",
+      "geolink_radius_km": 1,
+      "WB_variant": "baseline",
+      "both_positive_accepted_n": 5941,
+      "WB_positive_no_accepted_Ozon_partial_unknown_n": 2050,
+      "Ozon_positive_no_accepted_WB_n": 9614,
+      "neither_accepted_not_confirmed_absence_n": 124963,
+      "WB_unknown_Ozon_positive_n": 165,
+      "WB_unknown_Ozon_no_accepted_partial_unknown_n": 1418,
+      "ozon_positive_n": 15720,
+      "ozon_zero_accepted_partial_unknown_n": 128431,
+      "WB_unknown_n": 1583,
+      "ozon_positive_share_all_main_target": 0.10905231319935346
+    },
+    "pickup_1km_pointshift_sensitivity": {
+      "settlements_n": 144151,
+      "ozon_archive_partial": true,
+      "ozon_type_inferred": "pickup",
+      "geolink_radius_km": 1,
+      "WB_variant": "pointshift_sensitivity",
+      "both_positive_accepted_n": 5941,
+      "WB_positive_no_accepted_Ozon_partial_unknown_n": 2049,
+      "Ozon_positive_no_accepted_WB_n": 9613,
+      "neither_accepted_not_confirmed_absence_n": 124961,
+      "WB_unknown_Ozon_positive_n": 166,
+      "WB_unknown_Ozon_no_accepted_partial_unknown_n": 1421,
+      "ozon_positive_n": 15720,
+      "ozon_zero_accepted_partial_unknown_n": 128431,
+      "WB_unknown_n": 1587,
+      "ozon_positive_share_all_main_target": 0.10905231319935346
+    },
+    "all_1km_baseline": {
+      "settlements_n": 144151,
+      "ozon_archive_partial": true,
+      "ozon_type_inferred": "all",
+      "geolink_radius_km": 1,
+      "WB_variant": "baseline",
+      "both_positive_accepted_n": 5952,
+      "WB_positive_no_accepted_Ozon_partial_unknown_n": 2039,
+      "Ozon_positive_no_accepted_WB_n": 9618,
+      "neither_accepted_not_confirmed_absence_n": 124959,
+      "WB_unknown_Ozon_positive_n": 165,
+      "WB_unknown_Ozon_no_accepted_partial_unknown_n": 1418,
+      "ozon_positive_n": 15735,
+      "ozon_zero_accepted_partial_unknown_n": 128416,
+      "WB_unknown_n": 1583,
+      "ozon_positive_share_all_main_target": 0.1091563707501162
+    },
+    "all_1km_pointshift_sensitivity": {
+      "settlements_n": 144151,
+      "ozon_archive_partial": true,
+      "ozon_type_inferred": "all",
+      "geolink_radius_km": 1,
+      "WB_variant": "pointshift_sensitivity",
+      "both_positive_accepted_n": 5952,
+      "WB_positive_no_accepted_Ozon_partial_unknown_n": 2038,
+      "Ozon_positive_no_accepted_WB_n": 9617,
+      "neither_accepted_not_confirmed_absence_n": 124957,
+      "WB_unknown_Ozon_positive_n": 166,
+      "WB_unknown_Ozon_no_accepted_partial_unknown_n": 1421,
+      "ozon_positive_n": 15735,
+      "ozon_zero_accepted_partial_unknown_n": 128416,
+      "WB_unknown_n": 1587,
+      "ozon_positive_share_all_main_target": 0.1091563707501162
+    },
+    "pickup_5km_baseline": {
+      "settlements_n": 144151,
+      "ozon_archive_partial": true,
+      "ozon_type_inferred": "pickup",
+      "geolink_radius_km": 5,
+      "WB_variant": "baseline",
+      "both_positive_accepted_n": 6415,
+      "WB_positive_no_accepted_Ozon_partial_unknown_n": 1576,
+      "Ozon_positive_no_accepted_WB_n": 10143,
+      "neither_accepted_not_confirmed_absence_n": 124434,
+      "WB_unknown_Ozon_positive_n": 177,
+      "WB_unknown_Ozon_no_accepted_partial_unknown_n": 1406,
+      "ozon_positive_n": 16735,
+      "ozon_zero_accepted_partial_unknown_n": 127416,
+      "WB_unknown_n": 1583,
+      "ozon_positive_share_all_main_target": 0.11609354080096565
+    },
+    "pickup_5km_pointshift_sensitivity": {
+      "settlements_n": 144151,
+      "ozon_archive_partial": true,
+      "ozon_type_inferred": "pickup",
+      "geolink_radius_km": 5,
+      "WB_variant": "pointshift_sensitivity",
+      "both_positive_accepted_n": 6415,
+      "WB_positive_no_accepted_Ozon_partial_unknown_n": 1575,
+      "Ozon_positive_no_accepted_WB_n": 10142,
+      "neither_accepted_not_confirmed_absence_n": 124432,
+      "WB_unknown_Ozon_positive_n": 178,
+      "WB_unknown_Ozon_no_accepted_partial_unknown_n": 1409,
+      "ozon_positive_n": 16735,
+      "ozon_zero_accepted_partial_unknown_n": 127416,
+      "WB_unknown_n": 1587,
+      "ozon_positive_share_all_main_target": 0.11609354080096565
+    },
+    "all_5km_baseline": {
+      "settlements_n": 144151,
+      "ozon_archive_partial": true,
+      "ozon_type_inferred": "all",
+      "geolink_radius_km": 5,
+      "WB_variant": "baseline",
+      "both_positive_accepted_n": 6426,
+      "WB_positive_no_accepted_Ozon_partial_unknown_n": 1565,
+      "Ozon_positive_no_accepted_WB_n": 10146,
+      "neither_accepted_not_confirmed_absence_n": 124431,
+      "WB_unknown_Ozon_positive_n": 177,
+      "WB_unknown_Ozon_no_accepted_partial_unknown_n": 1406,
+      "ozon_positive_n": 16749,
+      "ozon_zero_accepted_partial_unknown_n": 127402,
+      "WB_unknown_n": 1583,
+      "ozon_positive_share_all_main_target": 0.11619066118167755
+    },
+    "all_5km_pointshift_sensitivity": {
+      "settlements_n": 144151,
+      "ozon_archive_partial": true,
+      "ozon_type_inferred": "all",
+      "geolink_radius_km": 5,
+      "WB_variant": "pointshift_sensitivity",
+      "both_positive_accepted_n": 6426,
+      "WB_positive_no_accepted_Ozon_partial_unknown_n": 1564,
+      "Ozon_positive_no_accepted_WB_n": 10145,
+      "neither_accepted_not_confirmed_absence_n": 124429,
+      "WB_unknown_Ozon_positive_n": 178,
+      "WB_unknown_Ozon_no_accepted_partial_unknown_n": 1409,
+      "ozon_positive_n": 16749,
+      "ozon_zero_accepted_partial_unknown_n": 127402,
+      "WB_unknown_n": 1587,
+      "ozon_positive_share_all_main_target": 0.11619066118167755
+    },
+    "pickup_10km_baseline": {
+      "settlements_n": 144151,
+      "ozon_archive_partial": true,
+      "ozon_type_inferred": "pickup",
+      "geolink_radius_km": 10,
+      "WB_variant": "baseline",
+      "both_positive_accepted_n": 6393,
+      "WB_positive_no_accepted_Ozon_partial_unknown_n": 1598,
+      "Ozon_positive_no_accepted_WB_n": 10079,
+      "neither_accepted_not_confirmed_absence_n": 124498,
+      "WB_unknown_Ozon_positive_n": 177,
+      "WB_unknown_Ozon_no_accepted_partial_unknown_n": 1406,
+      "ozon_positive_n": 16649,
+      "ozon_zero_accepted_partial_unknown_n": 127502,
+      "WB_unknown_n": 1583,
+      "ozon_positive_share_all_main_target": 0.1154969441765926
+    },
+    "pickup_10km_pointshift_sensitivity": {
+      "settlements_n": 144151,
+      "ozon_archive_partial": true,
+      "ozon_type_inferred": "pickup",
+      "geolink_radius_km": 10,
+      "WB_variant": "pointshift_sensitivity",
+      "both_positive_accepted_n": 6393,
+      "WB_positive_no_accepted_Ozon_partial_unknown_n": 1597,
+      "Ozon_positive_no_accepted_WB_n": 10078,
+      "neither_accepted_not_confirmed_absence_n": 124496,
+      "WB_unknown_Ozon_positive_n": 178,
+      "WB_unknown_Ozon_no_accepted_partial_unknown_n": 1409,
+      "ozon_positive_n": 16649,
+      "ozon_zero_accepted_partial_unknown_n": 127502,
+      "WB_unknown_n": 1587,
+      "ozon_positive_share_all_main_target": 0.1154969441765926
+    },
+    "all_10km_baseline": {
+      "settlements_n": 144151,
+      "ozon_archive_partial": true,
+      "ozon_type_inferred": "all",
+      "geolink_radius_km": 10,
+      "WB_variant": "baseline",
+      "both_positive_accepted_n": 6404,
+      "WB_positive_no_accepted_Ozon_partial_unknown_n": 1587,
+      "Ozon_positive_no_accepted_WB_n": 10082,
+      "neither_accepted_not_confirmed_absence_n": 124495,
+      "WB_unknown_Ozon_positive_n": 177,
+      "WB_unknown_Ozon_no_accepted_partial_unknown_n": 1406,
+      "ozon_positive_n": 16663,
+      "ozon_zero_accepted_partial_unknown_n": 127488,
+      "WB_unknown_n": 1583,
+      "ozon_positive_share_all_main_target": 0.11559406455730449
+    },
+    "all_10km_pointshift_sensitivity": {
+      "settlements_n": 144151,
+      "ozon_archive_partial": true,
+      "ozon_type_inferred": "all",
+      "geolink_radius_km": 10,
+      "WB_variant": "pointshift_sensitivity",
+      "both_positive_accepted_n": 6404,
+      "WB_positive_no_accepted_Ozon_partial_unknown_n": 1586,
+      "Ozon_positive_no_accepted_WB_n": 10081,
+      "neither_accepted_not_confirmed_absence_n": 124493,
+      "WB_unknown_Ozon_positive_n": 178,
+      "WB_unknown_Ozon_no_accepted_partial_unknown_n": 1409,
+      "ozon_positive_n": 16663,
+      "ozon_zero_accepted_partial_unknown_n": 127488,
+      "WB_unknown_n": 1587,
+      "ozon_positive_share_all_main_target": 0.11559406455730449
+    }
+  },
+  "pilot_checks": [
+    {
+      "pilot_role": "pilot_centre",
+      "source_record_id_2021": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:73177",
+      "name_2021": "Воскресенское",
+      "type_2021": "пгт",
+      "WB_focus20261021_count": "6",
+      "ozon_pickup_inferred_accepted_1km_count": 3,
+      "ozon_locker_inferred_accepted_1km_count": 0,
+      "ozon_all_inferred_accepted_1km_count": 3,
+      "ozon_pickup_inferred_accepted_5km_count": 3,
+      "ozon_locker_inferred_accepted_5km_count": 0,
+      "ozon_all_inferred_accepted_5km_count": 3,
+      "ozon_pickup_inferred_accepted_10km_count": 3,
+      "ozon_locker_inferred_accepted_10km_count": 0,
+      "ozon_all_inferred_accepted_10km_count": 3,
+      "ozon_zero_evidence_interpretation": "zero_accepted_records_in_partial_third_party_archive_not_confirmed_absence"
+    },
+    {
+      "pilot_role": "pilot_centre",
+      "source_record_id_2021": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:74916",
+      "name_2021": "Шаранга",
+      "type_2021": "пгт",
+      "WB_focus20261021_count": "3",
+      "ozon_pickup_inferred_accepted_1km_count": 1,
+      "ozon_locker_inferred_accepted_1km_count": 0,
+      "ozon_all_inferred_accepted_1km_count": 1,
+      "ozon_pickup_inferred_accepted_5km_count": 2,
+      "ozon_locker_inferred_accepted_5km_count": 0,
+      "ozon_all_inferred_accepted_5km_count": 2,
+      "ozon_pickup_inferred_accepted_10km_count": 2,
+      "ozon_locker_inferred_accepted_10km_count": 0,
+      "ozon_all_inferred_accepted_10km_count": 2,
+      "ozon_zero_evidence_interpretation": "zero_accepted_records_in_partial_third_party_archive_not_confirmed_absence"
+    },
+    {
+      "pilot_role": "pilot_centre",
+      "source_record_id_2021": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:74826",
+      "name_2021": "Тонкино",
+      "type_2021": "пгт",
+      "WB_focus20261021_count": "2",
+      "ozon_pickup_inferred_accepted_1km_count": 1,
+      "ozon_locker_inferred_accepted_1km_count": 0,
+      "ozon_all_inferred_accepted_1km_count": 1,
+      "ozon_pickup_inferred_accepted_5km_count": 1,
+      "ozon_locker_inferred_accepted_5km_count": 0,
+      "ozon_all_inferred_accepted_5km_count": 1,
+      "ozon_pickup_inferred_accepted_10km_count": 1,
+      "ozon_locker_inferred_accepted_10km_count": 0,
+      "ozon_all_inferred_accepted_10km_count": 1,
+      "ozon_zero_evidence_interpretation": "zero_accepted_records_in_partial_third_party_archive_not_confirmed_absence"
+    },
+    {
+      "pilot_role": "pilot_centre",
+      "source_record_id_2021": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:72211",
+      "name_2021": "Тоншаево",
+      "type_2021": "пгт",
+      "WB_focus20261021_count": "2",
+      "ozon_pickup_inferred_accepted_1km_count": 1,
+      "ozon_locker_inferred_accepted_1km_count": 0,
+      "ozon_all_inferred_accepted_1km_count": 1,
+      "ozon_pickup_inferred_accepted_5km_count": 1,
+      "ozon_locker_inferred_accepted_5km_count": 0,
+      "ozon_all_inferred_accepted_5km_count": 1,
+      "ozon_pickup_inferred_accepted_10km_count": 1,
+      "ozon_locker_inferred_accepted_10km_count": 0,
+      "ozon_all_inferred_accepted_10km_count": 1,
+      "ozon_zero_evidence_interpretation": "zero_accepted_records_in_partial_third_party_archive_not_confirmed_absence"
+    },
+    {
+      "pilot_role": "pilot_centre",
+      "source_record_id_2021": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:72959",
+      "name_2021": "Ветлуга",
+      "type_2021": "город",
+      "WB_focus20261021_count": "4",
+      "ozon_pickup_inferred_accepted_1km_count": 3,
+      "ozon_locker_inferred_accepted_1km_count": 0,
+      "ozon_all_inferred_accepted_1km_count": 3,
+      "ozon_pickup_inferred_accepted_5km_count": 4,
+      "ozon_locker_inferred_accepted_5km_count": 0,
+      "ozon_all_inferred_accepted_5km_count": 4,
+      "ozon_pickup_inferred_accepted_10km_count": 4,
+      "ozon_locker_inferred_accepted_10km_count": 0,
+      "ozon_all_inferred_accepted_10km_count": 4,
+      "ozon_zero_evidence_interpretation": "zero_accepted_records_in_partial_third_party_archive_not_confirmed_absence"
+    },
+    {
+      "pilot_role": "pilot_centre",
+      "source_record_id_2021": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:72292",
+      "name_2021": "Урень",
+      "type_2021": "город",
+      "WB_focus20261021_count": "7",
+      "ozon_pickup_inferred_accepted_1km_count": 4,
+      "ozon_locker_inferred_accepted_1km_count": 0,
+      "ozon_all_inferred_accepted_1km_count": 4,
+      "ozon_pickup_inferred_accepted_5km_count": 8,
+      "ozon_locker_inferred_accepted_5km_count": 0,
+      "ozon_all_inferred_accepted_5km_count": 8,
+      "ozon_pickup_inferred_accepted_10km_count": 8,
+      "ozon_locker_inferred_accepted_10km_count": 0,
+      "ozon_all_inferred_accepted_10km_count": 8,
+      "ozon_zero_evidence_interpretation": "zero_accepted_records_in_partial_third_party_archive_not_confirmed_absence"
+    },
+    {
+      "pilot_role": "pilot_WBpositive_neighbour",
+      "source_record_id_2021": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:72212",
+      "name_2021": "Пижма",
+      "type_2021": "пгт",
+      "WB_focus20261021_count": "1",
+      "ozon_pickup_inferred_accepted_1km_count": 0,
+      "ozon_locker_inferred_accepted_1km_count": 0,
+      "ozon_all_inferred_accepted_1km_count": 0,
+      "ozon_pickup_inferred_accepted_5km_count": 1,
+      "ozon_locker_inferred_accepted_5km_count": 0,
+      "ozon_all_inferred_accepted_5km_count": 1,
+      "ozon_pickup_inferred_accepted_10km_count": 1,
+      "ozon_locker_inferred_accepted_10km_count": 0,
+      "ozon_all_inferred_accepted_10km_count": 1,
+      "ozon_zero_evidence_interpretation": "zero_accepted_records_in_partial_third_party_archive_not_confirmed_absence"
+    },
+    {
+      "pilot_role": "pilot_WBpositive_neighbour",
+      "source_record_id_2021": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:72411",
+      "name_2021": "Уста",
+      "type_2021": "посёлок",
+      "WB_focus20261021_count": "1",
+      "ozon_pickup_inferred_accepted_1km_count": 1,
+      "ozon_locker_inferred_accepted_1km_count": 0,
+      "ozon_all_inferred_accepted_1km_count": 1,
+      "ozon_pickup_inferred_accepted_5km_count": 1,
+      "ozon_locker_inferred_accepted_5km_count": 0,
+      "ozon_all_inferred_accepted_5km_count": 1,
+      "ozon_pickup_inferred_accepted_10km_count": 1,
+      "ozon_locker_inferred_accepted_10km_count": 0,
+      "ozon_all_inferred_accepted_10km_count": 1,
+      "ozon_zero_evidence_interpretation": "zero_accepted_records_in_partial_third_party_archive_not_confirmed_absence"
+    },
+    {
+      "pilot_role": "pilot_WBpositive_neighbour",
+      "source_record_id_2021": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:72293",
+      "name_2021": "Арья",
+      "type_2021": "пгт",
+      "WB_focus20261021_count": "3",
+      "ozon_pickup_inferred_accepted_1km_count": 3,
+      "ozon_locker_inferred_accepted_1km_count": 0,
+      "ozon_all_inferred_accepted_1km_count": 3,
+      "ozon_pickup_inferred_accepted_5km_count": 3,
+      "ozon_locker_inferred_accepted_5km_count": 0,
+      "ozon_all_inferred_accepted_5km_count": 3,
+      "ozon_pickup_inferred_accepted_10km_count": 3,
+      "ozon_locker_inferred_accepted_10km_count": 0,
+      "ozon_all_inferred_accepted_10km_count": 3,
+      "ozon_zero_evidence_interpretation": "zero_accepted_records_in_partial_third_party_archive_not_confirmed_absence"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/ozon_nutrygo_normalized_20260806.csv",
+      "sha256": "890eaece1fde399db9935984c378b2624b2667dc7e8c5779c0403aa350fd5671"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/pilot/inputs/data/population/settlements_census_long.parquet",
+      "sha256": "2b0a1e3cd20819f6b99d1e6a200e4365fa7296e128dc22b023327b9e572f60c4"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/national_base_all_wide.parquet",
+      "sha256": "19a166873b9829d2a4cb7937ac59dd9c92b18b74796f1dccb3a8e15a6a623c2e"
+    },
+    {
+      "path": "/Users/zakbu/Documents/ChatGPT/Магистерская 2/work/sources/research/ecommerce_settlement_20261024/national/national_target_source2021.parquet",
+      "sha256": "89fce76fe330dd33bd3b5f8496f3e46e7faffaf55d045193bd4070f8a2d017f2"
+    }
+  ],
+  "cautions": [
+    "Third-party archive may omit objects; accepted positivity is evidence, zero is not absence.",
+    "Source snapshot label is not date of physical opening.",
+    "August Ozon and October WB2026 snapshots differ in time.",
+    "Geodesic name-coordinate linkage has no consumer-flow or catchment interpretation.",
+    "Coordinate radius is an object-identity screen, not service-access radius.",
+    "No standardized source region filter; same-name ambiguity inside radius stays unresolved.",
+    "Types are source-inferred; lockers kept separate from pickup points.",
+    "Candidate eligibility and sparse source coverage can affect differences between platforms.",
+    "This dataset cannot estimate marketplace effects or historical exposure."
+  ],
+  "accepted_object_counts_main_vs_notcredited_by_radius": {
+    "1": {
+      "main_working_credit": 26035,
+      "physical_notcredited": 546
+    },
+    "5": {
+      "main_working_credit": 59539,
+      "physical_notcredited": 1018
+    },
+    "10": {
+      "main_working_credit": 72215,
+      "physical_notcredited": 1084
+    }
+  },
+  "pilot_neighbourhood_screening": [
+    {
+      "centre_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:73177",
+      "centre_name": "Воскресенское",
+      "screened_neighbours_20km_n": 104,
+      "screen_is_functional_catchment": false,
+      "neighbour_Ozon_pickup_positive_1km_link_n": 3,
+      "neighbour_Ozon_positive_share_1km_link": 0.028846153846153848,
+      "neighbour_Ozon_pickup_positive_5km_link_n": 3,
+      "neighbour_Ozon_positive_share_5km_link": 0.028846153846153848,
+      "neighbour_Ozon_pickup_positive_10km_link_n": 3,
+      "neighbour_Ozon_positive_share_10km_link": 0.028846153846153848,
+      "WBpositive_neighbours_n": 0,
+      "Ozonpositive5km_without_positive_WB_evidence_neighbours_n": 3
+    },
+    {
+      "centre_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:74916",
+      "centre_name": "Шаранга",
+      "screened_neighbours_20km_n": 82,
+      "screen_is_functional_catchment": false,
+      "neighbour_Ozon_pickup_positive_1km_link_n": 2,
+      "neighbour_Ozon_positive_share_1km_link": 0.024390243902439025,
+      "neighbour_Ozon_pickup_positive_5km_link_n": 2,
+      "neighbour_Ozon_positive_share_5km_link": 0.024390243902439025,
+      "neighbour_Ozon_pickup_positive_10km_link_n": 2,
+      "neighbour_Ozon_positive_share_10km_link": 0.024390243902439025,
+      "WBpositive_neighbours_n": 0,
+      "Ozonpositive5km_without_positive_WB_evidence_neighbours_n": 2
+    },
+    {
+      "centre_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:74826",
+      "centre_name": "Тонкино",
+      "screened_neighbours_20km_n": 85,
+      "screen_is_functional_catchment": false,
+      "neighbour_Ozon_pickup_positive_1km_link_n": 2,
+      "neighbour_Ozon_positive_share_1km_link": 0.023529411764705882,
+      "neighbour_Ozon_pickup_positive_5km_link_n": 2,
+      "neighbour_Ozon_positive_share_5km_link": 0.023529411764705882,
+      "neighbour_Ozon_pickup_positive_10km_link_n": 2,
+      "neighbour_Ozon_positive_share_10km_link": 0.023529411764705882,
+      "WBpositive_neighbours_n": 0,
+      "Ozonpositive5km_without_positive_WB_evidence_neighbours_n": 2
+    },
+    {
+      "centre_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:72211",
+      "centre_name": "Тоншаево",
+      "screened_neighbours_20km_n": 64,
+      "screen_is_functional_catchment": false,
+      "neighbour_Ozon_pickup_positive_1km_link_n": 1,
+      "neighbour_Ozon_positive_share_1km_link": 0.015625,
+      "neighbour_Ozon_pickup_positive_5km_link_n": 2,
+      "neighbour_Ozon_positive_share_5km_link": 0.03125,
+      "neighbour_Ozon_pickup_positive_10km_link_n": 2,
+      "neighbour_Ozon_positive_share_10km_link": 0.03125,
+      "WBpositive_neighbours_n": 1,
+      "Ozonpositive5km_without_positive_WB_evidence_neighbours_n": 1
+    },
+    {
+      "centre_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:72959",
+      "centre_name": "Ветлуга",
+      "screened_neighbours_20km_n": 78,
+      "screen_is_functional_catchment": false,
+      "neighbour_Ozon_pickup_positive_1km_link_n": 0,
+      "neighbour_Ozon_positive_share_1km_link": 0.0,
+      "neighbour_Ozon_pickup_positive_5km_link_n": 0,
+      "neighbour_Ozon_positive_share_5km_link": 0.0,
+      "neighbour_Ozon_pickup_positive_10km_link_n": 0,
+      "neighbour_Ozon_positive_share_10km_link": 0.0,
+      "WBpositive_neighbours_n": 0,
+      "Ozonpositive5km_without_positive_WB_evidence_neighbours_n": 0
+    },
+    {
+      "centre_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:72292",
+      "centre_name": "Урень",
+      "screened_neighbours_20km_n": 73,
+      "screen_is_functional_catchment": false,
+      "neighbour_Ozon_pickup_positive_1km_link_n": 7,
+      "neighbour_Ozon_positive_share_1km_link": 0.0958904109589041,
+      "neighbour_Ozon_pickup_positive_5km_link_n": 8,
+      "neighbour_Ozon_positive_share_5km_link": 0.1095890410958904,
+      "neighbour_Ozon_pickup_positive_10km_link_n": 8,
+      "neighbour_Ozon_positive_share_10km_link": 0.1095890410958904,
+      "WBpositive_neighbours_n": 2,
+      "Ozonpositive5km_without_positive_WB_evidence_neighbours_n": 6
+    }
+  ],
+  "pilot_positive_neighbour_unique_source2021_n": 16,
+  "pilot_Ozon_positive_additional_to_positive_WB_unique_source2021_n": 13,
+  "cross_platform_comparability_warning": "Ozon exact city-name5km p0 vs WB original address-name baseline10km types8/34 are different measurement rules, source scope and dates. Counts cannot establish relative commercial coverage or a2x market advantage."
+}
