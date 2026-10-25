@@ -1,0 +1,16 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Visualization from '../../components/Visualization.astro';
+import {materials,materialPages,visuals,datasets,research,basePath,formatDate,currencyLabel,evidenceLabel} from '../../lib/content';
+import {marked,Renderer} from 'marked';
+export function getStaticPaths(){return materialPages.map(m=>({params:{id:m.id},props:{material:m}}))}
+const {material:m}=Astro.props;
+const itemVisuals=m.visualIds.map((id:string)=>visuals.find(v=>v.id===id)).filter(Boolean);
+const itemDatasets=datasets.filter(d=>m.datasetIds.includes(d.id));const project=research.find(r=>r.id===m.researchId);
+const renderer=new Renderer();renderer.html=()=>'';renderer.image=({text})=>text;const originalLink=renderer.link.bind(renderer);renderer.link=(token)=>/^(https?:|\/|#|\.\/)/.test(token.href)?originalLink(token):token.text;
+const body=marked.parse(m.body,{renderer,async:false});
+---
+<Layout title={m.title} active={['method','note'].includes(m.kind)?'knowledge':'atlas'} researchId={m.researchId} description={m.summary}><div class="shell"><p class="eyebrow"><a href={basePath(`research/${m.researchId}/`)}>{project?.title||m.researchId}</a> / {m.topic}</p><div class="page-heading"><h1 style="font-size:clamp(40px,5.4vw,82px)">{m.title}</h1></div><p style="font-size:21px;max-width:1000px">{m.summary}</p><div class="research-strip"><span>{m.territory} / {m.period}</span><span>{evidenceLabel[m.evidence]||m.evidence}</span><span>Обновлено {formatDate(m.updatedAt)}</span></div>
+{(m.currency!=='current'||m.visibility==='archived')&&<div class="warning-banner">{m.visibility==='archived'?'Архивная публикация':currencyLabel[m.currency]}. Учитывайте ограничения описанной версии.{m.supersedes&&<span> Предыдущий материал: <a href={basePath(`materials/${m.supersedes}/`)}>{m.supersedes}</a>.</span>}</div>}
+{itemVisuals.map((v:any)=><Visualization visual={v}/>)}
+<div class="material-grid"><article class="article-body" set:html={body}/><aside class="article-side"><h3>Источники</h3><ul>{m.sources.map((s:{title:string;url:string})=><li><a href={s.url} target="_blank" rel="noopener noreferrer">{s.title} ↗</a></li>)}</ul><h3>Данные и версия</h3>{itemDatasets.map(d=><div><p><a href={d.url}>{d.title} ↗</a></p><p class="mono">{d.release}</p>{d.limitations.map(l=><p>{l}</p>)}</div>)}<p class="mono" style="overflow-wrap:anywhere">Исходный коммит: <a href={`https://github.com/ZakBu/russian-settlements-research/commit/${m.sourceCommit}`}>{m.sourceCommit.slice(0,8)}</a></p><a class="secondary-button" href={basePath(`research/${m.researchId}/`)}>Все материалы исследования →</a></aside></div></div></Layout>

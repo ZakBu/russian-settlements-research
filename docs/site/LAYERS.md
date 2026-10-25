@@ -1,0 +1,74 @@
+# Новый слой карты без изменения интерфейса
+
+Новый слой описывается JSON в `web/content/layers`. Экспортёр проверяет исходные байты, приводит их к GeoJSON и создаёт `web/public/data/layers.json`. Карта читает этот реестр и показывает слой в группе «Слои исследования». Автор не редактирует MapWorkspace, CSS и шаблоны страниц.
+
+## Рабочий пример: число поселений окружения у каждого центра
+
+Это отдельный показатель: число внешних жилых поселений у центра строгой модели. Он не является числом реальных поездок или полным районированием СГРТ.
+
+В `datasets.json` уже зарегистрирован набор `centre-members-csv`:
+
+- Файл: `sgrt/zero/checked_model_centres_20261025.csv`.
+- Коммит: `3edc853c7623bb1cec22ca9a8bd9d82f7a0446ce`.
+- URL: `https://raw.githubusercontent.com/ZakBu/russian-settlements-research/3edc853c7623bb1cec22ca9a8bd9d82f7a0446ce/sgrt/zero/checked_model_centres_20261025.csv`.
+- SHA-256: `12da670141473e8cebf5ca9df09e3f8ac73d72b666580592057d78f663d47ab0`.
+
+Создайте слой в своей ветке. Здесь нет условных названий столбцов или случайных значений:
+
+```bash
+python - <<'PY'
+import json
+from pathlib import Path
+Path('/tmp/centre-member-fields.json').write_text(json.dumps({
+    'id': 'star_id',
+    'name': 'centre_name',
+    'value': 'strict_external_member_count',
+    'settlementKey': 'centre_settlement_id'
+}))
+PY
+python scripts/site_content.py layer \
+  --id centre-member-count --research sgrt --dataset-ref centre-members-csv \
+  --adapter csv-settlement --geometry point \
+  --title 'Число поселений окружения у центра' \
+  --description 'Строгий модельный поднабор: внешние жилые поселения, связанные с каждым центром.' \
+  --unit 'НП' --period 'Услуги разных лет; демография 2002–2021' \
+  --evidence model --palette blue \
+  --fields-file /tmp/centre-member-fields.json --publish
+python scripts/site_content.py validate --json
+python scripts/build_site_data.py
+python scripts/site_content.py preview
+```
+
+Откройте `/map/?research=sgrt&layers=population,centre-member-count`. Для проекта GitHub Pages адрес получает обычный префикс `/russian-settlements-research/`. Слой должен появиться в списке и показать 197 центров из закреплённого CSV после присоединения по точному ID. Нажатие показывает реальное значение `strict_external_member_count`, единицу, источник и модельное основание. Связанный с переписной записью центр может открыть её демографию снизу.
+
+Без `--publish` создаётся черновик: он не экспортируется и не появляется на публичной карте. Чтобы опубликовать существующий черновик, явно измените `visibility` на `published` и снова проверьте контент. Повтор той же команды не создаёт копию; изменённый существующий JSON не перезаписывается.
+
+Чтобы добавить переход из материала, зарегистрируйте визуализацию `settlement-map` или `service-links` и укажите в `mapState.layers` массив `['population', 'centre-member-count']`. Затем добавьте ID визуализации и её dataset в материал. Команда `visual --values-file` принимает такой объект `mapState`.
+
+## Поддерживаемые адаптеры
+
+| Адаптер | Геометрия | Дополнительные обязательные поля |
+|---|---|---|
+| `csv-points` | `point` | `longitude`, `latitude` — имена координатных столбцов |
+| `csv-settlement` | `point` | `settlementKey` — столбец точного `source_record_id` принятой базы |
+| `geojson` | `point`, `line`, `polygon` | Источник — FeatureCollection соответствующей геометрии |
+
+Во всех случаях `fields.id` и `fields.name` обязательны, `fields.value` необязательно. Это имена полей источника, не выражения или код. Для CSV нельзя использовать линии или полигоны. Значение долготы или широты `0` допустимо. Пропуск показателя сохраняется как `null`, а не ноль.
+
+`csv-settlement` не ищет ближайшее место и не сопоставляет по похожему названию. Неизвестные ID нельзя молча подменять координатами соседнего НП. Экспортёр проверяет присоединение к принятой базе и сообщает о проблемах.
+
+## Контракт и проверки
+
+```text
+id, researchId, title, description, datasetId, adapter, geometry,
+fields: {id,name,value?,longitude?,latitude?,settlementKey?},
+palette, unit, period, evidence, visibility
+```
+
+Палитры и виды доказательств общие с другими визуализациями. Не передавайте HEX, JavaScript, стили MapLibre и HTML. ID базовых слоёв зарезервированы: `population`, `schools`, `medical`, `services`, `links`, `centres`, `districts`, `regions`.
+
+Источник нового слоя должен иметь зарегистрированные URL HTTPS, полный `sourceCommit` и точный SHA-256. Ссылки на `main`, `latest` или HTML-страницу GitHub blob не допускаются; используйте raw-файл коммита либо именованный неизменяемый выпуск. Браузер не скачивает научный источник напрямую: это делает экспортёр с проверкой SHA и ограничением входного размера 20 МБ.
+
+`validate --json` проверяет контракт, ссылки, геометрию адаптера, единицу и поля. `build_site_data.py` отдельно проверяет исходные байты, реальную геометрию, конечность координат и значений, диапазоны и уникальность ID. Наличие строки в реестре не заменяет эту проверку.
+
+После проверки материал и слой отправляются обычным `site_content.py submit`. PR содержит только контент; сборка автоматически обновит реестр карты. Новый класс геометрии или новый адаптер требует отдельного инженерного изменения с тестом, а новый слой на поддержанном адаптере — нет.

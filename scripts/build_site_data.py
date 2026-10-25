@@ -1,0 +1,537 @@
+#!/usr/bin/env python3
+"""Export verified, versioned research inputs into an entirely static web data bundle.
+
+No scientific calculation is rerun. Missing values and credit/comparability flags
+are preserved; polygon summaries describe a fixed comparable point cohort, not
+official administrative totals. Downloads and outputs are intentionally ignored.
+"""
+from __future__ import annotations
+
+import argparse
+import csv
+import hashlib
+import io
+import json
+import math
+import os
+import re
+from pathlib import Path
+import subprocess
+import sys
+from urllib.request import Request, urlopen
+from urllib.parse import urlparse
+
+ROOT = Path(__file__).resolve().parents[1]
+YEARS = (2002, 2010, 2021)
+# Display-only Russian labels for the 83 explicit ISO 3166-2 codes in the
+# pinned ADM1 source. This dictionary never joins polygon IDs to census/OKTMO.
+REGION_NAMES_RU = {
+    'RU-AD': 'Республика Адыгея', 'RU-AL': 'Республика Алтай',
+    'RU-ALT': 'Алтайский край', 'RU-AMU': 'Амурская область',
+    'RU-ARK': 'Архангельская область', 'RU-AST': 'Астраханская область',
+    'RU-BA': 'Республика Башкортостан', 'RU-BEL': 'Белгородская область',
+    'RU-BRY': 'Брянская область', 'RU-BU': 'Республика Бурятия',
+    'RU-CE': 'Чеченская Республика', 'RU-CHE': 'Челябинская область',
+    'RU-CHU': 'Чукотский автономный округ', 'RU-CU': 'Чувашская Республика',
+    'RU-DA': 'Республика Дагестан', 'RU-IN': 'Республика Ингушетия',
+    'RU-IRK': 'Иркутская область', 'RU-IVA': 'Ивановская область',
+    'RU-KAM': 'Камчатский край', 'RU-KB': 'Кабардино-Балкарская Республика',
+    'RU-KC': 'Карачаево-Черкесская Республика', 'RU-KDA': 'Краснодарский край',
+    'RU-KEM': 'Кемеровская область', 'RU-KGD': 'Калининградская область',
+    'RU-KGN': 'Курганская область', 'RU-KHA': 'Хабаровский край',
+    'RU-KHM': 'Ханты-Мансийский автономный округ — Югра',
+    'RU-KIR': 'Кировская область', 'RU-KK': 'Республика Хакасия',
+    'RU-KL': 'Республика Калмыкия', 'RU-KLU': 'Калужская область',
+    'RU-KO': 'Республика Коми', 'RU-KOS': 'Костромская область',
+    'RU-KR': 'Республика Карелия', 'RU-KRS': 'Курская область',
+    'RU-KYA': 'Красноярский край', 'RU-LEN': 'Ленинградская область',
+    'RU-LIP': 'Липецкая область', 'RU-MAG': 'Магаданская область',
+    'RU-ME': 'Республика Марий Эл', 'RU-MO': 'Республика Мордовия',
+    'RU-MOS': 'Московская область', 'RU-MOW': 'Москва',
+    'RU-MUR': 'Мурманская область', 'RU-NEN': 'Ненецкий автономный округ',
+    'RU-NGR': 'Новгородская область', 'RU-NIZ': 'Нижегородская область',
+    'RU-NVS': 'Новосибирская область', 'RU-OMS': 'Омская область',
+    'RU-ORE': 'Оренбургская область', 'RU-ORL': 'Орловская область',
+    'RU-PER': 'Пермский край', 'RU-PNZ': 'Пензенская область',
+    'RU-PRI': 'Приморский край', 'RU-PSK': 'Псковская область',
+    'RU-ROS': 'Ростовская область', 'RU-RYA': 'Рязанская область',
+    'RU-SA': 'Республика Саха (Якутия)', 'RU-SAK': 'Сахалинская область',
+    'RU-SAM': 'Самарская область', 'RU-SAR': 'Саратовская область',
+    'RU-SE': 'Республика Северная Осетия — Алания',
+    'RU-SMO': 'Смоленская область', 'RU-SPE': 'Санкт-Петербург',
+    'RU-STA': 'Ставропольский край', 'RU-SVE': 'Свердловская область',
+    'RU-TA': 'Республика Татарстан', 'RU-TAM': 'Тамбовская область',
+    'RU-TOM': 'Томская область', 'RU-TUL': 'Тульская область',
+    'RU-TVE': 'Тверская область', 'RU-TY': 'Республика Тыва',
+    'RU-TYU': 'Тюменская область', 'RU-UD': 'Удмуртская Республика',
+    'RU-ULY': 'Ульяновская область', 'RU-VGG': 'Волгоградская область',
+    'RU-VLA': 'Владимирская область', 'RU-VLG': 'Вологодская область',
+    'RU-VOR': 'Воронежская область', 'RU-YAN': 'Ямало-Ненецкий автономный округ',
+    'RU-YAR': 'Ярославская область', 'RU-YEV': 'Еврейская автономная область',
+    'RU-ZAB': 'Забайкальский край',
+}
+
+
+def digest(path):
+    result = hashlib.sha256()
+    with Path(path).open('rb') as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+            result.update(chunk)
+    return result.hexdigest()
+
+
+def short_id(source_id):
+    return hashlib.sha256(str(source_id).encode()).hexdigest()[:16]
+
+
+def numeric(value):
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    if not math.isfinite(number):
+        return None
+    return int(number) if number.is_integer() else round(number, 6)
+
+
+def truth(value):
+    return value is True or str(value).lower() == 'true'
+
+
+def feature_collection(features):
+    return {'type': 'FeatureCollection', 'features': features}
+
+
+def preview_points(features, cell_degrees=.15):
+    """Spatially thin real points for decorative thumbnails, not a statistical map."""
+    cells = {}
+    for feature in features:
+        lon, lat = feature['geometry']['coordinates']
+        key = (math.floor(lon / cell_degrees), math.floor(lat / cell_degrees))
+        current = cells.get(key)
+        rank = (feature['properties']['p21'] or 0, feature['properties']['id'])
+        if current is None or rank > current[0]:
+            cells[key] = (rank, feature)
+    output = []
+    for _, feature in (cells[key] for key in sorted(cells)):
+        lon, lat = feature['geometry']['coordinates']
+        change = feature['properties']['change']
+        output.append([round(lon, 3), round(lat, 3), round(change, 1) if change is not None else None])
+    return output
+
+
+def write_json(path, value):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(path.name + '.part')
+    temporary.write_text(json.dumps(value, ensure_ascii=False, separators=(',', ':'), allow_nan=False) + '\n')
+    temporary.replace(path)
+
+
+def verified_download(asset, cache):
+    """An existing cache is trusted only after rechecking its pinned SHA-256."""
+    target = cache / (asset['id'] + '.geojson')
+    if target.exists() and digest(target) == asset['sha256']:
+        return target
+    cache.mkdir(parents=True, exist_ok=True)
+    temporary = target.with_suffix('.part')
+    request = Request(asset['url'], headers={'User-Agent': 'russian-settlements-atlas/1'})
+    with urlopen(request, timeout=120) as response, temporary.open('wb') as output:
+        for chunk in iter(lambda: response.read(1024 * 1024), b''):
+            output.write(chunk)
+    if temporary.stat().st_size != asset['bytes'] or digest(temporary) != asset['sha256']:
+        temporary.unlink(missing_ok=True)
+        raise ValueError('Pinned geometry checksum/size mismatch: ' + asset['id'])
+    temporary.replace(target)
+    return target
+
+
+def population_features(wide, long):
+    """Use the accepted 2021 point of ordinary additive records; no inferred points."""
+    ordinary = long.is_additive_settlement_record.fillna(False)
+    if 'population_scope' in long:
+        ordinary &= ~long.population_scope.eq('federal_city_region').fillna(False)
+    accepted = long[(long.census_year == 2021) & ordinary]
+    ids = set(accepted.source_record_id)
+    features, details, lookup = [], {}, {}
+    for row in wide.sort_values('root').to_dict('records'):
+        source = row['source_record_id_2021']
+        if source not in ids or not truth(row['accepted_point_present_2021']):
+            continue
+        lon, lat = numeric(row['accepted_longitude_2021']), numeric(row['accepted_latitude_2021'])
+        if lon is None or lat is None or not (-180 <= lon <= 180 and -90 <= lat <= 90):
+            continue
+        uid = short_id(source)
+        if uid in details:
+            raise ValueError('Duplicate or colliding source identity: ' + uid)
+        credit = {str(y): truth(row[f'working_credit_present_{y}']) for y in YEARS}
+        values = {str(y): numeric(row[f'effective_population_{y}']) if credit[str(y)] else None for y in YEARS}
+        comparable = truth(row['ordinary_full3']) and all(v is not None for v in values.values())
+        change = round((values['2021'] / values['2002'] - 1) * 100, 2) if comparable and values['2002'] > 0 else None
+        name = str(row['settlement_name_2021'] or '')
+        region = str(row['region_norm_2021'] or '')
+        props = {'id': uid, 'shard': uid[:2], 'name': name, 'region': region,
+                 'p02': values['2002'], 'p10': values['2010'], 'p21': values['2021'],
+                 'change': change, 'comparable': comparable}
+        features.append({'type': 'Feature', 'id': uid, 'properties': props,
+                         'geometry': {'type': 'Point', 'coordinates': [round(lon, 6), round(lat, 6)]}})
+        details[uid] = {'id': uid, 'sourceId': source, 'root': row['root'], 'name': name,
+                        'region': region, 'district': row['district_raw_2021'] if isinstance(row['district_raw_2021'], str) else None,
+                        'settlementType': row['settlement_type_2021'] if isinstance(row['settlement_type_2021'], str) else None,
+                        'population': values, 'rawPopulation': {str(y): numeric(row[f'population_{y}']) for y in YEARS},
+                        'credit': credit, 'quality': {str(y): row[f'population_value_quality_{y}'] if isinstance(row[f'population_value_quality_{y}'], str) else None for y in YEARS},
+                        'comparable': comparable, 'source': 'census-population',
+                        'limitations': ['Совпадение численного ряда не устанавливает неизменность исторических границ.',
+                                        'Часть значений 2010 года имеет вторичное защищённое происхождение.']}
+        lookup[source] = features[-1]
+    return features, details, lookup
+
+
+def boundary_features(raw, asset, settlements, details=None):
+    """Exact point-in-polygon on source geometry; unique membership only.
+
+    Render geometry is simplified afterwards. Overlapping/boundary ambiguities
+    are excluded from sums rather than assigned arbitrarily.
+    """
+    from shapely import STRtree, points, make_valid
+    from shapely.geometry import mapping, shape
+    shapes = [shape(f['geometry']) for f in raw['features']]
+    if len(shapes) != asset['count']:
+        raise ValueError('Unexpected source boundary count: ' + asset['id'])
+    repaired = sum(not s.is_valid for s in shapes)
+    shapes = [make_valid(s) if not s.is_valid else s for s in shapes]
+    coordinates = [f['geometry']['coordinates'] for f in settlements]
+    pairs = STRtree(shapes).query(points(coordinates), predicate='covered_by')
+    assignments = {}
+    for point_index, polygon_index in zip(*pairs):
+        assignments.setdefault(int(point_index), []).append(int(polygon_index))
+    from collections import Counter
+    aliases = [Counter() for _ in shapes]
+    accumulators = [{'count': 0, 'comparableCount': 0, 'p02': 0, 'p10': 0, 'p21': 0,
+                     'p21KnownCount': 0, 'sizeBins': [0, 0, 0, 0, 0]} for _ in shapes]
+    for index, polygons in assignments.items():
+        if len(polygons) != 1:
+            continue
+        props = settlements[index]['properties']
+        stats = accumulators[polygons[0]]
+        detail = (details or {}).get(props.get('id'), {})
+        district_literal = detail.get('district')
+        if asset['level'] == 'ADM2' and isinstance(district_literal, str) and district_literal.strip():
+            aliases[polygons[0]][district_literal.strip()] += 1
+        stats['count'] += 1
+        if props['p21'] is not None:
+            stats['p21KnownCount'] += 1
+            bucket = next((i for i, threshold in enumerate((100, 1000, 10000, 100000)) if props['p21'] < threshold), 4)
+            stats['sizeBins'][bucket] += 1
+        if props['comparable']:
+            stats['comparableCount'] += 1
+            for column in ('p02', 'p10', 'p21'):
+                stats[column] += props[column]
+    result = []
+    for feature, geometry, stats, candidate_names in zip(raw['features'], shapes, accumulators, aliases):
+        source = feature['properties']
+        if stats['comparableCount'] == 0:
+            stats.update(p02=None, p10=None, p21=None)
+        display_name = REGION_NAMES_RU.get(source.get('shapeISO'), source['shapeName']) if asset['level'] == 'ADM1' else source['shapeName']
+        props = {'id': source['shapeID'], 'name': display_name, 'sourceName': source['shapeName'], 'level': asset['level'],
+                 'epoch': asset['epoch'], 'iso': source.get('shapeISO'), **stats}
+        if candidate_names:
+            props['searchAliases'] = [name for name, _ in sorted(candidate_names.items(), key=lambda item: (-item[1], item[0]))[:8]]
+            props['searchAliasBasis'] = 'district_raw_2021_of_uniquely_contained_settlement_points_not_verified_municipality_match'
+        result.append({'type': 'Feature', 'id': props['id'], 'properties': props,
+                       'geometry': mapping(geometry.simplify(.002, preserve_topology=True))})
+    return result, {'unassignedPoints': len(settlements) - len(assignments), 'geometriesMadeValid': repaired,
+                    'ambiguousPoints': sum(len(v) != 1 for v in assignments.values()),
+                    'aggregation': 'fixed_comparable_2021_point_cohort_not_official_municipal_totals'}
+
+
+def local_services(inputs, population_lookup):
+    """Documented service locality, never presented as a verified building point."""
+    local = inputs / 'sgrt/local20261024/services'
+    with (local / 'nodes.csv').open() as stream:
+        nodes = {r['source_record_id']: r for r in csv.DictReader(stream)}
+    with (local / 'links.csv').open() as stream:
+        source_links = list(csv.DictReader(stream))
+    services, links = {}, []
+    for row in source_links:
+        origin = nodes.get(row['origin_id'])
+        destination = nodes.get(row['destination_id'])
+        if not origin or not destination:
+            continue
+        family = 'schools' if row['function'] == 'education' else 'medical'
+        source_id = row['destination_id']
+        uid = short_id(source_id)
+        service_key = uid + '-' + family
+        properties = {'id': service_key, 'settlementId': uid, 'name': row['destination_name'],
+                      'family': family, 'evidence': row['evidence_kind'], 'source': row['source_url'],
+                      'sourceId': row['source_id'], 'year': row['document_date'][:4] or None,
+                      'geometryKind': 'settlement_reference_not_verified_institution_building',
+                      'observedFlow': False}
+        coords = [numeric(destination['lon']), numeric(destination['lat'])]
+        services[service_key] = {'type': 'Feature', 'properties': properties,
+                                 'geometry': {'type': 'Point', 'coordinates': coords}}
+        if row['origin_id'] != source_id:
+            props = {**properties, 'id': row['link_id'], 'from': short_id(row['origin_id']), 'to': uid,
+                     'fromName': row['origin_name'], 'toName': row['destination_name'],
+                     'geometryKind': 'schematic_link_not_route'}
+            links.append({'type': 'Feature', 'properties': props, 'geometry': {'type': 'LineString', 'coordinates': [
+                [numeric(origin['lon']), numeric(origin['lat'])], coords]}})
+    return list(services.values()), links
+
+
+def run_fetch(catalog, inputs, patterns, profile='core'):
+    command = [sys.executable, str(ROOT / 'scripts/research_data.py'), 'fetch', '--catalog', str(ROOT / catalog),
+               '--profile', profile, '--dest', str(inputs)]
+    for pattern in patterns:
+        command += ['--match', pattern]
+    subprocess.run(command, cwd=ROOT, check=True)
+
+
+LAYER_SOURCE_LIMIT = 20 * 1024 * 1024
+LAYER_GEOMETRIES = {'point': {'Point', 'MultiPoint'}, 'line': {'LineString', 'MultiLineString'},
+                    'polygon': {'Polygon', 'MultiPolygon'}}
+
+
+def layer_source(dataset, cache, offline=False):
+    """Fetch at most 20 MiB and verify every byte against the authored pin."""
+    sha = dataset.get('sha256', '')
+    url = dataset.get('url', '')
+    parsed = urlparse(url)
+    if not re.fullmatch(r'[0-9a-fA-F]{64}', sha) or parsed.scheme != 'https' or not parsed.netloc:
+        raise ValueError('Layer dataset needs an HTTPS source and exact SHA-256')
+    if re.search(r'/(?:main|master|latest)(?:/|$)', parsed.path, re.I):
+        raise ValueError('Layer dataset must pin a version, not main/master/latest')
+    path = cache / 'layers' / (sha.lower() + '.source')
+    if path.is_file() and path.stat().st_size <= LAYER_SOURCE_LIMIT and digest(path) == sha.lower():
+        return path.read_bytes()
+    if offline:
+        raise ValueError('Offline layer source missing or hash differs: ' + dataset['id'])
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with urlopen(Request(url, headers={'User-Agent': 'russian-settlements-atlas/1'}), timeout=120) as response:
+        if urlparse(response.url).scheme != 'https':
+            raise ValueError('Layer source redirected away from HTTPS')
+        data = response.read(LAYER_SOURCE_LIMIT + 1)
+    if len(data) > LAYER_SOURCE_LIMIT:
+        raise ValueError('Layer source exceeds 20 MiB limit')
+    if hashlib.sha256(data).hexdigest() != sha.lower():
+        raise ValueError('Layer dataset SHA-256 mismatch: ' + dataset['id'])
+    temporary = path.with_suffix('.part')
+    temporary.write_bytes(data)
+    temporary.replace(path)
+    return data
+
+
+def layer_value(value, label):
+    if value is None or (isinstance(value, str) and value.strip().lower() in ('', 'null', 'none')):
+        return None
+    if isinstance(value, bool):
+        raise ValueError('Boolean is not a numeric layer value: ' + label)
+    number = numeric(value)
+    if number is None:
+        raise ValueError('Layer value must be finite numeric or null: ' + label)
+    return number
+
+
+def checked_geometry(geometry, declared):
+    from shapely.geometry import shape
+    if not isinstance(geometry, dict) or geometry.get('type') not in LAYER_GEOMETRIES.get(declared, set()):
+        raise ValueError('Actual layer geometry does not match declared ' + declared)
+    def positions(coordinates):
+        if not isinstance(coordinates, (list, tuple)) or not coordinates:
+            raise ValueError('Empty or malformed layer coordinates')
+        if isinstance(coordinates[0], (int, float)):
+            if len(coordinates) < 2 or len(coordinates) > 3:
+                raise ValueError('Layer positions require longitude, latitude, optional altitude')
+            if any(isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v) for v in coordinates):
+                raise ValueError('Layer coordinates must be finite numbers')
+            if not (-180 <= coordinates[0] <= 180 and -90 <= coordinates[1] <= 90):
+                raise ValueError('Layer coordinates outside longitude/latitude range')
+        else:
+            for item in coordinates:
+                positions(item)
+    positions(geometry.get('coordinates'))
+    if geometry['type'] in ('Polygon', 'MultiPolygon'):
+        polygons = [geometry['coordinates']] if geometry['type'] == 'Polygon' else geometry['coordinates']
+        for polygon in polygons:
+            for ring in polygon:
+                if len(ring) < 4 or ring[0] != ring[-1]:
+                    raise ValueError('GeoJSON polygon rings must contain four positions and be closed')
+    try:
+        parsed = shape(geometry)
+    except Exception as error:
+        raise ValueError('Malformed layer geometry') from error
+    if parsed.is_empty or not parsed.is_valid:
+        raise ValueError('Invalid layer geometry')
+    return geometry
+
+
+def adapt_layer(layer, data, population_lookup):
+    """Three declarative adapters, no names/nearest-location matching or custom JS."""
+    adapter, declared, fields = layer['adapter'], layer['geometry'], layer['fields']
+    if adapter not in ('geojson', 'csv-points', 'csv-settlement'):
+        raise ValueError('Unsupported layer adapter: ' + adapter)
+    if declared not in LAYER_GEOMETRIES or (adapter != 'geojson' and declared != 'point'):
+        raise ValueError('Unsupported geometry for layer adapter')
+    if not isinstance(fields, dict) or not fields.get('id') or not fields.get('name'):
+        raise ValueError('Layer fields.id and fields.name are required')
+    text = data.decode('utf-8-sig')
+    if adapter == 'geojson':
+        def reject_constant(value):
+            raise ValueError('GeoJSON contains nonfinite JSON constant: ' + value)
+        source = json.loads(text, parse_constant=reject_constant)
+        if not isinstance(source, dict) or source.get('type') != 'FeatureCollection' or not isinstance(source.get('features'), list):
+            raise ValueError('GeoJSON layer source must be a FeatureCollection')
+        rows = []
+        for feature in source['features']:
+            if feature.get('type') != 'Feature' or not isinstance(feature.get('properties'), dict):
+                raise ValueError('Malformed GeoJSON Feature/properties')
+            rows.append((feature['properties'], feature.get('geometry')))
+    else:
+        rows = [(row, None) for row in csv.DictReader(io.StringIO(text))]
+    features, seen = [], set()
+    for row, geometry in rows:
+        for role, column in fields.items():
+            if not isinstance(column, str) or not column or column not in row:
+                raise ValueError('Layer source lacks configured column: ' + str(column))
+        if row[fields['id']] is None or isinstance(row[fields['id']], (dict, list, bool)):
+            raise ValueError('Layer source identity must be primitive and nonempty')
+        uid = str(row[fields['id']]).strip()
+        if not uid or uid in seen:
+            raise ValueError('Empty or duplicate layer feature identity: ' + uid)
+        seen.add(uid)
+        name = row[fields['name']]
+        if name is None or isinstance(name, (dict, list, bool)):
+            raise ValueError('Layer feature name must be primitive')
+        properties = {'id': uid, 'name': str(name),
+                      'value': layer_value(row[fields['value']], uid) if fields.get('value') else None}
+        if adapter == 'csv-points':
+            if not fields.get('longitude') or not fields.get('latitude'):
+                raise ValueError('CSV point layer requires longitude and latitude fields')
+            lon = layer_value(row[fields['longitude']], uid + ' longitude')
+            lat = layer_value(row[fields['latitude']], uid + ' latitude')
+            geometry = {'type': 'Point', 'coordinates': [lon, lat]}
+        elif adapter == 'csv-settlement':
+            if not fields.get('settlementKey'):
+                raise ValueError('Settlement layer requires fields.settlementKey')
+            source_id = row[fields['settlementKey']]
+            accepted = population_lookup.get(source_id)
+            if accepted is None:
+                raise ValueError('Layer settlement identity has no accepted point: ' + str(source_id))
+            geometry = accepted['geometry']
+            properties.update(sourceId=source_id, settlementId=accepted['properties']['id'])
+        geometry = checked_geometry(geometry, declared)
+        features.append({'type': 'Feature', 'id': uid, 'properties': properties, 'geometry': geometry})
+    return feature_collection(features)
+
+
+def export_layers(content, output, cache, population_lookup, offline=False):
+    """Export every published registry entry; drafts/archives never reach the map."""
+    datasets = {d['id']: d for d in json.loads((content / 'datasets.json').read_text())}
+    registry, seen = [], set()
+    for path in sorted((content / 'layers').glob('*.json')):
+        layer = json.loads(path.read_text())
+        uid = layer.get('id', '')
+        if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', uid) or path.stem != uid or uid in seen:
+            raise ValueError('Invalid, duplicate, or mismatched layer ID/path: ' + uid)
+        seen.add(uid)
+        if layer.get('visibility') != 'published':
+            continue
+        if layer.get('palette') not in ('blue', 'categorical', 'service-type', 'population-change'):
+            raise ValueError('Layer must use an approved palette')
+        dataset = datasets.get(layer.get('datasetId'))
+        if dataset is None:
+            raise ValueError('Unknown layer dataset: ' + str(layer.get('datasetId')))
+        raw = layer_source(dataset, cache, offline=offline)
+        features = adapt_layer(layer, raw, population_lookup)
+        relative = 'custom-layers/' + uid + '.geojson'
+        write_json(output / relative, features)
+        registry.append({key: layer[key] for key in ('id', 'researchId', 'title', 'description', 'geometry', 'palette', 'unit', 'period', 'evidence', 'fields')})
+        registry[-1].update(path=relative, source={key: dataset.get(key) for key in ('title', 'url', 'sha256', 'sourceCommit')})
+    active = {entry['id'] for entry in registry}
+    for path in (output / 'custom-layers').glob('*.geojson'):
+        if path.stem not in active:
+            path.unlink()
+    write_json(output / 'layers.json', registry)
+    return registry
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path, default=ROOT / 'web/public/data')
+    parser.add_argument('--cache', type=Path, default=ROOT / '.research-cache/site')
+    parser.add_argument('--offline', action='store_true', help='Use existing verified inputs; never access the network.')
+    args = parser.parse_args(argv)
+    import pandas as pd
+    assets = json.loads((ROOT / 'data/site_assets.json').read_text())
+    inputs = args.cache / 'inputs'
+    if not args.offline:
+        run_fetch(assets['populationCatalog'], inputs, ['data/population/*'], profile='population')
+        run_fetch(assets['localCatalog'], inputs, ['*/services/nodes.csv', '*/services/links.csv'])
+    else:
+        for catalog, profile, patterns in [(assets['populationCatalog'], 'population', ['data/population/*']),
+                                          (assets['localCatalog'], 'core', ['*/services/nodes.csv', '*/services/links.csv'])]:
+            command = [sys.executable, str(ROOT / 'scripts/research_data.py'), 'verify', '--catalog', str(ROOT / catalog),
+                       '--profile', profile, '--dest', str(inputs)]
+            for pattern in patterns:
+                command += ['--match', pattern]
+            subprocess.run(command, cwd=ROOT, check=True)
+    wide = pd.read_parquet(inputs / 'data/population/settlements_census_wide.parquet')
+    long = pd.read_parquet(inputs / 'data/population/settlements_census_long.parquet')
+    settlements, details, lookup = population_features(wide, long)
+    write_json(args.output / 'settlements.geojson', feature_collection(settlements))
+    preview = preview_points(settlements)
+    write_json(args.output / 'settlements-preview.json', preview)
+    shards = {}
+    for uid, detail in details.items():
+        shards.setdefault(uid[:2], {})[uid] = detail
+    for shard, records in shards.items():
+        write_json(args.output / 'settlement-details' / (shard + '.json'), records)
+    sources, boundary_counts = [], {}
+    for asset in assets['boundaries']:
+        target = args.cache / (asset['id'] + '.geojson')
+        if args.offline:
+            if not target.exists() or digest(target) != asset['sha256']:
+                raise ValueError('Offline boundary missing or hash differs: ' + asset['id'])
+        else:
+            target = verified_download(asset, args.cache)
+        features, coverage = boundary_features(json.loads(target.read_text()), asset, settlements, details)
+        write_json(args.output / (asset['id'] + '.geojson'), feature_collection(features))
+        boundary_counts[asset['id']] = {'count': len(features), **coverage}
+        sources.append(asset)
+    services, links = local_services(inputs, lookup)
+    write_json(args.output / 'services.geojson', feature_collection(services))
+    write_json(args.output / 'links.geojson', feature_collection(links))
+    centre_path = ROOT / 'sgrt/zero/checked_model_centres_20261025.csv'
+    centres = []
+    for row in csv.DictReader(centre_path.open()):
+        existing = lookup.get(row['centre_settlement_id'])
+        if existing:
+            props = {**existing['properties'], 'starId': row['star_id'],
+                     'externalMembers': int(row['strict_external_member_count']), 'evidence': 'model',
+                     'scope': 'strict_diagnostic_subset_not_all_sgrt'}
+            centres.append({**existing, 'properties': props})
+    write_json(args.output / 'centres.geojson', feature_collection(centres))
+    registry = export_layers(ROOT / 'web/content', args.output, args.cache, lookup, offline=args.offline)
+    git = subprocess.check_output(['git', 'show', '-s', '--format=%H%n%cI', 'HEAD'], cwd=ROOT, text=True).splitlines()
+    manifest = {'version': 1, 'generatedAt': git[1], 'sourceCommit': git[0],
+                'sources': [{'id': 'census-population', 'release': 'sgrt-census-population-20261022-v1', 'catalog': assets['populationCatalog']},
+                            {'id': 'local-systems-20261024', 'release': 'sgrt-local-systems-20261024-v1', 'catalog': assets['localCatalog']}, *sources],
+                'counts': {'settlements': len(settlements), 'comparableSettlements': sum(f['properties']['comparable'] for f in settlements),
+                           'services': len(services), 'links': len(links), 'strictCentresMapped': len(centres), 'customLayers': len(registry), 'boundaries': boundary_counts},
+                'layers': {'population': 'settlements.geojson', 'schools': 'services.geojson', 'medical': 'services.geojson',
+                           'links': 'links.geojson', 'regions': 'regions.geojson', 'districts': 'districts.geojson', 'centres': 'centres.geojson'},
+                'detailPath': 'settlement-details/{shard}.json',
+                'customLayers': 'layers.json',
+                'preview': {'path': 'settlements-preview.json', 'count': len(preview), 'method': 'one_real_highest_population_point_per_0.15_degree_cell_for_thumbnail_only'},
+                'limitations': ['Границы geoBoundaries описывают сетку 2017 года: 83 региона, принятую основу исследования из 85 субъектов не подменяют.',
+                                'Сводки внутри контуров рассчитаны по фиксированному сопоставимому набору точек; это не официальные муниципальные итоги.',
+                                'Слой услуг и документированных связей охватывает локальный пример Учалинского района, а не всю Россию.',
+                                '197 строгих центров — диагностический модельный поднабор; полный состав их окружений здесь не восстановлен.']}
+    write_json(args.output / 'manifest.json', manifest)
+    total_bytes = sum(p.stat().st_size for p in args.output.rglob('*') if p.is_file())
+    if total_bytes > 350 * 1024 * 1024:
+        raise ValueError('Web data exceeds 350 MiB publication budget')
+    print(json.dumps({'output': str(args.output), 'bytes': total_bytes, 'counts': manifest['counts']}, ensure_ascii=False))
+
+
+if __name__ == '__main__':
+    main()

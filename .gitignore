@@ -73,3 +73,19 @@ venv/
 
 # Current lower-service systems: metadata only; binaries stay in Releases.
 !/data/zero_catalog_20261025.json
+
+# Research portal sources; generated site assets remain outside history.
+!*.astro
+!/web/content/**
+!/data/site_assets.json
+/web/node_modules/
+/web/dist/
+/web/.astro/
+/web/public/data/
+/web/public/assets/
+/web/playwright-report/
+/web/test-results/
+/site-build/
+
+# Approved UI design inputs: explicit exceptions in repository_policy.json.
+!/docs/site/references/*.png

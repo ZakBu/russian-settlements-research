@@ -1,0 +1,59 @@
+{
+  "id": "strict-centres",
+  "researchId": "sgrt",
+  "title": "197 центров и их прямое окружение",
+  "summary": "Строгий трёхфункциональный модельный поднабор содержит 197 центров и 528 внешних жилых поселений. Полное районирование России не установлено.",
+  "kind": "finding",
+  "topic": "Центры и связи",
+  "territory": "Россия",
+  "period": "Услуги разных лет; демография 2002–2021",
+  "publishedAt": "2026-10-25T23:36:03+03:00",
+  "updatedAt": "2026-10-26T01:09:18+03:00",
+  "visibility": "published",
+  "evidence": "model",
+  "currency": "current",
+  "sourceCommit": "f3516dcb561e70109f9cb3de8efc47c0a1994029",
+  "sources": [
+    {
+      "title": "Центры, исправленные программы и опубликованный комплект",
+      "url": "https://github.com/ZakBu/russian-settlements-research/blob/f3516dcb561e70109f9cb3de8efc47c0a1994029/sgrt/zero/CENTRE_SYSTEMS_20261025.md"
+    },
+    {
+      "title": "Числовая сводка расчёта",
+      "url": "https://github.com/ZakBu/russian-settlements-research/blob/63cce4eded152b731255ca4fd7674cd8c12da7da/research_context/analysis_snapshots/zero_centre_model_results_20261025.json"
+    },
+    {
+      "title": "Все 197 центров",
+      "url": "https://github.com/ZakBu/russian-settlements-research/blob/63cce4eded152b731255ca4fd7674cd8c12da7da/sgrt/zero/checked_model_centres_20261025.csv"
+    },
+    {
+      "title": "Контроль сохранения всех 725 пар",
+      "url": "https://github.com/ZakBu/russian-settlements-research/blob/3edc853c7623bb1cec22ca9a8bd9d82f7a0446ce/research_context/analysis_snapshots/zero_centre_programme_correction_20261026.json"
+    },
+    {
+      "title": "Каталог архива, размеры и SHA",
+      "url": "https://github.com/ZakBu/russian-settlements-research/blob/f3516dcb561e70109f9cb3de8efc47c0a1994029/data/centre_catalog_20261025.json"
+    },
+    {
+      "title": "Проверка публичной загрузки",
+      "url": "https://github.com/ZakBu/russian-settlements-research/blob/f3516dcb561e70109f9cb3de8efc47c0a1994029/research_context/analysis_snapshots/zero_centre_public_download_20261026.json"
+    },
+    {
+      "title": "Атлас: 6 страниц PDF",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-zero-centre-systems-20261025-v1/centre_atlas.pdf"
+    },
+    {
+      "title": "Полный архив данных: около 411 МБ",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-zero-centre-systems-20261025-v1/centre-systems.zip"
+    }
+  ],
+  "datasetIds": [
+    "centre-systems-20261025"
+  ],
+  "visualIds": [
+    "strict-sensitivity",
+    "centre-periphery-directions"
+  ],
+  "body": "После исправления образовательных и торговых поставщиков пересчитаны десять слоёв направлений. Новое правило сохраняет центр и прямые связи с ним; соседние цепочки автоматически не объединяются.\n\nВ строгом поднаборе у центра известны школа, базовая медицинская помощь и продуктовая торговля. Каждый внешний целый жилой участник выбирает тот же центр по всем трём функциям. Получены 197 групп с 528 внешними поселениями. Медианный диаметр — 5,59 км, 95-й процентиль — 15,03 км, максимум — 17,50 км.\n\nЭто достаточное условие диагностического поднабора, а не определение всех реальных систем. У 191 из 197 групп неизвестна ступень хотя бы одной выбранной школы. Фактические поездки, свободные мощности и полнота предложения не установлены.\n\nИсправленный комплект опубликован и скачан для проверки. Доступны [атлас из шести страниц](https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-zero-centre-systems-20261025-v1/centre_atlas.pdf) и [полный архив данных](https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-zero-centre-systems-20261025-v1/centre-systems.zip) размером 411 248 657 байт. Проверены SHA и CRC всех 217 файлов; 110 файлов кода и контекста совпали с исходным коммитом. Облачный повтор подтвердил все 197 центров, 725 пар участников и 455 069 прямых функциональных выборов. Эти проверки удостоверяют повтор расчёта и перенос данных, а не наблюдение поездок.\n\nДополнительная проверка образовательных программ от 25–26 октября удержала ещё 19 площадок и перевыбрала четыре школьных представителя. Все 197 групп и 725 пар состава сохранились. [Что исправлено в программах и НП-принадлежности](../education-programme-correction/).",
+  "featured": true
+}

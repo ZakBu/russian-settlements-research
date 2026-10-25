@@ -1,0 +1,36 @@
+---
+import '../styles/global.css';
+import '@fontsource/prata/400.css';
+import '@fontsource/golos-text/400.css';
+import '@fontsource/golos-text/500.css';
+import '@fontsource/golos-text/600.css';
+import '@fontsource/golos-text/700.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import {Moon, Sun, ArrowUpRight} from '@phosphor-icons/react';
+import {basePath,research} from '../lib/content';
+interface Props {title:string;active?:string;map?:boolean;description?:string;researchId?:string}
+const {title,active='',map=false,description='Атлас расселения России: население, услуги, связи и развитие исследования.',researchId=''}=Astro.props;
+---
+<!doctype html><html lang="ru"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width"/><meta name="description" content={description}/><title>{title} — Атлас расселения</title><script is:inline>try{const t=localStorage.getItem('atlas-theme');document.documentElement.dataset.theme=t||'light'}catch{document.documentElement.dataset.theme='light'}</script></head>
+<body class:list={{'map-page':map}}><a href="#main" class="skip-link">Перейти к содержимому</a>
+<header class="site-header"><a href={basePath()} class="brand" aria-label="Атлас расселения — главная"><span class="pixel-logo" aria-hidden="true">{Array.from({length:25},()=> <i/> )}</span><span>Атлас<br/>расселения</span></a><span class="brand-tag eyebrow">Люди. Территории. Возможности.</span>
+<nav class="site-nav" aria-label="Основная навигация">{[['map','Карта'],['atlas','Атлас'],['knowledge','Знания']].map(([key,label])=><a href={basePath(`${key}/`)} data-nav-section={key} aria-current={active===key?'page':undefined}>{label}</a>)}</nav>
+<div class="header-controls"><select class="research-select" id="research-switch" aria-label="Выбрать исследование" data-base={basePath()}><option value="">Все исследования</option>{research.sort((a,b)=>a.order-b.order).map(r=><option value={r.id} selected={researchId===r.id}>{r.title}</option>)}</select><button class="icon-button" id="theme-toggle" aria-label="Переключить светлую и тёмную тему"><Moon size={21}/></button></div></header>
+<main id="main"><slot/></main>{!map&&<footer class="footer"><span>Атлас расселения / Исследовательский портал</span><span>Данные и результаты имеют собственные даты и версии</span><a href="https://github.com/ZakBu/russian-settlements-research" target="_blank" rel="noopener noreferrer">Исходники и данные ↗</a></footer>}
+<script>
+const button=document.getElementById('theme-toggle');button?.addEventListener('click',()=>{const theme=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=theme;try{localStorage.setItem('atlas-theme',theme)}catch{}window.dispatchEvent(new CustomEvent('atlas-theme',{detail:theme}));button.setAttribute('aria-label',theme==='dark'?'Включить светлую тему':'Включить тёмную тему')});
+const select=document.getElementById('research-switch') as HTMLSelectElement|null;
+if(select){
+ const queryResearch=new URLSearchParams(location.search).get('research');
+ if(queryResearch!==null&&[...select.options].some(o=>o.value===queryResearch))select.value=queryResearch;
+ const carryResearch=()=>{document.querySelectorAll<HTMLAnchorElement>('[data-nav-section]').forEach(link=>{const url=new URL(link.href);if(select.value)url.searchParams.set('research',select.value);else url.searchParams.delete('research');link.href=url.href})};
+ carryResearch();
+ select.addEventListener('change',()=>{const base=select.dataset.base!;const section=location.pathname.slice(base.length).replace(/^\//,'').split('/')[0];
+ if(['atlas','knowledge','map'].includes(section)){const url=new URL(location.href);if(select.value)url.searchParams.set('research',select.value);else url.searchParams.delete('research');location.href=url.href}
+ else location.href=base+(select.value?`research/${select.value}/`:'');
+ });
+ window.addEventListener('atlas-research-reset',()=>{select.value='';carryResearch()});
+}
+
+</script></body></html>

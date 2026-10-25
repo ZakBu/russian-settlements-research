@@ -29,6 +29,12 @@
 
 Основа исследования СГРТ — концепция научного руководителя «Динамическая типология сельско-городских районов тяготения» ([Word](research_context/primary/word_concept.docx), [текст](research_context/primary/word_concept_extracted.txt)).
 
+## Исследовательский атлас
+
+Веб-портал объединяет карту со слоями и нижней инфографикой, атлас результатов, знания и утренние обновления по отдельным исследованиям. Исходники находятся в `web/`, инструкции агентам — в [docs/site/AUTHORING.md](docs/site/AUTHORING.md), правила оформления — в [docs/site/DESIGN.md](docs/site/DESIGN.md).
+
+Целевой адрес — [zakbu.github.io/russian-settlements-research](https://zakbu.github.io/russian-settlements-research/). Для первой публикации в настройках репозитория нужно включить **Pages → Source: GitHub Actions**; до этого доступна локальная сборка и скачиваемый предпросмотр в Actions. Исследовательские агенты добавляют материалы и слои декларативно, сборка проверяет источники и сохраняет научные ограничения.
+
 ## Как начать
 
 **Человеку:** прочитайте этот файл, затем [POPULATION_BASE.md](POPULATION_BASE.md) и [sgrt/README.md](sgrt/README.md).

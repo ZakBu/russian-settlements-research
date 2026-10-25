@@ -1,0 +1,8 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Catalog from '../../components/Catalog.astro';
+import {research,materials,basePath} from '../../lib/content';
+export function getStaticPaths(){return research.map(r=>({params:{id:r.id},props:{item:r}}))}
+const {item:r}=Astro.props;
+---
+<Layout title={r.title} researchId={r.id}><div class="shell"><div class="page-heading"><div><span class="eyebrow">Исследование / {r.status}</span><h1>{r.title}</h1></div></div><p class="intro" style="max-width:850px;font-size:19px">{r.summary||r.description}</p><div class="research-strip"><span>СЛЕДУЮЩИЙ ШАГ</span><span style="flex:1">{r.nextStep}</span><a href={basePath(`map/?research=${r.id}`)}>{r.id==='ecommerce'?'Открыть общую переписную карту ↗':'Исследовать на карте ↗'}</a></div><div class="section-title"><h2>Результаты и исправления</h2></div><Catalog kind="atlas" researchId={r.id}/><div class="section-title"><h2>Методы и заметки</h2></div>{materials.filter(m=>m.researchId===r.id&&['method','note'].includes(m.kind)).map(m=><p><a class="secondary-button" href={basePath(`materials/${m.id}/`)}>{m.title} →</a></p>)}</div></Layout>
