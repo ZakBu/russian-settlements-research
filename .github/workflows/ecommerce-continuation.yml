@@ -80,7 +80,7 @@ jobs:
           d[cols].to_csv('work/axis_min.csv',index=False)
           PY
       - name: Acquire and profile actual historical WB output
-        run: python research/ecommerce_cloud/continuation/acquire_atp_historical.py --output work/ecommerce_atp_history --axis-csv work/axis_min.csv
+        run: python research/ecommerce_cloud/continuation/restore_atp_pinned.py --output work/ecommerce_atp_history --axis-csv work/axis_min.csv
       - name: Calculate population contexts independently of shop data
         run: |
           python research/ecommerce_cloud/extension/outcomes/acquire_bdmo_population.py

@@ -454,7 +454,7 @@ def run(args):
                                 raw = None
                                 attempt["raw"].append({"url": zipurl, "error": str(exc)})
                     if raw is None:
-                        attempt["status"] = "positive_log_without_downloaded_raw"
+                        attempt["status"] = "no_valid_downloaded_raw"
                         continue
                     rawpath = output / (rid + "_wildberries.geojson")
                     rawpath.write_bytes(raw)

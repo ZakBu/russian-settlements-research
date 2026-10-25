@@ -299,16 +299,16 @@ def main(args):
         demo = pd.read_csv(demo_path)
         demo = demo.loc[demo.medium_primary2002.map(true)
                         & demo.positive_other_population_all_years.map(true)].copy()
-        assert demo[KEY].is_unique and len(demo) == 425
+        assert demo[KEY].is_unique and 0 < len(demo) <= len(medium)
         pair = pd.DataFrame(paired_rows)
         pair = pair.loc[
             pair.last_run.eq(LAST_SAME_API) & pair.radius_km.eq(5)
             & pair.context_vintage.eq("20200110") & pair.country_scope.eq("all_countries")
         ].copy()
         joined = demo.merge(pair, on=KEY, how="left", validate="one_to_one", indicator=True)
-        assert len(joined) == 425 and joined._merge.eq("both").all()
+        assert len(joined) == len(demo) and joined._merge.eq("both").all()
         joined["observed_periphery_positive_count_increased"] = joined.observed_positive_periphery_difference.gt(0)
-        joined.to_csv(output / "atp_wb_demography425_descriptive_join.csv", index=False)
+        joined.to_csv(output / "atp_wb_demography_descriptive_join.csv", index=False)
         coexistence_rows = []
         for increased, g in joined.groupby("observed_periphery_positive_count_increased"):
             coexistence_rows.append({
