@@ -11,7 +11,7 @@ from logic_checks import (check_direct_admission, profile_coverage, check_profil
     check_nested_unions, check_direct_core_cover, check_promotions, gpkg_wkb, provider_anchor,
     check_external_reference_parents, check_nontrivial_spatial_merges)
 from logic_checks import locate_external_fua_points, check_external_provider_core_edges, check_relaxed_positive_assignments
-from logic_checks import _ellipsoidal_extent, check_upper_need_scope_labels, audit_medical_primary_scope
+from logic_checks import _ellipsoidal_extent, check_upper_need_scope_labels, audit_medical_primary_scope, audit_education_scope
 
 
 class IndependentExtentTests(unittest.TestCase):
@@ -45,6 +45,24 @@ class IndependentExtentTests(unittest.TestCase):
                 path=Path(td)/(name+'.parquet');frame.to_parquet(path,index=False);paths.append(path)
             result=audit_medical_primary_scope(*paths)
         self.assertEqual(result['failures']['physician_without_original_12_3_adult_general_profile'],1)
+
+    def test_excluded_school_cannot_leak_back_through_np_offer(self):
+        raw=pd.DataFrame({'site_id':['art','general']})
+        ledger=pd.DataFrame({'provider_id':['art','general'],'source_record_id':['v','v'],
+            'service_code':['school_general','school_general'],'eligible_site_supply':[False,True],
+            'programme_mismatch_reason':['explicit_arts_only',''],
+            'education_need_scope':['general_daytime_school_proxy_admission_not_verified']*2,
+            'supply_status':['held','observed'],'established_flow':[False,False],
+            'capacity_used_as_weight':[False,False],'site_lat':[50.,50.1],'site_lon':[40.,40.1]})
+        offers=pd.DataFrame({'source_pool':['osm_strict_np_presence'],'eligible':[True],
+            'provider_site_ids_json':['["art"]'],'service_code':['school_general'],'source_record_id':['v']})
+        with tempfile.TemporaryDirectory() as td:
+            paths=[]
+            for name,frame in [('raw',raw),('ledger',ledger),('physical',ledger),('offers',offers)]:
+                path=Path(td)/(name+'.parquet');frame.to_parquet(path,index=False);paths.append(path)
+            result=audit_education_scope(*paths)
+        self.assertEqual(result['failures']['np_current_offer_uses_excluded_or_missing_provider'],1)
+        self.assertEqual(result['failures']['raw_current_and_full_ledger_identity_difference'],0)
 
 
 class ExtendedCoreCounterexamples(unittest.TestCase):

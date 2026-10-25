@@ -121,7 +121,7 @@ def normalize_osm(objects,reference,legacy):
  d['default_external_seed_eligible']=d.supply_status.eq('observed')
  return d
 
-STREET_SPLIT=r'\b(?:улица|ул|проспект|пр кт|переулок|пер|шоссе|бульвар|площадь|проезд|набережная|микрорайон|мкр|квартал)\b'
+STREET_SPLIT=r'\b(?:улица|ул|проспект|пр кт|пркт|пр т|переулок|пер|шоссе|бульвар|бульв|б р|площадь|пл|проезд|набережная|наб|микрорайон|мкр|квартал|тракт|тупик|аллея|линия|дорога|автодорога)\b'
 def address_head(address):return re.split(STREET_SPLIT,norm(address),maxsplit=1)[0]
 def place_type_ok(address,name,reference_type):
  typ=norm(reference_type)
@@ -130,6 +130,84 @@ def place_type_ok(address,name,reference_type):
   if re.search(pre+re.escape(name)+r'(?!\w)',address) and typ and typ not in allowed:return False
  return True
 
+LOCALITY_TYPES=[('поселок городского типа','urban'),('городской поселок','urban'),('сельский поселок','settlement'),
+ ('рабочий поселок','urban'),('дачный поселок','urban'),('курортный поселок','urban'),('железнодорожная станция','station'),
+ ('город','city'),('гор','city'),('г','city'),('деревня','village'),('дер','village'),('д','village'),
+ ('село','selo'),('с','selo'),('поселок','settlement'),('пос','settlement'),('п','settlement'),
+ ('пгт','urban'),('рп','urban'),('гп','urban'),('дп','urban'),('хутор','khutor'),('х','khutor'),('станица','stanitsa'),('ст ца','stanitsa'),('стца','stanitsa'),('станция','station'),('аул','aul')]
+ADMIN_COMPONENT=r'\b(?:область|обл|край|республика|респ|район|округ|муниципальный|муниципальное|р н|ао)\b'
+
+def locality_clue(value,known_names):
+ """A whole locality field/component; never a word found in a street."""
+ raw=norm(value);body=raw;kind=None;explicit=False;typed_prefix=False
+ for literal,category in LOCALITY_TYPES:
+  if raw.startswith(literal+' '):body=raw[len(literal):].strip();kind=category;explicit=True;typed_prefix=True;break
+ if not explicit and normalize_name(raw) not in known_names:
+  for literal,category in LOCALITY_TYPES:
+   if raw.endswith(' '+literal):body=raw[:-len(literal)].strip();kind=category;explicit=True;break
+ return {'raw':raw,'name':normalize_name(body),'type':kind,'typed':explicit,'typed_prefix':typed_prefix}
+
+def locality_type_compatible(kind,reference_type):
+ typ=norm(reference_type)
+ if not kind or not typ:return True
+ if kind=='city':return typ=='город'
+ if kind=='village':return typ=='деревня'
+ if kind=='selo':return typ=='село'
+ if kind=='khutor':return typ=='хутор'
+ if kind=='stanitsa':return typ=='станица'
+ if kind=='aul':return typ=='аул'
+ if kind=='urban':return typ in {'пгт','рабочий поселок','поселок городского типа','городской поселок','дачный поселок','курортный поселок'}
+ if kind=='station':return 'станц' in typ
+ if kind=='settlement':return typ.startswith('поселок') or typ in {'пгт','рабочий поселок','сельский поселок'}
+ return False
+
+def locality_witnesses(point,known_names,region_names,city_names):
+ structured_value=getattr(point,'source_address_locality',None)
+ structured=locality_clue(structured_value,known_names) if pd.notna(structured_value) and str(structured_value).strip() else None
+ parts=[];regions=set();street_started=False
+ state=getattr(point,'source_region_literal',None)
+ if pd.notna(state) and normalize_region(state) in region_names:regions.add(normalize_region(state))
+ for literal in str(point.activity_address).split(','):
+  raw=norm(literal)
+  if not raw or raw in {'россия','российская федерация','рф'} or re.fullmatch(r'\d{6}',raw):continue
+  clue=locality_clue(raw,known_names)
+  # Administrative words and street names are excluded as whole components.
+  # Keep a genuinely typed place such as "поселок Краснодарский".
+  if re.search(ADMIN_COMPONENT,raw) and not clue['typed']:
+   region=normalize_region(raw)
+   if region in region_names:regions.add(region)
+   continue
+  street_match=re.search(STREET_SPLIT,raw)
+  if street_match:
+   # An explicit typed NP before the street can share its comma component:
+   # "поселок Российский улица Мира". An untyped street prefix such as
+   # "Московский тракт" is never extracted as a locality.
+   street_tail=raw[street_match.end():].strip()
+   house_tail=bool(re.match(r'^(?:дом|корпус|корп|строение|стр|владение|вл|литера|лит|помещение|пом|подъезд|этаж|офис|квартира|кв)(?:\b|\d)',street_tail))
+   has_street_name=bool(re.match(r'^(?:(?:[а-я]\s+){0,2}[а-я][а-я-]{2,}|\d{1,4}\s*[а-я][а-я-]{2,})',street_tail)) and not house_tail
+   if not street_started and clue['typed_prefix'] and has_street_name:
+    before_street=re.split(STREET_SPLIT,raw,maxsplit=1)[0].strip()
+    before_clue=locality_clue(before_street,known_names)
+    if before_clue['typed_prefix'] and before_clue['name']:parts.append(before_clue)
+   street_started=True;continue
+  if street_started:continue
+  if clue['name']:parts.append(clue)
+ noncity=[p for p in parts if p['typed'] and p['type']!='city']
+ typed=[p for p in parts if p['typed']]
+ if noncity:
+  # A source city may be an enclosing delivery city; a named, typed village
+  # in the physical address is finer evidence. Conflicting rural fields stay
+  # unresolved rather than selecting whichever literal happens to be longer.
+  if structured and structured['name'] not in {p['name'] for p in noncity} and structured['name'] not in city_names:
+   return [],regions,'conflicting_structured_and_typed_address_localities'
+  return noncity,regions,'explicit_typed_address_locality'
+ if structured:
+  if typed and any(p['name']!=structured['name'] for p in typed):return [],regions,'conflicting_structured_and_typed_address_localities'
+  if any(p['name'] in known_names and p['name']!=structured['name'] for p in parts):return [],regions,'conflicting_structured_and_address_localities'
+  return [structured],regions,'explicit_structured_locality'
+ if typed:return typed,regions,'explicit_typed_address_locality'
+ return [p for p in parts if p['name'] in known_names],regions,'exact_free_address_locality_component'
+
 def match_wb_addresses(points,reference,population_wide=None,max_km=10.):
  """Literal locality plus nearby accepted point, never nearest-only identity."""
  r=reference[reference.source_record_id.notna()&reference.ordinary_spatial_2021&reference.lat.notna()&reference.lon.notna()].copy().reset_index(drop=True)
@@ -137,33 +215,41 @@ def match_wb_addresses(points,reference,population_wide=None,max_km=10.):
   types=population_wide[population_wide.source_record_id_2021.notna()].set_index('source_record_id_2021').settlement_type_2021
   if not types.index.is_unique:raise ValueError('Nonunique accepted population identities')
   r['reference_type']=r.source_record_id.map(types)
+ elif 'settlement_type_2021' in r:r['reference_type']=r.settlement_type_2021
  else:r['reference_type']=None
  r['normalized_name']=r.name.map(normalize_name)
  region_names=set(reference.region_norm.dropna())
  tree=cKDTree(point_xyz(r.lat,r.lon));xyz=point_xyz(points.site_lat,points.site_lon)
  nearby=tree.query_ball_point(xyz,2*np.sin(max_km/(2*EARTH_KM)),workers=1)
  dist,idx=tree.query(xyz,k=1,workers=1);names=r.normalized_name.to_numpy()
- patterns={n:re.compile(r'(?<!\w)'+re.escape(n)+r'(?!\w)') for n in set(names) if len(n)>=3}
+ known_names=set(reference['name'].dropna().map(normalize_name))
+ city_names=set(r.loc[r.reference_type.map(norm).eq('город'),'normalized_name'])|{'москва','санкт петербург','севастополь'}
  links=[]
  for k,(p,near) in enumerate(zip(points.itertuples(index=False),nearby)):
-  head=address_head(p.activity_address);candidate=[];conflicting=[]
-  foreign=bool(re.search(r'баренцбург|barentsburg|svalbard',head))
-  explicit_region=None
-  for literal in str(p.activity_address).split(','):
-   if re.search(r'область|обл\.?\b|край|республика|респ\.?\b',literal,flags=re.I):
-    normalized=normalize_region(literal)
-    if normalized in region_names:explicit_region=normalized;break
+  candidate=[];conflicting=[];witnesses,explicit_regions,basis=locality_witnesses(p,known_names,region_names,city_names)
+  foreign=bool(re.search(r'баренцбург|barentsburg|svalbard',norm(p.activity_address)))
   for i in near:
    name=names[i]
-   if name not in patterns or not patterns[name].search(head):continue
-   if not place_type_ok(head,name,r.reference_type.iloc[i]):conflicting.append(i);continue
-   # An explicitly named source region must agree with the coordinate candidate.
-   if explicit_region is not None and normalize_region(r.region.iloc[i])!=explicit_region:continue
+   if not name:continue
+   matched=[]
+   for clue in witnesses:
+    exact=clue['name']==name
+    # A typed place followed by a house number is still an explicit place:
+    # "Посёлок Краснодарский 66к2" is not a street-name substring.
+    house=not exact and clue['typed'] and clue['name'].startswith(name) and bool(re.fullmatch(re.escape(name)+r'\s*(?:(?:дом|д|корпус|корп|к)\s*)?\d.*',clue['name']))
+    if exact or house:matched.append(clue)
+   if not matched:continue
+   if not all(locality_type_compatible(clue['type'],r.reference_type.iloc[i]) for clue in matched):conflicting.append(i);continue
+   if explicit_regions and explicit_regions!={normalize_region(r.region.iloc[i])}:continue
    candidate.append(i)
-  if candidate:
-   maximum=max(len(names[i]) for i in candidate);candidate=[i for i in candidate if len(names[i])==maximum]
+  witness_conflict=False
+  if len(candidate)==1:
+   selected_name=names[candidate[0]]
+   witness_conflict=any(not (clue['name']==selected_name or (clue['typed'] and re.fullmatch(re.escape(selected_name)+r'\s*(?:(?:дом|д|корпус|корп|к)\s*)?\d.*',clue['name']))) for clue in witnesses)
   sid=None;status='no_unique_literal_locality_and_coordinate';distance=None
   if foreign:status='known_foreign_in_provider_ru_section'
+  elif basis.startswith('conflicting_'):status=basis
+  elif witness_conflict:status='ambiguous_multiple_literal_locality_components'
   elif len(candidate)==1:
    i=candidate[0];sid=r.source_record_id.iloc[i];distance=float(chord_km(np.linalg.norm(xyz[k]-tree.data[i])))
    status='literal_locality_type_and_unique_coordinate_within10km'
@@ -172,7 +258,11 @@ def match_wb_addresses(points,reference,population_wide=None,max_km=10.):
   nearest=int(idx[k]);links.append(dict(source_record_id=sid,np_identity_basis=status,linked_distance_km=distance,
    np_identity_candidate_count=len(candidate),nearest_reference_source_record_id=r.source_record_id.iloc[nearest],
    nearest_reference_distance_km=float(chord_km(dist[k])),regional_context_proxy=r.region.iloc[nearest],
-   regional_context_is_proxy=True,known_foreign_source_country_label_conflict=foreign))
+   regional_context_is_proxy=True,known_foreign_source_country_label_conflict=foreign,
+   locality_witness_basis=basis,locality_witnesses_json=json.dumps(witnesses,ensure_ascii=False),
+   matched_reference_name=r.name.iloc[candidate[0]] if sid is not None else None,
+   matched_reference_type=r.reference_type.iloc[candidate[0]] if sid is not None else None,
+   identity_is_nearest_only=False))
  return pd.DataFrame(links,index=points.index)
 
 def normalize_wb(payload,reference,population_wide=None,snapshot='2026-10-24'):
@@ -226,10 +316,25 @@ def bind_explicit_city_contexts(sites,reference):
  """
  cities=reference[reference.source_record_id.notna()&reference.region.isin(['москва','санкт петербург','севастополь'])].copy()
  if cities.empty:return sites
+ def city_literal(value):
+  text=normalize_name(value)
+  return re.sub(r'^(?:город|г)\s+|\s+(?:город|г)$','',text).strip()
+ known_localities={city_literal(value) for value in reference['name'].dropna()}
+ city_or_unkeyed=reference.get('settlement_type_2021',pd.Series('',index=reference.index)).eq('город')|reference.source_record_id.isna()
+ corpus_localities={city_literal(value) for value in reference.loc[city_or_unkeyed,'name'].dropna()}
  d=sites.copy();known_regions=set(reference.region_norm.dropna());contexts=[]
  for row in cities.itertuples(index=False):
   name=normalize_name(row.name)
   contexts.append((row.source_record_id,name,normalize_region(row.region),re.compile(r'(?<!\w)'+re.escape(name)+r'(?!\w)')))
+ city_name_by_id={sid:name for sid,name,region,pattern in contexts}
+ # A federal territorial context is not a precise owner for a separately
+ # named known locality inside it. Preserve the physical shop and hold only
+ # that coarse identity; an arbitrary microdistrict is not rejected.
+ if 'tags_json' in d:
+  suburbs=d.tags_json.map(lambda value:city_literal(tags_dict(value).get('addr:suburb')))
+  finer=d.source_record_id.isin(city_name_by_id)&suburbs.isin(known_localities)&suburbs.ne(d.source_record_id.map(city_name_by_id))
+  d.loc[finer,'source_record_id']=None
+  d.loc[finer,'np_identity_basis']='held_known_finer_suburb_not_precise_federal_city_ownership'
  candidate_rows=d.source_record_id.isna()
  city_text=pd.Series(False,index=d.index)
  for column in ['activity_address','source_address_locality','tags_json']:
@@ -237,23 +342,68 @@ def bind_explicit_city_contexts(sites,reference):
    city_text |= d[column].fillna('').astype(str).str.contains(r'москва|санкт.{0,6}петербург|севастополь',case=False,regex=True)
  for idx,row in d[candidate_rows&city_text].iterrows():
   tags=tags_dict(row.get('tags_json'));head=address_head(row.get('activity_address',''))
-  locality_values=[normalize_name(v) for v in [row.get('source_address_locality'),tags.get('addr:city'),tags.get('addr:place')] if pd.notna(v)]
+  locality_values=[city_literal(v) for v in [row.get('source_address_locality'),tags.get('addr:city'),tags.get('addr:place')] if pd.notna(v)]
+  locality_values=[value for value in locality_values if value]
+  suburb=city_literal(tags.get('addr:suburb'))
+  if suburb in known_localities and suburb:locality_values.append(suburb)
   states=[normalize_region(v) for v in [row.get('source_region_literal'),tags.get('addr:state')] if pd.notna(v)]
   explicit_regions=set(s for s in states if s in known_regions)
   for part in str(row.get('activity_address','')).split(','):
    if re.search(r'область|обл\.?\b|край|республика|респ\.?\b',part,flags=re.I):
     value=normalize_region(part)
     if value in known_regions:explicit_regions.add(value)
-  candidates=[]
+  candidates=[];held_reasons=[]
   for sid,name,region,pattern in contexts:
-   literal=name in locality_values or bool(pattern.search(head))
-   if not literal:continue
+   # Provider widgets may call a whole delivery region "Moscow and Moscow
+   # Oblast". That header never overrides an explicitly named village.
+   explicit_locality=bool(locality_values) and set(locality_values)=={name}
+   contradictory_locality=any(value and value!=name for value in locality_values)
+   plain_head=head
+   for _ in range(2):plain_head=re.sub(r'^(?:(?:россия|российская федерация|рф)|\d{6})\s*','',plain_head).strip()
+   address_parts=[norm(part) for part in str(row.get('activity_address','')).split(',')]
+   address_parts=[part for part in address_parts if part and part not in {'россия','российская федерация','рф'} and not re.fullmatch(r'\d{6}',part)]
+   first_part=address_parts[0] if address_parts else ''
+   first_part=re.sub(r'^\d{6}\s*','',first_part).strip()
+   unambiguous_address=city_literal(plain_head)==name or city_literal(first_part)==name
+   literal=explicit_locality or unambiguous_address
+   if not literal:
+    if pattern.search(head):held_reasons.append('regional_header_or_ambiguous_city_mention_not_locality')
+    continue
+   if contradictory_locality:
+    held_reasons.append('contradictory_explicit_noncity_locality');continue
+   bare_other_localities=[]
+   for part in str(row.get('activity_address','')).split(','):
+    normalized_part=norm(part)
+    # A full street component is not a locality. In particular a reference
+    # place named Pushkin does not turn Pushkinskaya Street into another NP.
+    if re.search(STREET_SPLIT,normalized_part):break
+    place_literal=city_literal(normalized_part)
+    if place_literal not in known_localities:
+     # Zelenograd uses corpus numbers as addresses. Arbitrary numbered names
+     # such as "Suzdalskaya 12" may instead be streets without a type word.
+     building=re.fullmatch(r'(.+?)\s+(?:корпус|корп|к)\s*\d.*',normalized_part)
+     candidate=city_literal(building.group(1)) if building else ''
+     place_literal=candidate if candidate in corpus_localities else ''
+    if len(place_literal)>=3 and place_literal!=name and place_literal in known_localities and place_literal not in {'россия','российская федерация','рф'}:
+     bare_other_localities.append(place_literal)
+   if bare_other_localities:
+    held_reasons.append('nested_known_locality_before_street');continue
+   # A nested named settlement remains separate even when an enclosing city
+   # is also present in an address field. No nearest-NP replacement is made.
+   # Keep comma boundaries: the "г" in "Москва, г. Подольск" belongs to
+   # Podolsk, whereas the suffix in the widget's "Москва г" belongs to Moscow.
+   part_heads=[address_head(part) for part in str(row.get('activity_address','')).split(',')]
+   other_place_head=' '.join('' if city_literal(part)==name else pattern.sub(' ',part) for part in part_heads)
+   noncity_type=bool(re.search(r'\b(?:деревня|село|поселок|пгт|хутор|станица|аул|город)\b|\b(?:д|с|п|г)\s+[а-я][а-я-]{2,}\b|\b[а-я][а-я-]{2,}\s+(?:д|с|п|г)\b',other_place_head))
+   if noncity_type:
+    held_reasons.append('nested_explicit_noncity_place_type');continue
    if not place_type_ok(head,name,'город'):continue
    if explicit_regions and explicit_regions!={region}:continue
    candidates.append(sid)
   if len(candidates)==1:
    d.at[idx,'source_record_id']=candidates[0]
-   d.at[idx,'np_identity_basis']='explicit_federal_city_address_unique_nonadditive_territorial_context'
+   d.at[idx,'np_identity_basis']='explicit_federal_city_locality_or_unambiguous_address_noncontradictory_context'
+  elif held_reasons:d.at[idx,'np_identity_basis']='held_federal_city_'+ '|'.join(sorted(set(held_reasons)))
  d['identity_is_nonadditive_territorial_context']=d.source_record_id.isin(cities.source_record_id)
  return d
 

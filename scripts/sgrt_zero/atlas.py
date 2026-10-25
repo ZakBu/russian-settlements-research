@@ -226,6 +226,7 @@ def around(points,centre,radius_km):
 
 def service_region(ax,data,centre,radius,service,all_origins):
  pts=around(all_origins,centre,radius);dots(ax,pts,color=GREY,s=4,alpha=.5,lon0=centre.lon,lat0=centre.lat)
+ map_style(ax,[-radius,radius,-radius,radius])
  e=data[data.origin_id.isin(pts.source_record_id)&data.service_family.eq(service)&yes(data,'l0_admitted')].copy()
  if len(e):
   ids=e.provider_settlement_id.dropna().value_counts().head(3).index.tolist()
@@ -291,20 +292,22 @@ def build(root,hierarchy=None,output=None,scenario=None,higher=None,comparison_h
   health_offer='health/public_scope_corrected/np_supply.parquet' if (Path(root)/'health/public_scope_corrected/np_supply.parquet').exists() else 'health/np_supply.parquet'
   if (Path(root)/'health/public_scope_child_corrected/np_supply.parquet').exists():health_offer='health/public_scope_child_corrected/np_supply.parquet'
   if health_supply is not None:health_offer=str(health_supply)
-  files=[(health_offer,'Медицина',['medical_basic_primary']),('education/np_supply.parquet','Образование',['school_general','preschool','preschool_official']),('commerce/supply.parquet','Магазины / ПВЗ',None)]
+  education_root='education_general_scope_corrected' if (Path(root)/'education_general_scope_corrected/np_supply.parquet').is_file() else 'education'
+  commerce_root='commerce_address_components_corrected' if (Path(root)/'commerce_address_components_corrected/supply.parquet').is_file() else 'commerce_identity_corrected' if (Path(root)/'commerce_identity_corrected/supply.parquet').is_file() else 'commerce'
+  files=[(health_offer,'Медицина',['medical_basic_primary']),(education_root+'/np_supply.parquet','Образование',['school_general','preschool','preschool_official']),(commerce_root+'/supply.parquet','Магазины / ПВЗ',None)]
   details={}
   for relative,label,codes in files:
    effective=relative
-   if label=='Магазины / ПВЗ' and (Path(root)/'commerce/federal_context/supply.parquet').exists():effective='commerce/federal_context/supply.parquet'
+   if label=='Магазины / ПВЗ' and commerce_root=='commerce' and (Path(root)/'commerce/federal_context/supply.parquet').exists():effective='commerce/federal_context/supply.parquet'
    d=data.table(effective)
    if label=='Медицина':
     health_has_saratov2021=bool(yes(d,'saratov_historical_2021_evidence_present').any());health_has_federal_current=bool(yes(d,'federal_current_2026_evidence_present').any())
    if label=='Магазины / ПВЗ':
-    wb_path='commerce/supply_wb_current.parquet' if (Path(root)/'commerce/supply_wb_current.parquet').exists() else 'commerce/federal_context/supply_wb_current.parquet'
+    wb_path=commerce_root+'/supply_wb_current.parquet' if (Path(root)/(commerce_root+'/supply_wb_current.parquet')).exists() else 'commerce/federal_context/supply_wb_current.parquet'
     wb=data.table(wb_path,True)
     d=d[d.service_code.eq('daily_grocery')]
     if len(wb):d=pd.concat([d,wb[wb.service_code.eq('parcel_pickup_wildberries_current')]],ignore_index=True)
-    host=data.table('commerce/fivepost/supply_grocery_current_host_proxy.parquet',True)
+    host=data.table(commerce_root+'/fivepost/supply_grocery_current_host_proxy.parquet',True)
     if len(host):d=pd.concat([d,host[host.service_code.eq('daily_grocery_current_retail_host')]],ignore_index=True)
    valid=d.source_record_id.notna()&d.supply_status.isin(['observed','proxy'])
    if codes is not None:valid&=d.service_code.isin(codes)
@@ -316,7 +319,7 @@ def build(root,hierarchy=None,output=None,scenario=None,higher=None,comparison_h
    ax=fig.add_axes([.18+i*.31,.17,.14,.60]);a=matrix.loc[list(chunk)]
    image=ax.imshow(a.to_numpy(),cmap='Blues',norm=norm,aspect='auto',interpolation='nearest')
    ax.set_yticks(np.arange(len(a)),[str(x).capitalize() for x in a.index],fontsize=7.8);ax.set_xticks(range(3),['Мед.','Образ.','Торг.'],fontsize=8);ax.xaxis.tick_top();ax.tick_params(length=0)
-  cax=fig.add_axes([.33,.11,.35,.018]);cb=fig.colorbar(image,cax=cax,orientation='horizontal');cb.set_label('Доля НП с известным адресным свидетельством, %',fontsize=8);cb.ax.tick_params(labelsize=8)
+  cax=fig.add_axes([.33,.13,.35,.018]);cb=fig.colorbar(image,cax=cax,orientation='horizontal');cb.set_label('Доля НП с известным адресным свидетельством, %',fontsize=8);cb.ax.tick_params(labelsize=8)
   note(fig,'Картографические объекты без подтверждённого НП в эту долю не входят. Три федеральных города — отдельные контексты; доля НП не равна доле обслуженных жителей.',y=.07,size=8)
   save(fig,'regional_source_coverage',{'region_count':len(regions),'matrix_percent':matrix.reset_index(names='region').to_dict('records'),'grain':'NP_with_source_identity_not_users_or_complete_institution_network'})
 
@@ -346,16 +349,16 @@ def build(root,hierarchy=None,output=None,scenario=None,higher=None,comparison_h
 
   #5: functional/demographic descriptions without claiming causal Word types.
   fig=layout('Типы нижних групп и изменение населения','Типы описывают найденные варианты обслуживания. Динамика относится к принятому составу НП, а не к доказанным историческим границам.',5)
-  ax=fig.add_axes([.34,.22,.27,.53]);types=u.type_code.value_counts();names=[TYPES.get(x,'Дополнительный описательный тип') for x in types.index]
+  ax=fig.add_axes([.34,.27,.27,.48]);types=u.type_code.value_counts();names=[TYPES.get(x,'Дополнительный описательный тип') for x in types.index]
   ax.barh(range(len(types)),types.values,color=TEAL,zorder=3);ax.set_yticks(range(len(types)),[words(x,32) for x in names],fontsize=9);ax.invert_yaxis();style(ax,'Групп')
-  ax=fig.add_axes([.72,.22,.20,.53]);complete=data.multi[data.multi.complete_member_demography_2002_2021.fillna(False)] if 'complete_member_demography_2002_2021' in data.multi else data.multi.iloc[0:0]
+  ax=fig.add_axes([.72,.27,.20,.48]);complete=data.multi[data.multi.complete_member_demography_2002_2021.fillna(False)] if 'complete_member_demography_2002_2021' in data.multi else data.multi.iloc[0:0]
   counts_dem=complete.member_direction_2002_2021.value_counts().reindex(['decline','growth','unchanged'],fill_value=0)
   ax.bar(['Сокращение','Рост','Без изменения'],counts_dem.values,color=[BLUE,ORANGE,GREY],zorder=3);ax.tick_params(axis='x',rotation=30);style(ax,'2002–2021','Групп с полными сопоставимыми рядами')
   note(fig,'Динамика рассчитана по обычным учтённым НП с сопоставимыми значениями обоих лет. Москва, Петербург и Севастополь — отдельные справочные центры; их население не добавлено к этим суммам. Пропуски не заменены нулём.',y=.12)
   save(fig,'types_and_demography',{'descriptive_type_counts':types.to_dict(),'complete_multi_np_demography_groups':len(complete),'demography':counts_dem.to_dict()})
 
   #6: equal functional order is not an equal population-size requirement.
-  fig=layout('Саратовская область: проверка четырёх местных центров','Четыре города и села показаны в одной шкале. Отсутствие известного поставщика не доказывает отсутствие учреждения.',6)
+  fig=layout('Саратовская область: проверка четырёх местных центров','Четыре центра показаны на участках с разным увеличением. Правила одинаковы для города и села; преимущество по населению не задаётся.',6)
   centres=[('Саратов и Энгельс','Саратов',35),('Новоузенск','Новоузенск',24),('Питерка','Питерка',24)];cases=[]
   for i,(label,name,radius) in enumerate(centres):
    c=city(data.ref,name,'саратовская');ax=fig.add_axes([.06+i*.305,.23,.27,.48])
@@ -364,6 +367,7 @@ def build(root,hierarchy=None,output=None,scenario=None,higher=None,comparison_h
    names=['Саратов','Энгельс'] if name=='Саратов' else [name]
    marks=data.ref[data.ref.name.isin(names)&data.ref.region.eq('саратовская')&data.ref.lat.notna()&data.ref.lon.notna()].sort_values('population_2021',ascending=False).drop_duplicates('name')
    marks=dots(ax,marks,color=INK,s=38,marker='*',alpha=1,lon0=c.lon,lat0=c.lat,zorder=8);labels(ax,marks,maximum=2);ax.set_title(label,fontsize=11)
+   if i:ax.set_ylabel('')
    cases.append({'name':label,'frame_halfwidth_km':radius,'np_points':len(pts),'display_status_counts':pts.display_status.value_counts().to_dict()})
   note(fig,'Окна — увеличение карты, а не радиус расчёта. Медицина: федеральные адреса 2026 года и отдельные исторические сведения. Точка НП — приближение, не координаты здания.' if health_has_federal_current else 'Окна — увеличение карты, а не радиус расчёта. Медицина области дополнена официальными адресами 2021 года; их работа в 2026 году и реальные поездки не подтверждены.' if health_has_saratov2021 else 'Окна — увеличение карты, а не радиус расчёта. Официального реестра области в этом варианте нет; дальний кандидат не доказывает поездку.',y=.14,size=8)
   save(fig,'saratov_zero_local_windows',{'cases':cases})
@@ -372,9 +376,10 @@ def build(root,hierarchy=None,output=None,scenario=None,higher=None,comparison_h
   fig=layout('Саратов и Энгельс: услуги показаны раздельно','Цвет различает поставщиков внутри панели. Пунктир — направление к зданию или точке НП, не трасса дороги.',7)
   c=city(data.ref,'Саратов','саратовская');families=sorted(data.edges.service_family.unique());service_details=[]
   for i,family in enumerate(families[:4]):
-   ax=fig.add_axes([.07+(i%2)*.47,.20+(1-i//2)*.29,.39,.24])
+   ax=fig.add_axes([.07+(i%2)*.47,.20+(1-i//2)*.32,.39,.24])
    if c is not None:service_details.append({'service':str(family),**service_region(ax,data.edges,c,30,family,data.origins)})
    else:ax.text(.5,.5,'Точка Саратова не найдена',transform=ax.transAxes,ha='center');ax.axis('off')
+   if i<2:ax.set_xlabel('')
   note(fig,'Серые точки: в этом виде услуг близкий вариант не принят. Цвет и пунктир показывают выбранного поставщика; розовый — объект без установленного НП. Названия НП и положение здания сохраняются раздельно.',y=.115)
   save(fig,'saratov_service_layers',{'family_count':len(families),'shown':service_details})
 
@@ -428,16 +433,18 @@ def build(root,hierarchy=None,output=None,scenario=None,higher=None,comparison_h
    case=cases[cases.name_ru.eq(name)] if len(cases) else pd.DataFrame();efua=int(case.eFUA_ID.iloc[0]) if len(case) else None
    shown=set();level=None
    if data.higher:
-    level,hu,hm,path=data.higher[-1];keys=hu.get('all_provider_keys_json',hu.get('real_provider_keys_json',pd.Series('',index=hu.index))).astype(str)
-    selection=keys.str.contains('np:'+c.source_record_id,regex=False)
-    if efua is not None:selection|=hu.get('reference_area_keys_json',hu.profile_signature).astype(str).str.contains('efua:'+str(efua),regex=False)
+    level,hu,hm,path=data.higher[-1]
+    # An inherited supplier name does not make every referring group part of
+    # this city's own group. Select its actual membership, with exact IDs.
+    city_unit_ids=set(hm.loc[hm.origin_id.eq(c.source_record_id),'unit_id'])
+    selection=hu.unit_id.isin(city_unit_ids)
     supported=hu.effective_merge_depth.gt(0) if 'effective_merge_depth' in hu else yes(hu,'new_territorial_merger')
     selected=hu[selection&supported];shown=set(hm.loc[hm.unit_id.isin(selected.unit_id),'origin_id'])
     dots(ax,pts[pts.source_record_id.isin(shown)],color=BLUE,s=7,alpha=.8,lon0=c.lon,lat0=c.lat)
    if efua is not None:external_outline(ax,geo,efua,c.lon,c.lat)
    dots(ax,pd.DataFrame([c]),color=INK,s=55,marker='*',alpha=1,lon0=c.lon,lat0=c.lat,zorder=9);map_style(ax,[-radius,radius,-radius,radius]);ax.set_title(name,fontsize=12)
-   detail.append({'name':name,'external_efua_id':efua,'last_computed_level':level,'associated_model_points_in_window':len(shown&set(pts.source_record_id))})
-  note(fig,'Цветные точки — расчётные участники; серые — остальные НП. Внешняя граница 2015 года не доказывает поездки и верхний уровень. Три федеральных города — отдельные справочные центры: их городское население не прибавляется к суммам обычных НП.',y=.13)
+   detail.append({'name':name,'external_efua_id':efua,'last_computed_level':level,'associated_model_points_in_window':len(shown&set(pts.source_record_id)),'selection_rule':'actual_unit_containing_city_context_not_any_inherited_supplier_or_reference'})
+  note(fig,'Цветные точки — итоговая группа, в которую входит данный городской контекст; серые — остальные НП. Внешний контур 2015 года не доказывает поездки. Население федеральных городов не прибавляется к суммам обычных НП.',y=.13)
   save(fig,'moscow_petersburg_external_comparison',{'cases':detail,'external_boundaries_are_not_ground_truth':True})
 
   #11: same reference sample, service-specific travel instead of one radius.
@@ -445,13 +452,13 @@ def build(root,hierarchy=None,output=None,scenario=None,higher=None,comparison_h
   ax=fig.add_axes([.26,.22,.66,.53]);distributions=[];labels1=[];detail=[]
   for family,g in data.edges.groupby('service_family',sort=True):
    finite=pd.to_numeric(g.cost_minutes,errors='coerce').dropna();admitted=g[yes(g,'l0_admitted')].cost_minutes.dropna()
-   distributions.append(np.minimum(finite.to_numpy(float),180));labels1.append(family_name(family));detail.append({'service':family,'finite':len(finite),'admitted':len(admitted),'median_all_finite_minutes':float(finite.median()) if len(finite) else None,'p90_all_finite_minutes':float(finite.quantile(.9)) if len(finite) else None,'over180':int(finite.gt(180).sum())})
+   distributions.append(finite.to_numpy(float));labels1.append(family_name(family));detail.append({'service':family,'finite':len(finite),'admitted':len(admitted),'median_all_finite_minutes':float(finite.median()) if len(finite) else None,'p90_all_finite_minutes':float(finite.quantile(.9)) if len(finite) else None,'over180':int(finite.gt(180).sum())})
   if distributions:
    bp=ax.boxplot(distributions,vert=False,tick_labels=labels1,showfliers=False,patch_artist=True)
    for patch in bp['boxes']:patch.set(facecolor=BLUE,alpha=.65)
-  style(ax,'Модельных минут; значения выше 180 показаны на краю шкалы')
-  note(fig,'Отсутствующие пути исключены из распределения и сохраняются отдельными состояниями. Дальние варианты не исчезают из данных при ограничении близкого обслуживания.',y=.12)
-  save(fig,'service_accessibility',{'service_distributions':detail,'axis_display_cap_minutes':180,'is_a_new_admission_limit':False})
+  style(ax,'Модельные минуты')
+  note(fig,'Прямоугольник — 25–75-й процентили, линия — медиана; усы — до 1,5 межквартильного размаха. Выбросы скрыты только на рисунке. Отсутствующие пути сохранены отдельно; дальние варианты остаются в исходных данных.',y=.12)
+  save(fig,'service_accessibility',{'service_distributions':detail,'axis_display_cap_minutes':None,'outliers_hidden_in_boxplot_only':True,'is_a_new_admission_limit':False})
 
   #12: preserve agriculture/workforce as context, not fictitious settlement jobs.
   fig=layout('Сельское хозяйство и сведения о работниках','Районные сельхозпоказатели не распределены по деревням. Численность работников охватывает только часть организаций.',12)
@@ -514,10 +521,10 @@ def build(root,hierarchy=None,output=None,scenario=None,higher=None,comparison_h
      layers.append((path.parent.name,u,m))
     if not layers:raise ValueError('No frozen higher comparison found: '+str(comparison_root/name))
     variants[name]=layers
-   fig=layout('Что меняет разрешение выходить за внешний контур','Сравниваются одинаковые источники и пределы прямой доступности; меняется территориальное правило. Это сценарии, а не наблюдённые границы.',13)
+   fig=layout('Как меняются условия более крупных объединений','Источники и пределы прямой доступности одинаковы. Меняются территориальное правило и требование нескольких независимых сфер.',13)
    ax=fig.add_axes([.11,.29,.80,.42]);stage_names=[x[0] for x in variants['all_declared']];x=np.arange(len(stage_names));comparison_counts={}
    strict={p.name:u for _,u,m,p in data.higher}
-   for j,(key,label,color) in enumerate([('strict','Все участники внутри контура 2015',BLUE),('all_declared','Внешние участники: все требуемые сферы',TEAL),('partial_positive_two_domains','Внешние участники: две известные сферы',ORANGE)]):
+   for j,(key,label,color) in enumerate([('strict','Основной: участники внутри контура 2015',BLUE),('all_declared','Сравнение: все требуемые сферы',TEAL),('partial_positive_two_domains','Диагностика: две известные сферы',ORANGE)]):
     lookup=strict if key=='strict' else {stage:u for stage,u,m in variants[key]}
     values=[int(yes(lookup[stage],'new_territorial_merger').sum()) if stage in lookup else 0 for stage in stage_names];comparison_counts[key]=values
     bars=ax.bar(x+(j-1)*.24,values,.23,color=color,label=label);ax.bar_label(bars,labels=[num(v) for v in values],padding=3,fontsize=8)
@@ -531,8 +538,8 @@ def build(root,hierarchy=None,output=None,scenario=None,higher=None,comparison_h
      diameter=pu.set_index('unit_id').loc[ids.iloc[0],'member_geodesic_diameter_km']
      diagnostic_note=f'В диагностическом варианте двух сфер группа Астрахани растянулась примерно на {num(round(diameter))} км в диаметре; это не принятые границы агломерации.'
    note(fig,'Основной вариант — строгий; расширенный полный вариант используется для сравнения и требует все заявленные сферы. '+diagnostic_note+' Односферный последний шаг не является новым общим порядком.',y=.14,size=8)
-   save(fig,'strict_extended_higher_counts',{'counts':comparison_counts,'stages':stage_names,'same_sources_different_territorial_rules':True})
-   fig=layout('Где территориальное правило меняет размер группы','Сравнивается число населённых участников: основной строгий вариант и расширенный полный вариант для сравнения.',14)
+   save(fig,'strict_extended_higher_counts',{'counts':comparison_counts,'stages':stage_names,'same_sources_different_territorial_rules':True,'minimum_independent_domains_rule_also_differs':True,'not_a_pure_effect_of_external_boundary':True})
+   fig=layout('Как условия объединения меняют размер групп','Сравнивается число населённых участников: основной строгий вариант и расширенный полный вариант для сравнения.',14)
    if not data.higher:raise ValueError('Strict higher outputs required for comparison')
    _,su,sm,_=data.higher[-1];_,eu,em=variants['all_declared'][-1]
    field='positive_credited_member_records';ss=sm.merge(su[['unit_id',field]],on='unit_id',validate='many_to_one').set_index('origin_id')[field];es=em.merge(eu[['unit_id',field]],on='unit_id',validate='many_to_one').set_index('origin_id')[field]

@@ -64,6 +64,68 @@ class CommerceTests(unittest.TestCase):
   w=pd.DataFrame({'source_record_id_2021':['a','b','c',None,None],'settlement_type_2021':['деревня','деревня','город','село','село']})
   d=match_wb_addresses(p,reference(),w);self.assertEqual(d.source_record_id.iloc[0],'c')
 
+class OrdinaryAddressComponentTests(unittest.TestCase):
+ def reference(self):
+  rows=[('krasnodar','Краснодар','город','краснодарский',45.03,38.98),
+   ('krasnodarskiy','Краснодарский','поселок','краснодарский',45.08554,39.044616),
+   ('rossiyskiy','Российский','поселок','краснодарский',45.10,39.00),
+   ('tolyatti','Тольятти','город','самарская',53.52,49.42),('primorskiy','Приморский','поселок','самарская',53.51,49.42),
+   ('tyumen','Тюмень','город','тюменская',57.15,65.53),('moskovskiy','Московский','поселок','тюменская',57.14,65.54),
+   ('tikhoretsk','Тихорецк','город','краснодарский',45.85,40.13),('krasno','Краснооктябрьская','станица','краснодарский',45.84,40.14),
+   ('smolenka','Смоленка','село','забайкальский',52.138,113.501),('zabaykal','Забайкальский','поселок','забайкальский',52.13,113.51)]
+  d=pd.DataFrame(rows,columns=['source_record_id','name','settlement_type_2021','region','lat','lon']);d['region_norm']=d.region;d['ordinary_spatial_2021']=True
+  return d
+ def result(self,address,locality,lat=45.04,lon=39.0):
+  p=pd.DataFrame({'activity_address':[address],'source_address_locality':[locality],'site_lat':[lat],'site_lon':[lon]})
+  return match_wb_addresses(p,self.reference()).iloc[0]
+ def test_regional_header_is_not_the_similarly_named_village(self):
+  r=self.result('Краснодарский край, Краснодар, Красная улица, 10','Краснодар')
+  self.assertEqual(r.source_record_id,'krasnodar')
+ def test_free_text_region_and_postfix_street_do_not_prove_village(self):
+  r=self.result('Краснодарский край, Краснодар, Краснодарский проезд, 10',None)
+  self.assertEqual(r.source_record_id,'krasnodar')
+ def test_actual_explicit_village_is_preserved_with_house_tail(self):
+  r=self.result('Краснодар, Посёлок Краснодарский 66к2',None,45.08554,39.044616)
+  self.assertEqual(r.source_record_id,'krasnodarskiy')
+ def test_finer_typed_village_is_not_forced_to_structured_delivery_city(self):
+  r=self.result('Краснодарский край, Краснодар, посёлок Российский, улица Ленина 2','Краснодар',45.1,39.0)
+  self.assertIn(r.source_record_id,['rossiyskiy',None])
+  self.assertNotEqual(r.source_record_id,'krasnodar')
+ def test_typed_nested_place_survives_missing_comma_before_street(self):
+  r=self.result('Краснодарский край, Краснодар, посёлок Российский улица Мира, 1','Краснодар',45.1,39.0)
+  self.assertIn(r.source_record_id,['rossiyskiy',None]);self.assertNotEqual(r.source_record_id,'krasnodar')
+ def test_postfix_street_named_as_a_settlement_is_not_that_settlement(self):
+  for street in ['поселок Российский ул','поселок Российский улица дом 3','П. И. Смородина ул 12','С. Есенина ул 2']:
+   with self.subTest(street=street):
+    r=self.result('Краснодар, '+street,'Краснодар')
+    self.assertEqual(r.source_record_id,'krasnodar')
+ def test_multiple_untyped_places_are_ambiguous_not_longest(self):
+  r=self.result('Краснодар, Краснодарский, улица Ленина 2',None)
+  self.assertTrue(pd.isna(r.source_record_id));self.assertEqual(r.np_identity_candidate_count,2)
+ def test_structured_city_cannot_hide_other_bare_locality(self):
+  r=self.result('Краснодар, Российский, улица Ленина 2','Краснодар',45.1,39.0)
+  self.assertTrue(pd.isna(r.source_record_id))
+ def test_street_name_before_type_never_becomes_np(self):
+  cases=[('Тольятти, Приморский бульвар, 54/15','Тольятти',53.52,49.42,'tolyatti'),
+   ('Тюмень, Московский тракт, 143','Тюмень',57.15,65.53,'tyumen'),
+   ('Тихорецк, Краснооктябрьская улица, 48В','Тихорецк',45.85,40.13,'tikhoretsk')]
+  for address,locality,lat,lon,expected in cases:
+   with self.subTest(address=address):self.assertEqual(self.result(address,locality,lat,lon).source_record_id,expected)
+ def test_structured_postfix_type_and_region_header_are_separate(self):
+  r=self.result('Забайкальский край, Смоленка с, Центральная ул, 2','Смоленка с',52.138,113.501)
+  self.assertEqual(r.source_record_id,'smolenka')
+ def test_observed_formal_place_type_aliases_do_not_erase_true_localities(self):
+  cases=[('городской посёлок Янино-1','Янино-1','городской поселок'),
+   ('сельский посёлок Новинки','Новинки','поселок'),('Ульяновка гп','Ульяновка','городской поселок'),
+   ('Снегири дп','Снегири','дачный поселок'),('Выселки ст-ца','Выселки','станица')]
+  for literal,name,typ in cases:
+   with self.subTest(literal=literal):
+    ref=pd.DataFrame({'source_record_id':['actual'],'name':[name],'settlement_type_2021':[typ],
+     'region':['тестовая'],'region_norm':['тестовая'],'ordinary_spatial_2021':[True],'lat':[50.0],'lon':[45.0]})
+    points=pd.DataFrame({'activity_address':[literal+', Центральная улица, 1'],'source_address_locality':[literal],'site_lat':[50.0],'site_lon':[45.0]})
+    self.assertEqual(match_wb_addresses(points,ref).source_record_id.iloc[0],'actual')
+
+
 class FederalCommerceTests(unittest.TestCase):
  def context(self):
   r=reference()
@@ -80,6 +142,68 @@ class FederalCommerceTests(unittest.TestCase):
  def test_precise_locality_has_priority_over_federal_city_name(self):
   d=pd.DataFrame({'source_record_id':['a'],'activity_address':['Москва, д. Березовка, улица Ленина 1'],'source_address_locality':['Березовка'],'source_region_literal':[None],'tags_json':[None]})
   a=bind_explicit_city_contexts(d,self.context());self.assertEqual(a.source_record_id.iloc[0],'a');self.assertFalse(a.identity_is_nonadditive_territorial_context.iloc[0])
+ def test_combined_delivery_region_never_proves_moscow_settlement_identity(self):
+  d=pd.DataFrame({'source_record_id':[None], 'activity_address':['Москва и Московская область, Селково д, б/у, 9/1, с1'],
+   'source_address_locality':['Селково д'],'source_region_literal':['Москва и Московская область'],
+   'site_lat':[56.582645],'site_lon':[38.150528],'tags_json':[None]})
+  a=bind_explicit_city_contexts(d,self.context())
+  self.assertTrue(a.source_record_id.isna().all());self.assertEqual(a.site_lat.iloc[0],56.582645)
+  self.assertIn('regional_header',a.np_identity_basis.iloc[0])
+ def test_explicit_city_locality_survives_combined_region_label(self):
+  d=pd.DataFrame({'source_record_id':[None],'activity_address':['Москва и Московская область, Москва, улица Ленина 1'],
+   'source_address_locality':['Москва'],'source_region_literal':['Москва и Московская область'],'tags_json':[None]})
+  a=bind_explicit_city_contexts(d,self.context());self.assertEqual(a.source_record_id.iloc[0],'moscow-context')
+ def test_city_tag_cannot_override_other_explicit_place_tag(self):
+  d=pd.DataFrame({'source_record_id':[None],'activity_address':['Москва, деревня Березовка, улица Ленина 1'],
+   'source_address_locality':['Москва'],'source_region_literal':[None],
+   'tags_json':[json.dumps({'addr:city':'Москва','addr:place':'Березовка'},ensure_ascii=False)]})
+  self.assertTrue(bind_explicit_city_contexts(d,self.context()).source_record_id.isna().all())
+ def test_typed_other_settlement_cannot_be_hidden_in_city_address(self):
+  d=pd.DataFrame({'source_record_id':[None],'activity_address':['Москва, Селково д, улица Ленина 1'],
+   'source_address_locality':['Москва'],'source_region_literal':[None],'tags_json':[None]})
+  self.assertTrue(bind_explicit_city_contexts(d,self.context()).source_record_id.isna().all())
+ def test_explicit_first_city_component_does_not_require_street_type_word(self):
+  d=pd.DataFrame({'source_record_id':[None],'activity_address':['Москва, 1-й Магистральный тупик, 5'],
+   'source_address_locality':[None],'source_region_literal':[None],'tags_json':[None]})
+  self.assertEqual(bind_explicit_city_contexts(d,self.context()).source_record_id.iloc[0],'moscow-context')
+ def test_other_typed_city_inside_federal_city_region_stays_unresolved(self):
+  d=pd.DataFrame({'source_record_id':[None],'activity_address':['Москва, г. Подольск, улица Ленина 1'],
+   'source_address_locality':[None],'source_region_literal':[None],'tags_json':[None]})
+  self.assertTrue(bind_explicit_city_contexts(d,self.context()).source_record_id.isna().all())
+ def test_operator_postfix_city_type_is_not_a_conflicting_locality(self):
+  d=pd.DataFrame({'source_record_id':[None],'activity_address':['Москва, Москва г, Матвеевская ул, 20, к.3'],
+   'source_address_locality':['Москва г'],'source_region_literal':['Москва'],'tags_json':[None]})
+  self.assertEqual(bind_explicit_city_contexts(d,self.context()).source_record_id.iloc[0],'moscow-context')
+ def test_bare_named_locality_before_street_blocks_coarse_city_fallback(self):
+  ref=self.context();other=ref.iloc[[0]].copy();other['name']='Домодедово';other['source_record_id']=None;ref=pd.concat([ref,other],ignore_index=True)
+  d=pd.DataFrame({'source_record_id':[None],'activity_address':['Москва, Домодедово, Промышленная улица, 10'],
+   'source_address_locality':['Москва'],'source_region_literal':[None],'tags_json':[None]})
+  self.assertTrue(bind_explicit_city_contexts(d,ref).source_record_id.isna().all())
+ def test_bare_locality_with_building_code_is_not_the_enclosing_city(self):
+  ref=self.context();other=ref.iloc[[0]].copy();other['name']='Зеленоград';other['source_record_id']=None;ref=pd.concat([ref,other],ignore_index=True)
+  d=pd.DataFrame({'source_record_id':[None],'activity_address':['Москва, Зеленоград к2037'],
+   'source_address_locality':[None],'source_region_literal':[None],'tags_json':[None]})
+  self.assertTrue(bind_explicit_city_contexts(d,ref).source_record_id.isna().all())
+ def test_street_part_does_not_trigger_known_locality_ambiguity(self):
+  ref=self.context();other=ref.iloc[[0]].copy();other['name']='Ленинский';other['source_record_id']=None;ref=pd.concat([ref,other],ignore_index=True)
+  d=pd.DataFrame({'source_record_id':[None],'activity_address':['Москва, Ленинский проспект, 10'],
+   'source_address_locality':[None],'source_region_literal':[None],'tags_json':[None]})
+  self.assertEqual(bind_explicit_city_contexts(d,ref).source_record_id.iloc[0],'moscow-context')
+ def test_numbered_street_or_gate_without_type_is_not_a_bare_place_name(self):
+  ref=self.context();other=pd.concat([ref.iloc[[0]].copy() for _ in range(2)],ignore_index=True)
+  other['name']=['Суздальская','Ворота'];other['source_record_id']=None;ref=pd.concat([ref,other],ignore_index=True)
+  d=pd.DataFrame({'source_record_id':[None,None],'activity_address':['Москва, Суздальская 12к1','170Г, ворота 37'],
+   'source_address_locality':['Москва','Москва'],'source_region_literal':[None,None],'tags_json':[None,None]})
+  self.assertTrue(bind_explicit_city_contexts(d,ref).source_record_id.eq('moscow-context').all())
+ def test_known_finer_suburb_holds_only_coarse_federal_owner(self):
+  ref=self.context();other=ref.iloc[[0]].copy();other['name']='Зеленоград';other['source_record_id']=None;ref=pd.concat([ref,other],ignore_index=True)
+  d=pd.DataFrame({'source_record_id':['moscow-context','a','moscow-context'],
+   'activity_address':['Москва, улица Ленина 1']*3,'source_address_locality':['Москва']*3,'source_region_literal':[None]*3,
+   'tags_json':[json.dumps({'addr:city':'Москва','addr:suburb':'Зеленоград'},ensure_ascii=False),
+    json.dumps({'addr:city':'Москва','addr:suburb':'Зеленоград'},ensure_ascii=False),
+    json.dumps({'addr:city':'Москва','addr:suburb':'Неподтвержденный микрорайон'},ensure_ascii=False)]})
+  out=bind_explicit_city_contexts(d,ref)
+  self.assertTrue(pd.isna(out.source_record_id.iloc[0]));self.assertEqual(out.source_record_id.iloc[1],'a');self.assertEqual(out.source_record_id.iloc[2],'moscow-context')
 
 class PickupOperatorTests(unittest.TestCase):
  def test_operator_codes_do_not_make_all_points_interchangeable(self):

@@ -305,7 +305,7 @@ def compact_prepare(bundle,work):
 def route_view(work):
  """Final logical view: replace corrected medical classes, preserve originals."""
  base={p.stem:p for p in (work/'routes/nearest').glob('*.parquet')}
- for folder in ['routes_health_corrected','routes_5post','routes_saratov_scope_corrected','routes_pediatric_scope_corrected','routes_complete_scope_corrected']:
+ for folder in ['routes_health_corrected','routes_5post','routes_saratov_scope_corrected','routes_pediatric_scope_corrected','routes_complete_scope_corrected','routes_education_commerce_corrected','routes_commerce_components_corrected']:
   for path in (work/folder/'nearest').glob('*.parquet'):base[path.stem]=path
  if not base:raise ValueError('No final raw nearest evidence')
  return base
@@ -364,11 +364,38 @@ def canonical_health_supply(work):
  raise ValueError('Canonical healthcare supply missing')
 
 
+def canonical_education_root(work):
+ return work/('education_general_scope_corrected' if (work/'education_general_scope_corrected/physical_sites.parquet').is_file() else 'education')
+
+
+def canonical_commerce_root(work):
+ for role in ['commerce_address_components_corrected','commerce_identity_corrected','commerce']:
+  if (work/role/'sites.parquet').is_file():return work/role
+ return work/'commerce'
+
+
 def validate_primary_scope_report(path):
  failures=json.loads(Path(path).read_text()).get('failures')
  if not isinstance(failures,dict) or not failures:raise ValueError('Missing actual primary-care scope failure counts')
  bad={key:value for key,value in failures.items() if value!=0}
  if bad:raise ValueError('Actual primary-care source scope audit failed: '+repr(bad))
+
+
+def validate_education_scope_report(path):
+ failures=json.loads(Path(path).read_text()).get('failures')
+ if not isinstance(failures,dict) or not failures:raise ValueError('Missing actual education scope failure counts')
+ bad={key:value for key,value in failures.items() if value!=0}
+ if bad:raise ValueError('Actual education source scope audit failed: '+repr(bad))
+
+
+def check_education_scope(work):
+ education=canonical_education_root(work)
+ if not (education/'physical_sites.parquet').is_file():return
+ output=work/'checks/education_scope_actual.json'
+ run(SCRIPT/'logic_checks.py','check-education-scope','--raw-current',work/'inputs/education_current.parquet',
+     '--source-inventory',education/'source_inventory_current.parquet','--physical-sites',education/'physical_sites.parquet',
+     '--np-supply',education/'np_supply.parquet','--output',output)
+ validate_education_scope_report(output)
 
 
 def check_medical_primary_scope(work):
@@ -387,6 +414,7 @@ def check_medical_primary_scope(work):
 
 
 def analyses(work):
+ check_education_scope(work)
  override=grocery_override(work)
  reference=work/'context/analysis_reference.parquet';nearest=materialize_route_view(work)
  wb=work/'routes_wb/nearest/parcel_pickup_wildberries_current.parquet'
@@ -423,8 +451,8 @@ def analyses(work):
  medical_evidence=canonical_health_supply(work).parent/'federal_service_evidence_with_identity.parquet'
  if medical_evidence.is_file():
   run(SCRIPT/'system_complexity.py','--memberships',work/'hierarchy'/main/'level0_memberships.parquet',
-      '--medical-evidence',medical_evidence,'--education-sites',work/'education/physical_sites.parquet',
-      '--wildberries-sites',work/'commerce/sites_wb_current.parquet','--reference',reference,
+      '--medical-evidence',medical_evidence,'--education-sites',canonical_education_root(work)/'physical_sites.parquet',
+      '--wildberries-sites',canonical_commerce_root(work)/'sites_wb_current.parquet','--reference',reference,
       '--external-fua',work/'literature/external_fua_russia/analysis_frame_efua_2015.parquet',
       '--output',work/'functional_complexity')
  run(SCRIPT/'atlas.py','--root',work,'--hierarchy',work/'hierarchy'/main,'--scenario',main,
@@ -551,6 +579,9 @@ def payload_files(work):
  if final_commerce.exists():
   for p in final_commerce.glob('*'):
    if p.is_file() and p.suffix in {'.parquet','.json'}:out['commerce/'+p.name]=p
+ for source_role,target_role in [('education_general_scope_corrected','education'),('commerce_identity_corrected','commerce'),('commerce_address_components_corrected','commerce')]:
+  for relative,path in files_under(work,source_role).items():
+   out[target_role+'/'+str(Path(relative).relative_to(source_role))]=path
  screens='screens_final' if (work/'screens_final').is_dir() else 'screens_public_scope_corrected'
  for rel,path in files_under(work,screens).items():out['screens_final/'+str(Path(rel).relative_to(screens))]=path
  for scenario in SCENARIOS:out.update(files_under(work,'hierarchy/'+scenario))
@@ -563,7 +594,7 @@ def payload_files(work):
  for name in ['endpoints.parquet']:
   if (work/'routes'/name).is_file():out['routes/'+name]=work/'routes'/name
  for p in (work/'routes_final').glob('*.json'):out['routes/'+p.name]=p
- for folder in ['routes','routes_health_corrected','routes_5post','routes_saratov_scope_corrected','routes_pediatric_scope_corrected','routes_complete_scope_corrected']:
+ for folder in ['routes','routes_health_corrected','routes_5post','routes_saratov_scope_corrected','routes_pediatric_scope_corrected','routes_complete_scope_corrected','routes_education_commerce_corrected','routes_commerce_components_corrected']:
   for p in (work/folder).glob('*'):
    if p.is_file() and p.suffix in {'.json','.parquet'} and p.name not in {'provider_road_seeds.parquet','endpoints.parquet'}:
     out['routes/provenance/'+folder+'/'+p.name]=p
@@ -581,7 +612,7 @@ def check_complete(work):
   'routes_wb/nearest/parcel_pickup_wildberries_current.parquet','routes_yandex/nearest/parcel_pickup_yandex_current.parquet',
   'literature/external_fua_russia/analysis_frame_efua_2015.parquet',
   'literature/external_fua_russia/settlement_external_fua_status.parquet',
-  'upward/'+SCENARIOS[0]+'/summary.json','upward_extended/'+SCENARIOS[0]+'/summary.json','population_context_readout/summary.json','hierarchy_readout/summary.json','hierarchy_readout/main_partial_core_reason_breakdown.json','checks/scientific_checks.json','figures/zero_level_atlas.pdf','figures/atlas_manifest.json','figures/01_national_statuses.png']
+  'upward/'+SCENARIOS[0]+'/summary.json','upward_extended/'+SCENARIOS[0]+'/summary.json','population_context_readout/summary.json','hierarchy_readout/summary.json','hierarchy_readout/main_partial_core_reason_breakdown.json','checks/scientific_checks.json','checks/education_scope_actual.json','inputs/education_current.parquet','figures/zero_level_atlas.pdf','figures/atlas_manifest.json','figures/01_national_statuses.png']
  if (work/'inputs/frozen_federal_medical/federal_medical_source_manifest.json').exists():
   required += ['federal_medical/normalized/'+code+'_'+kind+'.parquet' for code in ['F032','F033','F034','F038'] for kind in ['current','history']]
   required += ['federal_medical/normalized/'+name for name in ['V002_codebook.json','V006_codebook.json','V008_codebook.json','source_summary.json','join_audit.json','care_site_profiles_current.parquet']]
@@ -599,6 +630,7 @@ def check_complete(work):
   absent=[str(folder/name) for name in names if not (folder/name).is_file()]
   if absent:raise ValueError('Cannot package incomplete actual stages: '+repr(absent))
  validate_actual_audits(work)
+ validate_education_scope_report(work/'checks/education_scope_actual.json')
  primary_report=work/'checks/medical_primary_scope_actual.json'
  if primary_report.is_file():validate_primary_scope_report(primary_report)
  population=json.loads((work/'population_context_readout/summary.json').read_text())
@@ -613,11 +645,15 @@ def copy_reproduction(local):
  for filename in ['scripts/sgrt_pilot/package_release.py','scripts/research_data.py','data/catalog.json',
                   'data/pilot_catalog_20261024.json','data/mass_catalog_20261024.json','references/sources.json','references/usage.json',
                   'research_context/primary/word_concept_extracted.txt','research_context/primary/word_concept.docx','research_context/current_state.json',
-                  'research_context/analysis_snapshots/zero_controls_20261025.json','research_context/conversation_context_20261025.md',
+                  'research_context/conversation_context_20261025.md',
                   'research_context/conversation_context_20261022.md','decisions.json','AGENTS.md','README.md','AI_START_HERE.md',
                   'requirements-sgrt-pilot.txt','requirements-sgrt-mass-centres.txt','requirements-sgrt-mass.txt','requirements-sgrt-zero.txt']:
   source=REPO/filename
   if source.exists():copy_file(source,root/filename)
+ snapshots=REPO/'research_context/analysis_snapshots'
+ if snapshots.exists():
+  for p in sorted(snapshots.glob('*.json')):
+   copy_file(p,root/'research_context/analysis_snapshots'/p.name)
  diary=REPO/'research_context/diary'
  if diary.exists():
   latest=sorted(diary.glob('20??-??-??.md'))[-1:]

@@ -134,7 +134,7 @@ def canonical(raw,reference):
                  'saratov_historical_2021_evidence_present',
                  'restriction_scope_unknown','actual_operational_status_verified',
                  'actual_operational_status_checked','source_status_semantics_verified',
-                 'source_public_scope_check','medical_need_scope',
+                 'source_public_scope_check','medical_need_scope','education_need_scope','programme_mismatch_reason',
                  'general_adult_profile_evidence','named_child_only_contingent',
                  'universal_hospital_suitability_verified']:
         d['provider_'+name]=get(raw,['provider_'+name,name]).to_numpy()

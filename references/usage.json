@@ -606,9 +606,10 @@
     {
       "source_id": "GHS_FUA2015_R2019A",
       "used_in": [
-        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+        "sgrt/zero/LITERATURE_AND_LIMITS.md",
+        "sgrt/zero/FUNCTIONAL_COMPLEXITY.md"
       ],
-      "purpose": "Separate external modelled urban reference, not our L0 or observed Russian commuting.",
+      "purpose": "Separate external modelled urban reference, not our L0 or observed Russian commuting. Отдельный координатный контроль образовательных объектов внутри внешних городских полигонов; не присвоение объектов главному городу.",
       "implementation_paths": [
         "scripts/sgrt_zero/logic_checks.py",
         "sgrt/zero/LITERATURE_AND_LIMITS.md"
@@ -619,9 +620,10 @@
     {
       "source_id": "SCHIAVINA2019_GHS_FUA_MANUAL",
       "used_in": [
-        "sgrt/zero/LITERATURE_AND_LIMITS.md"
+        "sgrt/zero/LITERATURE_AND_LIMITS.md",
+        "sgrt/zero/FUNCTIONAL_COMPLEXITY.md"
       ],
-      "purpose": "Estimated FUA modelling, source population-priority/500000 merging rule, explicit limits of external reference.",
+      "purpose": "Estimated FUA modelling, source population-priority/500000 merging rule, explicit limits of external reference. Отдельный координатный контроль образовательных объектов внутри внешних городских полигонов; не присвоение объектов главному городу.",
       "implementation_paths": [
         "scripts/sgrt_zero/logic_checks.py",
         "sgrt/zero/LITERATURE_AND_LIMITS.md"
@@ -750,14 +752,18 @@
       "source_id": "FEDERAL_F034_F038_20261023",
       "used_in": [
         "sgrt/zero/HEALTH.md",
-        "sgrt/zero/README.md"
+        "sgrt/zero/README.md",
+        "sgrt/zero/FUNCTIONAL_COMPLEXITY.md"
       ],
-      "purpose": "Новые национальные сведения об услугах по фактическим адресам. История и сроки действия сохраняются, юрадрес не используется вместо места приёма.",
+      "purpose": "Новые национальные сведения об услугах по фактическим адресам. История и сроки действия сохраняются, юрадрес не используется вместо места приёма. Положительный допуск общей первичной функции проверяется для самого подразделения. Посчитаны известные адресные идентификаторы и профили уже сформированных групп; это не мощности и не ранги городов.",
       "implementation_status": "national_primary_registry_normalization_and_explicit_clinical_classification",
       "implementation_paths": [
         "scripts/sgrt_zero/medical_regional_sources.py",
         "scripts/sgrt_zero/federal_medical_addresses.py",
-        "scripts/sgrt_zero/federal_medical_functions.py"
+        "scripts/sgrt_zero/federal_medical_functions.py",
+        "scripts/sgrt_zero/medical_scope.py",
+        "scripts/sgrt_zero/federal_medical_integrate.py",
+        "scripts/sgrt_zero/system_complexity.py"
       ],
       "reading_scope_field": "references/sources.json records[id=FEDERAL_F034_F038_20261023].read_scope"
     }

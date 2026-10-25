@@ -147,11 +147,13 @@ class ZeroTransportTests(unittest.TestCase):
         ep=endpoints();item=provider('physical','town',1)
         item['grades_known']=False;item['historical_supply_needs_current_confirmation']=True
         item['school_program_evidence_json']='{"complete_stage_offering_established":false}'
+        item['education_need_scope']='general_daytime_school_proxy_admission_not_verified'
         p=pd.DataFrame([item]);graph=csr_matrix(np.array([[0.,7.,0.],[20.,0.,0.],[0.,0.,0.]]))
         out=t.nearest_service(ep,p,graph.T.tocsr(),'medical_basic_primary').iloc[0]
         self.assertFalse(out.provider_grades_known)
         self.assertTrue(out.provider_historical_supply_needs_current_confirmation)
         self.assertIn('false',out.provider_school_program_evidence_json)
+        self.assertEqual(out.provider_education_need_scope,'general_daytime_school_proxy_admission_not_verified')
 
     def test_geometric_fingerprint_changes_when_a_census_point_moves(self):
         ep=endpoints();moved=ep.copy();moved.loc[0,'lat']+=.001

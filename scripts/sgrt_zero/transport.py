@@ -30,7 +30,7 @@ META=['location_precision','evidence_quality','evidence_kind','source_id','sourc
       'grades_known','grade_evidence_basis','school_program_evidence_json','service_basis',
       'historical_supply_proxy','historical_source_only','saratov_historical_2021_evidence_present',
       'restriction_scope_unknown','actual_operational_status_verified','source_public_scope_check',
-      'medical_need_scope','general_adult_profile_evidence','named_child_only_contingent','universal_hospital_suitability_verified',
+      'medical_need_scope','general_adult_profile_evidence','named_child_only_contingent','universal_hospital_suitability_verified','education_need_scope','programme_mismatch_reason',
       'physical_coordinates_observed','external_seed_assumption']
 BOOLEAN_META={'default_external_seed_eligible','historical_supply_needs_current_confirmation',
               'actual_operational_status_checked','source_status_semantics_verified','counts_as_independent_service_channel','grades_known','historical_supply_proxy','historical_source_only',

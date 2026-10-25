@@ -1,0 +1,58 @@
+{
+  "partial_core_multi_np_units": 7519,
+  "mutually_exclusive_groups": {
+    "only_far_known_missing_core_channels": 7463,
+    "only_unknown_route_or_inventory_missing_core_channels": 51,
+    "both_far_and_unknown_missing_core_channels": 5
+  },
+  "missing_core_origin_family_edge_rows": 44352,
+  "edge_status_counts": {
+    "far_known_candidate": 44062,
+    "unknown_route_or_inventory": 290
+  },
+  "edge_family_status_counts": [
+    {
+      "service_family": "grocery",
+      "service_status": "far_known_candidate",
+      "rows": 28359
+    },
+    {
+      "service_family": "grocery",
+      "service_status": "unknown_route_or_inventory",
+      "rows": 152
+    },
+    {
+      "service_family": "medical_basic",
+      "service_status": "far_known_candidate",
+      "rows": 938
+    },
+    {
+      "service_family": "medical_basic",
+      "service_status": "unknown_route_or_inventory",
+      "rows": 10
+    },
+    {
+      "service_family": "school",
+      "service_status": "far_known_candidate",
+      "rows": 14765
+    },
+    {
+      "service_family": "school",
+      "service_status": "unknown_route_or_inventory",
+      "rows": 128
+    }
+  ],
+  "unknown_reason_edge_counts": {
+    "no_directed_route_or_selected_provider_unknown": 290
+  },
+  "one_missing_core_direction_can_have_different_reasons_among_group_members": true,
+  "far_known_candidate_is_not_proof_of_real_local_service_absence": true,
+  "main_scenario": "daily_20_school30_wb",
+  "source_edges_sha256": "e0f52ae3c5b91799eb32384690e74297238b6ecdf133470f14cd0bdd4cb54e61",
+  "input_sha256": {
+    "/workspace/sgrt-zero-federal-final25/hierarchy/daily_20_school30_wb/level0_units.parquet": "6ecd06b5cf0098cb3bbeac736f26c9b947c4c15d1c3b774883f94cf7f9003178",
+    "/workspace/sgrt-zero-federal-final25/hierarchy/daily_20_school30_wb/level0_memberships.parquet": "6fdcaae5b5a8d6e154a7987bf6936c72aa0a842c23be99f29fad80624327d203",
+    "/workspace/sgrt-zero-federal-final25/hierarchy/daily_20_school30_wb/daily_edge_evidence.parquet": "e0f52ae3c5b91799eb32384690e74297238b6ecdf133470f14cd0bdd4cb54e61"
+  },
+  "code_sha256": "53b8b99a193b2bb9b671d810657919db69edc920f9a471e4fde4f897d2f388b1"
+}
