@@ -26,7 +26,7 @@ if not archive.exists() or digest(archive) != catalog['sha256']:
         target = cache / part['name']
         if target.exists() and digest(target) == part['sha256']:
             return target
-        partial = target.with_suffix('.partial')
+        partial = target.with_name(target.name + '.partial')
         with urllib.request.urlopen(part['url'], timeout=120) as response, partial.open('wb') as out:
             for block in iter(lambda: response.read(1024 * 1024), b''):
                 out.write(block)
