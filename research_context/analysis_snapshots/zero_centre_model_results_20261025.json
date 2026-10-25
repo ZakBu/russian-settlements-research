@@ -1,0 +1,144 @@
+{
+  "main_readout": {
+    "strict_model_groups": 197,
+    "unique_centre_member_pairs": 725,
+    "unique_origin_records": 725,
+    "origin_records_in_multiple_strict_groups": 0,
+    "joint_centre_surrounding_2002_2021": {
+      "decline__decline": 110,
+      "decline__growth": 37,
+      "growth__growth": 23,
+      "growth__decline": 22,
+      "unknown": 4,
+      "decline__unchanged": 1
+    },
+    "joint_centre_surrounding_2010_2021": {
+      "decline__decline": 101,
+      "decline__growth": 42,
+      "growth__growth": 28,
+      "growth__decline": 25,
+      "decline__unchanged": 1
+    },
+    "fixed_current_membership_not_historical_service_boundaries": true,
+    "optional_parcel_strict_membership_identity_is_by_construction_not_validation": true,
+    "core_identity_and_admission_coverage": [
+      {
+        "service_family": "grocery",
+        "all_origin_records": 153803,
+        "admitted_records": 103081,
+        "admitted_known_np_provider": 22767,
+        "admitted_unknown_np_physical_provider": 80314,
+        "far_or_unknown_records": 50722
+      },
+      {
+        "service_family": "medical_basic",
+        "all_origin_records": 153803,
+        "admitted_records": 146405,
+        "admitted_known_np_provider": 135063,
+        "admitted_unknown_np_physical_provider": 11342,
+        "far_or_unknown_records": 7398
+      },
+      {
+        "service_family": "school",
+        "all_origin_records": 153803,
+        "admitted_records": 125558,
+        "admitted_known_np_provider": 15931,
+        "admitted_unknown_np_physical_provider": 109627,
+        "far_or_unknown_records": 28245
+      }
+    ],
+    "known_daily_centres_with_positive_whole_external_core_members": 21630,
+    "wider_daily_stars_are_overlapping_not_a_sgrt_count": true,
+    "causal_word_typology_established": false,
+    "all_groups_with_coordinate_review": 0,
+    "all_groups_with_endpoint_review": 0,
+    "groups_with_unknown_component_size": 0,
+    "groups_with_component_lt100_diagnostic": 0,
+    "groups_with_unknown_school_stage": 191,
+    "diameter_km": {
+      "median": 5.585277351720703,
+      "p95": 15.025738166294676,
+      "max": 17.504567756079968
+    },
+    "membership_sensitivity": [
+      {
+        "scenario_id": "daily_10_school15_wb",
+        "centre_member_pairs": 541,
+        "same_pairs_as_main": 541,
+        "pairs_main_only": 184,
+        "pairs_sensitivity_only": 0
+      },
+      {
+        "scenario_id": "daily_20_school30_wb",
+        "centre_member_pairs": 725,
+        "same_pairs_as_main": 725,
+        "pairs_main_only": 0,
+        "pairs_sensitivity_only": 0
+      },
+      {
+        "scenario_id": "daily_30_school30_wb",
+        "centre_member_pairs": 767,
+        "same_pairs_as_main": 725,
+        "pairs_main_only": 0,
+        "pairs_sensitivity_only": 42
+      }
+    ]
+  },
+  "figure_values": {
+    "strict_star_count": 197,
+    "strict_external_records": 528,
+    "pages": [
+      "01_country",
+      "02_sizes",
+      "03_sensitivity",
+      "04_documents",
+      "05_named_groups",
+      "06_wider_service_network"
+    ],
+    "diameter_km": {
+      "median": 5.585277351720703,
+      "p95": 15.025738166294676,
+      "max": 17.504567756079968
+    },
+    "known_daily_centres_with_positive_whole_external_core_members": 21630,
+    "wider_network_unique_origin_records": 98955
+  },
+  "independent_pivot_check": {
+    "check": "independent_pivot_and_admission_rule_vs_every_strict_pair",
+    "scenarios": {
+      "daily_20_school30_wb": {
+        "centre_member_pairs": 725,
+        "centres": 197,
+        "external_pairs": 528,
+        "all_pairs_equal": true
+      },
+      "daily_10_school15_wb": {
+        "centre_member_pairs": 541,
+        "centres": 157,
+        "external_pairs": 384,
+        "all_pairs_equal": true
+      },
+      "daily_30_school30_wb": {
+        "centre_member_pairs": 767,
+        "centres": 200,
+        "external_pairs": 567,
+        "all_pairs_equal": true
+      }
+    },
+    "input_sha256": {
+      "/workspace/sgrt-zero-centre-systems-20261025/scenarios/daily_20_school30_wb/daily_edges.parquet": "9bdd62631de281093999fe2a9dd8542c25d1f98620d9d796297ff64a85636fce",
+      "/workspace/sgrt-zero-public-restored/sgrt/zero20261025/context/analysis_reference.parquet": "456a0fd57c363cd7ade3563c5737634dd34ebda585569fc80bec160e4cc55e90",
+      "/workspace/sgrt-zero-centre-systems-20261025/scenarios/daily_20_school30_wb/strict_three_core_memberships.parquet": "d2bd7465d7e5081ffe885d22379b4e86915969b053a5e5a56e3aee196f290b8e",
+      "/workspace/sgrt-zero-centre-systems-20261025/scenarios/daily_10_school15_wb/strict_three_core_memberships.parquet": "2a509087a4b4858bb0a7f1caea38773cbf9aa3a54e70d9659d8bdd6e27a49d65",
+      "/workspace/sgrt-zero-centre-systems-20261025/scenarios/daily_30_school30_wb/strict_three_core_memberships.parquet": "7ba84419f9eaf5035b2468ffbd3608e493b65920bb4cd6c05ec34104ef044c72"
+    },
+    "code_sha256": "46784807df0ca5c7c0c030f4aeff92f49ae062eb949d0763e3aeeaf3e4aa8175",
+    "does_not_validate_observed_trips": true
+  },
+  "complete_national_sgrt_claim": false,
+  "all_origins": 153803,
+  "ordinary_spatial_origins": 153800,
+  "new_nearest_layers": 10,
+  "public_release": "sgrt-zero-centre-systems-20261025-v1",
+  "publication_status": "pending"
+}

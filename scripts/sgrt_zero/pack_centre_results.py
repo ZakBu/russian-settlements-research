@@ -30,8 +30,12 @@ def build(analysis,routes,output,commit):
             if p.is_file():entries[prefix+'/'+p.relative_to(root).as_posix()]=p
     for folder in ['scripts/sgrt_zero','scripts/sgrt_mass','scripts/sgrt_local']:
         for p in sorted((REPO/folder).glob('*.py')):entries['reproduction/'+p.relative_to(REPO).as_posix()]=p
+    for p in sorted(REPO.glob('requirements-sgrt-*.txt')):
+        entries['reproduction/'+p.name]=p
     for name in ['AGENTS.md','README.md','requirements-sgrt-zero.txt','requirements-sgrt-mass.txt','requirements-sgrt-pilot.txt',
                  'sgrt/zero/CENTRE_SYSTEMS_20261025.md','research_context/current_state.json','research_context/diary/2026-10-25.md',
+                 'research_context/analysis_snapshots/zero_centre_model_results_20261025.json',
+                 'research_context/analysis_snapshots/centre_stars_exact_performance_20261025.json',
                  'references/sources.json','references/usage.json','research_context/primary/word_concept_extracted.txt','decisions.json']:
         entries['reproduction/'+name]=REPO/name
     files={name:{'bytes':p.stat().st_size,'sha256':sha(p)} for name,p in entries.items()}

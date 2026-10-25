@@ -38,7 +38,7 @@ def readout(root, reference_path):
     roster=stars[['star_id','centre_settlement_id','centre_name','centre_region',
                   'strict_external_member_count','strict_geodesic_diameter_km',
                   'strict_school_stage_unknown_records']].merge(
-        reference[['source_record_id','settlement_type_2021','population_2021']],
+        reference.dropna(subset=['source_record_id'])[['source_record_id','settlement_type_2021','population_2021']],
         left_on='centre_settlement_id',right_on='source_record_id',validate='one_to_one').drop(columns='source_record_id')
     roster=roster.merge(centre[['unit_id','joint_centre_surrounding_direction_2002_2021',
                                 'joint_centre_surrounding_direction_2010_2021']],
@@ -59,6 +59,14 @@ def readout(root, reference_path):
                             'pairs_main_only':len(base-keys),'pairs_sensitivity_only':len(keys-base)})
     pd.DataFrame(sensitivity).to_parquet(root / 'scenario_membership_comparison.parquet', index=False)
     edges=pd.read_parquet(main/'daily_edges.parquet')
+    core_edges=edges[edges.service_family.isin(['medical_basic','school','grocery'])]
+    strict_links=mm[['unit_id','origin_id','centre_settlement_id']].merge(core_edges,
+        left_on=['origin_id','centre_settlement_id'],right_on=['origin_id','provider_settlement_id'],
+        validate='one_to_many')
+    if len(strict_links)!=3*len(mm) or not strict_links.l0_admitted.all():
+        raise ValueError('Every strict member must have exactly three admitted direct core links')
+    strict_links['scope']='strict_core_only_parcel_not_included'
+    strict_links.to_parquet(main/'strict_selected_core_links.parquet',index=False,compression='zstd')
     coverage=[]
     for family,g in edges[edges.service_family.isin(['medical_basic','school','grocery'])].groupby('service_family'):
         coverage.append({'service_family':family,'all_origin_records':len(g),

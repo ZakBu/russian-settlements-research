@@ -79,7 +79,7 @@ def run(root, reference_path, output):
         ax=fig.add_axes([.40,.29,.48,.48]);positions=np.arange(len(rows))
         ax.barh(positions,[r[1] for r in rows],color=TEAL);ax.set_yticks(positions,[r[0] for r in rows],fontsize=9);ax.invert_yaxis();ax.set_xlabel('Число модельных групп');ax.set_xlim(0,max(1,max(r[1] for r in rows))*1.18)
         for y,(_,v) in zip(positions,rows):ax.text(v+1,y,str(v),va='center')
-        fig.text(.065,.13,'Изменение временных пределов — сценарная чувствительность, а не доверительный интервал.\nПВЗ не участвует в строгом правиле трёх функций: его замена не является проверкой устойчивости этого поднабора.',fontsize=10)
+        fig.text(.065,.13,'Изменение временных пределов — сценарная чувствительность, а не доверительный интервал.\nБазовая помощь — 30 минут во всех вариантах. ПВЗ не участвует в строгом правиле трёх функций.',fontsize=10)
         save(fig,'03_sensitivity')
         fig=page('Документы подтверждают разные местные зоны',
             'Учалинский район: прикрепление к школе 1–9 классов (постановление 12.03.2025) и сообщение ФАПа.\nЭто три функциональных фрагмента с пересечениями, а не три независимых СГРТ.',4)
@@ -95,8 +95,14 @@ def run(root, reference_path, output):
                 for px,py in zip(x,y):ax.plot([0,px],[0,py],style,color=color,lw=1.4)
                 ax.scatter(x,y,c=color,s=35,label=label)
             unique=part.drop_duplicates('origin_id');x,y=project(unique.lon,unique.lat,lon0,lat0)
-            for px,py,name in zip(x,y,unique.name):ax.annotate(name,(px,py),xytext=(4,6),textcoords='offset points',fontsize=8)
-            ax.scatter([0],[0],marker='*',s=160,color=TEAL,edgecolor=INK,zorder=5);map_axis(ax);ax.set_title(centre,fontsize=12);ax.margins(.3);ax.legend(loc='lower left',fontsize=7)
+            for px,py,name in zip(x,y,unique.name):
+                offset=(6,-16) if name==centre else (4,12)
+                ax.annotate(name,(px,py),xytext=offset,textcoords='offset points',fontsize=8)
+            ax.scatter([0],[0],marker='*',s=160,color=TEAL,edgecolor=INK,zorder=5);map_axis(ax);ax.set_title(centre,fontsize=12)
+            # Extent follows the documented members, not the wider background
+            # inventory. Otherwise a three-village system becomes unreadable.
+            ax.set_xlim(min(x)-2.5,max(x)+5.);ax.set_ylim(min(y)-3.,max(y)+3.)
+            ax.legend(loc='lower left',fontsize=7)
         fig.text(.065,.12,'В Кураме и Каримове известны собственные ФАПы: школьное прикрепление не отменяет местную медицину.\nШкольные точки национальной карты близки к документированным центрам, но их НП и ступени автоматически не установлены.',fontsize=9)
         save(fig,'04_documents')
         fig=page('Конкретный состав строгих модельных групп',
@@ -112,8 +118,14 @@ def run(root, reference_path, output):
             for px,py in zip(x,y):ax.plot([0,px],[0,py],color=TEAL,lw=.8,alpha=.65)
             ax.scatter(x,y,s=35,color=TEAL,edgecolor=INK,lw=.4)
             ax.scatter([0],[0],marker='*',s=170,color=GOLD,edgecolor=INK,zorder=5)
+            offsets={'Новосиль':(6,12,'left'),'Заречье':(-10,-15,'right'),
+                     'Пенькозавод':(-8,-21,'right'),'Тюково':(8,-10,'left'),
+                     'Сорочий Мост':(5,11,'left'),'Ямская Слобода':(-5,-15,'right'),
+                     'Шейский Мост':(5,11,'left'),'Лужки':(8,12,'left')}
             for i,(px,py,label) in enumerate(zip(x,y,part.name)):
-                ax.annotate(label,(px,py),xytext=(4,7 if i%2==0 else -12),textcoords='offset points',fontsize=7.5)
+                dx,dy,ha=offsets.get(label,(4,7 if i%2==0 else -12,'left'))
+                ax.annotate(label,(px,py),xytext=(dx,dy),textcoords='offset points',ha=ha,fontsize=7.5,
+                            bbox={'facecolor':PAPER,'alpha':.72,'edgecolor':'none','pad':.1})
             map_axis(ax);ax.margins(.28)
             ax.set_title(f'{name}: {int(selected.strict_external_member_count)} внешних НП\nДиаметр {selected.strict_geodesic_diameter_km:.2f} км',fontsize=11)
         fig.text(.065,.12,'Строгое совпадение не подтверждает школьную ступень, свободные мощности или действующую работу всех объектов.\nДругие однофункциональные территории вокруг этих центров могут быть шире и сохраняются отдельно.',fontsize=9)

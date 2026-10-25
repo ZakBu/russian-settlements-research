@@ -50,3 +50,11 @@ class CentreReadoutTests(unittest.TestCase):
             self.assertEqual(result['joint_centre_surrounding_2002_2021'],{'unknown':1})
             self.assertEqual(result['joint_centre_surrounding_2010_2021'],{'decline__decline':1})
             self.assertTrue((root/'checked_model_centres.csv').exists())
+
+    def test_historical_rows_without_current_identity_do_not_duplicate_join(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);path=self.fixture(root)
+            ref=pd.read_parquet(path)
+            historic=ref.iloc[[0,0]].copy();historic['source_record_id']=None
+            pd.concat([ref,historic],ignore_index=True).to_parquet(path,index=False)
+            self.assertEqual(readout(root,path)['strict_model_groups'],1)
