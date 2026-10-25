@@ -4,7 +4,7 @@ from pathlib import Path
 import pandas as pd
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from scripts.sgrt_zero.commerce import classify_osm,normalize_osm,normalize_wb,match_wb_addresses,np_offers,bind_explicit_city_contexts,write_pickup_variants,pickup_operator_code,normalize_yandex,write_grocery_host_variant,acquire_yandex_public_widget
+from scripts.sgrt_zero.commerce import classify_osm,normalize_osm,normalize_wb,match_wb_addresses,np_offers,bind_explicit_city_contexts,write_pickup_variants,pickup_operator_code,normalize_yandex,write_grocery_host_variant,acquire_yandex_public_widget,commerce_assortment_scope
 
 def reference():
  return pd.DataFrame({'root':['r1','r2','r3'],'source_record_id':['a','b','c'],'name':['Берёзовка','Берёзовка','Саратов'],
@@ -24,6 +24,27 @@ def osm_row(tags,**kwargs):
  row.update(kwargs);return row
 
 class CommerceTests(unittest.TestCase):
+ def test_literal_nonfood_assortment_conflict_is_held_not_absent(self):
+  for name in ['Строительный магазин','Магазин стройматериалов','Магазин автозапчастей',
+               'Цветочный магазин','Магазин мебели','Магазин одежды','Магазин обуви']:
+   with self.subTest(name=name):
+    tags={'shop':'convenience','name':name}
+    d=normalize_osm(pd.DataFrame([osm_row(tags,name=name)]),reference(),legacy())
+    self.assertEqual(d.supply_status.iloc[0],'held_assortment_conflict')
+    self.assertEqual(d.service_code.iloc[0],'daily_grocery')
+    self.assertFalse(d.default_external_seed_eligible.iloc[0])
+    self.assertEqual(json.loads(d.tags_json.iloc[0]),tags)
+    self.assertIsNotNone(d.explicit_assortment_conflict.iloc[0])
+ def test_mixed_food_store_and_brand_counterexamples_keep_food_tag(self):
+  for name in ['магазин автозапчасти и продуктовый','Мебель и продукты',
+               'Строительный магазин и бакалея','Стройка','Цветы','Магнит','Продукты']:
+   with self.subTest(name=name):
+    self.assertIsNone(commerce_assortment_scope({'shop':'convenience','name':name}))
+ def test_assortment_conflict_does_not_reclassify_or_override_other_exclusions(self):
+  self.assertIsNone(commerce_assortment_scope({'shop':'hardware','name':'Строительный магазин'}))
+  d=normalize_osm(pd.DataFrame([osm_row({'shop':'convenience','name':'Строительный магазин','disused':'yes'})]),reference(),legacy())
+  self.assertEqual(d.supply_status.iloc[0],'excluded_lifecycle')
+  self.assertIsNotNone(d.explicit_assortment_conflict.iloc[0])
  def test_name_alone_is_not_pickup(self):
   self.assertEqual(classify_osm({'name':'Медицинский центр Ozon','amenity':'clinic'})[0],'unclassified_commerce')
   self.assertEqual(classify_osm({'name':'Ozon','shop':'outpost'})[0],'parcel_pickup')

@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-25T13:21:13+03:00",
+  "updated_moscow": "2026-10-25T23:36:03+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,13 +9,13 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "semantic_audit_published_verified_code_and_metadata_corrected_new_routing_and_system_definition_pending",
-      "summary": "Найдены ошибочные учебные площадки, двойной счёт частей НП, неоднозначные ID поставщиков и демографические метки неполного состава. Код исправлен, источники переоценены, метаданные 15 старых разбиений пересчитаны. Новые направления после перевыбора поставщиков и готовые системы «центр + окружение» пока не выделены.",
+      "status": "corrected_national_routing_and_direct_centre_stars_strict_model_subset_not_complete_sgrt",
+      "summary": "После исправления учреждений пересчитаны десять слоёв направлений. Новый способ сохраняет центры и прямое окружение, а не равные сервисные профили. Строгий модельный поднабор: 197 центров и 528 внешних жилых поселений, медианный диаметр 5,59 км. Полное районирование СГРТ и наблюдённые поездки не установлены.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
-      "main_blocker": "Нужно пересчитать направления после удаления неподходящих учебных и торговых поставщиков, затем отделить сервисные пересечения от систем с центром и окружением. Отдельно проверяются дорожные компоненты, координаты и школьные ступени.",
+      "main_blocker": "Нужно расширить точную НП-принадлежность школ и магазинов, школьные ступени и документированные направления; затем обосновать многоцентровые сочетания функций без слияния цепочек на половину области. Совпадение трёх услуг не требуется от всех реальных систем.",
       "workplan": "sgrt/workplan/README.md",
-      "results": "sgrt/zero/README.md",
+      "results": "sgrt/zero/CENTRE_SYSTEMS_20261025.md",
       "data_release": "sgrt-zero-systems-20261025-v1",
       "publication": {
         "status": "published_public_download_and_frozen_code_compact_repeat_verified",
@@ -393,6 +393,85 @@
           "manifest": "research_context/analysis_snapshots/semantic_audit_manifest_20261025.json",
           "download_verification": "research_context/analysis_snapshots/semantic_audit_public_download_20261025.json",
           "tests_passed": 348
+        }
+      },
+      "centre_systems": {
+        "doc": "sgrt/zero/CENTRE_SYSTEMS_20261025.md",
+        "release": "sgrt-zero-centre-systems-20261025-v1",
+        "publication_status": "local_archive_verified_public_upload_401_cloud_rebuild_required",
+        "recomputed_nearest_layers": 10,
+        "origins_per_layer": 153803,
+        "strict_model_groups": 197,
+        "strict_external_positive_whole_records": 528,
+        "strict_diameter_km": {
+          "median": 5.585277351720703,
+          "p95": 15.025738166294676,
+          "max": 17.504567756079968
+        },
+        "strict_membership_definition": "centre own three core functions; each positive whole external record selects the same centre in all three core functions",
+        "not_a_necessary_definition_for_all_sgrt": true,
+        "complete_national_exclusive_sgrt_partition": false,
+        "observed_journeys_established": false,
+        "strict_groups_with_unknown_school_stage": 191,
+        "documented_functional_fragments": 3,
+        "documented_unique_np": 5,
+        "trips_inferred_from_documentary_attachments": false,
+        "sensitivity": {
+          "retail10_school15_medical30": {
+            "groups": 157,
+            "external_records": 384
+          },
+          "retail30_school30_medical30": {
+            "groups": 200,
+            "external_records": 567
+          }
+        },
+        "next_step": "Точная география и ступени школ; документированное обслуживание и проверка полицентричных комбинаций. Не объявлять 197 всеми локальными системами России.",
+        "known_daily_centres_with_external_core_members": 21630,
+        "wider_network_unique_origin_records": 98955,
+        "demographic_readout_2002_2021": {
+          "decline__decline": 110,
+          "decline__growth": 37,
+          "growth__growth": 23,
+          "growth__decline": 22,
+          "unknown": 4,
+          "decline__unchanged": 1
+        },
+        "core_identity_coverage": [
+          {
+            "service_family": "grocery",
+            "all_origin_records": 153803,
+            "admitted_records": 103081,
+            "admitted_known_np_provider": 22767,
+            "admitted_unknown_np_physical_provider": 80314,
+            "far_or_unknown_records": 50722
+          },
+          {
+            "service_family": "medical_basic",
+            "all_origin_records": 153803,
+            "admitted_records": 146405,
+            "admitted_known_np_provider": 135063,
+            "admitted_unknown_np_physical_provider": 11342,
+            "far_or_unknown_records": 7398
+          },
+          {
+            "service_family": "school",
+            "all_origin_records": 153803,
+            "admitted_records": 125558,
+            "admitted_known_np_provider": 15931,
+            "admitted_unknown_np_physical_provider": 109627,
+            "far_or_unknown_records": 28245
+          }
+        ],
+        "atlas_pages": 6,
+        "all_atlas_pages_visually_reviewed": true,
+        "independent_strict_memberships_all_pairs_equal": true,
+        "local_control_archive": {
+          "bytes": 407435427,
+          "sha256": "c743697f1c29106cd9ebe0599ae9cc14889c8ed0871806b3aaef7e5f73b33652",
+          "source_commit": "a6d1ebf4b93efe62b746860bd5ec824154279707",
+          "files": 191,
+          "publicly_available": false
         }
       }
     }
