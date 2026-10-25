@@ -113,6 +113,28 @@ class DirectCentreStarsTests(unittest.TestCase):
         self.assertFalse(t['centre_stars'].centre_population_is_nonadditive_context.iloc[0])
         self.assertIn('strict_member_count',t['strict_three_core_stars'])
 
+    def test_member_batches_preserve_all_tables_across_many_centres(self):
+        rows=[];profiles={}
+        for n in range(45):
+            centre=f'centre{n:03d}';satellite=f'satellite{n:03d}'
+            for origin,offset in [(centre,0.),(satellite,.001)]:
+                rows.append(dict(source_record_id=origin,name=origin,region='region',district='district',
+                    lat=50+n*.01+offset,lon=40+n*.01,population_2021=100. if offset==0 else 10.,
+                    population_role='ordinary_settlement_record',budget_population_credit=True,analysis_origin=True))
+                profiles[origin]={'medical_basic':centre,'school':centre,'grocery':centre}
+            profiles[satellite]['parcel_pickup']=f'centre{(n+1)%45:03d}'
+        r=pd.DataFrame(rows);r.loc[3,'name']='part (часть 1)'
+        r.loc[7,'population_2021']=0.
+        e=edges(profiles)
+        full,fullsummary=build_centre_stars(e,r,member_batch_size=10000)
+        batched,summary=build_centre_stars(e,r,member_batch_size=3)
+        self.assertGreater(len(full['centre_stars']),40)
+        self.assertEqual(fullsummary,summary)
+        for name in full:
+            pd.testing.assert_frame_equal(full[name],batched[name])
+        with self.assertRaisesRegex(ValueError,'positive integer'):
+            build_centre_stars(e,r,member_batch_size=0)
+
     def test_unknown_identity_rejected_instead_of_added_to_census(self):
         with self.assertRaisesRegex(ValueError,'provider settlement'):
             build_centre_stars(edges({'a':{'medical_basic':'missing'}}),reference())

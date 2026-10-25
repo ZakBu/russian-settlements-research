@@ -40,7 +40,9 @@ def stable_id(kind, *values):
     return kind + ':' + hashlib.sha256('|'.join(map(str, values)).encode()).hexdigest()[:24]
 
 
-def build_centre_stars(edges, reference, endpoints=None):
+def build_centre_stars(edges, reference, endpoints=None, *, member_batch_size=1024):
+    if isinstance(member_batch_size, bool) or not isinstance(member_batch_size, int) or member_batch_size < 1:
+        raise ValueError('member_batch_size must be a positive integer')
     edges = canonical_edges(edges)
     if edges.scenario_id.nunique() != 1:
         raise ValueError('Select one explicit scenario before constructing stars')
@@ -56,6 +58,9 @@ def build_centre_stars(edges, reference, endpoints=None):
         raise ValueError('Unknown declared provider settlement identity')
     admitted = edges[edges.l0_admitted].copy()
     scenario = str(edges.scenario_id.iloc[0])
+    # The caller retains the original outcomes. This validated wide copy is no
+    # longer needed after admission and identity checks.
+    del edges
     admitted['functional_star_id'] = [stable_id('function', scenario, f, k)
         for f, k in zip(admitted.service_family, admitted.provider_key)]
     admitted['provider_np_identity_unknown'] = admitted.provider_settlement_id.isna()
@@ -65,7 +70,7 @@ def build_centre_stars(edges, reference, endpoints=None):
     admitted['observed_flow'] = False
     admitted['model_link_is_not_observed_assignment'] = True
     # One row per origin/family is retained, including unknown-NP physical sites.
-    functional_links = admitted.copy()
+    functional_links = admitted
     metadata = ref[['name', 'region', 'district', 'lat', 'lon', 'population_2021',
                     'population_role', 'budget_population_credit', 'analysis_origin', 'part_status']].copy()
     metadata['positive_credited_whole'] = (metadata.population_role.eq('ordinary_settlement_record')
@@ -83,7 +88,9 @@ def build_centre_stars(edges, reference, endpoints=None):
     for c in ['weak_component', 'road_endpoint_accepted', 'snap_km', 'audit_component_size']:
         if c not in metadata: metadata[c] = pd.NA
     fun = []
-    for sid, g in admitted.groupby('functional_star_id', sort=True):
+    functional_source = admitted[['functional_star_id','provider_settlement_id','service_family',
+        'provider_key','origin_id','external_np_relation_proven','cost_minutes','school_stage_unknown']]
+    for sid, g in functional_source.groupby('functional_star_id', sort=True):
         first = g.iloc[0]
         centre = first.provider_settlement_id
         external = g[g.external_np_relation_proven]
@@ -97,10 +104,13 @@ def build_centre_stars(edges, reference, endpoints=None):
             centre_added_to_functional_origin_count=False, observed_flow_count=0,
             school_stage_unknown_records=int(g.school_stage_unknown.sum()) if first.service_family=='school' else 0))
     functional_stars = pd.DataFrame(fun)
+    del functional_source
     # Combined NP stars are direct edges to one known centre. Never recursively
     # add the centres used by that centre: this is the anti-percolation rule.
-    source = admitted[admitted.provider_settlement_id.notna()]
+    source = admitted.loc[admitted.provider_settlement_id.notna(),
+        ['origin_id','provider_settlement_id','service_family','cost_minutes','school_stage_unknown']]
     member_rows = []
+    member_batches = []
     star_rows = []
     for centre, group in source.groupby('provider_settlement_id', sort=True):
         sid = stable_id('centre', scenario, centre)
@@ -177,6 +187,11 @@ def build_centre_stars(edges, reference, endpoints=None):
             subset = frame.loc[frame[f'in_{count}_core_positive_whole_subset']]
             d[f'{count}_core_subset_geodesic_diameter_km'] = coordinate_diameter(subset.lat,subset.lon)
         star_rows.append(d); member_rows.append(frame)
+        # Bound the small DataFrames retained before concat; tens of thousands
+        # of these create unnecessary peak memory on smaller runners.
+        if len(member_rows) >= member_batch_size:
+            member_batches.append(pd.concat(member_rows,ignore_index=True))
+            member_rows.clear()
     stars = pd.DataFrame(star_rows) if star_rows else pd.DataFrame(columns=CENTRE_COLUMNS)
     member_columns = ['star_id','centre_settlement_id','origin_id','member_role','core_family_count',
         'core_families_json','all_families_json','parcel_corroboration','maximum_directed_minutes',
@@ -186,7 +201,13 @@ def build_centre_stars(edges, reference, endpoints=None):
         'road_endpoint_review_needed','road_component_quality_unknown','road_component_lt100_diagnostic',
         'road_access_component_review_needed','evidence_scope',
         *[f'in_{n}_core_positive_whole_subset' for n in (1,2,3)]]
-    memberships = pd.concat(member_rows, ignore_index=True) if member_rows else pd.DataFrame(columns=member_columns)
+    if member_rows:
+        member_batches.append(pd.concat(member_rows,ignore_index=True))
+        member_rows.clear()
+    memberships = (member_batches[0] if len(member_batches)==1 else
+        pd.concat(member_batches,ignore_index=True) if member_batches else pd.DataFrame(columns=member_columns))
+    # Release intermediate tables before strict metadata is calculated.
+    del member_batches, member_rows, source
     # Strict three-family groups contain no one/two-family appendages. They
     # also require the centre's own selected evidence for all three families.
     # This is a model-screened subset, not evidence of observed journeys.
