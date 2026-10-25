@@ -213,6 +213,9 @@ def build(work,commit):
         '--medical-routes',bundle/'routes/nearest/medical_basic_primary.parquet','--output',analysis/'documents')
     run(logs,'independent_subset',SCRIPT/'verify_centre_subset.py','--edges',main/'daily_edges.parquet',
         '--reference',ref,'--scenarios',analysis/'scenarios','--output',analysis/'independent_subset_check.json')
+    run(logs,'independent_extent_tail',SCRIPT/'audit_centre_extent_tail.py','--scenario-dir',main,
+        '--reference',ref,'--output',analysis/'independent_tail_audit.json',
+        '--source-context','post_supplementary_programme_reclassification')
     run(logs,'atlas',SCRIPT/'centre_atlas.py','--root',analysis,'--reference',ref,'--output',analysis/'figures')
     result=compare_scientific_control(analysis,routes)
     after=verify_bundle(bundle)
