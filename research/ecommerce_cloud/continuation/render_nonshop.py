@@ -130,38 +130,39 @@ def render(root=ROOT):
              "Состав территорий 2023–2025 гг. не подтверждён; границы и поездки не показаны. "
              "Причинный эффект маркетплейсов не оценён.", fontsize=8.6)
     figs += save(fig, output, "nonshop_population_map")
-    fig, ax = plt.subplots(figsize=(8.7, 8.3))
+    fig, axes = plt.subplots(1, 2, figsize=(13, 7.2))
     xcol, ycol = "other_change2023_2025_pct", "own_change2023_2025_pct"
     values = selected[[xcol, ycol]].to_numpy()
     low, high = float(values.min()), float(values.max())
     pad = max(1, .06 * (high - low))
     limits = (low - pad, high + pad)
-    ax.plot(limits, limits, color="#636b74", linewidth=1.1, linestyle="--",
-            label="Одинаковое изменение центра и окружения")
-    for group in ("gain", "loss", "unchanged"):
-        data = selected.loc[selected.group.eq(group)]
-        if len(data):
-            ax.scatter(data[xcol], data[ycol], color=COLORS[group], s=27, alpha=.7,
-                       edgecolors="white", linewidths=.35,
-                       label=f"{labels[group]}: {len(data)}", zorder=3)
-    ax.axhline(0, color="#bdc2c8", linewidth=.8)
-    ax.axvline(0, color="#bdc2c8", linewidth=.8)
-    ax.set_xlim(*limits)
-    ax.set_ylim(*limits)
-    ax.set_aspect("equal", adjustable="box")
-    ax.grid(alpha=.15)
-    ax.set_xlabel("Изменение населения остальной части контекста, %")
-    ax.set_ylabel("Изменение собственного населения центра, %")
-    ax.set_title("Рост доли часто сопровождается сокращением самого центра",
-                 loc="left", fontsize=12, pad=16)
-    ax.legend(loc="upper left", fontsize=8, frameon=False)
-    fig.subplots_adjust(left=.13, right=.96, bottom=.24, top=.88)
-    fig.text(.06, .025,
-             f"{len(selected)} средних центров; все наблюдения показаны, выбросы не скрыты. "
-             "На 1 января 2023–2025 гг.\n"
-             "Выше диагонали население центра меняется лучше, чем население остальной части контекста.\n"
-             "Окружение — условный административный остаток, не наблюдённый ареал поездок.\n"
-             "Состав территорий не подтверждён. Это описательная динамика, не влияние маркетплейсов.",
+    detail_limits=(-10,10)
+    outside_detail=int((~selected[xcol].between(-10,10) | ~selected[ycol].between(-10,10)).sum())
+    for index, ax in enumerate(axes):
+        bounds=limits if index==0 else detail_limits
+        ax.plot(bounds,bounds,color="#636b74",linewidth=1.1,linestyle="--")
+        for group in ("gain","loss","unchanged"):
+            data=selected.loc[selected.group.eq(group)]
+            if len(data):
+                ax.scatter(data[xcol],data[ycol],color=COLORS[group],s=20,alpha=.7,
+                           edgecolors="white",linewidths=.25,
+                           label=f"{labels[group]}: {len(data)}",zorder=3)
+        ax.axhline(0,color="#bdc2c8",linewidth=.8)
+        ax.axvline(0,color="#bdc2c8",linewidth=.8)
+        ax.set_xlim(*bounds);ax.set_ylim(*bounds)
+        ax.set_aspect("equal",adjustable="box");ax.grid(alpha=.15)
+        ax.set_xlabel("Изменение остальной части, %")
+        ax.set_title("Все наблюдения" if index==0 else "Подробное окно: −10…+10%",fontsize=11)
+    axes[0].set_ylabel("Изменение собственного населения центра, %")
+    axes[1].legend(loc="upper left",fontsize=7,frameon=False)
+    fig.suptitle("Рост доли может сопровождаться убылью города; малый остаток даёт большие проценты",
+                 x=.06,ha="left",fontsize=12)
+    fig.subplots_adjust(left=.07,right=.98,bottom=.23,top=.86,wspace=.22)
+    fig.text(.06,.025,
+             f"{len(selected)} средних центров; слева показаны все наблюдения. На 1 января 2023–2025 гг.\n"
+             f"Справа фиксированное окно −10…+10%; вне окна {outside_detail} наблюдений, они сохранены на левой диаграмме.\n"
+             "Выше диагонали город меняется лучше остатка территории. Остаток — административный, не ареал поездок.\n"
+             "Состав территорий не подтверждён; большие проценты при малом остатке проверяются отдельно. Не эффект платформ.",
              fontsize=8.5)
     figs += save(fig, output, "nonshop_population_scatter")
     summary = {
@@ -175,6 +176,7 @@ def render(root=ROOT):
         "median_own_change_pct": float(selected[ycol].median()),
         "median_remainder_change_pct": float(selected[xcol].median()),
         "scatter_limits": list(limits), "all_selected_observations_displayed": True,
+        "scatter_detail_limits": list(detail_limits), "outside_detail_window_n": outside_detail,
         "projection": "Lambert azimuthal equal-area; latitude0=62 longitude0=100 R=6371.0088km",
         "boundaries_displayed": False, "travel_catchment_observed": False,
         "territorial_comparability_verified": False, "causal_effect_identified": False,

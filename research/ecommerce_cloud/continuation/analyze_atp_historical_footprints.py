@@ -168,16 +168,18 @@ def main(args):
                         ~observed[known_flag].eq("accepted_administrative_parent_and_centre")
                         & ~observed[centre_flag].map(true)).sum()),
                 })
-                groups = dict(tuple(nodes.loc[known].groupby(group_col)))
+                known_nodes = nodes.loc[known].copy()
+                known_nodes["_atp_positive"] = known_nodes[KEY].isin(positive)
+                groups = dict(tuple(known_nodes.groupby(group_col)))
                 for row in medium.itertuples(index=False):
                     cid = getattr(row, KEY)
                     members = groups.get(cid)
                     if members is None:
-                        others = nodes.iloc[:0]
+                        others = known_nodes.iloc[:0]
                     else:
                         others = members.loc[members[KEY].ne(cid)]
                     inhabited = others.loc[others.population_2021.gt(0)]
-                    other_positive = inhabited.loc[inhabited[KEY].isin(positive)]
+                    other_positive = inhabited.loc[inhabited["_atp_positive"]]
                     own_positive = cid in positive
                     if members is None or len(inhabited) == 0:
                         category = "no_accepted_inhabited_periphery_observed"

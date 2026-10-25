@@ -10,6 +10,8 @@ on:
       - 'research/ecommerce_cloud/continuation/render_nonshop.py'
       - 'research/ecommerce_cloud/continuation/build_nonshop_notebook.py'
       - 'research/ecommerce_cloud/continuation/check_nonshop_population.py'
+      - 'research/ecommerce_cloud/continuation/check_atp_historical.py'
+      - 'research/ecommerce_cloud/extension/outcomes/nonshop_remainder_sensitivity.py'
       - 'research/ecommerce_cloud/extension/outcomes/nonshop_source_coverage.py'
       - 'research/ecommerce_cloud/extension/outcomes/nonshop_population_contexts.py'
   workflow_dispatch:
@@ -17,7 +19,7 @@ permissions:
   contents: read
 concurrency:
   group: ecommerce-national-continuation
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   nonshop-population:
     runs-on: ubuntu-latest
@@ -39,6 +41,8 @@ jobs:
         run: python research/ecommerce_cloud/extension/outcomes/acquire_bdmo_population.py
       - name: Calculate nonshop-selected conditional population contexts
         run: python research/ecommerce_cloud/extension/outcomes/nonshop_population_contexts.py
+      - name: Check sensitivity to small remainder denominators
+        run: python research/ecommerce_cloud/extension/outcomes/nonshop_remainder_sensitivity.py
       - name: Diagnose exact-code coverage and excluded shared centres
         run: python research/ecommerce_cloud/extension/outcomes/nonshop_source_coverage.py
       - name: Independently verify derived-source arithmetic
@@ -93,6 +97,8 @@ jobs:
           python research/ecommerce_cloud/extension/outcomes/nonshop_population_contexts.py
       - name: Analyse strict named-address footprints and centre surroundings
         run: python research/ecommerce_cloud/continuation/analyze_atp_historical_footprints.py --raw-dir work/ecommerce_atp_history
+      - name: Independently check historical arithmetic and sampled matching
+        run: python research/ecommerce_cloud/continuation/check_atp_historical.py work/ecommerce_atp_analysis work/ecommerce_atp_history
       - name: Preserve acquisition evidence and complete object bodies
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
