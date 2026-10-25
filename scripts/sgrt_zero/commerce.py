@@ -51,7 +51,10 @@ def commerce_access_scope(tags):
  """Explicit access/schedule evidence, not ownership or permanent closure."""
  access=str(tags.get('access','')).strip().casefold()
  hours=' '.join(str(tags.get('opening_hours','')).strip().casefold().split())
- if access in {'no','private','permit','members','military'}:
+ # A mode-specific permission overrides the blanket access tag. Reaching
+ # the shop on foot is compatible with the model's final walking connector.
+ foot=str(tags.get('foot','')).strip().casefold()
+ if access in {'no','private','permit','members','military'} and foot not in {'yes','designated','permissive','customers'}:
   return 'explicit_restricted_access_not_general_customer_offer'
  if hours in {'closed','off','mo-su off','mo-su closed'}:
   return 'explicit_closed_schedule_not_regular_service_offer'

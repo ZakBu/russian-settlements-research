@@ -23,8 +23,13 @@ def build(bundle,work,commit):
  work.mkdir(parents=True,exist_ok=True);out=work/'audit';out.mkdir();logs=out/'logs';logs.mkdir()
  before=verify_bundle(bundle);script=REPO/'scripts/sgrt_zero';ref=bundle/'context/analysis_reference.parquet';inp=bundle/'inputs'
  def run(label,name,*args):
-  with (logs/(label+'.log')).open('w') as log:
-   subprocess.run([sys.executable,str(script/name),*map(str,args)],check=True,stdout=log,stderr=subprocess.STDOUT,cwd=REPO)
+  logpath=logs/(label+'.log')
+  try:
+   with logpath.open('w') as log:
+    subprocess.run([sys.executable,str(script/name),*map(str,args)],check=True,stdout=log,stderr=subprocess.STDOUT,cwd=REPO)
+  except subprocess.CalledProcessError:
+   print('\n'.join(logpath.read_text(errors='replace').splitlines()[-50:]),flush=True)
+   raise
   print(label,flush=True)
  run('profile_grain','lower_profile_quality.py','--directory',bundle/'hierarchy/daily_20_school30_wb','--reference',ref,'--output',out/'profile_quality')
  run('group_metadata','type_readout.py','--root',bundle,'--output',out/'group_metadata')
@@ -40,7 +45,7 @@ def build(bundle,work,commit):
    names=[n for n in z.namelist() if Path(n).name==code+'.xml']
    if len(names)!=1:raise ValueError('Ambiguous source codebook '+code)
    with z.open(names[0]) as src,(codes/(code+'.xml')).open('wb') as dst:shutil.copyfileobj(src,dst)
- run('health_reassessment','health.py','--osm-current',inp/'health_current.parquet','--osm-history',inp/'health_history.parquet','--official-supply',inp/'licensed_supply.parquet','--reference',ref,'--legacy',inp/'legacy.parquet','--output',health)
+ run('health_reassessment','health.py','--osm-current',inp/'health_current.parquet','--osm-history',inp/'health_history.parquet','--official-supply',inp/'licensed_supply.parquet','--official-sites',inp/'licensed_sites.parquet','--reference',ref,'--legacy',inp/'legacy.parquet','--output',health)
  run('health_public_scope','health.py','correct-public-scope','--health-root',health,'--official-supply',inp/'licensed_supply.parquet','--official-sites',inp/'licensed_sites.parquet','--reference',ref,'--output',strict)
  run('federal_clinical_scope','federal_medical_functions.py','--input',bundle/'federal_medical/normalized/care_site_profiles_current.parquet','--codebooks',codes,'--asof','2026-10-23','--output',functions)
  run('legacy_clinical_scope','medical_scope.py','--base-health',strict,'--legacy-sites',inp/'licensed_sites.parquet','--legacy-supply',inp/'licensed_supply.parquet','--reference',ref,'--federal-care-ledger',bundle/'federal_medical/normalized/care_site_profiles_current.parquet','--output',legacy)

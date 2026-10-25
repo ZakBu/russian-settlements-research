@@ -1,6 +1,7 @@
 import importlib.util
 from pathlib import Path
 import unittest
+import tempfile
 import pandas as pd
 
 P=Path(__file__).resolve().parents[1]/'scripts/sgrt_zero/health.py'
@@ -8,6 +9,16 @@ spec=importlib.util.spec_from_file_location('zero_health',P);h=importlib.util.mo
 
 
 class HealthSourceTests(unittest.TestCase):
+ def test_explicit_registry_site_path_works_with_portable_renamed_inputs(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);sites=root/'licensed_sites.parquet';sites.write_bytes(b'sites')
+   self.assertEqual(h.registry_sites_path(root/'licensed_supply.parquet',sites),sites)
+   with self.assertRaisesRegex(FileNotFoundError,'--official-sites'):
+    h.registry_sites_path(root/'licensed_supply.parquet')
+ def test_original_companion_filename_remains_supported(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);sites=root/'sites_matched.parquet';sites.write_bytes(b'sites')
+   self.assertEqual(h.registry_sites_path(root/'supply.parquet'),sites)
  def row(self,**kwargs):
   return dict(broad_function='healthcare',medical_class='doctor_source_tag',name='',**kwargs)
  def test_unspecified_doctor_not_general_practitioner(self):

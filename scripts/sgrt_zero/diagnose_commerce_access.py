@@ -31,8 +31,9 @@ def main():
     tags = source.tags_json.map(lambda value: json.loads(value) if isinstance(value, str) else {})
     source['access_literal'] = tags.map(lambda value: value.get('access'))
     source['opening_literal'] = tags.map(lambda value: value.get('opening_hours'))
+    foot = tags.map(lambda value: str(value.get('foot', '')).strip().casefold())
     source['explicit_restricted_access'] = source.access_literal.fillna('').str.strip().str.casefold().isin(
-        ['no', 'private', 'permit', 'members', 'military'])
+        ['no', 'private', 'permit', 'members', 'military']) & ~foot.isin(['yes', 'designated', 'permissive', 'customers'])
     source['explicit_closed_schedule'] = source.opening_literal.fillna('').str.strip().str.casefold().isin(
         ['closed', 'off', 'mo-su off', 'mo-su closed'])
     candidates = source[source.explicit_restricted_access | source.explicit_closed_schedule].copy()
