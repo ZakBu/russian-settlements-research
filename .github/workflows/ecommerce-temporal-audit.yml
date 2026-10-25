@@ -14,7 +14,7 @@ concurrency:
 jobs:
   temporal-register:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -26,6 +26,12 @@ jobs:
         run: python research/ecommerce_cloud/fetch_bundle.py
       - name: Verify all pinned files before read-only audit
         run: python research/ecommerce_cloud/check_bundle.py
+      - name: Install portable numerical environment
+        run: python -m pip install -r research/ecommerce_cloud/requirements.txt
+      - name: Run the three preserved computational checks
+        run: python research/ecommerce_cloud/run_checks.py
+      - name: Record actual packages
+        run: python -m pip freeze > work/ecommerce_temporal_environment.txt
       - name: Inspect future-dated rows and probe missing primary rosters
         run: python research/ecommerce_cloud/continuation/register_temporal_audit.py --output work/ecommerce_temporal_audit
       - name: Preserve bounded audit outputs

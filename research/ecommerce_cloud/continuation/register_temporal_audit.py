@@ -14,6 +14,7 @@ import io
 import json
 import re
 import ssl
+import subprocess
 import urllib.error
 import urllib.request
 
@@ -97,7 +98,37 @@ def source_audit():
                     dict(vintage=vintage,name=r['NAME1'],Status=r['Status'],DateVved=r['DateVved']))
     return summaries,futures
 
-def probe(item, output):
+def russian_root_context(output):
+    # Extra trust is scoped to Rosstat probes, never the host CA store.
+    url = 'https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt'
+    provenance = dict(url=url, download_tls_verified=True,
+                      trust_scope='Rosstat roster probes only')
+    try:
+        with urllib.request.urlopen(url, timeout=40, context=ssl.create_default_context()) as response:
+            if not response.url.startswith('https://gu-st.ru/'):
+                raise ValueError('Unexpected certificate download redirect')
+            pem = response.read(100_001)
+        if len(pem)>100_000 or pem.count(b'-----BEGIN CERTIFICATE-----')!=1:
+            raise ValueError('Expected one bounded PEM certificate')
+        path=output/'russian_trusted_root_ca_pem.crt'
+        path.write_bytes(pem)
+        info=subprocess.run(['openssl','x509','-in',str(path),'-noout',
+                             '-subject','-issuer','-dates','-sha256','-fingerprint'],
+                            check=True,capture_output=True,text=True).stdout
+        if 'Russian Trusted Root CA' not in info:
+            raise ValueError('Unexpected CA subject')
+        verify=subprocess.run(['openssl','verify','-CAfile',str(path),str(path)],
+                              check=True,capture_output=True,text=True).stdout
+        context=ssl.create_default_context()
+        context.load_verify_locations(cafile=str(path))
+        provenance.update(pem_sha256=sha(pem),certificate_info=info,
+                          self_chain_check=verify)
+        return context,provenance
+    except Exception as error:
+        provenance.update(error_type=type(error).__name__,error=str(error))
+        return None,provenance
+
+def probe(item, output, context=None):
     target, stem = item
     url = 'https://rosstat.gov.ru/opendata/7708234640-oktmo/'+stem
     record = dict(target_candidate_date=target,url=url,tls_verification=True,
@@ -105,7 +136,7 @@ def probe(item, output):
                   date_in_filename_is_not_verified_effective_date=True)
     try:
         request = urllib.request.Request(url,headers={'User-Agent':'settlement-research-source-audit/1.0'})
-        with urllib.request.urlopen(request,timeout=45,context=ssl.create_default_context()) as response:
+        with urllib.request.urlopen(request,timeout=60,context=context or ssl.create_default_context()) as response:
             body = response.read(30_000_001)
             record.update(http_status=response.status,resolved_url=response.url,
                           bytes=len(body),content_type=response.headers.get('Content-Type'),
@@ -139,11 +170,13 @@ def main():
     jobs=[('2023-01-01','data-20221228T1112-structure-20260210T1102.csv'),
           ('2024-01-01','data-20231219T1512-structure-20260210T1102.csv'),
           ('2025-01-01','data-20241227T1412-structure-20260210T1102.csv')]
+    context,ca_provenance=russian_root_context(output)
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
-        probes=list(pool.map(lambda job:probe(job,output),jobs))
+        probes=list(pool.map(lambda job:probe(job,output,context),jobs))
     report=dict(checked_utc=datetime.now(timezone.utc).isoformat(),
                 source_snapshots=summaries, future_rows=futures,
                 candidates_n=338, primary_roster_probes=probes,
+                additional_ca_provenance=ca_provenance,
                 raw_status_semantics_primary_schema_confirmed=False,
                 causal_effect_estimated=False,
                 limitations=['Future-date code overlap is diagnostic, not proof of erroneous panel membership.',
