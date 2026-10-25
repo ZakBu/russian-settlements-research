@@ -4,7 +4,13 @@ on:
     branches: [codex/ecommerce-settlement-cloud-20261025]
     paths:
       - '.github/workflows/ecommerce-continuation.yml'
-      - 'research/ecommerce_cloud/continuation/**'
+      - 'research/ecommerce_cloud/continuation/analyze_atp_historical_footprints.py'
+      - 'research/ecommerce_cloud/continuation/restore_atp_pinned.py'
+      - 'research/ecommerce_cloud/continuation/atp_pinned_manifest.json'
+      - 'research/ecommerce_cloud/continuation/render_nonshop.py'
+      - 'research/ecommerce_cloud/continuation/build_nonshop_notebook.py'
+      - 'research/ecommerce_cloud/continuation/check_nonshop_population.py'
+      - 'research/ecommerce_cloud/extension/outcomes/nonshop_source_coverage.py'
       - 'research/ecommerce_cloud/extension/outcomes/nonshop_population_contexts.py'
   workflow_dispatch:
 permissions:
