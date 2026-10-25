@@ -1,0 +1,236 @@
+{
+  "scope": "Additional bounded programme audit and full corrected national rerun after the initial centre control",
+  "programme_review": {
+    "before_source_rows": 76713,
+    "after_source_rows": 76713,
+    "raw_identity_columns_exact": [
+      "name",
+      "tags_json",
+      "source_record_id",
+      "legacy_id",
+      "current_identity_status",
+      "identity_status",
+      "source_address_locality",
+      "source_address_state",
+      "lat",
+      "lon"
+    ],
+    "whole_family_candidates_reviewed": 30,
+    "review_conclusions": {
+      "explicit_own_supplementary_programme_not_general_school_or_degree": 19,
+      "university_department_or_building_keep_degree_proxy_not_child_training_inferred_from_parent": 4,
+      "developmental_courses_do_not_prove_kindergarten_absence_keep_with_unverified_programme": 3,
+      "previously_held_programme_or_physical_role_remains_held": 2,
+      "explicit_grades_or_comprehensive_official_name_preserve_general_school": 2
+    },
+    "newly_held_current_points": 19,
+    "newly_held_by_service": {
+      "school_general": 15,
+      "vocational_education": 2,
+      "higher_education": 2
+    },
+    "route_exposure": [
+      {
+        "family": "school_general",
+        "newly_held_points": 15,
+        "selected_origins": 4,
+        "selected_positive_population_origins": 2,
+        "selected_external_np_origins": 0,
+        "old_strict_centres_with_exposed_own_origin": 0
+      },
+      {
+        "family": "preschool",
+        "newly_held_points": 0,
+        "selected_origins": 0,
+        "selected_positive_population_origins": 0,
+        "selected_external_np_origins": 0,
+        "old_strict_centres_with_exposed_own_origin": 0
+      },
+      {
+        "family": "vocational_education",
+        "newly_held_points": 2,
+        "selected_origins": 0,
+        "selected_positive_population_origins": 0,
+        "selected_external_np_origins": 0,
+        "old_strict_centres_with_exposed_own_origin": 0
+      },
+      {
+        "family": "higher_education",
+        "newly_held_points": 2,
+        "selected_origins": 0,
+        "selected_positive_population_origins": 0,
+        "selected_external_np_origins": 0,
+        "old_strict_centres_with_exposed_own_origin": 0
+      }
+    ],
+    "np_supply_keys_removed": [
+      [
+        "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:155096",
+        "school_general",
+        "osm_strict_np_presence"
+      ]
+    ],
+    "np_supply_keys_added": [],
+    "observed_journeys": 0,
+    "absence_of_school_or_preschool_in_np_established": false,
+    "historical_2021_physical_subset_rows_before": 67457,
+    "historical_2021_physical_subset_rows_after": 67442,
+    "historical_2021_removed_physical_rows": 15,
+    "historical_2021_removed_previously_eligible_by_family": {
+      "school_general": 12,
+      "higher_education": 1,
+      "vocational_education": 1
+    },
+    "historical_source_raw_rows_not_deleted": true,
+    "input_sha256": {
+      "/workspace/sgrt-zero-education-revision-20261025-v2/source_reassessment/source_inventory_current.parquet": "c4dcf64d62f1adcc382b5158a029b544bd40b3435aba93b58ee8bf64a88e5df3",
+      "/workspace/sgrt-zero-education-revision-20261025-v5/source_reassessment/source_inventory_current.parquet": "ce81e3b0945e1b1b38408bc3207a0916ff158de12b69805971730dd3a5db377d"
+    }
+  },
+  "readout": {
+    "strict_model_groups": 197,
+    "unique_centre_member_pairs": 725,
+    "unique_origin_records": 725,
+    "origin_records_in_multiple_strict_groups": 0,
+    "joint_centre_surrounding_2002_2021": {
+      "decline__decline": 110,
+      "decline__growth": 37,
+      "growth__growth": 23,
+      "growth__decline": 22,
+      "unknown": 4,
+      "decline__unchanged": 1
+    },
+    "joint_centre_surrounding_2010_2021": {
+      "decline__decline": 101,
+      "decline__growth": 42,
+      "growth__growth": 28,
+      "growth__decline": 25,
+      "decline__unchanged": 1
+    },
+    "fixed_current_membership_not_historical_service_boundaries": true,
+    "optional_parcel_strict_membership_identity_is_by_construction_not_validation": true,
+    "core_identity_and_admission_coverage": [
+      {
+        "service_family": "grocery",
+        "all_origin_records": 153803,
+        "admitted_records": 103081,
+        "admitted_known_np_provider": 22767,
+        "admitted_unknown_np_physical_provider": 80314,
+        "far_or_unknown_records": 50722
+      },
+      {
+        "service_family": "medical_basic",
+        "all_origin_records": 153803,
+        "admitted_records": 146405,
+        "admitted_known_np_provider": 135063,
+        "admitted_unknown_np_physical_provider": 11342,
+        "far_or_unknown_records": 7398
+      },
+      {
+        "service_family": "school",
+        "all_origin_records": 153803,
+        "admitted_records": 125558,
+        "admitted_known_np_provider": 15930,
+        "admitted_unknown_np_physical_provider": 109628,
+        "far_or_unknown_records": 28245
+      }
+    ],
+    "known_daily_centres_with_positive_whole_external_core_members": 21630,
+    "wider_daily_stars_are_overlapping_not_a_sgrt_count": true,
+    "causal_word_typology_established": false,
+    "all_groups_with_coordinate_review": 0,
+    "all_groups_with_endpoint_review": 0,
+    "groups_with_unknown_component_size": 0,
+    "groups_with_component_lt100_diagnostic": 0,
+    "groups_with_unknown_school_stage": 191,
+    "diameter_km": {
+      "median": 5.585277351720703,
+      "p95": 15.025738166294676,
+      "max": 17.504567756079968
+    },
+    "membership_sensitivity": [
+      {
+        "scenario_id": "daily_10_school15_wb",
+        "centre_member_pairs": 541,
+        "same_pairs_as_main": 541,
+        "pairs_main_only": 184,
+        "pairs_sensitivity_only": 0
+      },
+      {
+        "scenario_id": "daily_20_school30_wb",
+        "centre_member_pairs": 725,
+        "same_pairs_as_main": 725,
+        "pairs_main_only": 0,
+        "pairs_sensitivity_only": 0
+      },
+      {
+        "scenario_id": "daily_30_school30_wb",
+        "centre_member_pairs": 767,
+        "same_pairs_as_main": 725,
+        "pairs_main_only": 0,
+        "pairs_sensitivity_only": 42
+      }
+    ]
+  },
+  "scientific_control": {
+    "all_197_centres_and_all_csv_fields_equal": true,
+    "numeric_absolute_tolerance": 1e-10,
+    "numeric_columns": [
+      "strict_external_member_count",
+      "strict_geodesic_diameter_km",
+      "strict_school_stage_unknown_records",
+      "population_2021"
+    ],
+    "expected_csv_sha256": "12da670141473e8cebf5ca9df09e3f8ac73d72b666580592057d78f663d47ab0",
+    "actual_csv_sha256": "12da670141473e8cebf5ca9df09e3f8ac73d72b666580592057d78f663d47ab0",
+    "strict_member_pair_semantic_sha256": "c1613c7d9a279894b8b063dbb7dc8648a3c8c1bc35011af444ca586a739d2c46",
+    "all725_member_identities_equal": true,
+    "all455069_direct_functional_choices_equal": true,
+    "direct_choice_semantic_sha256": "e3031fd88686e4cb241af1227d4e0a75a42a77e110abc855723e87a03bdc8bb5",
+    "corrected_daily_control_sha256": "f4fedb9fb76b1ede348c766dbfaf3b40254cd7e44b0773ef34393bdc2672dbe9",
+    "national_counts": {
+      "admitted_direct_service_links": 455069,
+      "functional_stars": 86992,
+      "strict_three_core_model_screened_stars": 197,
+      "strict_three_core_external_positive_whole_records": 528
+    },
+    "unique_members": 725,
+    "known_daily_centres": 21630,
+    "joint_demographic_counts": {
+      "decline__decline": 110,
+      "decline__growth": 37,
+      "growth__growth": 23,
+      "growth__decline": 22,
+      "decline__unchanged": 1,
+      "unknown": 4
+    },
+    "strict_quality_counts": {
+      "all_groups_with_coordinate_review": 0,
+      "all_groups_with_endpoint_review": 0,
+      "groups_with_unknown_component_size": 0,
+      "groups_with_component_lt100_diagnostic": 0,
+      "groups_with_unknown_school_stage": 191
+    },
+    "core_identity_and_admission_coverage_equal": true,
+    "all_nearest_layers_have_153803_origins": true,
+    "independent_forward_checks": {
+      "check": "forward_single_origin_Dijkstra_vs_reverse_multisource_all_eligible_seeds",
+      "cases": 18,
+      "services": 10,
+      "all_equal": true,
+      "max_absolute_difference_minutes": 3.979039320256561e-13,
+      "observed_trips_checked": false,
+      "specific_institution_suitability_checked": false,
+      "output_sha256": "3735b963de93aa2aef533e36aede1c370be8cacc45fb0d0dd44542948fbd9a54",
+      "verification_code_sha256": "a6ec12b8ca82884dd57de768fb7a4b8478095fe30039978e5d19335f088d0a9d",
+      "endpoint_quality_inventory_rows": 153803,
+      "endpoint_small_component_under100_count": 1426,
+      "endpoint_network_quality_sha256": "11f8bae82196a9e8d2817fe0ca1c43f2b829326c4368b542f2f726d2b4a25bdb"
+    },
+    "archive_sha_is_not_a_scientific_equality_test": true
+  },
+  "initial_control_preserved_in_git_and_retained_files": true,
+  "first_cloud_run_cancelled": 40232350951,
+  "publication_status": "pending_corrected_cloud_rebuild",
+  "tests_passed": 388
+}
