@@ -1,0 +1,467 @@
+{
+  "reports": [
+    {
+      "path": "federal_medical/functions/care_rows_classified.parquet",
+      "rows_manual": 897573,
+      "rows_public": 897573,
+      "alignment_key": [
+        "source_record_row"
+      ],
+      "differences": [],
+      "unexplained": []
+    },
+    {
+      "path": "federal_medical/functions/service_evidence_by_care_address.parquet",
+      "rows_manual": 624831,
+      "rows_public": 624831,
+      "alignment_key": [
+        "_stable_f034_source_record_row",
+        "service_code"
+      ],
+      "differences": [],
+      "unexplained": [],
+      "derived_ordinal_mapping_verification": [
+        {
+          "rows": 624831,
+          "ordinal_range": [
+            13,
+            897572
+          ],
+          "all_ordinal_rows_match_UIDSPMO_and_IDADDRESS": true
+        },
+        {
+          "rows": 624831,
+          "ordinal_range": [
+            13,
+            897550
+          ],
+          "all_ordinal_rows_match_UIDSPMO_and_IDADDRESS": true
+        }
+      ],
+      "ordinal_source_row_index_is_provenance_not_dropped_scientific_record": true
+    },
+    {
+      "path": "health/public_scope_corrected/federal_service_evidence_with_identity.parquet",
+      "rows_manual": 624831,
+      "rows_public": 624831,
+      "alignment_key": [
+        "_stable_f034_source_record_row",
+        "service_code"
+      ],
+      "differences": [],
+      "unexplained": [],
+      "derived_ordinal_mapping_verification": [
+        {
+          "rows": 624831,
+          "ordinal_range": [
+            13,
+            897572
+          ],
+          "all_ordinal_rows_match_UIDSPMO_and_IDADDRESS": true
+        },
+        {
+          "rows": 624831,
+          "ordinal_range": [
+            13,
+            897550
+          ],
+          "all_ordinal_rows_match_UIDSPMO_and_IDADDRESS": true
+        }
+      ],
+      "ordinal_source_row_index_is_provenance_not_dropped_scientific_record": true
+    },
+    {
+      "path": "education/physical_sites.parquet",
+      "rows_manual": 74646,
+      "rows_public": 74646,
+      "alignment_key": [
+        "provider_id"
+      ],
+      "differences": [
+        {
+          "column": "census_population_role",
+          "differing_values": 44,
+          "examples": [
+            {
+              "key": {
+                "provider_id": "osm:node:11745256792"
+              },
+              "manual": "ordinary_settlement_record",
+              "public": "external_context_nonadditive"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:11782798104"
+              },
+              "manual": "ordinary_settlement_record",
+              "public": "external_context_nonadditive"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:4185520796"
+              },
+              "manual": "ordinary_settlement_record",
+              "public": "external_context_nonadditive"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:4189229396"
+              },
+              "manual": "ordinary_settlement_record",
+              "public": "external_context_nonadditive"
+            }
+          ],
+          "category": "explicitly_diagnosed_nonassignment_metadata"
+        },
+        {
+          "column": "nearest_reference_distance_km",
+          "differing_values": 1039,
+          "examples": [
+            {
+              "key": {
+                "provider_id": "osm:node:10029522910"
+              },
+              "manual": "5.152893295137711",
+              "public": "5.152922328488153"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:10044484701"
+              },
+              "manual": "8.00820414786221",
+              "public": "8.008238776688637"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:10064274923"
+              },
+              "manual": "6.7381089033638455",
+              "public": "6.738103343823464"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:10288496527"
+              },
+              "manual": "4.510921559683148",
+              "public": "4.510899591513626"
+            }
+          ],
+          "category": "explicitly_diagnosed_nonassignment_metadata"
+        },
+        {
+          "column": "nearest_reference_uses_derived_city_coordinate",
+          "differing_values": 1214,
+          "examples": [
+            {
+              "key": {
+                "provider_id": "osm:node:10011300658"
+              },
+              "manual": "True",
+              "public": "False"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:10032218283"
+              },
+              "manual": "True",
+              "public": "False"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:10036065134"
+              },
+              "manual": "True",
+              "public": "False"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:10041125771"
+              },
+              "manual": "True",
+              "public": "False"
+            }
+          ],
+          "category": "explicitly_diagnosed_nonassignment_metadata"
+        }
+      ],
+      "unexplained": [],
+      "metadata_scope_proof": {
+        "changed_census_role_records": 44,
+        "actual_population_role_nonadditive_in_both": true,
+        "actual_federal_city_context_in_both": true,
+        "nearest_reference_is_not_identity_in_both": true
+      }
+    },
+    {
+      "path": "education/source_inventory_current.parquet",
+      "rows_manual": 76713,
+      "rows_public": 76713,
+      "alignment_key": [
+        "provider_id"
+      ],
+      "differences": [
+        {
+          "column": "census_population_role",
+          "differing_values": 45,
+          "examples": [
+            {
+              "key": {
+                "provider_id": "osm:node:11745256792"
+              },
+              "manual": "ordinary_settlement_record",
+              "public": "external_context_nonadditive"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:11782798104"
+              },
+              "manual": "ordinary_settlement_record",
+              "public": "external_context_nonadditive"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:4185520796"
+              },
+              "manual": "ordinary_settlement_record",
+              "public": "external_context_nonadditive"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:4189229396"
+              },
+              "manual": "ordinary_settlement_record",
+              "public": "external_context_nonadditive"
+            }
+          ],
+          "category": "explicitly_diagnosed_nonassignment_metadata"
+        },
+        {
+          "column": "nearest_reference_distance_km",
+          "differing_values": 1056,
+          "examples": [
+            {
+              "key": {
+                "provider_id": "osm:node:10029522910"
+              },
+              "manual": "5.152893295137711",
+              "public": "5.152922328488153"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:10044484701"
+              },
+              "manual": "8.00820414786221",
+              "public": "8.008238776688637"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:10064274923"
+              },
+              "manual": "6.7381089033638455",
+              "public": "6.738103343823464"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:10288496527"
+              },
+              "manual": "4.510921559683148",
+              "public": "4.510899591513626"
+            }
+          ],
+          "category": "explicitly_diagnosed_nonassignment_metadata"
+        },
+        {
+          "column": "nearest_reference_uses_derived_city_coordinate",
+          "differing_values": 1254,
+          "examples": [
+            {
+              "key": {
+                "provider_id": "osm:node:10011300658"
+              },
+              "manual": "True",
+              "public": "False"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:10032218283"
+              },
+              "manual": "True",
+              "public": "False"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:10036065134"
+              },
+              "manual": "True",
+              "public": "False"
+            },
+            {
+              "key": {
+                "provider_id": "osm:node:10041125771"
+              },
+              "manual": "True",
+              "public": "False"
+            }
+          ],
+          "category": "explicitly_diagnosed_nonassignment_metadata"
+        }
+      ],
+      "unexplained": [],
+      "metadata_scope_proof": {
+        "changed_census_role_records": 45,
+        "actual_population_role_nonadditive_in_both": true,
+        "actual_federal_city_context_in_both": true,
+        "nearest_reference_is_not_identity_in_both": true
+      }
+    },
+    {
+      "path": "education/np_supply.parquet",
+      "rows_manual": 6948,
+      "rows_public": 6948,
+      "alignment_key": [
+        "source_record_id",
+        "service_code",
+        "source_id"
+      ],
+      "differences": [
+        {
+          "column": "site_lat",
+          "differing_values": 12,
+          "examples": [
+            {
+              "key": {
+                "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+                "service_code": "higher_education",
+                "source_id": "OSM_GEOFABRIK_EDUCATION_20261019"
+              },
+              "manual": "nan",
+              "public": "44.605"
+            },
+            {
+              "key": {
+                "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+                "service_code": "preschool",
+                "source_id": "OSM_GEOFABRIK_EDUCATION_20261019"
+              },
+              "manual": "nan",
+              "public": "44.605"
+            },
+            {
+              "key": {
+                "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+                "service_code": "school_general",
+                "source_id": "OSM_GEOFABRIK_EDUCATION_20261019"
+              },
+              "manual": "nan",
+              "public": "44.605"
+            },
+            {
+              "key": {
+                "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+                "service_code": "vocational_education",
+                "source_id": "OSM_GEOFABRIK_EDUCATION_20261019"
+              },
+              "manual": "nan",
+              "public": "44.605"
+            }
+          ],
+          "category": "explicitly_diagnosed_nonassignment_metadata"
+        },
+        {
+          "column": "site_lon",
+          "differing_values": 8,
+          "examples": [
+            {
+              "key": {
+                "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+                "service_code": "higher_education",
+                "source_id": "OSM_GEOFABRIK_EDUCATION_20261019"
+              },
+              "manual": "nan",
+              "public": "33.5225"
+            },
+            {
+              "key": {
+                "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+                "service_code": "preschool",
+                "source_id": "OSM_GEOFABRIK_EDUCATION_20261019"
+              },
+              "manual": "nan",
+              "public": "33.5225"
+            },
+            {
+              "key": {
+                "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+                "service_code": "school_general",
+                "source_id": "OSM_GEOFABRIK_EDUCATION_20261019"
+              },
+              "manual": "nan",
+              "public": "33.5225"
+            },
+            {
+              "key": {
+                "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+                "service_code": "vocational_education",
+                "source_id": "OSM_GEOFABRIK_EDUCATION_20261019"
+              },
+              "manual": "nan",
+              "public": "33.5225"
+            }
+          ],
+          "category": "explicitly_diagnosed_nonassignment_metadata"
+        },
+        {
+          "column": "census_population_role",
+          "differing_values": 4,
+          "examples": [
+            {
+              "key": {
+                "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+                "service_code": "higher_education",
+                "source_id": "OSM_GEOFABRIK_EDUCATION_20261019"
+              },
+              "manual": "ordinary_settlement_record",
+              "public": "external_context_nonadditive"
+            },
+            {
+              "key": {
+                "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+                "service_code": "preschool",
+                "source_id": "OSM_GEOFABRIK_EDUCATION_20261019"
+              },
+              "manual": "ordinary_settlement_record",
+              "public": "external_context_nonadditive"
+            },
+            {
+              "key": {
+                "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+                "service_code": "school_general",
+                "source_id": "OSM_GEOFABRIK_EDUCATION_20261019"
+              },
+              "manual": "ordinary_settlement_record",
+              "public": "external_context_nonadditive"
+            },
+            {
+              "key": {
+                "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+                "service_code": "vocational_education",
+                "source_id": "OSM_GEOFABRIK_EDUCATION_20261019"
+              },
+              "manual": "ordinary_settlement_record",
+              "public": "external_context_nonadditive"
+            }
+          ],
+          "category": "explicitly_diagnosed_nonassignment_metadata"
+        }
+      ],
+      "unexplained": [],
+      "all_coordinate_differences_in_nonadditive_city_summary_rows_prohibited_external_seeds": true
+    }
+  ],
+  "declared_metadata_explanation": {
+    "census_population_role": "Older manual census label differs from the full rebuild label; actual population_role and is_federal_city_context are checked exact and nonadditive in both. Counts and record keys are retained above.",
+    "education_nearest_reference": "diagnostic nearest reference, nearest_reference_is_identity=False; not accepted NP ownership or actual school coordinates",
+    "education_summary_coordinates": "three city contexts × four service families, no external seeds; public canonical reference coordinates replace stale/missing summary values"
+  },
+  "failures": []
+}
