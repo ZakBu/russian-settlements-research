@@ -111,6 +111,8 @@ def russian_root_context(output):
         if len(pem)>100_000 or pem.count(b'-----BEGIN CERTIFICATE-----')!=1:
             raise ValueError('Expected one bounded PEM certificate')
         path=output/'russian_trusted_root_ca_pem.crt'
+        if sha(pem) != '936a43fea6e8e525bcc0f81acd9c3d21b4fc4b9b68acea7906d698005afc6504':
+            raise ValueError('Official root PEM changed since independently logged first fetch')
         path.write_bytes(pem)
         info=subprocess.run(['openssl','x509','-in',str(path),'-noout',
                              '-subject','-issuer','-dates','-sha256','-fingerprint'],
@@ -121,6 +123,21 @@ def russian_root_context(output):
                               check=True,capture_output=True,text=True).stdout
         context=ssl.create_default_context()
         context.load_verify_locations(cafile=str(path))
+        suburl='https://gu-st.ru/content/lending/russian_trusted_sub_ca_pem.crt'
+        with urllib.request.urlopen(suburl,timeout=40,context=ssl.create_default_context()) as response:
+            if not response.url.startswith('https://gu-st.ru/'):
+                raise ValueError('Unexpected intermediate redirect')
+            sub=response.read(100_001)
+        if len(sub)>100_000 or sub.count(b'-----BEGIN CERTIFICATE-----')!=1:
+            raise ValueError('Expected bounded intermediate PEM')
+        subpath=output/'russian_trusted_sub_ca_pem.crt'
+        subpath.write_bytes(sub)
+        subverify=subprocess.run(['openssl','verify','-CAfile',str(path),str(subpath)],
+                                 check=True,capture_output=True,text=True).stdout
+        context.load_verify_locations(cafile=str(subpath))
+        provenance.update(intermediate_url=suburl,intermediate_sha256=sha(sub),
+                          intermediate_chain_check=subverify,
+                          intermediate_requires_verified_root=True)
         provenance.update(pem_sha256=sha(pem),certificate_info=info,
                           self_chain_check=verify)
         return context,provenance
