@@ -215,5 +215,19 @@ class ReproduceTests(unittest.TestCase):
    path.write_text('{}')
    with self.assertRaisesRegex(ValueError,'Missing actual'):r.validate_primary_scope_report(path)
 
+ def test_astrakhan_counterexample_ignores_unkeyed_reference_rows(self):
+  import pandas as pd
+  with tempfile.TemporaryDirectory() as tmp:
+   work=Path(tmp);(work/'context').mkdir()
+   pd.DataFrame({'source_record_id':['a','b',None,None],'name':['Астрахань','Село','Не установлено','Не установлено'],
+    'region':['астраханская']*4,'settlement_type_2021':['город','село',None,None],
+    'lat':[46.35,46.40,None,None],'lon':[48.04,48.20,None,None]}).to_parquet(work/'context/analysis_reference.parquet',index=False)
+   for relative in ['upward/'+r.SCENARIOS[0], 'upward_extended/'+r.SCENARIOS[0]+'/all_declared','upward_extended/'+r.SCENARIOS[0]+'/partial_positive_two_domains']:
+    folder=work/relative/'04_urban_hightech';folder.mkdir(parents=True)
+    pd.DataFrame({'origin_id':['a','b'],'unit_id':['u','u']}).to_parquet(folder/'memberships.parquet',index=False)
+   result=r.astrakhan_scope_comparison(work)
+   self.assertEqual(len(result),3)
+   self.assertTrue(all(row['records']==2 and 10<row['diameter_km']<20 for row in result))
+
 
 if __name__=='__main__':unittest.main()

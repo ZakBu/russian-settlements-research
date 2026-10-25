@@ -34,6 +34,37 @@ def extent(points,anchor=None):
     return {'wgs84_member_diameter_km':maximum/1000,'anchor_max_distance_km':radius}
 
 
+def partial_core_reasons(units,members,edges):
+    """Separate a distant known offer from an unresolved route/inventory.
+
+    Reasons may differ between services and between members sharing the same
+    admitted profile. Count mutually exclusive sets of units as well as the
+    underlying NP-by-function records; never interpret a distant known offer
+    as proof that an unrecorded closer institution does not exist.
+    """
+    if members.origin_id.duplicated().any():raise ValueError('Repeated demand-point membership')
+    if edges.duplicated(['origin_id','service_family']).any():raise ValueError('Repeated demand-point/function evidence')
+    ids=set(units.loc[units.positive_credited_member_records.ge(2)&~units.all_core_daily_families_have_candidate,'unit_id'])
+    core=edges.service_family.isin(['medical_basic','school','grocery'])
+    missing=edges[core&~edges.l0_admitted]
+    selected=members[members.unit_id.isin(ids)].merge(missing,on='origin_id',validate='one_to_many')
+    if not selected.service_status.isin(['far_known_candidate','unknown_route_or_inventory']).all():
+        raise ValueError('Unadmitted core direction has an inconsistent reason')
+    far=set(selected.loc[selected.service_status.eq('far_known_candidate'),'unit_id'])
+    unknown=set(selected.loc[selected.service_status.eq('unknown_route_or_inventory'),'unit_id'])
+    if far|unknown!=ids:raise ValueError('Partial core profile lacks reason evidence')
+    return {'partial_core_multi_np_units':len(ids),'mutually_exclusive_groups':{
+      'only_far_known_missing_core_channels':len(far-unknown),
+      'only_unknown_route_or_inventory_missing_core_channels':len(unknown-far),
+      'both_far_and_unknown_missing_core_channels':len(far&unknown)},
+      'missing_core_origin_family_edge_rows':len(selected),
+      'edge_status_counts':selected.service_status.value_counts().to_dict(),
+      'edge_family_status_counts':selected.groupby(['service_family','service_status']).size().reset_index(name='rows').to_dict('records'),
+      'unknown_reason_edge_counts':selected.unknown_reason.value_counts().to_dict(),
+      'one_missing_core_direction_can_have_different_reasons_among_group_members':True,
+      'far_known_candidate_is_not_proof_of_real_local_service_absence':True}
+
+
 def describe(directory,reference,is_zero):
     reference=reference[reference.source_record_id.notna()].copy()
     stem='level0_' if is_zero else ''
@@ -101,6 +132,15 @@ def main():
       'partitions':{str(path.relative_to(a.root)):describe(path,reference,is_zero) for path,is_zero in paths}}
     a.output.mkdir(parents=True,exist_ok=True)
     (a.output/'summary.json').write_text(json.dumps(result,ensure_ascii=False,indent=2,allow_nan=False)+'\n')
+    policy=json.loads((a.root/'screens_final/summary.json').read_text())
+    main_directory=a.root/'hierarchy'/policy['main_scenario']
+    up=main_directory/'level0_units.parquet';mp=main_directory/'level0_memberships.parquet';ep=main_directory/'daily_edge_evidence.parquet'
+    reasons=partial_core_reasons(pd.read_parquet(up,columns=['unit_id','positive_credited_member_records','all_core_daily_families_have_candidate']),
+      pd.read_parquet(mp,columns=['unit_id','origin_id']),
+      pd.read_parquet(ep,columns=['origin_id','service_family','l0_admitted','service_status','unknown_reason']))
+    reasons.update(main_scenario=policy['main_scenario'],source_edges_sha256=digest(ep),
+      input_sha256={str(x):digest(x) for x in [up,mp,ep]},code_sha256=digest(__file__))
+    (a.output/'main_partial_core_reason_breakdown.json').write_text(json.dumps(reasons,ensure_ascii=False,indent=2,allow_nan=False)+'\n')
     print(json.dumps({'partitions':len(paths),'output':str(a.output/'summary.json')}))
 
 

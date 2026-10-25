@@ -581,7 +581,7 @@ def check_complete(work):
   'routes_wb/nearest/parcel_pickup_wildberries_current.parquet','routes_yandex/nearest/parcel_pickup_yandex_current.parquet',
   'literature/external_fua_russia/analysis_frame_efua_2015.parquet',
   'literature/external_fua_russia/settlement_external_fua_status.parquet',
-  'upward/'+SCENARIOS[0]+'/summary.json','upward_extended/'+SCENARIOS[0]+'/summary.json','population_context_readout/summary.json','hierarchy_readout/summary.json','checks/scientific_checks.json','figures/zero_level_atlas.pdf','figures/atlas_manifest.json','figures/01_national_statuses.png']
+  'upward/'+SCENARIOS[0]+'/summary.json','upward_extended/'+SCENARIOS[0]+'/summary.json','population_context_readout/summary.json','hierarchy_readout/summary.json','hierarchy_readout/main_partial_core_reason_breakdown.json','checks/scientific_checks.json','figures/zero_level_atlas.pdf','figures/atlas_manifest.json','figures/01_national_statuses.png']
  if (work/'inputs/frozen_federal_medical/federal_medical_source_manifest.json').exists():
   required += ['federal_medical/normalized/'+code+'_'+kind+'.parquet' for code in ['F032','F033','F034','F038'] for kind in ['current','history']]
   required += ['federal_medical/normalized/'+name for name in ['V002_codebook.json','V006_codebook.json','V008_codebook.json','source_summary.json','join_audit.json','care_site_profiles_current.parquet']]
@@ -624,6 +624,30 @@ def copy_reproduction(local):
   for p in latest:copy_file(p,root/'research_context/diary'/p.name)
 
 
+def astrakhan_scope_comparison(work):
+ """Read an actual counterexample; source completeness must not become a flow claim."""
+ reference=work/'context/analysis_reference.parquet'
+ if not reference.is_file():return []
+ import pandas as pd
+ import numpy as np
+ from pyproj import Geod
+ ref=pd.read_parquet(reference,columns=['source_record_id','name','region','settlement_type_2021','lat','lon'])
+ ref=ref[ref.source_record_id.notna()].copy()
+ case=ref[ref.name.eq('Астрахань')&ref.region.eq('астраханская')&ref.settlement_type_2021.eq('город')]
+ if len(case)!=1:return []
+ anchor=case.iloc[0];g=Geod(ellps='WGS84');result=[]
+ for label,relative in [('Основной строгий','upward/'+SCENARIOS[0]),('Расширенный полный: сравнение','upward_extended/'+SCENARIOS[0]+'/all_declared'),('Две известные сферы: диагностика','upward_extended/'+SCENARIOS[0]+'/partial_positive_two_domains')]:
+  folder=work/relative/'04_urban_hightech';members=pd.read_parquet(folder/'memberships.parquet',columns=['origin_id','unit_id'])
+  uid=members.loc[members.origin_id.eq(anchor.source_record_id),'unit_id'].iloc[0]
+  points=members[members.unit_id.eq(uid)].merge(ref,left_on='origin_id',right_on='source_record_id',validate='one_to_one')
+  coords=points[['lat','lon']].dropna().drop_duplicates();lat=coords.lat.to_numpy(float);lon=coords.lon.to_numpy(float);diameter=0.
+  for i in range(max(0,len(coords)-1)):
+   _,_,d=g.inv(np.full(len(coords)-i,lon[i]),np.full(len(coords)-i,lat[i]),lon[i:],lat[i:]);diameter=max(diameter,float(np.max(d)))
+  _,_,d=g.inv(np.full(len(coords),float(anchor.lon)),np.full(len(coords),float(anchor.lat)),lon,lat)
+  result.append({'label':label,'records':len(points),'diameter_km':diameter/1000,'radius_from_astrakhan_point_km':float(np.max(d))/1000})
+ return result
+
+
 def result_readme(work,commit):
  """Explain the completed calculation from its actual summaries, not source-time prose."""
  checks=json.loads((work/'checks/scientific_checks.json').read_text())
@@ -645,8 +669,8 @@ def result_readme(work,commit):
   'urban_hospital_college':'Стационар и профессиональное образование, до 90 минут',
   'urban_specialized_university_shopping':'Специализированная помощь, вузы и крупные торговые центры, до 90 минут',
   'urban_hightech':'Высокотехнологичная медицинская помощь, до 120 минут'}
- mode_names={'all_declared':'Все требуемые функции подтверждены для целых нижних групп',
-  'partial_positive_two_domains':'Не менее двух подтверждённых сфер для целых нижних групп; остальные сведения могут отсутствовать'}
+ mode_names={'all_declared':'Расширенный полный вариант для сравнения: все требуемые функции',
+  'partial_positive_two_domains':'Диагностический вариант: не менее двух известных сфер, остальные сведения могут отсутствовать'}
  n=lambda value:f'{int(value):,}'.replace(',',' ')
  lines=['# Результат завершённого расчёта','',
   f'Основной вариант выделил **{n(rows[0][2])} групп с двумя и более населёнными НП**. '
@@ -676,6 +700,17 @@ def result_readme(work,commit):
  for mode,stages in extended.items():
   last=stages[-1]
   lines.append(f'| {mode_names.get(mode,mode)} | {stage_names.get(last["name"],last["name"])} | {n(last["parent_units"])} | {n(last["new_merger_groups"])} |')
+ lines += ['', '**Основной вариант — строгий.** Расширенный полный вариант служит для сравнения. '
+  'Вариант двух известных сфер — диагностика: он может дать чрезмерный ареал даже при отсутствии арифметических ошибок. '
+  'Нулевые нарушения алгоритма не подтверждают границы агломерации.']
+ comparison=astrakhan_scope_comparison(work)
+ if comparison:
+  lines += ['', 'Пример Астрахани рассчитан по фактическому составу итоговых групп. '
+   'Диаметр — максимальное расстояние между точками НП; радиус здесь — расстояние от точки Астрахани до самого дальнего участника. '
+   'Оба измерены по WGS84 и не являются временем поездки.','',
+   '| Вариант | Точек НП | Диаметр, км | Радиус от Астрахани, км |','| --- | ---: | ---: | ---: |']
+  for row in comparison:lines.append(f'| {row["label"]} | {n(row["records"])} | {row["diameter_km"]:.2f} | {row["radius_from_astrakhan_point_km"]:.2f} |')
+  lines += ['', 'Чрезмерное расширение диагностического варианта не принимается как установленная агломерация.']
  lines += ['', '**Число шагов объединения не является рангом города.** '
   'Уровень, на который поднимается исключительно Москва, этими расчётами не установлен. '
   'Он не создаётся искусственно из численности населения или лишних пустых ступеней.','',

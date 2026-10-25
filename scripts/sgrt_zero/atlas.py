@@ -522,14 +522,22 @@ def build(root,hierarchy=None,output=None,scenario=None,higher=None,comparison_h
     values=[int(yes(lookup[stage],'new_territorial_merger').sum()) if stage in lookup else 0 for stage in stage_names];comparison_counts[key]=values
     bars=ax.bar(x+(j-1)*.24,values,.23,color=color,label=label);ax.bar_label(bars,labels=[num(v) for v in values],padding=3,fontsize=8)
    ax.set_xticks(x,['Больницы и колледжи','Редкие услуги и вузы','Высокотехнологичная помощь'][:len(stage_names)],fontsize=9);ax.set_ylabel('Новые объединения на шаге');ax.spines[['top','right']].set_visible(False);ax.legend(frameon=False,fontsize=8,loc='upper right');ax.margins(y=.18)
-   note(fig,'Расширенные варианты сохраняют поставщиков внутри внешнего контура; прямые связи проверяются для каждой нижней группы. Две сферы не доказывают клиническую достаточность. Односферный последний шаг не является новым общим порядком.',y=.14,size=8)
+   diagnostic_note='Вариант с двумя известными сферами — диагностика, не принятые границы агломераций.'
+   _,pu,pm=variants['partial_positive_two_domains'][-1]
+   astrakhan=city(data.ref,'Астрахань','астраханская')
+   if astrakhan is not None:
+    ids=pm.loc[pm.origin_id.eq(astrakhan.source_record_id),'unit_id']
+    if len(ids):
+     diameter=pu.set_index('unit_id').loc[ids.iloc[0],'member_geodesic_diameter_km']
+     diagnostic_note=f'В диагностическом варианте двух сфер группа Астрахани растянулась примерно на {num(round(diameter))} км в диаметре; это не принятые границы агломерации.'
+   note(fig,'Основной вариант — строгий; расширенный полный вариант используется для сравнения и требует все заявленные сферы. '+diagnostic_note+' Односферный последний шаг не является новым общим порядком.',y=.14,size=8)
    save(fig,'strict_extended_higher_counts',{'counts':comparison_counts,'stages':stage_names,'same_sources_different_territorial_rules':True})
-   fig=layout('Где территориальное правило меняет размер группы','Сравнивается число населённых участников итоговой группы: строгий вариант и расширенный вариант с обеими требуемыми сферами.',14)
+   fig=layout('Где территориальное правило меняет размер группы','Сравнивается число населённых участников: основной строгий вариант и расширенный полный вариант для сравнения.',14)
    if not data.higher:raise ValueError('Strict higher outputs required for comparison')
    _,su,sm,_=data.higher[-1];_,eu,em=variants['all_declared'][-1]
    field='positive_credited_member_records';ss=sm.merge(su[['unit_id',field]],on='unit_id',validate='many_to_one').set_index('origin_id')[field];es=em.merge(eu[['unit_id',field]],on='unit_id',validate='many_to_one').set_index('origin_id')[field]
    p=data.origins.copy();p['difference']=p.source_record_id.map(es)-p.source_record_id.map(ss);p['comparison_state']='same';p.loc[p.difference.gt(0),'comparison_state']='larger';p.loc[p.difference.lt(0),'comparison_state']='smaller'
-   ax=fig.add_axes([.06,.24,.88,.47]);cnt=p.comparison_state.value_counts().to_dict()
+   ax=fig.add_axes([.06,.31,.88,.43]);cnt=p.comparison_state.value_counts().to_dict()
    for key,color,size in [('same',GREY,.5),('larger',TEAL,2),('smaller',ORANGE,2)]:dots(ax,p[p.comparison_state.eq(key)],color=color,s=size,alpha=.65)
    map_style(ax)
    handles=[Line2D([],[],marker='o',ls='',color=c,label=f'{label}: {num(cnt.get(k,0))}') for k,c,label in [('same',GREY,'То же число участников; состав может отличаться'),('larger',TEAL,'В расширенном варианте группа больше'),('smaller',ORANGE,'В расширенном варианте группа меньше')]]

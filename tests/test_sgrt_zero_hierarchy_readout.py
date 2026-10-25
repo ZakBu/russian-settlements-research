@@ -56,5 +56,31 @@ class ReadoutTests(unittest.TestCase):
         self.assertAlmostEqual(result['wgs84_member_diameter_km'],222.6389816,places=5)
         self.assertAlmostEqual(result['anchor_max_distance_km'],111.3194908,places=5)
 
+    def test_far_known_and_unknown_are_different_group_reasons(self):
+        units=pd.DataFrame({'unit_id':['far','unknown','complete'],'positive_credited_member_records':[2,2,2],
+          'all_core_daily_families_have_candidate':[False,False,True]})
+        members=pd.DataFrame({'unit_id':['far','far','unknown','unknown','complete','complete'],'origin_id':list('abcdef')})
+        edges=pd.DataFrame({'origin_id':list('abcdef'),'service_family':['school']*6,
+          'l0_admitted':[False,False,False,False,True,True],
+          'service_status':['far_known_candidate']*2+['unknown_route_or_inventory']*2+['near_candidate']*2,
+          'unknown_reason':[None,None,'unresolved','unresolved',None,None]})
+        out=MODULE.partial_core_reasons(units,members,edges)
+        self.assertEqual(out['mutually_exclusive_groups'],{'only_far_known_missing_core_channels':1,
+          'only_unknown_route_or_inventory_missing_core_channels':1,'both_far_and_unknown_missing_core_channels':0})
+        self.assertEqual(out['missing_core_origin_family_edge_rows'],4)
+        self.assertEqual(out['unknown_reason_edge_counts'],{'unresolved':2})
+
+    def test_mixed_member_reasons_count_one_group_in_both_category(self):
+        units=pd.DataFrame({'unit_id':['mixed'],'positive_credited_member_records':[2],
+          'all_core_daily_families_have_candidate':[False]})
+        members=pd.DataFrame({'unit_id':['mixed','mixed'],'origin_id':['a','b']})
+        edges=pd.DataFrame({'origin_id':['a','b'],'service_family':['grocery','grocery'],'l0_admitted':[False,False],
+          'service_status':['far_known_candidate','unknown_route_or_inventory'],'unknown_reason':[None,'unresolved']})
+        out=MODULE.partial_core_reasons(units,members,edges)
+        self.assertEqual(out['partial_core_multi_np_units'],1)
+        self.assertEqual(out['mutually_exclusive_groups'],{'only_far_known_missing_core_channels':0,
+          'only_unknown_route_or_inventory_missing_core_channels':0,'both_far_and_unknown_missing_core_channels':1})
+        self.assertEqual(out['missing_core_origin_family_edge_rows'],2)
+
 
 if __name__=='__main__':unittest.main()
