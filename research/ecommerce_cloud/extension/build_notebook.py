@@ -20,9 +20,9 @@ code("display(pd.read_csv(HERE/'outcomes/centre_periphery_stock_types.csv'))\ndi
 md('## География и масштаб\nФиксированные круги перекрываются и не являются наблюдёнными ареалами. Порог в процентных пунктах зависит от размера доли, поэтому отдельно показаны знак и логарифмический относительный темп.'),
 code("display(pd.read_csv(HERE/'demographic_size.csv'))\ndisplay(pd.read_csv(HERE/'spatial_sensitivity.csv'))"),
 md('## Исторические свидетельства\nНовое Ozon API расширяет историю назад до 2021 года и добавляет Ростов, но остаётся оконной выборкой. Постоянный кодовый профиль WB не равен постоянной полноте и открытиям.'),
-code("display(pd.read_csv(HERE/'history/ozon_cms_summary.csv'))\ndisplay(pd.read_csv(HERE/'history/wb_historical_profile_summary.csv')) if (HERE/'history/wb_historical_profile_summary.csv').exists() else display(pd.read_csv(HERE/'history/wb_historical_profile.csv'))\ndisplay(pd.read_csv(HERE/'history/wb_historical_pairs.csv').head())"),
+code("display(pd.read_csv(HERE/'history/ozon_cms_summary.csv'))\ndisplay(pd.read_csv(HERE/'history/wb_historical_profile.csv'))\ndisplay(pd.read_csv(HERE/'history/wb_historical_profile_geography.csv'))\ndisplay(pd.read_csv(HERE/'history/wb_profile_medium_contexts_summary.csv').head(12))\ndisplay(json.loads((HERE/'territorial_scope.json').read_text()))"),
 md('## Независимая проверка\nПересчёт первичных значений, вычитания окружения и прямых расстояний проверяет арифметику. Границы, полнота архивов и контрфактуал этими проверками не доказываются.'),
-code("for name in ['independent_csv_results.json','independent_new_outcomes_results.json','independent_spatial_results.json']:\n p=HERE/'review'/name\n if p.exists():\n  x=json.loads(p.read_text()); x.pop('checks',None);print(name);display(x)\nprint('Причинный эффект: не идентифицирован.')"),
+code("for name in ['independent_csv_results.json','independent_new_outcomes_results.json','independent_spatial_results.json','independent_wb_context_results.json']:\n p=HERE/'review'/name\n if p.exists():\n  x=json.loads(p.read_text()); x.pop('checks',None);print(name);display(x)\nprint('Причинный эффект: не идентифицирован.')"),
 ]
 out=HERE/'national_extension.ipynb'
 nbf.write(nb,out)

@@ -13,8 +13,11 @@ scripts=[
     'outcomes/selection.py','outcomes/area_analysis.py','outcomes/area_sensitivity.py',
     'outcomes/recent_demography.py','outcomes/urban_remainder.py','outcomes/combined_outcomes.py',
     'history/analyze_wb_historical_profile.py','history/analyze_derived_ozon.py',
-    'analyze_national_context.py','render_figures.py',
+    'history/analyze_wb_profile_contexts.py','history/audit_wb_geography_independently.py',
+    'audit_scope.py','analyze_national_context.py','render_figures.py',
     'review/independent_csv_check.py','review/independent_new_outcomes.py','review/independent_spatial_check.py',
+    'review/independent_wb_context_check.py',
+    'review/independent_scope_check.py',
 ]
 for relative in scripts:
     print('Recalculating',relative,flush=True)

@@ -30,8 +30,8 @@ for name,family,weight,style in [('Body','DejaVu Sans','normal','normal'),('Body
 pdfmetrics.registerFontFamily('Body',normal='Body',bold='BodyBold',italic='BodyItalic',boldItalic='BodyBold')
 blue=colors.HexColor('#174f7b')
 styles={
- 'body':ParagraphStyle('body',fontName='Body',fontSize=9.6,leading=14.1,spaceAfter=7,splitLongWords=True,allowWidows=0,allowOrphans=0),
- 'title':ParagraphStyle('title',fontName='BodyBold',fontSize=21,leading=27,textColor=blue,spaceAfter=17),
+ 'body':ParagraphStyle('body',fontName='Body',fontSize=9.5,leading=13.8,spaceAfter=6,splitLongWords=True,allowWidows=0,allowOrphans=0),
+ 'title':ParagraphStyle('title',fontName='BodyBold',fontSize=20,leading=25,textColor=blue,spaceAfter=15),
  'h2':ParagraphStyle('h2',fontName='BodyBold',fontSize=14,leading=18,textColor=blue,spaceBefore=15,spaceAfter=9,keepWithNext=True),
  'h3':ParagraphStyle('h3',fontName='BodyBold',fontSize=11,leading=15,textColor=blue,spaceBefore=12,spaceAfter=7,keepWithNext=True),
  'small':ParagraphStyle('small',fontName='Body',fontSize=8,leading=11,spaceAfter=7,textColor=colors.HexColor('#535b65')),

@@ -78,4 +78,27 @@ ax.grid(alpha=.15)
 fig.subplots_adjust(left=.15,right=.95,bottom=.24,top=.88)
 fig.text(.03,.035,'115 средних центров с общей панелью. Показаны все наблюдения; регрессионный эффект не оценивался.\nПунктир — описательные пороги 0,5 п.п. для населения и 1 п.п. для магазинов.\nСоседние, но разные периоды; условная муниципальная сопоставимость. Это не причинная связь.',fontsize=8.5)
 fig.savefig(OUT/'different_roles.png',dpi=170);plt.close(fig)
-print('Created four publication figures from reviewed CSV tables.')
+# National point map from the restored positive-evidence microdata.
+p=pd.read_parquet(BASE/'national/ozon_WB_comparison_main_target_experimental.parquet')
+assert len(p)==144151
+positive=p.WB_evidence_status.eq('positive')|p.ozon_pickup_inferred_accepted_5km_count.gt(0)
+assert positive.sum()==18311
+p['either_positive']=positive
+p=p[p.population_2021.gt(0)&p.accepted_latitude_2021.notna()&p.accepted_longitude_2021.notna()].copy()
+assert len(p)==123137
+def project(latitude,longitude):
+    la=np.radians(np.asarray(latitude));lo=np.radians(np.asarray(longitude));la0=np.radians(62);lo0=np.radians(100)
+    k=np.sqrt(2/(1+np.sin(la0)*np.sin(la)+np.cos(la0)*np.cos(la)*np.cos(lo-lo0)))
+    return 6371.0088*k*np.cos(la)*np.sin(lo-lo0),6371.0088*k*(np.cos(la0)*np.sin(la)-np.sin(la0)*np.cos(la)*np.cos(lo-lo0))
+fig,ax=plt.subplots(figsize=(13,7))
+ax.scatter(*project(p.accepted_latitude_2021,p.accepted_longitude_2021),s=.3,c='#c1c7ce',alpha=.35,rasterized=True)
+for mask,color,label,size in [(p.either_positive&~p.type_2021.isin(['город','пгт']),blue,'Сельские НП с положительной записью',1.7),
+                             (p.either_positive&p.type_2021.isin(['город','пгт']),orange,'Города / ПГТ с положительной записью',5)]:
+    h=p[mask];ax.scatter(*project(h.accepted_latitude_2021,h.accepted_longitude_2021),s=size,c=color,alpha=.8,label=f'{label}: {len(h):,}'.replace(',',' '))
+ax.set_aspect('equal');ax.axis('off')
+ax.set_title('Инфраструктура получения представлена в сельском промежуточном звене',loc='left',fontsize=14)
+ax.legend(loc='upper left',bbox_to_anchor=(0,-.01),frameon=False,fontsize=9,markerscale=2)
+fig.subplots_adjust(bottom=.20)
+fig.text(.06,.015,'123 137 населённых НП с координатами; основа 2021, 81 регион, федеральные города отдельно.\nWB 21.10.2026 и сторонний Ozon 06.08.2026; серый — без принятого положительного свидетельства, не доказанное отсутствие.\nЧетыре положительных НП с нулевым населением 2021 не показаны. Точки не измеряют поездки или эффект; границы не показаны.',fontsize=8.7)
+fig.savefig(OUT/'national_presence.png',dpi=170,bbox_inches='tight');plt.close(fig)
+print('Created five publication figures from reviewed CSV and restored microdata.')
