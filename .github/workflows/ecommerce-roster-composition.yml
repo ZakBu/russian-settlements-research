@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/ecommerce-roster-composition.yml'
       - 'research/ecommerce_cloud/extension/outcomes/full_roster_analysis.py'
+      - 'research/ecommerce_cloud/extension/outcomes/trade_roster_sensitivity.py'
 permissions:
   contents: read
 jobs:
@@ -34,6 +35,8 @@ jobs:
         run: python research/ecommerce_cloud/continuation/inspect_roster_schema.py
       - name: Compare full publication rosters and outcome sensitivity
         run: python research/ecommerce_cloud/extension/outcomes/full_roster_analysis.py
+      - name: Check shop-stock and share sensitivity to confirmed roster continuity
+        run: python research/ecommerce_cloud/extension/outcomes/trade_roster_sensitivity.py
       - name: Preserve complete composition evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

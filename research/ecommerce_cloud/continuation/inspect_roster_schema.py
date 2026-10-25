@@ -1,6 +1,8 @@
 """Read the official CSV schema through the pinned public CA chain."""
 from pathlib import Path
 import hashlib
+import csv
+import io
 import json
 import ssl
 import urllib.request
@@ -27,6 +29,14 @@ try:
     except UnicodeDecodeError:
         text=body.decode('cp1251')
     record['schema_text']=text
+    rows=list(csv.DictReader(io.StringIO(text),delimiter=';'))
+    status=next(r for r in rows if r['field name']=='Status')
+    expected='Change type 0 — initial object upload, 2 — object attribute changed (except code), 3 — object enabled'
+    if status['english description'].strip()!=expected:
+        raise ValueError('Official Status description changed; manual interpretation required')
+    record['status_semantics_confirmed']=True
+    record['confirmed_status_values']={'0':'initial object upload','2':'attribute changed except code','3':'object enabled'}
+    record['undocumented_status_values_not_interpreted']=True
 except Exception as e:
     record.update(error_type=type(e).__name__,error=str(e))
 (D/'schema_probe.json').write_text(json.dumps(record,ensure_ascii=False,indent=2))
