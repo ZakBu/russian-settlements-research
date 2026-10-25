@@ -134,7 +134,9 @@ class HierarchyTests(unittest.TestCase):
         h['parent_target_key']='efua:independent2015-area';h['parent_target_kind']='external_functional_area'
         c=higher_candidates(m,h,r);p,pm,cross,stop=promote_layer(u,m,c,1,['health'])
         self.assertFalse(stop['stop']);self.assertTrue(p.boundary_depends_on_external_reference.all())
+        self.assertEqual(p.current_layer_known_provider_np_count.iloc[0],2)
         self.assertEqual(p.known_provider_np_count.iloc[0],2)
+        self.assertEqual(p.cumulative_known_provider_np_count.iloc[0],4)
         self.assertIn('np:c',p.real_provider_keys_json.iloc[0]);self.assertIn('np:d',p.real_provider_keys_json.iloc[0])
         self.assertFalse(p.independently_discovered_agglomeration_boundary.any())
         # Relabeling another service inside the same external area cannot

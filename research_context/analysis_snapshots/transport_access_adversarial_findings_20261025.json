@@ -1,0 +1,284 @@
+{
+  "source_bundle": "sgrt-zero-systems-20261025-v1",
+  "source_commit": "6f9718906772f3f7740a44a56f9ef22fea3cae38",
+  "published_data_mutated": false,
+  "alias_contract_defect": {
+    "affected_service_rows": 29122,
+    "affected_tables": 13,
+    "distinct_origins": 10768,
+    "changed_fields": [
+      "provider_id",
+      "primary_candidate_id"
+    ],
+    "selection_or_minutes_changed": false,
+    "projection_report": "contract/contract_and_access_summary.json",
+    "complete_projection_delta": "contract/provider_alias_metadata_delta.parquet",
+    "code_fix": "scripts/sgrt_zero/transport.py",
+    "regression_tests_passed": 21
+  },
+  "source_snapping_risk": {
+    "origin_connectivity": {
+      "accepted_origins": 153650,
+      "accepted_origin_outdegree0": 0,
+      "accepted_origin_indegree0": 0,
+      "accepted_origin_component_lt10": 653,
+      "accepted_origin_component_lt100": 1426,
+      "accepted_origin_component_lt1000": 1956
+    },
+    "nearby_large_network": {
+      "largest_component_nodes": 9136650,
+      "small_component_origins": 1956,
+      "small_component_lt100_origins": 1426,
+      "of_small_lt100_main_network_within100m": 9,
+      "of_small_lt100_main_network_within500m": 136,
+      "of_small_lt100_main_network_within2km": 451,
+      "within_original10km_origin_access_limit": 968,
+      "alternative_is_verified_driveway_or_barrier_free": false
+    },
+    "provider_connectivity": [
+      {
+        "service": "comparison_retail",
+        "accepted_physical_provider_seeds": 222668,
+        "component_lt100": 679,
+        "of_small_main_network_within100m": 496,
+        "of_small_main_network_within500m": 611,
+        "of_small_main_network_within_original2km": 625
+      },
+      {
+        "service": "daily_food_specialist",
+        "accepted_physical_provider_seeds": 18952,
+        "component_lt100": 50,
+        "of_small_main_network_within100m": 26,
+        "of_small_main_network_within500m": 30,
+        "of_small_main_network_within_original2km": 30
+      },
+      {
+        "service": "daily_grocery",
+        "accepted_physical_provider_seeds": 123125,
+        "component_lt100": 207,
+        "of_small_main_network_within100m": 97,
+        "of_small_main_network_within500m": 111,
+        "of_small_main_network_within_original2km": 120
+      },
+      {
+        "service": "daily_grocery_current_retail_host",
+        "accepted_physical_provider_seeds": 13032,
+        "component_lt100": 6,
+        "of_small_main_network_within100m": 5,
+        "of_small_main_network_within500m": 6,
+        "of_small_main_network_within_original2km": 6
+      },
+      {
+        "service": "higher_education",
+        "accepted_physical_provider_seeds": 2682,
+        "component_lt100": 14,
+        "of_small_main_network_within100m": 8,
+        "of_small_main_network_within500m": 13,
+        "of_small_main_network_within_original2km": 13
+      },
+      {
+        "service": "mapped_hospital_service_unknown_level",
+        "accepted_physical_provider_seeds": 11097,
+        "component_lt100": 105,
+        "of_small_main_network_within100m": 38,
+        "of_small_main_network_within500m": 70,
+        "of_small_main_network_within_original2km": 70
+      },
+      {
+        "service": "marketplace_unspecified_assortment",
+        "accepted_physical_provider_seeds": 4258,
+        "component_lt100": 11,
+        "of_small_main_network_within100m": 8,
+        "of_small_main_network_within500m": 10,
+        "of_small_main_network_within_original2km": 10
+      },
+      {
+        "service": "medical_basic_primary",
+        "accepted_physical_provider_seeds": 7731,
+        "component_lt100": 57,
+        "of_small_main_network_within100m": 11,
+        "of_small_main_network_within500m": 17,
+        "of_small_main_network_within_original2km": 18
+      },
+      {
+        "service": "medical_physician_primary",
+        "accepted_physical_provider_seeds": 3726,
+        "component_lt100": 14,
+        "of_small_main_network_within100m": 10,
+        "of_small_main_network_within500m": 13,
+        "of_small_main_network_within_original2km": 13
+      },
+      {
+        "service": "parcel_pickup",
+        "accepted_physical_provider_seeds": 69580,
+        "component_lt100": 110,
+        "of_small_main_network_within100m": 52,
+        "of_small_main_network_within500m": 108,
+        "of_small_main_network_within_original2km": 109
+      },
+      {
+        "service": "parcel_pickup_5post_current",
+        "accepted_physical_provider_seeds": 13056,
+        "component_lt100": 6,
+        "of_small_main_network_within100m": 5,
+        "of_small_main_network_within500m": 6,
+        "of_small_main_network_within_original2km": 6
+      },
+      {
+        "service": "parcel_pickup_wildberries_current",
+        "accepted_physical_provider_seeds": 68610,
+        "component_lt100": 107,
+        "of_small_main_network_within100m": 49,
+        "of_small_main_network_within500m": 105,
+        "of_small_main_network_within_original2km": 106
+      },
+      {
+        "service": "parcel_pickup_yandex_current",
+        "accepted_physical_provider_seeds": 16171,
+        "component_lt100": 37,
+        "of_small_main_network_within100m": 22,
+        "of_small_main_network_within500m": 37,
+        "of_small_main_network_within_original2km": 37
+      },
+      {
+        "service": "postal_service",
+        "accepted_physical_provider_seeds": 13690,
+        "component_lt100": 60,
+        "of_small_main_network_within100m": 14,
+        "of_small_main_network_within500m": 19,
+        "of_small_main_network_within_original2km": 20
+      },
+      {
+        "service": "preschool",
+        "accepted_physical_provider_seeds": 35215,
+        "component_lt100": 136,
+        "of_small_main_network_within100m": 62,
+        "of_small_main_network_within500m": 83,
+        "of_small_main_network_within_original2km": 87
+      },
+      {
+        "service": "school_general",
+        "accepted_physical_provider_seeds": 31759,
+        "component_lt100": 229,
+        "of_small_main_network_within100m": 80,
+        "of_small_main_network_within500m": 100,
+        "of_small_main_network_within_original2km": 104
+      },
+      {
+        "service": "shopping_centre",
+        "accepted_physical_provider_seeds": 11576,
+        "component_lt100": 25,
+        "of_small_main_network_within100m": 21,
+        "of_small_main_network_within500m": 21,
+        "of_small_main_network_within_original2km": 21
+      },
+      {
+        "service": "unspecified_healthcare",
+        "accepted_physical_provider_seeds": 32002,
+        "component_lt100": 198,
+        "of_small_main_network_within100m": 98,
+        "of_small_main_network_within500m": 144,
+        "of_small_main_network_within_original2km": 147
+      },
+      {
+        "service": "vocational_education",
+        "accepted_physical_provider_seeds": 4099,
+        "component_lt100": 14,
+        "of_small_main_network_within100m": 12,
+        "of_small_main_network_within500m": 12,
+        "of_small_main_network_within_original2km": 12
+      }
+    ],
+    "observed_driveways_or_barrier_free_connectors_proved": false,
+    "small_component_does_not_itself_prove_error": true,
+    "automatic_giant_component_resnapping_performed": false
+  },
+  "local_zero_scope": {
+    "meaning": "Known service in same NP, not measured travel time or institution choice. Internal NP accessibility was not resolved.",
+    "examples": [
+      {
+        "name": "Тобольск",
+        "service": "higher_education",
+        "physical_separation_km": 0.4456791347839851,
+        "reported_cost_minutes": 0.0,
+        "unconstrained_nearest_minutes": 174.1118040319831,
+        "selected_physical_forward_minutes_same_graph_240min": null,
+        "origin_component_nodes": 9136650,
+        "provider_component_nodes": 10
+      },
+      {
+        "name": "Тутаев",
+        "service": "higher_education",
+        "physical_separation_km": 2.9902142143775894,
+        "reported_cost_minutes": 0.0,
+        "unconstrained_nearest_minutes": 39.34222089796586,
+        "selected_physical_forward_minutes_same_graph_240min": 62.718842984853815,
+        "origin_component_nodes": 9136650,
+        "provider_component_nodes": 9136650
+      },
+      {
+        "name": "Шуйское",
+        "service": "daily_grocery_current_retail_host",
+        "physical_separation_km": 0.26423561766883075,
+        "reported_cost_minutes": 0.0,
+        "unconstrained_nearest_minutes": 87.01224900039152,
+        "selected_physical_forward_minutes_same_graph_240min": null,
+        "origin_component_nodes": 9136650,
+        "provider_component_nodes": 2
+      },
+      {
+        "name": "Коптяки",
+        "service": "parcel_pickup_wildberries_current",
+        "physical_separation_km": 0.362882673433691,
+        "reported_cost_minutes": 0.0,
+        "unconstrained_nearest_minutes": null,
+        "selected_physical_forward_minutes_same_graph_240min": null,
+        "origin_component_nodes": 4,
+        "provider_component_nodes": 9136650
+      },
+      {
+        "name": "Шугурово",
+        "service": "parcel_pickup_wildberries_current",
+        "physical_separation_km": 0.19855023048224296,
+        "reported_cost_minutes": 0.0,
+        "unconstrained_nearest_minutes": null,
+        "selected_physical_forward_minutes_same_graph_240min": null,
+        "origin_component_nodes": 2,
+        "provider_component_nodes": 9136650
+      },
+      {
+        "name": "Гурзуф",
+        "service": "parcel_pickup_wildberries_current",
+        "physical_separation_km": 1.1917680568004985,
+        "reported_cost_minutes": 0.0,
+        "unconstrained_nearest_minutes": null,
+        "selected_physical_forward_minutes_same_graph_240min": null,
+        "origin_component_nodes": 5,
+        "provider_component_nodes": 9136650
+      }
+    ]
+  },
+  "direction_speed_results": {
+    "actual_origin_to_selected_graph_cases": 7,
+    "maximum_absolute_directional_cost_error_minutes": 2.842170943040401e-14,
+    "all_23_tables_have_no_external_zero_cost": true,
+    "all_23_tables_have_no_straight_speed_above130": true,
+    "example_asymmetry": {
+      "name": "Богрово",
+      "region": "калужская",
+      "service": "daily_grocery",
+      "origin_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:28765",
+      "raw_selected_provider_id": "osm:way:260380408",
+      "published_raw_minutes": 4.508661123798055,
+      "independent_origin_to_selected_minutes": 4.508661123798056,
+      "independent_selected_to_origin_minutes": 20.323818530409483,
+      "origin_to_selected_error_minutes": 8.881784197001252e-16,
+      "path_edges": 12,
+      "path_edges_with_asymmetric_reverse_arc": 12,
+      "maximum_per_arc_straight_speed_kmh": 110.00000000000001,
+      "turn_restrictions_and_observed_driveways_validated": false
+    },
+    "turn_restrictions_ferries_and_actual_driveways_validated": false
+  },
+  "old_arithmetic_checks_repeated": false
+}

@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-25T11:56:04+03:00",
+  "updated_moscow": "2026-10-25T12:46:34+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,11 +9,11 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "national_zero_and_bounded_higher_results_published_and_public_frozen_code_recomputed",
-      "summary": "Опубликованы 22 933 многопоселенческие нижние группы, пять вариантов и вложенные верхние объединения. Все 438 файлов скачаны и проверены; сохранённый код повторил 107 научных таблиц и 14 карт. Реальные потоки, полная причинная типология и особый верхний ранг Москвы пока не установлены.",
+      "status": "published_v1_control_has_semantic_errors_source_and_metadata_corrections_under_audit",
+      "summary": "Найдены ошибочные учебные площадки, двойной счёт частей НП, неоднозначные ID поставщиков и демографические метки неполного состава. Код исправлен, источники переоценены, метаданные 15 старых разбиений пересчитаны. Новые направления после перевыбора поставщиков и готовые системы «центр + окружение» пока не выделены.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
-      "main_blocker": "Для доказанной иерархии нужны независимые межпоселенческие поездки и сопоставимые функциональные связи. Требуется проверка школьных ступеней, назначения и мощности услуг; доступность редкой областной функции не доказывает агломерацию.",
+      "main_blocker": "Нужно пересчитать направления после удаления неподходящих учебных и торговых поставщиков, затем отделить сервисные пересечения от систем с центром и окружением. Отдельно проверяются дорожные компоненты, координаты и школьные ступени.",
       "workplan": "sgrt/workplan/README.md",
       "results": "sgrt/zero/README.md",
       "data_release": "sgrt-zero-systems-20261025-v1",
@@ -40,7 +40,8 @@
         "public_compact_report": "research_context/analysis_snapshots/zero_public_compact_recompute_20261025.json",
         "manual_public_scientific_reconciliation": "research_context/analysis_snapshots/zero_manual_public_final_reconciliation_20261025.json",
         "full_primary_run": "https://github.com/ZakBu/russian-settlements-research/actions/runs/40152866618",
-        "profile_tests_passed": 315
+        "profile_tests_passed": 315,
+        "scientific_acceptance_status": "reproduced_but_semantic_errors_identified_not_final_sgrt"
       },
       "local_systems": {
         "doc": "sgrt/local_systems/README.md",
@@ -164,7 +165,7 @@
         "population_advantage_at_level0": false,
         "target_number_of_levels_is_not_hardcoded": true,
         "Moscow_unique_upper_order_is_research_goal_not_prescribed_label": true,
-        "calculation_state": "all_five_lower_and_all_ten_higher_stages_complete_published",
+        "calculation_state": "v1_frozen_control_corrected_sources_and_descriptions_pending_new_routing_and_system_definition",
         "source_release": "sgrt-zero-inputs-20261025-v1",
         "source_manifest_sha256": "d9c8617dadbed91d92cf0cf1e139af67fddf5e9c33c7c50f09cd577c0c664ddc",
         "level_zero_control": {
@@ -300,7 +301,9 @@
           "population_used_for_assignment": false,
           "actual_audits_scenarios": 5,
           "conditions_per_actual_audit": 20,
-          "nonzero_violation_counts": 0
+          "nonzero_violation_counts": 0,
+          "v1_unit_definition_warning": "inhabited_multi_np_groups in v1 counts populated source records, including explicit settlement parts; not certified distinct settlements or centre-periphery systems",
+          "inhabited_multi_source_record_profiles": 22933
         },
         "bounded_upward": {
           "strict_parent_unit_counts": [
@@ -354,15 +357,36 @@
         "full_primary_run": "https://github.com/ZakBu/russian-settlements-research/actions/runs/40119286163",
         "source_code_inside_bundle_verified_against_commit": true,
         "profile_tests_passed": 106
+      },
+      "semantic_error_audit": {
+        "doc": "sgrt/zero/ERROR_AUDIT_20261025.md",
+        "input_release": "sgrt-zero-systems-20261025-v1",
+        "v1_inputs_overwritten": false,
+        "corrected_full_sgrt_partition_available": false,
+        "education_source_rows_reassessed": 76713,
+        "education_previously_eligible_sites_held": 98,
+        "main_school_origins_requiring_reselection": 131,
+        "main_inhabited_school_records_requiring_reselection": 107,
+        "old_profile_units_containing_these_records": 54,
+        "this_is_not_a_count_of_changed_systems": true,
+        "explicit_access_or_closed_schedule_commerce_rows_held": 117,
+        "transport_alias_rows_corrected_in_code": 29122,
+        "main_partial_demography_labels_replaced_with_unknown_2002": 4494,
+        "old_raw_multi_record_profiles": 22933,
+        "profiles_after_narrow_explicit_part_identity_count": 22932,
+        "profiles_all_known_np_anchors_outside_membership": 8251,
+        "metadata_corrected_partitions": 15,
+        "metadata_correction_changes_memberships": false,
+        "centre_periphery_is_not_word_causal_typology": true
       }
     }
   },
   "next_steps": [
-    "Проверить нижние группы на конкретных школьных прикреплениях, подвозе, ФАПах и врачебных расписаниях. Учитывать, что разные базовые поставщики при общей школе или враче образуют вложенную систему, а не ошибку ключей.",
-    "Дополнить действующие продуктовые магазины и образовательные адреса/ступени: основная часть неполного ближнего набора связана с дальними известными торговыми и школьными поставщиками. Неучтённое местное предложение может изменить результат.",
-    "Проверять внешние городские границы и функциональные связи по независимым поездкам и рабочим площадкам; расширенные варианты считать чувствительностью. Контрпример Астрахани не исправлять подгонкой радиуса.",
-    "Изучать функциональную сложность и межсистемные связи отдельно от глубины слияний. Пока не установлены данные, позволяющие обосновать уникальный верхний ранг Москвы.",
-    "Уточнять динамические типы Word на основе роли центров и окружения. Сохранять чувствительность к значениям2010 и контроль2002–2021; современный фиксированный состав групп не выдавать за исторические связи."
+    "Пересчитать школьные, дошкольные, профессиональные, вузовские и затронутые торговые направления после исправления поставщиков; сохранить старые v1 как контроль.",
+    "Разработать и проверить переход от пересечений сервисных зон к единицам «центр + окружение», не склеивая область цепочкой соседей.",
+    "Проверить границы частей НП, совпавшие координаты и дорожные компоненты по независимым данным; исходную переписную базу не переписывать автоматически.",
+    "Продолжать типологию по совместной динамике центра и окружения, назначению функций и аграрной базе; описательный знак не выдавать за причинный тип Word.",
+    "Искать независимые поездки и рабочие площадки для городских порядков; уникальный верхний порядок Москвы не назначать заранее."
   ],
   "known_limits": [
     "Прежний расчёт «13%» с исходным знаменателем не найден. Принятые поправки raw→effective меняют пару состояний у 1082 из 142765 строгих рядов; региональная альтернатива — у 3909 из 18516 рядов своей подвыборки. Ни одна доля не является национальной оценкой ошибки; подробнее в sgrt/pilot/DEMOGRAPHY_2010.md.",
@@ -403,6 +427,7 @@
     "current_zero_level": "sgrt/zero/README.md",
     "current_user_clarifications": "research_context/conversation_context_20261025.md",
     "previous_national_results": "sgrt/mass/README.md",
-    "current_zero_catalog": "data/zero_catalog_20261025.json"
+    "current_zero_catalog": "data/zero_catalog_20261025.json",
+    "current_error_audit": "sgrt/zero/ERROR_AUDIT_20261025.md"
   }
 }

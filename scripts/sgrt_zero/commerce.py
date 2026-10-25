@@ -47,6 +47,16 @@ def classify_osm(tags):
  if shop and shop not in NEGATIVE:return 'comparison_retail','other_positive_shop_tag'
  return 'unclassified_commerce','no_positive_target_service_tag'
 
+def commerce_access_scope(tags):
+ """Explicit access/schedule evidence, not ownership or permanent closure."""
+ access=str(tags.get('access','')).strip().casefold()
+ hours=' '.join(str(tags.get('opening_hours','')).strip().casefold().split())
+ if access in {'no','private','permit','members','military'}:
+  return 'explicit_restricted_access_not_general_customer_offer'
+ if hours in {'closed','off','mo-su off','mo-su closed'}:
+  return 'explicit_closed_schedule_not_regular_service_offer'
+ return None
+
 def operator_name(tags):
  explicit=tags.get('operator') or tags.get('brand')
  if explicit:return str(explicit)
@@ -88,6 +98,8 @@ def normalize_osm(objects,reference,legacy):
   if str(t.get('shop','')).casefold() in NEGATIVE:status='excluded_negative_shop';reason='explicit_negative_shop_tag'
   if lifecycle:status='excluded_lifecycle';reason=lifecycle
   if temporal in {'ended_before_snapshot','started_after_snapshot'}:status='excluded_temporal';reason=temporal
+  access_scope=commerce_access_scope(t)
+  if status=='observed' and access_scope:status='held_explicit_access_or_schedule';reason=access_scope
   if not valid:status='excluded_geometry';reason='invalid_or_missing_physical_point'
   sid=None;identity='physical_site_np_identity_unknown';legacy_id=raw.baseline_uid
   if pd.notna(legacy_id) and legacy_id in bridge.index and raw.link_status=='explicit_address_locality_unique_within5km':
@@ -104,6 +116,7 @@ def normalize_osm(objects,reference,legacy):
    np_identity_basis=identity,evidence_kind='mapped_positive_service_tag',location_precision='osm_representative_point',
    source_start_date=None if pd.isna(start) else str(start),source_end_date=None if pd.isna(end) else str(end),
    temporal_status=temporal,lifecycle_exclusion_reason=lifecycle or None,tags_json=json.dumps(t,ensure_ascii=False),
+   explicit_access_or_schedule_scope=access_scope,source_access_literal=t.get('access'),
    actual_operational_status_checked=False,observed_flow=False,historical_supply_needs_current_confirmation=True,opening_hours=t.get('opening_hours'),
    default_external_seed_eligible=status=='observed',capacity_known=False,source_url='https://www.openstreetmap.org',source_license='ODbL-1.0'))
  d=pd.DataFrame(rows)

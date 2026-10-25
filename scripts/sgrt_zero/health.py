@@ -72,7 +72,7 @@ def classify_osm(row):
  kind=clean(row.get('medical_class'))
  specialty=clean(row.get('healthcare_speciality')).lower()
  restricted=bool(RESTRICTED.search(name))
- narrow=bool(NARROW.search(name))
+ narrow=bool(NARROW.search(name)) or explicit_nongeneral_primary_unit(name) or osm_explicit_nongeneral_primary_specialty(specialty)
  services=[]
  if not restricted and not narrow:
   if kind=='fap_name_assertion':services.append((BASIC,'mapped_named_fap','explicit_OSM_name_FAP_not_licence'))
@@ -333,6 +333,24 @@ def named_child_only_unit(name):
  return bool(re.search(r'(?<![а-яa-z])(?:детск[а-я]*|педиатр[а-я]*|детей|детям|детьми|детях|детств[а-я]*|детсад[а-я]*|дет\.?\s*(?:сад|поликлиник|больниц)[а-я]*|подрост[а-я]*|несовершеннолетн[а-я]*|новорожденн[а-я]*|pediatric|paediatric|children)(?![а-яa-z])',value))
 
 
+def explicit_nongeneral_primary_unit(name):
+ """Direct own-unit scope; a specialist parent's title alone is insufficient."""
+ value=clean(name).casefold().replace('ё','е')
+ # Women's consultation therapy concerns that consultation's cohort, even if
+ # a parent polyclinic or a therapist is also named. Do not match geography.
+ return bool(re.search(r'\bженск[а-я]*\s+(?:консультац|амбулатор)|кабинет\s+медико.психологическ|(?:психотерапевтическ|психоневр[а-я]*ическ)[а-я]*\s+поликлиник',value))
+
+
+def osm_explicit_nongeneral_primary_specialty(specialty):
+ """An explicitly psychiatric mapped unit is not inferred general from its label.
+
+ Mixed general+psychiatry institutions retain explicit general evidence. Empty
+ specialty is unknown; it does not trigger this narrow contradiction rule.
+ """
+ values={v.strip().casefold() for v in clean(specialty).split(';')}
+ return 'psychiatry' in values and not values&{'general','general_practice','general_medicine','family_medicine','family_practice','internal'}
+
+
 def primary_unit_scope_flags(row):
  """Literal clinical unit overrides a broad licence; never inherit parent scope.
 
@@ -356,9 +374,10 @@ def primary_unit_scope_flags(row):
  flags['school_or_preschool_medical_scope_signal']|=school and not patient_school
  flags['restricted_access_signal']|=school and not patient_school
  if not general:flags['narrow_unit_name_ambiguity_signal']|=narrow or patient_school
+ if explicit_nongeneral_primary_unit(name):flags['narrow_unit_name_ambiguity_signal']=True
  if named_child_only_unit(name):flags['pediatric_only_signal']=True
  flags['literal_narrow_primary_unit_scope']=flags['narrow_unit_name_ambiguity_signal']
- flags['narrow_clinical_domain_literal']=bool(re.search(specialist,name))
+ flags['narrow_clinical_domain_literal']=bool(re.search(specialist,name)) or explicit_nongeneral_primary_unit(name)
  # Positive unit identity is required. A broad organisation licence/profile
  # alone cannot establish a general local provider in an unnamed specialist
  # office, ward, or arbitrary subdivision. Nonpositive rows remain unknown,

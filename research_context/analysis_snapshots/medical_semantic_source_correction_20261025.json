@@ -1,0 +1,668 @@
+{
+  "scope": "Read-only published source diagnostic, no altered model or reroutes",
+  "source_sha256": {
+    "federal_medical/functions/care_rows_classified.parquet": "814810415638073a4a5e1243f8981bdde782fd595acd5333392f752b8883b6a1",
+    "health/public_scope_corrected/federal_service_evidence_with_identity.parquet": "15deb5029730efd67dc6aaf9a01bb7d48614d2b3d6a57c8cd7caa660a2f7889a",
+    "health/public_scope_corrected/physical_sites.parquet": "febc84b4133098487dd4ac37fe527fd4f134000eecba5a56dc55f03f2907bf1b",
+    "health/legacy_primary_child_scope_corrected/legacy_source_evidence_with_scope.parquet": "3b069a9181ce82178d5aea10f50a3fa93922270d57418a2ec0f36acbcfd25f72",
+    "routes/nearest/medical_basic_primary.parquet": "0b53a67d8ccee383b55c9794b4d97f51c99f680325de6ff4d1abb68056bf1055",
+    "routes/nearest/medical_physician_primary.parquet": "21138a73de04bc03dc80b915fa85a346305370b6e3cae2b86ced51531962be3d",
+    "routes/nearest/medical_day_hospital.parquet": "75cc5ec9fc0f16700939d2959483b7b43236537d93e090dab86138737024cf08",
+    "routes/nearest/medical_inpatient.parquet": "830d5fac984807af3e9017faeff822ae281e3be27194c266530d2bb11c436653",
+    "routes/nearest/medical_specialized.parquet": "79c2d79adbb7be4619e2d709d512da9fd2a10a6c6a62a5b8115cd0575468b537",
+    "routes/nearest/medical_hightech_licensed.parquet": "e4d45eba09021f2a3a360246c8a31a0dcf02736ecd3bf78951dc3b9e5e690cc3",
+    "routes/nearest/mapped_hospital_service_unknown_level.parquet": "8bb7d6e85dc1173a05c89e75297f6b1cb433156785a47b3c62ac3f91b2aef2a7",
+    "routes/nearest/unspecified_healthcare.parquet": "37dc55e8d524c8605fe98930f2e937caa5c1bbdbd279a64ba4b0a6ba3ab71aff",
+    "health/public_scope_corrected/np_supply.parquet": "65e35fb5965a44ed8d00c132a18ca13ee01b0c3388c88c501b1d597d757bf530",
+    "health/public_scope_corrected/historical_evidence_with_time_status.parquet": "02a6e2847eaa8b752c9ef9bd5ad97378f8a1f5e2b8a31743ee91f51581682ba2",
+    "federal_medical/normalized/care_site_profiles_current.parquet": "731097a038fe2f111ecd7e6b31115aa6c23e99b957bfeed7129c7f45f841fce2",
+    "federal_medical/functions/service_evidence_by_care_address.parquet": "df9aff4b7376779b829540a4ac46b2d28845ea7425c1fc996b2b06c14ebccf44",
+    "inputs/licensed_sites.parquet": "2b2d4ab0bad457b31c24d05d7caf0940f2130fe06addc2f0a30cb5a0fe0a4643"
+  },
+  "counterexamples": {
+    "federal_evidence_rows": 83,
+    "federal_units": 35,
+    "legacy_evidence_rows": 174,
+    "legacy_units": 96,
+    "physical_service_rows": 3,
+    "physical_objects": 2,
+    "np_service_keys_containing_diagnostic_evidence": 90,
+    "np_service_keys_without_other_three_family_support": 0
+  },
+  "child_parent_profile_review_rows_not_automatic_errors": 124,
+  "specialist_parent_review_rows_not_automatic_errors": 9,
+  "np_support_context": [
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:100132",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:100132",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:111450",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:111450",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:111464",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:111464",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:111475",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:111475",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:111477",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:111477",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:116185",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:116185",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:116550",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:116550",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:119244",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:119244",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:133510",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:133510",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:149438",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:149438",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:155332",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:155332",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:157635",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:157635",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:16108",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:16108",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:16136",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:16136",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161426",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161426",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:164123",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:164123",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:165688",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:165688",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:167105",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:167105",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:176074",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:176074",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:18491",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:18491",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:24985",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:24985",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25614",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25614",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25623",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25623",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25630",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25630",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25645",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25645",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25656",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25656",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25660",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:25660",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:33223",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:33223",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:33298",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:33298",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:33310",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:33310",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:3836",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:3836",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:3864",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:3864",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:45306",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:45306",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:5783",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:5783",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:60538",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:60538",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:61431",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:61431",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:63200",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:63200",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:69235",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:69235",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:71280",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:71280",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:82405",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:82405",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:84345",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:84345",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:86219",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:86219",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:86420",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:86420",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:86431",
+      "service_code": "medical_basic_primary",
+      "other_nondiagnostic_support_exists": true
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:86431",
+      "service_code": "medical_physician_primary",
+      "other_nondiagnostic_support_exists": true
+    }
+  ],
+  "routes": {
+    "medical_basic_primary": {
+      "exact_bad_physical_field_hits": {
+        "provider_site_id": 0,
+        "selected_provider_id": 0,
+        "provider_id": 0,
+        "unconstrained_nearest_site_provider_id": 0,
+        "unconstrained_nearest_provider_id": 0
+      },
+      "origins_total": 153803,
+      "direct_bad_physical_selected": 0,
+      "selected_np_contains_diagnostic_evidence_upper_bound": 71,
+      "selected_np_without_other_three_family_support": 0,
+      "local_zero_assumption_exposed": 45,
+      "exposed_population": 17310015.0
+    },
+    "medical_physician_primary": {
+      "exact_bad_physical_field_hits": {
+        "provider_site_id": 0,
+        "selected_provider_id": 0,
+        "provider_id": 0,
+        "unconstrained_nearest_site_provider_id": 0,
+        "unconstrained_nearest_provider_id": 0
+      },
+      "origins_total": 153803,
+      "direct_bad_physical_selected": 0,
+      "selected_np_contains_diagnostic_evidence_upper_bound": 163,
+      "selected_np_without_other_three_family_support": 0,
+      "local_zero_assumption_exposed": 45,
+      "exposed_population": 17359646.0
+    },
+    "medical_day_hospital": {
+      "exact_bad_physical_field_hits": {
+        "provider_site_id": 0,
+        "selected_provider_id": 0,
+        "provider_id": 0,
+        "unconstrained_nearest_site_provider_id": 0,
+        "unconstrained_nearest_provider_id": 0
+      },
+      "origins_total": 153803,
+      "direct_bad_physical_selected": 0,
+      "selected_np_contains_diagnostic_evidence_upper_bound": 0,
+      "selected_np_without_other_three_family_support": 0,
+      "local_zero_assumption_exposed": 0,
+      "exposed_population": 0.0
+    },
+    "medical_inpatient": {
+      "exact_bad_physical_field_hits": {
+        "provider_site_id": 0,
+        "selected_provider_id": 0,
+        "provider_id": 0,
+        "unconstrained_nearest_site_provider_id": 0,
+        "unconstrained_nearest_provider_id": 0
+      },
+      "origins_total": 153803,
+      "direct_bad_physical_selected": 0,
+      "selected_np_contains_diagnostic_evidence_upper_bound": 0,
+      "selected_np_without_other_three_family_support": 0,
+      "local_zero_assumption_exposed": 0,
+      "exposed_population": 0.0
+    },
+    "medical_specialized": {
+      "exact_bad_physical_field_hits": {
+        "provider_site_id": 0,
+        "selected_provider_id": 0,
+        "provider_id": 0,
+        "unconstrained_nearest_site_provider_id": 0,
+        "unconstrained_nearest_provider_id": 0
+      },
+      "origins_total": 153803,
+      "direct_bad_physical_selected": 0,
+      "selected_np_contains_diagnostic_evidence_upper_bound": 0,
+      "selected_np_without_other_three_family_support": 0,
+      "local_zero_assumption_exposed": 0,
+      "exposed_population": 0.0
+    },
+    "medical_hightech_licensed": {
+      "exact_bad_physical_field_hits": {
+        "provider_site_id": 0,
+        "selected_provider_id": 0,
+        "provider_id": 0,
+        "unconstrained_nearest_site_provider_id": 0,
+        "unconstrained_nearest_provider_id": 0
+      },
+      "origins_total": 153803,
+      "direct_bad_physical_selected": 0,
+      "selected_np_contains_diagnostic_evidence_upper_bound": 0,
+      "selected_np_without_other_three_family_support": 0,
+      "local_zero_assumption_exposed": 0,
+      "exposed_population": 0.0
+    },
+    "mapped_hospital_service_unknown_level": {
+      "exact_bad_physical_field_hits": {
+        "provider_site_id": 0,
+        "selected_provider_id": 0,
+        "provider_id": 0,
+        "unconstrained_nearest_site_provider_id": 0,
+        "unconstrained_nearest_provider_id": 0
+      },
+      "origins_total": 153803,
+      "direct_bad_physical_selected": 0,
+      "selected_np_contains_diagnostic_evidence_upper_bound": 0,
+      "selected_np_without_other_three_family_support": 0,
+      "local_zero_assumption_exposed": 0,
+      "exposed_population": 0.0
+    },
+    "unspecified_healthcare": {
+      "exact_bad_physical_field_hits": {
+        "provider_site_id": 0,
+        "selected_provider_id": 0,
+        "provider_id": 0,
+        "unconstrained_nearest_site_provider_id": 0,
+        "unconstrained_nearest_provider_id": 0
+      },
+      "origins_total": 153803,
+      "direct_bad_physical_selected": 0,
+      "selected_np_contains_diagnostic_evidence_upper_bound": 0,
+      "selected_np_without_other_three_family_support": 0,
+      "local_zero_assumption_exposed": 0,
+      "exposed_population": 0.0
+    }
+  },
+  "limitations": [
+    "Selected NP containing suspect evidence is an upper exposure bound; another valid institution can preserve function.",
+    "Other nondiagnostic support is not independently verified universal availability.",
+    "No alternative routes or revised hierarchy calculated.",
+    "Parent-only specialist/child names exported for review, not automatic exclusions.",
+    "Historical Saratov evidence not part of three-family support test; inspect exclusive keys before removal.",
+    "Population totals overlap across services; do not sum."
+  ],
+  "actual_offer_delta": {
+    "after_np_sha256": "d92deec2653d9746ce48b4bcaea0bee578134ef3403a62aa7a9d6fad8c48f4cf",
+    "after_physical_sha256": "79ca7e6771c28763b695a0a5fa829f86e63e35979a4a18546e64a1c8ed0f04d7",
+    "np_rows_before": 61794,
+    "np_rows_after": 61794,
+    "np_service_keys_removed": [],
+    "np_service_keys_added": [],
+    "physical_active_role_ids_removed": [
+      "osm-med:OSM:node:6049689786:medical_basic_primary",
+      "osm-med:OSM:way:108548965:medical_basic_primary",
+      "osm-med:OSM:way:108548965:medical_physician_primary"
+    ],
+    "physical_active_role_ids_added": [
+      "osm-med:OSM:node:5873142301:unspecified_healthcare",
+      "osm-med:OSM:node:6049689786:unspecified_healthcare",
+      "osm-med:OSM:way:108548965:unspecified_healthcare",
+      "osm-med:OSM:way:449564286:unspecified_healthcare"
+    ],
+    "physical_source_objects_lost": [],
+    "historical_evidence_and_time_flags_unchanged": true
+  },
+  "actual_federal_delta": {
+    "all_original_normalized_columns_and_rows_unchanged": true,
+    "raw_rows_before": 897573,
+    "raw_rows_after": 897573,
+    "removed_evidence_by_service": {
+      "medical_basic_primary": 45,
+      "medical_physician_primary": 40,
+      "medical_day_hospital": 0,
+      "medical_inpatient": 0,
+      "medical_specialized": 0,
+      "medical_hightech_licensed": 0,
+      "mapped_hospital_service_unknown_level": 0,
+      "unspecified_healthcare": 0
+    },
+    "new_evidence_by_service": {
+      "medical_basic_primary": 0,
+      "medical_physician_primary": 0,
+      "medical_day_hospital": 0,
+      "medical_inpatient": 0,
+      "medical_specialized": 0,
+      "medical_hightech_licensed": 0,
+      "mapped_hospital_service_unknown_level": 0,
+      "unspecified_healthcare": 0
+    },
+    "after_classified_sha256": "0bc31c32911b68a180168a7d6048a98a00ef502d8a260f6280acd1ea77dded2f"
+  },
+  "actual_legacy_delta": {
+    "raw_source_byte_identical": true,
+    "newly_held_object_service_pairs": 174,
+    "newly_admitted_object_service_pairs": 0
+  }
+}

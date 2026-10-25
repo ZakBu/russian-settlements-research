@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+"""Read-only public-route access diagnostic; no observed driveway or barrier-free connector claim."""
+from pathlib import Path
+import sys,json,numpy as np,pandas as pd
+from scipy.sparse.csgraph import dijkstra
+sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'scripts/sgrt_mass'))
+from routes import load_graph,haversine_km
+import argparse
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--bundle',type=Path,required=True);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--prepared-root',type=Path);parser.add_argument('--roads',type=Path);parser.add_argument('--graph-dir',type=Path);args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=True)
+
+root=args.bundle;out=args.output;manual=args.prepared_root
+roads=pd.read_parquet(args.roads,columns=['node_index','osm_id','lat','lon','weak_component']);assert roads.node_index.eq(np.arange(len(roads))).all();graph=load_graph(args.graph_dir);rev=graph.T.tocsr();sizes=roads.weak_component.value_counts();ep=pd.read_parquet(root/'routes/endpoints.parquet');valid=ep.road_endpoint_accepted.fillna(False);nodes=ep.loc[valid,'road_node_index'].astype(int).to_numpy();ep.loc[valid,'audit_weak_component']=roads.iloc[nodes].weak_component.to_numpy();ep.loc[valid,'audit_component_size']=ep.loc[valid,'audit_weak_component'].map(sizes);ep.loc[valid,'audit_outdegree']=np.diff(graph.indptr)[nodes];ep.loc[valid,'audit_indegree']=np.diff(rev.indptr)[nodes]
+sumry={'accepted_origins':int(valid.sum()),'accepted_origin_outdegree0':int((valid&ep.audit_outdegree.eq(0)).sum()),'accepted_origin_indegree0':int((valid&ep.audit_indegree.eq(0)).sum()),'accepted_origin_component_lt10':int((valid&ep.audit_component_size.lt(10)).sum()),'accepted_origin_component_lt100':int((valid&ep.audit_component_size.lt(100)).sum()),'accepted_origin_component_lt1000':int((valid&ep.audit_component_size.lt(1000)).sum())};(out/'endpoint_connectivity_summary.json').write_text(json.dumps(sumry,indent=2));ep[valid&(ep.audit_outdegree.eq(0)|ep.audit_component_size.lt(100))].to_parquet(out/'endpoint_connectivity_counterexamples.parquet',index=False)
+# Exact public-selected local physical sites, joined only by the identical site/service/coordinates in frozen manual preparations.
+selected=[]
+for folder in ['routes_education_commerce_corrected','routes_commerce_components_corrected','routes_wb','routes_yandex']:
+ p=manual/folder/'provider_road_seeds.parquet'
+ df=pd.read_parquet(p);selected.append(df[['provider_id','service_code','site_lat','site_lon','road_node_index','road_snap_lat','road_snap_lon','snap_km','weak_component']])
+providers=pd.concat(selected).drop_duplicates(['provider_id','service_code','site_lat','site_lon']);cases=[]
+for service,names in [('higher_education',['Тобольск','Тутаев']),('school_general',['Тасута','Сладкий Лиман']),('daily_grocery_current_retail_host',['Шуйское','Уват']),('parcel_pickup_wildberries_current',['Гурзуф','Коптяки','Шугурово','Дубки'])]:
+ folder='routes_wb' if service=='parcel_pickup_wildberries_current' else 'routes';frame=pd.read_parquet(root/folder/'nearest'/f'{service}.parquet');rows=frame[frame.name.isin(names)&frame.zero_cost_np_assumption].copy()
+ for r in rows.itertuples():
+  p=providers[(providers.provider_id==r.selected_provider_id)&(providers.service_code==service)&(providers.site_lat==r.provider_lat)&(providers.site_lon==r.provider_lon)].drop_duplicates();assert len(p)==1,(r.name,len(p));p=p.iloc[0];u=int(r.road_node_index);v=int(p.road_node_index)
+  dist,pre=dijkstra(graph,directed=True,indices=u,limit=240,return_predecessors=True)
+  origin_info=roads.iloc[u];known=dist[v];candidates=roads[(roads.lat-r.provider_lat).abs()<.025];candidates=candidates[(candidates.lon-r.provider_lon).abs()<.06].copy();candidates['connector_km']=haversine_km(candidates.lat,candidates.lon,r.provider_lat,r.provider_lon);candidates=candidates[candidates.connector_km<=2].copy();candidates['network_minutes']=dist[candidates.node_index.to_numpy(int)];candidates['total_minutes']=candidates.network_minutes+4*(candidates.connector_km+r.snap_km);finite=candidates[np.isfinite(candidates.total_minutes)].sort_values('total_minutes');alternative=finite.iloc[0].to_dict() if len(finite) else None
+  rback=dijkstra(graph,directed=True,indices=v,limit=240);back=rback[u];forward=known+4*(r.snap_km+p.snap_km) if np.isfinite(known) else None
+  case={'origin_id':r.origin_id,'name':r.name,'region':r.region,'service':service,'origin_lat':r.lat,'origin_lon':r.lon,'provider_id':r.selected_provider_id,'provider_lat':r.provider_lat,'provider_lon':r.provider_lon,'reported_cost_minutes':r.cost_minutes,'unconstrained_nearest_provider_id':r.unconstrained_nearest_provider_id,'unconstrained_nearest_minutes':None if pd.isna(r.unconstrained_nearest_cost_minutes) else r.unconstrained_nearest_cost_minutes,'physical_separation_km':r.point_separation_km,'origin_snap_node':u,'provider_snap_node':v,'origin_snap_component':int(origin_info.weak_component),'provider_snap_component':int(p.weak_component),'origin_component_nodes':int(sizes[origin_info.weak_component]),'provider_component_nodes':int(sizes[p.weak_component]),'origin_outdegree':int(graph.indptr[u+1]-graph.indptr[u]),'provider_outdegree':int(graph.indptr[v+1]-graph.indptr[v]),'selected_physical_forward_minutes_same_graph_240min':forward,'selected_physical_reverse_network_minutes':float(back) if np.isfinite(back) else None,'alternative_access_within_unchanged_provider2km':alternative,'alternative_is_observed_driveway':False}
+  cases.append(case);print(json.dumps(case,ensure_ascii=False),flush=True)
+(out/'selected_local_physical_access_cases.json').write_text(json.dumps(cases,ensure_ascii=False,indent=2)+'\n');ep.to_parquet(out/'endpoint_connectivity_inventory.parquet',index=False)

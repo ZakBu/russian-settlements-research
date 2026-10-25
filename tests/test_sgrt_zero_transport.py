@@ -143,6 +143,33 @@ class ZeroTransportTests(unittest.TestCase):
         self.assertEqual(out.loc['town','cost_minutes'],0.)
         self.assertEqual(out.loc['town','location_precision'],'settlement_point')
 
+    def test_physical_local_representative_refreshes_every_final_candidate_alias(self):
+        ep=endpoints()
+        p=pd.DataFrame([provider('a-np-summary','town',1,'settlement_point',False),
+                        provider('z-building','town',1)])
+        graph=csr_matrix(np.array([[0.,7.,0.],[20.,0.,0.],[0.,0.,0.]]))
+        out=t.nearest_service(ep,p,graph.T.tocsr(),'medical_basic_primary').set_index('origin_id')
+        for column in ['selected_provider_id','provider_site_id','provider_id','primary_candidate_id']:
+            self.assertEqual(out.loc['town',column],'z-building')
+            self.assertEqual(out.loc['village',column],'z-building')
+            self.assertTrue(pd.isna(out.loc['isolated',column]))
+        self.assertEqual(out.loc['town','primary_cost_minutes'],0.)
+        self.assertEqual(out.loc['village','primary_cost_minutes'],7.)
+
+    def test_final_aliases_do_not_relabel_the_pre_local_physical_search(self):
+        ep=endpoints()
+        p=pd.DataFrame([provider('a-physical-proxy','town',1,status='proxy'),
+                        provider('z-observed-presence','town',1,'settlement_point',False)])
+        graph=csr_matrix(np.array([[0.,7.,0.],[20.,0.,0.],[0.,0.,0.]]))
+        out=t.nearest_service(ep,p,graph.T.tocsr(),'medical_basic_primary').set_index('origin_id')
+        for column in ['selected_provider_id','provider_site_id','provider_id','primary_candidate_id']:
+            self.assertEqual(out.loc['town',column],'z-observed-presence')
+        self.assertEqual(out.loc['town','unconstrained_nearest_site_provider_id'],'a-physical-proxy')
+        self.assertEqual(out.loc['town','unconstrained_nearest_provider_id'],'a-physical-proxy')
+        self.assertEqual(out.loc['village','unconstrained_nearest_cost_minutes'],7.)
+        self.assertEqual(out.loc['village','provider_id'],'a-physical-proxy')
+        self.assertEqual(out.loc['village','cost_minutes'],7.)
+
     def test_grade_and_historical_evidence_survive_selected_provider_metadata(self):
         ep=endpoints();item=provider('physical','town',1)
         item['grades_known']=False;item['historical_supply_needs_current_confirmation']=True

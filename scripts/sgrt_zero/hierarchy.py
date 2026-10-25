@@ -29,6 +29,45 @@ def unique_json(values):
     return dumps(sorted(set(str(x) for x in values if pd.notna(x))))
 
 
+def functional_profile_type(keys):
+    """Describe known supplier identities, without inferring causal SGRT types."""
+    keys=set(keys)
+    if not keys:return 'no_supported_daily_link'
+    if not all(str(k).startswith('np:') for k in keys):return 'supplier_settlement_identity_partial_or_unknown'
+    return 'monocentric_service_profile' if len(keys)==1 else 'polycentric_service_profile'
+
+
+def inherit_provider_metadata(parents,children,crosswalk,current_provider_sets):
+    """Carry actual offers forward; keep the current operation separately.
+
+    This is descriptive metadata only. It must never feed candidate selection,
+    partition signatures, travel costs, or promotion decisions.
+    """
+    child_sets={}
+    for row in children.itertuples():
+        literal=getattr(row,'cumulative_provider_keys_json',getattr(row,'all_provider_keys_json',getattr(row,'provider_keys_json',getattr(row,'real_provider_keys_json','[]'))))
+        child_sets[row.unit_id]=set(json.loads(literal))
+    inherited={uid:set() for uid in parents.unit_id}
+    for row in crosswalk.itertuples():inherited[row.unit_id].update(child_sets[row.child_unit_id])
+    result=parents.copy()
+    result['inherited_provider_keys_json']=result.unit_id.map(lambda uid:dumps(sorted(inherited[uid])))
+    result['current_layer_provider_keys_json']=result.unit_id.map(lambda uid:dumps(sorted(current_provider_sets.get(uid,[]))))
+    combined={uid:inherited[uid]|set(current_provider_sets.get(uid,[])) for uid in result.unit_id}
+    result['real_provider_keys_json']=result.current_layer_provider_keys_json
+    result['cumulative_provider_keys_json']=result.unit_id.map(lambda uid:dumps(sorted(combined[uid])))
+    result['cumulative_known_provider_np_count']=result.unit_id.map(lambda uid:sum(k.startswith('np:') for k in combined[uid]))
+    result['current_layer_known_provider_np_count']=result.unit_id.map(lambda uid:sum(k.startswith('np:') for k in current_provider_sets.get(uid,[])))
+    result['known_provider_np_count']=result.current_layer_known_provider_np_count
+    result['functional_type_code']=result.unit_id.map(lambda uid:functional_profile_type(combined[uid]))
+    result['operation_code']=np.where(result.new_territorial_merger,'guarded_multichild_functional_candidate','retained_subsystem')
+    # Preserve the historical API; consumers needing a functional description
+    # must explicitly use functional_type_code rather than an operation label.
+    result['type_code']=result.operation_code
+    result['type_code_semantics']='legacy_current_layer_operation_use_functional_type_code_for_supplier_profile'
+    result['multiple_providers_do_not_prove_urban_polycentricity']=True
+    return result
+
+
 def stable_id(level,scenario,signature):
     return f'L{level}:'+hashlib.sha256((str(scenario)+'|'+signature).encode()).hexdigest()[:24]
 
@@ -86,7 +125,7 @@ def geodesic_diameter(frame):
     return coordinate_diameter(frame.lat,frame.lon)
 
 
-def demographic_summaries(members,reference):
+def demographic_summaries(members,reference,compute_geometry=True):
     cols=['source_record_id','lat','lon','population_role']+[f'{field}_{year}' for year in [2002,2010,2021] for field in ['population','credit']]
     ref=reference[reference.source_record_id.notna()][cols].copy()
     if not ref.source_record_id.is_unique:raise ValueError('Reference source_record_id must be unique')
@@ -108,7 +147,11 @@ def demographic_summaries(members,reference):
         start=g[f'population_{a}'].sum(min_count=1).reindex(out.index);end=g[f'population_{b}'].sum(min_count=1).reindex(out.index)
         direction=pd.Series('unknown',index=out.index)
         known=start.notna()&end.notna();direction.loc[known&end.gt(start)]='growth';direction.loc[known&end.lt(start)]='decline';direction.loc[known&end.eq(start)]='unchanged'
-        out[f'member_direction_{a}_{b}']=direction
+        out[f'comparable_cohort_population_{a}_{b}_start_sum']=start
+        out[f'comparable_cohort_population_{a}_{b}_end_sum']=end
+        out[f'comparable_cohort_direction_{a}_{b}']=direction
+        out[f'member_direction_{a}_{b}']=direction.where(out[f'complete_member_demography_{a}_{b}'],'unknown')
+    if not compute_geometry:return out.reset_index()
     good=rows.lat.notna()&rows.lon.notna();counts=good.groupby(rows.unit_id).sum()
     out['member_geodesic_diameter_km']=np.where(out.index.to_series().map(counts).gt(0),0.,np.nan)
     # Most service overlays contain one NP. Only multi-point groups need an
@@ -195,7 +238,7 @@ def build_level_zero(edges,reference,expected_families,core_families=None):
             uid,signature,*raw_values=values_row
             values=[str(v) for v in raw_values if pd.notna(v)];keys=sorted(set(values));n_np=sum(k.startswith('np:') for k in keys)
             known_core=sum(pd.notna(raw_values[families.index(c)]) for c in core)
-            typ='no_supported_daily_link' if not len(values) else 'monocentric_service_profile' if len(keys)==1 and n_np==1 else 'polycentric_service_profile' if n_np==len(keys) else 'supplier_settlement_identity_partial_or_unknown'
+            typ=functional_profile_type(keys)
             units.append({'unit_id':uid,'level':0,'functional_layer_index':0,'effective_merge_depth':0,'scenario_id':scenario,'profile_signature':signature,
                 'known_daily_families':len(values),'expected_daily_families':len(families),'all_declared_daily_families_have_candidate':len(values)==len(families),
                 'known_core_daily_families':known_core,'expected_core_daily_families':len(core),'all_core_daily_families_have_candidate':known_core==len(core),
@@ -209,6 +252,9 @@ def build_level_zero(edges,reference,expected_families,core_families=None):
     out=out.merge(demographic_summaries(members,reference),on='unit_id',validate='one_to_one')
     out['inhabited_multi_np_service_area']=out.positive_credited_member_records.ge(2)&out.known_daily_families.gt(0)
     out['demographic_type']=out.member_direction_2002_2021
+    out['functional_type_code']=out.type_code
+    out['operation_code']='initial_daily_profile_partition'
+    out['cumulative_provider_keys_json']=out.provider_keys_json
     return out,members,pd.concat(anchor_parts,ignore_index=True) if anchor_parts else pd.DataFrame(),frame
 
 
@@ -322,10 +368,7 @@ def promote_layer(child_units,memberships,candidates,level,previous_families=())
             for value in g.real_provider_keys_json.dropna():values.update(json.loads(value))
         else:values.update(str(v) for v in g.provider_key.dropna())
         provider_sets[uid]=sorted(values)
-    parent_units['real_provider_keys_json']=parent_units.unit_id.map(lambda uid:dumps(provider_sets.get(uid,[])))
-    parent_units['known_provider_np_count']=parent_units.unit_id.map(lambda uid:sum(str(v).startswith('np:') for v in provider_sets.get(uid,[])))
-    parent_units['multiple_providers_do_not_prove_urban_polycentricity']=True
-    parent_units['type_code']=np.where(parent_units.new_territorial_merger,'guarded_multichild_functional_candidate','retained_subsystem')
+    parent_units=inherit_provider_metadata(parent_units,child_units,crosswalk,provider_sets)
     parent_members=memberships.drop(columns=['profile_signature'],errors='ignore').rename(columns={'unit_id':'child_unit_id'}).merge(crosswalk[['child_unit_id','scenario_id','unit_id']],on=['child_unit_id','scenario_id'],validate='many_to_one')
     parent_members=parent_members.drop(columns='child_unit_id')
     stopping={'actual_new_mergers':int(parent_units.new_territorial_merger.sum()),'new_functions':families,

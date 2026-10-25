@@ -55,6 +55,46 @@ def safe_tags(value):
         return {}
 
 
+_LATIN_NAME_LOOKALIKES=str.maketrans({'a':'а','A':'А','c':'с','C':'С','e':'е','E':'Е',
+    'o':'о','O':'О','p':'р','P':'Р','x':'х','X':'Х','y':'у','Y':'У','k':'к','K':'К',
+    'm':'м','M':'М','t':'т','T':'Т','B':'В','H':'Н'})
+_CYRILLIC_CODE_LOOKALIKES=str.maketrans({'А':'A','В':'B','С':'C','Е':'E','Н':'H',
+    'К':'K','М':'M','О':'O','Р':'P','Т':'T','Х':'X','а':'a','с':'c','е':'e','о':'o',
+    'р':'p','х':'x','у':'y','к':'k','м':'m','т':'t','і':'i','І':'I','ѕ':'s','Ѕ':'S'})
+PROGRAMME_CODE_TAGS={'school','school:type','school:subject','education:type',
+    'education','training','kindergarten:type','building','building:use','building:part'}
+
+
+def semantic_education_text(value):
+    """Fold lookalikes only inside mixed Cyrillic words; never edit raw data.
+
+    This helper is exclusively for educational meaning. Address matching and
+    census identity deliberately continue to use the original source fields.
+    Pure Latin names, such as English International School, stay Latin.
+    """
+    raw='' if value is None or pd.isna(value) else str(value)
+    def fold(match):
+        token=match.group()
+        latin=re.findall('[A-Za-z]',token)
+        # An intentional mixed brand such as ProЛицей is not a transcription
+        # error. Fold only a token whose Latin letters are all visual aliases.
+        supported=all(ord(letter) in _LATIN_NAME_LOOKALIKES for letter in latin)
+        return token.translate(_LATIN_NAME_LOOKALIKES) if latin and supported and re.search('[А-Яа-яЁё]',token) else token
+    return re.sub('[A-Za-zА-Яа-яЁё]+',fold,raw)
+
+
+def semantic_programme_tags(value):
+    """Return a separate semantic view; addr:* and the source JSON stay raw."""
+    tags=safe_tags(value).copy()
+    for key in ['name','official_name','alt_name']:
+        if key in tags:tags[key]=semantic_education_text(tags[key])
+    for key in PROGRAMME_CODE_TAGS:
+        if key not in tags:continue
+        raw=str(tags[key]);ascii_code=raw.translate(_CYRILLIC_CODE_LOOKALIKES)
+        tags[key]=ascii_code if ascii_code.isascii() else semantic_education_text(raw)
+    return tags
+
+
 def lifecycle_reason(value):
     """Preserve legacy exclusions and additional explicit inactive feature tags."""
     tags = safe_tags(value)
@@ -81,8 +121,8 @@ def non_general_school_reason(group, name, value):
         group='school'
     if group != 'school':
         return ''
-    tags = safe_tags(value)
-    original = '' if name is None or pd.isna(name) else str(name)
+    tags = semantic_programme_tags(value)
+    original = semantic_education_text(name)
     text = re.sub(r'\s+',' ',original.lower().replace('ё','е')).strip()
     programme_text=text+' '+str(tags.get('official_name','')).lower().replace('ё','е')
     general_name=bool(re.search(r'общеобразовательн|общего\s+образован|гимнази|\bлицей\b|\b(?:сош|оош|нош)\b|(?:начальн|основн|средн)\w*\s+(?:общеобразовательн\w*\s+)?школ|школ\w*\s+с\s+углубленн\w*\s+изучени',programme_text))
@@ -152,9 +192,9 @@ def non_general_school_reason(group, name, value):
 
 def school_need_scope(group, name, value):
     """Preserve general curricula that are not universal daytime provision."""
-    raw_text='' if name is None or pd.isna(name) else str(name).lower().replace('ё','е')
+    raw_text=semantic_education_text(name).lower().replace('ё','е')
     if group=='preschool':
-        tags=safe_tags(value)
+        tags=semantic_programme_tags(value)
         kind_type=str(tags.get('kindergarten:type','')).lower()
         mixed=bool(re.search(r'комбинированн|инклюзивн',raw_text))
         restricted=bool(re.search(r'\b(?:фсин|уфсин)\b|закрытого\s+типа',raw_text))
@@ -163,14 +203,14 @@ def school_need_scope(group, name, value):
             return 'dedicated_preschool_contingent_not_universal'
         return 'not_general_school_source_group'
     if group in {'college','university'} and re.search(r'\bдпо\b|повышени\w*\s+квалификаци|переподготовк|дополнительн\w*\s+профессиональн\w*\s+образован|\bучебн\w*\s+центр|межшкольн\w*\s+учебн\w*\s+комбинат',raw_text):
-        levels=set(parse_literal_levels(safe_tags(value).get('isced:level')))
+        levels=set(parse_literal_levels(semantic_programme_tags(value).get('isced:level')))
         if not levels&({3,4,5} if group=='college' else {5,6,7,8}):
             return 'continuing_or_employer_training_degree_not_established'
     if group not in {'school','specialized_non_general_school'}:
         return 'not_general_school_source_group'
-    text='' if name is None or pd.isna(name) else str(name).lower().replace('ё','е')
+    text=semantic_education_text(name).lower().replace('ё','е')
     text=re.sub(r'\b[cс]\b','с',text)
-    tags=safe_tags(value)
+    tags=semantic_programme_tags(value)
     if re.search(r'закрытого\s+типа|\b(?:фсин|уфсин)\b|при\s+(?:исправительн|воспитательн)\w*\s+колони',text):
         return 'restricted_general_curriculum_not_universal_daytime_school'
     if re.search(r'кадетск\w*\s+(?:военн\w*\s+)?(?:корпус|училищ)|суворовск\w*\s+(?:военн\w*\s+)?училищ',text):
@@ -182,6 +222,10 @@ def school_need_scope(group, name, value):
     if re.search(r'\b(?:вечерн\w*|сменн\w*)\b|для\s+взросл|образовани\w*\s+взросл',text):
         return 'adult_or_evening_general_curriculum_not_default_child_daytime'
     special_tag=any(str(tags.get(k,'')).lower() in {'blind','special_education_needs','special_needs','special'} for k in ['school','school:type','education:type'])
+    # A numbered boarding school is ordinary evidence; an explicitly coded
+    # I--VIII "вид" or "спец.корр." is a declared special programme. Do not
+    # infer a diagnosis or transfer this rule to school numbers without "вид".
+    coded_special=bool(re.search(r'(?<![а-яa-z0-9])(?:viii|vii|vi|iv|iii|ii|i|v|[1-8])\s*[-‑–]?\s*(?:го|ого|й)?\s*вида|\bспец\.\s*корр\.',text))
     dedicated=re.search(r'коррекционн|специальн\w*\s+(?:общеобразовательн\w*\s+)?школ|специальн\w*\s+учебно[- ]воспитательн|\bовз\b|глухонем|слепоглух|умственно[\s-]+о?т?стал|для\s+(?:слабослыш|слабовид|глух|слеп)|ограниченн\w*\s+возможност\w*\s+здоров|коррекци\w*\s+(?:зрения|речи)|центр\w*\s+(?:психолого-педагогическ\w*\s+реабилитаци|развития\s+и\s+коррекции|коррекции\s+и\s+развития)|(?:детей|обучающихся)\s+с\s+(?:нарушени\w*\s+(?:зрения|слуха|интеллект)|задержк\w*\s+психическ)',text)
     if re.search(r'инклюзивн',text) and not special_tag:
         # Inclusive mainstream provision is not a dedicated special school
@@ -189,7 +233,7 @@ def school_need_scope(group, name, value):
         dedicated=False
     named_health_or_rehabilitation=re.search(r'санаторн(?:ая|ой|ое|ого|ые|ых|о[- ]лесн\w*)\s+(?:лесн\w*\s+)?(?:(?:общеобразовательн\w*|основн\w*|средн\w*)\s+)*школ|логопедическ|социально[- ]реабилитационн\w*\s+центр|для\s+детей\s+с\s+девиантн\w*\s+поведени|(?:пансионат|интернат)\w*\s+для\s+детей[- ]инвалидов|для\s+детей\s+с\s+особыми\s+образовательными\s+потребностями',text)
     dedicated=bool(dedicated or named_health_or_rehabilitation)
-    if special_tag or dedicated:
+    if special_tag or dedicated or coded_special:
         return 'dedicated_special_needs_general_curriculum_not_universal'
     return 'general_daytime_school_proxy_admission_not_verified'
 
@@ -199,8 +243,8 @@ def programme_mismatch_reason(group,name,value):
     if group in {'school','specialized_non_general_school'}:
         reason=non_general_school_reason(group,name,value)
         if reason:return reason
-    tags=safe_tags(value)
-    text='' if name is None or pd.isna(name) else str(name).lower().replace('ё','е')
+    tags=semantic_programme_tags(value)
+    text=semantic_education_text(name).lower().replace('ё','е')
     levels=set(parse_literal_levels(tags.get('isced:level')))
     expected={'preschool':{0},'college':{3,4,5},'university':{5,6,7,8}}
     if group in expected and levels and not levels&expected[group]:
@@ -232,6 +276,67 @@ def programme_mismatch_reason(group,name,value):
         professional=bool(re.search(r'\b(?:институт|университет|предуниверситарии)\b|\w*(?:техникум|политехникум|профучилище|медучилище|педучилище|музучилище)|(?:профессиональн\w*|проффесиональн\w*|медицинск\w*|командн\w*)\s+(?:техническ\w*\s+|речн\w*\s+)?училищ|^училище\s*№|высш\w*\s+школ',text))
         if professional and not (general or (school_label and not re.search(r'высш\w*\s+школ',text))):
             return 'explicit_professional_or_tertiary_site_general_curriculum_unresolved'
+    return ''
+
+
+def instructional_site_role(name,value):
+    """Separate an institution/curriculum from the role of this mapped unit.
+
+    A university campus or teaching building is a legitimate location proxy;
+    a separately mapped dormitory or boiler house cannot inherit its parent's
+    degree programme. Architectural form alone is weaker than explicit current
+    teaching use. Conflicting descriptions stay unresolved, not absent.
+    """
+    text=semantic_education_text(name).lower().replace('ё','е')
+    tags=semantic_programme_tags(value)
+    instructional=bool(re.search(r'учебн\w*(?:[- ](?:лабораторн|научн|административн|библиотечн)\w*)?\s+(?:корпус|здани)|учебно[- ](?:лабораторн|научн)\w*\s+комплекс',text))
+    current_use=str(tags.get('building:use','')).lower()
+    teaching_use=current_use in {'education','school','kindergarten','college','university','teaching'}
+    # An explicitly former dormitory reused as a teaching building is not a
+    # residential-only counterexample. Keep the original wording in the source.
+    former_residence=bool(re.search(r'бывш\w*\s+общежити',text))
+    named_residence=bool(re.search(r'общежити|\bdormitor|\bstudent\s+hostel',text))
+    auxiliary_match=re.search(r'\b(?:котельная|прачечная|столовая|гараж|спортзал|теплица|ректорат)\b|административн\w*\s+корпус|^библиотек',text)
+    ancillary=bool(auxiliary_match)
+    amenity=str(tags.get('amenity','')).lower()
+    ancillary|=amenity in {'library','restaurant','cafe','parking','garage','boiler_house'}
+    school_match=re.search(r'\b(?:школа|сош|оош|нош|гимназия|лицей)\b|детский\s+сад',text)
+    residence_match=re.search(r'общежити',text)
+    education_amenity=amenity in {'school','kindergarten','college','university'}
+    # "School, gym" or "School -- canteen and boarding facilities" names
+    # a combined educational site; "canteen of School No5" names a support
+    # unit. A comma before a dormitory alone is insufficient to transfer the
+    # parent school's programme to a residential sub-building.
+    if education_amenity and school_match and str(tags.get('building','')).lower()!='dormitory':
+        if auxiliary_match and school_match.start()<auxiliary_match.start() and re.search(r'[,—–-]|\b(?:с|и)\b',text[school_match.end():auxiliary_match.start()]):
+            return 'education_site_with_named_support_functions',True,'education_main_role_with_explicitly_combined_support_facilities'
+        if residence_match and school_match.start()<residence_match.start() and re.search(r'\b(?:с|и)\s+$',text[school_match.end():residence_match.start()]):
+            return 'education_site_with_residential_support',True,'school_complex_with_residential_support_not_a_separate_dormitory'
+    if named_residence and not (former_residence and instructional):
+        if instructional and teaching_use:
+            return 'mixed_residential_and_explicit_teaching_use',True,'literal_teaching_unit_and_current_building_use'
+        return ('mixed_residential_instructional_role_unresolved' if instructional else 'residential_only_unit_named'),False,'named_physical_unit_does_not_establish_teaching'
+    if ancillary and not instructional:
+        return 'ancillary_only_unit_named',False,'named_support_unit_cannot_inherit_parent_curriculum'
+    if str(tags.get('building','')).lower()=='dormitory':
+        if instructional or teaching_use:
+            return 'teaching_use_in_residential_building_form',True,'current_teaching_description_overrides_architectural_form'
+        return 'residential_building_form_teaching_unresolved',False,'building_role_conflicts_with_broad_education_amenity'
+    if instructional:
+        return 'explicit_instructional_unit',True,'literal_teaching_building_or_current_use'
+    return 'institution_or_campus_proxy_instruction_unverified',True,'broad_education_feature_not_verified_classroom_or_entrance'
+
+
+def source_operational_conflict(name,value):
+    """Hold contradictory operation evidence; do not claim actual closure."""
+    text=semantic_education_text(name).lower().replace('ё','е')
+    tags=semantic_programme_tags(value)
+    if re.search(r'не\s+работает|закрыт[аоы]?(?:\b|\s)|бывш\w*\s+школ|развалины',text):
+        return 'literal_name_reports_former_inactive_or_ruined_function'
+    if any(str(tags.get(k,'')).lower()=='yes' for k in ['abandoned:building','disused:building','demolished:building']):
+        return 'explicit_inactive_building_conflicts_with_current_offer'
+    if str(tags.get('building','')).lower() in {'construction','ruins'} or any(k.startswith(('construction:','proposed:')) and k.endswith('amenity') for k in tags):
+        return 'construction_ruins_or_proposed_role_current_operation_unresolved'
     return ''
 
 
@@ -371,9 +476,18 @@ def build_sites(objects, reference, legacy, city_context=None):
     frame['is_federal_city_context'] = frame.source_record_id.isin(FEDERAL_CITY_IDS.values())
     frame['population_role'] = frame.census_population_role.mask(frame.is_federal_city_context,'external_context_nonadditive')
     frame['education_group_original'] = frame.education_group
+    frame['education_semantic_name']=frame['name'].map(semantic_education_text)
+    frame['education_semantic_name_differs_from_raw']=frame.education_semantic_name.ne(frame['name'].fillna(''))
     frame['non_general_school_reason'] = [programme_mismatch_reason(a,b,c) for a,b,c in zip(frame.education_group,frame['name'],frame.tags_json)]
     frame['programme_mismatch_reason']=frame.non_general_school_reason
     frame['education_need_scope']=[school_need_scope(a,b,c) for a,b,c in zip(frame.education_group,frame['name'],frame.tags_json)]
+    roles=[instructional_site_role(n,t) for n,t in zip(frame['name'],frame.tags_json)]
+    frame['instructional_site_role']=[x[0] for x in roles]
+    frame['instructional_site_role_eligible']=[x[1] for x in roles]
+    frame['instructional_site_role_basis']=[x[2] for x in roles]
+    frame['source_operational_conflict']=[source_operational_conflict(n,t) for n,t in zip(frame['name'],frame.tags_json)]
+    frame['source_education_access_literal']=frame.tags_json.map(lambda v:safe_tags(v).get('access'))
+    frame['education_admission_conditions_verified']=False
     frame.loc[frame.education_group_original.eq('specialized_non_general_school') & frame.non_general_school_reason.eq(''),'education_group']='school'
     frame.loc[frame.non_general_school_reason.ne(''),'education_group'] = 'specialized_non_general_school'
     frame['service_code'] = frame.education_group.map(GROUPS)
@@ -392,10 +506,13 @@ def build_sites(objects, reference, legacy, city_context=None):
     frame['eligible'] = frame.service_code.notna() & frame.coordinate_valid & frame.possible_duplicate_of.isna() & frame.lifecycle_exclusion_reason.eq('') & ~frame.temporal_status.isin(['ended_before_snapshot','started_after_snapshot'])
     need_specific=frame.service_code.notna() & ~frame.education_need_scope.isin(['general_daytime_school_proxy_admission_not_verified','not_general_school_source_group'])
     frame.loc[need_specific,'eligible']=False
+    frame.loc[~frame.instructional_site_role_eligible|frame.source_operational_conflict.ne(''),'eligible']=False
     frame['supply_status'] = 'observed'
     frame.loc[need_specific,'supply_status']='held_need_specific_general_curriculum_not_default_daytime'
     frame.loc[need_specific & frame.education_need_scope.eq('continuing_or_employer_training_degree_not_established'),'supply_status']='held_training_degree_programme_not_established'
     frame.loc[frame.service_code.isna(), 'supply_status'] = 'excluded_specialized_non_general_education'
+    frame.loc[frame.service_code.notna()&~frame.instructional_site_role_eligible,'supply_status']='held_non_instructional_or_conflicting_physical_unit'
+    frame.loc[frame.service_code.notna()&frame.source_operational_conflict.ne(''),'supply_status']='held_source_operational_conflict_not_actual_closure_proof'
     frame.loc[~frame.coordinate_valid, 'supply_status'] = 'excluded_invalid_coordinate'
     frame.loc[frame.possible_duplicate_of.notna(), 'supply_status'] = 'excluded_source_duplicate'
     frame.loc[frame.lifecycle_exclusion_reason.ne(''), 'supply_status'] = 'excluded_lifecycle'
@@ -550,6 +667,11 @@ def run(current, historical, official, reference_path, legacy_path, output,city_
         current_objects=len(sites),current_eligible_sites=len(eligible),
         current_status_counts=sites.supply_status.value_counts().to_dict(),
         programme_mismatch_reasons=sites.loc[sites.programme_mismatch_reason.ne(''),'programme_mismatch_reason'].value_counts().to_dict(),
+        instructional_site_roles=sites.instructional_site_role.value_counts().to_dict(),
+        held_instructional_site_roles=sites.loc[~sites.instructional_site_role_eligible,'instructional_site_role'].value_counts().to_dict(),
+        source_operational_conflicts=sites.loc[sites.source_operational_conflict.ne(''),'source_operational_conflict'].value_counts().to_dict(),
+        mixed_script_semantic_name_rows=int(sites.education_semantic_name_differs_from_raw.sum()),
+        raw_name_and_source_tags_preserved=True,
         need_specific_or_unestablished_programme_scopes=sites.loc[~sites.education_need_scope.isin(['general_daytime_school_proxy_admission_not_verified','not_general_school_source_group']),'education_need_scope'].value_counts().to_dict(),
         broad_mapped_education_types_are_not_verified_curricula_or_admission=True,
         current_service_counts=eligible.service_code.value_counts().to_dict(),

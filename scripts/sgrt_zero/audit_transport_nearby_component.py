@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+"""Read-only public-route access diagnostic; no observed driveway or barrier-free connector claim."""
+from pathlib import Path
+import sys,json,numpy as np,pandas as pd
+from scipy.spatial import cKDTree
+sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'scripts/sgrt_mass'));from site_geometry import sphere_xyz,chord_km
+import argparse
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--bundle',type=Path,required=True);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--prepared-root',type=Path);parser.add_argument('--roads',type=Path);parser.add_argument('--graph-dir',type=Path);args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=True)
+
+w=args.output;roads=pd.read_parquet(args.roads,columns=['node_index','osm_id','lat','lon','weak_component']);sizes=roads.weak_component.value_counts();largest=sizes.index[0];r=roads[roads.weak_component==largest];tree=cKDTree(sphere_xyz(r.lat,r.lon));ep=pd.read_parquet(w/'endpoint_connectivity_inventory.parquet');small=ep[ep.road_endpoint_accepted&ep.audit_component_size.lt(1000)].copy();d,j=tree.query(sphere_xyz(small.lat,small.lon),workers=1);small['nearest_largest_component_snap_km']=chord_km(d);pick=r.iloc[j];small['alternative_road_node_index']=pick.node_index.to_numpy();small['alternative_road_lat']=pick.lat.to_numpy();small['alternative_road_lon']=pick.lon.to_numpy();small['extra_snap_km']=small.nearest_largest_component_snap_km-small.snap_km;small.to_parquet(w/'small_component_near_large_network_origins.parquet',index=False)
+summary={'largest_component_nodes':int(sizes.iloc[0]),'small_component_origins':len(small),'small_component_lt100_origins':int(small.audit_component_size.lt(100).sum()),'of_small_lt100_main_network_within100m':int((small.audit_component_size.lt(100)&small.nearest_largest_component_snap_km.le(.1)).sum()),'of_small_lt100_main_network_within500m':int((small.audit_component_size.lt(100)&small.nearest_largest_component_snap_km.le(.5)).sum()),'of_small_lt100_main_network_within2km':int((small.audit_component_size.lt(100)&small.nearest_largest_component_snap_km.le(2)).sum()),'within_original10km_origin_access_limit':int(small.nearest_largest_component_snap_km.le(10).sum()),'alternative_is_verified_driveway_or_barrier_free':False}
+(w/'nearby_connected_access_summary.json').write_text(json.dumps(summary,indent=2));print(summary)
+print(small[small.name.isin(['Гурзуф','Дубки','Шугурово','Коптяки'])][['name','region','audit_component_size','snap_km','nearest_largest_component_snap_km','extra_snap_km']].to_string(index=False))

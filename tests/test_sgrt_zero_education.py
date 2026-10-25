@@ -5,7 +5,7 @@ import unittest
 import pandas as pd
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from scripts.sgrt_zero.education import build_sites, np_offers, school_orders, parse_literal_levels, regional_coverage, FEDERAL_CITY_IDS, non_general_school_reason, school_need_scope
+from scripts.sgrt_zero.education import build_sites, np_offers, school_orders, parse_literal_levels, regional_coverage, FEDERAL_CITY_IDS, non_general_school_reason, school_need_scope, semantic_education_text, semantic_programme_tags, instructional_site_role
 
 
 def reference():
@@ -38,6 +38,67 @@ def official():
 
 
 class ZeroEducationTest(unittest.TestCase):
+    def test_mixed_script_semantics_preserves_raw_addresses_and_general_art_schools(self):
+        raw='Детская школа искусcтв №3'
+        d=build_sites(objects(name=raw,tags_json='{"amenity":"school","addr:city":"А"}'),reference(),legacy())
+        self.assertFalse(d.eligible.iloc[0])
+        self.assertEqual(d['name'].iloc[0],raw)
+        self.assertEqual(d.education_semantic_name.iloc[0],'Детская школа искусств №3')
+        self.assertEqual(d.source_record_id.iloc[0],'a')
+        self.assertEqual(d.source_address_locality.iloc[0],'А')
+        self.assertIn('"addr:city":"А"',d.tags_json.iloc[0])
+        for name in ['Общеобразовательная школа искусcтв','Гимназия искусств',
+                     'Средняя школа с углубленным изучением английского языка','English International School']:
+            self.assertTrue(build_sites(objects(name=name),reference(),legacy()).eligible.iloc[0])
+        self.assertEqual(semantic_education_text('English International School'),'English International School')
+        self.assertEqual(semantic_education_text('ProЛицей'),'ProЛицей')
+        view=semantic_programme_tags('{"school:type":"musіc","addr:city":"Cело"}')
+        self.assertEqual(view['school:type'],'music')
+        self.assertEqual(view['addr:city'],'Cело')
+
+    def test_residential_or_support_unit_does_not_inherit_institution_programme(self):
+        for family,name in [('university','Общежитие ВятГУ №2'),('college','Общежитие техникума'),
+                            ('school','Общежитие интернат'),('preschool','Общежитие'),
+                            ('university','Котельная университета'),('college','Столовая колледжа')]:
+            with self.subTest(family=family,name=name):
+                d=build_sites(objects(education_group=family,name=name),reference(),legacy())
+                self.assertFalse(d.eligible.iloc[0])
+                self.assertFalse(d.instructional_site_role_eligible.iloc[0])
+                self.assertEqual(d.education_group_original.iloc[0],family)
+        generic=build_sites(objects(education_group='college',name='ПТУ №55',
+            tags_json='{"amenity":"college","building":"dormitory"}'),reference(),legacy())
+        self.assertFalse(generic.eligible.iloc[0])
+        self.assertEqual(generic.instructional_site_role.iloc[0],'residential_building_form_teaching_unresolved')
+
+    def test_teaching_campus_boarding_school_and_current_reuse_remain_valid(self):
+        cases=[('school','Общеобразовательная школа-интернат №15','{"amenity":"school","building":"school"}'),
+               ('school','Индигская школа - столовая и Интернат','{"amenity":"school"}'),
+               ('school','Школа, спортзал','{"amenity":"school"}'),
+               ('school','Общеобразовательная школа-интернат с общежитием','{"amenity":"school"}'),
+               ('university','Учебно-научный кампус университета','{"amenity":"university"}'),
+               ('university','Учебный корпус №2','{"amenity":"university","building":"dormitory","building:use":"education"}'),
+               ('university','Учебный корпус (бывшее общежитие)','{"amenity":"university","building":"dormitory"}'),
+               ('college','Учебно-лабораторный корпус колледжа','{"amenity":"college"}')]
+        for family,name,tags in cases:
+            with self.subTest(family=family,name=name):
+                self.assertTrue(build_sites(objects(education_group=family,name=name,tags_json=tags),reference(),legacy()).eligible.iloc[0])
+        separate=build_sites(objects(name='Школа №5, общежитие',tags_json='{"amenity":"school"}'),reference(),legacy())
+        self.assertFalse(separate.eligible.iloc[0])
+
+    def test_source_operation_conflict_is_retained_without_proving_actual_closure(self):
+        for changes in [dict(name='Бывшая школа'),dict(name='Школа (закрыта)'),
+                        dict(tags_json='{"amenity":"school","abandoned:building":"yes"}'),
+                        dict(tags_json='{"amenity":"school","building":"construction"}')]:
+            d=build_sites(objects(**changes),reference(),legacy())
+            self.assertFalse(d.eligible.iloc[0])
+            self.assertEqual(d.service_code.iloc[0],'school_general')
+            self.assertTrue(bool(d.source_operational_conflict.iloc[0]))
+            self.assertEqual(d.supply_status.iloc[0],'held_source_operational_conflict_not_actual_closure_proof')
+        private=build_sites(objects(tags_json='{"amenity":"school","operator:type":"private","access":"private"}'),reference(),legacy())
+        self.assertTrue(private.eligible.iloc[0])
+        self.assertFalse(private.education_admission_conditions_verified.iloc[0])
+        self.assertEqual(private.source_education_access_literal.iloc[0],'private')
+
     def test_programme_scope_is_checked_across_all_education_families(self):
         held=[('university','Детская школа искусств'),('college','Детская школа искусств №6'),
               ('college','Детский сад №16'),('college','Копейская автошкола ДОСААФ'),
@@ -166,6 +227,17 @@ class ZeroEducationTest(unittest.TestCase):
         d=build_sites(objects(tags_json='{"amenity":"school","school":"blind"}'),reference(),legacy())
         self.assertEqual(d.service_code.iloc[0],'school_general')
         self.assertFalse(d.eligible.iloc[0])
+
+    def test_coded_special_school_type_is_not_an_ordinary_school_number(self):
+        for name in ['Школа Интернат II-вида','Школа-интернат VIII вида',
+                     'Школа-интернат спец.корр. 5-го вида','Школа VIII вида №1',
+                     'Школа-интернат №5 спец.корр. 8ого вида']:
+            d=build_sites(objects(name=name),reference(),legacy())
+            self.assertFalse(d.eligible.iloc[0])
+            self.assertEqual(d.service_code.iloc[0],'school_general')
+            self.assertEqual(d.education_need_scope.iloc[0],'dedicated_special_needs_general_curriculum_not_universal')
+        for name in ['Школа-интернат №8','Школа-интернат II ступени','Школа-интернат №2']:
+            self.assertTrue(build_sites(objects(name=name),reference(),legacy()).eligible.iloc[0])
 
     def test_explicit_general_isced_can_disambiguate_college_legal_name(self):
         self.assertFalse(non_general_school_reason('school','Балтика-колледж имени маршала Говорова',
