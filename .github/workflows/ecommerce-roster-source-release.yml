@@ -31,4 +31,5 @@ jobs:
       - name: Publish a new immutable source bundle
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create ecommerce-rosters-20261025-v1 --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "ОКТМО: три восстановленных официальных выпуска 2022–2024" --notes-file research/ecommerce_cloud/continuation/ROSTER_SOURCE_NOTES.md work/ecommerce_roster_source_release/official-rosters-20221228-20241227.zip work/ecommerce_roster_source_release/SHA256SUMS.txt
+        run: |
+          gh release create ecommerce-rosters-20261025-v1 --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "ОКТМО: три восстановленных официальных выпуска 2022–2024" --notes-file research/ecommerce_cloud/continuation/ROSTER_SOURCE_NOTES.md work/ecommerce_roster_source_release/official-rosters-20221228-20241227.zip work/ecommerce_roster_source_release/SHA256SUMS.txt
