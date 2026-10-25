@@ -1,0 +1,80 @@
+name: Publish reviewed e-commerce research continuation
+on:
+  push:
+    branches: [codex/ecommerce-settlement-cloud-20261025]
+    paths:
+      - '.github/workflows/ecommerce-publish.yml'
+      - 'research/ecommerce_cloud/continuation/RELEASE_NOTES.md'
+permissions:
+  contents: read
+jobs:
+  build-reviewed-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Install portable report environment
+        run: python -m pip install -r research/ecommerce_cloud/extension/requirements-report.txt 'pypdf>=5,<7'
+      - name: Restore and verify preserved bundle
+        run: |
+          python research/ecommerce_cloud/fetch_bundle.py
+          python research/ecommerce_cloud/check_bundle.py
+      - name: Restore two immutable main-repository census tables
+        run: python scripts/research_data.py fetch --profile core --match data/population/settlements_census_long.parquet --match data/population/settlements_census_wide.parquet
+      - name: Recalculate new population evidence and independent checks
+        run: |
+          python research/ecommerce_cloud/extension/outcomes/acquire_bdmo_population.py
+          python research/ecommerce_cloud/extension/outcomes/nonshop_population_contexts.py
+          python research/ecommerce_cloud/extension/outcomes/nonshop_source_coverage.py
+          python research/ecommerce_cloud/extension/outcomes/nonshop_remainder_sensitivity.py
+          python research/ecommerce_cloud/continuation/check_nonshop_population.py work/ecommerce_extension_outcomes/nonshop_population_contexts
+      - name: Recalculate full official roster and retail sensitivity
+        run: |
+          python research/ecommerce_cloud/continuation/restore_rosters_pinned.py
+          python research/ecommerce_cloud/continuation/inspect_roster_schema.py
+          python research/ecommerce_cloud/extension/outcomes/full_roster_analysis.py
+          python research/ecommerce_cloud/extension/outcomes/trade_roster_sensitivity.py
+          python research/ecommerce_cloud/continuation/render_nonshop.py
+          python research/ecommerce_cloud/continuation/build_nonshop_notebook.py
+      - name: Recalculate byte-pinned WB history and independent checks
+        run: |
+          python research/ecommerce_cloud/continuation/restore_atp_pinned.py
+          python research/ecommerce_cloud/continuation/analyze_atp_historical_footprints.py
+          python research/ecommerce_cloud/continuation/check_atp_historical.py work/ecommerce_atp_analysis work/ecommerce_atp_history
+          python research/ecommerce_cloud/continuation/audit_atp_ozon_history.py
+      - name: Reproduce bounded survey file evidence
+        run: python research/ecommerce_cloud/continuation/surveys_probe.py
+      - name: Render original figures and revised scientific manuscript
+        run: |
+          python research/ecommerce_cloud/extension/analyze_national_context.py
+          python research/ecommerce_cloud/extension/render_figures.py
+          python research/ecommerce_cloud/extension/build_pdf.py
+      - name: Record actual packages and package complete evidence
+        run: |
+          python -m pip freeze > work/ecommerce_continuation/environment.txt
+          python research/ecommerce_cloud/continuation/package_continuation.py
+      - name: Create new versioned release without replacing an older release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TASK_RELEASE_TAG: ecommerce-continuation-20261025-v2
+        run: |
+          if gh release view "$TASK_RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "The versioned release already exists; no asset was replaced."
+            exit 1
+          fi
+          gh release create "$TASK_RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "WB и Ozon — исследование России: продолжение 25.10.2026" --notes-file research/ecommerce_cloud/continuation/RELEASE_NOTES.md work/ecommerce_continuation_release/ecommerce-continuation-20261025-v2.zip work/ecommerce_continuation_release/manifest.json work/ecommerce_continuation_release/SHA256SUMS.txt work/ecommerce_cloud_extension/report/Marketplaces_and_Russian_Centres_20261025.pdf work/ecommerce_continuation/nonshop_population_executed.ipynb work/ecommerce_cloud_extension/figures/*.png work/ecommerce_cloud_extension/national/*.png work/ecommerce_continuation/figures/*.png
+      - name: Preserve build receipt even if publication fails
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: reviewed-research-release-receipt
+          path: work/ecommerce_continuation_release/
+          retention-days: 30
+          if-no-files-found: warn

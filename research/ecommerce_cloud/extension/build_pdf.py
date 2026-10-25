@@ -5,6 +5,7 @@ reading/export surface, not a separately authored analytical document.
 """
 from pathlib import Path
 from html import escape
+from urllib.parse import urlparse
 import re
 from markdown_it import MarkdownIt
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image, PageBreak
@@ -63,6 +64,22 @@ def inline(children):
         elif t.type in ('softbreak','hardbreak'):result.append(' ')
     return ''.join(result)
 
+
+def image_path(document,src):
+    release_prefix='https://github.com/ZakBu/russian-settlements-research/releases/download/ecommerce-continuation-20261025-v2/'
+    if src.startswith(release_prefix):
+        name=urlparse(src).path.rsplit('/',1)[-1]
+        candidates=[ROOT/'work/ecommerce_cloud_extension/figures'/name,
+                    ROOT/'work/ecommerce_cloud_extension/national'/name,
+                    ROOT/'work/ecommerce_continuation/figures'/name]
+        existing=[p for p in candidates if p.is_file()]
+        if len(existing)!=1:
+            raise FileNotFoundError('Expected exactly one locally regenerated release image: '+name)
+        return existing[0]
+    if src.startswith(('https://','http://')):
+        raise ValueError('Unrecognized external image; no network fetch during PDF rendering')
+    return (document.parent/src).resolve()
+
 def parse(path):
     tokens=MarkdownIt('default').parse(path.read_text())
     story=[];i=0;listdepth=0
@@ -78,7 +95,7 @@ def parse(path):
             tok=tokens[i+1]
             img=next((a for a in tok.children or [] if a.type=='image'),None)
             if img:
-                p=(path.parent/img.attrGet('src')).resolve()
+                p=image_path(path,img.attrGet('src'))
                 if not p.exists():raise FileNotFoundError(p)
                 with PILImage.open(p) as im:w,h=im.size
                 width=17*cm;height=width*h/w

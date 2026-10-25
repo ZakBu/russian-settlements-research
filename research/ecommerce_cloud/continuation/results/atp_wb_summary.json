@@ -1,0 +1,608 @@
+{
+  "scope": "historical_observed_ATP_WB_named_address_footprints",
+  "demographic_coexistence": {
+    "status": "descriptive_coexistence_joined",
+    "source_path": "work/ecommerce_extension_outcomes/nonshop_population_contexts/panels.csv",
+    "source_sha256": "d894380db57c7bc50e1dbe12ec3e7ce5d3b9accba648a6701abbb8d9f71e1d43",
+    "n": 564,
+    "groups": [
+      {
+        "observed_periphery_positive_count_increased": false,
+        "centres_n": 277,
+        "demographic_share_increased_n": 228,
+        "own_population_declined_n": 257,
+        "median_demographic_share_change_pp": 0.3104447071842173,
+        "median_own_population_change_pct": -1.7371601208459264,
+        "median_other_population_change_pct": -3.3121019108280247
+      },
+      {
+        "observed_periphery_positive_count_increased": true,
+        "centres_n": 287,
+        "demographic_share_increased_n": 207,
+        "own_population_declined_n": 243,
+        "median_demographic_share_change_pp": 0.1862840153374492,
+        "median_own_population_change_pct": -1.3813550756376136,
+        "median_other_population_change_pct": -2.235241673565558
+      }
+    ],
+    "warning": "Different observation windows, selected demographic panel and unverified territories; association/coexistence is not a platform effect."
+  },
+  "status": "computed_from_six_pinned_actual_raw_bodies",
+  "linker": {
+    "path": "work/sources/research/ecommerce_settlement_20261024/history_stage_20261024/link_history_symmetrically.py",
+    "sha256": "3c074b41889a9bdcfa3b2f0d0e0aa35cddf262b41c29e0297b4e5993abe5fd57",
+    "rule": "Unmodified prior norm/address_names/unit_vectors; unique exact name in first four comma-separated address components, type prefix and parentheses removed, coordinate radius1/5/10km.",
+    "independent_region_validator": false,
+    "settlement_boundaries_verified": false
+  },
+  "inputs": [
+    {
+      "path": "work/sources/research/ecommerce_settlement_20261024/national/national_target_source2021.parquet",
+      "sha256": "89fce76fe330dd33bd3b5f8496f3e46e7faffaf55d045193bd4070f8a2d017f2"
+    },
+    {
+      "path": "work/sources/research/ecommerce_settlement_20261024/history_stage_20261024/centres/settlement_admin_context_main2021.parquet",
+      "sha256": "a3a8f05ca233e190a77e7c42323a53120002eef95685a48987be27c4556c44d5"
+    },
+    {
+      "path": "work/sources/research/ecommerce_settlement_20261024/settlement_role_stage_20261024/system/centre_system_demography.csv",
+      "sha256": "c2fa7ab6874ebe32709a8737599e3a0c9d02305501a2a85104f76eaba29ae57e"
+    }
+  ],
+  "sources": [
+    {
+      "run_id": "2023-10-28-13-32-45",
+      "sha256": "0838baa3e8ee3b6caa161c9034f08c1dab9943eeb2664d126384fcda200dbbe0",
+      "features": 29250,
+      "ru": 26281,
+      "start": "2023-10-28T13:32:45Z",
+      "end": "2023-10-29T23:59:20Z",
+      "raw_path": "work/ecommerce_atp_history/2023-10-28-13-32-45_wildberries.geojson",
+      "points_csv_path": "work/ecommerce_atp_history/2023-10-28-13-32-45_points.csv",
+      "points_csv_sha256": "a365c2473f46707e852fe84946b7157052b81f96e65f9918c9dc1f0332a6dcaa",
+      "ru_rows_verified_against_raw": 26281,
+      "source_uri_counts": {
+        "": 29250
+      },
+      "nonempty_country_counts": {
+        "RU": 26281,
+        "BY": 967,
+        "UA": 826,
+        "KZ": 602,
+        "AM": 419,
+        "UZ": 98,
+        "KG": 50,
+        "CN": 4,
+        "MN": 2,
+        "GE": 1
+      }
+    },
+    {
+      "run_id": "2023-12-30-13-32-01",
+      "sha256": "16e903e7d3f52ae2fb764737d129a244429bc09561bd61719c6ded694b472b45",
+      "features": 34069,
+      "ru": 30425,
+      "start": "2023-12-30T13:32:01Z",
+      "end": "2023-12-31T22:13:11Z",
+      "raw_path": "work/ecommerce_atp_history/2023-12-30-13-32-01_wildberries.geojson",
+      "points_csv_path": "work/ecommerce_atp_history/2023-12-30-13-32-01_points.csv",
+      "points_csv_sha256": "dc9bedcc77766602e63679e81abba1720b831d7ca0fa9ed425f0167bd7e0db1d",
+      "ru_rows_verified_against_raw": 30425,
+      "source_uri_counts": {
+        "": 34069
+      },
+      "nonempty_country_counts": {
+        "RU": 30425,
+        "BY": 1159,
+        "UA": 950,
+        "KZ": 848,
+        "AM": 482,
+        "UZ": 108,
+        "KG": 82,
+        "CN": 4,
+        "AZ": 4,
+        "GE": 3,
+        "MN": 2,
+        "PL": 1,
+        "FI": 1
+      }
+    },
+    {
+      "run_id": "2024-03-30-13-32-35",
+      "sha256": "7563859c886ca878225524f1f4642248ed1390f26fc0dc9ce4540c3294388a8b",
+      "features": 38455,
+      "ru": 34192,
+      "start": "2024-03-30T13:32:35Z",
+      "end": "2024-03-31T23:10:37Z",
+      "raw_path": "work/ecommerce_atp_history/2024-03-30-13-32-35_wildberries.geojson",
+      "points_csv_path": "work/ecommerce_atp_history/2024-03-30-13-32-35_points.csv",
+      "points_csv_sha256": "4bd4de69290b87a56420238af78a653e47e047e18522202f4e5c6a142fb6976e",
+      "ru_rows_verified_against_raw": 34192,
+      "source_uri_counts": {
+        "": 38455
+      },
+      "nonempty_country_counts": {
+        "RU": 34192,
+        "BY": 1374,
+        "KZ": 1139,
+        "UA": 1048,
+        "AM": 479,
+        "KG": 114,
+        "UZ": 94,
+        "CN": 5,
+        "MN": 3,
+        "PL": 3,
+        "GE": 2,
+        "IR": 1,
+        "FI": 1
+      }
+    },
+    {
+      "run_id": "2024-06-29-13-32-11",
+      "sha256": "8d5e5ba3ea6c0c6666d02611e20e8611905d1a2997dd69c854b34df6c75a86f2",
+      "features": 42805,
+      "ru": 37867,
+      "start": "2024-06-29T13:32:11Z",
+      "end": "2024-07-01T01:16:09Z",
+      "raw_path": "work/ecommerce_atp_history/2024-06-29-13-32-11_wildberries.geojson",
+      "points_csv_path": "work/ecommerce_atp_history/2024-06-29-13-32-11_points.csv",
+      "points_csv_sha256": "2600ff39311e570605b2d192fd2994584a2f99b50bf68b17f34598fa0608bff6",
+      "ru_rows_verified_against_raw": 37867,
+      "source_uri_counts": {
+        "": 42805
+      },
+      "nonempty_country_counts": {
+        "RU": 37867,
+        "BY": 1564,
+        "KZ": 1443,
+        "UA": 1135,
+        "AM": 551,
+        "KG": 137,
+        "UZ": 91,
+        "CN": 8,
+        "MN": 3,
+        "PL": 3,
+        "GE": 1,
+        "FI": 1,
+        "LT": 1
+      }
+    },
+    {
+      "run_id": "2024-09-07-13-32-11",
+      "sha256": "b0bd9fdf68da6995d3947f8d0540bf43bd5e22be3fa52e806e4eeabbac485729",
+      "features": 47472,
+      "ru": 42104,
+      "start": "2024-09-07T13:32:11Z",
+      "end": "2024-09-09T05:18:02Z",
+      "raw_path": "work/ecommerce_atp_history/2024-09-07-13-32-11_wildberries.geojson",
+      "points_csv_path": "work/ecommerce_atp_history/2024-09-07-13-32-11_points.csv",
+      "points_csv_sha256": "35aed978c87fc23071d6d4562461bd03c28efd4eb19cdf90e39b690c7728ba3b",
+      "ru_rows_verified_against_raw": 42104,
+      "source_uri_counts": {
+        "https://www.wildberries.ru/webapi/spa/modules/pickups": 47472
+      },
+      "nonempty_country_counts": {
+        "RU": 42104,
+        "BY": 1745,
+        "KZ": 1576,
+        "UA": 1215,
+        "AM": 581,
+        "KG": 144,
+        "UZ": 88,
+        "CN": 8,
+        "MN": 3,
+        "PL": 3,
+        "GE": 2,
+        "LT": 2,
+        "FI": 1
+      }
+    },
+    {
+      "run_id": "2024-12-28-13-31-57",
+      "sha256": "106c7739077c78c50dbd5e6bf0413b8f27a71d7f6f054da7b50c09f314b1a25e",
+      "features": 61595,
+      "ru": 55726,
+      "start": "2024-12-28T13:31:57Z",
+      "end": "2024-12-30T09:00:31Z",
+      "raw_path": "work/ecommerce_atp_history/2024-12-28-13-31-57_wildberries.geojson",
+      "points_csv_path": "work/ecommerce_atp_history/2024-12-28-13-31-57_points.csv",
+      "points_csv_sha256": "080966f8a5e5efa4e0dfc57868aa7e2b4e3fafa5f400323c62e873f06d89bea4",
+      "ru_rows_verified_against_raw": 55726,
+      "source_uri_counts": {
+        "https://static-basket-01.wbbasket.ru/vol0/data/all-poo-fr-v9.json": 61595
+      },
+      "nonempty_country_counts": {
+        "RU": 55726,
+        "BY": 1964,
+        "KZ": 1630,
+        "UA": 1363,
+        "AM": 626,
+        "KG": 165,
+        "UZ": 87,
+        "CN": 16,
+        "MN": 5,
+        "AZ": 4,
+        "PL": 4,
+        "LT": 3,
+        "GE": 1,
+        "FI": 1
+      }
+    }
+  ],
+  "same_api_spider_pin": "45d26f4042ee0128facc8d4cf1636eec007bd7b7",
+  "december_api_change_pin": "e84f9cccfa02e73afbbbc2d5695211e55b693bcb",
+  "main_2020_context_5km": [
+    {
+      "run_id": "2023-10-28-13-32-45",
+      "country_scope": "all_countries",
+      "api_group": "same_pickups_api_oct2023_sep2024",
+      "radius_km": 5,
+      "context_vintage": "20200110",
+      "target_medium_centres": 1273,
+      "centre_positive_record_n": 1155,
+      "contexts_positive_periphery_n": 380,
+      "positive_other_inhabited_members_sum": 842,
+      "median_positive_other_inhabited_members": 0,
+      "category_counts": "{\"positive_centre_no_positive_periphery_record\": 726, \"positive_centre_and_positive_periphery\": 362, \"no_positive_records_not_proven_absence\": 95, \"no_accepted_inhabited_periphery_observed\": 72, \"positive_periphery_no_positive_centre_record\": 18}"
+    },
+    {
+      "run_id": "2023-12-30-13-32-01",
+      "country_scope": "all_countries",
+      "api_group": "same_pickups_api_oct2023_sep2024",
+      "radius_km": 5,
+      "context_vintage": "20200110",
+      "target_medium_centres": 1273,
+      "centre_positive_record_n": 1165,
+      "contexts_positive_periphery_n": 402,
+      "positive_other_inhabited_members_sum": 891,
+      "median_positive_other_inhabited_members": 0,
+      "category_counts": "{\"positive_centre_no_positive_periphery_record\": 712, \"positive_centre_and_positive_periphery\": 385, \"no_positive_records_not_proven_absence\": 87, \"no_accepted_inhabited_periphery_observed\": 72, \"positive_periphery_no_positive_centre_record\": 17}"
+    },
+    {
+      "run_id": "2024-03-30-13-32-35",
+      "country_scope": "all_countries",
+      "api_group": "same_pickups_api_oct2023_sep2024",
+      "radius_km": 5,
+      "context_vintage": "20200110",
+      "target_medium_centres": 1273,
+      "centre_positive_record_n": 1213,
+      "contexts_positive_periphery_n": 598,
+      "positive_other_inhabited_members_sum": 1830,
+      "median_positive_other_inhabited_members": 0,
+      "category_counts": "{\"positive_centre_and_positive_periphery\": 583, \"positive_centre_no_positive_periphery_record\": 562, \"no_accepted_inhabited_periphery_observed\": 72, \"no_positive_records_not_proven_absence\": 41, \"positive_periphery_no_positive_centre_record\": 15}"
+    },
+    {
+      "run_id": "2024-06-29-13-32-11",
+      "country_scope": "all_countries",
+      "api_group": "same_pickups_api_oct2023_sep2024",
+      "radius_km": 5,
+      "context_vintage": "20200110",
+      "target_medium_centres": 1273,
+      "centre_positive_record_n": 1222,
+      "contexts_positive_periphery_n": 652,
+      "positive_other_inhabited_members_sum": 2139,
+      "median_positive_other_inhabited_members": 1,
+      "category_counts": "{\"positive_centre_and_positive_periphery\": 637, \"positive_centre_no_positive_periphery_record\": 517, \"no_accepted_inhabited_periphery_observed\": 72, \"no_positive_records_not_proven_absence\": 32, \"positive_periphery_no_positive_centre_record\": 15}"
+    },
+    {
+      "run_id": "2024-09-07-13-32-11",
+      "country_scope": "all_countries",
+      "api_group": "same_pickups_api_oct2023_sep2024",
+      "radius_km": 5,
+      "context_vintage": "20200110",
+      "target_medium_centres": 1273,
+      "centre_positive_record_n": 1223,
+      "contexts_positive_periphery_n": 692,
+      "positive_other_inhabited_members_sum": 2385,
+      "median_positive_other_inhabited_members": 1,
+      "category_counts": "{\"positive_centre_and_positive_periphery\": 675, \"positive_centre_no_positive_periphery_record\": 480, \"no_accepted_inhabited_periphery_observed\": 72, \"no_positive_records_not_proven_absence\": 29, \"positive_periphery_no_positive_centre_record\": 17}"
+    },
+    {
+      "run_id": "2024-12-28-13-31-57",
+      "country_scope": "all_countries",
+      "api_group": "new_api_break_dec2024",
+      "radius_km": 5,
+      "context_vintage": "20200110",
+      "target_medium_centres": 1273,
+      "centre_positive_record_n": 1229,
+      "contexts_positive_periphery_n": 948,
+      "positive_other_inhabited_members_sum": 4764,
+      "median_positive_other_inhabited_members": 2,
+      "category_counts": "{\"positive_centre_and_positive_periphery\": 923, \"positive_centre_no_positive_periphery_record\": 236, \"no_accepted_inhabited_periphery_observed\": 72, \"positive_periphery_no_positive_centre_record\": 25, \"no_positive_records_not_proven_absence\": 17}"
+    }
+  ],
+  "national_5km": [
+    {
+      "run_id": "2023-10-28-13-32-45",
+      "country_scope": "all_countries",
+      "api_group": "same_pickups_api_oct2023_sep2024",
+      "radius_km": 5,
+      "context_vintage": "20200110",
+      "positive_nodes": 3781,
+      "positive_centre_nodes": 1695,
+      "positive_other_known_nodes": 1646,
+      "positive_unknown_context_nodes": 440
+    },
+    {
+      "run_id": "2023-12-30-13-32-01",
+      "country_scope": "all_countries",
+      "api_group": "same_pickups_api_oct2023_sep2024",
+      "radius_km": 5,
+      "context_vintage": "20200110",
+      "positive_nodes": 3899,
+      "positive_centre_nodes": 1702,
+      "positive_other_known_nodes": 1742,
+      "positive_unknown_context_nodes": 455
+    },
+    {
+      "run_id": "2024-03-30-13-32-35",
+      "country_scope": "all_countries",
+      "api_group": "same_pickups_api_oct2023_sep2024",
+      "radius_km": 5,
+      "context_vintage": "20200110",
+      "positive_nodes": 5691,
+      "positive_centre_nodes": 1820,
+      "positive_other_known_nodes": 3224,
+      "positive_unknown_context_nodes": 647
+    },
+    {
+      "run_id": "2024-06-29-13-32-11",
+      "country_scope": "all_countries",
+      "api_group": "same_pickups_api_oct2023_sep2024",
+      "radius_km": 5,
+      "context_vintage": "20200110",
+      "positive_nodes": 6299,
+      "positive_centre_nodes": 1836,
+      "positive_other_known_nodes": 3735,
+      "positive_unknown_context_nodes": 728
+    },
+    {
+      "run_id": "2024-09-07-13-32-11",
+      "country_scope": "all_countries",
+      "api_group": "same_pickups_api_oct2023_sep2024",
+      "radius_km": 5,
+      "context_vintage": "20200110",
+      "positive_nodes": 6744,
+      "positive_centre_nodes": 1840,
+      "positive_other_known_nodes": 4123,
+      "positive_unknown_context_nodes": 781
+    },
+    {
+      "run_id": "2024-12-28-13-31-57",
+      "country_scope": "all_countries",
+      "api_group": "new_api_break_dec2024",
+      "radius_km": 5,
+      "context_vintage": "20200110",
+      "positive_nodes": 10669,
+      "positive_centre_nodes": 1855,
+      "positive_other_known_nodes": 7664,
+      "positive_unknown_context_nodes": 1150
+    }
+  ],
+  "set_differences": [
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-09-07-13-32-11",
+      "country_scope": "all_countries",
+      "radius_km": 1,
+      "api_comparability": "same_spider_source_and_filters",
+      "first_positive_nodes": 3274,
+      "last_positive_nodes": 6124,
+      "positive_both_nodes": 3242,
+      "first_only_record_nodes": 32,
+      "last_only_record_nodes": 2882,
+      "warning": "Record differences are not opening/closure dates or true network changes."
+    },
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-12-28-13-31-57",
+      "country_scope": "all_countries",
+      "radius_km": 1,
+      "api_comparability": "source_api_break_do_not_read_as_growth",
+      "first_positive_nodes": 3274,
+      "last_positive_nodes": 10048,
+      "positive_both_nodes": 3257,
+      "first_only_record_nodes": 17,
+      "last_only_record_nodes": 6791,
+      "warning": "Record differences are not opening/closure dates or true network changes."
+    },
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-09-07-13-32-11",
+      "country_scope": "all_countries",
+      "radius_km": 5,
+      "api_comparability": "same_spider_source_and_filters",
+      "first_positive_nodes": 3781,
+      "last_positive_nodes": 6744,
+      "positive_both_nodes": 3753,
+      "first_only_record_nodes": 28,
+      "last_only_record_nodes": 2991,
+      "warning": "Record differences are not opening/closure dates or true network changes."
+    },
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-12-28-13-31-57",
+      "country_scope": "all_countries",
+      "radius_km": 5,
+      "api_comparability": "source_api_break_do_not_read_as_growth",
+      "first_positive_nodes": 3781,
+      "last_positive_nodes": 10669,
+      "positive_both_nodes": 3762,
+      "first_only_record_nodes": 19,
+      "last_only_record_nodes": 6907,
+      "warning": "Record differences are not opening/closure dates or true network changes."
+    },
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-09-07-13-32-11",
+      "country_scope": "all_countries",
+      "radius_km": 10,
+      "api_comparability": "same_spider_source_and_filters",
+      "first_positive_nodes": 3750,
+      "last_positive_nodes": 6704,
+      "positive_both_nodes": 3722,
+      "first_only_record_nodes": 28,
+      "last_only_record_nodes": 2982,
+      "warning": "Record differences are not opening/closure dates or true network changes."
+    },
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-12-28-13-31-57",
+      "country_scope": "all_countries",
+      "radius_km": 10,
+      "api_comparability": "source_api_break_do_not_read_as_growth",
+      "first_positive_nodes": 3750,
+      "last_positive_nodes": 10623,
+      "positive_both_nodes": 3731,
+      "first_only_record_nodes": 19,
+      "last_only_record_nodes": 6892,
+      "warning": "Record differences are not opening/closure dates or true network changes."
+    },
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-09-07-13-32-11",
+      "country_scope": "RU_only",
+      "radius_km": 1,
+      "api_comparability": "same_spider_source_and_filters",
+      "first_positive_nodes": 3270,
+      "last_positive_nodes": 6111,
+      "positive_both_nodes": 3239,
+      "first_only_record_nodes": 31,
+      "last_only_record_nodes": 2872,
+      "warning": "Record differences are not opening/closure dates or true network changes."
+    },
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-12-28-13-31-57",
+      "country_scope": "RU_only",
+      "radius_km": 1,
+      "api_comparability": "source_api_break_do_not_read_as_growth",
+      "first_positive_nodes": 3270,
+      "last_positive_nodes": 10020,
+      "positive_both_nodes": 3254,
+      "first_only_record_nodes": 16,
+      "last_only_record_nodes": 6766,
+      "warning": "Record differences are not opening/closure dates or true network changes."
+    },
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-09-07-13-32-11",
+      "country_scope": "RU_only",
+      "radius_km": 5,
+      "api_comparability": "same_spider_source_and_filters",
+      "first_positive_nodes": 3776,
+      "last_positive_nodes": 6730,
+      "positive_both_nodes": 3749,
+      "first_only_record_nodes": 27,
+      "last_only_record_nodes": 2981,
+      "warning": "Record differences are not opening/closure dates or true network changes."
+    },
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-12-28-13-31-57",
+      "country_scope": "RU_only",
+      "radius_km": 5,
+      "api_comparability": "source_api_break_do_not_read_as_growth",
+      "first_positive_nodes": 3776,
+      "last_positive_nodes": 10638,
+      "positive_both_nodes": 3758,
+      "first_only_record_nodes": 18,
+      "last_only_record_nodes": 6880,
+      "warning": "Record differences are not opening/closure dates or true network changes."
+    },
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-09-07-13-32-11",
+      "country_scope": "RU_only",
+      "radius_km": 10,
+      "api_comparability": "same_spider_source_and_filters",
+      "first_positive_nodes": 3745,
+      "last_positive_nodes": 6690,
+      "positive_both_nodes": 3718,
+      "first_only_record_nodes": 27,
+      "last_only_record_nodes": 2972,
+      "warning": "Record differences are not opening/closure dates or true network changes."
+    },
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-12-28-13-31-57",
+      "country_scope": "RU_only",
+      "radius_km": 10,
+      "api_comparability": "source_api_break_do_not_read_as_growth",
+      "first_positive_nodes": 3745,
+      "last_positive_nodes": 10592,
+      "positive_both_nodes": 3727,
+      "first_only_record_nodes": 18,
+      "last_only_record_nodes": 6865,
+      "warning": "Record differences are not opening/closure dates or true network changes."
+    }
+  ],
+  "identity_continuity": [
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-09-07-13-32-11",
+      "common_ru_reported_refs": 24869,
+      "common_refs_coordinates_within100m": 24754,
+      "common_refs_coordinates_over1km": 0,
+      "api_break": false,
+      "warning": "Stable coordinates support identity continuity; do not establish equal object taxonomy or completeness."
+    },
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-12-28-13-31-57",
+      "common_ru_reported_refs": 24538,
+      "common_refs_coordinates_within100m": 24409,
+      "common_refs_coordinates_over1km": 1,
+      "api_break": true,
+      "warning": "Stable coordinates support identity continuity; do not establish equal object taxonomy or completeness."
+    }
+  ],
+  "paired_main_2020_5km": [
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-09-07-13-32-11",
+      "country_scope": "all_countries",
+      "radius_km": 5,
+      "context_vintage": "20200110",
+      "api_break": false,
+      "all_medium_centres_n": 1273,
+      "accepted_inhabited_periphery_contexts_n": 1201,
+      "centres_positive_in_both_n": 1152,
+      "periphery_positive_count_increased_all_n": 600,
+      "periphery_positive_count_decreased_all_n": 3,
+      "positive_both_centres_with_periphery_increase_n": 563,
+      "positive_both_centres_with_periphery_decrease_n": 1,
+      "warning": "Historical positive-both cohort is descriptive selection, not a causal estimand; no2026 conditioning."
+    },
+    {
+      "first_run": "2023-10-28-13-32-45",
+      "last_run": "2024-12-28-13-31-57",
+      "country_scope": "all_countries",
+      "radius_km": 5,
+      "context_vintage": "20200110",
+      "api_break": true,
+      "all_medium_centres_n": 1273,
+      "accepted_inhabited_periphery_contexts_n": 1201,
+      "centres_positive_in_both_n": 1153,
+      "periphery_positive_count_increased_all_n": 905,
+      "periphery_positive_count_decreased_all_n": 3,
+      "positive_both_centres_with_periphery_increase_n": 837,
+      "positive_both_centres_with_periphery_decrease_n": 1,
+      "warning": "Historical positive-both cohort is descriptive selection, not a causal estimand; no2026 conditioning."
+    }
+  ],
+  "limits": [
+    "ATP addr:country may be reverse-geocoded, not provider-reported country.",
+    "Main geography uses all-country records on the fixed accepted national axis; RU-only is a separate sensitivity.",
+    "The producer excludes external postamats and dtype6; raw operator/type/fitting fields are absent from ATP output.",
+    "Same spider code and source API do not prove an unchanged backend catalogue universe or reverse-geocoder.",
+    "Run metadata windows cover all spiders; individual Wildberries collection timestamps are not established.",
+    "September observation is the successful September7 run, not September28 or quarter end.",
+    "December2024 uses a different source API; analyse separately.",
+    "Name-coordinate matching is not proof of settlement boundary membership or actual trips.",
+    "Fixed2021 names/coordinates and administrative2020/2021 contexts may miss historical or changed links.",
+    "Counts measure observed pickup infrastructure, not the functions or weakening of centres.",
+    "No openings, closures, true absence, population effects or causal platform effects are inferred.",
+    "No 2026 observations enter the selection, identity comparison or denominator."
+  ]
+}

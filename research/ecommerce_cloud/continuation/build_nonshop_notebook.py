@@ -24,7 +24,7 @@ intro = """# Демографическая концентрация средн�
 
 **Что измеряется.** Собственное население центра и его доля в административном
 контексте. Связь центра и муниципалитетов датирована 10 января 2020 года.
-Границы и составы 2023–2025 годов не подтверждены, поездки не наблюдались.
+Три официальные публикации составов проверены отдельно; действовавшие на1января состояния и постоянство координатных границ целиком не подтверждены. Поездки не наблюдались.
 Результат нельзя интерпретировать как причинный эффект WB или Ozon.
 
 Рисунки ниже создаются из panels.csv, фиксированной национальной оси 2021 года
@@ -53,7 +53,10 @@ notebook.cells = [
         "ROOT=Path.cwd()\n"
         "for script, args in [\n"
         " ('research/ecommerce_cloud/extension/outcomes/nonshop_population_contexts.py', []),\n"
-        " ('research/ecommerce_cloud/continuation/check_nonshop_population.py', ['work/ecommerce_extension_outcomes/nonshop_population_contexts'])\n"
+        " ('research/ecommerce_cloud/continuation/check_nonshop_population.py', ['work/ecommerce_extension_outcomes/nonshop_population_contexts']),\n"
+        " ('research/ecommerce_cloud/continuation/restore_rosters_pinned.py', []),\n"
+        " ('research/ecommerce_cloud/extension/outcomes/full_roster_analysis.py', []),\n"
+        " ('research/ecommerce_cloud/extension/outcomes/trade_roster_sensitivity.py', [])\n"
         "]:\n"
         " result=subprocess.run([sys.executable, str(ROOT/script), *args], cwd=ROOT, capture_output=True, text=True, check=True)\n"
         " print(script, 'completed successfully; complete outputs preserved under work/')\n"
@@ -72,6 +75,15 @@ notebook.cells = [
         "}]))\n"
         "display(pd.DataFrame(figure_summary['inputs']))"),
     nbformat.v4.new_markdown_cell(
+        "## Проверка составов\n\nСравниваются коды и названия НП в полных официальных публикациях. "
+        "Совпадение перечня не доказывает постоянство геометрических границ."),
+    nbformat.v4.new_code_cell(
+        "import json\n"
+        "receipt=json.loads((ROOT/'work/ecommerce_extension_outcomes/nonshop_population_contexts/roster_analysis/summary.json').read_text())\n"
+        "table=pd.DataFrame(receipt['nonshop_demography_sensitivity'])\n"
+        "display(table[(table['view']=='publication') & (table['restriction'].isin(['baseline_conditional','same_code_name_sets_vs2020_2021']))])\n"
+    ),
+    nbformat.v4.new_markdown_cell(
         "## География наблюдений\n\nТочки показывают местоположение центров. Серый цвет "
         "обозначает отсутствие сопоставленного исхода; считать его нулевым изменением нельзя. "
         "Полигонов административных территорий или ареалов поездок на карте нет."),
@@ -89,7 +101,7 @@ notebook.cells = [
         "## Граница вывода\n\nПолучена описательная картина условной демографической "
         "концентрации. Она сама по себе не устанавливает изменение функций обслуживания, "
         "фактических поездок, причинное влияние платформ или репрезентативный результат "
-        "для всех средних центров. Состав территорий и селекция доступных исходов остаются "
+        "для всех средних центров. Неустановленное постоянство границ и селекция доступных исходов остаются "
         "ограничениями. На карте и диаграмме сохранены эти оговорки."),
 ]
 destination = OUTPUT / "nonshop_population_executed.ipynb"

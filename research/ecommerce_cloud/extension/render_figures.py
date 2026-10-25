@@ -41,7 +41,7 @@ ax.axvline(0,color=grey,lw=1);ax.grid(axis='x',alpha=.2)
 ax.set_xlabel('Изменение населения на 1 января 2023–2025 годов, %')
 ax.set_title('В выбранной панели окружение обычно сокращается быстрее центра',loc='left',fontsize=12)
 fig.subplots_adjust(left=.25,right=.96,bottom=.26,top=.86)
-fig.text(.03,.035,'170 средних центров, 34 региона. Ящик: межквартильный интервал, линия: медиана; крайние точки не показаны.\nБДПМО Y48112027. Условные муниципальные территории; составы 2023/2024 не подтверждены. Не эффект платформ.',fontsize=8.5)
+fig.text(.03,.035,'170 средних центров, 34 региона. Ящик: межквартильный интервал, линия: медиана; крайние точки не показаны.\nБДПМО Y48112027. Условные муниципальные территории; границы территорий не подтверждены. Не эффект платформ.',fontsize=8.5)
 fig.savefig(OUT/'recent_population.png',dpi=170);plt.close(fig)
 
 sens=pd.read_csv(HERE/'outcomes/area_sensitivity.csv')
@@ -96,7 +96,7 @@ for mask,color,label,size in [(p.either_positive&~p.type_2021.isin(['город'
                              (p.either_positive&p.type_2021.isin(['город','пгт']),orange,'Города / ПГТ с положительной записью',5)]:
     h=p[mask];ax.scatter(*project(h.accepted_latitude_2021,h.accepted_longitude_2021),s=size,c=color,alpha=.8,label=f'{label}: {len(h):,}'.replace(',',' '))
 ax.set_aspect('equal');ax.axis('off')
-ax.set_title('Инфраструктура получения представлена в сельском промежуточном звене',loc='left',fontsize=14)
+ax.set_title('Положительные записи получения представлены и в сельских НП',loc='left',fontsize=14)
 ax.legend(loc='upper left',bbox_to_anchor=(0,-.01),frameon=False,fontsize=9,markerscale=2)
 fig.subplots_adjust(bottom=.20)
 fig.text(.06,.015,'123 137 населённых НП с координатами; основа 2021, 81 регион, федеральные города отдельно.\nWB 21.10.2026 и сторонний Ozon 06.08.2026; серый — без принятого положительного свидетельства, не доказанное отсутствие.\nЧетыре положительных НП с нулевым населением 2021 не показаны. Точки не измеряют поездки или эффект; границы не показаны.',fontsize=8.7)
