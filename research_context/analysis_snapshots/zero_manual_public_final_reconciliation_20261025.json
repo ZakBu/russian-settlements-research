@@ -1,0 +1,57 @@
+{
+  "tables_checked": 66,
+  "partition_pairs": 15,
+  "route_tables": 23,
+  "source_tables": 13,
+  "all_15_memberships_equal_exactly": true,
+  "all_common_23_route_provider_selections_driving_minutes_and_clinical_flags_equal_exactly": true,
+  "distance_roundoff": {
+    "maximum_absolute_difference_km": 2.2737367544323206e-13,
+    "policy": {
+      "rtol": 1e-12,
+      "atol": 1e-12,
+      "applied_only_to_floating_columns_that_failed_exact_comparison": true,
+      "identifiers_memberships_sources_strings_booleans_integers_remain_exact": true
+    },
+    "tables_with_recorded_roundoff_or_schema_extension": 39,
+    "observed_differing_distance_columns": [
+      "linked_distance_km",
+      "member_geodesic_diameter_km",
+      "nearest_reference_distance_km",
+      "point_separation_km"
+    ],
+    "details": "public_vs_manual_distance_roundoff.json plus public_vs_manual_schema_extensions.json"
+  },
+  "schema_extensions": {
+    "tables": 8,
+    "public_only_fields": [
+      "provider_education_need_scope",
+      "provider_programme_mismatch_reason"
+    ],
+    "all_public_extra_values_missing": true,
+    "manual_only_fields": [],
+    "explanation": "Eight older manual medical routes lack two entirely missing educational metadata fields newly forwarded in the public schema. Common clinical fields are compared explicitly; no extra clinical suitability is claimed."
+  },
+  "sources": {
+    "clinical_records_aligned_by": "stable F034 source_record_row; evidence ordinals verified against UIDSPMO+IDADDRESS before mapping",
+    "clinical_rows_compared": 897573,
+    "clinical_evidence_rows_each": 624831,
+    "no_unexplained_source_difference": true,
+    "all_source_cells_identical": false,
+    "explicit_difference_details": "public_vs_manual_source_reconciliation.json",
+    "education_metadata_difference_explanation": {
+      "census_population_role": "Older manual census label differs from the full rebuild label; actual population_role and is_federal_city_context are checked exact and nonadditive in both. Counts and record keys are retained above.",
+      "education_nearest_reference": "diagnostic nearest reference, nearest_reference_is_identity=False; not accepted NP ownership or actual school coordinates",
+      "education_summary_coordinates": "three city contexts × four service families, no external seeds; public canonical reference coordinates replace stale/missing summary values"
+    }
+  },
+  "all_14_png_images_byte_identical": true,
+  "result_readme_byte_identical": true,
+  "initial_reports_preserved": [
+    "public_vs_manual_all_scientific_tables.json",
+    "public_vs_manual_distance_roundoff.json"
+  ],
+  "source_reconciliation_report": "public_vs_manual_source_reconciliation.json",
+  "schema_reconciliation_report": "public_vs_manual_schema_extensions.json",
+  "failures": []
+}
