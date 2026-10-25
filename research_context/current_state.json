@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-25T01:08:35+03:00",
+  "updated_moscow": "2026-10-25T04:57:55+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,32 +9,19 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "level_zero_and_bounded_upward_calculation_in_progress",
-      "summary": "Посчитан национальный нулевой уровень по общим ближайшим услугам; окончательная версия пересчитывается после расширения медицинских сведений на все85 регионов и исправления возрастного допуска. Строятся вложенные объединения с прямыми дорожными связями и сохранением малых систем.",
+      "status": "sources_semantically_corrected_recomputing_national_groups_before_publication",
+      "summary": "Выполнен национальный контроль; содержательная проверка выявила ДШИ среди обычных школ и ошибки торговых адресов. Назначения образования и парсер местности исправлены. До нового полного расчёта и публичного повторения прежние численные группы сохраняются только как контроль.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
-      "main_blocker": "Неравномерная полнота источников и отсутствие наблюдаемых межпоселенческих поездок. Медицинский пробел Саратовской области дополнен историческим реестром2021 и текущими федеральными адресными справочниками2026. Проходит окончательная проверка общедоступности и возрастного назначения подразделений. Уникальный верхний порядок Москвы не задаётся заранее.",
+      "main_blocker": "Завершается повтор дорожных направлений и всех групп после исправления образования и торговых адресов. Требуются просмотр всех 14 страниц нового атласа и проверка скачанного опубликованного результата. Наблюдённые поездки и уникальный верхний ранг Москвы пока не установлены.",
       "workplan": "sgrt/workplan/README.md",
       "results": "sgrt/zero/README.md",
       "data_release": "sgrt-mass-local-systems-20261024-v1",
       "publication": {
-        "release": "sgrt-mass-local-systems-20261024-v1",
-        "status": "published_full_primary_and_public_frozen_code_compact_recompute_verified",
-        "catalog": "data/mass_catalog_20261024.json",
-        "source_commit": "c8e74a7348b04a2c25b16d84c532b93b54fb50f2",
-        "atlas_pages": 18,
-        "files_verified": 465,
-        "archive_bytes": 588604633,
-        "archive_sha256": "a547386cd09e4179e12f091dab95af3e60fffad8540e1c36875cc97afeb2ba2a",
-        "manual_and_full_cloud_scientific_tables_equal": 35,
-        "manual_and_cloud_nonzero_numeric_differences": 0,
-        "public_compact_recomputed_tables": 35,
-        "public_compact_byte_identical_tables": 35,
-        "public_compact_byte_identical_png": 18,
-        "pdf_difference": "CreationDate_only",
-        "full_primary_run": "https://github.com/ZakBu/russian-settlements-research/actions/runs/40119286163",
-        "source_code_inside_bundle_verified_against_commit": true,
-        "profile_tests_passed": 106
+        "status": "not_published_runs_cancelled_before_release_due_actual_semantic_errors",
+        "expected_release": "sgrt-zero-systems-20261025-v1",
+        "source_commit": "a3c263e189fa3ead476cc6e8d0a2f2693511b72b",
+        "population_remains_default_download": true
       },
       "local_systems": {
         "doc": "sgrt/local_systems/README.md",
@@ -157,7 +144,7 @@
         "population_advantage_at_level0": false,
         "target_number_of_levels_is_not_hardcoded": true,
         "Moscow_unique_upper_order_is_research_goal_not_prescribed_label": true,
-        "calculation_state": "federal_all85_medical_source_integrated_final_scope_audit_before_final_hierarchy",
+        "calculation_state": "fresh_commerce_routes_then_all_five_lower_and_all_higher_partitions",
         "source_release": "sgrt-zero-inputs-20261025-v1",
         "source_manifest_sha256": "d9c8617dadbed91d92cf0cf1e139af67fddf5e9c33c7c50f09cd577c0c664ddc",
         "level_zero_control": {
@@ -168,7 +155,7 @@
           "final_published_result": false
         },
         "federal_medical_source": {
-          "state": "frozen_archive_published_exact_clinical_join_and_strict_np_address_matching_completed",
+          "state": "frozen_primary_archive_and_complete_positive_unit_clinical_integration_finished",
           "source_snapshot": "2026-10-23",
           "release": "sgrt-zero-federal-medical-inputs-20261025-v1",
           "archive_sha256": "e7bab4fa92ba0273faf18d6bfb97c368c3fd0b66290c3b2a82d82bc47ff6db42",
@@ -181,21 +168,135 @@
           "current_subdivision_address_pairs": 152294,
           "strict_matched_address_rows": 130244,
           "matched_settlements_or_city_contexts": 37128,
-          "actual_building_coordinates_observed": false
+          "actual_building_coordinates_observed": false,
+          "combined_settlements_with_any_category_evidence": 37650,
+          "combined_np_service_category_pairs": 61794,
+          "combined_six_meaningful_service_pairs": 59337,
+          "combined_basic_primary_np": 36859,
+          "combined_physician_primary_np": 9195,
+          "service_presence_not_permanent_staff_or_observed_visits": true
         },
         "current_quality_iteration": {
-          "state": "systematic_unit_scope_audit_child_school_narrow_specialist_before_final_provider_freeze",
+          "state": "positive_general_primary_unit_criterion_frozen_actual_source_audit_zero_invariant_failures",
+          "canonical_np_supply_sha256": "65e35fb5965a44ed8d00c132a18ca13ee01b0c3388c88c501b1d597d757bf530",
+          "canonical_physical_supply_sha256": "febc84b4133098487dd4ac37fe527fd4f134000eecba5a56dc55f03f2907bf1b",
+          "source_current_care_rows": 897573,
+          "combined_np_service_rows": 61794,
+          "combined_np_with_primary_service_evidence": 36859,
+          "actual_medical_audit_conditions": 15,
+          "actual_medical_audit_nonzero_failures": 0,
           "old_control_data_remains_immutable": true,
-          "raw_medical_source_rows_retained": true
+          "raw_medical_source_rows_retained": true,
+          "universal_suitability_for_every_patient_established": false
+        },
+        "numeric_result_snapshot": "research_context/analysis_snapshots/zero_control_before_education_and_city_binding_20261025.json",
+        "partial_core_reason_snapshot": "research_context/analysis_snapshots/zero_partial_reasons_before_education_and_city_binding_20261025.json",
+        "control_before_education_and_city_binding_fix": {
+          "level_zero": {
+            "all_provider_profile_units": 75012,
+            "inhabited_multi_np_groups": 22942,
+            "groups_with_all_three_near_core_functions": 15423,
+            "groups_without_all_three_near_core_functions": 7519,
+            "single_point_units": 48212,
+            "origins_without_admitted_near_link": 5829,
+            "median_spherical_multi_np_diameter_km": 4.29,
+            "p95_spherical_multi_np_diameter_km": 13.35,
+            "max_spherical_multi_np_diameter_km": 41.02,
+            "all_provider_profile_units_are_sgrt_count": false,
+            "population_used_for_assignment": false,
+            "same_definition_robustness_audits_scenarios": 5
+          },
+          "bounded_upward": {
+            "strict_parent_unit_counts": [
+              75012,
+              29863,
+              29279,
+              29270,
+              29224
+            ],
+            "strict_new_merger_group_counts": [
+              8214,
+              105,
+              7,
+              31
+            ],
+            "extended_all_declared_parent_counts": [
+              29863,
+              26600,
+              26464,
+              26464
+            ],
+            "diagnostic_two_domains_parent_counts": [
+              29863,
+              26600,
+              25331,
+              25331
+            ],
+            "higher_layer_indices_are_city_ranks": false,
+            "Moscow_only_top_established": false,
+            "strict_is_primary_conservative_scenario": true,
+            "two_domains_is_diagnostic_not_accepted_agglomeration": true,
+            "astrakhan_diagnostic_max_distance_from_city_km": 119.69,
+            "astrakhan_diagnostic_geodesic_diameter_km": 164.39
+          },
+          "status": "not_final_known_semantic_errors_currently_corrected"
+        },
+        "known_pending_semantic_corrections": [
+          "Исправлены назначения ДШИ, дополнительного и специального образования; исходные строки и отдельные потребности сохранены.",
+          "Исправлены федеральные городские заголовки, названия регионов и улиц вместо поселений; реальные координаты коммерческих объектов сохранены.",
+          "Остаются полный новый расчёт, просмотр всех 14 страниц атласа и публичная проверка повторяемости."
+        ],
+        "education_programme_source_frozen": {
+          "source_rows_retained": 76713,
+          "eligible_default_objects": 73760,
+          "default_general_school_objects": 31762,
+          "default_preschool_objects": 35216,
+          "default_vocational_proxies": 4100,
+          "default_higher_proxies": 2682,
+          "old_eligible_provider_rows_held": 1496,
+          "old_held_general_objects_restored": 20,
+          "physical_sha256": "abfacfcd0e98ec3d67000ad211e41c01c40b121f5eddb2a0c35e306a4e2ebf61",
+          "np_supply_sha256": "1078b7016ce69cc7d019f4676801dfb19d3055f392668610d31f0cc3c9d88baf",
+          "observed_enrolment_or_actual_capacity_established": false,
+          "scope_support_audit_conditions": 18,
+          "audit_nonzero_failure_conditions": 0,
+          "data_snapshot": "research_context/analysis_snapshots/education_programme_scope_correction_20261025.json"
+        },
+        "commerce_known_ordinary_matcher_error": {
+          "state": "parser_corrected_actual_wholepool_v5_audit_no_identified_failures",
+          "scope": "explicit_locality_must_not_be_overruled_by_region_or_street_name",
+          "raw_source_examples": "research_context/analysis_snapshots/commerce_ordinary_matching_counterexamples_20261025.json",
+          "federal_v3_control_does_not_validate_ordinary_links": true,
+          "actual_audit": "research_context/analysis_snapshots/commerce_ordinary_identity_actual_v5_20261025.json"
         }
+      },
+      "previous_national_publication": {
+        "release": "sgrt-mass-local-systems-20261024-v1",
+        "status": "published_full_primary_and_public_frozen_code_compact_recompute_verified",
+        "catalog": "data/mass_catalog_20261024.json",
+        "source_commit": "c8e74a7348b04a2c25b16d84c532b93b54fb50f2",
+        "atlas_pages": 18,
+        "files_verified": 465,
+        "archive_bytes": 588604633,
+        "archive_sha256": "a547386cd09e4179e12f091dab95af3e60fffad8540e1c36875cc97afeb2ba2a",
+        "manual_and_full_cloud_scientific_tables_equal": 35,
+        "manual_and_cloud_nonzero_numeric_differences": 0,
+        "public_compact_recomputed_tables": 35,
+        "public_compact_byte_identical_tables": 35,
+        "public_compact_byte_identical_png": 18,
+        "pdf_difference": "CreationDate_only",
+        "full_primary_run": "https://github.com/ZakBu/russian-settlements-research/actions/runs/40119286163",
+        "source_code_inside_bundle_verified_against_commit": true,
+        "profile_tests_passed": 106
       }
     }
   },
   "next_steps": [
-    "Проверять нижние системы на документированных школьных и медицинских связях; уточнять нужные услуги, детский спрос, подвоз, свободные мощности и датировку. Удерживать локальное обслуживание и неизвестные направления.",
-    "Объединять функции и строить иерархию снизу вверх по поддержанным межцентровым связям. Медицинские порядки и кластеры профилей центров ещё не являются общей иерархией СГРТ.",
-    "Добавлять трудовые, торговые и производственные связи: подтверждённые рабочие площадки, направления поездок, аграрные сервисы. Частичные работники по НП, численность юрлица и муниципальные сельхозитоги остаются разными уровнями наблюдения.",
-    "Уточнять типы Word по демографии и функциональной роли с дополнительными классами неопределённости; сохранять чувствительность к защищённым значениям 2010 года и контроль 2002–2021 без изменения основной базы."
+    "Проверить нижние группы на конкретных школьных прикреплениях, подвозе, ФАПах и врачебных расписаниях. Учитывать, что разные базовые поставщики при общей школе или враче образуют вложенную систему, а не ошибку ключей.",
+    "Дополнить действующие продуктовые магазины и образовательные адреса/ступени: основная часть неполного ближнего набора связана с дальними известными торговыми и школьными поставщиками. Неучтённое местное предложение может изменить результат.",
+    "Проверять внешние городские границы и функциональные связи по независимым поездкам и рабочим площадкам; расширенные варианты считать чувствительностью. Контрпример Астрахани не исправлять подгонкой радиуса.",
+    "Изучать функциональную сложность и межсистемные связи отдельно от глубины слияний. Пока не установлены данные, позволяющие обосновать уникальный верхний ранг Москвы.",
+    "Уточнять динамические типы Word на основе роли центров и окружения. Сохранять чувствительность к значениям2010 и контроль2002–2021; современный фиксированный состав групп не выдавать за исторические связи."
   ],
   "known_limits": [
     "Прежний расчёт «13%» с исходным знаменателем не найден. Принятые поправки raw→effective меняют пару состояний у 1082 из 142765 строгих рядов; региональная альтернатива — у 3909 из 18516 рядов своей подвыборки. Ни одна доля не является национальной оценкой ошибки; подробнее в sgrt/pilot/DEMOGRAPHY_2010.md.",
@@ -210,7 +311,11 @@
     "58 333 однофункциональные единицы и 15 488 НП-центров с внешними кандидатами не являются числом общих СГРТ. Источниковые варианты и функции перекрываются; их население нельзя суммировать.",
     "Частичная численность работников организаций 2025 известна у 11 682 НП: без малого бизнеса и внешних совместителей. Это не занятость жителей или полные рабочие места. ФНС по 2 049 517 юрлицам не содержит рабочих адресов и не распределяется по НП.",
     "Аграрные значения относятся к целым муниципалитетам, не к собственному выпуску НП; повторённые итоги не суммируются. Урожайность зерновых — ц/га убранной площади, не общая продуктивность сельского хозяйства.",
-    "Кластеры свойств центров описывают профили по доступным признакам, а не пространственные уровни СГРТ. Выбор 2 кластеров и альтернатива 4 по локтю не доказывают 2 или 4 уровня системы."
+    "Кластеры свойств центров описывают профили по доступным признакам, а не пространственные уровни СГРТ. Выбор 2 кластеров и альтернатива 4 по локтю не доказывают 2 или 4 уровня системы.",
+    "22 942 многопоселенческие нижние группы — элементы совпадающего набора поставщиков, а не22 942доказанных СГРТ. Сам центр может относиться к другому элементу; центры хранятся отдельно.",
+    "У7 519многопоселенческих групп не установлен весь ближний набор:7 463только с дальними известными кандидатами,51только с неизвестным направлением,5с обеими причинами. Дальнее известное предложение не доказывает отсутствия ближнего.",
+    "Верхние медицинские каналы условны по заявленному профилю. Они не подтверждают пригодность одной больницы для всех пациентов или постоянный врачебный штат.",
+    "Города представлены переписными точками; внутригородское обслуживание не районируется. Геометрический размах точек не является площадью или непрерывным полигоном зоны."
   ],
   "entrypoints": {
     "rules": "AGENTS.md",
@@ -225,10 +330,11 @@
     "history_backup": "https://github.com/ZakBu/russian-settlements-research/releases/tag/git-history-backup-20261022",
     "parallel_workplan": "sgrt/workplan/README.md",
     "pilot_results": "sgrt/pilot/README.md",
-    "national_results": "sgrt/mass/README.md",
-    "national_reproduction": "sgrt/mass/REPRODUCE.md",
+    "national_results": "sgrt/zero/README.md",
+    "national_reproduction": "sgrt/zero/REPRODUCE.md",
     "national_context": "sgrt/mass/CONTEXT.md",
     "current_zero_level": "sgrt/zero/README.md",
-    "current_user_clarifications": "research_context/conversation_context_20261025.md"
+    "current_user_clarifications": "research_context/conversation_context_20261025.md",
+    "previous_national_results": "sgrt/mass/README.md"
   }
 }

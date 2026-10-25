@@ -5,7 +5,7 @@ import unittest
 import pandas as pd
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from scripts.sgrt_zero.education import build_sites, np_offers, school_orders, parse_literal_levels, regional_coverage, FEDERAL_CITY_IDS
+from scripts.sgrt_zero.education import build_sites, np_offers, school_orders, parse_literal_levels, regional_coverage, FEDERAL_CITY_IDS, non_general_school_reason, school_need_scope
 
 
 def reference():
@@ -38,6 +38,139 @@ def official():
 
 
 class ZeroEducationTest(unittest.TestCase):
+    def test_programme_scope_is_checked_across_all_education_families(self):
+        held=[('university','Детская школа искусств'),('college','Детская школа искусств №6'),
+              ('college','Детский сад №16'),('college','Копейская автошкола ДОСААФ'),
+              ('school','Администрация сельсовета'),('school','Плосковский сельский дом культуры'),
+              ('school','Институт повышения квалификации'),('school','Зооветтехникум'),
+              ('preschool','Детская музыкальная школа'),('school','Детский санаторий МВД'),
+              ('school','Детский дом'),('school','Пионерский лагерь'),
+              ('school','Физкультурно-оздоровительный комплекс')]
+        held.extend([('preschool','Управление образования Администрации Тында'),
+                     ('preschool','ОМС Управление образованием'),
+                     ('school','Социально-реабилитационный центр Восточный')])
+        for group,name in held:
+            with self.subTest(group=group,name=name):
+                d=build_sites(objects(education_group=group,name=name),reference(),legacy())
+                self.assertFalse(d.eligible.iloc[0])
+                self.assertEqual(d.education_group_original.iloc[0],group)
+        valid=[('preschool','Школа №1450'),('preschool','Школа №3. Дошкольное отделение'),
+               ('college','Профессионально-технический лицей №6'),('college','Музыкальное училище'),
+               ('college','Колледж искусств'),('university','Университет искусств'),
+               ('university','Школа образования ТюмГУ'),('university','Высшая школа экономики'),
+               ('college','Московская театральная школа Олега Табакова'),
+               ('school','Университетская школа Елабужского института')]
+        for group,name in valid:
+            with self.subTest(group=group,name=name):
+                self.assertTrue(build_sites(objects(education_group=group,name=name),reference(),legacy()).eligible.iloc[0])
+
+    def test_continuing_training_does_not_establish_vocational_or_university_degree(self):
+        for group in ['college','university']:
+            d=build_sites(objects(education_group=group,name='Институт повышения квалификации и профессиональной переподготовки'),reference(),legacy())
+            self.assertFalse(d.eligible.iloc[0])
+            self.assertEqual(d.education_need_scope.iloc[0],'continuing_or_employer_training_degree_not_established')
+            self.assertEqual(d.service_code.iloc[0],{'college':'vocational_education','university':'higher_education'}[group])
+
+    def test_preschool_specific_contingent_is_not_universal_daycare(self):
+        for name in ['Детский сад компенсирующего вида','Специальный коррекционный детсад',
+                     'ДС для детей с тяжелыми нарушениями речи','Санаторный детсад',
+                     'Детский сад для детей-сирот']:
+            with self.subTest(name=name):
+                d=build_sites(objects(education_group='preschool',name=name),reference(),legacy())
+                self.assertEqual(d.service_code.iloc[0],'preschool')
+                self.assertFalse(d.eligible.iloc[0])
+                self.assertEqual(d.education_need_scope.iloc[0],'dedicated_preschool_contingent_not_universal')
+        for name in ['Детсад №11 (Логопедический)','Детский дом-школа']:
+            self.assertEqual(school_need_scope('preschool',name,'{}'),'dedicated_preschool_contingent_not_universal')
+        for name in ['Детский сад комбинированного вида','Инклюзивный детский сад',
+                     'Детский сад Логопедиум','Логопедiя']:
+            self.assertTrue(build_sites(objects(education_group='preschool',name=name),reference(),legacy()).eligible.iloc[0])
+
+    def test_supplementary_training_arts_and_ancillary_sites_are_not_general_schools(self):
+        names=['Детская Школа Искуств (ДШИ)','МБОУ ДОДДШИ ПГП','ДМШ №3','ДХШ',
+            'Музыкльная школа','Детская школа хореографии Соцветие','ДЮШС №96 Борец',
+            'Спортшкола','Школа олимпийского резерва','Детская теннисная академия',
+            'Футбольная школа ФК Краснодар','Дом детского творчества','ЦДТ Восход',
+            'Школа РОСТО','ДОСААФ России','Межшкольный учебный комбинат',
+            'НОЧУ Учебный центр Медрл Плюс','Motive — Школа мастеров красоты',
+            'Школа № 887. Отделение дополнительного образования детей',
+            'Лицей № 111. Корпус дошкольного образования','СОШ №10 (дошкольное отделение)',
+            'Дошкольное учебное заведение Ясли-сад Звездочка','Управление образования',
+            'Спортзал школы №5','Лингвистический центр Маленький принц',
+            'Детский издательский центр Соломбальского Дома детского творчества',
+            'Училище олимпийского резерва','Обучение виндсерфу',
+            'УЦ Судоводитель','Репетитор','Восточные танцы','Академия хореографии']
+        for name in names:
+            with self.subTest(name=name):
+                self.assertTrue(non_general_school_reason('school',name,'{"amenity":"school"}'))
+
+    def test_subject_focus_person_name_and_adapted_curriculum_do_not_remove_general_school(self):
+        names=['Средняя общеобразовательная школа с художественным уклоном',
+            'Средняя музыкальная общеобразовательная школа','Гимназия (английская) №17',
+            'Лингвистический лицей №22','Школа с углубленным изучением английского языка',
+            'Каратабанская СОШ','Дюллюкинская СОШ','Подшиваловская средняя школа',
+            'Средняя школа им. С. И. Ростоцкого','Школа имени Чайковского',
+            'Школа №1450 Олимп','Школа №8 «Музыка»','Школа индивидуального обучения Шанс',
+            'Школа надомного обучения №388','Школа-интернат для слабослышаших детей',
+            'Немецкая школа при Генконсульстве Германии','Специализированный учебно-научный центр УрФУ',
+            'Лингва','IT School','Английская школа']
+        for name in names:
+            with self.subTest(name=name):
+                self.assertFalse(non_general_school_reason('school',name,'{"amenity":"school"}'))
+        self.assertFalse(non_general_school_reason('school','Средняя общеобразовательная музыкальная школа',
+            '{"school:type":"music","isced:level":"1;2;3"}'))
+
+    def test_specific_non_general_tags_and_mixed_institution_scopes_remain_explicit(self):
+        for tag in ['"education":"facultative_school"','"education":"courses"',
+            '"school":"diving"','"school":"optional"','"school":"vocational"',
+            '"training":"driving"','"isced:level":"0"']:
+            with self.subTest(tag=tag):
+                self.assertTrue(non_general_school_reason('school','Название','{'+tag+'}'))
+        for tag in ['"school":"blind"','"school":"special_education_needs"']:
+            self.assertFalse(non_general_school_reason('school','Школа','{'+tag+'}'))
+        mixed=non_general_school_reason('school','МБОУ Гимназия МБДО ДОД ДМШ','{}')
+        self.assertIn('conflicting',mixed)
+        d=build_sites(objects(name='Детская Школа Искуств (ДШИ)'),reference(),legacy())
+        self.assertEqual(len(d),1)
+        self.assertFalse(d.eligible.iloc[0])
+        self.assertTrue(pd.isna(d.service_code.iloc[0]))
+        self.assertEqual(d.education_group_original.iloc[0],'school')
+
+    def test_need_specific_general_curriculum_retained_without_universal_daily_admission(self):
+        for name in ['Вечерняя школа №10','Вечерняя (сменная) общеобразовательная школа',
+                     'Общеобразовательная школа для взрослых','Коррекционная школа №5',
+                     'Школа-интернат для слабослышащих детей',
+                     'Специальная общеобразовательная школа закрытого типа',
+                     'Вечерняя сменная общеобразовательная школа №1','Открытая (сменная) школа',
+                     'Школа для детей с ОВЗ','ШИ ОВЗ','Интернат глухонемых',
+                     'Школа для слепоглухих детей','Школа для умственно осталых детей',
+                     'Школа умственно отсталых','Дербетовский дом-интернат для умственно-осталых детей',
+                     'Школа для детей, воспитанников с ограниченными возможностями здоровья',
+                     'Школа для обучающихся c ограниченными возможностями здоровья',
+                     'Начальная школа-детсад коррекции зрения',
+                     'Центр психолого-педагогической реабилитации и коррекции Восточный',
+                     'Специальное учебно-воспитательное учреждение №14 Подросток']:
+            with self.subTest(name=name):
+                d=build_sites(objects(name=name,source_isced_level='1;2;3'),reference(),legacy())
+                self.assertEqual(d.service_code.iloc[0],'school_general')
+                self.assertFalse(d.eligible.iloc[0])
+                self.assertEqual(d.supply_status.iloc[0],'held_need_specific_general_curriculum_not_default_daytime')
+                self.assertTrue(d.grades_known.iloc[0])
+                self.assertFalse(school_orders(d).eligible.any())
+        for name in ['Обычная школа-интернат','Инклюзивная общеобразовательная школа',
+                     'Школа №7 (Центр адаптированного обучения)','СОШ имени П.А. Слепцова']:
+            self.assertEqual(school_need_scope('school',name,'{}'),
+                             'general_daytime_school_proxy_admission_not_verified')
+        self.assertEqual(school_need_scope('school','Инклюзивная общеобразовательная школа для детей с ОВЗ','{}'),
+                         'general_daytime_school_proxy_admission_not_verified')
+        d=build_sites(objects(tags_json='{"amenity":"school","school":"blind"}'),reference(),legacy())
+        self.assertEqual(d.service_code.iloc[0],'school_general')
+        self.assertFalse(d.eligible.iloc[0])
+
+    def test_explicit_general_isced_can_disambiguate_college_legal_name(self):
+        self.assertFalse(non_general_school_reason('school','Балтика-колледж имени маршала Говорова',
+                                                  '{"amenity":"school","isced:level":"1;2;3"}'))
+
     def test_literal_identity_is_separate_from_nearest_geometry(self):
         a=build_sites(objects(),reference(),legacy())
         self.assertEqual(a.source_record_id.iloc[0],'a')
@@ -70,11 +203,22 @@ class ZeroEducationTest(unittest.TestCase):
         self.assertTrue(uncertain.eligible.iloc[0])
 
     def test_specialized_duplicate_and_invalid_geometry_retained_but_excluded(self):
-        for change in [{'education_group':'specialized_non_general_school'},
+        for change in [{'education_group':'specialized_non_general_school','name':'Детская музыкальная школа'},
                        {'possible_duplicate_of':'osm:way:2'},{'lat':95.}]:
             d=build_sites(objects(**change),reference(),legacy())
             self.assertEqual(len(d),1)
             self.assertFalse(d.eligible.iloc[0])
+
+    def test_explicit_comprehensive_arts_school_can_correct_upstream_specific_group(self):
+        for name in ['Средняя общеобразовательная школа №36 с углублённым изучением иностранных языков',
+                     'Художественно-эстетический лицей №98',
+                     'Общеобразовательная православная школа искусств','Гимназия восточных языков №4']:
+            d=build_sites(objects(education_group='specialized_non_general_school',name=name),reference(),legacy())
+            self.assertTrue(d.eligible.iloc[0])
+            self.assertEqual(d.service_code.iloc[0],'school_general')
+            self.assertEqual(d.education_group_original.iloc[0],'specialized_non_general_school')
+        d=build_sites(objects(education_group='specialized_non_general_school',name='МОУ Гимназия №1 (музыкальное отделение)'),reference(),legacy())
+        self.assertFalse(d.eligible.iloc[0])
 
     def test_school_name_never_creates_grade_evidence(self):
         d=build_sites(objects(name='Средняя школа №11'),reference(),legacy())

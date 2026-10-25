@@ -722,6 +722,63 @@ def audit_medical_primary_scope(legacy_evidence, federal_care, np_supply, physic
         'interpretation':'Codes and exclusion flags are reconciled from actual selected inputs. These are source confirmations, not patient flows, staffing, capacity or complete current medical inventories. Age- and need-specific rare care is retained separately; universal hospital suitability is not inferred.'}
 
 
+def audit_education_scope(raw_current, source_inventory, physical_sites, np_supply):
+    """Reconcile source identities, explicit scope holds and actual offer backing.
+
+    This is intentionally not a second lexical classifier. Independent literal
+    programme review supplies counterexamples; this check verifies that the
+    selected tables actually respect their recorded exclusions and programmes.
+    """
+    raw=pd.read_parquet(raw_current);ledger=pd.read_parquet(source_inventory)
+    physical=pd.read_parquet(physical_sites);offers=pd.read_parquet(np_supply)
+    raw_ids=raw.site_id.astype(str);ledger_ids=ledger.provider_id.astype(str)
+    generic_scopes={'general_daytime_school_proxy_admission_not_verified','not_general_school_source_group'}
+    eligible=ledger.eligible_site_supply.eq(True)
+    p=physical[physical.eligible_site_supply.eq(True)]
+    expected=ledger[ledger.service_code.notna()]
+    failures={
+        'duplicate_raw_site_id':int(raw_ids.duplicated().sum()),
+        'duplicate_full_ledger_provider_id':int(ledger_ids.duplicated().sum()),
+        'raw_current_and_full_ledger_identity_difference':len(set(raw_ids)^set(ledger_ids)),
+        'duplicate_physical_provider_id':int(physical.provider_id.duplicated().sum()),
+        'physical_and_full_ledger_function_identity_difference':len(set(physical.provider_id)^set(expected.provider_id)),
+        'eligible_ledger_with_programme_mismatch':int((eligible&ledger.programme_mismatch_reason.fillna('').ne('')).sum()),
+        'eligible_ledger_with_need_specific_or_unestablished_programme':int((eligible&~ledger.education_need_scope.isin(generic_scopes)).sum()),
+        'eligible_physical_with_programme_mismatch':int(p.programme_mismatch_reason.fillna('').ne('').sum()),
+        'eligible_physical_with_need_specific_or_unestablished_programme':int((~p.education_need_scope.isin(generic_scopes)).sum()),
+        'eligible_physical_without_observed_source_status':int(p.supply_status.ne('observed').sum()),
+        'source_inventory_claimed_observed_trips':int(ledger.established_flow.eq(True).sum()),
+        'population_or_capacity_used_as_attraction_weight':int(ledger.capacity_used_as_weight.eq(True).sum())}
+    comparison=physical[['provider_id','service_code','eligible_site_supply','site_lat','site_lon']].merge(
+        ledger[['provider_id','service_code','eligible_site_supply','site_lat','site_lon']],on='provider_id',
+        suffixes=('_physical','_ledger'),validate='one_to_one')
+    failures['physical_function_or_eligibility_differs_from_full_ledger']=int((comparison.service_code_physical.ne(comparison.service_code_ledger)|comparison.eligible_site_supply_physical.ne(comparison.eligible_site_supply_ledger)).sum())
+    failures['physical_coordinates_changed_after_scope_selection']=int((~np.isclose(comparison.site_lat_physical,comparison.site_lat_ledger,rtol=0,atol=1e-12,equal_nan=True)|~np.isclose(comparison.site_lon_physical,comparison.site_lon_ledger,rtol=0,atol=1e-12,equal_nan=True)).sum())
+    current=offers[offers.source_pool.eq('osm_strict_np_presence')&offers.eligible.eq(True)]
+    lookup=p.set_index('provider_id');unsupported=wrong_role=wrong_owner=empty=0
+    for row in current.itertuples():
+        ids=json.loads(row.provider_site_ids_json)
+        empty+=not bool(ids)
+        for provider in ids:
+            if provider not in lookup.index:unsupported+=1;continue
+            witness=lookup.loc[provider]
+            wrong_role+=str(witness.service_code)!=str(row.service_code)
+            wrong_owner+=pd.isna(witness.source_record_id) or str(witness.source_record_id)!=str(row.source_record_id)
+    failures.update(np_current_offer_without_provider_witness=int(empty),
+        np_current_offer_uses_excluded_or_missing_provider=int(unsupported),
+        np_current_offer_function_disagrees_with_provider=int(wrong_role),
+        np_current_offer_np_owner_disagrees_with_provider=int(wrong_owner))
+    paths={'raw_current':raw_current,'source_inventory':source_inventory,'physical_sites':physical_sites,'np_supply':np_supply}
+    return {'input_sha256':{name:sha(path) for name,path in paths.items()},'failures':failures,
+        'raw_current_records':len(raw),'full_source_records_retained':len(ledger),
+        'physical_function_records_including_held':len(physical),'eligible_physical_function_counts':p.service_code.value_counts().to_dict(),
+        'held_programme_reasons':ledger.loc[ledger.programme_mismatch_reason.fillna('').ne(''),'programme_mismatch_reason'].value_counts().to_dict(),
+        'need_specific_or_unestablished_programme_scopes':ledger.loc[~ledger.education_need_scope.isin(generic_scopes),'education_need_scope'].value_counts().to_dict(),
+        'current_np_offer_records_with_physical_witnesses':len(current),
+        'historical_or_other_np_offer_records':int((~offers.source_pool.eq('osm_strict_np_presence')).sum()),
+        'interpretation':'Source records and scoped programmes are preserved. Excluded or need-specific programmes cannot enter the default family through NP aggregation. A school tag remains an unverified programme/admission proxy; counts do not establish open places, complete inventories or pupil trips. Historical preschool presence remains separately dated and is not treated as a current physical witness.'}
+
+
 def audit_upward(directory, level_zero, origin_links_path, reference_path=None):
     """Check complete-child nesting, source-area guards and inherited depth."""
     directory=Path(directory);level_zero=Path(level_zero)
@@ -901,6 +958,8 @@ if __name__=='__main__':
     p=sub.add_parser('check-historical-primary-scope');p.add_argument('--directory',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     p=sub.add_parser('check-medical-primary-scope')
     for flag in ['legacy-evidence','federal-care','np-supply','physical-sites','output']:p.add_argument('--'+flag,type=Path,required=True)
+    p=sub.add_parser('check-education-scope')
+    for flag in ['raw-current','source-inventory','physical-sites','np-supply','output']:p.add_argument('--'+flag,type=Path,required=True)
     p=sub.add_parser('check-extended');p.add_argument('--directory',type=Path,required=True);p.add_argument('--strict-directory',type=Path,required=True);p.add_argument('--reference',type=Path,required=True);p.add_argument('--origin-links',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     p=sub.add_parser('compare-medical-routes');p.add_argument('--before',type=Path,required=True);p.add_argument('--after',type=Path,required=True);p.add_argument('--reference',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     args=parser.parse_args()
@@ -920,6 +979,10 @@ if __name__=='__main__':
         args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     elif args.command=='check-medical-primary-scope':
         result=audit_medical_primary_scope(args.legacy_evidence,args.federal_care,args.np_supply,args.physical_sites)
+        args.output.parent.mkdir(parents=True,exist_ok=True)
+        args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+    elif args.command=='check-education-scope':
+        result=audit_education_scope(args.raw_current,args.source_inventory,args.physical_sites,args.np_supply)
         args.output.parent.mkdir(parents=True,exist_ok=True)
         args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     elif args.command=='check-upward':

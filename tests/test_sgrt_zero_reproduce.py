@@ -106,6 +106,22 @@ class ReproduceTests(unittest.TestCase):
    self.assertEqual(payload['federal_medical/functions/summary.json'],functions)
    self.assertEqual(old.read_bytes(),b'old')
 
+ def test_corrected_education_and_commerce_override_portable_roles(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   work=Path(tmp);old=put(work,'education/physical_sites.parquet',b'old')
+   education=put(work,'education_general_scope_corrected/physical_sites.parquet',b'corrected')
+   commerce=put(work,'commerce_identity_corrected/sites.parquet',b'corrected')
+   operator=put(work,'commerce_identity_corrected/fivepost/sites_5post_current.parquet',b'corrected')
+   route=put(work,'routes_education_commerce_corrected/nearest/school_general.parquet',b'new_route')
+   self.assertEqual(r.canonical_education_root(work),education.parent)
+   self.assertEqual(r.canonical_commerce_root(work),commerce.parent)
+   payload=r.payload_files(work)
+   self.assertEqual(payload['education/physical_sites.parquet'],education)
+   self.assertEqual(payload['commerce/sites.parquet'],commerce)
+   self.assertEqual(payload['commerce/fivepost/sites_5post_current.parquet'],operator)
+   self.assertEqual(payload['routes/nearest/school_general.parquet'],route)
+   self.assertEqual(old.read_bytes(),b'old')
+
  def test_incomplete_package_preserves_previous_local_build(self):
   with tempfile.TemporaryDirectory() as tmp:
    root=Path(tmp);old=put(root,'built/keep',b'old')
@@ -214,6 +230,14 @@ class ReproduceTests(unittest.TestCase):
    r.validate_primary_scope_report(path)
    path.write_text('{}')
    with self.assertRaisesRegex(ValueError,'Missing actual'):r.validate_primary_scope_report(path)
+
+ def test_education_scope_failure_cannot_pass_publication_validation(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   path=put(Path(tmp),'scope.json',json.dumps({'failures':{'held_supplementary_np_offer':1}}).encode())
+   with self.assertRaisesRegex(ValueError,'education source scope audit failed'):r.validate_education_scope_report(path)
+   path.write_text(json.dumps({'failures':{'held_supplementary_np_offer':0}}));r.validate_education_scope_report(path)
+   path.write_text('{}')
+   with self.assertRaisesRegex(ValueError,'Missing actual education'):r.validate_education_scope_report(path)
 
  def test_astrakhan_counterexample_ignores_unkeyed_reference_rows(self):
   import pandas as pd

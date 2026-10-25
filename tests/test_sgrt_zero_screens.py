@@ -42,6 +42,7 @@ class ZeroScreensTest(unittest.TestCase):
         x['provider_actual_operational_status_verified']=[False,False,None]
         x['provider_restriction_scope_unknown']=[True,False,None]
         x['provider_medical_need_scope']=['онкология','терапия',None]
+        x['provider_education_need_scope']=[None,'general_daytime_school_proxy_admission_not_verified',None]
         x['provider_universal_hospital_suitability_verified']=[False,False,None]
         x.loc[0,'source_year']='["2021"]'
         d=admit(canonical(x,reference()))
@@ -53,6 +54,8 @@ class ZeroScreensTest(unittest.TestCase):
         self.assertTrue(pd.isna(d.provider_source_status_semantics_verified.iloc[0]))
         self.assertEqual(d.provider_medical_need_scope.iloc[0],'онкология')
         self.assertFalse(d.provider_universal_hospital_suitability_verified.iloc[0])
+        self.assertEqual(d.provider_education_need_scope.iloc[1],'general_daytime_school_proxy_admission_not_verified')
+        self.assertTrue(pd.isna(d.provider_education_need_scope.iloc[2]))
 
     def test_population_does_not_change_daily_travel_limit(self):
         d=admit(canonical(raw(),reference()),'grocery',20,'daily_grocery')

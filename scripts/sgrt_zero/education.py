@@ -70,20 +70,168 @@ def lifecycle_reason(value):
 
 
 def non_general_school_reason(group, name, value):
-    if group == 'specialized_non_general_school':
-        return 'source_inventory_specific_non_general_classification'
+    """Hold explicit supplementary/training sites, not arts-focused schooling.
+
+    ``amenity=school`` remains a general-school proxy unless a more specific
+    source description contradicts it. The held rows remain in the inventory;
+    neither absence of a school nor a vocational programme is inferred.
+    """
+    source_specific=group=='specialized_non_general_school'
+    if source_specific:
+        group='school'
     if group != 'school':
         return ''
     tags = safe_tags(value)
-    specialized = {'music','musical','art','arts','sport','sports','dance','dancing',
-                   'driving','driving_school','language','languages','english'}
+    original = '' if name is None or pd.isna(name) else str(name)
+    text = re.sub(r'\s+',' ',original.lower().replace('ё','е')).strip()
+    programme_text=text+' '+str(tags.get('official_name','')).lower().replace('ё','е')
+    general_name=bool(re.search(r'общеобразовательн|общего\s+образован|гимнази|\bлицей\b|\b(?:сош|оош|нош)\b|(?:начальн|основн|средн)\w*\s+(?:общеобразовательн\w*\s+)?школ|школ\w*\s+с\s+углубленн\w*\s+изучени',programme_text))
+    general_name|=str(tags.get('education_profile:general','')).lower()=='yes'
+    general_name|=any(str(tags.get(k,'')).lower()=='yes' for k in ['education_level:primary','education_level:secondary'])
+    literal_levels=set(parse_literal_levels(tags.get('isced:level')))
+    general_levels=bool(literal_levels&{1,2,3})
+    if literal_levels and not general_levels:
+        return 'literal_ISCED_without_general_school_stage_not_general_programme'
+    # The named physical department can be supplementary even when its parent
+    # institution is a comprehensive school (school No887, extra classes).
+    unit_non_general=re.search(r'(?:отделени\w*|центр\w*|корпус\w*)\s+(?:детск\w*\s+)?(?:дополнительн\w*|дошкольн\w*|внешкольн\w*)\s+образован|(?:дополнительн\w*|дошкольн\w*|предшкольн\w*)\s+(?:образован|подготовк)',text)
+    if unit_non_general:
+        return 'explicit_supplementary_or_preschool_department_not_general_programme'
+    if re.search(r'(?:музыкальн\w*|художественн\w*|спортивн\w*|хореографическ\w*)\s+отделени',text):
+        return 'explicit_subject_training_department_not_general_programme'
+    specialized={'music','musical','art','arts','sport','sports','dance','dancing',
+        'driving','driving_school','language','languages','english','foreign_language',
+        'diving','media','optional','vocational','professional_education','pilot school',
+        'facultative_school','courses','it','environmental','enviromental','kindergarten'}
     for key in ['school','school:type','school:subject','education:type','education']:
-        if str(tags.get(key,'')).strip().lower() in specialized:
+        literal=str(tags.get(key,'')).strip().lower()
+        values=set(re.split(r'\s*[;,]\s*',literal))
+        if values&specialized:
+            # An explicit comprehensive programme plus a subject-focus tag is
+            # not a music-course building. Other conflicting site roles stay
+            # unresolved instead of silently transferring a curriculum.
+            focus={'music','musical','art','arts','sport','sports','language','languages','english','foreign_language'}
+            if general_name and general_levels and values<=focus:
+                continue
             return 'explicit_non_general_tag:' + key + '=' + str(tags[key])
-    text = '' if name is None or pd.isna(name) else str(name).lower().replace('ё','е')
-    general = re.search(r'общеобразовательн|гимнази|\bлицей\b|\bсош\b|(?:начальн|основн|средн)\w*\s+школ',text)
-    if not general and re.search(r'музыкальн\w*\s+школ|художественн\w*\s+школ|спортивн\w*\s+школ|\bдюсш\b|\bсдюсшор\b|\bсшор\b|автошкол|школ\w*\s+вождени|школ\w*\s+танц|хореографическ\w*\s+школ|языков\w*\s+школ|школ\w*\s+(?:иностранных\s+языков|английского|немецкого|французского|китайского)',text):
-        return 'explicit_non_general_school_name_not_general_programme'
+    if str(tags.get('training','')).lower() in {'driving','pilot','diving'}:
+        return 'explicit_non_general_tag:training='+str(tags['training'])
+    if str(tags.get('school:type','')).lower()=='theological' and not (general_name or general_levels):
+        return 'theological_school_general_curriculum_unresolved'
+    abbreviations=bool(re.search(r'(?<![а-яё])(?:дши|дхш|дмш|одши|дюсш|дюссш|дюшс|сдюшор|сдюсшор|сшор|цсшор|дюкфп|дюц|цдютт?|дютош)(?:\d|\b)',text) or re.search(r'(?<![А-Яа-яЁё])[А-ЯЁ]{0,12}(?:ДШИ|ДХШ|ДМШ)(?:\d|\b)',original))
+    supplementary=re.search(r'(?:музыкаль?н\w*|художественн\w*|спортивн\w*|спортвн\w*|спортин\w*|хореографическ\w*|театральн\w*|языков\w*|шахматн\w*)\s+школ|школ\w*\s+(?:[а-я-]+\s+){0,2}(?:искусств|искуств)|школ\w*\s+(?:хореограф|вождени|танц|латин\w*\s+танц|восточн\w*\s+танц|иностранных\s+языков|английского|немецкого|французского|китайского|русского\s+языка|дизайна|барберов|бизнеса|велоспорта|кайтсерфинга|олимпийского\s+резерва|по\s+конному\s+спорту)|спорт\s*школ|автошкол|автокурс|автодром|автополигон|полигон\s+автомобильн|автовождени|станци\w*\s+(?:детск\w*\s+и\s+юношеск\w*\s+)?(?:юных|юношеского\s+технического)|центр\w*\s+(?:детск\w*\s+и\s+юношеск\w*\s+туризма|детско-юношеского\s+спорта|военно-техническ\w*\s+видов\s+спорта)|шахматн\w*\s+клуб|(?:language|dance|driving|music|arts?)\s+school|\bschool\s+of\s+(?:arts?|music|dance)|\b(?:alfa|magic|contemporary)\s+dance\b',text)
+    ancillary=re.search(r'^(?:шахматная|спорт|спортзал|дворец\s+спорта|спорткомплекс|бассейн|школьн\w*\s+(?:мастерск|клуб)|столярн\w*\s+мастерск|военно-патриотическ\w*\s+клуб|детск\w*\s+(?:морской\s+клуб|автогородок|эколого-биологическая\s+станция)|клуб\s|студия\s|дом\s+музыки|управлени\w*\s+(?:дошкольного\s+)?образован|институт\s+развития\s+образован)',text)
+    training=re.search(r'\b(?:дпо|дод|дополнительного\s+образования|досааф|росто)\b|^учебный\s+центр|учебно[- ]тренажерн|межшкольн\w*\s+учебн\w*\s+комбинат|школ\w*\s+подготовки\s+собак|курсы\s+английского|^английский\s+для\s+всех|^language\s+learner\b|^центр\s+немецкого\s+языка|^школа-мастерская\s+народных\s+ремесел|^мастерская\s+управления',text)
+    professional=re.search(r'\b(?:техникум|колледж|профессионального\s+образования)\b',text)
+    # Distinctive supplementary institution types, including common source
+    # abbreviations, remain contradictions when combined with a parent
+    # gymnasium label. A shared name cannot establish which programme the
+    # mapped feature actually supplies.
+    definite_extra=re.search(r'(?<![а-яё])(?:ддт|цдт)(?:\b|\d)|дом\w*\s+(?:детск\w*\s+)?творчеств|дворец\w*\s+пионеров|(?:футбольн\w*|теннисн\w*)\s+(?:школ|академ)|футбольн\w*\s+манеж|олимпийск\w*\s+резерв|обучени\w*\s+виндсерф|\bуц\s+судоводитель|\bрепетитор\b|лингвистическ\w*\s+центр|^русский\s+балет$|^детск\w*\s+тренингов|^центр\s+цифрового\s+образования|^центр\s+технологического\s+обучения|^центр\s+непрерывного\s+ускоренного\s+обучения',text)
+    if abbreviations or definite_extra:
+        return ('conflicting_general_and_supplementary_institution_description' if general_name or general_levels else
+                'explicit_supplementary_institution_not_general_programme')
+    if ancillary:
+        return 'explicit_ancillary_or_non_school_site_not_general_programme'
+    other_site_role=re.search(r'музыка?ль?н\w*\s+школ|академи\w*\s+хореограф|школ\w*\s+мастеров\s+красоты|\bdj.?s\s+school\b|\bвосточн\w*\s+танц\w*\b|\badditional\s+education\b|\bучебн\w*\s+центр\b|учебно[- ](?:методическ|производственн)|учебн\w*\s+автокомбинат|учебн\w*\s+цент\b|\b(?:дюц|цдод|дюм)\b|(?:детско-юношеск\w*|молодежн\w*)\s+клуб|детск\w*\s+объединени|детск\w*\s+телевизионн\w*\s+учебн\w*\s+центр|центр\w*\s+(?:детск\w*\s+развития|детск\w*\s+творчеств|творческ\w*\s+развития|краеведени)|станци\w*\s+детск\w*\s+(?:и\s+)?юношеск\w*\s+(?:туризм|техническ)|(?:дошкольн\w*\s+(?:учебн\w*\s+заведение|отделение)|предшкольн\w*\s+подготовк)|^подготовительн\w*\s+школ|профсоюз\w*\s+образован|^упрани\w*\s+образован|^учебн\w*\s+метеорологическ\w*\s+станци|школ\w*\s+скорочтени|центр\w*\s+развития\s+интеллект|^музыка\s*[,;]|^мастерская\b|^столовая\b|^учительская\b',text)
+    if other_site_role and not general_name:
+        return ('conflicting_general_programme_and_other_named_site_role' if general_levels else
+                'explicit_supplementary_training_or_other_site_role')
+    if re.search(r'\bдошкольн\w*\s+отделени',text):
+        return 'explicit_preschool_department_not_general_programme'
+    non_school_health_or_leisure=re.search(r'физкультурно[- ]оздоровительн\w*\s+комплекс|(?:детск\w*\s+)?оздоровительн\w*\s+лагер|центр\w*\s+логопеди\w*\s+и\s+нейропсихолог',text)
+    if non_school_health_or_leisure and not general_name:
+        return 'explicit_health_leisure_or_therapy_site_general_curriculum_unresolved'
+    if (abbreviations or supplementary or ancillary or training or (professional and not general_levels)) and not general_name:
+        return ('conflicting_general_programme_and_supplementary_site_description' if general_levels else
+                'explicit_non_general_or_training_site_not_general_programme')
+    if source_specific and not (general_name or general_levels):
+        return 'source_inventory_specific_non_general_classification'
+    return ''
+
+
+def school_need_scope(group, name, value):
+    """Preserve general curricula that are not universal daytime provision."""
+    raw_text='' if name is None or pd.isna(name) else str(name).lower().replace('ё','е')
+    if group=='preschool':
+        tags=safe_tags(value)
+        kind_type=str(tags.get('kindergarten:type','')).lower()
+        mixed=bool(re.search(r'комбинированн|инклюзивн',raw_text))
+        restricted=bool(re.search(r'\b(?:фсин|уфсин)\b|закрытого\s+типа',raw_text))
+        dedicated=bool(re.search(r'компенсирующ|коррекционн|санаторн|логопедическ|детск\w*\s+дом|\bовз\b|детей[- ]инвалид|для\s+сирот|детей[- ]сирот|общество\s+слепых|реабилитационн|нарушени\w*\s+(?:зрения|слуха|речи|интеллекта)|ограниченн\w*\s+возможност\w*\s+здоров',raw_text))
+        if restricted or ((dedicated or kind_type in {'compensatory','special','special_needs'}) and not mixed):
+            return 'dedicated_preschool_contingent_not_universal'
+        return 'not_general_school_source_group'
+    if group in {'college','university'} and re.search(r'\bдпо\b|повышени\w*\s+квалификаци|переподготовк|дополнительн\w*\s+профессиональн\w*\s+образован|\bучебн\w*\s+центр|межшкольн\w*\s+учебн\w*\s+комбинат',raw_text):
+        levels=set(parse_literal_levels(safe_tags(value).get('isced:level')))
+        if not levels&({3,4,5} if group=='college' else {5,6,7,8}):
+            return 'continuing_or_employer_training_degree_not_established'
+    if group not in {'school','specialized_non_general_school'}:
+        return 'not_general_school_source_group'
+    text='' if name is None or pd.isna(name) else str(name).lower().replace('ё','е')
+    text=re.sub(r'\b[cс]\b','с',text)
+    tags=safe_tags(value)
+    if re.search(r'закрытого\s+типа|\b(?:фсин|уфсин)\b|при\s+(?:исправительн|воспитательн)\w*\s+колони',text):
+        return 'restricted_general_curriculum_not_universal_daytime_school'
+    if re.search(r'кадетск\w*\s+(?:военн\w*\s+)?(?:корпус|училищ)|суворовск\w*\s+(?:военн\w*\s+)?училищ',text):
+        return 'military_cadet_general_curriculum_specific_admission'
+    if re.search(r'специальн\w*\s+(?:средн\w*\s+)?музыкальн\w*\s+школ|средн\w*\s+специальн\w*\s+музыкальн\w*\s+школ|специализированн\w*\s+школ\w*\s+искусств|школ\w*\s+при\s+консерватори',text):
+        return 'selective_specialist_arts_general_curriculum_not_universal'
+    if re.search(r'детск\w*\s+дом|детей[- ]сирот|для\s+детей\s+сирот',text):
+        return 'dedicated_orphan_welfare_general_curriculum_not_universal'
+    if re.search(r'\b(?:вечерн\w*|сменн\w*)\b|для\s+взросл|образовани\w*\s+взросл',text):
+        return 'adult_or_evening_general_curriculum_not_default_child_daytime'
+    special_tag=any(str(tags.get(k,'')).lower() in {'blind','special_education_needs','special_needs','special'} for k in ['school','school:type','education:type'])
+    dedicated=re.search(r'коррекционн|специальн\w*\s+(?:общеобразовательн\w*\s+)?школ|специальн\w*\s+учебно[- ]воспитательн|\bовз\b|глухонем|слепоглух|умственно[\s-]+о?т?стал|для\s+(?:слабослыш|слабовид|глух|слеп)|ограниченн\w*\s+возможност\w*\s+здоров|коррекци\w*\s+(?:зрения|речи)|центр\w*\s+(?:психолого-педагогическ\w*\s+реабилитаци|развития\s+и\s+коррекции|коррекции\s+и\s+развития)|(?:детей|обучающихся)\s+с\s+(?:нарушени\w*\s+(?:зрения|слуха|интеллект)|задержк\w*\s+психическ)',text)
+    if re.search(r'инклюзивн',text) and not special_tag:
+        # Inclusive mainstream provision is not a dedicated special school
+        # merely because its name also describes supported disabilities.
+        dedicated=False
+    named_health_or_rehabilitation=re.search(r'санаторн(?:ая|ой|ое|ого|ые|ых|о[- ]лесн\w*)\s+(?:лесн\w*\s+)?(?:(?:общеобразовательн\w*|основн\w*|средн\w*)\s+)*школ|логопедическ|социально[- ]реабилитационн\w*\s+центр|для\s+детей\s+с\s+девиантн\w*\s+поведени|(?:пансионат|интернат)\w*\s+для\s+детей[- ]инвалидов|для\s+детей\s+с\s+особыми\s+образовательными\s+потребностями',text)
+    dedicated=bool(dedicated or named_health_or_rehabilitation)
+    if special_tag or dedicated:
+        return 'dedicated_special_needs_general_curriculum_not_universal'
+    return 'general_daytime_school_proxy_admission_not_verified'
+
+
+def programme_mismatch_reason(group,name,value):
+    """A specific institution description outranks any broad OSM family tag."""
+    if group in {'school','specialized_non_general_school'}:
+        reason=non_general_school_reason(group,name,value)
+        if reason:return reason
+    tags=safe_tags(value)
+    text='' if name is None or pd.isna(name) else str(name).lower().replace('ё','е')
+    levels=set(parse_literal_levels(tags.get('isced:level')))
+    expected={'preschool':{0},'college':{3,4,5},'university':{5,6,7,8}}
+    if group in expected and levels and not levels&expected[group]:
+        return 'literal_ISCED_contradicts_source_education_family'
+    general=bool(re.search(r'общеобразовательн|гимнази|\bлице(?:й|я|ю|ем|е)\b|\b(?:сош|оош|нош)\b|(?:начальн|основн|средн)\w*\s+(?:школ|училищ)',text)) or bool(levels&{1,2,3})
+    school_label=bool(re.search(r'\bшкол[аыуе]\b|гимнази|лице[йяю]',text))
+    degree=bool(levels&({3,4,5} if group=='college' else {5,6,7,8}))
+    preschool=bool(re.search(r'детск(?:ий|ого|ом)\s+сад|ясли[- ]сад|ясельн',text))
+    preschool_department=preschool or bool(re.search(r'дошкольн|ясл|д[/\\]с\b|школа[- ]сад',text))
+    extra=bool(re.search(r'\b(?:дши|дхш|дмш|дюсш|сдюшор|сшор)\b|детск\w*\s+(?:[а-я-]+\s+){0,3}школ\w*\s+(?:искусств|искуств|хореограф)|(?:музыкальн\w*|художественн\w*)\s+школ|спортшкол|автошкол|\bдосааф\b|центр\w*\s+внешкольн\w*\s+работ|центр\w*\s+дополнительн\w*\s+образован',text))
+    extra|=bool(re.search(r'дом\w*\s+детск\w*\s+творчеств|(?<![а-яё])(?:дюц|цдютт?|цдт|ддт)(?:\d|\b)|спортивн\w*\s+школ|школ\w*\s+(?:английского|немецкого|иностранных\s+языков|танц|скорочтени)|центр\w*\s+развития\s+интеллект',text))
+    other=bool(re.search(r'^администраци|\bуправление\s+образован\w*|социально[- ]реабилитационн\w*\s+центр|дом\w*\s+культуры|пионерлагер|\bлагер[ьяею]\b|детск\w*\s+санатор|физкультурно[- ]оздоровительн\w*\s+комплекс|центр\w*\s+логопеди\w*\s+и\s+нейропсихолог',text))
+    if other and not general:
+        return 'explicit_non_instructional_or_health_leisure_site_programme_unresolved'
+    if re.search(r'детск\w*\s+дом',text) and not (school_label or general):
+        return 'welfare_home_general_curriculum_not_established'
+    if group in {'college','university'}:
+        if preschool or extra:
+            return 'explicit_child_preschool_or_supplementary_site_not_degree_evidence'
+        explicit_general=bool(re.search(r'общеобразовательн|\b(?:сош|оош|нош)\b|(?:начальн|основн|средн|вечерн|кадетск)\w*\s+школ|\bшкола\s*№',text))
+        if explicit_general and not degree:
+            return 'explicit_general_school_not_degree_evidence'
+    if group=='preschool':
+        # A kindergarten often carries its parent comprehensive school's
+        # legal name. That is not contrary evidence about this physical unit.
+        if not preschool_department and (extra or re.search(r'\b(?:университет|институт|колледж|техникум)\b',text)):
+            return 'explicit_other_education_programme_not_preschool_evidence'
+    if group in {'school','specialized_non_general_school'}:
+        professional=bool(re.search(r'\b(?:институт|университет|предуниверситарии)\b|\w*(?:техникум|политехникум|профучилище|медучилище|педучилище|музучилище)|(?:профессиональн\w*|проффесиональн\w*|медицинск\w*|командн\w*)\s+(?:техническ\w*\s+|речн\w*\s+)?училищ|^училище\s*№|высш\w*\s+школ',text))
+        if professional and not (general or (school_label and not re.search(r'высш\w*\s+школ',text))):
+            return 'explicit_professional_or_tertiary_site_general_curriculum_unresolved'
     return ''
 
 
@@ -223,7 +371,10 @@ def build_sites(objects, reference, legacy, city_context=None):
     frame['is_federal_city_context'] = frame.source_record_id.isin(FEDERAL_CITY_IDS.values())
     frame['population_role'] = frame.census_population_role.mask(frame.is_federal_city_context,'external_context_nonadditive')
     frame['education_group_original'] = frame.education_group
-    frame['non_general_school_reason'] = [non_general_school_reason(a,b,c) for a,b,c in zip(frame.education_group,frame['name'],frame.tags_json)]
+    frame['non_general_school_reason'] = [programme_mismatch_reason(a,b,c) for a,b,c in zip(frame.education_group,frame['name'],frame.tags_json)]
+    frame['programme_mismatch_reason']=frame.non_general_school_reason
+    frame['education_need_scope']=[school_need_scope(a,b,c) for a,b,c in zip(frame.education_group,frame['name'],frame.tags_json)]
+    frame.loc[frame.education_group_original.eq('specialized_non_general_school') & frame.non_general_school_reason.eq(''),'education_group']='school'
     frame.loc[frame.non_general_school_reason.ne(''),'education_group'] = 'specialized_non_general_school'
     frame['service_code'] = frame.education_group.map(GROUPS)
     frame['source_service_code'] = frame.service_code
@@ -239,7 +390,11 @@ def build_sites(objects, reference, legacy, city_context=None):
     frame['temporal_status'] = [osm_temporal_status(a,b,c.strftime('%Y-%m-%d')) for a,b,c in zip(frame.source_start_date,frame.source_end_date,dates)]
     frame['lifecycle_exclusion_reason'] = frame.tags_json.map(lifecycle_reason)
     frame['eligible'] = frame.service_code.notna() & frame.coordinate_valid & frame.possible_duplicate_of.isna() & frame.lifecycle_exclusion_reason.eq('') & ~frame.temporal_status.isin(['ended_before_snapshot','started_after_snapshot'])
+    need_specific=frame.service_code.notna() & ~frame.education_need_scope.isin(['general_daytime_school_proxy_admission_not_verified','not_general_school_source_group'])
+    frame.loc[need_specific,'eligible']=False
     frame['supply_status'] = 'observed'
+    frame.loc[need_specific,'supply_status']='held_need_specific_general_curriculum_not_default_daytime'
+    frame.loc[need_specific & frame.education_need_scope.eq('continuing_or_employer_training_degree_not_established'),'supply_status']='held_training_degree_programme_not_established'
     frame.loc[frame.service_code.isna(), 'supply_status'] = 'excluded_specialized_non_general_education'
     frame.loc[~frame.coordinate_valid, 'supply_status'] = 'excluded_invalid_coordinate'
     frame.loc[frame.possible_duplicate_of.notna(), 'supply_status'] = 'excluded_source_duplicate'
@@ -394,6 +549,9 @@ def run(current, historical, official, reference_path, legacy_path, output,city_
         current_source_snapshots=sorted(sites.source_snapshot.unique()),
         current_objects=len(sites),current_eligible_sites=len(eligible),
         current_status_counts=sites.supply_status.value_counts().to_dict(),
+        programme_mismatch_reasons=sites.loc[sites.programme_mismatch_reason.ne(''),'programme_mismatch_reason'].value_counts().to_dict(),
+        need_specific_or_unestablished_programme_scopes=sites.loc[~sites.education_need_scope.isin(['general_daytime_school_proxy_admission_not_verified','not_general_school_source_group']),'education_need_scope'].value_counts().to_dict(),
+        broad_mapped_education_types_are_not_verified_curricula_or_admission=True,
         current_service_counts=eligible.service_code.value_counts().to_dict(),
         eligible_sites_with_strict_np_identity=int(eligible.source_record_id.notna().sum()),
         eligible_sites_without_strict_np_identity=int(eligible.source_record_id.isna().sum()),
