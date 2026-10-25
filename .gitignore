@@ -63,6 +63,7 @@ __pycache__/
 .research-cache/
 
 .venv/
+.venv-ecommerce/
 .venvs/
 venv/
 .pytest_cache/
@@ -73,3 +74,10 @@ venv/
 
 # Current lower-service systems: metadata only; binaries stay in Releases.
 !/data/zero_catalog_20261025.json
+
+# E-commerce research: small reviewed tables and provenance, not raw payloads.
+!research/ecommerce_cloud/extension/**/*.csv
+!research/ecommerce_cloud/extension/**/*.json
+!research/ecommerce_cloud/extension/*.csv
+!research/ecommerce_cloud/extension/*.json
+!research/ecommerce_cloud/extension/environment-lock.txt

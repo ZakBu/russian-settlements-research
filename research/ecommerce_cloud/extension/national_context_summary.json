@@ -1,0 +1,101 @@
+{
+  "scope": "144151 credited physical census2021 settlements, 81 ordinary regions; two lack coordinates",
+  "python": "3.12.14",
+  "medium_centres_n": 1273,
+  "demographic_supported_n": 1195,
+  "overall": {
+    "centres_n": 1195,
+    "centre_decline_n": 934,
+    "share_gain_ge1pp_n": 946,
+    "share_loss_ge1pp_n": 108,
+    "centre_decline_and_share_gain_n": 752,
+    "median_centre_change_pct": -11.497936605496529,
+    "median_surroundings_change_pct": -26.85132575757576,
+    "median_share_change_pp": 4.063733791920058
+  },
+  "circular_sensitivity": [
+    {
+      "radius_km": 10,
+      "centres_n": 1192,
+      "median_share_change_pp": 0.834328467154033,
+      "positive_share_change_n": 809,
+      "share_gain_ge1pp_n": 561,
+      "share_loss_ge1pp_n": 224,
+      "common_with_admin_n": 1138,
+      "three_way_category_agreement_n": 659,
+      "sign_agreement_n": 877,
+      "log_ratio_observed_n": 1186,
+      "median_log_centre_periphery_growth_ratio": 0.0823478828755097,
+      "common_admin_median_change_pp": 4.033937777393863,
+      "common_circle_median_change_pp": 0.8831942188494091
+    },
+    {
+      "radius_km": 20,
+      "centres_n": 1249,
+      "median_share_change_pp": 2.0734672708470514,
+      "positive_share_change_n": 939,
+      "share_gain_ge1pp_n": 777,
+      "share_loss_ge1pp_n": 163,
+      "common_with_admin_n": 1183,
+      "three_way_category_agreement_n": 875,
+      "sign_agreement_n": 1009,
+      "log_ratio_observed_n": 1247,
+      "median_log_centre_periphery_growth_ratio": 0.11903943439551445,
+      "common_admin_median_change_pp": 4.039118172886901,
+      "common_circle_median_change_pp": 2.180278896972443
+    },
+    {
+      "radius_km": 40,
+      "centres_n": 1263,
+      "median_share_change_pp": 0.9398128402943531,
+      "positive_share_change_n": 930,
+      "share_gain_ge1pp_n": 624,
+      "share_loss_ge1pp_n": 94,
+      "common_with_admin_n": 1189,
+      "three_way_category_agreement_n": 718,
+      "sign_agreement_n": 962,
+      "log_ratio_observed_n": 1262,
+      "median_log_centre_periphery_growth_ratio": 0.09646192692956365,
+      "common_admin_median_change_pp": 4.063968132299443,
+      "common_circle_median_change_pp": 1.0925364554482093
+    },
+    {
+      "radius_km": 80,
+      "centres_n": 1273,
+      "median_share_change_pp": 0.08253119317687113,
+      "positive_share_change_n": 754,
+      "share_gain_ge1pp_n": 260,
+      "share_loss_ge1pp_n": 41,
+      "common_with_admin_n": 1195,
+      "three_way_category_agreement_n": 375,
+      "sign_agreement_n": 817,
+      "log_ratio_observed_n": 1273,
+      "median_log_centre_periphery_growth_ratio": 0.0372687797626865,
+      "common_admin_median_change_pp": 4.063733791920058,
+      "common_circle_median_change_pp": 0.08597797612554915
+    }
+  ],
+  "identification": "Descriptive sensitivity only; overlapping synthetic circles, no observed travel or platform effects.",
+  "inputs": [
+    {
+      "path": "data/population/settlements_census_long.parquet",
+      "sha256": "2b0a1e3cd20819f6b99d1e6a200e4365fa7296e128dc22b023327b9e572f60c4"
+    },
+    {
+      "path": "data/population/settlements_census_wide.parquet",
+      "sha256": "f0f4dad4733e081d661ece6fa0d42d9f32ccb423d2b4ece77fed65945ae797b3"
+    },
+    {
+      "path": "work/sources/research/ecommerce_settlement_20261024/settlement_role_stage_20261024/system/centre_system_demography.csv",
+      "sha256": "c2fa7ab6874ebe32709a8737599e3a0c9d02305501a2a85104f76eaba29ae57e"
+    },
+    {
+      "path": "work/sources/research/ecommerce_settlement_20261024/settlement_role_stage_20261024/bdmo/singleton/internal_centre_district_common_panels2022_2024.csv",
+      "sha256": "012a67ca6ba22bb5bf70f68ecb1b80d12cc79f4ac9e6dee4e80da7a7762c208b"
+    },
+    {
+      "path": "work/sources/research/ecommerce_settlement_20261024/execution_20261024/geography/by_region.csv",
+      "sha256": "061a223555e57e085436d0c43c3cb2cb4def9f8b9f0b1625924eca364a89a922"
+    }
+  ]
+}
