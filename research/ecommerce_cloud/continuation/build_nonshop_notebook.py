@@ -32,6 +32,8 @@ intro = """# Демографическая концентрация средн�
 extension/outcomes/nonshop_population_contexts.py; первичные численности —
 Росстат, БДПМО Y48112027 и принятый бюллетень городского населения.
 """
+panel_summary=json.loads((ROOT/'work/ecommerce_extension_outcomes/nonshop_population_contexts/summary.json').read_text())
+intro=intro.replace('425 центров в 55 регионах',str(panel_summary['overlap_old170']['new_medium_positive_remainder_n'])+' центров в '+str(panel_summary['representativeness']['new_regions_n'])+' регионах')
 notebook = nbformat.v4.new_notebook()
 notebook.metadata.update({
     "kernelspec": {"name": "python3", "display_name": "Python 3", "language": "python"},

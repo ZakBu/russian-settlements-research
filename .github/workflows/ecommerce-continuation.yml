@@ -68,7 +68,7 @@ jobs:
           python research/ecommerce_cloud/fetch_bundle.py
           python research/ecommerce_cloud/check_bundle.py
       - name: Install Parquet reader
-        run: python -m pip install 'pandas>=2.2,<3' 'pyarrow>=16,<24'
+        run: python -m pip install 'pandas>=2.2,<3' 'pyarrow>=16,<24' 'scipy>=1.12,<2'
       - name: Export immutable axis columns for stdlib audit
         run: |
           python - <<'PY'
@@ -81,12 +81,20 @@ jobs:
           PY
       - name: Acquire and profile actual historical WB output
         run: python research/ecommerce_cloud/continuation/acquire_atp_historical.py --output work/ecommerce_atp_history --axis-csv work/axis_min.csv
+      - name: Calculate population contexts independently of shop data
+        run: |
+          python research/ecommerce_cloud/extension/outcomes/acquire_bdmo_population.py
+          python research/ecommerce_cloud/extension/outcomes/nonshop_population_contexts.py
+      - name: Analyse strict named-address footprints and centre surroundings
+        run: python research/ecommerce_cloud/continuation/analyze_atp_historical_footprints.py --raw-dir work/ecommerce_atp_history
       - name: Preserve acquisition evidence and complete object bodies
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: historical-wb-acquisition
-          path: work/ecommerce_atp_history/
+          path: |
+            work/ecommerce_atp_history/
+            work/ecommerce_atp_analysis/
           retention-days: 30
           if-no-files-found: warn
   public-survey-geography:
