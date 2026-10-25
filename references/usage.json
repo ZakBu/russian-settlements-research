@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.literature_usage.v1",
-  "updated": "2026-10-25",
+  "updated": "2026-10-26",
   "rules": [
     "Each new substantive methodological claim must cite a source ID or be marked as our own proposal.",
     "Code implementation claims require a concrete file/function and validation; empty implementation_paths means no implementation is certified by this map.",
@@ -813,6 +813,19 @@
       "purpose": "Явное ограничение доступа, закрытое расписание и жилая роль здания различаются с обычным предложением услуги. Отсутствие записи не доказывает отсутствие функции.",
       "implementation_status": "implemented_source_semantics_audit_not_observed_service_usage",
       "reading_scope_field": "references/sources.json:read_scope"
+    },
+    {
+      "source_id": "KVANTORIUM53_20261025_METADATA",
+      "used_in": [
+        "sgrt/zero/CENTRE_SYSTEMS_20261025.md"
+      ],
+      "purpose": "Bounded education programme audit: source own website confirms child technical park metadata for one object. Bare degree tags remain unresolved; no inferred absence of education.",
+      "implementation_status": "source_interpretation_and_held_unknown_programme_not_a_literature_threshold",
+      "implementation_paths": [
+        "scripts/sgrt_zero/education.py",
+        "scripts/sgrt_zero/diagnose_education_supplementary.py"
+      ],
+      "reading_scope_field": "references/provenance/kvantorium53_metadata_read_scope_20261025.json"
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"

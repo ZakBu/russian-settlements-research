@@ -26,7 +26,8 @@ MAIN='daily_20_school30_wb'
 # SHA of sorted JSON(origin_id,centre_settlement_id) pairs; scientific identity
 # control retained independently from the cloud build, not a Parquet/ZIP hash.
 EXPECTED_MEMBERSHIP_SHA256='c1613c7d9a279894b8b063dbb7dc8648a3c8c1bc35011af444ca586a739d2c46'
-EXPECTED_DAILY_LINK_SHA256='18824b4353cd60249653de0f7aa4bd150c1d3657a6254a7467bde48c289037bb'
+EXPECTED_DAILY_LINK_SHA256='e3031fd88686e4cb241af1227d4e0a75a42a77e110abc855723e87a03bdc8bb5'
+DAILY_CONTROL='research_context/analysis_snapshots/zero_centre_corrected_daily_control_20261025.json'
 ROAD_PREFIX='research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes'
 PILOT_PREFIX='sgrt/pilot20261024/outputs/transport'
 
@@ -85,7 +86,7 @@ def compare_scientific_control(analysis, routes):
             raise ValueError('Scientific centre CSV identity/type mismatch: '+column)
     readout=json.loads((analysis/'readout.json').read_text())
     summary=json.loads((analysis/'scenarios'/MAIN/'summary.json').read_text())
-    fixed={'admitted_direct_service_links':455069,'functional_stars':86993,
+    fixed={'admitted_direct_service_links':455069,'functional_stars':86992,
            'strict_three_core_model_screened_stars':197,
            'strict_three_core_external_positive_whole_records':528}
     for key,value in fixed.items():
@@ -98,7 +99,7 @@ def compare_scientific_control(analysis, routes):
                     'groups_with_unknown_school_stage':191}
     for key,value in quality_counts.items():
         if readout[key]!=value:raise ValueError('Strict quality control differs: '+key)
-    retained=json.loads((REPO/'research_context/analysis_snapshots/zero_centre_model_results_20261025.json').read_text())['main_readout']
+    retained=json.loads((REPO/DAILY_CONTROL).read_text())
     if readout['core_identity_and_admission_coverage']!=retained['core_identity_and_admission_coverage']:
         raise ValueError('Core provider identity and coverage control differs')
     dynamics={'decline__decline':110,'decline__growth':37,'growth__growth':23,
@@ -131,6 +132,7 @@ def compare_scientific_control(analysis, routes):
             'actual_csv_sha256':sha(analysis/'checked_model_centres.csv'),
             'strict_member_pair_semantic_sha256':pair_sha,'all725_member_identities_equal':True,
             'all455069_direct_functional_choices_equal':True,'direct_choice_semantic_sha256':link_sha,
+            'corrected_daily_control_sha256':sha(REPO/DAILY_CONTROL),
             'national_counts':fixed,'unique_members':725,'known_daily_centres':21630,
             'joint_demographic_counts':dynamics,'strict_quality_counts':quality_counts,
             'core_identity_and_admission_coverage_equal':True,'all_nearest_layers_have_153803_origins':True,
@@ -194,6 +196,9 @@ def build(work,commit):
     endpoint_quality.to_parquet(inventory,index=False,compression='zstd')
     del endpoint_quality;gc.collect()
     analysis=work/'analysis'
+    run(logs,'education_programme_review',SCRIPT/'diagnose_education_supplementary.py',
+        '--before',bundle/'education','--after',education,'--routes-before',bundle/'routes/nearest',
+        '--routes-after',routes/'nearest','--output',analysis/'education_supplementary_review')
     run(logs,'main_centres',SCRIPT/'centre_scenarios.py','--bundle',bundle,'--corrected-routes',routes,
         '--endpoints',inventory,'--output',analysis/'scenarios','--scenarios',MAIN)
     main=analysis/'scenarios'/MAIN
@@ -208,6 +213,9 @@ def build(work,commit):
         '--medical-routes',bundle/'routes/nearest/medical_basic_primary.parquet','--output',analysis/'documents')
     run(logs,'independent_subset',SCRIPT/'verify_centre_subset.py','--edges',main/'daily_edges.parquet',
         '--reference',ref,'--scenarios',analysis/'scenarios','--output',analysis/'independent_subset_check.json')
+    run(logs,'independent_extent_tail',SCRIPT/'audit_centre_extent_tail.py','--scenario-dir',main,
+        '--reference',ref,'--output',analysis/'independent_tail_audit.json',
+        '--source-context','post_supplementary_programme_reclassification')
     run(logs,'atlas',SCRIPT/'centre_atlas.py','--root',analysis,'--reference',ref,'--output',analysis/'figures')
     result=compare_scientific_control(analysis,routes)
     after=verify_bundle(bundle)

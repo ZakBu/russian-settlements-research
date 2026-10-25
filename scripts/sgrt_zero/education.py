@@ -132,6 +132,9 @@ def non_general_school_reason(group, name, value):
     general_levels=bool(literal_levels&{1,2,3})
     if literal_levels and not general_levels:
         return 'literal_ISCED_without_general_school_stage_not_general_programme'
+    extra_reason=supplementary_technical_school_reason(name,tags,general_name,general_levels)
+    if extra_reason:
+        return extra_reason
     # The named physical department can be supplementary even when its parent
     # institution is a comprehensive school (school No887, extra classes).
     unit_non_general=re.search(r'(?:отделени\w*|центр\w*|корпус\w*)\s+(?:детск\w*\s+)?(?:дополнительн\w*|дошкольн\w*|внешкольн\w*)\s+образован|(?:дополнительн\w*|дошкольн\w*|предшкольн\w*)\s+(?:образован|подготовк)',text)
@@ -187,6 +190,36 @@ def non_general_school_reason(group, name, value):
                 'explicit_non_general_or_training_site_not_general_programme')
     if source_specific and not (general_name or general_levels):
         return 'source_inventory_specific_non_general_classification'
+    return ''
+
+
+def supplementary_technical_school_reason(name,tags,general_name=False,general_levels=False):
+    """Explicit own photography/technical courses are not general schooling.
+
+    A comprehensive school's robotics club, subject focus or exam preparation
+    is not contrary evidence. Parent operators/brands and website names are
+    deliberately excluded; only own names, description and subject are read.
+    """
+    grade_evidence=any(parse_literal_levels(tags.get(k),1,12)
+                       for k in ['grades','school:grades','education:grades'])
+    if general_name or general_levels or grade_evidence:
+        return ''
+    names=[semantic_education_text(name)]
+    names += [semantic_education_text(tags.get(k,''))
+              for k in ['name','official_name','alt_name','name:ru','name:en']]
+    text=' '.join(names).lower().replace('ё','е')
+    description=semantic_education_text(tags.get('description','')).lower().replace('ё','е')
+    photo=re.search(r'фотошкол|школ\w*\s+(?:творческ\w*\s+)?фотограф|photography\s+school|school\s+of\s+photography',text)
+    if photo:
+        return 'explicit_photography_training_not_general_school_programme'
+    technical=bool(re.search(r'детск\w*\s+технопарк|\bтехнопарк\b|\bкванториум\b|(?:школ|академи|центр)\w*\s+(?:программирован|робототех)|школ\w*\s+программирован\w*\s+и\s+робототех|\bцттиит\b',text))
+    technical|=bool(re.search(r'детск\w*\s+технопарк',description))
+    if technical:
+        return 'explicit_child_technical_supplementary_training_not_general_school_programme'
+    exam=bool(re.search(r'центр\w*\s+(?:по\s+)?подготовк\w*\s+к\s+(?:егэ|огэ)|курс\w*\s+(?:по\s+)?подготовк\w*\s+к\s+(?:егэ|огэ)',text))
+    exam|='exam_preparation' in str(tags.get('subject','')).lower()
+    if exam:
+        return 'explicit_exam_preparation_not_general_school_programme'
     return ''
 
 
@@ -252,6 +285,9 @@ def programme_mismatch_reason(group,name,value):
     general=bool(re.search(r'общеобразовательн|гимнази|\bлице(?:й|я|ю|ем|е)\b|\b(?:сош|оош|нош)\b|(?:начальн|основн|средн)\w*\s+(?:школ|училищ)',text)) or bool(levels&{1,2,3})
     school_label=bool(re.search(r'\bшкол[аыуе]\b|гимнази|лице[йяю]',text))
     degree=bool(levels&({3,4,5} if group=='college' else {5,6,7,8}))
+    own_names=text+' '+semantic_education_text(tags.get('official_name','')).lower().replace('ё','е')
+    if group in {'college','university'} and not degree and re.search(r'детск\w*\s+технопарк|\bкванториум\b',own_names):
+        return 'explicit_child_technical_supplementary_site_not_degree_evidence'
     preschool=bool(re.search(r'детск(?:ий|ого|ом)\s+сад|ясли[- ]сад|ясельн',text))
     preschool_department=preschool or bool(re.search(r'дошкольн|ясл|д[/\\]с\b|школа[- ]сад',text))
     extra=bool(re.search(r'\b(?:дши|дхш|дмш|дюсш|сдюшор|сшор)\b|детск\w*\s+(?:[а-я-]+\s+){0,3}школ\w*\s+(?:искусств|искуств|хореограф)|(?:музыкальн\w*|художественн\w*)\s+школ|спортшкол|автошкол|\bдосааф\b|центр\w*\s+внешкольн\w*\s+работ|центр\w*\s+дополнительн\w*\s+образован',text))

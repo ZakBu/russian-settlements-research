@@ -1,11 +1,12 @@
 import sys
 from pathlib import Path
 import unittest
+import json
 
 import pandas as pd
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from scripts.sgrt_zero.education import build_sites, np_offers, school_orders, parse_literal_levels, regional_coverage, FEDERAL_CITY_IDS, non_general_school_reason, school_need_scope, semantic_education_text, semantic_programme_tags, instructional_site_role
+from scripts.sgrt_zero.education import build_sites, np_offers, school_orders, parse_literal_levels, regional_coverage, FEDERAL_CITY_IDS, non_general_school_reason, school_need_scope, semantic_education_text, semantic_programme_tags, instructional_site_role, programme_mismatch_reason
 
 
 def reference():
@@ -38,6 +39,49 @@ def official():
 
 
 class ZeroEducationTest(unittest.TestCase):
+    def test_child_technical_park_does_not_establish_degree_but_departments_remain(self):
+        self.assertTrue(programme_mismatch_reason('university','Детский технопарк «Смарт-парк»','{}'))
+        for group in ['college','university']:
+            self.assertTrue(programme_mismatch_reason(group,'Кванториум','{}'))
+        self.assertFalse(programme_mismatch_reason('college','Кванториум','{"isced:level":"4"}'))
+        for name,tags in [
+            ('Роботоцентр МГТУ',{'official_name':'Кафедра РК 10 МГТУ им. Баумана, Научно-Учебный Центр «Робототехника»'}),
+            ('Центр робототехники университета Иннополис',{}),
+            ('10 корпус ОмГТУ (ПолиТехноПарк)',{}),
+            ('Технопарк ГГНТУ',{}),
+            ('Детский технопарк с учебным корпусом',{'isced:level':'6;7'})]:
+            with self.subTest(name=name):
+                self.assertFalse(programme_mismatch_reason('university',name,json.dumps(tags,ensure_ascii=False)))
+
+    def test_explicit_photography_technical_and_exam_courses_are_not_general_school(self):
+        for name,tags in [
+            ('Школа творческой фотографии «Аргентум»',{}),
+            ('Фотошкола СОФТ',{}),
+            ('Академия робототехники RoboNest',{}),
+            ('Школа программирования и робототехники для детей Codame',{}),
+            ('ЦТТиИТ Я и ТЫ - Робототехника',{}),
+            ('Траектория взлёта',{'official_name':'Детский технопарк МАИ «Траектория взлёта»'}),
+            ('Кванториум',{'description':'детский технопарк'}),
+            ('Школа Квентин',{'name:ru':'Школа Квентин - центр подготовки к ЕГЭ/ОГЭ'}),
+            ('Экзамен',{'subject':'exam_preparation;mathematics'})]:
+            with self.subTest(name=name):
+                raw={'amenity':'school','name':name,**tags}
+                self.assertTrue(non_general_school_reason('school',name,json.dumps(raw,ensure_ascii=False)))
+
+    def test_general_programme_proofs_and_parent_technical_names_are_positive_controls(self):
+        for name,tags in [
+            ('Средняя общеобразовательная школа №1',{'description':'Работает кружок робототехники и подготовка к ЕГЭ'}),
+            ('Политехнический лицей «Технопарк»',{}),
+            ('Школа робототехники',{'isced:level':'1;2;3'}),
+            ('Школа фотографии',{'grades':'1-11'}),
+            ('Кванториум',{'grades':'1-4'}),
+            ('Кванториум',{'official_name':'Общеобразовательная школа-интернат №4'}),
+            ('Школа №5',{'operator':'Детский технопарк','brand':'Школа фотографии'}),
+            ('Кадетский корпус',{'description':'Есть подготовка к ЕГЭ и робототехника'})]:
+            with self.subTest(name=name):
+                raw={'amenity':'school','name':name,**tags}
+                self.assertFalse(non_general_school_reason('school',name,json.dumps(raw,ensure_ascii=False)))
+
     def test_mixed_script_semantics_preserves_raw_addresses_and_general_art_schools(self):
         raw='Детская школа искусcтв №3'
         d=build_sites(objects(name=raw,tags_json='{"amenity":"school","addr:city":"А"}'),reference(),legacy())

@@ -32,6 +32,11 @@ def build(analysis,routes,output,commit):
         for p in sorted((REPO/folder).glob('*.py')):entries['reproduction/'+p.relative_to(REPO).as_posix()]=p
     for p in sorted(REPO.glob('requirements-sgrt-*.txt')):
         entries['reproduction/'+p.name]=p
+    for name in ['research_context/diary/2026-10-26.md',
+                 'research_context/analysis_snapshots/zero_centre_corrected_daily_control_20261025.json',
+                 'research_context/analysis_snapshots/zero_centre_programme_correction_20261026.json',
+                 'references/provenance/kvantorium53_metadata_read_scope_20261025.json']:
+        if (REPO/name).exists():entries['reproduction/'+name]=REPO/name
     for name in ['AGENTS.md','README.md','requirements-sgrt-zero.txt','requirements-sgrt-mass.txt','requirements-sgrt-pilot.txt',
                  'sgrt/zero/CENTRE_SYSTEMS_20261025.md','research_context/current_state.json','research_context/diary/2026-10-25.md',
                  'research_context/analysis_snapshots/zero_centre_model_results_20261025.json',
