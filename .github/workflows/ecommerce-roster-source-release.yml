@@ -1,0 +1,34 @@
+name: Preserve recovered official roster publications
+on:
+  push:
+    branches: [codex/ecommerce-settlement-cloud-20261025]
+    paths:
+      - '.github/workflows/ecommerce-roster-source-release.yml'
+permissions:
+  contents: read
+jobs:
+  preserve-official-rosters:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: verified-rosstat-rosters
+          run-id: 40232334910
+          github-token: ${{ github.token }}
+          path: work/ecommerce_rosters_verified
+      - name: Verify every recovered raw CSV and package unchanged publications
+        run: python research/ecommerce_cloud/continuation/package_roster_source.py
+      - name: Publish a new immutable source bundle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create ecommerce-rosters-20261025-v1 --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "ОКТМО: три восстановленных официальных выпуска 2022–2024" --notes-file research/ecommerce_cloud/continuation/ROSTER_SOURCE_NOTES.md work/ecommerce_roster_source_release/official-rosters-20221228-20241227.zip work/ecommerce_roster_source_release/SHA256SUMS.txt
