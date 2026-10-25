@@ -207,7 +207,8 @@ def full_prepare(work,pin):
      '--input',source/'city_context','--output',work/'context')
  ref=work/'context/analysis_reference.parquet'
  run(SCRIPT/'health.py','--osm-current',paths['health_current'],'--osm-history',paths['health_history'],
-     '--official-supply',paths['licensed_supply'],'--reference',ref,'--legacy',paths['legacy'],'--output',work/'health')
+     '--official-supply',paths['licensed_supply'],'--official-sites',paths['licensed_sites'],
+     '--reference',ref,'--legacy',paths['legacy'],'--output',work/'health')
  run(SCRIPT/'health.py','correct-public-scope','--health-root',work/'health',
      '--official-supply',paths['licensed_supply'],'--official-sites',paths['licensed_sites'],'--reference',ref,
      '--output',work/'health/strict_control')

@@ -55,6 +55,11 @@ class CommerceTests(unittest.TestCase):
  def test_access_scope_does_not_overwrite_explicit_lifecycle_evidence(self):
   d=normalize_osm(pd.DataFrame([osm_row({'shop':'convenience','access':'private','disused':'yes'})]),reference(),legacy())
   self.assertEqual(d.supply_status.iloc[0],'excluded_lifecycle')
+ def test_explicit_pedestrian_permission_overrides_blanket_access_restriction(self):
+  d=normalize_osm(pd.DataFrame([osm_row({'shop':'convenience','access':'no','foot':'yes'})]),reference(),legacy())
+  self.assertEqual(d.supply_status.iloc[0],'observed')
+  d=normalize_osm(pd.DataFrame([osm_row({'shop':'convenience','access':'no','foot':'yes','opening_hours':'off'})]),reference(),legacy())
+  self.assertEqual(d.supply_status.iloc[0],'held_explicit_access_or_schedule')
  def test_nearest_legacy_candidate_does_not_create_identity(self):
   d=normalize_osm(pd.DataFrame([osm_row({'shop':'supermarket'},baseline_uid=None,candidate_uid='old-a',link_status='spatial_candidate_within2_5km_separated_not_identity_proof')]),reference(),legacy())
   self.assertTrue(d.source_record_id.isna().all());self.assertEqual(d.supply_status.iloc[0],'observed')

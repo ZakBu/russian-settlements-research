@@ -272,7 +272,13 @@ def save(frame,path):
  path.parent.mkdir(parents=True,exist_ok=True);frame.to_parquet(path.with_suffix('.parquet'),index=False,compression='zstd')
 
 
-def build(osm_current,osm_history,official_supply,reference_path,legacy_path,output):
+def registry_sites_path(official_supply,explicit_sites=None):
+ path=Path(explicit_sites) if explicit_sites is not None else Path(official_supply).with_name('sites_matched.parquet')
+ if not path.is_file():raise FileNotFoundError('Registry site inventory missing; pass --official-sites explicitly: '+str(path))
+ return path
+
+
+def build(osm_current,osm_history,official_supply,reference_path,legacy_path,output,official_sites=None):
  out=Path(output);out.mkdir(parents=True,exist_ok=True)
  reference=pd.read_parquet(reference_path);current=pd.read_parquet(osm_current);history=pd.read_parquet(osm_history)
  if not current.object_id.is_unique or not history.object_id.is_unique:raise ValueError('Nonunique OSM object IDs within snapshot')
@@ -281,7 +287,7 @@ def build(osm_current,osm_history,official_supply,reference_path,legacy_path,out
  linked=attach_osm(current,reference,pd.read_parquet(legacy_path));save(linked,out/'osm_sites_with_identity_and_status')
  physical=physical_offers(linked);save(physical,out/'physical_sites')
  extra=higher_mapped_offers(physical);save(extra,out/'additional_functional_offers')
- official_sites=Path(official_supply).with_name('sites_matched.parquet')
+ official_sites=registry_sites_path(official_supply,official_sites)
  official,orders=higher_official_evidence(pd.read_parquet(official_supply),pd.read_parquet(official_sites));save(orders,out/'official_functional_order_evidence')
  combined,evidence=combined_np_supply(official,physical,reference);save(combined,out/'np_supply');save(evidence,out/'source_evidence')
  cov=coverage(reference,combined,physical);save(cov,out/'coverage_region');cov.to_csv(out/'coverage_region.csv',index=False)
@@ -456,7 +462,8 @@ def main():
   a=p.parse_args(sys.argv[2:]);correct_public_scope(a.health_root,a.official_supply,a.official_sites,a.reference,a.output);return
  p=argparse.ArgumentParser(description=__doc__)
  for flag in ['osm-current','osm-history','official-supply','reference','legacy','output']:p.add_argument('--'+flag,type=Path,required=True)
- a=p.parse_args();build(a.osm_current,a.osm_history,a.official_supply,a.reference,a.legacy,a.output)
+ p.add_argument('--official-sites',type=Path,help='Explicit site inventory; avoids relying on a sibling filename')
+ a=p.parse_args();build(a.osm_current,a.osm_history,a.official_supply,a.reference,a.legacy,a.output,a.official_sites)
 
 
 if __name__=='__main__':main()

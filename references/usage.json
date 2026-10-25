@@ -766,6 +766,45 @@
         "scripts/sgrt_zero/system_complexity.py"
       ],
       "reading_scope_field": "references/sources.json records[id=FEDERAL_F034_F038_20261023].read_scope"
+    },
+    {
+      "source_id": "OSM_ACCESS_TAG_DOCUMENTATION",
+      "used_in": [
+        "sgrt/zero/ERROR_AUDIT_20261025.md"
+      ],
+      "implementation_paths": [
+        "scripts/sgrt_zero/commerce.py:commerce_access_scope"
+      ],
+      "limitation": "Теги описывают конкретный датированный снимок; они не устанавливают текущую работу или реальные поездки.",
+      "purpose": "Явное ограничение доступа, закрытое расписание и жилая роль здания различаются с обычным предложением услуги. Отсутствие записи не доказывает отсутствие функции.",
+      "implementation_status": "implemented_source_semantics_audit_not_observed_service_usage",
+      "reading_scope_field": "references/sources.json:read_scope"
+    },
+    {
+      "source_id": "OSM_OPENING_HOURS_TAG_DOCUMENTATION",
+      "used_in": [
+        "sgrt/zero/ERROR_AUDIT_20261025.md"
+      ],
+      "implementation_paths": [
+        "scripts/sgrt_zero/commerce.py:commerce_access_scope"
+      ],
+      "limitation": "Теги описывают конкретный датированный снимок; они не устанавливают текущую работу или реальные поездки.",
+      "purpose": "Явное ограничение доступа, закрытое расписание и жилая роль здания различаются с обычным предложением услуги. Отсутствие записи не доказывает отсутствие функции.",
+      "implementation_status": "implemented_source_semantics_audit_not_observed_service_usage",
+      "reading_scope_field": "references/sources.json:read_scope"
+    },
+    {
+      "source_id": "OSM_DORMITORY_TAG_DOCUMENTATION",
+      "used_in": [
+        "sgrt/zero/ERROR_AUDIT_20261025.md"
+      ],
+      "implementation_paths": [
+        "scripts/sgrt_zero/education.py"
+      ],
+      "limitation": "Теги описывают конкретный датированный снимок; они не устанавливают текущую работу или реальные поездки.",
+      "purpose": "Явное ограничение доступа, закрытое расписание и жилая роль здания различаются с обычным предложением услуги. Отсутствие записи не доказывает отсутствие функции.",
+      "implementation_status": "implemented_source_semantics_audit_not_observed_service_usage",
+      "reading_scope_field": "references/sources.json:read_scope"
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"
