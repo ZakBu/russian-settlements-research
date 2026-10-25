@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MapThumbnail from '../components/MapThumbnail';
+import MaterialCard from '../components/MaterialCard.astro';
+import {ArrowRight} from '@phosphor-icons/react';
+import {materials,research,basePath,formatDate,materialPath} from '../lib/content';
+const published=materials.filter(m=>m.visibility==='published');
+const latest=published.slice(0,3);
+---
+<Layout title="Развитие исследования"><div class="shell"><section class="hero"><div class="hero-copy"><span class="eyebrow">01 / Живой атлас исследования</span><h1>География<br/>людей и связей</h1><p class="intro">Как меняется расселение России и что связывает населённые пункты.</p><p>Карты, графики и объяснения по результатам исследования. Новые результаты появляются здесь вместе с обновлениями репозитория.</p><div class="hero-actions"><a href={basePath('map/')} class="primary-button">Исследовать карту <ArrowRight size={19}/></a><a href={basePath('atlas/')} class="secondary-button">Открыть атлас <ArrowRight size={17}/></a></div></div><div class="hero-visual"><MapThumbnail base={basePath()} large caption="География населённых пунктов по связанным переписям" client:load/></div></section>
+<div class="research-strip"><span>ПЕРЕПИСИ 2002 / 2010 / 2021</span><span>НАСЕЛЕНИЕ / УСЛУГИ / СВЯЗИ</span><span>{latest[0]?`ОБНОВЛЕНО ${formatDate(latest[0].updatedAt)}`:'Исследовательский портал'}</span></div>
+<section aria-labelledby="updates-title"><div class="section-title"><span class="eyebrow">02 / Последние результаты</span><h2 id="updates-title">Что нового</h2><a href={basePath('atlas/')}>Все материалы ↗</a></div><div class="research-strip" data-morning-controls><span><span data-morning-label>Новое с прошлого посещения</span>: <strong data-new-count aria-live="polite">—</strong></span><label style="display:flex;gap:9px;align-items:center;cursor:pointer"><input type="checkbox" data-new-only/> Только новые материалы</label><button type="button" class="secondary-button" data-mark-read>Отметить просмотренным</button></div><p data-morning-help class="catalog-count">Список обновлений определяется по датам публикаций и хранится только в этом браузере.</p><div class="update-list" data-updates>{published.map((m,i)=><article class="editorial-panel" data-update-item data-updated-at={m.updatedAt} data-research={m.researchId} hidden={i>=3}><div class="panel-meta"><span>{formatDate(m.updatedAt)}</span><span class="status">{m.kind==='correction'?'Исправление':'Обновление'}</span><span class="eyebrow" data-update-new hidden>Новое</span></div><h3><a href={materialPath(m)}>{m.title}</a></h3><p>{m.summary}</p><a class="panel-link" href={materialPath(m)}>Читать материал <ArrowRight size={16}/></a></article>)}</div><p class="empty-state" data-no-new hidden>Новых материалов с прошлого посещения пока нет. Можно открыть все последние результаты.</p></section>
+<section aria-labelledby="research-title"><div class="section-title"><span class="eyebrow">03 / Направления</span><h2 id="research-title">Мои исследования</h2></div><div class="editorial-grid">{research.sort((a,b)=>a.order-b.order).map((r,i)=><article class="editorial-panel"><div class="panel-meta"><span>{String(i+1).padStart(2,'0')}</span><span>{r.status}</span></div><h2><a href={basePath(`research/${r.id}/`)}>{r.title}</a></h2><p>{r.summary||r.description}</p><a class="panel-link" href={basePath(`research/${r.id}/`)}>Результаты и следующий шаг <ArrowRight size={16}/></a></article>)}</div></section></div></Layout>
+
+<script>
+const updates=[...document.querySelectorAll<HTMLElement>('[data-update-item]')];
+const newOnly=document.querySelector<HTMLInputElement>('[data-new-only]');
+const now=Date.now();let since=now-7*24*60*60*1000;let firstVisit=true;let storageAvailable=true;
+try{const previous=Number(localStorage.getItem('atlas-last-visit'));if(previous>0&&previous<=now){since=previous;firstVisit=false}localStorage.setItem('atlas-last-visit',String(now))}catch{storageAvailable=false}
+const currentResearch=new URLSearchParams(location.search).get('research')||'';
+function updateMorning(){
+ let count=0;let shown=0;
+ updates.forEach(item=>{const stamp=Date.parse(item.dataset.updatedAt||'');const isNew=Number.isFinite(stamp)&&stamp>since&&stamp<=now;const matches=!currentResearch||item.dataset.research===currentResearch;if(isNew&&matches)count++;
+ item.dataset.isNew=String(isNew);const badge=item.querySelector<HTMLElement>('[data-update-new]');if(badge)badge.hidden=!isNew;
+ const eligible=matches&&(!newOnly?.checked||isNew);item.hidden=!eligible||(!newOnly?.checked&&shown>=3);if(eligible)shown++;
+ });
+ const number=document.querySelector('[data-new-count]');if(number)number.textContent=String(count);
+ const label=document.querySelector('[data-morning-label]');if(label)label.textContent=firstVisit?'Новое за последние 7 дней':'Новое с прошлого посещения';
+ const help=document.querySelector('[data-morning-help]');if(help)help.textContent=storageAvailable?(firstVisit?'Первое посещение: показываем изменения за последние 7 дней. Отметки сохраняются только в этом браузере.':'Учитываются даты обновления опубликованных материалов. Отметки сохраняются только в этом браузере.'):'Браузер не сохраняет отметки. Показаны изменения за последние 7 дней.';
+ const empty=document.querySelector<HTMLElement>('[data-no-new]');if(empty)empty.hidden=!newOnly?.checked||count>0;
+}
+newOnly?.addEventListener('change',updateMorning);
+document.querySelector('[data-mark-read]')?.addEventListener('click',()=>{since=Date.now();firstVisit=false;try{localStorage.setItem('atlas-last-visit',String(since))}catch{}updateMorning()});
+updateMorning();
+</script>

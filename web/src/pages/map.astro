@@ -1,0 +1,5 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MapWorkspace from '../components/MapWorkspace';
+---
+<Layout title="Интерактивная карта" active="map" map><MapWorkspace base={import.meta.env.BASE_URL} client:only="react"/></Layout>

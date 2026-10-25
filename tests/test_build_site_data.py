@@ -1,0 +1,107 @@
+"""Scientific edge cases of the static export, using small in-memory fixtures."""
+import importlib.util
+from pathlib import Path
+import unittest
+
+import pandas as pd
+
+SPEC = importlib.util.spec_from_file_location('site_data', Path(__file__).parents[1] / 'scripts/build_site_data.py')
+site = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(site)
+
+
+def fixture(source='record:1', **overrides):
+    row = {'root': 'chain:1', 'source_record_id_2021': source,
+           'accepted_point_present_2021': True, 'accepted_longitude_2021': 50., 'accepted_latitude_2021': 55.,
+           'settlement_name_2021': 'Село', 'region_norm_2021': 'Регион', 'district_raw_2021': None,
+           'settlement_type_2021': 'село', 'ordinary_full3': True}
+    for year in site.YEARS:
+        row.update({f'working_credit_present_{year}': True, f'effective_population_{year}': 100.,
+                    f'population_{year}': 100., f'population_value_quality_{year}': 'published'})
+    return {**row, **overrides}
+
+
+def export(row):
+    long = pd.DataFrame([{'census_year': 2021, 'source_record_id': row['source_record_id_2021'], 'is_additive_settlement_record': True}])
+    return site.population_features(pd.DataFrame([row]), long)
+
+
+class ExportTests(unittest.TestCase):
+    def test_russian_region_labels_are_explicit_display_only(self):
+        self.assertEqual(len(site.REGION_NAMES_RU), 83)
+        self.assertEqual(site.REGION_NAMES_RU['RU-BA'], 'Республика Башкортостан')
+        self.assertNotEqual(site.REGION_NAMES_RU['RU-MOW'], site.REGION_NAMES_RU['RU-MOS'])
+
+    def test_uncredited_value_is_null_not_zero_but_raw_value_survives(self):
+        features, details, _ = export(fixture(working_credit_present_2010=False, population_2010=123))
+        self.assertIsNone(features[0]['properties']['p10'])
+        self.assertFalse(features[0]['properties']['comparable'])
+        detail = next(iter(details.values()))
+        self.assertEqual(detail['rawPopulation']['2010'], 123)
+        self.assertFalse(detail['credit']['2010'])
+
+    def test_zero_baseline_has_no_infinite_percentage(self):
+        features, _, _ = export(fixture(effective_population_2002=0))
+        self.assertIsNone(features[0]['properties']['change'])
+        self.assertEqual(features[0]['properties']['p02'], 0)
+
+    def test_missing_point_is_not_inferred_from_other_census(self):
+        features, _, _ = export(fixture(accepted_point_present_2021=False))
+        self.assertEqual(features, [])
+
+    def test_non_additive_record_is_not_mapped(self):
+        row = fixture()
+        long = pd.DataFrame([{'census_year': 2021, 'source_record_id': row['source_record_id_2021'], 'is_additive_settlement_record': False}])
+        self.assertEqual(site.population_features(pd.DataFrame([row]), long)[0], [])
+
+    def test_federal_city_context_does_not_duplicate_population(self):
+        row = fixture()
+        long = pd.DataFrame([{'census_year': 2021, 'source_record_id': row['source_record_id_2021'],
+                              'is_additive_settlement_record': True, 'population_scope': 'federal_city_region'}])
+        self.assertEqual(site.population_features(pd.DataFrame([row]), long)[0], [])
+
+    def test_thumbnail_is_deterministic_real_point_selection(self):
+        features, _, _ = export(fixture())
+        point = features[0]
+        other = {**point, 'properties': {**point['properties'], 'id': 'other', 'p21': 200}}
+        result = site.preview_points([point, other])
+        self.assertEqual(result, site.preview_points([other, point]))
+        self.assertEqual(result[0][:2], point['geometry']['coordinates'])
+
+    def test_polygon_sum_uses_only_strict_fixed_cohort(self):
+        feature = {'type': 'Feature', 'geometry': {'type': 'Polygon', 'coordinates': [[[0, 0], [3, 0], [3, 3], [0, 3], [0, 0]]]},
+                   'properties': {'shapeID': 'area', 'shapeName': 'Area'}}
+        def point(x, comparable):
+            return {'geometry': {'type': 'Point', 'coordinates': [x, 1]},
+                    'properties': {'comparable': comparable, 'p02': 10, 'p10': 20, 'p21': 30}}
+        result, coverage = site.boundary_features({'features': [feature]}, {'id': 'regions', 'count': 1, 'level': 'ADM1', 'epoch': 2017}, [point(1, True), point(2, False)])
+        props = result[0]['properties']
+        self.assertEqual((props['count'], props['comparableCount'], props['p21']), (2, 1, 30))
+        self.assertEqual(props['p21KnownCount'], 2)
+        self.assertEqual(props['sizeBins'], [2, 0, 0, 0, 0])
+        self.assertIn('not_official', coverage['aggregation'])
+
+    def test_overlapping_polygons_do_not_double_count(self):
+        polygon = {'type': 'Feature', 'geometry': {'type': 'Polygon', 'coordinates': [[[0, 0], [3, 0], [3, 3], [0, 3], [0, 0]]]},
+                   'properties': {'shapeID': 'a', 'shapeName': 'A'}}
+        point = {'geometry': {'type': 'Point', 'coordinates': [1, 1]}, 'properties': {'comparable': True, 'p02': 1, 'p10': 1, 'p21': 1}}
+        output, coverage = site.boundary_features({'features': [polygon, polygon]}, {'id': 'regions', 'count': 2, 'level': 'ADM1', 'epoch': 2017}, [point])
+        self.assertEqual(coverage['ambiguousPoints'], 1)
+        self.assertTrue(all(f['properties']['p21'] is None for f in output))
+
+    def test_district_search_alias_is_not_identity_or_rename(self):
+        polygon = {'type': 'Feature', 'geometry': {'type': 'Polygon', 'coordinates': [[[0, 0], [3, 0], [3, 3], [0, 3], [0, 0]]]},
+                   'properties': {'shapeID': 'source-area', 'shapeName': 'Source Raion'}}
+        point = {'geometry': {'type': 'Point', 'coordinates': [1, 1]},
+                 'properties': {'id': 'np1', 'comparable': True, 'p02': 1, 'p10': 1, 'p21': 1}}
+        result, _ = site.boundary_features({'features': [polygon]}, {'id': 'districts', 'count': 1, 'level': 'ADM2', 'epoch': 2017},
+                                           [point], {'np1': {'district': 'Муниципальный округ'}})
+        props = result[0]['properties']
+        self.assertEqual(props['name'], 'Source Raion')
+        self.assertEqual(props['sourceName'], 'Source Raion')
+        self.assertEqual(props['searchAliases'], ['Муниципальный округ'])
+        self.assertIn('not_verified_municipality_match', props['searchAliasBasis'])
+
+
+if __name__ == '__main__':
+    unittest.main()
