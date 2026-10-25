@@ -1,0 +1,30 @@
+{
+  "purpose": "Bounded exact performance fix; not new scientific parameters",
+  "reference_rows": 173242,
+  "edge_rows": 1000,
+  "edge_selection": "First 1000 rows in immutable v1 main daily evidence",
+  "source_edge_sha256": "2aa6c1a79c1e00b8a0eff2f6554733fcd9668a471cb5b202f10a43788fd3c983",
+  "source_reference_sha256": "456a0fd57c363cd7ade3563c5737634dd34ebda585569fc80bec160e4cc55e90",
+  "variants": {
+    "original": {
+      "elapsed_seconds": 9.389683220011648,
+      "known_np_centres": 132,
+      "functional_stars": 166,
+      "code_sha256": "6bfe86b1d1bfe358d1f05df9c60ed1000632aaa6fbe60ff8c984adbacf39e050"
+    },
+    "bounded_join": {
+      "elapsed_seconds": 7.048363349982537,
+      "known_np_centres": 132,
+      "functional_stars": 166,
+      "code_sha256": "db3331935e3a7116ef2f9e328cd0253fed49aa528cc6beaafc7226eefdd94f7a",
+      "all_six_tables_exact_including_row_order_nulls_and_dtypes": true
+    },
+    "bounded_join_bulk_coordinates": {
+      "elapsed_seconds": 4.894980943994597,
+      "known_np_centres": 132,
+      "functional_stars": 166,
+      "code_sha256": "59fae244db9a67c3dab84bbe489b948dcb8004b2c114a6283391ba4a84fb9ab6",
+      "all_six_tables_exact_including_row_order_nulls_and_dtypes": true
+    }
+  }
+}

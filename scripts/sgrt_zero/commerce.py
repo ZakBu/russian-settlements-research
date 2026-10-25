@@ -60,6 +60,24 @@ def commerce_access_scope(tags):
   return 'explicit_closed_schedule_not_regular_service_offer'
  return None
 
+NONFOOD_ASSORTMENT_NAME = re.compile(
+ r'строительн[а-яё]*\s+магазин|магазин\s+стройматериал|магазин\s+автозапчаст|'
+ r'магазин\s+мебел|цветочный\s+магазин|магазин\s+цветов|'
+ r'ритуальн[а-яё]*\s+магазин|магазин\s+одежды|магазин\s+обуви', re.I)
+EXPLICIT_FOOD_ASSORTMENT_NAME = re.compile(r'\b(?:продукт[а-яё]*|продовольств[а-яё]*|бакале[а-яё]*)\b', re.I)
+
+def commerce_assortment_scope(tags):
+ """Hold a literal nonfood-shop/grocery-tag conflict; never infer absence.
+
+ Generic brands, owner names and food/nonfood mixed stores are not excluded.
+ This is a narrow contradiction check, not a name-based shop classifier.
+ """
+ if str(tags.get('shop','')).casefold() not in DAILY_GROCERY:return None
+ name=' '.join(str(tags.get('name','')).split())
+ if NONFOOD_ASSORTMENT_NAME.search(name) and not EXPLICIT_FOOD_ASSORTMENT_NAME.search(name):
+  return 'literal_nonfood_assortment_name_conflicts_with_general_food_tag'
+ return None
+
 def operator_name(tags):
  explicit=tags.get('operator') or tags.get('brand')
  if explicit:return str(explicit)
@@ -103,6 +121,8 @@ def normalize_osm(objects,reference,legacy):
   if temporal in {'ended_before_snapshot','started_after_snapshot'}:status='excluded_temporal';reason=temporal
   access_scope=commerce_access_scope(t)
   if status=='observed' and access_scope:status='held_explicit_access_or_schedule';reason=access_scope
+  assortment_scope=commerce_assortment_scope(t)
+  if status=='observed' and assortment_scope:status='held_assortment_conflict';reason=assortment_scope
   if not valid:status='excluded_geometry';reason='invalid_or_missing_physical_point'
   sid=None;identity='physical_site_np_identity_unknown';legacy_id=raw.baseline_uid
   if pd.notna(legacy_id) and legacy_id in bridge.index and raw.link_status=='explicit_address_locality_unique_within5km':
@@ -120,6 +140,7 @@ def normalize_osm(objects,reference,legacy):
    source_start_date=None if pd.isna(start) else str(start),source_end_date=None if pd.isna(end) else str(end),
    temporal_status=temporal,lifecycle_exclusion_reason=lifecycle or None,tags_json=json.dumps(t,ensure_ascii=False),
    explicit_access_or_schedule_scope=access_scope,source_access_literal=t.get('access'),
+   explicit_assortment_conflict=assortment_scope,
    actual_operational_status_checked=False,observed_flow=False,historical_supply_needs_current_confirmation=True,opening_hours=t.get('opening_hours'),
    default_external_seed_eligible=status=='observed',capacity_known=False,source_url='https://www.openstreetmap.org',source_license='ODbL-1.0'))
  d=pd.DataFrame(rows)
