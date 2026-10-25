@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-25T12:46:34+03:00",
+  "updated_moscow": "2026-10-25T13:21:13+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,7 +9,7 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "published_v1_control_has_semantic_errors_source_and_metadata_corrections_under_audit",
+      "status": "semantic_audit_published_verified_code_and_metadata_corrected_new_routing_and_system_definition_pending",
       "summary": "Найдены ошибочные учебные площадки, двойной счёт частей НП, неоднозначные ID поставщиков и демографические метки неполного состава. Код исправлен, источники переоценены, метаданные 15 старых разбиений пересчитаны. Новые направления после перевыбора поставщиков и готовые системы «центр + окружение» пока не выделены.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
@@ -377,7 +377,23 @@
         "profiles_all_known_np_anchors_outside_membership": 8251,
         "metadata_corrected_partitions": 15,
         "metadata_correction_changes_memberships": false,
-        "centre_periphery_is_not_word_causal_typology": true
+        "centre_periphery_is_not_word_causal_typology": true,
+        "publication": {
+          "release_tag": "sgrt-semantic-audit-20261025-v1",
+          "source_commit": "aeff9144aeaa0e02c39da5bed8864fd01dafdaf2",
+          "status": "published_download_checksums_code_and_30_metadata_tables_verified",
+          "archive_bytes": 81431210,
+          "archive_sha256": "b433aba515d1728f2788a1151684b5ad98533ca4c6f24958ec1a35fe40c33552",
+          "files_verified": 183,
+          "archived_python_files_equal_source_commit": 64,
+          "local_and_public_byte_identical_metadata_parquet": 30,
+          "primary_v1_inputs_unchanged": true,
+          "routing_recomputed": false,
+          "full_corrected_sgrt_partition_available": false,
+          "manifest": "research_context/analysis_snapshots/semantic_audit_manifest_20261025.json",
+          "download_verification": "research_context/analysis_snapshots/semantic_audit_public_download_20261025.json",
+          "tests_passed": 348
+        }
       }
     }
   },
@@ -428,6 +444,7 @@
     "current_user_clarifications": "research_context/conversation_context_20261025.md",
     "previous_national_results": "sgrt/mass/README.md",
     "current_zero_catalog": "data/zero_catalog_20261025.json",
-    "current_error_audit": "sgrt/zero/ERROR_AUDIT_20261025.md"
+    "current_error_audit": "sgrt/zero/ERROR_AUDIT_20261025.md",
+    "latest_audit_data_release": "https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-semantic-audit-20261025-v1"
   }
 }
