@@ -501,15 +501,25 @@ def submit(args):
     changed = git("diff", "--name-only", "--", "web/content").splitlines()
     untracked = git("ls-files", "--others", "--exclude-standard", "--", "web/content").splitlines()
     paths = sorted(set(changed + untracked))
+    branch = git("branch", "--show-current")
     if not paths:
-        raise ValueError("No content changes to submit")
-    git("add", "--", *paths)
-    git("commit", "-m", args.title)
+        # A previous attempt may have committed and pushed successfully before
+        # PR creation failed. Resume it without another commit or duplicate PR.
+        pending = git("diff", "--name-only", "origin/main...HEAD", "--", "web/content")
+        if not pending:
+            raise ValueError("No content changes to submit")
+    else:
+        git("add", "--", *paths)
+        git("commit", "-m", args.title)
     git("push", "-u", "origin", "HEAD")
+    existing = subprocess.check_output(["gh", "pr", "list", "--head", branch, "--base", "main", "--state", "open", "--json", "url", "--jq", ".[0].url"], cwd=root, text=True).strip()
+    if existing:
+        print(existing)
+        return
     with tempfile.NamedTemporaryFile(mode="w", suffix=".md", encoding="utf-8") as body:
         body.write(args.body or "Добавлены материалы исследования и декларативные визуализации. Контент проверен site_content.py validate.")
         body.flush()
-        subprocess.run(["gh", "pr", "create", "--title", args.title, "--body-file", body.name, "--base", "main"], cwd=root, check=True)
+        subprocess.run(["gh", "pr", "create", "--title", args.title, "--body-file", body.name, "--base", "main", "--head", branch], cwd=root, check=True)
 
 
 def main(argv=None):
