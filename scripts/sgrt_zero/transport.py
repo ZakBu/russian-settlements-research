@@ -232,6 +232,13 @@ def nearest_service(endpoints,providers,reverse_graph,service_code):
         out[col]=out['provider_'+col]
     out['provider_settlement_id']=out.selected_provider_source_record_id
     out['provider_site_id']=out.selected_provider_id
+    # These are final-candidate aliases (set after the NP-local rule in
+    # nearest_for_sites), not the pre-local network search. Refresh them after
+    # choosing the evidence representative; preserve that earlier search only
+    # in the explicitly named unconstrained_nearest_* columns.
+    out['provider_id']=out.selected_provider_id
+    out['primary_candidate_id']=out.selected_provider_id
+    out['primary_cost_minutes']=out.cost_minutes
     out['provider_lat']=out.selected_provider_site_lat;out['provider_lon']=out.selected_provider_site_lon
     from routes import haversine_km
     out['point_separation_km']=haversine_km(out.lat,out.lon,out.provider_lat,out.provider_lon)

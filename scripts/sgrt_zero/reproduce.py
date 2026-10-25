@@ -211,12 +211,6 @@ def full_prepare(work,pin):
  run(SCRIPT/'health.py','correct-public-scope','--health-root',work/'health',
      '--official-supply',paths['licensed_supply'],'--official-sites',paths['licensed_sites'],'--reference',ref,
      '--output',work/'health/strict_control')
- run(SCRIPT/'medical_scope.py','--base-health',work/'health/strict_control','--legacy-sites',paths['licensed_sites'],
-     '--legacy-supply',paths['licensed_supply'],'--reference',ref,'--output',work/'health/legacy_primary_child_scope_corrected')
- medical_pdf=fetch_medical_source(inputs)
- run(SCRIPT/'saratov_registry.py','--pdf',medical_pdf,'--reference',ref,
-     '--output',work/'health/saratov_2021_supplement','--base-health',work/'health/legacy_primary_child_scope_corrected',
-     '--combined-output',work/'health/saratov_control')
  federal_archive=fetch_federal_source(inputs)
  run(SCRIPT/'medical_regional_sources.py','--archive',federal_archive,'--input-dir',work/'source/federal_xml',
      '--output',work/'federal_medical/normalized','--asof','2026-10-23')
@@ -224,6 +218,16 @@ def full_prepare(work,pin):
      '--reference',ref,'--output',work/'federal_medical/addresses')
  run(SCRIPT/'federal_medical_functions.py','--input',work/'federal_medical/normalized/care_site_profiles_current.parquet',
      '--codebooks',work/'source/federal_xml','--asof','2026-10-23','--output',work/'federal_medical/functions')
+ # A literal same-year subdivision/address type can resolve a generic name
+ # in the legacy extract. The ledger must exist before that scope decision.
+ run(SCRIPT/'medical_scope.py','--base-health',work/'health/strict_control','--legacy-sites',paths['licensed_sites'],
+     '--legacy-supply',paths['licensed_supply'],'--reference',ref,
+     '--federal-care-ledger',work/'federal_medical/normalized/care_site_profiles_current.parquet',
+     '--output',work/'health/legacy_primary_child_scope_corrected')
+ medical_pdf=fetch_medical_source(inputs)
+ run(SCRIPT/'saratov_registry.py','--pdf',medical_pdf,'--reference',ref,
+     '--output',work/'health/saratov_2021_supplement','--base-health',work/'health/legacy_primary_child_scope_corrected',
+     '--combined-output',work/'health/saratov_control')
  run(SCRIPT/'federal_medical_integrate.py','--classified',work/'federal_medical/functions/care_rows_classified.parquet',
      '--evidence',work/'federal_medical/functions/service_evidence_by_care_address.parquet',
      '--addresses',work/'federal_medical/addresses/F038_current_np_identity.parquet','--reference',ref,

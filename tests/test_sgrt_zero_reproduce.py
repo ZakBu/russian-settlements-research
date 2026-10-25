@@ -175,7 +175,7 @@ class ReproduceTests(unittest.TestCase):
    put(work,'analysis_options.json',json.dumps({'grocery_nearest':'derived_nearest/daily_grocery_evidence_union.parquet'}).encode())
    self.assertEqual(r.grocery_override(work),table.resolve())
 
- def test_full_recipe_snaps_new_yandex_sites_instead_of_reusing_wb_cache(self):
+ def test_full_recipe_respects_medical_dependencies_and_independent_operator_geometry(self):
   with tempfile.TemporaryDirectory() as tmp:
    work=Path(tmp);source=work/'frozen';source.mkdir()
    put(work,'source/external_fua/global.gpkg')
@@ -191,6 +191,11 @@ class ReproduceTests(unittest.TestCase):
    self.assertIn('--road-nodes',ym);self.assertIn('--road-origins',ym)
    self.assertNotIn('--geometry-cache',ym)
    self.assertIn('--geometry-cache',wb)
+   functions=next(i for i,a in enumerate(commands) if Path(a[0]).name=='federal_medical_functions.py')
+   scope=next((i,a) for i,a in enumerate(commands) if Path(a[0]).name=='medical_scope.py')
+   self.assertLess(functions,scope[0])
+   self.assertIn('--federal-care-ledger',scope[1])
+   self.assertEqual(scope[1][scope[1].index('--federal-care-ledger')+1],work/'federal_medical/normalized/care_site_profiles_current.parquet')
 
  def test_all_five_scenarios_and_four_higher_stages_are_requested(self):
   with tempfile.TemporaryDirectory() as tmp:

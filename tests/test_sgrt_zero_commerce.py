@@ -34,6 +34,27 @@ class CommerceTests(unittest.TestCase):
  def test_closed_and_ended_stores_not_admitted(self):
   d=normalize_osm(pd.DataFrame([osm_row({'shop':'convenience','disused':'yes'}),osm_row({'shop':'convenience','end_date':'2016'},site_id='osm:node:2',canonical_site_id='osm:node:2')]),reference(),legacy())
   self.assertEqual(d.supply_status.tolist(),['excluded_lifecycle','excluded_temporal'])
+ def test_explicit_private_access_is_not_general_grocery_offer(self):
+  d=normalize_osm(pd.DataFrame([osm_row({'shop':'supermarket','access':'private'})]),reference(),legacy())
+  self.assertEqual(d.supply_status.iloc[0],'held_explicit_access_or_schedule')
+  self.assertFalse(d.default_external_seed_eligible.iloc[0])
+  self.assertEqual(d.source_access_literal.iloc[0],'private')
+  self.assertEqual(len(d),1)
+ def test_closed_schedule_is_held_without_claiming_permanent_closure(self):
+  for hours in ['closed','Closed','off','Mo-Su off']:
+   with self.subTest(hours=hours):
+    d=normalize_osm(pd.DataFrame([osm_row({'shop':'convenience','opening_hours':hours})]),reference(),legacy())
+    self.assertEqual(d.supply_status.iloc[0],'held_explicit_access_or_schedule')
+    self.assertIn('schedule',d.eligibility_reason.iloc[0])
+ def test_customer_access_and_private_operator_are_not_restrictions(self):
+  for tags in [{'shop':'convenience','access':'customers'}, {'shop':'supermarket','operator:type':'private'},
+               {'shop':'convenience','opening_hours':'Mo-Sa 09:00-18:00; Su off'}]:
+   with self.subTest(tags=tags):
+    d=normalize_osm(pd.DataFrame([osm_row(tags)]),reference(),legacy())
+    self.assertEqual(d.supply_status.iloc[0],'observed')
+ def test_access_scope_does_not_overwrite_explicit_lifecycle_evidence(self):
+  d=normalize_osm(pd.DataFrame([osm_row({'shop':'convenience','access':'private','disused':'yes'})]),reference(),legacy())
+  self.assertEqual(d.supply_status.iloc[0],'excluded_lifecycle')
  def test_nearest_legacy_candidate_does_not_create_identity(self):
   d=normalize_osm(pd.DataFrame([osm_row({'shop':'supermarket'},baseline_uid=None,candidate_uid='old-a',link_status='spatial_candidate_within2_5km_separated_not_identity_proof')]),reference(),legacy())
   self.assertTrue(d.source_record_id.isna().all());self.assertEqual(d.supply_status.iloc[0],'observed')
