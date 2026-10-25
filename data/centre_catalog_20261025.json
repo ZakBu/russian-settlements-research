@@ -1,0 +1,921 @@
+{
+  "schema": "sgrt.zip_companion.v1",
+  "status": "published_public_download_verified",
+  "repository": "ZakBu/russian-settlements-research",
+  "release_tag": "sgrt-zero-centre-systems-20261025-v1",
+  "source_commit": "3edc853c7623bb1cec22ca9a8bd9d82f7a0446ce",
+  "archive_root": "sgrt/centre20261025/",
+  "reader": "ordinary ZIP; not the research_data.py object-store schema",
+  "scientific_scope": "Direct overlapping service areas and a197-centre three-core model subset; not a complete exclusive SGRT partition or observed journeys.",
+  "population_default_catalog_unchanged": true,
+  "dependency_catalogs": [
+    "data/zero_catalog_20261025.json",
+    "data/pilot_catalog_20261024.json",
+    "data/catalog.json",
+    "data/local_systems_catalog_20261024.json"
+  ],
+  "dependencies_note": "Grouping from existing routes requires zero-v1 reference/unchanged services; road graph/catalog are needed only for fresh rerouting. Local document inputs are copied into this companion.",
+  "assets": [
+    {
+      "asset": "centre-systems.zip",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-zero-centre-systems-20261025-v1/centre-systems.zip",
+      "bytes": 411248657,
+      "sha256": "bfa23970305423425449d059e88dc26f131ca3f523acf869b958e2ba917c593d",
+      "status": "verified_public_download"
+    },
+    {
+      "asset": "centre_atlas.pdf",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-zero-centre-systems-20261025-v1/centre_atlas.pdf",
+      "bytes": 229829,
+      "sha256": "0957e59f0536afa5d8b7ffcf62e1f8f84ae656e2908487d39a51edbac978768d",
+      "status": "verified_public_download"
+    },
+    {
+      "asset": "manifest.json",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-zero-centre-systems-20261025-v1/manifest.json",
+      "bytes": 37788,
+      "sha256": "3833338668c37dcc2d0b85b645014f1f1a10fe452dccab6d6429f91b1dcd44e6",
+      "status": "verified_public_download"
+    },
+    {
+      "asset": "preview.png",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-zero-centre-systems-20261025-v1/preview.png",
+      "bytes": 363735,
+      "sha256": "27a1abf94702f7865192949f2a5a34b53970c9579cd3a3b4a38e8a4941b9aa67",
+      "status": "verified_public_download"
+    }
+  ],
+  "files": {
+    "analysis/checked_model_centres.csv": {
+      "bytes": 42149,
+      "sha256": "12da670141473e8cebf5ca9df09e3f8ac73d72b666580592057d78f663d47ab0"
+    },
+    "analysis/cloud_logs/atlas.log": {
+      "bytes": 430,
+      "sha256": "3fb908c900e7541e709acd9b7bc5f0041ae7ea18b78d3cc47dc58ef564265b42"
+    },
+    "analysis/cloud_logs/centre_readout.log": {
+      "bytes": 2983,
+      "sha256": "c0f195c0fb86414fa87ceaef65241f33ca95fa74440caaddfd2d3bd92393a89d"
+    },
+    "analysis/cloud_logs/documented_links.log": {
+      "bytes": 1601,
+      "sha256": "f4746ff364e3eee580dc5d1e3f858150aef01a4f44fe2401c92a243de2871629"
+    },
+    "analysis/cloud_logs/education_programme_review.log": {
+      "bytes": 3718,
+      "sha256": "f5354a692d75a1057a074dd3c770d2b3e76c10061c18db747e47ed6096b72d1f"
+    },
+    "analysis/cloud_logs/fresh_geometry_commerce.log": {
+      "bytes": 1516,
+      "sha256": "9290bfece300c4abe7223f8c3afee057db9afe77917cd062c1ee8c602311d973"
+    },
+    "analysis/cloud_logs/fresh_geometry_education.log": {
+      "bytes": 1531,
+      "sha256": "5f312e3d697bb37560d766af8d888d7c476b048e01b0873e4f94904bc95c073d"
+    },
+    "analysis/cloud_logs/grocery_union.log": {
+      "bytes": 1665,
+      "sha256": "11ea04553c64ed9d4ac6c5ee21ae3c46d923fd8689a8edd9300f471da4cf78dc"
+    },
+    "analysis/cloud_logs/independent_extent_tail.log": {
+      "bytes": 1541,
+      "sha256": "28cc1e2551d03b80837c349b720b260f71660bfb77927a94d77c0ba5ad4e6b9e"
+    },
+    "analysis/cloud_logs/independent_forward_minima.log": {
+      "bytes": 1032,
+      "sha256": "27f1e350aaa6f73255005511f968ce7fdb4800994dd869b9ac1b3964e2f35659"
+    },
+    "analysis/cloud_logs/independent_subset.log": {
+      "bytes": 941,
+      "sha256": "c78545025fee4745faefccbdf50a3c35fb4e48c3c92188c9459911d4d118288c"
+    },
+    "analysis/cloud_logs/main_centres.log": {
+      "bytes": 1545,
+      "sha256": "f925abb7f6115915ce6f94b89ab7db58afec93f0490290712a67823530b9d554"
+    },
+    "analysis/cloud_logs/rebuild_commerce.log": {
+      "bytes": 4636,
+      "sha256": "61c84caf587e5de58b54143a657e7582c9974a141faf23e32edc732356797238"
+    },
+    "analysis/cloud_logs/rebuild_education.log": {
+      "bytes": 9282,
+      "sha256": "ad7dd86f3410d36e9275cc8c94e467346e1fc616ee0ce60aa9ddde627af8f1a9"
+    },
+    "analysis/cloud_logs/reroute_all10.log": {
+      "bytes": 5533,
+      "sha256": "1170c7f76a655fa573571e161d91bfd8d426ccce1de691e143f932afdf2379fb"
+    },
+    "analysis/cloud_logs/restore_documents_1.log": {
+      "bytes": 856,
+      "sha256": "2334230d268102865aca7b9a083c8851c0b362c63c8c72f089e4f3cbc6e93d53"
+    },
+    "analysis/cloud_logs/restore_graph_1.log": {
+      "bytes": 898,
+      "sha256": "6f2488462492c636f2c074fb4ed018bbe01020591c30ca9bb152f1ccd17108a9"
+    },
+    "analysis/cloud_logs/restore_road_coordinates_1.log": {
+      "bytes": 874,
+      "sha256": "8f3171cc644ef12abc7a2cae408c931596ba224a90a9c9ba9893e5b7c3c66384"
+    },
+    "analysis/cloud_logs/restore_zero_1.log": {
+      "bytes": 743,
+      "sha256": "3bbf2a349edc58d7925e183ef0d63802dd3f2f77d29b9697148fd11ba5c2f19a"
+    },
+    "analysis/cloud_logs/strict_sensitivity.log": {
+      "bytes": 3109,
+      "sha256": "235e339384da5aaaf221dfe1f27a712444cb13ef5f9a5ffffca13033917e8472"
+    },
+    "analysis/cloud_scientific_control.json": {
+      "bytes": 2473,
+      "sha256": "fb87ce65d122aab6e197a9c420e1b990b110fd8a4aa17c9ee2012b972c105ed4"
+    },
+    "analysis/core_provider_identity_coverage.parquet": {
+      "bytes": 4768,
+      "sha256": "af81f49edc20b07ea53d21192e6501659604422e7d17dd5386dd6a700b8b48b6"
+    },
+    "analysis/document_inputs/links.parquet": {
+      "bytes": 18250,
+      "sha256": "7cdad600937dad03c9110b4a12ae3c9505ab0d84d9e03dc0b18f2fc2781018c2"
+    },
+    "analysis/document_inputs/nodes.parquet": {
+      "bytes": 22395,
+      "sha256": "8165611d959bf6806fdabec58b1d7e7c8eaff18e32485c1c19d364ce46880e04"
+    },
+    "analysis/documents/documented_memberships.parquet": {
+      "bytes": 9240,
+      "sha256": "7666bda9b809a0bdb07c402f1168bb16bba3e97584de99e0fc696073db6ff644"
+    },
+    "analysis/documents/documented_stars.parquet": {
+      "bytes": 11742,
+      "sha256": "ac70bb163a1140e4eb66f91f9a8094b5f44d94b387a5c1782f9414f9d1442454"
+    },
+    "analysis/documents/model_comparison.parquet": {
+      "bytes": 28266,
+      "sha256": "10a73f9256ad77f253451b5afe94214b620d9d571d2c5631e00d695144cd0431"
+    },
+    "analysis/documents/summary.json": {
+      "bytes": 1001,
+      "sha256": "34ab44ad20dbdbde440528bfc9813a1253a48f18d7a0f64a80603c4b0592b2e1"
+    },
+    "analysis/education_supplementary_review/historical_physical_subset_removed_programmes.csv": {
+      "bytes": 7540,
+      "sha256": "88a033792bb5b4617c9488425d5fdc8af27b686561d6a800411441ce8574d238"
+    },
+    "analysis/education_supplementary_review/historical_physical_subset_removed_programmes.parquet": {
+      "bytes": 67492,
+      "sha256": "4ea2538105951e59310a55dc7caed9cb3aa08124f27146ce8d9d618041780b17"
+    },
+    "analysis/education_supplementary_review/newly_held_points.parquet": {
+      "bytes": 107939,
+      "sha256": "c93c75daeb2df94f64d22b290f4f80e031ef4f56546176badd98f531da76cba0"
+    },
+    "analysis/education_supplementary_review/old_selected_higher_education.parquet": {
+      "bytes": 303798,
+      "sha256": "3dbe917836ca0d184f45848ca0cf04de246075f3272dcf48657c5e566e7eca2e"
+    },
+    "analysis/education_supplementary_review/old_selected_preschool.parquet": {
+      "bytes": 89830,
+      "sha256": "2d801ed7d6f160ab50a2bbce7224d5f02a00478b0405d29a2441b51c4001894c"
+    },
+    "analysis/education_supplementary_review/old_selected_school_general.parquet": {
+      "bytes": 114431,
+      "sha256": "035601985f4b3e019ca1b1dcffa0eebb1a52ba60ec131bdb6679a880fffc06cb"
+    },
+    "analysis/education_supplementary_review/old_selected_vocational_education.parquet": {
+      "bytes": 152437,
+      "sha256": "5d160abf61dc05e13e3e38c198df7595a518ee840076b78183199f61d49c94c0"
+    },
+    "analysis/education_supplementary_review/summary.json": {
+      "bytes": 3568,
+      "sha256": "93f5e6b8eaf0be35aca5cb3b654f8aa0384a1df8462e26bb3fd89e2c8f39beaf"
+    },
+    "analysis/education_supplementary_review/whole_family_review.csv": {
+      "bytes": 16893,
+      "sha256": "050f3e37247d5bb7310a6a87210afe97ddea4984dc8e6fe626454e773acf0513"
+    },
+    "analysis/education_supplementary_review/whole_family_review.parquet": {
+      "bytes": 83238,
+      "sha256": "7bb9f669f5ef1d0ffa973f91519720179696828cc71664123a38e11499971840"
+    },
+    "analysis/figures/01_country.png": {
+      "bytes": 360980,
+      "sha256": "608e90f729639f89cd2f9355da81337c34350e1c1cc657450b61163949a7a813"
+    },
+    "analysis/figures/02_sizes.png": {
+      "bytes": 117518,
+      "sha256": "94c42e1e1151ffe9e9ee783969d5597ec0bad9349175be1ca6f2dfdf7081800b"
+    },
+    "analysis/figures/03_sensitivity.png": {
+      "bytes": 114370,
+      "sha256": "d4b5c8e60dae01e7683e4504a52ef661722b251cae6ad277177968a2d6d5aa90"
+    },
+    "analysis/figures/04_documents.png": {
+      "bytes": 160665,
+      "sha256": "b8847be5a73a491ae4ffa2394c5905a520cd8dd56bc18e0ddd7289e097d2fee7"
+    },
+    "analysis/figures/05_named_groups.png": {
+      "bytes": 189873,
+      "sha256": "27b621fb9b6cd354081403ba75bc8e734b33a45666e47a46586cbae37cc3caf8"
+    },
+    "analysis/figures/06_wider_service_network.png": {
+      "bytes": 363735,
+      "sha256": "27a1abf94702f7865192949f2a5a34b53970c9579cd3a3b4a38e8a4941b9aa67"
+    },
+    "analysis/figures/centre_atlas.pdf": {
+      "bytes": 229829,
+      "sha256": "0957e59f0536afa5d8b7ffcf62e1f8f84ae656e2908487d39a51edbac978768d"
+    },
+    "analysis/figures/figure_values.json": {
+      "bytes": 453,
+      "sha256": "a70c4b218b1dd17c635e27210d5cf3618f96f7a153928b3cd27ef0c4e61c2270"
+    },
+    "analysis/immutable_inputs_check.json": {
+      "bytes": 223,
+      "sha256": "b8569166de2c31c981d770ace53554ee24ad067feb868d5dc63316cc2cd7c3d0"
+    },
+    "analysis/independent_subset_check.json": {
+      "bytes": 1625,
+      "sha256": "9a4aebb39b068688656c32e0974c7b478f515fde7dcb77e9a31759244fd93dba"
+    },
+    "analysis/independent_tail_audit.json": {
+      "bytes": 51413,
+      "sha256": "52416c2b021643ddb4b68d70d43aa31448bf03b78ec7994057e724e9a9907fec"
+    },
+    "analysis/independent_tail_audit_cases.parquet": {
+      "bytes": 12913,
+      "sha256": "69b557c38335fb90b3efac8b87760cae687508fea68d5965bc9f3baf76439828"
+    },
+    "analysis/readout.json": {
+      "bytes": 2620,
+      "sha256": "5584d170d8deb5ddef4beca2108979417f4fcf28d3ec6376aacc4db78b260afd"
+    },
+    "analysis/scenario_membership_comparison.parquet": {
+      "bytes": 3921,
+      "sha256": "54736db0831185e9cf59428595e48c465726d6abb942b1986b2ed9a1cf1be063"
+    },
+    "analysis/scenarios/combined_summary.json": {
+      "bytes": 5262,
+      "sha256": "1782ceef67877c25a8eb45747e138591808efc1cbab595530a9ede3c3b990623"
+    },
+    "analysis/scenarios/daily_10_school15_wb/strict_three_core_memberships.parquet": {
+      "bytes": 62913,
+      "sha256": "2a509087a4b4858bb0a7f1caea38773cbf9aa3a54e70d9659d8bdd6e27a49d65"
+    },
+    "analysis/scenarios/daily_10_school15_wb/strict_three_core_stars.parquet": {
+      "bytes": 21483,
+      "sha256": "db1ddb103b1ef5cb6c5b5c36c31e0b5adece1cbbafa566125aeb1c0e2e3bf4ea"
+    },
+    "analysis/scenarios/daily_10_school15_wb/summary.json": {
+      "bytes": 1324,
+      "sha256": "2db526aa00fbf1e97fc4f1feb2a44106f8d84eb488e9fdcfcccc08d8e7844b7a"
+    },
+    "analysis/scenarios/daily_20_school30_wb/centre_memberships.parquet": {
+      "bytes": 9201420,
+      "sha256": "58090212041d62f243d4c5d01cd8575fa4a444843677d766e56883b0504324c6"
+    },
+    "analysis/scenarios/daily_20_school30_wb/centre_stars.parquet": {
+      "bytes": 1607325,
+      "sha256": "e775614aec374fd2e9afa6e850653781a4bb0ad179ee20a0f9ab181fd99a1a20"
+    },
+    "analysis/scenarios/daily_20_school30_wb/daily_edges.parquet": {
+      "bytes": 33414863,
+      "sha256": "c7ddb991b6622bed56d7394562d2cce7c63c2b62eff24fb107256799eca67e42"
+    },
+    "analysis/scenarios/daily_20_school30_wb/functional_links.parquet": {
+      "bytes": 28742897,
+      "sha256": "82c68b795d7371f466375f51b0bc28666a3607889c13987ef9c7d9f487c979f6"
+    },
+    "analysis/scenarios/daily_20_school30_wb/functional_stars.parquet": {
+      "bytes": 2749563,
+      "sha256": "2c0f7a3ef571a4f4e1df8cdacb7c8bc840d87b6f004af8d763633d39efa9248b"
+    },
+    "analysis/scenarios/daily_20_school30_wb/strict_centre_surrounding_dynamics.parquet": {
+      "bytes": 65586,
+      "sha256": "263e3777d7eb56b08a4909d8a32f58e9da44e5d7696834554974a685ffc2eaa4"
+    },
+    "analysis/scenarios/daily_20_school30_wb/strict_group_dynamics.parquet": {
+      "bytes": 26034,
+      "sha256": "091be18135eb4b56277b0e97e07eaedac8b0b3c9d478dbaf00b97672c4ca4257"
+    },
+    "analysis/scenarios/daily_20_school30_wb/strict_selected_core_links.parquet": {
+      "bytes": 178248,
+      "sha256": "442525d77c615054d771ab653299e56313c3060309ac80e7b1f66a5567cfce9a"
+    },
+    "analysis/scenarios/daily_20_school30_wb/strict_three_core_memberships.parquet": {
+      "bytes": 73927,
+      "sha256": "d2bd7465d7e5081ffe885d22379b4e86915969b053a5e5a56e3aee196f290b8e"
+    },
+    "analysis/scenarios/daily_20_school30_wb/strict_three_core_stars.parquet": {
+      "bytes": 45057,
+      "sha256": "4140046ef99a05f6543dd863d17018ebecf1a30d0daec3db645023326d60c897"
+    },
+    "analysis/scenarios/daily_20_school30_wb/summary.json": {
+      "bytes": 2108,
+      "sha256": "2996e41e890380fed072465426051f189bcc2e69a064340c1eed2905e8b3872c"
+    },
+    "analysis/scenarios/daily_30_school30_wb/strict_three_core_memberships.parquet": {
+      "bytes": 76035,
+      "sha256": "7ba84419f9eaf5035b2468ffbd3608e493b65920bb4cd6c05ec34104ef044c72"
+    },
+    "analysis/scenarios/daily_30_school30_wb/strict_three_core_stars.parquet": {
+      "bytes": 23398,
+      "sha256": "c7046442b09b03957dc83e6e5afd41985507d683aea104c72ae621d570d8b4f8"
+    },
+    "analysis/scenarios/daily_30_school30_wb/summary.json": {
+      "bytes": 1324,
+      "sha256": "dfb5e537c807054996f37e98396fcfe0c15c1293acca10a78850a8b81ef96ebb"
+    },
+    "analysis/scenarios/fast_strict_sensitivity_summary.json": {
+      "bytes": 3218,
+      "sha256": "c9d4900b6f3e393a6e88ac518774c5bcf1842d1d62048e8587d1ad6393072719"
+    },
+    "analysis/scenarios/summary.json": {
+      "bytes": 2793,
+      "sha256": "d0c982825eb5d5561b965811d9c06cf8bdac99db9bbcb13f800d0233edb2d7f3"
+    },
+    "routes/changes/comparison_retail.parquet": {
+      "bytes": 13833,
+      "sha256": "6cdb55af5825cc0d5026aa6aae62b6ffa9715e17a500d0eadc24ec0fd24c5805"
+    },
+    "routes/changes/daily_food_specialist.parquet": {
+      "bytes": 9966,
+      "sha256": "b88b93b9b8e367983cba8679f13a2dacc0581c71fbdb17b5af588e6e1a732822"
+    },
+    "routes/changes/daily_grocery.parquet": {
+      "bytes": 14015,
+      "sha256": "d7a52c7bfb884bd1de5c85f458a77abb4685541b7ed82adab32106a8011898e3"
+    },
+    "routes/changes/higher_education.parquet": {
+      "bytes": 71425,
+      "sha256": "88e527ee858fef1e9de7360f3967a7f7610b5db88bd535e0136b8ecd0760860b"
+    },
+    "routes/changes/marketplace_unspecified_assortment.parquet": {
+      "bytes": 9966,
+      "sha256": "b88b93b9b8e367983cba8679f13a2dacc0581c71fbdb17b5af588e6e1a732822"
+    },
+    "routes/changes/postal_service.parquet": {
+      "bytes": 21900,
+      "sha256": "0ecfdc04d2c3a197b2b941e238a1afab44061e73b70107ef1a33f93726593e49"
+    },
+    "routes/changes/preschool.parquet": {
+      "bytes": 13328,
+      "sha256": "9c603b1db4afc56537be820e91163f644e9c7e066d5c2b9e22e525dc2f198455"
+    },
+    "routes/changes/school_general.parquet": {
+      "bytes": 20257,
+      "sha256": "b1016bd12d225d3b6294f51c5d7cf8297e7467b92052f3fcb6d22065816d4f43"
+    },
+    "routes/changes/shopping_centre.parquet": {
+      "bytes": 12930,
+      "sha256": "04f0269e36d5503a52f27f5725518b2d7c940248013298fb724983dbc399a942"
+    },
+    "routes/changes/vocational_education.parquet": {
+      "bytes": 30079,
+      "sha256": "b8ab386c34e7ed2cec5c8f537173206404096f9e2b3c11f5264e8fba1ad0147e"
+    },
+    "routes/derived_nearest/daily_grocery_evidence_union.parquet": {
+      "bytes": 28142825,
+      "sha256": "2dcece1fb51d86e70b22d7e4102fc43d198ba777fc8603cae7743a0791ce341e"
+    },
+    "routes/derived_nearest/daily_grocery_evidence_union.summary.json": {
+      "bytes": 1200,
+      "sha256": "89445349372730388721374e0b83924b3d67b35cbea34099b14e358c041ae320"
+    },
+    "routes/endpoint_inventory.parquet": {
+      "bytes": 3989928,
+      "sha256": "dbfe92d750d774b912d89e0a10a0cfc9135467032b306a85714f05794cc3d643"
+    },
+    "routes/endpoint_network_quality.parquet": {
+      "bytes": 3982803,
+      "sha256": "11f8bae82196a9e8d2817fe0ca1c43f2b829326c4368b542f2f726d2b4a25bdb"
+    },
+    "routes/geometry_cache/commerce/provider_preparation.json": {
+      "bytes": 8189,
+      "sha256": "149ac46b90d4de97cc1cc6d7cfe661c3c64b31bba1a7d0dacbe0f64dc0ba0132"
+    },
+    "routes/geometry_cache/commerce/provider_road_seeds.parquet": {
+      "bytes": 33326907,
+      "sha256": "5cebd8505dec26d8f6876ba5ecb32c70978a9101adfc59ef8b084045ae245798"
+    },
+    "routes/geometry_cache/education/provider_preparation.json": {
+      "bytes": 8203,
+      "sha256": "7394ddbfdfae8e52057a752f0cce0d3145ebb37a7ee4807e9571471bd33a4b26"
+    },
+    "routes/geometry_cache/education/provider_road_seeds.parquet": {
+      "bytes": 6017629,
+      "sha256": "99e49c1f73db8e9dda33ed85566221213b9413551cb59d680c6d88aeb70ab1cb"
+    },
+    "routes/independent_forward_checks.json": {
+      "bytes": 678,
+      "sha256": "504f9cfe8c54b370b00ba7e68a25cfdf127e83280e0c9d1e2c35ad6f68cbbb63"
+    },
+    "routes/independent_forward_checks.parquet": {
+      "bytes": 10787,
+      "sha256": "3735b963de93aa2aef533e36aede1c370be8cacc45fb0d0dd44542948fbd9a54"
+    },
+    "routes/nearest/comparison_retail.parquet": {
+      "bytes": 21480737,
+      "sha256": "c3ff84f824d2bd365cce3c94c01d9b9ddab6f98124e1d82458fe3146f0e3a953"
+    },
+    "routes/nearest/daily_food_specialist.parquet": {
+      "bytes": 20175018,
+      "sha256": "576eb8ffdb6f47bfb2cc3ed6b86a3e19636f56c39e26416af75cfac22b1a71cf"
+    },
+    "routes/nearest/daily_grocery.parquet": {
+      "bytes": 22663342,
+      "sha256": "f5490eaaa3de2df9a8a6e187223081660546c5298770009e4f81c9d1517a50e8"
+    },
+    "routes/nearest/higher_education.parquet": {
+      "bytes": 19141484,
+      "sha256": "018e07f463dd1cee2e6d61c8dc47056be9895e6f049e437b18578ede6fceaa21"
+    },
+    "routes/nearest/marketplace_unspecified_assortment.parquet": {
+      "bytes": 19615555,
+      "sha256": "e10403fd17d25f33c09ec1112ad1bbbc40134659b6584529d7bcbd53c683e457"
+    },
+    "routes/nearest/postal_service.parquet": {
+      "bytes": 21074906,
+      "sha256": "06f2d1e5bfa60034bb7c00beeef6c6079b2b01688321dfaecd907a2528b26cfc"
+    },
+    "routes/nearest/preschool.parquet": {
+      "bytes": 21557867,
+      "sha256": "e1fbe31c658fb9ea240977beb2169c3bce7e19999fcf0de948d5b60415077b3a"
+    },
+    "routes/nearest/school_general.parquet": {
+      "bytes": 22023457,
+      "sha256": "981fd59d685d84770b4f9a083e23871964282baa58cb16a39e0eebe19ee40f8e"
+    },
+    "routes/nearest/shopping_centre.parquet": {
+      "bytes": 19949287,
+      "sha256": "1d77bd4abeefb881124ae5504a7170bbc04289291432aa5ca5a6b7c84872948a"
+    },
+    "routes/nearest/vocational_education.parquet": {
+      "bytes": 19646579,
+      "sha256": "f541115602f83decde2ed513e579abe3ff2fcbff52880d348245d9e01b11ab04"
+    },
+    "routes/sources/commerce/sites.parquet": {
+      "bytes": 41784957,
+      "sha256": "f7053ac0db0028f4dd3ad4f884679921fdc2a6fcc063cc617dfd1f6aa505bbb8"
+    },
+    "routes/sources/commerce/supply.parquet": {
+      "bytes": 681645,
+      "sha256": "0438ae31266432d13cfa871d27ab4642ba90f1a9d9899878f1b8cd79c73651a4"
+    },
+    "routes/sources/education/np_supply.parquet": {
+      "bytes": 246462,
+      "sha256": "c457b919bc5842662eb8cc671ba69af4c871d0141efaad72b0afeb79f60e3f93"
+    },
+    "routes/sources/education/physical_sites.parquet": {
+      "bytes": 13648781,
+      "sha256": "20717ebfec281fa2cb29d203104d6d3db062f8f88f825aab6649d906a96a1ad4"
+    },
+    "routes/summary.json": {
+      "bytes": 24072,
+      "sha256": "e7f0086f0b259f7292ff50302c40018cce2ac77b4cc7c51e70ad4341e709b121"
+    },
+    "reproduction/scripts/sgrt_zero/assemble_corrected_routes.py": {
+      "bytes": 4507,
+      "sha256": "620f7e151fc775393e0a09e08f9fcf862b514619015dfc29ef270d78df25f61b"
+    },
+    "reproduction/scripts/sgrt_zero/atlas.py": {
+      "bytes": 60333,
+      "sha256": "d6fb069774c016d7e467c73a12c9fb4fbd7b6e23e22719b6c2be3610fa271356"
+    },
+    "reproduction/scripts/sgrt_zero/audit_centre_extent_tail.py": {
+      "bytes": 10154,
+      "sha256": "704b6dde6f62c3516a25b1ab8c4c6bda6b082ea31b53c2aed5ec314d730a45a7"
+    },
+    "reproduction/scripts/sgrt_zero/audit_commerce_place_evidence.py": {
+      "bytes": 7944,
+      "sha256": "5fea3acf39b7b3ae8fef5965af9be49182d7446330ce22b5f75a6446ec1b8e7a"
+    },
+    "reproduction/scripts/sgrt_zero/audit_transport_access_candidates.py": {
+      "bytes": 3027,
+      "sha256": "02c5a6e6622f45313dc9ba559fd1085d674452750cac967a4db4eb8763521dbd"
+    },
+    "reproduction/scripts/sgrt_zero/audit_transport_direction_cases.py": {
+      "bytes": 3948,
+      "sha256": "d488bf3e8e4980c72dee3a30a7fd0b4fe1d331066e1529e4b955142710c1111d"
+    },
+    "reproduction/scripts/sgrt_zero/audit_transport_local_access_cases.py": {
+      "bytes": 5879,
+      "sha256": "789d3d15f143fa7e35d7d070746cf9628972416954ace3b9e0170ffd73c02bce"
+    },
+    "reproduction/scripts/sgrt_zero/audit_transport_nearby_component.py": {
+      "bytes": 2639,
+      "sha256": "5de1c7371567adab88d3a8c150ba713550ebf78827d202bd686c26993f9b0f56"
+    },
+    "reproduction/scripts/sgrt_zero/audit_transport_provider_components.py": {
+      "bytes": 2702,
+      "sha256": "b07d130d01d5c043034c81c83bff5013535eaf9b908daf26458d9c5495e163c2"
+    },
+    "reproduction/scripts/sgrt_zero/audit_transport_selected_contract.py": {
+      "bytes": 6617,
+      "sha256": "590e1ae6e73172696f245e127f01051136b053c45eb955b54bce584be98de8bd"
+    },
+    "reproduction/scripts/sgrt_zero/capture_sources.py": {
+      "bytes": 6267,
+      "sha256": "7cc814bff8b976eb3ef5223077bca2a17ee005acfd1bdf07d542835ed914799f"
+    },
+    "reproduction/scripts/sgrt_zero/centre_atlas.py": {
+      "bytes": 15351,
+      "sha256": "4ad827ccfbc6f286f49a4a060fd7ab18dbacb01e99a5a60ce5a6a083b31ac2c5"
+    },
+    "reproduction/scripts/sgrt_zero/centre_readout.py": {
+      "bytes": 7689,
+      "sha256": "1199085c1abdf0348d0395c3b5bcda7e7917fdf1750070e83fe9d4e5e7d1c4e6"
+    },
+    "reproduction/scripts/sgrt_zero/centre_scenarios.py": {
+      "bytes": 6079,
+      "sha256": "ebc6c4464b07884ed66a1869253a7455bef873d8e54886645c3bfc4bb7c9ff5b"
+    },
+    "reproduction/scripts/sgrt_zero/centre_stars.py": {
+      "bytes": 19868,
+      "sha256": "558bb437a04d86137af23b442f9b42b55cade78e1317de3c7727f544c236c7c8"
+    },
+    "reproduction/scripts/sgrt_zero/city_context.py": {
+      "bytes": 6920,
+      "sha256": "522821214101305a45f629872ac445bde37e3055b4a023fbbddbac085e59e7f5"
+    },
+    "reproduction/scripts/sgrt_zero/cloud_centre_rebuild.py": {
+      "bytes": 20272,
+      "sha256": "173f524747975a0f5dcc7930f2a5d40e2ae98a4b7784ab34ae4da3d8fcf00ad4"
+    },
+    "reproduction/scripts/sgrt_zero/combine_nearest.py": {
+      "bytes": 10454,
+      "sha256": "de35da7017dfd662c3435402ccb660be7d4416f3d7e60d8e6fba1cf30e707cb3"
+    },
+    "reproduction/scripts/sgrt_zero/commerce.py": {
+      "bytes": 54940,
+      "sha256": "a72ad906daa101d4b4b0e4009f30ff79953dcd66dd2d51eaf7c3c8d1e94899b7"
+    },
+    "reproduction/scripts/sgrt_zero/commerce_match_preview.py": {
+      "bytes": 3978,
+      "sha256": "621db97008613101b4e329c0ff6570daefa7b46d7e970853a8ac03241d18b302"
+    },
+    "reproduction/scripts/sgrt_zero/compare_commerce_identity.py": {
+      "bytes": 10176,
+      "sha256": "d7a82d6769ef876820a0a3c6464a7c64d97e9b9a34b6b1fab10a67af6b18bf76"
+    },
+    "reproduction/scripts/sgrt_zero/compare_manual_public.py": {
+      "bytes": 4662,
+      "sha256": "c00f2b77a18a5b40b3f6d56dedbe78ee81acd60a38aeaebd8371734e1ab3b721"
+    },
+    "reproduction/scripts/sgrt_zero/compare_manual_public_precision.py": {
+      "bytes": 4745,
+      "sha256": "9dde561215e16f836a2f4dfbd0222532633a5e2cb653c2f58d8da77c3d832716"
+    },
+    "reproduction/scripts/sgrt_zero/compare_manual_public_sources.py": {
+      "bytes": 6864,
+      "sha256": "51d2532ebe2a6fe96bbaca8f312d1d4aa141bece4e45a1c20d493311039b1d56"
+    },
+    "reproduction/scripts/sgrt_zero/compare_public_education_revision.py": {
+      "bytes": 7351,
+      "sha256": "bdf22f2a38fbc49debda9c577912eec29186e268a84cc8f4b75b4f319f1607a7"
+    },
+    "reproduction/scripts/sgrt_zero/diagnose_commerce_access.py": {
+      "bytes": 4453,
+      "sha256": "7cbf620f463e6846a56082d2c546706f38a4190a66071ff74b49dfd72332ba96"
+    },
+    "reproduction/scripts/sgrt_zero/diagnose_commerce_assortment.py": {
+      "bytes": 4554,
+      "sha256": "40d42a3dbc5b762a0ac234a60b23e140adc9bc33878e26af409e20d37773abe4"
+    },
+    "reproduction/scripts/sgrt_zero/diagnose_education_supplementary.py": {
+      "bytes": 7164,
+      "sha256": "e3b228cbec228e50dd3bf4a12682fb6ca1dde56ab9a52c282ba366aba7a47381"
+    },
+    "reproduction/scripts/sgrt_zero/diagnose_public_education.py": {
+      "bytes": 11342,
+      "sha256": "219ac4c41b9bb1717c16aa460ed5de346aa95c036b0ce38191d68b237724c225"
+    },
+    "reproduction/scripts/sgrt_zero/diagnose_public_medical.py": {
+      "bytes": 12346,
+      "sha256": "41c6d62f72a701b719c651285dc776133ffb73312cdc905563fd1a976d50e549"
+    },
+    "reproduction/scripts/sgrt_zero/documented_zero_links.py": {
+      "bytes": 9174,
+      "sha256": "abed7a5ad55f07a9d86d3048fec90d1190ae76b9e7ec4ea9ff48c3aee90bfe5f"
+    },
+    "reproduction/scripts/sgrt_zero/education.py": {
+      "bytes": 60278,
+      "sha256": "1e24830dc0918e543be6ae4d9f6e67aeb0bd38c69a12d3437aa3431c8a766b7d"
+    },
+    "reproduction/scripts/sgrt_zero/extended.py": {
+      "bytes": 9919,
+      "sha256": "617ef99582101c701cd5e1a47353677e3a7c1a222a266a167ce64eba459c9d59"
+    },
+    "reproduction/scripts/sgrt_zero/fast_strict_sensitivity.py": {
+      "bytes": 7675,
+      "sha256": "c7f53dbf85618d89c310047603d028e668dfa3ce7c7f054c5c8df2da2e1d2878"
+    },
+    "reproduction/scripts/sgrt_zero/federal_medical_addresses.py": {
+      "bytes": 12298,
+      "sha256": "b22f9d5b832880cc6e2f1711a4e00151521b4ceccba41697d431d745d1e077f7"
+    },
+    "reproduction/scripts/sgrt_zero/federal_medical_functions.py": {
+      "bytes": 9043,
+      "sha256": "d38b921172018717e47b5faad0aef0f5a54b83ed342816f6de1edc50ddc90362"
+    },
+    "reproduction/scripts/sgrt_zero/federal_medical_integrate.py": {
+      "bytes": 10688,
+      "sha256": "993a07a7cde5261ec526fd304368f4eab6cf3b6b4e2de7102ed9dc773617a135"
+    },
+    "reproduction/scripts/sgrt_zero/health.py": {
+      "bytes": 37585,
+      "sha256": "9a2afa7bdf1ca1425b1b672ac4409220a2e29d25f36e70a46d4915e04970dc9f"
+    },
+    "reproduction/scripts/sgrt_zero/hierarchy.py": {
+      "bytes": 30212,
+      "sha256": "d078c6d0208bf664f5dcb8e1dc39561e0aa1d417da17db077b3d4e4d1ee2db19"
+    },
+    "reproduction/scripts/sgrt_zero/hierarchy_readout.py": {
+      "bytes": 10439,
+      "sha256": "53b8b99a193b2bb9b671d810657919db69edc920f9a471e4fde4f897d2f388b1"
+    },
+    "reproduction/scripts/sgrt_zero/higher_candidates_fast.py": {
+      "bytes": 7229,
+      "sha256": "517a219b035f84f7632e7f5e0e067075ce00847a99737a4bfd552d646417d436"
+    },
+    "reproduction/scripts/sgrt_zero/logic_checks.py": {
+      "bytes": 77117,
+      "sha256": "10d7210cd36a136ef0c3a6e8e7a01e3adb65aa76a403ec7acc70bb51fa9e02c1"
+    },
+    "reproduction/scripts/sgrt_zero/lower_profile_quality.py": {
+      "bytes": 11341,
+      "sha256": "e84639987688f7510f029d6478c60008fac2cc18f973d03772a3124875d352ab"
+    },
+    "reproduction/scripts/sgrt_zero/medical_regional_sources.py": {
+      "bytes": 10646,
+      "sha256": "1bf83d0ad34a99ffd900ec9267c7823b86ba5306417db6c8fa3559ac2ad04ffa"
+    },
+    "reproduction/scripts/sgrt_zero/medical_scope.py": {
+      "bytes": 10530,
+      "sha256": "6fdaf3daff60a6bd916c6baf16e00220a97a01b40f42209069e4d0bd5c3b1475"
+    },
+    "reproduction/scripts/sgrt_zero/overlay_rerouting_revision.py": {
+      "bytes": 3252,
+      "sha256": "a7130841bea78110ae81c5782d1b9c4adc1dec6a483b1b3f3556d100dbce533b"
+    },
+    "reproduction/scripts/sgrt_zero/pack_centre_results.py": {
+      "bytes": 4372,
+      "sha256": "3cb7ce5dcd5f46de2f1059b2921d32b5580fce72be8e01011b8d90122814a10e"
+    },
+    "reproduction/scripts/sgrt_zero/population_context.py": {
+      "bytes": 3417,
+      "sha256": "992f577133cd75bc8d9894aa85f7c9e1932f65247ac157f7232c83de6ac9ed8c"
+    },
+    "reproduction/scripts/sgrt_zero/publish.py": {
+      "bytes": 11678,
+      "sha256": "f4ded257a78eebdc0f48fe1601270d58b23539981af2d2a89465f1ac71239337"
+    },
+    "reproduction/scripts/sgrt_zero/reproduce.py": {
+      "bytes": 66176,
+      "sha256": "f0fe954618d723ec6860eaeb603d8fd00aff064471ac4cb735b7ef5a975377d9"
+    },
+    "reproduction/scripts/sgrt_zero/reroute_corrected.py": {
+      "bytes": 10830,
+      "sha256": "383cd2d1195db6b7e3795cd1a0084492edeb7bc832e68f5fe31a0a08433e1b9d"
+    },
+    "reproduction/scripts/sgrt_zero/run_scenarios.py": {
+      "bytes": 2562,
+      "sha256": "63576814846fe9a3ba32fe60d527a07c96468d1e828549c8965d7fb4cf25d9f7"
+    },
+    "reproduction/scripts/sgrt_zero/saratov_registry.py": {
+      "bytes": 16781,
+      "sha256": "3f1f6f917adb88b3a3ed968398cf95e6e3fea4a9885ec9370276c83dfb08f730"
+    },
+    "reproduction/scripts/sgrt_zero/screens.py": {
+      "bytes": 23642,
+      "sha256": "0c2d5352568c636ff6229de07b9627817af672f67f6e09a9ce4729963896bed0"
+    },
+    "reproduction/scripts/sgrt_zero/semantic_audit_bundle.py": {
+      "bytes": 9118,
+      "sha256": "0d77206aa1822be09fda849dd6e09705d874d6474a48711af20858d7272de277"
+    },
+    "reproduction/scripts/sgrt_zero/strict_after_school_replacement.py": {
+      "bytes": 7025,
+      "sha256": "b737d55741e252a5ad1f2f3807cbddf4c14f665fee3d5a4c3b988d6558f25ac3"
+    },
+    "reproduction/scripts/sgrt_zero/summarize_manual_public.py": {
+      "bytes": 4360,
+      "sha256": "69accbf9bac3deb9759677a2031e48e710ecd1b1174637c391f23add29261364"
+    },
+    "reproduction/scripts/sgrt_zero/system_complexity.py": {
+      "bytes": 16071,
+      "sha256": "1ead60b03acc728703a66a28f997f4e0007707a6030ce8f6e472a65aafb55813"
+    },
+    "reproduction/scripts/sgrt_zero/transport.py": {
+      "bytes": 30788,
+      "sha256": "3767999d352f415a778cb1f4342e434b849f37f8148bf5fe323a216b60026882"
+    },
+    "reproduction/scripts/sgrt_zero/type_readout.py": {
+      "bytes": 10866,
+      "sha256": "20329f7953b428e55b576452cf1767f48be1817b08ea76206dcc88056b740bca"
+    },
+    "reproduction/scripts/sgrt_zero/upward.py": {
+      "bytes": 16608,
+      "sha256": "515b6d85aadbb7b13c708e1f37dc39db130a5301c427d8ccb18fa8fc3507f41c"
+    },
+    "reproduction/scripts/sgrt_zero/verify_centre_subset.py": {
+      "bytes": 4263,
+      "sha256": "46784807df0ca5c7c0c030f4aeff92f49ae062eb949d0763e3aeeaf3e4aa8175"
+    },
+    "reproduction/scripts/sgrt_zero/verify_corrected_routes.py": {
+      "bytes": 5374,
+      "sha256": "a6ec12b8ca82884dd57de768fb7a4b8478095fe30039978e5d19335f088d0a9d"
+    },
+    "reproduction/scripts/sgrt_zero/verify_download_cache.py": {
+      "bytes": 3246,
+      "sha256": "f392abd510f2fbf801defafb4a90fdac428fa959da21e450451508f355247245"
+    },
+    "reproduction/scripts/sgrt_zero/verify_public.py": {
+      "bytes": 6679,
+      "sha256": "53db7067c356eb29b104939c58b6df0061a28f99fe4cc1d902c3e2da44022c81"
+    },
+    "reproduction/scripts/sgrt_mass/acquire_rosstat.py": {
+      "bytes": 4053,
+      "sha256": "a263c4b1b051bb5cf59dda59e8ecd7d1d314d08e4f892ead56520cd0b0aa0651"
+    },
+    "reproduction/scripts/sgrt_mass/audit.py": {
+      "bytes": 36412,
+      "sha256": "274d467909eb4a5350a75f8640af85c4a1874b45d192a8f3daf987d9549510f8"
+    },
+    "reproduction/scripts/sgrt_mass/centre_types.py": {
+      "bytes": 23531,
+      "sha256": "b429bb3f285cefe0dabcd773cf07de7d8c93e2c258a6f78f3fa3880de02cb008"
+    },
+    "reproduction/scripts/sgrt_mass/check.py": {
+      "bytes": 4659,
+      "sha256": "887dbb72fecd593f1dbc2d903c1701f56b1d157f7b70a22c80d2ddb0b810489c"
+    },
+    "reproduction/scripts/sgrt_mass/compare.py": {
+      "bytes": 4440,
+      "sha256": "eab73658ed8c2583192098f2caffbe23cb4239a5a4528ec13aac1badec5200db"
+    },
+    "reproduction/scripts/sgrt_mass/context.py": {
+      "bytes": 24571,
+      "sha256": "75d777501f8ec48e6ce3822873d86f3458074aa5b015e1d2a9c84da7026a4651"
+    },
+    "reproduction/scripts/sgrt_mass/education.py": {
+      "bytes": 36205,
+      "sha256": "6e533aa19764922688f1cd4b50d7412489c4fbc2c6861a6a800120f0f8fa9981"
+    },
+    "reproduction/scripts/sgrt_mass/figures.py": {
+      "bytes": 45136,
+      "sha256": "8f8eb058e50601aa251a15ad1c1a13429bfffcadd5f075fe795788f330b3cf70"
+    },
+    "reproduction/scripts/sgrt_mass/match.py": {
+      "bytes": 25013,
+      "sha256": "2ab8d02deb17495ea6100ae33db023a669b15ad60dc4e783f2c37b104b16e1ae"
+    },
+    "reproduction/scripts/sgrt_mass/medical.py": {
+      "bytes": 27799,
+      "sha256": "3137ffa8b95c44fb759a4c80bbc36d083c0054077f3f3ac8eed7c9d9d6edf613"
+    },
+    "reproduction/scripts/sgrt_mass/model.py": {
+      "bytes": 30639,
+      "sha256": "5d4f446bf76e3dbdd7952a0178b63fd0a99257330c7e054d0c2aa7c1c41afea5"
+    },
+    "reproduction/scripts/sgrt_mass/probe_sources.py": {
+      "bytes": 1300,
+      "sha256": "5acb63ed50093eae38b7d08d844cae2f1b97ca152d540a9005f4b8621922615e"
+    },
+    "reproduction/scripts/sgrt_mass/publish.py": {
+      "bytes": 3408,
+      "sha256": "03d9c53978480dcbfebd90f1f2931e65d2b41673b8cf54bc7e0b66d378ab5ed3"
+    },
+    "reproduction/scripts/sgrt_mass/reproduce.py": {
+      "bytes": 26964,
+      "sha256": "2f184a7cf2502719a532b2a0d15b58b3a221d98864649cac8c0fe8032b0b333d"
+    },
+    "reproduction/scripts/sgrt_mass/routes.py": {
+      "bytes": 33954,
+      "sha256": "b0c52af780b00e4228e764a294cc969007cb1d16c4f6ad49f756f81b71bb9042"
+    },
+    "reproduction/scripts/sgrt_mass/site_geometry.py": {
+      "bytes": 15677,
+      "sha256": "a4c97fc01587714ef55b258bdb964aa6b9047a7d9d51dc5a01f68a44447f246a"
+    },
+    "reproduction/scripts/sgrt_local/analyze.py": {
+      "bytes": 9616,
+      "sha256": "6d088a712ac06daa6dc201ed6a907e829217e1844db3be4ab4287d7f021d68df"
+    },
+    "reproduction/scripts/sgrt_local/assignment.py": {
+      "bytes": 13085,
+      "sha256": "cc843f4f573859d948571efcb9b43f8ef2896783c2e322c3a1111d4a6161d529"
+    },
+    "reproduction/scripts/sgrt_local/check.py": {
+      "bytes": 3961,
+      "sha256": "70d2dd9d6954ee4edb7643c30211519a254bc7676aa89c4fd8801afce8a0898a"
+    },
+    "reproduction/scripts/sgrt_local/economy.py": {
+      "bytes": 24120,
+      "sha256": "a8328a1b1e2eb715b694eaccc455d9ae0079f9bcf08ea68a6f9c1829eeb1797e"
+    },
+    "reproduction/scripts/sgrt_local/figures.py": {
+      "bytes": 28557,
+      "sha256": "8809848520eda59f75752ec0790eb61661395a65b88c90d55a1d6c9d767d4872"
+    },
+    "reproduction/scripts/sgrt_local/medical_registry.py": {
+      "bytes": 6803,
+      "sha256": "fcbaae420984e4d2dd9a50521f6b69c77e0e362dd0962e38d55185aff0d3e328"
+    },
+    "reproduction/scripts/sgrt_local/publish.py": {
+      "bytes": 2984,
+      "sha256": "07e47eb810aaa3cd294ef08843fa031912f52a6ac77963d788620eb5d9281065"
+    },
+    "reproduction/scripts/sgrt_local/reproduce.py": {
+      "bytes": 12914,
+      "sha256": "83e150ec2cf978b5a4054f44090f8e469c69aa77c9d2ba12156570db509ab4c6"
+    },
+    "reproduction/scripts/sgrt_local/roads.py": {
+      "bytes": 13193,
+      "sha256": "98309e4cc32fd8182cbf89d57ed4597d39719298cd2950755b08599f16c65b07"
+    },
+    "reproduction/scripts/sgrt_local/services.py": {
+      "bytes": 13523,
+      "sha256": "9d551233abe72cbff90d742761902031a0bff864098a23d38e75227328e35766"
+    },
+    "reproduction/requirements-sgrt-mass-centres.txt": {
+      "bytes": 51,
+      "sha256": "488e392590dad39c492c2f566a2714ed58e7b732775160a22cca502c463cc5ff"
+    },
+    "reproduction/requirements-sgrt-mass.txt": {
+      "bytes": 56,
+      "sha256": "9f2f25f40ff088cc431dbf79354d5ca3a2ef577da4be0b0db3ef3efb5bef71ad"
+    },
+    "reproduction/requirements-sgrt-pilot.txt": {
+      "bytes": 180,
+      "sha256": "daf9906cb48f8bcca94e78a7d0c8e7e9060ae6fd04963353c63a3bd594802d63"
+    },
+    "reproduction/requirements-sgrt-zero.txt": {
+      "bytes": 92,
+      "sha256": "e116949f1e93168955d24446d38d037ee902871275851aa15c13baf09736277a"
+    },
+    "reproduction/research_context/diary/2026-10-26.md": {
+      "bytes": 6128,
+      "sha256": "c1adbf4d41f7501aa561e90fb260bbb50592c97718e2fde9bf2e84a95b9295a1"
+    },
+    "reproduction/research_context/analysis_snapshots/zero_centre_corrected_daily_control_20261025.json": {
+      "bytes": 1517,
+      "sha256": "f96c9f8ab3325658f459c8b58b5e1dd4c8e7c2f2b0ec1ca10cb7801a30064e4a"
+    },
+    "reproduction/research_context/analysis_snapshots/zero_centre_programme_correction_20261026.json": {
+      "bytes": 8935,
+      "sha256": "5b189041fb9a1598b35ab6d65c3ce9101c25d52d576b8f250c1dd80dda6c89e9"
+    },
+    "reproduction/references/provenance/kvantorium53_metadata_read_scope_20261025.json": {
+      "bytes": 1040,
+      "sha256": "c2488cadd3820a6efc5b5dc7cd35dbb088a114f2911fafc00d7d5752362e2a01"
+    },
+    "reproduction/AGENTS.md": {
+      "bytes": 9159,
+      "sha256": "bfae152648dea607519260010d67c07aafd427c08914e4fc3ef6484161487016"
+    },
+    "reproduction/README.md": {
+      "bytes": 10670,
+      "sha256": "8264078555ff1346ffcbb951f98ab106077bf3d8e9f457e8729305d98b14694f"
+    },
+    "reproduction/sgrt/zero/CENTRE_SYSTEMS_20261025.md": {
+      "bytes": 26976,
+      "sha256": "1600dfbba4a0566e3b313991b50e24810e6bfea224587cacaefb88ba9087afcc"
+    },
+    "reproduction/research_context/current_state.json": {
+      "bytes": 34305,
+      "sha256": "0dd34fb3803552cb579c7b3f8c21bd74b3641944bc352ccbc928863e584c4b43"
+    },
+    "reproduction/research_context/diary/2026-10-25.md": {
+      "bytes": 73050,
+      "sha256": "f2fc03009ebf47411e0e6cd419ffd35c08d31789cfeae814d87a9b920833d9dc"
+    },
+    "reproduction/research_context/analysis_snapshots/zero_centre_model_results_20261025.json": {
+      "bytes": 5246,
+      "sha256": "9a33e133948d50e98a0a5492af9fe4956ec11c283ccac8730fbf96a732409961"
+    },
+    "reproduction/research_context/analysis_snapshots/centre_stars_exact_performance_20261025.json": {
+      "bytes": 1241,
+      "sha256": "247ba5a3f618956042f6bd57c3a691d8007312cefdfe93aafac835d25df9647b"
+    },
+    "reproduction/references/sources.json": {
+      "bytes": 80184,
+      "sha256": "21e0c86e60dd6bc68a0f6870fa88316f8ae786d6ce8cd1ab67de27adef6e3995"
+    },
+    "reproduction/references/usage.json": {
+      "bytes": 47555,
+      "sha256": "49254759b15edd2dab50cc2b5fc7163106c7de03c3f7ec00b14fc60c7a5b8512"
+    },
+    "reproduction/research_context/primary/word_concept_extracted.txt": {
+      "bytes": 40740,
+      "sha256": "275c65e97471528891ce222abcafa603a3d5d0eead484848ce8f2e4d85a4aa90"
+    },
+    "reproduction/decisions.json": {
+      "bytes": 14788,
+      "sha256": "38de1c4874c1ea1a1286aa044a53a0a1092d5d7a09ad37a345474524f9641e7f"
+    }
+  },
+  "verified_moscow": "2026-10-26T01:09:18+03:00",
+  "verification": "research_context/analysis_snapshots/zero_centre_public_download_20261026.json",
+  "archived_context_note": "Reproduction documents preserve the pre-publication build state. Current status and next steps are in Git, research_context/current_state.json."
+}
