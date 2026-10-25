@@ -4,6 +4,7 @@ import json
 from pathlib import Path, PurePosixPath
 import tarfile
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -21,12 +22,25 @@ def digest(path):
 
 if not archive.exists() or digest(archive) != catalog['sha256']:
     temp = archive.with_suffix('.partial')
-    with urllib.request.urlopen(catalog['url'], timeout=120) as response, temp.open('wb') as out:
-        while True:
-            block = response.read(1024 * 1024)
-            if not block:
-                break
-            out.write(block)
+    def download_part(part):
+        target = cache / part['name']
+        if target.exists() and digest(target) == part['sha256']:
+            return target
+        partial = target.with_suffix('.partial')
+        with urllib.request.urlopen(part['url'], timeout=120) as response, partial.open('wb') as out:
+            for block in iter(lambda: response.read(1024 * 1024), b''):
+                out.write(block)
+        if partial.stat().st_size != part['bytes'] or digest(partial) != part['sha256']:
+            raise RuntimeError(f"Part hash mismatch: {part['name']}")
+        partial.replace(target)
+        return target
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        parts = list(pool.map(download_part, catalog['parts']))
+    with temp.open('wb') as out:
+        for part in parts:
+            with part.open('rb') as stream:
+                for block in iter(lambda: stream.read(1024 * 1024), b''):
+                    out.write(block)
     if temp.stat().st_size != catalog['bytes'] or digest(temp) != catalog['sha256']:
         raise RuntimeError('Release asset hash/size mismatch')
     temp.replace(archive)
