@@ -329,6 +329,27 @@ def summarize(raw, run_id, output, axis):
     return summary, stable
 
 
+
+def extract_spider_stats(obj):
+    """Locate only an explicitly named Wildberries entry, without guessing counts."""
+    if isinstance(obj, dict):
+        if "wildberries" in obj and isinstance(obj["wildberries"], dict):
+            return obj["wildberries"]
+        if str(obj.get("spider", obj.get("name", ""))).casefold() == "wildberries":
+            return obj
+        for key in ("results", "spiders", "stats", "data"):
+            if key in obj:
+                found = extract_spider_stats(obj[key])
+                if found is not None:
+                    return found
+    elif isinstance(obj, list):
+        for item in obj:
+            found = extract_spider_stats(item)
+            if found is not None:
+                return found
+    return None
+
+
 def run(args):
     output = pathlib.Path(args.output)
     output.mkdir(parents=True, exist_ok=True)
@@ -366,26 +387,38 @@ def run(args):
                         report["attempts"].append({"target": target, "run_id": rid, "status": "already_selected"})
                         selected = True
                         break
-                    attempt = {"target": target, "run_id": rid, "stats": [], "raw": []}
+                    attempt = {"target": target, "run_id": rid, "run_metadata": meta, "stats": [], "raw": []}
                     report["attempts"].append(attempt)
                     stats = None
-                    for host in HOSTS[:2]:
-                        url = host + "/runs/" + rid + "/stats/wildberries.json"
+                    stats_source = None
+                    # Follow the publisher's actual run-wide URL before fallback paths.
+                    stats_urls = []
+                    if meta.get("stats_url"):
+                        stats_urls.append((meta["stats_url"], "runwide_metadata_url"))
+                    stats_urls += [(h + "/runs/" + rid + "/stats/wildberries.json",
+                                    "per_spider_fallback") for h in HOSTS[:2]]
+                    for url, kind in stats_urls:
                         try:
-                            data, ev = fetch.get(url, 2 * 1024 * 1024)
-                            stats = parse_json(data)
-                            if not isinstance(stats, dict):
-                                raise ValueError("stats must be dictionary")
-                            (output / (rid + "_stats.json")).write_bytes(data)
-                            attempt["stats"].append({"url": url, "sha256": sha(data), "status": "parsed"})
-                            break
+                            data, ev = fetch.get(url, 12 * 1024 * 1024)
+                            obj = parse_json(data)
+                            (output / (rid + "_" + kind + "_stats.json")).write_bytes(data)
+                            event = {"url": url, "sha256": sha(data), "status": "parsed", "kind": kind}
+                            attempt["stats"].append(event)
+                            if kind == "per_spider_fallback":
+                                candidate = obj if isinstance(obj, dict) else None
+                            else:
+                                candidate = extract_spider_stats(obj)
+                            event["wildberries_entry"] = candidate
+                            if candidate is not None:
+                                stats, stats_source = candidate, kind
+                                # An empty/missing log is not a verified zero and does not block raw.
+                                if any(k in stats for k in ("item_scraped_count", "features", "items")):
+                                    break
                         except Exception as exc:
-                            attempt["stats"].append({"url": url, "error": str(exc)})
-                    count = stats.get("item_scraped_count") if stats else None
+                            attempt["stats"].append({"url": url, "error": str(exc), "kind": kind})
+                    count = stats.get("item_scraped_count", stats.get("features", stats.get("items"))) if stats else None
                     attempt["item_scraped_count"] = count
-                    if not isinstance(count, (int, float)) or count <= 0:
-                        attempt["status"] = "no_verified_positive_scraped_count"
-                        continue
+                    # Missing/zero stats cannot block acquisition of independent raw evidence.
                     raw = None
                     for host in HOSTS[:2]:
                         url = host + "/runs/" + rid + "/output/wildberries.geojson"
@@ -399,7 +432,7 @@ def run(args):
                             attempt["raw"].append({"url": url, "error": str(exc)})
                     if raw is None:
                         zipurl = meta.get("output_url", "")
-                        if zipurl.endswith(".zip") and "/runs/" + rid + "/" in zipurl:
+                        if urllib.parse.urlsplit(zipurl).path.endswith(".zip") and rid in urllib.parse.unquote(zipurl):
                             try:
                                 remote = RemoteZip(fetch, zipurl)
                                 with zipfile.ZipFile(remote) as archive:
@@ -426,8 +459,14 @@ def run(args):
                     rawpath = output / (rid + "_wildberries.geojson")
                     rawpath.write_bytes(raw)
                     summary, stable = summarize(raw, rid, output, axis)
+                    stats = stats or {}
+                    if summary["features_all_countries"] == 0:
+                        attempt["status"] = "downloaded_zero_features_not_physical_absence"
+                        continue
                     summary.update({"target": target, "run_metadata": meta,
-                                    "stats_item_scraped_count": count,
+                                    "stats_item_scraped_count_or_runwide_reported_features": count,
+                                    "stats_source_kind": stats_source,
+                                    "stats_coverage_caution": "Run-wide aggregate features may replace missing scrape count with zero in publisher code.",
                                     "stats_start_time": stats.get("start_time"),
                                     "stats_finish_time": stats.get("finish_time"),
                                     "stats_finish_reason": stats.get("finish_reason"),

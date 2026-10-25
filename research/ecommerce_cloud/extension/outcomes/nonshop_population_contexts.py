@@ -116,10 +116,45 @@ for key, g in raw.groupby(["oktmo", "year"], dropna=False):
         continue
     lookup[(str(key[0]), int(key[1]))] = r
 
+# Registry geometry BEFORE selection on observed urban/municipal population.
+system_lookup = system.set_index(KEY)
+relations = []
+for centre_id, group in centres.groupby(KEY):
+    npcodes = sorted(set(group.official_centre_oktmo11))
+    codes = sorted(set(group.municipality_oktmo8))
+    top = npcodes[0][:5] + "000" if len(npcodes) == 1 else ""
+    mode = ("inside2020_C_over_S" if top in codes else
+            "outside2020_C_over_CplusS") if top else "ambiguous_centre_code2020"
+    sr = system_lookup.loc[centre_id] if centre_id in system_lookup.index else None
+    ur = urban.loc[centre_id] if centre_id in urban.index else None
+    relations.append({
+        KEY: centre_id,
+        "name_2021": str(sr.name_2021) if sr is not None else "",
+        "region_2021": str(sr.region_2021) if sr is not None else "",
+        "medium_primary2002": true(sr.medium_primary2002) if sr is not None else False,
+        "mode": mode, "shared_centre2020": len(codes) > 1,
+        "upper_municipalities_n2020": len(codes),
+        "upper_municipality_codes2020": ",".join(codes),
+        "centre_top_code2020": top,
+        "official_centre_np_codes2020": ",".join(npcodes),
+        "registered_external_relation_rows_n": int(
+            group.official_centre_resolution.eq(
+                "unique_exact_name_type_in_region_external_centre"
+            ).sum()
+        ),
+        "complete_named_urban_panel":
+            ur is not None and true(ur.complete_2023_2025),
+    })
+relations = pd.DataFrame(relations)
+assert relations[KEY].is_unique
+relations.to_csv(OUT / "registry_relations_before_selection.csv", index=False)
+relations_by_id = relations.set_index(KEY).to_dict("index")
+
 excluded, observations, panels, membership, source_values = [], [], [], [], []
 
 def reject(centre_id, reason, **extra):
-    excluded.append({KEY: centre_id, "reason": reason, **extra})
+    excluded.append({KEY: centre_id, **relations_by_id.get(centre_id, {}),
+                     "reason": reason, **extra})
 
 for centre_id, group in centres.groupby(KEY):
     if centre_id not in urban.index:
@@ -228,12 +263,96 @@ for centre_id, group in centres.groupby(KEY):
             })
 
 obs, panel, member = map(pd.DataFrame, [observations, panels, membership])
+panel = panel.merge(system[[KEY, "population_2002"]], on=KEY,
+                    how="left", validate="one_to_one")
 if panel.empty:
     raise RuntimeError("No complete context panel; inspect source schemas and exclusions.")
 assert not obs.duplicated([KEY, "year"]).any()
 assert panel[KEY].is_unique
 assert not member.duplicated([KEY, "municipality_oktmo8"]).any()
 assert member.groupby("municipality_oktmo8")[KEY].nunique().le(1).all()
+# Unique upper-MO ownership does not prove that an added external city C
+# lies outside every OTHER context. Keep this overlap check separate.
+registry_owner = centres.set_index("municipality_oktmo8")[KEY].to_dict()
+complete_owner = member.set_index("municipality_oktmo8")[KEY].to_dict()
+complete_ids = set(panel[KEY])
+analysis_medium_ids = set(panel.loc[
+    panel.medium_primary2002 & panel.positive_other_population_all_years, KEY
+])
+cross_context = []
+for r in relations.loc[
+    relations["mode"].eq("outside2020_C_over_CplusS")
+].to_dict("records"):
+    other = registry_owner.get(r["centre_top_code2020"])
+    if other is not None and other != r[KEY]:
+        cross_context.append({
+            "external_centre_source_record_id_2021": r[KEY],
+            "external_centre_name_2021": r["name_2021"],
+            "containing_upper_municipality_oktmo2020": r["centre_top_code2020"],
+            "other_context_centre_source_record_id_2021": other,
+            "external_context_in_complete_panel": r[KEY] in complete_ids,
+            "other_context_in_complete_panel":
+                complete_owner.get(r["centre_top_code2020"]) == other,
+            "both_contexts_in_medium_analysis_panel":
+                r[KEY] in analysis_medium_ids and other in analysis_medium_ids,
+            "territorial_relation_is2020_not_current_verified": True,
+        })
+cross_context = pd.DataFrame(cross_context)
+cross_context.to_csv(OUT / "external_centre_cross_context_overlap2020.csv", index=False)
+exclusions = pd.DataFrame(excluded)
+assert len(relations) == len(panel) + len(exclusions)
+assert set(relations[KEY]) == set(panel[KEY]) | set(exclusions[KEY])
+
+def relation_counts(frame):
+    if frame.empty:
+        return []
+    return [
+        {"mode": mode, "shared_centre2020": bool(shared), "centres_n": int(n)}
+        for (mode, shared), n in frame.groupby(["mode", "shared_centre2020"]).size().items()
+    ]
+
+medium_relations = relations.loc[relations.medium_primary2002]
+medium_excluded = exclusions.loc[exclusions.medium_primary2002]
+reason_counts = [
+    {"mode": mode, "shared_centre2020": bool(shared),
+     "reason": reason, "centres_n": int(n)}
+    for (mode, shared, reason), n in medium_excluded.groupby(
+        ["mode", "shared_centre2020", "reason"]
+    ).size().items()
+]
+example_columns = [KEY, "name_2021", "region_2021", "mode", "shared_centre2020",
+                   "upper_municipality_codes2020", "centre_top_code2020", "reason"]
+example_columns = [c for c in example_columns if c in medium_excluded]
+example_frame = medium_excluded.sort_values(KEY).groupby("reason", sort=True).head(3)
+exclusion_examples = example_frame[example_columns].to_dict("records")
+relations_diagnostics = {
+    "accepted_registry_all_centres": relation_counts(relations),
+    "accepted_registry_medium_centres": relation_counts(medium_relations),
+    "medium_with_complete_named_urban_panel": relation_counts(
+        medium_relations.loc[medium_relations.complete_named_urban_panel]
+    ),
+    "medium_complete_municipal_contexts": relation_counts(
+        medium_relations.loc[medium_relations[KEY].isin(complete_ids)]
+    ),
+    "exclusion_reason_counts_medium": reason_counts,
+    "exclusion_examples_medium_up_to3_per_reason": exclusion_examples,
+    "initial_external_or_shared_medium_examples_up_to8": medium_relations.loc[
+        medium_relations["mode"].eq("outside2020_C_over_CplusS")
+        | medium_relations.shared_centre2020
+    ].sort_values(KEY).head(8).to_dict("records"),
+    "external_centre_top_in_other_registry_context_n": len(cross_context),
+    "external_centre_top_in_other_complete_context_n": int(
+        (cross_context.external_context_in_complete_panel
+         & cross_context.other_context_in_complete_panel).sum()
+    ) if not cross_context.empty else 0,
+    "external_overlap_pairs_both_in_medium_analysis_n": int(
+        cross_context.both_contexts_in_medium_analysis_panel.sum()
+    ) if not cross_context.empty else 0,
+    "independent_empirical_markets_established": False,
+    "context_totals_are_nationally_additive": False,
+}
+write_json(OUT / "relations_selection_diagnostics.json", relations_diagnostics)
+
 obs.to_csv(OUT / "observations.csv", index=False)
 panel.to_csv(OUT / "panels.csv", index=False)
 member.to_csv(OUT / "municipal_membership2020.csv", index=False)
@@ -272,6 +391,76 @@ for selected, g in population_base.groupby("in_new_conditional_panel"):
             "q75": number(g[col].quantile(.75)),
         })
 pd.DataFrame(selection_rows).to_csv(OUT / "selection_characteristics.csv", index=False)
+
+
+def sign_label(value):
+    return "decline" if value < 0 else ("growth" if value > 0 else "stable")
+
+def size_bin(value):
+    value = number(value)
+    if value is None:
+        return "missing"
+    if value < 10000:
+        return "below10000"
+    if value < 20000:
+        return "10000to19999"
+    if value < 50000:
+        return "20000to49999"
+    return "50000plus"
+
+new_primary["population2002_bin"] = new_primary.population_2002.map(size_bin)
+for col, source in [
+    ("own_direction", "own_change2023_2025_pct"),
+    ("other_direction", "other_change2023_2025_pct"),
+    ("share_direction", "centre_share_change2023_2025_pp"),
+]:
+    new_primary[col] = new_primary[source].map(sign_label)
+
+def outcome_stats(g):
+    return {
+        "centres_n": int(len(g)),
+        "own_decline_n": int(g.own_change2023_2025_pct.lt(0).sum()),
+        "other_decline_n": int(g.other_change2023_2025_pct.lt(0).sum()),
+        "share_increase_n": int(g.centre_share_change2023_2025_pp.gt(0).sum()),
+        "share_decrease_n": int(g.centre_share_change2023_2025_pp.lt(0).sum()),
+        "shrink_concentration_n": int((
+            g.own_change2023_2025_pct.lt(0)
+            & g.other_change2023_2025_pct.lt(0)
+            & g.centre_share_change2023_2025_pp.gt(0)
+        ).sum()),
+        "median_own_change_pct": number(g.own_change2023_2025_pct.median()),
+        "median_other_change_pct": number(g.other_change2023_2025_pct.median()),
+        "median_share_change_pp": number(g.centre_share_change2023_2025_pp.median()),
+    }
+
+region_results, size_results, trajectory_results = [], [], []
+for strict in [False, True]:
+    g = new_primary
+    if strict:
+        g = g.loc[g.unchanged_observed_metadata & g.publisher_no_transformation_flags]
+    selection = "publisher_metadata_screen" if strict else "all_conditional"
+    for region, sub in g.groupby("region_2021"):
+        region_results.append({"selection": selection, "region_2021": region,
+                               **outcome_stats(sub)})
+    for size, sub in g.groupby("population2002_bin"):
+        size_results.append({"selection": selection, "population2002_bin": size,
+                             **outcome_stats(sub)})
+    for (own, other, share), sub in g.groupby(
+        ["own_direction", "other_direction", "share_direction"]
+    ):
+        trajectory_results.append({
+            "selection": selection, "own_direction": own,
+            "other_direction": other, "share_direction": share,
+            "centres_n": int(len(sub)),
+        })
+pd.DataFrame(region_results).to_csv(OUT / "region_results.csv", index=False)
+pd.DataFrame(size_results).to_csv(OUT / "population2002_bin_results.csv", index=False)
+pd.DataFrame(trajectory_results).to_csv(OUT / "trajectory_counts.csv", index=False)
+# Compact regional table in job logs; full named columns remain in CSV.
+region_columns = ["selection", "region_2021", "centres_n", "own_decline_n",
+                  "other_decline_n", "share_increase_n", "share_decrease_n",
+                  "shrink_concentration_n", "median_own_change_pct",
+                  "median_other_change_pct", "median_share_change_pp"]
 
 summaries = []
 for strict in [False, True]:
@@ -312,6 +501,7 @@ summary = {
         "new_only_n": len(new_ids - old_ids),
         "old_only_n": len(old_ids - new_ids),
     },
+    "relations_selection_diagnostics": relations_diagnostics,
     "representativeness": {
         "target_medium_centres_n": len(population_base),
         "new_medium_coverage_pct": 100 * len(new_ids) / len(population_base),
@@ -334,8 +524,12 @@ summary = {
     "inputs": [{"path": str(p.relative_to(ROOT)), "sha256": sha(p)}
                for p in [CENTRES, URBAN, SYSTEM, POP, OLD]],
     "results": summaries,
+    "trajectories": trajectory_results,
+    "population2002_bins": size_results,
+    "region_results": {"columns": region_columns,
+        "rows": [[r[k] for k in region_columns] for r in region_results]},
 }
 write_json(OUT / "summary.json", summary)
 print("NONSHOP_POPULATION_CONTEXTS_SUMMARY_BEGIN")
-print(json.dumps(summary, ensure_ascii=False, indent=2, allow_nan=False))
+print(json.dumps(summary, ensure_ascii=False, separators=(",", ":"), allow_nan=False))
 print("NONSHOP_POPULATION_CONTEXTS_SUMMARY_END")

@@ -106,11 +106,75 @@ class RangeZIP(io.RawIOBase):
         self.pos += len(body)
         return body
 
+def member_year(name):
+    years = re.findall(r"(?:^|[/_ -])(20[0-9]{2})(?=[/_ .-]|$)", name)
+    return max(map(int, years)) if years else 0
+
+def xlsx_rows(raw):
+    """Read static codebook rows, resolving shared strings and inline cells."""
+    rows = []
+    with zipfile.ZipFile(io.BytesIO(raw)) as z:
+        ns = {"x": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
+        shared = []
+        if "xl/sharedStrings.xml" in z.namelist():
+            if z.getinfo("xl/sharedStrings.xml").file_size > 16 * 1024 * 1024:
+                raise ValueError("Codebook shared strings exceed16MB")
+            root = ET.fromstring(z.read("xl/sharedStrings.xml"))
+            shared = ["".join(t.text or "" for t in si.findall(".//x:t", ns))
+                      for si in root.findall("x:si", ns)]
+        names = sorted(n for n in z.namelist()
+                       if n.startswith("xl/worksheets/sheet") and n.endswith(".xml"))
+        for name in names[:12]:
+            if z.getinfo(name).file_size > 16 * 1024 * 1024:
+                continue
+            root = ET.fromstring(z.read(name))
+            for row in root.findall(".//x:sheetData/x:row", ns):
+                cells = []
+                for cell in row.findall("x:c", ns):
+                    value = cell.findtext("x:v", default="", namespaces=ns)
+                    kind = cell.get("t")
+                    if kind == "s":
+                        try:
+                            value = shared[int(value)]
+                        except (IndexError, ValueError):
+                            value = ""
+                    elif kind == "inlineStr":
+                        value = "".join(t.text or "" for t in cell.findall(".//x:t", ns))
+                    cells.append({"column": cell.get("r", ""), "text": str(value)})
+                rows.append({"sheet": name, "row": row.get("r"), "cells": cells})
+                if len(rows) >= 20000:
+                    return rows
+    return rows
+
+def codebook_evidence(raw):
+    pattern = re.compile(r"^(?:[HIН][0-9]{2}_[A-Za-z0-9_]+|REGION|REG|ID|ID_H|ID_I|PSU|STRATA|SETTLEMENT|OKATO|OKTMO)$", re.I)
+    evidence = []
+    previous = None
+    for row in xlsx_rows(raw):
+        values = [re.sub(r"\s+", " ", c["text"]).strip() for c in row["cells"]]
+        variables = [v for v in values if pattern.fullmatch(v)]
+        if variables:
+            previous = variables[0]
+        text = " | ".join(v for v in values if v)
+        geo = any(GEO.search(v) for v in values) or bool(previous and GEO.search(previous))
+        if geo or TOPIC.search(text):
+            evidence.append({"sheet": row["sheet"], "row": row["row"],
+                             "variable_on_row": variables[:3],
+                             "previous_variable_context": previous,
+                             "cells": [{"column": c["column"], "text": c["text"][:350]}
+                                       for c in row["cells"][:8]],
+                             "geography_match": bool(geo)})
+    evidence.sort(key=lambda r: (not r["geography_match"], int(r["row"] or 0)))
+    return evidence[:65]
+
 def documentation_text(name, raw):
     suffix = Path(name).suffix.lower()
     if suffix in (".txt", ".csv", ".json", ".md", ".html", ".htm", ".xml"):
         return decode(raw), "decoded_static_documentation"
-    if suffix in (".docx", ".xlsx"):
+    if suffix == ".xlsx":
+        rows = xlsx_rows(raw)
+        return "\n".join(" | ".join(c["text"] for c in row["cells"]) for row in rows), "static_codebook_xlsx_rows"
+    if suffix == ".docx":
         strings = []
         with zipfile.ZipFile(io.BytesIO(raw)) as z:
             candidates = (["word/document.xml"] if suffix == ".docx" else
@@ -141,7 +205,7 @@ def selected_lines(text):
             break
     return lines
 
-def inspect(label, url, output, max_docs=6):
+def inspect(label, url, output, max_docs=10):
     result = {"archive": label, "url": url, "started_utc": datetime.now(timezone.utc).isoformat(),
               "tls_verified": True, "microdata_rows_output": False,
               "archive_sha256": None, "archive_fully_downloaded": False,
@@ -162,12 +226,12 @@ def inspect(label, url, output, max_docs=6):
             result.update(members_n=len(members), member_inventory_sha256=digest(member_json),
                           declared_member_crc_is_not_full_payload_verification=True)
             headers, documents = [], []
-            for info in members:
+            for info in sorted(members, key=lambda i: (-member_year(i.filename), i.filename)):
                 name = info.filename
                 if info.is_dir():
                     continue
                 doc = bool(DOC.search(Path(name).name))
-                if name.lower().endswith(".csv") and "2024" in name and not doc:
+                if name.lower().endswith(".csv") and member_year(name) in (2023, 2024, 2025) and not doc:
                     # Read no more than a bounded prefix; retain and output HEADER ONLY.
                     with z.open(info) as f:
                         prefix = f.read(65536)
@@ -177,29 +241,57 @@ def inspect(label, url, output, max_docs=6):
                         continue
                     delimiter = max([";", ",", "\t"], key=first_line.count)
                     fields = next(csv.reader([first_line], delimiter=delimiter))
-                    header_like = sum(bool(re.match(r"^[HIHhi][0-9]{2}_[0-9]", f)) for f in fields) >= 3
+                    header_like = (len(fields) >= 3 and
+                                   sum(bool(re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]{0,79}", f))
+                                       for f in fields) / len(fields) >= 0.8)
                     # On an unfamiliar schema report only hash/count, never potential data values.
                     header = {"member": name, "header_sha256": digest(first_line.encode()),
                               "recognized_variable_header": header_like,
-                              "fields_n": len(fields), "geographic_field_names": [
+                              "fields_n": len(fields), "year": member_year(name),
+                              "first20_field_names": fields[:20] if header_like else [],
+                              "H00_03_present": ("H00_03" in fields) if header_like else None,
+                              "I00_03_present": ("I00_03" in fields) if header_like else None,
+                              "other_identifier_field_names": [
+                                  f for f in fields if header_like and
+                                  re.search(r"^(?:ID|PSU|STRAT|SETT|DIST|REG|GEO|OKATO|OKTMO)|_ID$", f, re.I)][:40],
+                              "geographic_field_names": [
                                   f[:120] for f in fields if header_like and GEO.search(f)][:50],
                               "field_presence_does_not_validate_public_geokey": True}
                     headers.append(header)
-                    if len(headers) >= 12:
+                    if len(headers) >= 30:
                         break
-            for info in members:
-                if (not DOC.search(Path(info.filename).name) or info.is_dir() or len(documents) >= max_docs
-                        or info.file_size > 8 * 1024 * 1024):
-                    continue
-                if Path(info.filename).suffix.lower() not in {
-                        ".txt", ".csv", ".json", ".md", ".html", ".htm", ".xml", ".docx", ".xlsx", ".pdf"}:
-                    continue
+            docs = [i for i in members if not i.is_dir()
+                    and DOC.search(Path(i.filename).name)
+                    and member_year(i.filename) in (2023, 2024, 2025)
+                    and i.file_size <= 8 * 1024 * 1024
+                    and Path(i.filename).suffix.lower() in {
+                        ".txt", ".csv", ".json", ".md", ".html", ".htm", ".xml", ".docx", ".xlsx", ".pdf"}]
+            def doc_priority(i):
+                name = Path(i.filename).name.lower()
+                codebook = bool(re.search(r"кодбук|codebook|dict|переменн|кодиров", name))
+                child = bool(re.search(r"дет|child", name))
+                return (-member_year(i.filename), not codebook, child, i.filename)
+            docs.sort(key=doc_priority)
+            # Reserve two slots per available target year; never spend cap on2011.
+            chosen = []
+            for year in (2025, 2024, 2023):
+                chosen.extend([i for i in docs if member_year(i.filename) == year][:2])
+            chosen.extend(i for i in docs if i not in chosen)
+            for info in chosen[:max_docs]:
                 raw = z.read(info)
                 text, method = documentation_text(info.filename, raw)
-                documents.append({"member": info.filename, "bytes": len(raw), "sha256": digest(raw),
-                                  "method": method, "topic_or_geography_lines": selected_lines(text),
-                                  "static_documentation_not_microdata": True})
-            result["csv2024_header_probes"] = headers
+                entry = {"member": info.filename, "year": member_year(info.filename),
+                         "bytes": len(raw), "sha256": digest(raw), "method": method,
+                         "topic_or_geography_lines": selected_lines(text),
+                         "static_documentation_not_microdata": True}
+                if Path(info.filename).suffix.lower() == ".xlsx":
+                    entry["codebook_variable_label_rows"] = codebook_evidence(raw)
+                documents.append(entry)
+            result["csv_header_probes"] = headers
+            result["available_csv_years_2023_2025"] = sorted(set(
+                member_year(i.filename) for i in members if i.filename.lower().endswith(".csv")
+                and member_year(i.filename) in (2023, 2024, 2025)))
+            result["csv2024_header_probes"] = [h for h in headers if h.get("year") == 2024]
             result["documentation_probes"] = documents
             result["status"] = "bounded_discovery_complete_not_substantive_analysis"
     except Exception as e:
@@ -224,12 +316,18 @@ def main():
               "probes": results, "causal_effect_estimated": False,
               "limitations": ["Blank-form fields do not prove their retention or identity in public microdata.",
                              "Header presence cannot distinguish an OKATO code from an anonymized ID.",
+                             "Absence of H00_03/I00_03 in inspected releases does not exclude other keys, other versions, or restricted-use data.",
                              "No microdata rows are saved, printed, or inspected for geographic identity.",
                              "Repeated cross-sections are not household panels or observed OD flows.",
                              "No population or settlement representativeness inferred by this probe."]}
     (out / "surveys_probe.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     print("SURVEYS_PROBE_JSON_BEGIN")
-    print(json.dumps(report, ensure_ascii=False, separators=(",", ":")))
+    # Keep rich codebook evidence in artifacts; only a bounded receipt in the log.
+    console = json.loads(json.dumps(report))
+    for probe in console["probes"]:
+        for doc in probe.get("documentation_probes", []):
+            doc["codebook_variable_label_rows"] = doc.get("codebook_variable_label_rows", [])[:12]
+    print(json.dumps(console, ensure_ascii=False, separators=(",", ":")))
     print("SURVEYS_PROBE_JSON_END")
 
 if __name__ == "__main__":
