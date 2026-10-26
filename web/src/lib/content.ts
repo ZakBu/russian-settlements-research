@@ -18,3 +18,5 @@ export const materialPath=(m:Material)=>basePath(`materials/${m.id}/`);
 export const formatDate=(value:string)=>new Intl.DateTimeFormat('ru-RU',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/Moscow'}).format(new Date(value.length===10?`${value}T12:00:00+03:00`:value));
 export const evidenceLabel:Record<string,string>={observation:'Наблюдение',calculation:'Расчёт',model:'Модель',hypothesis:'Гипотеза',method:'Методология'};
 export const currencyLabel:Record<string,string>={current:'Актуальный материал','known-issues':'Есть известные ограничения',superseded:'Есть новая версия'};
+
+export const mapPreviewVariant=(visual:Visual):'change'|'distribution'=>visual.palette==='population-change'||String(visual.mapState?.period||'').includes('-')?'change':'distribution';

@@ -27,6 +27,30 @@ def export(row):
 
 
 class ExportTests(unittest.TestCase):
+    def test_compact_transport_preserves_nulls_zeroes_ids_coordinates_and_counts(self):
+        features, _, _ = export(fixture(effective_population_2002=0, working_credit_present_2010=False))
+        payload = site.compact_population(features)
+        self.assertEqual(payload['format'], 'settlements-columnar-v1')
+        self.assertEqual(len(payload['rows']), len(features))
+        row = dict(zip(payload['columns'], payload['rows'][0]))
+        original = features[0]
+        self.assertEqual(row['id'], original['properties']['id'])
+        self.assertEqual(payload['regions'][row['regionIndex']], original['properties']['region'])
+        self.assertEqual([row['longitude'], row['latitude']], original['geometry']['coordinates'])
+        self.assertEqual(row['p02'], 0)
+        self.assertIsNone(row['p10'])
+        self.assertIsNone(row['change'])
+        self.assertFalse(row['comparable'])
+
+    def test_boundary_transport_keeps_source_geometry_and_scientific_totals(self):
+        polygon = {'type': 'Feature', 'properties': {'p21': 100, 'comparableCount': 2, 'sizeBins': [0, 2, 0, 0, 0]},
+                   'geometry': {'type': 'Polygon', 'coordinates': [[[1.123456789, 2.123456789], [2, 2], [2, 3], [1.123456789, 2.123456789]]]}}
+        display = site.display_boundaries([polygon])['features'][0]
+        self.assertEqual(display['properties'], polygon['properties'])
+        self.assertEqual(display['geometry']['coordinates'][0][0], [1.12346, 2.12346])
+        self.assertEqual(display['geometry']['coordinates'][0][0], display['geometry']['coordinates'][0][-1])
+        self.assertEqual(polygon['geometry']['coordinates'][0][0], [1.123456789, 2.123456789])
+
     def test_russian_region_labels_are_explicit_display_only(self):
         self.assertEqual(len(site.REGION_NAMES_RU), 83)
         self.assertEqual(site.REGION_NAMES_RU['RU-BA'], 'Республика Башкортостан')

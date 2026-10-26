@@ -1,0 +1,14 @@
+---
+import {readFileSync} from 'node:fs';
+import {basePath} from '../lib/content';
+interface Props {base?:string;caption?:string;large?:boolean;variant?:'distribution'|'change';hero?:boolean}
+const {caption='Распределение населённых пунктов',large=false,variant='distribution',hero=false}=Astro.props;
+const previews=JSON.parse(readFileSync(new URL('../../public/data/map-previews.json',import.meta.url),'utf8'));
+---
+<div class:list={['cartographic-preview',{'is-large':large,'is-hero':hero}]} data-map-variant={variant} role="img" aria-label={`${caption}. Коническая равновеликая проекция Альберса.`}>
+ <div class="map-plate-heading" aria-hidden="true"><span>РОССИЯ / {variant==='change'?'2002 — 2021':'ПЕРЕПИСНАЯ ОСНОВА'}</span><span class="map-registration">＋</span></div>
+ <img class="pixel-map map-image-light" src={basePath(`data/${previews[`${variant}.light`]}`)} width="960" height="540" loading={hero?'eager':'lazy'} fetchpriority={hero?'high':'auto'} decoding="async" alt="" aria-hidden="true"/>
+ <img class="pixel-map map-image-dark" src={basePath(`data/${previews[`${variant}.dark`]}`)} width="960" height="540" loading={hero?'eager':'lazy'} decoding="async" alt="" aria-hidden="true"/>
+ <div class="map-plate-key">{variant==='change'?<><span><i class="key-dot decline"/>Снижение &gt;10%</span><span><i class="key-dot stable"/>±10%</span><span><i class="key-dot growth"/>Рост &gt;10%</span><span><i class="key-dot unknown"/>Нет ряда</span></>:<span><i class="key-dot growth"/>Населённые пункты</span>}</div>
+ <span class="mini-map-label">{large?'Пространственная выборка · фон — контур территории':'Выборка НП · справочный контур'}</span>
+</div>
