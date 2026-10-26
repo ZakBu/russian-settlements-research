@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """List, fetch and verify catalogued research data without rerunning scientific models."""
 import argparse
+from collections import Counter
 import fnmatch
 import hashlib
 import json
@@ -28,6 +29,16 @@ def destination(root, relative):
     if not target.is_relative_to(root.resolve()):
         raise ValueError('Catalog path escapes destination: ' + relative)
     return target
+
+
+def archive_member(obj, blob):
+    """Allow a pinned ZIP member while retaining the legacy object layout."""
+    member = obj.get('archive_member', 'objects/' + blob)
+    if (not isinstance(member, str) or not member or '\\' in member or '\0' in member
+            or ':' in member or PurePosixPath(member).is_absolute()
+            or any(part in {'', '.', '..'} for part in member.split('/'))):
+        raise ValueError('Unsafe archive member: ' + repr(member))
+    return member
 
 
 def download(url, path, expected):
@@ -123,6 +134,11 @@ def main():
         return 0
     args.dest.mkdir(parents=True, exist_ok=True)
     if args.command == 'fetch':
+        # Reject malformed catalogue paths before downloading or materializing.
+        for blob in selected:
+            if objects[blob].get('asset'):
+                archive_member(objects[blob], blob)
+                destination(args.cache / 'objects', blob)
         by_blob = {}
         for row in rows:
             by_blob.setdefault(row['blob'], []).append(row)
@@ -141,12 +157,18 @@ def main():
             print('Fetching verified archive: ' + name, flush=True)
             download(asset['url'], archive, asset['sha256'])
             with zipfile.ZipFile(archive) as z:
+                member_counts = Counter(z.namelist())
                 for blob in sorted(pending):
                     obj = objects[blob]
-                    local = args.cache / 'objects' / blob
+                    member = archive_member(obj, blob)
+                    if member_counts[member] != 1:
+                        raise ValueError('Archive member is absent or duplicated: ' + member)
+                    if z.getinfo(member).is_dir():
+                        raise ValueError('Archive member is a directory: ' + member)
+                    local = destination(args.cache / 'objects', blob)
                     local.parent.mkdir(parents=True, exist_ok=True)
-                    temporary = local.with_name(blob + '.part')
-                    with z.open('objects/' + blob) as src, open(temporary, 'wb') as out:
+                    temporary = local.with_name(local.name + '.part')
+                    with z.open(member) as src, open(temporary, 'wb') as out:
                         shutil.copyfileobj(src, out, 4 * 1024 * 1024)
                     if temporary.stat().st_size != obj['bytes'] or sha256(temporary) != obj['sha256']:
                         raise ValueError('Data object checksum mismatch: ' + blob)
