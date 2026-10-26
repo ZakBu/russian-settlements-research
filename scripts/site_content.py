@@ -26,7 +26,7 @@ KINDS = {"finding", "method", "note", "correction"}
 EVIDENCE = {"observation", "calculation", "model", "hypothesis", "method"}
 TEMPLATES = {"census-trend", "bars", "comparison", "scatter", "table", "settlement-map", "service-links"}
 PALETTES = {"population-change", "categorical", "service-type", "blue"}
-MATERIAL_FIELDS = {"id", "researchId", "title", "summary", "kind", "topic", "territory", "period", "publishedAt", "updatedAt", "visibility", "evidence", "currency", "sourceCommit", "sources", "datasetIds", "visualIds", "body", "supersedes", "featured", "tags"}
+MATERIAL_FIELDS = {"id", "researchId", "title", "summary", "kind", "topic", "territory", "period", "publishedAt", "updatedAt", "visibility", "evidence", "currency", "sourceCommit", "sources", "datasetIds", "visualIds", "body", "supersedes", "featured", "tags", "parentId", "order"}
 VISUAL_FIELDS = {"id", "template", "title", "caption", "datasetId", "palette", "unit", "series", "categories", "data", "mapState", "limitations"}
 LAYER_FIELDS = {"id", "researchId", "title", "description", "datasetId", "adapter", "geometry", "fields", "palette", "unit", "period", "evidence", "visibility"}
 BUILTIN_LAYERS = {"population", "schools", "medical", "services", "links", "centres", "districts", "regions"}
@@ -150,6 +150,58 @@ def document_references(text):
 
 def valid_url(value):
     return isinstance(value, str) and urlparse(value).scheme in {"https", "http"} and bool(urlparse(value).netloc)
+
+
+def material_hierarchy_errors(materials):
+    """Validate a parent forest iteratively: nesting is not limited by Python recursion depth."""
+    errors, parents = [], {}
+    for key, row in materials.items():
+        if not isinstance(row, dict):
+            continue
+        if "order" in row:
+            order = row["order"]
+            try:
+                valid_order = isinstance(order, (int, float)) and not isinstance(order, bool) and math.isfinite(order)
+            except OverflowError:
+                valid_order = False
+            if not valid_order:
+                errors.append((key, "order", "Expected a finite number for sibling ordering"))
+        if "parentId" not in row:
+            continue
+        parent_id = row["parentId"]
+        if not isinstance(parent_id, str) or not ID.fullmatch(parent_id):
+            errors.append((key, "parentId", "Expected an existing parent material ID, not a URL or path"))
+            continue
+        if parent_id == key:
+            errors.append((key, "parentId", "A material cannot be its own parent"))
+            continue
+        parent = materials.get(parent_id)
+        if not isinstance(parent, dict):
+            errors.append((key, "parentId", f"Unknown parent material: {parent_id}"))
+            continue
+        parents[key] = parent_id
+        if row.get("researchId") != parent.get("researchId"):
+            errors.append((key, "parentId", "Parent and child must belong to the same research"))
+        if row.get("visibility") == "published" and parent.get("visibility") != "published":
+            errors.append((key, "parentId", "A published child requires a published parent; drafts and archived parents hide its public path"))
+
+    completed = set()
+    for start in parents:
+        if start in completed:
+            continue
+        path, positions, current = [], {}, start
+        while current in parents and current not in completed:
+            if current in positions:
+                cycle = path[positions[current]:]
+                description = " -> ".join(cycle + [current])
+                for member in cycle:
+                    errors.append((member, "parentId", f"Parent hierarchy contains a cycle: {description}"))
+                break
+            positions[current] = len(path)
+            path.append(current)
+            current = parents[current]
+        completed.update(path)
+    return errors
 
 
 def validate(root=ROOT, material_id=None):
@@ -311,7 +363,7 @@ def validate(root=ROOT, material_id=None):
         materials[path.stem] = row
         if key != path.stem or not ID.fullmatch(str(key)):
             err(path, "id", "ID must match the filename and use lowercase kebab words")
-        for field in MATERIAL_FIELDS - {"supersedes", "featured", "tags"}:
+        for field in MATERIAL_FIELDS - {"supersedes", "featured", "tags", "parentId", "order"}:
             if field not in row:
                 err(path, field, "Required field")
         for field in row.keys() - MATERIAL_FIELDS:
@@ -401,6 +453,9 @@ def validate(root=ROOT, material_id=None):
             err(path, "body", "Embed each visual only once; link to it for repeated mentions")
         if row.get("supersedes") and (not isinstance(row["supersedes"], str) or row["supersedes"] not in materials or row["supersedes"] == key):
             err(base / "materials" / f"{key}.json", "supersedes", "Reference an existing different material")
+    # A material-specific request still checks the entire ancestor forest.
+    for key, field, message in material_hierarchy_errors(materials):
+        err(base / "materials" / f"{key}.json", field, message)
     if material_id is not None and material_id not in materials:
         err(base / "materials" / f"{material_id}.json", "id", "Material not found")
     return errors
@@ -638,6 +693,8 @@ def main(argv=None):
     new.add_argument("--evidence", choices=sorted(EVIDENCE), default="calculation")
     new.add_argument("--dataset", action="append", default=[])
     new.add_argument("--visual", action="append", default=[])
+    new.add_argument("--parent", help="Parent material ID in the same research; URLs and filesystem paths are not accepted")
+    new.add_argument("--order", type=float, help="Optional finite sibling position; smaller values come first")
     visual = commands.add_parser("visual", help="Register a visual from actual values, preserving null observations")
     for name in ("id", "template", "dataset-ref", "title", "unit", "caption"):
         visual.add_argument("--" + name, required=True, choices=sorted(TEMPLATES) if name == "template" else None)
@@ -686,6 +743,19 @@ def main(argv=None):
             key = safe_id(args.id)
             day = datetime.now(ZoneInfo("Europe/Moscow")).date().isoformat()
             value = {"id": key, "researchId": safe_id(args.research), "title": args.title, "summary": args.summary, "kind": args.kind, "topic": args.topic, "territory": args.territory, "period": args.period, "publishedAt": day, "updatedAt": day, "visibility": "draft", "evidence": args.evidence, "currency": "current", "sourceCommit": args.source_commit, "sources": [{"title": "Источник результата", "url": args.source_url}] if args.source_url else [], "datasetIds": args.dataset, "visualIds": args.visual, "body": ""}
+            if args.parent is not None:
+                value["parentId"] = safe_id(args.parent)
+            if args.order is not None:
+                value["order"] = args.order
+            hierarchy = {}
+            for record_path in (content(root) / "materials").glob("*.json"):
+                record = load(record_path)
+                if isinstance(record, dict):
+                    hierarchy[record_path.stem] = record
+            hierarchy[key] = value
+            hierarchy_errors = material_hierarchy_errors(hierarchy)
+            if hierarchy_errors:
+                raise ValueError("; ".join(f"{record_id}.{field}: {message}" for record_id, field, message in hierarchy_errors))
             path = content(root) / "materials" / f"{key}.json"
             if path.exists():
                 existing = load(path)
