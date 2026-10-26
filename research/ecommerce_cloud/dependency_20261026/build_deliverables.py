@@ -154,7 +154,9 @@ def notebook():
     return nb
 
 
-def pdf():
+def pdf(documents=None, filename='Dependency_and_Russian_Centres_20261026.pdf',
+        footer_text='Посредничество центра и маркетплейсы · 26 октября 2026',
+        title='Посредническая роль средних центров и маркетплейсы'):
     from markdown_it import MarkdownIt
     from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
     from reportlab.lib.styles import ParagraphStyle
@@ -188,7 +190,7 @@ def pdf():
 
     story=[]
     md=MarkdownIt('default')
-    for file in ['DEPENDENCY_REPORT_RU.md','REVIEW_RU.md']:
+    for file in documents or ['DEPENDENCY_REPORT_RU.md','REVIEW_RU.md']:
         if not (HERE/file).exists():continue
         tokens=md.parse((HERE/file).read_text());i=0
         while i<len(tokens):
@@ -225,11 +227,11 @@ def pdf():
 
     def footer(canvas,doc):
         canvas.setFont('Body',7.5);canvas.setFillColor(colors.HexColor('#5a6a75'))
-        canvas.drawString(2*cm,1.2*cm,'Посредничество центра и маркетплейсы · 26 октября 2026')
+        canvas.drawString(2*cm,1.2*cm,footer_text)
         canvas.drawRightString(19*cm,1.2*cm,str(doc.page))
-    doc=SimpleDocTemplate(str(OUT/'Dependency_and_Russian_Centres_20261026.pdf'),
+    doc=SimpleDocTemplate(str(OUT/filename),
         pagesize=(21*cm,29.7*cm),leftMargin=2*cm,rightMargin=2*cm,
-        topMargin=1.8*cm,bottomMargin=2*cm,title='Посредническая роль средних центров и маркетплейсы')
+        topMargin=1.8*cm,bottomMargin=2*cm,title=title)
     doc.build(story,onFirstPage=footer,onLaterPages=footer)
 
 
