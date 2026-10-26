@@ -50,12 +50,9 @@ jobs:
             npx --prefix web playwright install --with-deps chromium
           fi
       - name: Prepare Word export
-        run: |
-          if ! command -v pandoc >/dev/null 2>&1; then
-            sudo apt-get update
-            sudo apt-get install -y pandoc
-          fi
-          pandoc --version
+        uses: r-lib/actions/setup-pandoc@f9a764fea8d5c63df6ef9a5c7795bf7deb5d7e05
+        with:
+          pandoc-version: '3.1.11.1'
       - run: python -m unittest discover -s tests -p 'test_word_export.py'
       - run: npm --prefix web run build
         env:

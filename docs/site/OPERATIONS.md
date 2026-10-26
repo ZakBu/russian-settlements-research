@@ -73,3 +73,5 @@ python scripts/site_content.py export --materials map-reading-guide,model-and-ob
 ```
 
 Профиль вуза можно передать через `--reference-doc /path/template.docx`. Он применяется к Word; браузерная типографика остаётся прежней. Проверка реального DOCX через Pandoc находится в `tests/test_word_export.py`, браузерные проверки подписей, ссылок и скачивания — в `web/tests/gost.spec.ts`.
+
+В GitHub Actions Pandoc 3.1.11.1 устанавливается готовым `r-lib/actions/setup-pandoc`, закреплённым на коммит. Сборка не обновляет все системные apt-репозитории: это устраняет задержки сторонних зеркал и сохраняет одну версию конвертера с локальными проверками.
