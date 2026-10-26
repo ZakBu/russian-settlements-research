@@ -1,0 +1,52 @@
+{
+  "schema": "sgrt.direct_service_agreement.v1",
+  "scope": "positive ordinary whole settlement records in the complete scenario; population credit is retained, not required",
+  "origin_records": 129583,
+  "classes": {
+    "same_external": {
+      "label": "Все три направления — в один другой НП",
+      "records": 11355
+    },
+    "same_local": {
+      "label": "Все три услуги — в самом НП",
+      "records": 5941
+    },
+    "two_destinations": {
+      "label": "Три направления — в два НП",
+      "records": 35883
+    },
+    "three_destinations": {
+      "label": "Три направления — в три НП",
+      "records": 15127
+    },
+    "unknown_provider_settlement": {
+      "label": "Три направления есть, НП поставщика не везде установлен",
+      "records": 18485
+    },
+    "partial_admission": {
+      "label": "Допущены только одно или два направления",
+      "records": 39547
+    },
+    "no_admission": {
+      "label": "Нет допущенных направлений",
+      "records": 3245
+    }
+  },
+  "unanimous_external_destination_count": 2937,
+  "observed_trips": false,
+  "exclusive_sgrt_partition_created": false,
+  "local_supply_included_as_origin_destination": true,
+  "unknown_provider_settlement_is_not_missing_physical_service": true,
+  "partial_admission_is_not_service_absence": true,
+  "inputs": {
+    "edges": {
+      "file": "daily_edges.parquet",
+      "sha256": "af88729f8c5b797b5d6a1178c78ac12f45099920d3b49e40b32640aee3dec23c"
+    },
+    "reference": {
+      "file": "analysis_reference.parquet",
+      "sha256": "456a0fd57c363cd7ade3563c5737634dd34ebda585569fc80bec160e4cc55e90"
+    }
+  },
+  "code_sha256": "3f6ea7568ddcdd6fcb81dedc2309cfa09be2f0948326df07da4615d84583d189"
+}
