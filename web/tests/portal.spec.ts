@@ -83,6 +83,13 @@ test('overview maps need no JavaScript and keep the same visual inside the artic
  const href=await card.locator('h2 a').getAttribute('href');await page.goto(href!);const full=page.locator('[data-visual-id="population-map"] .cartographic-preview');await expect(full).toHaveAttribute('data-map-variant','change');await expect(full.locator('.map-image-light')).toHaveAttribute('src',source!);
  expect(requests.some(url=>/settlements-preview|country-preview|MapThumbnail.*\.js/.test(url))).toBe(false);
  await page.setViewportSize({width:390,height:844});await page.goto('atlas/');
- for(const select of await page.locator('.toolbar select').all()){expect(await select.evaluate(el=>parseFloat(getComputedStyle(el).paddingRight))).toBeGreaterThanOrEqual(30);expect(await select.evaluate(el=>getComputedStyle(el).appearance)).toBe('none');expect(await select.evaluate(el=>getComputedStyle(el).backgroundRepeat)).toBe('no-repeat');expect(await select.evaluate(el=>getComputedStyle(el).backgroundImage)).toContain('data:image/svg+xml')}
+ for(const theme of ['light','dark']){
+  await page.locator('html').evaluate((el,value)=>el.setAttribute('data-theme',value),theme);
+  for(const select of await page.locator('.toolbar select').all()){
+   const style=await select.evaluate(el=>{const s=getComputedStyle(el);return{padding:parseFloat(s.paddingRight),appearance:s.appearance,repeat:s.backgroundRepeat,size:s.backgroundSize,image:s.backgroundImage}});
+   expect(style.padding).toBeGreaterThanOrEqual(30);expect(style.appearance).toBe('none');expect(style.repeat).toBe('no-repeat');expect(style.size).toBe('16px 16px');expect(style.image).toContain('data:image/svg+xml');
+  }
+ }
+
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);await context.close();
 });
