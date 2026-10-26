@@ -76,10 +76,19 @@ def select_workforce(frame):
     result = result.rename(columns={'indicator_value': COMPONENTS[0]})
     keep = ['oktmo', 'municipality', 'region_name', 'mun_level', 'mun_type', 'year',
             'indicator_period', 'indicator_name', 'indicator_unit', 'source_territory_class', COMPONENTS[0]]
+    source_ward_type = selected.mun_type.eq(WARD)
+    excluded_wards = source_ward_type & ~eligible
+    excluded_groups = selected.source_territory_class.eq('group_of_municipalities_aggregate') & ~eligible & ~excluded_wards
+    excluded_other = ~eligible & ~excluded_wards & ~excluded_groups
+    if len(result) + int(excluded_wards.sum()) + int(excluded_groups.sum()) + int(excluded_other.sum()) != len(selected):
+        raise AssertionError('Workforce source exclusions must partition the annual rows')
     return result[keep].reset_index(drop=True), {'annual_total_source_rows': len(selected),
         'selected_nonoverlapping_upper_scope_rows': len(result),
-        'excluded_federal_ward_rows': int(selected.mun_type.eq(WARD).sum()),
-        'excluded_group_aggregate_rows': int(selected.source_territory_class.eq('group_of_municipalities_aggregate').sum()),
+        'excluded_federal_ward_rows': int(excluded_wards.sum()),
+        'excluded_group_aggregate_rows': int(excluded_groups.sum()),
+        'excluded_other_scope_rows': int(excluded_other.sum()),
+        'source_rows_with_federal_ward_type': int(source_ward_type.sum()),
+        'retained_subject_rows_with_federal_ward_type': int((eligible & source_ward_type).sum()),
         'federal_city_subject_totals_kept_once': int(result.mun_level.eq(SUBJECT).sum())}
 
 

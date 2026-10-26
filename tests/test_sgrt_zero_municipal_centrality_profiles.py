@@ -31,6 +31,28 @@ class MunicipalComparisonTests(unittest.TestCase):
         self.assertEqual(set(out.oktmo),{'45000000','65701000'})
         self.assertEqual(len(frame),3)
 
+    def test_federal_subject_with_ward_type_is_not_counted_as_excluded(self):
+        # Real source labels Moscow/SPB subject totals with the same mun_type
+        # as their wards; mun_level and exact actor identity distinguish them.
+        frame = pd.DataFrame(dict(year=[2025]*4, indicator_period='Январь-декабрь', okved2=TOTAL,
+            oktmo=['45000000','45901000','82701365','50700000'],
+            mun_level=[SUBJECT,UPPER,'Муниципальное образование нижнего уровня',UPPER],
+            mun_type=[WARD,WARD,'Городской округ, городской округ с внутригородским делением',
+                      'Городской округ, городской округ с внутригородским делением'],
+            indicator_code='Y48423005', indicator_unit='Человек', indicator_value=[100.,40.,5.,999.],
+            municipality=['Москва','ward','Ленинский район','Городские округа Новосибирской области'],
+            region_name=['Москва','Москва','Республика Дагестан','Новосибирская область'],
+            region_id=['45','45','82','50'], indicator_name='workers'))
+        out, audit = select_workforce(frame)
+        self.assertEqual(list(out.oktmo), ['45000000'])
+        self.assertEqual(audit['source_rows_with_federal_ward_type'], 2)
+        self.assertEqual(audit['retained_subject_rows_with_federal_ward_type'], 1)
+        self.assertEqual(audit['excluded_federal_ward_rows'], 1)
+        self.assertEqual(audit['excluded_group_aggregate_rows'], 1)
+        self.assertEqual(audit['excluded_other_scope_rows'], 1)
+        self.assertEqual(audit['annual_total_source_rows'], len(out) + sum(
+            audit[k] for k in ['excluded_federal_ward_rows','excluded_group_aggregate_rows','excluded_other_scope_rows']))
+
     def test_conflicting_worker_total_is_rejected(self):
         frame=pd.DataFrame(dict(year=[2025]*2,indicator_period='Январь-декабрь',okved2=TOTAL,
             oktmo=['65701000']*2,mun_level=UPPER,mun_type='city',indicator_code='Y48423005',indicator_unit='Человек',
