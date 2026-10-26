@@ -94,10 +94,12 @@ test('overview maps need no JavaScript and keep the same visual inside the artic
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);await context.close();
 });
 
-test('current boundaries show native Russian names and the actual source year',async({page})=>{
+test('current boundaries show native Russian names and the actual source year',async({page},testInfo)=>{
  await page.goto('map/?layers=population,regions');
  const search=page.getByRole('textbox',{name:'Поиск места или территории'});await expect(search).toBeVisible();await expect(page.locator('.map-loading')).toHaveCount(0,{timeout:75000});
  await search.fill('Ишимбайский');const result=page.locator('.map-search-results button').filter({hasText:'Район / округ'}).filter({hasText:'Ишимбайский район'}).first();await expect(result).toBeVisible({timeout:75000});await result.click();
  await expect(page.locator('.map-infographic h2')).toHaveText('Ишимбайский район');await expect(page.locator('.map-info-header')).toContainText('Сетка 2026 года');await expect(page.locator('.map-boundary-note')).toContainText('28.09.2026');
  await expect(page.locator('.map-info-header')).not.toContainText('Ishimbaysky');await expect(page.locator('.map-infographic svg').first()).toBeVisible();
+ await page.screenshot({path:testInfo.outputPath('ishimbay-current-grid.png'),fullPage:true});
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:testInfo.outputPath('ishimbay-current-grid-mobile.png'),fullPage:true});
 });
