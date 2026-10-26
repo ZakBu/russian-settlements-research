@@ -1,8 +1,8 @@
 ---
 import type {Visual} from '../lib/content';
-import {datasets,basePath} from '../lib/content';
+import {datasets,basePath,mapPreviewVariant} from '../lib/content';
 import VisualChart from './VisualChart';
-import MapThumbnail from './MapThumbnail';
+import MapThumbnail from './MapThumbnail.astro';
 interface Props {visual:Visual;exportMode?:boolean}
 const {visual:v,exportMode=false}=Astro.props;
 const isLinks=v.template==='service-links';const isMap=['settlement-map','service-links'].includes(v.template);const dataset=datasets.find(d=>d.id===v.datasetId);
@@ -10,7 +10,7 @@ const params=new URLSearchParams();if(v.mapState)for(const [k,value]of Object.en
 ---
 <figure class="figure" data-visual-id={v.id}>
 <div style="display:flex;gap:20px;align-items:baseline;justify-content:space-between;flex-wrap:wrap"><h2>{v.title}</h2>{isMap&&<a class="secondary-button" href={basePath(`map/?${params}`)}>Исследовать на карте →</a>}</div>
-{isLinks?<div class="link-preview"><p>Связи показаны на интерактивной карте с отдельными основаниями, источниками и датами.</p><a class="primary-button" href={basePath(`map/?${params}`)}>Открыть локальные связи →</a></div>:isMap?<div style="height:390px"><MapThumbnail base={basePath()} caption={v.title} large client:load/></div>:v.template==='table'?<div style="overflow:auto"><table class="data-table"><tbody>{v.data?.map((row:any)=><tr>{Object.values(row).map(cell=><td>{String(cell??'Нет сведений')}</td>)}</tr>)}</tbody></table></div>:<VisualChart visual={v} client:load/>}
+{isLinks?<div class="link-preview"><p>Связи показаны на интерактивной карте с отдельными основаниями, источниками и датами.</p><a class="primary-button" href={basePath(`map/?${params}`)}>Открыть локальные связи →</a></div>:isMap?<div><MapThumbnail base={basePath()} caption={v.title} variant={mapPreviewVariant(v)} large/></div>:v.template==='table'?<div style="overflow:auto"><table class="data-table"><tbody>{v.data?.map((row:any)=><tr>{Object.values(row).map(cell=><td>{String(cell??'Нет сведений')}</td>)}</tr>)}</tbody></table></div>:<VisualChart visual={v} client:load/>}
 <figcaption>{v.caption} {v.unit&&<span>Единица: {v.unit}.</span>} {dataset&&<a href={dataset.url} target="_blank" rel="noopener noreferrer">Источник: {dataset.title} ↗</a>}</figcaption>
 {v.limitations?.length&&<p style="font-size:12px;color:var(--muted)">{v.limitations.join(' ')}</p>}
 {v.series?.length&&<details><summary>Данные графика в таблице</summary><div style="overflow:auto"><table class="data-table"><thead><tr><th>Показатель</th>{v.categories?.map(c=><th>{c}</th>)}</tr></thead><tbody>{v.series.map(s=><tr><th>{s.name}</th>{s.values.map(value=><td>{value===null?'Нет сведений':value.toLocaleString('ru-RU')}</td>)}</tr>)}</tbody></table></div></details>}

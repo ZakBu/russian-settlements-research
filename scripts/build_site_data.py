@@ -120,6 +120,27 @@ def preview_points(features, cell_degrees=.15):
     return output
 
 
+def compact_population(features):
+    """Lossless row transport; dictionary coding changes no census values."""
+    regions = sorted({feature['properties']['region'] for feature in features})
+    region_index = {name: index for index, name in enumerate(regions)}
+    columns = ['id', 'name', 'regionIndex', 'longitude', 'latitude', 'p02', 'p10', 'p21', 'change', 'comparable']
+    rows = []
+    for feature in features:
+        props = feature['properties']
+        rows.append([props['id'], props['name'], region_index[props['region']], *feature['geometry']['coordinates'],
+                     props['p02'], props['p10'], props['p21'], props['change'], props['comparable']])
+    return {'format': 'settlements-columnar-v1', 'columns': columns, 'regions': regions, 'rows': rows}
+
+
+def display_boundaries(features):
+    """Round only already-simplified display coordinates, never analytic input."""
+    def coordinates(values):
+        return [round(value, 5) if isinstance(value, (int, float)) else coordinates(value) for value in values]
+    return feature_collection([{**feature, 'geometry': {**feature['geometry'], 'coordinates': coordinates(feature['geometry']['coordinates'])}}
+                               for feature in features])
+
+
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + '.part')
@@ -489,6 +510,7 @@ def main(argv=None):
     long = pd.read_parquet(inputs / 'data/population/settlements_census_long.parquet')
     settlements, details, lookup = population_features(wide, long)
     write_json(args.output / 'settlements.geojson', feature_collection(settlements))
+    write_json(args.output / 'settlements.compact.json', compact_population(settlements))
     preview = preview_points(settlements)
     write_json(args.output / 'settlements-preview.json', preview)
     shards = {}
@@ -506,6 +528,7 @@ def main(argv=None):
             target = verified_download(asset, args.cache)
         features, coverage = boundary_features(json.loads(target.read_text()), asset, settlements, details)
         write_json(args.output / (asset['id'] + '.geojson'), feature_collection(features))
+        write_json(args.output / (asset['id'] + '-display.geojson'), display_boundaries(features))
         if asset['id'] == 'regions':
             write_json(args.output / 'country-preview.geojson', country_preview(features))
         boundary_counts[asset['id']] = {'count': len(features), **coverage}
@@ -532,6 +555,9 @@ def main(argv=None):
                            'services': len(services), 'links': len(links), 'strictCentresMapped': len(centres), 'customLayers': len(registry), 'boundaries': boundary_counts},
                 'layers': {'population': 'settlements.geojson', 'schools': 'services.geojson', 'medical': 'services.geojson',
                            'links': 'links.geojson', 'regions': 'regions.geojson', 'districts': 'districts.geojson', 'centres': 'centres.geojson'},
+                'interactiveTransport': {'settlements': 'settlements.compact.json', 'regions': 'regions-display.geojson', 'districts': 'districts-display.geojson',
+                                         'settlementCount': len(settlements), 'settlementValues': 'lossless_dictionary_rows',
+                                         'displayCoordinateDecimals': 5, 'aggregation': 'unchanged_unsimplified_source_geometry'},
                 'detailPath': 'settlement-details/{shard}.json',
                 'customLayers': 'layers.json',
                 'preview': {'path': 'settlements-preview.json', 'outlinePath': 'country-preview.geojson', 'outlineUse': 'decorative_reference_land_only', 'count': len(preview), 'method': 'one_real_highest_population_point_per_0.15_degree_cell_for_thumbnail_only'},

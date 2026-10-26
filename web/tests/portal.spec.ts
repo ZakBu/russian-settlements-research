@@ -9,7 +9,7 @@ test('atlas search, no-results and reset preserve a usable catalogue',async({pag
  await page.getByRole('searchbox',{name:'Поиск материалов'}).fill('несуществующий-материал-xyz');await expect(cards).toHaveCount(0);
  await page.getByRole('button',{name:'Сбросить фильтры'}).click();await expect(cards).toHaveCount(total);
  const lead=page.locator('[data-material-card]').first();expect((await lead.boundingBox())!.height).toBeLessThan(850);
- await expect(lead.locator('canvas')).toBeVisible();expect(errors).toEqual([]);
+ await expect(lead.locator('.cartographic-preview')).toBeVisible();await expect.poll(()=>lead.locator('.map-image-light').evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);expect(errors).toEqual([]);
 });
 
 test('research selection survives navigation and dark theme survives reload',async({page})=>{
@@ -74,4 +74,22 @@ test('editorial screens have no serious automated accessibility findings',async(
   await page.goto(route);const report=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();
   expect(report.violations.filter(v=>['serious','critical'].includes(v.impact||''))).toEqual([]);
  }
+});
+
+test('overview maps need no JavaScript and keep the same visual inside the article',async({browser,baseURL})=>{
+ const context=await browser.newContext({javaScriptEnabled:false,baseURL});const page=await context.newPage();const requests:string[]=[];page.on('request',r=>requests.push(r.url()));
+ await page.goto('atlas/');const card=page.locator('[data-material-card]').first();const preview=card.locator('.cartographic-preview');await expect(preview).toHaveAttribute('data-map-variant','change');
+ const image=preview.locator('.map-image-light');await image.scrollIntoViewIfNeeded();await expect.poll(()=>image.evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);const source=await image.getAttribute('src');
+ const href=await card.locator('h2 a').getAttribute('href');await page.goto(href!);const full=page.locator('[data-visual-id="population-map"] .cartographic-preview');await expect(full).toHaveAttribute('data-map-variant','change');await expect(full.locator('.map-image-light')).toHaveAttribute('src',source!);
+ expect(requests.some(url=>/settlements-preview|country-preview|MapThumbnail.*\.js/.test(url))).toBe(false);
+ await page.setViewportSize({width:390,height:844});await page.goto('atlas/');
+ for(const theme of ['light','dark']){
+  await page.locator('html').evaluate((el,value)=>el.setAttribute('data-theme',value),theme);
+  for(const select of await page.locator('.toolbar select').all()){
+   const style=await select.evaluate(el=>{const s=getComputedStyle(el);return{padding:parseFloat(s.paddingRight),appearance:s.appearance,repeat:s.backgroundRepeat,size:s.backgroundSize,image:s.backgroundImage}});
+   expect(style.padding).toBeGreaterThanOrEqual(30);expect(style.appearance).toBe('none');expect(style.repeat).toBe('no-repeat');expect(style.size).toBe('16px 16px');expect(style.image).toContain('data:image/svg+xml');
+  }
+ }
+
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);await context.close();
 });

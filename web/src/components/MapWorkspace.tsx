@@ -28,6 +28,15 @@ function searchKey(value: any) {
 const names: Record<Mode, string> = { settlement: 'Населённый пункт', district: 'Район', region: 'Регион' };
 const color = (dark: boolean) => ({ blue: dark ? '#7294FF' : '#244CFF', ink: dark ? '#F4F6FF' : '#10265C', orange: dark ? '#FFAA76' : '#C65B24', green: dark ? '#5BD6AE' : '#16806A', gray: dark ? '#8995AF' : '#8993A8', line: dark ? '#354266' : '#D2D9ED' });
 
+function populationCollection(payload: any): Collection {
+  if (payload?.format !== 'settlements-columnar-v1' || !Array.isArray(payload.rows) || !Array.isArray(payload.regions)) throw new Error('Некорректный формат населения');
+  return { type: 'FeatureCollection', features: payload.rows.map((row: any[]) => {
+    if (!Array.isArray(row) || row.length !== 10 || typeof row[0] !== 'string' || typeof payload.regions[row[2]] !== 'string') throw new Error('Некорректная строка населения');
+    return { type: 'Feature', geometry: { type: 'Point', coordinates: [row[3], row[4]] },
+      properties: { id: row[0], shard: row[0].slice(0, 2), name: row[1], region: payload.regions[row[2]], p02: row[5], p10: row[6], p21: row[7], change: row[8], comparable: row[9] } };
+  }) };
+}
+
 function readLocation() {
   const q = new URLSearchParams(window.location.search);
   const requested = q.get('layers');
@@ -93,6 +102,11 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
   const mapElement = useRef<HTMLDivElement>(null);
   const map = useRef<LibreMap | null>(null);
   const loaded = useRef(false);
+  const pendingCollections = useRef<Record<string, Promise<void> | undefined>>({});
+  const loadedCollections = useRef(new Set<string>());
+  const failedCollections = useRef(new Set<string>());
+  const sourceCollections = useRef<Record<string, Collection>>({});
+  const deferredSelection = useRef<ReturnType<typeof readLocation> | null>(null);
   const customCache = useRef<Record<string, LayerPayload>>({});
   const customPending = useRef(new Set<string>());
   const customFailure = useRef(new Set<string>());
@@ -113,6 +127,7 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
   customActiveRef.current = customActive;
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(true);
+  const [pendingKeys, setPendingKeys] = useState<string[]>([]);
   const [mapError, setMapError] = useState('');
   const [basemapUnavailable, setBasemapUnavailable] = useState(false);
   const [layers, setLayers] = useState<Layers>(defaultLayers);
@@ -153,6 +168,7 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
     map.current.fitBounds(box, { padding: { top: 75, left: !mobile && panel ? 325 : 35, right: 45, bottom: mobile ? 240 : 280 }, maxZoom: feature.geometry.type === 'Point' ? 11 : 9, duration: 650 });
   }
   const select = (s: Selection, fit = false, history = true) => {
+    deferredSelection.current = null; if (initialLocation.current) initialLocation.current.selected = '';
     setSelection(s); setMode(s.mode); setCollapsed(false); setDetails(null); setDetailError(false);
     if (window.innerWidth < 760) setPanel(false);
     if (fit) zoomTo(s.feature);
@@ -169,28 +185,49 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
     return () => obs.disconnect();
   }, []);
 
+  const loadCollection = (key: string): Promise<void> => {
+    if (loadedCollections.current.has(key) || failedCollections.current.has(key)) return Promise.resolve();
+    if (pendingCollections.current[key]) return pendingCollections.current[key]!;
+    const paths: Record<string, string> = { settlements: 'settlements.compact.json', regions: 'regions-display.geojson', districts: 'districts-display.geojson' };
+    setPendingKeys(previous => [...previous, key]);
+    pendingCollections.current[key] = (async () => {
+      try {
+        const response = await fetch(`${root}data/${paths[key] || `${key}.geojson`}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const payload = await response.json();
+        const body = key === 'settlements' ? populationCollection(payload) : payload as Collection;
+        if (body.type !== 'FeatureCollection' || !Array.isArray(body.features)) throw new Error('Неожиданный формат');
+        loadedCollections.current.add(key);
+        // Publish each usable source immediately; optional geography never blocks population.
+        dataRef.current = { ...dataRef.current, [key]: body }; setCollections(dataRef.current);
+        setErrors(previous => { const next = { ...previous }; delete next[key]; return next; });
+        const requested = deferredSelection.current || initialLocation.current;
+        if (requested?.selected && key === (requested.mode === 'settlement' ? 'settlements' : `${requested.mode}s`)) {
+          const feature = body.features.find(f => idOf(f) === requested.selected);
+          if (feature) { selectRef.current({ mode: requested.mode, feature }, false, false); deferredSelection.current = null; }
+        }
+      } catch (error) {
+        failedCollections.current.add(key); setErrors(previous => ({ ...previous, [key]: String(error) }));
+      } finally {
+        delete pendingCollections.current[key]; setPendingKeys(previous => previous.filter(item => item !== key)); if (key === 'settlements') setBusy(false);
+      }
+    })();
+    return pendingCollections.current[key]!;
+  };
   const loadData = async () => {
-    setBusy(true); setErrors({});
-    const parts = ['settlements', 'regions', 'districts', 'services', 'links', 'centres'];
-    const results = await Promise.allSettled(parts.map(async key => {
-      const response = await fetch(`${root}data/${key}.geojson`);
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const body = await response.json();
-      if (body.type !== 'FeatureCollection' || !Array.isArray(body.features)) throw new Error('Неожиданный формат');
-      return body as Collection;
-    }));
-    const next: Record<string, Collection> = {}, issues: Record<string, string> = {};
-    results.forEach((result, i) => { next[parts[i]] = result.status === 'fulfilled' ? result.value : empty; if (result.status === 'rejected') issues[parts[i]] = String(result.reason); });
-    dataRef.current = next; setCollections(next); setErrors(issues); setBusy(false);
-    try { const r = await fetch(`${root}data/manifest.json`); if (r.ok) setManifest(await r.json()); } catch { /* Independent provenance error does not hide available geography. */ }
-    const requested = initialLocation.current || readLocation();
-    if (requested.selected) {
-      const key = requested.mode === 'settlement' ? 'settlements' : `${requested.mode}s`;
-      const feature = next[key]?.features.find(f => idOf(f) === requested.selected);
-      if (feature) selectRef.current({ mode: requested.mode, feature }, false, false);
-    }
+    failedCollections.current.clear(); setErrors({});
+    if (!loadedCollections.current.has('settlements')) setBusy(true);
+    void loadCollection('settlements'); void loadCollection('regions');
+    // Small source-backed overlays are independent; district polygons stay on demand.
+    for (const key of ['services', 'links', 'centres']) void loadCollection(key);
+    const requested = readLocation();
+    if (requested.mode === 'district' || requested.layers.districts || query.trim().length >= 2) void loadCollection('districts');
+    try { const r = await fetch(`${root}data/manifest.json`); if (r.ok) setManifest(await r.json()); } catch { /* Missing provenance does not hide available geography. */ }
   };
   useEffect(() => { void loadData(); }, [root]);
+  useEffect(() => {
+    if (layers.districts || mode === 'district' || query.trim().length >= 2) void loadCollection('districts');
+  }, [layers.districts, mode, query]);
   const loadRegistry = async () => {
     try {
       const response = await fetch(`${root}data/layers.json`); if (!response.ok) throw new Error('registry');
@@ -345,15 +382,20 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
       if (s.lat !== null && s.lng !== null) instance.jumpTo({ center: [s.lng, s.lat], zoom: s.zoom ?? instance.getZoom() });
       const key = s.mode === 'settlement' ? 'settlements' : `${s.mode}s`;
       const f = dataRef.current[key].features.find(item => idOf(item) === s.selected);
-      if (f) selectRef.current({ mode: s.mode, feature: f }, false, false); else setSelection(null);
+      if (f) selectRef.current({ mode: s.mode, feature: f }, false, false); else {
+        setSelection(null); deferredSelection.current = s; if (s.selected) void loadCollection(key);
+      }
     };
     window.addEventListener('popstate', pop);
-    return () => { window.removeEventListener('popstate', pop); resize.disconnect(); labels.current.forEach(label => label.remove()); labels.current = []; loaded.current = false; instance.remove(); map.current = null; };
+    return () => { window.removeEventListener('popstate', pop); resize.disconnect(); labels.current.forEach(label => label.remove()); labels.current = []; loaded.current = false; sourceCollections.current = {}; instance.remove(); map.current = null; };
   }, []);
 
   function refreshMap(instance: LibreMap, data: Record<string, Collection>) {
     if (!loaded.current) return;
-    Object.entries(data).forEach(([key, collection]) => (instance.getSource(key) as maplibregl.GeoJSONSource | undefined)?.setData(collection as any));
+    Object.entries(data).forEach(([key, collection]) => {
+      const source = instance.getSource(key) as maplibregl.GeoJSONSource | undefined;
+      if (source && sourceCollections.current[key] !== collection) { source.setData(collection as any); sourceCollections.current[key] = collection; }
+    });
   }
   useEffect(() => { if (map.current) { refreshMap(map.current, collections); renderLabels.current(); } }, [collections]);
   useEffect(() => {
@@ -449,7 +491,7 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
         <label className="map-opacity">Непрозрачность <input aria-label="Непрозрачность точек" type="range" min="10" max="100" value={opacity} onChange={e => setOpacity(Number(e.target.value))} /><span>{opacity}%</span></label>
       </fieldset>
       <fieldset><legend>Услуги и связи</legend>{(['schools', 'medical'] as const).map(key => <label className="map-check" key={key}><input type="checkbox" checked={layers[key]} onChange={() => toggleLayer(key)} /><span className="layer-symbol" style={{ color: key === 'schools' ? color(dark).green : color(dark).orange }}>■</span><span>{key === 'schools' ? 'Школы' : 'Медицинская помощь'}<small>НП обслуживания · локальные документы</small></span></label>)}<label className="map-check"><input type="checkbox" checked={layers.links} onChange={() => toggleLayer('links')} /><span className="layer-symbol">↗</span><span>Направления обслуживания<small>Основания — в источниках слоя</small></span></label></fieldset>
-      <fieldset><legend>Исследовательские результаты</legend><label className="map-check"><input type="checkbox" checked={layers.centres} onChange={() => toggleLayer('centres')} /><span className="layer-symbol" style={{color:'#7955C5'}}>◎</span><span>Строгие модельные центры<small>{collections.centres.features.length || 197} центров · диагностическое подмножество, не все СГРТ</small></span></label></fieldset><fieldset><legend>Территориальная сетка</legend>{(['districts', 'regions'] as const).map(key => <label className="map-check" key={key}><input type="checkbox" checked={layers[key]} onChange={() => toggleLayer(key)} /><span className="layer-symbol boundary-symbol">□</span><span>{key === 'districts' ? 'Районы' : 'Регионы'}<small>geoBoundaries · 2017</small></span></label>)}</fieldset>
+      <fieldset><legend>Исследовательские результаты</legend><label className="map-check"><input type="checkbox" checked={layers.centres} onChange={() => toggleLayer('centres')} /><span className="layer-symbol" style={{color:'#7955C5'}}>◎</span><span>Строгие модельные центры<small>{collections.centres.features.length || 197} центров · диагностическое подмножество, не все СГРТ</small></span></label></fieldset><fieldset><legend>Территориальная сетка</legend>{(['districts', 'regions'] as const).map(key => <label className="map-check" key={key}><input type="checkbox" checked={layers[key]} onChange={() => toggleLayer(key)} /><span className="layer-symbol boundary-symbol">□</span><span>{key === 'districts' ? 'Районы' : 'Регионы'}<small>geoBoundaries · 2017</small>{pendingKeys.includes(key) && <small role="status">Загружаем {key === 'districts' ? 'районы' : 'регионы'}…</small>}</span></label>)}</fieldset>
       <fieldset className="map-research-layers"><legend>Слои исследования</legend>{registryError ? <p>Реестр слоёв недоступен. <button onClick={loadRegistry}>Повторить</button></p> : !visibleRegistry.length ? <p className="map-layer-empty">Опубликованных дополнительных слоёв пока нет.</p> : visibleRegistry.map(meta => <div key={meta.id}><label className="map-check"><input type="checkbox" checked={customActive.includes(meta.id)} onChange={() => toggleCustom(meta.id)} data-layer-id={meta.id} /><span className="layer-symbol">{meta.geometry === 'point' ? '●' : meta.geometry === 'line' ? '╱' : '□'}</span><span>{meta.title}<small>{meta.period} · {meta.unit}{customPending.current.has(meta.id) ? ' · загрузка…' : customCache.current[meta.id] ? ` · ${customCache.current[meta.id].features.length} объектов` : ''}</small></span></label>{customErrors[meta.id] && <p className="map-custom-error" role="alert">Не удалось загрузить слой. <button onClick={() => { customFailure.current.delete(meta.id); setCustomRevision(v => v + 1); }}>Повторить</button></p>}</div>)}</fieldset>
       <p className="map-boundary-note">Границы 2017 года: 83 региона. Основа исследования включает 85 субъектов. Суммы по границам — пространственный расчёт по базе НП.</p>
       <button className="map-reset" onClick={() => { setLayers(defaultLayers); setCustomActive([]); setPeriod('2002-2021'); setMode('settlement'); setSelection(null); map.current?.flyTo({ center: [88, 59], zoom: 2.6 }); }}>Сбросить настройки ↺</button>
