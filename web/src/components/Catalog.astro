@@ -1,33 +1,36 @@
 ---
-import {MagnifyingGlass, ArrowRight} from '@phosphor-icons/react';
-import {materials,basePath} from '../lib/content';
+import {MagnifyingGlass} from '@phosphor-icons/react';
+import {materials,materialPages,visuals,datasets,research,materialPath,basePath,formatDate,evidenceLabel,currencyLabel} from '../lib/content';
+import {tags,tagLabels,kindLabels,formatLabels,territoryLabels,getMaterialTags,getMaterialFormats,getMaterialTerritories,getMaterialSearchText} from '../lib/materials';
+import {renderDocument} from '../lib/document';
+import {publicationVersion} from '../lib/publication-version';
 import MaterialCard from './MaterialCard.astro';
-interface Props {kind:'atlas'|'knowledge';researchId?:string}
-const {kind,researchId}=Astro.props;
-const items=materials.filter(m=>(kind==='atlas'?['finding','correction'].includes(m.kind):['method','note'].includes(m.kind))&&(!researchId||m.researchId===researchId)).sort((a,b)=>Number(b.id==='population-base')-Number(a.id==='population-base'));
-const unique=(key:'topic'|'territory'|'period')=>[...new Set(items.map(m=>m[key]))];
+interface Props {kind?:string;researchId?:string;initialView?:'list'|'cards';legacy?:boolean;heading?:boolean}
+const {researchId='',initialView='list',legacy=false,heading=true}=Astro.props;
+const items=[...materials].sort((a,b)=>Number(b.id==='population-base')-Number(a.id==='population-base'));
+const rows=items.map(m=>({id:m.id,title:m.title.replace(/^Состояние и описание исследования: /,'Ход работы: '),summary:m.summary,kind:m.kind,researchId:m.researchId,url:materialPath(m),tags:getMaterialTags(m),formats:getMaterialFormats(m),territories:getMaterialTerritories(m),search:getMaterialSearchText(m),updatedAt:Date.parse(m.updatedAt),version:publicationVersion(m),datasets:datasets.filter(d=>m.datasetIds.includes(d.id)).map(d=>({title:d.title,url:d.url}))}));
+const ids=new Set(items.map(m=>m.id));
+const edges=items.flatMap(m=>{
+ const links=renderDocument(m.body,{basePath:basePath(),materialIds:materialPages.map(m=>m.id),visualIds:m.visualIds}).links.filter(id=>ids.has(id));
+ return [...links.map(target=>({source:m.id,target,type:'reference',label:'Ссылается на'})),...(m.supersedes&&ids.has(m.supersedes)?[{source:m.id,target:m.supersedes,type:'supersedes',label:'Уточняет предыдущую публикацию'}]:[])];
+});
+const data={rows,edges,base:basePath(),researchId,initialView,legacy};
+const startIds=['population-base','map-reading-guide','model-and-observation'];
 ---
-<div class="toolbar" data-catalog-controls><select aria-label="Тема" data-filter="topic"><option value="">Все темы</option>{unique('topic').map(t=><option>{t}</option>)}</select><select aria-label="Территория" data-filter="territory"><option value="">Территория</option>{unique('territory').map(t=><option>{t}</option>)}</select><select aria-label="Период" data-filter="period"><option value="">Период</option>{unique('period').map(t=><option>{t}</option>)}</select><div class="search-field"><MagnifyingGlass size={18}/><input type="search" placeholder={kind==='atlas'?'Поиск по материалам атласа':'Поиск по знаниям'} aria-label="Поиск материалов" data-search-input/></div><span class="result-count" aria-live="polite"><span data-result-count>{items.length}</span> материалов</span></div>
-<div class="editorial-grid" data-catalog>{items.map((m,i)=><MaterialCard material={m} index={i} featured={i===0}/>)}</div><div class="empty-state" data-empty hidden={items.length>0}>Материалов по выбранным условиям пока нет.<br/><button class="secondary-button" data-reset-filters>Сбросить фильтры</button></div>
-<script>
-const controls=document.querySelector('[data-catalog-controls]');
-if(controls){
- let selectedResearch=new URLSearchParams(location.search).get('research')||'';
- const update=()=>{
-  const q=(controls.querySelector('[data-search-input]') as HTMLInputElement).value.toLocaleLowerCase('ru').trim();
-  const filters=[...controls.querySelectorAll<HTMLSelectElement>('[data-filter]')];let count=0;
-  document.querySelectorAll<HTMLElement>('[data-material-card]').forEach(card=>{
-   const visible=(!selectedResearch||card.dataset.research===selectedResearch)&&(!q||(card.dataset.search||'').includes(q))&&filters.every(f=>!f.value||card.dataset[f.dataset.filter!]===f.value);
-   card.hidden=!visible;if(visible)count++;
-  });
-  document.querySelector('[data-result-count]')!.textContent=String(count);
-  (document.querySelector('[data-empty]') as HTMLElement).hidden=count>0;
- };
- controls.addEventListener('input',update);controls.addEventListener('change',update);
- document.querySelector('[data-reset-filters]')?.addEventListener('click',()=>{
-  controls.querySelectorAll<HTMLInputElement|HTMLSelectElement>('input,select').forEach(e=>e.value='');selectedResearch='';
-  const url=new URL(location.href);url.searchParams.delete('research');history.replaceState(null,'',url);window.dispatchEvent(new Event('atlas-research-reset'));update();
- });
- update();
-}
-</script>
+<div class="materials-catalog" data-materials-catalog>
+{heading&&<header class="materials-heading"><p class="eyebrow">Библиотека исследований</p><h1>Материалы</h1><p>Карты, результаты и объяснения — в одной библиотеке.</p></header>}
+<form class="materials-controls" role="search" aria-label="Поиск по материалам" action={basePath('materials/')}>
+<label class="materials-search" for="materials-search"><span class="visually-hidden">Поиск материалов</span><MagnifyingGlass size={21} aria-hidden="true"/><input id="materials-search" name="q" type="search" placeholder="Найти по всем материалам…" aria-controls="materials-results"/><kbd aria-hidden="true">/</kbd></label>
+<div class="materials-filter-row toolbar"><label>Тип<select name="kind" aria-label="Тип материала"><option value="">Все типы</option>{Object.entries(kindLabels).map(([key,label])=><option value={key}>{label}</option>)}</select></label><details class="materials-tag-filter"><summary>Темы <span data-tag-count></span></summary><fieldset><legend class="visually-hidden">Темы материалов</legend>{tags.map(tag=><label><input type="checkbox" name="tag" value={tag.id}/>{tag.label}</label>)}</fieldset></details><label>Формат<select name="format" aria-label="Формат материала"><option value="">Все форматы</option>{Object.entries(formatLabels).map(([id,label])=><option value={id}>{label}</option>)}</select></label><details class="materials-more"><summary>Ещё фильтры</summary><div><label>Территория<select name="territory" aria-label="Территория материала"><option value="">Все территории</option>{Object.entries(territoryLabels).map(([id,label])=><option value={id}>{label}</option>)}</select></label><label>Актуальность<select name="currency" aria-label="Актуальность материала"><option value="">Любая</option>{Object.entries(currencyLabel).map(([id,label])=><option value={id}>{label}</option>)}</select></label></div></details></div><noscript><button class="secondary-button" type="submit">Искать</button><p>Все документы доступны ниже. Для фильтрации включите JavaScript или используйте поиск браузера.</p></noscript>
+</form>
+<div class="materials-active-filters" data-active-filters role="group" aria-label="Выбранные условия"></div>
+<div class="materials-view-bar"><p role="status" data-material-count>{items.length} материалов</p><div class="materials-views" role="group" aria-label="Представление материалов"><button type="button" data-view="list" aria-pressed={initialView==='list'}>Список</button><button type="button" data-view="cards" aria-pressed={initialView==='cards'}>Карточки</button><button type="button" data-view="graph" aria-pressed="false">Связи</button></div><label class="materials-sort">Порядок<select name="sort" aria-label="Сортировка материалов"><option value="updated">Сначала обновлённые</option><option value="title">По названию</option><option value="relevance">По релевантности</option></select></label></div>
+<p class="materials-collection" data-collection-note hidden>С чего начать: вводные материалы и основные результаты исследования.</p>
+<div id="materials-results">
+<div class="materials-list" data-materials-list hidden={initialView!=='list'}>{items.map(m=><article class="library-entry" data-material-list={m.id}><div><p class="eyebrow">{kindLabels[m.kind]} / {research.find(r=>r.id===m.researchId)?.title}</p><h2><a href={materialPath(m)} data-material-link>{m.title.replace(/^Состояние и описание исследования: /,'Ход работы: ')}</a></h2><p>{m.summary}</p><div class="materials-tags">{getMaterialTags(m).slice(0,3).map(id=><a href={basePath(`materials/?tag=${id}`)} data-tag-link={id}>{tagLabels[id]}</a>)}</div><div class="library-entry-meta"><span>{getMaterialFormats(m).map(f=>formatLabels[f]).join(' · ')||'Текст'}</span><span>{evidenceLabel[m.evidence]}</span><span class:list={{'materials-warning':m.currency!=='current'}}>{currencyLabel[m.currency]}</span><time datetime={m.updatedAt}>{formatDate(m.updatedAt)}</time></div></div></article>)}</div>
+<div class="editorial-grid" data-catalog data-materials-cards hidden={initialView!=='cards'}>{items.map((m,i)=><MaterialCard material={m} index={i} featured={i===0}/>)}</div>
+<section class="materials-graph" aria-label="Связи материалов" data-materials-graph hidden><p>Выберите документ в схеме или списке, чтобы увидеть, с чем он связан. Сплошная стрелка — ссылка в тексте; пунктирная — уточнение предыдущей публикации.</p><div class="materials-graph-controls"><label>Окружение документа<select data-graph-focus aria-label="Документ для локального графа"><option value="">Все найденные материалы</option></select></label><label>Глубина<select data-graph-depth aria-label="Глубина связей"><option value="1">Один шаг</option><option value="2">Два шага</option></select></label></div><div data-graph-canvas role="img" aria-label="Граф связей документов; текстовый список расположен ниже"></div><p role="status" data-graph-status></p><div data-graph-preview hidden></div><details open><summary>Документы и связи текстом</summary><ul data-graph-links></ul></details></section>
+</div><div class="empty-state" data-materials-empty hidden><p>Материалов по этим условиям не найдено. Попробуйте убрать тему или расширить поиск.</p><button type="button" class="secondary-button" data-catalog-reset>Сбросить поиск и фильтры</button></div>
+</div>
+<script is:inline type="application/json" id="materials-data" set:html={JSON.stringify({...data,startIds,currency:Object.fromEntries(items.map(m=>[m.id,m.currency]))}).replace(/</g,'\\u003c')}/>
+<script src="../lib/materials-client.ts"/>

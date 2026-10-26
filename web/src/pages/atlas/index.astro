@@ -1,5 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import DocumentNavigation from '../../components/DocumentNavigation.astro';
 import Catalog from '../../components/Catalog.astro';
+import '../../styles/materials.css';
 ---
-<Layout title="Атлас исследования" active="atlas"><div class="shell"><div class="page-heading"><div><span class="index-label">01 /</span><h1>Атлас исследования</h1></div><div class="heading-aside"><span class="eyebrow">Карты / графики / объяснения</span><p>Наглядные материалы о расселении, инфраструктуре и связях между территориями.</p></div></div><Catalog kind="atlas"/></div></Layout>
+<Layout title="Материалы исследований" active="materials"><div class="materials-shell"><DocumentNavigation/><Catalog initialView="cards" legacy/></div></Layout>
+<script src="../../lib/document-client.ts"/>
