@@ -1,7 +1,10 @@
+import type {BibliographicFields} from './bibliography';
 export type Research = {id:string;title:string;description:string;status:string;summary:string;nextStep:string;order:number};
-export type Material = {id:string;researchId:string;title:string;summary:string;kind:string;topic:string;territory:string;period:string;publishedAt:string;updatedAt:string;visibility:string;evidence:string;currency:string;sourceCommit:string;sources:{title:string;url:string}[];datasetIds:string[];visualIds:string[];body:string;featured?:boolean;supersedes?:string};
+export type Material = {id:string;researchId:string;title:string;summary:string;kind:string;topic:string;territory:string;period:string;publishedAt:string;updatedAt:string;visibility:string;evidence:string;currency:string;sourceCommit:string;sources:({title:string;url:string}&BibliographicFields)[];datasetIds:string[];visualIds:string[];body:string;featured?:boolean;supersedes?:string};
 export type Visual = {id:string;template:string;title:string;caption:string;datasetId:string;palette:string;unit:string;series?:{name:string;values:(number|null)[]}[];categories?:string[];data?:unknown[];mapState?:Record<string,unknown>;limitations?:string[]};
-export type Dataset = {id:string;title:string;release:string;sourceCommit:string;url:string;period:string;scope:string;limitations:string[]};
+export type Dataset = BibliographicFields&{id:string;title:string;release:string;sourceCommit:string;url:string;period:string;scope:string;limitations:string[]};
+const literatureFiles=import.meta.glob('../../../references/sources.json',{eager:true,import:'default'});
+export const literature=Object.values(literatureFiles).flatMap((file:any)=>file.records||[]);
 const materialFiles=import.meta.glob('../../content/materials/*.json',{eager:true,import:'default'});
 const visualFiles=import.meta.glob('../../content/visuals/*.json',{eager:true,import:'default'});
 const researchFiles=import.meta.glob('../../content/research.json',{eager:true,import:'default'});

@@ -40,9 +40,6 @@ jobs:
       - run: python scripts/build_site_data.py
       - run: npm --prefix web ci
       - run: npm --prefix web run check
-      - run: npm --prefix web run build
-        env:
-          PUBLIC_BASE_PATH: /russian-settlements-research/
       - name: Prepare browser for interaction checks
         run: |
           if command -v chromium >/dev/null 2>&1; then
@@ -52,6 +49,14 @@ jobs:
           else
             npx --prefix web playwright install --with-deps chromium
           fi
+      - name: Prepare Word export
+        uses: r-lib/actions/setup-pandoc@f9a764fea8d5c63df6ef9a5c7795bf7deb5d7e05
+        with:
+          pandoc-version: '3.1.11.1'
+      - run: python -m unittest discover -s tests -p 'test_word_export.py'
+      - run: npm --prefix web run build
+        env:
+          PUBLIC_BASE_PATH: /russian-settlements-research/
       - name: Check real browser journeys
         run: npm --prefix web test
         env:
@@ -83,6 +88,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
+      contents: read
       pages: write
       id-token: write
     environment:
@@ -92,3 +98,24 @@ jobs:
       - name: Deploy public static atlas
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm --prefix web ci
+      - name: Verify the published website in the browser
+        run: npm --prefix web test
+        env:
+          SITE_TEST_URL: ${{ steps.deployment.outputs.page_url }}
+      - name: Save published browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-published-browser-evidence
+          path: |
+            web/playwright-report
+            web/test-results
+          retention-days: 7

@@ -32,6 +32,53 @@ class AuthoringTests(unittest.TestCase):
         self.assertEqual(site.validate(self.root), [])
         self.assertEqual(site.load(self.base / "visuals/population-trend.json")["series"][0]["values"], [10, None, 0])
 
+    def test_publication_citations_require_the_actual_registered_source(self):
+        self.material["body"] = "См. [@fig:population-trend], данные [@data:census], метод [@source:1]."
+        self.write("materials/population-note.json", self.material)
+        self.assertEqual(site.validate(self.root), [])
+        for text in ("[@data:unknown]", "[@source:2]", "[@fig:unknown]", "[@MISSING_BOOK]", "[@fig:image-3]"):
+            with self.subTest(text=text):
+                self.material["body"] = text
+                self.write("materials/population-note.json", self.material)
+                self.assertTrue(any(e["field"] == "body" for e in site.validate(self.root)))
+
+    def test_citation_examples_remain_literal_without_allowing_executable_data_urls(self):
+        self.material["body"] = "```md\n[@source:999]\n```\n\n`[@fig:not-a-figure]`"
+        self.write("materials/population-note.json", self.material)
+        self.assertEqual(site.validate(self.root), [])
+        self.assertFalse(site.safe_markdown("![image](data:image/png;base64,AAAA)"))
+        self.assertTrue(site.safe_markdown("Источник [@data:census]."))
+
+    def test_bibliography_dates_and_authors_are_factual_metadata(self):
+        self.material["sources"][0].update(authors=["Росстат"], year=2021, accessed="2026-10-26")
+        self.write("materials/population-note.json", self.material)
+        self.assertEqual(site.validate(self.root), [])
+        self.material["sources"][0].update(authors=[42], accessed="2026-02-30")
+        self.write("materials/population-note.json", self.material)
+        fields = {e["field"] for e in site.validate(self.root)}
+        self.assertIn("sources.0.authors", fields)
+        self.assertIn("sources.0.accessed", fields)
+
+    def test_wiki_references_require_real_visible_documents_and_registered_visuals(self):
+        self.material["body"] = "[[missing|Источник]]\n\n:::visual not-registered\n:::"
+        self.write("materials/population-note.json", self.material)
+        errors = site.validate(self.root)
+        self.assertTrue(any("Unknown wiki document" in e["message"] for e in errors))
+        self.assertTrue(any("Register inline visual" in e["message"] for e in errors))
+        draft = dict(self.material, id="draft-note", visibility="draft", body="Черновик")
+        self.write("materials/draft-note.json", draft)
+        self.material["body"] = "[[draft-note|Метод]]"
+        self.write("materials/population-note.json", self.material)
+        self.assertTrue(any("cannot point to a draft" in e["message"] for e in site.validate(self.root)))
+
+    def test_wiki_examples_in_code_are_literal_and_inline_visuals_are_unique(self):
+        self.material["body"] = "```md\n[[missing]]\n:::visual unknown\n:::\n```\n\n`[[also-missing]]`\n\n:::visual population-trend\n:::"
+        self.write("materials/population-note.json", self.material)
+        self.assertEqual(site.validate(self.root), [])
+        self.material["body"] += "\n\n:::visual population-trend\n:::"
+        self.write("materials/population-note.json", self.material)
+        self.assertTrue(any("only once" in e["message"] for e in site.validate(self.root)))
+
     def test_missing_unit_has_field_specific_error(self):
         self.visual["unit"] = ""
         self.write("visuals/population-trend.json", self.visual)

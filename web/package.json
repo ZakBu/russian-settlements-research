@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev --host 0.0.0.0 --port 4173",
-    "build": "astro build",
+    "build": "astro build && node scripts/build-word-exports.mjs",
     "preview": "astro preview --host 0.0.0.0 --port 4173",
     "test": "playwright test",
-    "check": "tsc --noEmit",
+    "check": "tsc --noEmit && npm run test:unit",
     "prebuild": "node scripts/build-map-previews.mjs",
-    "predev": "node scripts/build-map-previews.mjs"
+    "predev": "node scripts/build-map-previews.mjs",
+    "test:unit": "node --test tests-unit/*.test.ts",
+    "word": "node scripts/build-word-exports.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
@@ -21,9 +23,13 @@
     "@tailwindcss/vite": "^4.1.0",
     "astro": "5.18.2",
     "d3-geo": "^3.1.1",
+    "d3-selection": "^3.0.0",
+    "d3-zoom": "^3.0.0",
     "echarts": "^6.0.0",
     "maplibre-gl": "^5.10.0",
     "marked": "^17.0.1",
+    "marked-alert": "^2.1.2",
+    "marked-footnote": "^1.4.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "tailwindcss": "^4.1.0"
@@ -32,6 +38,8 @@
     "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "^1.64.1",
     "@types/d3-geo": "^3.1.1",
+    "@types/d3-selection": "^3.0.12",
+    "@types/d3-zoom": "^3.0.9",
     "@types/node": "^26.6.5",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",

@@ -27,6 +27,29 @@ def export(row):
 
 
 class ExportTests(unittest.TestCase):
+    def test_terrae_native_russian_names_and_auxiliary_territories_remain_distinct(self):
+        raw = site.feature_collection([
+            {'type': 'Feature', 'properties': {'adm2_id': 'r1143189', 'name': 'Ишимбайский район',
+             'name_en': 'Ishimbaysky District', 'kind': 'division'},
+             'geometry': {'type': 'Polygon', 'coordinates': [[[49,54],[51,54],[51,56],[49,56],[49,54]]]}},
+            {'type': 'Feature', 'properties': {'adm2_id': 'x-r151225-lake-khanka', 'name': 'Lake Khanka',
+             'name_en': 'Lake Khanka', 'kind': 'undivided', 'undivided_kind': 'water'},
+             'geometry': {'type': 'Polygon', 'coordinates': [[[130,44],[131,44],[131,45],[130,45],[130,44]]]}}])
+        asset = {'provider': 'Terrae', 'level': 'ADM2', 'epoch': 2026, 'snapshotDate': '2026-09-28', 'count': 2, 'renderSimplifyDegrees': .002}
+        adapted = site.normalize_boundary_source(raw, asset)
+        population, details, _ = export(fixture())
+        features, coverage = site.boundary_features(adapted, asset, population, details)
+        first, auxiliary = [feature['properties'] for feature in features]
+        self.assertEqual(first['name'], 'Ишимбайский район')
+        self.assertEqual(first['sourceName'], 'Ishimbaysky District')
+        self.assertEqual(first['id'], 'r1143189')
+        self.assertEqual(first['epoch'], 2026)
+        self.assertEqual(first['sourceDate'], '2026-09-28')
+        self.assertEqual(first['p21'], 100)
+        self.assertEqual(auxiliary['name'], 'Озеро Ханка')
+        self.assertEqual(auxiliary['kind'], 'undivided')
+        self.assertEqual(coverage['ambiguousPoints'], 0)
+
     def test_compact_transport_preserves_nulls_zeroes_ids_coordinates_and_counts(self):
         features, _, _ = export(fixture(effective_population_2002=0, working_credit_present_2010=False))
         payload = site.compact_population(features)
@@ -91,6 +114,8 @@ class ExportTests(unittest.TestCase):
         result = site.preview_points([point, other])
         self.assertEqual(result, site.preview_points([other, point]))
         self.assertEqual(result[0][:2], point['geometry']['coordinates'])
+        self.assertEqual(result[0][3], other['properties']['name'])
+        self.assertEqual(result[0][4], 200)
 
     def test_polygon_sum_uses_only_strict_fixed_cohort(self):
         feature = {'type': 'Feature', 'geometry': {'type': 'Polygon', 'coordinates': [[[0, 0], [3, 0], [3, 3], [0, 3], [0, 0]]]},

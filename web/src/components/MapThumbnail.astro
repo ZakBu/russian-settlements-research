@@ -5,10 +5,19 @@ interface Props {base?:string;caption?:string;large?:boolean;variant?:'distribut
 const {caption='Распределение населённых пунктов',large=false,variant='distribution',hero=false}=Astro.props;
 const previews=JSON.parse(readFileSync(new URL('../../public/data/map-previews.json',import.meta.url),'utf8'));
 ---
-<div class:list={['cartographic-preview',{'is-large':large,'is-hero':hero}]} data-map-variant={variant} role="img" aria-label={`${caption}. Коническая равновеликая проекция Альберса.`}>
+<div class:list={['cartographic-preview',{'is-large':large,'is-hero':hero}]} data-mini-map data-auto-mini={large||hero?'true':'false'} data-labels-url={basePath(`data/${previews.labels}`)} data-map-variant={variant} role="img" aria-label={`${caption}. Коническая равновеликая проекция Альберса.`}>
  <div class="map-plate-heading" aria-hidden="true"><span>РОССИЯ / {variant==='change'?'2002 — 2021':'ПЕРЕПИСНАЯ ОСНОВА'}</span><span class="map-registration">＋</span></div>
+ <div class="mini-map-surface" role="group" title="Приближение: +/−, Ctrl/⌘ + колесо или два пальца. Перемещение: перетаскивание." aria-label="Приближение: плюс и минус; перемещение: стрелки; общий вид: 0">
  <img class="pixel-map map-image-light" src={basePath(`data/${previews[`${variant}.light`]}`)} width="960" height="540" loading={hero?'eager':'lazy'} fetchpriority={hero?'high':'auto'} decoding="async" alt="" aria-hidden="true"/>
  <img class="pixel-map map-image-dark" src={basePath(`data/${previews[`${variant}.dark`]}`)} width="960" height="540" loading={hero?'eager':'lazy'} decoding="async" alt="" aria-hidden="true"/>
+ </div>
+ <div class="mini-map-controls" role="group" aria-label="Масштаб мини-карты" hidden><button type="button" data-mini-plus aria-label="Приблизить мини-карту" title="Приблизить">+</button><button type="button" data-mini-minus aria-label="Отдалить мини-карту" title="Отдалить" disabled>−</button><button type="button" data-mini-reset aria-label="Показать всю мини-карту" title="Общий вид" disabled>↺</button></div>
+ <span class="mini-map-status" role="status" hidden></span>
  <div class="map-plate-key">{variant==='change'?<><span><i class="key-dot decline"/>Снижение &gt;10%</span><span><i class="key-dot stable"/>±10%</span><span><i class="key-dot growth"/>Рост &gt;10%</span><span><i class="key-dot unknown"/>Нет ряда</span></>:<span><i class="key-dot growth"/>Населённые пункты</span>}</div>
  <span class="mini-map-label">{large?'Пространственная выборка · фон — контур территории':'Выборка НП · справочный контур'}</span>
 </div>
+
+<script>
+import {setupMiniMaps} from '../lib/mini-map';
+setupMiniMaps();
+</script>
