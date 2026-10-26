@@ -15,6 +15,7 @@ SOURCE_ZIP = {'asset': 'source-places.zip', 'bytes': 106845654,
 DEPENDENCY_CONTEXT = ['data/zero_catalog_20261025.json', 'data/pilot_catalog_20261024.json',
                       'data/catalog.json', 'scripts/research_data.py',
                       'references/provenance/coordinate_holds_20261026.json',
+                      'references/provenance/coordinate_evidence_errata_20261026.json',
                       'references/provenance/official_local_school_cards_20261026.json',
                       'research_context/analysis_snapshots/level0_pre_identity_registry_20261026.json']
 
@@ -37,6 +38,8 @@ def package(analysis, routes, registry, boundaries, output, commit):
     for folder in ['scripts/sgrt_zero', 'scripts/sgrt_mass', 'scripts/sgrt_local']:
         for path in sorted((REPO / folder).glob('*.py')):
             entries['reproduction/' + path.relative_to(REPO).as_posix()] = path
+    for path in sorted((REPO/'tests').glob('test_sgrt_zero_*.py')):
+        entries['reproduction/'+path.relative_to(REPO).as_posix()]=path
     context = ['AGENTS.md', 'README.md', 'AI_START_HERE.md', 'decisions.json',
                'research_context/current_state.json', 'research_context/diary/2026-10-26.md',
                'research_context/primary/word_concept_extracted.txt', 'research_context/primary/word_concept.docx',
@@ -48,12 +51,20 @@ def package(analysis, routes, registry, boundaries, output, commit):
     context += DEPENDENCY_CONTEXT
     context += [p.relative_to(REPO).as_posix() for p in
                 (REPO / 'references/primary/settlement_identity_20261026').rglob('*') if p.is_file()]
+    context += [p.relative_to(REPO).as_posix() for p in
+                (REPO/'references/provenance').glob('*scope*20261026.json')]
     context += [p.relative_to(REPO).as_posix() for p in REPO.glob('requirements-sgrt-*.txt')]
     context += [p.relative_to(REPO).as_posix() for p in (REPO / 'sgrt/zero').glob('*.md')]
     context += [p.relative_to(REPO).as_posix() for p in (REPO / 'research_context/analysis_snapshots').glob('identity_*.json')]
     for name in context:
         if (REPO / name).is_file(): entries['reproduction/' + name] = REPO / name
     files = {name: {'bytes': path.stat().st_size, 'sha256': sha(path)} for name, path in sorted(entries.items())}
+    centre_csv = registry / 'level0_centres.csv'
+    if not centre_csv.is_file():
+        raise FileNotFoundError('The standalone centre registry CSV is required')
+    standalone_assets = {'level0_centres.csv': {
+        'asset': 'level0_centres.csv', 'bytes': centre_csv.stat().st_size,
+        'sha256': sha(centre_csv), 'archive_member': PREFIX + 'registry/level0_centres.csv'}}
     summary = json.loads((registry / 'summary.json').read_text())
     manifest = {'schema': 'sgrt.identity_results_bundle.v1', 'release_tag': TAG, 'source_commit': commit,
         'archive_root': PREFIX, 'source_places': SOURCE_ZIP,
@@ -63,7 +74,7 @@ def package(analysis, routes, registry, boundaries, output, commit):
         'population_default_catalog_unchanged': True, 'recomputed_nearest_layers': 12,
         'registry_counts': {k: v for k, v in summary.items() if k != 'inputs_sha256'},
         'exclusive_country_partition_established': False, 'observed_journeys_established': False,
-        'files': files}
+        'files': files, 'standalone_assets': standalone_assets}
     output.mkdir(parents=True, exist_ok=True)
     archive = output / 'identity-centres.zip'
     if archive.exists(): raise FileExistsError('A completed result archive is immutable')

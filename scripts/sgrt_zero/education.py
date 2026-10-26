@@ -672,7 +672,9 @@ def regional_coverage(sites, offers, reference):
         subset = sites[sites.region.eq(region)]
         for service in GROUPS.values():
             d = subset[subset.service_code.eq(service)]
-            eligible = d[d.eligible]
+            accepted=d.eligible.copy()
+            if 'route_eligible' in d:accepted &= d.route_eligible.fillna(False).eq(True)
+            eligible = d[accepted]
             own = offers[offers.region.eq(region)&offers.service_code.eq(service)&offers.ordinary_spatial_2021]
             rows.append(dict(region=region,service_code=service,ordinary_spatial_np_denominator=denominator,
                 source_objects=len(d),eligible_source_sites=len(eligible),

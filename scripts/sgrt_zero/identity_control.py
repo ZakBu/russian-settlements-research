@@ -13,7 +13,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-SCHEMA = 'sgrt.identity_model_control.v2'
+SCHEMA = 'sgrt.identity_model_control.v3'
 DECIMALS = 8
 SOURCE_TABLES = {
     'education': ('physical_sites.parquet', 'np_supply.parquet'),
@@ -44,13 +44,17 @@ def scalar(value):
 def table_hash(frame, columns):
     fields = pd.DataFrame({c: frame[c] if c in frame else pd.Series(None, index=frame.index)
                            for c in columns}, index=frame.index)
-    rows = sorted(json.dumps([scalar(v) for v in row], ensure_ascii=False,
-                             separators=(',', ':'), allow_nan=False)
+    # Sort fixed-size row digests, not hundreds of thousands of long JSON
+    # strings containing provenance. Multiplicity is preserved; each cell is
+    # still included. This keeps the all-row check within a normal worker's RAM.
+    rows = sorted(hashlib.sha256(json.dumps([scalar(v) for v in row], ensure_ascii=False,
+                             separators=(',', ':'), allow_nan=False).encode('utf-8')).digest()
                   for row in fields.itertuples(index=False, name=None))
     digest = hashlib.sha256()
     for row in rows:
-        digest.update(row.encode('utf-8')); digest.update(b'\n')
-    return {'rows': len(frame), 'columns': columns, 'sha256': digest.hexdigest()}
+        digest.update(row)
+    return {'rows': len(frame), 'columns': columns,
+            'hash_method':'sha256_sorted_fixed_size_sha256_row_digests', 'sha256': digest.hexdigest()}
 
 
 def evidence_fields(frame, base):
@@ -59,10 +63,11 @@ def evidence_fields(frame, base):
              'geometry_identity_resolution', 'raw_geometry_sha256',
              'original_other_positive_census_places', 'original_other_positive_census_place_ids_json',
              'documented_cards_sha256', 'documented_card_json'}
-    extra = [c for c in frame.columns if c in exact or any(token in c for token in
+    local_paths={'source_input','provider_source_input','selected_provider_source_input'}
+    extra = [c for c in frame.columns if c not in local_paths and (c in exact or any(token in c for token in
         ('historical', 'coordinate_hold', 'coordinate_location_held', 'cartographic_',
          'nested_mask_', 'documented_dated_school_presence'))
-        or c.startswith(('provider_source_', 'selected_provider_source_'))]
+        or c.startswith(('provider_source_', 'selected_provider_source_')))]
     return list(dict.fromkeys([*base, *sorted(extra)]))
 
 
@@ -77,8 +82,13 @@ def source_control(path, *, sites):
     frame['_semantic_admitted_offer'] = eligible
     frame['_semantic_external_seed_eligible'] = eligible & external
     return table_hash(frame, evidence_fields(frame, ['provider_id', 'service_code', 'source_record_id', 'supply_status',
+        'source_record_id_before_identity_repair','np_identity_eligible',
         '_semantic_admitted_offer', '_semantic_external_seed_eligible', 'site_lat', 'site_lon',
         'identity_evidence_tier', 'np_identity_basis', 'need_scope_review_reason',
+        'source_education_need_review_reason','source_education_need_review_status',
+        'source_education_need_review_conflicting_general_signal','retail_need_scope_review_reason',
+        'site_hold_np_presence_review_reason','source_identity_conflict_reason',
+        'existing_owner_conflict_requires_review','source_location_conflict_reason',
         'source_location_conflict', 'cartographic_source_dataset', 'cartographic_source_feature_id']))
 
 

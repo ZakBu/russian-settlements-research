@@ -17,6 +17,12 @@ def review_np_presence_after_site_holds(offers, sites):
     keys = list(zip(sites.source_record_id, sites.service_code))
     live = {k for k, ok in zip(keys, admitted) if ok and pd.notna(k[0])}
     held = {k for k, ok in zip(keys, admitted) if not ok and pd.notna(k[0])}
+    # A physically usable site with unresolved ownership cannot keep its old
+    # city's aggregate local-zero offer alive. It remains a physical candidate.
+    previous=sites.get('source_record_id_before_identity_repair',sites.source_record_id)
+    held.update((old,service) for old,current,service in
+                zip(previous,sites.source_record_id,sites.service_code)
+                if pd.notna(old) and pd.isna(current))
     result['route_eligible'] = result.get('route_eligible', pd.Series(True, index=result.index)).fillna(False).eq(True)
     result['site_hold_np_presence_review_reason'] = ''
     for idx, row in result.iterrows():
@@ -40,11 +46,35 @@ def review_np_presence_after_site_holds(offers, sites):
 
 
 def review_medical_need_scope(sites):
+    import json
+
     result = sites.copy()
     names = result.get('provider_name', result.get('source_name', pd.Series('', index=result.index)))
     names = names.fillna('').str.lower().str.replace('ё', 'е')
     general_primary = result.service_code.isin(['medical_basic_primary', 'medical_physician_primary'])
     licence = result.get('function_assignment_verified_by_licence', pd.Series(False, index=result.index)).fillna(False).eq(True)
+    # Mirror health.osm_explicit_nongeneral_primary_specialty on the actual
+    # unit tags. A bare polyclinic label cannot turn sole psychiatry into a
+    # general-primary offer. Mixed general practice or an explicitly tagged
+    # therapist remains different from a psychiatry-only unit. The licence
+    # flag here verifies this assigned function at the unit, not merely the
+    # presence of an organisation-wide medical licence.
+    general_specialties = {'general', 'general_practice', 'general_medicine',
+                           'family_medicine', 'family_practice', 'internal'}
+    psychiatry_only = []
+    raw_tags = result.get('source_tags_json', result.get('tags_json', pd.Series(None, index=result.index)))
+    for value in raw_tags:
+        try:
+            tags = value if isinstance(value, dict) else json.loads(value)
+        except (TypeError, ValueError):
+            tags = {}
+        if not isinstance(tags, dict):
+            tags = {}
+        specialties = {v.strip().casefold() for v in str(tags.get('healthcare:speciality', '')).split(';') if v.strip()}
+        person_types = {v.strip().casefold() for v in str(tags.get('health_person:type', '')).split(';') if v.strip()}
+        general_signal = bool(specialties & general_specialties) or 'therapist' in person_types
+        psychiatry_only.append('psychiatry' in specialties and not general_signal)
+    psychiatric = general_primary & ~licence & pd.Series(psychiatry_only, index=result.index)
     narrow = general_primary & ~licence & names.str.contains(r'лечени[ея]\s+(?:позвоночника|спины)', regex=True)
     departmental = general_primary & names.str.contains(r'управлени[яею].{0,20}делами.{0,12}президент', regex=True)
     public_verified = result.get('general_public_access_verified', pd.Series(False, index=result.index)).fillna(False).eq(True)
@@ -52,7 +82,8 @@ def review_medical_need_scope(sites):
     result['route_eligible'] = result.get('route_eligible', pd.Series(True, index=result.index)).fillna(False).eq(True)
     result['need_scope_review_reason'] = ''
     result.loc[narrow, 'need_scope_review_reason'] = 'named_spine_treatment_not_evidence_of_general_primary_need'
+    result.loc[psychiatric, 'need_scope_review_reason'] = 'sole_psychiatry_specialty_not_evidence_of_general_primary_need'
     result.loc[departmental, 'need_scope_review_reason'] = 'departmental_general_public_access_not_established'
-    result.loc[narrow | departmental, 'route_eligible'] = False
+    result.loc[narrow | psychiatric | departmental, 'route_eligible'] = False
     result['scope_review_does_not_establish_closure_or_no_service'] = True
     return result

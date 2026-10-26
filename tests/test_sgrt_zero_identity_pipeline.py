@@ -45,15 +45,17 @@ class IdentityPipelineTests(unittest.TestCase):
         self.assertEqual(checked.local_supply_eligible.tolist(),[False,True,True])
         pd.testing.assert_series_equal(offers.source_id,checked.source_id)
 
-    def test_old_owner_conflict_is_not_silently_retained_as_active_supply(self):
+    def test_uncertain_owner_does_not_delete_a_suitable_physical_service(self):
         old = pd.DataFrame({'source_record_id':['city','village'],
             'source_record_id_before_identity_repair':['city','village'],
             'cartographic_identity_status':['held_existing_source_owner_conflict','cartographic_containment_no_literal_locality'],
             'route_eligible':[True,True], 'identity_evidence_tier':['legacy','legacy'],
             'np_identity_basis':['raw_address','raw_address']})
         result = hold_existing_owner_conflicts(old)
-        self.assertEqual(result.route_eligible.tolist(), [False,True])
-        pd.testing.assert_series_equal(old.source_record_id,result.source_record_id)
+        self.assertEqual(result.route_eligible.tolist(), [True,True])
+        self.assertTrue(pd.isna(result.source_record_id.iloc[0]))
+        self.assertEqual(result.source_record_id.iloc[1],'village')
+        pd.testing.assert_series_equal(old.source_record_id,result.source_record_id_before_identity_repair,check_names=False)
         self.assertIn('held',result.identity_evidence_tier.iloc[0])
 
     def test_literal_status_cannot_hide_a_different_old_owner(self):
@@ -64,9 +66,21 @@ class IdentityPipelineTests(unittest.TestCase):
             'cartographic_contains_other_census_places':[False,True], 'route_eligible':[True,True],
             'identity_evidence_tier':['legacy']*2,'np_identity_basis':['raw']*2})
         checked=hold_existing_owner_conflicts(frame)
-        self.assertEqual(checked.route_eligible.tolist(),[False,True])
+        self.assertEqual(checked.route_eligible.tolist(),[True,True])
+        self.assertTrue(pd.isna(checked.source_record_id.iloc[0]))
         # An unresolved coarse parent polygon cannot overrule a finer old claim.
-        pd.testing.assert_series_equal(frame.source_record_id,checked.source_record_id)
+        pd.testing.assert_series_equal(frame.source_record_id,checked.source_record_id_before_identity_repair,check_names=False)
+        self.assertEqual(checked.source_record_id.iloc[1],'village')
+
+    def test_unknown_np_physical_site_does_not_reintroduce_old_medical_local_zero(self):
+        offers=pd.DataFrame({'source_record_id':['old-city'],'service_code':['medical_basic_primary'],
+            'source_id':['["OSM_fixture"]'],'has_official_registry':[False],'local_supply_eligible':[True]})
+        physical=pd.DataFrame({'source_record_id':[None],'source_record_id_before_identity_repair':['old-city'],
+            'service_code':['medical_basic_primary'],'supply_status':['proxy'],'route_eligible':[True]})
+        result=review_np_presence_after_site_holds(offers,physical)
+        self.assertFalse(result.route_eligible.iloc[0])
+        self.assertFalse(result.local_supply_eligible.iloc[0])
+        self.assertTrue(physical.route_eligible.iloc[0])
 
     def test_held_buildings_cannot_reappear_as_zero_cost_np_aggregates(self):
         sites = pd.DataFrame([dict(eligible=True,route_eligible=False,source_record_id='a',

@@ -17,8 +17,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / 'scripts/sgrt_zero'))
 from scripts.sgrt_zero.identity_control import source_control, table_hash, compare, evidence_fields
-from scripts.sgrt_zero.cloud_identity_rebuild import retained_source_draft, read_source_release, refresh_place_guards, retain_official_coordinate_evidence, SOURCE_ZIP, SOURCE_ASSET_IDS, TAG
+from scripts.sgrt_zero.cloud_identity_rebuild import retained_source_draft, read_source_release, refresh_place_guards, retain_official_coordinate_evidence, verify_standalone_registry, SOURCE_ZIP, SOURCE_ASSET_IDS, TAG
 from scripts.sgrt_zero import pack_identity_results as packer
+from scripts.sgrt_zero import cloud_identity_rebuild as worker
 
 
 class IdentityScientificControlTests(unittest.TestCase):
@@ -67,7 +68,7 @@ class IdentityScientificControlTests(unittest.TestCase):
     def test_sealed_source_release_remains_readable_but_not_writable(self):
         release = json.loads(self.draft(published=True))
         release['assets'] += [{'name': name, 'size': 1, 'id': 10 + i} for i, name in enumerate([
-            'identity-centres.zip', 'manifest.json', 'identity_repair_atlas.pdf', 'preview.png'])]
+            'identity-centres.zip', 'manifest.json', 'identity_repair_atlas.pdf', 'preview.png', 'level0_centres.csv'])]
         with patch('subprocess.check_output', return_value=json.dumps(release)):
             self.assertFalse(read_source_release(expected_asset_ids=SOURCE_ASSET_IDS)['draft'])
             with self.assertRaisesRegex(ValueError, 'existing draft'):
@@ -91,6 +92,8 @@ class IdentityScientificControlTests(unittest.TestCase):
             for name in ['analysis', 'routes', 'registry', 'boundaries']:
                 sources[name] = folder / name; sources[name].mkdir()
             (sources['registry'] / 'summary.json').write_text('{"registered_level0_centres":0}')
+            centre_csv = 'centre_settlement_id,centre_name\na,Example\n'
+            (sources['registry'] / 'level0_centres.csv').write_text(centre_csv)
             with patch.object(packer, 'REPO', repo), patch('subprocess.check_output', side_effect=[commit + '\n', '']):
                 with contextlib.redirect_stdout(io.StringIO()):
                     manifest = packer.package(sources['analysis'], sources['routes'], sources['registry'],
@@ -100,6 +103,73 @@ class IdentityScientificControlTests(unittest.TestCase):
                     logical = 'reproduction/' + name
                     self.assertIn(logical, manifest['files'])
                     self.assertEqual(archive.read(packer.PREFIX + logical).decode(), 'dependency:' + name)
+                frozen_manifest = json.loads(archive.read(packer.PREFIX + 'manifest.json'))
+                self.assertEqual(frozen_manifest['standalone_assets'], manifest['standalone_assets'])
+                built_csv = folder / 'built/level0_centres.csv'
+                built_csv.write_text(centre_csv)
+                verify_standalone_registry(folder / 'built', manifest, archive)
+                built_csv.write_text(centre_csv.replace('Example', 'Altered'))
+                with self.assertRaisesRegex(ValueError, 'size/SHA'):
+                    verify_standalone_registry(folder / 'built', manifest, archive)
+                built_csv.unlink()
+                with self.assertRaisesRegex(ValueError, 'size/SHA'):
+                    verify_standalone_registry(folder / 'built', manifest, archive)
+
+    def test_map_registry_cannot_substitute_a_different_archive_member(self):
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            csv = directory / 'level0_centres.csv'; csv.write_bytes(b'id\na\n')
+            spec = {'asset': csv.name, 'archive_member': 'frozen/registry/level0_centres.csv',
+                    'bytes': csv.stat().st_size, 'sha256': hashlib.sha256(csv.read_bytes()).hexdigest()}
+            manifest = {'archive_root': 'frozen/', 'standalone_assets': {csv.name: spec}}
+            with zipfile.ZipFile(directory / 'bundle.zip', 'w') as archive:
+                archive.writestr(spec['archive_member'], b'id\nb\n')
+            with zipfile.ZipFile(directory / 'bundle.zip') as archive:
+                with self.assertRaisesRegex(ValueError, 'differs from the archived registry'):
+                    verify_standalone_registry(directory, manifest, archive)
+                manifest['standalone_assets'] = {}
+                with self.assertRaisesRegex(ValueError, 'Exactly'):
+                    verify_standalone_registry(directory, manifest, archive)
+
+    def test_publication_requires_and_uploads_exactly_five_complete_results(self):
+        with tempfile.TemporaryDirectory() as directory:
+            built = Path(directory); commit = 'f' * 40
+            control = built / 'control.json'; control.write_text('{"proof":true}')
+            csv = built / 'level0_centres.csv'; csv.write_bytes(b'id,lat,lon\na,50,40\n')
+            for name in ['identity_repair_atlas.pdf', 'preview.png', 'release_notes.md']:
+                (built / name).write_text('frozen')
+            verification = {key: True for key in ['all_source_offer_rows_and_eligibility_equal',
+                'all12_routing_layers_equal', 'all_admitted_choices_equal',
+                'all_level0_centre_and_member_identities_equal', 'independent_registry_recheck_completed']}
+            verification['source_commit'] = commit
+            archive = built / 'identity-centres.zip'
+            with zipfile.ZipFile(archive, 'w') as result:
+                result.writestr('frozen/analysis/cloud_identity_control.json', control.read_bytes())
+                result.writestr('frozen/analysis/scientific_verification.json', json.dumps(verification))
+                result.writestr('frozen/registry/level0_centres.csv', csv.read_bytes())
+            manifest = {'source_commit': commit, 'archive_root': 'frozen/',
+                'archive': {'asset': archive.name, 'bytes': archive.stat().st_size, 'sha256': packer.sha(archive)},
+                'standalone_assets': {csv.name: {'asset': csv.name, 'bytes': csv.stat().st_size,
+                    'sha256': packer.sha(csv), 'archive_member': 'frozen/registry/level0_centres.csv'}}}
+            (built / 'manifest.json').write_text(json.dumps(manifest))
+            initial = json.loads(self.draft())
+            names = ['identity-centres.zip', 'manifest.json', 'identity_repair_atlas.pdf', 'preview.png', csv.name]
+            uploaded = {**initial, 'assets': initial['assets'] + [
+                {'name': name, 'id': 100 + i, 'size': (built / name).stat().st_size}
+                for i, name in enumerate(names)]}
+            with patch.object(worker, 'CONTROL_DEFAULT', control), \
+                 patch.object(worker, 'retained_source_draft', return_value=initial), \
+                 patch('subprocess.check_output', return_value=json.dumps(uploaded)), \
+                 patch('subprocess.run') as command, contextlib.redirect_stdout(io.StringIO()):
+                worker.publish(built, commit)
+                upload = command.call_args_list[0].args[0]
+                self.assertEqual({Path(value).name for value in upload[4:-2]}, set(names))
+                self.assertEqual(len(command.call_args_list), 2)
+                (built / 'preview.png').unlink()
+                command.reset_mock()
+                with self.assertRaisesRegex(ValueError, 'Five complete result assets'):
+                    worker.publish(built, commit)
+                command.assert_not_called()
 
     def test_route_registry_and_polygon_evidence_flags_change_semantics(self):
         base = pd.DataFrame({'origin_id': ['a']})
@@ -113,6 +183,16 @@ class IdentityScientificControlTests(unittest.TestCase):
             changed = base.copy(); changed[field] = value
             self.assertNotEqual(table_hash(base, evidence_fields(base, ['origin_id'])),
                                 table_hash(changed, evidence_fields(changed, ['origin_id'])), field)
+
+    def test_machine_specific_source_path_does_not_change_scientific_identity(self):
+        first=pd.DataFrame({'origin_id':['a'],'provider_source_year':['2026'],
+                            'provider_source_input':['/workspace/local/sources/education.parquet']})
+        cloud=first.copy();cloud['provider_source_input']='/runner/tmp/sources/education.parquet'
+        self.assertEqual(table_hash(first,evidence_fields(first,['origin_id'])),
+                         table_hash(cloud,evidence_fields(cloud,['origin_id'])))
+        cloud['provider_source_year']='2021'
+        self.assertNotEqual(table_hash(first,evidence_fields(first,['origin_id'])),
+                            table_hash(cloud,evidence_fields(cloud,['origin_id'])))
 
     def test_official_pdf_is_pinned_and_corruption_is_never_retained(self):
         content = b'%PDF frozen scientific evidence'

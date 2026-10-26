@@ -22,19 +22,23 @@ from scripts.sgrt_zero.lower_profile_quality import sha256
 from scripts.sgrt_zero.cartographic_identity import typed_address_locality_claims
 from scripts.sgrt_zero.medical_need_review import review_medical_need_scope, review_np_presence_after_site_holds
 from scripts.sgrt_zero.documented_school_presence import add_documented_school_presence
+from scripts.sgrt_zero.education_need_review import review_education_need_scope
+from scripts.sgrt_zero.retail_need_review import review_retail_need_scope
 from scripts.sgrt_mass.match import normalize_name
 
 
 def hold_existing_owner_conflicts(frame):
-    """Keep the old source claim, but do not use an unresolved owner as supply.
+    """Withhold an unresolved NP owner without deleting a physical service.
 
     A stronger historical address may ultimately beat a polygon. Neither claim
-    wins automatically; physical cards and their old owners remain inspectable.
-    NP aggregates must also respect route_eligible, otherwise the held building
-    would be reintroduced as a false zero-cost local offer.
+    wins automatically. The old claim remains inspectable; the effective owner
+    becomes unknown. A suitable, correctly located physical site remains a
+    candidate. Address/coordinate and programme holds are evaluated separately.
     """
     work = frame.copy()
-    old = work.get('source_record_id_before_identity_repair', work.source_record_id)
+    if 'source_record_id_before_identity_repair' not in work:
+        work['source_record_id_before_identity_repair']=work.source_record_id.copy()
+    old = work.source_record_id_before_identity_repair
     held = (old.notna() & work.cartographic_identity_status.eq('held_existing_source_owner_conflict'))
     candidate=work.get('cartographic_candidate_source_record_id',pd.Series(None,index=work.index))
     unresolved_neighbours=work.get('cartographic_contains_other_census_places',pd.Series(False,index=work.index)).fillna(False)
@@ -44,7 +48,8 @@ def hold_existing_owner_conflicts(frame):
              & work.cartographic_identity_status.ne('held_overlapping_different_census_localities'))
     work['existing_owner_conflict_requires_review'] = held
     work['source_identity_conflict_reason'] = ''
-    work.loc[held, 'route_eligible'] = False
+    work.loc[held, 'source_record_id'] = None
+    work['np_identity_eligible']=work.source_record_id.notna()
     work.loc[held, 'source_identity_conflict_reason'] = 'legacy_owner_and_dated_named_containment_disagree_no_automatic_winner'
     work.loc[held, 'identity_evidence_tier'] = 'held_existing_owner_cartographic_conflict'
     work.loc[held, 'np_identity_basis'] = 'held_legacy_owner_conflicts_with_dated_cartographic_locality'
@@ -106,14 +111,20 @@ def repair(frame, polygons, reference, *, education=False, fallback_polygons=Non
     work = hold_existing_owner_conflicts(work)
     work['source_location_conflict_reason'] = ''
     ref_names = reference.dropna(subset=['source_record_id']).set_index('source_record_id').name.map(normalize_name)
-    conflict_candidates = work.source_record_id_before_identity_repair.isna() & work.cartographic_identity_status.eq('held_literal_locality_conflict')
+    conflict_candidates = (work.cartographic_candidate_source_record_id.notna()
+                           & ~work.cartographic_contains_other_census_places)
     fields = [c for c in ['tags_json', 'source_addr_full', 'source_address_full', 'activity_address',
                          'cartographic_candidate_source_record_id'] if c in work]
     for idx, values in zip(work.index[conflict_candidates], work.loc[conflict_candidates, fields].itertuples(index=False, name=None)):
         data = dict(zip(fields, values))
         target_name = ref_names.get(data.get('cartographic_candidate_source_record_id'))
-        claims = {c['name'] for c in typed_address_locality_claims(data) if c['rural_or_town']}
-        if claims and target_name and claims - {target_name}:
+        actual_claims={c['name'] for c in typed_address_locality_claims(
+            {'activity_address':data.get('activity_address')}) if c['rural_or_town']}
+        claims=actual_claims or {c['name'] for c in typed_address_locality_claims(data) if c['rural_or_town']}
+        # A parent town and a finer village may both occur in a postal chain.
+        # A matching finer claim is not a contradictory coordinate. A unique
+        # factual activity address has priority over other address aliases.
+        if claims and target_name and target_name not in claims:
             work.at[idx, 'route_eligible'] = False
             work.at[idx, 'source_location_conflict_reason'] = 'typed_full_activity_locality_conflicts_with_mapped_coordinates'
     for field in ['current_identity_status', 'identity_status']:
@@ -122,23 +133,30 @@ def repair(frame, polygons, reference, *, education=False, fallback_polygons=Non
     reference = reference.dropna(subset=['source_record_id']).set_index('source_record_id')
     for field in ['population_role', 'census_population_role', 'source_population_role']:
         if field in work:
+            work[field+'_before_identity_repair']=original[field]
             work.loc[changed, field] = work.loc[changed, 'source_record_id'].map(reference.population_role)
+            work.loc[work.existing_owner_conflict_requires_review,field]=None
     if 'is_federal_city_context' in work:
         work.loc[changed, 'is_federal_city_context'] = work.loc[changed, 'source_record_id'].map(reference.population_role).eq('external_context_nonadditive')
+        work.loc[work.existing_owner_conflict_requires_review,'is_federal_city_context']=False
     work['institution_operation_and_capacity_not_verified_by_identity_repair'] = True
     work['cartographic_boundary_is_legal_or_observed_assignment'] = False
     raw_fields = [c for c in ['name', 'source_name', 'tags_json', 'source_tags_json', 'site_lat',
                              'site_lon', 'lat', 'lon', 'service_code', 'eligible', 'supply_status'] if c in original]
     for field in raw_fields:
         pd.testing.assert_series_equal(original[field], work[field], check_names=False)
-    if not work.loc[~unknown, 'source_record_id'].equals(original.loc[~unknown, 'source_record_id']):
-        raise ValueError('Existing source owners must not be replaced by polygons')
+    retained=~unknown & ~work.existing_owner_conflict_requires_review
+    if not work.loc[retained,'source_record_id'].equals(original.loc[retained,'source_record_id']):
+        raise ValueError('A polygon must not silently replace an existing owner')
+    pd.testing.assert_series_equal(work.source_record_id_before_identity_repair,
+                                   original.source_record_id,check_names=False)
     summary = {'source_rows': len(work), 'owners_before': int(original.source_record_id.notna().sum()),
                'owners_after': int(work.source_record_id.notna().sum()),
                'new_literal_school_owners': int(strong.sum()), 'new_cartographic_owners': int(use.sum()),
                'cartographic_status_counts': work.cartographic_identity_status.value_counts().to_dict(),
                'raw_fields_and_eligibility_unchanged': raw_fields,
-               'existing_owners_preserved': True}
+               'original_owner_claims_preserved': True,
+               'unresolved_owner_does_not_disable_physical_function': True}
     if 'eligible' in work:
         admitted = work.eligible.fillna(False)
     else:
@@ -162,7 +180,8 @@ def run(args):
     reference = pd.read_parquet(args.bundle / 'context/analysis_reference.parquet')
     code_paths = [Path(__file__), *[Path(__file__).with_name(name) for name in
                   ['education.py', 'commerce.py', 'cartographic_identity.py', 'cartographic_identity_fast.py',
-                   'explicit_locality_identity.py', 'medical_need_review.py','documented_school_presence.py']]]
+                   'explicit_locality_identity.py', 'medical_need_review.py','documented_school_presence.py',
+                   'education_need_review.py','retail_need_review.py']]]
     code_before = {str(p): sha256(p) for p in code_paths}
     polygons = pd.read_parquet(args.polygons)
     fallback = pd.read_parquet(args.fallback_polygons) if args.fallback_polygons else None
@@ -185,10 +204,33 @@ def run(args):
     for domain, path in sources:
         source = pd.read_parquet(path)
         repaired, stats = repair(source, polygons, reference, education=domain == 'education', fallback_polygons=fallback)
+        if domain == 'education':
+            before_scope=repaired.route_eligible.copy()
+            repaired=review_education_need_scope(repaired)
+            stats['education_scope_held_rows']=int(repaired.source_education_need_review_reason.ne('').sum())
+            stats['new_active_education_scope_holds']=int((before_scope & ~repaired.route_eligible
+                & repaired.eligible.fillna(False) & repaired.supply_status.isin(['observed','proxy'])).sum())
+            stats['education_scope_hold_reasons']=repaired.loc[
+                repaired.source_education_need_review_reason.ne(''),'source_education_need_review_reason'].value_counts().to_dict()
+        if domain in {'commerce','food_host'}:
+            before_scope=repaired.route_eligible.copy()
+            repaired=review_retail_need_scope(repaired)
+            stats['retail_scope_held_rows']=int(repaired.retail_need_scope_review_reason.ne('').sum())
+            eligible=repaired.eligible.fillna(False) if 'eligible' in repaired else repaired.supply_status.isin(['observed','proxy'])
+            stats['new_active_retail_scope_holds']=int((before_scope & ~repaired.route_eligible
+                & eligible & repaired.supply_status.isin(['observed','proxy'])).sum())
+            stats['retail_scope_hold_reasons']=repaired.loc[
+                repaired.retail_need_scope_review_reason.ne(''),'retail_need_scope_review_reason'].value_counts().to_dict()
         if domain == 'health':
             repaired = review_medical_need_scope(repaired)
             stats['medical_scope_held_rows'] = int(repaired.need_scope_review_reason.ne('').sum())
             stats['medical_scope_hold_reasons'] = repaired.loc[repaired.need_scope_review_reason.ne(''), 'need_scope_review_reason'].value_counts().to_dict()
+        stats['identity_stage_eligible_ownership_before_function_review']=stats['eligible_ownership_after']
+        final_admitted=repaired.supply_status.isin(['observed','proxy']) & repaired.route_eligible
+        if 'eligible' in repaired:final_admitted &= repaired.eligible.fillna(False)
+        stats['eligible_ownership_after']=int((final_admitted & repaired.source_record_id.notna()).sum())
+        stats['usable_physical_offers_with_unknown_np_owner']=int((final_admitted
+            & repaired.source_record_id.isna() & repaired.service_code.notna()).sum())
         target = args.output / domain
         filename = 'source_inventory_current.parquet' if domain == 'education' else 'physical_sites.parquet' if domain == 'health' else 'sites.parquet'
         save(repaired, target / filename)

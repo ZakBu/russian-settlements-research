@@ -91,129 +91,140 @@ def build_centre_stars(edges, reference, endpoints=None, *, member_batch_size=10
             metadata[c] = ep[c].reindex(metadata.index) if c in ep else pd.NA
     for c in ['weak_component', 'road_endpoint_accepted', 'snap_km', 'audit_component_size']:
         if c not in metadata: metadata[c] = pd.NA
+    # National aggregations preserve the same direct edge groups, without a
+    # small DataFrame/reindex/flag pipeline for every individual centre.
+    admitted['_whole_origin'] = admitted.origin_id.map(metadata.positive_whole_spatial).fillna(False)
+    admitted['_whole_external'] = admitted._whole_origin & admitted.external_np_relation_identified
+    admitted['_unknown_school'] = admitted.school_stage_unknown & admitted.service_family.eq('school')
+    fg = admitted.groupby('functional_star_id', sort=True)
+    first = fg.nth(0).set_index('functional_star_id')
+    stats = fg.agg(origin_records=('origin_id','size'),
+        positive_whole_origin_records=('_whole_origin','sum'),
+        external_positive_whole_records=('_whole_external','sum'),
+        known_np_external_records=('external_np_relation_identified','sum'),
+        maximum_directed_minutes=('cost_minutes','max'),
+        school_stage_unknown_records=('_unknown_school','sum'))
     fun = []
-    functional_source = admitted[['functional_star_id','provider_settlement_id','service_family',
-        'provider_key','origin_id','external_np_relation_identified','cost_minutes','school_stage_unknown']]
-    for sid, g in functional_source.groupby('functional_star_id', sort=True):
-        first = g.iloc[0]
-        centre = first.provider_settlement_id
-        external = g[g.external_np_relation_identified]
-        whole_external = external.origin_id.map(metadata.positive_whole_spatial).fillna(False)
-        fun.append(dict(functional_star_id=sid, service_family=first.service_family,
-            provider_key=first.provider_key, centre_settlement_id=centre,
-            physical_provider_np_unknown=pd.isna(centre), origin_records=len(g),
-            positive_whole_origin_records=int(g.origin_id.map(metadata.positive_whole_spatial).sum()),
-            external_positive_whole_records=int(whole_external.sum()),
-            known_np_external_records=len(external), maximum_directed_minutes=float(g.cost_minutes.max()),
+    for sid, row in stats.iterrows():
+        f = first.loc[sid]
+        fun.append(dict(functional_star_id=sid, service_family=f.service_family,
+            provider_key=f.provider_key, centre_settlement_id=f.provider_settlement_id,
+            physical_provider_np_unknown=pd.isna(f.provider_settlement_id),
+            origin_records=int(row.origin_records),
+            positive_whole_origin_records=int(row.positive_whole_origin_records),
+            external_positive_whole_records=int(row.external_positive_whole_records),
+            known_np_external_records=int(row.known_np_external_records),
+            maximum_directed_minutes=float(row.maximum_directed_minutes),
             centre_added_to_functional_origin_count=False, observed_flow_count=0,
-            school_stage_unknown_records=int(g.school_stage_unknown.sum()) if first.service_family=='school' else 0))
+            school_stage_unknown_records=int(row.school_stage_unknown_records)))
     functional_stars = pd.DataFrame(fun)
-    del functional_source
-    # Combined NP stars are direct edges to one known centre. Never recursively
-    # add the centres used by that centre: this is the anti-percolation rule.
+    admitted.drop(columns=['_whole_origin','_whole_external','_unknown_school'],inplace=True)
     source = admitted.loc[admitted.provider_settlement_id.notna(),
-        ['origin_id','provider_settlement_id','service_family','cost_minutes','school_stage_unknown']]
-    member_rows = []
-    member_batches = []
-    star_rows = []
-    for centre, group in source.groupby('provider_settlement_id', sort=True):
-        sid = stable_id('centre', scenario, centre)
-        members = {}
-        for origin, g in group.groupby('origin_id', sort=False):
-            families = set(g.service_family)
-            members[origin] = dict(star_id=sid, centre_settlement_id=centre, origin_id=origin,
-                member_role='centre' if origin==centre else 'direct_surroundings',
-                core_family_count=len(families & set(CORE)),
-                core_families_json=json.dumps(sorted(families & set(CORE))),
-                all_families_json=json.dumps(sorted(families)),
-                parcel_corroboration='parcel_pickup' in families,
-                maximum_directed_minutes=float(g.cost_minutes.max()),
-                has_direct_selected_link=True,
-                school_stage_unknown=bool(g.loc[g.service_family.eq('school'),'school_stage_unknown'].any()))
-        if centre not in members:
-            members[centre] = dict(star_id=sid, centre_settlement_id=centre, origin_id=centre,
-                member_role='centre', core_family_count=0, core_families_json='[]', all_families_json='[]',
-                parcel_corroboration=False, maximum_directed_minutes=np.nan,
-                has_direct_selected_link=False, school_stage_unknown=False)
-        frame = pd.DataFrame(members.values())
-        # Identities were validated above and dictionary members are unique.
-        # Reindex only this star: an inner merge repeatedly factorized the
-        # entire national reference once per centre.
-        own_metadata = metadata.reindex(frame.origin_id)
-        own_metadata.index = frame.index
-        frame = pd.concat([frame, own_metadata], axis=1)
-        frame['population_is_additive_across_stars'] = False
-        frame['member_in_analysis_origin'] = frame.analysis_origin.fillna(False)
-        frame['budget_population_within_star'] = frame.population_2021.where(
-            frame.member_in_analysis_origin & frame.population_role.eq('ordinary_settlement_record')
-            & frame.budget_population_credit.fillna(False))
-        frame['source_part_requires_review'] = frame.part_status.ne('unmarked_whole_place_record')
-        frame['coincident_coordinate_requires_review'] = frame.coincident_coordinate_records.gt(1)
-        frame['road_component_size_verified'] = frame.audit_component_size.notna()
-        frame['road_endpoint_review_needed'] = frame.road_endpoint_accepted.isna() | ~frame.road_endpoint_accepted.astype('boolean').fillna(False).astype(bool)
-        frame['road_component_quality_unknown'] = frame.audit_component_size.isna()
-        frame['road_component_lt100_diagnostic'] = frame.audit_component_size.lt(100).fillna(False)
-        frame['road_access_component_review_needed'] = (frame.road_endpoint_review_needed
-            | frame.road_component_quality_unknown | frame.road_component_lt100_diagnostic)
-        frame['evidence_scope'] = 'modelled_direct_service_choice_not_observed_travel'
-        outside = frame.member_role.eq('direct_surroundings')
-        positive = outside & frame.positive_whole_spatial
-        core_counts = frame.loc[positive, 'core_family_count']
-        d = dict(star_id=sid, centre_settlement_id=centre, centre_name=ref.loc[centre,'name'],
-            centre_region=ref.loc[centre,'region'], centre_in_analysis_origin=bool(ref.loc[centre,'analysis_origin']),
-            centre_population_is_nonadditive_context=ref.loc[centre,'population_role']==NONADDITIVE_CONTEXT_ROLE,
-            member_records=len(frame), external_records=int(outside.sum()),
-            external_positive_whole_records=int(positive.sum()),
-            one_or_more_core_external_positive_whole=int(core_counts.ge(1).sum()),
-            two_or_more_core_external_positive_whole=int(core_counts.ge(2).sum()),
-            all_three_core_external_positive_whole=int(core_counts.eq(3).sum()),
-            full_star_geodesic_diameter_km=coordinate_diameter(frame.lat,frame.lon),
-            centre_present_exactly_once=True, transitive_closure_used=False,
-            exclusive_partition=False, population_is_additive_across_stars=False,
-            observed_flow_count=0, independent_empirical_validation=False)
-        d['support_type'] = ('three_core_direct_star' if d['all_three_core_external_positive_whole'] else
+        ['origin_id','provider_settlement_id','service_family','cost_minutes','school_stage_unknown']].copy()
+    source['_unknown_school'] = source.school_stage_unknown & source.service_family.eq('school')
+    grouped = source.groupby(['provider_settlement_id','origin_id'],sort=False).agg(
+        families=('service_family',lambda values: frozenset(values)),
+        maximum_directed_minutes=('cost_minutes','max'),
+        school_stage_unknown=('_unknown_school','any')).reset_index()
+    centres = sorted(source.provider_settlement_id.unique())
+    centre_order = {centre:i for i,centre in enumerate(centres)}
+    grouped['_centre_order'] = grouped.provider_settlement_id.map(centre_order)
+    grouped = grouped.sort_values('_centre_order',kind='stable')
+    member_rows=[]
+    present_centres=set(grouped.loc[grouped.origin_id.eq(grouped.provider_settlement_id),'origin_id'])
+    core_set=set(CORE)
+    for centre, origin, families, minutes, unknown, _ in grouped.itertuples(index=False,name=None):
+        member_rows.append(dict(star_id=stable_id('centre',scenario,centre),centre_settlement_id=centre,
+            origin_id=origin,member_role='centre' if origin==centre else 'direct_surroundings',
+            core_family_count=len(families & core_set),core_families_json=json.dumps(sorted(families & core_set)),
+            all_families_json=json.dumps(sorted(families)),parcel_corroboration='parcel_pickup' in families,
+            maximum_directed_minutes=float(minutes),has_direct_selected_link=True,school_stage_unknown=bool(unknown)))
+    # The former per-centre dictionary inserted a missing centre last.
+    for centre in centres:
+        if centre not in present_centres:
+            member_rows.append(dict(star_id=stable_id('centre',scenario,centre),centre_settlement_id=centre,
+                origin_id=centre,member_role='centre',core_family_count=0,core_families_json='[]',
+                all_families_json='[]',parcel_corroboration=False,maximum_directed_minutes=np.nan,
+                has_direct_selected_link=False,school_stage_unknown=False))
+    base_columns=['star_id','centre_settlement_id','origin_id','member_role','core_family_count',
+        'core_families_json','all_families_json','parcel_corroboration','maximum_directed_minutes',
+        'has_direct_selected_link','school_stage_unknown']
+    memberships=pd.DataFrame(member_rows,columns=base_columns)
+    if len(memberships):
+        memberships['_centre_order']=memberships.centre_settlement_id.map(centre_order)
+        memberships=memberships.sort_values('_centre_order',kind='stable').drop(columns='_centre_order').reset_index(drop=True)
+    own_metadata=metadata.reindex(memberships.origin_id)
+    own_metadata.index=memberships.index
+    memberships=pd.concat([memberships,own_metadata],axis=1)
+    frame=memberships
+    frame['population_is_additive_across_stars']=False
+    frame['member_in_analysis_origin']=frame.analysis_origin.fillna(False)
+    frame['budget_population_within_star']=frame.population_2021.where(
+        frame.member_in_analysis_origin & frame.population_role.eq('ordinary_settlement_record')
+        & frame.budget_population_credit.fillna(False))
+    frame['source_part_requires_review']=frame.part_status.ne('unmarked_whole_place_record')
+    frame['coincident_coordinate_requires_review']=frame.coincident_coordinate_records.gt(1)
+    frame['road_component_size_verified']=frame.audit_component_size.notna()
+    frame['road_endpoint_review_needed']=frame.road_endpoint_accepted.isna() | ~frame.road_endpoint_accepted.astype('boolean').fillna(False).astype(bool)
+    frame['road_component_quality_unknown']=frame.audit_component_size.isna()
+    frame['road_component_lt100_diagnostic']=frame.audit_component_size.lt(100).fillna(False)
+    frame['road_access_component_review_needed']=(frame.road_endpoint_review_needed
+        | frame.road_component_quality_unknown | frame.road_component_lt100_diagnostic)
+    frame['evidence_scope']='modelled_direct_service_choice_not_observed_travel'
+    positive=frame.member_role.eq('direct_surroundings') & frame.positive_whole_spatial
+    for count in (1,2,3):
+        frame[f'in_{count}_core_positive_whole_subset']=(positive & frame.core_family_count.ge(count)) | frame.member_role.eq('centre')
+    # Geometry uses the unchanged exact great-circle implementation on exactly
+    # the same member coordinates. Only the surrounding Pandas work is batched.
+    star_rows=[]
+    for centre, group in frame.groupby('centre_settlement_id',sort=True):
+        outside=group.member_role.eq('direct_surroundings')
+        whole=outside & group.positive_whole_spatial
+        counts=group.loc[whole,'core_family_count']
+        r=ref.loc[centre]
+        own=group.loc[group.member_role.eq('centre'),'core_family_count'].iloc[0]
+        d=dict(star_id=stable_id('centre',scenario,centre),centre_settlement_id=centre,
+            centre_name=r['name'],centre_region=r['region'],centre_in_analysis_origin=bool(r['analysis_origin']),
+            centre_population_is_nonadditive_context=r['population_role']==NONADDITIVE_CONTEXT_ROLE,
+            member_records=len(group),external_records=int(outside.sum()),external_positive_whole_records=int(whole.sum()),
+            one_or_more_core_external_positive_whole=int(counts.ge(1).sum()),
+            two_or_more_core_external_positive_whole=int(counts.ge(2).sum()),
+            all_three_core_external_positive_whole=int(counts.eq(3).sum()),
+            full_star_geodesic_diameter_km=coordinate_diameter(group.lat,group.lon),
+            centre_present_exactly_once=True,transitive_closure_used=False,exclusive_partition=False,
+            population_is_additive_across_stars=False,observed_flow_count=0,independent_empirical_validation=False)
+        d['support_type']=('three_core_direct_star' if d['all_three_core_external_positive_whole'] else
             'two_core_direct_star' if d['two_or_more_core_external_positive_whole'] else
             'one_core_direct_star' if d['one_or_more_core_external_positive_whole'] else
             'parcel_only_or_no_positive_whole_external_core')
-        d['centre_unmarked_whole_record'] = ref.loc[centre,'part_status']=='unmarked_whole_place_record'
-        d['centre_positive_population_known'] = bool(pd.notna(ref.loc[centre,'population_2021']) and ref.loc[centre,'population_2021']>0)
-        d['centre_ordinary_credited_or_nonadditive_context'] = bool(
-            (ref.loc[centre,'population_role']=='ordinary_settlement_record'
-                and pd.notna(ref.loc[centre,'budget_population_credit']) and bool(ref.loc[centre,'budget_population_credit']))
-            or ref.loc[centre,'population_role']==NONADDITIVE_CONTEXT_ROLE)
-        d['centre_ordinary_spatial_or_nonadditive_context'] = bool(
-            ref.loc[centre,'population_role'] in {'ordinary_settlement_record', NONADDITIVE_CONTEXT_ROLE})
-        d['support_type_semantics'] = 'maximum_external_support_not_uniform_membership'
-        centre_own = set(group.loc[group.origin_id.eq(centre), 'service_family']) & set(CORE)
-        d['centre_own_selected_core_family_count'] = len(centre_own)
-        d['centre_own_all_three_core_confirmed'] = len(centre_own)==3
+        d['centre_unmarked_whole_record']=r['part_status']=='unmarked_whole_place_record'
+        d['centre_positive_population_known']=bool(pd.notna(r['population_2021']) and r['population_2021']>0)
+        d['centre_ordinary_credited_or_nonadditive_context']=bool(
+            (r['population_role']=='ordinary_settlement_record' and pd.notna(r['budget_population_credit']) and bool(r['budget_population_credit']))
+            or r['population_role']==NONADDITIVE_CONTEXT_ROLE)
+        d['centre_ordinary_spatial_or_nonadditive_context']=bool(r['population_role'] in {'ordinary_settlement_record',NONADDITIVE_CONTEXT_ROLE})
+        d['support_type_semantics']='maximum_external_support_not_uniform_membership'
+        d['centre_own_selected_core_family_count']=int(own)
+        d['centre_own_all_three_core_confirmed']=own==3
+        diameters={np.ones(len(group),dtype=bool).tobytes():d['full_star_geodesic_diameter_km']}
         for count in (1,2,3):
-            eligible = positive & frame.core_family_count.ge(count)
-            frame[f'in_{count}_core_positive_whole_subset'] = eligible | frame.member_role.eq('centre')
-            subset = frame.loc[frame[f'in_{count}_core_positive_whole_subset']]
-            d[f'{count}_core_subset_geodesic_diameter_km'] = coordinate_diameter(subset.lat,subset.lon)
-        star_rows.append(d); member_rows.append(frame)
-        # Bound the small DataFrames retained before concat; tens of thousands
-        # of these create unnecessary peak memory on smaller runners.
-        if len(member_rows) >= member_batch_size:
-            member_batches.append(pd.concat(member_rows,ignore_index=True))
-            member_rows.clear()
-    stars = pd.DataFrame(star_rows) if star_rows else pd.DataFrame(columns=CENTRE_COLUMNS)
-    member_columns = ['star_id','centre_settlement_id','origin_id','member_role','core_family_count',
-        'core_families_json','all_families_json','parcel_corroboration','maximum_directed_minutes',
-        'has_direct_selected_link','school_stage_unknown',*metadata.columns,
-        'population_is_additive_across_stars','member_in_analysis_origin','budget_population_within_star',
-        'source_part_requires_review','coincident_coordinate_requires_review','road_component_size_verified',
-        'road_endpoint_review_needed','road_component_quality_unknown','road_component_lt100_diagnostic',
-        'road_access_component_review_needed','evidence_scope',
-        *[f'in_{n}_core_positive_whole_subset' for n in (1,2,3)]]
-    if member_rows:
-        member_batches.append(pd.concat(member_rows,ignore_index=True))
-        member_rows.clear()
-    memberships = (member_batches[0] if len(member_batches)==1 else
-        pd.concat(member_batches,ignore_index=True) if member_batches else pd.DataFrame(columns=member_columns))
-    # Release intermediate tables before strict metadata is calculated.
-    del member_batches, member_rows, source
+            selection=group[f'in_{count}_core_positive_whole_subset'].to_numpy(dtype=bool)
+            key=selection.tobytes()
+            if key not in diameters:
+                subset=group.loc[selection]
+                diameters[key]=coordinate_diameter(subset.lat,subset.lon)
+            d[f'{count}_core_subset_geodesic_diameter_km']=diameters[key]
+        star_rows.append(d)
+    stars=pd.DataFrame(star_rows) if star_rows else pd.DataFrame(columns=CENTRE_COLUMNS)
+    if len(centres)>1:
+        # Preserve Pandas concat's public null representation for all-missing
+        # object metadata, as in the previous concatenation of centre frames.
+        split=int((memberships.centre_settlement_id==centres[0]).sum())
+        memberships=pd.concat([memberships.iloc[:split],memberships.iloc[split:]],ignore_index=True)
+    # Empty schemas follow the original public contract.
+    if not len(memberships):
+        memberships=pd.DataFrame(columns=memberships.columns)
+    del source,grouped,member_rows
     # Strict three-family groups contain no one/two-family appendages. They
     # also require the centre's own selected evidence for all three families.
     # This is a model-screened subset, not evidence of observed journeys.

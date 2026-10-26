@@ -282,6 +282,7 @@ def build(work, commit, control):
         '--registry', registry, '--boundaries', boundaries, '--output', built, '--source-commit', commit)
     shutil.copyfile(analysis / 'figures/identity_repair_atlas.pdf', built / 'identity_repair_atlas.pdf')
     shutil.copyfile(analysis / 'figures/01_level0_country.png', built / 'preview.png')
+    shutil.copyfile(registry / 'level0_centres.csv', built / 'level0_centres.csv')
     manifest = json.loads((built / 'manifest.json').read_text())
     counts = manifest['registry_counts']
     format_count = lambda value: f'{value:,}'.replace(',', ' ')
@@ -320,8 +321,10 @@ def publish(built, commit):
                 'all_admitted_choices_equal', 'all_level0_centre_and_member_identities_equal',
                 'independent_registry_recheck_completed']):
             raise ValueError('The packed rebuild has no complete scientific verification')
-    assets = [archive, built / 'manifest.json', built / 'identity_repair_atlas.pdf', built / 'preview.png']
-    if any(not path.is_file() for path in assets): raise ValueError('Four complete result assets are required')
+        verify_standalone_registry(built, manifest, result)
+    assets = [archive, built / 'manifest.json', built / 'identity_repair_atlas.pdf', built / 'preview.png',
+              built / 'level0_centres.csv']
+    if any(not path.is_file() for path in assets): raise ValueError('Five complete result assets are required')
     subprocess.run(['gh', 'release', 'upload', TAG, *map(str, assets), '--repo', REPOSITORY], check=True)
     uploaded = json.loads(subprocess.check_output(['gh', 'api', f'repos/{REPOSITORY}/releases/{DRAFT_RELEASE_ID}'], text=True))
     expected = {name: a['size'] for name, a in initial.items()}
@@ -335,6 +338,26 @@ def publish(built, commit):
         '--notes-file', str(built / 'release_notes.md'), '--target', commit, '--draft=false', '--latest=false',
         '--title', 'Центры нулевого уровня: исправленные привязки и прямое окружение — 26 октября 2026'], check=True)
     print(json.dumps({'published_tag': TAG, 'source_commit': commit, 'assets': expected, 'archive': manifest['archive']}))
+
+
+def verify_standalone_registry(built, manifest, archive):
+    """The public map CSV must be the same immutable registry as inside the ZIP."""
+    import hashlib
+    assets = manifest.get('standalone_assets', {})
+    if set(assets) != {'level0_centres.csv'}:
+        raise ValueError('Exactly the standalone centre registry CSV is required')
+    spec = assets['level0_centres.csv']
+    expected_member = manifest['archive_root'] + 'registry/level0_centres.csv'
+    if spec.get('asset') != 'level0_centres.csv' or spec.get('archive_member') != expected_member:
+        raise ValueError('Standalone registry identity differs from the frozen archive')
+    csv = Path(built) / 'level0_centres.csv'
+    if not csv.is_file() or csv.stat().st_size != spec['bytes'] or sha(csv) != spec['sha256']:
+        raise ValueError('Standalone registry size/SHA differs from the frozen manifest')
+    with archive.open(expected_member) as stream:
+        embedded_sha = hashlib.file_digest(stream, 'sha256').hexdigest()
+    embedded = archive.getinfo(expected_member)
+    if embedded.file_size != spec['bytes'] or embedded_sha != spec['sha256']:
+        raise ValueError('Standalone registry differs from the archived registry')
 
 
 if __name__ == '__main__':

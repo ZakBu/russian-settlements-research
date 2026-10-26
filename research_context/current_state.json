@@ -9,11 +9,11 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "source_identity_and_nested_geography_repaired_national_zero_recalculation_in_progress",
+      "status": "level0_centres_recomputed_source_identity_and_function_errors_repaired_public_rebuild_pending",
       "summary": "Исправлены пропуски принадлежности учреждений, чрезмерно узкий счётчик197, сохранение спорных старых владельцев и блокирование городов неточными точками соседних НП. Идёт новый общероссийский пересчёт; предварительные28500/5171 не являются окончательным результатом.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
-      "main_blocker": "Завершить повтор направлений и состава прямых окружений после исправления источников; независимо проверить все пары и крупнейшие диаметры. Отделять полноту записанного предложения от наблюдённых поездок и от полного районирования СГРТ.",
+      "main_blocker": "Завершить чистый повтор по сохранённым исходникам и опубликовать составы окружений и карты; реальные поездки и старшие уровни пока не установлены.",
       "workplan": "sgrt/workplan/README.md",
       "results": "sgrt/zero/IDENTITY_REPAIR_20261026.md",
       "data_release": "sgrt-zero-centre-systems-20261025-v1",
@@ -156,7 +156,7 @@
         "population_advantage_at_level0": false,
         "target_number_of_levels_is_not_hardcoded": true,
         "Moscow_unique_upper_order_is_research_goal_not_prescribed_label": true,
-        "calculation_state": "identity_nested_geometry_and_old_owner_holds_repaired_new12_routes_and_centres_pending",
+        "calculation_state": "source_geometry_repaired_selected_provider_function_semantics_being_repaired_before_clean_country_rebuild",
         "source_release": "sgrt-zero-inputs-20261025-v1",
         "source_manifest_sha256": "d9c8617dadbed91d92cf0cf1e139af67fddf5e9c33c7c50f09cd577c0c664ddc",
         "level_zero_control": {
@@ -542,7 +542,42 @@
         "coordinate_evidence": "references/provenance/coordinate_holds_20261026.json",
         "dated_school_evidence": "references/provenance/official_local_school_cards_20261026.json",
         "population_base_changed": false,
-        "earlier_preliminary_counts_rejected": "research_context/analysis_snapshots/identity_preliminary_rejected_20261026.json"
+        "earlier_preliminary_counts_rejected": "research_context/analysis_snapshots/identity_preliminary_rejected_20261026.json",
+        "functional_source_review": "source-wide type/role contradictions with raw source claims retained; no brand-only exclusions",
+        "registered_level0_centres": 28512,
+        "by_recorded_own_basic_function_count": {
+          "1": 15539,
+          "2": 7763,
+          "3": 5210
+        },
+        "full_three_function_centres_with_external_participants": 5210,
+        "full_centres_without_same_three_external_participant": 2273,
+        "strict_same_three_external_diagnostic_subset": 2937,
+        "centres_using_cartographic_ownership": 14429,
+        "centres_with_partial_population_budget": 5038,
+        "centres_with_own_documented_dated_school_presence": 1,
+        "centres_with_own_historical_only_evidence": 129,
+        "centre_member_pairs": 202575,
+        "unique_participant_records": 121139,
+        "diameter_km": {
+          "median": 8.114016236296663,
+          "p95": 27.878351221191608,
+          "maximum": 63.13627321608024
+        },
+        "full_centres_diameter_km": {
+          "median": 15.221920747713492,
+          "p95": 37.58474013087423,
+          "maximum": 63.13627321608024
+        },
+        "own_function_count_is_not_external_support_count": true,
+        "unknown_function_is_not_confirmed_absent": true,
+        "overlapping_direct_catchments_not_exclusive_country_partition": true,
+        "actual_trips_observed": false,
+        "physical_site_unknown_np_remains_usable": true,
+        "independent_forward_route_comparisons": 24,
+        "independent_forward_route_layers": 12,
+        "scientific_tests_passed": 539,
+        "public_clean_rebuild_completed": false
       }
     },
     "portal": {
@@ -557,9 +592,8 @@
     }
   },
   "next_steps": [
-    "Завершить повтор направлений и состава прямых окружений после исправления источников; независимо проверить все пары и крупнейшие диаметры. Отделять полноту записанного предложения от наблюдённых поездок и от полного районирования СГРТ.",
-    "Опубликовать воспроизводимые составы центров, исходные свидетельства и карты; прежние выпуски сохранить как историю.",
-    "Разбирать оставшиеся неоднозначные границы и сведения об услугах, не называть их отсутствием функций.",
+    "Опубликовать исправленные составы центров и карты после чистого повторного расчёта по сохранённым источникам.",
+    "Разбирать оставшиеся неоднозначные границы и сведения об услугах, не считать пропуски отсутствием функций.",
     "Проверять местные связи по независимому прикреплению и поездкам; затем переходить к старшим порядкам без цепочечного склеивания регионов."
   ],
   "known_limits": [
@@ -580,7 +614,8 @@
     "У 7 533 многопоселенческих групп не установлен весь ближний набор: 7 477 только с дальними известными кандидатами, 51 только с неизвестным направлением, 5 с обеими причинами. Дальнее известное предложение не доказывает отсутствия ближнего.",
     "Верхние медицинские каналы условны по заявленному профилю. Они не подтверждают пригодность одной больницы для всех пациентов или постоянный врачебный штат.",
     "Города представлены переписными точками; внутригородское обслуживание не районируется. Геометрический размах точек не является площадью или непрерывным полигоном зоны.",
-    "В пяти проверенных примерах Учалинского района ФАП согласуется с документом на уровне функции и НП; школы — только географически. У 19 школьных направлений ступени не установлены, поэтому точность для 10–11 классов не оценена. Источники разных лет и прикрепления не измеряют реальные поездки."
+    "В пяти проверенных примерах Учалинского района ФАП согласуется с документом на уровне функции и НП; школы — только географически. У 19 школьных направлений ступени не установлены, поэтому точность для 10–11 классов не оценена. Источники разных лет и прикрепления не измеряют реальные поездки.",
+    "В 1250 прочитанных официальных книгах статистики НП2025 не найден показатель обычных общеобразовательных школ; показатели47–51 относятся к дополнительным общеобразовательным программам. Эти числа не используются как школьная функция; подробности в analysis_snapshots/identity_official_school_statistics_search_20261026.json."
   ],
   "entrypoints": {
     "rules": "AGENTS.md",

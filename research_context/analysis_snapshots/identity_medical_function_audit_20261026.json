@@ -1,0 +1,413 @@
+{
+  "scope": "Source semantics of actually selected national basic-primary medical outcomes; not observed visits or clinical-capacity validation. No code or source tables modified.",
+  "source_paths": {
+    "physical_sites": "/workspace/sgrt-zero-identity-final-20261026/sources/health/physical_sites.parquet",
+    "np_supply": "/workspace/sgrt-zero-identity-final-20261026/sources/health/np_supply.parquet",
+    "nearest": "/workspace/sgrt-zero-identity-final-20261026/routes/nearest/medical_basic_primary.parquet"
+  },
+  "input_sha256": {
+    "physical_sites": "a769726ce682bd74b11d24b1096269f491772be92d3caf8602111e9ff0756f78",
+    "np_supply": "08d030bf7e249d0156328850ee1b37c358517af9405e130287f05e689b9fb5a1",
+    "nearest": "893a9f37513d4c045d415f78bf1184da94f4fee1fba13475e00071ec607ed9bd"
+  },
+  "outcome_rows": 153803,
+  "unique_origin_records": 153803,
+  "selected_physical_outcomes": 20956,
+  "selected_np_offer_outcomes": 131698,
+  "unknown_selected_kind_outcomes": 1149,
+  "selected_unique_physical_provider_ids": 3436,
+  "admitted_physical_basic_primary_rows": 7695,
+  "broad_name_review": {
+    "pattern": "инвитро|гемотест|хеликс|лаборатор|космет|хоспис|диализ|томограф|мрт|рентген|наркол|псих|реабил|гинекол|диагност",
+    "basic_source_rows_matching": 48,
+    "already_nonadmitted_by_source_status_or_route": 41,
+    "active_matching_rows": 7,
+    "active_matching_selected_physical_outcomes": 0,
+    "active_candidates": [
+      {
+        "provider_id": "osm-med:OSM:node:5495552187:medical_basic_primary",
+        "provider_name": "Хеликс на Молодежной",
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748",
+        "selected_outcomes": 0,
+        "selected_external_outcomes": 0,
+        "raw_tags": {
+          "addr:city": "Москва",
+          "addr:housenumber": "22",
+          "addr:postcode": "121351",
+          "addr:street": "Партизанская улица",
+          "amenity": "doctors",
+          "emergency": "no",
+          "health_facility:type": "clinic",
+          "healthcare": "doctor",
+          "healthcare:speciality": "gynaecology;urology;cardiology;internal;radiology;general;clinic",
+          "name": "Хеликс на Молодежной",
+          "name:en": "HELIX Molodezhnaya",
+          "name:uk": "Хелікс на Молодіжній",
+          "operator": "Хеликс",
+          "operator:wikidata": "Q109717117"
+        },
+        "function_assignment_verified_by_licence": false
+      },
+      {
+        "provider_id": "osm-med:OSM:node:6574693132:medical_basic_primary",
+        "provider_name": "Медицинский центр \"Хеликс\"",
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748",
+        "selected_outcomes": 0,
+        "selected_external_outcomes": 0,
+        "raw_tags": {
+          "addr:city": "Москва",
+          "addr:housenumber": "91 к1",
+          "addr:postcode": "117335",
+          "addr:street": "улица Вавилова",
+          "brand": "Helix",
+          "check_date": "2019-06-27",
+          "email": "vavilova.med@gmail.com",
+          "healthcare": "clinic",
+          "healthcare:speciality": "general;gynaecology;cardiology;clinic",
+          "name": "Медицинский центр \"Хеликс\"",
+          "name:uk": "Медичний центр \"Хелікс\"",
+          "opening_hours": "Mo-Fr 09:00-17:00; Sa-Su 8:00-15:00",
+          "payment:american_express": "yes",
+          "payment:cards": "yes",
+          "payment:cash": "yes",
+          "payment:credit_cards": "yes",
+          "payment:cryptocurrencies": "yes",
+          "payment:debit_cards": "yes",
+          "payment:diners_club": "yes",
+          "payment:electronic_purses": "yes",
+          "payment:jcb": "yes",
+          "payment:maestro": "yes",
+          "payment:mastercard": "yes",
+          "payment:notes": "yes",
+          "payment:telephone_cards": "yes",
+          "payment:unionpay": "yes",
+          "payment:visa": "yes",
+          "payment:visa_debit": "yes",
+          "phone": "+7 910 4042677",
+          "website": "https://helix.ru/center/20093",
+          "wheelchair": "yes"
+        },
+        "function_assignment_verified_by_licence": false
+      },
+      {
+        "provider_id": "osm-med:OSM:node:7133464307:medical_basic_primary",
+        "provider_name": "Хеликс",
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+        "selected_outcomes": 0,
+        "selected_external_outcomes": 0,
+        "raw_tags": {
+          "amenity": "doctors",
+          "brand": "Хеликс",
+          "brand:wikidata": "Q109717117",
+          "check_date": "2023-02-20",
+          "description": "ДЦ Царская Столица Лабораторной службы Хеликс",
+          "health_facility:type": "clinic",
+          "health_person:type": "physician;therapist;physician_assitant",
+          "healthcare": "laboratory",
+          "healthcare:speciality": "general",
+          "level": "0",
+          "medical_system": "western",
+          "name": "Хеликс",
+          "name:en": "Helix",
+          "name:ru": "Хеликс",
+          "opening_hours": "Mo-Fr 07:30-19:00; Sa 09:00-19:00; Su 09:00-16:00",
+          "operator": "Хеликс",
+          "payment:mastercard": "yes",
+          "payment:visa": "yes",
+          "phone": "+78123091221;+7 800 7000303",
+          "website": "https://helix.ru/center/19973"
+        },
+        "function_assignment_verified_by_licence": false
+      },
+      {
+        "provider_id": "osm-med:OSM:node:12603377372:medical_basic_primary",
+        "provider_name": "Хеликс",
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:56617",
+        "selected_outcomes": 0,
+        "selected_external_outcomes": 0,
+        "raw_tags": {
+          "addr:city": "Гатчина",
+          "addr:housenumber": "14",
+          "addr:street": "улица Авиатриссы Зверевой",
+          "brand": "Хеликс",
+          "brand:wikidata": "Q109717117",
+          "healthcare": "laboratory",
+          "healthcare:speciality": "general",
+          "name": "Хеликс",
+          "name:en": "Helix",
+          "name:ru": "Хеликс"
+        },
+        "function_assignment_verified_by_licence": false
+      },
+      {
+        "provider_id": "osm-med:OSM:way:44488796:medical_basic_primary",
+        "provider_name": "поликлиника психоневроогического госпиталя ветеранов войн",
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:86219",
+        "selected_outcomes": 0,
+        "selected_external_outcomes": 0,
+        "raw_tags": {
+          "addr:city": "Оренбург",
+          "addr:housenumber": "61",
+          "addr:street": "улица 1 Мая",
+          "amenity": "clinic",
+          "building": "yes",
+          "healthcare": "clinic",
+          "name": "поликлиника психоневроогического госпиталя ветеранов войн"
+        },
+        "function_assignment_verified_by_licence": false
+      },
+      {
+        "provider_id": "osm-med:OSM:way:108548965:medical_basic_primary",
+        "provider_name": "Республиканская психотерапевтическая поликлиника",
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:18491",
+        "selected_outcomes": 0,
+        "selected_external_outcomes": 0,
+        "raw_tags": {
+          "addr:city": "Махачкала",
+          "addr:housenumber": "4А",
+          "addr:street": "улица Ирчи Казака",
+          "amenity": "clinic",
+          "building": "public",
+          "building:levels": "1",
+          "building:use": "medical",
+          "healthcare": "clinic",
+          "healthcare:speciality": "psychiatry",
+          "height": "4",
+          "name": "Республиканская психотерапевтическая поликлиника",
+          "roof:orientation": "along",
+          "roof:shape": "hipped"
+        },
+        "function_assignment_verified_by_licence": false
+      },
+      {
+        "provider_id": "osm-med:OSM:way:682197391:medical_basic_primary",
+        "provider_name": "Медицинский центр \"Томограф\"",
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:67622",
+        "selected_outcomes": 0,
+        "selected_external_outcomes": 0,
+        "raw_tags": {
+          "addr:city": "Лобня",
+          "addr:housenumber": "22Б",
+          "addr:street": "Заречная улица",
+          "amenity": "clinic",
+          "building": "yes",
+          "healthcare": "clinic",
+          "healthcare:speciality": "radiology;general;orthopaedics;gynaecology;surgery;cardiology;dermatology",
+          "name": "Медицинский центр \"Томограф\"",
+          "website": "https://tomograf-lobnya.ru/"
+        },
+        "function_assignment_verified_by_licence": false
+      }
+    ]
+  },
+  "np_independent_evidence_controls": [
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+      "other_admitted_physical_general_sites": 138,
+      "positive_official_np_records": 1,
+      "selected_local_outcomes": 1
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:18491",
+      "other_admitted_physical_general_sites": 6,
+      "positive_official_np_records": 1,
+      "selected_local_outcomes": 1
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:56617",
+      "other_admitted_physical_general_sites": 5,
+      "positive_official_np_records": 1,
+      "selected_local_outcomes": 1
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748",
+      "other_admitted_physical_general_sites": 264,
+      "positive_official_np_records": 1,
+      "selected_local_outcomes": 1
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:67622",
+      "other_admitted_physical_general_sites": 3,
+      "positive_official_np_records": 1,
+      "selected_local_outcomes": 1
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:86219",
+      "other_admitted_physical_general_sites": 7,
+      "positive_official_np_records": 1,
+      "selected_local_outcomes": 1
+    }
+  ],
+  "explicit_specialty_and_lab_controls": [
+    {
+      "provider_id": "osm-med:OSM:node:7133464307:medical_basic_primary",
+      "name": "Хеликс",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+      "speciality": [
+        "general"
+      ],
+      "healthcare": "laboratory",
+      "website": "https://helix.ru/center/19973",
+      "selected_count": 0,
+      "licence_verified": false,
+      "tags": {
+        "amenity": "doctors",
+        "brand": "Хеликс",
+        "brand:wikidata": "Q109717117",
+        "check_date": "2023-02-20",
+        "description": "ДЦ Царская Столица Лабораторной службы Хеликс",
+        "health_facility:type": "clinic",
+        "health_person:type": "physician;therapist;physician_assitant",
+        "healthcare": "laboratory",
+        "healthcare:speciality": "general",
+        "level": "0",
+        "medical_system": "western",
+        "name": "Хеликс",
+        "name:en": "Helix",
+        "name:ru": "Хеликс",
+        "opening_hours": "Mo-Fr 07:30-19:00; Sa 09:00-19:00; Su 09:00-16:00",
+        "operator": "Хеликс",
+        "payment:mastercard": "yes",
+        "payment:visa": "yes",
+        "phone": "+78123091221;+7 800 7000303",
+        "website": "https://helix.ru/center/19973"
+      }
+    },
+    {
+      "provider_id": "osm-med:OSM:node:12603377372:medical_basic_primary",
+      "name": "Хеликс",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:56617",
+      "speciality": [
+        "general"
+      ],
+      "healthcare": "laboratory",
+      "website": null,
+      "selected_count": 0,
+      "licence_verified": false,
+      "tags": {
+        "addr:city": "Гатчина",
+        "addr:housenumber": "14",
+        "addr:street": "улица Авиатриссы Зверевой",
+        "brand": "Хеликс",
+        "brand:wikidata": "Q109717117",
+        "healthcare": "laboratory",
+        "healthcare:speciality": "general",
+        "name": "Хеликс",
+        "name:en": "Helix",
+        "name:ru": "Хеликс"
+      }
+    },
+    {
+      "provider_id": "osm-med:OSM:way:108548965:medical_basic_primary",
+      "name": "Республиканская психотерапевтическая поликлиника",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:18491",
+      "speciality": [
+        "psychiatry"
+      ],
+      "healthcare": "clinic",
+      "website": null,
+      "selected_count": 0,
+      "licence_verified": false,
+      "tags": {
+        "addr:city": "Махачкала",
+        "addr:housenumber": "4А",
+        "addr:street": "улица Ирчи Казака",
+        "amenity": "clinic",
+        "building": "public",
+        "building:levels": "1",
+        "building:use": "medical",
+        "healthcare": "clinic",
+        "healthcare:speciality": "psychiatry",
+        "height": "4",
+        "name": "Республиканская психотерапевтическая поликлиника",
+        "roof:orientation": "along",
+        "roof:shape": "hipped"
+      }
+    }
+  ],
+  "primary_site_positive_countercontrol": {
+    "provider_id": "osm-med:OSM:node:7133464307:medical_basic_primary",
+    "source": {
+      "key": "helix19973",
+      "url": "https://helix.ru/center/19973",
+      "response_url": "https://helix.ru/center/19973",
+      "http_status": 200,
+      "bytes": 1463882,
+      "sha256": "46735e2ed35c3bd0f5c679fbc51774b6751337f152ac92c45a418fc41dddae73",
+      "path": "/workspace/medical-final-semantic-sources-20261026/helix19973.html",
+      "retrieved_utc": "2026-10-26T13:38:48.397308+00:00"
+    },
+    "read_scope": "Title, branch name/code/address, branch-specific schedule and legalInfo.services embedded in ng-state; not whole website or all medical specialties.",
+    "branch_code": "19973",
+    "branch_name": "ДЦ Царская Столица",
+    "branch_address": "Санкт-Петербург, Кременчугская улица, дом 13, корпус 2",
+    "json_path": "ng-state[940594186].b",
+    "listed_service": "Прием врача-терапевта",
+    "appointment_description": "по записи",
+    "therapist_shifts_all_null": true,
+    "legal_services_short_quote": "при оказании первичной врачебной медико-санитарной помощи в амбулаторных условиях по: организации здравоохранения и общественному здоровью, эпидемиологии; терапии;",
+    "conclusion": "A blanket exclusion of Helix/laboratory-branded points would be wrong: this exact branch declares physician therapy. Actual appointments/capacity/current availability remain unverified."
+  },
+  "residual_source_rule_debt": [
+    {
+      "provider_id": "osm-med:OSM:way:108548965:medical_basic_primary",
+      "issue": "Frozen source retains sole psychiatry specialty and explicitly psychotherapeutic name as proxy, while current health.py explicit_nongeneral_primary_unit/osm_explicit_nongeneral_primary_specialty reject such a general-primary inference.",
+      "selected_outcomes": 0,
+      "other_admitted_physical_general_sites_in_same_np": 6,
+      "positive_independent_official_np_records": 1,
+      "current_L0_choice_or_local_presence_changes_established": false,
+      "classification": "unselected_semantic_source_debt_not_a_demonstrated_current_result_blocker",
+      "resolution": "implemented_general_source_rule_pending_parent_fresh_source_pass"
+    }
+  ],
+  "clinical_truth_checked_for_all_sites": false,
+  "new_demonstrated_selected_function_substitution_blocker_found": false,
+  "http_attempts": [
+    {
+      "key": "helix19973",
+      "url": "https://helix.ru/center/19973",
+      "response_url": "https://helix.ru/center/19973",
+      "http_status": 200,
+      "bytes": 1463882,
+      "sha256": "46735e2ed35c3bd0f5c679fbc51774b6751337f152ac92c45a418fc41dddae73",
+      "path": "/workspace/medical-final-semantic-sources-20261026/helix19973.html",
+      "retrieved_utc": "2026-10-26T13:38:48.397308+00:00"
+    },
+    {
+      "key": "helix20093",
+      "url": "https://helix.ru/center/20093",
+      "response_url": "https://helix.ru/center/20093",
+      "http_status": 404,
+      "bytes": 147927,
+      "sha256": "34327719320175399d7a0fce46c83b48fb53b6dad6bd6baa3ac353a83a99d34c",
+      "path": "/workspace/medical-final-semantic-sources-20261026/helix20093.html",
+      "retrieved_utc": "2026-10-26T13:38:22.971432+00:00"
+    },
+    {
+      "key": "tomograf_lobnya",
+      "url": "https://tomograf-lobnya.ru/",
+      "response_url": "https://tomograf-lobnya.ru/",
+      "http_status": 503,
+      "bytes": 29724,
+      "sha256": "353ebaf762c48031a876dc1fa943cf20b30e2b6356923190d8268ac82a4f14a2",
+      "path": "/workspace/medical-final-semantic-sources-20261026/tomograf_lobnya.html",
+      "retrieved_utc": "2026-10-26T13:38:22.255161+00:00"
+    },
+    {
+      "key": "rpp05",
+      "url": "https://rpp05.ru/",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    }
+  ],
+  "source_scope_patch": {
+    "status": "implemented_and_tested_not_yet_applied_to_frozen_source_files",
+    "code": "scripts/sgrt_zero/medical_need_review.py",
+    "tests": "tests/test_sgrt_zero_medical_need_review.py",
+    "tests_passed": 7,
+    "module_sha256": "a3ccf18b4f555291b52d9d081b39e841bbd2e1258cd255bd25efb263b4c81d14",
+    "new_active_function_rows_held": 2,
+    "new_np_route_eligibility_changes": 0,
+    "raw_source_columns_unchanged": true,
+    "actual_control": "/workspace/medical_scope_patch_actual_control_20261026.json"
+  }
+}
