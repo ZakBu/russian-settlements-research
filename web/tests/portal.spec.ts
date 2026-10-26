@@ -103,3 +103,31 @@ test('current boundaries show native Russian names and the actual source year',a
  await page.screenshot({path:testInfo.outputPath('ishimbay-current-grid.png'),fullPage:true});
  await page.setViewportSize({width:390,height:844});await page.screenshot({path:testInfo.outputPath('ishimbay-current-grid-mobile.png'),fullPage:true});
 });
+
+test('mini maps zoom and pan with readable scale labels without loading the full atlas',async({page},testInfo)=>{
+ const errors:string[]=[],requests:string[]=[];page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>requests.push(r.url()));
+ await page.goto('materials/population-base/');const map=page.locator('[data-mini-map]').first();await map.scrollIntoViewIfNeeded();await expect(map).toHaveClass(/mini-map-ready/);
+ const plus=map.getByRole('button',{name:'Приблизить мини-карту',exact:true});for(let i=0;i<3;i++)await plus.click();await expect(map.locator('.mini-map-labels text').first()).toBeVisible();await expect(map).toHaveAttribute('data-mini-label-level','50000');
+ const font=await map.locator('.mini-map-labels text').first().evaluate(el=>getComputedStyle(el).fontSize);const point=await map.locator('.mini-map-place circle').first().boundingBox();expect(point).not.toBeNull();
+ await page.mouse.dblclick(point!.x+point!.width/2,point!.y+point!.height/2);await expect.poll(async()=>Number(await map.getAttribute('data-mini-zoom'))).toBeGreaterThan(10);
+ await expect.poll(()=>map.locator('.mini-map-labels text').count()).toBeGreaterThan(0);await expect.poll(()=>map.locator('.mini-map-labels text').first().evaluate(el=>getComputedStyle(el).fontSize)).toBe(font);
+ const box=await map.locator('.mini-map-surface').boundingBox();const previous=await map.getAttribute('data-mini-x');await page.mouse.move(box!.x+box!.width/2,box!.y+box!.height/2);await page.mouse.down();await page.mouse.move(box!.x+box!.width/2-90,box!.y+box!.height/2+20,{steps:6});await page.mouse.up();await expect.poll(()=>map.getAttribute('data-mini-x')).not.toBe(previous);
+ const zoom=await map.getAttribute('data-mini-zoom');await page.locator('#theme-toggle').click();await expect(map).toHaveAttribute('data-mini-zoom',zoom!);await map.scrollIntoViewIfNeeded();await map.screenshot({path:testInfo.outputPath('mini-map-dark-zoom.png')});
+ await map.getByRole('button',{name:'Показать всю мини-карту'}).click();await expect(map).toHaveAttribute('data-mini-zoom','1.00');
+ const visible=await map.locator('.mini-map-surface').boundingBox();const before=await page.evaluate(()=>scrollY);await page.mouse.move(visible!.x+visible!.width/2,visible!.y+visible!.height/2);await page.mouse.wheel(0,160);await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(before);await expect(map).toHaveAttribute('data-mini-zoom','1.00');
+ expect(requests.filter(url=>/mini-map-labels-.*\.json/.test(url))).toHaveLength(1);expect(requests.filter(url=>/settlements\.compact|regions-display|districts-display/.test(url))).toHaveLength(0);expect(errors).toEqual([]);
+});
+
+test('multiple mini maps keep independent views and share the small label source',async({page},testInfo)=>{
+ let labels=0;page.on('request',r=>{if(/mini-map-labels-.*\.json/.test(r.url()))labels++});await page.goto('');const maps=page.locator('[data-mini-map]');const hero=maps.nth(0),topic=maps.nth(1);
+ await hero.getByRole('button',{name:'Приблизить мини-карту',exact:true}).click();await expect(hero.locator('.mini-map-labels text').first()).toBeVisible();await expect(topic).toHaveAttribute('data-mini-zoom','1');
+ await topic.getByRole('button',{name:'Приблизить мини-карту',exact:true}).click();await expect(topic.locator('.mini-map-labels text').first()).toBeVisible();await expect(hero).toHaveAttribute('data-mini-zoom','1.80');
+ await topic.getByRole('button',{name:'Показать всю мини-карту'}).click();await expect(topic).toHaveAttribute('data-mini-zoom','1.00');await expect(hero).toHaveAttribute('data-mini-zoom','1.80');expect(labels).toBe(1);
+ const ids=await page.locator('.mini-map-svg [id]').evaluateAll(nodes=>nodes.map(n=>n.id));expect(new Set(ids).size).toBe(ids.length);await hero.screenshot({path:testInfo.outputPath('mini-map-home.png')});
+});
+
+test('mini map supports two-finger zoom on mobile without zooming the page',async({browser,baseURL},testInfo)=>{
+ const context=await browser.newContext({baseURL,viewport:{width:390,height:844},isMobile:true,hasTouch:true});const page=await context.newPage();await page.goto('materials/population-base/');const map=page.locator('[data-mini-map]').first();await map.scrollIntoViewIfNeeded();await expect(map).toHaveClass(/mini-map-ready/);const box=await map.locator('.mini-map-surface').boundingBox();const x=box!.x+box!.width/2,y=box!.y+box!.height/2;const cdp=await context.newCDPSession(page);
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:x-30,y},{x:x+30,y}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:x-65,y},{x:x+65,y}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+ await expect.poll(async()=>Number(await map.getAttribute('data-mini-zoom'))).toBeGreaterThan(1.8);expect(await page.evaluate(()=>visualViewport!.scale)).toBe(1);await expect(map.locator('.mini-map-labels text').first()).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);await map.screenshot({path:testInfo.outputPath('mini-map-mobile-pinch.png')});await context.close();
+});
