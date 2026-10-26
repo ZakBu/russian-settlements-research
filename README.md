@@ -35,6 +35,12 @@
 
 Сайт доступен по адресу [zakbu.github.io/russian-settlements-research](https://zakbu.github.io/russian-settlements-research/). GitHub Pages включён; изменения в main публикуются после проверок. Для PR сохраняется скачиваемый предпросмотр в Actions. Исследовательские агенты добавляют материалы и слои декларативно, сборка проверяет источники и сохраняет научные ограничения.
 
+## Теория, методика и ход исследования
+
+[Путеводитель по исследованию](https://zakbu.github.io/russian-settlements-research/materials/research-guide/) объединяет три главы: [обзор литературы](https://zakbu.github.io/russian-settlements-research/materials/literature-foundations/), [методику](https://zakbu.github.io/russian-settlements-research/materials/research-methodology/) и [результаты с ходом работы](https://zakbu.github.io/russian-settlements-research/materials/research-progress/). В библиографии 117 источников, включая 65 научных статей: для 56 прочитаны содержательные фрагменты первичного текста (две статьи целиком), девять изучены по аннотациям. У каждой работы указаны объём чтения и применение; книги, нормативы и данные учитываются отдельно.
+
+Новый [расчёт согласованности услуг](https://zakbu.github.io/russian-settlements-research/materials/service-destination-agreement/) показывает: у 51 010 из 129 583 проверенных жилых обычных переписных записей три направления ведут в два или три НП. Поэтому переход к общим системам требует проверки межцентровых связей. Сельское хозяйство и сведения о работниках разобраны [отдельно](https://zakbu.github.io/russian-settlements-research/materials/rural-economy-method/); полного числа рабочих мест по каждому НП пока нет.
+
 ## Как начать
 
 **Человеку:** прочитайте этот файл, затем [POPULATION_BASE.md](POPULATION_BASE.md) и [sgrt/README.md](sgrt/README.md).
