@@ -24,7 +24,7 @@ test('documents connect headings, inline maps, disclosures, footnotes and backli
 });
 
 test('wiki mobile navigation, contrast and no-JavaScript reading remain usable',async({page,browser},testInfo)=>{
- await page.setViewportSize({width:390,height:844});await page.goto('knowledge/');const menu=page.locator('.document-library-menu');await expect(menu).not.toHaveAttribute('open');await menu.locator('summary').click();await expect(menu).toHaveAttribute('open','');await menu.locator('summary').click();await page.goto('materials/map-reading-guide/');
+ await page.setViewportSize({width:390,height:844});await page.goto('knowledge/');const menu=page.locator('.document-library-menu');await expect(menu).not.toHaveAttribute('open');await menu.locator(':scope > summary').click();await expect(menu).toHaveAttribute('open','');await menu.locator(':scope > summary').click();await page.goto('materials/map-reading-guide/');
  const toc=page.locator('.document-mobile-toc');await toc.locator('summary').click();await toc.getByRole('link',{name:'Услуги и связи',exact:true}).click();await expect(page.locator('#услуги-и-связи')).toBeInViewport();await page.screenshot({path:testInfo.outputPath('wiki-mobile.png')});
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  for(const dark of [false,true]){if(dark)await page.locator('#theme-toggle').click();const audit=await new AxeBuilder({page}).analyze();expect(audit.violations.filter(v=>['serious','critical'].includes(v.impact||''))).toEqual([])}

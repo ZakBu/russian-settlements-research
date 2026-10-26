@@ -102,6 +102,103 @@ class AuthoringTests(unittest.TestCase):
         fields = {e["field"] for e in site.validate(self.root)}
         self.assertTrue({"id", "same.label", "same.aliases"}.issubset(fields))
 
+    def test_material_hierarchy_accepts_six_levels_without_changing_stable_ids(self):
+        parent = self.material["id"]
+        for depth in range(1, 7):
+            child = dict(self.material, id=f"chapter-{depth}", parentId=parent, order=depth / 2)
+            self.write(f"materials/{child['id']}.json", child)
+            parent = child["id"]
+        self.assertEqual(site.validate(self.root), [])
+        self.assertEqual(site.route(material=parent), site.base_path() + f"materials/{parent}/")
+
+    def test_parent_validation_has_no_recursion_based_depth_limit(self):
+        rows = {"root": {"researchId": "population", "visibility": "published"}}
+        parent = "root"
+        for depth in range(1500):
+            key = f"nested-{depth}"
+            rows[key] = {"researchId": "population", "visibility": "published", "parentId": parent}
+            parent = key
+        self.assertEqual(site.material_hierarchy_errors(rows), [])
+
+    def test_parent_requires_an_existing_material_id_not_a_path(self):
+        for parent in ("missing", "", None, [], {}, "/materials/population-note/", "../population-note"):
+            with self.subTest(parent=parent):
+                child = dict(self.material, id="child", parentId=parent)
+                self.write("materials/child.json", child)
+                self.assertTrue(any(e["field"] == "parentId" for e in site.validate(self.root)))
+
+    def test_parent_self_reference_and_cycles_are_rejected_globally(self):
+        self.material["parentId"] = self.material["id"]
+        self.write("materials/population-note.json", self.material)
+        self.assertTrue(any("own parent" in e["message"] for e in site.validate(self.root)))
+        del self.material["parentId"]
+        self.write("materials/population-note.json", self.material)
+        for key, parent in (("loop-a", "loop-b"), ("loop-b", "loop-c"), ("loop-c", "loop-a")):
+            self.write(f"materials/{key}.json", dict(self.material, id=key, parentId=parent, visibility="draft"))
+        # Restricting the requested material must not hide invalid ancestors elsewhere.
+        errors = site.validate(self.root, material_id="population-note")
+        self.assertEqual({e["file"] for e in errors if "cycle" in e["message"]}, {f"web/content/materials/loop-{letter}.json" for letter in "abc"})
+
+    def test_parent_must_remain_in_the_child_research(self):
+        studies = site.load(self.base / "research.json")
+        studies.append(dict(studies[0], id="other-research", title="Другое исследование"))
+        self.write("research.json", studies)
+        self.write("materials/other-parent.json", dict(self.material, id="other-parent", researchId="other-research"))
+        self.material["parentId"] = "other-parent"
+        self.write("materials/population-note.json", self.material)
+        self.assertTrue(any(e["field"] == "parentId" and "same research" in e["message"] for e in site.validate(self.root)))
+
+    def test_published_path_cannot_pass_through_a_draft_or_archived_parent(self):
+        for visibility in ("draft", "archived"):
+            with self.subTest(visibility=visibility):
+                self.write("materials/hidden-parent.json", dict(self.material, id="hidden-parent", visibility=visibility))
+                self.write("materials/middle.json", dict(self.material, id="middle", parentId="hidden-parent"))
+                self.write("materials/leaf.json", dict(self.material, id="leaf", parentId="middle"))
+                errors = site.validate(self.root, material_id="leaf")
+                self.assertTrue(any(e["file"].endswith("middle.json") and e["field"] == "parentId" and "published parent" in e["message"] for e in errors))
+                # A draft may be prepared below a draft or archive without publication.
+                self.write("materials/middle.json", dict(self.material, id="middle", parentId="hidden-parent", visibility="draft"))
+                self.write("materials/leaf.json", dict(self.material, id="leaf", parentId="middle", visibility="draft"))
+                self.assertEqual(site.validate(self.root), [])
+
+    def test_sibling_order_requires_a_finite_number(self):
+        for order in (None, "1", True, [], float("nan"), float("inf"), -(float("inf")), 10 ** 400):
+            with self.subTest(order=str(order)[:30]):
+                self.material["order"] = order
+                self.write("materials/population-note.json", self.material)
+                self.assertTrue(any(e["field"] == "order" for e in site.validate(self.root)))
+        for order in (0, -1, 1.25):
+            self.material["order"] = order
+            self.write("materials/population-note.json", self.material)
+            self.assertEqual(site.validate(self.root), [])
+
+    def test_cli_parent_and_order_are_preserved_on_identical_retry(self):
+        command = ["--root", str(self.root), "new", "--id", "nested-draft", "--research", "population", "--title", "Глава", "--parent", "population-note", "--order", "2.5"]
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(site.main(command), 0)
+            path = self.base / "materials/nested-draft.json"
+            original = path.read_bytes()
+            self.assertEqual(site.main(command), 0)
+        self.assertEqual(path.read_bytes(), original)
+        child = site.load(path)
+        self.assertEqual((child["parentId"], child["order"], child["visibility"]), ("population-note", 2.5, "draft"))
+        with contextlib.redirect_stderr(io.StringIO()):
+            self.assertEqual(site.main(command[:-1] + ["3"]), 1)
+        self.write("materials/other-parent.json", dict(self.material, id="other-parent"))
+        moved = list(command)
+        moved[moved.index("--parent") + 1] = "other-parent"
+        with contextlib.redirect_stderr(io.StringIO()):
+            self.assertEqual(site.main(moved), 1)
+        self.assertEqual(path.read_bytes(), original)
+        self.assertEqual(site.validate(self.root), [])
+
+    def test_cli_rejects_invalid_parent_or_nonfinite_order_before_writing(self):
+        base = ["--root", str(self.root), "new", "--id", "new-child", "--research", "population", "--title", "Глава"]
+        for options in (["--parent", "missing"], ["--parent", "new-child"], ["--order", "nan"], ["--order", "inf"]):
+            with self.subTest(options=options), contextlib.redirect_stderr(io.StringIO()):
+                self.assertEqual(site.main(base + options), 1)
+                self.assertFalse((self.base / "materials/new-child.json").exists())
+
     def test_missing_unit_has_field_specific_error(self):
         self.visual["unit"] = ""
         self.write("visuals/population-trend.json", self.visual)
