@@ -1,0 +1,50 @@
+name: Publish centre mediation research
+on:
+  push:
+    branches: [codex/ecommerce-settlement-cloud-20261025]
+    paths:
+      - '.github/workflows/ecommerce-dependency-publish.yml'
+permissions:
+  contents: read
+jobs:
+  reproduce-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Install research environment
+        run: python -m pip install -r research/ecommerce_cloud/extension/requirements-report.txt
+      - name: Restore byte-pinned inputs and repeat prior checks
+        run: |
+          python research/ecommerce_cloud/fetch_bundle.py
+          python research/ecommerce_cloud/check_bundle.py
+          python research/ecommerce_cloud/run_checks.py
+      - name: Execute new calculation and independent check in notebook
+        run: python research/ecommerce_cloud/dependency_20261026/build_deliverables.py
+      - name: Package this research without third-party full texts
+        run: python research/ecommerce_cloud/dependency_20261026/package_results.py
+      - name: Publish a new release without replacing an existing one
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TASK_RELEASE_TAG: ecommerce-dependency-20261026-v1
+        run: |
+          if gh release view "$TASK_RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release exists; its files will not be replaced."
+            exit 1
+          fi
+          gh release create "$TASK_RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Посредничество среднего центра: покупки, поездки и логистика" --notes-file research/ecommerce_cloud/dependency_20261026/README.md work/ecommerce_dependency_20261026/release/*
+      - name: Preserve produced artifacts if publication fails
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: centre-mediation-research
+          path: work/ecommerce_dependency_20261026/release/
+          if-no-files-found: warn
+          retention-days: 30
