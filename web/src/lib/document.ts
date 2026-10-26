@@ -4,7 +4,8 @@ import markedFootnote from 'marked-footnote';
 
 export type DocumentHeading = {id:string;text:string;depth:number};
 export type DocumentBlock = {type:'markdown';html:string}|{type:'visual';id:string};
-export type DocumentOptions = {basePath?:string;materialIds?:readonly string[];visualIds?:readonly string[]};
+export type DocumentImage={href:string;src:string;text:string;title?:string|null;html:string};
+export type DocumentOptions = {basePath?:string;materialIds?:readonly string[];visualIds?:readonly string[];citation?:(reference:string,locator?:string)=>string;figureReference?:(id:string)=>string;onVisual?:(id:string)=>unknown;image?:(image:DocumentImage)=>string};
 export type RenderedDocument = {html:string;headings:DocumentHeading[];blocks:DocumentBlock[];visualIds:string[];links:string[];unresolvedLinks:string[]};
 
 const escapeHtml=(value:string)=>value.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
@@ -50,7 +51,8 @@ export function renderDocument(source:string,options:DocumentOptions={}):Rendere
  renderer.image=({href,title,text})=>{
   if(!safeHref(href)||!/^https?:\/\//i.test(href)&&!/^\/(?!\/)/.test(href))return escapeHtml(text);
   const src=href.startsWith('/')&&!href.startsWith(`${base}/`)?path(href):href;
-  return `<img class="document-image" src="${escapeHtml(src)}" alt="${escapeHtml(text)}" loading="lazy" decoding="async"${title?` title="${escapeHtml(title)}"`:''}>`;
+  const html=`<img class="document-image" src="${escapeHtml(src)}" alt="${escapeHtml(text)}" loading="lazy" decoding="async"${title?` title="${escapeHtml(title)}"`:''}>`;
+  return options.image?options.image({href,src,title,text,html}):html;
  };
  renderer.link=function({href,title,tokens}:Tokens.Link){
   const label=this.parser.parseInline(tokens);if(!safeHref(href))return label;
@@ -73,6 +75,10 @@ export function renderDocument(source:string,options:DocumentOptions={}):Rendere
  markdown.use({
   hooks:{processAllTokens(tokens){for(const token of tokens)if(token.type==='documentVisual')topVisuals.add(token);return tokens}},
   extensions:[{
+   name:'documentCitation',level:'inline',start:source=>source.indexOf('[@'),
+   tokenizer(source){const match=/^\[@((?:source:[1-9]\d*|data:[a-z0-9]+(?:-[a-z0-9]+)*|fig:[a-z0-9]+(?:-[a-z0-9]+)*|[A-Za-z][A-Za-z0-9_:-]*))(?:,[ \t]*([^\]\n]+))?\]/.exec(source);if(match)return {type:'documentCitation',raw:match[0],reference:match[1],locator:match[2]||''}},
+   renderer(token){return token.reference.startsWith('fig:')?(options.figureReference?.(token.reference.slice(4))??escapeHtml(token.raw)):(options.citation?.(token.reference,token.locator)??escapeHtml(token.raw))}
+  },{
    name:'documentDetails',level:'block',start:source=>source.indexOf(':::details '),
    tokenizer(source){const container=detailsContainer(source);if(container)return {type:'documentDetails',raw:container.raw,title:container.title,tokens:this.lexer.blockTokens(container.body)}},
    childTokens:['tokens'],
@@ -83,7 +89,7 @@ export function renderDocument(source:string,options:DocumentOptions={}):Rendere
    renderer(token){
     if(!allowedVisuals.has(token.id))return `<p class="document-unresolved">Визуализация недоступна: ${escapeHtml(token.id)}.</p>\n`;
     if(!topVisuals.has(token))return `<p><a href="${escapeHtml(path(`visuals/${token.id}/`))}">Открыть визуализацию →</a></p>\n`;
-    visualIds.add(token.id);return `<div data-document-visual="${token.id}"></div>\n`;
+    visualIds.add(token.id);options.onVisual?.(token.id);return `<div data-document-visual="${token.id}"></div>\n`;
    }
   },{
    name:'documentWikiLink',level:'inline',start:source=>source.indexOf('[['),

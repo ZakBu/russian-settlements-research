@@ -33,3 +33,18 @@
 @media(min-width:1100px) and (max-width:1250px){.document-reading-shell{grid-template-columns:210px minmax(0,700px);column-gap:64px;padding-left:32px;padding-right:32px}}
 @media(max-width:1099px){.document-reading-shell{display:block;max-width:760px;padding:32px 24px 64px}.document-reading-shell>.document-toc-left{display:none}.document-reading-shell .document-mobile-toc{display:block;border-bottom:1px solid var(--line);margin-bottom:28px;padding-bottom:12px}.document-reading-shell .document-mobile-toc summary{display:flex;justify-content:space-between;color:var(--blue);font-size:13px;padding:4px 0 10px;cursor:pointer}.document-reading-shell .document-mobile-toc nav a{display:block;font-size:13px;line-height:1.6;padding:8px 0;color:var(--muted)}.document-reading-shell .document-mobile-toc nav a.toc-subsection{padding-left:16px}.document-reading-shell .document-header{margin-bottom:28px}}
 @media(max-width:760px){.document-reading-shell{padding:24px 16px 40px}}
+/* Meta-GOST: academic relationships and captions, using the atlas type and colour. */
+.document-body .document-citation{font-family:var(--mono);font-size:.85em;white-space:nowrap;text-decoration:none!important;border-bottom:1px solid var(--line);scroll-margin-top:28px}
+.document-bibliography li{scroll-margin-top:28px;font-size:13px;line-height:1.75;padding-left:6px;margin-bottom:18px;overflow-wrap:anywhere}
+.document-bibliography li:target{background:color-mix(in srgb,var(--blue) 7%,transparent);outline:1px solid var(--line);outline-offset:5px}
+.document-body .document-figure-caption{display:block;text-align:center;font-size:14px;line-height:1.5;font-weight:500;color:var(--ink);margin:14px 0 8px;max-width:none}
+.document-body .document-figure-source{display:block;font-size:12px;line-height:1.65;color:var(--muted);margin:0 0 8px;max-width:none;overflow-wrap:anywhere}
+.document-body .document-illustration{display:block;margin:28px 0}.document-illustration .document-image{margin-bottom:12px}
+.document-body .figure-explanation{font-size:12px;line-height:1.65;margin:0 0 12px;max-width:none}
+.document-body .figure-toolbar{margin-bottom:14px}.document-body .figure-toolbar:empty{display:none}
+.document-body .figure-graphic{min-width:0}.document-word-link{color:var(--blue);border-bottom:1px solid var(--blue);padding-bottom:3px}
+/* Restore semantic list markers removed by Tailwind's baseline reset. */
+.document-prose ul,.document-dataset ul{list-style:disc outside}
+.document-prose ol,.document-sources ol{list-style:decimal outside}
+.document-bibliography li::marker{color:var(--blue);font-family:var(--mono);font-size:12px}
+.document-prose li:has(>input[type=checkbox]){list-style:none}
