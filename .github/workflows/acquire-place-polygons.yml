@@ -1,0 +1,48 @@
+name: Preserve frozen settlement-place polygon sources
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: place-polygons-source-20261026
+  cancel-in-progress: false
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_TAG: sgrt-zero-centres-20261026-v2
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Require existing empty draft
+        run: |
+          gh api repos/ZakBu/russian-settlements-research/releases/424116040 > "$RUNNER_TEMP/release.json"
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          release=json.loads((Path(os.environ['RUNNER_TEMP'])/'release.json').read_text())
+          assert release['draft'] and not release['assets']
+          assert release['tag_name']==os.environ['SOURCE_TAG']
+          PY
+      - name: Test pinned byte-range and corruption controls
+        run: python -m unittest discover -s tests -p 'test_sgrt_zero_acquire_geofabrik_places.py'
+      - name: Restore fifty pinned source members, verify and package
+        run: |
+          python scripts/sgrt_zero/acquire_geofabrik_places.py \
+            --provenance references/provenance/geofabrik_place_polygons_20261026.json \
+            --output "$RUNNER_TEMP/place-source" --skip-parquet \
+            --archive "$RUNNER_TEMP/source-places.zip" > "$RUNNER_TEMP/source-acquisition.json"
+      - name: Upload raw sources to draft without publishing results
+        run: gh release upload "$SOURCE_TAG" "$RUNNER_TEMP/source-places.zip" "$RUNNER_TEMP/source-acquisition.json" --repo ZakBu/russian-settlements-research
+      - name: Preserve source-transfer evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: place-source-acquisition-evidence
+          path: ${{ runner.temp }}/source-acquisition.json
+          retention-days: 14
+          if-no-files-found: warn
