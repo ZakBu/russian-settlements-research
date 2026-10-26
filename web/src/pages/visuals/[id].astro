@@ -1,0 +1,8 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Visualization from '../../components/Visualization.astro';
+import {visuals} from '../../lib/content';
+export function getStaticPaths(){return visuals.map(v=>({params:{id:v.id},props:{visual:v}}))}
+const {visual}=Astro.props;
+---
+<Layout title={visual.title}><div class="visual-export"><Visualization visual={visual} exportMode/></div></Layout>

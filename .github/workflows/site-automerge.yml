@@ -1,0 +1,62 @@
+name: Publish validated atlas content
+on:
+  workflow_run:
+    workflows: ['Research atlas']
+    types: [completed]
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+concurrency:
+  group: atlas-content-publisher
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # This step executes trusted workflow code only, never a PR checkout.
+      - name: Merge trusted content-only changes at their checked commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          SITE_TRUSTED_ACTORS: ${{ vars.SITE_TRUSTED_ACTORS }}
+        shell: python
+        run: |
+          import json, os, subprocess
+          from pathlib import Path, PurePosixPath
+          event = json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text())
+          run = event['workflow_run']
+          repo = os.environ['GH_REPO']
+          owner = repo.split('/')[0]
+          trusted = {owner, *(s.strip() for s in os.getenv('SITE_TRUSTED_ACTORS', '').split(',') if s.strip())}
+          def api(path, *arguments):
+              return json.loads(subprocess.check_output(['gh', 'api', path, *arguments], text=True))
+          for attached in run.get('pull_requests', []):
+              number = attached['number']
+              pr = api(f'repos/{repo}/pulls/{number}')
+              if pr['state'] != 'open' or pr['draft'] or pr['base']['ref'] != 'main':
+                  continue
+              if pr['user']['login'] not in trusted or pr['head']['repo']['full_name'] != repo:
+                  continue
+              if pr['head']['sha'] != run['head_sha']:
+                  continue
+              files = []
+              page = 1
+              while True:
+                  batch = api(f'repos/{repo}/pulls/{number}/files?per_page=100&page={page}')
+                  files += batch
+                  if len(batch) < 100:
+                      break
+                  page += 1
+              def content_path(path):
+                  parts = PurePosixPath(path).parts
+                  return len(parts) >= 3 and parts[:2] == ('web', 'content') and path.endswith('.json') and '..' not in parts
+              if not files or not all(content_path(f['filename']) and (not f.get('previous_filename') or content_path(f['previous_filename'])) for f in files):
+                  continue
+              result = api(f'repos/{repo}/pulls/{number}/merge', '--method', 'PUT', '-f', 'merge_method=squash', '-f', 'sha=' + pr['head']['sha'])
+              if result.get('merged'):
+                  print(f'Merged validated content PR #{number}')
+                  # Token-created merges do not trigger push workflows: dispatch explicitly.
+                  subprocess.run(['gh', 'workflow', 'run', 'site-ci.yml', '--repo', repo, '--ref', 'main'], check=True)
