@@ -1,0 +1,558 @@
+{
+  "schema": "sgrt.geofabrik_places_source.v1",
+  "source": "Geofabrik OpenStreetMap free places_a shapefiles",
+  "retrieved_moscow": "2026-10-26",
+  "snapshot_semantics": "HTTP archive Last-Modified; not individual OSM object timestamp or institution operation date",
+  "upstream_urls_are_mutable": "Runtime uses pinned ETag/If-Match, member CRC and SHA; changed upstream fails. Frozen raw members can instead be restored from our immutable source release.",
+  "license": "OpenStreetMap contributors, ODbL 1.0",
+  "license_url": "https://www.openstreetmap.org/copyright",
+  "aliases": {
+    "city": "OSM place=city",
+    "town": "OSM place=town",
+    "village": "OSM place=village",
+    "hamlet": "OSM place=hamlet",
+    "not_census_type_or_hierarchy": "OSM classes are not population-derived ranks; match to unchanged census reference separately"
+  },
+  "format_read_scope": {
+    "url": "https://download.geofabrik.de/osm-data-in-gis-formats-free.pdf",
+    "sha256": "ea7995f1d70dc30903a7e0302b4e76c83ed58255e0fb5bb245fcd42392d6414f",
+    "sections_read": [
+      "2.8 Points and Areas",
+      "4.1 Places",
+      "7.1 Associated Area Layer"
+    ],
+    "finding": "_a contains source OSM area geometry, not generated buffers. places classes are separate from adminareas; no legal-boundary claim."
+  },
+  "shards": [
+    {
+      "shard": "central-fed-district",
+      "url": "https://download.geofabrik.de/russia/central-fed-district-latest-free.shp.zip",
+      "http_etag": "\"62f6761f-65eb56b766f43\"",
+      "http_last_modified": "Mon, 26 Oct 2026 02:52:25 GMT",
+      "snapshot": "2026-10-26T02:52:25+00:00",
+      "selected_range": [
+        1079138039,
+        1109231749
+      ],
+      "members": [
+        {
+          "name": "gis_osm_places_a_free_1.cpg",
+          "compressed": 6,
+          "raw": 6,
+          "crc": 1504892507,
+          "offset": 1079138039,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.dbf",
+          "compressed": 623468,
+          "raw": 7413379,
+          "crc": 501224269,
+          "offset": 1079138130,
+          "sha256": "026dd7e501fbd4cf7dc9f7297df83874b27b672146c6240231a502dc1b6d6aae"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.prj",
+          "compressed": 122,
+          "raw": 144,
+          "crc": 197059728,
+          "offset": 1079761683,
+          "sha256": "ffc9162903c37f0867d1e7f36c20036a165f7aa555dda24c1ae0ee4328d2977f"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shp",
+          "compressed": 29254758,
+          "raw": 42400592,
+          "crc": 979321905,
+          "offset": 1079761890,
+          "sha256": "7262c7ceb57cb270c6421df6e1cb7600e104e5ae7702d0f41394ed6b2272cd8e"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shx",
+          "compressed": 214816,
+          "raw": 382716,
+          "crc": 3689621640,
+          "offset": 1109016733,
+          "sha256": "20da1ea5790bbce4298883149ab56feb9dc4b0542aa6525710c8a299e2f5dec5"
+        }
+      ]
+    },
+    {
+      "shard": "crimean-fed-district",
+      "url": "https://download.geofabrik.de/russia/crimean-fed-district-latest-free.shp.zip",
+      "http_etag": "\"44858b0-65eb3e35eaeb6\"",
+      "http_last_modified": "Mon, 26 Oct 2026 01:02:47 GMT",
+      "snapshot": "2026-10-26T01:02:47+00:00",
+      "selected_range": [
+        44519064,
+        45120091
+      ],
+      "members": [
+        {
+          "name": "gis_osm_places_a_free_1.cpg",
+          "compressed": 6,
+          "raw": 6,
+          "crc": 1504892507,
+          "offset": 44519064,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.dbf",
+          "compressed": 15539,
+          "raw": 180924,
+          "crc": 67161210,
+          "offset": 44519155,
+          "sha256": "aafe29d68c59f06be1df4bcc6e13205345ba132157f58d91da8bd504f8173641"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.prj",
+          "compressed": 122,
+          "raw": 144,
+          "crc": 197059728,
+          "offset": 44534779,
+          "sha256": "ffc9162903c37f0867d1e7f36c20036a165f7aa555dda24c1ae0ee4328d2977f"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shp",
+          "compressed": 579977,
+          "raw": 835344,
+          "crc": 674612139,
+          "offset": 44534986,
+          "sha256": "c9384d944dc3fd4906d6bbd908e434b9a3452eab24aa56b0124509917021b811"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shx",
+          "compressed": 4843,
+          "raw": 9428,
+          "crc": 1035709223,
+          "offset": 45115048,
+          "sha256": "e14d6da3e9361d60873484da7f8249642ea2d20d42dc061c39425be81838923c"
+        }
+      ]
+    },
+    {
+      "shard": "far-eastern-fed-district",
+      "url": "https://download.geofabrik.de/russia/far-eastern-fed-district-latest-free.shp.zip",
+      "http_etag": "\"31aba236-65eb5f8efdf74\"",
+      "http_last_modified": "Mon, 26 Oct 2026 03:31:58 GMT",
+      "snapshot": "2026-10-26T03:31:58+00:00",
+      "selected_range": [
+        319153338,
+        330934561
+      ],
+      "members": [
+        {
+          "name": "gis_osm_places_a_free_1.cpg",
+          "compressed": 6,
+          "raw": 6,
+          "crc": 1504892507,
+          "offset": 319153338,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.dbf",
+          "compressed": 74058,
+          "raw": 764034,
+          "crc": 1197312145,
+          "offset": 319153429,
+          "sha256": "de5f67ef824b7e79ec3d512f82bbcf9f2ac172e434d0d5bc7c069269eef560ce"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.prj",
+          "compressed": 122,
+          "raw": 144,
+          "crc": 197059728,
+          "offset": 319227572,
+          "sha256": "ffc9162903c37f0867d1e7f36c20036a165f7aa555dda24c1ae0ee4328d2977f"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shp",
+          "compressed": 11681887,
+          "raw": 16312964,
+          "crc": 3684249215,
+          "offset": 319227779,
+          "sha256": "063c26488e6f0875baf6cddad8eddcb54e119783522201899c96f533ec99dba4"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shx",
+          "compressed": 24610,
+          "raw": 39524,
+          "crc": 2089731930,
+          "offset": 330909751,
+          "sha256": "d664cc1b95a8d15f3b8ce8a207985b542bd85951f2d61953267bbb3487945e40"
+        }
+      ]
+    },
+    {
+      "shard": "kaliningrad",
+      "url": "https://download.geofabrik.de/russia/kaliningrad-latest-free.shp.zip",
+      "http_etag": "\"36b8540-65eb4deab7470\"",
+      "http_last_modified": "Mon, 26 Oct 2026 02:13:03 GMT",
+      "snapshot": "2026-10-26T02:13:03+00:00",
+      "selected_range": [
+        39028999,
+        40215661
+      ],
+      "members": [
+        {
+          "name": "gis_osm_places_a_free_1.cpg",
+          "compressed": 6,
+          "raw": 6,
+          "crc": 1504892507,
+          "offset": 39028999,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.dbf",
+          "compressed": 11589,
+          "raw": 124969,
+          "crc": 3434368390,
+          "offset": 39029090,
+          "sha256": "1ac7c29be4cb83afb5dcaa6ed38455bf5b7d96e1eb6c6eab9a44baba072bbec3"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.prj",
+          "compressed": 122,
+          "raw": 144,
+          "crc": 197059728,
+          "offset": 39040764,
+          "sha256": "ffc9162903c37f0867d1e7f36c20036a165f7aa555dda24c1ae0ee4328d2977f"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shp",
+          "compressed": 1170160,
+          "raw": 1634112,
+          "crc": 3648052045,
+          "offset": 39040971,
+          "sha256": "7d60698ce531e81ae16bf1821e6f363a4dbd36c445d4124b97af2719c3fa5403"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shx",
+          "compressed": 4245,
+          "raw": 6540,
+          "crc": 2699848029,
+          "offset": 40211216,
+          "sha256": "f358d7fe21edab418c291ffa9d4856a08750cf8621240891a55779d447f036f4"
+        }
+      ]
+    },
+    {
+      "shard": "north-caucasus-fed-district",
+      "url": "https://download.geofabrik.de/russia/north-caucasus-fed-district-latest-free.shp.zip",
+      "http_etag": "\"10db3b68-65eb3a9d993c8\"",
+      "http_last_modified": "Mon, 26 Oct 2026 00:46:42 GMT",
+      "snapshot": "2026-10-26T00:46:42+00:00",
+      "selected_range": [
+        210782039,
+        212879190
+      ],
+      "members": [
+        {
+          "name": "gis_osm_places_a_free_1.cpg",
+          "compressed": 6,
+          "raw": 6,
+          "crc": 1504892507,
+          "offset": 210782039,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.dbf",
+          "compressed": 51464,
+          "raw": 514794,
+          "crc": 741855484,
+          "offset": 210782130,
+          "sha256": "240421d25e740d06f4cc28d3023ee26f58a2a2a7642d8df775e01529248e6449"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.prj",
+          "compressed": 122,
+          "raw": 144,
+          "crc": 197059728,
+          "offset": 210833679,
+          "sha256": "ffc9162903c37f0867d1e7f36c20036a165f7aa555dda24c1ae0ee4328d2977f"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shp",
+          "compressed": 2030090,
+          "raw": 2873504,
+          "crc": 909764628,
+          "offset": 210833886,
+          "sha256": "d8fe73c219966ece23910a469abc0405eade14be1289450cffc3c0db35a71679"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shx",
+          "compressed": 14929,
+          "raw": 26660,
+          "crc": 3354631755,
+          "offset": 212864061,
+          "sha256": "add29bfcc5100c2ace46770571420f267447be798c129762138031f88a111c06"
+        }
+      ]
+    },
+    {
+      "shard": "northwestern-fed-district",
+      "url": "https://download.geofabrik.de/russia/northwestern-fed-district-latest-free.shp.zip",
+      "http_etag": "\"5316ce66-65eb38d083d3e\"",
+      "http_last_modified": "Mon, 26 Oct 2026 00:38:38 GMT",
+      "snapshot": "2026-10-26T00:38:38+00:00",
+      "selected_range": [
+        709454821,
+        727743526
+      ],
+      "members": [
+        {
+          "name": "gis_osm_places_a_free_1.cpg",
+          "compressed": 6,
+          "raw": 6,
+          "crc": 1504892507,
+          "offset": 709454821,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.dbf",
+          "compressed": 265420,
+          "raw": 2965654,
+          "crc": 1792519051,
+          "offset": 709454912,
+          "sha256": "23823d9ecdf9d6f3d65782c42b5b53b778cb17347053f8921d63345baea4a611"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.prj",
+          "compressed": 122,
+          "raw": 144,
+          "crc": 197059728,
+          "offset": 709720417,
+          "sha256": "ffc9162903c37f0867d1e7f36c20036a165f7aa555dda24c1ae0ee4328d2977f"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shp",
+          "compressed": 17936438,
+          "raw": 25283164,
+          "crc": 1738314124,
+          "offset": 709720624,
+          "sha256": "8d9c909337498df06614504992450ca92c4f22511b181207acdb688e120deb2f"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shx",
+          "compressed": 86179,
+          "raw": 153156,
+          "crc": 857560066,
+          "offset": 727657147,
+          "sha256": "8bd546173d18a04e86aed68ea0994d64b6594af337ba25e88d455aed5868df2a"
+        }
+      ]
+    },
+    {
+      "shard": "siberian-fed-district",
+      "url": "https://download.geofabrik.de/russia/siberian-fed-district-latest-free.shp.zip",
+      "http_etag": "\"5366494a-65eb5735c9e56\"",
+      "http_last_modified": "Mon, 26 Oct 2026 02:54:37 GMT",
+      "snapshot": "2026-10-26T02:54:37+00:00",
+      "selected_range": [
+        793334901,
+        806381599
+      ],
+      "members": [
+        {
+          "name": "gis_osm_places_a_free_1.cpg",
+          "compressed": 6,
+          "raw": 6,
+          "crc": 1504892507,
+          "offset": 793334901,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.dbf",
+          "compressed": 179060,
+          "raw": 1878329,
+          "crc": 1272277380,
+          "offset": 793334992,
+          "sha256": "cd048ed5de96e93cbbba141c97c9d315db3ac6e6b0dff1ccac51ffc32017f6cf"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.prj",
+          "compressed": 122,
+          "raw": 144,
+          "crc": 197059728,
+          "offset": 793514137,
+          "sha256": "ffc9162903c37f0867d1e7f36c20036a165f7aa555dda24c1ae0ee4328d2977f"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shp",
+          "compressed": 12809496,
+          "raw": 17931412,
+          "crc": 3802838396,
+          "offset": 793514344,
+          "sha256": "ff98cd7aba8472de12cb395763064e90593df3f1785369bcf2ee7d9167ee899c"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shx",
+          "compressed": 57474,
+          "raw": 97036,
+          "crc": 1025484276,
+          "offset": 806323925,
+          "sha256": "f386b0534632f643afc006081c236e96a2940e34cad829ddea0c86af39ce13ad"
+        }
+      ]
+    },
+    {
+      "shard": "south-fed-district",
+      "url": "https://download.geofabrik.de/russia/south-fed-district-latest-free.shp.zip",
+      "http_etag": "\"25fee218-65eb427cd6746\"",
+      "http_last_modified": "Mon, 26 Oct 2026 01:21:55 GMT",
+      "snapshot": "2026-10-26T01:21:55+00:00",
+      "selected_range": [
+        416889301,
+        424615055
+      ],
+      "members": [
+        {
+          "name": "gis_osm_places_a_free_1.cpg",
+          "compressed": 6,
+          "raw": 6,
+          "crc": 1504892507,
+          "offset": 416889301,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.dbf",
+          "compressed": 103126,
+          "raw": 1025054,
+          "crc": 1450549154,
+          "offset": 416889392,
+          "sha256": "0913c7d2d08386b52cc3ae09baca58a5d5a242946faf24bee468c65e37a6de46"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.prj",
+          "compressed": 122,
+          "raw": 144,
+          "crc": 197059728,
+          "offset": 416992603,
+          "sha256": "ffc9162903c37f0867d1e7f36c20036a165f7aa555dda24c1ae0ee4328d2977f"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shp",
+          "compressed": 7589442,
+          "raw": 10542060,
+          "crc": 1004376250,
+          "offset": 416992810,
+          "sha256": "6bb1ef97af083d15843d34a8984ce7f0bda240c87267202d2490db061067daca"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shx",
+          "compressed": 32518,
+          "raw": 52996,
+          "crc": 2864723034,
+          "offset": 424582337,
+          "sha256": "f6b46a54109968a4e030406908b697cd17d1d0821e47d03d88905ef2547c3f85"
+        }
+      ]
+    },
+    {
+      "shard": "ural-fed-district",
+      "url": "https://download.geofabrik.de/russia/ural-fed-district-latest-free.shp.zip",
+      "http_etag": "\"300ab11b-65eb414c205b0\"",
+      "http_last_modified": "Mon, 26 Oct 2026 01:16:35 GMT",
+      "snapshot": "2026-10-26T01:16:35+00:00",
+      "selected_range": [
+        411884136,
+        416080728
+      ],
+      "members": [
+        {
+          "name": "gis_osm_places_a_free_1.cpg",
+          "compressed": 6,
+          "raw": 6,
+          "crc": 1504892507,
+          "offset": 411884136,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.dbf",
+          "compressed": 92683,
+          "raw": 1001649,
+          "crc": 4223412432,
+          "offset": 411884227,
+          "sha256": "a726e56c8ad792b8471b953ae051f3303d9ba5424e923a2335c912ebace24fd0"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.prj",
+          "compressed": 122,
+          "raw": 144,
+          "crc": 197059728,
+          "offset": 411976995,
+          "sha256": "ffc9162903c37f0867d1e7f36c20036a165f7aa555dda24c1ae0ee4328d2977f"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shp",
+          "compressed": 4074542,
+          "raw": 5755068,
+          "crc": 2831365777,
+          "offset": 411977202,
+          "sha256": "aa75b15a37a1f80f64a8334eb0b2c00a6be66c32ea869b7fbd6a6e01f20ea66a"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shx",
+          "compressed": 28699,
+          "raw": 51788,
+          "crc": 2192190489,
+          "offset": 416051829,
+          "sha256": "1bdda4a8a3a7b8658c7414cb9f59d93ff82ccb0ac4710351d2b953d9a8b7cc09"
+        }
+      ]
+    },
+    {
+      "shard": "volga-fed-district",
+      "url": "https://download.geofabrik.de/russia/volga-fed-district-latest-free.shp.zip",
+      "http_etag": "\"62f43d50-65eb50e3501c3\"",
+      "http_last_modified": "Mon, 26 Oct 2026 02:26:20 GMT",
+      "snapshot": "2026-10-26T02:26:20+00:00",
+      "selected_range": [
+        1151397821,
+        1169208642
+      ],
+      "members": [
+        {
+          "name": "gis_osm_places_a_free_1.cpg",
+          "compressed": 6,
+          "raw": 6,
+          "crc": 1504892507,
+          "offset": 1151397821,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.dbf",
+          "compressed": 477981,
+          "raw": 5261514,
+          "crc": 188582636,
+          "offset": 1151397912,
+          "sha256": "5c2a0e307d4d242a8740b2f97cfada0ff16975d85ee63db4b1b1166aa7c24776"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.prj",
+          "compressed": 122,
+          "raw": 144,
+          "crc": 197059728,
+          "offset": 1151875978,
+          "sha256": "ffc9162903c37f0867d1e7f36c20036a165f7aa555dda24c1ae0ee4328d2977f"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shp",
+          "compressed": 17182489,
+          "raw": 24484452,
+          "crc": 2805445463,
+          "offset": 1151876185,
+          "sha256": "67cf52e786784233cc47b285521e9025cf080d9ae128835e30d0d20a13800fd3"
+        },
+        {
+          "name": "gis_osm_places_a_free_1.shx",
+          "compressed": 149683,
+          "raw": 271652,
+          "crc": 3317969972,
+          "offset": 1169058759,
+          "sha256": "6b4005a18f91f52379fbe0a2e04f90ad4faa3f448f0e2fefe1643ec13f64df01"
+        }
+      ]
+    }
+  ]
+}
