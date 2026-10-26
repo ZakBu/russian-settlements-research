@@ -48,10 +48,20 @@ test('graph exposes real directed references and an accessible local neighbourho
   else if(edge.type==='supersedes')expect(original.supersedes).toBe(edge.target);
   else throw new Error('Unexpected generated relation: '+edge.type);
  }
- await graph.getByRole('combobox',{name:'Документ для локального графа'}).selectOption('population-base');
- await expect(graph.locator('[data-graph-links]>li')).toHaveCount(1);await expect(graph.locator('[data-graph-status]')).toContainText('Явных связей: 0');
- await graph.locator('[data-graph-links]>li>button').click();await expect(graph.locator('[data-graph-preview]')).toContainText('Три переписи в одной связанной базе');await expect(graph.getByRole('link',{name:'Открыть материал →'})).toHaveAttribute('href',/materials\/population-base\//);
- await graph.getByRole('combobox',{name:'Документ для локального графа'}).selectOption('map-reading-guide');await expect(graph.locator('[data-graph-links]>li')).toHaveCount(3);await expect(graph.locator('[data-graph-status]')).toContainText('Явных связей: 3');
+ // New articles may legitimately add incoming links to either document.
+ // Check the one-hop neighbourhood against the source-backed relations above.
+ async function checkNeighbourhood(id:string){
+  const incident=data.edges.filter((e:{source:string;target:string})=>e.source===id||e.target===id);
+  const neighbours=new Set<string>([id,...incident.flatMap((e:{source:string;target:string})=>[e.source,e.target])]);
+  const expectedTitles=data.rows.filter((r:{id:string;title:string})=>neighbours.has(r.id)).map((r:{title:string})=>r.title).sort();
+  const relationCount=data.edges.filter((e:{source:string;target:string})=>neighbours.has(e.source)&&neighbours.has(e.target)).length;
+  await graph.getByRole('combobox',{name:'Документ для локального графа'}).selectOption(id);
+  await expect.poll(async()=>(await graph.locator('[data-graph-links]>li>button').allTextContents()).sort()).toEqual(expectedTitles);
+  await expect(graph.locator('[data-graph-status]')).toContainText(`Явных связей: ${relationCount}`);
+ }
+ await checkNeighbourhood('population-base');
+ await graph.getByRole('button',{name:'Три переписи в одной связанной базе',exact:true}).click();await expect(graph.locator('[data-graph-preview]')).toContainText('Три переписи в одной связанной базе');await expect(graph.getByRole('link',{name:'Открыть материал →'})).toHaveAttribute('href',/materials\/population-base\//);
+ await checkNeighbourhood('map-reading-guide');
  await expect(graph.locator('[data-graph-canvas] svg')).toBeVisible();expect(errors).toEqual([]);
 });
 
