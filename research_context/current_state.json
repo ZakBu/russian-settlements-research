@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-26T01:48:18+03:00",
+  "updated_moscow": "2026-10-26T10:57:31+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,11 +9,11 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "corrected_national_routing_and_direct_centre_stars_strict_model_subset_not_complete_sgrt",
-      "summary": "После исправления учреждений пересчитаны десять слоёв направлений. Новый способ сохраняет центры и прямое окружение, а не равные сервисные профили. Строгий модельный поднабор: 197 центров и 528 внешних жилых поселений, медианный диаметр 5,59 км. Полное районирование СГРТ и наблюдённые поездки не установлены.",
+      "status": "national_model_reproduced_but_incomplete_np_identity_and_overrestrictive_count_definition",
+      "summary": "Воспроизведённый расчёт сохраняется, но 197 — узкий поднабор, не число всех низовых систем. В данных 978 допустимых центров с тремя местными функциями, 804 имеют внешних участников хотя бы по одной; 197 требуют совпадения всех трёх направлений у одного участника. Привязка школ и магазинов неполна; найден пропуск использования полного названия Питерской школы.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
-      "main_blocker": "Нужно расширить точную НП-принадлежность школ и магазинов, школьные ступени и документированные направления; затем обосновать многоцентровые сочетания функций без слияния цепочек на половину области. Совпадение трёх услуг не требуется от всех реальных систем.",
+      "main_blocker": "Исправить привязку учреждений к НП по явным полным названиям, официальным адресам и проверяемым границам. Школьная функция записана только у 615 из 2249 допустимых положительных городских/пгт-записей. Не назначать ближайший НП без достаточного свидетельства. Разделить полный набор в центре и совпадение всех направлений.",
       "workplan": "sgrt/workplan/README.md",
       "results": "sgrt/zero/CENTRE_SYSTEMS_20261025.md",
       "data_release": "sgrt-zero-centre-systems-20261025-v1",
@@ -481,7 +481,26 @@
           "snapshot": "research_context/analysis_snapshots/zero_centre_programme_correction_20261026.json"
         },
         "tests_passed": 388,
-        "catalog": "data/centre_catalog_20261025.json"
+        "catalog": "data/centre_catalog_20261025.json",
+        "count_audit": {
+          "doc": "sgrt/zero/COUNT_AUDIT_20261026.md",
+          "snapshot": "research_context/analysis_snapshots/zero_centre_count_audit_20261026.json",
+          "counts": {
+            "all_origin_records": 153803,
+            "locally_recorded_school_origins": 2418,
+            "locally_recorded_medical_origins": 36856,
+            "locally_recorded_grocery_origins": 5103,
+            "all_three_locally_recorded_before_grain_screen": 986,
+            "all_three_valid_positive_whole_centres": 978,
+            "full_centres_with_any_external_core_participant": 804,
+            "full_centres_without_external_core_participant": 174,
+            "full_centres_with_external_same_three_core_participant": 197,
+            "full_centres_with_external_but_no_same_three_participant": 607
+          },
+          "concrete_identity_extraction_omission": "Piterka school official_name includes settlement/district/region but source_record_id remains unknown",
+          "identity_and_routes_corrected_by_this_audit": false,
+          "scientific_system_count_established": false
+        }
       },
       "profile_control_publication": {
         "status": "published_public_download_and_frozen_code_compact_repeat_verified",
@@ -523,6 +542,7 @@
     }
   },
   "next_steps": [
+    "Исправить пропущенные явные местности в полных названиях и официальных адресах учреждений (контрпример: Питерская школа). Повторить предложение и направления, отдельно считать полный набор в центре и совпадение всех внешних направлений; 197 и 804 не объявлять итоговым числом СГРТ.",
     "Расширить документированную НП-принадлежность школьных и торговых площадок и школьные ступени. В опубликованном поднаборе 191 из 197 групп имеют неизвестную ступень хотя бы одной школы; неизвестное не превращать в отсутствие функции.",
     "Проверить полицентричные сочетания основных услуг на документированных примерах. Не требовать совпадения трёх услуг от каждой реальной системы и не склеивать регион цепочкой пересечений.",
     "Разобрать широкие однофункциональные окружения и неучтённые местные альтернативы: 228 из 21 630 центров имеют диаметр больше 30 км. Проверять дорожные компоненты, координаты и реальную пригодность услуг.",

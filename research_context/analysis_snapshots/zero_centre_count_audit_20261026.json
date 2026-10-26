@@ -1,0 +1,92 @@
+{
+  "scope": "recorded NP identity and membership criterion; not a true national system count",
+  "counts": {
+    "all_origin_records": 153803,
+    "locally_recorded_school_origins": 2418,
+    "locally_recorded_medical_origins": 36856,
+    "locally_recorded_grocery_origins": 5103,
+    "all_three_locally_recorded_before_grain_screen": 986,
+    "all_three_valid_positive_whole_centres": 978,
+    "full_centres_with_any_external_core_participant": 804,
+    "full_centres_without_external_core_participant": 174,
+    "full_centres_with_external_same_three_core_participant": 197,
+    "full_centres_with_external_but_no_same_three_participant": 607
+  },
+  "urban_coverage": [
+    {
+      "scope": "city_source_records",
+      "origin_records": 1117,
+      "school": 471,
+      "medical_basic": 1036,
+      "grocery": 1019,
+      "full_three": 434
+    },
+    {
+      "scope": "pgt_source_records",
+      "origin_records": 1212,
+      "school": 155,
+      "medical_basic": 718,
+      "grocery": 666,
+      "full_three": 73
+    },
+    {
+      "scope": "city_and_pgt_source_records",
+      "origin_records": 2329,
+      "school": 626,
+      "medical_basic": 1754,
+      "grocery": 1685,
+      "full_three": 507
+    },
+    {
+      "scope": "valid_positive_whole_city_and_pgt_records",
+      "origin_records": 2249,
+      "school": 615,
+      "medical_basic": 1709,
+      "grocery": 1674,
+      "full_three": 501
+    },
+    {
+      "scope": "valid_positive_whole_urban_under50000",
+      "origin_records": 1934,
+      "school": 416,
+      "medical_basic": 1399,
+      "grocery": 1369,
+      "full_three": 306
+    }
+  ],
+  "admitted_identity_coverage": [
+    {
+      "family": "grocery",
+      "origin_records": 153803,
+      "admitted_links": 103081,
+      "known_provider_np_links": 22767,
+      "unknown_provider_np_links": 80314,
+      "known_provider_np_count": 5103
+    },
+    {
+      "family": "medical_basic",
+      "origin_records": 153803,
+      "admitted_links": 146405,
+      "known_provider_np_links": 135063,
+      "unknown_provider_np_links": 11342,
+      "known_provider_np_count": 36856
+    },
+    {
+      "family": "school",
+      "origin_records": 153803,
+      "admitted_links": 125558,
+      "known_provider_np_links": 15930,
+      "unknown_provider_np_links": 109628,
+      "known_provider_np_count": 2418
+    }
+  ],
+  "false_local_flag_does_not_prove_no_institution": true,
+  "expected_2000_3000_not_used_as_target": true,
+  "inputs_sha256": {
+    "daily_edges.parquet": "c7ddb991b6622bed56d7394562d2cce7c63c2b62eff24fb107256799eca67e42",
+    "centre_stars.parquet": "e775614aec374fd2e9afa6e850653781a4bb0ad179ee20a0f9ab181fd99a1a20",
+    "analysis_reference.parquet": "456a0fd57c363cd7ade3563c5737634dd34ebda585569fc80bec160e4cc55e90"
+  },
+  "published_archive_manifest_checked": "sgrt-zero-centre-systems-20261025-v1/manifest.json",
+  "local_daily_edges_and_centre_stars_byte_identical_to_published_members": true
+}
