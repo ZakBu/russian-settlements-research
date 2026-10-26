@@ -16,7 +16,7 @@ def test_missing_year_preserves_partial_sum_but_blocks_whole_direction():
     a, b = record('a', 10, 20), record('b', None, 30)
     x = analyse_component([a, b], 2002)
     assert not x['complete'] and x['direction'] == 'unknown'
-    assert x['start_observed_known_sum'] == 10 and x['end_observed_known_sum'] == 50
+    assert x['start_mode_eligible_known_sum'] == 10 and x['end_mode_eligible_known_sum'] == 50
     assert x['comparable_records'] == 1
     assert 'missing_or_invalid_population_2002' in x['unknown_reasons_json']
 
@@ -25,7 +25,7 @@ def test_secondary_protected_2010_not_observed_despite_numeric_value():
     r = record('a', 100, 150)
     r['population_value_quality_2010'] = 'secondary_confidentiality_protected_value_exact_scope_unverified'
     x = analyse_component([r], 2010)
-    assert x['direction'] == 'unknown' and x['start_observed_known_sum'] is None
+    assert x['direction'] == 'unknown' and x['start_mode_eligible_known_sum'] is None
     assert x['start_accepted_credited_numeric_sum'] == 100
     assert analyse_component([r], 2002)['direction'] == 'growth'
     assert 'scope_unverified_2010' in x['unknown_reasons_json']
@@ -48,8 +48,21 @@ def test_uncredited_member_blocks_whole_without_double_counting():
     a, b = record('a', 10, 20), record('b', 100, 200)
     b['credit_2002'] = False
     x = analyse_component([a, b], 2002)
-    assert x['direction'] == 'unknown' and x['start_observed_known_sum'] == 10
+    assert x['direction'] == 'unknown' and x['start_mode_eligible_known_sum'] == 10
     b['credit_2002'] = True
     b['budget_population_credit'] = False
     x = analyse_component([a, b], 2002)
-    assert x['end_observed_known_sum'] == 20 and x['comparable_records'] == 1
+    assert x['end_mode_eligible_known_sum'] == 20 and x['comparable_records'] == 1
+
+
+def test_accepted_values_never_label_secondary_numbers_as_observed():
+    r = record('secondary2010', 623, 534)
+    r['population_value_quality_2010'] = 'secondary_confidentiality_protected_value_exact_scope_unverified'
+    accepted = analyse_component([r], 2010, evidence_mode='accepted_values')
+    strict = analyse_component([r], 2010)
+    assert accepted['start_mode_eligible_known_sum'] == 623
+    assert accepted['start_mode_eligible_known_records'] == 1
+    assert accepted['direction'] == 'decline'
+    assert strict['start_mode_eligible_known_sum'] is None
+    for result in [accepted, strict]:
+        assert not any('observed_known' in key for key in result)

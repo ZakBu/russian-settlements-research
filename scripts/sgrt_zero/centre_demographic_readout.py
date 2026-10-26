@@ -64,8 +64,8 @@ def analyse_component(records, start, end=2021, unknown_type_count=0, evidence_m
         known = [r[f'population_{year}'] for r in records if not reasons(r, year, evidence_mode)]
         accepted = [r[f'population_{year}'] for r in records if numeric(r, year)
                     and true(r.get(f'credit_{year}')) and true(r.get('budget_population_credit'))]
-        result[f'{label}_observed_known_records'] = len(known)
-        result[f'{label}_observed_known_sum'] = sum(known) if known else None
+        result[f'{label}_mode_eligible_known_records'] = len(known)
+        result[f'{label}_mode_eligible_known_sum'] = sum(known) if known else None
         result[f'{label}_accepted_credited_numeric_sum'] = sum(accepted) if accepted else None
         result[f'{label}_paired_cohort_sum'] = sum(r[f'population_{year}'] for r in cohort) if cohort else None
     direction = 'unknown'
