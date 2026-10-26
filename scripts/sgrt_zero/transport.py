@@ -22,7 +22,13 @@ sys.path.insert(0,str(REPO/'scripts/sgrt_mass'))
 from routes import load_graph, nearest_for_sites, safe_name, sha256
 from site_geometry import read_verified_roads, snap_points
 
-META=['location_precision','evidence_quality','evidence_kind','source_id','source_year',
+META=['identity_evidence_tier','cartographic_identity_status','cartographic_source_dataset',
+      'cartographic_source_feature_id','cartographic_source_snapshot','cartographic_currency',
+      'cartographic_raw_geometry_sha256','cartographic_geometry_identity_resolution',
+      'cartographic_nested_mask_census_ids_json','cartographic_coordinate_hold_census_ids_json',
+      'cartographic_original_other_positive_census_places',
+      'cartographic_source_wof_id',
+      'cartographic_source_repository_commit','location_precision','evidence_quality','evidence_kind','source_id','source_year',
       'source_snapshot','supply_status','np_identity_basis','default_external_seed_eligible',
       'source_input','source_object_id','operator','provider_name','source_service_code','source_pool',
       'source_population_role','historical_supply_needs_current_confirmation','actual_operational_status_checked',
@@ -147,7 +153,7 @@ def attach_road_seeds(providers,roads,*,mapped_max_snap_km=2.,np_max_snap_km=10.
     return out
 
 
-def reuse_prepared_geometry(providers,cached):
+def reuse_prepared_geometry(providers,cached, *, allow_local_presence_without_geometry=False):
     """Reuse only source-ID and coordinate-identical sites on the same graph.
 
     Service roles, NP identity, eligibility and source dates come from the new
@@ -175,6 +181,14 @@ def reuse_prepared_geometry(providers,cached):
             for col in available:out.loc[missing_np,col]=recovered[col].to_numpy()
             out.loc[missing_np,'_geometry_match']='both'
             out.loc[missing_np,'geometry_reuse_basis']='same_census_np_identity_and_coordinates_not_building_identity'
+    unmatched=out._geometry_match.ne('both')
+    if allow_local_presence_without_geometry:
+        presence_only=unmatched & out.input_kind.eq('np') & ~out.default_external_seed_eligible.fillna(False)
+        # Such aggregates only state a function inside their named NP. They
+        # cannot seed a road search, so inventing a snap would add no evidence.
+        out.loc[presence_only,'accepted_snap']=False
+        out.loc[presence_only,'geometry_reuse_basis']='local_np_presence_only_not_an_external_road_seed'
+        out.loc[presence_only,'_geometry_match']='both'
     if out._geometry_match.ne('both').any():raise ValueError('Geometry cache cannot represent new or moved source points; snap afresh')
     out=out.drop(columns='_geometry_match')
     out['external_seed_eligible']=out.admitted_offer & out.default_external_seed_eligible

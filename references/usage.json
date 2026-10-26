@@ -826,6 +826,124 @@
         "scripts/sgrt_zero/diagnose_education_supplementary.py"
       ],
       "reading_scope_field": "references/provenance/kvantorium53_metadata_read_scope_20261025.json"
+    },
+    {
+      "source_id": "OSM_GEOFABRIK_PLACE_A_20261026",
+      "used_in": [
+        "sgrt/zero/IDENTITY_REPAIR_20261026.md"
+      ],
+      "purpose": "Source geometry, class semantics and dated place containment; our typed-name and ambiguity guards are separate implementation decisions.",
+      "implementation_status": "source_geometry_acquired_and_ownership_recomputed; not proof of current clinical scope or observed journeys",
+      "implementation_paths": [
+        "scripts/sgrt_zero/acquire_geofabrik_places.py",
+        "scripts/sgrt_zero/geofabrik_identity.py",
+        "scripts/sgrt_zero/cartographic_identity.py",
+        "scripts/sgrt_zero/repair_source_identities.py",
+        "scripts/sgrt_zero/nested_locality_masks.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=OSM_GEOFABRIK_PLACE_A_20261026].read_scope"
+    },
+    {
+      "source_id": "DOC_LOCAL_SCHOOLS_20261026",
+      "used_in": [
+        "sgrt/zero/IDENTITY_REPAIR_20261026.md"
+      ],
+      "purpose": "Two dated proxy school-presence offers for the same named NP only; no physical school coordinates or external route seeds.",
+      "implementation_status": "dated_documented_proxy_presence",
+      "implementation_paths": [
+        "scripts/sgrt_zero/documented_school_presence.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=DOC_LOCAL_SCHOOLS_20261026].read_scope"
+    },
+    {
+      "source_id": "ARKHANGELSK_LAW576_2022",
+      "used_in": [
+        "sgrt/zero/IDENTITY_REPAIR_20261026.md"
+      ],
+      "purpose": "Administrative identity evidence for a spatial hold of Kurya’s incompatible census-linked coordinate; no automatic relocation.",
+      "implementation_status": "evidence_pinned_coordinate_hold_no_relocation",
+      "implementation_paths": [
+        "scripts/sgrt_zero/coordinate_quality.py",
+        "scripts/sgrt_zero/nested_locality_masks.py",
+        "scripts/sgrt_zero/screens.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=ARKHANGELSK_LAW576_2022].read_scope"
+    },
+    {
+      "source_id": "ARKHANGELSK_RES89_2024",
+      "used_in": [
+        "sgrt/zero/IDENTITY_REPAIR_20261026.md"
+      ],
+      "purpose": "Corroborates administrative identity and OKTMO of Kurya; no coordinate or institution-location inference.",
+      "implementation_status": "evidence_pinned_coordinate_hold_no_relocation",
+      "implementation_paths": [
+        "scripts/sgrt_zero/coordinate_quality.py",
+        "scripts/sgrt_zero/nested_locality_masks.py",
+        "scripts/sgrt_zero/screens.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=ARKHANGELSK_RES89_2024].read_scope"
+    },
+    {
+      "source_id": "OSM_NOMINATIM_KURYA_20261026",
+      "used_in": [
+        "sgrt/zero/IDENTITY_REPAIR_20261026.md"
+      ],
+      "purpose": "Cartographic corroboration of administrative source evidence; source coordinates are diagnostic only, never substituted into the census base or routes.",
+      "implementation_status": "evidence_pinned_coordinate_hold_no_relocation",
+      "implementation_paths": [
+        "scripts/sgrt_zero/coordinate_quality.py",
+        "scripts/sgrt_zero/nested_locality_masks.py",
+        "scripts/sgrt_zero/screens.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=OSM_NOMINATIM_KURYA_20261026].read_scope"
+    },
+    {
+      "source_id": "KIBERONE_PROGRAM_20261026",
+      "used_in": [
+        "sgrt/zero/IDENTITY_REPAIR_20261026.md"
+      ],
+      "purpose": "Own supplementary child IT brand does not establish general-school provision.",
+      "implementation_status": "explicit_source_role_review_not_universal_current_operation_validation",
+      "implementation_paths": [
+        "scripts/sgrt_zero/education_need_review.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=KIBERONE_PROGRAM_20261026].read_scope"
+    },
+    {
+      "source_id": "EDUCATION_SCOPE_COUNTERCONTROLS_20261026",
+      "used_in": [
+        "sgrt/zero/IDENTITY_REPAIR_20261026.md"
+      ],
+      "purpose": "Differentiate explicit supplementary/vocational/noninstructional roles while retaining genuine general-school programmes.",
+      "implementation_status": "explicit_source_role_review_not_universal_current_operation_validation",
+      "implementation_paths": [
+        "scripts/sgrt_zero/education_need_review.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=EDUCATION_SCOPE_COUNTERCONTROLS_20261026].read_scope"
+    },
+    {
+      "source_id": "MAGNIT_COSMETIC_SCOPE_20261026",
+      "used_in": [
+        "sgrt/zero/IDENTITY_REPAIR_20261026.md"
+      ],
+      "purpose": "Do not treat a cosmetics/household format as proven general grocery; mixed food stores and the ordinary Magnit brand remain.",
+      "implementation_status": "explicit_source_role_review_not_universal_current_operation_validation",
+      "implementation_paths": [
+        "scripts/sgrt_zero/retail_need_review.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=MAGNIT_COSMETIC_SCOPE_20261026].read_scope"
+    },
+    {
+      "source_id": "HELIX19973_THERAPY_20261026",
+      "used_in": [
+        "sgrt/zero/IDENTITY_REPAIR_20261026.md"
+      ],
+      "purpose": "Positive exact-unit counterexample: a laboratory brand alone does not exclude GP therapy; appointment availability/capacity unverified.",
+      "implementation_status": "explicit_source_role_review_not_universal_current_operation_validation",
+      "implementation_paths": [
+        "scripts/sgrt_zero/medical_need_review.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=HELIX19973_THERAPY_20261026].read_scope"
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"

@@ -116,6 +116,12 @@ def run(args):
     initial_hashes = {str(ep_path): sha256(ep_path)}
     configs = [('education', args.education, args.education_cache, 'physical_sites.parquet', 'np_supply.parquet', EDUCATION),
                ('commerce', args.commerce, args.commerce_cache, 'sites.parquet', 'supply.parquet', COMMERCE)]
+    if getattr(args, 'medical', None):
+        configs.append(('health', args.medical, args.medical_cache,
+                        'physical_sites.parquet', 'np_supply.parquet', ('medical_basic_primary',)))
+    if getattr(args, 'food_host', None):
+        configs.append(('food_host', args.food_host, args.food_host_cache,
+                        'sites.parquet', 'supply.parquet', ('daily_grocery_current_retail_host',)))
     source_meta = {}
     rows = []
     graph = load_graph(args.graph_dir)
@@ -134,14 +140,16 @@ def run(args):
         providers = prepare_provider_rows([(site_path, pd.read_parquet(site_path))],
                                           [(supply_path, pd.read_parquet(supply_path))], ep)
         cached = pd.read_parquet(cache_path)
-        providers = reuse_prepared_geometry(providers, cached)
+        providers = reuse_prepared_geometry(providers, cached,
+            allow_local_presence_without_geometry=getattr(args,'allow_local_presence_without_geometry',False))
         del cached
         gc.collect()
         compact_cache = export_geometry_cache(cache_path, output/'geometry_cache'/domain, ep, providers)
         # The exact same metadata-plus-geometry merge is checked independently
         # below without feeding duplicated road columns back into the merge.
         fresh = prepare_provider_rows([(site_path, pd.read_parquet(site_path))], [(supply_path, pd.read_parquet(supply_path))], ep)
-        recovered = reuse_prepared_geometry(fresh, pd.read_parquet(compact_cache))
+        recovered = reuse_prepared_geometry(fresh, pd.read_parquet(compact_cache),
+            allow_local_presence_without_geometry=getattr(args,'allow_local_presence_without_geometry',False))
         pd.testing.assert_frame_equal(providers, recovered)
         del fresh, recovered
         retain_source(site_path, output/'sources'/domain/site_name)
@@ -187,8 +195,16 @@ def main():
     for flag in ['bundle', 'education', 'commerce', 'education-cache', 'commerce-cache', 'graph-dir', 'output']:
         p.add_argument('--' + flag, type=Path, required=True)
     p.add_argument('--services', help='Optional comma-separated classes; omitted classes are not recalculated')
+    p.add_argument('--medical', type=Path, help='Optional corrected medical source folder')
+    p.add_argument('--medical-cache', type=Path)
+    p.add_argument('--food-host', type=Path)
+    p.add_argument('--food-host-cache', type=Path)
+    p.add_argument('--allow-local-presence-without-geometry', action='store_true',
+                   help='NP aggregates explicitly excluded from external routing need no invented road snap')
     args=p.parse_args()
-    if args.services and (not set(args.services.split(',')) <= set(EDUCATION+COMMERCE)):
+    if args.medical and not args.medical_cache:p.error('--medical requires --medical-cache')
+    if args.food_host and not args.food_host_cache:p.error('--food-host requires --food-host-cache')
+    if args.services and (not set(args.services.split(',')) <= set(EDUCATION+COMMERCE+('medical_basic_primary','daily_grocery_current_retail_host'))):
         p.error('Unknown service class in --services')
     run(args)
 

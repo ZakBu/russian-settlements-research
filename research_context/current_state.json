@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-26T10:57:31+03:00",
+  "updated_moscow": "2026-10-26T16:20:30+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,13 +9,13 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "national_model_reproduced_but_incomplete_np_identity_and_overrestrictive_count_definition",
-      "summary": "Воспроизведённый расчёт сохраняется, но 197 — узкий поднабор, не число всех низовых систем. В данных 978 допустимых центров с тремя местными функциями, 804 имеют внешних участников хотя бы по одной; 197 требуют совпадения всех трёх направлений у одного участника. Привязка школ и магазинов неполна; найден пропуск использования полного названия Питерской школы.",
+      "status": "level0_centres_recomputed_source_identity_and_function_errors_repaired_public_rebuild_pending",
+      "summary": "Исправлены пропуски принадлежности учреждений, чрезмерно узкий счётчик197, сохранение спорных старых владельцев и блокирование городов неточными точками соседних НП. Идёт новый общероссийский пересчёт; предварительные28500/5171 не являются окончательным результатом.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
-      "main_blocker": "Исправить привязку учреждений к НП по явным полным названиям, официальным адресам и проверяемым границам. Школьная функция записана только у 615 из 2249 допустимых положительных городских/пгт-записей. Не назначать ближайший НП без достаточного свидетельства. Разделить полный набор в центре и совпадение всех направлений.",
+      "main_blocker": "Завершить чистый повтор по сохранённым исходникам и опубликовать составы окружений и карты; реальные поездки и старшие уровни пока не установлены.",
       "workplan": "sgrt/workplan/README.md",
-      "results": "sgrt/zero/CENTRE_SYSTEMS_20261025.md",
+      "results": "sgrt/zero/IDENTITY_REPAIR_20261026.md",
       "data_release": "sgrt-zero-centre-systems-20261025-v1",
       "publication": {
         "status": "published_public_download_all_members_code_and_scientific_controls_verified",
@@ -156,7 +156,7 @@
         "population_advantage_at_level0": false,
         "target_number_of_levels_is_not_hardcoded": true,
         "Moscow_unique_upper_order_is_research_goal_not_prescribed_label": true,
-        "calculation_state": "v1_frozen_control_corrected_sources_and_descriptions_pending_new_routing_and_system_definition",
+        "calculation_state": "source_geometry_repaired_selected_provider_function_semantics_being_repaired_before_clean_country_rebuild",
         "source_release": "sgrt-zero-inputs-20261025-v1",
         "source_manifest_sha256": "d9c8617dadbed91d92cf0cf1e139af67fddf5e9c33c7c50f09cd577c0c664ddc",
         "level_zero_control": {
@@ -528,6 +528,56 @@
         "profile_tests_passed": 315,
         "scientific_acceptance_status": "reproduced_but_semantic_errors_identified_not_final_sgrt",
         "current_result": false
+      },
+      "current_recalculation": {
+        "doc": "sgrt/zero/IDENTITY_REPAIR_20261026.md",
+        "source_place_components": 50,
+        "source_place_shards": 10,
+        "derived_parent_geometry_resolutions": 341,
+        "named_finer_footprint_resolutions": 340,
+        "evidence_pinned_coordinate_holds": 1,
+        "documented_dated_school_presence_cards": 2,
+        "school_cards_are_external_route_seeds": false,
+        "source_provenance": "references/provenance/geofabrik_place_polygons_20261026.json",
+        "coordinate_evidence": "references/provenance/coordinate_holds_20261026.json",
+        "dated_school_evidence": "references/provenance/official_local_school_cards_20261026.json",
+        "population_base_changed": false,
+        "earlier_preliminary_counts_rejected": "research_context/analysis_snapshots/identity_preliminary_rejected_20261026.json",
+        "functional_source_review": "source-wide type/role contradictions with raw source claims retained; no brand-only exclusions",
+        "registered_level0_centres": 28512,
+        "by_recorded_own_basic_function_count": {
+          "1": 15539,
+          "2": 7763,
+          "3": 5210
+        },
+        "full_three_function_centres_with_external_participants": 5210,
+        "full_centres_without_same_three_external_participant": 2273,
+        "strict_same_three_external_diagnostic_subset": 2937,
+        "centres_using_cartographic_ownership": 14429,
+        "centres_with_partial_population_budget": 5038,
+        "centres_with_own_documented_dated_school_presence": 1,
+        "centres_with_own_historical_only_evidence": 129,
+        "centre_member_pairs": 202575,
+        "unique_participant_records": 121139,
+        "diameter_km": {
+          "median": 8.114016236296663,
+          "p95": 27.878351221191608,
+          "maximum": 63.13627321608024
+        },
+        "full_centres_diameter_km": {
+          "median": 15.221920747713492,
+          "p95": 37.58474013087423,
+          "maximum": 63.13627321608024
+        },
+        "own_function_count_is_not_external_support_count": true,
+        "unknown_function_is_not_confirmed_absent": true,
+        "overlapping_direct_catchments_not_exclusive_country_partition": true,
+        "actual_trips_observed": false,
+        "physical_site_unknown_np_remains_usable": true,
+        "independent_forward_route_comparisons": 24,
+        "independent_forward_route_layers": 12,
+        "scientific_tests_passed": 539,
+        "public_clean_rebuild_completed": false
       }
     },
     "portal": {
@@ -556,12 +606,9 @@
     }
   },
   "next_steps": [
-    "Исправить пропущенные явные местности в полных названиях и официальных адресах учреждений (контрпример: Питерская школа). Повторить предложение и направления, отдельно считать полный набор в центре и совпадение всех внешних направлений; 197 и 804 не объявлять итоговым числом СГРТ.",
-    "Расширить документированную НП-принадлежность школьных и торговых площадок и школьные ступени. В опубликованном поднаборе 191 из 197 групп имеют неизвестную ступень хотя бы одной школы; неизвестное не превращать в отсутствие функции.",
-    "Проверить полицентричные сочетания основных услуг на документированных примерах. Не требовать совпадения трёх услуг от каждой реальной системы и не склеивать регион цепочкой пересечений.",
-    "Разобрать широкие однофункциональные окружения и неучтённые местные альтернативы: 228 из 21 630 центров имеют диаметр больше 30 км. Проверять дорожные компоненты, координаты и реальную пригодность услуг.",
-    "Продолжать типологию по совместной динамике центра и окружения, назначению функций и аграрной базе; описательный знак не выдавать за причинный тип Word.",
-    "Искать независимые поездки, вместимость учреждений и рабочие площадки для старших порядков; уникальный верхний порядок Москвы не назначать заранее."
+    "Опубликовать исправленные составы центров и карты после чистого повторного расчёта по сохранённым источникам.",
+    "Разбирать оставшиеся неоднозначные границы и сведения об услугах, не считать пропуски отсутствием функций.",
+    "Проверять местные связи по независимому прикреплению и поездкам; затем переходить к старшим порядкам без цепочечного склеивания регионов."
   ],
   "known_limits": [
     "Прежний расчёт «13%» с исходным знаменателем не найден. Принятые поправки raw→effective меняют пару состояний у 1082 из 142765 строгих рядов; региональная альтернатива — у 3909 из 18516 рядов своей подвыборки. Ни одна доля не является национальной оценкой ошибки; подробнее в sgrt/pilot/DEMOGRAPHY_2010.md.",
@@ -581,7 +628,8 @@
     "У 7 533 многопоселенческих групп не установлен весь ближний набор: 7 477 только с дальними известными кандидатами, 51 только с неизвестным направлением, 5 с обеими причинами. Дальнее известное предложение не доказывает отсутствия ближнего.",
     "Верхние медицинские каналы условны по заявленному профилю. Они не подтверждают пригодность одной больницы для всех пациентов или постоянный врачебный штат.",
     "Города представлены переписными точками; внутригородское обслуживание не районируется. Геометрический размах точек не является площадью или непрерывным полигоном зоны.",
-    "В пяти проверенных примерах Учалинского района ФАП согласуется с документом на уровне функции и НП; школы — только географически. У 19 школьных направлений ступени не установлены, поэтому точность для 10–11 классов не оценена. Источники разных лет и прикрепления не измеряют реальные поездки."
+    "В пяти проверенных примерах Учалинского района ФАП согласуется с документом на уровне функции и НП; школы — только географически. У 19 школьных направлений ступени не установлены, поэтому точность для 10–11 классов не оценена. Источники разных лет и прикрепления не измеряют реальные поездки.",
+    "В 1250 прочитанных официальных книгах статистики НП2025 не найден показатель обычных общеобразовательных школ; показатели47–51 относятся к дополнительным общеобразовательным программам. Эти числа не используются как школьная функция; подробности в analysis_snapshots/identity_official_school_statistics_search_20261026.json."
   ],
   "entrypoints": {
     "rules": "AGENTS.md",

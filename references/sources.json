@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.literature_registry.v2",
-  "review_date": "2026-10-25",
+  "review_date": "2026-10-26",
   "status": "NATIONAL_CANDIDATE_LOCAL_SERVICE_CELLS_NOT_VALIDATED_SGRT",
   "scope": "Functional accessibility literature, documented local service evidence and national candidate service cells on the accepted census base. National functional cells are scenarios, not observed journeys or completed validated SGRT.",
   "records": [
@@ -922,6 +922,115 @@
       "retrieved_bytes": 84231,
       "retrieved_sha256": "713eb750b80fb8e57d5f4bb04cb1362865002b3f58fee6133978244bf3ee44e8",
       "use": "Confirm the own website describes a child technical park. This is not proof of degree absence, licence status, operational capacity, actual trips or a model threshold."
+    },
+    {
+      "id": "OSM_GEOFABRIK_PLACE_A_20261026",
+      "authors": "Geofabrik GmbH; OpenStreetMap contributors",
+      "year": 2026,
+      "title": "OpenStreetMap Data in Layered GIS Format: free places area layers for Russia",
+      "url": "https://download.geofabrik.de/osm-data-in-gis-formats-free.pdf",
+      "reading_url": "https://download.geofabrik.de/osm-data-in-gis-formats-free.pdf",
+      "read_scope": "Format specification sections2.8 Points and Areas,4.1 Places and7.1 Associated Area Layer read; raw source SHP/DBF schemas and all50 pinned members inspected programmatically. Not a study of observed service flows.",
+      "locator": "§2.8, §4.1, §7.1; gis_osm_places_a_free_1",
+      "use": "Independent dated source OSM place-area containment for settlement ownership; not a service catchment, legal boundary, population measurement or system rank.",
+      "retrieved_pdf_sha256": "ea7995f1d70dc30903a7e0302b4e76c83ed58255e0fb5bb245fcd42392d6414f",
+      "source_provenance": "references/provenance/geofabrik_place_polygons_20261026.json",
+      "license": "ODbL1.0; OpenStreetMap contributors"
+    },
+    {
+      "id": "DOC_LOCAL_SCHOOLS_20261026",
+      "authors": "Сосново-Озерская СОШ №1; СОШ с.Никольское",
+      "year": 2026,
+      "title": "Адресные страницы двух местных школ: закреплённые снимки",
+      "url": "https://30eno-nik.edusite.ru/sveden/common",
+      "reading_urls": [
+        "https://sossh1.1c-umi.ru/contacts/",
+        "https://30eno-nik.edusite.ru/sveden/common",
+        "https://russiaedu.ru/schools/03/school-65442/"
+      ],
+      "read_scope": "Contact/address sections of both school sites and secondary source corroboration read; frozen HTML SHA recorded. Sosnovo address publication year unknown; visible news2013 does not date school observation. Nikolskoye page update2026 is not an operational survey.",
+      "use": "Two dated proxy school-presence offers for the same named NP only; no physical school coordinates or external route seeds.",
+      "source_provenance": "references/provenance/official_local_school_cards_20261026.json"
+    },
+    {
+      "id": "ARKHANGELSK_LAW576_2022",
+      "authors": "Архангельское областное Собрание депутатов",
+      "year": 2022,
+      "title": "Областной закон от 30.05.2022 №576-35-ОЗ, статья 12 пункт 2: новая редакция статьи 42 закона №258-внеоч.-ОЗ",
+      "url": "http://publication.pravo.gov.ru/file/pdf?eoNumber=2900202205310017",
+      "reading_url": "http://publication.pravo.gov.ru/file/pdf?eoNumber=2900202205310017",
+      "read_scope": "Visually read the relevant fragments on PDF pages8–9, including the Nyandoma settlement list; not a full-law review. Kurya is listed in Nyandoma municipal district. The law does not establish exact coordinates.",
+      "locator": "Ст.12 п.2; новая редакция ст.42 закона №258-внеоч.-ОЗ; PDF с.8–9",
+      "retrieved_pdf_sha256": "44f9ed6006d7f7549757ac2683d5b359d25f7e13828bcc79dafcc1c9ce301120",
+      "use": "Administrative identity evidence for a spatial hold of Kurya’s incompatible census-linked coordinate; no automatic relocation.",
+      "source_provenance": "references/provenance/coordinate_holds_20261026.json",
+      "citation_erratum": "references/provenance/coordinate_evidence_errata_20261026.json"
+    },
+    {
+      "id": "ARKHANGELSK_RES89_2024",
+      "authors": "Правительство Архангельской области",
+      "year": 2024,
+      "title": "Постановление от08.02.2024 №89-пп; строка13.65 о деревне Курья",
+      "url": "https://base.garant.ru/408523995/",
+      "reading_url": "https://base.garant.ru/408523995/",
+      "read_scope": "Selected row13.65 only, from the GARANT mirror of the normative text; raw response retained losslessly. Not claimed as the official publication host.",
+      "locator": "13.65: д.Курья,11544000426,Няндомский муниципальный округ",
+      "use": "Corroborates administrative identity and OKTMO of Kurya; no coordinate or institution-location inference.",
+      "source_provenance": "references/provenance/coordinate_holds_20261026.json"
+    },
+    {
+      "id": "OSM_NOMINATIM_KURYA_20261026",
+      "authors": "OpenStreetMap contributors; Nominatim",
+      "year": 2026,
+      "title": "Named Kurya search response with region and Nyandoma county metadata",
+      "url": "https://nominatim.openstreetmap.org/",
+      "read_scope": "Frozen named-query JSON fields for OSM way1519567513, including name, county and region; independent of nearest-point selection but shares OSM provenance with Geofabrik.",
+      "use": "Cartographic corroboration of administrative source evidence; source coordinates are diagnostic only, never substituted into the census base or routes.",
+      "source_provenance": "references/provenance/coordinate_holds_20261026.json"
+    },
+    {
+      "id": "KIBERONE_PROGRAM_20261026",
+      "authors": "Официальные страницы соответствующих организаций",
+      "year": 2026,
+      "title": "KIBERone: собственная программа IT-курсов",
+      "url": "https://kiber-one.com/",
+      "reading_url": "https://kiber-one.com/",
+      "read_scope": "Own title/meta and bounded programme excerpts only; no full-curriculum or licence audit.",
+      "use": "Own supplementary child IT brand does not establish general-school provision.",
+      "source_provenance": "references/provenance/functional_scope_sources_20261026.json"
+    },
+    {
+      "id": "EDUCATION_SCOPE_COUNTERCONTROLS_20261026",
+      "authors": "Официальные страницы соответствующих организаций",
+      "year": 2026,
+      "title": "Собственные сведения образовательных организаций: роли и программы",
+      "url": "https://www.bgsha.com/sveden/education/",
+      "reading_url": "https://www.bgsha.com/sveden/education/",
+      "read_scope": "Selected factual sections of six institution sites: BGSHU/creativity centres and positive TOP IT SCHOOL/SMART controls; exact per-source read scopes retained in education_scope_sources JSON.",
+      "use": "Differentiate explicit supplementary/vocational/noninstructional roles while retaining genuine general-school programmes.",
+      "source_provenance": "references/provenance/education_scope_sources_20261026.json"
+    },
+    {
+      "id": "MAGNIT_COSMETIC_SCOPE_20261026",
+      "authors": "Официальные страницы соответствующих организаций",
+      "year": 2026,
+      "title": "М.Косметик: формат и ассортимент",
+      "url": "https://cosmetic.magnit.ru/",
+      "reading_url": "https://cosmetic.magnit.ru/",
+      "read_scope": "Own title and catalogue categories read. Snacks, sweets and beverages also listed: no claim of zero food sales; general grocery assortment is not established by this cosmetics/household format.",
+      "use": "Do not treat a cosmetics/household format as proven general grocery; mixed food stores and the ordinary Magnit brand remain.",
+      "source_provenance": "references/provenance/functional_scope_sources_20261026.json"
+    },
+    {
+      "id": "HELIX19973_THERAPY_20261026",
+      "authors": "Официальные страницы соответствующих организаций",
+      "year": 2026,
+      "title": "Хеликс: заявленная терапевтическая помощь в филиале19973",
+      "url": "https://helix.ru/center/19973",
+      "reading_url": "https://helix.ru/center/19973",
+      "read_scope": "Title, branch name/code/address, branch-specific schedule and legalInfo.services embedded in ng-state; not whole website or all medical specialties.",
+      "use": "Positive exact-unit counterexample: a laboratory brand alone does not exclude GP therapy; appointment availability/capacity unverified.",
+      "source_provenance": "references/provenance/functional_scope_sources_20261026.json"
     }
   ],
   "record_count": 63

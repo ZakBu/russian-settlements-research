@@ -1,0 +1,82 @@
+{
+  "schema": "sgrt.coordinate_holds.v1",
+  "created_utc": "2026-10-26",
+  "scope": "Explicit evidence-pinned spatial holds; no coordinate substitution and no deletion or population-budget change.",
+  "records": [
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:89148",
+      "reference_fields": {
+        "name": "Курья",
+        "settlement_type_2021": "деревня",
+        "region": "архангельская",
+        "district": "Няндомский муниципальный район",
+        "lat": 64.595447,
+        "lon": 40.611747
+      },
+      "reason": "Census-linked coordinate falls inside Arkhangelsk, inconsistent with the named Nyandoma village documented in the official 2022 law, 2024 service-territory list and independently mapped place. Hold spatial use pending verified correction; preserve the record and all original coordinates.",
+      "evidence": [
+        {
+          "kind": "nominatim_raw_response",
+          "raw_path": "references/primary/settlement_identity_20261026/kurya_nominatim_raw.json",
+          "metadata_path": "references/primary/settlement_identity_20261026/kurya_nominatim_raw.json.http.json",
+          "url": "https://nominatim.openstreetmap.org/search?q=%D0%9A%D1%83%D1%80%D1%8C%D1%8F%2C+%D0%90%D1%80%D1%85%D0%B0%D0%BD%D0%B3%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C&format=jsonv2&addressdetails=1&countrycodes=ru&limit=10",
+          "http_status": 200,
+          "bytes": 6381,
+          "sha256": "5905d91e5bf32adcf2f0d0c82e402a8a3e29f9764d7da344bcd909c43ea8d67d",
+          "object_fields": {
+            "osm_type": "way",
+            "osm_id": 1519567513,
+            "category": "place",
+            "type": "hamlet",
+            "name": "Курья",
+            "lat": "61.7893278",
+            "lon": "40.8374706"
+          },
+          "address_fields": {
+            "hamlet": "Курья",
+            "county": "Няндомский муниципальный округ",
+            "state": "Архангельская область",
+            "country_code": "ru"
+          }
+        },
+        {
+          "kind": "manual_transcription_of_official_pdf_page",
+          "raw_path": "references/primary/settlement_identity_20261026/kurya_law2022_page9_manual_excerpt.txt",
+          "metadata_path": "references/primary/settlement_identity_20261026/kurya_law2022_page9_manual_excerpt.txt.http.json",
+          "url": "http://publication.pravo.gov.ru/file/pdf?eoNumber=2900202205310017",
+          "http_status": 200,
+          "bytes": 1200,
+          "sha256": "d158204a724623e9ed9e3f7dd96f13fab88053d30c752e74f9f067c3b95bdec8",
+          "required_text": [
+            "Няндомский муниципальный округ",
+            "Курья"
+          ]
+        },
+        {
+          "kind": "losslessly_compressed_http_body",
+          "raw_path": "references/primary/settlement_identity_20261026/kurya_garant2024_raw.html.gz",
+          "metadata_path": "references/primary/settlement_identity_20261026/kurya_garant2024_raw.html.gz.http.json",
+          "url": "https://base.garant.ru/408523995/",
+          "http_status": 200,
+          "bytes": 105374,
+          "sha256": "243cc4a2e7e2dd3839eb5895606aa2a44ec3930444669a045eb9b6b979314d55",
+          "compression": "gzip",
+          "encoding": "cp1251",
+          "uncompressed_sha256": "511f6d1a48d115a170b36bb2ed1196c7fd66c26fc2548dc9a05f6ef6616d3433",
+          "required_text": [
+            "11544000426",
+            "Курья"
+          ]
+        }
+      ],
+      "alternative_coordinates_policy": "Independent-source coordinates are diagnostic evidence only; never use them for assignment, relocation, routing or population attribution.",
+      "official_pdf_source": {
+        "url": "http://publication.pravo.gov.ru/file/pdf?eoNumber=2900202205310017",
+        "status": 200,
+        "sha256": "44f9ed6006d7f7549757ac2683d5b359d25f7e13828bcc79dafcc1c9ce301120",
+        "bytes": 682590,
+        "utc": "2026-10-26T12:50:55.897265+00:00"
+      }
+    }
+  ]
+}

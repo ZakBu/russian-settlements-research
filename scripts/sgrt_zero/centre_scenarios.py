@@ -16,15 +16,27 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from screens import canonical, with_admission, SCENARIOS, RAW_CODES, digest
 from centre_stars import build_centre_stars
+from coordinate_quality import load_coordinate_holds, apply_coordinate_holds
 
 
-def run(bundle, corrected_routes, output, scenarios, endpoints=None):
+def run(bundle, corrected_routes, output, scenarios, endpoints=None, coordinate_holds=None):
     if output.resolve().is_relative_to(bundle.resolve()):
         raise ValueError('Do not write inside the immutable control')
     output.mkdir(parents=True, exist_ok=True)
     ref_path = bundle / 'context/analysis_reference.parquet'
     reference = pd.read_parquet(ref_path)
     inputs = {str(ref_path): digest(ref_path)}
+    if coordinate_holds is not None:
+        holds=load_coordinate_holds(coordinate_holds,reference)
+        reference=apply_coordinate_holds(reference,holds)
+        inputs[str(coordinate_holds)]=digest(coordinate_holds)
+        manifest=json.loads(coordinate_holds.read_text())
+        repo_root=Path(__file__).resolve().parents[2]
+        for record in manifest['records']:
+            for evidence in record['evidence']:
+                for key in ['raw_path','metadata_path']:
+                    path=repo_root/evidence[key]
+                    inputs[str(path)]=digest(path)
     if endpoints is None:
         endpoints = bundle / 'routes/endpoints.parquet'
     endpoint_frame = pd.read_parquet(endpoints)
@@ -100,6 +112,8 @@ if __name__ == '__main__':
     p.add_argument('--corrected-routes', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--endpoints', type=Path)
+    p.add_argument('--coordinate-holds', type=Path, default=Path(__file__).resolve().parents[2]/
+                   'references/provenance/coordinate_holds_20261026.json')
     p.add_argument('--scenarios', nargs='+', choices=sorted(SCENARIOS), default=['daily_20_school30_wb', 'daily_10_school15_wb', 'daily_30_school30_wb', 'core3_20_school30', 'daily_20_school30_yandex'])
     a = p.parse_args()
-    run(a.bundle, a.corrected_routes, a.output, a.scenarios, a.endpoints)
+    run(a.bundle, a.corrected_routes, a.output, a.scenarios, a.endpoints,a.coordinate_holds)

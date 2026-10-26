@@ -1,0 +1,342 @@
+{
+  "scope": "semantic source review of actual selected daily-grocery candidates, not observed trips or exhaustive current inventory validation",
+  "inputs": {
+    "/workspace/sgrt-zero-identity-final-20261026/routes/derived_nearest/daily_grocery_evidence_union.parquet": {
+      "sha256": "bc545b7af256d30fdd02790a4ac31bcd09dde312be50864024be532b2475edaa",
+      "bytes": 29223980
+    },
+    "/workspace/sgrt-zero-identity-final-20261026/sources/commerce/sites.parquet": {
+      "sha256": "4b8a68b56539a08efc3992801a8a79f076cb22039c473a288e8e589b99705ab2",
+      "bytes": 53060413
+    },
+    "/workspace/sgrt-zero-identity-final-20261026/sources/food_host/sites.parquet": {
+      "sha256": "b12b90143fa7bd746e3e8a096e1631b40271a62802692f9811a5f64efa747f73",
+      "bytes": 2468618
+    },
+    "/workspace/sgrt-review-20261023/scripts/sgrt_zero/retail_need_review.py": {
+      "sha256": "24d2c8fe8ca221dbeb4866efb1001de05342ee21d796856db33e28b514269437",
+      "bytes": 6011
+    }
+  },
+  "raw_union_origins": 153803,
+  "known_local_union_rows": 13990,
+  "raw_external_choices_within20_car_minutes": 89077,
+  "unique_physical_providers_with_external_choices_within20": 16807,
+  "raw_external_known_np_choices_within20": 75000,
+  "source_grocery_cards": 123477,
+  "source_host_cards": 13032,
+  "host_cards_with_explicit_cashdesk_named_food_store_comment": 13032,
+  "host_cards_all_proxy": true,
+  "host_cards_all_single_function_not_independent_channels": true,
+  "new_active_nonfood_conflict_cards": 390,
+  "by_reason": {
+    "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag": 296,
+    "explicit_cosmetics_household_format_general_grocery_not_established": 94
+  },
+  "newly_held_host_cards": 0,
+  "false_general_grocery_raw_external_choices_within20": 108,
+  "false_general_grocery_positive_whole_external_choices_within20": 102,
+  "false_general_grocery_selected_unique_physical_providers_within20": 34,
+  "np_records_losing_only_recorded_grocery_presence_in_all_components": 1,
+  "positive_whole_active_np_records_losing_only_recorded_grocery_presence": 1,
+  "known_local_union_rows_in_these_np_records": 1,
+  "specific_known_format_source": {
+    "key": "magnit_cosmetic",
+    "requested_url": "https://magnitcosmetic.ru/",
+    "retrieved_utc": "2026-10-26T13:37:44.531576+00:00",
+    "http_status": 200,
+    "response_url": "https://cosmetic.magnit.ru/",
+    "content_type": "text/html;charset=utf-8",
+    "path": "/workspace/retail-semantic-audit-20261026/primary/magnit_cosmetic.html",
+    "bytes": 747503,
+    "sha256": "f649f1c1b18393eeebbac5b892d70192e74b1cceb3e8a4403b368fb0a49ba4b0",
+    "quoted_evidence": "М.Косметик – интернет-магазин косметики, парфюмерии и товаров для дома по низким ценам",
+    "read_scope": "Own title and catalogue categories read. Snacks, sweets and beverages also listed: no claim of zero food sales; general grocery assortment is not established by this cosmetics/household format."
+  },
+  "raw_tag_category_contradiction_is_a_hold_not_proof_of_no_food_or_closure": true,
+  "retained_ambiguous_names": [
+    "Электроника",
+    "Мастерстрой",
+    "Хлеб и соль",
+    "Свежий хлеб",
+    "Склад Забота"
+  ],
+  "retained_mixed_names": [
+    "Еда, галантерея, обувь",
+    "Продукты, хозтовары",
+    "прод/хозтовары",
+    "магазин автозапчасти и продуктовый"
+  ],
+  "source_fields_changed_by_proposed_helper": [
+    "route_eligible",
+    "new retail scope review fields only"
+  ],
+  "new_false_grocery_examples": [
+    {
+      "provider_id": "osm:node:4034420247",
+      "source_name": "Магнит косметик",
+      "source_record_id": null,
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 18,
+      "retail_need_scope_review_reason": "explicit_cosmetics_household_format_general_grocery_not_established"
+    },
+    {
+      "provider_id": "osm:node:4624387290",
+      "source_name": "Мебельный салон \"Статус\"",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:108714",
+      "tag_shop": "convenience",
+      "external_model_choices_within20m": 7,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:way:179173071",
+      "source_name": "Стройбаза \"Татаев\"",
+      "source_record_id": null,
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 7,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:way:660901278",
+      "source_name": "Стройматериалы",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:10873",
+      "tag_shop": "convenience",
+      "external_model_choices_within20m": 6,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:1904296105",
+      "source_name": "Промтовары",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:136121",
+      "tag_shop": "convenience",
+      "external_model_choices_within20m": 6,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:3131124625",
+      "source_name": "Строительные и отделочные материалы",
+      "source_record_id": null,
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 6,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:way:823454628",
+      "source_name": "Хозтовары",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:2996",
+      "tag_shop": "convenience",
+      "external_model_choices_within20m": 5,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:2468021002",
+      "source_name": "Бытовая химия и одежда",
+      "source_record_id": null,
+      "tag_shop": "convenience",
+      "external_model_choices_within20m": 5,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:way:302991764",
+      "source_name": "стройматериалы",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126989",
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 4,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:979294920",
+      "source_name": "Магнит Косметик",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:14901",
+      "tag_shop": "convenience",
+      "external_model_choices_within20m": 4,
+      "retail_need_scope_review_reason": "explicit_cosmetics_household_format_general_grocery_not_established"
+    },
+    {
+      "provider_id": "osm:node:1291485092",
+      "source_name": "Хозтовары",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:149784",
+      "tag_shop": "convenience",
+      "external_model_choices_within20m": 4,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:2000486345",
+      "source_name": "Стройматериалы",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:90673",
+      "tag_shop": "convenience",
+      "external_model_choices_within20m": 3,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:way:635226842",
+      "source_name": "промтовары",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:80780",
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 3,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:4089596803",
+      "source_name": "Хозтовары",
+      "source_record_id": null,
+      "tag_shop": "convenience",
+      "external_model_choices_within20m": 3,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:way:167819544",
+      "source_name": "Стройдепо",
+      "source_record_id": null,
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 3,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:2507292888",
+      "source_name": "Магнит Косметик",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:4247",
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 2,
+      "retail_need_scope_review_reason": "explicit_cosmetics_household_format_general_grocery_not_established"
+    },
+    {
+      "provider_id": "osm:way:150339907",
+      "source_name": "Стройоптторг",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:55463",
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 2,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:5040897921",
+      "source_name": "Канцелярские товары, зоотовары",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:45303",
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 2,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:3130840680",
+      "source_name": "Магазин строительных материалов",
+      "source_record_id": null,
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 2,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:1515819008",
+      "source_name": "Табак и Ко",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:87520",
+      "tag_shop": "convenience",
+      "external_model_choices_within20m": 2,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:way:633603625",
+      "source_name": "Хозтовары",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:19880",
+      "tag_shop": "convenience",
+      "external_model_choices_within20m": 1,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:4679907329",
+      "source_name": "Строймаркет",
+      "source_record_id": null,
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 1,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:4970222427",
+      "source_name": "Промтовары",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:128857",
+      "tag_shop": "convenience",
+      "external_model_choices_within20m": 1,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:1484583737",
+      "source_name": "АВТОТРАКТОРОЗАПЧАСТИ",
+      "source_record_id": null,
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 1,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:1260467294",
+      "source_name": "Интер-Мебель",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:5781",
+      "tag_shop": "convenience",
+      "external_model_choices_within20m": 1,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:3029431711",
+      "source_name": "Сантех Маг",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:120768",
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 1,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:1794923201",
+      "source_name": "Стройматериалы",
+      "source_record_id": null,
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 1,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:7439819955",
+      "source_name": "Стройматериалы",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:93970",
+      "tag_shop": "supermarket",
+      "external_model_choices_within20m": 1,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:1129511119",
+      "source_name": "Стройматериалы",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:98189",
+      "tag_shop": "convenience",
+      "external_model_choices_within20m": 1,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    },
+    {
+      "provider_id": "osm:node:7142841013",
+      "source_name": "Стройматериалы",
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:28897",
+      "tag_shop": "general",
+      "external_model_choices_within20m": 1,
+      "retail_need_scope_review_reason": "explicit_own_nonfood_assortment_conflicts_with_general_grocery_tag"
+    }
+  ],
+  "np_own_only_conflict_examples": [
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:28897",
+      "name": "Поречье",
+      "region": "калужская",
+      "settlement_type_2021": "село",
+      "population_2021": 190.0,
+      "analysis_origin": true,
+      "part_status": "unmarked_whole_place_record",
+      "newly_held_provider_ids_json": "[\"osm:node:7142841013\"]"
+    }
+  ],
+  "host_positive_evidence_literal_counts": {
+    "explicit_source_comment_cashdesk_inside_named_Pyaterochka_or_Perekrestok": 13032
+  },
+  "host_explicit_dark_store_true_rows": 0,
+  "parcel_rows_with_additional_explicit_general_food_shop_tag": 0,
+  "parcel_tag_scan_source_rows": 69586,
+  "module_tests_passed": 11,
+  "known_format_source_date_limitation": "2026 own-site format evidence corroborates the meaning of a named format; it is not an audit of operation or full assortment of each 2021 store.",
+  "additional_counterexample_controls": [
+    "supermarket_or_universam_word_alone_not_food_proof",
+    "pet_food_words_not_human_general_grocery_proof",
+    "mixed_prodmаg_nonfood_RAYPO_retained",
+    "duplicate_dataframe_indices_do_not_spread_hold"
+  ]
+}
