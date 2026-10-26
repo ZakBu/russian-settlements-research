@@ -13,6 +13,7 @@ const builtHtml=await readFile(join(site,'index.html'),'utf8').catch(()=> '');
 const builtBase=/(?:href|src)="(\/[^"]*?)_astro\//.exec(builtHtml)?.[1];
 const base='/' +(builtBase||process.env.PUBLIC_BASE_PATH||'/').replace(/^\/+|\/+$/g,'');
 const mount=base==='/'?'':base;
+const canonical=(process.env.ATLAS_PUBLIC_URL||'https://zakbu.github.io/russian-settlements-research/').replace(/\/?$/,'/');
 const escape=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const all=await Promise.all((await readdir(join(web,'content/materials'))).filter(f=>f.endsWith('.json')).map(async f=>JSON.parse(await readFile(join(web,'content/materials',f),'utf8'))));
 const pages=all.filter(m=>m.visibility!=='draft');const published=pages.filter(m=>m.visibility==='published');
@@ -40,7 +41,7 @@ try{
   const visuals=page.locator('.document-body [data-figure-kind="figure"]');const assets={};
   for(let i=0;i<await visuals.count();i++){const figure=visuals.nth(i),key=await figure.getAttribute('data-visual-id');const png=join(scratch,`${id}-${key}.png`);const drawing=figure.locator('[data-figure-graphic]');await drawing.scrollIntoViewIfNeeded();await drawing.screenshot({path:png,animations:'disabled'});assets[key]=png}
   const images=page.locator('.document-body [data-document-image]');for(let i=0;i<await images.count();i++){const figure=images.nth(i),key=await figure.getAttribute('data-document-image');const img=figure.locator('img');await img.scrollIntoViewIfNeeded();await img.evaluate(img=>img.decode());const png=join(scratch,`${id}-${key}.png`);await img.screenshot({path:png});assets[key]=png}
-  const data=await page.evaluate(({assets,publicBase})=>{
+  const data=await page.evaluate(({assets,publicBase,canonical,mount})=>{
    const container=document.createElement('div');const header=document.querySelector('.document-header').cloneNode(true);header.querySelector('h1').id='document-top';header.querySelectorAll('nav,.eyebrow').forEach(e=>e.remove());for(const meta of header.querySelectorAll('.document-meta,.document-context')){const p=document.createElement('p');p.textContent=[...meta.children].map(e=>e.textContent.trim()).filter(t=>!t.includes('мин чтения')).join(' · ');meta.replaceWith(p)}container.append(header);
    const article=document.querySelector('.document-body').cloneNode(true);container.append(article);
    document.querySelectorAll('.document-sources>.document-version,.document-sources>details').forEach(e=>container.append(e.cloneNode(true)));
@@ -48,10 +49,10 @@ try{
    for(const figure of container.querySelectorAll('[data-visual-id]')){const id=figure.dataset.visualId,kind=figure.dataset.figureKind;figure.querySelectorAll('.figure-toolbar').forEach(e=>e.remove());if(kind==='figure'){const graphic=figure.querySelector('[data-figure-graphic]');graphic.replaceChildren(Object.assign(document.createElement('img'),{src:assets[id],alt:figure.dataset.figureTitle}));}else if(kind==='link'){figure.dataset.figureKind='link';figure.querySelector('[data-figure-graphic]')?.setAttribute('data-word-interactive-link','true')}}
    for(const figure of container.querySelectorAll('[data-document-image]')){figure.querySelector('img').setAttribute('src',assets[figure.dataset.documentImage]);for(const child of figure.querySelectorAll('.document-figure-caption,.document-figure-source')){const p=document.createElement('p');p.className=child.className;p.innerHTML=child.innerHTML;child.replaceWith(p)}}
    container.querySelectorAll('.heading-anchor,.mini-map-controls,button,script,style,svg').forEach(e=>e.remove());
-   for(const a of container.querySelectorAll('a[href]')){const href=a.getAttribute('href');if(href&&!href.startsWith('#')&&!/^[a-z][\w+.-]*:/i.test(href))a.setAttribute('href',new URL(href,publicBase).href)}
+   for(const a of container.querySelectorAll('a[href]')){const href=a.getAttribute('href');if(href&&!href.startsWith('#')&&!/^[a-z][\w+.-]*:/i.test(href))a.setAttribute('href',href.startsWith('/')?new URL((mount&&href.startsWith(mount+'/')?href.slice(mount.length):href).replace(/^\//,''),canonical).href:new URL(href,publicBase).href)}
    const bibliography=[...document.querySelectorAll('[data-bibliography-url]')].map(e=>({url:e.dataset.bibliographyUrl,text:e.dataset.bibliographyText}));
    return {html:container.innerHTML,bibliography};
-  },{assets,publicBase:`https://zakbu.github.io${mount}/materials/${id}/`});captures.set(id,data);
+  },{assets,publicBase:new URL(`materials/${id}/`,canonical).href,canonical,mount});captures.set(id,data);
  }
  const manifests=[];
  for(const job of jobs){
@@ -67,7 +68,7 @@ try{
    entries.forEach(entry=>register(entry.url));return {html:container.innerHTML,bibliography,figureCounter,tableCounter};
   },{html:capture.html,entries:capture.bibliography,initialFigure:figureCounter,initialTable:tableCounter,knownSources:bibliography,includedIds:job.ids});
    bibliography.splice(0,bibliography.length,...transformed.bibliography);figureCounter=transformed.figureCounter;tableCounter=transformed.tableCounter;
-   const m=pages.find(m=>m.id===id);documents.push({id,title:m.title,html:transformed.html,baseUrl:`https://zakbu.github.io${mount}/materials/${id}/`});
+   const m=pages.find(m=>m.id===id);documents.push({id,title:m.title,html:transformed.html,baseUrl:new URL(`materials/${id}/`,canonical).href});
   }
   const bibliographyHtml=`<section id="publication-bibliography"><h1 class="unnumbered">СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ</h1><ol>${bibliography.map(e=>`<li id="bibliography-${e.number}">${escape(e.text.split(e.url)[0])}<a href="${escape(e.url)}">${escape(e.url)}</a>${escape(e.text.slice(e.text.indexOf(e.url)+e.url.length))}</li>`).join('')}</ol></section>`;
   manifests.push({output:job.output,...(job.title?{title:job.title}:{}),documents,bibliographyHtml,toc:true});
