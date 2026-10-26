@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev --host 0.0.0.0 --port 4173",
-    "build": "astro build",
+    "build": "astro build && node scripts/build-word-exports.mjs",
     "preview": "astro preview --host 0.0.0.0 --port 4173",
     "test": "playwright test",
     "check": "tsc --noEmit && npm run test:unit",
     "prebuild": "node scripts/build-map-previews.mjs",
     "predev": "node scripts/build-map-previews.mjs",
-    "test:unit": "node --test tests-unit/*.test.ts"
+    "test:unit": "node --test tests-unit/*.test.ts",
+    "word": "node scripts/build-word-exports.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",

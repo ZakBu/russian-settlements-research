@@ -118,13 +118,14 @@ def safe_markdown(text):
     # Plain Markdown only. HTML tags, MDX expressions/imports and executable links are disallowed.
     if re.search(r"<\s*/?\s*[A-Za-z!]|^\s*(?:import|export)\s|\{[^\n]*(?:=>|require\(|import\(|<\w)", text, re.M):
         return False
-    if re.search(r"(?:javascript|vbscript|data)\s*:", text, re.I):
+    link_text = re.sub(r"\[@data:[a-z0-9]+(?:-[a-z0-9]+)*(?:,[^\]\n]+)?\]", "", text)
+    if re.search(r"(?:javascript|vbscript|data)\s*:", link_text, re.I):
         return False
     return True
 
 
-def document_references(text):
-    """Author links outside code examples; raw HTML remains forbidden separately."""
+def document_prose(text):
+    """Ignore literal code examples while validating declarative references."""
     lines, fence = [], ""
     for line in text.splitlines():
         marker = re.match(r"^ {0,3}(`{3,}|~{3,})", line)
@@ -137,7 +138,11 @@ def document_references(text):
             continue
         if not fence:
             lines.append(line)
-    prose = re.sub(r"(`+)[^\n]*?\1", "", "\n".join(lines))
+    return re.sub(r"(`+)[^\n]*?\1", "", "\n".join(lines))
+
+
+def document_references(text):
+    prose = document_prose(text)
     links = re.findall(r"\[\[([a-z0-9]+(?:-[a-z0-9]+)*)(?:#[^\]|\n]+)?(?:\|[^\]\n]+)?\]\]", prose)
     visuals = re.findall(r"^:::visual[ \t]+([a-z0-9]+(?:-[a-z0-9]+)*)[ \t]*$", prose, re.M)
     return links, visuals
@@ -178,11 +183,32 @@ def validate(root=ROOT, material_id=None):
 
     research = records(base / "research.json")
     datasets = records(base / "datasets.json")
+    literature_path = root / "references/sources.json"
+    literature = {r["id"]: r for r in load(literature_path).get("records", [])} if literature_path.exists() else {}
+
+    def bibliography_fields(row, path, prefix=""):
+        for field in ("publisher", "place", "journal", "pages", "doi", "referenceId"):
+            if field in row and (not isinstance(row[field], str) or not row[field].strip()):
+                err(path, prefix + field, "Expected factual nonempty bibliographic text")
+        if "authors" in row and not (isinstance(row["authors"], str) and row["authors"].strip() or isinstance(row["authors"], list) and row["authors"] and all(isinstance(a, str) and a.strip() for a in row["authors"])):
+            err(path, prefix + "authors", "Expected author text or an array of author names")
+        if "year" in row and not re.fullmatch(r"\d{4}", str(row["year"])):
+            err(path, prefix + "year", "Use the known publication year, not an inferred date")
+        if "accessed" in row:
+            try:
+                if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(row["accessed"])):
+                    raise ValueError()
+                datetime.strptime(row["accessed"], "%Y-%m-%d")
+            except (ValueError, TypeError):
+                err(path, prefix + "accessed", "Expected the actual access date YYYY-MM-DD")
+        if row.get("referenceId") and row["referenceId"] not in literature:
+            err(path, prefix + "referenceId", "Unknown literature registry record")
     for key, row in research.items():
         for field in ("title", "description", "status", "summary", "nextStep", "order"):
             if field not in row:
                 err(base / "research.json", f"{key}.{field}", "Required field")
     for key, row in datasets.items():
+        bibliography_fields(row, base / "datasets.json", key + ".")
         for field in ("title", "release", "sourceCommit", "url", "period", "scope", "limitations"):
             if field not in row:
                 err(base / "datasets.json", f"{key}.{field}", "Required field")
@@ -301,6 +327,8 @@ def validate(root=ROOT, material_id=None):
             for index, source in enumerate(row["sources"]):
                 if not isinstance(source, dict) or not source.get("title") or not valid_url(source.get("url")):
                     err(path, f"sources.{index}", "Expected a title and HTTP(S) source URL")
+                else:
+                    bibliography_fields(source, path, f"sources.{index}.")
         if row.get("visibility") == "published":
             for field in ("title", "summary", "topic", "territory", "period", "sourceCommit", "body"):
                 if not isinstance(row.get(field), str) or not row[field].strip():
@@ -318,6 +346,25 @@ def validate(root=ROOT, material_id=None):
             err(path, "body", "Use plain Markdown. HTML/JS/MDX, imports and executable links are forbidden")
     for key, row in materials.items():
         path = base / "materials" / f"{key}.json"
+        prose = document_prose(str(row.get("body", "")))
+        for ref in re.findall(r"\[@([^\],\s]+)(?:,[^\]\n]+)?\]", prose):
+            if ref.startswith("source:"):
+                number = ref[7:]
+                if not number.isdigit() or not 1 <= int(number) <= len(row.get("sources") if isinstance(row.get("sources"), list) else []):
+                    err(path, "body", f"Unknown source citation: {ref}")
+            elif ref.startswith("data:"):
+                if ref[5:] not in (row.get("datasetIds") if isinstance(row.get("datasetIds"), list) else []):
+                    err(path, "body", f"Register the cited dataset in datasetIds: {ref[5:]}")
+            elif ref.startswith("fig:"):
+                figure = ref[4:]
+                if figure.startswith("image-"):
+                    count = len(re.findall(r"!\[[^\]]*\]\(", prose))
+                    if not figure[6:].isdigit() or not 1 <= int(figure[6:]) <= count:
+                        err(path, "body", f"Unknown image cross-reference: {figure}")
+                elif figure not in (row.get("visualIds") if isinstance(row.get("visualIds"), list) else []) or visuals.get(figure, {}).get("template") == "service-links":
+                    err(path, "body", f"Unknown numbered figure/table: {figure}")
+            elif ref not in literature or not valid_url(literature[ref].get("url") or literature[ref].get("reading_url")):
+                err(path, "body", f"Unknown or unavailable literature citation: {ref}")
         wiki_links, inline_visuals = document_references(str(row.get("body", "")))
         for ref in wiki_links:
             if ref not in materials:
@@ -593,12 +640,15 @@ def main(argv=None):
     preview.add_argument("--material")
     preview.add_argument("--port", type=int, default=4321)
     preview.add_argument("--url-only", action="store_true")
-    export = commands.add_parser("export", help="Render the actual site visual/material with Chromium to PNG or PDF")
+    export = commands.add_parser("export", help="Render the actual site visual/material with Chromium to PNG, PDF or DOCX")
     group = export.add_mutually_exclusive_group(required=True)
     group.add_argument("--material")
     group.add_argument("--visual")
+    group.add_argument("--materials", help="Comma-separated ordered materials for one Word volume")
+    group.add_argument("--research", help="Export the published materials of one research to Word")
     export.add_argument("--output", required=True)
-    export.add_argument("--format", choices=["png", "pdf"], default="png")
+    export.add_argument("--format", choices=["png", "pdf", "docx"], default="png")
+    export.add_argument("--reference-doc", help="Optional university DOCX style template")
     export.add_argument("--theme", choices=["light", "dark"], default="light")
     export.add_argument("--url", help="Existing preview origin; default starts the local preview automatically")
     export.add_argument("--port", type=int, default=4321)
@@ -659,10 +709,31 @@ def main(argv=None):
             if not args.url_only:
                 return subprocess.call(["npm", "exec", "--", "astro", "dev", "--host", "127.0.0.1", "--port", str(args.port)], cwd=root / "web")
         elif args.command == "export":
-            target = content(root) / ("visuals" if args.visual else "materials") / f"{safe_id(args.visual or args.material)}.json"
-            if not target.is_file():
-                raise ValueError(f"Record not found: {target}")
-            browser_export(args)
+            if args.format == "docx":
+                if args.visual:
+                    raise ValueError("For Word, select --material, --materials or --research")
+                if args.research:
+                    if args.research not in {r["id"] for r in load(content(root) / "research.json")}:
+                        raise ValueError("Unknown research")
+                else:
+                    for key in (args.materials.split(",") if args.materials else [args.material]):
+                        if not (content(root) / "materials" / f"{safe_id(key)}.json").is_file():
+                            raise ValueError(f"Material not found: {key}")
+                errors = validate(root)
+                if errors:
+                    raise ValueError("Content validation failed; run validate --json before export")
+                command = ["node", str(root / "web/scripts/build-word-exports.mjs"), "--output", args.output]
+                for key in ("material", "materials", "research", "reference_doc"):
+                    if getattr(args, key, None):
+                        command += ["--" + key.replace("_", "-"), getattr(args, key)]
+                subprocess.run(command, cwd=root, check=True)
+            else:
+                if args.materials or args.research:
+                    raise ValueError("Collections use --format docx")
+                target = content(root) / ("visuals" if args.visual else "materials") / f"{safe_id(args.visual or args.material)}.json"
+                if not target.is_file():
+                    raise ValueError(f"Record not found: {target}")
+                browser_export(args)
         elif args.command == "submit":
             errors = validate(root)
             if errors:

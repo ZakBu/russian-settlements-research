@@ -40,9 +40,6 @@ jobs:
       - run: python scripts/build_site_data.py
       - run: npm --prefix web ci
       - run: npm --prefix web run check
-      - run: npm --prefix web run build
-        env:
-          PUBLIC_BASE_PATH: /russian-settlements-research/
       - name: Prepare browser for interaction checks
         run: |
           if command -v chromium >/dev/null 2>&1; then
@@ -52,6 +49,14 @@ jobs:
           else
             npx --prefix web playwright install --with-deps chromium
           fi
+      - name: Prepare Word export
+        uses: r-lib/actions/setup-pandoc@f9a764fea8d5c63df6ef9a5c7795bf7deb5d7e05
+        with:
+          pandoc-version: '3.1.11.1'
+      - run: python -m unittest discover -s tests -p 'test_word_export.py'
+      - run: npm --prefix web run build
+        env:
+          PUBLIC_BASE_PATH: /russian-settlements-research/
       - name: Check real browser journeys
         run: npm --prefix web test
         env:
