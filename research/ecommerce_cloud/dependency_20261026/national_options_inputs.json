@@ -1,0 +1,26 @@
+{
+  "inputs": [
+    {
+      "path": "work/sources/research/ecommerce_settlement_20261024/national/ozon_WB_comparison_main_target_experimental.parquet",
+      "sha256": "cdc06702c38d91957572827cd244d0c260bd5a0b05663e4216cb945f6f8ec694"
+    },
+    {
+      "path": "work/sources/research/ecommerce_settlement_20261024/history_stage_20261024/centres/settlement_admin_context_main2021.parquet",
+      "sha256": "a3a8f05ca233e190a77e7c42323a53120002eef95685a48987be27c4556c44d5"
+    },
+    {
+      "path": "work/sources/research/ecommerce_settlement_20261024/settlement_role_stage_20261024/system/centre_system_demography.csv",
+      "sha256": "c2fa7ab6874ebe32709a8737599e3a0c9d02305501a2a85104f76eaba29ae57e"
+    }
+  ],
+  "method": "own-settlement positive pickup records in fixed administrative frames, not customer access or flows",
+  "population": "fixed census2021 counts, not residents2026 or pickup users",
+  "network_dates": {
+    "WB": "2026-10-21",
+    "Ozon": "third-party declared 2026-08-06"
+  },
+  "unknown": "WB linkage unknown retained; no positive record is not proven absence for either platform",
+  "geography": "accepted census-source 81-region frame; each context vintage separately; no boundary continuity claim",
+  "source_semantics": "WB accepted types8/34; Ozon third-party p=0 inferred pickup, no lockers",
+  "details": "work/ecommerce_dependency_20261026/national_options_contexts.csv"
+}
