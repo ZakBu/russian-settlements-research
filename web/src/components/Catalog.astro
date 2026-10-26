@@ -15,7 +15,7 @@ const edges=items.flatMap(m=>{
  return [...links.map(target=>({source:m.id,target,type:'reference',label:'Ссылается на'})),...(m.supersedes&&ids.has(m.supersedes)?[{source:m.id,target:m.supersedes,type:'supersedes',label:'Уточняет предыдущую публикацию'}]:[])];
 });
 const data={rows,edges,base:basePath(),researchId,initialView,legacy};
-const startIds=['population-base','map-reading-guide','model-and-observation'];
+const startIds=['research-guide','population-base','map-reading-guide','model-and-observation'];
 ---
 <div class="materials-catalog" data-materials-catalog>
 {heading&&<header class="materials-heading"><p class="eyebrow">Библиотека исследований</p><h1>Материалы</h1><p>Карты, результаты и объяснения — в одной библиотеке.</p></header>}
