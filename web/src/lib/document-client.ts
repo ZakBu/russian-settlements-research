@@ -9,10 +9,18 @@ if(tocLinks.length){const visible=new Map<string,boolean>();const observer=new I
 const search=document.querySelector<HTMLInputElement>('#library-search');
 if(search){let kind='';let selectedResearch=new URLSearchParams(location.search).get('research')||'';const entries=[...document.querySelectorAll<HTMLElement>('[data-library-entry]')];const buttons=[...document.querySelectorAll<HTMLButtonElement>('[data-library-kind]')];const update=()=>{const query=search.value.trim().toLocaleLowerCase('ru');let count=0;for(const entry of entries){entry.hidden=!!((selectedResearch&&entry.dataset.research!==selectedResearch)||(kind&&entry.dataset.kind!==kind)||(query&&!entry.dataset.search?.includes(query)));if(!entry.hidden)count++}document.querySelectorAll<HTMLElement>('[data-library-group]').forEach(group=>group.hidden=![...group.querySelectorAll<HTMLElement>('[data-library-entry]')].some(e=>!e.hidden));document.querySelector('[data-library-count]')!.textContent=`Найдено документов: ${count}`;document.querySelector<HTMLElement>('[data-library-empty]')!.hidden=count>0;buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.libraryKind===kind)))};search.addEventListener('input',update);buttons.forEach(button=>button.addEventListener('click',()=>{kind=button.dataset.libraryKind||'';update()}));document.querySelector('[data-library-reset]')?.addEventListener('click',()=>{kind='';selectedResearch='';search.value='';const url=new URL(location.href);url.searchParams.delete('research');history.replaceState(null,'',url);window.dispatchEvent(new Event('atlas-research-reset'));update();search.focus()});document.addEventListener('keydown',event=>{if(event.key==='/'&&!event.ctrlKey&&!event.metaKey&&!event.altKey&&!(event.target instanceof HTMLInputElement)&&!(event.target instanceof HTMLTextAreaElement)){event.preventDefault();search.focus()}});update()}
 
-// Align the outline with the title and keep that screen position while reading.
-const readingShell=document.querySelector<HTMLElement>('.document-reading-shell');
-if(readingShell){const alignOutline=()=>{const heading=readingShell.querySelector<HTMLElement>('h1');if(!heading)return;const titleY=heading.getBoundingClientRect().top+scrollY;readingShell.style.setProperty('--toc-offset',`${Math.max(0,titleY-readingShell.getBoundingClientRect().top-scrollY-parseFloat(getComputedStyle(readingShell).paddingTop))}px`);readingShell.style.setProperty('--toc-top',`${Math.max(24,Math.min(titleY,innerHeight-140))}px`)};alignOutline();document.fonts.ready.then(alignOutline);window.addEventListener('resize',alignOutline)}
-
 // Native disclosures give the page tree arbitrary depth without a tree-widget dependency.
-const pageBranches=[...document.querySelectorAll<HTMLDetailsElement>('[data-page-tree-branch]')];
-if(pageBranches.length){let saved:Record<string,boolean>={};try{saved=JSON.parse(sessionStorage.getItem('atlas-page-tree-open')||'{}')}catch{}for(const branch of pageBranches){if(saved?.[branch.dataset.pageTreeBranch!]===true)branch.open=true;branch.addEventListener('toggle',()=>{try{const state=Object.fromEntries(pageBranches.map(b=>[b.dataset.pageTreeBranch!,b.open]));sessionStorage.setItem('atlas-page-tree-open',JSON.stringify(state))}catch{}})}}
+export function initializePageTrees(scope:ParentNode=document){
+ const branches=[...scope.querySelectorAll<HTMLDetailsElement>('[data-page-tree-branch]')];
+ let saved:Record<string,boolean>={};try{saved=JSON.parse(sessionStorage.getItem('atlas-page-tree-open')||'{}')}catch{}
+ for(const branch of branches){
+  if(branch.dataset.pageTreeBound)continue;
+  branch.dataset.pageTreeBound='true';if(saved?.[branch.dataset.pageTreeBranch!]===true)branch.open=true;
+  branch.addEventListener('toggle',()=>{try{
+   const previous=JSON.parse(sessionStorage.getItem('atlas-page-tree-open')||'{}');
+   const state={...(previous&&typeof previous==='object'&&!Array.isArray(previous)?previous:{}),...Object.fromEntries(branches.map(b=>[b.dataset.pageTreeBranch!,b.open]))};
+   sessionStorage.setItem('atlas-page-tree-open',JSON.stringify(state));
+  }catch{}});
+ }
+}
+initializePageTrees();

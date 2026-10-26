@@ -76,11 +76,12 @@ test('unread material versions persist across visits and can be marked independe
  await page.getByRole('button',{name:'Отметить всё просмотренным',exact:true}).click();await expect(count).toHaveText('0');await page.locator('[data-new-only]').check();await expect(page.locator('[data-no-new]')).toBeVisible();await page.reload();await expect(count).toHaveText('0');
 });
 
-test('desktop outline starts at the article title and keeps its position while scrolling',async({page},testInfo)=>{
+test('desktop outline starts at the reading column and sticks near the viewport top',async({page},testInfo)=>{
  await page.goto('materials/map-reading-guide/');await page.evaluate(()=>document.fonts.ready);
- const title=page.getByRole('heading',{level:1}),outline=page.locator('.document-toc-left nav');await expect(outline).toBeVisible();
- const initial=(await outline.boundingBox())!.y,titleTop=(await title.boundingBox())!.y;expect(Math.abs(initial-titleTop)).toBeLessThanOrEqual(3);
- await page.screenshot({path:testInfo.outputPath('outline-title-aligned.png')});
- for(const top of [500,1000]){await page.evaluate(top=>{document.documentElement.style.scrollBehavior='auto';window.scrollTo(0,top)},top);await expect.poll(async()=>Math.abs((await outline.boundingBox())!.y-initial)).toBeLessThanOrEqual(3);}
- await page.screenshot({path:testInfo.outputPath('outline-fixed-after-scroll.png')});
+ const header=page.locator('.document-header'),outline=page.locator('.document-toc-left nav');await expect(outline).toBeVisible();
+ expect(Math.abs((await outline.boundingBox())!.y-(await header.boundingBox())!.y)).toBeLessThanOrEqual(3);
+ await expect(outline).toHaveCSS('top','24px');
+ await page.screenshot({path:testInfo.outputPath('outline-reading-top.png')});
+ for(const top of [500,1000]){await page.evaluate(top=>{document.documentElement.style.scrollBehavior='auto';window.scrollTo(0,top)},top);await expect.poll(async()=>Math.abs((await outline.boundingBox())!.y-24)).toBeLessThanOrEqual(2);}
+ await page.screenshot({path:testInfo.outputPath('outline-top-after-scroll.png')});
 });

@@ -5,6 +5,8 @@ import { layerIds, layerStats, renderResearchLayer, type ResearchLayer, type Lay
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './map-workspace.css';
 import siteAssets from '../../../data/site_assets.json';
+import {addContextBasemap,type ContextBasemap} from './map-basemap';
+import {settlementPopulationCutoff,settlementMagnitude,settlementVisibilityFilter} from '../lib/map-density';
 
 type Properties = Record<string, any>;
 type Feature = { type: 'Feature'; id?: string | number; geometry: { type: string; coordinates: any }; properties: Properties };
@@ -82,17 +84,18 @@ function Charts({ features, selected, dark }: { features: Feature[]; selected: S
       const values = eligible.map(f => number(f.properties[key])).filter(v => v !== null) as number[];
       return values.length ? values.reduce((a, b) => a + b, 0) : null;
     });
+    const known2021=selected.mode==='settlement'?features.filter(f=>number(f.properties.p21)!==null).length:Number(selected.feature.properties.p21KnownCount||0);
     const bins = [0, 0, 0, 0, 0];
     features.forEach(f => { const p = number(f.properties.p21); if (p !== null) bins[p < 100 ? 0 : p < 1000 ? 1 : p < 10000 ? 2 : p < 100000 ? 3 : 4]++; });
     if (selected.mode !== 'settlement' && Array.isArray(selected.feature.properties.sizeBins)) selected.feature.properties.sizeBins.forEach((v: number, i: number) => { if (i < 5) bins[i] = v; });
     chart.setOption({
       backgroundColor: 'transparent', textStyle: { fontFamily: 'Golos Text, sans-serif', color: c.ink }, animationDuration: 250,
       tooltip: { trigger: 'axis', confine: true, backgroundColor: dark ? '#14213D' : '#FFFFFF', textStyle: { color: c.ink }, borderColor: c.line, valueFormatter: (v: any) => shown(v) },
-      title: [{ text: 'Население, человек', left: '3%', top: 3, textStyle: { color: c.ink, fontSize: 13, fontWeight: 500 } }, { text: 'НП по населению 2021 года', left: '55%', top: 3, textStyle: { color: c.ink, fontSize: 13, fontWeight: 500 } }],
+      title: [{ text: sums.every(value=>value===null)?'Население, человек\nНет зачтённых данных':'Население, человек', left: '3%', top: 3, textStyle: { color: c.ink, fontSize: 13, fontWeight: 500 } }, { text: known2021?'НП по населению 2021 года':'Людность, 2021\nНет зачтённых данных', left: '55%', top: 3, textStyle: { color: c.ink, fontSize: 13, fontWeight: 500 } }],
       grid: [{ left: '4%', right: '54%', top: 43, bottom: 28, containLabel: true }, { left: '55%', right: '4%', top: 43, bottom: 28, containLabel: true }],
       xAxis: [{ type: 'category', data: ['2002', '2010', '2021'], axisLine: { lineStyle: { color: c.line } }, axisTick: { show: false }, axisLabel: { color: c.ink } }, { type: 'value', gridIndex: 1, minInterval: 1, axisLabel: { color: c.ink }, splitLine: { lineStyle: { color: c.line } } }],
       yAxis: [{ type: 'value', axisLabel: { color: c.ink, formatter: (v: number) => format.format(v) }, splitLine: { lineStyle: { color: c.line, type: 'dotted' } } }, { type: 'category', gridIndex: 1, data: ['До 100', '100–999', '1–10 тыс.', '10–100 тыс.', 'От 100 тыс.'], axisLabel: { color: c.ink }, axisTick: { show: false }, axisLine: { show: false } }],
-      series: [{ name: 'Население', type: 'bar', data: sums, barMaxWidth: 35, itemStyle: { color: c.blue }, decal: { symbol: 'rect', dashArrayX: [1, 2], dashArrayY: [1, 2], color: 'rgba(255,255,255,.25)' } }, { name: 'Число НП', type: 'bar', xAxisIndex: 1, yAxisIndex: 1, data: bins, barMaxWidth: 15, itemStyle: { color: c.blue }, label: { show: true, position: 'right', color: c.ink } }],
+      series: [{ name: 'Население', type: 'bar', data: sums, barMaxWidth: 35, itemStyle: { color: c.blue }, decal: { symbol: 'rect', dashArrayX: [1, 2], dashArrayY: [1, 2], color: 'rgba(255,255,255,.25)' } }, { name: 'Число НП', type: 'bar', xAxisIndex: 1, yAxisIndex: 1, data: known2021?bins:bins.map(()=>null), barMaxWidth: 15, itemStyle: { color: c.blue }, label: { show: true, position: 'right', color: c.ink } }],
     });
     const observer = new ResizeObserver(() => chart.resize()); observer.observe(host.current);
     return () => { observer.disconnect(); chart.dispose(); };
@@ -116,6 +119,8 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
   const customRegistryRef = useRef<ResearchLayer[]>([]);
   const initialLocation = useRef<ReturnType<typeof readLocation> | null>(null);
   const labels = useRef<maplibregl.Marker[]>([]);
+  const basemap = useRef<ContextBasemap|null>(null);
+  const contextAvailable=useRef(false);
   const renderLabels = useRef<() => void>(() => {});
   const activeMode = useRef<Mode>('settlement');
   const dataRef = useRef<Record<string, Collection>>({ settlements: empty, districts: empty, regions: empty, services: empty, links: empty, centres: empty });
@@ -165,13 +170,14 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
   };
   syncRef.current = () => updateUrl();
 
-  function zoomTo(feature: Feature) {
+  function zoomTo(feature: Feature,detail=false) {
     const box = bounds(feature); if (!box || !map.current) return;
     const mobile = window.innerWidth < 760;
-    map.current.fitBounds(box, { padding: { top: 75, left: !mobile && panel ? 325 : 35, right: 45, bottom: mobile ? 240 : 280 }, maxZoom: feature.geometry.type === 'Point' ? 11 : 9, duration: 650 });
+    map.current.fitBounds(box, { padding: { top: 75, left: !mobile && panel ? 325 : 35, right: 45, bottom: mobile ? 240 : 280 }, maxZoom: feature.geometry.type === 'Point' ? (detail?15.5:settlementMagnitude(feature.properties)<20000?14:11) : 9, duration: 650 });
   }
+  const cancelPendingSelection=()=>{deferredSelection.current=null;if(initialLocation.current)initialLocation.current.selected=''};
   const select = (s: Selection, fit = false, history = true) => {
-    deferredSelection.current = null; if (initialLocation.current) initialLocation.current.selected = '';
+    cancelPendingSelection();
     setSelection(s); setMode(s.mode); setCollapsed(false); setDetails(null); setDetailError(false);
     if (window.innerWidth < 760) setPanel(false);
     if (fit) zoomTo(s.feature);
@@ -191,7 +197,7 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
   const loadCollection = (key: string): Promise<void> => {
     if (loadedCollections.current.has(key) || failedCollections.current.has(key)) return Promise.resolve();
     if (pendingCollections.current[key]) return pendingCollections.current[key]!;
-    const paths: Record<string, string> = { settlements: 'settlements.compact.json', regions: 'regions-display.geojson', districts: 'districts-display.geojson' };
+    const paths: Record<string, string> = { settlements: 'settlements.compact.json', 'settlements-overview':'settlements.overview.json', regions: 'regions-display.geojson', districts: 'districts-display.geojson' };
     setPendingKeys(previous => [...previous, key]);
     pendingCollections.current[key] = (async () => {
       try {
@@ -200,36 +206,39 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
         const response = await fetch(`${root}data/${paths[key] || `${key}.geojson`}${version}`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const payload = await response.json();
-        const body = key === 'settlements' ? populationCollection(payload) : payload as Collection;
+        const populationKey=key==='settlements'||key==='settlements-overview';
+        const target=populationKey?'settlements':key;
+        const body = populationKey ? populationCollection(payload) : payload as Collection;
         if (body.type !== 'FeatureCollection' || !Array.isArray(body.features)) throw new Error('Неожиданный формат');
         loadedCollections.current.add(key);
         // Publish each usable source immediately; optional geography never blocks population.
-        dataRef.current = { ...dataRef.current, [key]: body }; setCollections(dataRef.current);
-        setErrors(previous => { const next = { ...previous }; delete next[key]; return next; });
+        if(key!=='settlements-overview'||!loadedCollections.current.has('settlements')){dataRef.current = { ...dataRef.current, [target]: body }; setCollections(dataRef.current);}
+        setErrors(previous => { const next = { ...previous }; delete next[key];if(key==='settlements')delete next['settlements-overview']; return next; });
         const requested = deferredSelection.current || initialLocation.current;
         if (requested?.selected && key === (requested.mode === 'settlement' ? 'settlements' : `${requested.mode}s`)) {
           const feature = body.features.find(f => idOf(f) === requested.selected);
           if (feature) { selectRef.current({ mode: requested.mode, feature }, false, false); deferredSelection.current = null; }
         }
       } catch (error) {
-        failedCollections.current.add(key); setErrors(previous => ({ ...previous, [key]: String(error) }));
+        failedCollections.current.add(key);if(key==='settlements-overview'){void loadCollection('settlements')}else setErrors(previous => ({ ...previous, [key]: String(error) }));
       } finally {
-        delete pendingCollections.current[key]; setPendingKeys(previous => previous.filter(item => item !== key)); if (key === 'settlements') setBusy(false);
+        delete pendingCollections.current[key]; setPendingKeys(previous => previous.filter(item => item !== key)); if(key==='settlements'||key==='settlements-overview'&&!failedCollections.current.has(key))setBusy(false);
       }
     })();
     return pendingCollections.current[key]!;
   };
   const loadData = async () => {
     failedCollections.current.clear(); setErrors({});
-    if (!loadedCollections.current.has('settlements')) setBusy(true);
-    void loadCollection('settlements'); void loadCollection('regions');
+    if (!dataRef.current.settlements.features.length) setBusy(true);
+    const requested = readLocation();
+    void loadCollection((requested.zoom??2.6)>=7||requested.selected&&requested.mode==='settlement'||query.trim().length>=2||searchFocus?'settlements':'settlements-overview');void loadCollection('regions');
     // Small source-backed overlays are independent; district polygons stay on demand.
     for (const key of ['services', 'links', 'centres']) void loadCollection(key);
-    const requested = readLocation();
     if (requested.mode === 'district' || requested.layers.districts || query.trim().length >= 2) void loadCollection('districts');
     try { const r = await fetch(`${root}data/manifest.json`); if (r.ok) setManifest(await r.json()); } catch { /* Missing provenance does not hide available geography. */ }
   };
   useEffect(() => { void loadData(); }, [root]);
+  useEffect(()=>{if(searchFocus||query.trim().length>=2)void loadCollection('settlements')},[searchFocus,query]);
   useEffect(() => {
     if (layers.districts || mode === 'district' || query.trim().length >= 2) void loadCollection('districts');
   }, [layers.districts, mode, query]);
@@ -270,42 +279,42 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
     const initial = readLocation();
     let instance: LibreMap;
     try {
-      instance = new maplibregl.Map({ container: mapElement.current, style: { version: 8, sources: {}, layers: [{ id: 'background', type: 'background', paint: { 'background-color': '#F4F6FF' } }] }, center: [initial.lng ?? 88, initial.lat ?? 59], zoom: initial.zoom ?? 2.6, minZoom: 1.6, maxZoom: 14, attributionControl: false });
+      instance = new maplibregl.Map({ container: mapElement.current, style: { version: 8, sources: {}, layers: [{ id: 'background', type: 'background', paint: { 'background-color': '#F4F6FF' } }] }, center: [initial.lng ?? 88, initial.lat ?? 59], zoom: initial.zoom ?? 2.6, minZoom: 1.6, maxZoom: 19, maxTileCacheSize:96, locale:{'NavigationControl.ZoomIn':'Приблизить','NavigationControl.ZoomOut':'Отдалить','NavigationControl.ResetBearing':'Север сверху','AttributionControl.ToggleAttribution':'Источники карты','ScaleControl.Meters':'м','ScaleControl.Kilometers':'км','Popup.Close':'Закрыть','Marker.Title':'Метка','Map.Title':'Интерактивная карта расселения'}, attributionControl: false });
     } catch { setMapError('Браузер не смог открыть WebGL-карту. Попробуйте обновить страницу или включить аппаратное ускорение.'); return; }
     map.current = instance;
+    let previousCutoff=-1;
     renderLabels.current = () => {
       labels.current.forEach(label => label.remove()); labels.current = [];
       if (!loaded.current) return;
-      const zoom = instance.getZoom(), visible = instance.getBounds();
-      const candidates = zoom < 5 ? dataRef.current.regions.features.map(f => {
-        const box = bounds(f); return box ? { feature: f, point: [(box[0][0] + box[1][0]) / 2, (box[0][1] + box[1][1]) / 2] } : null;
-      }).filter(Boolean) as { feature: Feature; point: number[] }[] : dataRef.current.settlements.features.filter(f => number(f.properties.p21) !== null).map(feature => ({ feature, point: feature.geometry.coordinates }));
-      const inView = candidates.filter(item => visible.contains(item.point as [number, number])).sort((a, b) => Number(b.feature.properties.p21 || 0) - Number(a.feature.properties.p21 || 0));
-      const occupied: { x: number; y: number }[] = [];
-      for (const item of inView) {
-        const position = instance.project(item.point as [number, number]);
-        if (occupied.some(p => Math.abs(p.x - position.x) < 120 && Math.abs(p.y - position.y) < 30)) continue;
-        const element = document.createElement('span'); element.className = `map-place-label ${zoom < 5 ? 'region-label' : ''}`; element.textContent = titleOf(item.feature);
-        labels.current.push(new maplibregl.Marker({ element, anchor: 'left', offset: [6, -6] }).setLngLat(item.point as [number, number]).addTo(instance));
-        occupied.push(position);
-        if (labels.current.length >= (zoom < 5 ? 12 : 25)) break;
+      const zoom=instance.getZoom(),visible=instance.getBounds(),cutoff=settlementPopulationCutoff(zoom);
+      if(previousCutoff!==cutoff){instance.setFilter('settlements-point',settlementVisibilityFilter(zoom) as any);previousCutoff=cutoff}
+      if(contextAvailable.current && zoom>=4)return;
+      const candidates=dataRef.current.settlements.features.filter(feature=>visible.contains(feature.geometry.coordinates)&&settlementMagnitude(feature.properties)>=cutoff).sort((a,b)=>settlementMagnitude(b.properties)-settlementMagnitude(a.properties));
+      const occupied:{left:number;right:number;top:number;bottom:number}[]=[];
+      const canvas=instance.getCanvas();
+      for(const feature of candidates){
+        const point=feature.geometry.coordinates,position=instance.project(point),text=String(titleOf(feature));
+        const width=Math.min(190,Math.max(50,text.length*6.5)),right=position.x+width+12>canvas.clientWidth;
+        const box={left:right?position.x-width-10:position.x+8,right:right?position.x-8:position.x+width+10,top:position.y-20,bottom:position.y+2};
+        if(box.left<0||box.right>canvas.clientWidth||box.top<0||box.bottom>canvas.clientHeight||occupied.some(p=>box.left<p.right+8&&box.right>p.left-8&&box.top<p.bottom+6&&box.bottom>p.top-6))continue;
+        const element=document.createElement('span');element.className='map-place-label';element.textContent=text;
+        labels.current.push(new maplibregl.Marker({element,anchor:right?'right':'left',offset:[right?-7:7,-8]}).setLngLat(point).addTo(instance));occupied.push(box);
+        if(labels.current.length>=(zoom<5?20:zoom<8?36:60))break;
       }
     };
     instance.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
     instance.addControl(new maplibregl.ScaleControl({ unit: 'metric', maxWidth: 150 }), 'bottom-left');
     instance.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: `Переписи 2002/2010/2021 · ${boundaryStamp('regions')}` }), 'bottom-right');
     instance.on('load', () => {
-      instance.addSource('basemap', { type: 'raster', tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'], tileSize: 256, maxzoom: 16, attribution: 'Esri, HERE, Garmin, © OpenStreetMap contributors' });
-      instance.addLayer({ id: 'basemap', type: 'raster', source: 'basemap', paint: { 'raster-opacity': .65, 'raster-saturation': -.2 } });
+      void addContextBasemap(instance,{dark:document.documentElement.dataset.theme==='dark',onStatus:available=>{contextAvailable.current=available;setBasemapUnavailable(!available);renderLabels.current()}}).then(handle=>{if(map.current===instance){basemap.current=handle;handle.setTheme(document.documentElement.dataset.theme==='dark')}else handle.dispose()});
       const boundary = (key: string, fill: string) => {
         instance.addSource(key, { type: 'geojson', data: empty as any });
-        instance.addLayer({ id: `${key}-fill`, type: 'fill', source: key, paint: { 'fill-color': fill, 'fill-opacity': key === 'regions' ? .035 : .012 } });
+        instance.addLayer({ id: `${key}-fill`, type: 'fill', source: key, paint: { 'fill-color': fill, 'fill-opacity': key === 'regions' ? .012 : .008 } });
         instance.addLayer({ id: `${key}-line`, type: 'line', source: key, paint: { 'line-color': fill, 'line-width': key === 'regions' ? 1 : .65, 'line-opacity': .65, 'line-dasharray': key === 'districts' ? [3, 3] : [1, 0] } });
       };
       boundary('regions', '#244CFF'); boundary('districts', '#7955C5');
-      instance.addSource('settlements', { type: 'geojson', data: empty as any, cluster: true, clusterMaxZoom: 6, clusterRadius: 32, attribution: 'Связанная база переписей 2002/2010/2021' });
-      instance.addLayer({ id: 'clusters', type: 'circle', source: 'settlements', filter: ['has', 'point_count'], paint: { 'circle-color': '#244CFF', 'circle-opacity': .48, 'circle-radius': ['step', ['get', 'point_count'], 6, 100, 9, 1000, 13], 'circle-stroke-width': 1, 'circle-stroke-color': '#FFFFFF' } });
-      instance.addLayer({ id: 'settlements-point', type: 'circle', source: 'settlements', filter: ['!', ['has', 'point_count']], paint: { 'circle-color': '#244CFF', 'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 1.4, 8, 3, 12, 5], 'circle-stroke-color': '#F4F6FF', 'circle-stroke-width': .5, 'circle-opacity': .8 } });
+      instance.addSource('settlements', { type: 'geojson', data: empty as any, cluster: false, attribution: 'Связанная база переписей 2002/2010/2021' });
+      instance.addLayer({ id: 'settlements-point', type: 'circle', source: 'settlements', filter: settlementVisibilityFilter(instance.getZoom()) as any, paint: { 'circle-color': '#244CFF', 'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 2, 8, 2.7, 14, 3.6], 'circle-stroke-color': '#F4F6FF', 'circle-stroke-width': .5, 'circle-opacity': .8 } });
       instance.addSource('links', { type: 'geojson', data: empty as any });
       instance.addLayer({ id: 'links-line', type: 'line', source: 'links', paint: { 'line-color': '#244CFF', 'line-width': 1.6, 'line-opacity': .75, 'line-dasharray': [4, 2] } });
       instance.addSource('services', { type: 'geojson', data: empty as any });
@@ -360,12 +369,6 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
       }
       const currentMode = activeMode.current;
       if (currentMode === 'settlement') {
-        const clusters = instance.queryRenderedFeatures(event.point, { layers: ['clusters'] });
-        if (clusters[0]) {
-          const source = instance.getSource('settlements') as maplibregl.GeoJSONSource;
-          const zoom = await source.getClusterExpansionZoom(Number(clusters[0].properties.cluster_id));
-          instance.easeTo({ center: (clusters[0].geometry as any).coordinates, zoom }); return;
-        }
         const items = instance.queryRenderedFeatures([[event.point.x - 7, event.point.y - 7], [event.point.x + 7, event.point.y + 7]], { layers: ['settlements-point'] });
         if (items[0]) {
           const id = String(items[0].properties.id);
@@ -377,8 +380,8 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
         if (feature) selectRef.current({ mode: currentMode, feature });
       }
     });
-    instance.on('moveend', () => { syncRef.current(); renderLabels.current(); });
-    instance.on('error', event => { if (event.error?.message?.includes('WebGL')) setMapError('Ошибка отображения карты. Обновите страницу.'); if ((event as any).sourceId === 'basemap') setBasemapUnavailable(true); });
+    instance.on('moveend', () => { syncRef.current();if(instance.getZoom()>=7)void loadCollection('settlements');renderLabels.current(); });
+    instance.on('error', event => { if (event.error?.message?.includes('WebGL')) setMapError('Ошибка отображения карты. Обновите страницу.'); });
     const resize = new ResizeObserver(() => instance.resize()); resize.observe(mapElement.current);
     const pop = () => {
       const s = readLocation(); setLayers(s.layers); setPeriod(s.period); setMode(s.mode);
@@ -392,7 +395,7 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
       }
     };
     window.addEventListener('popstate', pop);
-    return () => { window.removeEventListener('popstate', pop); resize.disconnect(); labels.current.forEach(label => label.remove()); labels.current = []; loaded.current = false; sourceCollections.current = {}; instance.remove(); map.current = null; };
+    return () => { window.removeEventListener('popstate', pop); resize.disconnect(); labels.current.forEach(label => label.remove()); labels.current = []; loaded.current = false;contextAvailable.current=false; sourceCollections.current = {}; basemap.current?.dispose();basemap.current=null; instance.remove(); map.current = null; };
   }, []);
 
   function refreshMap(instance: LibreMap, data: Record<string, Collection>) {
@@ -414,8 +417,8 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
       if (!loaded.current) return;
       const c = color(dark);
       instance.setPaintProperty('background', 'background-color', dark ? '#080F24' : '#F4F6FF');
-      instance.setPaintProperty('basemap', 'raster-opacity', dark ? .13 : .65);
-      [['population', ['clusters', 'settlements-point']], ['centres', ['centres-point']], ['links', ['links-line']], ['districts', ['districts-fill', 'districts-line']], ['regions', ['regions-fill', 'regions-line']]].forEach(([key, ids]) => (ids as string[]).forEach(id => instance.setLayoutProperty(id, 'visibility', layers[key as keyof Layers] ? 'visible' : 'none')));
+      basemap.current?.setTheme(dark);
+      [['population', ['settlements-point']], ['centres', ['centres-point']], ['links', ['links-line']], ['districts', ['districts-fill', 'districts-line']], ['regions', ['regions-fill', 'regions-line']]].forEach(([key, ids]) => (ids as string[]).forEach(id => instance.setLayoutProperty(id, 'visibility', layers[key as keyof Layers] ? 'visible' : 'none')));
       instance.setLayoutProperty('services-point', 'visibility', layers.schools || layers.medical ? 'visible' : 'none');
       instance.setFilter('services-point', ['in', ['get', 'family'], ['literal', [...(layers.schools ? ['schools'] : []), ...(layers.medical ? ['medical'] : [])]]]);
       const years = period.split('-');
@@ -423,9 +426,8 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
       const change: any = ['case', ['all', ['!=', ['get', 'comparable'], false], ['>', ['coalesce', ['get', from], 0], 0], ['!=', ['get', to], null]], ['*', 100, ['/', ['-', ['get', to], ['get', from]], ['get', from]]], -9999];
       const expression: any = ['case', ['==', change, -9999], c.gray, ['<', change, -10], c.orange, ['>', change, 10], c.blue, dark ? '#B0BEDF' : '#A5B5D8'];
       instance.setPaintProperty('settlements-point', 'circle-color', years.length === 1 ? ['case', ['==', ['get', from], null], c.gray, c.blue] : expression);
-      instance.setPaintProperty('settlements-point', 'circle-radius', years.length === 1 ? ['interpolate', ['linear'], ['sqrt', ['max', 0, ['coalesce', ['get', from], 0]]], 0, 1.6, 30, 2.5, 100, 4, 400, 7, 1500, 10] : ['interpolate', ['linear'], ['zoom'], 3, 1.4, 8, 3, 12, 5]);
+      instance.setPaintProperty('settlements-point', 'circle-radius', years.length === 1 ? ['interpolate', ['linear'], ['sqrt', ['max', 0, ['coalesce', ['get', from], 0]]], 0, 1.5, 30, 2.2, 100, 3.2, 400, 5, 1500, 7] : ['interpolate', ['linear'], ['zoom'], 3, 2, 8, 2.7, 14, 3.6]);
       instance.setPaintProperty('settlements-point', 'circle-opacity', opacity / 100);
-      instance.setPaintProperty('clusters', 'circle-color', c.blue);
       instance.setPaintProperty('regions-line', 'line-color', c.blue);
       instance.setPaintProperty('selected-line', 'line-color', c.blue);
       instance.setPaintProperty('selected-point', 'circle-color', c.blue);
@@ -483,9 +485,9 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
       <div className="map-search">
         <label className="sr-only" htmlFor="map-search">Поиск места или территории</label>
         <input id="map-search" value={query} onChange={e => { setQuery(e.target.value); setSearchFocus(true); }} onFocus={() => setSearchFocus(true)} onKeyDown={e => { if (e.key === 'Escape') setSearchFocus(false); if (e.key === 'Enter' && results[0]) { select(results[0], true); setSearchFocus(false); setQuery(''); } }} placeholder="Найти место или территорию…" autoComplete="off" />
-        {searchFocus && query.trim().length >= 2 && <div className="map-search-results" role="listbox" aria-label="Найденные места">{results.length ? results.map(result => <button key={`${result.mode}-${idOf(result.feature)}`} onClick={() => { select(result, true); setQuery(''); setSearchFocus(false); }}><strong>{titleOf(result.feature)}</strong><small>{selectionLabel(result)}{result.feature.properties.region ? ` · ${result.feature.properties.region}` : ''}{result.mode === 'district' && result.feature.properties.searchAliases?.length ? ` · По записям НП: ${result.feature.properties.searchAliases[0]}` : ''}</small></button>) : <p>{busy ? 'Данные загружаются…' : 'Совпадений нет. Уточните название.'}</p>}</div>}
+        {searchFocus && query.trim().length >= 2 && <div className="map-search-results" role="listbox" aria-label="Найденные места">{results.length ? results.map(result => <button key={`${result.mode}-${idOf(result.feature)}`} onClick={() => { select(result, true); setQuery(''); setSearchFocus(false); }}><strong>{titleOf(result.feature)}</strong><small>{selectionLabel(result)}{result.feature.properties.region ? ` · ${result.feature.properties.region}` : ''}{result.mode === 'district' && result.feature.properties.searchAliases?.length ? ` · По записям НП: ${result.feature.properties.searchAliases[0]}` : ''}</small></button>) : <p>{busy||pendingKeys.includes('settlements') ? 'Данные загружаются…' : 'Совпадений нет. Уточните название.'}</p>}</div>}
       </div>
-      <div className="map-mode" role="group" aria-label="Что выбирать на карте">{(['settlement', 'district', 'region'] as Mode[]).map(kind => <button key={kind} className={mode === kind ? 'active' : ''} aria-pressed={mode === kind} onClick={() => { setMode(kind); if (selection?.mode !== kind) setSelection(null); }}>{kind === 'settlement' ? 'НП' : kind === 'district' ? 'Районы' : 'Регионы'}</button>)}</div>
+      <div className="map-mode" role="group" aria-label="Что выбирать на карте">{(['settlement', 'district', 'region'] as Mode[]).map(kind => <button key={kind} className={mode === kind ? 'active' : ''} aria-pressed={mode === kind} onClick={() => { cancelPendingSelection();activeMode.current=kind;setMode(kind); if (selection?.mode !== kind) setSelection(null); }}>{kind === 'settlement' ? 'НП' : kind === 'district' ? 'Районы' : 'Регионы'}</button>)}</div>
       <button className="map-control map-share" onClick={share}>{copied ? 'Ссылка скопирована' : 'Поделиться ↗'}</button>
     </div>
 
@@ -499,19 +501,19 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
       <fieldset><legend>Исследовательские результаты</legend><label className="map-check"><input type="checkbox" checked={layers.centres} onChange={() => toggleLayer('centres')} /><span className="layer-symbol" style={{color:'#7955C5'}}>◎</span><span>Строгие модельные центры<small>{collections.centres.features.length || 197} центров · диагностическое подмножество, не все СГРТ</small></span></label></fieldset><fieldset><legend>Территориальная сетка</legend>{(['districts', 'regions'] as const).map(key => <label className="map-check" key={key}><input type="checkbox" checked={layers[key]} onChange={() => toggleLayer(key)} /><span className="layer-symbol boundary-symbol">□</span><span>{key === 'districts' ? 'Районы и округа' : 'Регионы'}<small>{boundaryStamp(key)}</small>{pendingKeys.includes(key) && <small role="status">Загружаем {key === 'districts' ? 'районы' : 'регионы'}…</small>}</span></label>)}</fieldset>
       <fieldset className="map-research-layers"><legend>Слои исследования</legend>{registryError ? <p>Реестр слоёв недоступен. <button onClick={loadRegistry}>Повторить</button></p> : !visibleRegistry.length ? <p className="map-layer-empty">Опубликованных дополнительных слоёв пока нет.</p> : visibleRegistry.map(meta => <div key={meta.id}><label className="map-check"><input type="checkbox" checked={customActive.includes(meta.id)} onChange={() => toggleCustom(meta.id)} data-layer-id={meta.id} /><span className="layer-symbol">{meta.geometry === 'point' ? '●' : meta.geometry === 'line' ? '╱' : '□'}</span><span>{meta.title}<small>{meta.period} · {meta.unit}{customPending.current.has(meta.id) ? ' · загрузка…' : customCache.current[meta.id] ? ` · ${customCache.current[meta.id].features.length} объектов` : ''}</small></span></label>{customErrors[meta.id] && <p className="map-custom-error" role="alert">Не удалось загрузить слой. <button onClick={() => { customFailure.current.delete(meta.id); setCustomRevision(v => v + 1); }}>Повторить</button></p>}</div>)}</fieldset>
       <p className="map-boundary-note">{siteAssets.boundaryNote} Суммы по границам — пространственный расчёт по базе НП.</p>
-      <button className="map-reset" onClick={() => { setLayers(defaultLayers); setCustomActive([]); setPeriod('2002-2021'); setMode('settlement'); setSelection(null); map.current?.flyTo({ center: [88, 59], zoom: 2.6 }); }}>Сбросить настройки ↺</button>
+      <button className="map-reset" onClick={() => { cancelPendingSelection();activeMode.current='settlement';setLayers(defaultLayers); setCustomActive([]); setPeriod('2002-2021'); setMode('settlement'); setSelection(null); map.current?.flyTo({ center: [88, 59], zoom: 2.6 }); }}>Сбросить настройки ↺</button>
     </aside>}
 
     {busy && <div className="map-loading" role="status">▦ Загружаем пространственные данные…</div>}
-    {Object.keys(errors).length > 0 && <div className="map-data-error" role="alert">Не загружены: {Object.keys(errors).map(k => ({ settlements: 'население', regions: 'регионы', districts: 'районы', services: 'услуги', links: 'связи', centres: 'центры' })[k]).join(', ')}. <button onClick={loadData}>Повторить</button></div>}
+    {Object.keys(errors).length > 0 && <div className="map-data-error" role="alert">Не загружены: {Object.keys(errors).map(k => ({ settlements: 'население', 'settlements-overview':'обзор населения', regions: 'регионы', districts: 'районы', services: 'услуги', links: 'связи', centres: 'центры' })[k]).join(', ')}. <button onClick={loadData}>Повторить</button></div>}
     {!selection && !busy && <div className="map-hint">Выберите {mode === 'settlement' ? 'населённый пункт' : mode === 'district' ? 'район' : 'регион'} на карте — снизу откроются графики</div>}
-    {(layers.population || layers.schools || layers.medical || layers.centres || layers.links) && <aside className="map-legend" aria-label="Легенда карты">{layers.population && <><strong>{period.includes('-') ? 'Изменение населения' : 'Население, человек'} · {period.replace('-', '–')}</strong>{period.includes('-') ? <><span><i style={{ background: color(dark).blue }} />Рост более 10%</span><span><i style={{ background: color(dark).orange }} />Сокращение более 10%</span><span><i style={{ background: dark ? '#B0BEDF' : '#A5B5D8' }} />Изменение от −10 до +10%</span><span><i style={{ background: color(dark).gray }} />Нет полного численного ряда</span></> : <><span><i style={{ background: color(dark).blue }} />Размер точки — численность</span><span><i style={{ background: color(dark).gray }} />Нет зачтённого значения</span></>}<small>На общем масштабе точки объединены в кластеры.</small></>}{layers.schools && <span><i className="square" style={{ background: color(dark).green }} />Школьное обслуживание</span>}{layers.medical && <span><i className="square" style={{ background: color(dark).orange }} />Медицинское обслуживание</span>}{layers.centres && <span><i style={{background:'transparent',border:'2px solid #7955C5'}} />Модельные центры · диагностическая выборка</span>}{layers.links && <small>Пунктир — документированная связь. Это не дорожный маршрут и не наблюдённый поток.</small>}</aside>}
+    {(layers.population || layers.schools || layers.medical || layers.centres || layers.links) && <aside className="map-legend" aria-label="Легенда карты">{layers.population && <><strong>{period.includes('-') ? 'Изменение населения' : 'Население, человек'} · {period.replace('-', '–')}</strong>{period.includes('-') ? <><span><i style={{ background: color(dark).blue }} />Рост более 10%</span><span><i style={{ background: color(dark).orange }} />Сокращение более 10%</span><span><i style={{ background: dark ? '#B0BEDF' : '#A5B5D8' }} />Изменение от −10 до +10%</span><span><i style={{ background: color(dark).gray }} />Нет полного численного ряда</span></> : <><span><i style={{ background: color(dark).blue }} />Размер точки — численность</span><span><i style={{ background: color(dark).gray }} />Нет зачтённого значения</span></>}<small>На обзорном масштабе показаны крупные НП; при приближении — остальные.</small></>}{layers.schools && <span><i className="square" style={{ background: color(dark).green }} />Школьное обслуживание</span>}{layers.medical && <span><i className="square" style={{ background: color(dark).orange }} />Медицинское обслуживание</span>}{layers.centres && <span><i style={{background:'transparent',border:'2px solid #7955C5'}} />Модельные центры · диагностическая выборка</span>}{layers.links && <small>Пунктир — документированная связь. Это не дорожный маршрут и не наблюдённый поток.</small>}</aside>}
 
     {enabledRegistry.length > 0 && <aside className="map-custom-legend" aria-label="Легенда исследовательских слоёв">{enabledRegistry.map(meta => { const payload = customCache.current[meta.id], stats = payload ? layerStats(payload) : null; return <div key={meta.id}><strong>{meta.title}</strong><span><i style={{background: meta.palette === 'population-change' ? 'linear-gradient(to right,#C65B24,#CED7EC,#244CFF)' : ['categorical','service-type'].includes(meta.palette) ? 'linear-gradient(to right,#244CFF 20%,#16806A 20% 40%,#C65B24 40% 60%,#7955C5 60% 80%,#9C7715 80%)' : undefined}} />{stats ? stats.known ? `${shown(stats.min)} — ${shown(stats.max)} ${meta.unit}` : 'Нет численных значений' : customErrors[meta.id] ? 'Слой недоступен' : 'Загрузка…'}</span><small>{meta.period} · {meta.evidence === 'model' ? 'Модельная оценка' : meta.evidence === 'calculation' ? 'Расчёт' : meta.evidence === 'observation' ? 'Наблюдение' : meta.evidence}{stats ? ` · ${stats.count} объектов, ${stats.known} значений` : ''}</small>{meta.description && <small>{meta.description}</small>}<a href={meta.source?.url} target="_blank" rel="noreferrer">{meta.source?.title || 'Источник'} ↗</a></div>; })}</aside>}
     {selection && <section className={`map-infographic ${collapsed ? 'collapsed' : ''}`} aria-label={`Инфографика: ${titleOf(selection.feature)}`}>
-      <div className="map-info-header"><div><span className="map-eyebrow">{selectionLabel(selection)} / {selection.mode === 'settlement' ? selection.feature.properties.region || 'Переписная база' : `Сетка ${selection.feature.properties.epoch} года · ${selection.feature.properties.provider}`}</span><h2>{titleOf(selection.feature)}</h2></div><div className="map-info-actions"><button onClick={() => zoomTo(selection.feature)}>Приблизить ↗</button><button onClick={() => setCollapsed(!collapsed)} aria-expanded={!collapsed} aria-label={collapsed ? 'Развернуть графики' : 'Свернуть графики'}>{collapsed ? '⌃' : '⌄'}</button><button onClick={() => { setSelection(null); updateUrl(null, true); }} aria-label="Закрыть выбранный объект">×</button></div></div>
-      {!collapsed && <div className="map-info-body"><div className="map-info-context"><p>{selection.mode === 'settlement' ? 'Население по переписям и сведения об обслуживании.' : 'Пространственная сводка по переписным точкам внутри выбранной границы.'}</p><dl><div><dt>Населённых пунктов</dt><dd>{aggregateBusy ? '…' : shown(memberCount)}</dd></div><div><dt>Полных рядов за три переписи</dt><dd>{aggregateBusy ? '…' : `${shown(comparable)} из ${shown(memberCount)}`}</dd></div><div><dt>Услуг в текущем слое</dt><dd>{selectedServices.length ? shown(selectedServices.length) : 'Нет сведений'}</dd></div></dl>{selection.mode !== 'settlement' && <small>Динамика — по НП с полным рядом. Полный численный ряд не доказывает неизменность границ. Это не официальный муниципальный итог.</small>}{selection.mode === 'settlement' && <small>{detailError ? 'Подробный источник временно недоступен.' : details ? `Источник: ${details.source === 'census-population' ? 'Связанная база переписей 2002/2010/2021' : details.source || 'Связанная база переписей'}` : 'Читаем подробные сведения…'}</small>}</div><div className="map-info-visual">{aggregateBusy ? <p role="status">Рассчитываем сводку выбранной территории…</p> : <Charts features={members} selected={selection} dark={dark} />}</div><footer>Переписи 2002 / 2010 / 2021 · Пропуск не равен нулю · <a href={`${root}materials/?kind=method`}>Методология и ограничения ↗</a></footer></div>}
+      <div className="map-info-header"><div><span className="map-eyebrow">{selectionLabel(selection)} / {selection.mode === 'settlement' ? selection.feature.properties.region || 'Переписная база' : `Сетка ${selection.feature.properties.epoch} года · ${selection.feature.properties.provider}`}</span><h2>{titleOf(selection.feature)}</h2></div><div className="map-info-actions"><button onClick={() => zoomTo(selection.feature,true)}>Приблизить ↗</button><button onClick={() => setCollapsed(!collapsed)} aria-expanded={!collapsed} aria-label={collapsed ? 'Развернуть графики' : 'Свернуть графики'}>{collapsed ? '⌃' : '⌄'}</button><button onClick={() => { cancelPendingSelection();setSelection(null); updateUrl(null, true); }} aria-label="Закрыть выбранный объект">×</button></div></div>
+      {!collapsed && <div className="map-info-body"><div className="map-info-context"><p>{selection.mode === 'settlement' ? 'Население по переписям и сведения об обслуживании.' : 'Пространственная сводка по переписным точкам внутри выбранной границы.'}</p><dl><div><dt>Переписных точек в базе</dt><dd>{aggregateBusy ? '…' : shown(memberCount)}</dd></div><div><dt>Полных рядов за три переписи</dt><dd>{aggregateBusy ? '…' : `${shown(comparable)} из ${shown(memberCount)}`}</dd></div><div><dt>Услуг в текущем слое</dt><dd>{selectedServices.length ? shown(selectedServices.length) : 'Нет сведений'}</dd></div></dl>{selection.mode !== 'settlement' && <small>Динамика — по НП с полным рядом. Полный численный ряд не доказывает неизменность границ. Это не официальный муниципальный итог.</small>}{selection.mode === 'settlement' && <small>{detailError ? 'Подробный источник временно недоступен.' : details ? `Источник: ${details.source === 'census-population' ? 'Связанная база переписей 2002/2010/2021' : details.source || 'Связанная база переписей'}` : 'Читаем подробные сведения…'}</small>}</div><div className="map-info-visual">{aggregateBusy ? <p role="status">Рассчитываем сводку выбранной территории…</p> : <Charts features={members} selected={selection} dark={dark} />}</div><footer>Переписи 2002 / 2010 / 2021 · Пропуск не равен нулю · <a href={`${root}materials/?kind=method`}>Методология и ограничения ↗</a></footer></div>}
     </section>}
-    <div className="map-provenance">{basemapUnavailable ? 'Подложка недоступна; локальные слои сохранены' : 'География Esri · слои исследования'} · {manifest?.generatedAt ? `Данные: ${new Date(manifest.generatedAt).toLocaleDateString('ru-RU')}` : 'Версионированные данные'} · <a href="https://github.com/ZakBu/russian-settlements-research" target="_blank" rel="noreferrer">Источники и код ↗</a></div>
+    <div className="map-provenance">{basemapUnavailable ? 'Подложка недоступна; локальные слои сохранены' : 'OpenFreeMap · OpenStreetMap · слои исследования'} · {manifest?.generatedAt ? `Данные: ${new Date(manifest.generatedAt).toLocaleDateString('ru-RU')}` : 'Версионированные данные'} · <a href="https://github.com/ZakBu/russian-settlements-research" target="_blank" rel="noreferrer">Источники и код ↗</a></div>
   </section>;
 }

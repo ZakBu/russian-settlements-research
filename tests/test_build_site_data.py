@@ -2,6 +2,8 @@
 import importlib.util
 from pathlib import Path
 import unittest
+import sqlite3
+import tempfile
 
 import pandas as pd
 
@@ -50,6 +52,78 @@ class ExportTests(unittest.TestCase):
         self.assertEqual(auxiliary['kind'], 'undivided')
         self.assertEqual(coverage['ambiguousPoints'], 0)
 
+    def test_geopackage_selection_reads_real_ids_without_relabeling_source(self):
+        from shapely.geometry import Polygon
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'source.gpkg'
+            blob = b'GP' + bytes([0,1]) + (4326).to_bytes(4,'little') + Polygon([(49,54),(51,54),(51,56),(49,54)]).wkb
+            with sqlite3.connect(path) as conn:
+                conn.execute('CREATE TABLE gpkg_geometry_columns (table_name TEXT,column_name TEXT,srs_id INTEGER)')
+                conn.execute('INSERT INTO gpkg_geometry_columns VALUES ("adm1","geom",4326)')
+                conn.execute('CREATE TABLE adm1 (fid INTEGER,geom BLOB,adm1_id TEXT,name TEXT,iso_3166_2 TEXT,unit_key TEXT)')
+                conn.executemany('INSERT INTO adm1 VALUES (?,?,?,?,?,?)',[(1,blob,'crimea','Крим','UA-43','UKR'),(2,blob,'other','Інша область','UA-01','UKR')])
+            asset = {'fileFormat':'gpkg','sourceLayer':'adm1','sourceTotalCount':2,'featureIds':['crimea']}
+            raw = site.read_boundary_source(path,asset)
+            self.assertEqual(len(raw['features']),1)
+            props = raw['features'][0]['properties']
+            self.assertEqual(props['adm1_id'],'crimea')
+            self.assertEqual(props['name'],'Крим')
+            self.assertEqual(props['iso_3166_2'],'UA-43')
+            self.assertEqual(props['unit_key'],'UKR')
+            self.assertNotIn('geom',props)
+            with self.assertRaisesRegex(ValueError,'missing'):
+                site.read_boundary_source(path,{**asset,'featureIds':['missing']})
+            with self.assertRaisesRegex(ValueError,'unique'):
+                site.read_boundary_source(path,{**asset,'featureIds':['crimea','crimea']})
+            with self.assertRaisesRegex(ValueError,'source count'):
+                site.read_boundary_source(path,{**asset,'sourceTotalCount':3})
+            with sqlite3.connect(path) as conn:
+                conn.execute('UPDATE gpkg_geometry_columns SET srs_id=3857')
+            with self.assertRaisesRegex(ValueError,'WGS84'):
+                site.read_boundary_source(path,asset)
+
+    def test_reference_supplement_preserves_original_country_iso_names_and_source_counts(self):
+        geometry = {'type': 'Polygon', 'coordinates': [[[49,54],[51,54],[51,56],[49,56],[49,54]]]}
+        source = site.feature_collection([{'type':'Feature','geometry':geometry,'properties':{
+            'adm1_id':'crimea-source','name':'Автономна Республіка Крим','name_en':'Autonomous Republic of Crimea',
+            'iso_3166_2':'UA-43','unit_key':'UKR','kind':'division'}}])
+        supplement = {'id':'regions-crimea','appendTo':'regions','provider':'Terrae','level':'ADM1',
+            'epoch':2026,'snapshotDate':'2026-09-28','count':1,'divisionCount':1,'sourceCountry':'UKR',
+            'nameOverrides':{'crimea-source':'Крым'}}
+        original = {'id':'regions','provider':'Terrae','level':'ADM1','epoch':2026,'count':0}
+        groups = site.merge_boundary_sources([(original,site.feature_collection([])),(supplement,source)])
+        target, merged, raw, counts = groups[0]
+        self.assertEqual(target,'regions')
+        self.assertEqual(counts,{'regions':0,'regions-crimea':1})
+        self.assertEqual(original['count'],0)
+        self.assertEqual(merged['count'],1)
+        population, details, _ = export(fixture(working_credit_present_2002=False))
+        features, coverage = site.boundary_features(raw,merged,population,details)
+        props = features[0]['properties']
+        self.assertEqual(props['name'],'Крым')
+        self.assertEqual(props['sourceLocalName'],'Автономна Республіка Крим')
+        self.assertEqual(props['sourceCountry'],'UKR')
+        self.assertEqual(props['iso'],'UA-43')
+        self.assertTrue(props['referenceSupplement'])
+        self.assertEqual(props['referenceSourceId'],'regions-crimea')
+        self.assertEqual(props['count'],1)
+        self.assertIsNone(props['p02'])
+        self.assertIsNone(props['p10'])
+        self.assertIsNone(props['p21'])
+        self.assertEqual(coverage['ambiguousPoints'],0)
+
+    def test_reference_sources_validate_counts_levels_and_ids_before_union(self):
+        geometry = {'type':'Polygon','coordinates':[[[0,0],[1,0],[1,1],[0,0]]]}
+        raw = site.feature_collection([{'type':'Feature','geometry':geometry,
+            'properties':{'shapeID':'same','shapeName':'Территория'}}])
+        asset = {'id':'regions','level':'ADM1','epoch':2026,'count':1}
+        with self.assertRaisesRegex(ValueError,'count'):
+            site.merge_boundary_sources([({**asset,'count':2},raw)])
+        with self.assertRaisesRegex(ValueError,'Repeated'):
+            site.merge_boundary_sources([(asset,raw),({**asset,'id':'extra','appendTo':'regions'},raw)])
+        with self.assertRaisesRegex(ValueError,'level'):
+            site.merge_boundary_sources([(asset,raw),({**asset,'id':'extra','appendTo':'regions','level':'ADM2'},raw)])
+
     def test_compact_transport_preserves_nulls_zeroes_ids_coordinates_and_counts(self):
         features, _, _ = export(fixture(effective_population_2002=0, working_credit_present_2010=False))
         payload = site.compact_population(features)
@@ -64,6 +138,33 @@ class ExportTests(unittest.TestCase):
         self.assertIsNone(row['p10'])
         self.assertIsNone(row['change'])
         self.assertFalse(row['comparable'])
+
+    def test_overview_keeps_history_large_places_when_latest_population_missing(self):
+        first, _, _ = export(fixture(population_2002=15000,effective_population_2002=15000,
+            working_credit_present_2010=False,working_credit_present_2021=False))
+        payload = site.compact_population(first)
+        overview = site.overview_population(payload)
+        self.assertEqual(overview['format'],payload['format'])
+        self.assertEqual(overview['columns'],payload['columns'])
+        self.assertEqual(overview['regions'],payload['regions'])
+        self.assertEqual(overview['rows'],payload['rows'])
+        self.assertIsNone(overview['rows'][0][payload['columns'].index('p21')])
+        self.assertEqual(overview['rows'][0][payload['columns'].index('p02')],15000)
+
+    def test_overview_excludes_small_or_unknown_rows_without_mutating_full_transport(self):
+        columns=['id','name','regionIndex','longitude','latitude','p02','p10','p21','change','comparable']
+        rows=[['small','Малое',2,50,55,9999,500,1,-99,True],
+              ['unknown','Нет сведений',1,51,56,None,None,None,None,False],
+              ['edge','Граница',0,52,57,None,10000,None,None,False]]
+        payload={'format':'settlements-columnar-v1','columns':columns,'regions':['А','Б','В'],'rows':rows}
+        overview=site.overview_population(payload)
+        self.assertEqual(len(payload['rows']),3)
+        self.assertEqual(overview['rows'],[rows[2]])
+        self.assertEqual(overview['regions'],['А','Б','В'])
+        self.assertEqual(overview['rows'][0][2],0)
+        self.assertIs(overview['rows'][0],payload['rows'][2])
+        with self.assertRaisesRegex(ValueError,'positive'):
+            site.overview_population(payload,0)
 
     def test_boundary_transport_keeps_source_geometry_and_scientific_totals(self):
         polygon = {'type': 'Feature', 'properties': {'p21': 100, 'comparableCount': 2, 'sizeBins': [0, 2, 0, 0, 0]},
