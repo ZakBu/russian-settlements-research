@@ -3,20 +3,21 @@ import {test,expect} from '@playwright/test';
 
 test('atlas search, no-results and reset preserve a usable catalogue',async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto('atlas/');await expect(page.getByRole('heading',{name:'Атлас исследования',exact:true})).toBeVisible();
+ await page.goto('atlas/');await expect(page.getByRole('heading',{name:'Материалы',exact:true})).toBeVisible();await expect(page).toHaveURL(/materials\/\?view=cards/);
  const cards=page.locator('[data-material-card]:visible');const total=await cards.count();expect(total).toBeGreaterThan(5);
  await page.getByRole('searchbox',{name:'Поиск материалов'}).fill('197 центров');await expect.poll(()=>cards.count()).toBeGreaterThan(0);
  await page.getByRole('searchbox',{name:'Поиск материалов'}).fill('несуществующий-материал-xyz');await expect(cards).toHaveCount(0);
- await page.getByRole('button',{name:'Сбросить фильтры'}).click();await expect(cards).toHaveCount(total);
- const lead=page.locator('[data-material-card]').first();expect((await lead.boundingBox())!.height).toBeLessThan(850);
+ await page.getByRole('button',{name:'Сбросить поиск и фильтры'}).click();await expect(cards).toHaveCount(total);
+ const lead=page.locator('[data-material-id="population-base"][data-material-card]');expect((await lead.boundingBox())!.height).toBeLessThan(850);
  await expect(lead.locator('.cartographic-preview')).toBeVisible();await expect.poll(()=>lead.locator('.map-image-light').evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);expect(errors).toEqual([]);
 });
 
 test('research selection survives navigation and dark theme survives reload',async({page})=>{
- await page.goto('atlas/');await page.getByRole('combobox',{name:'Выбрать исследование'}).selectOption('ecommerce');await expect(page).toHaveURL(/atlas\/\?research=ecommerce/);
- await expect(page.locator('[data-material-card]:visible')).toHaveCount(2);
- await page.getByRole('navigation',{name:'Основная навигация'}).getByRole('link',{name:'Знания',exact:true}).click();await expect(page).toHaveURL(/knowledge\/\?research=ecommerce/);
- await expect(page.getByRole('combobox',{name:'Выбрать исследование'})).toHaveValue('ecommerce');
+ await page.goto('materials/');await page.locator('[data-catalog-research="ecommerce"]').click();await expect(page).toHaveURL(/materials\/\?research=ecommerce/);
+ await expect(page.locator('[data-material-list]:visible')).toHaveCount(2);
+ await expect(page.locator('[data-catalog-research="ecommerce"]')).toHaveAttribute('aria-current','page');
+ await page.locator('[data-material-list]:visible h2 a').first().click();await expect(page.getByRole('heading',{level:1})).toBeVisible();await page.goBack();
+ await expect(page).toHaveURL(/materials\/\?research=ecommerce/);await expect(page.locator('[data-material-list]:visible')).toHaveCount(2);
  await page.locator('#theme-toggle').click();await expect(page.locator('html')).toHaveAttribute('data-theme','dark');await page.reload();await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
 });
 
@@ -78,7 +79,7 @@ test('editorial screens have no serious automated accessibility findings',async(
 
 test('overview maps need no JavaScript and keep the same visual inside the article',async({browser,baseURL})=>{
  const context=await browser.newContext({javaScriptEnabled:false,baseURL});const page=await context.newPage();const requests:string[]=[];page.on('request',r=>requests.push(r.url()));
- await page.goto('atlas/');const card=page.locator('[data-material-card]').first();const preview=card.locator('.cartographic-preview');await expect(preview).toHaveAttribute('data-map-variant','change');
+ await page.goto('atlas/');const card=page.locator('[data-material-card][data-material-id="population-base"]');const preview=card.locator('.cartographic-preview');await expect(preview).toHaveAttribute('data-map-variant','change');
  const image=preview.locator('.map-image-light');await image.scrollIntoViewIfNeeded();await expect.poll(()=>image.evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);const source=await image.getAttribute('src');
  const href=await card.locator('h2 a').getAttribute('href');await page.goto(href!);const full=page.locator('[data-visual-id="population-map"] .cartographic-preview');await expect(full).toHaveAttribute('data-map-variant','change');await expect(full.locator('.map-image-light')).toHaveAttribute('src',source!);
  expect(requests.some(url=>/settlements-preview|country-preview|MapThumbnail.*\.js/.test(url))).toBe(false);

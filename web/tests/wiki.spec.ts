@@ -2,9 +2,9 @@ import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 test('library finds words inside documents, filters kinds and recovers from no results',async({page})=>{
- await page.goto('knowledge/');const entries=page.locator('[data-library-entry]:visible');const total=await entries.count();expect(total).toBeGreaterThan(10);
- const search=page.getByRole('searchbox',{name:'Найти в документах'});await search.fill('зимники');await expect(entries).toHaveCount(1);await expect(entries).toContainText('Модельное направление');
- await search.fill('');await page.getByRole('button',{name:'Метод и понятия',exact:true}).click();expect(await entries.count()).toBeGreaterThan(2);expect(await entries.evaluateAll(els=>els.every(e=>(e as HTMLElement).dataset.kind==='method'))).toBe(true);
+ await page.goto('knowledge/');const entries=page.locator('[data-material-list]:visible');const total=await entries.count();expect(total).toBeGreaterThan(10);
+ const search=page.getByRole('searchbox',{name:'Поиск материалов'});await search.fill('зимники');await expect(entries).toHaveCount(1);await expect(entries).toContainText('Модельное направление');
+ await search.fill('');await page.getByRole('combobox',{name:'Тип материала',exact:true}).selectOption('method');await expect.poll(()=>entries.count()).toBeGreaterThan(2);expect(await entries.locator('.eyebrow').evaluateAll(els=>els.every(el=>el.textContent?.startsWith('Метод и понятия /')))).toBe(true);await expect(page.getByRole('combobox',{name:'Тип материала',exact:true})).toHaveValue('method');
  await search.fill('несуществующий-документ-xyz');await expect(entries).toHaveCount(0);await page.getByRole('button',{name:'Сбросить поиск и фильтры'}).click();await expect(entries).toHaveCount(total);await expect(search).toBeFocused();
  await page.keyboard.press('Escape');await search.blur();await page.keyboard.press('/');await expect(search).toBeFocused();
 });

@@ -26,7 +26,7 @@ KINDS = {"finding", "method", "note", "correction"}
 EVIDENCE = {"observation", "calculation", "model", "hypothesis", "method"}
 TEMPLATES = {"census-trend", "bars", "comparison", "scatter", "table", "settlement-map", "service-links"}
 PALETTES = {"population-change", "categorical", "service-type", "blue"}
-MATERIAL_FIELDS = {"id", "researchId", "title", "summary", "kind", "topic", "territory", "period", "publishedAt", "updatedAt", "visibility", "evidence", "currency", "sourceCommit", "sources", "datasetIds", "visualIds", "body", "supersedes", "featured"}
+MATERIAL_FIELDS = {"id", "researchId", "title", "summary", "kind", "topic", "territory", "period", "publishedAt", "updatedAt", "visibility", "evidence", "currency", "sourceCommit", "sources", "datasetIds", "visualIds", "body", "supersedes", "featured", "tags"}
 VISUAL_FIELDS = {"id", "template", "title", "caption", "datasetId", "palette", "unit", "series", "categories", "data", "mapState", "limitations"}
 LAYER_FIELDS = {"id", "researchId", "title", "description", "datasetId", "adapter", "geometry", "fields", "palette", "unit", "period", "evidence", "visibility"}
 BUILTIN_LAYERS = {"population", "schools", "medical", "services", "links", "centres", "districts", "regions"}
@@ -183,6 +183,16 @@ def validate(root=ROOT, material_id=None):
 
     research = records(base / "research.json")
     datasets = records(base / "datasets.json")
+    tags_path = base / "tags.json"
+    tags = records(tags_path) if tags_path.exists() else {}
+    for key, tag in tags.items():
+        for field in tag.keys() - {"id", "label", "aliases"}:
+            err(tags_path, f"{key}.{field}", "Unknown tag field")
+        if not isinstance(tag.get("label"), str) or not tag["label"].strip() or not safe_markdown(tag["label"]):
+            err(tags_path, f"{key}.label", "Expected a nonempty plain-text tag label")
+        aliases = tag.get("aliases", [])
+        if not isinstance(aliases, list) or any(not isinstance(alias, str) or not alias.strip() or not safe_markdown(alias) for alias in aliases):
+            err(tags_path, f"{key}.aliases", "Expected an array of plain-text search synonyms")
     literature_path = root / "references/sources.json"
     literature = {r["id"]: r for r in load(literature_path).get("records", [])} if literature_path.exists() else {}
 
@@ -301,7 +311,7 @@ def validate(root=ROOT, material_id=None):
         materials[path.stem] = row
         if key != path.stem or not ID.fullmatch(str(key)):
             err(path, "id", "ID must match the filename and use lowercase kebab words")
-        for field in MATERIAL_FIELDS - {"supersedes", "featured"}:
+        for field in MATERIAL_FIELDS - {"supersedes", "featured", "tags"}:
             if field not in row:
                 err(path, field, "Required field")
         for field in row.keys() - MATERIAL_FIELDS:
@@ -311,6 +321,19 @@ def validate(root=ROOT, material_id=None):
                 err(path, field, "Expected one of: " + ", ".join(sorted(allowed)))
         if not isinstance(row.get("researchId"), str) or row["researchId"] not in research:
             err(path, "researchId", "Unknown research; register it in research.json")
+        if "tags" in row:
+            selected_tags = row["tags"]
+            if not isinstance(selected_tags, list):
+                err(path, "tags", "Expected an array of tag registry IDs")
+            else:
+                seen_tags = set()
+                for ref in selected_tags:
+                    if not isinstance(ref, str) or ref not in tags:
+                        err(path, "tags", f"Unknown tag: {ref}")
+                    elif ref in seen_tags:
+                        err(path, "tags", f"Duplicate tag: {ref}")
+                    else:
+                        seen_tags.add(ref)
         for field, known in (("datasetIds", datasets), ("visualIds", visuals)):
             if not isinstance(row.get(field), list):
                 err(path, field, "Expected an array of IDs")

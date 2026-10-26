@@ -79,6 +79,29 @@ class AuthoringTests(unittest.TestCase):
         self.write("materials/population-note.json", self.material)
         self.assertTrue(any("only once" in e["message"] for e in site.validate(self.root)))
 
+    def test_registered_tags_are_optional_and_do_not_change_scientific_context(self):
+        self.write("tags.json", [{"id": "data-quality", "label": "Качество данных", "aliases": ["точность"]}])
+        self.assertEqual(site.validate(self.root), [])
+        self.material["tags"] = ["data-quality"]
+        self.write("materials/population-note.json", self.material)
+        self.assertEqual(site.validate(self.root), [])
+
+    def test_unknown_or_duplicate_material_tags_are_rejected(self):
+        self.write("tags.json", [{"id": "data-quality", "label": "Качество данных"}])
+        for selected in (["made-up"], ["data-quality", "data-quality"], "data-quality", [None], [{"id": "data-quality"}]):
+            with self.subTest(selected=selected):
+                self.material["tags"] = selected
+                self.write("materials/population-note.json", self.material)
+                self.assertTrue(any(e["field"] == "tags" for e in site.validate(self.root)))
+
+    def test_tag_registry_requires_unique_ids_plain_labels_and_synonyms(self):
+        self.write("tags.json", [
+            {"id": "same", "label": "Качество", "aliases": ["точность"]},
+            {"id": "same", "label": "<script>bad</script>", "aliases": "not-an-array"},
+        ])
+        fields = {e["field"] for e in site.validate(self.root)}
+        self.assertTrue({"id", "same.label", "same.aliases"}.issubset(fields))
+
     def test_missing_unit_has_field_specific_error(self):
         self.visual["unit"] = ""
         self.write("visuals/population-trend.json", self.visual)
