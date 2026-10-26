@@ -78,9 +78,15 @@ def zero_check(edges, reference, centres, original_service, directory):
     actual = pd.read_parquet(directory / 'memberships.parquet').set_index('origin_id')
     if not actual.index.equals(ids):
         raise ValueError('Origin axis/order differs')
-    result = {'origin_records': len(ids), 'mismatches': {}}
+    reference_columns = ['name', 'region', 'district', 'lat', 'lon', 'population_2021',
+                         'population_role', 'budget_population_credit', 'part_status']
+    pd.testing.assert_frame_equal(metadata[reference_columns], actual[reference_columns], check_dtype=False)
+    expected['positive_whole_origin'] = (metadata.population_2021.gt(0)
+        & metadata.part_status.eq('unmarked_whole_place_record')
+        & metadata.population_role.isin(['ordinary_settlement_record', 'external_context_nonadditive']))
+    result = {'origin_records': len(ids), 'reference_fields_unchanged_all_rows': True, 'mismatches': {}}
     for column in ['unit_id', 'primary_centre_id', 'membership_status', 'known_function_count',
-                   'maximum_support_count', 'equally_supported_targets', 'leading_target_id', 'primary_centre_function_support_count']:
+                   'maximum_support_count', 'equally_supported_targets', 'leading_target_id', 'primary_centre_function_support_count', 'positive_whole_origin']:
         left = expected[column].astype(object).where(expected[column].notna(), '')
         right = actual[column].astype(object).where(actual[column].notna(), '')
         result['mismatches'][column] = int(left.ne(right).sum())
@@ -168,10 +174,16 @@ def upper_checks(members, unitmeta, original_service, directory, route_directory
         expected_targets = pd.Series(expected).reindex(crosswalk.child_unit_id).fillna('').to_numpy()
         actual_targets = crosswalk.destination_unit_id.fillna('').to_numpy()
         next_members = pd.read_parquet(target / ('memberships.parquet' if territorial else 'referral_memberships.parquet'))
+        if crosswalk.child_unit_id.duplicated().any() or set(crosswalk.child_unit_id) != set(primary.unit_id):
+            raise ValueError('Child crosswalk duplicates or omits a lower unit')
+        expected_member_units = members.unit_id.map(crosswalk.set_index('child_unit_id').parent_unit_id)
+        expected_member_units = expected_member_units.astype(object).where(expected_member_units.notna(), '')
+        actual_member_units = next_members.unit_id.astype(object).where(next_members.unit_id.notna(), '')
         row = {'stage': folder, 'families': families, 'time_limit_minutes': minutes,
             'lower_units': len(expected), 'positive_functional_constraint_pairs': len(guard),
             'candidate_destination_mismatches': int((expected_targets != actual_targets).sum()),
             'parent_partition_symmetric_difference': len(expected_partition ^ actual_partition),
+            'individual_parent_membership_mismatches': int(expected_member_units.ne(actual_member_units).sum()),
             'origin_axis_unchanged': bool(next_members.origin_id.equals(members.origin_id)),
             'unresolved_mask_unchanged': bool(next_members.unit_id.notna().equals(members.unit_id.notna())),
             'territorial_membership_applied': territorial,
@@ -220,6 +232,7 @@ def main():
     (args.output / 'summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2) + '\n')
     failures = any(zero['mismatches'].values()) or zero['positive_primary_pairs_outside_original_footprints']
     failures |= any(r['candidate_destination_mismatches'] or r['parent_partition_symmetric_difference']
+        or r['individual_parent_membership_mismatches']
         or not r['origin_axis_unchanged'] or not r['unresolved_mask_unchanged'] for r in upper)
     failures |= bool(args.require_complete and len(upper) != len(STAGES))
     if failures:
