@@ -9,8 +9,8 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "level0_centres_published_clean_source_rebuild_and_public_download_verified",
-      "summary": "Получены и опубликованы 28 512 модельных центров нулевого уровня с внешними участниками: у5 210 известны три базовые функции. Медианный диаметр прямого окружения —8,11км,95-йпроцентиль—27,88км. Чистый повтор из сохранённых источников воспроизвёл все предложения, направления и составы. Реальные поездки, старшие уровни и причинные типы Word пока не установлены.",
+      "status": "model_level0_centres_and_fixed_membership_demographic_profiles_published",
+      "summary": "Опубликованы 28 512 модельных низовых центров, включая 5 210 с тремя известными базовыми функциями; медианный диаметр окружения — 8,11 км. Добавлена демография центра и окружающих сёл: у 16 830 центров обе части убывали за 2002–2021. Это фиксированные пересекающиеся окружения, не наблюдённые поездки, причинные типы Word или завершённая иерархия.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
       "main_blocker": "Проверять функциональные связи независимо от модели и построить межцентровые связи старших функций без склеивания пересекающихся низовых окружений.",
@@ -582,6 +582,24 @@
         "public_release": "https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-zero-centres-20261026-v2",
         "data_catalog": "data/identity_catalog_20261026.json",
         "public_download_check": "research_context/analysis_snapshots/identity_public_release_verification_20261026.json"
+      },
+      "demographic_readout": {
+        "status": "published_public_download_all_members_and_independent_recalculation_verified",
+        "report_url": "https://zakbu.github.io/russian-settlements-research/materials/centre-rural-demography/",
+        "release_url": "https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-zero-centre-demography-20261026-v1",
+        "source_commit": "1577cc792d8b3ee59b4feb858152629944371c39",
+        "catalog": "data/centre_demography_catalog_20261026.json",
+        "centres": 28512,
+        "strict_centre_and_rural_2002_2021_comparable": 22735,
+        "strict_both_decline_2002_2021": 16830,
+        "strict_centre_and_rural_2010_2021_comparable": 518,
+        "accepted_values_centre_and_rural_2010_2021_comparable": 22818,
+        "membership_fixed_to_2021": true,
+        "word_causal_types_established": false,
+        "historical_service_boundaries_established": false,
+        "public_archive_bytes": 16447359,
+        "public_archive_sha256": "bc9e93311e4f944e886395dd5b800ff5c9eb24b886d2c638bc75361f38ab6f76",
+        "independent_check": "research_context/analysis_snapshots/centre_demography_independent_check_20261026.json"
       }
     },
     "portal": {
@@ -610,9 +628,10 @@
     }
   },
   "next_steps": [
-    "Опубликовать в атласе демографические описания центра и окружения за2002–2021 и чувствительность к качеству2010; не приписывать причинные типы по одной динамике.",
-    "Разбирать оставшиеся неоднозначные границы и сведения об услугах, не считать пропуски отсутствием функций.",
-    "Проверять местные связи по независимому прикреплению и поездкам; затем переходить к старшим порядкам без цепочечного склеивания регионов."
+    "Пересчитать врачебную помощь по исправленным источникам и проверить прямые межцентровые связи; сохранять местные услуги и проверять доступность для всего дочернего окружения.",
+    "Не подавать пересекающиеся низовые окружения в прежний код непересекающейся иерархии и не объединять их транзитивно через цепочки.",
+    "Сопоставить описательные демографические сочетания с независимыми сведениями о занятости, аграрной экономике и прикреплении; причинные типы Word по одной динамике не присваивать.",
+    "Продолжать уточнение принадлежности учреждений населённым пунктам; неизвестная функция не равна отсутствующей."
   ],
   "known_limits": [
     "Прежний расчёт «13%» с исходным знаменателем не найден. Принятые поправки raw→effective меняют пару состояний у 1082 из 142765 строгих рядов; региональная альтернатива — у 3909 из 18516 рядов своей подвыборки. Ни одна доля не является национальной оценкой ошибки; подробнее в sgrt/pilot/DEMOGRAPHY_2010.md.",
@@ -659,6 +678,8 @@
     "current_error_audit": "sgrt/zero/ERROR_AUDIT_20261025.md",
     "latest_audit_data_release": "https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-semantic-audit-20261025-v1",
     "current_zero_centres": "sgrt/zero/IDENTITY_REPAIR_20261026.md",
-    "current_zero_centres_catalog": "data/identity_catalog_20261026.json"
+    "current_zero_centres_catalog": "data/identity_catalog_20261026.json",
+    "current_demographic_report": "https://zakbu.github.io/russian-settlements-research/materials/centre-rural-demography/",
+    "current_demographic_catalog": "data/centre_demography_catalog_20261026.json"
   }
 }
