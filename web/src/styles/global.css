@@ -43,11 +43,12 @@ html[data-theme=dark]{--bg:#080f24;--surface:#111d37;--ink:#f4f6ff;--blue:#8da8f
 .topic-figure{margin:0;min-width:0}.topic-figure figcaption{font:9px/1.5 var(--mono);color:var(--muted);margin-top:5px}.keep-line{white-space:nowrap}
 @media(min-width:1101px){.hero{grid-template-columns:47% 53%}.hero h1{font-size:clamp(65px,5.8vw,90px)}}
 @media(max-width:760px){.topic-card:nth-child(2) .topic-card-body{grid-template-columns:1.7fr 1fr}.topic-card:nth-child(2) h2{font-size:24px;letter-spacing:-1px}.topic-figure figcaption{font-size:8px}.section-title{flex-wrap:wrap}.section-title h2{font-size:32px}}
-/* Reserve the native arrow's space; use one inset chevron across browsers. */
-select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23101c54' stroke-width='1.5' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:16px 16px;padding-right:42px!important;min-width:0;text-overflow:ellipsis}
-html[data-theme=dark] select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23f4f6ff' stroke-width='1.5' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E")}.research-select{background-position:right 5px center;padding-right:27px!important}
+/* Reserve the arrow's space and override control background shorthands explicitly. */
+:root{--select-chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23101c54' stroke-width='1.5' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E")}
+html[data-theme=dark]{--select-chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23f4f6ff' stroke-width='1.5' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E")}
+select,.toolbar select,.research-select{appearance:none;-webkit-appearance:none;background-image:var(--select-chevron);background-repeat:no-repeat;background-position:right 14px center;background-size:16px 16px;padding-right:42px!important;min-width:0;text-overflow:ellipsis}
+.research-select{background-position:right 5px center;padding-right:27px!important}
 .cartographic-preview .pixel-map{object-fit:contain;object-position:center;position:absolute;inset:0;width:100%;height:100%}.cartographic-preview .map-image-dark{display:none}html[data-theme=dark] .cartographic-preview .map-image-light{display:none}html[data-theme=dark] .cartographic-preview .map-image-dark{display:block}
 .figure .cartographic-preview.is-large{height:clamp(360px,42vw,620px)}
-@media(max-width:760px){.toolbar select{padding-right:34px!important;background-position:right 9px center}.figure .cartographic-preview.is-large{height:300px}}
-.research-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23101c54' stroke-width='1.5' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-size:16px 16px}
 .primary-button svg,.secondary-button svg,.panel-link svg{flex-shrink:0}
+@media(max-width:760px){.toolbar select{padding-right:34px!important;background-position:right 9px center}.figure .cartographic-preview.is-large{height:300px}}
