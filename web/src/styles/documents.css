@@ -16,3 +16,20 @@
 .document-body a.primary-button{color:#fff;text-decoration:none}
 
 .document-shell summary:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+/* Document layout chosen by the user: Kontur's left outline and open reading column. */
+.document-reading-shell{grid-template-columns:260px minmax(0,700px);column-gap:112px;row-gap:0;max-width:1440px;padding:48px 38px 80px}
+.document-reading-shell .document-main{display:contents}
+.document-reading-shell .document-main>*{grid-column:2}
+.document-reading-shell .document-header{grid-row:1;border-bottom:0;padding-bottom:0;margin-bottom:40px}
+.document-reading-shell .document-body{grid-row:2;font-size:16px;line-height:1.7}
+.document-reading-shell>.document-toc-left{grid-column:1;grid-row:2;border:0;padding:0 24px 0 0;max-height:calc(100vh - 60px);font-size:14px}
+.document-toc-left h2{margin-bottom:20px;color:var(--muted);font-size:10px}
+.document-toc-left nav>a{border:0;margin:0;padding:0 0 16px;color:var(--ink);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ink) 30%,transparent);text-underline-offset:4px;line-height:1.6}
+.document-toc-left nav>a:hover,.document-toc-left nav>a[aria-current=location]{color:var(--blue);text-decoration-color:var(--blue)}
+.document-toc-left nav>a.toc-subsection{padding-left:16px;font-size:13px}
+.document-reading-shell .document-tools{display:flex;flex-wrap:wrap;align-items:baseline;gap:16px 24px;margin-top:32px;padding-top:20px;font-size:13px}
+.document-reading-shell .document-tools button{font-size:13px}
+.document-reading-shell .document-back{justify-self:start}
+@media(min-width:1100px) and (max-width:1250px){.document-reading-shell{grid-template-columns:210px minmax(0,700px);column-gap:64px;padding-left:32px;padding-right:32px}}
+@media(max-width:1099px){.document-reading-shell{display:block;max-width:760px;padding:32px 24px 64px}.document-reading-shell>.document-toc-left{display:none}.document-reading-shell .document-mobile-toc{display:block;border-bottom:1px solid var(--line);margin-bottom:28px;padding-bottom:12px}.document-reading-shell .document-mobile-toc summary{display:flex;justify-content:space-between;color:var(--blue);font-size:13px;padding:4px 0 10px;cursor:pointer}.document-reading-shell .document-mobile-toc nav a{display:block;font-size:13px;line-height:1.6;padding:8px 0;color:var(--muted)}.document-reading-shell .document-mobile-toc nav a.toc-subsection{padding-left:16px}.document-reading-shell .document-header{margin-bottom:28px}}
+@media(max-width:760px){.document-reading-shell{padding:24px 16px 40px}}
