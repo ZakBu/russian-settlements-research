@@ -123,6 +123,26 @@ def safe_markdown(text):
     return True
 
 
+def document_references(text):
+    """Author links outside code examples; raw HTML remains forbidden separately."""
+    lines, fence = [], ""
+    for line in text.splitlines():
+        marker = re.match(r"^ {0,3}(`{3,}|~{3,})", line)
+        if marker:
+            mark = marker.group(1)
+            if not fence:
+                fence = mark
+            elif mark[0] == fence[0] and len(mark) >= len(fence):
+                fence = ""
+            continue
+        if not fence:
+            lines.append(line)
+    prose = re.sub(r"(`+)[^\n]*?\1", "", "\n".join(lines))
+    links = re.findall(r"\[\[([a-z0-9]+(?:-[a-z0-9]+)*)(?:#[^\]|\n]+)?(?:\|[^\]\n]+)?\]\]", prose)
+    visuals = re.findall(r"^:::visual[ \t]+([a-z0-9]+(?:-[a-z0-9]+)*)[ \t]*$", prose, re.M)
+    return links, visuals
+
+
 def valid_url(value):
     return isinstance(value, str) and urlparse(value).scheme in {"https", "http"} and bool(urlparse(value).netloc)
 
@@ -297,6 +317,18 @@ def validate(root=ROOT, material_id=None):
         if not isinstance(row.get("body"), str) or not safe_markdown(row.get("body", "")):
             err(path, "body", "Use plain Markdown. HTML/JS/MDX, imports and executable links are forbidden")
     for key, row in materials.items():
+        path = base / "materials" / f"{key}.json"
+        wiki_links, inline_visuals = document_references(str(row.get("body", "")))
+        for ref in wiki_links:
+            if ref not in materials:
+                err(path, "body", f"Unknown wiki document: {ref}")
+            elif row.get("visibility") != "draft" and materials[ref].get("visibility") == "draft":
+                err(path, "body", f"Published wiki links cannot point to a draft: {ref}")
+        for ref in inline_visuals:
+            if ref not in (row.get("visualIds") if isinstance(row.get("visualIds"), list) else []):
+                err(path, "body", f"Register inline visual in visualIds: {ref}")
+        if len(inline_visuals) != len(set(inline_visuals)):
+            err(path, "body", "Embed each visual only once; link to it for repeated mentions")
         if row.get("supersedes") and (not isinstance(row["supersedes"], str) or row["supersedes"] not in materials or row["supersedes"] == key):
             err(base / "materials" / f"{key}.json", "supersedes", "Reference an existing different material")
     if material_id is not None and material_id not in materials:
