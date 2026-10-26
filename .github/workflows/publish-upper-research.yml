@@ -29,6 +29,9 @@ jobs:
           python -m unittest discover -s tests -p 'test_sgrt_zero_urban_cooperation.py'
           python -m unittest discover -s tests -p 'test_sgrt_zero_cloud_upper.py'
           python -m unittest discover -s tests -p 'test_sgrt_zero_census_workplace*.py'
+          python -m unittest discover -s tests -p 'test_sgrt_zero_census_cooperation.py'
+          python -m unittest discover -s tests -p 'test_sgrt_zero_national_external_envelope_audit.py'
+          python -m unittest discover -s tests -p 'test_sgrt_zero_audit_upper_research.py'
       - name: Rebuild immutable public inputs and compare every output row
         run: python scripts/sgrt_zero/cloud_upper_research.py --source-commit "$GITHUB_SHA" --workdir "$RUNNER_TEMP/upper-research"
       - name: Create verified draft; root reviews before public release
@@ -43,6 +46,7 @@ jobs:
           path: |
             ${{ runner.temp }}/upper-research/source_facts.json
             ${{ runner.temp }}/upper-research/actual_control.json
+            ${{ runner.temp }}/upper-research/independent_audit/*.json
             ${{ runner.temp }}/upper-research/results/**/summary.json
             ${{ runner.temp }}/upper-research/results/**/*summary.json
             ${{ runner.temp }}/upper-research/built/manifest.json

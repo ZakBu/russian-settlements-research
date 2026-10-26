@@ -1,5 +1,17 @@
 {
   "schema": "sgrt.upper_research_control.v1",
+  "controlled_result_directories": [
+    "workforce",
+    "np_diagnostic",
+    "municipal",
+    "roads",
+    "potential",
+    "cooperation",
+    "census_workplace",
+    "workforce_temporal",
+    "census_diagnostics",
+    "external_envelopes"
+  ],
   "census_tables": {
     "buryatia_commuting_vpn2010.csv": {
       "rows": 294,
@@ -1221,9 +1233,459 @@
       "code_history_interval_review_rows": 142,
       "municipal_totals_not_allocated_to_NPs": true,
       "full_jobs_or_observed_commuting_claimed": false
+    },
+    "workforce_temporal/summary.json": {
+      "first_year": 2021,
+      "last_year": 2025,
+      "first_source": {
+        "year": 2021,
+        "source_annual_rows": 2610,
+        "selected_scope_rows": 2320,
+        "observed_numeric_rows": 2320,
+        "group_aggregate_rows_excluded": 11,
+        "source_ward_type_rows": 267,
+        "actual_ward_type_rows_excluded": 266,
+        "retained_federal_totals_with_ward_type": 1,
+        "federal_total_rows": 1,
+        "code_interval_outside_source_year": 7,
+        "annual_absence_is_not_zero_workforce": true
+      },
+      "last_source": {
+        "year": 2025,
+        "source_annual_rows": 2486,
+        "selected_scope_rows": 2224,
+        "observed_numeric_rows": 2224,
+        "group_aggregate_rows_excluded": 10,
+        "source_ward_type_rows": 252,
+        "actual_ward_type_rows_excluded": 250,
+        "retained_federal_totals_with_ward_type": 2,
+        "federal_total_rows": 2,
+        "code_interval_outside_source_year": 14,
+        "annual_absence_is_not_zero_workforce": true
+      },
+      "same_code_observed_both": 1706,
+      "first_only": 614,
+      "last_only": 518,
+      "both_with_same_name_and_type": 1706,
+      "both_source_no_change_labels": 1223,
+      "both_union_or_split_metadata": 66,
+      "both_code_interval_spans_2021_2025": 1701,
+      "same_code_or_source_no_change_is_not_independent_boundary_verification": true,
+      "recorded_partial_workforce_stability": {
+        "same_code_numeric_both": {
+          "rows": 1706,
+          "spearman_recorded_partial_workforce_2021_2025": 0.992193,
+          "reported_partial_count_relative_change_median": -0.038432,
+          "reported_partial_count_relative_change_p10": -0.137608,
+          "reported_partial_count_relative_change_p90": 0.099127,
+          "not_boundary_verified_growth_or_hierarchy_stability": true
+        },
+        "same_code_source_no_change": {
+          "rows": 1223,
+          "spearman_recorded_partial_workforce_2021_2025": 0.992097,
+          "reported_partial_count_relative_change_median": -0.035714,
+          "reported_partial_count_relative_change_p10": -0.133519,
+          "reported_partial_count_relative_change_p90": 0.098494,
+          "not_boundary_verified_growth_or_hierarchy_stability": true
+        }
+      },
+      "annual_scope_coverage": [
+        {
+          "year": 2017,
+          "source_annual_rows": 2441,
+          "selected_scope_rows": 2307,
+          "observed_numeric_rows": 2307,
+          "group_aggregate_rows_excluded": 7,
+          "source_ward_type_rows": 111,
+          "actual_ward_type_rows_excluded": 110,
+          "retained_federal_totals_with_ward_type": 1,
+          "federal_total_rows": 1,
+          "code_interval_outside_source_year": 4,
+          "annual_absence_is_not_zero_workforce": true
+        },
+        {
+          "year": 2018,
+          "source_annual_rows": 2610,
+          "selected_scope_rows": 2326,
+          "observed_numeric_rows": 2326,
+          "group_aggregate_rows_excluded": 10,
+          "source_ward_type_rows": 266,
+          "actual_ward_type_rows_excluded": 265,
+          "retained_federal_totals_with_ward_type": 1,
+          "federal_total_rows": 1,
+          "code_interval_outside_source_year": 4,
+          "annual_absence_is_not_zero_workforce": true
+        },
+        {
+          "year": 2019,
+          "source_annual_rows": 2600,
+          "selected_scope_rows": 2317,
+          "observed_numeric_rows": 2317,
+          "group_aggregate_rows_excluded": 9,
+          "source_ward_type_rows": 267,
+          "actual_ward_type_rows_excluded": 266,
+          "retained_federal_totals_with_ward_type": 1,
+          "federal_total_rows": 1,
+          "code_interval_outside_source_year": 4,
+          "annual_absence_is_not_zero_workforce": true
+        },
+        {
+          "year": 2020,
+          "source_annual_rows": 2606,
+          "selected_scope_rows": 2323,
+          "observed_numeric_rows": 2323,
+          "group_aggregate_rows_excluded": 9,
+          "source_ward_type_rows": 267,
+          "actual_ward_type_rows_excluded": 266,
+          "retained_federal_totals_with_ward_type": 1,
+          "federal_total_rows": 1,
+          "code_interval_outside_source_year": 3,
+          "annual_absence_is_not_zero_workforce": true
+        },
+        {
+          "year": 2021,
+          "source_annual_rows": 2610,
+          "selected_scope_rows": 2320,
+          "observed_numeric_rows": 2320,
+          "group_aggregate_rows_excluded": 11,
+          "source_ward_type_rows": 267,
+          "actual_ward_type_rows_excluded": 266,
+          "retained_federal_totals_with_ward_type": 1,
+          "federal_total_rows": 1,
+          "code_interval_outside_source_year": 7,
+          "annual_absence_is_not_zero_workforce": true
+        },
+        {
+          "year": 2022,
+          "source_annual_rows": 2599,
+          "selected_scope_rows": 2323,
+          "observed_numeric_rows": 2323,
+          "group_aggregate_rows_excluded": 3,
+          "source_ward_type_rows": 267,
+          "actual_ward_type_rows_excluded": 266,
+          "retained_federal_totals_with_ward_type": 1,
+          "federal_total_rows": 1,
+          "code_interval_outside_source_year": 28,
+          "annual_absence_is_not_zero_workforce": true
+        },
+        {
+          "year": 2023,
+          "source_annual_rows": 2597,
+          "selected_scope_rows": 2316,
+          "observed_numeric_rows": 2316,
+          "group_aggregate_rows_excluded": 7,
+          "source_ward_type_rows": 267,
+          "actual_ward_type_rows_excluded": 266,
+          "retained_federal_totals_with_ward_type": 1,
+          "federal_total_rows": 1,
+          "code_interval_outside_source_year": 1,
+          "annual_absence_is_not_zero_workforce": true
+        },
+        {
+          "year": 2024,
+          "source_annual_rows": 2564,
+          "selected_scope_rows": 2282,
+          "observed_numeric_rows": 2282,
+          "group_aggregate_rows_excluded": 6,
+          "source_ward_type_rows": 268,
+          "actual_ward_type_rows_excluded": 267,
+          "retained_federal_totals_with_ward_type": 1,
+          "federal_total_rows": 1,
+          "code_interval_outside_source_year": 1,
+          "annual_absence_is_not_zero_workforce": true
+        },
+        {
+          "year": 2025,
+          "source_annual_rows": 2486,
+          "selected_scope_rows": 2224,
+          "observed_numeric_rows": 2224,
+          "group_aggregate_rows_excluded": 10,
+          "source_ward_type_rows": 252,
+          "actual_ward_type_rows_excluded": 250,
+          "retained_federal_totals_with_ward_type": 2,
+          "federal_total_rows": 2,
+          "code_interval_outside_source_year": 14,
+          "annual_absence_is_not_zero_workforce": true
+        },
+        {
+          "year": 2026,
+          "source_annual_rows": 0,
+          "selected_scope_rows": 0,
+          "unknown_annual_not_zero_workforce": true
+        }
+      ],
+      "inferred_net_commuting": false,
+      "observed_destination_specific_urban_hierarchy": false
+    },
+    "census_diagnostics/diagnostics_summary.json": {
+      "source_epochs_kept_separate": [
+        2010,
+        2021,
+        2025,
+        2026
+      ],
+      "buryatia_exact_matched_np": 8,
+      "buryatia_np_with_current_local_unit": 8,
+      "threshold_scenario": 0.15,
+      "any_parent_ruled_out_by_2010_upper_margin": 6,
+      "parent_destination_identified_by_observation": 0,
+      "sharper_parent_upper_bound_uses_same_subject_vs_other_subject_partition": true,
+      "sharper_bound_scope": "one_named_destination_NP_in_one_subject_not_a_multisubject_parent_system",
+      "multisubject_parent_must_use_loose_outbound_only_bound": true,
+      "synthetic_same_margin_OD_counterexamples": 4,
+      "pilot_subject_labels_missing_in_extracted_data": [],
+      "regional_margins_do_not_identify_municipal_or_NP_parent": true,
+      "medical_parameters_calibrated_from_workplace_margins": false,
+      "minimal_named_parent_observation": {
+        "required": [
+          "employed_residents_of_child_same_epoch_Ei",
+          "employed_residents_of_child_working_in_named_parent_Fij",
+          "unresolved_membership_in_named_parent_Uij_including_unnamed_destinations",
+          "exact_compatible_geographic_units"
+        ],
+        "lower_bound": "Fij/Ei",
+        "upper_bound": "(Fij+Uij)/Ei",
+        "accept_threshold_evidence": "lower_bound >= threshold",
+        "reject_threshold_evidence": "upper_bound < threshold",
+        "otherwise": "unresolved_not_zero",
+        "additional_territorial_rules": "whole-child direct accessibility, non-percolation and nesting remain independent requirements"
+      }
+    },
+    "external_envelopes/summary.json": {
+      "scope": "External eFUA2015 INPUT compatibility, not independent validation, observed flows, or SGRT tier 1",
+      "analysis_origin_records": 153803,
+      "positive_whole_analysis_origin_records": 129586,
+      "original_primary_functional_positive_pairs": 208039,
+      "mandatory_positive_core_pairs_added_to_original_footprint": 8559,
+      "reference_total_historical_chains": 173242,
+      "reference_identified_current_records": 155414,
+      "historical_chains_without_current_id_not_spatially_assigned": 17828,
+      "geometry_audit": {
+        "invalid_original_polygon_count": 4,
+        "invalid_external_efua_ids": [
+          "750",
+          "3852",
+          "5864",
+          "6522"
+        ],
+        "invalid_reasons": [
+          "Ring Self-intersection[1951000 6865000]",
+          "Ring Self-intersection[3065000 5307000]",
+          "Ring Self-intersection[3983000 6350000]",
+          "Ring Self-intersection[10859000 5155000]"
+        ],
+        "original_predicates_used": true,
+        "silent_geometry_repair_applied": false,
+        "current_point_pair_changes_after_makevalid": 0,
+        "original_invalid_polygon_area_m2": [
+          2764000000.0,
+          635000000.0,
+          959000000.0,
+          788000000.0
+        ],
+        "makevalid_invalid_polygon_area_m2": [
+          2764000000.0,
+          635000000.0,
+          959000000.0,
+          788000000.0
+        ]
+      },
+      "units": 42535,
+      "registered_external_anchors": 28512,
+      "all_external_envelopes": 175,
+      "external_envelopes_covering_any_current_reference_point": 175,
+      "external_envelopes_covering_unit_core": 175,
+      "external_envelopes_with_complete_compatible_footprint": 149,
+      "point_envelope_pairs": 5066,
+      "current_points_in_any_envelope": 5066,
+      "identified_current_records_with_valid_coordinate_points": 153803,
+      "identified_current_records_without_valid_coordinates": 1611,
+      "points_covered_by_multiple_envelopes": 0,
+      "unit_envelope_candidates": 2475,
+      "raw_primary_functional_core_pairs": 231826,
+      "positive_whole_required_pairs": 216598,
+      "status_counts": {
+        "no_external_envelope": 40044,
+        "core_inside_but_child_outside_every_core_envelope": 884,
+        "whole_footprint_inside_one_or_more_envelopes": 1589,
+        "unknown_positive_demand_or_coordinates": 0,
+        "no_positive_whole_demand": 18
+      },
+      "role_status_counts": [
+        {
+          "unit_role": "external_serving_anchor",
+          "compatibility_status": "core_inside_but_child_outside_every_core_envelope",
+          "units": 884
+        },
+        {
+          "unit_role": "external_serving_anchor",
+          "compatibility_status": "no_external_envelope",
+          "units": 26884
+        },
+        {
+          "unit_role": "external_serving_anchor",
+          "compatibility_status": "whole_footprint_inside_one_or_more_envelopes",
+          "units": 744
+        },
+        {
+          "unit_role": "local_singleton_known_profile",
+          "compatibility_status": "no_external_envelope",
+          "units": 13160
+        },
+        {
+          "unit_role": "local_singleton_known_profile",
+          "compatibility_status": "no_positive_whole_demand",
+          "units": 18
+        },
+        {
+          "unit_role": "local_singleton_known_profile",
+          "compatibility_status": "whole_footprint_inside_one_or_more_envelopes",
+          "units": 845
+        }
+      ],
+      "boundary_rule": "covered_by; all overlapping envelopes retained",
+      "unit_core_always_checked": true,
+      "unknown_population_assumed_positive": false
     }
   },
   "tables": {
+    "census_diagnostics/buryatia_eight_np_parent_bounds.parquet": {
+      "rows": 8,
+      "columns": [
+        "source_year",
+        "geography_label",
+        "geography_type",
+        "employed_age15_72_raw",
+        "source_char_position",
+        "same_np_raw",
+        "same_subject_raw",
+        "other_subject_raw",
+        "abroad_raw",
+        "unknown_workplace_raw",
+        "employed_age15_72",
+        "same_np",
+        "same_subject",
+        "other_subject",
+        "abroad",
+        "unknown_workplace",
+        "outside_np_known",
+        "outside_np_fraction_all_employed",
+        "outside_np_fraction_upper_unknown_all_outside",
+        "parent_municipal_district_label",
+        "aggregate_overlap",
+        "population_join_candidate_count",
+        "population_base_root",
+        "population_base_source_record_id",
+        "population_base_source_record_id_2010",
+        "population_base_population_2010",
+        "population_base_population_value_quality_2010",
+        "population_base_lat",
+        "population_base_lon",
+        "population_join_method",
+        "origin_id",
+        "name",
+        "unit_id",
+        "membership_status",
+        "is_registered_centre",
+        "known_function_count",
+        "named_parent_share_lower_bound",
+        "loose_outbound_only_parent_share_upper_bound",
+        "same_subject_other_np_from_exact_margins",
+        "other_subject_or_abroad_exact_residual",
+        "named_parent_share_upper_bound",
+        "commuting_threshold_scenario",
+        "any_named_parent_at_threshold_ruled_out_by_2010_margin",
+        "observed_named_parent_identified",
+        "matches_2026_local_service_unit_not_2010_commuting_system",
+        "geographic_boundary_equivalence_2010_2021_verified",
+        "historical_margin_validates_current_medical_or_work_trip",
+        "status"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "ffb4f28fff61bf022a4a76982599458e918f9d8db7c1beb3cdbe3ac521b577ba"
+    },
+    "census_diagnostics/federal_workers_residents_scope_comparison.parquet": {
+      "rows": 2,
+      "columns": [
+        "territory",
+        "partial_organisation_workers_2025",
+        "employed_residents_private_households_age15plus_2021",
+        "ratio_permitted",
+        "ratio_identifies_inbound_or_outbound_flow"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "cca5f450b1e8f806c235975a009bca835f59c821cff3d3bef91b7d32ff6dacea"
+    },
+    "census_diagnostics/pilot_subject_workplace_margins_2021.parquet": {
+      "rows": 20,
+      "columns": [
+        "region",
+        "population_category",
+        "census_year",
+        "employed_age15plus",
+        "same_np",
+        "same_region",
+        "other_region",
+        "abroad",
+        "unknown_territory",
+        "outside_np",
+        "outside_daily",
+        "outside_several_week",
+        "outside_several_month",
+        "outside_month_or_less",
+        "outside_remote",
+        "outside_frequency_unspecified",
+        "table10_normalized_line",
+        "table12_normalized_line",
+        "same_subject_other_np",
+        "outside_np_with_unknown_territory",
+        "unresolved_np_location",
+        "outside_fraction_all_employed",
+        "daily_outside_fraction_all_employed",
+        "outside_fraction_known_np_location",
+        "outside_fraction_upper_if_all_unresolved_outside",
+        "geography_type",
+        "aggregate_overlap",
+        "daily_fraction_all_employed",
+        "known_outside_fraction_all_employed",
+        "outside_bound_upper_if_all_unresolved_outside",
+        "named_city_destination_identified",
+        "medical_decay_calibration_permitted"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "5ead0395b75bdb869116f7885674787fbd5c9d250b0d4c843e8b8dd841ee2441"
+    },
+    "census_diagnostics/regional_margin_ecological_counterexample.parquet": {
+      "rows": 2,
+      "columns": [
+        "synthetic_layout",
+        "synthetic_not_observed",
+        "regional_employed_observed",
+        "regional_daily_outbound_observed",
+        "subgroup_employed_scenario",
+        "subgroup_daily_outbound_scenario",
+        "subgroup_daily_fraction_scenario"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "bc949b0c5bf89c045241745fd2816fba903df2f9aadadb3ac8a23bc24cdb81ac"
+    },
+    "census_diagnostics/same_margin_different_parent_counterexamples.parquet": {
+      "rows": 4,
+      "columns": [
+        "origin",
+        "synthetic_not_observed",
+        "employed_observed",
+        "outbound_observed",
+        "same_subject_outbound_observed",
+        "outside_subject_or_abroad_residual_unchanged",
+        "unknown_workplace_observed",
+        "allocation",
+        "hypothetical_A_flow",
+        "hypothetical_B_flow"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "1c03a0386682e94b5bdb395b85eb95f311308c690cf83c381c0f0aa0781655f8"
+    },
     "cooperation/candidate_footprint_members.parquet": {
       "rows": 1588,
       "columns": [
@@ -1317,6 +1779,81 @@
       ],
       "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
       "sha256": "322dbebd5b744e1b8642b4622ab543de3f39f78c5c42e4b21e96973be0a9142d"
+    },
+    "external_envelopes/checked_positive_whole_footprints.parquet": {
+      "rows": 216598,
+      "columns": [
+        "unit_id",
+        "origin_id",
+        "from_primary",
+        "from_original_functional",
+        "mandatory_core"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "222a7c6295b664f781b45cef178e1a54a451da0dd3249fa9485f5e7a4d421ff6"
+    },
+    "external_envelopes/envelope_counts.parquet": {
+      "rows": 175,
+      "columns": [
+        "external_efua_id",
+        "identified_reference_points",
+        "unit_cores_inside",
+        "complete_compatible_units"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "10196e64fcdb395777bfc3e1ffddb2c114e5f77bd61a6ee7652d8837a9719f2e"
+    },
+    "external_envelopes/point_external_envelope_pairs.parquet": {
+      "rows": 5066,
+      "columns": [
+        "origin_id",
+        "external_efua_id"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "4899482ade2f36ee71f173f9445317653929a88cb4cc3069ff65db775ee9a920"
+    },
+    "external_envelopes/unit_external_envelope_candidates.parquet": {
+      "rows": 2475,
+      "columns": [
+        "unit_id",
+        "core_origin_id",
+        "external_efua_id",
+        "unit_role",
+        "required_positive_whole_records",
+        "required_positive_whole_inside",
+        "required_positive_whole_outside_or_unknown",
+        "unknown_population_records_not_assumed_positive",
+        "positive_member_coordinates_unknown",
+        "whole_known_positive_footprint_inside",
+        "complete_input_compatibility"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "96b1ba4e09a48e02eeebe6a61e86ead59dac4427dea57c7672a952ec5a185740"
+    },
+    "external_envelopes/units_envelope_audit.parquet": {
+      "rows": 42535,
+      "columns": [
+        "unit_id",
+        "core_origin_id",
+        "name",
+        "unit_role",
+        "is_registered_external_serving_centre",
+        "positive_whole_required_records_including_core_if_positive",
+        "raw_primary_functional_core_records",
+        "unknown_population_records_not_assumed_positive",
+        "positive_member_coordinates_unknown",
+        "core_coordinates_known",
+        "core_external_envelope_count",
+        "whole_known_positive_envelope_count",
+        "compatible_complete_input_envelope_count",
+        "core_external_envelope_ids_json",
+        "whole_known_positive_envelope_ids_json",
+        "compatibility_status",
+        "external_envelope_is_independent_validation",
+        "empirical_sgrt_level_assigned"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "5e3fae06c934244335c2c877bdd8ae8ddda81795d8b33173440bf57c0ad3f353"
     },
     "municipal/municipal_scale_comparisons.parquet": {
       "rows": 2224,
@@ -1528,6 +2065,112 @@
       ],
       "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
       "sha256": "ba36c68a10de37248b9cc71bb044761a6dd35442e523702ce4c29811eba92174"
+    },
+    "workforce_temporal/annual_scope_coverage.parquet": {
+      "rows": 10,
+      "columns": [
+        "year",
+        "source_annual_rows",
+        "selected_scope_rows",
+        "observed_numeric_rows",
+        "group_aggregate_rows_excluded",
+        "source_ward_type_rows",
+        "actual_ward_type_rows_excluded",
+        "retained_federal_totals_with_ward_type",
+        "federal_total_rows",
+        "code_interval_outside_source_year",
+        "annual_absence_is_not_zero_workforce",
+        "unknown_annual_not_zero_workforce"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "c31f10c6d625f64d278c751022b79051e4e096efa101e3570b447df56e3b262f"
+    },
+    "workforce_temporal/external_work_dependency_screen.parquet": {
+      "rows": 2,
+      "columns": [
+        "region",
+        "geography",
+        "census_year",
+        "employed_residents",
+        "observed_outside_any_np",
+        "unresolved_np_location",
+        "outside_any_np_fraction_lower",
+        "outside_any_np_fraction_upper_if_all_unknown_outside",
+        "illustrative_destination_specific_threshold",
+        "upper_outside_any_np_below_illustrative_threshold",
+        "known_destination_core",
+        "incoming_catchment_identifiable",
+        "source_method_reference_id",
+        "threshold_screen_is_not_observed_FUA_or_SGRT_delineation"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "3774a3a35362d1f125d537f4e1bda756603d62d0678c89c44a7fd32fdaa4fe8e"
+    },
+    "workforce_temporal/six_city_denominator_audit.parquet": {
+      "rows": 6,
+      "columns": [
+        "city_reading_label",
+        "workforce_oktmo",
+        "workforce_geography",
+        "partial_organisation_workforce_2021",
+        "partial_organisation_workforce_2025",
+        "census_employed_residents_age15plus_2021",
+        "census_geography",
+        "census_population_category",
+        "same_reported_territory_grain",
+        "same_reported_territory_and_year",
+        "raw_ratio_of_different_person_sets_not_coverage",
+        "ratio_is_net_commuting_or_resident_coverage",
+        "source_person_sets_and_time_reference_comparable",
+        "census_outside_np_observed",
+        "census_daily_outside_np_observed",
+        "can_infer_destination_specific_level1_attachment",
+        "reason"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "11c88b0eebfddff803f2734a4c6df8badfd966bc7a6e9682a033e743fbb87477"
+    },
+    "workforce_temporal/workforce_2021_2025_code_comparison.parquet": {
+      "rows": 2838,
+      "columns": [
+        "oktmo",
+        "municipality_first",
+        "region_name_first",
+        "mun_level_first",
+        "mun_type_oktmo_first",
+        "source_territory_class_first",
+        "workforce_numeric_first",
+        "oktmo_history_first",
+        "history_from_numeric_first",
+        "history_to_numeric_first",
+        "code_history_interval_contains_year_first",
+        "code_history_interval_unknown_first",
+        "municipality_last",
+        "region_name_last",
+        "mun_level_last",
+        "mun_type_oktmo_last",
+        "source_territory_class_last",
+        "workforce_numeric_last",
+        "oktmo_history_last",
+        "history_from_numeric_last",
+        "history_to_numeric_last",
+        "code_history_interval_contains_year_last",
+        "code_history_interval_unknown_last",
+        "_merge",
+        "observation_first_year",
+        "observation_last_year",
+        "both_numeric",
+        "same_name_and_type_labels",
+        "source_reports_no_change_both",
+        "source_reports_union_or_split",
+        "source_code_interval_spans_both_years",
+        "relative_change_of_reported_partial_count",
+        "territorial_boundary_equivalence_verified",
+        "difference_is_net_commuting",
+        "change_is_pure_employment_growth"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "1681aa020c8bdc956d797e6cb62b7fdc868f6245f6de12a280c4d3963f0a0762"
     }
   },
   "map_tables": {

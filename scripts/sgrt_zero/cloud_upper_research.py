@@ -26,6 +26,8 @@ Z = 'sgrt/zero20261025/'
 I = 'sgrt/identity20261026/'
 C = 'sgrt/common20261027/'
 G = 'research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/'
+CONTROLLED_DIRECTORIES = ('workforce','np_diagnostic','municipal','roads','potential','cooperation',
+    'census_workplace','workforce_temporal','census_diagnostics','external_envelopes')
 INPUTS = {
  'data/zero_catalog_20261025.json': [Z+'context/analysis_reference.parquet',
     Z+'federal_medical/addresses/F038_current_np_identity.parquet',
@@ -52,7 +54,8 @@ def scientific_summary(value):
 
 def control(results):
     tables = {}
-    for path in sorted(Path(results).rglob('*.parquet')):
+    paths = [path for folder in CONTROLLED_DIRECTORIES for path in (Path(results)/folder).rglob('*.parquet')]
+    for path in sorted(paths):
         frame = pd.read_parquet(path)
         tables[path.relative_to(results).as_posix()] = table_hash(frame, list(frame.columns))
     if not tables: raise ValueError('No complete scientific output tables')
@@ -63,7 +66,8 @@ def control(results):
         frame = pd.read_csv(path)
         maps[filename] = table_hash(frame, list(frame.columns))
     summaries = {}
-    for filename in ['np_diagnostic/summary.json','municipal/summary.json','roads/road_summary.json','potential/gravity_summary.json','cooperation/urban_cooperation_summary.json','workforce/source_facts.json']:
+    for filename in ['np_diagnostic/summary.json','municipal/summary.json','roads/road_summary.json','potential/gravity_summary.json','cooperation/urban_cooperation_summary.json','workforce/source_facts.json','workforce_temporal/summary.json',
+        'census_diagnostics/diagnostics_summary.json','external_envelopes/summary.json']:
         path = Path(results)/filename
         if path.is_file(): summaries[filename] = scientific_summary(json.loads(path.read_text()))
     census_tables = {}
@@ -76,7 +80,7 @@ def control(results):
         encoded = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(',', ':'), allow_nan=False).encode('utf-8')
         census_json[path.name] = {'canonical_json_sha256':hashlib.sha256(encoded).hexdigest(),
             'top_level_records':len(value), 'every_key_value_and_list_item_compared':True}
-    return {'schema':'sgrt.upper_research_control.v1', 'census_tables':census_tables, 'census_json':census_json, 'scientific_summaries':summaries, 'tables':tables, 'map_tables':maps,
+    return {'schema':'sgrt.upper_research_control.v1', 'controlled_result_directories':list(CONTROLLED_DIRECTORIES), 'census_tables':census_tables, 'census_json':census_json, 'scientific_summaries':summaries, 'tables':tables, 'map_tables':maps,
         'map_scope':json.loads((Path(results)/'map_scope.json').read_text()),
         'numeric_comparison_decimal_places':8, 'summary_numeric_comparison_decimal_places':6, 'row_multiplicity_and_every_column_compared':True,
         'empirical_hierarchy_established':False}
@@ -157,6 +161,17 @@ def calculate(source, results):
         '--parent-crosswalk',results/'municipal/reference_parent_crosswalk.parquet',
         '--municipal-profiles',results/'municipal/municipal_scale_comparisons.parquet',
         '--time-budgets','30','60','90','--output',results/'cooperation')
+    run('scripts/sgrt_zero/municipal_workforce_temporal.py','--workforce',results/'workforce'/MEMBER,
+        '--census',results/'census_workplace/regional_commuting_vpn2020_2021.json','--output',results/'workforce_temporal')
+    run('scripts/sgrt_zero/census_cooperation_diagnostics.py',
+        '--regional',results/'census_workplace/regional_commuting_vpn2020_2021.csv',
+        '--buryatia',results/'census_workplace/buryatia_commuting_vpn2010.csv',
+        '--memberships',source/C/'results/level0/memberships.parquet',
+        '--municipal-profiles',results/'municipal/municipal_scale_comparisons.parquet','--output',results/'census_diagnostics')
+    run('scripts/sgrt_zero/national_external_envelope_audit.py','--reference',ref,
+        '--units',source/C/'results/level0/units.parquet','--memberships',source/C/'results/level0/memberships.parquet',
+        '--service-memberships',source/I/'registry/level0_memberships.parquet',
+        '--polygons',source/Z/'literature/external_fua_russia/russia_efua_2015.parquet','--output',results/'external_envelopes')
     verify(results/'workforce'/MEMBER,{'bytes':MEMBER_BYTES,'sha256':MEMBER_SHA256})
     site_exports(results,ref)
 
@@ -164,8 +179,13 @@ def calculate(source, results):
 def package(results,built,commit,proof,actual):
     if built.exists(): raise ValueError('Output package must be new')
     built.mkdir(parents=True)
-    entries={'results/'+p.relative_to(results).as_posix():p for p in results.rglob('*') if p.is_file()}
-    context=['AGENTS.md','docs/UPPER_RESEARCH_RELEASE.md','decisions.json','research_context/current_state.json',
+    entries={'results/'+p.relative_to(results).as_posix():p for p in results.rglob('*') if p.is_file()
+        and (p.relative_to(results).parts[0] in CONTROLLED_DIRECTORIES or p.name in {
+            'municipal-scale-points.csv','conditional-cooperation-60-points.csv','map_scope.json'})}
+    context=['AGENTS.md','docs/UPPER_RESEARCH_RELEASE.md','decisions.json','references/sources.json','references/usage.json',
+        'sgrt/zero/census_cooperation_diagnostics_20261027.md','sgrt/zero/municipal_workforce_temporal_20261027.md',
+        'sgrt/zero/national_external_envelope_compatibility_20261027.md',
+        'research_context/analysis_snapshots/national_external_envelope_audit_20261027.json','research_context/current_state.json',
         'research_context/primary/word_concept_extracted.txt','references/provenance/municipal_workforce_20261027.json',
         'references/provenance/coordinate_holds_20261026.json','references/provenance/census_workplace_20261027.json','.github/workflows/publish-upper-research.yml',
         'requirements-upper-research.txt',EXPECTED.relative_to(REPO).as_posix(),*INPUTS]
@@ -179,6 +199,12 @@ def package(results,built,commit,proof,actual):
         path=REPO/name
         if not path.is_file(): raise FileNotFoundError(path)
         entries['reproduction/'+name]=path
+    audit_folder=results.parent/'independent_audit'
+    audit_files=['census_bound_lp_check.json','national_envelope_intersection_check.json','temporal_independent_check.json']
+    for name in audit_files:
+        path=audit_folder/name
+        if not path.is_file():raise FileNotFoundError('Independent reconstruction proof missing: '+str(path))
+        entries['independent_audit/'+name]=path
     assets=[]
     for name in ['municipal-scale-points.csv','conditional-cooperation-60-points.csv']:
         if (results/name).stat().st_size > 20_000_000: raise ValueError('Map CSV exceeds existing editor adapter size limit')
@@ -186,7 +212,9 @@ def package(results,built,commit,proof,actual):
     manifest={'schema':'sgrt.upper_research_bundle.v1','source_commit':commit,'release_tag':TAG,
         'archive_root':PREFIX,'input_provenance':proof,
         'new_workforce_source':json.loads((results/'workforce/source_facts.json').read_text()),'graph_csr_sha256_verified_by_loader':GRAPH_SHA256,
-        'semantic_control':actual,'scientific_scope':'Recorded scale diagnostics, six-city road sensitivity and conditional cooperation candidates; no observed flows or empirical hierarchy.',
+        'independent_reconstruction_checks':{name:{'bytes':(audit_folder/name).stat().st_size,'sha256':sha(audit_folder/name)} for name in audit_files},
+        'independent_checks_scope':'Derived numerical reconstruction, not exhaustive source coverage or empirical validation',
+        'semantic_control':actual,'controlled_output_directories':list(CONTROLLED_DIRECTORIES),'scientific_scope':'Recorded territorial scale, workforce temporal comparability, census constraints, six-city road sensitivity, conditional cooperation and national external-envelope compatibility; no observed OD flows or empirical hierarchy.',
         'empirical_sgrt_or_agglomeration_levels_established':False,
         'files':{name:{'bytes':p.stat().st_size,'sha256':sha(p)} for name,p in sorted(entries.items())},
         'standalone_assets':{p.name:{'bytes':p.stat().st_size,'sha256':sha(p)} for p in assets}}
@@ -196,7 +224,7 @@ def package(results,built,commit,proof,actual):
         z.writestr(PREFIX+'bundle_manifest.json',json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     manifest['archive']={'asset':archive.name,'bytes':archive.stat().st_size,'sha256':sha(archive)}
     write(built/'manifest.json',manifest)
-    (built/'release_notes.md').write_text('Записанный масштаб территорий, дорожные сценарии шести городов и условные кандидаты кооперации.\n\nНовые эмпирические уровни СГРТ не установлены. Муниципальная численность работников не распределена по населённым пунктам. Внешние eFUA 2015 задают условный контур, не проверяют модель независимо. Полные таблицы, сырой источник работников, код и происхождение входов включены в ZIP.\n')
+    (built/'release_notes.md').write_text('Масштаб территорий, переписные ограничения трудовых связей и совместимость окружений.\n\nВоспроизведены 23 научные таблицы: частичная численность работников и её сопоставимость 2021/2025, переписные ограничения направленных связей, дорожные сценарии шести городов и проверка всех 42 535 нулевых единиц по 175 внешним eFUA. В 149 контурах есть хотя бы одно целиком помещающееся окружение; 884 единицы показывают ошибочность проверки одной точки центра.\n\nНовые эмпирические уровни СГРТ не установлены. Муниципальные работники не распределены по НП. Внешние контуры являются входом и не подтверждают модель независимо. Полные таблицы, сырой экономический источник, первичные переписные тексты, код и три независимые численные проверки включены в ZIP. Отдельные CSV предназначены для редактора карт.\n')
     return built
 
 
@@ -236,6 +264,7 @@ def build(work,commit):
         proof+=acquire(REPO/catalog,lambda path:path in names,source,work/'cache')
     write(work/'source_facts.json',proof)
     results=work/'results';calculate(source,results)
+    run('scripts/sgrt_zero/audit_upper_research.py','--results',results,'--output',work/'independent_audit')
     actual=control(results);write(work/'actual_control.json',actual)
     if actual!=json.loads(EXPECTED.read_text()):raise ValueError('Independent complete-table control differs; publication blocked')
     return package(results,work/'built',commit,proof,actual)

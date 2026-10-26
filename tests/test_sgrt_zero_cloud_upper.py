@@ -12,7 +12,7 @@ from scripts.sgrt_zero import cloud_upper_research as cloud
 class UpperReleaseTests(unittest.TestCase):
     def test_control_compares_all_columns_and_preserves_duplicate_rows(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root=Path(tmp); path=root/'rows.parquet'
+            root=Path(tmp); (root/'np_diagnostic').mkdir(); path=root/'np_diagnostic/rows.parquet'
             for filename in ['municipal-scale-points.csv','conditional-cooperation-60-points.csv']:
                 pd.DataFrame({'name':['point'],'lat':[50.],'lon':[40.],'value':[1]}).to_csv(root/filename,index=False)
             cloud.write(root/'map_scope.json',{'empirical_hierarchy_established':False})
@@ -20,10 +20,13 @@ class UpperReleaseTests(unittest.TestCase):
             frame.to_parquet(path,index=False); first=cloud.control(root)
             frame.iloc[::-1].to_parquet(path,index=False)
             self.assertEqual(first,cloud.control(root))
+            (root/'unpublished_future_diagnostic').mkdir()
+            frame.to_parquet(root/'unpublished_future_diagnostic/not_in_this_producer.parquet',index=False)
+            self.assertEqual(first,cloud.control(root))
             frame.loc[1,'unshown_evidence']=3;frame.to_parquet(path,index=False)
             self.assertNotEqual(first,cloud.control(root))
             pd.concat([frame,frame.iloc[:1]]).to_parquet(path,index=False)
-            self.assertEqual(cloud.control(root)['tables']['rows.parquet']['rows'],3)
+            self.assertEqual(cloud.control(root)['tables']['np_diagnostic/rows.parquet']['rows'],3)
             (root/'census_workplace').mkdir()
             cloud.write(root/'census_workplace/evidence.json',[{'numerator':7,'unknown':None}])
             before=cloud.control(root)
