@@ -195,7 +195,9 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
     setPendingKeys(previous => [...previous, key]);
     pendingCollections.current[key] = (async () => {
       try {
-        const response = await fetch(`${root}data/${paths[key] || `${key}.geojson`}`);
+        const source = siteAssets.boundaries.find(asset => asset.id === key);
+        const version = source ? `?v=${source.sha256.slice(0, 12)}` : '';
+        const response = await fetch(`${root}data/${paths[key] || `${key}.geojson`}${version}`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const payload = await response.json();
         const body = key === 'settlements' ? populationCollection(payload) : payload as Collection;
