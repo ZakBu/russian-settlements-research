@@ -114,6 +114,8 @@ class ExportTests(unittest.TestCase):
         result = site.preview_points([point, other])
         self.assertEqual(result, site.preview_points([other, point]))
         self.assertEqual(result[0][:2], point['geometry']['coordinates'])
+        self.assertEqual(result[0][3], other['properties']['name'])
+        self.assertEqual(result[0][4], 200)
 
     def test_polygon_sum_uses_only_strict_fixed_cohort(self):
         feature = {'type': 'Feature', 'geometry': {'type': 'Polygon', 'coordinates': [[[0, 0], [3, 0], [3, 3], [0, 3], [0, 0]]]},

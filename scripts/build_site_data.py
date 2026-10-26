@@ -116,7 +116,8 @@ def preview_points(features, cell_degrees=.15):
     for _, feature in (cells[key] for key in sorted(cells)):
         lon, lat = feature['geometry']['coordinates']
         change = feature['properties']['change']
-        output.append([round(lon, 3), round(lat, 3), round(change, 1) if change is not None else None])
+        output.append([round(lon, 3), round(lat, 3), round(change, 1) if change is not None else None,
+                       feature['properties']['name'], feature['properties']['p21']])
     return output
 
 
