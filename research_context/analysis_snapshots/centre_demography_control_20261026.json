@@ -1,0 +1,442 @@
+{
+  "schema": "sgrt.centre_demography_control.v1",
+  "summary": {
+    "centres": 28512,
+    "centre_member_pairs": 202575,
+    "fixed_membership_reference_year": 2021,
+    "component_direction_counts": {
+      "strict_direct_observed": {
+        "2002": {
+          "centre": {
+            "decline": 22420,
+            "growth": 5171,
+            "unknown": 866,
+            "unchanged": 55
+          },
+          "external": {
+            "decline": 18855,
+            "unknown": 5410,
+            "growth": 4153,
+            "unchanged": 94
+          },
+          "rural_external": {
+            "decline": 18778,
+            "unknown": 5494,
+            "growth": 4146,
+            "unchanged": 94
+          }
+        },
+        "2010": {
+          "centre": {
+            "unknown": 25720,
+            "decline": 2152,
+            "growth": 635,
+            "unchanged": 5
+          },
+          "external": {
+            "unknown": 27887,
+            "decline": 481,
+            "growth": 129,
+            "unchanged": 15
+          },
+          "rural_external": {
+            "unknown": 27956,
+            "decline": 417,
+            "growth": 124,
+            "unchanged": 15
+          }
+        }
+      },
+      "accepted_values": {
+        "2002": {
+          "centre": {
+            "decline": 22424,
+            "growth": 5171,
+            "unknown": 862,
+            "unchanged": 55
+          },
+          "external": {
+            "decline": 18866,
+            "unknown": 5396,
+            "growth": 4155,
+            "unchanged": 95
+          },
+          "rural_external": {
+            "decline": 18788,
+            "unknown": 5481,
+            "growth": 4148,
+            "unchanged": 95
+          }
+        },
+        "2010": {
+          "centre": {
+            "decline": 21478,
+            "growth": 6133,
+            "unknown": 788,
+            "unchanged": 113
+          },
+          "external": {
+            "decline": 17432,
+            "growth": 5491,
+            "unknown": 5375,
+            "unchanged": 214
+          },
+          "rural_external": {
+            "decline": 17321,
+            "growth": 5513,
+            "unknown": 5461,
+            "unchanged": 217
+          }
+        }
+      }
+    },
+    "joint_direction_counts": {
+      "accepted_values": {
+        "joint_centre_external_2002_2021": {
+          "decline__decline": 16901,
+          "unknown": 5678,
+          "growth__growth": 2305,
+          "decline__growth": 1755,
+          "growth__decline": 1734,
+          "decline__unchanged": 81,
+          "unchanged__decline": 29,
+          "unchanged__growth": 16,
+          "growth__unchanged": 12,
+          "unchanged__unchanged": 1
+        },
+        "joint_centre_rural_external_2002_2021": {
+          "decline__decline": 16842,
+          "unknown": 5762,
+          "growth__growth": 2302,
+          "decline__growth": 1750,
+          "growth__decline": 1717,
+          "decline__unchanged": 81,
+          "unchanged__decline": 29,
+          "unchanged__growth": 16,
+          "growth__unchanged": 12,
+          "unchanged__unchanged": 1
+        },
+        "joint_centre_external_2010_2021": {
+          "decline__decline": 15022,
+          "unknown": 5609,
+          "decline__growth": 2706,
+          "growth__growth": 2687,
+          "growth__decline": 2190,
+          "decline__unchanged": 175,
+          "unchanged__decline": 62,
+          "growth__unchanged": 33,
+          "unchanged__growth": 28
+        },
+        "joint_centre_rural_external_2010_2021": {
+          "decline__decline": 14942,
+          "unknown": 5694,
+          "decline__growth": 2716,
+          "growth__growth": 2699,
+          "growth__decline": 2160,
+          "decline__unchanged": 177,
+          "unchanged__decline": 62,
+          "growth__unchanged": 34,
+          "unchanged__growth": 28
+        }
+      },
+      "strict_direct_observed": {
+        "joint_centre_external_2002_2021": {
+          "decline__decline": 16888,
+          "unknown": 5694,
+          "growth__growth": 2303,
+          "decline__growth": 1755,
+          "growth__decline": 1734,
+          "decline__unchanged": 80,
+          "unchanged__decline": 29,
+          "unchanged__growth": 16,
+          "growth__unchanged": 12,
+          "unchanged__unchanged": 1
+        },
+        "joint_centre_rural_external_2002_2021": {
+          "decline__decline": 16830,
+          "unknown": 5777,
+          "growth__growth": 2300,
+          "decline__growth": 1750,
+          "growth__decline": 1717,
+          "decline__unchanged": 80,
+          "unchanged__decline": 29,
+          "unchanged__growth": 16,
+          "growth__unchanged": 12,
+          "unchanged__unchanged": 1
+        },
+        "joint_centre_external_2010_2021": {
+          "unknown": 27981,
+          "decline__decline": 379,
+          "decline__growth": 60,
+          "growth__growth": 49,
+          "growth__decline": 27,
+          "decline__unchanged": 11,
+          "growth__unchanged": 3,
+          "unchanged__growth": 2
+        },
+        "joint_centre_rural_external_2010_2021": {
+          "unknown": 27994,
+          "decline__decline": 366,
+          "decline__growth": 60,
+          "growth__growth": 50,
+          "growth__decline": 26,
+          "decline__unchanged": 11,
+          "growth__unchanged": 3,
+          "unchanged__growth": 2
+        }
+      }
+    },
+    "strict_primary_quality_allowlist": [
+      "direct_official_city_value",
+      "direct_published_census_value",
+      "fresh_primary_r5_source",
+      "reviewed_primary_reported_value",
+      "reviewed_primary_source_value_or_null"
+    ],
+    "population_fields_available": [
+      "population_2002",
+      "credit_2002",
+      "population_value_quality_2002",
+      "population_overlay_applied_2002",
+      "population_2010",
+      "credit_2010",
+      "population_value_quality_2010",
+      "population_overlay_applied_2010",
+      "population_2021",
+      "credit_2021",
+      "population_value_quality_2021",
+      "population_overlay_applied_2021",
+      "population_role",
+      "base_population_role",
+      "budget_population_credit"
+    ],
+    "raw_effective_population_pair_available": false,
+    "accepted_population_with_quality_and_overlay_flags_only": true,
+    "protected_secondary_2010_is_not_primary_observed": true,
+    "secondary_confidentiality_value_not_automatically_imputed": true,
+    "accepted_values_mode_is_not_claimed_observed": true,
+    "partial_known_sums_are_not_component_totals": true,
+    "sums_across_catchments_are_invalid_due_to_overlap": true,
+    "historical_boundary_equivalence_established": false,
+    "word_causal_types_assigned": false
+  },
+  "tables": {
+    "centre_demographic_components": {
+      "rows": 342144,
+      "columns": [
+        "star_id",
+        "centre_settlement_id",
+        "scope",
+        "start_year",
+        "end_year",
+        "records",
+        "comparable_records",
+        "complete",
+        "unknown_reasons_json",
+        "start_observed_known_records",
+        "start_observed_known_sum",
+        "start_accepted_credited_numeric_sum",
+        "start_paired_cohort_sum",
+        "end_observed_known_records",
+        "end_observed_known_sum",
+        "end_accepted_credited_numeric_sum",
+        "end_paired_cohort_sum",
+        "direction",
+        "evidence_mode"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "56ac566f02517b8caec84281d38b1c4ad7dcfa04417b30143a64bb817f535217"
+    },
+    "centre_demographic_classes": {
+      "rows": 57024,
+      "columns": [
+        "star_id",
+        "centre_settlement_id",
+        "centre_name",
+        "word_causal_type_established",
+        "historical_boundary_equivalence_established",
+        "centre_direction_2002_2021",
+        "external_direction_2002_2021",
+        "rural_external_direction_2002_2021",
+        "joint_centre_external_2002_2021",
+        "joint_centre_external_unknown_reasons_2002_2021_json",
+        "joint_centre_rural_external_2002_2021",
+        "joint_centre_rural_external_unknown_reasons_2002_2021_json",
+        "centre_direction_2010_2021",
+        "external_direction_2010_2021",
+        "rural_external_direction_2010_2021",
+        "joint_centre_external_2010_2021",
+        "joint_centre_external_unknown_reasons_2010_2021_json",
+        "joint_centre_rural_external_2010_2021",
+        "joint_centre_rural_external_unknown_reasons_2010_2021_json",
+        "evidence_mode"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "f4be237b599660faca74ebbf36571304ac73e4a4d89d62d62b28264e58de4f38"
+    },
+    "fixed_membership_population_evidence": {
+      "rows": 202575,
+      "columns": [
+        "star_id",
+        "centre_settlement_id",
+        "origin_id",
+        "member_role",
+        "source_record_id",
+        "name",
+        "region",
+        "district",
+        "population_role",
+        "settlement_type_2021",
+        "budget_population_credit",
+        "population_2002",
+        "credit_2002",
+        "source_record_id_2002",
+        "population_value_quality_2002",
+        "population_overlay_applied_2002",
+        "population_2010",
+        "credit_2010",
+        "source_record_id_2010",
+        "population_value_quality_2010",
+        "population_overlay_applied_2010",
+        "population_2021",
+        "credit_2021",
+        "source_record_id_2021",
+        "population_value_quality_2021",
+        "population_overlay_applied_2021"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "e13b09d5020ee3c73c433b1450f29ce41ab226dcf7809f78cba2d47be321cbe0"
+    }
+  },
+  "site_points": {
+    "rows": 28512,
+    "columns": [
+      "star_id",
+      "centre_settlement_id",
+      "name",
+      "region",
+      "lat",
+      "lon",
+      "strict_joint_centre_rural_external_2002_2021",
+      "strict_joint_centre_rural_external_2010_2021",
+      "accepted_joint_centre_rural_external_2002_2021",
+      "accepted_joint_centre_rural_external_2010_2021",
+      "demography_rural_2002_category",
+      "demography_rural_2002_label",
+      "word_causal_type_established",
+      "historical_boundary_equivalence_established"
+    ],
+    "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+    "sha256": "40b4844b5ad72e60fbd7f6ec26e627b85305c4f6064fae047c83a3a8a5cbf2a6"
+  },
+  "figure_values": {
+    "classification": "centre_and_rural_external_2002_2021_strict_primary",
+    "counts": {
+      "unknown": 5777,
+      "decline__decline": 16830,
+      "growth__growth": 2300,
+      "growth__decline": 1717,
+      "decline__growth": 1750,
+      "decline__unchanged": 80,
+      "unchanged__decline": 29,
+      "unchanged__growth": 16,
+      "growth__unchanged": 12,
+      "unchanged__unchanged": 1
+    },
+    "comparison": [
+      {
+        "start": 2002,
+        "mode": "strict_direct_observed",
+        "complete": 22735,
+        "unknown": 5777,
+        "denominator": 28512
+      },
+      {
+        "start": 2002,
+        "mode": "accepted_values",
+        "complete": 22750,
+        "unknown": 5762,
+        "denominator": 28512
+      },
+      {
+        "start": 2010,
+        "mode": "strict_direct_observed",
+        "complete": 518,
+        "unknown": 27994,
+        "denominator": 28512
+      },
+      {
+        "start": 2010,
+        "mode": "accepted_values",
+        "complete": 22818,
+        "unknown": 5694,
+        "denominator": 28512
+      }
+    ],
+    "category_schema": [
+      {
+        "code": 0,
+        "key": "unknown",
+        "label": "Недостаточно сопоставимых данных",
+        "color": "#b9c0c4"
+      },
+      {
+        "code": 1,
+        "key": "decline__decline",
+        "label": "Центр и сельское окружение убывают",
+        "color": "#a26950"
+      },
+      {
+        "code": 2,
+        "key": "growth__growth",
+        "label": "Центр и сельское окружение растут",
+        "color": "#357b6c"
+      },
+      {
+        "code": 3,
+        "key": "growth__decline",
+        "label": "Центр растёт, сельское окружение убывает",
+        "color": "#3777a3"
+      },
+      {
+        "code": 4,
+        "key": "decline__growth",
+        "label": "Центр убывает, сельское окружение растёт",
+        "color": "#ce9b2d"
+      },
+      {
+        "code": 5,
+        "key": "decline__unchanged",
+        "label": "Центр убывает, окружение без изменения",
+        "color": "#985568"
+      },
+      {
+        "code": 6,
+        "key": "unchanged__decline",
+        "label": "Центр без изменения, окружение убывает",
+        "color": "#7c677f"
+      },
+      {
+        "code": 7,
+        "key": "unchanged__growth",
+        "label": "Центр без изменения, окружение растёт",
+        "color": "#539e8b"
+      },
+      {
+        "code": 8,
+        "key": "growth__unchanged",
+        "label": "Центр растёт, окружение без изменения",
+        "color": "#65a3c1"
+      },
+      {
+        "code": 9,
+        "key": "unchanged__unchanged",
+        "label": "Обе части без изменения",
+        "color": "#343c42"
+      }
+    ],
+    "observed_population_is_not_observed_trips": true,
+    "rural_subset_is_not_all_external_members": true,
+    "causal_word_types_assigned": false
+  }
+}
