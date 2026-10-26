@@ -9,7 +9,7 @@ test('atlas search, no-results and reset preserve a usable catalogue',async({pag
  await page.getByRole('searchbox',{name:'Поиск материалов'}).fill('несуществующий-материал-xyz');await expect(cards).toHaveCount(0);
  await page.getByRole('button',{name:'Сбросить поиск и фильтры'}).click();await expect(cards).toHaveCount(total);
  const lead=page.locator('[data-material-id="population-base"][data-material-card]');expect((await lead.boundingBox())!.height).toBeLessThan(850);
- await expect(lead.locator('.cartographic-preview')).toBeVisible();await expect.poll(()=>lead.locator('.map-image-light').evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);expect(errors).toEqual([]);
+ await lead.scrollIntoViewIfNeeded();await expect(lead.locator('.cartographic-preview')).toBeVisible();await expect.poll(()=>lead.locator('.map-image-light').evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);expect(errors).toEqual([]);
 });
 
 test('research selection survives navigation and dark theme survives reload',async({page})=>{
