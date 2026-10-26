@@ -186,6 +186,17 @@ def population_features(wide, long):
     return features, details, lookup
 
 
+def country_preview(features):
+    """Small, clockwise geographic rings for overview artwork, never analysis."""
+    from shapely.geometry import shape, mapping
+    from shapely.geometry.polygon import orient
+    from shapely.ops import unary_union
+    land = unary_union([shape(f['geometry']) for f in features]).simplify(.07, preserve_topology=True)
+    polygons = list(land.geoms) if land.geom_type == 'MultiPolygon' else [land]
+    return feature_collection([{'type': 'Feature', 'properties': {}, 'geometry': mapping(orient(p, sign=-1))}
+                               for p in polygons if p.geom_type == 'Polygon'])
+
+
 def boundary_features(raw, asset, settlements, details=None):
     """Exact point-in-polygon on source geometry; unique membership only.
 
@@ -495,6 +506,8 @@ def main(argv=None):
             target = verified_download(asset, args.cache)
         features, coverage = boundary_features(json.loads(target.read_text()), asset, settlements, details)
         write_json(args.output / (asset['id'] + '.geojson'), feature_collection(features))
+        if asset['id'] == 'regions':
+            write_json(args.output / 'country-preview.geojson', country_preview(features))
         boundary_counts[asset['id']] = {'count': len(features), **coverage}
         sources.append(asset)
     services, links = local_services(inputs, lookup)
@@ -521,7 +534,7 @@ def main(argv=None):
                            'links': 'links.geojson', 'regions': 'regions.geojson', 'districts': 'districts.geojson', 'centres': 'centres.geojson'},
                 'detailPath': 'settlement-details/{shard}.json',
                 'customLayers': 'layers.json',
-                'preview': {'path': 'settlements-preview.json', 'count': len(preview), 'method': 'one_real_highest_population_point_per_0.15_degree_cell_for_thumbnail_only'},
+                'preview': {'path': 'settlements-preview.json', 'outlinePath': 'country-preview.geojson', 'outlineUse': 'decorative_reference_land_only', 'count': len(preview), 'method': 'one_real_highest_population_point_per_0.15_degree_cell_for_thumbnail_only'},
                 'limitations': ['Границы geoBoundaries описывают сетку 2017 года: 83 региона, принятую основу исследования из 85 субъектов не подменяют.',
                                 'Сводки внутри контуров рассчитаны по фиксированному сопоставимому набору точек; это не официальные муниципальные итоги.',
                                 'Слой услуг и документированных связей охватывает локальный пример Учалинского района, а не всю Россию.',
