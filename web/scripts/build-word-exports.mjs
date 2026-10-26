@@ -6,6 +6,7 @@ import {resolve,join,extname} from 'node:path';
 import {tmpdir} from 'node:os';
 import {spawnSync} from 'node:child_process';
 import {chromium} from '@playwright/test';
+import {buildHierarchy,flattenHierarchy} from '../src/lib/hierarchy.ts';
 const web=resolve(import.meta.dirname,'..'),root=resolve(web,'..');
 const args=process.argv.slice(2);const value=key=>{const i=args.indexOf(key);return i<0?undefined:args[i+1]};
 const site=resolve(value('--site')||join(web,'dist'));
@@ -22,8 +23,8 @@ if(!existsSync(join(site,'knowledge/index.html')))throw Error('Сначала с
 const custom=value('--materials')||value('--material')||value('--research');
 const exportDir=join(site,'exports');await mkdir(exportDir,{recursive:true});
 let jobs;
-if(custom){const ids=value('--materials')?.split(',')||[value('--material')].filter(Boolean);const selected=value('--research')?published.filter(m=>m.researchId===value('--research')).sort((a,b)=>a.publishedAt.localeCompare(b.publishedAt)||a.id.localeCompare(b.id)):ids.map(id=>{const m=pages.find(m=>m.id===id);if(!m)throw Error(`Неизвестный опубликованный материал: ${id}`);return m});if(!selected.length)throw Error('В выборке нет опубликованных материалов');if(!value('--output'))throw Error('Укажите --output file.docx');jobs=[{output:resolve(value('--output')),title:selected.length>1?'Материалы исследования':undefined,ids:selected.map(m=>m.id)}]}
-else jobs=[...pages.map(m=>({output:join(exportDir,`${m.id}.docx`),ids:[m.id]})),...studies.map(r=>({output:join(exportDir,`research-${r.id}.docx`),title:`Материалы исследования «${r.title}»`,ids:published.filter(m=>m.researchId===r.id).sort((a,b)=>a.publishedAt.localeCompare(b.publishedAt)||a.id.localeCompare(b.id)).map(m=>m.id)})).filter(j=>j.ids.length)];
+if(custom){const ids=value('--materials')?.split(',')||[value('--material')].filter(Boolean);const selected=value('--research')?flattenHierarchy(buildHierarchy(published.filter(m=>m.researchId===value('--research')))):ids.map(id=>{const m=pages.find(m=>m.id===id);if(!m)throw Error(`Неизвестный опубликованный материал: ${id}`);return m});if(!selected.length)throw Error('В выборке нет опубликованных материалов');if(!value('--output'))throw Error('Укажите --output file.docx');jobs=[{output:resolve(value('--output')),title:selected.length>1?'Материалы исследования':undefined,ids:selected.map(m=>m.id)}]}
+else jobs=[...pages.map(m=>({output:join(exportDir,`${m.id}.docx`),ids:[m.id]})),...studies.map(r=>({output:join(exportDir,`research-${r.id}.docx`),title:`Материалы исследования «${r.title}»`,ids:flattenHierarchy(buildHierarchy(published.filter(m=>m.researchId===r.id))).map(m=>m.id)})).filter(j=>j.ids.length)];
 const needed=new Set(jobs.flatMap(j=>j.ids));
 const scratch=await mkdtemp(join(tmpdir(),'atlas-word-'));
 const mime={'.html':'text/html','.js':'application/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.woff2':'font/woff2','.docx':'application/vnd.openxmlformats-officedocument.wordprocessingml.document'};
