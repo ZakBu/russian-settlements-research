@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-26T23:49:41+03:00",
+  "updated_moscow": "2026-10-27T02:04:32+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,13 +9,13 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "model_level0_centres_and_fixed_membership_demographic_profiles_published",
-      "summary": "Опубликованы 28 512 модельных низовых центров, включая 5 210 с тремя известными базовыми функциями; медианный диаметр окружения — 8,11 км. Добавлена демография центра и окружающих сёл: у 16 830 центров обе части убывали за 2002–2021. Это фиксированные пересекающиеся окружения, не наблюдённые поездки, причинные типы Word или завершённая иерархия.",
+      "status": "model_level0_primary_membership_published_upper_nearest_method_rejected",
+      "summary": "Сохранены 28 512 модельных низовых центров; рассчитано основное окружение с явным сохранением равных и неизвестных направлений. У 14 253 центров есть внешний жилой основной участник. Верхнее объединение по ближайшим услугам отвергнуто как общая иерархия: Москва остаётся на глубине 0. Межцентровые связи и причинные типы Word ещё исследуются.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
-      "main_blocker": "Перейти от отдельных направлений услуг к обоснованным общим местным системам: проверить расхождение поставщиков, межцентровые связи и независимые сведения о поездках; не объединять зоны по одному пересечению.",
+      "main_blocker": "Ближайшие услуги описывают обслуживание, но не экономическую кооперацию городов. Нужны независимые трудовые и межцентровые связи; нельзя назначать Москве верхний уровень заранее.",
       "workplan": "sgrt/workplan/README.md",
-      "results": "sgrt/zero/IDENTITY_REPAIR_20261026.md",
+      "results": "sgrt/zero/COMMON_SYSTEMS_20261027.md",
       "data_release": "sgrt-zero-centre-systems-20261025-v1",
       "publication": {
         "status": "published_public_download_all_members_code_and_scientific_controls_verified",
@@ -156,7 +156,7 @@
         "population_advantage_at_level0": false,
         "target_number_of_levels_is_not_hardcoded": true,
         "Moscow_unique_upper_order_is_research_goal_not_prescribed_label": true,
-        "calculation_state": "source_geometry_repaired_selected_provider_function_semantics_being_repaired_before_clean_country_rebuild",
+        "calculation_state": "level0_primary_membership_finished_upper_nearest_hierarchy_rejected_economic_and_commuting_research_continues",
         "source_release": "sgrt-zero-inputs-20261025-v1",
         "source_manifest_sha256": "d9c8617dadbed91d92cf0cf1e139af67fddf5e9c33c7c50f09cd577c0c664ddc",
         "level_zero_control": {
@@ -600,6 +600,19 @@
         "public_archive_bytes": 16447359,
         "public_archive_sha256": "bc9e93311e4f944e886395dd5b800ff5c9eb24b886d2c638bc75361f38ab6f76",
         "independent_check": "research_context/analysis_snapshots/centre_demography_independent_check_20261026.json"
+      },
+      "common_systems_publication": {
+        "release": "sgrt-common-systems-20261027-v1",
+        "catalog": "data/common_systems_catalog_20261027.json",
+        "source_commit": "05b94e5b0deb7a661eb9f6ecec14d2092aa88dca",
+        "files_verified": 175,
+        "archive_bytes": 92856475,
+        "archive_sha256": "886f39292a0af5af2a137a5f2f2b9b7aecd36b678760ab851b3f905ae8908dde",
+        "centres": 28512,
+        "centres_with_positive_primary_external_member": 14253,
+        "centres_with_two_function_primary_external_member": 7806,
+        "common_territorial_hierarchy_established": false,
+        "verification": "research_context/analysis_snapshots/common_public_release_verification_20261027.json"
       }
     },
     "portal": {
@@ -631,6 +644,7 @@
     }
   },
   "next_steps": [
+    "Развить межцентровую модель после отрицательного опыта ближайших старших услуг: отдельно проверить экономический масштаб, дорожные связи и переписные сведения о месте работы; не выдавать глубину объединения за уровень СГРТ.",
     "Проверить общие низовые системы на контрастных территориях, разделяя 11 355 совпавших внешних профилей, 51 010 расхождений и неполные сведения в совокупности 129 583 жилых обычных записей.",
     "Для разошедшихся функций сопоставить школьные территории, медицинское прикрепление, транспорт и работу; сохранить местные услуги, не склеивать цепочки соседних связей.",
     "Уточнять физические рабочие площадки и частичную численность работников; муниципальное сельское хозяйство использовать как контекст, не распределяя итоги по сёлам.",
@@ -691,6 +705,8 @@
     "literature_review": "https://zakbu.github.io/russian-settlements-research/materials/literature-foundations/",
     "methodology": "https://zakbu.github.io/russian-settlements-research/materials/research-methodology/",
     "rural_economy": "https://zakbu.github.io/russian-settlements-research/materials/rural-economy-method/",
-    "research_progress": "https://zakbu.github.io/russian-settlements-research/materials/research-progress/"
+    "research_progress": "https://zakbu.github.io/russian-settlements-research/materials/research-progress/",
+    "current_common_systems": "sgrt/zero/COMMON_SYSTEMS_20261027.md",
+    "current_common_catalog": "data/common_systems_catalog_20261027.json"
   }
 }
