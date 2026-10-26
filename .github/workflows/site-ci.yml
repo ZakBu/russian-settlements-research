@@ -43,8 +43,15 @@ jobs:
       - run: npm --prefix web run build
         env:
           PUBLIC_BASE_PATH: /russian-settlements-research/
-      - name: Install browser for interaction checks
-        run: npx --prefix web playwright install --with-deps chromium
+      - name: Prepare browser for interaction checks
+        run: |
+          if command -v chromium >/dev/null 2>&1; then
+            chromium --version
+          elif command -v google-chrome >/dev/null 2>&1; then
+            google-chrome --version
+          else
+            npx --prefix web playwright install --with-deps chromium
+          fi
       - name: Check real browser journeys
         run: npm --prefix web test
         env:
