@@ -9,11 +9,11 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "level0_centres_recomputed_source_identity_and_function_errors_repaired_public_rebuild_pending",
-      "summary": "Исправлены пропуски принадлежности учреждений, чрезмерно узкий счётчик197, сохранение спорных старых владельцев и блокирование городов неточными точками соседних НП. Идёт новый общероссийский пересчёт; предварительные28500/5171 не являются окончательным результатом.",
+      "status": "level0_centres_published_clean_source_rebuild_and_public_download_verified",
+      "summary": "Получены и опубликованы 28 512 модельных центров нулевого уровня с внешними участниками: у5 210 известны три базовые функции. Медианный диаметр прямого окружения —8,11км,95-йпроцентиль—27,88км. Чистый повтор из сохранённых источников воспроизвёл все предложения, направления и составы. Реальные поездки, старшие уровни и причинные типы Word пока не установлены.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
-      "main_blocker": "Завершить чистый повтор по сохранённым исходникам и опубликовать составы окружений и карты; реальные поездки и старшие уровни пока не установлены.",
+      "main_blocker": "Проверять функциональные связи независимо от модели и построить межцентровые связи старших функций без склеивания пересекающихся низовых окружений.",
       "workplan": "sgrt/workplan/README.md",
       "results": "sgrt/zero/IDENTITY_REPAIR_20261026.md",
       "data_release": "sgrt-zero-centre-systems-20261025-v1",
@@ -576,8 +576,12 @@
         "physical_site_unknown_np_remains_usable": true,
         "independent_forward_route_comparisons": 24,
         "independent_forward_route_layers": 12,
-        "scientific_tests_passed": 539,
-        "public_clean_rebuild_completed": false
+        "scientific_tests_passed": 541,
+        "public_clean_rebuild_completed": true,
+        "urban_function_coverage": "research_context/analysis_snapshots/identity_final_urban_coverage_20261026.json",
+        "public_release": "https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-zero-centres-20261026-v2",
+        "data_catalog": "data/identity_catalog_20261026.json",
+        "public_download_check": "research_context/analysis_snapshots/identity_public_release_verification_20261026.json"
       }
     },
     "portal": {
@@ -606,7 +610,7 @@
     }
   },
   "next_steps": [
-    "Опубликовать исправленные составы центров и карты после чистого повторного расчёта по сохранённым источникам.",
+    "Опубликовать в атласе демографические описания центра и окружения за2002–2021 и чувствительность к качеству2010; не приписывать причинные типы по одной динамике.",
     "Разбирать оставшиеся неоднозначные границы и сведения об услугах, не считать пропуски отсутствием функций.",
     "Проверять местные связи по независимому прикреплению и поездкам; затем переходить к старшим порядкам без цепочечного склеивания регионов."
   ],
@@ -629,7 +633,8 @@
     "Верхние медицинские каналы условны по заявленному профилю. Они не подтверждают пригодность одной больницы для всех пациентов или постоянный врачебный штат.",
     "Города представлены переписными точками; внутригородское обслуживание не районируется. Геометрический размах точек не является площадью или непрерывным полигоном зоны.",
     "В пяти проверенных примерах Учалинского района ФАП согласуется с документом на уровне функции и НП; школы — только географически. У 19 школьных направлений ступени не установлены, поэтому точность для 10–11 классов не оценена. Источники разных лет и прикрепления не измеряют реальные поездки.",
-    "В 1250 прочитанных официальных книгах статистики НП2025 не найден показатель обычных общеобразовательных школ; показатели47–51 относятся к дополнительным общеобразовательным программам. Эти числа не используются как школьная функция; подробности в analysis_snapshots/identity_official_school_statistics_search_20261026.json."
+    "В 1250 прочитанных официальных книгах статистики НП2025 не найден показатель обычных общеобразовательных школ; показатели47–51 относятся к дополнительным общеобразовательным программам. Эти числа не используются как школьная функция; подробности в analysis_snapshots/identity_official_school_statistics_search_20261026.json.",
+    "После исправлений школа связана с 1836 из2249 сопоставимых городских записей; у413 собственная школьная функция остаётся неизвестной, часто при известных физических школах с неразрешённой принадлежностью. Это не отсутствие школ; такие площадки участвуют в доступности по исходным координатам."
   ],
   "entrypoints": {
     "rules": "AGENTS.md",
@@ -652,6 +657,8 @@
     "previous_national_results": "sgrt/mass/README.md",
     "current_zero_catalog": "data/zero_catalog_20261025.json",
     "current_error_audit": "sgrt/zero/ERROR_AUDIT_20261025.md",
-    "latest_audit_data_release": "https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-semantic-audit-20261025-v1"
+    "latest_audit_data_release": "https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-semantic-audit-20261025-v1",
+    "current_zero_centres": "sgrt/zero/IDENTITY_REPAIR_20261026.md",
+    "current_zero_centres_catalog": "data/identity_catalog_20261026.json"
   }
 }

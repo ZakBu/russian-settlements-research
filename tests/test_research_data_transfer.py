@@ -44,6 +44,70 @@ class DataTransferTests(unittest.TestCase):
         self.assertFalse((self.dest/'a.parquet').exists())
         self.assertEqual((self.dest/'nested/b.parquet').read_bytes(),self.data)
 
+    def named_archive(self, member, *, payload=None):
+        """Use the released-result layout and a SHA256 object key, not Git SHA1."""
+        old_blob = self.blob
+        self.blob = hashlib.sha256(self.data).hexdigest()
+        obj = self.catalog['objects'].pop(old_blob)
+        obj['archive_member'] = member
+        self.catalog['objects'][self.blob] = obj
+        for row in self.catalog['files']:
+            row['blob'] = self.blob
+        with zipfile.ZipFile(self.archive, 'w') as archive:
+            archive.writestr(member, self.data if payload is None else payload)
+        self.catalog['assets'][0].update(objects=[self.blob], bytes=self.archive.stat().st_size,
+            sha256=hashlib.sha256(self.archive.read_bytes()).hexdigest())
+        self.path.write_text(json.dumps(self.catalog))
+
+    def test_explicit_archive_member_fetches_and_verifies_sha256_object_key(self):
+        member = 'sgrt/identity20261026/registry/level0_centres.csv'
+        self.named_archive(member)
+        result = self.command('fetch')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        for row in self.catalog['files']:
+            self.assertEqual((self.dest / row['path']).read_bytes(), self.data)
+        self.assertEqual(self.command('verify').returncode, 0)
+
+    def test_explicit_member_payload_checksum_is_still_required(self):
+        self.named_archive('sgrt/identity20261026/registry/level0_centres.csv', payload=b'wrong bytes')
+        result = self.command('fetch')
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('Data object checksum mismatch', result.stderr)
+        self.assertFalse((self.dest / 'a.parquet').exists())
+
+    def test_unknown_member_does_not_fall_back_to_legacy_object(self):
+        self.catalog['objects'][self.blob]['archive_member'] = 'sgrt/absent.parquet'
+        self.path.write_text(json.dumps(self.catalog))
+        result = self.command('fetch')
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('Archive member is absent or duplicated', result.stderr)
+        self.assertFalse((self.dest / 'a.parquet').exists())
+
+    def test_unsafe_archive_member_is_rejected_before_fetch(self):
+        for member in ['../escape', '/absolute', 'root/../escape', 'root/./file',
+                       'root//file', 'root\\file', 'C:/drive', 'root/file\0suffix', '', None]:
+            with self.subTest(member=member):
+                self.catalog['objects'][self.blob]['archive_member'] = member
+                self.path.write_text(json.dumps(self.catalog))
+                result = self.command('fetch')
+                self.assertEqual(result.returncode, 1)
+                self.assertIn('Unsafe archive member', result.stderr)
+                self.assertFalse((self.dest / 'a.parquet').exists())
+                self.assertFalse((self.root / 'cache/data.zip').exists())
+
+    def test_explicit_member_cannot_hide_a_cache_object_path_escape(self):
+        obj = self.catalog['objects'].pop(self.blob)
+        obj['archive_member'] = 'objects/' + self.blob
+        self.catalog['objects']['../outside'] = obj
+        for row in self.catalog['files']:
+            row['blob'] = '../outside'
+        self.catalog['assets'][0]['objects'] = ['../outside']
+        self.path.write_text(json.dumps(self.catalog))
+        result = self.command('fetch')
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('Unsafe catalog path', result.stderr)
+        self.assertFalse((self.dest / 'a.parquet').exists())
+
     def test_bad_archive_checksum_is_rejected(self):
         self.catalog['assets'][0]['sha256']='0'*64;self.path.write_text(json.dumps(self.catalog))
         self.assertEqual(self.command('fetch').returncode,1)
