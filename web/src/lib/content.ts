@@ -1,6 +1,6 @@
 import type {BibliographicFields} from './bibliography';
 export type Research = {id:string;title:string;description:string;status:string;summary:string;nextStep:string;order:number};
-export type Material = {id:string;researchId:string;title:string;summary:string;kind:string;topic:string;territory:string;period:string;publishedAt:string;updatedAt:string;visibility:string;evidence:string;currency:string;sourceCommit:string;sources:({title:string;url:string}&BibliographicFields)[];datasetIds:string[];visualIds:string[];body:string;featured?:boolean;supersedes?:string};
+export type Material = {id:string;researchId:string;title:string;summary:string;kind:string;topic:string;tags?:string[];territory:string;period:string;publishedAt:string;updatedAt:string;visibility:string;evidence:string;currency:string;sourceCommit:string;sources:({title:string;url:string}&BibliographicFields)[];datasetIds:string[];visualIds:string[];body:string;featured?:boolean;supersedes?:string};
 export type Visual = {id:string;template:string;title:string;caption:string;datasetId:string;palette:string;unit:string;series?:{name:string;values:(number|null)[]}[];categories?:string[];data?:unknown[];mapState?:Record<string,unknown>;limitations?:string[]};
 export type Dataset = BibliographicFields&{id:string;title:string;release:string;sourceCommit:string;url:string;period:string;scope:string;limitations:string[]};
 const literatureFiles=import.meta.glob('../../../references/sources.json',{eager:true,import:'default'});
@@ -13,7 +13,7 @@ export const research=Object.values(researchFiles).flat() as Research[];
 export const datasets=Object.values(datasetFiles).flat() as Dataset[];
 const allMaterials=Object.values(materialFiles) as Material[];
 export const materialPages=allMaterials.filter(m=>m.visibility!=='draft'||import.meta.env.DEV);
-export const materials=allMaterials.filter(m=>m.visibility==='published'||(import.meta.env.DEV&&m.visibility==='draft')).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt));
+export const materials=allMaterials.filter(m=>m.visibility==='published'||(import.meta.env.DEV&&m.visibility==='draft')).sort((a,b)=>Date.parse(b.updatedAt)-Date.parse(a.updatedAt));
 const publicVisualIds=new Set(materialPages.flatMap(m=>m.visualIds));
 export const visuals=(Object.values(visualFiles) as Visual[]).filter(v=>import.meta.env.DEV||publicVisualIds.has(v.id));
 export const basePath=(path='')=>`${import.meta.env.BASE_URL.replace(/\/$/,'')}/${path.replace(/^\//,'')}`;

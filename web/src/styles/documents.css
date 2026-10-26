@@ -18,11 +18,11 @@
 .document-shell summary:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
 /* Document layout chosen by the user: Kontur's left outline and open reading column. */
 .document-reading-shell{grid-template-columns:260px minmax(0,700px);column-gap:112px;row-gap:0;max-width:1440px;padding:48px 38px 80px}
-.document-reading-shell .document-main{display:contents}
+.document-reading-shell .document-main{display:block;grid-column:2;grid-row:1}
 .document-reading-shell .document-main>*{grid-column:2}
 .document-reading-shell .document-header{grid-row:1;border-bottom:0;padding-bottom:0;margin-bottom:40px}
 .document-reading-shell .document-body{grid-row:2;font-size:16px;line-height:1.7}
-.document-reading-shell>.document-toc-left{grid-column:1;grid-row:2;border:0;padding:0 24px 0 0;max-height:calc(100vh - 60px);font-size:14px}
+.document-reading-shell>.document-toc-left{grid-column:1;grid-row:1;align-self:stretch;position:static;overflow:visible;border:0;padding:var(--toc-offset,76px) 24px 0 0;max-height:none;font-size:14px}
 .document-toc-left h2{margin-bottom:20px;color:var(--muted);font-size:10px}
 .document-toc-left nav>a{border:0;margin:0;padding:0 0 16px;color:var(--ink);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ink) 30%,transparent);text-underline-offset:4px;line-height:1.6}
 .document-toc-left nav>a:hover,.document-toc-left nav>a[aria-current=location]{color:var(--blue);text-decoration-color:var(--blue)}
@@ -48,3 +48,5 @@
 .document-prose ol,.document-sources ol{list-style:decimal outside}
 .document-bibliography li::marker{color:var(--blue);font-family:var(--mono);font-size:12px}
 .document-prose li:has(>input[type=checkbox]){list-style:none}
+
+@media(min-width:1100px){.document-toc-left nav{position:sticky;top:var(--toc-top,24px);max-height:calc(100dvh - var(--toc-top,24px) - 24px);overflow:auto;scrollbar-width:thin}}
