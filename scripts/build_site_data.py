@@ -215,10 +215,30 @@ def country_preview(features):
     land = unary_union([shape(f['geometry']) for f in features]).simplify(.07, preserve_topology=True)
     polygons = list(land.geoms) if land.geom_type == 'MultiPolygon' else [land]
     return feature_collection([{'type': 'Feature', 'properties': {}, 'geometry': mapping(orient(p, sign=-1))}
-                               for p in polygons if p.geom_type == 'Polygon'])
+                               for p in polygons if p.geom_type == 'Polygon' and p.area >= .002])
 
 
-def boundary_features(raw, asset, settlements, details=None):
+def normalize_boundary_source(raw, asset):
+    """Adapt ready-made Terrae columns to the existing boundary exporter."""
+    if asset.get('provider') != 'Terrae':
+        return raw
+    level = asset['level'].lower()
+    special_names = {'x-r109876-1': 'Территория Дагестана без подтверждённого районного деления',
+                     'x-r151225-lake-khanka': 'Озеро Ханка'}
+    result = []
+    for feature in raw['features']:
+        p = feature['properties']
+        identity = p[level + '_id']
+        name = special_names.get(identity, p['name'])
+        if not isinstance(name, str) or not re.search('[А-Яа-яЁё]', name):
+            raise ValueError('Missing Russian boundary name: ' + identity)
+        props = {**p, 'shapeID': identity, 'shapeName': name, 'nameRu': name,
+                 'sourceName': p.get('name_en') or p['name'], 'shapeISO': p.get('iso_3166_2') or ''}
+        result.append({**feature, 'properties': props})
+    return feature_collection(result)
+
+
+def boundary_features(raw, asset, settlements, details=None, parent_names=None):
     """Exact point-in-polygon on source geometry; unique membership only.
 
     Render geometry is simplified afterwards. Overlapping/boundary ambiguities
@@ -263,14 +283,17 @@ def boundary_features(raw, asset, settlements, details=None):
         source = feature['properties']
         if stats['comparableCount'] == 0:
             stats.update(p02=None, p10=None, p21=None)
-        display_name = REGION_NAMES_RU.get(source.get('shapeISO'), source['shapeName']) if asset['level'] == 'ADM1' else source['shapeName']
-        props = {'id': source['shapeID'], 'name': display_name, 'sourceName': source['shapeName'], 'level': asset['level'],
-                 'epoch': asset['epoch'], 'iso': source.get('shapeISO'), **stats}
+        display_name = source.get('nameRu') or (REGION_NAMES_RU.get(source.get('shapeISO'), source['shapeName']) if asset['level'] == 'ADM1' else source['shapeName'])
+        props = {'id': source['shapeID'], 'name': display_name, 'sourceName': source.get('sourceName', source['shapeName']), 'level': asset['level'],
+                 'epoch': asset['epoch'], 'iso': source.get('shapeISO'), 'kind': source.get('kind', 'division'),
+                 'provider': asset.get('provider', 'geoBoundaries'), 'sourceDate': asset.get('snapshotDate', str(asset['epoch'])), **stats}
+        if parent_names and source.get('adm1_id') in parent_names:
+            props['region'] = parent_names[source['adm1_id']]
         if candidate_names:
             props['searchAliases'] = [name for name, _ in sorted(candidate_names.items(), key=lambda item: (-item[1], item[0]))[:8]]
             props['searchAliasBasis'] = 'district_raw_2021_of_uniquely_contained_settlement_points_not_verified_municipality_match'
         result.append({'type': 'Feature', 'id': props['id'], 'properties': props,
-                       'geometry': mapping(geometry.simplify(.002, preserve_topology=True))})
+                       'geometry': mapping(geometry.simplify(asset.get('renderSimplifyDegrees', .002), preserve_topology=True))})
     return result, {'unassignedPoints': len(settlements) - len(assignments), 'geometriesMadeValid': repaired,
                     'ambiguousPoints': sum(len(v) != 1 for v in assignments.values()),
                     'aggregation': 'fixed_comparable_2021_point_cohort_not_official_municipal_totals'}
@@ -518,7 +541,7 @@ def main(argv=None):
         shards.setdefault(uid[:2], {})[uid] = detail
     for shard, records in shards.items():
         write_json(args.output / 'settlement-details' / (shard + '.json'), records)
-    sources, boundary_counts = [], {}
+    sources, boundary_counts, parent_names = [], {}, {}
     for asset in assets['boundaries']:
         target = args.cache / (asset['id'] + '.geojson')
         if args.offline:
@@ -526,7 +549,12 @@ def main(argv=None):
                 raise ValueError('Offline boundary missing or hash differs: ' + asset['id'])
         else:
             target = verified_download(asset, args.cache)
-        features, coverage = boundary_features(json.loads(target.read_text()), asset, settlements, details)
+        raw = normalize_boundary_source(json.loads(target.read_text()), asset)
+        features, coverage = boundary_features(raw, asset, settlements, details, parent_names)
+        if asset['level'] == 'ADM1':
+            parent_names = {f['properties']['id']: f['properties']['name'] for f in features}
+        if asset.get('divisionCount') is not None and sum(f['properties']['kind'] == 'division' for f in features) != asset['divisionCount']:
+            raise ValueError('Unexpected administrative division count: ' + asset['id'])
         write_json(args.output / (asset['id'] + '.geojson'), feature_collection(features))
         write_json(args.output / (asset['id'] + '-display.geojson'), display_boundaries(features))
         if asset['id'] == 'regions':
@@ -561,7 +589,7 @@ def main(argv=None):
                 'detailPath': 'settlement-details/{shard}.json',
                 'customLayers': 'layers.json',
                 'preview': {'path': 'settlements-preview.json', 'outlinePath': 'country-preview.geojson', 'outlineUse': 'decorative_reference_land_only', 'count': len(preview), 'method': 'one_real_highest_population_point_per_0.15_degree_cell_for_thumbnail_only'},
-                'limitations': ['Границы geoBoundaries описывают сетку 2017 года: 83 региона, принятую основу исследования из 85 субъектов не подменяют.',
+                'limitations': [assets.get('boundaryNote', 'Справочная сетка границ не подменяет принятую переписную основу.'),
                                 'Сводки внутри контуров рассчитаны по фиксированному сопоставимому набору точек; это не официальные муниципальные итоги.',
                                 'Слой услуг и документированных связей охватывает локальный пример Учалинского района, а не всю Россию.',
                                 '197 строгих центров — диагностический модельный поднабор; полный состав их окружений здесь не восстановлен.']}
