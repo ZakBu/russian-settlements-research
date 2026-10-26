@@ -360,18 +360,25 @@
         "AGENTS.md",
         "AI_START_HERE.md",
         "scripts/maintenance/build_population_base.py::build",
-        "scripts/verify_population_base.py::verify"
+        "scripts/verify_population_base.py::verify",
+        "scripts/sgrt_zero/centre_demographic_readout.py::build_readout",
+        "scripts/sgrt_zero/verify_centre_demography.py",
+        "web/content/materials/centre-rural-demography.json"
       ],
-      "purpose": "Authoritative current population dataset/default download. Not a literature-derived model or validation of SGRT boundaries.",
+      "purpose": "Authoritative current population dataset/default download. Not a literature-derived model or validation of SGRT boundaries. Demographic descriptions use fixed2021 memberships and distinguish primary values from accepted secondary values; this does not establish historical service territories, observed journeys or causal Word types.",
       "implementation_status": "published_reconstruction_and_clean_public_readback_verified",
       "implementation_paths": [
         "scripts/maintenance/build_population_base.py",
         "scripts/maintenance/publish_population_base.py",
-        "scripts/verify_population_base.py"
+        "scripts/verify_population_base.py",
+        "scripts/sgrt_zero/centre_demographic_readout.py",
+        "scripts/sgrt_zero/verify_centre_demography.py"
       ],
       "evidence": [
         "research_context/reviews/population_base_validation_20261022.json",
-        "research_context/reviews/population_public_handoff_20261022.json"
+        "research_context/reviews/population_public_handoff_20261022.json",
+        "research_context/analysis_snapshots/centre_demography_independent_check_20261026.json",
+        "research_context/analysis_snapshots/centre_demography_public_release_verification_20261026.json"
       ]
     },
     {

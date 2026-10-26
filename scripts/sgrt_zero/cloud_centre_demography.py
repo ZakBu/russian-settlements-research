@@ -50,6 +50,41 @@ def absent_tag():
             raise ValueError('Publication requires a completely new tag: '+TAG)
         if 'HTTP 404' not in result.stderr:
             raise RuntimeError('Cannot establish absence of release/tag: '+result.stderr)
+    if any(release.get('tag_name') == TAG for release in release_list()):
+        raise ValueError('Publication requires a completely new tag; an existing draft is retained')
+
+
+def release_list():
+    """Authenticated release listings include drafts that tag lookup cannot see."""
+    pages = json.loads(subprocess.check_output(['gh', 'api', '--paginate', '--slurp',
+        f'repos/{REPOSITORY}/releases?per_page=100'], text=True))
+    return [release for page in pages for release in page]
+
+
+def created_draft(commit, assets):
+    matches = [release for release in release_list()
+               if release.get('tag_name') == TAG and release.get('draft') is True]
+    if len(matches) != 1:
+        raise ValueError('Exactly one newly created draft with the requested tag is required')
+    release_id = matches[0]['id']
+    release = json.loads(subprocess.check_output(['gh', 'api',
+        f'repos/{REPOSITORY}/releases/{release_id}'], text=True))
+    if (release.get('id') != release_id or release.get('tag_name') != TAG
+            or release.get('draft') is not True or release.get('target_commitish') != commit):
+        raise ValueError('Created draft identity or target differs; publication stopped')
+    expected = {path.name: (path.stat().st_size, 'sha256:'+sha(path)) for path in assets}
+    uploaded = release.get('assets', [])
+    if len(uploaded) != len(expected) or {
+        asset['name']: (asset['size'], asset.get('digest')) for asset in uploaded} != expected:
+        raise ValueError('Incomplete draft assets or SHA digests; publication stopped without replacement')
+    return release
+
+
+def publish_created_draft(commit, assets):
+    release = created_draft(commit, assets)
+    subprocess.run(['gh', 'api', '--method', 'PATCH', f'repos/{REPOSITORY}/releases/{release["id"]}',
+                    '-F', 'draft=false', '-f', 'make_latest=false', '--silent'], check=True)
+    return release['id']
 
 
 def site_frame(classes, centres):
@@ -111,7 +146,8 @@ def build(work, commit):
     if work.exists() or work.resolve().is_relative_to(REPO):
         raise ValueError('Use a new work directory outside Git')
     clean_commit(commit)
-    absent_tag()
+    # Reproduction is read-only and remains available after the output release
+    # exists. The new-tag write guard belongs exclusively to publish().
     facts = json.loads(FACTS.read_text()); source = work/'source'; source.mkdir(parents=True)
     subprocess.run(['gh', 'release', 'download', facts['identity_tag'], '--repo', REPOSITORY,
                     '--pattern', 'manifest.json', '--pattern', 'identity-centres.zip', '--dir', str(source)], check=True)
@@ -228,11 +264,7 @@ def publish(built, commit):
     subprocess.run(['gh', 'release', 'create', TAG, '--repo', REPOSITORY, '--target', commit,
                     '--draft', '--latest=false', '--title', 'Демография центров и сельского окружения — 26 октября 2026',
                     '--notes-file', str(notes), *map(str, assets)], check=True)
-    release = json.loads(subprocess.check_output(['gh', 'api', f'repos/{REPOSITORY}/releases/tags/{TAG}'], text=True))
-    if not release['draft'] or release['target_commitish'] != commit or {
-        a['name']: a['size'] for a in release['assets']} != {p.name: p.stat().st_size for p in assets}:
-        raise ValueError('Incomplete draft; publication stopped without replacing any assets')
-    subprocess.run(['gh', 'release', 'edit', TAG, '--repo', REPOSITORY, '--draft=false', '--latest=false'], check=True)
+    publish_created_draft(commit, assets)
 
 
 if __name__ == '__main__':
