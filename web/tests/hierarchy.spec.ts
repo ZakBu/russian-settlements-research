@@ -21,7 +21,7 @@ test('nested articles have stable URLs, ordered ancestors and real child links',
  expect(await parents.evaluateAll(es=>es.map(e=>(e as HTMLElement).dataset.documentAncestor))).toEqual(['population-base','population-comparability']);
  await parents.last().click();await expect(page).toHaveURL(/\/materials\/population-comparability\//);
  await expect(page.getByRole('region',{name:'В этом разделе'}).getByRole('link',{name:/Покрытие населения/})).toHaveAttribute('href',/materials\/population-coverage\//);
- const heading=await page.locator('h1').boundingBox(),outline=await page.locator('.document-toc-left nav').boundingBox();expect(Math.abs(heading!.y-outline!.y)).toBeLessThan(3);
+ const header=await page.locator('.document-header').boundingBox(),outline=await page.locator('.document-toc-left nav').boundingBox();expect(Math.abs(header!.y-outline!.y)).toBeLessThan(3);await expect(page.locator('.document-toc-left nav')).toHaveCSS('top','24px');
 });
 
 test('native nested page disclosures remain usable on a small screen',async({page})=>{

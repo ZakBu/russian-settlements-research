@@ -1,0 +1,51 @@
+---
+import {X} from '@phosphor-icons/react';
+import DocumentNavigation from './DocumentNavigation.astro';
+import '../styles/documents.css';
+interface Props {current?:string;researchId?:string}
+const {current='',researchId=''}=Astro.props;
+---
+<dialog id="document-drawer" class="document-drawer" aria-labelledby="document-drawer-title" data-document-drawer>
+ <header class="document-drawer-header"><h2 id="document-drawer-title">Материалы и исследования</h2><button type="button" class="icon-button" data-drawer-close aria-label="Закрыть навигацию по материалам" autofocus><X size={22} aria-hidden="true"/></button></header>
+ <div class="document-drawer-content" data-drawer-content></div>
+</dialog>
+<template id="document-drawer-template"><DocumentNavigation current={current} researchId={researchId}/></template>
+<script>
+import {initializePageTrees} from '../lib/document-client';
+const dialog=document.querySelector<HTMLDialogElement>('[data-document-drawer]');
+const trigger=document.querySelector<HTMLButtonElement>('[data-drawer-trigger]');
+const template=document.getElementById('document-drawer-template') as HTMLTemplateElement|null;
+if(dialog&&trigger&&template&&typeof dialog.showModal==='function'){
+ trigger.hidden=false;
+ const content=dialog.querySelector<HTMLElement>('[data-drawer-content]')!;
+ const close=()=>dialog.close();
+ trigger.addEventListener('click',()=>{
+  if(dialog.open)return;
+  content.replaceChildren(template.content.cloneNode(true));
+  content.querySelector<HTMLDetailsElement>('.document-library-menu')!.open=true;
+  const research=new URL(location.href).searchParams.get('research');
+  if(research)content.querySelector<HTMLDetailsElement>(`[data-research-tree="${CSS.escape(research)}"]`)?.setAttribute('open','');
+  const within=new URL(location.href).searchParams.get('within');
+  let ancestor=within?content.querySelector<HTMLElement>(`[data-page-tree-node="${CSS.escape(within)}"]`):null;
+  while(ancestor){if(ancestor instanceof HTMLDetailsElement)ancestor.open=true;ancestor=ancestor.parentElement}
+  initializePageTrees(content);
+  dialog.showModal();trigger.setAttribute('aria-expanded','true');document.documentElement.classList.add('document-drawer-open');
+  content.querySelector<HTMLElement>('.material-page-tree a[aria-current="page"]')?.scrollIntoView({block:'nearest'});
+ });
+ dialog.querySelector('[data-drawer-close]')!.addEventListener('click',close);
+ // Native modal makes the background inert; cycle the boundary keys inside the drawer too.
+ dialog.addEventListener('keydown',event=>{
+  if(event.key!=='Tab')return;
+  const controls=[...dialog.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),summary,[tabindex]:not([tabindex="-1"])')].filter(el=>el.getClientRects().length>0);
+  const first=controls[0],last=controls.at(-1);
+  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus()}
+  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus()}
+ });
+ dialog.addEventListener('click',event=>{
+  const box=dialog.getBoundingClientRect();
+  if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)close();
+ });
+ content.addEventListener('click',event=>{if((event.target as Element).closest('a[href]'))close()});
+ dialog.addEventListener('close',()=>{content.replaceChildren();trigger.setAttribute('aria-expanded','false');document.documentElement.classList.remove('document-drawer-open');trigger.focus({preventScroll:true})});
+}
+</script>

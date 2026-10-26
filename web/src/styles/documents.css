@@ -22,7 +22,7 @@
 .document-reading-shell .document-main>*{grid-column:2}
 .document-reading-shell .document-header{grid-row:1;border-bottom:0;padding-bottom:0;margin-bottom:40px}
 .document-reading-shell .document-body{grid-row:2;font-size:16px;line-height:1.7}
-.document-reading-shell>.document-toc-left{grid-column:1;grid-row:1;align-self:stretch;position:static;overflow:visible;border:0;padding:var(--toc-offset,76px) 24px 0 0;max-height:none;font-size:14px}
+.document-reading-shell>.document-toc-left{grid-column:1;grid-row:1;align-self:stretch;position:static;overflow:visible;border:0;padding:0 24px 0 0;max-height:none;font-size:14px}
 .document-toc-left h2{margin-bottom:20px;color:var(--muted);font-size:10px}
 .document-toc-left nav>a{border:0;margin:0;padding:0 0 16px;color:var(--ink);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ink) 30%,transparent);text-underline-offset:4px;line-height:1.6}
 .document-toc-left nav>a:hover,.document-toc-left nav>a[aria-current=location]{color:var(--blue);text-decoration-color:var(--blue)}
@@ -49,8 +49,33 @@
 .document-bibliography li::marker{color:var(--blue);font-family:var(--mono);font-size:12px}
 .document-prose li:has(>input[type=checkbox]){list-style:none}
 
-@media(min-width:1100px){.document-toc-left nav{position:sticky;top:var(--toc-top,24px);max-height:calc(100dvh - var(--toc-top,24px) - 24px);overflow:auto;scrollbar-width:thin}}
+@media(min-width:1100px){.document-toc-left nav{position:sticky;top:24px;max-height:calc(100dvh - 48px);overflow:auto;scrollbar-width:thin}}
 .document-breadcrumbs{overflow-wrap:anywhere}.document-breadcrumbs a{min-width:0;max-width:100%}.document-children{margin:40px 0;border-top:1px solid var(--line);padding-top:24px}.document-children h2{font:400 28px var(--display);margin:0 0 20px}.document-children ul{list-style:none;padding:0;margin:0}.document-children li{margin:0 0 24px}.document-children li>a,.document-branch-link{color:var(--blue);text-decoration:underline;text-underline-offset:4px}.document-children li p{font-size:14px;color:var(--muted);margin:8px 0 0}.document-branch-link{font-size:13px}
 .library-page-structure .library-research-tree{margin:0 0 14px}.document-library .library-research-tree>summary{display:list-item;list-style:disclosure-closed;color:var(--ink);font:500 12px/1.5 var(--body);margin:0;padding:8px 0}.document-library .library-research-tree[open]>summary{list-style:disclosure-open}.document-library .material-page-tree{list-style:none;padding:0;margin:0}.document-library .material-page-tree .material-page-tree{margin-left:8px;border-left:1px solid var(--line);padding-left:8px}.document-library .material-page-tree li{min-width:0;margin:0}.document-library .material-page-tree li>a{padding:7px 4px;overflow-wrap:anywhere}.document-library .material-page-tree summary{display:list-item;list-style:disclosure-closed;font:400 12px/1.5 var(--body);margin:0;padding:6px 0;color:var(--ink);cursor:pointer;overflow-wrap:anywhere}.document-library .material-page-tree details[open]>summary{list-style:disclosure-open}.document-library .material-page-tree summary a{padding:0;display:inline;border:0}.document-library .material-page-tree .tree-section-link{font-family:var(--body);color:var(--blue);white-space:nowrap;padding:0 4px}.document-library .material-page-tree a[aria-current=page]{color:var(--blue);font-weight:600}.document-library .material-page-tree summary::-webkit-details-marker{display:inline}
 @media(max-width:1099px){.document-library .library-page-structure{flex-basis:100%;width:100%}.document-library .library-research-tree{max-width:650px}}
 .document-library .tree-section-actions{display:flex;flex-wrap:wrap;gap:4px 12px;margin:2px 0 8px;padding-left:8px}.document-library .tree-section-actions a{display:inline-block;font-size:11px;line-height:1.6;color:var(--blue);padding:4px 0;text-decoration:underline;text-underline-offset:3px;border:0}
+
+/* The article outline follows ordinary top-sticky documentation navigation. */
+.document-toc-left nav{overscroll-behavior:contain}
+/* A native modal reuses the existing library; its tree is cloned only while open. */
+.document-drawer-trigger{position:fixed;top:16px;left:24px;z-index:50;flex:none;min-width:44px;min-height:44px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(12px)}
+.site-header:has(.document-drawer-trigger:not([hidden])){padding-left:56px}
+@media(min-width:1100px){.document-toc-left nav{margin-left:40px;width:100%}}
+.document-drawer-trigger:hover{border-color:var(--line);background:var(--surface)}
+.document-drawer{position:fixed;inset:0 auto 0 0;margin:0;width:min(360px,calc(100vw - 24px));max-width:none;height:100dvh;max-height:none;padding:0;border:0;border-right:1px solid var(--line);background:var(--bg);color:var(--ink);overflow:hidden;box-shadow:12px 0 48px #0002}
+.document-drawer::backdrop{background:color-mix(in srgb,var(--ink) 22%,transparent);backdrop-filter:blur(3px)}
+.document-drawer[open]{display:flex;flex-direction:column}
+.document-drawer-header{display:flex;align-items:center;gap:12px;padding:20px 18px;border-bottom:1px solid var(--line);flex:none}
+.document-drawer-header h2{margin:0;flex:1;font:500 15px/1.5 var(--body)}
+.document-drawer-header button{min-width:44px;min-height:44px;flex:none}
+.document-drawer-content{overflow:auto;overscroll-behavior:contain;padding:24px 24px 40px;min-height:0;scrollbar-width:thin}
+.document-drawer .document-library{position:static;max-height:none;overflow:visible;padding:0;margin:0;font-size:14px}
+.document-drawer .document-library-menu{border:0}
+.document-drawer .document-library-menu>summary{display:none}
+.document-drawer .document-library-body{display:block;padding:0}
+.document-drawer .document-library-body section{display:block;width:100%;padding:0;margin:0 0 28px}
+.document-drawer .document-library-body a{min-height:40px;overflow-wrap:anywhere}
+.document-drawer .library-home{margin-bottom:24px}
+.document-drawer-open{overflow:hidden}
+@media(max-width:760px){.document-drawer-trigger{left:12px;top:12px}.site-header:has(.document-drawer-trigger:not([hidden])){padding-left:52px}.site-header:has(.document-drawer-trigger){column-gap:8px}.site-header:has(.document-drawer-trigger) .research-select{max-width:110px}.site-header:has(.document-drawer-trigger) .header-controls{gap:6px}.document-drawer-content{padding:20px 20px 32px}}
+@media print{.document-drawer-trigger,.document-drawer{display:none!important}}

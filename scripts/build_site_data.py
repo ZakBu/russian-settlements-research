@@ -15,6 +15,7 @@ import json
 import math
 import os
 import re
+import sqlite3
 from pathlib import Path
 import subprocess
 import sys
@@ -134,6 +135,21 @@ def compact_population(features):
     return {'format': 'settlements-columnar-v1', 'columns': columns, 'regions': regions, 'rows': rows}
 
 
+def overview_population(compact, minimum_population=10000):
+    """Small cartographic first view; no census values or identifiers are changed.
+
+    Keep historically large settlements when a later observation is missing.
+    Smaller/unknown rows remain in the full transport and load at local zoom or
+    search. The complete region dictionary is retained, so indexes stay stable.
+    """
+    if minimum_population <= 0:
+        raise ValueError('Overview population threshold must be positive')
+    indexes = [compact['columns'].index(column) for column in ('p02', 'p10', 'p21')]
+    rows = [row for row in compact['rows']
+            if max((row[index] for index in indexes if row[index] is not None), default=0) >= minimum_population]
+    return {**compact, 'rows': rows}
+
+
 def display_boundaries(features):
     """Round only already-simplified display coordinates, never analytic input."""
     def coordinates(values):
@@ -149,9 +165,51 @@ def write_json(path, value):
     temporary.replace(path)
 
 
+def boundary_cache_path(cache, asset):
+    return cache / (asset['id'] + ('.gpkg' if asset.get('fileFormat') == 'gpkg' else '.geojson'))
+
+
+def read_boundary_source(path, asset):
+    """Read pinned GeoJSON or select unchanged source IDs from a WGS84 GeoPackage."""
+    if asset.get('fileFormat') != 'gpkg':
+        return json.loads(path.read_text())
+    from shapely import from_wkb
+    from shapely.geometry import mapping
+    table = asset['sourceLayer']
+    if not re.fullmatch(r'adm[12]', table):
+        raise ValueError('Unsupported boundary source layer')
+    selected = asset['featureIds']
+    if not selected or len(set(selected)) != len(selected):
+        raise ValueError('Boundary source IDs must be nonempty and unique')
+    with sqlite3.connect(path.resolve().as_uri() + '?mode=ro', uri=True) as conn:
+        conn.row_factory = sqlite3.Row
+        info = conn.execute('SELECT column_name,srs_id FROM gpkg_geometry_columns WHERE table_name=?', (table,)).fetchone()
+        if not info or info['srs_id'] != 4326 or not re.fullmatch(r'[a-zA-Z_][a-zA-Z_0-9]*', info['column_name']):
+            raise ValueError('Boundary GeoPackage requires WGS84 geometry')
+        geom = info['column_name']
+        source_count = conn.execute(f'SELECT count(*) FROM {table}').fetchone()[0]
+        if asset.get('sourceTotalCount') is not None and source_count != asset['sourceTotalCount']:
+            raise ValueError('Unexpected complete GeoPackage source count')
+        rows = conn.execute(f'SELECT * FROM {table} WHERE {table}_id IN ({",".join("?" for _ in selected)}) ORDER BY {table}_id', selected).fetchall()
+        if {row[table + '_id'] for row in rows} != set(selected):
+            raise ValueError('Selected boundary IDs missing from source')
+        features = []
+        for row in rows:
+            blob = row[geom]
+            if blob[:2] != b'GP' or (blob[3] >> 1) & 7 not in (0, 1, 2, 3, 4):
+                raise ValueError('Invalid GeoPackage geometry header')
+            offset = 8 + {0: 0, 1: 32, 2: 48, 3: 48, 4: 64}[(blob[3] >> 1) & 7]
+            geometry = from_wkb(blob[offset:])
+            if geometry.is_empty or geometry.geom_type not in ('Polygon', 'MultiPolygon'):
+                raise ValueError('Expected source boundary polygons')
+            features.append({'type': 'Feature', 'properties': {key: row[key] for key in row.keys() if key not in (geom, 'fid')},
+                             'geometry': mapping(geometry)})
+    return feature_collection(features)
+
+
 def verified_download(asset, cache):
     """An existing cache is trusted only after rechecking its pinned SHA-256."""
-    target = cache / (asset['id'] + '.geojson')
+    target = boundary_cache_path(cache, asset)
     if target.exists() and digest(target) == asset['sha256']:
         return target
     cache.mkdir(parents=True, exist_ok=True)
@@ -230,13 +288,50 @@ def normalize_boundary_source(raw, asset):
     for feature in raw['features']:
         p = feature['properties']
         identity = p[level + '_id']
-        name = special_names.get(identity, p['name'])
+        name = asset.get('nameOverrides', {}).get(identity, special_names.get(identity, p['name']))
         if not isinstance(name, str) or not re.search('[А-Яа-яЁё]', name):
             raise ValueError('Missing Russian boundary name: ' + identity)
         props = {**p, 'shapeID': identity, 'shapeName': name, 'nameRu': name,
-                 'sourceName': p.get('name_en') or p['name'], 'shapeISO': p.get('iso_3166_2') or ''}
+                 'sourceLocalName': p['name'], 'sourceName': p.get('name_en') or p['name'],
+                 'shapeISO': p.get('iso_3166_2') or ''}
         result.append({**feature, 'properties': props})
     return feature_collection(result)
+
+
+def merge_boundary_sources(raw_assets):
+    """Combine explicitly selected reference contours, preserving source identity.
+
+    A supplement changes the displayed study coverage, never the upstream RUS
+    count or its country/ISO classification. Point membership is calculated once
+    over the combined geometry so overlaps cannot duplicate census observations.
+    """
+    groups = {}
+    for asset, raw in raw_assets:
+        normalized = normalize_boundary_source(raw, asset)
+        if len(normalized['features']) != asset['count']:
+            raise ValueError('Unexpected source boundary count: ' + asset['id'])
+        divisions = sum(feature['properties'].get('kind', 'division') == 'division'
+                        for feature in normalized['features'])
+        if asset.get('divisionCount') is not None and divisions != asset['divisionCount']:
+            raise ValueError('Unexpected administrative division count: ' + asset['id'])
+        target = asset.get('appendTo', asset['id'])
+        group = groups.setdefault(target, {'asset': asset, 'features': [], 'ids': set(), 'sources': {}})
+        if group['asset']['level'] != asset['level']:
+            raise ValueError('Supplement level differs from its target: ' + asset['id'])
+        group['sources'][asset['id']] = asset['count']
+        for feature in normalized['features']:
+            props = feature['properties']
+            identity = props['shapeID']
+            if identity in group['ids']:
+                raise ValueError('Repeated source boundary ID: ' + identity)
+            group['ids'].add(identity)
+            group['features'].append({**feature, 'properties': {**props,
+                'referenceSourceId': asset['id'],
+                'sourceCountry': asset.get('sourceCountry') or props.get('unit_key'),
+                'referenceSupplement': bool(asset.get('appendTo'))}})
+    return [(target, {**group['asset'], 'count': len(group['features'])},
+             feature_collection(group['features']), group['sources'])
+            for target, group in groups.items()]
 
 
 def boundary_features(raw, asset, settlements, details=None, parent_names=None):
@@ -288,6 +383,9 @@ def boundary_features(raw, asset, settlements, details=None, parent_names=None):
         props = {'id': source['shapeID'], 'name': display_name, 'sourceName': source.get('sourceName', source['shapeName']), 'level': asset['level'],
                  'epoch': asset['epoch'], 'iso': source.get('shapeISO'), 'kind': source.get('kind', 'division'),
                  'provider': asset.get('provider', 'geoBoundaries'), 'sourceDate': asset.get('snapshotDate', str(asset['epoch'])), **stats}
+        for field in ('referenceSourceId', 'sourceCountry', 'referenceSupplement', 'sourceLocalName'):
+            if field in source:
+                props[field] = source[field]
         if parent_names and source.get('adm1_id') in parent_names:
             props['region'] = parent_names[source['adm1_id']]
         if candidate_names:
@@ -534,7 +632,10 @@ def main(argv=None):
     long = pd.read_parquet(inputs / 'data/population/settlements_census_long.parquet')
     settlements, details, lookup = population_features(wide, long)
     write_json(args.output / 'settlements.geojson', feature_collection(settlements))
-    write_json(args.output / 'settlements.compact.json', compact_population(settlements))
+    compact = compact_population(settlements)
+    overview = overview_population(compact)
+    write_json(args.output / 'settlements.compact.json', compact)
+    write_json(args.output / 'settlements.overview.json', overview)
     preview = preview_points(settlements)
     write_json(args.output / 'settlements-preview.json', preview)
     shards = {}
@@ -542,26 +643,25 @@ def main(argv=None):
         shards.setdefault(uid[:2], {})[uid] = detail
     for shard, records in shards.items():
         write_json(args.output / 'settlement-details' / (shard + '.json'), records)
-    sources, boundary_counts, parent_names = [], {}, {}
+    sources, boundary_counts, parent_names, raw_assets = [], {}, {}, []
     for asset in assets['boundaries']:
-        target = args.cache / (asset['id'] + '.geojson')
+        target = boundary_cache_path(args.cache, asset)
         if args.offline:
             if not target.exists() or digest(target) != asset['sha256']:
                 raise ValueError('Offline boundary missing or hash differs: ' + asset['id'])
         else:
             target = verified_download(asset, args.cache)
-        raw = normalize_boundary_source(json.loads(target.read_text()), asset)
+        raw_assets.append((asset, read_boundary_source(target, asset)))
+        sources.append(asset)
+    for output_layer, asset, raw, source_counts in merge_boundary_sources(raw_assets):
         features, coverage = boundary_features(raw, asset, settlements, details, parent_names)
         if asset['level'] == 'ADM1':
-            parent_names = {f['properties']['id']: f['properties']['name'] for f in features}
-        if asset.get('divisionCount') is not None and sum(f['properties']['kind'] == 'division' for f in features) != asset['divisionCount']:
-            raise ValueError('Unexpected administrative division count: ' + asset['id'])
-        write_json(args.output / (asset['id'] + '.geojson'), feature_collection(features))
-        write_json(args.output / (asset['id'] + '-display.geojson'), display_boundaries(features))
-        if asset['id'] == 'regions':
+            parent_names.update({f['properties']['id']: f['properties']['name'] for f in features})
+        write_json(args.output / (output_layer + '.geojson'), feature_collection(features))
+        write_json(args.output / (output_layer + '-display.geojson'), display_boundaries(features))
+        if output_layer == 'regions':
             write_json(args.output / 'country-preview.geojson', country_preview(features))
-        boundary_counts[asset['id']] = {'count': len(features), **coverage}
-        sources.append(asset)
+        boundary_counts[output_layer] = {'count': len(features), 'sourceCounts': source_counts, **coverage}
     services, links = local_services(inputs, lookup)
     write_json(args.output / 'services.geojson', feature_collection(services))
     write_json(args.output / 'links.geojson', feature_collection(links))
@@ -580,11 +680,15 @@ def main(argv=None):
     manifest = {'version': 1, 'generatedAt': git[1], 'sourceCommit': git[0],
                 'sources': [{'id': 'census-population', 'release': 'sgrt-census-population-20261022-v1', 'catalog': assets['populationCatalog']},
                             {'id': 'local-systems-20261024', 'release': 'sgrt-local-systems-20261024-v1', 'catalog': assets['localCatalog']}, *sources],
-                'counts': {'settlements': len(settlements), 'comparableSettlements': sum(f['properties']['comparable'] for f in settlements),
+                'counts': {'settlements': len(settlements), 'overviewSettlements': len(overview['rows']),
+                           'comparableSettlements': sum(f['properties']['comparable'] for f in settlements),
                            'services': len(services), 'links': len(links), 'strictCentresMapped': len(centres), 'customLayers': len(registry), 'boundaries': boundary_counts},
                 'layers': {'population': 'settlements.geojson', 'schools': 'services.geojson', 'medical': 'services.geojson',
                            'links': 'links.geojson', 'regions': 'regions.geojson', 'districts': 'districts.geojson', 'centres': 'centres.geojson'},
-                'interactiveTransport': {'settlements': 'settlements.compact.json', 'regions': 'regions-display.geojson', 'districts': 'districts-display.geojson',
+                'interactiveTransport': {'settlements': 'settlements.compact.json', 'settlementsOverview': 'settlements.overview.json',
+                                         'overviewCount': len(overview['rows']), 'overviewMinimumKnownPopulation': 10000,
+                                         'overviewBasis': 'maximum_available_working_population_2002_2010_2021_for_display_only',
+                                         'regions': 'regions-display.geojson', 'districts': 'districts-display.geojson',
                                          'settlementCount': len(settlements), 'settlementValues': 'lossless_dictionary_rows',
                                          'displayCoordinateDecimals': 5, 'aggregation': 'unchanged_unsimplified_source_geometry'},
                 'detailPath': 'settlement-details/{shard}.json',
