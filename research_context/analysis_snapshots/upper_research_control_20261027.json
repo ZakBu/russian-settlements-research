@@ -1,0 +1,1575 @@
+{
+  "schema": "sgrt.upper_research_control.v1",
+  "census_tables": {
+    "buryatia_commuting_vpn2010.csv": {
+      "rows": 294,
+      "columns": [
+        "source_year",
+        "geography_label",
+        "geography_type",
+        "employed_age15_72_raw",
+        "source_char_position",
+        "same_np_raw",
+        "same_subject_raw",
+        "other_subject_raw",
+        "abroad_raw",
+        "unknown_workplace_raw",
+        "employed_age15_72",
+        "same_np",
+        "same_subject",
+        "other_subject",
+        "abroad",
+        "unknown_workplace",
+        "outside_np_known",
+        "outside_np_fraction_all_employed",
+        "outside_np_fraction_upper_unknown_all_outside",
+        "parent_municipal_district_label",
+        "aggregate_overlap",
+        "population_join_candidate_count",
+        "population_base_root",
+        "population_base_source_record_id",
+        "population_base_source_record_id_2010",
+        "population_base_population_2010",
+        "population_base_population_value_quality_2010",
+        "population_base_lat",
+        "population_base_lon",
+        "population_join_method"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "39ae5d26e2975b9659bfa93c4228a2c9cdd6ae08841bc817f657d7357fc617e1"
+    },
+    "regional_commuting_vpn2020_2021.csv": {
+      "rows": 281,
+      "columns": [
+        "region",
+        "population_category",
+        "census_year",
+        "employed_age15plus",
+        "same_np",
+        "same_region",
+        "other_region",
+        "abroad",
+        "unknown_territory",
+        "outside_np",
+        "outside_daily",
+        "outside_several_week",
+        "outside_several_month",
+        "outside_month_or_less",
+        "outside_remote",
+        "outside_frequency_unspecified",
+        "table10_normalized_line",
+        "table12_normalized_line",
+        "same_subject_other_np",
+        "outside_np_with_unknown_territory",
+        "unresolved_np_location",
+        "outside_fraction_all_employed",
+        "daily_outside_fraction_all_employed",
+        "outside_fraction_known_np_location",
+        "outside_fraction_upper_if_all_unresolved_outside",
+        "geography_type",
+        "aggregate_overlap"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "4d927697a6259c287adf4d4daae8b8447554aef19189f96f270d65d333d7bb9e"
+    }
+  },
+  "census_json": {
+    "buryatia_commuting_vpn2010.json": {
+      "canonical_json_sha256": "3bd7ddb8715bfb05c8f164133ace3f651137449a460a0286de113175d3e1cef2",
+      "top_level_records": 294,
+      "every_key_value_and_list_item_compared": true
+    },
+    "buryatia_unresolved_heading_vpn2010.json": {
+      "canonical_json_sha256": "9bcabaab0c97590ca7c0c46bc1f48aa3050cf637246d44559290a42dd1e20b39",
+      "top_level_records": 15,
+      "every_key_value_and_list_item_compared": true
+    },
+    "regional_commuting_vpn2020_2021.json": {
+      "canonical_json_sha256": "5fed8ebd802e2fcef747e9fcb9e39b66a7dc02a6fae25f87fafffd19712fde89",
+      "top_level_records": 281,
+      "every_key_value_and_list_item_compared": true
+    }
+  },
+  "scientific_summaries": {
+    "np_diagnostic/summary.json": {
+      "eligible_profiles": 35170,
+      "all_reference_records": 155414,
+      "selected_components": 4,
+      "search_boundary_selected": false,
+      "class_counts": {
+        "0": 25240,
+        "1": 7916,
+        "2": 1541,
+        "3": 473
+      },
+      "bic": [
+        {
+          "components": 1,
+          "bic": 90424.60128
+        },
+        {
+          "components": 2,
+          "bic": 56552.150787
+        },
+        {
+          "components": 3,
+          "bic": 55003.053396
+        },
+        {
+          "components": 4,
+          "bic": 54990.35242
+        },
+        {
+          "components": 5,
+          "bic": 55060.158191
+        },
+        {
+          "components": 6,
+          "bic": 55151.88236
+        },
+        {
+          "components": 7,
+          "bic": 55162.563305
+        },
+        {
+          "components": 8,
+          "bic": 55136.824418
+        },
+        {
+          "components": 9,
+          "bic": 55096.990888
+        },
+        {
+          "components": 10,
+          "bic": 55134.437974
+        }
+      ],
+      "silhouette_diagnostic": 0.557042,
+      "bootstrap": [
+        {
+          "repeat": 0,
+          "selected_components": 5,
+          "ari_against_full_fit": 0.299919
+        },
+        {
+          "repeat": 1,
+          "selected_components": 4,
+          "ari_against_full_fit": 0.935346
+        },
+        {
+          "repeat": 2,
+          "selected_components": 5,
+          "ari_against_full_fit": 0.290977
+        }
+      ],
+      "weight_sensitivity": [
+        {
+          "population_weight": 0.25,
+          "medical_weight": 0.75,
+          "selected_components": 5,
+          "ari_against_equal_weight": 0.664192
+        },
+        {
+          "population_weight": 0.5,
+          "medical_weight": 0.5,
+          "selected_components": 4,
+          "ari_against_equal_weight": 1.0
+        },
+        {
+          "population_weight": 0.75,
+          "medical_weight": 0.25,
+          "selected_components": 4,
+          "ari_against_equal_weight": 0.244058
+        }
+      ],
+      "log_feature_means": [
+        6.10326,
+        0.757846
+      ],
+      "log_feature_standard_deviations": [
+        1.371515,
+        0.289682
+      ],
+      "features": [
+        "log1p(population_2021)",
+        "log1p(registered_care_address_ids)"
+      ],
+      "calibration_against_catchment_population": false,
+      "mixture_classes_are_sgrt_orders": false,
+      "medical_stock_is_capacity_or_jobs": false,
+      "joint_education_commerce_index_with_unequal_inventory_not_used": true,
+      "weights_are_our_explicit_sensitivity_scenarios_not_estimated_effects": true,
+      "source_audits": {
+        "medical": {
+          "accepted_address_pairs": 130244,
+          "matched_clinical_rows": 545904,
+          "settlements_with_positive_medical_evidence": 35178,
+          "care_address_ids": 51081,
+          "care_address_count_is_capacity": false,
+          "rarity_uses_distinct_settlements_not_raw_service_rows": true
+        },
+        "education": {
+          "source_rows": 74625,
+          "positive_identified_rows": 63418,
+          "physical_feature_counts_are_complete_inventory": false
+        },
+        "commerce": {
+          "source_rows": 549585,
+          "positive_identified_rows": 392980,
+          "physical_feature_counts_are_complete_inventory": false
+        }
+      }
+    },
+    "municipal/summary.json": {
+      "comparison_eligible_territories": 1694,
+      "all_workforce_territories": 2224,
+      "components": [
+        "partial_organisation_workers_2025_territorial",
+        "medical_care_address_ids_in_known_2021_parent",
+        "credited_population_2021_in_known_parent"
+      ],
+      "weight_scenarios": [
+        [
+          0.1,
+          0.1,
+          0.8
+        ],
+        [
+          0.1,
+          0.2,
+          0.7
+        ],
+        [
+          0.1,
+          0.3,
+          0.6
+        ],
+        [
+          0.1,
+          0.4,
+          0.5
+        ],
+        [
+          0.1,
+          0.5,
+          0.4
+        ],
+        [
+          0.1,
+          0.6,
+          0.3
+        ],
+        [
+          0.1,
+          0.7,
+          0.2
+        ],
+        [
+          0.1,
+          0.8,
+          0.1
+        ],
+        [
+          0.2,
+          0.1,
+          0.7
+        ],
+        [
+          0.2,
+          0.2,
+          0.6
+        ],
+        [
+          0.2,
+          0.3,
+          0.5
+        ],
+        [
+          0.2,
+          0.4,
+          0.4
+        ],
+        [
+          0.2,
+          0.5,
+          0.3
+        ],
+        [
+          0.2,
+          0.6,
+          0.2
+        ],
+        [
+          0.2,
+          0.7,
+          0.1
+        ],
+        [
+          0.3,
+          0.1,
+          0.6
+        ],
+        [
+          0.3,
+          0.2,
+          0.5
+        ],
+        [
+          0.3,
+          0.3,
+          0.4
+        ],
+        [
+          0.3,
+          0.4,
+          0.3
+        ],
+        [
+          0.3,
+          0.5,
+          0.2
+        ],
+        [
+          0.3,
+          0.6,
+          0.1
+        ],
+        [
+          0.4,
+          0.1,
+          0.5
+        ],
+        [
+          0.4,
+          0.2,
+          0.4
+        ],
+        [
+          0.4,
+          0.3,
+          0.3
+        ],
+        [
+          0.4,
+          0.4,
+          0.2
+        ],
+        [
+          0.4,
+          0.5,
+          0.1
+        ],
+        [
+          0.5,
+          0.1,
+          0.4
+        ],
+        [
+          0.5,
+          0.2,
+          0.3
+        ],
+        [
+          0.5,
+          0.3,
+          0.2
+        ],
+        [
+          0.5,
+          0.4,
+          0.1
+        ],
+        [
+          0.6,
+          0.1,
+          0.3
+        ],
+        [
+          0.6,
+          0.2,
+          0.2
+        ],
+        [
+          0.6,
+          0.3,
+          0.1
+        ],
+        [
+          0.7,
+          0.1,
+          0.2
+        ],
+        [
+          0.7,
+          0.2,
+          0.1
+        ],
+        [
+          0.8,
+          0.1,
+          0.1
+        ]
+      ],
+      "index_is_strictly_componentwise_monotone_on_recorded_positive_components": true,
+      "bounds_are_outer_dominance_bounds_not_exact_attainable_weighted_rank_intervals": true,
+      "bounds_are_not_statistical_confidence_intervals": true,
+      "same_year_boundaries_verified": false,
+      "workforce_is_full_workplaces_or_resident_workers": false,
+      "municipal_workers_disaggregated_to_NP": false,
+      "spatial_SGRT_hierarchy_inferred": false,
+      "source_audit": {
+        "annual_total_source_rows": 2486,
+        "selected_nonoverlapping_upper_scope_rows": 2224,
+        "excluded_federal_ward_rows": 252,
+        "excluded_group_aggregate_rows": 10,
+        "federal_city_subject_totals_kept_once": 2,
+        "known_parent_np_records": 155390,
+        "parentless_np_records": 24,
+        "same_code_is_not_proof_of_boundary_stability": true,
+        "municipality_totals_distributed_to_NP": false
+      }
+    },
+    "roads/road_summary.json": {
+      "target_points": [
+        {
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748",
+          "name": "Москва",
+          "region": "москва",
+          "lat": 55.750556,
+          "lon": 37.6175,
+          "population_role": "external_context_nonadditive"
+        },
+        {
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+          "name": "Санкт-Петербург",
+          "region": "санкт петербург",
+          "lat": 59.95,
+          "lon": 30.316667,
+          "population_role": "external_context_nonadditive"
+        },
+        {
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118372",
+          "name": "Саратов",
+          "region": "саратовская",
+          "lat": 51.53,
+          "lon": 46.035,
+          "population_role": "ordinary_settlement_record"
+        },
+        {
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161353",
+          "name": "Челябинск",
+          "region": "челябинская",
+          "lat": 55.15,
+          "lon": 61.4,
+          "population_role": "ordinary_settlement_record"
+        },
+        {
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:119517",
+          "name": "Екатеринбург",
+          "region": "свердловская",
+          "lat": 56.835556,
+          "lon": 60.612778,
+          "population_role": "ordinary_settlement_record"
+        },
+        {
+          "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:133510",
+          "name": "Казань",
+          "region": "татарстан",
+          "lat": 55.794433,
+          "lon": 49.111516,
+          "population_role": "ordinary_settlement_record"
+        }
+      ],
+      "pairs": 922818,
+      "origin_records": 153803,
+      "network_search_limit_minutes": 180.0,
+      "cost_status_counts": {
+        "not_found_inside_network_search_bound_not_evidence_of_isolation": 892608,
+        "current_exact_endpoint_directed_cost": 29286,
+        "current_endpoint_unknown_or_held": 924
+      },
+      "same_settlement_self_cost_is_zero": true,
+      "old_context_coordinates_reused": false,
+      "observed_trips": false
+    },
+    "potential/gravity_summary.json": {
+      "scope": "Conditional address-stock proxy sensitivity, not capacity, jobs, trips or territorial hierarchy. Unknown route rows remain in the pilot input; repeated scenario rows use known-road registered-L0-centre origins only. Missing local proxy remains unknown.",
+      "full_cost_pairs": 922818,
+      "finite_cost_registered_centre_external_pairs": 6077,
+      "half_life_scenarios": [
+        10.0,
+        20.0,
+        30.0
+      ],
+      "mass_transform_scenarios": [
+        "linear",
+        "log1p"
+      ],
+      "mass_field": "independent_positive_medical_stock_proxy",
+      "candidate_pool_completeness_established": false,
+      "territorial_systems_assigned": 0,
+      "rows": [
+        {
+          "city": "Саратов",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118372",
+          "mass_transform": "linear",
+          "half_life_minutes": 10.0,
+          "road_routed_registered_l0_centres": 528,
+          "with_known_positive_local_proxy": 409,
+          "unknown_local_proxy": 119,
+          "beats_local_proxy_centres": 52,
+          "max_road_minutes_where_beats_local": 68.419837,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Екатеринбург",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:119517",
+          "mass_transform": "linear",
+          "half_life_minutes": 10.0,
+          "road_routed_registered_l0_centres": 586,
+          "with_known_positive_local_proxy": 482,
+          "unknown_local_proxy": 104,
+          "beats_local_proxy_centres": 59,
+          "max_road_minutes_where_beats_local": 69.95158,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Санкт-Петербург",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+          "mass_transform": "linear",
+          "half_life_minutes": 10.0,
+          "road_routed_registered_l0_centres": 522,
+          "with_known_positive_local_proxy": 332,
+          "unknown_local_proxy": 190,
+          "beats_local_proxy_centres": 144,
+          "max_road_minutes_where_beats_local": 94.108796,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Казань",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:133510",
+          "mass_transform": "linear",
+          "half_life_minutes": 10.0,
+          "road_routed_registered_l0_centres": 1454,
+          "with_known_positive_local_proxy": 1239,
+          "unknown_local_proxy": 215,
+          "beats_local_proxy_centres": 173,
+          "max_road_minutes_where_beats_local": 72.209524,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Челябинск",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161353",
+          "mass_transform": "linear",
+          "half_life_minutes": 10.0,
+          "road_routed_registered_l0_centres": 575,
+          "with_known_positive_local_proxy": 498,
+          "unknown_local_proxy": 77,
+          "beats_local_proxy_centres": 140,
+          "max_road_minutes_where_beats_local": 76.217288,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Москва",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748",
+          "mass_transform": "linear",
+          "half_life_minutes": 10.0,
+          "road_routed_registered_l0_centres": 2412,
+          "with_known_positive_local_proxy": 1384,
+          "unknown_local_proxy": 1028,
+          "beats_local_proxy_centres": 477,
+          "max_road_minutes_where_beats_local": 99.569266,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Саратов",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118372",
+          "mass_transform": "linear",
+          "half_life_minutes": 20.0,
+          "road_routed_registered_l0_centres": 528,
+          "with_known_positive_local_proxy": 409,
+          "unknown_local_proxy": 119,
+          "beats_local_proxy_centres": 223,
+          "max_road_minutes_where_beats_local": 139.507514,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Екатеринбург",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:119517",
+          "mass_transform": "linear",
+          "half_life_minutes": 20.0,
+          "road_routed_registered_l0_centres": 586,
+          "with_known_positive_local_proxy": 482,
+          "unknown_local_proxy": 104,
+          "beats_local_proxy_centres": 280,
+          "max_road_minutes_where_beats_local": 142.071838,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Санкт-Петербург",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+          "mass_transform": "linear",
+          "half_life_minutes": 20.0,
+          "road_routed_registered_l0_centres": 522,
+          "with_known_positive_local_proxy": 332,
+          "unknown_local_proxy": 190,
+          "beats_local_proxy_centres": 326,
+          "max_road_minutes_where_beats_local": 181.061289,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Казань",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:133510",
+          "mass_transform": "linear",
+          "half_life_minutes": 20.0,
+          "road_routed_registered_l0_centres": 1454,
+          "with_known_positive_local_proxy": 1239,
+          "unknown_local_proxy": 215,
+          "beats_local_proxy_centres": 793,
+          "max_road_minutes_where_beats_local": 144.547338,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Челябинск",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161353",
+          "mass_transform": "linear",
+          "half_life_minutes": 20.0,
+          "road_routed_registered_l0_centres": 575,
+          "with_known_positive_local_proxy": 498,
+          "unknown_local_proxy": 77,
+          "beats_local_proxy_centres": 350,
+          "max_road_minutes_where_beats_local": 153.053929,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Москва",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748",
+          "mass_transform": "linear",
+          "half_life_minutes": 20.0,
+          "road_routed_registered_l0_centres": 2412,
+          "with_known_positive_local_proxy": 1384,
+          "unknown_local_proxy": 1028,
+          "beats_local_proxy_centres": 1370,
+          "max_road_minutes_where_beats_local": 180.792402,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Саратов",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118372",
+          "mass_transform": "linear",
+          "half_life_minutes": 30.0,
+          "road_routed_registered_l0_centres": 528,
+          "with_known_positive_local_proxy": 409,
+          "unknown_local_proxy": 119,
+          "beats_local_proxy_centres": 398,
+          "max_road_minutes_where_beats_local": 180.118261,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Екатеринбург",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:119517",
+          "mass_transform": "linear",
+          "half_life_minutes": 30.0,
+          "road_routed_registered_l0_centres": 586,
+          "with_known_positive_local_proxy": 482,
+          "unknown_local_proxy": 104,
+          "beats_local_proxy_centres": 472,
+          "max_road_minutes_where_beats_local": 180.247776,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Санкт-Петербург",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+          "mass_transform": "linear",
+          "half_life_minutes": 30.0,
+          "road_routed_registered_l0_centres": 522,
+          "with_known_positive_local_proxy": 332,
+          "unknown_local_proxy": 190,
+          "beats_local_proxy_centres": 332,
+          "max_road_minutes_where_beats_local": 181.061289,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Казань",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:133510",
+          "mass_transform": "linear",
+          "half_life_minutes": 30.0,
+          "road_routed_registered_l0_centres": 1454,
+          "with_known_positive_local_proxy": 1239,
+          "unknown_local_proxy": 215,
+          "beats_local_proxy_centres": 1230,
+          "max_road_minutes_where_beats_local": 180.470532,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Челябинск",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161353",
+          "mass_transform": "linear",
+          "half_life_minutes": 30.0,
+          "road_routed_registered_l0_centres": 575,
+          "with_known_positive_local_proxy": 498,
+          "unknown_local_proxy": 77,
+          "beats_local_proxy_centres": 490,
+          "max_road_minutes_where_beats_local": 180.150494,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Москва",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748",
+          "mass_transform": "linear",
+          "half_life_minutes": 30.0,
+          "road_routed_registered_l0_centres": 2412,
+          "with_known_positive_local_proxy": 1384,
+          "unknown_local_proxy": 1028,
+          "beats_local_proxy_centres": 1381,
+          "max_road_minutes_where_beats_local": 180.792402,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Саратов",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118372",
+          "mass_transform": "log1p",
+          "half_life_minutes": 10.0,
+          "road_routed_registered_l0_centres": 528,
+          "with_known_positive_local_proxy": 409,
+          "unknown_local_proxy": 119,
+          "beats_local_proxy_centres": 9,
+          "max_road_minutes_where_beats_local": 27.217435,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Екатеринбург",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:119517",
+          "mass_transform": "log1p",
+          "half_life_minutes": 10.0,
+          "road_routed_registered_l0_centres": 586,
+          "with_known_positive_local_proxy": 482,
+          "unknown_local_proxy": 104,
+          "beats_local_proxy_centres": 10,
+          "max_road_minutes_where_beats_local": 28.331685,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Санкт-Петербург",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+          "mass_transform": "log1p",
+          "half_life_minutes": 10.0,
+          "road_routed_registered_l0_centres": 522,
+          "with_known_positive_local_proxy": 332,
+          "unknown_local_proxy": 190,
+          "beats_local_proxy_centres": 18,
+          "max_road_minutes_where_beats_local": 32.375153,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Казань",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:133510",
+          "mass_transform": "log1p",
+          "half_life_minutes": 10.0,
+          "road_routed_registered_l0_centres": 1454,
+          "with_known_positive_local_proxy": 1239,
+          "unknown_local_proxy": 215,
+          "beats_local_proxy_centres": 19,
+          "max_road_minutes_where_beats_local": 28.117874,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Челябинск",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161353",
+          "mass_transform": "log1p",
+          "half_life_minutes": 10.0,
+          "road_routed_registered_l0_centres": 575,
+          "with_known_positive_local_proxy": 498,
+          "unknown_local_proxy": 77,
+          "beats_local_proxy_centres": 20,
+          "max_road_minutes_where_beats_local": 29.030506,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Москва",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748",
+          "mass_transform": "log1p",
+          "half_life_minutes": 10.0,
+          "road_routed_registered_l0_centres": 2412,
+          "with_known_positive_local_proxy": 1384,
+          "unknown_local_proxy": 1028,
+          "beats_local_proxy_centres": 20,
+          "max_road_minutes_where_beats_local": 33.071306,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Саратов",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118372",
+          "mass_transform": "log1p",
+          "half_life_minutes": 20.0,
+          "road_routed_registered_l0_centres": 528,
+          "with_known_positive_local_proxy": 409,
+          "unknown_local_proxy": 119,
+          "beats_local_proxy_centres": 35,
+          "max_road_minutes_where_beats_local": 55.764156,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Екатеринбург",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:119517",
+          "mass_transform": "log1p",
+          "half_life_minutes": 20.0,
+          "road_routed_registered_l0_centres": 586,
+          "with_known_positive_local_proxy": 482,
+          "unknown_local_proxy": 104,
+          "beats_local_proxy_centres": 40,
+          "max_road_minutes_where_beats_local": 54.728085,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Санкт-Петербург",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+          "mass_transform": "log1p",
+          "half_life_minutes": 20.0,
+          "road_routed_registered_l0_centres": 522,
+          "with_known_positive_local_proxy": 332,
+          "unknown_local_proxy": 190,
+          "beats_local_proxy_centres": 81,
+          "max_road_minutes_where_beats_local": 63.949656,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Казань",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:133510",
+          "mass_transform": "log1p",
+          "half_life_minutes": 20.0,
+          "road_routed_registered_l0_centres": 1454,
+          "with_known_positive_local_proxy": 1239,
+          "unknown_local_proxy": 215,
+          "beats_local_proxy_centres": 113,
+          "max_road_minutes_where_beats_local": 57.102043,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Челябинск",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161353",
+          "mass_transform": "log1p",
+          "half_life_minutes": 20.0,
+          "road_routed_registered_l0_centres": 575,
+          "with_known_positive_local_proxy": 498,
+          "unknown_local_proxy": 77,
+          "beats_local_proxy_centres": 94,
+          "max_road_minutes_where_beats_local": 58.520158,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Москва",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748",
+          "mass_transform": "log1p",
+          "half_life_minutes": 20.0,
+          "road_routed_registered_l0_centres": 2412,
+          "with_known_positive_local_proxy": 1384,
+          "unknown_local_proxy": 1028,
+          "beats_local_proxy_centres": 201,
+          "max_road_minutes_where_beats_local": 66.172674,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Саратов",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118372",
+          "mass_transform": "log1p",
+          "half_life_minutes": 30.0,
+          "road_routed_registered_l0_centres": 528,
+          "with_known_positive_local_proxy": 409,
+          "unknown_local_proxy": 119,
+          "beats_local_proxy_centres": 77,
+          "max_road_minutes_where_beats_local": 83.278403,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Екатеринбург",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:119517",
+          "mass_transform": "log1p",
+          "half_life_minutes": 30.0,
+          "road_routed_registered_l0_centres": 586,
+          "with_known_positive_local_proxy": 482,
+          "unknown_local_proxy": 104,
+          "beats_local_proxy_centres": 79,
+          "max_road_minutes_where_beats_local": 84.190419,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Санкт-Петербург",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+          "mass_transform": "log1p",
+          "half_life_minutes": 30.0,
+          "road_routed_registered_l0_centres": 522,
+          "with_known_positive_local_proxy": 332,
+          "unknown_local_proxy": 190,
+          "beats_local_proxy_centres": 148,
+          "max_road_minutes_where_beats_local": 96.942827,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Казань",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:133510",
+          "mass_transform": "log1p",
+          "half_life_minutes": 30.0,
+          "road_routed_registered_l0_centres": 1454,
+          "with_known_positive_local_proxy": 1239,
+          "unknown_local_proxy": 215,
+          "beats_local_proxy_centres": 247,
+          "max_road_minutes_where_beats_local": 85.510339,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Челябинск",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161353",
+          "mass_transform": "log1p",
+          "half_life_minutes": 30.0,
+          "road_routed_registered_l0_centres": 575,
+          "with_known_positive_local_proxy": 498,
+          "unknown_local_proxy": 77,
+          "beats_local_proxy_centres": 157,
+          "max_road_minutes_where_beats_local": 87.496518,
+          "territorial_systems_assigned": 0
+        },
+        {
+          "city": "Москва",
+          "destination_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748",
+          "mass_transform": "log1p",
+          "half_life_minutes": 30.0,
+          "road_routed_registered_l0_centres": 2412,
+          "with_known_positive_local_proxy": 1384,
+          "unknown_local_proxy": 1028,
+          "beats_local_proxy_centres": 444,
+          "max_road_minutes_where_beats_local": 99.286649,
+          "territorial_systems_assigned": 0
+        }
+      ]
+    },
+    "cooperation/urban_cooperation_summary.json": {
+      "interpretation": "conditional_urban_cooperation_not_SGRT_hierarchy",
+      "external_envelope_epoch": 2015,
+      "external_envelope_is_observed_russian_commuting": false,
+      "envelope_is_input_not_independent_validation": true,
+      "whole_child_check_scope": "union_of_living_whole_primary_and_original_functional_L0_footprints",
+      "time_scenarios_are_not_calibrated_commuting_thresholds": true,
+      "municipal_workforce_never_disaggregated_to_np": true,
+      "living_whole_footprint_pairs": 208039,
+      "unknown_population_primary_records_not_evaluated_as_confirmed_demand": 0,
+      "summary": [
+        {
+          "parent": "Екатеринбург",
+          "minutes": 30.0,
+          "core_only_units": 24,
+          "whole_footprint_candidates": 12,
+          "candidate_external_serving_L0_anchors": 6,
+          "candidate_local_self_profile_contexts": 6,
+          "rejected_after_whole_footprint_check": 12,
+          "candidate_scale_comparisons": {
+            "same_municipal_actor_np_rank_unidentified": 7,
+            "unknown_territorial_profile": 5
+          },
+          "maximum_whole_footprint_minutes": 27.517412
+        },
+        {
+          "parent": "Екатеринбург",
+          "minutes": 60.0,
+          "core_only_units": 24,
+          "whole_footprint_candidates": 12,
+          "candidate_external_serving_L0_anchors": 6,
+          "candidate_local_self_profile_contexts": 6,
+          "rejected_after_whole_footprint_check": 12,
+          "candidate_scale_comparisons": {
+            "same_municipal_actor_np_rank_unidentified": 7,
+            "unknown_territorial_profile": 5
+          },
+          "maximum_whole_footprint_minutes": 27.517412
+        },
+        {
+          "parent": "Екатеринбург",
+          "minutes": 90.0,
+          "core_only_units": 24,
+          "whole_footprint_candidates": 12,
+          "candidate_external_serving_L0_anchors": 6,
+          "candidate_local_self_profile_contexts": 6,
+          "rejected_after_whole_footprint_check": 12,
+          "candidate_scale_comparisons": {
+            "same_municipal_actor_np_rank_unidentified": 7,
+            "unknown_territorial_profile": 5
+          },
+          "maximum_whole_footprint_minutes": 27.517412
+        },
+        {
+          "parent": "Казань",
+          "minutes": 30.0,
+          "core_only_units": 22,
+          "whole_footprint_candidates": 16,
+          "candidate_external_serving_L0_anchors": 9,
+          "candidate_local_self_profile_contexts": 7,
+          "rejected_after_whole_footprint_check": 6,
+          "candidate_scale_comparisons": {
+            "parent_territory_dominates_recorded_components": 16
+          },
+          "maximum_whole_footprint_minutes": 29.788618
+        },
+        {
+          "parent": "Казань",
+          "minutes": 60.0,
+          "core_only_units": 28,
+          "whole_footprint_candidates": 20,
+          "candidate_external_serving_L0_anchors": 11,
+          "candidate_local_self_profile_contexts": 9,
+          "rejected_after_whole_footprint_check": 8,
+          "candidate_scale_comparisons": {
+            "parent_territory_dominates_recorded_components": 20
+          },
+          "maximum_whole_footprint_minutes": 51.019926
+        },
+        {
+          "parent": "Казань",
+          "minutes": 90.0,
+          "core_only_units": 28,
+          "whole_footprint_candidates": 20,
+          "candidate_external_serving_L0_anchors": 11,
+          "candidate_local_self_profile_contexts": 9,
+          "rejected_after_whole_footprint_check": 8,
+          "candidate_scale_comparisons": {
+            "parent_territory_dominates_recorded_components": 20
+          },
+          "maximum_whole_footprint_minutes": 51.019926
+        },
+        {
+          "parent": "Москва",
+          "minutes": 30.0,
+          "core_only_units": 66,
+          "whole_footprint_candidates": 44,
+          "candidate_external_serving_L0_anchors": 30,
+          "candidate_local_self_profile_contexts": 14,
+          "rejected_after_whole_footprint_check": 22,
+          "candidate_scale_comparisons": {
+            "parent_territory_dominates_recorded_components": 44
+          },
+          "maximum_whole_footprint_minutes": 29.798925
+        },
+        {
+          "parent": "Москва",
+          "minutes": 60.0,
+          "core_only_units": 340,
+          "whole_footprint_candidates": 293,
+          "candidate_external_serving_L0_anchors": 259,
+          "candidate_local_self_profile_contexts": 34,
+          "rejected_after_whole_footprint_check": 47,
+          "candidate_scale_comparisons": {
+            "parent_territory_dominates_recorded_components": 237,
+            "unknown_territorial_profile": 56
+          },
+          "maximum_whole_footprint_minutes": 59.867178
+        },
+        {
+          "parent": "Москва",
+          "minutes": 90.0,
+          "core_only_units": 346,
+          "whole_footprint_candidates": 306,
+          "candidate_external_serving_L0_anchors": 272,
+          "candidate_local_self_profile_contexts": 34,
+          "rejected_after_whole_footprint_check": 40,
+          "candidate_scale_comparisons": {
+            "parent_territory_dominates_recorded_components": 245,
+            "unknown_territorial_profile": 61
+          },
+          "maximum_whole_footprint_minutes": 67.824356
+        },
+        {
+          "parent": "Санкт-Петербург",
+          "minutes": 30.0,
+          "core_only_units": 30,
+          "whole_footprint_candidates": 22,
+          "candidate_external_serving_L0_anchors": 19,
+          "candidate_local_self_profile_contexts": 3,
+          "rejected_after_whole_footprint_check": 8,
+          "candidate_scale_comparisons": {
+            "parent_territory_dominates_recorded_components": 22
+          },
+          "maximum_whole_footprint_minutes": 29.397945
+        },
+        {
+          "parent": "Санкт-Петербург",
+          "minutes": 60.0,
+          "core_only_units": 55,
+          "whole_footprint_candidates": 44,
+          "candidate_external_serving_L0_anchors": 39,
+          "candidate_local_self_profile_contexts": 5,
+          "rejected_after_whole_footprint_check": 11,
+          "candidate_scale_comparisons": {
+            "parent_territory_dominates_recorded_components": 38,
+            "unknown_territorial_profile": 6
+          },
+          "maximum_whole_footprint_minutes": 50.63185
+        },
+        {
+          "parent": "Санкт-Петербург",
+          "minutes": 90.0,
+          "core_only_units": 55,
+          "whole_footprint_candidates": 44,
+          "candidate_external_serving_L0_anchors": 39,
+          "candidate_local_self_profile_contexts": 5,
+          "rejected_after_whole_footprint_check": 11,
+          "candidate_scale_comparisons": {
+            "parent_territory_dominates_recorded_components": 38,
+            "unknown_territorial_profile": 6
+          },
+          "maximum_whole_footprint_minutes": 50.63185
+        },
+        {
+          "parent": "Саратов",
+          "minutes": 30.0,
+          "core_only_units": 19,
+          "whole_footprint_candidates": 10,
+          "candidate_external_serving_L0_anchors": 6,
+          "candidate_local_self_profile_contexts": 4,
+          "rejected_after_whole_footprint_check": 9,
+          "candidate_scale_comparisons": {
+            "unknown_territorial_profile": 5,
+            "parent_territory_dominates_recorded_components": 5
+          },
+          "maximum_whole_footprint_minutes": 25.081306
+        },
+        {
+          "parent": "Саратов",
+          "minutes": 60.0,
+          "core_only_units": 20,
+          "whole_footprint_candidates": 11,
+          "candidate_external_serving_L0_anchors": 6,
+          "candidate_local_self_profile_contexts": 5,
+          "rejected_after_whole_footprint_check": 9,
+          "candidate_scale_comparisons": {
+            "parent_territory_dominates_recorded_components": 6,
+            "unknown_territorial_profile": 5
+          },
+          "maximum_whole_footprint_minutes": 30.256991
+        },
+        {
+          "parent": "Саратов",
+          "minutes": 90.0,
+          "core_only_units": 20,
+          "whole_footprint_candidates": 11,
+          "candidate_external_serving_L0_anchors": 6,
+          "candidate_local_self_profile_contexts": 5,
+          "rejected_after_whole_footprint_check": 9,
+          "candidate_scale_comparisons": {
+            "parent_territory_dominates_recorded_components": 6,
+            "unknown_territorial_profile": 5
+          },
+          "maximum_whole_footprint_minutes": 30.256991
+        },
+        {
+          "parent": "Челябинск",
+          "minutes": 30.0,
+          "core_only_units": 13,
+          "whole_footprint_candidates": 8,
+          "candidate_external_serving_L0_anchors": 5,
+          "candidate_local_self_profile_contexts": 3,
+          "rejected_after_whole_footprint_check": 5,
+          "candidate_scale_comparisons": {
+            "parent_territory_dominates_recorded_components": 8
+          },
+          "maximum_whole_footprint_minutes": 24.423883
+        },
+        {
+          "parent": "Челябинск",
+          "minutes": 60.0,
+          "core_only_units": 13,
+          "whole_footprint_candidates": 8,
+          "candidate_external_serving_L0_anchors": 5,
+          "candidate_local_self_profile_contexts": 3,
+          "rejected_after_whole_footprint_check": 5,
+          "candidate_scale_comparisons": {
+            "parent_territory_dominates_recorded_components": 8
+          },
+          "maximum_whole_footprint_minutes": 24.423883
+        },
+        {
+          "parent": "Челябинск",
+          "minutes": 90.0,
+          "core_only_units": 13,
+          "whole_footprint_candidates": 8,
+          "candidate_external_serving_L0_anchors": 5,
+          "candidate_local_self_profile_contexts": 3,
+          "rejected_after_whole_footprint_check": 5,
+          "candidate_scale_comparisons": {
+            "parent_territory_dominates_recorded_components": 8
+          },
+          "maximum_whole_footprint_minutes": 24.423883
+        }
+      ]
+    },
+    "workforce/source_facts.json": {
+      "source_id": "BDMO_WORKFORCE_20260928",
+      "source_url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20260928/indicators/section32/data_Y48423005_112_v20260928.zip",
+      "archive_bytes": 328270764,
+      "member": "data_Y48423005_112_v20260928.parquet",
+      "member_bytes": 3305237,
+      "member_sha256": "f643b394c11758f5d28e465380e263943c5e5e9e312a468daedca95b7e2f87d7",
+      "source_rows": 1145580,
+      "selected_annual_total_2025_rows": 2486,
+      "regional_labels": 85,
+      "territory_class_counts": {
+        "municipal_territory_record": 2474,
+        "group_of_municipalities_aggregate": 10,
+        "reported_federal_city_subject_total": 2
+      },
+      "code_history_interval_review_rows": 142,
+      "municipal_totals_not_allocated_to_NPs": true,
+      "full_jobs_or_observed_commuting_claimed": false
+    }
+  },
+  "tables": {
+    "cooperation/candidate_footprint_members.parquet": {
+      "rows": 1588,
+      "columns": [
+        "unit_id",
+        "parent_origin_id",
+        "parent_name",
+        "origin_id",
+        "name",
+        "lat",
+        "lon",
+        "cost_minutes",
+        "pair_status",
+        "scope"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "e6e94394c5682b538ff219c1d3b29c6d7597573cdf170fefdabc057909dd523f"
+    },
+    "cooperation/urban_cooperation_candidates.parquet": {
+      "rows": 1140,
+      "columns": [
+        "centre_settlement_id",
+        "centre_name",
+        "centre_region",
+        "type_code",
+        "type_label",
+        "lat",
+        "lon",
+        "own_known_basic_function_count",
+        "own_known_basic_functions_json",
+        "external_participant_count",
+        "core_diameter_km",
+        "ownership_evidence_class",
+        "selected_links_with_cartographic_ownership",
+        "population_budget_partial",
+        "centre_population_2021_source_value",
+        "own_offer_includes_documented_dated_school_presence",
+        "own_offer_includes_historical_only_source",
+        "star_id",
+        "is_registered_external_serving_centre",
+        "unit_role",
+        "core_origin_id",
+        "core_node_ids_json",
+        "provider_selected_function_presence_count",
+        "unit_id",
+        "name",
+        "primary_member_records",
+        "primary_external_positive_whole_records",
+        "primary_supported_by_two_or_three_known_functions",
+        "primary_provisional_external_records",
+        "centre_never_absorbed_by_other_zero_centre",
+        "original_direct_surroundings_preserved",
+        "core_membership_consistent",
+        "core_population_role",
+        "core_source_grain_requires_review",
+        "core_positive_population_known",
+        "core_analysis_origin",
+        "eligible_as_higher_parent",
+        "eligible_as_higher_child",
+        "context_unit_is_not_additional_external_service_centre",
+        "context_unit_is_not_extra_population_budget",
+        "value",
+        "primary_radius_is_not_a_new_service_area",
+        "core_name",
+        "core_lat",
+        "core_lon",
+        "child_municipality_code",
+        "checked_living_whole_records",
+        "whole_footprint_inside",
+        "whole_footprint_road_known",
+        "whole_footprint_within_time",
+        "maximum_checked_minutes",
+        "parent_origin_id",
+        "parent_name",
+        "parent_lat",
+        "parent_lon",
+        "external_efua_id",
+        "time_budget_scenario_minutes",
+        "parent_municipality_code",
+        "core_inside_external_envelope",
+        "core_cost_minutes",
+        "core_only_pass",
+        "whole_footprint_pass",
+        "territorial_scale_comparison",
+        "spatial_time_admissible",
+        "distinct_municipal_actor_with_recorded_dominance",
+        "conditional_cooperation_link_with_territorial_scale_evidence",
+        "candidate_relation_status",
+        "territorial_assignment_established",
+        "external_envelope_independently_validates_result",
+        "jobs_assigned_to_np"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "322dbebd5b744e1b8642b4622ab543de3f39f78c5c42e4b21e96973be0a9142d"
+    },
+    "municipal/municipal_scale_comparisons.parquet": {
+      "rows": 2224,
+      "columns": [
+        "oktmo",
+        "municipality",
+        "region_name",
+        "mun_level",
+        "mun_type",
+        "year",
+        "indicator_period",
+        "indicator_name",
+        "indicator_unit",
+        "source_territory_class",
+        "partial_organisation_workers_2025_territorial",
+        "reference_settlement_records",
+        "credited_population_2021_in_known_parent",
+        "credited_population_source_records",
+        "medical_care_address_ids_in_known_2021_parent",
+        "settlements_with_positive_medical_evidence",
+        "population_basis",
+        "medical_scope_basis",
+        "federal_medical_address_ids_without_np_identity",
+        "workers_assigned_to_settlements",
+        "workforce_measures_resident_employment",
+        "care_address_count_is_capacity",
+        "territorial_boundary_2021_2025_equality_verified",
+        "profile_scope",
+        "temporal_scope",
+        "rank_scope",
+        "recorded_component_comparison_eligible",
+        "dominance_rank_lower",
+        "dominance_rank_upper",
+        "scenario_rank_min",
+        "scenario_rank_max",
+        "dominance_interval_is_statistical_confidence_interval",
+        "rank_bounds_apply_only_to_recorded_components_not_unobserved_capacity"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "97771e4cc9188da100f0fe34c6f31ecace8029f10771859e9dddbd698bb8881e"
+    },
+    "municipal/reference_parent_crosswalk.parquet": {
+      "rows": 155414,
+      "columns": [
+        "source_record_id",
+        "matched_2021_parent_code",
+        "parent_scope_basis"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "0537bd24b7e03df3cb9f2fd10de0f4743be67f57178d9ea9c312ab05abd0e5fa"
+    },
+    "np_diagnostic/centrality_profiles.parquet": {
+      "rows": 155414,
+      "columns": [
+        "source_record_id",
+        "name",
+        "region",
+        "lat",
+        "lon",
+        "population_2021",
+        "population_role",
+        "medical_care_address_ids_known",
+        "medical_subdivision_ids_known",
+        "medical_clinical_profiles_known",
+        "medical_profile_rarity_score",
+        "care_address_ids_medical_basic_primary",
+        "care_address_ids_medical_day_hospital",
+        "care_address_ids_medical_hightech_licensed",
+        "care_address_ids_medical_inpatient",
+        "care_address_ids_medical_physician_primary",
+        "care_address_ids_medical_specialized",
+        "education_features_higher_education",
+        "education_features_preschool",
+        "education_features_school_general",
+        "education_features_vocational_education",
+        "commerce_features_comparison_retail",
+        "commerce_features_daily_food_specialist",
+        "commerce_features_daily_grocery",
+        "commerce_features_marketplace_unspecified_assortment",
+        "commerce_features_parcel_pickup",
+        "commerce_features_postal_service",
+        "commerce_features_shopping_centre",
+        "partial_organisation_workforce_2025",
+        "partial_workforce_status",
+        "medical_inventory_missing_is_not_zero",
+        "capacity_and_patient_flow_established",
+        "joint_multisector_comparability_established",
+        "independent_positive_medical_stock_proxy",
+        "proxy_unit",
+        "population_medical_scale_score",
+        "diagnostic_scale_class",
+        "scale_class_is_territorial_order",
+        "scale_class_status"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "e6896d2de01ba580df675b206d5de4e53fc83ba0e4115cfae60606e9cd77525e"
+    },
+    "potential/potential_sensitivity_known_road_pairs.parquet": {
+      "rows": 36462,
+      "columns": [
+        "origin_id",
+        "destination_id",
+        "cost_minutes",
+        "network_minutes",
+        "connector_minutes",
+        "pair_status",
+        "network_search_limit_minutes",
+        "network_epoch",
+        "connector_scenario_kmh",
+        "observed_trip",
+        "origin_mass_proxy",
+        "destination_mass_proxy",
+        "relative_potential_to_local_reservation",
+        "local_reservation",
+        "half_life_minutes_scenario",
+        "mass_transform_scenario",
+        "mass_field",
+        "beats_local_proxy_reservation",
+        "status",
+        "candidate_pool_completeness_established",
+        "observed_flow_calibration_established",
+        "territorial_assignment_established"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "64fb1bf08241f0fbf3afbb4f5d81c0c9776bb10b5c6f99ce5a57aec41ac6ee25"
+    },
+    "roads/pilot_current_city_costs.parquet": {
+      "rows": 922818,
+      "columns": [
+        "origin_id",
+        "destination_id",
+        "cost_minutes",
+        "network_minutes",
+        "connector_minutes",
+        "pair_status",
+        "network_search_limit_minutes",
+        "network_epoch",
+        "connector_scenario_kmh",
+        "observed_trip"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "4bc4e79e5336284656c13aec5f32fa953bfd63e854313bd47068dd1c00cd3a0a"
+    },
+    "workforce/data_Y48423005_112_v20260928.parquet": {
+      "rows": 1145580,
+      "columns": [
+        "indicator_section_code",
+        "indicator_section",
+        "indicator_code",
+        "indicator_name",
+        "okved2",
+        "region_id",
+        "region_name",
+        "mun_level",
+        "mun_district",
+        "municipality",
+        "oktmo",
+        "mun_type",
+        "mun_type_oktmo",
+        "oktmo_stable",
+        "oktmo_history",
+        "oktmo_year_from",
+        "oktmo_year_to",
+        "year",
+        "indicator_value",
+        "indicator_unit",
+        "indicator_period",
+        "comment"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "543eea097c21f35541e0006359aaeb5f3d0f6ecdc9d5b7a4569b63a63ced031c"
+    },
+    "workforce/municipal_workforce_2025.parquet": {
+      "rows": 2486,
+      "columns": [
+        "indicator_section_code",
+        "indicator_section",
+        "indicator_code",
+        "indicator_name",
+        "okved2",
+        "region_id",
+        "region_name",
+        "mun_level",
+        "mun_district",
+        "municipality",
+        "oktmo",
+        "mun_type",
+        "mun_type_oktmo",
+        "oktmo_stable",
+        "oktmo_history",
+        "oktmo_year_from",
+        "oktmo_year_to",
+        "year",
+        "indicator_value",
+        "indicator_unit",
+        "indicator_period",
+        "comment",
+        "source_territory_class",
+        "workforce_numeric_value",
+        "workforce_observation_status",
+        "code_history_interval_requires_review",
+        "eligible_as_individual_municipal_context",
+        "is_reported_federal_city_total",
+        "geography_automatically_equal_to_census_settlement",
+        "workers_allocated_to_settlements",
+        "total_jobs_or_resident_employment_measured",
+        "municipal_components_summed",
+        "legal_boundary_equivalence_independently_verified"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "ba36c68a10de37248b9cc71bb044761a6dd35442e523702ce4c29811eba92174"
+    }
+  },
+  "map_tables": {
+    "municipal-scale-points.csv": {
+      "rows": 1694,
+      "columns": [
+        "name",
+        "lat",
+        "lon",
+        "value",
+        "oktmo",
+        "source_record_id",
+        "point_scope"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "1f323bda424346799c21bdc585966574292e293dfef2b0bbf0fb3990e86777fb"
+    },
+    "conditional-cooperation-60-points.csv": {
+      "rows": 388,
+      "columns": [
+        "name",
+        "lat",
+        "lon",
+        "value",
+        "unit_id",
+        "parent_origin_id"
+      ],
+      "hash_method": "sha256_sorted_fixed_size_sha256_row_digests",
+      "sha256": "9b3d5c7bbd633240e7becd63bc31c1c404b813455eea1efe1ea22daa77d1c641"
+    }
+  },
+  "map_scope": {
+    "municipal_map_points": 1694,
+    "complete_comparison_territories": 1694,
+    "conditional_60_minute_points": 388,
+    "municipal_workers_assigned_to_np": false,
+    "continuous_municipal_values": true,
+    "cooperation_categories": {
+      "1": "spatial-time admissible and distinct municipal recorded-component dominance",
+      "2": "spatial-time admissible; functional rank unidentified"
+    },
+    "observed_flows_or_verified_agglomerations": false
+  },
+  "numeric_comparison_decimal_places": 8,
+  "summary_numeric_comparison_decimal_places": 6,
+  "row_multiplicity_and_every_column_compared": true,
+  "empirical_hierarchy_established": false
+}
