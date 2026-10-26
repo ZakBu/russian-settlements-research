@@ -593,7 +593,8 @@ def school_orders(sites):
                          'source_isced_level_literal':item.source_isced_level,
                          'source_grades_literal':item.source_grades,
                          'order_evidence':'literal_OSM_ISCED_tag' if level in levels else 'literal_OSM_grade_list_partial_stage_not_complete_programme',
-                         'eligible':item.eligible,'supply_status':item.supply_status,
+                         'eligible':item.eligible,'route_eligible':getattr(item,'route_eligible',True),
+                         'supply_status':item.supply_status,
                          'complete_stage_offering_established':False,
                          'source_id':item.source_id,'observation_year':item.observation_year,
                          'grade_inferred_from_name_or_population':False,
@@ -603,15 +604,30 @@ def school_orders(sites):
 
 def np_offers(sites, official, reference):
     ref = reference[reference.source_record_id.notna()].set_index('source_record_id')
-    strict = sites[sites.eligible & sites.source_record_id.notna()]
+    accepted = sites.eligible & sites.source_record_id.notna()
+    if 'route_eligible' in sites:
+        accepted &= sites.route_eligible.fillna(False).eq(True)
+    strict = sites[accepted]
     rows = []
     for (sid,service,year), group in strict.groupby(['source_record_id','service_code','observation_year']):
+        tiers = set(group.identity_evidence_tier.dropna()) if 'identity_evidence_tier' in group else set()
+        cartographic_only = bool(tiers) and tiers <= {'dated_cartographic_locality_containment'}
+        repaired_name = bool(tiers) and tiers <= {'literal_typed_rural_school_name', 'dated_cartographic_locality_containment'} and not cartographic_only
+        identity_quality = ('mapped_presence_with_dated_cartographic_np_proxy_not_legal_address' if cartographic_only else
+                            'mapped_presence_with_literal_typed_school_name_not_legacy_bridge' if repaired_name else
+                            'literal_address_and_exact_census_bridge_mapped_presence')
         rows.append(dict(provider_id=f'osm_np:{year}:{service}:{sid}',source_record_id=sid,
             service_code=service,source_service_code=service,source_id=group.source_id.iloc[0],
             observation_year=int(year),source_year=int(year),supply_status='observed',eligible=True,
-            evidence_quality='literal_address_and_exact_census_bridge_mapped_presence',
+            evidence_quality=identity_quality,
+            np_identity_basis=identity_quality,
+            identity_evidence_tier=('dated_cartographic_locality_containment' if cartographic_only else
+                                    'literal_typed_rural_school_name' if repaired_name else 'legacy_explicit_or_registry'),
+            identity_evidence_tiers_json=json.dumps(sorted(tiers)),
             location_precision='settlement_presence_with_separate_real_institution_sites',
-            source_pool='osm_strict_np_presence',provider_site_ids_json=json.dumps(sorted(group.provider_id)),
+            source_pool=('osm_cartographic_np_presence' if cartographic_only else
+                         'osm_named_school_np_presence' if repaired_name else 'osm_strict_np_presence'),
+            provider_site_ids_json=json.dumps(sorted(group.provider_id)),
             source_records=len(group),capacity_total=np.nan,capacity_unit=None,
             default_external_seed_eligible=False,default_external_seed_reason='use_real_institution_points_not_an_extra_np_centroid',
             established_flow=False))

@@ -445,15 +445,25 @@ def bind_explicit_city_contexts(sites,reference):
  return d
 
 def np_offers(sites,accepted_statuses=('observed',)):
- eligible=sites[sites.supply_status.isin(accepted_statuses)&sites.source_record_id.notna()]
+ accepted=sites.supply_status.isin(accepted_statuses)&sites.source_record_id.notna()
+ for flag in ['eligible','route_eligible']:
+  if flag in sites:accepted &= sites[flag].fillna(False).eq(True)
+ eligible=sites[accepted]
  rows=[]
  for (sid,code,snapshot),g in eligible.groupby(['source_record_id','service_code','source_snapshot'],sort=True):
+  tiers=set(g.identity_evidence_tier.dropna()) if 'identity_evidence_tier' in g else set()
+  cartographic_only=bool(tiers) and tiers <= {'dated_cartographic_locality_containment'}
   rows.append(dict(provider_id='commerce-np:'+str(sid)+'|'+code+'|'+snapshot,source_record_id=sid,service_code=code,
    supply_status='observed' if g.supply_status.eq('observed').all() else 'proxy',source_id=json.dumps(sorted(set(g.source_id))),source_year=int(g.source_year.iloc[0]),
    source_snapshot=snapshot,provider_ids_json=json.dumps(sorted(set(g.provider_id))),provider_records=len(g),
-   capacity_known=False,observed_flow=False,default_external_seed_eligible=False,object_count_is_attraction_weight=False,np_identity_basis='source_explicit_locality_and_census_identity',
+   capacity_known=False,observed_flow=False,default_external_seed_eligible=False,object_count_is_attraction_weight=False,
+   np_identity_basis='dated_named_locality_containment_not_legal_address_or_flow' if cartographic_only else 'source_explicit_locality_and_census_identity',
+   identity_evidence_tier='dated_cartographic_locality_containment' if cartographic_only else 'legacy_explicit_or_registry',
+   identity_evidence_tiers_json=json.dumps(sorted(tiers)),
    source_year_not_assumed_population_year=True))
- return pd.DataFrame(rows)
+ return pd.DataFrame(rows) if rows else pd.DataFrame(columns=[
+  'provider_id','source_record_id','service_code','supply_status','source_id','source_year',
+  'source_snapshot','default_external_seed_eligible'])
 
 def pickup_operator_code(value):
  text=norm(value)

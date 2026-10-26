@@ -23,7 +23,14 @@ def main():
     for flag in ['bundle','education','commerce','education-cache','commerce-cache','graph-dir','routes']:
         p.add_argument('--'+flag,type=Path,required=True)
     p.add_argument('--services', help='Comma-separated classes to verify; default verifies all10 classes')
+    p.add_argument('--medical', type=Path)
+    p.add_argument('--medical-cache', type=Path)
+    p.add_argument('--food-host', type=Path)
+    p.add_argument('--food-host-cache', type=Path)
+    p.add_argument('--allow-local-presence-without-geometry', action='store_true')
     a=p.parse_args()
+    if a.medical and not a.medical_cache:p.error('--medical requires --medical-cache')
+    if a.food_host and not a.food_host_cache:p.error('--food-host requires --food-host-cache')
     ep=pd.read_parquet(a.bundle/'routes/endpoints.parquet')
     graph=load_graph(a.graph_dir)
     from scipy.sparse.csgraph import connected_components
@@ -46,16 +53,22 @@ def main():
     inventory.to_parquet(a.routes/'endpoint_network_quality.parquet',index=False,compression='zstd')
     del labels,sizes
     evidence=[]
-    for domain,folder,cache_path,site,supply,services in [
+    configs = [
         ('education',a.education,a.education_cache,'physical_sites.parquet','np_supply.parquet',EDUCATION),
-        ('commerce',a.commerce,a.commerce_cache,'sites.parquet','supply.parquet',COMMERCE)]:
+        ('commerce',a.commerce,a.commerce_cache,'sites.parquet','supply.parquet',COMMERCE)]
+    if a.medical:
+        configs.append(('health',a.medical,a.medical_cache,'physical_sites.parquet','np_supply.parquet',('medical_basic_primary',)))
+    if a.food_host:
+        configs.append(('food_host',a.food_host,a.food_host_cache,'sites.parquet','supply.parquet',('daily_grocery_current_retail_host',)))
+    for domain,folder,cache_path,site,supply,services in configs:
         if a.services:
             services=tuple(x for x in services if x in a.services.split(','))
             if not services:continue
         verify_cache(cache_path,ep)
         providers=prepare_provider_rows([(folder/site,pd.read_parquet(folder/site))],
                                        [(folder/supply,pd.read_parquet(folder/supply))],ep)
-        providers=reuse_prepared_geometry(providers,pd.read_parquet(cache_path))
+        providers=reuse_prepared_geometry(providers,pd.read_parquet(cache_path),
+            allow_local_presence_without_geometry=a.allow_local_presence_without_geometry)
         for service in services:
             table=pd.read_parquet(a.routes/'nearest'/(service+'.parquet'))
             delta=pd.read_parquet(a.routes/'changes'/(service+'.parquet'))

@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="description" content="" /><meta name="keywords" content="" /><title>Контакты</title><link rel="shortcut icon" href="/favicon.ico" /><link type="text/css" rel="stylesheet" href="/css/default/style.css?1772539306952d723fab28e9efa0d1f6e46e033358" /><link type="text/css" rel="stylesheet" href="/css/decor.css?1772539306952d723fab28e9efa0d1f6e46e033358" /><script type="text/javascript">
+				if (window != window.top) {
+					var domain = "umi.ru";
+					document.domain = domain.replace(window.location.protocol + '//', '');
+				}
+			</script>						<script type="text/javascript" charset="utf-8" src="/js/cms/jquery.compiled_custom.js?2cmp"></script>
+			<script type="text/javascript">jQuery(function(a) {a.datepicker.setDefaults(a.datepicker.regional.ru);});</script>
+
+			<link type="text/css" rel="stylesheet" href="/js/jquery/fancybox/jquery.fancybox-1.3.4.css?2cmp" />
+			<script type="text/javascript" charset="utf-8" src="/js/guest.js?2cmp"></script><script charset="utf-8" src="/js/base-template.js?1772539306952d723fab28e9efa0d1f6e46e033358" type="text/javascript"></script><script>
+			var newOffersImport = parseInt('') || 0;
+			var isApplyCurrency = parseInt('Ваших прав недостаточно, чтобы совершить это действие.') || 0;
+		</script><meta property="og:image" content="//sossh1.1c-umi.ru/images/cms/data/shkola_1.jpg" /><script src="/js/cms/performance.monitor.js?1772539306952d723fab28e9efa0d1f6e46e033358"></script><script>
+					$(document).ready(function() {
+						(function () {
+							this.users.init(this);
+						}).call(application);
+					});
+				</script><script>
+			var itemDiscounts = {};
+			</script><style>
+			#cookie-notification {
+				box-sizing: unset;
+				position: fixed;
+				display: none;
+				align-items: center;
+				justify-content: space-around;
+				z-index: 1000;
+				bottom: 30px;
+				left: 30px;
+				background-color: #F6F7F8;
+				box-shadow: 0 2px 25px rgba(0, 0, 0, 0.3);
+				border-radius: 3px;
+				padding: 16px;
+				width: 463px;
+				height: 36px;
+				font-size: 13px;
+				line-height: normal;
+			}
+
+			#cookie-notification a {
+				text-decoration: none;
+				color: #000000;
+			}
+
+			#cookie-notification p {
+				color: #939393;
+				font-size: 13px;
+				margin: 0;
+			}
+
+			#accept-cookies {
+				background-color: #666666;
+				width: 91px;
+				height: 33px;
+				color: #FFFFFF;
+				border-radius: 3px;
+				border-color: unset;
+				border-style: none;
+				cursor: pointer;
+				font-family: Arial, serif;
+			}
+
+			#accept-cookies p {
+				margin-bottom: 0;
+			}
+
+			@media (max-width: 767px) {
+				#cookie-notification {
+					left: 50%;
+					transform: translateX(-50%);
+				}
+			}
+
+			@media (max-width: 622px) {
+				#cookie-notification {
+					bottom: 90px;
+				}
+			}
+
+			@media (max-width: 505px) {
+				#cookie-notification {
+					width: 326px;
+					height: 42px;
+				}
+			}
+		</style><script>
+				/** Функционал уведомлений о куках. */
+
+				/** @type {string} Название куки. */
+				var cookieNotificationName = "cookiesAccepted";
+
+				/** @type {number} Количество дней жизни куки. */
+				var cookieNotificationDaysLifeTime = 365;
+
+				/** @type {?HTMLElement} Элемент уведомления. */
+				var cookieNotification;
+
+				/**
+				 * Инициализирует функционал уведомления о куках.
+				 * @return {void}
+				 */
+				function initCookieNotification() {
+					if (getCookiesAccepted()) {
+						return;
+					}
+
+					cookieNotification = document.getElementById('cookie-notification');
+					if (!cookieNotification) {
+						return;
+					}
+
+					showCookieNotification();
+
+					document.getElementById('accept-cookies').addEventListener('click', function () {
+						setCookiesAccepted();
+						hideCookieNotification();
+					});
+				}
+
+				/**
+				 * Возвращает значение куки.
+				 * @return {boolean}
+				 */
+				function getCookiesAccepted() {
+					var cookies = document.cookie.split('; ');
+					for (var i = 0; i < cookies.length; i++) {
+						if (cookies[i].split('=')[0] === cookieNotificationName) {
+							return true;
+						}
+					}
+
+					return false;
+				}
+
+				/**
+				 * Устанавливает значение куки.
+				 * @return {void}
+				 */
+				function setCookiesAccepted() {
+					var date = new Date();
+					date.setTime(date.getTime() + (cookieNotificationDaysLifeTime * 24 * 60 * 60 * 1000));
+					document.cookie = cookieNotificationName + '=1; expires=' + date.toUTCString() + '; Path=/';
+				}
+
+				/**
+				 * Показывает уведомление.
+				 * @return {void}
+				 */
+				function showCookieNotification() {
+					cookieNotification.style.display = 'flex';
+				}
+
+				/**
+				 * Скрывает уведомление.
+				 * @return {void}
+				 */
+				function hideCookieNotification() {
+					cookieNotification.style.display = 'none';
+				}
+
+				window.addEventListener('DOMContentLoaded', function () {
+					initCookieNotification();
+				});
+			
+			</script><div id="cookie-notification"><div><p>Мы используем <a href="/pdn/" target="_blank">файлы cookie</a></p><p>и системы аналитики для улучшения работы сайта</p></div><button id="accept-cookies">Принять</button></div></head><body><div class="main"><div class="header_wrapper"><div class="menu"><ul class="level-0"><li data-id="1" class="first "><a href="/">Главная</a></li><li data-id="491" class="even "><a href="/oficial_nye_dokumenty/">Официальные документы</a><ul class="level-1"><li data-id="492" class="first "><a href="/oficial_nye_dokumenty/prikaz_mo_in_rb/">Приказ МО иН РБ</a></li><li data-id="493" class="even "><a href="/oficial_nye_dokumenty/polozhenie_ob_avtorskih_sp/">Положение об авторских СП</a></li><li data-id="494" class=""><a href="/oficial_nye_dokumenty/reshenie_us/">Решение УС</a></li><li data-id="499" class="even "><a href="/oficial_nye_dokumenty/shkol_noe_polozhenie_o_sp/">Школьное положение о СП</a></li><li data-id="500" class="last "><a href="/oficial_nye_dokumenty/polozhenie_o_finansovoj_deyatel_nosti/">Положение о финансовой деятельности</a></li></ul></li><li data-id="483" class=""><a href="/najdal/">«Найдал»</a><ul class="level-1"><li data-id="484" class="first "><a href="/najdal/stranicy_istorii/">Страницы истории</a></li><li data-id="485" class="even "><a href="/najdal/normativno-pravovaya_baza_seti/">Нормативно-правовая база Сети</a></li><li data-id="486" class=""><a href="/najdal/plan_raboty_seti/">План работы Сети</a></li><li data-id="488" class="even "><a href="/najdal/monitoring/">Мониторинг</a></li><li data-id="489" class=""><a href="/najdal/perspektivy_razvitiya/">Перспективы развития</a></li><li data-id="501" class="last even "><a href="/najdal/proekty_seti/">Проекты Сети</a></li></ul></li><li data-id="453" class="even "><a href="/fotoal_bom/">Фоторепортажи</a></li><li data-id="12" class="current "><a href="/contacts/">Контакты</a></li><li data-id="514" class="last even "><a href="/novosti/">Новости</a></li></ul></div><div class="top_header"><div class="title_block"><div class="logo"><a href="/"><img alt="Контакты" title="Контакты" src="/images/cms/thumbs/a5b0aeaa3fa7d6e58d75710c18673bd7ec6d5f6d/vypusk_150_auto.jpg" /></a></div><div class="title_company"><div><a class="name" href="/">Авторская стажировочная площадка</a></div><div><a class="slogan" href="/">с.Сосново-Озерское, Еравнинский район Республика Бурятия</a></div></div></div><div class="contacts"><div class="phone"><span class="small-phone">8(30135)</span><span class="big-phone">21486</span></div><div class="address">с. Сосново-Озерское , ул.Матросова,д 46</div><div class="time">начало занятий 8.00</div><form action="/search/search_do/" method="get" class="search_form header_search_form"><fieldset><input title="Поиск" class="form_placeholder search_form_string" autocomplete="off" type="text" size="20" value="" name="search_string" /><input class="submit_button " type="submit" value="" /></fieldset></form></div><div class="cleaner"></div></div></div><div class="breadcrumbs"><ul><li class="breadcrumbs_home"><a href="/"><div>Главная</div></a><span class="breadcrumb_separator"><span class="separator_text">/</span></span></li><li class="breadcrumbs_last"><a><div>Контакты</div></a><span class="breadcrumb_separator"><span class="separator_text">/</span></span></li></ul></div><div class="content"><div class="left_block"><div id="custom_block_1_29_idp0" class="text custom_block_1"><p>narhata-eravna.ucoz.ru- адрес школьного сайта</p></div><div class="index_news"><div class="mainpage_news_title h2"><span class="h2_content">Новости</span></div><div class="news"><div class="news_item"><div class="news_title"><div class="top_date news_date">14.05.2013</div><a class="news_headline" href="/novosti/otzyvy_po_stazhirovke/">Отзывы по стажировке</a><div class="bottom_date news_date">14.05.2013</div></div><div id="anons_568_idp6800" class="news_anons text"><p>Учителя Алцакской СОШ провели учебные занятия на месте стажировки с использованием методик КСО</p></div></div><div class="news_item"><div class="news_title"><div class="top_date news_date">24.04.2013</div><a class="news_headline" href="/novosti/s_22_po_26_aprelya_prohodit_stazhirovka_uchitelej_mbou_alcagskaya_sosh_dzhidinskogo_rajona_na_baze_mbou_komsomol_skaya_sosh_i_mb/">С 22 по 26 апреля проходит стажировка учителей МБОУ "Алцакская сош" Джидинского района на базе МБОУ "Комсомольская сош" и МБОУ "Тулдунская сош"</a><div class="bottom_date news_date">24.04.2013</div></div><div id="anons_555_idm4320" class="news_anons text"></div></div><div class="news_item"><div class="news_title"><div class="top_date news_date">12.12.2012</div><a class="news_headline" href="/novosti/otchet_po_rabote_stazhirovochnoj_plowadki/">Отчет по работе Стажировочной площадки</a><div class="bottom_date news_date">12.12.2012</div></div><div id="anons_538_idm832" class="news_anons text"></div></div><div class="news_item"><div class="news_title"><div class="top_date news_date">04.12.2012</div><a class="news_headline" href="/novosti/obmen_opytom/">Стажировочная площадка</a><div class="bottom_date news_date">04.12.2012</div></div><div id="anons_515_idm4720" class="news_anons text"><p>Учителя Усть-Агинской СОШ прошли стажировку</p></div></div></div><div class="tl-content"><!--# include virtual="/trlink.php?request_uri=" --></div></div><div class="tl-content"><!--# include virtual="/trlink.php?request_uri=" --></div><div id="custom_block_2_29_idp0" class="text custom_block_2"><p><span style="font-size: large; line-height: 1.3em;"><a rel="nofollow" href="/go-out.php?url=http%3A%2F%2Fsossh1.umi.ru%2Fnajdal%2F">Сеть "Найдал"</a></span></p>
+<p><span style="font-size: large; line-height: 1.3em;"><a rel="nofollow" href="/go-out.php?url=http%3A%2F%2Fsossh1.umi.ru%2Foficial_nye_dokumenty%2F">Официальные документы</a></span></p>
+<p><span style="font-size: large; line-height: 1.3em;"><a rel="nofollow" href="/go-out.php?url=http%3A%2F%2Fsossh1.umi.ru%2Fkollektiv_t_yutorov_asp%2F">Коллектив тьюторов РАСП</a></span></p>
+<p><span style="font-size: large; line-height: 1.3em;"><a rel="nofollow" href="/go-out.php?url=http%3A%2F%2Fsossh1.umi.ru%2Ffotoal_bom%2F">Фоторепортажи </a></span></p>
+<p><span style="font-size: large; line-height: 1.3em;"><a rel="nofollow" href="/go-out.php?url=http%3A%2F%2Fsossh1.umi.ru%2Finformacionnaya_karta_asp%2F">Информационная карта РАСП</a></span></p>
+<p><span style="font-size: large; line-height: 1.3em;"><a rel="nofollow" href="/go-out.php?url=http%3A%2F%2Fsossh1.umi.ru%2Fobrazovatel_naya_programma_asp%2F">Образовательная программа РАСП</a></span></p>
+<p><span style="font-size: large; line-height: 1.3em;"><a rel="nofollow" href="/go-out.php?url=http%3A%2F%2Fsossh1.umi.ru%2Fzayavka%2F">Заявка</a></span></p>
+<p><span style="font-size: large; line-height: 1.3em;"><a rel="nofollow" href="/go-out.php?url=http%3A%2F%2Fsossh1.umi.ru%2Fproekty_uchitelej_-stazherov%2F">Проекты учителей-стажеров</a></span></p>
+<p><span style="font-size: large; line-height: 1.3em;"><a rel="nofollow" href="/go-out.php?url=http%3A%2F%2Fsossh1.umi.ru%2Fbiblioteka%2F">Библиотека</a></span></p></div></div><div class="main_content"><h1 id="page_main_header" class="h1 module-webforms method-page"><span class="h1_content">Контакты</span></h1><div><table class="contact_info"><tr class="contact_info_block contact_address"><td class="contact_title"><div>Адрес:</div></td><td class="contact_value"><div>671430 Республика Бурятия</div></td></tr><tr class="contact_info_block contact_time"><td class="contact_title"><div>Время работы:</div></td><td class="contact_value"><div>9.00</div></td></tr><tr class="contact_info_block contact_phone"><td class="contact_title"><div>Телефон:</div></td><td class="contact_value"><div>+7 (30135)21486;</div></td></tr><tr class="contact_info_block contact_fax"><td class="contact_title"><div>Факс:</div></td><td class="contact_value"><div>+7 (30135)21486;</div></td></tr><tr class="contact_info_block contact_skype hidden"><td class="contact_title"><div>Skype:</div></td><td class="contact_value"><div></div></td></tr><tr class="contact_info_block contact_email"><td class="contact_title"><div>Email:</div></td><td class="contact_value"><div><a href="mailto:sossh1@mail.ru">sossh1@mail.ru</a></div></td></tr></table><div id="text_12_idp2108288" class="text"><p>Связаться с нами, вы можете по телефону или заполнив форму ниже.</p></div></div><div class="contacts_page_h2 h2">Обратная связь</div><div class="hidden"><div class="hidden-text"><span>Выберите форму обратной связи:</span> 
+				<span>Обратная связь</span></div></div><form method="post" action="/webforms/send_feedback/" class="site_form feedback_form" id="webformcontact" onsubmit="saveFormData(this); return true;"><fieldset><div class="left_side"><input type="hidden" name="system_form_id" value="820" /><input type="hidden" name="ref_onsuccess" value="/webforms/posted/" /><input type="hidden" name="page_id" value="" /><input type="hidden" name="system_email_to" value="28327" /><div class="required field field_autor"><label><span>Автор:</span><span class="required_star" title="Обязательное поле"><span class="required_star_text">*</span></span></label><div class="field_div input"><input name="data[new][autor]" value="" type="text" /></div><div class="webforms_error_text">
+							Заполните обязательное поле
+						</div></div><div class="required field field_email"><label><span>Email:</span><span class="required_star" title="Обязательное поле"><span class="required_star_text">*</span></span></label><div class="field_div input"><input name="data[new][email]" value="" type="text" /></div><div class="webforms_error_text">
+							Заполните обязательное поле
+						</div><div class="email_error_text">
+							Вы некорректно ввели email
+						</div></div><div class="required field field_theme"><label><span>Тема письма:</span><span class="required_star" title="Обязательное поле"><span class="required_star_text">*</span></span></label><div class="field_div input"><input name="data[new][theme]" value="" type="text" /></div><div class="webforms_error_text">
+							Заполните обязательное поле
+						</div></div><div class="required field field_message"><label><span>Сообщение:</span><span class="required_star" title="Обязательное поле"><span class="required_star_text">*</span></span></label><div class="field_div textarea"><textarea name="data[new][message]"></textarea></div><div class="webforms_error_text">
+							Заполните обязательное поле
+						</div></div><div class="required field captcha captcha_control hidden"><div class="captcha_input"><label><span>Введите код:</span><span class="required_star" title="Обязательное поле"><span class="required_star_text">*</span></span></label><div class="field_div input"><input type="text" name="captcha" class="captcha_input" autocomplete="off" /></div></div><div class="captcha_img"><img src="/captcha.php?1773291228&amp;id=1773291228" /><input type="hidden" name="captcha_id" value="1773291228" /></div><div class="cleaner"></div><div class="webforms_error_text">
+				Введите код с картинки
+			</div></div></div><div class="required field accept_pdn checkbox_full"><label><input type="checkbox" name="acceptPdn" value="pdn_accepted" /><span><p>Настоящим подтверждаю, что ознакомлен и согласен с условиями <a href="/pdn/" target="_blank">Политики</a> в отношении обработки персональных данных</p></span></label><div class="webforms_error_text">Необходимо согласие на обработку персональных данных</div></div></fieldset><fieldset><input type="hidden" name="control_check" value="1" /><div class="submit countdown_expiry_event hidden"><input type="submit" class="all_system_buttons" value="Отправить" /></div><script type="text/javascript">
+			$(function () {
+				$('.countdown_1 .countdown_1_counter').each(function() {
+					var _self = $(this);
+					var newDate = new Date();
+
+					$.ajax({
+						type: "GET",
+						dataType: 'json',
+						url: '/udata://custom/checkPossibilitySubmitForms/.json'
+					}).done(function(data) {
+						if (data.result == 0) {
+							$('.countdown_1').each(function() {
+								$(this).addClass("hidden");
+							});
+
+							$('.countdown_expiry_event').each(function() {
+								$(this).removeClass("hidden");
+							});
+						}
+
+						newDate.setSeconds(newDate.getSeconds() + Number(data.result));
+						_self.countdown({until: newDate, padZeroes: true, format: 'HMS'});
+					});
+				});
+			});
+		</script><div class="countdown_1"><div>Повторная отправка формы через:
+				<a class="countdown_1_counter"></a></div></div></fieldset></form><script type="text/javascript">
+			restoreFormData(document.getElementById('webformcontact'));
+		</script></div><div class="cleaner"></div></div><div id="seo_text_12_idp0" class="seo_text text"></div><div class="lower_menu"><ul><li class="first "><a href="/">Главная</a></li><li class="even "><a href="/oficial_nye_dokumenty/">Официальные документы</a></li><li class=""><a href="/najdal/">«Найдал»</a></li><li class="even "><a href="/fotoal_bom/">Фоторепортажи</a></li><li class="current "><a href="/contacts/">Контакты</a></li><li class="last even "><a href="/novosti/">Новости</a></li></ul></div><div class="footer"><div class="copy_wrap opener"><div id="copy_button" class="copy-del-button hidden"><span class="buttonx"><img src="/images/cms/eip/del_button.svg" alt="×" /></span><span class="buttontext">Убрать копирайт</span></div><div class="text copyright"><p>Сайт создан на <a href="https://umi.ru/">1C-UMI</a></p></div></div><div class="text umi-copyright"><p>Работает на <a href="https://www.umi-cms.ru" rel="nofollow">UMI.CMS</a></p></div><div id="promo_line" class="promo_line"><div class="promo_line_wrap"><a class="pr_line_l" alt="Создать сайт бесплатно" title="Создать сайт бесплатно" href="//umi.ru/?site_create_win=1&amp;utm_source=referal&amp;utm_medium=line&amp;utm_campaign=umiline"></a><div class="pr_line_r"><span>Сайт создан с помощью 1C-UMI. </span><a id="promo_line_a" href="//umi.ru/?site_create_win=1&amp;utm_source=referal&amp;utm_medium=line&amp;utm_campaign=umiline">Создайте свой сайт или интернет-магазин бесплатно &gt;&gt;</a></div></div></div><script type="text/javascript">
+				$('body').prepend('<div id="DIV_DA_207850_wrapper"></div>');
+			</script><div id="DIV_DA_207850" class="DIV_DA_207850_content_pointer"><script type='text/javascript'>
+if (typeof window['u_ras_scr_topzone_1_ok'] == 'undefined') window['u_ras_scr_topzone_1_ok'] = true; //prevent double loading
+if (document.getElementById('DIV_DA_207850') && window['u_ras_scr_topzone_1_ok']) {
+	var m3_u = (location.protocol=='https:'?'https://adserver.umi.ru/www/delivery/ajs.php':'http://adserver.umi.ru/www/delivery/ajs.php');
+	var m3_r = Math.floor(Math.random()*99999999999);
+	if (!document.MAX_used) document.MAX_used = ',';
+	document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+	document.write ("?zoneid=1&amp;charset=UTF-8");
+	document.write ('&amp;cb=' + m3_r);
+	if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+	document.write ('&amp;charset=UTF-8');
+	document.write ("&amp;loc=" + escape(window.location));
+	if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+	if (document.context) document.write ("&context=" + escape(document.context));
+	if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+	document.write ("'><\/scr"+"ipt>");
+	window['u_ras_scr_topzone_1_ok'] = false;
+}
+</script></div><script type="text/javascript">
+				var ad_wrapper = jQuery('.DIV_DA_207850_content_pointer').detach();
+				ad_wrapper.find('script').detach();
+				jQuery('#DIV_DA_207850_wrapper').prepend(ad_wrapper);
+				ad_wrapper.show();
+			</script><div><a href='/pdn/' target='_blank'>Политика конфиденциальности</a></div><div class="text code_pre code_footer">298</div><div class="addthis_toolbox" id="social_block"><div id="addthis_toolbox_share" class="text"><p>Поделиться с друзьями:</p></div><a class="social_button social_vk" rel="nofollow" href="https://vkontakte.ru" title="Поделиться ВКонтакте" onclick="return application.socialButtons.open('vk');"></a><a class="social_button social_odnoklassniki" rel="nofollow" href="https://odnoklassniki.ru" title="Поделиться в Одноклассниках" onclick="return application.socialButtons.open('odnoklassniki');"></a><a class="social_button social_mir" rel="nofollow" href="https://my.mail.ru" title="Поделиться в Моём мире" onclick="return application.socialButtons.open('moimir');"></a><a class="social_button social_livejournal" rel="nofollow" href="https://livejournal.com" title="Поделиться в LiveJournal" onclick="return application.socialButtons.open('livejournal');"></a><a class="social_button social_liveinternet" rel="nofollow" href="https://liveinternet.ru" title="Поделиться в LiveInternet" onclick="return application.socialButtons.open('liveinternet');"></a><div class="cleaner"></div></div></div></div><a id="main_big_order_button" class="callback" href="#ajax#ajax-order-form.12.ajax" title="Обратная связь"><div class="thumbnail_holder" style="max-width:60px;width:31px;height:130px;background-image:url(/images/cms/thumbs/134b8921993b656883563f7e08a8df9cce80e63c/feedback_button_60_auto.jpg)" rel="/images/cms/thumbs/134b8921993b656883563f7e08a8df9cce80e63c/feedback_button_60_auto.jpg"></div></a></body></html>

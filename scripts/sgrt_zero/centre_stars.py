@@ -27,7 +27,8 @@ CENTRE_COLUMNS = ['star_id','centre_settlement_id','centre_name','centre_region'
     'exclusive_partition','population_is_additive_across_stars','observed_flow_count',
     'independent_empirical_validation','support_type','support_type_semantics',
     'centre_unmarked_whole_record','centre_positive_population_known',
-    'centre_ordinary_credited_or_nonadditive_context','centre_own_selected_core_family_count',
+    'centre_ordinary_credited_or_nonadditive_context','centre_ordinary_spatial_or_nonadditive_context',
+    'centre_own_selected_core_family_count',
     'centre_own_all_three_core_confirmed',*[f'{n}_core_subset_geodesic_diameter_km' for n in (1,2,3)]]
 STRICT_EXTRA_COLUMNS = {'strict_external_member_count':'int64','strict_member_count':'int64',
     'strict_geodesic_diameter_km':'float64','strict_population_2021_credited_sum':'float64',
@@ -64,7 +65,9 @@ def build_centre_stars(edges, reference, endpoints=None, *, member_batch_size=10
     admitted['functional_star_id'] = [stable_id('function', scenario, f, k)
         for f, k in zip(admitted.service_family, admitted.provider_key)]
     admitted['provider_np_identity_unknown'] = admitted.provider_settlement_id.isna()
-    admitted['external_np_relation_proven'] = admitted.provider_settlement_id.notna() & admitted.origin_id.ne(admitted.provider_settlement_id)
+    admitted['external_np_relation_identified'] = admitted.provider_settlement_id.notna() & admitted.origin_id.ne(admitted.provider_settlement_id)
+    cartographic = admitted.get('provider_np_identity_is_cartographic', pd.Series(False, index=admitted.index)).fillna(False)
+    admitted['external_np_relation_proven'] = admitted.external_np_relation_identified & ~cartographic
     admitted['physical_star_is_not_proven_np_centre'] = admitted.provider_np_identity_unknown
     admitted['school_stage_unknown'] = admitted.get('school_stage_unknown', pd.Series(False, index=admitted.index)).fillna(True)
     admitted['observed_flow'] = False
@@ -73,9 +76,10 @@ def build_centre_stars(edges, reference, endpoints=None, *, member_batch_size=10
     functional_links = admitted
     metadata = ref[['name', 'region', 'district', 'lat', 'lon', 'population_2021',
                     'population_role', 'budget_population_credit', 'analysis_origin', 'part_status']].copy()
-    metadata['positive_credited_whole'] = (metadata.population_role.eq('ordinary_settlement_record')
-        & metadata.budget_population_credit.fillna(False) & metadata.analysis_origin.fillna(False)
+    metadata['positive_whole_spatial'] = (metadata.population_role.eq('ordinary_settlement_record')
+        & metadata.analysis_origin.fillna(False)
         & metadata.population_2021.gt(0) & metadata.part_status.eq('unmarked_whole_place_record'))
+    metadata['positive_credited_whole'] = metadata.positive_whole_spatial & metadata.budget_population_credit.fillna(False)
     coords = metadata.dropna(subset=['lat', 'lon']).groupby(['lat', 'lon']).size()
     metadata['coincident_coordinate_records'] = coords.reindex(
         pd.MultiIndex.from_frame(metadata[['lat','lon']])).fillna(0).to_numpy(dtype='int64')
@@ -89,16 +93,16 @@ def build_centre_stars(edges, reference, endpoints=None, *, member_batch_size=10
         if c not in metadata: metadata[c] = pd.NA
     fun = []
     functional_source = admitted[['functional_star_id','provider_settlement_id','service_family',
-        'provider_key','origin_id','external_np_relation_proven','cost_minutes','school_stage_unknown']]
+        'provider_key','origin_id','external_np_relation_identified','cost_minutes','school_stage_unknown']]
     for sid, g in functional_source.groupby('functional_star_id', sort=True):
         first = g.iloc[0]
         centre = first.provider_settlement_id
-        external = g[g.external_np_relation_proven]
-        whole_external = external.origin_id.map(metadata.positive_credited_whole).fillna(False)
+        external = g[g.external_np_relation_identified]
+        whole_external = external.origin_id.map(metadata.positive_whole_spatial).fillna(False)
         fun.append(dict(functional_star_id=sid, service_family=first.service_family,
             provider_key=first.provider_key, centre_settlement_id=centre,
             physical_provider_np_unknown=pd.isna(centre), origin_records=len(g),
-            positive_whole_origin_records=int(g.origin_id.map(metadata.positive_credited_whole).sum()),
+            positive_whole_origin_records=int(g.origin_id.map(metadata.positive_whole_spatial).sum()),
             external_positive_whole_records=int(whole_external.sum()),
             known_np_external_records=len(external), maximum_directed_minutes=float(g.cost_minutes.max()),
             centre_added_to_functional_origin_count=False, observed_flow_count=0,
@@ -153,7 +157,7 @@ def build_centre_stars(edges, reference, endpoints=None, *, member_batch_size=10
             | frame.road_component_quality_unknown | frame.road_component_lt100_diagnostic)
         frame['evidence_scope'] = 'modelled_direct_service_choice_not_observed_travel'
         outside = frame.member_role.eq('direct_surroundings')
-        positive = outside & frame.positive_credited_whole
+        positive = outside & frame.positive_whole_spatial
         core_counts = frame.loc[positive, 'core_family_count']
         d = dict(star_id=sid, centre_settlement_id=centre, centre_name=ref.loc[centre,'name'],
             centre_region=ref.loc[centre,'region'], centre_in_analysis_origin=bool(ref.loc[centre,'analysis_origin']),
@@ -177,6 +181,8 @@ def build_centre_stars(edges, reference, endpoints=None, *, member_batch_size=10
             (ref.loc[centre,'population_role']=='ordinary_settlement_record'
                 and pd.notna(ref.loc[centre,'budget_population_credit']) and bool(ref.loc[centre,'budget_population_credit']))
             or ref.loc[centre,'population_role']==NONADDITIVE_CONTEXT_ROLE)
+        d['centre_ordinary_spatial_or_nonadditive_context'] = bool(
+            ref.loc[centre,'population_role'] in {'ordinary_settlement_record', NONADDITIVE_CONTEXT_ROLE})
         d['support_type_semantics'] = 'maximum_external_support_not_uniform_membership'
         centre_own = set(group.loc[group.origin_id.eq(centre), 'service_family']) & set(CORE)
         d['centre_own_selected_core_family_count'] = len(centre_own)
@@ -214,7 +220,7 @@ def build_centre_stars(edges, reference, endpoints=None, *, member_batch_size=10
     strict_stars = stars[stars.all_three_core_external_positive_whole.gt(0)
         & stars.centre_own_all_three_core_confirmed & stars.centre_in_analysis_origin
         & stars.centre_unmarked_whole_record & stars.centre_positive_population_known
-        & stars.centre_ordinary_credited_or_nonadditive_context].copy() if len(stars) else stars.copy()
+        & stars.centre_ordinary_spatial_or_nonadditive_context].copy() if len(stars) else stars.copy()
     strict_members = memberships[memberships.star_id.isin(strict_stars.star_id)
         & memberships.in_3_core_positive_whole_subset].copy() if len(stars) else memberships.copy()
     if len(strict_members):

@@ -89,6 +89,11 @@ def canonical(raw,reference):
     d['origin_is_additional_context']=(~r.ordinary_spatial_2021.fillna(False)).to_numpy() if 'ordinary_spatial_2021' in r else False
     identity=get(raw,['provider_settlement_id','selected_provider_source_record_id']).astype('string').str.strip().replace('',pd.NA)
     d['provider_settlement_id']=identity.astype(object).where(identity.notna(),None).to_numpy()
+    d['origin_coordinate_location_held']=(r.coordinate_location_held.fillna(False).to_numpy()
+        if 'coordinate_location_held' in r else False)
+    coordinate_holds=(ref.set_index('source_record_id').coordinate_location_held
+        if 'coordinate_location_held' in ref else pd.Series(False,index=ref.source_record_id))
+    d['provider_coordinate_location_held']=d.provider_settlement_id.map(coordinate_holds).fillna(False).astype(bool)
     invalid=d.provider_settlement_id.notna()&~d.provider_settlement_id.isin(ref.source_record_id)
     if invalid.any():raise ValueError('Provider settlement identity is absent from reference')
     d['provider_site_id']=get(raw,['provider_site_id','selected_provider_id','provider_id']).to_numpy()
@@ -116,6 +121,19 @@ def canonical(raw,reference):
     d['external_np_identity_proven']=d.origin_provider_np_relation.eq('confirmed_external_np_identity')
     for target,names in {
         'evidence_quality':['evidence_quality','provider_evidence_quality'],
+        'provider_np_identity_basis':['provider_np_identity_basis'],
+        'provider_identity_evidence_tier':['provider_identity_evidence_tier'],
+        'provider_cartographic_identity_status':['provider_cartographic_identity_status'],
+        'provider_cartographic_source_wof_id':['provider_cartographic_source_wof_id'],
+        'provider_cartographic_source_dataset':['provider_cartographic_source_dataset'],
+        'provider_cartographic_source_feature_id':['provider_cartographic_source_feature_id'],
+        'provider_cartographic_source_snapshot':['provider_cartographic_source_snapshot'],
+        'provider_cartographic_currency':['provider_cartographic_currency'],
+        'provider_cartographic_raw_geometry_sha256':['provider_cartographic_raw_geometry_sha256'],
+        'provider_cartographic_geometry_identity_resolution':['provider_cartographic_geometry_identity_resolution'],
+        'provider_cartographic_nested_mask_census_ids_json':['provider_cartographic_nested_mask_census_ids_json'],
+        'provider_cartographic_coordinate_hold_census_ids_json':['provider_cartographic_coordinate_hold_census_ids_json'],
+        'provider_cartographic_original_other_positive_census_places':['provider_cartographic_original_other_positive_census_places'],
         'location_precision':['location_precision','provider_location_precision'],
         'source_snapshot':['source_snapshot','provider_source_snapshot'],
         'provider_operator':['provider_operator'],
@@ -125,6 +143,11 @@ def canonical(raw,reference):
         'provider_inventory_completeness':['provider_inventory_completeness']}.items():
         d[target]=get(raw,names).to_numpy()
     d['source_id']=get(raw,['source_id','provider_source_id']).map(metadata_json).to_numpy()
+    d['provider_np_identity_is_cartographic']=d.provider_identity_evidence_tier.eq('dated_cartographic_locality_containment')
+    cartographic_external=(d.provider_np_identity_is_cartographic & d.provider_settlement_id.notna()
+                           & d.provider_settlement_id.ne(d.origin_id))
+    d.loc[cartographic_external,'origin_provider_np_relation']='modelled_external_np_cartographic_identity'
+    d.loc[cartographic_external,'external_np_identity_proven']=False
     d['source_year']=get(raw,['source_year','provider_source_year','observation_year']).map(metadata_json).to_numpy()
     # A historical address is useful evidence, but its inclusion must not turn
     # an unverified current operation or public-access scope into a known fact.
@@ -170,6 +193,12 @@ def with_admission(frame,family,raw_code,scenario_id,limit_minutes,rule_kind):
     d['l0_admitted']=local|near
     d['admission_basis']=rule_kind
     d.loc[local,'admission_basis']='known_local_service_np_scale_zero_assumption_not_household_accessibility'
+    location_held=(d.get('origin_coordinate_location_held',pd.Series(False,index=d.index)).fillna(False)
+                   | d.get('provider_coordinate_location_held',pd.Series(False,index=d.index)).fillna(False))
+    d.loc[location_held,'l0_admitted']=False
+    d.loc[location_held,'service_status']='held_named_settlement_coordinate_conflict'
+    d.loc[location_held,'status']='held_named_settlement_coordinate_conflict'
+    d.loc[location_held,'admission_basis']='documented_coordinate_conflict_no_territorial_assignment_or_automatic_relocation'
     d['limit_is_fitted_to_observed_trips']=False
     d['limit_is_current_legal_compliance_test']=False
     d['admission_source_id']=SP42 if family in {'medical_basic','school'} else 'AUTHOR_DAILY_RETAIL_TRAVEL_SENSITIVITY_20261024'
@@ -186,6 +215,7 @@ def with_admission(frame,family,raw_code,scenario_id,limit_minutes,rule_kind):
     d.loc[unknown&d.routable_external_provider_seeds.eq(0),'unknown_reason']='no_routable_known_provider_seed'
     d.loc[unknown&d.known_offer_records.eq(0),'unknown_reason']='no_known_provider_in_inventory_not_proven_absence'
     d.loc[unknown&~d.origin_road_endpoint_accepted,'unknown_reason']='origin_road_endpoint_unavailable_other_modes_unknown'
+    d.loc[location_held,'unknown_reason']='documented_source_coordinate_conflict_actual_location_unresolved_no_relocation'
     d['far_or_unknown_does_not_prove_absence_of_external_dependency']=True
     return d
 
