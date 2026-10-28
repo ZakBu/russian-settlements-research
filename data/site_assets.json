@@ -83,5 +83,37 @@
     "sourceUrl": "https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-zero-centres-20261026-v2",
     "simplifyDegrees": 5e-05,
     "scope": "Accepted urban census identities; cartographic OSM areas, not legal boundaries; census points and values remain unchanged."
+  },
+  "contextTransport": {
+    "bbox": [
+      20,
+      40,
+      180,
+      80
+    ],
+    "simplifyDegrees": 0.01,
+    "sources": [
+      {
+        "id": "context-roads",
+        "kind": "road",
+        "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_10m_roads.geojson",
+        "bytes": 50474096,
+        "sha256": "66a0c7b438e92fd124822cc5921cfa11042f48c294ade5e0f03f2c6640fd0248",
+        "license": "Public domain",
+        "provider": "Natural Earth",
+        "sourceVersion": "ca96624a56bd078437bca8184e78163e5039ad19"
+      },
+      {
+        "id": "context-railroads",
+        "kind": "rail",
+        "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_10m_railroads.geojson",
+        "bytes": 39598080,
+        "sha256": "a0962d7866060ae3e24df255f6d662389ac9ba7e0df40cf329c2281190b861e6",
+        "license": "Public domain",
+        "provider": "Natural Earth",
+        "sourceVersion": "ca96624a56bd078437bca8184e78163e5039ad19"
+      }
+    ],
+    "scope": "Small-scale geographic context, including neighboring countries. Major Highway and rail scalerank <= 6 are source cartographic classes, not verified federal road legal status or current operating rail services."
   }
 }
