@@ -16,6 +16,9 @@ import math
 import os
 import re
 import sqlite3
+import struct
+import zipfile
+import zlib
 from pathlib import Path
 import subprocess
 import sys
@@ -224,6 +227,137 @@ def verified_download(asset, cache):
     temporary.replace(target)
     return target
 
+
+
+def pinned_catalog_member(catalog_path, member_path, cache, offline=False, max_bytes=120 * 1024 * 1024):
+    """Read one SHA-verified ZIP member with bounded ranges, never the whole large archive."""
+    catalog = json.loads(Path(catalog_path).read_text())
+    row = next(row for row in catalog['files'] if row['path'] == member_path)
+    obj = catalog['objects'][row['blob']]
+    expected = obj['sha256']
+    if not re.fullmatch(r'[a-f0-9]{64}', expected) or not 0 < obj['bytes'] <= max_bytes:
+        raise ValueError('Invalid or oversized settlement polygon source')
+    target = Path(cache) / 'settlement-polygons' / (expected + '.parquet')
+    if target.is_file() and target.stat().st_size == obj['bytes'] and digest(target) == expected:
+        return target
+    if offline:
+        raise ValueError('Offline settlement polygon source missing or hash differs')
+    asset = next(asset for asset in catalog['assets'] if asset['asset'] == obj['asset'])
+    size = asset['bytes']
+    member = obj.get('archive_member', 'objects/' + row['blob'])
+    url = f"https://github.com/{catalog['repository']}/releases/download/{catalog['release_tag']}/{obj['asset']}"
+
+    def read_range(first, last):
+        if not (0 <= first <= last < size) or last - first + 1 > max_bytes + 1024 * 1024:
+            raise ValueError('Settlement polygon ZIP range outside bounded source')
+        with urlopen(Request(url, headers={'Range': f'bytes={first}-{last}',
+                     'User-Agent': 'russian-settlements-atlas/1'}), timeout=120) as response:
+            if (response.status != 206 or response.headers.get('Content-Range') != f'bytes {first}-{last}/{size}'
+                    or urlparse(response.url).scheme != 'https'):
+                raise ValueError('Settlement polygon source did not honor exact HTTPS byte range')
+            data = response.read(last - first + 2)
+        if len(data) != last - first + 1:
+            raise ValueError('Settlement polygon ZIP range length differs')
+        return data
+
+    trailer = read_range(max(0, size - 65558), size - 1)
+    end_position = trailer.rfind(b'PK\x05\x06')
+    if end_position < 0 or end_position + 22 > len(trailer):
+        raise ValueError('Settlement polygon ZIP end record missing')
+    end = struct.unpack_from('<4s4H2LH', trailer, end_position)
+    if end[1] or end[2] or end[3] != end[4] or end[5] > 1024 * 1024 or end[6] >= size:
+        raise ValueError('Unsupported or oversized settlement polygon ZIP directory')
+    directory_offset = end[6]
+    # ZipFile adjusts original offsets when reading this directory-only suffix.
+    with zipfile.ZipFile(io.BytesIO(read_range(directory_offset, size - 1))) as archive:
+        info = archive.getinfo(member)
+    if info.file_size != obj['bytes'] or info.compress_size > max_bytes or info.flag_bits & 1:
+        raise ValueError('Settlement polygon ZIP member size or encryption differs')
+    header_offset = info.header_offset + directory_offset
+    header = struct.unpack('<4s5H3L2H', read_range(header_offset, header_offset + 29))
+    if header[0] != b'PK\x03\x04' or header[3] != info.compress_type:
+        raise ValueError('Settlement polygon ZIP local header differs')
+    start = header_offset + 30 + header[-2] + header[-1]
+    payload = read_range(start, start + info.compress_size - 1)
+    if info.compress_type == zipfile.ZIP_DEFLATED:
+        decoder = zlib.decompressobj(-15)
+        raw = decoder.decompress(payload, obj['bytes'] + 1)
+        if not decoder.eof or decoder.unconsumed_tail or decoder.unused_data:
+            raise ValueError('Settlement polygon ZIP deflate stream differs or exceeds its bound')
+    elif info.compress_type == zipfile.ZIP_STORED:
+        raw = payload
+    else:
+        raise ValueError('Unsupported settlement polygon ZIP compression')
+    if len(raw) != obj['bytes'] or hashlib.sha256(raw).hexdigest() != expected:
+        raise ValueError('Settlement polygon member SHA-256 differs')
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary = target.with_suffix('.part')
+    temporary.write_bytes(raw)
+    temporary.replace(target)
+    return target
+
+
+def settlement_polygon_features(inventory, lookup, tolerance=.00005):
+    """Display accepted urban census identities only; never infer geometry from a point or ADM2."""
+    import shapely
+    from shapely.geometry import mapping, shape
+    candidates = {}
+    for row in inventory.to_dict('records'):
+        source_id = row.get('source_record_id')
+        if (row.get('polygon_identity_status') != 'named_census_point_in_dated_locality_polygon'
+                or row.get('settlement_type_2021') not in {'город', 'пгт'}
+                or row.get('geometry_identity_resolution') == 'invalid_census_point_held'
+                or source_id not in lookup):
+            continue
+        geometry = shapely.from_wkb(row['geometry_wkb'])
+        if geometry.is_empty or not geometry.is_valid or geometry.geom_type not in {'Polygon', 'MultiPolygon'}:
+            raise ValueError('Accepted settlement polygon geometry is invalid')
+        candidates.setdefault(source_id, []).append((row, geometry))
+    features = []
+    for source_id, records in sorted(candidates.items()):
+        # Multiple accepted source pieces retain their exact common identity; no arbitrary winner.
+        geometry = shapely.union_all([geometry for _, geometry in records])
+        if not geometry.is_valid or geometry.is_empty or geometry.geom_type not in {'Polygon', 'MultiPolygon'}:
+            raise ValueError('Accepted settlement polygon union is invalid')
+        geometry = geometry.simplify(tolerance, preserve_topology=True)
+        source_rows = [row for row, _ in records]
+        point = lookup[source_id]
+        uid = point['properties']['id']
+        feature = {'type': 'Feature', 'id': uid, 'geometry': mapping(geometry), 'properties': {
+            'id': uid, 'name': point['properties']['name'], 'source': 'OpenStreetMap / Geofabrik',
+            'sourceDate': min(str(row['source_snapshot'])[:10] for row in source_rows),
+            'sourceFeatureIds': sorted({str(row['source_feature_id']) for row in source_rows}),
+            'sourceDatasets': sorted({str(row['source_dataset']) for row in source_rows}),
+            'geometryKind': 'cartographic_settlement_contour_not_legal_boundary',
+            'geometryBasis': 'union_of_accepted_named_census_identity_geometries',
+            'nestedMaskApplied': any(truth(row.get('nested_mask_applied')) for row in source_rows),
+            'displaySimplifyDegrees': tolerance,
+        }}
+        rounded = display_boundaries([feature])['features'][0]
+        # Coordinate rounding is display-only, but must not collapse a ring or hole.
+        features.append(rounded if shape(rounded['geometry']).is_valid else feature)
+    return features
+
+
+def export_settlement_polygons(config, output, cache, lookup, offline=False):
+    import pandas as pd
+    source = pinned_catalog_member(ROOT / config['catalog'], config['member'], cache, offline=offline)
+    columns = ['source_record_id', 'polygon_identity_status', 'settlement_type_2021', 'geometry_identity_resolution',
+               'geometry_wkb', 'source_snapshot', 'source_feature_id', 'source_dataset', 'nested_mask_applied']
+    features = settlement_polygon_features(pd.read_parquet(source, columns=columns), lookup, config.get('simplifyDegrees', .00005))
+    shards = {f'{index:02x}': {} for index in range(256)}
+    for feature in features:
+        uid = feature['properties']['id']
+        feature['properties']['sourceUrl'] = config['sourceUrl']
+        shards[uid[:2]][uid] = feature
+    for shard, records in shards.items():
+        write_json(output / 'settlement-polygons' / (shard + '.json'), records)
+    return {'count': len(features), 'path': 'settlement-polygons/{shard}.json',
+            'scope': 'accepted_city_and_urban_type_settlement_census_identities_only',
+            'sourceCatalog': config['catalog'], 'sourceMember': config['member'],
+            'sourceSha256': digest(source), 'sourceUrl': config['sourceUrl'],
+            'geometryKind': 'cartographic_settlement_contour_not_legal_boundary',
+            'displaySimplifyDegrees': config.get('simplifyDegrees', .00005)}
 
 def population_features(wide, long):
     """Use the accepted 2021 point of ordinary additive records; no inferred points."""
@@ -676,6 +810,7 @@ def main(argv=None):
             centres.append({**existing, 'properties': props})
     write_json(args.output / 'centres.geojson', feature_collection(centres))
     registry = export_layers(ROOT / 'web/content', args.output, args.cache, lookup, offline=args.offline)
+    polygon_info = export_settlement_polygons(assets['settlementPolygons'], args.output, args.cache, lookup, offline=args.offline)
     git = subprocess.check_output(['git', 'show', '-s', '--format=%H%n%cI', 'HEAD'], cwd=ROOT, text=True).splitlines()
     manifest = {'version': 1, 'generatedAt': git[1], 'sourceCommit': git[0],
                 'sources': [{'id': 'census-population', 'release': 'sgrt-census-population-20261022-v1', 'catalog': assets['populationCatalog']},
@@ -693,6 +828,7 @@ def main(argv=None):
                                          'displayCoordinateDecimals': 5, 'aggregation': 'unchanged_unsimplified_source_geometry'},
                 'detailPath': 'settlement-details/{shard}.json',
                 'customLayers': 'layers.json',
+                'settlementPolygons': polygon_info,
                 'preview': {'path': 'settlements-preview.json', 'outlinePath': 'country-preview.geojson', 'outlineUse': 'decorative_reference_land_only', 'count': len(preview), 'method': 'one_real_highest_population_point_per_0.15_degree_cell_for_thumbnail_only'},
                 'limitations': [assets.get('boundaryNote', 'Справочная сетка границ не подменяет принятую переписную основу.'),
                                 'Сводки внутри контуров рассчитаны по фиксированному сопоставимому набору точек; это не официальные муниципальные итоги.',
