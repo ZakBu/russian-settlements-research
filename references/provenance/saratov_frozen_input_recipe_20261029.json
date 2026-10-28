@@ -1,0 +1,73 @@
+{
+  "schema": "sgrt.saratov.frozen_inputs.v1",
+  "release_tag": "sgrt-saratov-regional-inputs-20261029-v1",
+  "scope": "Frozen cartographic water context and publicly accessible machine text extracts of official school documents; not observed trips, not original document binaries. No academic full text redistributed.",
+  "files": [
+    {
+      "path": "sources/algayskiy-structure.txt",
+      "bytes": 40613,
+      "sha256": "652efb3eddecf5702612485ee2c4f558cf04ac5bafca25cdd555ac49fd6b2c55"
+    },
+    {
+      "path": "sources/new_readings_fetch.json",
+      "bytes": 1095,
+      "sha256": "9af670a94913c74c5e41befacfe9e27552ebb901f0aca0fe87a43d12cbafc021"
+    },
+    {
+      "path": "sources/novouzensk-reader.txt",
+      "bytes": 17807,
+      "sha256": "d3a646e24825deddaeb0fc3ffd795d8cba7c67c8ddb0492196f6257142c09f4b"
+    },
+    {
+      "path": "sources/piterka-reader.txt",
+      "bytes": 12108,
+      "sha256": "98ccd21c2ab0d1a45e6b7153786815289335408723d93944d95089e58940a8a0"
+    },
+    {
+      "path": "sources/primary_sources_manifest.json",
+      "bytes": 6435,
+      "sha256": "d06aa544fa4f2c1902abb5b1eceef6a024236b6dc4c363d7d36336a774586078"
+    },
+    {
+      "path": "maps/water_source/openfreemap_tilejson.json",
+      "bytes": 19254,
+      "sha256": "c63e0832210be1bc9591e3b267ed78725dd7e843d2ada4b6ef9a22736d9e28dd"
+    },
+    {
+      "path": "maps/water_source/water_manifest.json",
+      "bytes": 30761,
+      "sha256": "595a52dc5b2371fb97a688c246eea743c71101bab85e8313366d693a1f0610bb"
+    },
+    {
+      "path": "maps/water_source/water_mask.geojson",
+      "bytes": 3086525,
+      "sha256": "daf26d344de562fb1b334a73f2255b85af6dc52dc2e84e7cdde69b9f332f9ddf"
+    }
+  ],
+  "metadata_files": {
+    "sources/primary_sources_manifest.json": "references/provenance/saratov_bootstrap_primary_sources_manifest.json",
+    "sources/new_readings_fetch.json": "references/provenance/saratov_bootstrap_new_readings_fetch.json",
+    "maps/water_source/water_manifest.json": "references/provenance/saratov_cartographic_water_20261028.json"
+  },
+  "readers": [
+    {
+      "url": "https://r.jina.ai/https://piterka-r64.gosweb.gosuslugi.ru/netcat_files/46/469/34r.docx",
+      "path": "sources/piterka-reader.txt",
+      "bytes": 12108,
+      "sha256": "98ccd21c2ab0d1a45e6b7153786815289335408723d93944d95089e58940a8a0"
+    },
+    {
+      "url": "https://r.jina.ai/https://shkolaalgajskij-r64.gosweb.gosuslugi.ru/netcat_files/30/66/Prikaz_ot_18.02.2025_g._45_O_zakreplenii_territoriy_Novouzenskogo_munitsipal_nogo_rayona_za_obrazovatel_nymi_uchrezhdeniyami_1_.pdf",
+      "path": "sources/novouzensk-reader.txt",
+      "bytes": 17807,
+      "sha256": "d3a646e24825deddaeb0fc3ffd795d8cba7c67c8ddb0492196f6257142c09f4b"
+    },
+    {
+      "url": "https://r.jina.ai/https://shkolaalgajskij-r64.gosweb.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/struktura-i-organy-upravleniya-obrazovatelnoy-organizatsiey/",
+      "path": "sources/algayskiy-structure.txt",
+      "bytes": 40613,
+      "sha256": "652efb3eddecf5702612485ee2c4f558cf04ac5bafca25cdd555ac49fd6b2c55"
+    }
+  ],
+  "water_source_manifest": "references/provenance/saratov_cartographic_water_20261028.json"
+}
