@@ -50,7 +50,15 @@ def upload(archive,manifest_path,output):
     manifest=json.loads(manifest_path.read_text());facts=check_archive(archive,manifest)
     if archive.stat().st_size>1_000_000:raise ValueError('Bootstrap must stay below the small Git file cap')
     tag=manifest['release_tag']
-    row=json.loads(subprocess.check_output(['gh','api',f'repos/{REPOSITORY}/releases/tags/{tag}'],text=True))
+    matches=[]
+    page=1
+    while True:
+        batch=json.loads(subprocess.check_output(['gh','api',f'repos/{REPOSITORY}/releases?per_page=100&page={page}'],text=True))
+        matches.extend(r for r in batch if r['tag_name']==tag)
+        if len(batch)<100:break
+        page+=1
+    if len(matches)!=1:raise ValueError('Exactly one existing frozen-input draft required')
+    row=matches[0]
     if not row.get('draft') or row.get('assets'):raise ValueError('An existing empty draft is required; no overwrite')
     subprocess.run(['gh','release','upload',tag,'--repo',REPOSITORY,str(archive),str(manifest_path)],check=True)
     row=json.loads(subprocess.check_output(['gh','api',f'repos/{REPOSITORY}/releases/{row["id"]}'],text=True))
