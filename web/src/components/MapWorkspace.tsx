@@ -148,6 +148,10 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
   const [aggregateBusy, setAggregateBusy] = useState(false);
   const [details, setDetails] = useState<any>(null);
   const [detailError, setDetailError] = useState(false);
+  const polygonCache=useRef<Record<string,Promise<Record<string,Feature>>>>({});
+  const polygonFit=useRef(false);
+  const [placeBoundary,setPlaceBoundary]=useState<{id:string;feature:Feature}|null>(null);
+  const [boundaryStatus,setBoundaryStatus]=useState<'loading'|'available'|'missing'|'error'>('loading');
   const [query, setQuery] = useState('');
   const [searchFocus, setSearchFocus] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -173,11 +177,12 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
   function zoomTo(feature: Feature,detail=false) {
     const box = bounds(feature); if (!box || !map.current) return;
     const mobile = window.innerWidth < 760;
-    map.current.fitBounds(box, { padding: { top: 75, left: !mobile && panel ? 325 : 35, right: 45, bottom: mobile ? 240 : 280 }, maxZoom: feature.geometry.type === 'Point' ? (detail?15.5:settlementMagnitude(feature.properties)<20000?14:11) : 9, duration: 650 });
+    map.current.fitBounds(box, { padding: { top: 75, left: !mobile && panel ? 325 : 35, right: 45, bottom: mobile ? 240 : 280 }, maxZoom: feature.geometry.type === 'Point' ? (detail?15.5:settlementMagnitude(feature.properties)<20000?14:11) : feature.properties.settlementBoundary?14:9, duration: 650 });
   }
   const cancelPendingSelection=()=>{deferredSelection.current=null;if(initialLocation.current)initialLocation.current.selected=''};
   const select = (s: Selection, fit = false, history = true) => {
     cancelPendingSelection();
+    polygonFit.current=history;setPlaceBoundary(null);setBoundaryStatus('loading');
     setSelection(s); setMode(s.mode); setCollapsed(false); setDetails(null); setDetailError(false);
     if (window.innerWidth < 760) setPanel(false);
     if (fit) zoomTo(s.feature);
@@ -322,8 +327,8 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
       instance.addSource('centres', { type: 'geojson', data: empty as any });
       instance.addLayer({ id: 'centres-point', type: 'circle', source: 'centres', paint: { 'circle-color': '#F4F6FF', 'circle-radius': 7, 'circle-stroke-color': '#7955C5', 'circle-stroke-width': 2.5, 'circle-opacity': .8 } });
       instance.addSource('selected', { type: 'geojson', data: empty as any });
-      instance.addLayer({ id: 'selected-fill', type: 'fill', source: 'selected', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'fill-color': '#244CFF', 'fill-opacity': .08 } });
-      instance.addLayer({ id: 'selected-line', type: 'line', source: 'selected', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'line-color': '#244CFF', 'line-width': 2 } });
+      instance.addLayer({ id: 'selected-fill', type: 'fill', source: 'selected', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'fill-color': '#244CFF', 'fill-opacity': ['case',['==',['get','settlementBoundary'],true],.13,.08] } });
+      instance.addLayer({ id: 'selected-line', type: 'line', source: 'selected', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'line-color': '#244CFF', 'line-width': ['case',['==',['get','settlementBoundary'],true],2.5,2] } });
       instance.addLayer({ id: 'selected-point', type: 'circle', source: 'selected', filter: ['==', ['geometry-type'], 'Point'], paint: { 'circle-color': '#244CFF', 'circle-radius': 7, 'circle-stroke-color': '#FFFFFF', 'circle-stroke-width': 3 } });
       loaded.current = true; refreshMap(instance, dataRef.current); renderLabels.current();
     });
@@ -380,6 +385,9 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
         if (feature) selectRef.current({ mode: currentMode, feature });
       }
     });
+    const cancelPolygonFit=()=>{polygonFit.current=false};
+    instance.on('wheel',cancelPolygonFit);instance.on('dragstart',cancelPolygonFit);instance.on('touchstart',cancelPolygonFit);
+    instance.on('move', event => { if(event.originalEvent)cancelPolygonFit(); });
     instance.on('moveend', () => { syncRef.current();if(instance.getZoom()>=7)void loadCollection('settlements');renderLabels.current(); });
     instance.on('error', event => { if (event.error?.message?.includes('WebGL')) setMapError('Ошибка отображения карты. Обновите страницу.'); });
     const resize = new ResizeObserver(() => instance.resize()); resize.observe(mapElement.current);
@@ -432,12 +440,12 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
       instance.setPaintProperty('selected-line', 'line-color', c.blue);
       instance.setPaintProperty('selected-point', 'circle-color', c.blue);
       instance.setPaintProperty('selected-fill', 'fill-color', c.blue);
-      (instance.getSource('selected') as maplibregl.GeoJSONSource).setData((selection ? { type: 'FeatureCollection', features: [selection.feature] } : empty) as any);
+      (instance.getSource('selected') as maplibregl.GeoJSONSource).setData((selection ? { type: 'FeatureCollection', features: [selection.mode==='settlement'&&placeBoundary?.id===idOf(selection.feature)?placeBoundary.feature:selection.feature] } : empty) as any);
     };
     if (loaded.current) apply(); else instance.once('load', apply);
     if (loaded.current && !busy) updateUrl();
     return () => { instance.off('load', apply); };
-  }, [layers, period, opacity, dark, selection, mode, collections]);
+  }, [layers, period, opacity, dark, selection, mode, collections,placeBoundary]);
 
   useEffect(() => {
     if (!selection) { setMembers([]); return; }
@@ -462,6 +470,26 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
     };
     void getDetail(); return () => { live = false; };
   }, [selection, root]);
+
+  useEffect(()=>{
+    setPlaceBoundary(null);setBoundaryStatus('loading');
+    if(!selection||selection.mode!=='settlement')return;
+    const id=idOf(selection.feature),shard=String(selection.feature.properties.shard||id.slice(0,2));
+    let live=true;
+    if(!/^[a-f0-9]{2}$/.test(shard)){setBoundaryStatus('missing');return}
+    const load=async()=>{
+      try{
+        if(!polygonCache.current[shard])polygonCache.current[shard]=fetch(`${root}data/settlement-polygons/${shard}.json`).then(response=>{if(!response.ok)throw new Error('boundary');return response.json()}).catch(error=>{delete polygonCache.current[shard];throw error});
+        const records=await polygonCache.current[shard],feature=records[id];
+        if(!live)return;
+        if(!feature||!['Polygon','MultiPolygon'].includes(feature.geometry?.type)||idOf(feature)!==id){setBoundaryStatus('missing');return}
+        const boundary={...feature,properties:{...feature.properties,settlementBoundary:true}};
+        setPlaceBoundary({id,feature:boundary});setBoundaryStatus('available');
+        if(polygonFit.current){polygonFit.current=false;zoomTo(boundary)}
+      }catch{if(live)setBoundaryStatus('error')}
+    };
+    void load();return()=>{live=false};
+  },[selection,root]);
 
   const needle = query.trim().toLocaleLowerCase('ru'), aliasNeedle = searchKey(query);
   const searchable = (f: Feature) => `${titleOf(f)} ${f.properties.sourceName || ''} ${(f.properties.searchAliases || []).join(' ')} ${f.properties.nameRu || ''} ${f.properties.aliases || ''} ${f.properties.region || ''}`;
@@ -512,7 +540,7 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
     {enabledRegistry.length > 0 && <aside className="map-custom-legend" aria-label="Легенда исследовательских слоёв">{enabledRegistry.map(meta => { const payload = customCache.current[meta.id], stats = payload ? layerStats(payload) : null; return <div key={meta.id}><strong>{meta.title}</strong><span><i style={{background: meta.palette === 'population-change' ? 'linear-gradient(to right,#C65B24,#CED7EC,#244CFF)' : ['categorical','service-type'].includes(meta.palette) ? 'linear-gradient(to right,#244CFF 20%,#16806A 20% 40%,#C65B24 40% 60%,#7955C5 60% 80%,#9C7715 80%)' : undefined}} />{stats ? stats.known ? `${shown(stats.min)} — ${shown(stats.max)} ${meta.unit}` : 'Нет численных значений' : customErrors[meta.id] ? 'Слой недоступен' : 'Загрузка…'}</span><small>{meta.period} · {meta.evidence === 'model' ? 'Модельная оценка' : meta.evidence === 'calculation' ? 'Расчёт' : meta.evidence === 'observation' ? 'Наблюдение' : meta.evidence}{stats ? ` · ${stats.count} объектов, ${stats.known} значений` : ''}</small>{meta.description && <small>{meta.description}</small>}<a href={meta.source?.url} target="_blank" rel="noreferrer">{meta.source?.title || 'Источник'} ↗</a></div>; })}</aside>}
     {selection && <section className={`map-infographic ${collapsed ? 'collapsed' : ''}`} aria-label={`Инфографика: ${titleOf(selection.feature)}`}>
       <div className="map-info-header"><div><span className="map-eyebrow">{selectionLabel(selection)} / {selection.mode === 'settlement' ? selection.feature.properties.region || 'Переписная база' : `Сетка ${selection.feature.properties.epoch} года · ${selection.feature.properties.provider}`}</span><h2>{titleOf(selection.feature)}</h2></div><div className="map-info-actions"><button onClick={() => zoomTo(selection.feature,true)}>Приблизить ↗</button><button onClick={() => setCollapsed(!collapsed)} aria-expanded={!collapsed} aria-label={collapsed ? 'Развернуть графики' : 'Свернуть графики'}>{collapsed ? '⌃' : '⌄'}</button><button onClick={() => { cancelPendingSelection();setSelection(null); updateUrl(null, true); }} aria-label="Закрыть выбранный объект">×</button></div></div>
-      {!collapsed && <div className="map-info-body"><div className="map-info-context"><p>{selection.mode === 'settlement' ? 'Население по переписям и сведения об обслуживании.' : 'Пространственная сводка по переписным точкам внутри выбранной границы.'}</p><dl><div><dt>Переписных точек в базе</dt><dd>{aggregateBusy ? '…' : shown(memberCount)}</dd></div><div><dt>Полных рядов за три переписи</dt><dd>{aggregateBusy ? '…' : `${shown(comparable)} из ${shown(memberCount)}`}</dd></div><div><dt>Услуг в текущем слое</dt><dd>{selectedServices.length ? shown(selectedServices.length) : 'Нет сведений'}</dd></div></dl>{selection.mode !== 'settlement' && <small>Динамика — по НП с полным рядом. Полный численный ряд не доказывает неизменность границ. Это не официальный муниципальный итог.</small>}{selection.mode === 'settlement' && <small>{detailError ? 'Подробный источник временно недоступен.' : details ? `Источник: ${details.source === 'census-population' ? 'Связанная база переписей 2002/2010/2021' : details.source || 'Связанная база переписей'}` : 'Читаем подробные сведения…'}</small>}</div><div className="map-info-visual">{aggregateBusy ? <p role="status">Рассчитываем сводку выбранной территории…</p> : <Charts features={members} selected={selection} dark={dark} />}</div><footer>Переписи 2002 / 2010 / 2021 · Пропуск не равен нулю · <a href={`${root}materials/?kind=method`}>Методология и ограничения ↗</a></footer></div>}
+      {!collapsed && <div className="map-info-body"><div className="map-info-context"><p>{selection.mode === 'settlement' ? 'Население по переписям и сведения об обслуживании.' : 'Пространственная сводка по переписным точкам внутри выбранной границы.'}</p>{selection.mode==='settlement'&&<small data-settlement-boundary={boundaryStatus}>{boundaryStatus==='loading'?'Загружаем контур населённого пункта…':boundaryStatus==='available'?<>Картографический контур НП: {placeBoundary?.feature.properties.source || 'OpenStreetMap'}{placeBoundary?.feature.properties.sourceDate?` · ${String(placeBoundary.feature.properties.sourceDate).split('-').reverse().join('.')}`:''}. {placeBoundary?.feature.properties.sourceUrl&&<a href={placeBoundary.feature.properties.sourceUrl} target="_blank" rel="noopener noreferrer">Источник ↗</a>}</>:boundaryStatus==='missing'?'В подключённом источнике нет однозначно сопоставленного контура этого НП. Показана переписная точка.':'Контур временно недоступен. Показана переписная точка.'}</small>}<dl><div><dt>Переписных точек в базе</dt><dd>{aggregateBusy ? '…' : shown(memberCount)}</dd></div><div><dt>Полных рядов за три переписи</dt><dd>{aggregateBusy ? '…' : `${shown(comparable)} из ${shown(memberCount)}`}</dd></div><div><dt>Услуг в текущем слое</dt><dd>{selectedServices.length ? shown(selectedServices.length) : 'Нет сведений'}</dd></div></dl>{selection.mode !== 'settlement' && <small>Динамика — по НП с полным рядом. Полный численный ряд не доказывает неизменность границ. Это не официальный муниципальный итог.</small>}{selection.mode === 'settlement' && <small>{detailError ? 'Подробный источник временно недоступен.' : details ? `Источник: ${details.source === 'census-population' ? 'Связанная база переписей 2002/2010/2021' : details.source || 'Связанная база переписей'}` : 'Читаем подробные сведения…'}</small>}</div><div className="map-info-visual">{aggregateBusy ? <p role="status">Рассчитываем сводку выбранной территории…</p> : <Charts features={members} selected={selection} dark={dark} />}</div><footer>Переписи 2002 / 2010 / 2021 · Пропуск не равен нулю · <a href={`${root}materials/?kind=method`}>Методология и ограничения ↗</a></footer></div>}
     </section>}
     <div className="map-provenance">{basemapUnavailable ? 'Подложка недоступна; локальные слои сохранены' : 'OpenFreeMap · OpenStreetMap · слои исследования'} · {manifest?.generatedAt ? `Данные: ${new Date(manifest.generatedAt).toLocaleDateString('ru-RU')}` : 'Версионированные данные'} · <a href="https://github.com/ZakBu/russian-settlements-research" target="_blank" rel="noreferrer">Источники и код ↗</a></div>
   </section>;
