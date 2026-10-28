@@ -1,6 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Updates from '../../components/Updates.astro';
-import '../../styles/materials.css';
+import {basePath} from '../../lib/content';
 ---
-<Layout title="Обновления исследований" active="updates"><div class="shell updates-page"><h1>Ход исследований</h1><p>Новые результаты, методы и исправления. Отмечайте просмотренные версии, чтобы вернуться к остальному позже.</p><Updates/></div></Layout>
+<Layout title="Материалы исследований" active="materials"><div class="shell"><h1>Все материалы — в библиотеке</h1><p>Новые и изменённые материалы отмечены синей точкой рядом с названием.</p><a href={basePath('materials/?unread=1')} class="primary-button">Открыть непросмотренные материалы</a><p><a href={basePath('materials/')}>Перейти ко всем коллекциям</a></p></div></Layout>
+<script>
+const target=new URL(import.meta.env.BASE_URL+'materials/',location.origin);
+const source=new URL(location.href);for(const key of ['research','unread'])if(source.searchParams.has(key))target.searchParams.set(key,source.searchParams.get(key)!);
+location.replace(target.href);
+</script>

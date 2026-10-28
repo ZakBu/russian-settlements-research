@@ -9,17 +9,23 @@ import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import {Moon, Sun, ArrowUpRight,List} from '@phosphor-icons/react';
 import DocumentDrawer from '../components/DocumentDrawer.astro';
-import {basePath,research} from '../lib/content';
+import {basePath,research,materials} from '../lib/content';
+import {publicationVersion} from '../lib/publication-version';
 interface Props {title:string;active?:string;map?:boolean;description?:string;researchId?:string;materialId?:string}
 const {title,active='',map=false,description='Атлас расселения России: население, услуги, связи и развитие исследования.',researchId='',materialId=''}=Astro.props;
+const currentMaterial=materials.find(material=>material.id===materialId);
 ---
 <!doctype html><html lang="ru"><head><meta charset="UTF-8"/><link rel="icon" type="image/svg+xml" sizes="any" href={basePath('favicon.svg')}/><meta name="viewport" content="width=device-width"/><meta name="description" content={description}/><title>{title} — Атлас расселения</title><script is:inline>try{const t=localStorage.getItem('atlas-theme');document.documentElement.dataset.theme=t||'light'}catch{document.documentElement.dataset.theme='light'}</script></head>
-<body class:list={{'map-page':map}}><a href="#main" class="skip-link">Перейти к содержимому</a>
+<body class:list={{'map-page':map}} data-reading-material={currentMaterial?.id} data-reading-version={currentMaterial?publicationVersion(currentMaterial):undefined}><a href="#main" class="skip-link">Перейти к содержимому</a>
 <header class="site-header">{!map&&<button type="button" class="icon-button document-drawer-trigger" hidden data-drawer-trigger aria-label="Открыть навигацию по материалам" aria-controls="document-drawer" aria-haspopup="dialog" aria-expanded="false"><List size={24} aria-hidden="true"/></button>}<a href={basePath()} class="brand" aria-label="Атлас расселения — главная"><span class="pixel-logo" aria-hidden="true">{Array.from({length:25},()=> <i/> )}</span><span>Атлас<br/>расселения</span></a><span class="brand-tag eyebrow">Люди. Территории. Возможности.</span>
-<nav class="site-nav" aria-label="Основная навигация">{[['map','Карта'],['materials','Материалы'],['updates','Обновления']].map(([key,label])=><a href={basePath(`${key}/`)} data-nav-section={key} aria-current={active===key?'page':undefined}>{label}</a>)}</nav>
-<div class="header-controls">{!['materials','updates'].includes(active)&&<select class="research-select" id="research-switch" aria-label="Выбрать исследование" data-base={basePath()}><option value="">Все исследования</option>{research.sort((a,b)=>a.order-b.order).map(r=><option value={r.id} selected={researchId===r.id}>{r.title}</option>)}</select>}<button class="icon-button" id="theme-toggle" aria-label="Переключить светлую и тёмную тему"><Moon size={21}/></button></div></header>
+<nav class="site-nav" aria-label="Основная навигация">{[['map','Карта'],['materials','Материалы']].map(([key,label])=><a href={basePath(`${key}/`)} data-nav-section={key} aria-current={active===key?'page':undefined}>{label}</a>)}</nav>
+<div class="header-controls"><select class="research-select" id="research-switch" aria-label="Выбрать исследование" data-base={basePath()}><option value="">Все исследования</option>{[...research].sort((a,b)=>a.order-b.order).map(r=><option value={r.id} selected={researchId===r.id}>{r.title}</option>)}</select><button class="icon-button" id="theme-toggle" aria-label="Переключить светлую и тёмную тему"><Moon size={21}/></button></div></header>
 {!map&&<DocumentDrawer current={materialId} researchId={researchId}/>}<main id="main"><slot/></main>{!map&&<footer class="footer"><span>Атлас расселения / Исследовательский портал</span><span>Данные и результаты имеют собственные даты и версии</span><a href="https://github.com/ZakBu/russian-settlements-research" target="_blank" rel="noopener noreferrer">Исходники и данные ↗</a></footer>}
 <script>
+import {markVersions,bindMaterialReadingState} from '../lib/reading-state';
+const readingMaterial=document.body.dataset.readingMaterial,readingVersion=document.body.dataset.readingVersion;
+if(readingMaterial&&readingVersion)markVersions([{id:readingMaterial,version:readingVersion}]);
+bindMaterialReadingState();
 const button=document.getElementById('theme-toggle');button?.addEventListener('click',()=>{const theme=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=theme;try{localStorage.setItem('atlas-theme',theme)}catch{}window.dispatchEvent(new CustomEvent('atlas-theme',{detail:theme}));button.setAttribute('aria-label',theme==='dark'?'Включить светлую тему':'Включить тёмную тему')});
 const select=document.getElementById('research-switch') as HTMLSelectElement|null;
 if(select){
@@ -28,10 +34,11 @@ if(select){
  const carryResearch=()=>{document.querySelectorAll<HTMLAnchorElement>('[data-nav-section]').forEach(link=>{const url=new URL(link.href);if(select.value)url.searchParams.set('research',select.value);else url.searchParams.delete('research');link.href=url.href})};
  carryResearch();
  select.addEventListener('change',()=>{const base=select.dataset.base!;const section=location.pathname.slice(base.length).replace(/^\//,'').split('/')[0];
- if(['atlas','knowledge','map'].includes(section)){const url=new URL(location.href);if(select.value)url.searchParams.set('research',select.value);else url.searchParams.delete('research');location.href=url.href}
- else location.href=base+(select.value?`research/${select.value}/`:'');
+ if(['atlas','knowledge','map','materials'].includes(section)&&!(section==='materials'&&location.pathname.slice(base.length).replace(/^\//,'').split('/')[1])){const url=new URL(location.href);if(select.value)url.searchParams.set('research',select.value);else url.searchParams.delete('research');if(section!=='map')for(const key of ['within','focus','collection'])url.searchParams.delete(key);location.href=url.href}
+ else location.href=base+'materials/'+(select.value?`?research=${encodeURIComponent(select.value)}`:'');
  });
  window.addEventListener('atlas-research-reset',()=>{select.value='';carryResearch()});
+ window.addEventListener('atlas-research-change',event=>{const id=(event as CustomEvent<string>).detail;if(typeof id==='string'&&[...select.options].some(option=>option.value===id)){select.value=id;carryResearch()}});
 }
 
 </script></body></html>
