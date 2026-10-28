@@ -1,3 +1,4 @@
+import json
 """Scientific edge cases of the static export, using small in-memory fixtures."""
 import importlib.util
 from pathlib import Path
@@ -251,6 +252,94 @@ class ExportTests(unittest.TestCase):
         self.assertEqual(props['sourceName'], 'Source Raion')
         self.assertEqual(props['searchAliases'], ['Муниципальный округ'])
         self.assertIn('not_verified_municipality_match', props['searchAliasBasis'])
+
+
+class SettlementPolygonTests(unittest.TestCase):
+    def test_only_accepted_exact_urban_ids_are_exported_without_changing_points(self):
+        from shapely.geometry import box
+        import shapely
+        lookup = {source: {'type': 'Feature', 'geometry': {'type': 'Point', 'coordinates': [1, 1]},
+                  'properties': {'id': site.short_id(source), 'name': source}}
+                  for source in ['urban', 'rural', 'held', 'bad-coordinate']}
+        original = json.dumps(lookup, sort_keys=True)
+        rows = []
+        for source, kind, status, resolution in [
+            ('urban', 'город', 'named_census_point_in_dated_locality_polygon', 'unchanged'),
+            ('rural', 'село', 'named_census_point_in_dated_locality_polygon', 'unchanged'),
+            ('held', 'город', 'held_multiple_named_census_points_in_source_polygon', 'unchanged'),
+            ('bad-coordinate', 'город', 'named_census_point_in_dated_locality_polygon', 'invalid_census_point_held'),
+            ('no-census-identity', 'город', 'named_census_point_in_dated_locality_polygon', 'unchanged')]:
+            rows.append({'source_record_id': source, 'settlement_type_2021': kind,
+                         'polygon_identity_status': status, 'geometry_identity_resolution': resolution,
+                         'geometry_wkb': shapely.to_wkb(box(0, 0, 2, 2)), 'source_snapshot': '2026-10-26T00:00:00Z',
+                         'source_feature_id': source, 'source_dataset': 'geofabrik_places_a', 'nested_mask_applied': False})
+        result = site.settlement_polygon_features(pd.DataFrame(rows), lookup)
+        self.assertEqual([feature['properties']['id'] for feature in result], [site.short_id('urban')])
+        self.assertEqual(result[0]['properties']['geometryKind'], 'cartographic_settlement_contour_not_legal_boundary')
+        self.assertEqual(json.dumps(lookup, sort_keys=True), original)
+
+    def test_duplicate_accepted_pieces_are_unioned_by_identity_not_overwritten(self):
+        from shapely.geometry import box, shape
+        import shapely
+        uid = site.short_id('urban')
+        lookup = {'urban': {'properties': {'id': uid, 'name': 'Город'}}}
+        rows = [{'source_record_id': 'urban', 'settlement_type_2021': 'пгт',
+                 'polygon_identity_status': 'named_census_point_in_dated_locality_polygon',
+                 'geometry_identity_resolution': 'unchanged', 'geometry_wkb': shapely.to_wkb(geometry),
+                 'source_snapshot': '2026-10-26T00:00:00Z', 'source_feature_id': source,
+                 'source_dataset': 'geofabrik_places_a', 'nested_mask_applied': False}
+                for source, geometry in [('a', box(0, 0, 1, 1)), ('b', box(2, 0, 3, 1))]]
+        output = site.settlement_polygon_features(pd.DataFrame(rows), lookup)
+        self.assertEqual(len(output), 1)
+        geometry = shape(output[0]['geometry'])
+        self.assertEqual(geometry.geom_type, 'MultiPolygon')
+        self.assertTrue(geometry.is_valid)
+        self.assertAlmostEqual(geometry.area, 2)
+        self.assertEqual(output[0]['properties']['sourceFeatureIds'], ['a', 'b'])
+
+    def test_bounded_zip_member_fetch_verifies_sha_and_reuses_offline_cache(self):
+        import hashlib, io, re, tempfile, zipfile
+        from unittest.mock import patch
+        member, raw = 'boundaries/locality_polygons.parquet', b'pinned-parquet-fixture'
+        buffer = io.BytesIO()
+        with zipfile.ZipFile(buffer, 'w', compression=zipfile.ZIP_STORED) as archive:
+            archive.writestr('unrelated-large-member', b'x' * 1024 * 1024)
+            archive.writestr(member, raw, compress_type=zipfile.ZIP_DEFLATED)
+        archive_bytes = buffer.getvalue()
+        sha = hashlib.sha256(raw).hexdigest()
+        catalog = {'repository': 'example/research', 'release_tag': 'v1',
+                   'files': [{'path': member, 'blob': sha}],
+                   'objects': {sha: {'sha256': sha, 'bytes': len(raw), 'asset': 'source.zip', 'archive_member': member}},
+                   'assets': [{'asset': 'source.zip', 'bytes': len(archive_bytes)}]}
+        requested = []
+        class Response(io.BytesIO):
+            status = 206
+            url = 'https://github.com/example/research/releases/download/v1/source.zip'
+        def fetch(request, timeout):
+            first, last = map(int, re.fullmatch(r'bytes=(\d+)-(\d+)', request.get_header('Range')).groups())
+            requested.append((first, last))
+            response = Response(archive_bytes[first:last + 1])
+            response.headers = {'Content-Range': f'bytes {first}-{last}/{len(archive_bytes)}'}
+            return response
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            path = root / 'catalog.json'
+            path.write_text(json.dumps(catalog))
+            with patch.object(site, 'urlopen', side_effect=fetch):
+                result = site.pinned_catalog_member(path, member, root)
+            self.assertEqual(result.read_bytes(), raw)
+            self.assertLess(sum(last - first + 1 for first, last in requested), 100000)
+            with patch.object(site, 'urlopen', side_effect=AssertionError('Unexpected network access')):
+                self.assertEqual(site.pinned_catalog_member(path, member, root, offline=True), result)
+            catalog['objects'][sha]['sha256'] = '0' * 64
+            path.write_text(json.dumps(catalog))
+            with patch.object(site, 'urlopen', side_effect=fetch), self.assertRaisesRegex(ValueError, 'SHA-256'):
+                site.pinned_catalog_member(path, member, root)
+            catalog['objects'][sha]['sha256'] = sha
+            path.write_text(json.dumps(catalog))
+            result.write_bytes(b'corrupt')
+            with self.assertRaisesRegex(ValueError, 'Offline settlement polygon'):
+                site.pinned_catalog_member(path, member, root, offline=True)
 
 
 if __name__ == '__main__':
