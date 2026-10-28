@@ -1,0 +1,111 @@
+{
+  "schema": "sgrt.census_workplace_evidence.v1",
+  "sources": [
+    {
+      "source_file": "references/primary/census_workplace_20261027/2021_table10.md",
+      "official_url": "https://rosstat.gov.ru/storage/mediabank/Tom10_tab10_VPN-2020.xlsx",
+      "public_rendering_url": "https://r.jina.ai/https://rosstat.gov.ru/storage/mediabank/Tom10_tab10_VPN-2020.xlsx",
+      "retrieved_utc": "2026-10-26T22:48:16.596410+00:00",
+      "source_markdown_sha256": "cb9dca52f3227a26bc28c8450b3da57bb65cc592cb2debab1073c245cd0640ab",
+      "census_reference_year": 2021,
+      "table": 10,
+      "format": "public text rendering; original XLSX/PDF binary NOT acquired",
+      "pinned_format": "UTF-8 Markdown in Git, below1MB each"
+    },
+    {
+      "source_file": "references/primary/census_workplace_20261027/2021_table12.md",
+      "official_url": "https://rosstat.gov.ru/storage/mediabank/Tom10_tab12_VPN-2020.xlsx",
+      "public_rendering_url": "https://r.jina.ai/https://rosstat.gov.ru/storage/mediabank/Tom10_tab12_VPN-2020.xlsx",
+      "retrieved_utc": "2026-10-26T22:50:19.716508+00:00",
+      "source_markdown_sha256": "500bbe1005e0fe9e72b3f70e16c4eb8ee9009fa06e68e807b2f87b5de0842d2b",
+      "census_reference_year": 2021,
+      "table": 12,
+      "format": "public text rendering; original XLSX/PDF binary NOT acquired",
+      "pinned_format": "UTF-8 Markdown in Git, below1MB each"
+    },
+    {
+      "source_file": "references/primary/census_workplace_20261027/2021_table11.md",
+      "official_url": "https://rosstat.gov.ru/storage/mediabank/Tom10_Tab11_VPN-2020.xlsx",
+      "public_rendering_url": "https://r.jina.ai/https://rosstat.gov.ru/storage/mediabank/Tom10_Tab11_VPN-2020.xlsx",
+      "retrieved_utc": "2026-10-26T22:48:11.096232+00:00",
+      "source_markdown_sha256": "38d9b5afa2b335ab742a8dd063674f697351d15857436f31e35a0c789e1f648f",
+      "census_reference_year": 2021,
+      "table": 11,
+      "format": "public text rendering; original XLSX/PDF binary NOT acquired",
+      "pinned_format": "UTF-8 Markdown in Git, below1MB each"
+    },
+    {
+      "source_file": "references/primary/census_workplace_20261027/2010_buryatia_table9.md",
+      "official_url": "https://03.rosstat.gov.ru/storage/mediabank/2010_pub-07-09_%D0%A2%D0%B5%D1%80%D1%80=81000000.pdf",
+      "public_rendering_url": "https://r.jina.ai/https://03.rosstat.gov.ru/storage/mediabank/2010_pub-07-09_%D0%A2%D0%B5%D1%80%D1%80=81000000.pdf",
+      "retrieved_utc": "2026-10-26T22:52:23.365549+00:00",
+      "source_markdown_sha256": "e28fce300e3e705198d4be8393b31424dea357eff6b1a653100a5da85bcce488",
+      "census_reference_year": 2010,
+      "table": 9,
+      "format": "public text rendering; original XLSX/PDF binary NOT acquired",
+      "pinned_format": "UTF-8 Markdown in Git, below1MB each"
+    },
+    {
+      "source_file": "references/primary/census_workplace_20261027/2021_catalog.md",
+      "official_url": "https://rosstat.gov.ru/vpn/2020/Tom10_Rabochaya_sila",
+      "public_rendering_url": "https://r.jina.ai/https://rosstat.gov.ru/vpn/2020/Tom10_Rabochaya_sila",
+      "retrieved_utc": "2026-10-26T22:46:57.489414+00:00",
+      "source_markdown_sha256": "4fc2ebe0bfc310f07e6487b7c1c4aad13c4773bd6b9b434efec56b20d35aba0b",
+      "census_reference_year": 2021,
+      "table": null,
+      "format": "public text rendering; original XLSX/PDF binary NOT acquired",
+      "pinned_format": "UTF-8 Markdown in Git, below1MB each"
+    },
+    {
+      "source_file": "references/primary/census_workplace_20261027/2010_buryatia_catalog.md",
+      "official_url": "https://03.rosstat.gov.ru/vpn2010",
+      "public_rendering_url": "https://r.jina.ai/https://03.rosstat.gov.ru/vpn2010",
+      "retrieved_utc": "2026-10-26T22:50:22.729119+00:00",
+      "source_markdown_sha256": "4c9db295ee2b2f7a94f752ecdf36df362edc47faee964000d7229dbdbdea6191",
+      "census_reference_year": 2010,
+      "table": null,
+      "format": "public text rendering; original XLSX/PDF binary NOT acquired",
+      "pinned_format": "UTF-8 Markdown in Git, below1MB each"
+    }
+  ],
+  "data_directory": "references/provenance/census_workplace_20261027",
+  "extractor": "scripts/sgrt_zero/census_workplace_evidence.py",
+  "method": {
+    "2021": "Tom10, Labour force. Table10 all employed15+ and same NP; table12 employed outsideNP and frequency; join by exact published geography label and urban/rural category. Same-subject otherNP = sameSubject - sameNP. Outside includes reported outsideNP even when work subject not given. unresolvedNP = all - sameNP - reportedOutsideNP. OutsideNP-with-unknown-subject = outsideNP - (sameSubjectOtherNP + otherSubject + abroad); it is not all unknown-territory workers.",
+    "2010": "Buryatia Tom7, Economically active and inactive population, table9, age15–72. Known outsideNP = all - sameNP - unknownWorkplace. This does NOT mean outside the municipality. K/К suppression is null, not zero. Exact outside computed only when all three inputs numeric; unresolved headings are NOT guessed.",
+    "geographic_grain": "2021: federal subjects + 8 FD + 2 oblast remainder aggregates; urban/rural. 2010: nested municipality, municipality-settlement and urbanNP; rural municipality-settlement NOT equated with named ruralNP.",
+    "denominators": "Employed residents in private households; NOT entire population, NOT registered jobs, NOT all outgoing workers. Census2021 15+ vs2010 15–72, not silently comparable.",
+    "overlap": "Do not sum95 geography labels: FD, Archangelsk includingNAO and NAO, Tyumen includingKhMAO/YaNAO and autonomous districts, and remainder versions overlap. aggregate_overlap flags inclusive oblasts, nestedsubjects and FD.2010 administrative levels also overlap.",
+    "limits": "NOT origin-destination matrices. No destination city identified. OutsideNP share does not estimate travel distance or identify the decay exponent by itself; it can constrain modeled outside fractions when denominators, geography and travel frequency match.2010 is temporally separate validation. Remote/rare monthly journeys are not daily commuting. Unknowns remain an uncertainty interval. No empirical settlement-level2021 workplace share invented."
+  },
+  "counts": {
+    "2021_rows": 281,
+    "2021_geography_labels": 95,
+    "2021_subject_labels": 85,
+    "2021_federal_district_labels": 8,
+    "2021_oblast_remainder_labels": 2,
+    "2010_named_rows": 294,
+    "2010_exact_outside_rows": 177,
+    "2010_unresolved_heading_rows": 15,
+    "2010_unique_urban_np_population_joins": 11
+  },
+  "population_join": {
+    "reference": "sgrt/zero20261025/context/analysis_reference.parquet",
+    "reference_sha256": "456a0fd57c363cd7ade3563c5737634dd34ebda585569fc80bec160e4cc55e90",
+    "method": "exact unique normalized name within Buryatia; ONLY explicit urbanNP or exacturbanokrug=NP headings;11unique matches; all employed2010 <= population2010. Historical2010 MO boundaries not crosswalked to2021 NP.",
+    "reference_row_count": 173242,
+    "reference_scope": "Pinned public20261025 analysis reference:173242 rows;155414 non-null unique current source IDs and17828 rows without current source identity. Population-root chains are not counted as current settlements.",
+    "reference_nonnull_unique_source_record_ids": 155414,
+    "reference_null_source_record_id_rows": 17828
+  },
+  "validation": {
+    "regional_component_identity_rows": 281,
+    "regional_frequency_identity_rows": 281,
+    "buryatia2010_component_identity_complete_rows": 126,
+    "buryatia2010_exact_urban_np_outside_rows": 8,
+    "validation_failures": 0,
+    "countertests": 5,
+    "source_sha_verified_before_parse": true
+  },
+  "primary_text_directory": "references/primary/census_workplace_20261027"
+}

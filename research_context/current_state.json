@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-26T23:49:41+03:00",
+  "updated_moscow": "2026-10-27T02:45:41+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,30 +9,27 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "model_level0_centres_and_fixed_membership_demographic_profiles_published",
-      "summary": "Опубликованы 28 512 модельных низовых центров, включая 5 210 с тремя известными базовыми функциями; медианный диаметр окружения — 8,11 км. Добавлена демография центра и окружающих сёл: у 16 830 центров обе части убывали за 2002–2021. Это фиксированные пересекающиеся окружения, не наблюдённые поездки, причинные типы Word или завершённая иерархия.",
+      "status": "model_level0_primary_membership_and_demography_published_higher_cooperation_under_research",
+      "summary": "Сохранены 28 512 модельных низовых центров и рассчитаны основные окружения. У 14 253 центров есть внешние жилые основные участники. Все 28 512 получили демографические описания; совместная динамика центра и сельского окружения 2002–2021 известна у 11 739 по принятым значениям, у 8 601 обе части убывали. Верхний опыт ближайших услуг отвергнут. Опубликованы экономические данные, национальные проверки и условные межцентровые связи; полная иерархия и причинные типы Word ещё не установлены.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
-      "main_blocker": "Перейти от отдельных направлений услуг к обоснованным общим местным системам: проверить расхождение поставщиков, межцентровые связи и независимые сведения о поездках; не объединять зоны по одному пересечению.",
+      "main_blocker": "Ближайшие услуги описывают обслуживание, но не экономическую кооперацию городов. Нужны независимые трудовые и межцентровые связи; нельзя назначать Москве верхний уровень заранее.",
       "workplan": "sgrt/workplan/README.md",
-      "results": "sgrt/zero/IDENTITY_REPAIR_20261026.md",
-      "data_release": "sgrt-zero-centre-systems-20261025-v1",
+      "results": "sgrt/zero/RESEARCH_RESULTS_20261027.md",
+      "data_release": "sgrt-common-systems-20261027-v1",
       "publication": {
-        "status": "published_public_download_all_members_code_and_scientific_controls_verified",
-        "release": "sgrt-zero-centre-systems-20261025-v1",
-        "catalog": "data/centre_catalog_20261025.json",
-        "source_commit": "3edc853c7623bb1cec22ca9a8bd9d82f7a0446ce",
-        "files_verified": 217,
-        "archive_bytes": 411248657,
-        "archive_sha256": "bfa23970305423425449d059e88dc26f131ca3f523acf869b958e2ba917c593d",
-        "archived_reproduction_files_equal_source_commit": 110,
-        "atlas_pages": 6,
-        "all_atlas_pages_reviewed": true,
-        "public_and_reviewed_local_byte_identical_png": 6,
-        "tests_passed": 388,
-        "population_remains_default_download": true,
-        "download_verification": "research_context/analysis_snapshots/zero_centre_public_download_20261026.json",
-        "scientific_verification": "research_context/analysis_snapshots/zero_centre_cloud_scientific_control_20261026.json"
+        "release": "sgrt-common-systems-20261027-v1",
+        "catalog": "data/common_systems_catalog_20261027.json",
+        "source_commit": "05b94e5b0deb7a661eb9f6ecec14d2092aa88dca",
+        "files_verified": 175,
+        "archive_bytes": 92856475,
+        "archive_sha256": "886f39292a0af5af2a137a5f2f2b9b7aecd36b678760ab851b3f905ae8908dde",
+        "centres": 28512,
+        "centres_with_positive_primary_external_member": 14253,
+        "centres_with_two_function_primary_external_member": 7806,
+        "common_territorial_hierarchy_established": false,
+        "verification": "research_context/analysis_snapshots/common_public_release_verification_20261027.json",
+        "status": "public_download_all_manifest_members_verified"
       },
       "local_systems": {
         "doc": "sgrt/local_systems/README.md",
@@ -156,7 +153,7 @@
         "population_advantage_at_level0": false,
         "target_number_of_levels_is_not_hardcoded": true,
         "Moscow_unique_upper_order_is_research_goal_not_prescribed_label": true,
-        "calculation_state": "source_geometry_repaired_selected_provider_function_semantics_being_repaired_before_clean_country_rebuild",
+        "calculation_state": "primary_zero_and_demographic_readout_published_independent_higher_scale_and_cooperation_research_continues",
         "source_release": "sgrt-zero-inputs-20261025-v1",
         "source_manifest_sha256": "d9c8617dadbed91d92cf0cf1e139af67fddf5e9c33c7c50f09cd577c0c664ddc",
         "level_zero_control": {
@@ -328,7 +325,8 @@
           "two_domains_is_diagnostic_not_accepted_agglomeration": true,
           "astrakhan_diagnostic_max_distance_from_city_km": 119.69,
           "astrakhan_diagnostic_geodesic_diameter_km": 164.39
-        }
+        },
+        "latest_user_goal": "Выделить нулевые центры, оформить статью и слой карты, затем продолжать проверяемое исследование более высоких уровней без подгонки верхней Москвы."
       },
       "previous_national_publication": {
         "release": "sgrt-mass-local-systems-20261024-v1",
@@ -584,7 +582,7 @@
         "public_download_check": "research_context/analysis_snapshots/identity_public_release_verification_20261026.json"
       },
       "demographic_readout": {
-        "status": "published_public_download_all_members_and_independent_recalculation_verified",
+        "status": "previous_overlapping_star_readout_preserved_not_new_primary_composition",
         "report_url": "https://zakbu.github.io/russian-settlements-research/materials/centre-rural-demography/",
         "release_url": "https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-zero-centre-demography-20261026-v1",
         "source_commit": "1577cc792d8b3ee59b4feb858152629944371c39",
@@ -600,6 +598,78 @@
         "public_archive_bytes": 16447359,
         "public_archive_sha256": "bc9e93311e4f944e886395dd5b800ff5c9eb24b886d2c638bc75361f38ab6f76",
         "independent_check": "research_context/analysis_snapshots/centre_demography_independent_check_20261026.json"
+      },
+      "common_systems_publication": {
+        "release": "sgrt-common-systems-20261027-v1",
+        "catalog": "data/common_systems_catalog_20261027.json",
+        "source_commit": "05b94e5b0deb7a661eb9f6ecec14d2092aa88dca",
+        "files_verified": 175,
+        "archive_bytes": 92856475,
+        "archive_sha256": "886f39292a0af5af2a137a5f2f2b9b7aecd36b678760ab851b3f905ae8908dde",
+        "centres": 28512,
+        "centres_with_positive_primary_external_member": 14253,
+        "centres_with_two_function_primary_external_member": 7806,
+        "common_territorial_hierarchy_established": false,
+        "verification": "research_context/analysis_snapshots/common_public_release_verification_20261027.json"
+      },
+      "historical_centre_publication": {
+        "status": "published_public_download_all_members_code_and_scientific_controls_verified",
+        "release": "sgrt-zero-centre-systems-20261025-v1",
+        "catalog": "data/centre_catalog_20261025.json",
+        "source_commit": "3edc853c7623bb1cec22ca9a8bd9d82f7a0446ce",
+        "files_verified": 217,
+        "archive_bytes": 411248657,
+        "archive_sha256": "bfa23970305423425449d059e88dc26f131ca3f523acf869b958e2ba917c593d",
+        "archived_reproduction_files_equal_source_commit": 110,
+        "atlas_pages": 6,
+        "all_atlas_pages_reviewed": true,
+        "public_and_reviewed_local_byte_identical_png": 6,
+        "tests_passed": 388,
+        "population_remains_default_download": true,
+        "download_verification": "research_context/analysis_snapshots/zero_centre_public_download_20261026.json",
+        "scientific_verification": "research_context/analysis_snapshots/zero_centre_cloud_scientific_control_20261026.json"
+      },
+      "primary_demographic_readout": {
+        "release": "sgrt-primary-demography-20261027-v1",
+        "source_commit": "fa72e3a62998d21229a85076cc9ec33c668fde10",
+        "catalog": "data/primary_demography_catalog_20261027.json",
+        "archive": {
+          "asset": "primary-demography.zip",
+          "bytes": 37839210,
+          "sha256": "8d836bc5e116e49cc9354e428e36d951a624142d24e5c0616ff8c6ffe9ec1ff1"
+        },
+        "files_verified": 31,
+        "reproduction_files_equal_source": 20,
+        "centres_typed": 28512,
+        "untyped_centres": 0,
+        "selected_unique_origins": 103181,
+        "centres_with_only_self_in_primary_membership": 13650,
+        "centres_without_external_primary_rural_records": 13670,
+        "accepted_joint_directions_2002_2021": 11739,
+        "accepted_joint_decline_2002_2021": 8601,
+        "strict_accepted_direction_flips_among_known_both_2002_2021": 0,
+        "strict_accepted_known_both_2002_2021": 11728,
+        "strict_accepted_direction_flips_among_known_both_2010_2021": 0,
+        "strict_accepted_known_both_2010_2021": 315,
+        "causal_word_types_established": false,
+        "verification": "research_context/analysis_snapshots/primary_demography_public_release_verification_20261027.json"
+      },
+      "upper_research": {
+        "release": "sgrt-upper-research-20261027-v1",
+        "source_commit": "fcad032c95a155c38f2be5b359fc447be3758941",
+        "catalog": "data/upper_research_catalog_20261027.json",
+        "parquet_tables": 23,
+        "parquet_rows": 2692867,
+        "manifest_files_verified": 288,
+        "municipal_comparable_profiles_2025": 1694,
+        "national_external_envelope_units_checked": 42535,
+        "external_serving_anchors_whole_inside_external_envelope": 744,
+        "external_envelope_is_input_not_independent_validation": true,
+        "all_units_core_inside_but_whole_footprint_not_inside": 884,
+        "conditional_six_city_60minute_points": 388,
+        "observed_named_parent_flows_established": false,
+        "empirical_higher_sgrt_levels_established": false,
+        "verification": "research_context/analysis_snapshots/upper_public_release_verification_20261027.json"
       }
     },
     "portal": {
@@ -631,11 +701,10 @@
     }
   },
   "next_steps": [
-    "Проверить общие низовые системы на контрастных территориях, разделяя 11 355 совпавших внешних профилей, 51 010 расхождений и неполные сведения в совокупности 129 583 жилых обычных записей.",
-    "Для разошедшихся функций сопоставить школьные территории, медицинское прикрепление, транспорт и работу; сохранить местные услуги, не склеивать цепочки соседних связей.",
-    "Уточнять физические рабочие площадки и частичную численность работников; муниципальное сельское хозяйство использовать как контекст, не распределяя итоги по сёлам.",
-    "После проверки общих систем переходить к старшим функциям и межцентровым связям; проверять доступность всего состава, чувствительность границ и независимые наблюдения.",
-    "Вести на сайте теоретическую главу, методику и результаты с точными источниками, версиями и явным статусом каждого вывода."
+    "Разделить классы наблюдаемого масштаба центров и пространственную иерархию. Проверить новые межцентровые модели по совместимым наблюдаемым направлениям, не по долям работающих вне НП в целом.",
+    "Проверять все жилые части нижнего окружения, дорожные альтернативы и многополюсность; не объединять территорию транзитивной цепочкой. Внешние eFUA — входной сценарий, не независимая проверка.",
+    "Дорабатывать доказательства школ, медицинских подразделений, торговли, работы и аграрного контекста. Муниципальные итоги не приписывать отдельным НП; разновременные источники не объявлять причинным объяснением демографии 2002–2021.",
+    "Для динамической типологии Word проверять объясняющие переменные и происхождение населения 2010 отдельно. Все новые типы сохранять с явным неизвестным и описательным статусом, не подменяя ими причинные механизмы."
   ],
   "known_limits": [
     "Прежний расчёт «13%» с исходным знаменателем не найден. Принятые поправки raw→effective меняют пару состояний у 1082 из 142765 строгих рядов; региональная альтернатива — у 3909 из 18516 рядов своей подвыборки. Ни одна доля не является национальной оценкой ошибки; подробнее в sgrt/pilot/DEMOGRAPHY_2010.md.",
@@ -656,9 +725,13 @@
     "Верхние медицинские каналы условны по заявленному профилю. Они не подтверждают пригодность одной больницы для всех пациентов или постоянный врачебный штат.",
     "Города представлены переписными точками; внутригородское обслуживание не районируется. Геометрический размах точек не является площадью или непрерывным полигоном зоны.",
     "В пяти проверенных примерах Учалинского района ФАП согласуется с документом на уровне функции и НП; школы — только географически. У 19 школьных направлений ступени не установлены, поэтому точность для 10–11 классов не оценена. Источники разных лет и прикрепления не измеряют реальные поездки.",
-    "В 1250 прочитанных официальных книгах статистики НП2025 не найден показатель обычных общеобразовательных школ; показатели47–51 относятся к дополнительным общеобразовательным программам. Эти числа не используются как школьная функция; подробности в analysis_snapshots/identity_official_school_statistics_search_20261026.json.",
-    "После исправлений школа связана с 1836 из2249 сопоставимых городских записей; у413 собственная школьная функция остаётся неизвестной, часто при известных физических школах с неразрешённой принадлежностью. Это не отсутствие школ; такие площадки участвуют в доступности по исходным координатам.",
-    "Новая диагностика трёх направлений в 129 583 жилых обычных записях показывает 51 010 расхождений между двумя или тремя НП. Она сохраняет собственное обслуживание и неизвестные значения; общие СГРТ и наблюдённые поездки не устанавливает."
+    "В 1250 прочитанных официальных книгах статистики НП 2025 не найден показатель обычных общеобразовательных школ; показатели 47–51 относятся к дополнительным общеобразовательным программам. Эти числа не используются как школьная функция; подробности в analysis_snapshots/identity_official_school_statistics_search_20261026.json.",
+    "После исправлений школа связана с 1836 из 2249 сопоставимых городских записей; у 413 собственная школьная функция остаётся неизвестной, часто при известных физических школах с неразрешённой принадлежностью. Это не отсутствие школ; такие площадки участвуют в доступности по исходным координатам.",
+    "Новая диагностика трёх направлений в 129 583 жилых обычных записях показывает 51 010 расхождений между двумя или тремя НП. Она сохраняет собственное обслуживание и неизвестные значения; общие СГРТ и наблюдённые поездки не устанавливает.",
+    "Новые основные окружения отличаются от прежних перекрывающихся сервисных звёзд. У 13 650 центров первичный состав содержит только себя; это не означает отсутствия внешних функциональных связей. Демографию прежнего состава нельзя переносить на новый.",
+    "Новые демографические статусы строгого и принятого вариантов отличаются преимущественно доступностью доказательств. Среди совместных направлений, известных в обоих вариантах, смены нет (0/11728 за 2002–2021;0/315 за 2010–2021). Защищённое вторичное значение 2010 с неподтверждённой точной территорией не называется автоматически интерполяцией.",
+    "Переписные субъектовые доли, в том числе по Москве и Петербургу, не дают НП—НП матрицу. Работники организаций без малого бизнеса и все занятые жители являются разными статистическими совокупностями.",
+    "Классы объёма работников, населения и медицинских адресов не измеряют разнообразие функций, вместимость учреждений или пространственный уровень. Полная многоуровневая система пока не установлена."
   ],
   "entrypoints": {
     "rules": "AGENTS.md",
@@ -684,13 +757,17 @@
     "latest_audit_data_release": "https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-semantic-audit-20261025-v1",
     "current_zero_centres": "sgrt/zero/IDENTITY_REPAIR_20261026.md",
     "current_zero_centres_catalog": "data/identity_catalog_20261026.json",
-    "current_demographic_report": "https://zakbu.github.io/russian-settlements-research/materials/centre-rural-demography/",
-    "current_demographic_catalog": "data/centre_demography_catalog_20261026.json",
+    "current_demographic_report": "https://zakbu.github.io/russian-settlements-research/materials/primary-centre-demography/",
+    "current_demographic_catalog": "data/primary_demography_catalog_20261027.json",
     "research_guide": "https://zakbu.github.io/russian-settlements-research/materials/research-guide/",
     "service_agreement": "https://zakbu.github.io/russian-settlements-research/materials/service-destination-agreement/",
     "literature_review": "https://zakbu.github.io/russian-settlements-research/materials/literature-foundations/",
     "methodology": "https://zakbu.github.io/russian-settlements-research/materials/research-methodology/",
     "rural_economy": "https://zakbu.github.io/russian-settlements-research/materials/rural-economy-method/",
-    "research_progress": "https://zakbu.github.io/russian-settlements-research/materials/research-progress/"
+    "research_progress": "https://zakbu.github.io/russian-settlements-research/materials/research-progress/",
+    "current_common_systems": "sgrt/zero/RESEARCH_RESULTS_20261027.md",
+    "current_common_catalog": "data/common_systems_catalog_20261027.json",
+    "current_upper_research_catalog": "data/upper_research_catalog_20261027.json",
+    "current_upper_research": "https://zakbu.github.io/russian-settlements-research/materials/currenteconomic-cooperation-evidence/"
   }
 }

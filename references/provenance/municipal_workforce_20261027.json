@@ -1,0 +1,823 @@
+{
+  "schema": "sgrt.municipal_workforce_source.v1",
+  "source_id": "BDMO_WORKFORCE_20260928",
+  "retrieved_moscow_date": "2026-10-27",
+  "source_description_url": "https://tochno.st/datasets/bdmo",
+  "indicator_inventory_url": "https://docs.google.com/spreadsheets/d/1fain2iBHAJEkaXYk-8aAcjEA8tdR5GKF134AAk1UCSQ/edit#gid=1495188554",
+  "source_chain": "Rosstat BDPMO observations; frozen Tochno dataset version 20260928; exact ZIP member; no direct independent reading of the full Rosstat database claimed",
+  "source_facts": {
+    "source_id": "BDMO_WORKFORCE_20260928",
+    "source_url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20260928/indicators/section32/data_Y48423005_112_v20260928.zip",
+    "archive_bytes": 328270764,
+    "member": "data_Y48423005_112_v20260928.parquet",
+    "member_bytes": 3305237,
+    "member_sha256": "f643b394c11758f5d28e465380e263943c5e5e9e312a468daedca95b7e2f87d7",
+    "source_rows": 1145580,
+    "selected_annual_total_2025_rows": 2486,
+    "regional_labels": 85,
+    "territory_class_counts": {
+      "municipal_territory_record": 2474,
+      "group_of_municipalities_aggregate": 10,
+      "reported_federal_city_subject_total": 2
+    },
+    "code_history_interval_review_rows": 142,
+    "retrieval": {
+      "mode": "verified_existing_member",
+      "bytes_transferred": 0
+    },
+    "code_sha256": "df7cc8323a6614eda0f72dc40005cad85f7749efc2866bc0d0883b75f31d2bfb",
+    "municipal_totals_not_allocated_to_NPs": true,
+    "full_jobs_or_observed_commuting_claimed": false
+  },
+  "retrieval_facts": {
+    "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20260928/indicators/section32/data_Y48423005_112_v20260928.zip",
+    "archive_bytes": 328270764,
+    "archive_etag": "\"c4655bd0286177a271c364ce70aa15ac\"",
+    "member": "data_Y48423005_112_v20260928.parquet",
+    "member_bytes": 3305237,
+    "member_sha256": "f643b394c11758f5d28e465380e263943c5e5e9e312a468daedca95b7e2f87d7",
+    "range_bytes_transferred": 3304236,
+    "member_crc32_verified": true
+  },
+  "meaning": {
+    "indicator_code": "Y48423005",
+    "indicator_title": "Среднесписочная численность работников организаций (без субъектов малого предпринимательства)",
+    "selected_year": 2025,
+    "selected_period": "Январь-декабрь",
+    "selected_industry_category": "Всего по обследуемым видам экономической деятельности",
+    "unit": "Человек",
+    "quarterly_means_or_industry_components_summed": false,
+    "is_complete_total_jobs": false,
+    "is_resident_employment": false,
+    "is_observed_commuting": false,
+    "allowed_use": "A dated partial territorial organisational-workforce indicator, with source geography and coverage retained; not automatic NP workplace allocation or a validated attraction mass."
+  },
+  "six_validated_urban_territory_source_rows": [
+    {
+      "city_name_for_reading": "Москва",
+      "raw_source_key": {
+        "indicator_code": "Y48423005",
+        "oktmo": "45000000",
+        "year": 2025,
+        "indicator_period": "Январь-декабрь",
+        "okved2": "Всего по обследуемым видам экономической деятельности"
+      },
+      "source_territory_class": "reported_federal_city_subject_total",
+      "scope": "reported total of the whole federal-city subject; not a sum of wards",
+      "raw_source_row": {
+        "indicator_section_code": 32,
+        "indicator_section": "Занятость и заработная плата",
+        "indicator_code": "Y48423005",
+        "indicator_name": "Среднесписочная численность работников организаций (без субъектов малого предпринимательства)",
+        "okved2": "Всего по обследуемым видам экономической деятельности",
+        "region_id": "45",
+        "region_name": "Москва",
+        "mun_level": "Субъект РФ",
+        "mun_district": "Муниципальные образования города Москвы (столицы Российской Федерации города федерального значения)",
+        "municipality": "Муниципальные образования города Москвы (столицы Российской Федерации города федерального значения)",
+        "oktmo": "45000000",
+        "mun_type": "Внутригородская территория города федерального значения",
+        "mun_type_oktmo": "Субъект РФ",
+        "oktmo_stable": "CD",
+        "oktmo_history": "CD",
+        "oktmo_year_from": "CD",
+        "oktmo_year_to": "CD",
+        "year": 2025,
+        "indicator_value": 4211363.0,
+        "indicator_unit": "Человек",
+        "indicator_period": "Январь-декабрь",
+        "comment": "mun_type в исходных данных не соответствует oktmo"
+      },
+      "value": 4211363,
+      "observation_year": 2025,
+      "total_jobs_or_commuting_flow_claimed": false
+    },
+    {
+      "city_name_for_reading": "Санкт-Петербург",
+      "raw_source_key": {
+        "indicator_code": "Y48423005",
+        "oktmo": "40000000",
+        "year": 2025,
+        "indicator_period": "Январь-декабрь",
+        "okved2": "Всего по обследуемым видам экономической деятельности"
+      },
+      "source_territory_class": "reported_federal_city_subject_total",
+      "scope": "reported total of the whole federal-city subject; not a sum of wards",
+      "raw_source_row": {
+        "indicator_section_code": 32,
+        "indicator_section": "Занятость и заработная плата",
+        "indicator_code": "Y48423005",
+        "indicator_name": "Среднесписочная численность работников организаций (без субъектов малого предпринимательства)",
+        "okved2": "Всего по обследуемым видам экономической деятельности",
+        "region_id": "40",
+        "region_name": "Санкт-Петербург",
+        "mun_level": "Субъект РФ",
+        "mun_district": "Муниципальные образования города федерального значения Санкт-Петербурга",
+        "municipality": "Муниципальные образования города федерального значения Санкт-Петербурга",
+        "oktmo": "40000000",
+        "mun_type": "Внутригородская территория города федерального значения",
+        "mun_type_oktmo": "Субъект РФ",
+        "oktmo_stable": "CD",
+        "oktmo_history": "CD",
+        "oktmo_year_from": "CD",
+        "oktmo_year_to": "CD",
+        "year": 2025,
+        "indicator_value": 1565094.0,
+        "indicator_unit": "Человек",
+        "indicator_period": "Январь-декабрь",
+        "comment": "mun_type в исходных данных не соответствует oktmo"
+      },
+      "value": 1565094,
+      "observation_year": 2025,
+      "total_jobs_or_commuting_flow_claimed": false
+    },
+    {
+      "city_name_for_reading": "Екатеринбург",
+      "raw_source_key": {
+        "indicator_code": "Y48423005",
+        "oktmo": "65701000",
+        "year": 2025,
+        "indicator_period": "Январь-декабрь",
+        "okved2": "Всего по обследуемым видам экономической деятельности"
+      },
+      "source_territory_class": "municipal_territory_record",
+      "scope": "reported municipal territory; not automatically equal to the named census city",
+      "raw_source_row": {
+        "indicator_section_code": 32,
+        "indicator_section": "Занятость и заработная плата",
+        "indicator_code": "Y48423005",
+        "indicator_name": "Среднесписочная численность работников организаций (без субъектов малого предпринимательства)",
+        "okved2": "Всего по обследуемым видам экономической деятельности",
+        "region_id": "65",
+        "region_name": "Свердловская область",
+        "mun_level": "Муниципальное образование верхнего уровня",
+        "mun_district": "город Екатеринбург",
+        "municipality": "город Екатеринбург",
+        "oktmo": "65701000",
+        "mun_type": "Городской округ, городской округ с внутригородским делением",
+        "mun_type_oktmo": "Городской округ, городской округ с внутригородским делением",
+        "oktmo_stable": "65701000",
+        "oktmo_history": "Без изменений",
+        "oktmo_year_from": "2010",
+        "oktmo_year_to": "2025",
+        "year": 2025,
+        "indicator_value": 478059.0,
+        "indicator_unit": "Человек",
+        "indicator_period": "Январь-декабрь",
+        "comment": "CD"
+      },
+      "value": 478059,
+      "observation_year": 2025,
+      "total_jobs_or_commuting_flow_claimed": false
+    },
+    {
+      "city_name_for_reading": "Казань",
+      "raw_source_key": {
+        "indicator_code": "Y48423005",
+        "oktmo": "92701000",
+        "year": 2025,
+        "indicator_period": "Январь-декабрь",
+        "okved2": "Всего по обследуемым видам экономической деятельности"
+      },
+      "source_territory_class": "municipal_territory_record",
+      "scope": "reported municipal territory; not automatically equal to the named census city",
+      "raw_source_row": {
+        "indicator_section_code": 32,
+        "indicator_section": "Занятость и заработная плата",
+        "indicator_code": "Y48423005",
+        "indicator_name": "Среднесписочная численность работников организаций (без субъектов малого предпринимательства)",
+        "okved2": "Всего по обследуемым видам экономической деятельности",
+        "region_id": "92",
+        "region_name": "Республика Татарстан",
+        "mun_level": "Муниципальное образование верхнего уровня",
+        "mun_district": "город Казань",
+        "municipality": "город Казань",
+        "oktmo": "92701000",
+        "mun_type": "Городской округ, городской округ с внутригородским делением",
+        "mun_type_oktmo": "Городской округ, городской округ с внутригородским делением",
+        "oktmo_stable": "92701000",
+        "oktmo_history": "Без изменений",
+        "oktmo_year_from": "2010",
+        "oktmo_year_to": "2025",
+        "year": 2025,
+        "indicator_value": 348695.0,
+        "indicator_unit": "Человек",
+        "indicator_period": "Январь-декабрь",
+        "comment": "CD"
+      },
+      "value": 348695,
+      "observation_year": 2025,
+      "total_jobs_or_commuting_flow_claimed": false
+    },
+    {
+      "city_name_for_reading": "Челябинск",
+      "raw_source_key": {
+        "indicator_code": "Y48423005",
+        "oktmo": "75701000",
+        "year": 2025,
+        "indicator_period": "Январь-декабрь",
+        "okved2": "Всего по обследуемым видам экономической деятельности"
+      },
+      "source_territory_class": "municipal_territory_record",
+      "scope": "reported municipal territory; not automatically equal to the named census city",
+      "raw_source_row": {
+        "indicator_section_code": 32,
+        "indicator_section": "Занятость и заработная плата",
+        "indicator_code": "Y48423005",
+        "indicator_name": "Среднесписочная численность работников организаций (без субъектов малого предпринимательства)",
+        "okved2": "Всего по обследуемым видам экономической деятельности",
+        "region_id": "75",
+        "region_name": "Челябинская область",
+        "mun_level": "Муниципальное образование верхнего уровня",
+        "mun_district": "Челябинский",
+        "municipality": "Челябинский",
+        "oktmo": "75701000",
+        "mun_type": "Городской округ, городской округ с внутригородским делением",
+        "mun_type_oktmo": "Городской округ, городской округ с внутригородским делением",
+        "oktmo_stable": "75701000",
+        "oktmo_history": "Без изменений",
+        "oktmo_year_from": "2010",
+        "oktmo_year_to": "2025",
+        "year": 2025,
+        "indicator_value": 333254.0,
+        "indicator_unit": "Человек",
+        "indicator_period": "Январь-декабрь",
+        "comment": "CD"
+      },
+      "value": 333254,
+      "observation_year": 2025,
+      "total_jobs_or_commuting_flow_claimed": false
+    },
+    {
+      "city_name_for_reading": "Саратов",
+      "raw_source_key": {
+        "indicator_code": "Y48423005",
+        "oktmo": "63701000",
+        "year": 2025,
+        "indicator_period": "Январь-декабрь",
+        "okved2": "Всего по обследуемым видам экономической деятельности"
+      },
+      "source_territory_class": "municipal_territory_record",
+      "scope": "reported municipal territory; not automatically equal to the named census city",
+      "raw_source_row": {
+        "indicator_section_code": 32,
+        "indicator_section": "Занятость и заработная плата",
+        "indicator_code": "Y48423005",
+        "indicator_name": "Среднесписочная численность работников организаций (без субъектов малого предпринимательства)",
+        "okved2": "Всего по обследуемым видам экономической деятельности",
+        "region_id": "63",
+        "region_name": "Саратовская область",
+        "mun_level": "Муниципальное образование верхнего уровня",
+        "mun_district": "город Саратов",
+        "municipality": "город Саратов",
+        "oktmo": "63701000",
+        "mun_type": "Городской округ, городской округ с внутригородским делением",
+        "mun_type_oktmo": "Городской округ, городской округ с внутригородским делением",
+        "oktmo_stable": "63701000",
+        "oktmo_history": "Объединение",
+        "oktmo_year_from": "2010",
+        "oktmo_year_to": "2025",
+        "year": 2025,
+        "indicator_value": 227538.0,
+        "indicator_unit": "Человек",
+        "indicator_period": "Январь-декабрь",
+        "comment": "CD"
+      },
+      "value": 227538,
+      "observation_year": 2025,
+      "total_jobs_or_commuting_flow_claimed": false
+    }
+  ],
+  "group_aggregate_counterexamples": [
+    {
+      "region_name": "Вологодская область",
+      "municipality": "Муниципальные округа Вологодской области",
+      "oktmo": "19500000",
+      "mun_level": "Муниципальное образование верхнего уровня",
+      "mun_type_oktmo": "Муниципальный округ",
+      "year": 2025,
+      "indicator_period": "Январь-декабрь",
+      "okved2": "Всего по обследуемым видам экономической деятельности",
+      "indicator_value": 72282.0
+    },
+    {
+      "region_name": "Вологодская область",
+      "municipality": "Муниципальные районы Вологодской области",
+      "oktmo": "19600000",
+      "mun_level": "Муниципальное образование верхнего уровня",
+      "mun_type_oktmo": "Муниципальный район",
+      "year": 2025,
+      "indicator_period": "Январь-декабрь",
+      "okved2": "Всего по обследуемым видам экономической деятельности",
+      "indicator_value": 15495.0
+    },
+    {
+      "region_name": "Вологодская область",
+      "municipality": "Городские округа Вологодской области",
+      "oktmo": "19700000",
+      "mun_level": "Муниципальное образование верхнего уровня",
+      "mun_type_oktmo": "Городской округ, городской округ с внутригородским делением",
+      "year": 2025,
+      "indicator_period": "Январь-декабрь",
+      "okved2": "Всего по обследуемым видам экономической деятельности",
+      "indicator_value": 173174.0
+    },
+    {
+      "region_name": "Республика Ингушетия",
+      "municipality": "Городские округа Республики Ингушетии",
+      "oktmo": "26700000",
+      "mun_level": "Муниципальное образование верхнего уровня",
+      "mun_type_oktmo": "Городской округ, городской округ с внутригородским делением",
+      "year": 2025,
+      "indicator_period": "Январь-декабрь",
+      "okved2": "Всего по обследуемым видам экономической деятельности",
+      "indicator_value": 40714.0
+    },
+    {
+      "region_name": "Новосибирская область",
+      "municipality": "Муниципальные округа Новосибирской области",
+      "oktmo": "50500000",
+      "mun_level": "Муниципальное образование верхнего уровня",
+      "mun_type_oktmo": "Муниципальный округ",
+      "year": 2025,
+      "indicator_period": "Январь-декабрь",
+      "okved2": "Всего по обследуемым видам экономической деятельности",
+      "indicator_value": 20461.0
+    },
+    {
+      "region_name": "Новосибирская область",
+      "municipality": "Городские округа Новосибирской области",
+      "oktmo": "50700000",
+      "mun_level": "Муниципальное образование верхнего уровня",
+      "mun_type_oktmo": "Городской округ, городской округ с внутригородским делением",
+      "year": 2025,
+      "indicator_period": "Январь-декабрь",
+      "okved2": "Всего по обследуемым видам экономической деятельности",
+      "indicator_value": 451574.0
+    },
+    {
+      "region_name": "Саратовская область",
+      "municipality": "Муниципальные округа Саратовской области",
+      "oktmo": "63500000",
+      "mun_level": "Муниципальное образование верхнего уровня",
+      "mun_type_oktmo": "Муниципальный округ",
+      "year": 2025,
+      "indicator_period": "Январь-декабрь",
+      "okved2": "Всего по обследуемым видам экономической деятельности",
+      "indicator_value": 890.0
+    },
+    {
+      "region_name": "Саратовская область",
+      "municipality": "Городские округа Саратовской области",
+      "oktmo": "63700000",
+      "mun_level": "Муниципальное образование верхнего уровня",
+      "mun_type_oktmo": "Городской округ, городской округ с внутригородским делением",
+      "year": 2025,
+      "indicator_period": "Январь-декабрь",
+      "okved2": "Всего по обследуемым видам экономической деятельности",
+      "indicator_value": 229866.0
+    },
+    {
+      "region_name": "Республика Дагестан",
+      "municipality": "Городские округа Республики Дагестан",
+      "oktmo": "82700000",
+      "mun_level": "Муниципальное образование верхнего уровня",
+      "mun_type_oktmo": "Городской округ, городской округ с внутригородским делением",
+      "year": 2025,
+      "indicator_period": "Январь-декабрь",
+      "okved2": "Всего по обследуемым видам экономической деятельности",
+      "indicator_value": 178531.0
+    },
+    {
+      "region_name": "Республика Северная Осетия — Алания",
+      "municipality": "Городские округа Республики Северная Осетия-Алания",
+      "oktmo": "90700000",
+      "mun_level": "Муниципальное образование верхнего уровня",
+      "mun_type_oktmo": "Городской округ, городской округ с внутригородским делением",
+      "year": 2025,
+      "indicator_period": "Январь-декабрь",
+      "okved2": "Всего по обследуемым видам экономической деятельности",
+      "indicator_value": 67181.0
+    }
+  ],
+  "group_aggregate_guard": "The upper municipal-level label alone is insufficient; plural municipality-group names and explicit grouped codes are retained as group aggregates, not individual centres.",
+  "old_NP_workforce_year_check": {
+    "raw_source_url": "https://rosstat.gov.ru/storage/mediabank/stat.info_NP_2025.rar",
+    "frozen_source_archive_sha256": "520b79e3a7a9263f89712df3715b7f1fe1b121055c8bf56d1d6d0835b13cf9e3",
+    "frozen_source_archive_bytes": 230053990,
+    "publication_year_inferred_from_filename": false,
+    "four_primary_workbooks": [
+      {
+        "source_archive_member": "stat.info_NP_2025/5. Приволжский федеральный округ/Республика Татарстан/2-10_Труд/п. 9_Числ-ть_НП.xlsx",
+        "xlsx_sha256": "9d72f5ebb6b7797640b69a4d0379baac01cbd4d0a33909dc657c5189306428b9",
+        "worksheet_xml_member": "xl/worksheets/sheet1.xml",
+        "title_cell": "A1",
+        "title_literal": "Среднесписочная численность работников (без внешних совместителей) организаций по населенным пунктам за январь - декабрь 2025 года",
+        "scope_cell": "A2",
+        "scope_literal": "(без субъектов малого предпринимательства)",
+        "observation_year": 2025,
+        "year_basis": "literal full-year title, not inferred from NP2025 filename or an unrelated agriculture archive date"
+      },
+      {
+        "source_archive_member": "stat.info_NP_2025/5. Приволжский федеральный округ/Саратовская область/2-10_Труд/п. 9_Числ-ть_НП.xlsx",
+        "xlsx_sha256": "8730ad4bd1c4a9426fe4a3d207c25b983ec723f1db414d57a1545ef29dead1b3",
+        "worksheet_xml_member": "xl/worksheets/sheet1.xml",
+        "title_cell": "A1",
+        "title_literal": "Среднесписочная численность работников (без внешних совместителей) организаций по населенным пунктам за январь - декабрь 2025 года",
+        "scope_cell": "A2",
+        "scope_literal": "(без субъектов малого предпринимательства)",
+        "observation_year": 2025,
+        "year_basis": "literal full-year title, not inferred from NP2025 filename or an unrelated agriculture archive date"
+      },
+      {
+        "source_archive_member": "stat.info_NP_2025/6. Уральский федеральный округ/Свердловская область/2-10_Труд/п. 9_Числ-ть_НП.xlsx",
+        "xlsx_sha256": "35a74512e17dfb9b167d83f3774aa81820f0f63cce57b4e13ca224a3ae5a6378",
+        "worksheet_xml_member": "xl/worksheets/sheet1.xml",
+        "title_cell": "A1",
+        "title_literal": "Среднесписочная численность работников (без внешних совместителей) организаций по населенным пунктам за январь - декабрь 2025 года",
+        "scope_cell": "A2",
+        "scope_literal": "(без субъектов малого предпринимательства)",
+        "observation_year": 2025,
+        "year_basis": "literal full-year title, not inferred from NP2025 filename or an unrelated agriculture archive date"
+      },
+      {
+        "source_archive_member": "stat.info_NP_2025/6. Уральский федеральный округ/Челябинская область/2-10_Труд/п. 9_Числ-ть_НП.xlsx",
+        "xlsx_sha256": "1277cd83aeb17abbf30b982a2125179d5480e8e3a9064b1c1c75fae1f2d8f34d",
+        "worksheet_xml_member": "xl/worksheets/sheet1.xml",
+        "title_cell": "A1",
+        "title_literal": "Среднесписочная численность работников (без внешних совместителей) организаций по населенным пунктам за январь - декабрь 2025 года",
+        "scope_cell": "A2",
+        "scope_literal": "(без субъектов малого предпринимательства)",
+        "observation_year": 2025,
+        "year_basis": "literal full-year title, not inferred from NP2025 filename or an unrelated agriculture archive date"
+      }
+    ],
+    "four_exact_source_rows": [
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:133510",
+        "source_row_id": "5b76b22c6ec816803260493b",
+        "settlement": "г Казань",
+        "source_oktmo": "92701000001",
+        "raw_source_code": "92701000001",
+        "source_row_grain": "named_settlement",
+        "reported_value": 348695.0,
+        "raw_value_literal": "348695",
+        "value_status": "observed",
+        "observation_year": 2025.0,
+        "match_method": "exact_settlement_oktmo11_region_name",
+        "match_reason": "unique_literal_identity_with_context",
+        "source_file": "stat.info_NP_2025/5. Приволжский федеральный округ/Республика Татарстан/2-10_Труд/п. 9_Числ-ть_НП.xlsx",
+        "source_excel_row": 1235,
+        "source_sheet": "п. 9_НП",
+        "source_header_literal": "Человек | 1",
+        "column_semantics_verified": true,
+        "headcount_scope": "annual_average_organisation_workers_excluding_external_parttimers_and_small_business"
+      },
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118372",
+        "source_row_id": "313b8a93ea4647fec9eb1952",
+        "settlement": "г Саратов",
+        "source_oktmo": "63701000001",
+        "raw_source_code": "63701000001",
+        "source_row_grain": "named_settlement",
+        "reported_value": 213695.0,
+        "raw_value_literal": "213695",
+        "value_status": "observed",
+        "observation_year": 2025.0,
+        "match_method": "exact_settlement_oktmo11_region_name",
+        "match_reason": "unique_literal_identity_with_context",
+        "source_file": "stat.info_NP_2025/5. Приволжский федеральный округ/Саратовская область/2-10_Труд/п. 9_Числ-ть_НП.xlsx",
+        "source_excel_row": 608,
+        "source_sheet": "п. 9_НП",
+        "source_header_literal": "Человек | 1",
+        "column_semantics_verified": true,
+        "headcount_scope": "annual_average_organisation_workers_excluding_external_parttimers_and_small_business"
+      },
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:119517",
+        "source_row_id": "29327507595f4a9f42f0ce26",
+        "settlement": "г Екатеринбург",
+        "source_oktmo": "65701000001",
+        "raw_source_code": "65701000001",
+        "source_row_grain": "named_settlement",
+        "reported_value": 473942.0,
+        "raw_value_literal": "473942",
+        "value_status": "observed",
+        "observation_year": 2025.0,
+        "match_method": "exact_settlement_oktmo11_region_name",
+        "match_reason": "unique_literal_identity_with_context",
+        "source_file": "stat.info_NP_2025/6. Уральский федеральный округ/Свердловская область/2-10_Труд/п. 9_Числ-ть_НП.xlsx",
+        "source_excel_row": 564,
+        "source_sheet": "п. 9_НП",
+        "source_header_literal": "Человек | 1",
+        "column_semantics_verified": true,
+        "headcount_scope": "annual_average_organisation_workers_excluding_external_parttimers_and_small_business"
+      },
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161353",
+        "source_row_id": "82741cf2b20bb903675bdd73",
+        "settlement": "г Челябинск",
+        "source_oktmo": "75701000001",
+        "raw_source_code": "75701000001",
+        "source_row_grain": "named_settlement",
+        "reported_value": 332715.0,
+        "raw_value_literal": "332715",
+        "value_status": "observed",
+        "observation_year": 2025.0,
+        "match_method": "exact_settlement_oktmo11_region_name",
+        "match_reason": "unique_literal_identity_with_context",
+        "source_file": "stat.info_NP_2025/6. Уральский федеральный округ/Челябинская область/2-10_Труд/п. 9_Числ-ть_НП.xlsx",
+        "source_excel_row": 502,
+        "source_sheet": "п. 9",
+        "source_header_literal": "Человек | 1",
+        "column_semantics_verified": true,
+        "headcount_scope": "annual_average_organisation_workers_excluding_external_parttimers_and_small_business"
+      }
+    ],
+    "conclusion": "All four directly read XLSX A1 titles explicitly state January–December 2025. The 20250918 municipal-agriculture archive is a different source and does not justify rewriting these workforce observations as 2024."
+  },
+  "existing_NP_registry_coverage": {
+    "ordinary_spatial_NP_records": 153800,
+    "observed_partial_workforce_NP_records": 11682,
+    "ordinary_region_labels": 82,
+    "region_labels_with_at_least_one_observation": 75,
+    "ordinary_region_labels_without_observation": [
+      "архангельская",
+      "ненецкий",
+      "тюменская",
+      "хабаровский",
+      "ханты мансийский югра",
+      "чукотский",
+      "ямало ненецкий"
+    ],
+    "city_type_records": 1114,
+    "city_type_observed_records": 924,
+    "urban_type_records": 1212,
+    "urban_type_observed_records": 872,
+    "village_selo_records": 30745,
+    "village_selo_observed_records": 6793,
+    "village_derevnya_records": 94410,
+    "village_derevnya_observed_records": 860,
+    "federal_city_NP_total_status": "Moscow and Saint Petersburg were nonadditive city contexts with unknown old NP workforce, not zero workforce. New BDPMO subject totals are separate source territories."
+  },
+  "city_vs_municipality_source_scope_examples": [
+    {
+      "city": "Саратов",
+      "city_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118372",
+      "municipal_code_from_explicit_source_parent": "63701000",
+      "ordinary_np_records_in_same_municipality": 26,
+      "other_np_records": 25,
+      "examples_other_names": [
+        {
+          "name": "Беленький",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Хмелевка",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Хмелевский",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Водник",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Багаевка",
+          "settlement_type_2021": "село"
+        },
+        {
+          "name": "Сельхозтехника",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Трещиха",
+          "settlement_type_2021": "деревня"
+        },
+        {
+          "name": "Поповка",
+          "settlement_type_2021": "село"
+        },
+        {
+          "name": "Быковка",
+          "settlement_type_2021": "деревня"
+        },
+        {
+          "name": "Красный Октябрь",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Махино",
+          "settlement_type_2021": "деревня"
+        },
+        {
+          "name": "Сбродовка",
+          "settlement_type_2021": "деревня"
+        }
+      ],
+      "source_scope": "explicit primary parent bridge in census2021 context; not a claim of current legal boundary equivalence"
+    },
+    {
+      "city": "Екатеринбург",
+      "city_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:119517",
+      "municipal_code_from_explicit_source_parent": "65701000",
+      "ordinary_np_records_in_same_municipality": 19,
+      "other_np_records": 18,
+      "examples_other_names": [
+        {
+          "name": "Горный Щит",
+          "settlement_type_2021": "село"
+        },
+        {
+          "name": "Верхнемакарово",
+          "settlement_type_2021": "село"
+        },
+        {
+          "name": "Зеленый Бор",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Полеводство",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Широкая Речка",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Совхозный",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Чусовское Озеро",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Шувакиш",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Палкинский Торфяник",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Московский",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Мичуринский",
+          "settlement_type_2021": "посёлок"
+        },
+        {
+          "name": "Медный",
+          "settlement_type_2021": "посёлок"
+        }
+      ],
+      "source_scope": "explicit primary parent bridge in census2021 context; not a claim of current legal boundary equivalence"
+    },
+    {
+      "city": "Казань",
+      "city_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:133510",
+      "municipal_code_from_explicit_source_parent": "92701000",
+      "ordinary_np_records_in_same_municipality": 1,
+      "other_np_records": 0,
+      "examples_other_names": [],
+      "source_scope": "explicit primary parent bridge in census2021 context; not a claim of current legal boundary equivalence"
+    },
+    {
+      "city": "Челябинск",
+      "city_source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:161353",
+      "municipal_code_from_explicit_source_parent": "75701000",
+      "ordinary_np_records_in_same_municipality": 1,
+      "other_np_records": 0,
+      "examples_other_names": [],
+      "source_scope": "explicit primary parent bridge in census2021 context; not a claim of current legal boundary equivalence"
+    }
+  ],
+  "federal_city_diagnostic_sum_checks_not_replacements": [
+    {
+      "region": "Москва",
+      "year": 2021,
+      "reported_subject_total": null,
+      "municipality_rows": 146,
+      "municipal_rows_outside_declared_code_interval": 144,
+      "diagnostic_sum_not_used_as_replacement": 3742168.0,
+      "diagnostic_difference_not_interpreted_as_commuting": null
+    },
+    {
+      "region": "Санкт-Петербург",
+      "year": 2021,
+      "reported_subject_total": 1471367.0,
+      "municipality_rows": 110,
+      "municipal_rows_outside_declared_code_interval": 0,
+      "diagnostic_sum_not_used_as_replacement": 1470318.0,
+      "diagnostic_difference_not_interpreted_as_commuting": -1049.0
+    },
+    {
+      "region": "Москва",
+      "year": 2024,
+      "reported_subject_total": null,
+      "municipality_rows": 146,
+      "municipal_rows_outside_declared_code_interval": 144,
+      "diagnostic_sum_not_used_as_replacement": 4088863.0,
+      "diagnostic_difference_not_interpreted_as_commuting": null
+    },
+    {
+      "region": "Санкт-Петербург",
+      "year": 2024,
+      "reported_subject_total": 1512585.0,
+      "municipality_rows": 111,
+      "municipal_rows_outside_declared_code_interval": 0,
+      "diagnostic_sum_not_used_as_replacement": 1512585.0,
+      "diagnostic_difference_not_interpreted_as_commuting": 0.0
+    },
+    {
+      "region": "Москва",
+      "year": 2025,
+      "reported_subject_total": 4211363.0,
+      "municipality_rows": 129,
+      "municipal_rows_outside_declared_code_interval": 128,
+      "diagnostic_sum_not_used_as_replacement": 4160387.0,
+      "diagnostic_difference_not_interpreted_as_commuting": -50976.0
+    },
+    {
+      "region": "Санкт-Петербург",
+      "year": 2025,
+      "reported_subject_total": 1565094.0,
+      "municipality_rows": 111,
+      "municipal_rows_outside_declared_code_interval": 0,
+      "diagnostic_sum_not_used_as_replacement": 1565088.0,
+      "diagnostic_difference_not_interpreted_as_commuting": -6.0
+    }
+  ],
+  "limitations": [
+    "Source municipal territories are not automatically equal to census settlements, agglomerations or present legal borders.",
+    "Moscow and Saint Petersburg values are explicit subject-total rows; do not add their wards or reassign them to a dense-core point as a measured workplace surface.",
+    "NP versus municipality differences may reflect territory, survey coverage and data revision. This audit does not identify their separate contributions.",
+    "Some code-history intervals describe a change of type/name although the code appears in later observations. They require review, not automatic deletion or automatic historical equivalence.",
+    "Missing source observations remain unknown, not zero. FNS legal-entity headcounts lack workplace geography and cannot fill those NP gaps.",
+    "A 2025 workforce level does not by itself causally explain demographic change in 2002–2021.",
+    "No existing population base, low-order system membership or attraction weights were changed by this source audit."
+  ],
+  "mobility_indicator_search": {
+    "catalogue_csv_sha256": "1a32c7a8ff25892a153ded70d5f9324c7ae0cfa4f737d4fc08a9adcccf33b951",
+    "catalogue_url": "https://docs.google.com/spreadsheets/d/1fain2iBHAJEkaXYk-8aAcjEA8tdR5GKF134AAk1UCSQ/export?format=csv&gid=1495188554",
+    "indicator_names_and_special_attributes_reviewed": 603,
+    "searched_terms": [
+      "маятников",
+      "за предел",
+      "прибыва",
+      "трудов",
+      "занят",
+      "работающ",
+      "проживающ",
+      "пассажир",
+      "транспорт",
+      "маршрут",
+      "выезжа",
+      "въезжа",
+      "баланс",
+      "рабочие места",
+      "работавшие вне",
+      "занятые жители",
+      "выезжа",
+      "въезжа"
+    ],
+    "direct_commuting_OD_or_outside_work_numerator_and_resident_denominator_found": false,
+    "scope_of_negative_result": "This finite BDPMO catalogue only, not all Russian official datasets.",
+    "other_hits_not_commuting": [
+      "Y48112023 migration increase/decrease is demographic migration, not commuting; occupied preschool positions are an institution staff variable, not a commuting denominator."
+    ],
+    "transport_context_candidate": {
+      "indicator_code": "Y48155002",
+      "source_title_literal": "Доля населения, проживающего в населенных пунктах, не имеющих регулярного автобусного и (или) железнодорожного сообщения с административным центром муниципального, городского округа (муниципального района), в общей численности населения муниципального, го",
+      "meaning": "Share of population in settlements without regular bus and/or rail connection to the municipal administrative centre; municipal context, not trip flows or travel-time distribution.",
+      "source_retrieval": {
+        "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20260928/indicators/section41/data_Y48155002_112_v20260928.zip",
+        "archive_bytes": 2536335,
+        "member": "data_Y48155002_112_v20260928.csv",
+        "member_bytes": 34319370,
+        "member_sha256": "c916ce428642aa3c1e3826c3904f54a5a172e52de75dc5de1b8081a09fb3ac7a",
+        "range_bytes_transferred": 374775,
+        "csv_not_saved_to_avoid_uncompressed_duplicate": true
+      },
+      "selected_year": 2025,
+      "selected_rows": 108,
+      "regional_labels": 12,
+      "unit": "Процент",
+      "period": "Значение показателя за год",
+      "not_suitable_by_itself_for_distance_decay_calibration": true,
+      "missing_municipalities_not_assumed_zero": true,
+      "individual_isolated_settlements_not_identified_from_municipal_share": true
+    }
+  },
+  "fresh_network_CLI_roundtrip": {
+    "source_member_sha256_verified": true,
+    "selected_table_byte_identical_to_first_extraction": true,
+    "six_city_source_examples_byte_identical": true,
+    "selected_table_sha256": "71ff9249d9b1bf8495175e6dd9032c3b619141a61da2e13a69c7590ecd12338f",
+    "network_bytes_transferred": 3304236
+  }
+}
