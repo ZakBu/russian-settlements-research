@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.literature_usage.v1",
-  "updated": "2026-10-26",
+  "updated": "2026-10-28",
   "rules": [
     "Each new substantive methodological claim must cite a source ID or be marked as our own proposal.",
     "Code implementation claims require a concrete file/function and validation; empty implementation_paths means no implementation is certified by this map.",
@@ -1576,6 +1576,119 @@
       "implementation_status": "literature_review_only; no implementation or transferred coefficients asserted",
       "implementation_paths": [],
       "reading_scope_field": "references/sources.json records[id=DIATAXIS_DOCUMENTATION].read_scope"
+    },
+    {
+      "source_id": "VERMA_UKKUSURI2025_DECAY",
+      "used_in": [
+        "web/content/materials/literature-functional-distance-decay.json"
+      ],
+      "purpose": "Цель поездки, транспорт, тип территории и характеристики жителей меняют затухание; NHTS США 2017, 747088 отобранных поездок. Не переносить коэффициенты на Россию.",
+      "implementation_status": "conceptual_method_and_literature_basis; no transferred empirical coefficients or established hierarchy",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=VERMA_UKKUSURI2025_DECAY].read_scope"
+    },
+    {
+      "source_id": "LUO_WHIPPO2012_VARIABLE",
+      "used_in": [
+        "web/content/materials/literature-functional-distance-decay.json"
+      ],
+      "purpose": "Переменные зоны медицинской доступности, определяемые соотношением предложения и спроса; не считать это наблюдаемыми зонами поездок.",
+      "implementation_status": "conceptual_method_and_literature_basis; no transferred empirical coefficients or established hierarchy",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=LUO_WHIPPO2012_VARIABLE].read_scope"
+    },
+    {
+      "source_id": "DMITRIEV2021_CPT",
+      "used_in": [
+        "web/content/materials/literature-multiscale-centrality.json"
+      ],
+      "purpose": "Не считать число подчинённых центров производной от доли городского населения; различать теоретическую иерархию и эмпирические связи.",
+      "implementation_status": "conceptual_method_and_literature_basis; no transferred empirical coefficients or established hierarchy",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=DMITRIEV2021_CPT].read_scope"
+    },
+    {
+      "source_id": "DMITRIEV_GOROKHOV2023_CPT",
+      "used_in": [
+        "web/content/materials/literature-multiscale-centrality.json"
+      ],
+      "purpose": "Классическая теория допускает неоднородное размещение, переменное число уровней и связи внутри уровня; это не эмпирическая верификация уровней России.",
+      "implementation_status": "conceptual_method_and_literature_basis; no transferred empirical coefficients or established hierarchy",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=DMITRIEV_GOROKHOV2023_CPT].read_scope"
+    },
+    {
+      "source_id": "TAYLOR_HOYLER2021_CENTRAL_FLOW",
+      "used_in": [
+        "web/content/materials/literature-multiscale-centrality.json"
+      ],
+      "purpose": "Разделение местных обслуживающих отношений (town-ness) и дальних городских потоков (city-ness) при исследовании системы центральных мест.",
+      "implementation_status": "conceptual_method_and_literature_basis; no transferred empirical coefficients or established hierarchy",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=TAYLOR_HOYLER2021_CENTRAL_FLOW].read_scope"
+    },
+    {
+      "source_id": "KUZMIN2023_FIELD_GRID",
+      "used_in": [
+        "web/content/materials/literature-multiscale-centrality.json",
+        "web/content/materials/multiscale-field-pilot.json"
+      ],
+      "purpose": "Реальные дороги и регулярная сетка вместо прямой интерполяции: положительный методический пример; условные 50/300 км и 422 крупных НП не оценены по российским поездкам и не описывают функции центров.",
+      "implementation_status": "conceptual_method_and_literature_basis; no transferred empirical coefficients or established hierarchy",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=KUZMIN2023_FIELD_GRID].read_scope"
+    },
+    {
+      "source_id": "KUZMIN2023_ROAD_NETWORK",
+      "used_in": [
+        "sgrt/MODEL_DESIGN.md"
+      ],
+      "purpose": "Новый кандидат для обзора методологии: гравитационный потенциал поля расселения с использованием расстояний по дорожной сети (Valhalla, ArcGIS) на российско-казахстанском приграничье. Не источник многомасштабного обнаружения максимумов или функционально-специфических функций затухания, предложенных в нашем обсуждении 27 октября; они остаются гипотезами для проверки.",
+      "implementation_status": "conceptual_method_and_literature_basis; no transferred empirical coefficients or established hierarchy",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=KUZMIN2023_ROAD_NETWORK].read_scope"
+    },
+    {
+      "source_id": "LINDEBERG1990_DISCRETE_SCALE_SPACE",
+      "used_in": [
+        "sgrt/field_pilot/LITERATURE_20261028.md",
+        "web/content/materials/multiscale-field-pilot.json"
+      ],
+      "purpose": "sgrt/field_pilot/LITERATURE_20261028.md: не приписывать сглаживанию монотонное уменьшение числа пиков; различать неусиление значений экстремумов и число экстремумов. Не переносить одномерные или решёточные теоремы автоматически на дорожный граф.",
+      "implementation_status": "methodological_comparison_not_empirical_calibration",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=LINDEBERG1990_DISCRETE_SCALE_SPACE].read_scope"
+    },
+    {
+      "source_id": "SHUMAN2013_GRAPH_SIGNAL_PROCESSING",
+      "used_in": [
+        "sgrt/field_pilot/LITERATURE_20261028.md",
+        "web/content/materials/multiscale-field-pilot.json"
+      ],
+      "purpose": "sgrt/field_pilot/LITERATURE_20261028.md: различение матричной диффузии exp(−τL) и нашего суммарного потенциала по кратчайшим путям; параметр диффузии не равен дорожным минутам; выбор оператора и графа явно фиксируется.",
+      "implementation_status": "methodological_comparison_not_empirical_calibration",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=SHUMAN2013_GRAPH_SIGNAL_PROCESSING].read_scope"
+    },
+    {
+      "source_id": "EDELSBRUNNER2002_PERSISTENCE",
+      "used_in": [
+        "sgrt/field_pilot/LITERATURE_20261028.md"
+      ],
+      "purpose": "sgrt/field_pilot/LITERATURE_20261028.md: кандидат для выраженности пиков по надпороговым компонентам при фиксированной ширине затухания. Эта наша адаптация не реализована и не тождественна устойчивости пиков по ширине затухания или функциональному рангу города.",
+      "implementation_status": "methodological_comparison_not_empirical_calibration",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=EDELSBRUNNER2002_PERSISTENCE].read_scope"
+    },
+    {
+      "source_id": "OKABE2009_NETWORK_KDE",
+      "used_in": [
+        "sgrt/field_pilot/LITERATURE_20261028.md"
+      ],
+      "purpose": "sgrt/field_pilot/LITERATURE_20261028.md: не смешивать плотность событий на единицу длины сети и демографический потенциал. Предупреждение о сетевых узлах не является доказательством смещения нашей модели доступности; исправленные ядра не объявляются реализованными.",
+      "implementation_status": "methodological_comparison_not_empirical_calibration",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=OKABE2009_NETWORK_KDE].read_scope"
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"
