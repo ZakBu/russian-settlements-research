@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-28T22:29:18+03:00",
+  "updated_moscow": "2026-10-28T23:25:15+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -733,7 +733,7 @@
         "material": "https://zakbu.github.io/russian-settlements-research/materials/multiscale-field-pilot/"
       },
       "saratov_pilot_20261028": {
-        "status": "native_network_isochrones_independently_compared_public_rebuild_pending",
+        "status": "published_native_network_isochrones_six_centres",
         "decision_id": "D56",
         "current_2021_records": 1821,
         "accepted_spatial_records": 1814,
@@ -756,7 +756,12 @@
         ],
         "native_geometry_source": "original pinned OSM 2021 PBF; 56506 ways and 384162 original nodes",
         "cartographic_corridor_half_width_m": 250,
-        "unknown_route_records_per_centre": 8
+        "unknown_route_records_per_centre": 8,
+        "release_tag": "sgrt-saratov-isochrones-20261028-v1",
+        "source_commit": "cb52ac0d0417ee189dd3ade053df4902d622d659",
+        "atlas_material": "saratov-isochrones",
+        "independent_numeric_snapshot": "research_context/analysis_snapshots/saratov_isochrones_independent_numeric_20261028.json",
+        "catalog": "data/saratov_isochrones_catalog_20261028.json"
       }
     },
     "portal": {
@@ -789,7 +794,7 @@
     }
   },
   "next_steps": [
-    "Основной пилот — Саратовская область. Рассчитать и проверить изохроны по дорожной сети, опубликовать их в атласе; затем сопоставлять доступность с конкретными функциями и межпоселенческими связями.",
+    "Основной пилот — Саратовская область. Изохроны к шести центрам опубликованы. Следом считать доступность конкретных учреждений и функций, проверять альтернативные центры и наблюдаемые межпоселенческие связи; затем расширять состав центров.",
     "Сопоставить населёнческое поле с отдельными функциями и наблюдаемыми связями. Не заменять этим прежние местные центры и не считать число максимумов числом уровней.",
     "Разделить классы наблюдаемого масштаба центров и пространственную иерархию. Проверить новые межцентровые модели по совместимым наблюдаемым направлениям, не по долям работающих вне НП в целом.",
     "Проверять все жилые части нижнего окружения, дорожные альтернативы и многополюсность; не объединять территорию транзитивной цепочкой. Внешние eFUA — входной сценарий, не независимая проверка.",
