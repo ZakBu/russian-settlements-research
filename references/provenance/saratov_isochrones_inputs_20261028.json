@@ -1,0 +1,517 @@
+{
+  "schema": "sgrt.saratov_isochrones_input_provenance.v1",
+  "scope": "Complete Saratov source inventory and six explicit transport anchors; no district delineation or observed journeys",
+  "implementation": "scripts/sgrt_saratov/source_inventory.py",
+  "implementation_sha256": "f85acf79d60fae1237a4b7dd8536bb3ecb5a759e714f27fe7acdb283f8ca84b8",
+  "source_files": [
+    {
+      "catalog": "data/zero_catalog_20261025.json",
+      "path": "sgrt/zero20261025/context/analysis_reference.parquet",
+      "sha256": "456a0fd57c363cd7ade3563c5737634dd34ebda585569fc80bec160e4cc55e90",
+      "bytes": 12036184,
+      "release_tag": "sgrt-zero-systems-20261025-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-zero-systems-20261025-v1/zero-data.zip",
+      "archive_member": "objects/40fd0d04eb61462a26fc5541cbf0c415d1f612f7"
+    },
+    {
+      "catalog": "data/identity_catalog_20261026.json",
+      "path": "sgrt/identity20261026/routes/endpoint_network_quality.parquet",
+      "sha256": "11f8bae82196a9e8d2817fe0ca1c43f2b829326c4368b542f2f726d2b4a25bdb",
+      "bytes": 3982803,
+      "release_tag": "sgrt-zero-centres-20261026-v2",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-zero-centres-20261026-v2/identity-centres.zip",
+      "archive_member": "sgrt/identity20261026/routes/endpoint_network_quality.parquet"
+    },
+    {
+      "catalog": "data/common_systems_catalog_20261027.json",
+      "path": "sgrt/common20261027/results/level0/units.parquet",
+      "sha256": "96e24d9988a954fdf41ecb190d7165fe246c85f730814f364fb01acff6edba22",
+      "bytes": 5646070,
+      "release_tag": "sgrt-common-systems-20261027-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-common-systems-20261027-v1/common-systems.zip",
+      "archive_member": "sgrt/common20261027/results/level0/units.parquet"
+    },
+    {
+      "catalog": "data/identity_catalog_20261026.json",
+      "path": "sgrt/identity20261026/analysis/scenarios/daily_20_school30_wb/daily_edges.parquet",
+      "sha256": "af88729f8c5b797b5d6a1178c78ac12f45099920d3b49e40b32640aee3dec23c",
+      "bytes": 36291892,
+      "release_tag": "sgrt-zero-centres-20261026-v2",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-zero-centres-20261026-v2/identity-centres.zip",
+      "archive_member": "sgrt/identity20261026/analysis/scenarios/daily_20_school30_wb/daily_edges.parquet"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/graph_npz_parts/part_000.bin",
+      "sha256": "07684f8794432e986fc0ee67cf00d5478f278c0ba10347d0d0fa996dee56264d",
+      "bytes": 90000000,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-033.zip",
+      "archive_member": "objects/1f67db23601080ea385349ac141506b0f592aee7"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/graph_npz_parts/part_001.bin",
+      "sha256": "c5811967be397bc5724c218228882eca270948c36427be6f98a9bf16a2b7cbc9",
+      "bytes": 90000000,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-033.zip",
+      "archive_member": "objects/1938492ba4d3f2aedeadfc980d18397d2026d967"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/graph_npz_parts/part_002.bin",
+      "sha256": "149ee0876363785ad2b38636dc5b7060c09d1b77d7cbce48b4fc0f54b3d7407b",
+      "bytes": 19559926,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-033.zip",
+      "archive_member": "objects/fb80abf5c0c06c19a0574bb62a6f309200ee876e"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_000.parquet",
+      "sha256": "ea4dd71f0014b3f2e36acfce7da5dec158dd442ebdbf918315eceb8ced54c192",
+      "bytes": 7909466,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-035.zip",
+      "archive_member": "objects/a0ca8409e2a0e93abbfa88fceedd153156c1ea0c"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_001.parquet",
+      "sha256": "d6969476a6f6092b02c3cd9b15ec693a9f330c58e0d2a3d1228dc74261d913f0",
+      "bytes": 7903063,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-035.zip",
+      "archive_member": "objects/dfcad68916e0a814134abe1807833e705ba2c35f"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_002.parquet",
+      "sha256": "e69034d77f4066b7fada3aca7805db5601a3d97ea77ef999c0747dceafb69125",
+      "bytes": 7941205,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-035.zip",
+      "archive_member": "objects/1f168b61c50a2b5dccdb4595d9fae855668e29b7"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_003.parquet",
+      "sha256": "0a3cfce927375fe579d4399bd7f8fa42f715513a242d89f59a80050db306312a",
+      "bytes": 7933964,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-035.zip",
+      "archive_member": "objects/5901e721fca3e632be5eef5fc52038e48c607615"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_004.parquet",
+      "sha256": "6de7619f49819ca05a20507b499cbb6c13dd8aa403f35049ba8fee1b91563158",
+      "bytes": 7927446,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-035.zip",
+      "archive_member": "objects/a401b2b5033fe12cf32a4780c94c8f231bf588b0"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_005.parquet",
+      "sha256": "d4fdea0ac22e171f5851ce47ddd89a29d9a9a5839d58a298ae0f6ad9cc0f7499",
+      "bytes": 7941531,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-035.zip",
+      "archive_member": "objects/e6bdbc8885a9152b3df5e7442c19b351c3985624"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_006.parquet",
+      "sha256": "97aa325d63030809376465dfc8d3fed3a48d37c7df19a2f30c0e85317d5c12fd",
+      "bytes": 7943988,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-035.zip",
+      "archive_member": "objects/ba82254ec6b8184e0877c351c63180586450f006"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_007.parquet",
+      "sha256": "2161e9a151fce71471eaca91419f53a1208f84e5b67db0c6aa9f0a419f497953",
+      "bytes": 7940770,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-035.zip",
+      "archive_member": "objects/e7ac1803a3db390b3460dccf68962615a57dcc0c"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_008.parquet",
+      "sha256": "e6d54213e62f5ead2a441e0e405f887a62acc460ba5a324f2d689a5f2531855f",
+      "bytes": 7941331,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-035.zip",
+      "archive_member": "objects/f70bff558e697b1a385d2bb769ed8064476ab15a"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_009.parquet",
+      "sha256": "fde76ff278a4681dac4292cca22d0e8ad8242e0c07df637096b56a1de8e89884",
+      "bytes": 7948719,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-035.zip",
+      "archive_member": "objects/a1dd410407b3871093d426bd5cb78e1f0098d7ab"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_010.parquet",
+      "sha256": "736c57187fd8ceac481eeb78abecd1ee9dda4e5333b37138f3bc6185adbe4354",
+      "bytes": 7947945,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-035.zip",
+      "archive_member": "objects/0362c14b01f042a389264650d7650f4a2a931783"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_011.parquet",
+      "sha256": "7fe7b56ce66b713a79d267bc275eb30168222a8fafc3939c628e466b225eeee7",
+      "bytes": 7957001,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-035.zip",
+      "archive_member": "objects/cbccffe33d04e17ea829ea09b51f50dbbe6ab2cd"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_012.parquet",
+      "sha256": "95d074291623ae9e9bc5ca23c349dd657ccfed40272483e6993f671f1fa33b7e",
+      "bytes": 7968791,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-035.zip",
+      "archive_member": "objects/83c6b7cfb702151511b9b23f8a42471f5c6692af"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_013.parquet",
+      "sha256": "8ffe45ea91b5f134719fe7bb8398424e7f2c46415c4585d04aaa2ffa451d7bf4",
+      "bytes": 7970772,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-035.zip",
+      "archive_member": "objects/c16e31c3ede30b6537f076474bc02f3380b1e97a"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_014.parquet",
+      "sha256": "aacbd72f7a1fbba29d6002657d18b0d1233035282c7675027e81a4aae84d2bc4",
+      "bytes": 7979581,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-036.zip",
+      "archive_member": "objects/078256861adc11297bb2a2ff12d74aeed743caa2"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_015.parquet",
+      "sha256": "b2cb5c9fe8da93fcca082b050fe3019e134ffe798d77776cdfbd639c3558c92d",
+      "bytes": 7992689,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-036.zip",
+      "archive_member": "objects/63b60b2f2c4d90b329f203d731cedea18419de28"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_016.parquet",
+      "sha256": "0e335e5cf6eac145d474f17defad338f0396ac980bf14c6c1b62c2e334be163e",
+      "bytes": 7923859,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-036.zip",
+      "archive_member": "objects/78b50b6cdf749c629947cd972fdd92a1656c9b68"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_017.parquet",
+      "sha256": "935f9d6da6a0985ea18a909ad57739eb8e251a2bed65e98d70ae1919091f5bcc",
+      "bytes": 7963476,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-036.zip",
+      "archive_member": "objects/8a207757c8c02d5057e98c0e58817a67c074a83a"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_018.parquet",
+      "sha256": "c5af153e1b37f48c1b2e0f53fe502303c74dceffb93bb24b65d7facc9730eea6",
+      "bytes": 7958865,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-036.zip",
+      "archive_member": "objects/403849f618e372c3c4ce99acd758b6818e3d44ec"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_019.parquet",
+      "sha256": "c8192d9ba71164531abb85f0b94d50a1145cb7162df2807911c52e7e1cea3d07",
+      "bytes": 7982710,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-036.zip",
+      "archive_member": "objects/18b48b5871804f518bb3bbcb055e543f95b05a5f"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_020.parquet",
+      "sha256": "448a63449c5dda47f4d59b1f165b6c434cc35811e1347c3af2ab6f3597ab3781",
+      "bytes": 7978116,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-036.zip",
+      "archive_member": "objects/595325e7fc01ee15d72189247ce078299f3109c8"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_021.parquet",
+      "sha256": "e6d41caa5b9d7252aaf3f7f252859aabf443bcd78b147c7a9c3c9544f8b4c7e6",
+      "bytes": 7974325,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-036.zip",
+      "archive_member": "objects/b04d18555b228d55858d4469e4119bf070141c9d"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_022.parquet",
+      "sha256": "10eac066dd61148ab86b782add1eeaf12b21f77e6db5bbf56cf7c586d7558e86",
+      "bytes": 7972242,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-036.zip",
+      "archive_member": "objects/52f52f1404a5f7ddd845cce2e7794e4bcfe23f5c"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/road_nodes/part_023.parquet",
+      "sha256": "4e219716c89259b0250eafaded7608a13ce30be32717e0d7f71c8f2745c3b0d3",
+      "bytes": 6836149,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-036.zip",
+      "archive_member": "objects/cecb1b3ba8d93ba033da22bab983f79a8ee0ca38"
+    }
+  ],
+  "boundary_source": {
+    "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/atlas-boundaries-20261026-v1/RUS-adm1.geojson",
+    "bytes": 13213661,
+    "sha256": "f8cd605958b61598265c12647d43279ad5ca2605c05509df281f769c330c82f4",
+    "provider": "Terrae / OpenStreetMap",
+    "epoch": "2026.10; 2026-09-28",
+    "medium_precision_approx_m": 150,
+    "properties": {
+      "adm1_id": "r72193",
+      "unit_key": "RUS",
+      "unit_name": "Russia",
+      "name": "Саратовская область",
+      "name_en": "Saratov Oblast",
+      "name_en_source": "osm",
+      "kind": "division",
+      "undivided_kind": null,
+      "iso_3166_2": "RU-SAR",
+      "iso_3166_2_status": "iso_list",
+      "osm_relation": 72193,
+      "osm_admin_level": 4,
+      "wikidata": "Q5334",
+      "selection": "iso_first",
+      "basis": null,
+      "area_km2": 101180.012,
+      "vertices": 2607
+    },
+    "scope": "Display context; not census membership, a water mask, or a route clipping boundary."
+  },
+  "outputs": {
+    "all_current_settlements.parquet": {
+      "bytes": 218438,
+      "sha256": "50ac051311afb68f837dca6e35edc979e7323cad0e38a07e477167dcfa47043d"
+    },
+    "centres.csv": {
+      "bytes": 1765,
+      "sha256": "d3c7a6b9ae9562dcef12c8956feec6edc084c7400738bfd2078f47aead378993"
+    },
+    "current_without_geometry.parquet": {
+      "bytes": 26872,
+      "sha256": "61600a5d4fe220ac225bb5a6bacecce6b6adf2ecb01c809d70cab0146d86b4b3"
+    },
+    "historical_only_chains.parquet": {
+      "bytes": 31815,
+      "sha256": "19eeb21ef679378aebcd126775d47e5a32320f741acb3079dfdde0f10603817e"
+    },
+    "region_reference.parquet": {
+      "bytes": 189048,
+      "sha256": "6b4c638f8104dcb89685548eeeea6cf27796e3cfca8c1e905bfc854f21c2ea5d"
+    },
+    "regional_function_evidence.parquet": {
+      "bytes": 69683,
+      "sha256": "1225e962a98ff66cfafd791032f4d2e362965b284a151df0f2902a87d26b3fc6"
+    },
+    "saratov_boundary.geojson": {
+      "bytes": 62480,
+      "sha256": "e51bbf9dac2d3b33eb2f29745e40187e48c727ab2b2c91233557dbdf58f0a50e"
+    },
+    "settlements.parquet": {
+      "bytes": 219454,
+      "sha256": "5502595e1ad5c1e6612e30ee7ba1f805a20861d8d5633f3daf6104be011e78b9"
+    },
+    "summary.json": {
+      "bytes": 23997,
+      "sha256": "4e7cd30ebbbbfaa50cb3907ae7c6ceab4884438accc3a87f499fe46d3b5784ad"
+    }
+  },
+  "scientific_summary": {
+    "schema": "sgrt.saratov_source_inventory.v1",
+    "population_reference_sha256": "456a0fd57c363cd7ade3563c5737634dd34ebda585569fc80bec160e4cc55e90",
+    "region_literal": "саратовская",
+    "current_settlement_types": {
+      "село": 947,
+      "посёлок": 399,
+      "деревня": 215,
+      "хутор": 156,
+      "железнодорожный объект": 35,
+      "пгт": 25,
+      "станция": 18,
+      "город": 18,
+      "населённый пункт": 1
+    },
+    "published_centres_own_known_basic_function_count": {
+      "1": 315,
+      "2": 124,
+      "3": 63
+    },
+    "region_reference_chains": 1998,
+    "current_2021_records": 1821,
+    "all_current_roster_rows": 1821,
+    "all_current_roster_scope": "1821 current identities, including explicit unknown geometry; no coordinate replacement",
+    "current_spatial_records": 1814,
+    "current_records_without_accepted_geometry": 7,
+    "historical_only_chains": 177,
+    "current_spatial_population_raw": 2442469.0,
+    "current_spatial_population_credited": 2436311.0,
+    "current_spatial_zero_population_records": 155,
+    "current_spatial_uncredited_records": 111,
+    "accepted_road_endpoints": 1814,
+    "published_external_serving_centres": 502,
+    "known_local_basic_function_count": {
+      "0": 869,
+      "1": 733,
+      "2": 147,
+      "3": 65
+    },
+    "own_function_presence": {
+      "school": 169,
+      "medical_basic": 926,
+      "grocery": 127
+    },
+    "own_historical_only_presence": {
+      "school": 0,
+      "medical_basic": 269,
+      "grocery": 0
+    },
+    "anchors": [
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:117733",
+        "name": "Питерка",
+        "region": "саратовская",
+        "district": "Питерский муниципальный район",
+        "settlement_type_2021": "село",
+        "lat": 50.6771317,
+        "lon": 47.4444037,
+        "population_2021": 4821.0,
+        "credit_2021": true,
+        "budget_population_credit": true,
+        "road_node_index": 3312982.0,
+        "snap_km": 0.023482670637375497,
+        "road_endpoint_accepted": true,
+        "verified_component_id": 2,
+        "verified_component_node_count": 9136650
+      },
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118372",
+        "name": "Саратов",
+        "region": "саратовская",
+        "district": "Городской округ город Саратов",
+        "settlement_type_2021": "город",
+        "lat": 51.53,
+        "lon": 46.035,
+        "population_2021": 901361.0,
+        "credit_2021": true,
+        "budget_population_credit": true,
+        "road_node_index": 5413005.0,
+        "snap_km": 0.009209732816402298,
+        "road_endpoint_accepted": true,
+        "verified_component_id": 2,
+        "verified_component_node_count": 9136650
+      },
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:116499",
+        "name": "Балаково",
+        "region": "саратовская",
+        "district": "Балаковский муниципальный район",
+        "settlement_type_2021": "город",
+        "lat": 52.03898,
+        "lon": 47.78392,
+        "population_2021": 184466.0,
+        "credit_2021": true,
+        "budget_population_credit": true,
+        "road_node_index": 493565.0,
+        "snap_km": 0.02195464043289725,
+        "road_endpoint_accepted": true,
+        "verified_component_id": 2,
+        "verified_component_node_count": 9136650
+      },
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:116550",
+        "name": "Балашов",
+        "region": "саратовская",
+        "district": "Балашовский муниципальный район",
+        "settlement_type_2021": "город",
+        "lat": 51.55,
+        "lon": 43.166667,
+        "population_2021": 74057.0,
+        "credit_2021": true,
+        "budget_population_credit": true,
+        "road_node_index": 1581143.0,
+        "snap_km": 0.05233063158242192,
+        "road_endpoint_accepted": true,
+        "verified_component_id": 2,
+        "verified_component_node_count": 9136650
+      },
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118308",
+        "name": "Энгельс",
+        "region": "саратовская",
+        "district": "Энгельсский муниципальный район",
+        "settlement_type_2021": "город",
+        "lat": 51.501667,
+        "lon": 46.122222,
+        "population_2021": 225428.0,
+        "credit_2021": true,
+        "budget_population_credit": true,
+        "road_node_index": 1593763.0,
+        "snap_km": 0.022352327130898502,
+        "road_endpoint_accepted": true,
+        "verified_component_id": 2,
+        "verified_component_node_count": 9136650
+      },
+      {
+        "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:117415",
+        "name": "Новоузенск",
+        "region": "саратовская",
+        "district": "Новоузенский муниципальный район",
+        "settlement_type_2021": "город",
+        "lat": 50.45,
+        "lon": 48.15,
+        "population_2021": 15216.0,
+        "credit_2021": true,
+        "budget_population_credit": true,
+        "road_node_index": 4874383.0,
+        "snap_km": 0.0051746522760298345,
+        "road_endpoint_accepted": true,
+        "verified_component_id": 2,
+        "verified_component_node_count": 9136650
+      }
+    ],
+    "piterka_station_not_anchor": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:117688",
+    "hydrography_mask_available": false,
+    "water_scope": "No pinned independent water polygons identified locally. Do not interpret the administrative boundary as a water mask.",
+    "source_file_count": 31,
+    "population_base_unchanged": true,
+    "known_services_are_not_verified_operation_or_capacity": true,
+    "service_choice_not_observed_trip": true
+  },
+  "coordinate_source_readonly": true,
+  "no_large_source_copies": true,
+  "water_polygons_identified": false
+}
