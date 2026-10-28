@@ -12,7 +12,7 @@ if(root){
  const sort=root.querySelector<HTMLSelectElement>('[name=sort]')!,focus=root.querySelector<HTMLSelectElement>('[data-graph-focus]')!,depth=root.querySelector<HTMLSelectElement>('[data-graph-depth]')!;
  const startUrl=new URL(location.href);let research=startUrl.searchParams.get('research')||data.researchId;
  let unread=startUrl.searchParams.get('unread')==='1';
- let within=startUrl.searchParams.get('within')||'';let collection=startUrl.searchParams.get('collection')||'';let view=startUrl.searchParams.get('view')||(startUrl.searchParams.has('q')||startUrl.searchParams.has('tag')||startUrl.searchParams.has('kind')||startUrl.searchParams.has('within')||unread?data.initialView:'tree');
+ let within=startUrl.searchParams.get('within')||'';let collection=startUrl.searchParams.get('collection')||'';let view=startUrl.searchParams.get('view')||(data.legacy||startUrl.searchParams.has('q')||startUrl.searchParams.has('tag')||startUrl.searchParams.has('kind')||startUrl.searchParams.has('within')||unread?data.initialView:'tree');
  if(!['tree','list','cards','graph'].includes(view))view='tree';
  let graphHandle:Awaited<ReturnType<typeof renderMaterialGraph>>|undefined;let graphGeneration=0;let selected='';let visible:Row[]=[];
  const normalize=(s:string)=>s.toLocaleLowerCase('ru').replaceAll('ё','е').trim();
@@ -52,13 +52,14 @@ if(root){
  for(const row of visible){const l=list.querySelector<HTMLElement>(`[data-material-list="${row.id}"]`),c=cards.querySelector<HTMLElement>(`[data-material-id="${row.id}"]`);if(l)list.append(l);if(c)cards.append(c)}
  const tree=root!.querySelector<HTMLElement>('[data-materials-tree]')!;
  const hasFilters=!!(research||within||collection||query||chosen.length||unread||['kind','format','territory','currency'].some(k=>select(k).value));
- const hub=!hasFilters&&view==='tree';root!.dataset.hub=String(hub);
+ const hub=!hasFilters&&view==='tree';root!.dataset.hub=String(hub);root!.dataset.view=view;
  root!.querySelector<HTMLElement>('[data-collection-hub]')!.hidden=hasFilters;
  root!.querySelector<HTMLElement>('#materials-results')!.hidden=hub;
  tree.hidden=view!=='tree';
  for(const group of tree.querySelectorAll<HTMLElement>('[data-collection-tree]'))group.hidden=!!research&&group.dataset.collectionTree!==research;
  for(const node of tree.querySelectorAll<HTMLElement>('[data-page-tree-node]'))node.hidden=!visible.some(r=>r.id===node.dataset.pageTreeNode||r.ancestors.includes(node.dataset.pageTreeNode!));
  const context=root!.querySelector<HTMLElement>('[data-collection-context]')!,selectedCollection=data.research.find(r=>r.id===research);context.hidden=!selectedCollection;
+ const title=root!.querySelector('[data-catalog-title]'),intro=root!.querySelector('[data-catalog-intro]');if(title)title.textContent=selectedCollection?.title||'Материалы';if(intro)intro.textContent=selectedCollection?.description||'Выберите исследование. Внутри — разделы, статьи, карты и связи между ними.';
  if(selectedCollection){context.querySelector('[data-collection-title]')!.textContent=selectedCollection.title;context.querySelector('[data-collection-description]')!.textContent=selectedCollection.description;context.dataset.collectionColor=research}
  root!.querySelector<HTMLInputElement>('[data-materials-unread]')!.checked=unread;
  root!.querySelector('[data-unread-count]')!.textContent=String(data.rows.filter(r=>(!research||r.researchId===research)&&isUnread(r.id,r.version)).length);
@@ -76,7 +77,7 @@ if(root){
  window.addEventListener('atlas-reading-change',()=>update(false));window.addEventListener('storage',()=>update(false));
  root.querySelectorAll<HTMLAnchorElement>('[data-collection-open]').forEach(a=>a.addEventListener('click',e=>{if(e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;e.preventDefault();form.reset();research=a.dataset.collectionOpen!;within='';collection='';view='tree';unread=false;update()}));
  root.querySelectorAll('[data-collections-home]').forEach(home=>home.addEventListener('click',e=>{e.preventDefault();research='';within='';collection='';unread=false;view='tree';form.reset();update()}));
- form.addEventListener('submit',e=>{e.preventDefault();update()});form.addEventListener('input',e=>{if(e.target!==q)return;sort.value=q.value?'relevance':within?'tree':'updated';if(q.value)view='list';update()});form.addEventListener('change',e=>{if(e.target!==q)update()});sort.addEventListener('change',()=>update());
+ form.addEventListener('submit',e=>{e.preventDefault();update()});form.addEventListener('input',e=>{if(e.target!==q)return;sort.value=q.value?'relevance':within?'tree':'updated';if(q.value&&view==='tree')view='list';update()});form.addEventListener('change',e=>{if(e.target!==q){if(view==='tree')view='list';update()}});sort.addEventListener('change',()=>update());
  root.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.view!;update()}));focus.addEventListener('change',()=>update());depth.addEventListener('change',()=>update());root.querySelector('[data-catalog-reset]')!.addEventListener('click',resetFilters);
  document.querySelectorAll<HTMLAnchorElement>('[data-catalog-research],[data-catalog-preset]').forEach(a=>a.addEventListener('click',e=>{if(e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;e.preventDefault();form.reset();sort.value='tree';view=a.dataset.catalogResearch?'tree':'list';research=a.dataset.catalogResearch||'';within='';collection=a.dataset.catalogPreset==='start'?'start':'';if(a.dataset.catalogPreset==='method')select('kind').value='method';if(a.dataset.catalogPreset==='quality'){const input=form.querySelector<HTMLInputElement>('[name=tag][value="data-quality"]');if(input)input.checked=true}update()}));
  root.addEventListener('click',e=>{const a=(e.target as Element).closest<HTMLAnchorElement>('[data-tag-link]');if(a&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey){e.preventDefault();const input=form.querySelector<HTMLInputElement>(`[name=tag][value="${a.dataset.tagLink}"]`);if(input)input.checked=true;update()}});

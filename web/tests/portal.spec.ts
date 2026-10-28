@@ -14,18 +14,17 @@ test('atlas search, no-results and reset preserve a usable catalogue',async({pag
 
 test('research selection survives navigation and dark theme survives reload',async({page})=>{
  await page.goto('materials/');await page.locator('[data-catalog-research="ecommerce"]').click();await expect(page).toHaveURL(/materials\/\?research=ecommerce/);
- await expect(page.locator('[data-material-list]:visible')).toHaveCount(2);
+ await expect(page.locator('[data-materials-tree]')).toBeVisible();await page.getByRole('button',{name:'Список',exact:true}).click();await expect(page.locator('[data-material-list]:visible')).toHaveCount(2);
  await expect(page.locator('[data-catalog-research="ecommerce"]')).toHaveAttribute('aria-current','page');
  await page.locator('[data-material-list]:visible h2 a').first().click();await expect(page.getByRole('heading',{level:1})).toBeVisible();await page.goBack();
  await expect(page).toHaveURL(/materials\/\?research=ecommerce/);await expect(page.locator('[data-material-list]:visible')).toHaveCount(2);
  await page.locator('#theme-toggle').click();await expect(page.locator('html')).toHaveAttribute('data-theme','dark');await page.reload();await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
 });
 
-test('morning updates are meaningful and can be marked read',async({page})=>{
- await page.goto('');const count=page.locator('[data-new-count]');await expect(count).toBeVisible();expect(Number(await count.textContent())).toBeGreaterThan(0);
- await page.locator('[data-mark-read]').click();await expect(count).toHaveText('0');
- await page.locator('[data-new-only]').check();await expect(page.locator('[data-no-new]')).toBeVisible();
- await page.reload();await expect(page.locator('[data-new-count]')).toHaveText('0');
+test('navigation has two destinations and old updates links lead to new materials',async({page})=>{
+ await page.goto('');await expect(page.getByRole('navigation',{name:'Основная навигация'}).getByRole('link')).toHaveCount(2);
+ await expect(page.getByRole('link',{name:'Обновления',exact:true})).toHaveCount(0);
+ await page.goto('updates/?research=population&unread=1');await expect(page).toHaveURL(/materials\/\?.*research=population/);await expect(page.locator('[data-materials-unread]')).toBeChecked();
 });
 
 test('latest correction has real evidence and renders its data',async({page})=>{
