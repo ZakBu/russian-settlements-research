@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.literature_usage.v1",
-  "updated": "2026-10-28",
+  "updated": "2026-10-29",
   "rules": [
     "Each new substantive methodological claim must cite a source ID or be marked as our own proposal.",
     "Code implementation claims require a concrete file/function and validation; empty implementation_paths means no implementation is certified by this map.",
@@ -76,13 +76,25 @@
         "sgrt/zero/CENTRE_SYSTEMS_20261025.md",
         "web/content/materials/literature-foundations.json",
         "web/content/materials/literature-accessibility-models.json",
-        "web/content/materials/literature-bibliography.json"
+        "web/content/materials/literature-bibliography.json",
+        "sgrt/saratov/REGIONAL_LITERATURE_20261028.md"
       ],
       "purpose": "Jointly investigate decay and variable catchments; rural and urban contexts differ.",
       "implementation_status": "conceptual_method_and_literature_basis; not proof of new calibrated nationwide implementation",
-      "implementation_paths": [],
+      "implementation_paths": [
+        "scripts/sgrt_saratov/functional_fields.py",
+        "scripts/sgrt_saratov/regional_fields.py"
+      ],
       "reading_scope_field": "references/sources.json records[id=MCGRAIL2012].read_scope",
-      "centre_stars_application_20261025": "Conceptual differentiation of service orders and direct functional relations only. Same-centre two/three-service support and nontransitive star construction are our diagnostic proposal; neither is a literature threshold or calibrated trip model. Reading scope is unchanged."
+      "centre_stars_application_20261025": "Conceptual differentiation of service orders and direct functional relations only. Same-centre two/three-service support and nontransitive star construction are our diagnostic proposal; neither is a literature threshold or calibrated trip model. Reading scope is unchanged.",
+      "dated_applications": [
+        {
+          "date": "2026-10-29",
+          "purpose": "Separating functional orders, alternatives and absolute travel barriers; no imported Russian decay coefficients and no full H2SFCA capacity claim.",
+          "implementation_status": "methodological_constraint_and_scenario_comparison_not_literal_H2SFCA_implementation",
+          "reading_scope_field": "references/provenance/saratov_regional_sources_20261028.json literature_re_reading"
+        }
+      ]
     },
     {
       "source_id": "TAO2020_H2SFCA",
@@ -95,13 +107,25 @@
         "sgrt/zero/CENTRE_SYSTEMS_20261025.md",
         "web/content/materials/literature-foundations.json",
         "web/content/materials/literature-accessibility-models.json",
-        "web/content/materials/literature-bibliography.json"
+        "web/content/materials/literature-bibliography.json",
+        "sgrt/saratov/REGIONAL_LITERATURE_20261028.md"
       ],
       "purpose": "Service-level-specific decay and absolute-versus-relative accessibility. Does not itself infer Russian SGRT.",
       "implementation_status": "conceptual_method_and_literature_basis; not proof of new calibrated nationwide implementation",
-      "implementation_paths": [],
+      "implementation_paths": [
+        "scripts/sgrt_saratov/functional_fields.py",
+        "scripts/sgrt_saratov/regional_fields.py"
+      ],
       "reading_scope_field": "references/sources.json records[id=TAO2020_H2SFCA].read_scope",
-      "centre_stars_application_20261025": "Conceptual differentiation of service orders and direct functional relations only. Same-centre two/three-service support and nontransitive star construction are our diagnostic proposal; neither is a literature threshold or calibrated trip model. Reading scope is unchanged."
+      "centre_stars_application_20261025": "Conceptual differentiation of service orders and direct functional relations only. Same-centre two/three-service support and nontransitive star construction are our diagnostic proposal; neither is a literature threshold or calibrated trip model. Reading scope is unchanged.",
+      "dated_applications": [
+        {
+          "date": "2026-10-29",
+          "purpose": "Separating functional orders, alternatives and absolute travel barriers; no imported Russian decay coefficients and no full H2SFCA capacity claim.",
+          "implementation_status": "methodological_constraint_and_scenario_comparison_not_literal_H2SFCA_implementation",
+          "reading_scope_field": "references/provenance/saratov_regional_sources_20261028.json literature_re_reading"
+        }
+      ]
     },
     {
       "source_id": "OECD2021_SCHOOLS",
@@ -1717,6 +1741,84 @@
         "scripts/sgrt_saratov/isochrones.py"
       ],
       "reading_scope_field": "references/sources.json records[id=SCIPY117_DIJKSTRA_DOCUMENTATION].read_scope"
+    },
+    {
+      "source_id": "PITERSKY_SCHOOL_TERRITORIES_2025_34R",
+      "used_in": [
+        "sgrt/saratov/REGIONAL_LITERATURE_20261028.md"
+      ],
+      "purpose": "Physical-campus supply audit and documented admission-territory comparison; not actual journeys or calibrated decay.",
+      "implementation_status": "implemented_saratov_regional_source_control",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/documented_school_controls.py",
+        "scripts/sgrt_saratov/functional_fields.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=PITERSKY_SCHOOL_TERRITORIES_2025_34R].read_scope"
+    },
+    {
+      "source_id": "NOVOUZENSK_SCHOOL_TERRITORIES_2025_45",
+      "used_in": [
+        "sgrt/saratov/REGIONAL_LITERATURE_20261028.md"
+      ],
+      "purpose": "Physical-campus supply audit and documented admission-territory comparison; not actual journeys or calibrated decay.",
+      "implementation_status": "implemented_saratov_regional_source_control",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/documented_school_controls.py",
+        "scripts/sgrt_saratov/functional_fields.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=NOVOUZENSK_SCHOOL_TERRITORIES_2025_45].read_scope"
+    },
+    {
+      "source_id": "ALGAYSKIY_SCHOOL_BRANCH_STRUCTURE_WEB",
+      "used_in": [
+        "sgrt/saratov/REGIONAL_LITERATURE_20261028.md"
+      ],
+      "purpose": "Physical-campus supply audit and documented admission-territory comparison; not actual journeys or calibrated decay.",
+      "implementation_status": "implemented_saratov_regional_source_control",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/documented_school_controls.py",
+        "scripts/sgrt_saratov/functional_fields.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=ALGAYSKIY_SCHOOL_BRANCH_STRUCTURE_WEB].read_scope"
+    },
+    {
+      "source_id": "SARATOV_EDUCATION_CODES_METADATA_2013_2014",
+      "used_in": [
+        "sgrt/saratov/HISTORICAL_SCHOOLS_METADATA_2013_2014.md"
+      ],
+      "purpose": "Separate historical named-locality school-supply scenario and contrast to nonhistorical inventory; no automaticcurrentoperation or verifiedgrade inference.",
+      "implementation_status": "implemented_historical_school_inventory_extraction_and_literal_np_linkage",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/historical_school_inventory.py",
+        "tests/test_sgrt_saratov_historical_schools.py"
+      ],
+      "reading_scope_field": "references/provenance/saratov_historical_school_codes_2013_2014.json"
+    },
+    {
+      "source_id": "MAGNIT_PUBLIC_PHYSICAL_STORE_LOCATOR_20261028",
+      "used_in": [
+        "sgrt/saratov/REGIONAL_RESULTS_20261029.md",
+        "sgrt/saratov/FUNCTIONAL_FIELDS_20261028.md"
+      ],
+      "purpose": "Frozen physical grocery offers, exact additional directed road candidates and sensitivity to source coverage. Publisher-active is not independent operation verification.",
+      "implementation_status": "implemented_separate_regional_source_sensitivity",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/official_magnit.py",
+        "scripts/sgrt_saratov/functional_fields.py"
+      ]
+    },
+    {
+      "source_id": "SARATOVSTAT2012_CENSUS2010_NP_POPULATION",
+      "used_in": [
+        "sgrt/saratov/REGIONAL_RESULTS_20261029.md",
+        "sgrt/saratov/REGIONAL_CONTEXT_20261028.md"
+      ],
+      "purpose": "Первичные численные наблюдения 2010 года и чувствительность динамической типологии при неизменном составе центров и окружений. Сопоставимость контингентов и границ остаётся отдельным ограничением.",
+      "implementation_status": "implemented_separate_derived_primary2010_scenario_foundation_not_rewritten",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/primary_census2010.py",
+        "scripts/sgrt_saratov/regional_context.py"
+      ]
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"

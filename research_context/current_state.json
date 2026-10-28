@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-28T23:25:15+03:00",
+  "updated_moscow": "2026-10-29T02:19:44+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,13 +9,13 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "model_level0_primary_membership_and_demography_published_higher_cooperation_under_research",
-      "summary": "Сохранены 28 512 модельных низовых центров и рассчитаны основные окружения. У 14 253 центров есть внешние жилые основные участники. Все 28 512 получили демографические описания; совместная динамика центра и сельского окружения 2002–2021 известна у 11 739 по принятым значениям, у 8 601 обе части убывали. Верхний опыт ближайших услуг отвергнут. Опубликованы экономические данные, национальные проверки и условные межцентровые связи; полная иерархия и причинные типы Word ещё не установлены.",
+      "status": "saratov_full_regional_pilot_calculated_source_and_demographic_sensitivity_checked",
+      "summary": "По всей Саратовской области рассчитаны поля населения, 16 функциональных направлений, альтернативы, условная потеря функции и местные центры. Основной вариант даёт 510 областных центров базовых функций и 25 внешних; медианное окружение — два жилых НП. У 160 областных составов есть первичные численные наблюдения центра и сельского окружения во всех трёх переписях. Это предварительная модель известных предложений, не наблюдённые потоки и не доказанная общая иерархия. Прежние национальные результаты сохраняются как предыдущие варианты.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
-      "main_blocker": "Ближайшие услуги описывают обслуживание, но не экономическую кооперацию городов. Нужны независимые трудовые и межцентровые связи; нельзя назначать Москве верхний уровень заранее.",
+      "main_blocker": "Неполное предложение сельских магазинов и школ, неизвестная вместимость и доступ отдельных профилей; мало независимых направленных поездок. Первичные числа 2010 года найдены, но сопоставимость контингентов и границ остаётся отдельным ограничением.",
       "workplan": "sgrt/workplan/README.md",
-      "results": "sgrt/zero/RESEARCH_RESULTS_20261027.md",
+      "results": "sgrt/saratov/REGIONAL_RESULTS_20261029.md",
       "data_release": "sgrt-common-systems-20261027-v1",
       "publication": {
         "release": "sgrt-common-systems-20261027-v1",
@@ -126,207 +126,18 @@
         "status": "previous_20261024_single_function_control_not_current_general_partition"
       },
       "current_task": {
-        "goal": "Повседневное обслуживание всех регионов без весового преимущества крупных городов; последующий проверяемый переход вверх",
+        "goal": "Полный предварительный пилот Саратовской области по концепции D54: многомасштабные поля, отдельные функции, местные центры, прямые межцентровые отношения и динамическая типология.",
         "user_decisions": [
-          "D32",
-          "D33",
-          "D34",
-          "D35",
-          "D36"
+          "D54",
+          "D56",
+          "D58"
         ],
-        "logic_checks_and_literature": "sgrt/zero/LITERATURE_AND_LIMITS.md",
-        "new_source_sectors": [
-          "health_official_and_osm2026",
-          "education_osm2026_and_preschool_rosstat2025",
-          "retail_osm2021",
-          "wildberries_frozen_public20261025",
-          "yandex_and_5post_frozen_public20261025",
-          "saratov_tfoms2021_primary_pdf_historical_supplement",
-          "federal_f032_f033_f034_f038_current20261023_exact_care_address"
-        ],
-        "ordinary_census_origins_unchanged": 153800,
-        "additional_nonadditive_city_contexts": 3,
-        "analysis_origins": 153803,
-        "reference_subjects": 85,
-        "new_directed_raw_service_tables": 23,
-        "raw_nearest_is_not_a_final_system": true,
-        "population_advantage_at_level0": false,
-        "target_number_of_levels_is_not_hardcoded": true,
-        "Moscow_unique_upper_order_is_research_goal_not_prescribed_label": true,
-        "calculation_state": "primary_zero_and_demographic_readout_published_independent_higher_scale_and_cooperation_research_continues",
-        "source_release": "sgrt-zero-inputs-20261025-v1",
-        "source_manifest_sha256": "d9c8617dadbed91d92cf0cf1e139af67fddf5e9c33c7c50f09cd577c0c664ddc",
-        "level_zero_control": {
-          "inhabited_multi_np_groups_main": 22238,
-          "all_service_profile_units_main": 72717,
-          "population_used_for_assignment": false,
-          "source_snapshot": "manual_24oct_before_historical_saratov_supplement",
-          "final_published_result": false
-        },
-        "federal_medical_source": {
-          "state": "frozen_primary_archive_and_complete_positive_unit_clinical_integration_finished",
-          "source_snapshot": "2026-10-23",
-          "release": "sgrt-zero-federal-medical-inputs-20261025-v1",
-          "archive_sha256": "e7bab4fa92ba0273faf18d6bfb97c368c3fd0b66290c3b2a82d82bc47ff6db42",
-          "manifest_sha256": "8062fa9a3c48acf4f8c39df8914afb37eaf22acef0ee60a7cf0208f750ef7397",
-          "actual_care_address_dictionary": "F038",
-          "legal_address_fallback": false,
-          "address_presence_found_in_reference_subjects": 85,
-          "address_presence_is_complete_clinical_inventory": false,
-          "current_care_profile_rows": 897573,
-          "current_subdivision_address_pairs": 152294,
-          "strict_matched_address_rows": 130244,
-          "matched_settlements_or_city_contexts": 37128,
-          "actual_building_coordinates_observed": false,
-          "combined_settlements_with_any_category_evidence": 37650,
-          "combined_np_service_category_pairs": 61794,
-          "combined_six_meaningful_service_pairs": 59337,
-          "combined_basic_primary_np": 36859,
-          "combined_physician_primary_np": 9195,
-          "service_presence_not_permanent_staff_or_observed_visits": true
-        },
-        "current_quality_iteration": {
-          "state": "positive_general_primary_unit_criterion_frozen_actual_source_audit_zero_invariant_failures",
-          "canonical_np_supply_sha256": "65e35fb5965a44ed8d00c132a18ca13ee01b0c3388c88c501b1d597d757bf530",
-          "canonical_physical_supply_sha256": "febc84b4133098487dd4ac37fe527fd4f134000eecba5a56dc55f03f2907bf1b",
-          "source_current_care_rows": 897573,
-          "combined_np_service_rows": 61794,
-          "combined_np_with_primary_service_evidence": 36859,
-          "actual_medical_audit_conditions": 15,
-          "actual_medical_audit_nonzero_failures": 0,
-          "old_control_data_remains_immutable": true,
-          "raw_medical_source_rows_retained": true,
-          "universal_suitability_for_every_patient_established": false
-        },
-        "numeric_result_snapshot": "research_context/analysis_snapshots/zero_final_readout_20261025.json",
-        "partial_core_reason_snapshot": "research_context/analysis_snapshots/zero_final_partial_reasons_20261025.json",
-        "control_before_education_and_city_binding_fix": {
-          "level_zero": {
-            "all_provider_profile_units": 75012,
-            "inhabited_multi_np_groups": 22942,
-            "groups_with_all_three_near_core_functions": 15423,
-            "groups_without_all_three_near_core_functions": 7519,
-            "single_point_units": 48212,
-            "origins_without_admitted_near_link": 5829,
-            "median_spherical_multi_np_diameter_km": 4.29,
-            "p95_spherical_multi_np_diameter_km": 13.35,
-            "max_spherical_multi_np_diameter_km": 41.02,
-            "all_provider_profile_units_are_sgrt_count": false,
-            "population_used_for_assignment": false,
-            "same_definition_robustness_audits_scenarios": 5
-          },
-          "bounded_upward": {
-            "strict_parent_unit_counts": [
-              75012,
-              29863,
-              29279,
-              29270,
-              29224
-            ],
-            "strict_new_merger_group_counts": [
-              8214,
-              105,
-              7,
-              31
-            ],
-            "extended_all_declared_parent_counts": [
-              29863,
-              26600,
-              26464,
-              26464
-            ],
-            "diagnostic_two_domains_parent_counts": [
-              29863,
-              26600,
-              25331,
-              25331
-            ],
-            "higher_layer_indices_are_city_ranks": false,
-            "Moscow_only_top_established": false,
-            "strict_is_primary_conservative_scenario": true,
-            "two_domains_is_diagnostic_not_accepted_agglomeration": true,
-            "astrakhan_diagnostic_max_distance_from_city_km": 119.69,
-            "astrakhan_diagnostic_geodesic_diameter_km": 164.39
-          },
-          "status": "not_final_known_semantic_errors_currently_corrected"
-        },
-        "known_pending_semantic_corrections": [],
-        "education_programme_source_frozen": {
-          "source_rows_retained": 76713,
-          "eligible_default_objects": 73760,
-          "default_general_school_objects": 31762,
-          "default_preschool_objects": 35216,
-          "default_vocational_proxies": 4100,
-          "default_higher_proxies": 2682,
-          "old_eligible_provider_rows_held": 1496,
-          "old_held_general_objects_restored": 20,
-          "physical_sha256": "abfacfcd0e98ec3d67000ad211e41c01c40b121f5eddb2a0c35e306a4e2ebf61",
-          "np_supply_sha256": "1078b7016ce69cc7d019f4676801dfb19d3055f392668610d31f0cc3c9d88baf",
-          "observed_enrolment_or_actual_capacity_established": false,
-          "scope_support_audit_conditions": 18,
-          "audit_nonzero_failure_conditions": 0,
-          "data_snapshot": "research_context/analysis_snapshots/education_programme_scope_correction_20261025.json"
-        },
-        "commerce_known_ordinary_matcher_error": {
-          "state": "corrected_actual_five_source_tables_and_countrywide_operator_evidence_verified",
-          "scope": "explicit_locality_must_not_be_overruled_by_region_or_street_name",
-          "raw_source_examples": "research_context/analysis_snapshots/commerce_ordinary_matching_counterexamples_20261025.json",
-          "federal_v3_control_does_not_validate_ordinary_links": true,
-          "actual_audit": "research_context/analysis_snapshots/commerce_ordinary_identity_actual_v5_20261025.json",
-          "final_source_audit": "research_context/analysis_snapshots/commerce_final_address_components_actual_20261025.json"
-        },
-        "level_zero": {
-          "all_provider_profile_units": 74994,
-          "inhabited_multi_np_groups": 22933,
-          "groups_with_all_three_near_core_functions": 15400,
-          "groups_without_all_three_near_core_functions": 7533,
-          "single_point_units": 48213,
-          "origins_without_admitted_near_link": 5830,
-          "median_spherical_multi_np_diameter_km": 4.292,
-          "p95_spherical_multi_np_diameter_km": 13.353,
-          "max_spherical_multi_np_diameter_km": 41.016,
-          "all_provider_profile_units_are_sgrt_count": false,
-          "population_used_for_assignment": false,
-          "actual_audits_scenarios": 5,
-          "conditions_per_actual_audit": 20,
-          "nonzero_violation_counts": 0,
-          "v1_unit_definition_warning": "inhabited_multi_np_groups in v1 counts populated source records, including explicit settlement parts; not certified distinct settlements or centre-periphery systems",
-          "inhabited_multi_source_record_profiles": 22933
-        },
-        "bounded_upward": {
-          "strict_parent_unit_counts": [
-            74994,
-            29855,
-            29271,
-            29262,
-            29216
-          ],
-          "strict_new_merger_group_counts": [
-            8215,
-            105,
-            7,
-            31
-          ],
-          "extended_all_declared_parent_counts": [
-            29855,
-            26590,
-            26452,
-            26452
-          ],
-          "diagnostic_two_domains_parent_counts": [
-            29855,
-            26590,
-            25317,
-            25317
-          ],
-          "higher_layer_indices_are_city_ranks": false,
-          "Moscow_only_top_established": false,
-          "strict_is_primary_conservative_scenario": true,
-          "two_domains_is_diagnostic_not_accepted_agglomeration": true,
-          "astrakhan_diagnostic_max_distance_from_city_km": 119.69,
-          "astrakhan_diagnostic_geodesic_diameter_km": 164.39
-        },
-        "latest_user_goal": "Выделить нулевые центры, оформить статью и слой карты, затем продолжать проверяемое исследование более высоких уровней без подгонки верхней Москвы."
+        "primary_report": "sgrt/saratov/REGIONAL_RESULTS_20261029.md",
+        "method": "sgrt/saratov/REGIONAL_METHOD_20261029.md",
+        "scope": "Весь текущий переписной состав области, 1821 запись; 1814 имеют принятую дорожную привязку.",
+        "preferred_inventory": "physical_official_enrichment",
+        "status": "complete_local_calculation_independent_checks_and_reproducible_publication_in_progress",
+        "higher_levels": "Прямые направления редких функций рассчитаны для самих базовых центров. Число уровней и единственная вложенная иерархия не назначены и наблюдениями не установлены."
       },
       "previous_national_publication": {
         "release": "sgrt-mass-local-systems-20261024-v1",
@@ -762,6 +573,277 @@
         "atlas_material": "saratov-isochrones",
         "independent_numeric_snapshot": "research_context/analysis_snapshots/saratov_isochrones_independent_numeric_20261028.json",
         "catalog": "data/saratov_isochrones_catalog_20261028.json"
+      },
+      "previous_national_task_context": {
+        "goal": "Повседневное обслуживание всех регионов без весового преимущества крупных городов; последующий проверяемый переход вверх",
+        "user_decisions": [
+          "D32",
+          "D33",
+          "D34",
+          "D35",
+          "D36"
+        ],
+        "logic_checks_and_literature": "sgrt/zero/LITERATURE_AND_LIMITS.md",
+        "new_source_sectors": [
+          "health_official_and_osm2026",
+          "education_osm2026_and_preschool_rosstat2025",
+          "retail_osm2021",
+          "wildberries_frozen_public20261025",
+          "yandex_and_5post_frozen_public20261025",
+          "saratov_tfoms2021_primary_pdf_historical_supplement",
+          "federal_f032_f033_f034_f038_current20261023_exact_care_address"
+        ],
+        "ordinary_census_origins_unchanged": 153800,
+        "additional_nonadditive_city_contexts": 3,
+        "analysis_origins": 153803,
+        "reference_subjects": 85,
+        "new_directed_raw_service_tables": 23,
+        "raw_nearest_is_not_a_final_system": true,
+        "population_advantage_at_level0": false,
+        "target_number_of_levels_is_not_hardcoded": true,
+        "Moscow_unique_upper_order_is_research_goal_not_prescribed_label": true,
+        "calculation_state": "primary_zero_and_demographic_readout_published_independent_higher_scale_and_cooperation_research_continues",
+        "source_release": "sgrt-zero-inputs-20261025-v1",
+        "source_manifest_sha256": "d9c8617dadbed91d92cf0cf1e139af67fddf5e9c33c7c50f09cd577c0c664ddc",
+        "level_zero_control": {
+          "inhabited_multi_np_groups_main": 22238,
+          "all_service_profile_units_main": 72717,
+          "population_used_for_assignment": false,
+          "source_snapshot": "manual_24oct_before_historical_saratov_supplement",
+          "final_published_result": false
+        },
+        "federal_medical_source": {
+          "state": "frozen_primary_archive_and_complete_positive_unit_clinical_integration_finished",
+          "source_snapshot": "2026-10-23",
+          "release": "sgrt-zero-federal-medical-inputs-20261025-v1",
+          "archive_sha256": "e7bab4fa92ba0273faf18d6bfb97c368c3fd0b66290c3b2a82d82bc47ff6db42",
+          "manifest_sha256": "8062fa9a3c48acf4f8c39df8914afb37eaf22acef0ee60a7cf0208f750ef7397",
+          "actual_care_address_dictionary": "F038",
+          "legal_address_fallback": false,
+          "address_presence_found_in_reference_subjects": 85,
+          "address_presence_is_complete_clinical_inventory": false,
+          "current_care_profile_rows": 897573,
+          "current_subdivision_address_pairs": 152294,
+          "strict_matched_address_rows": 130244,
+          "matched_settlements_or_city_contexts": 37128,
+          "actual_building_coordinates_observed": false,
+          "combined_settlements_with_any_category_evidence": 37650,
+          "combined_np_service_category_pairs": 61794,
+          "combined_six_meaningful_service_pairs": 59337,
+          "combined_basic_primary_np": 36859,
+          "combined_physician_primary_np": 9195,
+          "service_presence_not_permanent_staff_or_observed_visits": true
+        },
+        "current_quality_iteration": {
+          "state": "positive_general_primary_unit_criterion_frozen_actual_source_audit_zero_invariant_failures",
+          "canonical_np_supply_sha256": "65e35fb5965a44ed8d00c132a18ca13ee01b0c3388c88c501b1d597d757bf530",
+          "canonical_physical_supply_sha256": "febc84b4133098487dd4ac37fe527fd4f134000eecba5a56dc55f03f2907bf1b",
+          "source_current_care_rows": 897573,
+          "combined_np_service_rows": 61794,
+          "combined_np_with_primary_service_evidence": 36859,
+          "actual_medical_audit_conditions": 15,
+          "actual_medical_audit_nonzero_failures": 0,
+          "old_control_data_remains_immutable": true,
+          "raw_medical_source_rows_retained": true,
+          "universal_suitability_for_every_patient_established": false
+        },
+        "numeric_result_snapshot": "research_context/analysis_snapshots/zero_final_readout_20261025.json",
+        "partial_core_reason_snapshot": "research_context/analysis_snapshots/zero_final_partial_reasons_20261025.json",
+        "control_before_education_and_city_binding_fix": {
+          "level_zero": {
+            "all_provider_profile_units": 75012,
+            "inhabited_multi_np_groups": 22942,
+            "groups_with_all_three_near_core_functions": 15423,
+            "groups_without_all_three_near_core_functions": 7519,
+            "single_point_units": 48212,
+            "origins_without_admitted_near_link": 5829,
+            "median_spherical_multi_np_diameter_km": 4.29,
+            "p95_spherical_multi_np_diameter_km": 13.35,
+            "max_spherical_multi_np_diameter_km": 41.02,
+            "all_provider_profile_units_are_sgrt_count": false,
+            "population_used_for_assignment": false,
+            "same_definition_robustness_audits_scenarios": 5
+          },
+          "bounded_upward": {
+            "strict_parent_unit_counts": [
+              75012,
+              29863,
+              29279,
+              29270,
+              29224
+            ],
+            "strict_new_merger_group_counts": [
+              8214,
+              105,
+              7,
+              31
+            ],
+            "extended_all_declared_parent_counts": [
+              29863,
+              26600,
+              26464,
+              26464
+            ],
+            "diagnostic_two_domains_parent_counts": [
+              29863,
+              26600,
+              25331,
+              25331
+            ],
+            "higher_layer_indices_are_city_ranks": false,
+            "Moscow_only_top_established": false,
+            "strict_is_primary_conservative_scenario": true,
+            "two_domains_is_diagnostic_not_accepted_agglomeration": true,
+            "astrakhan_diagnostic_max_distance_from_city_km": 119.69,
+            "astrakhan_diagnostic_geodesic_diameter_km": 164.39
+          },
+          "status": "not_final_known_semantic_errors_currently_corrected"
+        },
+        "known_pending_semantic_corrections": [],
+        "education_programme_source_frozen": {
+          "source_rows_retained": 76713,
+          "eligible_default_objects": 73760,
+          "default_general_school_objects": 31762,
+          "default_preschool_objects": 35216,
+          "default_vocational_proxies": 4100,
+          "default_higher_proxies": 2682,
+          "old_eligible_provider_rows_held": 1496,
+          "old_held_general_objects_restored": 20,
+          "physical_sha256": "abfacfcd0e98ec3d67000ad211e41c01c40b121f5eddb2a0c35e306a4e2ebf61",
+          "np_supply_sha256": "1078b7016ce69cc7d019f4676801dfb19d3055f392668610d31f0cc3c9d88baf",
+          "observed_enrolment_or_actual_capacity_established": false,
+          "scope_support_audit_conditions": 18,
+          "audit_nonzero_failure_conditions": 0,
+          "data_snapshot": "research_context/analysis_snapshots/education_programme_scope_correction_20261025.json"
+        },
+        "commerce_known_ordinary_matcher_error": {
+          "state": "corrected_actual_five_source_tables_and_countrywide_operator_evidence_verified",
+          "scope": "explicit_locality_must_not_be_overruled_by_region_or_street_name",
+          "raw_source_examples": "research_context/analysis_snapshots/commerce_ordinary_matching_counterexamples_20261025.json",
+          "federal_v3_control_does_not_validate_ordinary_links": true,
+          "actual_audit": "research_context/analysis_snapshots/commerce_ordinary_identity_actual_v5_20261025.json",
+          "final_source_audit": "research_context/analysis_snapshots/commerce_final_address_components_actual_20261025.json"
+        },
+        "level_zero": {
+          "all_provider_profile_units": 74994,
+          "inhabited_multi_np_groups": 22933,
+          "groups_with_all_three_near_core_functions": 15400,
+          "groups_without_all_three_near_core_functions": 7533,
+          "single_point_units": 48213,
+          "origins_without_admitted_near_link": 5830,
+          "median_spherical_multi_np_diameter_km": 4.292,
+          "p95_spherical_multi_np_diameter_km": 13.353,
+          "max_spherical_multi_np_diameter_km": 41.016,
+          "all_provider_profile_units_are_sgrt_count": false,
+          "population_used_for_assignment": false,
+          "actual_audits_scenarios": 5,
+          "conditions_per_actual_audit": 20,
+          "nonzero_violation_counts": 0,
+          "v1_unit_definition_warning": "inhabited_multi_np_groups in v1 counts populated source records, including explicit settlement parts; not certified distinct settlements or centre-periphery systems",
+          "inhabited_multi_source_record_profiles": 22933
+        },
+        "bounded_upward": {
+          "strict_parent_unit_counts": [
+            74994,
+            29855,
+            29271,
+            29262,
+            29216
+          ],
+          "strict_new_merger_group_counts": [
+            8215,
+            105,
+            7,
+            31
+          ],
+          "extended_all_declared_parent_counts": [
+            29855,
+            26590,
+            26452,
+            26452
+          ],
+          "diagnostic_two_domains_parent_counts": [
+            29855,
+            26590,
+            25317,
+            25317
+          ],
+          "higher_layer_indices_are_city_ranks": false,
+          "Moscow_only_top_established": false,
+          "strict_is_primary_conservative_scenario": true,
+          "two_domains_is_diagnostic_not_accepted_agglomeration": true,
+          "astrakhan_diagnostic_max_distance_from_city_km": 119.69,
+          "astrakhan_diagnostic_geodesic_diameter_km": 164.39
+        },
+        "latest_user_goal": "Выделить нулевые центры, оформить статью и слой карты, затем продолжать проверяемое исследование более высоких уровней без подгонки верхней Москвы."
+      },
+      "saratov_regional_research_20261029": {
+        "status": "complete_local_recalculation_awaiting_fresh_public_reproduction",
+        "decision_id": "D58",
+        "concept_id": "D54",
+        "current_records": 1821,
+        "positive_population_records_2021": 1662,
+        "published_zero_population_records_2021": 159,
+        "mapped_records": 1814,
+        "unmapped_records": 7,
+        "directed_finite_cost_pairs": 30258075,
+        "national_destination_records": 153650,
+        "population_field_scenarios_per_origin": 36,
+        "functional_families": 16,
+        "source_inventory_scenarios": 4,
+        "evidence_scenarios_per_inventory": 2,
+        "preferred_regional_basic_centres": 510,
+        "preferred_external_basic_centres": 25,
+        "preferred_own_basic_function_counts": {
+          "three": 64,
+          "two": 139,
+          "one": 307
+        },
+        "median_external_inhabited_np_per_centre": 2,
+        "maximum_external_inhabited_np_per_centre": 61,
+        "regional_centres_nonhistorical_only_scenario": 491,
+        "regional_centres_common_to_both_evidence_scenarios": 429,
+        "preferred_joint_demography_2002_2021": {
+          "decline_decline": 332,
+          "decline_growth": 23,
+          "growth_decline": 16,
+          "growth_growth": 18,
+          "one_unchanged_other_decline": 2,
+          "incomplete": 119
+        },
+        "primary_2010_book_rows": 1823,
+        "primary_2010_book_province_population": 2521892,
+        "primary_2010_original_unique_identity_matches": 1406,
+        "primary_2010_different_numeric_values": 1046,
+        "differences_are_proven_errors_or_imputations": false,
+        "derived_current_np_with_primary2010": 1344,
+        "primary_numeric_three_census_joint_regional_centres": 160,
+        "np_trajectory_sensitivity": {
+          "changed": 101,
+          "comparable": 1289
+        },
+        "centre_rural_trajectory_sensitivity": {
+          "changed": 25,
+          "comparable": 390
+        },
+        "population_foundation_rewritten": false,
+        "independent_school_external_positive_controls": 20,
+        "school_match_before_supply_enrichment": 2,
+        "school_match_after_supply_enrichment": 17,
+        "after_enrichment_control_fully_independent_of_supply_document": false,
+        "new_magnit_active_physical_groceries": 778,
+        "magnit_active_saratov_groceries": 544,
+        "historical_school_contents_year_known": false,
+        "historical_school_variant_is_preferred": false,
+        "intercentre_function_outcomes": 16016,
+        "intercentre_model_reciprocal_pairs_all_known": 63,
+        "observed_trip_flows_established": false,
+        "common_hierarchy_established": false,
+        "potential_maxima_are_proven_functional_centres": false,
+        "method": "sgrt/saratov/REGIONAL_METHOD_20261029.md",
+        "report": "sgrt/saratov/REGIONAL_RESULTS_20261029.md",
+        "source_catalog": "data/saratov_regional_inputs_20261029.json",
+        "planned_release_tag": "sgrt-saratov-fields-20261029-v1"
       }
     },
     "portal": {
@@ -794,12 +876,11 @@
     }
   },
   "next_steps": [
-    "Основной пилот — Саратовская область. Изохроны к шести центрам опубликованы. Следом считать доступность конкретных учреждений и функций, проверять альтернативные центры и наблюдаемые межпоселенческие связи; затем расширять состав центров.",
-    "Сопоставить населёнческое поле с отдельными функциями и наблюдаемыми связями. Не заменять этим прежние местные центры и не считать число максимумов числом уровней.",
-    "Разделить классы наблюдаемого масштаба центров и пространственную иерархию. Проверить новые межцентровые модели по совместимым наблюдаемым направлениям, не по долям работающих вне НП в целом.",
-    "Проверять все жилые части нижнего окружения, дорожные альтернативы и многополюсность; не объединять территорию транзитивной цепочкой. Внешние eFUA — входной сценарий, не независимая проверка.",
-    "Дорабатывать доказательства школ, медицинских подразделений, торговли, работы и аграрного контекста. Муниципальные итоги не приписывать отдельным НП; разновременные источники не объявлять причинным объяснением демографии 2002–2021.",
-    "Для динамической типологии Word проверять объясняющие переменные и происхождение населения 2010 отдельно. Все новые типы сохранять с явным неизвестным и описательным статусом, не подменяя ими причинные механизмы."
+    "Опубликовать полный саратовский комплект после чистого пересчёта закреплённых исходников и проверки фактически скачанных файлов; обновить атлас обобщёнными контрастными картами и статьёй.",
+    "Проверять конкретные школьные и медицинские направления, сельские магазины и действующие профили учреждений. Отсутствие объекта в OSM не считать отсутствием функции.",
+    "Сопоставлять прямые связи редких функций и труда с независимыми наблюдениями; эмпирически проверять более широкие системы без заранее заданных рангов и единственной вершины.",
+    "Продолжать поиск сопоставимых первичных численностей и границ, сохраняя неизменную связанную основу и отдельные варианты наблюдений.",
+    "Расширять географический пилот после проверки методики на Саратовской области; не переносить её параметры и полноту источников автоматически на всю Россию."
   ],
   "known_limits": [
     "Прежний расчёт «13%» с исходным знаменателем не найден. Принятые поправки raw→effective меняют пару состояний у 1082 из 142765 строгих рядов; региональная альтернатива — у 3909 из 18516 рядов своей подвыборки. Ни одна доля не является национальной оценкой ошибки; подробнее в sgrt/pilot/DEMOGRAPHY_2010.md.",
