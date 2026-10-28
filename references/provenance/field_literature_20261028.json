@@ -1,0 +1,187 @@
+{
+  "schema": "sgrt.field_literature.v1",
+  "reviewed_moscow_date": "2026-10-28",
+  "note_path": "sgrt/field_pilot/LITERATURE_20261028.md",
+  "status": "methodological_reading_and_synthetic_counterexample_not_new_empirical_systems",
+  "public_full_texts_added_to_git": false,
+  "existing_reference_review": {
+    "reference_id": "KUZMIN2023_FIELD_GRID",
+    "reading_status": "full_text",
+    "read_scope": "Полный шестистраничный текст вновь проверен: введение и формулы 1–4, раздел 2, описание графа и вычислений, результаты и выводы.",
+    "locator": "С. 347–352, формулы 1–4, рисунки 2–4.",
+    "doi": "10.5194/isprs-archives-XLVIII-1-W2-2023-347-2023",
+    "reading_url": "https://isprs-archives.copernicus.org/articles/XLVIII-1-W2-2023/347/2023/isprs-archives-XLVIII-1-W2-2023-347-2023.pdf",
+    "file": {
+      "bytes": 2725383,
+      "sha256": "f8ebae20a3426c35f177255f312aa99c6bbd86f0228f6aec5fbdcbd50acc2cd3",
+      "stored_in_git": false
+    },
+    "use": "Вычисление на регулярной сетке против интерполяции только поселенных значений; дорожная длина не время; 422 крупных поселения и принятые пороги 50/300км не универсальная российская калибровка."
+  },
+  "new_registry_candidates": [
+    {
+      "id": "LINDEBERG1990_DISCRETE_SCALE_SPACE",
+      "authors": "Lindeberg, Tony",
+      "year": 1990,
+      "title": "Scale-space for discrete signals",
+      "journal": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+      "volume": "12",
+      "issue": "3",
+      "pages": "234–254",
+      "doi": "10.1109/34.49051",
+      "url": "https://doi.org/10.1109/34.49051",
+      "reading_url": "https://people.kth.se/~tony/papers/cvap66.pdf",
+      "publication_type": "journal_article",
+      "reading_status": "selected_sections",
+      "read_scope": "28 октября 2026 года прочитаны авторская аннотация и содержательные разделы авторской PDF-версии: постановка, определения дискретного сглаживания, разделы 8–9 о переходе к двумерному случаю. Все алгебраические доказательства и остальные разделы целиком не проверены.",
+      "locator": "Авторская версия PDF: разделы 1–2, 8–9; PDF-с. 17–19; рис. 4. Журнальная пагинация отличается.",
+      "use": "sgrt/field_pilot/LITERATURE_20261028.md: не приписывать сглаживанию монотонное уменьшение числа пиков; различать неусиление значений экстремумов и число экстремумов. Не переносить одномерные или решёточные теоремы автоматически на дорожный граф."
+    },
+    {
+      "id": "SHUMAN2013_GRAPH_SIGNAL_PROCESSING",
+      "authors": "Shuman, David I.; Narang, Sunil K.; Frossard, Pascal; Ortega, Antonio; Vandergheynst, Pierre",
+      "year": 2013,
+      "title": "The emerging field of signal processing on graphs: Extending high-dimensional data analysis to networks and other irregular domains",
+      "journal": "IEEE Signal Processing Magazine",
+      "volume": "30",
+      "issue": "3",
+      "pages": "83–98",
+      "doi": "10.1109/MSP.2012.2235192",
+      "url": "https://doi.org/10.1109/MSP.2012.2235192",
+      "reading_url": "https://arxiv.org/pdf/1211.0053",
+      "publication_type": "journal_article",
+      "reading_status": "selected_sections",
+      "read_scope": "28 октября 2026 года прочитаны разделы II–III, пример 3 о heat diffusion и раздел V открытой авторской версии arXiv:1211.0053. Остальные приложения и все ссылки статьи целиком не разобраны.",
+      "locator": "Раздел II.B: L=D−W; II.F: другие матрицы графа; III, Example 3: exp(−τL); V: ограничения переноса.",
+      "use": "sgrt/field_pilot/LITERATURE_20261028.md: различение матричной диффузии exp(−τL) и нашего суммарного потенциала по кратчайшим путям; параметр диффузии не равен дорожным минутам; выбор оператора и графа явно фиксируется."
+    },
+    {
+      "id": "EDELSBRUNNER2002_PERSISTENCE",
+      "authors": "Edelsbrunner, Herbert; Letscher, David; Zomorodian, Afra",
+      "year": 2002,
+      "title": "Topological Persistence and Simplification",
+      "journal": "Discrete & Computational Geometry",
+      "volume": "28",
+      "issue": "4",
+      "pages": "511–533",
+      "doi": "10.1007/s00454-002-2885-2",
+      "url": "https://doi.org/10.1007/s00454-002-2885-2",
+      "reading_url": "https://www.math.uchicago.edu/~shmuel/AAT-readings/Data%20Analysis%20/Edelsbrunner-Letscher-Zomordian.pdf",
+      "publication_type": "journal_article",
+      "reading_status": "selected_sections",
+      "read_scope": "28 октября 2026 года прочитаны разделы 1–3 и начало раздела 4 журнальной PDF-версии (с. 511–521); экспериментальные приложения и остальные доказательства целиком не прочитаны. Авторская версия дополнительно доступна на персональном сайте первого автора.",
+      "locator": "С. 515–519: фильтрация, компоненты и pairing; раздел 3, формулы (3)–(4), Time-Based Persistence.",
+      "use": "sgrt/field_pilot/LITERATURE_20261028.md: кандидат для выраженности пиков по надпороговым компонентам при фиксированной ширине затухания. Эта наша адаптация не реализована и не тождественна устойчивости пиков по ширине затухания или функциональному рангу города."
+    },
+    {
+      "id": "OKABE2009_NETWORK_KDE",
+      "authors": "Okabe, Atsuyuki; Satoh, Toshiaki; Sugihara, Kokichi",
+      "year": 2009,
+      "title": "A kernel density estimation method for networks, its computational method and a GIS-based tool",
+      "journal": "International Journal of Geographical Information Science",
+      "volume": "23",
+      "issue": "1",
+      "pages": "7–32",
+      "doi": "10.1080/13658810802475491",
+      "url": "https://doi.org/10.1080/13658810802475491",
+      "reading_url": "https://www.tandfonline.com/doi/abs/10.1080/13658810802475491",
+      "publication_type": "journal_article",
+      "reading_status": "abstract_and_metadata",
+      "read_scope": "28 октября 2026 года проверены первичная издательская аннотация и выходные данные, Crossref-метаданные. Полный текст не получен: PDF издателя 403, индексируемая университетская ссылка dp/89.pdf 404. Формулы исправленных сетевых ядер не прочитаны.",
+      "locator": "Publisher Abstract; страницы 7–32, библиографическая шапка.",
+      "use": "sgrt/field_pilot/LITERATURE_20261028.md: не смешивать плотность событий на единицу длины сети и демографический потенциал. Предупреждение о сетевых узлах не является доказательством смещения нашей модели доступности; исправленные ядра не объявляются реализованными."
+    }
+  ],
+  "retrieved_files": {
+    "LINDEBERG1990_DISCRETE_SCALE_SPACE": {
+      "bytes": 420311,
+      "sha256": "00e60ef0594595ebe30bbc8c8795a774c60ee6d3bdb5112fdbeb11dc412cd19c",
+      "stored_in_git": false
+    },
+    "SHUMAN2013_GRAPH_SIGNAL_PROCESSING": {
+      "bytes": 2968573,
+      "sha256": "8700aa3efea85f5024a39588c842e7445a5db04396105e63294e2de2ef8361f5",
+      "stored_in_git": false
+    },
+    "EDELSBRUNNER2002_PERSISTENCE": {
+      "bytes": 889525,
+      "sha256": "51ff5c8fb5cdc50f24b4f7bf37c67c49f53c4ead53d98819da3afaccd8e436cb",
+      "stored_in_git": false
+    },
+    "EDELSBRUNNER2002_PERSISTENCE_author_version": {
+      "bytes": 775764,
+      "sha256": "2fb7a5dfc06c4019b3076d60c4eab96b44b44a6c8ba2e5f0a8601764920c3dd9",
+      "stored_in_git": false
+    }
+  },
+  "synthetic_counterexample": {
+    "kind": "our_calculated_graph_counterexample_not_empirical_settlement_data",
+    "graph": "undirected 5-vertex star, edges (0,1),(0,2),(0,3),(0,4), all weights 1",
+    "laplacian": "L=diag(W.sum(axis=1))−W",
+    "initial_signal": [
+      10,
+      9,
+      8,
+      0,
+      0
+    ],
+    "operator": "scipy.linalg.expm(−tau*L)@P",
+    "tau_unit": "dimensionless operator parameter, not road minutes",
+    "strict_peak_definition": "value greater than all immediately adjacent values by >1e−12",
+    "results": [
+      {
+        "tau": 0.0,
+        "values": [
+          10.0,
+          9.0,
+          8.0,
+          0.0,
+          0.0
+        ],
+        "peaks": [
+          0
+        ],
+        "sum": 27.0
+      },
+      {
+        "tau": 0.2,
+        "values": [
+          7.092245429388635,
+          8.865909719773255,
+          8.047178966695274,
+          1.4973329420714179,
+          1.497332942071418
+        ],
+        "peaks": [
+          1,
+          2
+        ],
+        "sum": 26.999999999999996
+      }
+    ],
+    "inference": "True heat diffusion can increase the number of local maxima. This is not a counterexample to every particular shortest-path potential, and does not identify Russian centre orders.",
+    "libraries": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0"
+    }
+  },
+  "project_design_choices_not_attributed_to_sources": [
+    "Equal-half-weight exponential, Gaussian and finite power kernels are candidates; no Russian estimated coefficients claimed.",
+    "Full potential, external-only potential and self-share are different diagnostics.",
+    "Peak neighbours, plateau tolerance, source boundary and missing-route semantics must be explicit.",
+    "Potential values are not a probability distribution or a conserved population stock.",
+    "At fixed bandwidth, superlevel component persistence is distinct from tracking peaks across bandwidths."
+  ],
+  "failed_full_text_access": [
+    {
+      "reference_id": "OKABE2009_NETWORK_KDE",
+      "url": "https://www.csis.u-tokyo.ac.jp/dp/89.pdf",
+      "result": "HTTP404"
+    },
+    {
+      "reference_id": "OKABE2009_NETWORK_KDE",
+      "url": "https://www.tandfonline.com/doi/pdf/10.1080/13658810802475491",
+      "result": "HTTP403"
+    }
+  ]
+}

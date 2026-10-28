@@ -1,0 +1,235 @@
+{
+  "schema": "sgrt.field_pilot.inputs.v1",
+  "source_files": [
+    {
+      "catalog": "data/zero_catalog_20261025.json",
+      "path": "sgrt/zero20261025/context/analysis_reference.parquet",
+      "sha256": "456a0fd57c363cd7ade3563c5737634dd34ebda585569fc80bec160e4cc55e90",
+      "bytes": 12036184,
+      "release_tag": "sgrt-zero-systems-20261025-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-zero-systems-20261025-v1/zero-data.zip",
+      "archive_member": "objects/40fd0d04eb61462a26fc5541cbf0c415d1f612f7"
+    },
+    {
+      "catalog": "data/identity_catalog_20261026.json",
+      "path": "sgrt/identity20261026/routes/endpoint_network_quality.parquet",
+      "sha256": "11f8bae82196a9e8d2817fe0ca1c43f2b829326c4368b542f2f726d2b4a25bdb",
+      "bytes": 3982803,
+      "release_tag": "sgrt-zero-centres-20261026-v2",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-zero-centres-20261026-v2/identity-centres.zip",
+      "archive_member": "sgrt/identity20261026/routes/endpoint_network_quality.parquet"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/graph_npz_parts/part_000.bin",
+      "sha256": "07684f8794432e986fc0ee67cf00d5478f278c0ba10347d0d0fa996dee56264d",
+      "bytes": 90000000,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-033.zip",
+      "archive_member": "objects/1f67db23601080ea385349ac141506b0f592aee7"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/graph_npz_parts/part_001.bin",
+      "sha256": "c5811967be397bc5724c218228882eca270948c36427be6f98a9bf16a2b7cbc9",
+      "bytes": 90000000,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-033.zip",
+      "archive_member": "objects/1938492ba4d3f2aedeadfc980d18397d2026d967"
+    },
+    {
+      "catalog": "data/catalog.json",
+      "path": "research/sgrt_word_completion_20261021/transport/cycle06_network2021_access_v2/graph_npz_parts/part_002.bin",
+      "sha256": "149ee0876363785ad2b38636dc5b7060c09d1b77d7cbce48b4fc0f54b3d7407b",
+      "bytes": 19559926,
+      "release_tag": "sgrt-census-population-20261022-v1",
+      "url": "https://github.com/ZakBu/russian-settlements-research/releases/download/sgrt-census-population-20261022-v1/data-033.zip",
+      "archive_member": "objects/fb80abf5c0c06c19a0574bb62a6f309200ee876e"
+    }
+  ],
+  "graph_sha256": "a6713a186f07d76193b0fc494bc35a3b5a9a8148744fda691487a461d8b6a366",
+  "graph_cost_unit": "modelled_minutes",
+  "graph_directed": true,
+  "graph_epoch": "2021-01-01T21:42:03Z",
+  "connector_scenario_kmh": 15,
+  "maximum_inherited_snap_km": 10,
+  "graph_scope": "full_national_graph_not_induced_window",
+  "evaluation_circle_km": 30.0,
+  "evaluation_core_circle_km": 20.0,
+  "circle_scope": "evaluation_locations_only_not_mass_sources_or_catchments",
+  "national_current_ordinary_spatial_records": 153800,
+  "national_mass_statuses": {
+    "credited_known_positive": 123137,
+    "credited_known_zero": 21012,
+    "published_value_not_credited": 9651
+  },
+  "population_accounting": {
+    "current_reference_records": 155414,
+    "ordinary_spatial_records": 153800,
+    "ordinary_spatial_uncredited_published_positive_records": 6453,
+    "ordinary_spatial_uncredited_published_zero_records": 3198,
+    "ordinary_spatial_uncredited_published_sum_not_added": 2277853.0,
+    "ordinary_spatial_missing_or_invalid_population_records": 0,
+    "ordinary_nonspatial_current_records": 1611,
+    "ordinary_nonspatial_published_population_sum_not_added": 27170.0,
+    "ordinary_nonspatial_credited_records": 2,
+    "ordinary_nonspatial_credited_population_sum_not_added": 39.0,
+    "nonadditive_federal_context_records_not_added": 3,
+    "nonadditive_federal_context_raw_sum_not_an_additive_total": 19159843.0,
+    "uncredited_scope": "Published but not accepted as additive population credit; this is neither a missing source value nor a zero. No claim that all such rows are duplicates.",
+    "conservative_excluded_published_raw_sum_upper_bound_may_double_count": 21464866.0,
+    "excluded_mass_bound_scope": "Envelope over excluded published values in this reference only, allowing intentional double count. Not an asserted upper bound on true Russian population, unknown data errors or unrecorded settlements. Never add it as an estimated population total."
+  },
+  "national_routable_records": 153647,
+  "national_known_positive_mass": 125717257.0,
+  "national_known_positive_mass_without_accepted_endpoint": 11224.0,
+  "pilots": [
+    {
+      "pilot": "saratov_engels",
+      "anchor_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118372",
+      "anchor_name": "Саратов",
+      "anchor_region": "саратовская",
+      "anchor_population_2021": 901361.0,
+      "records_in_evaluation_window": 92,
+      "routable_evaluation_records": 92,
+      "routable_core_records": 41,
+      "mass_statuses": {
+        "credited_known_positive": 89,
+        "published_value_not_credited": 3
+      },
+      "unroutable_known_positive_records": 0,
+      "uncredited_published_population_sum_not_added": 777.0
+    },
+    {
+      "pilot": "uchaly",
+      "anchor_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:148722",
+      "anchor_name": "Учалы",
+      "anchor_region": "башкортостан",
+      "anchor_population_2021": 36175.0,
+      "records_in_evaluation_window": 44,
+      "routable_evaluation_records": 44,
+      "routable_core_records": 23,
+      "mass_statuses": {
+        "credited_known_positive": 44
+      },
+      "unroutable_known_positive_records": 0,
+      "uncredited_published_population_sum_not_added": 0.0
+    },
+    {
+      "pilot": "ustye",
+      "anchor_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:12160",
+      "anchor_name": "Устье",
+      "anchor_region": "вологодская",
+      "anchor_population_2021": 4176.0,
+      "records_in_evaluation_window": 454,
+      "routable_evaluation_records": 454,
+      "routable_core_records": 212,
+      "mass_statuses": {
+        "credited_known_positive": 280,
+        "credited_known_zero": 138,
+        "published_value_not_credited": 36
+      },
+      "unroutable_known_positive_records": 0,
+      "uncredited_published_population_sum_not_added": 831.0
+    }
+  ],
+  "excluded_nonadditive_contexts": [
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:64748",
+      "name": "Москва",
+      "population_role": "external_context_nonadditive",
+      "population_2021": 13010112.0
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:121540",
+      "name": "Севастополь",
+      "population_role": "external_context_nonadditive",
+      "population_2021": 547820.0
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:126656",
+      "name": "Санкт-Петербург",
+      "population_role": "external_context_nonadditive",
+      "population_2021": 5601911.0
+    }
+  ],
+  "uncredited_examples": [
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50442",
+      "name": "Симферополь",
+      "region": "крым",
+      "population_2021": 340540.0,
+      "credit_2021": false
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50488",
+      "name": "Керчь",
+      "region": "крым",
+      "population_2021": 154621.0,
+      "credit_2021": false
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50483",
+      "name": "Евпатория",
+      "region": "крым",
+      "population_2021": 107877.0,
+      "credit_2021": false
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50530",
+      "name": "Ялта",
+      "region": "крым",
+      "population_2021": 74652.0,
+      "credit_2021": false
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50511",
+      "name": "Феодосия",
+      "region": "крым",
+      "population_2021": 66293.0,
+      "credit_2021": false
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50481",
+      "name": "Джанкой",
+      "region": "крым",
+      "population_2021": 37014.0,
+      "credit_2021": false
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50449",
+      "name": "Алушта",
+      "region": "крым",
+      "population_2021": 31364.0,
+      "credit_2021": false
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:49266",
+      "name": "Бахчисарай",
+      "region": "крым",
+      "population_2021": 28609.0,
+      "credit_2021": false
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50490",
+      "name": "Красноперекопск",
+      "region": "крым",
+      "population_2021": 25569.0,
+      "credit_2021": false
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:50492",
+      "name": "Саки",
+      "region": "крым",
+      "population_2021": 24285.0,
+      "credit_2021": false
+    }
+  ],
+  "population_missingness": "Published uncredited values remain distinct from unknown population and from known zero. The current source frame has no unknown numeric population values; its uncredited published values have mass_2021=NULL because additive credit is not established.",
+  "uncomputed_road_pairs": "Outside a finite search limit is censored, not disconnected. Unaccepted endpoints are unknown, not isolated.",
+  "evaluation": {
+    "csv": "evaluation.csv",
+    "parquet": "evaluation.parquet"
+  },
+  "source_weights": "sourceweights.parquet"
+}
