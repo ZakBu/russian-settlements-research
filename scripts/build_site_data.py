@@ -742,6 +742,42 @@ def export_layers(content, output, cache, population_lookup, offline=False):
     return registry
 
 
+
+def export_context_transport(config, output, cache, offline=False):
+    """Reuse dated Natural Earth lines only for the country-scale background."""
+    from shapely.geometry import box, mapping, shape
+    extent = box(*config['bbox'])
+    features = []
+    for asset in config['sources']:
+        path = boundary_cache_path(cache, asset)
+        if offline:
+            if not path.is_file() or digest(path) != asset['sha256']:
+                raise ValueError('Offline transport context missing or hash differs: ' + asset['id'])
+        else:
+            path = verified_download(asset, cache)
+        for source in json.loads(path.read_text())['features']:
+            props = source['properties']
+            if asset['kind'] == 'road' and props.get('type') != 'Major Highway':
+                continue
+            if asset['kind'] == 'rail' and props.get('scalerank', 99) > 6:
+                continue
+            geometry = shape(source['geometry'])
+            if not geometry.intersects(extent):
+                continue
+            geometry = geometry.intersection(extent).simplify(config['simplifyDegrees'], preserve_topology=True)
+            if geometry.is_empty or geometry.geom_type not in {'LineString', 'MultiLineString'}:
+                continue
+            features.append({'type': 'Feature', 'geometry': mapping(geometry), 'properties': {
+                'kind': asset['kind'], 'sourceClass': props.get('type') or props.get('featurecla'),
+                'sourceRank': props.get('scalerank'), 'source': 'Natural Earth',
+            }})
+    collection = display_boundaries(features)
+    collection['features'] = [feature for feature in collection['features']
+                              if shape(feature['geometry']).is_valid and shape(feature['geometry']).length > 0]
+    write_json(output / 'context-transport-overview.geojson', collection)
+    return {'path': 'context-transport-overview.geojson', 'count': len(collection['features']),
+            'scope': config['scope'], 'sources': config['sources']}
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=ROOT / 'web/public/data')
@@ -810,6 +846,7 @@ def main(argv=None):
             centres.append({**existing, 'properties': props})
     write_json(args.output / 'centres.geojson', feature_collection(centres))
     registry = export_layers(ROOT / 'web/content', args.output, args.cache, lookup, offline=args.offline)
+    context_transport = export_context_transport(assets['contextTransport'], args.output, args.cache, offline=args.offline)
     polygon_info = export_settlement_polygons(assets['settlementPolygons'], args.output, args.cache, lookup, offline=args.offline)
     git = subprocess.check_output(['git', 'show', '-s', '--format=%H%n%cI', 'HEAD'], cwd=ROOT, text=True).splitlines()
     manifest = {'version': 1, 'generatedAt': git[1], 'sourceCommit': git[0],
@@ -829,6 +866,7 @@ def main(argv=None):
                 'detailPath': 'settlement-details/{shard}.json',
                 'customLayers': 'layers.json',
                 'settlementPolygons': polygon_info,
+                'contextTransport': context_transport,
                 'preview': {'path': 'settlements-preview.json', 'outlinePath': 'country-preview.geojson', 'outlineUse': 'decorative_reference_land_only', 'count': len(preview), 'method': 'one_real_highest_population_point_per_0.15_degree_cell_for_thumbnail_only'},
                 'limitations': [assets.get('boundaryNote', 'Справочная сетка границ не подменяет принятую переписную основу.'),
                                 'Сводки внутри контуров рассчитаны по фиксированному сопоставимому набору точек; это не официальные муниципальные итоги.',

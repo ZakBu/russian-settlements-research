@@ -311,7 +311,7 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
     instance.addControl(new maplibregl.ScaleControl({ unit: 'metric', maxWidth: 150 }), 'bottom-left');
     instance.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: `Переписи 2002/2010/2021 · ${boundaryStamp('regions')}` }), 'bottom-right');
     instance.on('load', () => {
-      void addContextBasemap(instance,{dark:document.documentElement.dataset.theme==='dark',onStatus:available=>{contextAvailable.current=available;setBasemapUnavailable(!available);renderLabels.current()}}).then(handle=>{if(map.current===instance){basemap.current=handle;handle.setTheme(document.documentElement.dataset.theme==='dark')}else handle.dispose()});
+      void addContextBasemap(instance,{base:root,dark:document.documentElement.dataset.theme==='dark',onStatus:available=>{contextAvailable.current=available;setBasemapUnavailable(!available);renderLabels.current()}}).then(handle=>{if(map.current===instance){basemap.current=handle;handle.setTheme(document.documentElement.dataset.theme==='dark')}else handle.dispose()});
       const boundary = (key: string, fill: string) => {
         instance.addSource(key, { type: 'geojson', data: empty as any });
         instance.addLayer({ id: `${key}-fill`, type: 'fill', source: key, paint: { 'fill-color': fill, 'fill-opacity': key === 'regions' ? .012 : .008 } });
