@@ -25,9 +25,8 @@ test('nested articles have stable URLs, ordered ancestors and real child links',
 });
 
 test('native nested page disclosures remain usable on a small screen',async({page})=>{
- await page.setViewportSize({width:390,height:844});await page.goto('materials/?within=population-comparability');
- const library=page.locator('.document-library-menu');await library.locator(':scope > summary').click();
- await expect(page.locator('[data-research-tree="population"]')).toHaveAttribute('open','');
+ await page.setViewportSize({width:390,height:844});await page.goto('materials/?within=population-comparability&view=tree');
+ await expect(page.locator('[data-materials-tree]')).toBeVisible();
  const branch=page.locator('[data-page-tree-branch="population-comparability"]');await expect(branch).toHaveAttribute('open','');
  const child=page.locator('[data-page-tree-node="population-coverage"]>a');await expect(child).toBeVisible();await child.click();await expect(page).toHaveURL(/materials\/population-coverage\//);
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);

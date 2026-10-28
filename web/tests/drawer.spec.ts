@@ -19,7 +19,7 @@ test('catalog tree is unique before and after drawer use and drawer links naviga
  await page.goto('materials/');const initial=await page.locator('[data-page-tree-node]').count();expect(initial).toBeGreaterThan(10);
  const trigger=page.getByRole('button',{name:'Открыть навигацию по материалам',exact:true});await trigger.click();const drawer=page.getByRole('dialog',{name:'Материалы и исследования',exact:true});await expect(drawer).toBeVisible();
  const width=await page.evaluate(()=>innerWidth);await page.mouse.click(width-8,20);await expect(drawer).not.toBeVisible();await expect(page.locator('[data-page-tree-node]')).toHaveCount(initial);await expect(trigger).toBeFocused();
- await trigger.click();await drawer.locator('[data-catalog-research="ecommerce"]').click();await expect(page).toHaveURL(/materials\/\?research=ecommerce/);await expect(page.locator('[data-material-list]:visible')).toHaveCount(2);await expect(page.getByRole('dialog')).not.toBeVisible();await expect(page.locator('[data-page-tree-node]')).toHaveCount(initial);
+ await trigger.click();await drawer.locator('[data-catalog-research="ecommerce"]').click();await expect(page).toHaveURL(/materials\/\?research=ecommerce/);await expect(page.locator('[data-collection-context]')).toContainText('Маркетплейсы и центры');await expect(page.locator('[data-collection-tree="ecommerce"]')).toBeVisible();await expect(page.getByRole('dialog')).not.toBeVisible();await expect(page.locator('[data-page-tree-node]')).toHaveCount(initial);
 });
 
 test('drawer and article remain usable on mobile in both themes',async({page},testInfo)=>{
@@ -31,7 +31,7 @@ test('drawer and article remain usable on mobile in both themes',async({page},te
   const audit=await new AxeBuilder({page}).analyze();expect(audit.violations.filter(v=>['serious','critical'].includes(v.impact||''))).toEqual([]);
   await page.screenshot({path:testInfo.outputPath(`drawer-mobile-${theme}.png`)});await drawer.getByRole('button',{name:'Закрыть навигацию по материалам',exact:true}).click();await expect(trigger).toBeFocused();
  }
- await page.getByRole('button',{name:'Открыть навигацию по материалам',exact:true}).click();await page.getByRole('dialog').getByRole('link',{name:'Все материалы',exact:true}).click();await expect(page.getByRole('heading',{level:1})).toHaveText('Материалы');
+ await page.getByRole('button',{name:'Открыть навигацию по материалам',exact:true}).click();await page.getByRole('dialog').getByRole('link',{name:'Все коллекции',exact:true}).click();await expect(page.getByRole('heading',{level:1})).toHaveText('Материалы');
 });
 
 test('a long desktop outline scrolls within the viewport without moving the article',async({page})=>{

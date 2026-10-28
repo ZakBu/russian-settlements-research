@@ -5,7 +5,7 @@ test('legacy entry points share the complete search and preserve query and resea
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  for(const route of ['knowledge/','atlas/']){
   await page.goto(route+'?research=population&q=точности');
-  await expect(page.getByRole('heading',{name:'Материалы',exact:true})).toBeVisible();
+  await expect(page.getByRole('heading',{level:1})).toBeVisible();
   await expect.poll(()=>new URL(page.url()).pathname.endsWith('/materials/')).toBe(true);
   const url=new URL(page.url());expect(url.searchParams.get('research')).toBe('population');expect(url.searchParams.get('q')).toBe('точности');
   await expect(page.locator('#materials-search')).toHaveValue('точности');
@@ -34,7 +34,7 @@ test('list and cards show identical filtered documents and share the same tags',
  const cards=page.locator('[data-material-card]:visible');await expect(cards).toHaveCount(ids.length);
  expect(await cards.evaluateAll(els=>els.map(el=>(el as HTMLElement).dataset.materialId).sort())).toEqual(ids);
  await page.getByRole('button',{name:'Список',exact:true}).click();await expect(page.locator('[data-material-list]:visible')).toHaveCount(ids.length);await expect(page.locator('[data-active-filters]')).toContainText('Качество данных');
- await page.locator('[data-catalog-preset="all"]').click();await expect(page.locator('[data-active-filters]')).toBeEmpty();await expect.poll(()=>page.locator('[data-material-list]:visible').count()).toBeGreaterThan(ids.length);
+ await page.locator('[data-collections-home]').first().click();await page.getByRole('button',{name:'Список',exact:true}).click();await expect(page.locator('[data-active-filters]')).toBeEmpty();await expect.poll(()=>page.locator('[data-material-list]:visible').count()).toBeGreaterThan(ids.length);
 });
 
 test('graph exposes real directed references and an accessible local neighbourhood',async({page})=>{
@@ -46,7 +46,7 @@ test('graph exposes real directed references and an accessible local neighbourho
   const original=JSON.parse(readFileSync(new URL(`../content/materials/${edge.source}.json`,import.meta.url),'utf8'));
   if(edge.type==='reference')expect(original.body).toMatch(new RegExp('\\[\\['+edge.target+'(?:[#|\\]])|\\]\\((?:[^\\s)]*/)?materials/'+edge.target+'(?:[/#)]|\\s)'));
   else if(edge.type==='supersedes')expect(original.supersedes).toBe(edge.target);
-  else throw new Error('Unexpected generated relation: '+edge.type);
+  else if(edge.type==='hierarchy'){const child=JSON.parse(readFileSync(new URL(`../content/materials/${edge.target}.json`,import.meta.url),'utf8'));expect(child.parentId).toBe(edge.source)}else throw new Error('Unexpected generated relation: '+edge.type);
  }
  // New articles may legitimately add incoming links to either document.
  // Check the one-hop neighbourhood against the source-backed relations above.
@@ -65,15 +65,14 @@ test('graph exposes real directed references and an accessible local neighbourho
  await expect(graph.locator('[data-graph-canvas] svg')).toBeVisible();expect(errors).toEqual([]);
 });
 
-test('unread material versions persist across visits and can be marked independently',async({page})=>{
- await page.goto('updates/');const count=page.locator('[data-new-count]');await expect.poll(async()=>Number(await count.textContent())).toBeGreaterThan(2);
- const initial=Number(await count.textContent());await page.reload();await expect(count).toHaveText(String(initial));
- const item=page.locator('[data-update-item]').first(),id=await item.getAttribute('data-material-id');await item.locator('[data-mark-one]').click();await expect(count).toHaveText(String(initial-1));await expect(item.locator('[data-mark-one]')).toHaveText('Просмотрено');
- await page.reload();await expect(count).toHaveText(String(initial-1));
- // Simulate a previously read older revision. A changed scientific revision must reappear.
+test('unread material versions persist in materials and scientific changes reappear',async({page})=>{
+ await page.goto('materials/?view=list');const count=page.locator('[data-unread-count]');await expect.poll(async()=>Number(await count.textContent())).toBeGreaterThan(2);
+ const initial=Number(await count.textContent());const item=page.locator('[data-material-list]:visible').first(),id=await item.getAttribute('data-material-id');
+ await expect(item.locator('[data-unread-dot]')).toBeVisible();await item.locator('h2 a').click();await page.goto('materials/?view=list');await expect(count).toHaveText(String(initial-1));
+ await expect(page.locator(`[data-material-list="${id}"] [data-unread-dot]`)).toBeHidden();
  await page.evaluate(id=>{const value=JSON.parse(localStorage.getItem('atlas-read-versions')||'{}');value[id!]='older-scientific-version';localStorage.setItem('atlas-read-versions',JSON.stringify(value))},id);
- await page.reload();await expect(count).toHaveText(String(initial));
- await page.getByRole('button',{name:'Отметить всё просмотренным',exact:true}).click();await expect(count).toHaveText('0');await page.locator('[data-new-only]').check();await expect(page.locator('[data-no-new]')).toBeVisible();await page.reload();await expect(count).toHaveText('0');
+ await page.reload();await expect(count).toHaveText(String(initial));await page.getByRole('button',{name:'Отметить найденные просмотренными'}).click();await expect(count).toHaveText('0');
+ await page.locator('[data-materials-unread]').check();await expect(page.locator('[data-materials-empty]')).toBeVisible();await page.reload();await expect(count).toHaveText('0');
 });
 
 test('desktop outline starts at the reading column and sticks near the viewport top',async({page},testInfo)=>{
