@@ -1689,6 +1689,32 @@
       "implementation_status": "methodological_comparison_not_empirical_calibration",
       "implementation_paths": [],
       "reading_scope_field": "references/sources.json records[id=OKABE2009_NETWORK_KDE].read_scope"
+    },
+    {
+      "source_id": "DIJKSTRA1959_SHORTEST_PATH",
+      "used_in": [
+        "sgrt/saratov/LITERATURE_20261028.md",
+        "sgrt/saratov/METHOD_20261028.md"
+      ],
+      "purpose": "Основание поиска кратчайшего пути с неотрицательными затратами. Расчёт времени к центру через транспонированный граф и полигонализация достижимых сегментов описаны как наша реализация; доступность не является наблюдаемой поездкой.",
+      "implementation_status": "directed_shortest_path_implementation_not_empirical_service_calibration",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/isochrones.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=DIJKSTRA1959_SHORTEST_PATH].read_scope"
+    },
+    {
+      "source_id": "SCIPY117_DIJKSTRA_DOCUMENTATION",
+      "used_in": [
+        "sgrt/saratov/LITERATURE_20261028.md",
+        "sgrt/saratov/METHOD_20261028.md"
+      ],
+      "purpose": "Контракт фактически используемой версии scipy1.17.0 и сохранение направленных затрат. При ограниченном поиске np.inf нельзя считать доказательством отсутствия пути; для нового пилота вычисление выполняется без такого усечения.",
+      "implementation_status": "directed_shortest_path_implementation_not_empirical_service_calibration",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/isochrones.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=SCIPY117_DIJKSTRA_DOCUMENTATION].read_scope"
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"

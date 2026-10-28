@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-28T20:12:50+03:00",
+  "updated_moscow": "2026-10-28T22:29:18+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -731,6 +731,22 @@
         "catalog": "data/field_pilot_catalog_20261028.json",
         "public_download_verification": "research_context/analysis_snapshots/field_pilot_public_release_verification_20261028.json",
         "material": "https://zakbu.github.io/russian-settlements-research/materials/multiscale-field-pilot/"
+      },
+      "saratov_pilot_20261028": {
+        "status": "regional_inputs_verified_isochrones_in_calculation",
+        "decision_id": "D55",
+        "current_2021_records": 1821,
+        "accepted_spatial_records": 1814,
+        "current_records_without_accepted_geometry": 7,
+        "published_model_service_centres": 502,
+        "centre_own_known_function_counts": {
+          "one": 315,
+          "two": 124,
+          "three": 63
+        },
+        "method": "sgrt/saratov/INPUTS_20261028.md",
+        "primary_mapping": "Directed network isochrones to centres; travel times and cartographic geometry kept separate from inferred service-system membership.",
+        "empirical_system_levels_established": false
       }
     },
     "portal": {
@@ -762,7 +778,7 @@
     }
   },
   "next_steps": [
-    "Проверить соседство и пространственную выборку полей, сопоставить отдельные функциональные поля и независимые наблюдения связей. Опубликованный пилот не заменяет местные центры и не задаёт уровни.",
+    "Основной пилот — Саратовская область. Рассчитать и проверить изохроны по дорожной сети, опубликовать их в атласе; затем сопоставлять доступность с конкретными функциями и межпоселенческими связями.",
     "Сопоставить населёнческое поле с отдельными функциями и наблюдаемыми связями. Не заменять этим прежние местные центры и не считать число максимумов числом уровней.",
     "Разделить классы наблюдаемого масштаба центров и пространственную иерархию. Проверить новые межцентровые модели по совместимым наблюдаемым направлениям, не по долям работающих вне НП в целом.",
     "Проверять все жилые части нижнего окружения, дорожные альтернативы и многополюсность; не объединять территорию транзитивной цепочкой. Внешние eFUA — входной сценарий, не независимая проверка.",

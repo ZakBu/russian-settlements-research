@@ -2941,7 +2941,38 @@
       "read_scope": "28 октября 2026 года проверены первичная издательская аннотация и выходные данные, Crossref-метаданные. Полный текст не получен: PDF издателя 403, индексируемая университетская ссылка dp/89.pdf 404. Формулы исправленных сетевых ядер не прочитаны.",
       "locator": "Publisher Abstract; страницы 7–32, библиографическая шапка.",
       "use": "sgrt/field_pilot/LITERATURE_20261028.md: не смешивать плотность событий на единицу длины сети и демографический потенциал. Предупреждение о сетевых узлах не является доказательством смещения нашей модели доступности; исправленные ядра не объявляются реализованными."
+    },
+    {
+      "id": "DIJKSTRA1959_SHORTEST_PATH",
+      "authors": "Dijkstra, E. W.",
+      "year": 1959,
+      "title": "A note on two problems in connexion with graphs",
+      "journal": "Numerische Mathematik",
+      "volume": "1",
+      "issue": "1",
+      "pages": "269–271",
+      "doi": "10.1007/BF01386390",
+      "url": "https://doi.org/10.1007/BF01386390",
+      "reading_url": "https://www.cs.yale.edu/homes/lans/readings/routing/dijkstra-routing-1959.pdf",
+      "publication_type": "journal_article",
+      "reading_status": "full_text",
+      "read_scope": "Прочитаны все три страницы по изображениям скана. Для расчёта используется Problem 2; Remark 1 прямо допускает зависимость длины ребра от направления. Problem 1 о минимальном дереве не используется. Порогов обслуживания и картографических буферов статья не обосновывает.",
+      "locator": "С.269–271, особенно Problem2 и Remark1 на с.270",
+      "use": "Основание поиска кратчайшего пути с неотрицательными затратами. Расчёт времени к центру через транспонированный граф и полигонализация достижимых сегментов описаны как наша реализация; доступность не является наблюдаемой поездкой."
+    },
+    {
+      "id": "SCIPY117_DIJKSTRA_DOCUMENTATION",
+      "authors": "SciPy community",
+      "year": 2026,
+      "title": "scipy.sparse.csgraph.dijkstra — SciPy 1.17.0 documentation",
+      "url": "https://docs.scipy.org/doc/scipy-1.17.0/reference/generated/scipy.sparse.csgraph.dijkstra.html",
+      "reading_url": "https://docs.scipy.org/doc/scipy-1.17.0/reference/generated/scipy.sparse.csgraph.dijkstra.html",
+      "publication_type": "software_documentation",
+      "reading_status": "selected_documentation_sections",
+      "read_scope": "Проверены параметры directed, indices, min_only, limit, возвращаемые расстояния и предупреждение о несимметричных затратах. Здесь полный поиск без limit; недостижимость относится к выбранному графу, не к физической изоляции НП.",
+      "locator": "Parameters; Returns; Notes",
+      "use": "Контракт фактически используемой версии scipy1.17.0 и сохранение направленных затрат. При ограниченном поиске np.inf нельзя считать доказательством отсутствия пути; для нового пилота вычисление выполняется без такого усечения."
     }
   ],
-  "record_count": 131
+  "record_count": 133
 }
