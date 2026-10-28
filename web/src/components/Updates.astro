@@ -1,22 +1,5 @@
 ---
-import {materials,materialPath,formatDate,research} from '../lib/content';
-import {publicationVersion} from '../lib/publication-version';
+import {basePath} from '../lib/content';
 interface Props {compact?:boolean}
-const {compact=false}=Astro.props;
 ---
-<section data-updates-section data-compact={compact?'true':'false'} aria-labelledby="updates-title">
-<div class="section-title"><span class="eyebrow">Ход исследований</span><h2 id="updates-title">{compact?'Что нового':'Обновления'}</h2>{compact&&<a href={import.meta.env.BASE_URL.replace(/\/$/,'')+'/updates/'}>Все обновления ↗</a>}</div>
-<div class="research-strip" data-morning-controls><span>Непросмотренные: <strong data-new-count aria-live="polite">—</strong></span><label><input type="checkbox" data-new-only/> Только непросмотренные</label><button type="button" class="secondary-button" data-mark-read>Отметить всё просмотренным</button></div>
-{!compact&&<label class="updates-research-label">Исследование <select data-update-research aria-label="Исследование обновлений"><option value="">Все исследования</option>{research.map(r=><option value={r.id}>{r.title}</option>)}</select></label>}
-<p data-morning-help class="catalog-count">Отметки относятся к содержательной версии материала и сохраняются в этом браузере. Перезагрузка страницы их не меняет.</p>
-<div class="update-list" data-updates>{materials.map((m,i)=><article class="editorial-panel" data-update-item data-material-id={m.id} data-version={publicationVersion(m)} data-updated-at={m.updatedAt} data-research={m.researchId} hidden={compact&&i>=3}><div class="panel-meta"><span>{formatDate(m.updatedAt)}</span><span class="status">{m.kind==='correction'?'Исправление':m.kind==='method'?'Метод':'Обновление'}</span><span class="eyebrow" data-update-new hidden>Не просмотрено</span></div><h3><a href={materialPath(m)}>{m.title.replace(/^Состояние и описание исследования: /,'Ход работы: ')}</a></h3><p>{m.summary}</p><div class="update-actions"><a class="panel-link" href={materialPath(m)}>Читать материал →</a><button type="button" data-mark-one>Отметить просмотренным</button></div></article>)}</div>
-<p class="empty-state" data-no-new hidden>Непросмотренных материалов пока нет. Можно снять фильтр и открыть все обновления.</p>
-</section>
-<script>
-import {readVersions,markVersions} from '../lib/reading-state';
-const section=document.querySelector<HTMLElement>('[data-updates-section]');
-if(section){const items=[...section.querySelectorAll<HTMLElement>('[data-update-item]')],only=section.querySelector<HTMLInputElement>('[data-new-only]')!,select=section.querySelector<HTMLSelectElement>('[data-update-research]');let research=new URLSearchParams(location.search).get('research')||'';only.checked=new URLSearchParams(location.search).get('unread')==='1';if(select)select.value=research;const version=(item:HTMLElement)=>({id:item.dataset.materialId!,version:item.dataset.version!});
- const render=()=>{const read=readVersions();let count=0,shown=0;for(const item of items){const unread=read[item.dataset.materialId!]!==item.dataset.version,matches=!research||research===item.dataset.research;if(unread&&matches)count++;item.querySelector<HTMLElement>('[data-update-new]')!.hidden=!unread;const button=item.querySelector<HTMLButtonElement>('[data-mark-one]')!;button.disabled=!unread;button.textContent=unread?'Отметить просмотренным':'Просмотрено';const eligible=matches&&(!only.checked||unread);item.hidden=!eligible||(section.dataset.compact==='true'&&shown>=3&&!only.checked);if(eligible)shown++}section.querySelector('[data-new-count]')!.textContent=String(count);section.querySelector<HTMLElement>('[data-no-new]')!.hidden=!only.checked||count>0};
- const mark=(items:HTMLElement[])=>{if(!markVersions(items.map(version)))section.querySelector('[data-morning-help]')!.textContent='Браузер не смог сохранить отметки. Разрешите локальное хранение и попробуйте снова.';render()};
- section.querySelector('[data-mark-read]')!.addEventListener('click',()=>mark(items.filter(i=>!research||i.dataset.research===research)));for(const item of items)item.querySelector('[data-mark-one]')!.addEventListener('click',()=>mark([item]));only.addEventListener('change',()=>{const u=new URL(location.href);if(only.checked)u.searchParams.set('unread','1');else u.searchParams.delete('unread');history.replaceState(null,'',u);render()});select?.addEventListener('change',()=>{research=select.value;const u=new URL(location.href);if(research)u.searchParams.set('research',research);else u.searchParams.delete('research');history.replaceState(null,'',u);render()});window.addEventListener('atlas-reading-change',render);window.addEventListener('storage',render);render();}
-</script>
+<section class="research-strip" aria-label="Новые материалы"><span>Новые и изменённые материалы отмечены синей точкой в библиотеке.</span><a class="panel-link" href={basePath('materials/?unread=1')}>Открыть непросмотренные материалы →</a></section>

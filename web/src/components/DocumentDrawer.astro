@@ -28,7 +28,7 @@ if(dialog&&trigger&&template&&typeof dialog.showModal==='function'){
   const within=new URL(location.href).searchParams.get('within');
   let ancestor=within?content.querySelector<HTMLElement>(`[data-page-tree-node="${CSS.escape(within)}"]`):null;
   while(ancestor){if(ancestor instanceof HTMLDetailsElement)ancestor.open=true;ancestor=ancestor.parentElement}
-  initializePageTrees(content);
+  initializePageTrees(content);window.dispatchEvent(new Event('atlas-reading-change'));
   dialog.showModal();trigger.setAttribute('aria-expanded','true');document.documentElement.classList.add('document-drawer-open');
   content.querySelector<HTMLElement>('.material-page-tree a[aria-current="page"]')?.scrollIntoView({block:'nearest'});
  });

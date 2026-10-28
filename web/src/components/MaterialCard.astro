@@ -2,14 +2,15 @@
 import {ArrowRight, ArrowsOutSimple} from '@phosphor-icons/react';
 import {visuals,basePath,materialPath,evidenceLabel,currencyLabel,mapPreviewVariant} from '../lib/content';
 import type {Material} from '../lib/content';
+import {publicationVersion} from '../lib/publication-version';
 import MapThumbnail from './MapThumbnail.astro';
 import VisualChart from './VisualChart';
 interface Props {material:Material;index:number;featured?:boolean}
 const {material:m,index,featured=false}=Astro.props;
 const visual=m.visualIds.map(id=>visuals.find(v=>v.id===id)).find(Boolean);const isMap=visual&&visual.template==='settlement-map';const isLinks=visual?.template==='service-links';
 ---
-<article class:list={['editorial-panel',{'featured':featured}]} data-material-card data-material-id={m.id} data-search={`${m.title} ${m.summary} ${m.topic} ${m.territory}`.toLowerCase()} data-topic={m.topic} data-territory={m.territory} data-period={m.period} data-research={m.researchId}>
+<article class:list={['editorial-panel',{'featured':featured}]} data-material-card data-material-id={m.id} data-version={publicationVersion(m)} data-search={`${m.title} ${m.summary} ${m.topic} ${m.territory}`.toLowerCase()} data-topic={m.topic} data-territory={m.territory} data-period={m.period} data-research={m.researchId}>
 <div class="panel-meta"><span>{String(index+1).padStart(2,'0')}</span><span>{m.topic}</span><span class:list={['status',{'warning':m.currency!=='current'}]}>{m.currency==='current'?(evidenceLabel[m.evidence]||m.evidence):currencyLabel[m.currency]}</span><a href={materialPath(m)} aria-label={`Открыть ${m.title}`}><ArrowsOutSimple size={14}/></a></div>
-<div class="panel-content"><div><h2><a href={materialPath(m)}>{m.title.replace(/^Состояние и описание исследования: /,'Ход работы: ')}</a></h2>{featured&&<p style="font-size:20px">{m.period}</p>}<p>{m.summary}</p>{featured?<><a class="primary-button" href={materialPath(m)}>Открыть материал <ArrowRight size={17}/></a><table class="meta-table"><tbody><tr><td>Период</td><td>{m.period}</td></tr><tr><td>Территория</td><td>{m.territory}</td></tr><tr><td>Источники</td><td>{m.sources.length}</td></tr></tbody></table></>:<a class="panel-link" href={materialPath(m)}>Подробнее <ArrowRight size={16}/></a>}</div>
+<div class="panel-content"><div><h2><span class="unread-dot" data-unread-dot hidden role="img" aria-label="Новый материал"></span><a href={materialPath(m)}>{m.title.replace(/^Состояние и описание исследования: /,'Ход работы: ')}</a></h2>{featured&&<p style="font-size:20px">{m.period}</p>}<p>{m.summary}</p>{featured?<><a class="primary-button" href={materialPath(m)}>Открыть материал <ArrowRight size={17}/></a><table class="meta-table"><tbody><tr><td>Период</td><td>{m.period}</td></tr><tr><td>Территория</td><td>{m.territory}</td></tr><tr><td>Источники</td><td>{m.sources.length}</td></tr></tbody></table></>:<a class="panel-link" href={materialPath(m)}>Подробнее <ArrowRight size={16}/></a>}</div>
 {visual&&<div class="panel-visual">{isLinks?<div class="link-preview"><span class="eyebrow">Документированные связи</span><p>Школьное закрепление и медицинское обслуживание</p><a class="secondary-button" href={basePath('map/?'+new URLSearchParams(Object.entries(visual.mapState||{}).map(([k,v])=>[k,Array.isArray(v)?v.join(','):String(v)])))}>Открыть локальную карту →</a></div>:isMap?<MapThumbnail base={basePath()} caption={visual.title} large={featured} variant={mapPreviewVariant(visual)}/>:<VisualChart visual={visual} compact client:visible/>}</div>}</div>
 </article>
