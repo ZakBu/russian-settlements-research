@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-29T15:42:13+03:00",
+  "updated_moscow": "2026-10-29T15:45:20+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,8 +9,8 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "saratov_candidate_interpretation_and_country_scope_under_correction",
-      "summary": "Прежний расчёт дал 511 кандидатов по ближайшему известному предложению, а не 511 установленных систем. У 209 один внешний жилой НП; у 181 также одна известная собственная функция; у 133 совпадают два базовых направления хотя бы одного внешнего НП. Проверка независимых связей и исключение зарубежного транзита ещё не завершены. Обобщённые зоны исправляются по контуру России.",
+      "status": "saratov_candidates_audited_russia_clipped_maps_published_transit_pending",
+      "summary": "Прежний расчёт дал 511 кандидатов по ближайшему известному предложению, а не 511 установленных систем. У 209 один внешний жилой НП; у 181 также одна известная собственная функция; у 133 совпадают два базовых направления хотя бы одного внешнего НП. Проверка независимых связей и исключение зарубежного транзита ещё не завершены. Все 13 карт обрезаны по контуру России и опубликованы отдельным малым выпуском; исходные времена не пересчитывались.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
       "main_blocker": "Неполное предложение сельских магазинов и школ, неизвестная вместимость и доступ отдельных профилей; мало независимых направленных поездок. Первичные числа 2010 года найдены, но сопоставимость контингентов и границ остаётся отдельным ограничением.",
@@ -1088,6 +1088,13 @@
         "new_centre_cutoff_imposed": false,
         "observed_trips_established": false,
         "interpretation": "No count in this audit is a final count of territorial systems. Multiple functions can share incomplete-source bias."
+      },
+      "russia_only_display_20261029": {
+        "release": "sgrt-saratov-russia-display-20261029-v1",
+        "map_assets": 13,
+        "total_map_bytes": 981794,
+        "foreign_transit_in_existing_costs_verified": false,
+        "original_scientific_outputs_preserved": true
       }
     },
     "portal": {

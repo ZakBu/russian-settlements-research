@@ -32,3 +32,5 @@ python -m scripts.sgrt_saratov.country_scope --boundary RUS-adm1.geojson --sourc
 ```
 
 Малый выпуск исправленных рисунков публикуется отдельно от исходного расчёта. Его происхождение и фактические SHA сохраняются после публикации; прежние данные не подменяются. Аудит кандидатов: `research_context/analysis_snapshots/saratov_centre_evidence_20261029.json`.
+
+Исправленные 13 рисунков опубликованы: [https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-saratov-russia-display-20261029-v1](https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-saratov-russia-display-20261029-v1). Их общий размер — 981 794 байта. Каждый опубликованный файл проверен по SHA один раз; исходные таблицы и время поездки не пересчитывались. Метаданные: `research_context/analysis_snapshots/saratov_russia_display_20261029.json`.
