@@ -1,0 +1,142 @@
+name: Verify published Saratov v2 articles and maps
+on:
+  push:
+    branches:
+      - verification/saratov-v2-public-1598230
+    paths:
+      - .github/workflows/verify-saratov-v2-public.yml
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: saratov-v2-real-public-browser-verification
+  cancel-in-progress: false
+jobs:
+  public_browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Confirm the actual deployed source
+        run: |
+          set -euo pipefail
+          gh api repos/ZakBu/russian-settlements-research/actions/runs/40843291991 > "$RUNNER_TEMP/saratov-deployment.json"
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          r=json.loads((Path(os.environ['RUNNER_TEMP'])/'saratov-deployment.json').read_text())
+          assert r['head_sha']=='15982305f3a6f62994cab30ffb97dc6acf4ae135'
+          assert r['status']=='completed' and r['conclusion']=='success'
+          PY
+      - name: Install the repository browser and matching Chromium
+        run: |
+          set -euo pipefail
+          npm --prefix web ci --ignore-scripts --no-audit --no-fund
+          export PLAYWRIGHT_BROWSERS_PATH="$RUNNER_TEMP/saratov-public-browsers"
+          echo "PLAYWRIGHT_BROWSERS_PATH=$PLAYWRIGHT_BROWSERS_PATH" >> "$GITHUB_ENV"
+          echo "SGRT_BROWSER_MODULE=$GITHUB_WORKSPACE/web/node_modules/playwright" >> "$GITHUB_ENV"
+          node web/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Check four actual public articles and thirteen actual public layers at two viewports
+        run: |
+          node scripts/sgrt_saratov/verify_public_atlas.cjs --go --producer a8981758c50be7c3494f3e18dee75d37cc1e87c1 --output "$RUNNER_TEMP/saratov-public-qa"
+      - name: Check published counts, bibliography summary and five readable source links
+        run: |
+          node <<'JS'
+          const fs=require('fs'),path=require('path');
+          const {chromium}=require(process.env.SGRT_BROWSER_MODULE);
+          const root=process.env.RUNNER_TEMP+'/saratov-public-qa';
+          const norm=s=>s.replace(/\s+/g,'').toLowerCase();
+          const paths=['references/primary/census_workplace_20261027/2010_buryatia_table9.md','references/provenance/census_workplace_20261027.json','references/primary/census_workplace_20261027','references/provenance/saratov_magnit_public_locator_20261028.json','references/primary/saratov_census2010/provenance.json'];
+          const proof={schema:'sgrt.real_public_editorial_check.v1',route_interception:false,local_data_substitution:false,checks:[]};
+          (async()=>{const browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});try{
+            for(const width of [1366,390]){
+              const context=await browser.newContext({viewport:{width,height:900}});
+              for(const id of ['saratov-functional-systems','literature-bibliography']){
+                const expected=JSON.parse(fs.readFileSync('web/content/materials/'+id+'.json','utf8'));
+                const page=await context.newPage(),url='https://zakbu.github.io/russian-settlements-research/materials/'+id+'/';
+                const response=await page.goto(url,{waitUntil:'networkidle',timeout:120000});
+                const whole=await page.locator('main').innerText(),body=await page.locator('article.article-body').innerText();
+                const entry={id,width,url,status:response.status(),summary_matches_registered: norm(whole).includes(norm(expected.summary)),body_checks:[],short_source_links:[]};proof.checks.push(entry);
+                if(entry.status!==200||!entry.summary_matches_registered)throw Error('Published summary mismatch '+id);
+                const required=id==='saratov-functional-systems'?['511','66','138','307','392','477','386','328','125','154','19сочетаний']:['145источников','77научныхстатей','64','59'];
+                for(const token of required){const found=norm(body).includes(norm(token));entry.body_checks.push({token,found});if(!found)throw Error('Missing published fact '+id+' '+token);}
+                if(id==='literature-bibliography'){
+                  const links=await page.locator('article.article-body a').evaluateAll(es=>es.map(e=>({href:e.href,label:e.textContent.trim()})));
+                  for(const p of paths){const items=links.filter(x=>x.href.endsWith('/'+p)&&x.href.includes('b36836da074a7902ede26f315c04d6ee95df5367'));if(items.length!==1||items[0].label.length>85||items[0].label.includes('references/'))throw Error('Missing/readability mismatch '+p);entry.short_source_links.push(items[0]);}
+                  entry.external_source_targets_http_retested=false;
+                }
+                await page.close();
+              }
+              await context.close();
+            }proof.ok=true;
+          }finally{fs.writeFileSync(root+'/editorial-verification.json',JSON.stringify(proof,null,2)+'\n');await browser.close();}
+          console.log(JSON.stringify({ok:proof.ok,editorial_visits:proof.checks.length}));})().catch(e=>{console.error(e);process.exitCode=1});
+          JS
+      - name: Preserve actual public observations and completed research state
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,os,subprocess
+          from pathlib import Path
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          root=Path(os.environ['RUNNER_TEMP'])/'saratov-public-qa'
+          b=json.loads((root/'browser-verification.json').read_text())
+          e=json.loads((root/'editorial-verification.json').read_text())
+          assert b['ok'] is True and e['ok'] is True and b['scope']['full_default_scope'] is True
+          assert len(b['articles'])==8 and len(b['maps'])==26 and not b['failures'] and not b['requests_failed']
+          assert all(r['ok'] is True for r in b['articles']+b['maps'])
+          assert b['expected_producer']=='a8981758c50be7c3494f3e18dee75d37cc1e87c1'
+          b['verified_deployment_source_commit']='15982305f3a6f62994cab30ffb97dc6acf4ae135'
+          b['verification_execution']='independent_github_actions_worker_after_local_executor_became_unavailable'
+          base=Path('research_context/analysis_snapshots')
+          files=[]
+          for name,value in [('saratov_v2_public_browser_20261029.json',b),('saratov_v2_public_editorial_20261029.json',e)]:
+              p=base/name;p.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n');files.append(str(p))
+          p=Path('research_context/current_state.json');s=json.loads(p.read_text())
+          now=datetime.now(ZoneInfo('Europe/Moscow'));s['updated_moscow']=now.isoformat(timespec='seconds')
+          r=s['parts']['sgrt'];q=r['saratov_regional_research_20261029']
+          assert q['published_release_tag']=='sgrt-saratov-fields-20261029-v2'
+          assert q['published_source_commit']=='a8981758c50be7c3494f3e18dee75d37cc1e87c1'
+          r['status']='saratov_v2_published_data_and_real_public_browser_verified'
+          r['current_task']['status']='complete_preliminary_saratov_pilot_published_and_publicly_checked'
+          q['status']='published_and_real_public_browser_verified_preliminary_regional_pilot'
+          evidence={'proof':str(base/'saratov_v2_public_browser_20261029.json'),'editorial_proof':str(base/'saratov_v2_public_editorial_20261029.json'),'article_page_visits':8,'map_page_visits':26,'map_layers':13,'viewports_px':[1366,390],'deployed_source_commit':'15982305f3a6f62994cab30ffb97dc6acf4ae135','route_interception':False,'local_data_substitution':False,'network_failures':0}
+          q['public_browser_verification']=evidence
+          for pub in [r['publication'],q['publication']]:
+              pub['status']='public_data_and_atlas_real_browser_verified';pub['browser_verification']=evidence['proof']
+          r['summary']=r['summary'].replace('Обновление атласа подготовлено.','Публичные статьи и все 13 слоёв проверены на широком и мобильном экране.')
+          if 'current_recalculation' in r:r['current_recalculation']['status']='historical_national_stage_20261026'
+          s['next_steps'][0]='Проверять модель по независимым школьным, медицинским и трудовым направлениям, фактической работе и вместимости объектов; не подменять наблюдённые поездки модельными.'
+          p.write_text(json.dumps(s,ensure_ascii=False,indent=2)+'\n');files.append(str(p))
+          diary=Path('research_context/diary/2026-10-29.md')
+          with diary.open('a') as f:f.write('\n\n## '+now.strftime('%H:%M')+' МСК — проверены настоящие публичные страницы и карты\n\nПосле отключения локальной среды проверка перенесена на отдельный исполнитель GitHub Actions. Проверены восемь посещений четырёх ключевых статей и 26 посещений всех 13 слоёв при ширине1366 и390px. Все завершились успешно, сетевых ошибок нет. В браузере загружены настоящие публичные GeoJSON; каждый слой сопоставлен с исходным версионированным выпуском, проверены легенды, источники, взаимодействия и мобильное отображение. Данные не подменялись. Отдельно проверены опубликованные числа, сводка библиографии145 источников и пять коротких ссылок на исходные свидетельства. В Git сохранены фактические наблюдения; снимки экрана сохранены в артефакте проверки. Предварительный Саратовский пилот опубликован; фактические поездки, мощность учреждений и общая иерархия остаются задачами дальнейшего исследования.\n')
+          files.append(str(diary))
+          subprocess.run(['git','add','--',*files],check=True)
+          staged=subprocess.check_output(['git','diff','--cached','--name-only'],text=True).splitlines()
+          assert set(staged)==set(files)
+          subprocess.run(['git','-c','user.name=github-actions[bot]','-c','user.email=41898282+github-actions[bot]@users.noreply.github.com','commit','-m','Record actual public Saratov v2 browser observations'],check=True)
+          subprocess.run(['python','scripts/site_content.py','sync-state','--json'],check=True)
+          subprocess.run(['python','scripts/site_content.py','validate','--json'],check=True)
+          subprocess.run(['git','add','--','web/content'],check=True)
+          subprocess.run(['git','-c','user.name=github-actions[bot]','-c','user.email=41898282+github-actions[bot]@users.noreply.github.com','commit','-m','Record completed public verification in the research feed'],check=True)
+          subprocess.run(['python','scripts/check_repository_policy.py','--ref','HEAD'],check=True)
+          subprocess.run(['git','push','origin','HEAD:refs/heads/verification/saratov-v2-public-1598230'],check=True)
+          print(json.dumps({'articles':8,'map_visits':26,'unique_layers':13,'public_browser_ok':True}))
+          PY
+      - name: Save real screenshots and observations even if verification fails
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: saratov-v2-real-public-browser
+          retention-days: 14
+          if-no-files-found: warn
+          path: ${{ runner.temp }}/saratov-public-qa/
