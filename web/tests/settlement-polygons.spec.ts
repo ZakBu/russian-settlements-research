@@ -8,7 +8,7 @@ test('Kazan selects a real settlement polygon lazily while census statistics rem
  await expect(page.locator('.map-infographic h2')).toHaveText('Казань');await expect(page.locator('[data-settlement-boundary]')).toHaveAttribute('data-settlement-boundary','available',{timeout:30000});
  expect(requests.filter(url=>url.includes('settlement-polygons/51.json'))).toHaveLength(1);
  const response=await page.request.get(`data/settlement-polygons/51.json`);const records=await response.json();const polygon=records[kazan];expect(polygon.geometry.type).toMatch(/Polygon/);expect(polygon.properties.id).toBe(kazan);expect(JSON.stringify(polygon.properties)).toMatch(/OpenStreetMap|Geofabrik|OSM/);
- await expect(page.locator('.map-info-context')).toContainText('Переписных точек в базе');await expect(page.locator('.map-info-context')).toContainText('Картографический контур');
+ await expect(page.locator('.map-charts')).toHaveAttribute('aria-label','Население выбранного пункта по трём переписям');await expect(page.locator('.map-summary-answer')).toContainText('2002–2021');await expect(page.locator('.map-info-context')).toContainText('Картографический контур');
  await page.waitForTimeout(800);await page.screenshot({path:testInfo.outputPath('kazan-polygon.png')});
  await page.locator('#theme-toggle').click();await page.waitForTimeout(250);await page.screenshot({path:testInfo.outputPath('kazan-polygon-dark.png')});await expect(page.locator('[data-settlement-boundary]')).toHaveAttribute('data-settlement-boundary','available');expect(errors).toEqual([]);
 });

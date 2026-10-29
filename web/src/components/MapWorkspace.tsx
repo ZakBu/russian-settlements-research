@@ -72,12 +72,15 @@ function bounds(f: Feature): [[number, number], [number, number]] | null {
   walk(f.geometry.coordinates);
   return Number.isFinite(west) ? [[west, south], [east, north]] : null;
 }
-function Charts({ features, selected, dark }: { features: Feature[]; selected: Selection; dark: boolean }) {
+function Charts({ features, selected, dark, period }: { features: Feature[]; selected: Selection; dark: boolean; period: Period }) {
   const host = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!host.current) return;
     const chart = echarts.init(host.current, undefined, { renderer: 'svg' });
     const c = color(dark);
+    const territory = selected.mode !== 'settlement';
+    const years = period.split('-');
+    const allYears = ['2002', '2010', '2021'];
     const eligible = selected.mode === 'settlement' ? features : features.filter(f => f.properties.comparable === true && [f.properties.p02, f.properties.p10, f.properties.p21].every(v => number(v) !== null));
     const sums = ['p02', 'p10', 'p21'].map(key => {
       if (selected.mode !== 'settlement') return number(selected.feature.properties[key]);
@@ -91,16 +94,16 @@ function Charts({ features, selected, dark }: { features: Feature[]; selected: S
     chart.setOption({
       backgroundColor: 'transparent', textStyle: { fontFamily: 'Golos Text, sans-serif', color: c.ink }, animationDuration: 250,
       tooltip: { trigger: 'axis', confine: true, backgroundColor: dark ? '#14213D' : '#FFFFFF', textStyle: { color: c.ink }, borderColor: c.line, valueFormatter: (v: any) => shown(v) },
-      title: [{ text: sums.every(value=>value===null)?'Население, человек\nНет зачтённых данных':'Население, человек', left: '3%', top: 3, textStyle: { color: c.ink, fontSize: 13, fontWeight: 500 } }, { text: known2021?'НП по населению 2021 года':'Людность, 2021\nНет зачтённых данных', left: '55%', top: 3, textStyle: { color: c.ink, fontSize: 13, fontWeight: 500 } }],
-      grid: [{ left: '4%', right: '54%', top: 43, bottom: 28, containLabel: true }, { left: '55%', right: '4%', top: 43, bottom: 28, containLabel: true }],
-      xAxis: [{ type: 'category', data: ['2002', '2010', '2021'], axisLine: { lineStyle: { color: c.line } }, axisTick: { show: false }, axisLabel: { color: c.ink } }, { type: 'value', gridIndex: 1, minInterval: 1, axisLabel: { color: c.ink }, splitLine: { lineStyle: { color: c.line } } }],
-      yAxis: [{ type: 'value', axisLabel: { color: c.ink, formatter: (v: number) => format.format(v) }, splitLine: { lineStyle: { color: c.line, type: 'dotted' } } }, { type: 'category', gridIndex: 1, data: ['До 100', '100–999', '1–10 тыс.', '10–100 тыс.', 'От 100 тыс.'], axisLabel: { color: c.ink }, axisTick: { show: false }, axisLine: { show: false } }],
-      series: [{ name: 'Население', type: 'bar', data: sums, barMaxWidth: 35, itemStyle: { color: c.blue }, decal: { symbol: 'rect', dashArrayX: [1, 2], dashArrayY: [1, 2], color: 'rgba(255,255,255,.25)' } }, { name: 'Число НП', type: 'bar', xAxisIndex: 1, yAxisIndex: 1, data: known2021?bins:bins.map(()=>null), barMaxWidth: 15, itemStyle: { color: c.blue }, label: { show: true, position: 'right', color: c.ink } }],
+      title: [{ text: sums.every(value=>value===null)?'Население, человек\nНет зачтённых данных':territory?'Население сопоставимых НП, чел.':'Население, человек', left: '3%', top: 3, textStyle: { color: c.ink, fontSize: 13, fontWeight: 500 } }, { text: known2021?'НП по населению 2021 года':'Людность, 2021\nНет зачтённых данных', show: territory, left: '55%', top: 3, textStyle: { color: c.ink, fontSize: 13, fontWeight: 500 } }],
+      grid: [{ left: '4%', right: territory ? '54%' : '5%', top: 43, bottom: 28, containLabel: true }, { left: '55%', right: '4%', top: 43, bottom: 28, containLabel: true }],
+      xAxis: [{ type: 'category', data: allYears, axisPointer: { type: 'shadow' }, axisLine: { lineStyle: { color: c.line } }, axisTick: { show: false }, axisLabel: { color: c.ink } }, { show: territory, type: 'value', gridIndex: 1, minInterval: 1, axisLabel: { color: c.ink, formatter: (v: number) => format.format(v) }, splitLine: { lineStyle: { color: c.line } } }],
+      yAxis: [{ type: 'value', axisLabel: { color: c.ink, formatter: (v: number) => format.format(v) }, splitLine: { lineStyle: { color: c.line, type: 'dotted' } } }, { show: territory, type: 'category', gridIndex: 1, data: ['0–99', '100–999', '1 000–9 999', '10 000–99 999', 'От 100 000'], axisLabel: { color: c.ink }, axisTick: { show: false }, axisLine: { show: false } }],
+      series: [{ name: 'Население', type: 'bar', data: sums.map((value, i) => ({ value, itemStyle: { color: c.blue, opacity: years.includes(allYears[i]) ? 1 : .3 } })), label: { show: true, position: 'top', color: c.ink, formatter: (p: any) => shown(p.value) }, barMaxWidth: 35, decal: { symbol: 'rect', dashArrayX: [1, 2], dashArrayY: [1, 2], color: 'rgba(255,255,255,.25)' } }, { name: 'Число НП', type: 'bar', xAxisIndex: 1, yAxisIndex: 1, data: territory && known2021 ? bins : [], barMaxWidth: 15, itemStyle: { color: c.blue }, label: { show: true, position: 'right', color: c.ink } }],
     });
     const observer = new ResizeObserver(() => chart.resize()); observer.observe(host.current);
     return () => { observer.disconnect(); chart.dispose(); };
-  }, [features, selected, dark]);
-  return <div ref={host} className="map-charts" role="img" aria-label="Динамика населения по трём переписям и распределение населённых пунктов по людности" />;
+  }, [features, selected, dark, period]);
+  return <div ref={host} className="map-charts" role="img" aria-label={selected.mode === 'settlement' ? 'Население выбранного пункта по трём переписям' : 'Население сопоставимых рядов и число населённых пунктов по людности'} />;
 }
 
 export default function MapWorkspace({ base = '/', research }: { base?: string; research?: string }) {
@@ -156,6 +159,10 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
   const [searchFocus, setSearchFocus] = useState(false);
   const [copied, setCopied] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const [summaryView, setSummaryView] = useState<'population' | 'services' | 'research'>('population');
+  useEffect(() => {
+    setSummaryView(layers.population ? 'population' : layers.schools || layers.medical ? 'services' : customActive.length ? 'research' : 'population');
+  }, [layers.population, layers.schools, layers.medical, customActive.join(',')]);
   const [dark, setDark] = useState(false);
   const selectRef = useRef<(s: Selection, fit?: boolean, history?: boolean) => void>(() => {});
   const syncRef = useRef<() => void>(() => {});
@@ -177,7 +184,7 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
   function zoomTo(feature: Feature,detail=false) {
     const box = bounds(feature); if (!box || !map.current) return;
     const mobile = window.innerWidth < 760;
-    map.current.fitBounds(box, { padding: { top: 75, left: !mobile && panel ? 325 : 35, right: 45, bottom: mobile ? 240 : 280 }, maxZoom: feature.geometry.type === 'Point' ? (detail?15.5:settlementMagnitude(feature.properties)<20000?14:11) : feature.properties.settlementBoundary?14:9, duration: 650 });
+    map.current.fitBounds(box, { padding: { top: 75, left: !mobile && panel ? 325 : 35, right: 45, bottom: 40 }, maxZoom: feature.geometry.type === 'Point' ? (detail?15.5:settlementMagnitude(feature.properties)<20000?14:11) : feature.properties.settlementBoundary?14:9, duration: 650 });
   }
   const cancelPendingSelection=()=>{deferredSelection.current=null;if(initialLocation.current)initialLocation.current.selected=''};
   const select = (s: Selection, fit = false, history = true) => {
@@ -498,6 +505,13 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
   const selectedServices = selection ? collections.services.features.filter(f => (f.properties.family === 'schools' ? layers.schools : layers.medical)).filter(f => selection.mode === 'settlement' ? [f.properties.settlementId, f.properties.sourceId, f.properties.originId, f.properties.settlement_id].some(v => String(v) === idOf(selection.feature)) : f.geometry.type === 'Point' && contains(selection.feature, f.geometry.coordinates)) : [];
   const memberCount = selection && selection.mode !== 'settlement' ? selection.feature.properties.count : members.length;
   const comparable = selection && selection.mode !== 'settlement' ? selection.feature.properties.comparableCount : members.filter(f => f.properties.comparable === true && [f.properties.p02, f.properties.p10, f.properties.p21].every(v => number(v) !== null)).length;
+  const censusValues = selection ? ['p02', 'p10', 'p21'].map(key => number(selection.feature.properties[key])) : [];
+  const periodYears = period.split('-');
+  const yearIndex = (year: string) => ['2002', '2010', '2021'].indexOf(year);
+  const firstValue = censusValues[yearIndex(periodYears[0])], lastValue = censusValues[yearIndex(periodYears.at(-1)!)];
+  const delta = selection && (selection.mode !== 'settlement' || selection.feature.properties.comparable === true) && firstValue != null && lastValue != null ? lastValue - firstValue : null;
+  const relativeChange = delta !== null && firstValue !== null && firstValue > 0 ? delta / firstValue * 100 : null;
+  const known2021 = selection?.mode === 'settlement' ? Number(censusValues[2] !== null) : Number(selection?.feature.properties.p21KnownCount || 0);
   const toggleLayer = (key: keyof Layers) => setLayers(previous => ({ ...previous, [key]: !previous[key] }));
   const researchContext = research || (typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('research') : null);
   const visibleRegistry = registry.filter(meta => !researchContext || meta.researchId === researchContext || customActive.includes(meta.id));
@@ -506,6 +520,7 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
   const share = async () => { updateUrl(); try { await navigator.clipboard.writeText(window.location.href); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch { window.prompt('Скопируйте ссылку на карту', window.location.href); } };
 
   return <section className={`map-workspace ${selection ? 'has-selection' : ''}`} aria-label="Интерактивная карта исследования">
+    <div className="map-stage">
     <div ref={mapElement} className="map-canvas" aria-label="Карта населённых пунктов, регионов и районов" />
     {mapError && <div className="map-failure" role="alert"><strong>Карта недоступна</strong><p>{mapError}</p><a href={`${root}materials/?view=cards`}>Перейти к материалам →</a></div>}
     <div className="map-toolbar">
@@ -538,10 +553,32 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
     {(layers.population || layers.schools || layers.medical || layers.centres || layers.links) && <aside className="map-legend" aria-label="Легенда карты">{layers.population && <><strong>{period.includes('-') ? 'Изменение населения' : 'Население, человек'} · {period.replace('-', '–')}</strong>{period.includes('-') ? <><span><i style={{ background: color(dark).blue }} />Рост более 10%</span><span><i style={{ background: color(dark).orange }} />Сокращение более 10%</span><span><i style={{ background: dark ? '#B0BEDF' : '#A5B5D8' }} />Изменение от −10 до +10%</span><span><i style={{ background: color(dark).gray }} />Нет полного численного ряда</span></> : <><span><i style={{ background: color(dark).blue }} />Размер точки — численность</span><span><i style={{ background: color(dark).gray }} />Нет зачтённого значения</span></>}<small>На обзорном масштабе показаны крупные НП; при приближении — остальные.</small></>}{layers.schools && <span><i className="square" style={{ background: color(dark).green }} />Школьное обслуживание</span>}{layers.medical && <span><i className="square" style={{ background: color(dark).orange }} />Медицинское обслуживание</span>}{layers.centres && <span><i style={{background:'transparent',border:'2px solid #7955C5'}} />Модельные центры · диагностическая выборка</span>}{layers.links && <small>Пунктир — документированная связь. Это не дорожный маршрут и не наблюдённый поток.</small>}</aside>}
 
     {enabledRegistry.length > 0 && <aside className="map-custom-legend" aria-label="Легенда исследовательских слоёв">{enabledRegistry.map(meta => { const payload = customCache.current[meta.id], stats = payload ? layerStats(payload) : null, labelled = researchLegendEntries(meta,payload,dark); return <div key={meta.id}><strong>{meta.title}</strong>{labelled.length ? labelled.map(item => <span key={item.value}><i style={{background:item.color}} />{item.label}</span>) : <span><i style={{background: meta.palette === 'population-change' ? 'linear-gradient(to right,#C65B24,#CED7EC,#244CFF)' : ['categorical','service-type'].includes(meta.palette) ? 'linear-gradient(to right,#244CFF 20%,#16806A 20% 40%,#C65B24 40% 60%,#7955C5 60% 80%,#9C7715 80%)' : undefined}} />{stats ? stats.known ? `${shown(stats.min)} — ${shown(stats.max)} ${meta.unit}` : 'Нет численных значений' : customErrors[meta.id] ? 'Слой недоступен' : 'Загрузка…'}</span>}<small>{meta.period} · {meta.evidence === 'model' ? 'Модельная оценка' : meta.evidence === 'calculation' ? 'Расчёт' : meta.evidence === 'observation' ? 'Наблюдение' : meta.evidence}{stats ? ` · ${stats.count} объектов, ${stats.known} значений` : ''}</small>{meta.description && <small>{meta.description}</small>}<a href={meta.source?.url} target="_blank" rel="noreferrer">{meta.source?.title || 'Источник'} ↗</a></div>; })}</aside>}
+    <div className="map-provenance">{basemapUnavailable ? 'Подложка недоступна; локальные слои сохранены' : 'OpenFreeMap · OpenStreetMap · слои исследования'} · {manifest?.generatedAt ? `Данные: ${new Date(manifest.generatedAt).toLocaleDateString('ru-RU')}` : 'Версионированные данные'} · <a href="https://github.com/ZakBu/russian-settlements-research" target="_blank" rel="noreferrer">Источники и код ↗</a></div>
+    </div>
     {selection && <section className={`map-infographic ${collapsed ? 'collapsed' : ''}`} aria-label={`Инфографика: ${titleOf(selection.feature)}`}>
       <div className="map-info-header"><div><span className="map-eyebrow">{selectionLabel(selection)} / {selection.mode === 'settlement' ? selection.feature.properties.region || 'Переписная база' : `Сетка ${selection.feature.properties.epoch} года · ${selection.feature.properties.provider}`}</span><h2>{titleOf(selection.feature)}</h2></div><div className="map-info-actions"><button onClick={() => zoomTo(selection.feature,true)}>Приблизить ↗</button><button onClick={() => setCollapsed(!collapsed)} aria-expanded={!collapsed} aria-label={collapsed ? 'Развернуть графики' : 'Свернуть графики'}>{collapsed ? '⌃' : '⌄'}</button><button onClick={() => { cancelPendingSelection();setSelection(null); updateUrl(null, true); }} aria-label="Закрыть выбранный объект">×</button></div></div>
-      {!collapsed && <div className="map-info-body"><div className="map-info-context"><p>{selection.mode === 'settlement' ? 'Население по переписям и сведения об обслуживании.' : 'Пространственная сводка по переписным точкам внутри выбранной границы.'}</p>{selection.mode==='settlement'&&<small data-settlement-boundary={boundaryStatus}>{boundaryStatus==='loading'?'Загружаем контур населённого пункта…':boundaryStatus==='available'?<>Картографический контур НП: {placeBoundary?.feature.properties.source || 'OpenStreetMap'}{placeBoundary?.feature.properties.sourceDate?` · ${String(placeBoundary.feature.properties.sourceDate).split('-').reverse().join('.')}`:''}. {placeBoundary?.feature.properties.sourceUrl&&<a href={placeBoundary.feature.properties.sourceUrl} target="_blank" rel="noopener noreferrer">Источник ↗</a>}</>:boundaryStatus==='missing'?'В подключённом источнике нет однозначно сопоставленного контура этого НП. Показана переписная точка.':'Контур временно недоступен. Показана переписная точка.'}</small>}<dl><div><dt>Переписных точек в базе</dt><dd>{aggregateBusy ? '…' : shown(memberCount)}</dd></div><div><dt>Полных рядов за три переписи</dt><dd>{aggregateBusy ? '…' : `${shown(comparable)} из ${shown(memberCount)}`}</dd></div><div><dt>Услуг в текущем слое</dt><dd>{selectedServices.length ? shown(selectedServices.length) : 'Нет сведений'}</dd></div></dl>{selection.mode !== 'settlement' && <small>Динамика — по НП с полным рядом. Полный численный ряд не доказывает неизменность границ. Это не официальный муниципальный итог.</small>}{selection.mode === 'settlement' && <small>{detailError ? 'Подробный источник временно недоступен.' : details ? `Источник: ${details.source === 'census-population' ? 'Связанная база переписей 2002/2010/2021' : details.source || 'Связанная база переписей'}` : 'Читаем подробные сведения…'}</small>}</div><div className="map-info-visual">{aggregateBusy ? <p role="status">Рассчитываем сводку выбранной территории…</p> : <Charts features={members} selected={selection} dark={dark} />}</div><footer>Переписи 2002 / 2010 / 2021 · Пропуск не равен нулю · <a href={`${root}materials/?kind=method`}>Методология и ограничения ↗</a></footer></div>}
+      {!collapsed && <div className="map-info-body"><div className="map-info-context"><p>{selection.mode === 'settlement' ? 'Население по переписям и сведения об обслуживании.' : 'Пространственная сводка по переписным точкам внутри выбранной границы.'}</p>{selection.mode==='settlement'&&<small data-settlement-boundary={boundaryStatus}>{boundaryStatus==='loading'?'Загружаем контур населённого пункта…':boundaryStatus==='available'?<>Картографический контур НП: {placeBoundary?.feature.properties.source || 'OpenStreetMap'}{placeBoundary?.feature.properties.sourceDate?` · ${String(placeBoundary.feature.properties.sourceDate).split('-').reverse().join('.')}`:''}. {placeBoundary?.feature.properties.sourceUrl&&<a href={placeBoundary.feature.properties.sourceUrl} target="_blank" rel="noopener noreferrer">Источник ↗</a>}</>:boundaryStatus==='missing'?'В подключённом источнике нет однозначно сопоставленного контура этого НП. Показана переписная точка.':'Контур временно недоступен. Показана переписная точка.'}</small>}{summaryView === 'population' && selection.mode !== 'settlement' && <dl><div><dt>Переписных точек в базе</dt><dd>{aggregateBusy ? '…' : shown(memberCount)}</dd></div><div><dt>Полных рядов за три переписи</dt><dd>{aggregateBusy ? '…' : `${shown(comparable)} из ${shown(memberCount)}`}</dd></div></dl>}{selection.mode !== 'settlement' && <small>Динамика — по НП с полным рядом. Полный численный ряд не доказывает неизменность границ. Это не официальный муниципальный итог.</small>}{selection.mode === 'settlement' && <small>{detailError ? 'Подробный источник временно недоступен.' : details ? `Источник: ${details.source === 'census-population' ? 'Связанная база переписей 2002/2010/2021' : details.source || 'Связанная база переписей'}` : 'Читаем подробные сведения…'}</small>}</div><div className="map-info-visual">
+        <div className="map-summary-tabs" role="group" aria-label="Раздел сводки">
+          <button aria-pressed={summaryView === 'population'} onClick={() => setSummaryView('population')}>Население</button>
+          {(layers.schools || layers.medical) && <button aria-pressed={summaryView === 'services'} onClick={() => setSummaryView('services')}>Обслуживание</button>}
+          {enabledRegistry.length > 0 && <button aria-pressed={summaryView === 'research'} onClick={() => setSummaryView('research')}>Исследовательские слои</button>}
+        </div>
+        {summaryView === 'population' && <>
+          <p className="map-summary-answer">{periodYears.length > 1 ? <>Изменение за {period.replace('-', '–')}: <strong>{delta === null ? 'Нет зачтённых данных' : `${delta > 0 ? '+' : ''}${shown(delta)} чел.`}</strong>{relativeChange !== null && <> ({relativeChange > 0 ? '+' : ''}{shown(relativeChange)}%)</>}</> : <>Население в {period} году: <strong>{shown(firstValue)}{firstValue !== null && ' чел.'}</strong></>}</p>
+          {aggregateBusy ? <p role="status">Рассчитываем сводку выбранной территории…</p> : <Charts features={members} selected={selection} dark={dark} period={period} />}
+          {selection.mode !== 'settlement' && <p className="map-summary-note">Динамика: {shown(comparable)} из {shown(memberCount)} переписных точек{number(memberCount) && number(comparable) !== null ? ` (${shown(Number(comparable) / Number(memberCount) * 100)}%)` : ''}. Распределение по людности: {shown(known2021)} НП с известным населением 2021 года. Обзорная выборка на карте не используется для расчёта.</p>}
+        </>}
+        {summaryView === 'services' && <div className="map-summary-content">
+          <h3>Документированные сведения об обслуживании</h3>
+          <p>Только включённые школьные и медицинские слои. Запись обозначает НП обслуживания, а не отдельное здание учреждения. Это неполный набор свидетельств, не оценка обеспеченности жителей.</p>
+          {pendingKeys.includes('services') ? <p role="status">Загружаем сведения об услугах…</p> : errors.services ? <p>Источник услуг недоступен. Повторите загрузку.</p> : selectedServices.length ? <><p><strong>{shown(selectedServices.length)} записей</strong></p><ul>{selectedServices.slice(0, 20).map(f => <li key={idOf(f)}><strong>{titleOf(f) || 'Без названия'}</strong> · {f.properties.family === 'schools' ? 'Образование' : 'Медицина'} · {f.properties.year || 'Год не указан'}<br />{f.properties.evidence === 'normative_attachment' ? 'Документированное прикрепление' : f.properties.evidence === 'provider_reported_service' ? 'Сведения поставщика' : 'Сведения источника'}{ /^https?:\/\//.test(f.properties.source || '') && <> · <a href={f.properties.source} target="_blank" rel="noreferrer">Первичный источник ↗</a></>}</li>)}</ul>{selectedServices.length > 20 && <p>Первые 20 записей из {shown(selectedServices.length)}; остальные доступны на карте.</p>}</> : <p>В подключённых данных совпадений не найдено. Это не означает отсутствия услуг.</p>}
+        </div>}
+        {summaryView === 'research' && <div className="map-summary-content">
+          <h3>Подключённые исследования</h3><p>Источники и методики активных слоёв. Их общие итоги нельзя считать показателями выбранной территории без отдельного пространственного расчёта.</p>
+          <ul>{enabledRegistry.map(meta => <li key={meta.id}><a href={meta.source.url} target="_blank" rel="noreferrer">{meta.title} ↗</a> · {meta.period}<p>{meta.description}</p>{customErrors[meta.id] && <p>Слой временно недоступен.</p>}</li>)}</ul>
+        </div>}
+      </div><footer>{summaryView === 'population' ? 'Источник: связанная база переписей 2002 / 2010 / 2021. ' : 'Источники и даты — в описаниях подключённых слоёв. '}Пропуск не равен нулю · <a href={`${root}materials/?kind=method`}>Методология и ограничения ↗</a></footer></div>}
     </section>}
-    <div className="map-provenance">{basemapUnavailable ? 'Подложка недоступна; локальные слои сохранены' : 'OpenFreeMap · OpenStreetMap · слои исследования'} · {manifest?.generatedAt ? `Данные: ${new Date(manifest.generatedAt).toLocaleDateString('ru-RU')}` : 'Версионированные данные'} · <a href="https://github.com/ZakBu/russian-settlements-research" target="_blank" rel="noreferrer">Источники и код ↗</a></div>
+
   </section>;
 }
