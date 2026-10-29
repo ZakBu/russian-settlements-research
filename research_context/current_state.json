@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-29T02:19:44+03:00",
+  "updated_moscow": "2026-10-29T07:13:45+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,27 +9,32 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "saratov_local_and_fresh_regional_calculations_equal_release_assembly_pending",
+      "status": "saratov_complete_calculation_and_public_data_atlas_publication_pending",
       "summary": "По всему текущему переписному составу Саратовской области рассчитаны поля населения, 16 функциональных направлений, альтернативы и динамика местных окружений. Основной вариант даёт 511 областных центров и 25 внешних; медианное окружение — два жилых НП. Для 154 областных составов доступны первичные численные наблюдения центра и сельского окружения во всех трёх переписях. Локальный и чистый облачный расчёты совпали. Исправлены две координатные ошибки, пропуск федеральных масс, отсечение дальних вкладов и исключение нулевых записей из демографического окружения. Это предварительная модель известных предложений; реальные поездки и общая иерархия не установлены. Прежние национальные результаты сохранены как предыдущие варианты.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
       "main_blocker": "Неполное предложение сельских магазинов и школ, неизвестная вместимость и доступ отдельных профилей; мало независимых направленных поездок. Первичные числа 2010 года найдены, но сопоставимость контингентов и границ остаётся отдельным ограничением.",
       "workplan": "sgrt/workplan/README.md",
       "results": "sgrt/saratov/REGIONAL_RESULTS_20261029.md",
-      "data_release": "sgrt-common-systems-20261027-v1",
+      "data_release": "sgrt-saratov-fields-20261029-v1",
       "publication": {
-        "release": "sgrt-common-systems-20261027-v1",
-        "catalog": "data/common_systems_catalog_20261027.json",
-        "source_commit": "05b94e5b0deb7a661eb9f6ecec14d2092aa88dca",
-        "files_verified": 175,
-        "archive_bytes": 92856475,
-        "archive_sha256": "886f39292a0af5af2a137a5f2f2b9b7aecd36b678760ab851b3f905ae8908dde",
-        "centres": 28512,
-        "centres_with_positive_primary_external_member": 14253,
-        "centres_with_two_function_primary_external_member": 7806,
+        "release": "sgrt-saratov-fields-20261029-v1",
+        "catalog": "data/saratov_fields_catalog_20261029.json",
+        "source_commit": "b36836da074a7902ede26f315c04d6ee95df5367",
+        "computation_source_commit": "51052edc968a3eb4ac31f88bf81f59ed9481ab9b",
+        "files_verified": 911,
+        "producer_git_sources_verified": 557,
+        "standalone_assets_verified": 17,
+        "all_public_assets_downloaded_and_hashed": 19,
+        "archive_bytes": 645292645,
+        "archive_sha256": "2328cf7a6b2572c84e8cdf6450c5563feb956e32c1ccfc8d72ba174e05d6a9b2",
+        "regional_model_basic_centres": 511,
+        "external_basic_centres": 25,
         "common_territorial_hierarchy_established": false,
-        "verification": "research_context/analysis_snapshots/common_public_release_verification_20261027.json",
-        "status": "public_download_all_manifest_members_verified"
+        "verification": "research_context/analysis_snapshots/saratov_fields_public_verification_20261029.json",
+        "public_download_verification": "research_context/analysis_snapshots/saratov_fields_public_download_20261029.json",
+        "status": "public_release_all_bytes_verified_atlas_publication_pending",
+        "atlas_result": "https://zakbu.github.io/russian-settlements-research/materials/saratov-functional-systems/"
       },
       "local_systems": {
         "doc": "sgrt/local_systems/README.md",
@@ -136,7 +141,7 @@
         "method": "sgrt/saratov/REGIONAL_METHOD_20261029.md",
         "scope": "Весь текущий переписной состав области, 1821 запись; 1814 имеют принятую дорожную привязку.",
         "preferred_inventory": "physical_official_enrichment",
-        "status": "local_and_independent_fresh_calculations_equal_release_assembly_pending",
+        "status": "public_data_verified_atlas_publication_pending",
         "higher_levels": "Прямые направления редких функций рассчитаны для самих базовых центров. Число уровней и единственная вложенная иерархия не назначены и наблюдениями не установлены."
       },
       "previous_national_publication": {
@@ -778,7 +783,7 @@
         "latest_user_goal": "Выделить нулевые центры, оформить статью и слой карты, затем продолжать проверяемое исследование более высоких уровней без подгонки верхней Москвы."
       },
       "saratov_regional_research_20261029": {
-        "status": "local_and_independent_fresh_calculations_equal_release_assembly_pending",
+        "status": "public_data_verified_atlas_publication_pending",
         "decision_id": "D58",
         "concept_id": "D54",
         "current_records": 1821,
@@ -910,7 +915,13 @@
           "numeric_tolerances_changed": false,
           "historical_eight_origin_probe_separated_from_current_output": true,
           "historical_values_preserved": "research_context/analysis_snapshots/saratov_early_eight_origin_probe_20261028.json"
-        }
+        },
+        "catalog": "data/saratov_fields_catalog_20261029.json",
+        "release_tag": "sgrt-saratov-fields-20261029-v1",
+        "source_commit": "b36836da074a7902ede26f315c04d6ee95df5367",
+        "computation_source_commit": "51052edc968a3eb4ac31f88bf81f59ed9481ab9b",
+        "public_download_all_assets_verified": true,
+        "portable_catalog_all_files_materialized_verified": 911
       }
     },
     "portal": {
@@ -943,7 +954,7 @@
     }
   },
   "next_steps": [
-    "Опубликовать полный саратовский комплект после чистого пересчёта закреплённых исходников и проверки фактически скачанных файлов; обновить атлас обобщёнными контрастными картами и статьёй.",
+    "Завершить публикацию Саратовских статей и 13 слоёв в атласе, проверить реальные публичные страницы, данные и карты на компьютере и телефоне.",
     "Проверять конкретные школьные и медицинские направления, сельские магазины и действующие профили учреждений. Отсутствие объекта в OSM не считать отсутствием функции.",
     "Сопоставлять прямые связи редких функций и труда с независимыми наблюдениями; эмпирически проверять более широкие системы без заранее заданных рангов и единственной вершины.",
     "Продолжать поиск сопоставимых первичных численностей и границ, сохраняя неизменную связанную основу и отдельные варианты наблюдений.",
