@@ -9,7 +9,7 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "saratov_full_corrected_pilot_calculated_independent_checks_public_reproduction_pending",
+      "status": "saratov_local_and_fresh_regional_calculations_equal_release_assembly_pending",
       "summary": "По всему текущему переписному составу Саратовской области рассчитаны поля населения, 16функциональных направлений, альтернативы и динамика местных окружений. Основной вариант даёт 511областных центров и 25внешних; медианное окружение — два жилых НП. Для 161областного состава доступны первичные численные наблюдения центра и сельского окружения во всех трёх переписях. Исправлены две координатные ошибки, пропуск федеральных масс и отсечение дальних вкладов. Это предварительная модель известных предложений; реальные поездки и общая иерархия не установлены. Прежние национальные результаты сохранены как предыдущие варианты.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
@@ -136,7 +136,7 @@
         "method": "sgrt/saratov/REGIONAL_METHOD_20261029.md",
         "scope": "Весь текущий переписной состав области, 1821 запись; 1814 имеют принятую дорожную привязку.",
         "preferred_inventory": "physical_official_enrichment",
-        "status": "complete_local_corrected_calculation_public_reproduction_pending",
+        "status": "local_and_independent_fresh_calculations_equal_release_assembly_pending",
         "higher_levels": "Прямые направления редких функций рассчитаны для самих базовых центров. Число уровней и единственная вложенная иерархия не назначены и наблюдениями не установлены."
       },
       "previous_national_publication": {
@@ -778,7 +778,7 @@
         "latest_user_goal": "Выделить нулевые центры, оформить статью и слой карты, затем продолжать проверяемое исследование более высоких уровней без подгонки верхней Москвы."
       },
       "saratov_regional_research_20261029": {
-        "status": "complete_local_corrected_calculation_awaiting_fresh_public_reproduction",
+        "status": "local_and_independent_fresh_calculations_equal_release_assembly_pending",
         "decision_id": "D58",
         "concept_id": "D54",
         "current_records": 1821,
@@ -897,6 +897,19 @@
           "primary2010_trajectory_changes": 17,
           "accepted_trajectory_changes": 25,
           "retained_as_reproducible_auxiliary_tables": true
+        },
+        "fresh_calculation_comparison": {
+          "computation_source_commit": "51052edc968a3eb4ac31f88bf81f59ed9481ab9b",
+          "tables": 239,
+          "table_rows": 7111942,
+          "matrices": 6,
+          "geojson": 19,
+          "scientific_summaries": 26,
+          "all_current_controls_equal": true,
+          "control_sha256": "a8828c7a61f0dbdd691640723bdf55e430ac2d468f7a04a30c4e15945b67fe6b",
+          "numeric_tolerances_changed": false,
+          "historical_eight_origin_probe_separated_from_current_output": true,
+          "historical_values_preserved": "research_context/analysis_snapshots/saratov_early_eight_origin_probe_20261028.json"
         }
       }
     },

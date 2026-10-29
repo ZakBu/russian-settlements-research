@@ -59,6 +59,14 @@ STANDALONE = tuple(ASSET_PATHS)
 FOLDERS = ('functions','fields','field_sensitivity','geography_overlay','organisation','context','context_baseline','regional_supplement','context_regional_supplement','physical_official','intercentre','context_physical_official','context_physical_official_primary2010','primary2010','context_primary2010','magnit','maps','school_competition','medical_competition','figures','rural_routes','source_documents')
 SKIP_PARTS = {'cost_chunks','preview','__pycache__'}
 SKIP_NAMES = {'fields_in_progress.parquet','input_invocation.json','graph_prepare_in_progress.json'}
+# These three files came from an earlier manual eight-origin experiment, not
+# from this producer. Keep its values in the dated research-history snapshot;
+# never mix them into the complete regional result or its reproduction control.
+HISTORICAL_PROBE_FILES = {
+    'field_sensitivity/unbounded_federal_city_costs.parquet',
+    'field_sensitivity/unbounded_selected_origins.parquet',
+    'field_sensitivity/summary.json',
+}
 REQUIRED = ('fields/summary.json','fields/regional_roster.parquet','fields/destination_costs.npz',
     'fields/regional_costs.npy','fields/fields.parquet','fields/halo_fields.parquet',
     'functions/functional_links.parquet','functions/functional_system_members.parquet',
@@ -88,6 +96,8 @@ def inputs():
 def scientific_files(results):
     for folder in FOLDERS:
         for path in sorted((Path(results)/folder).rglob('*')):
+            if path.relative_to(results).as_posix() in HISTORICAL_PROBE_FILES:
+                continue
             if folder=='maps' and 'water_source' in path.relative_to(Path(results)/folder).parts:
                 continue
             if path.is_file() and not SKIP_PARTS.intersection(path.relative_to(results).parts) and path.name not in SKIP_NAMES:
@@ -324,6 +334,7 @@ def package(work,commit):
             PROFILE_FOLDER+'road_profile.py',PROFILE_FOLDER+'finite_access_policy_proposal.json',
             PROFILE_FOLDER+'assemble_graph2021.py','web/src/components/custom-map-layers.ts','web/src/components/MapWorkspace.tsx','research_context/current_state.json','research_context/diary/2026-10-29.md',
             'requirements-saratov-fields.txt','.github/workflows/publish-saratov-fields.yml',
+            'research_context/analysis_snapshots/saratov_early_eight_origin_probe_20261028.json',
             str(EXPECTED.relative_to(REPO)),str(FROZEN.relative_to(REPO)),str(MAGNIT_SOURCE.relative_to(REPO)),*inputs().keys()],cwd=REPO,text=True).splitlines()
         for name in sorted(set(names)):add(REPO/name,'reproduction/'+name)
     standalone={}
