@@ -5,11 +5,12 @@ file is checked before a catalogue is emitted; standalone maps/figures are
 verified from downloaded files too. The population default catalogue is untouched.
 """
 from __future__ import annotations
-import argparse,hashlib,json,re,subprocess,zipfile
+import argparse,hashlib,json,re,subprocess,sys,zipfile
 from pathlib import Path,PurePosixPath
 
 REPOSITORY='ZakBu/russian-settlements-research'
 REPO=Path(__file__).resolve().parents[2]
+if str(REPO) not in sys.path:sys.path.insert(0,str(REPO))
 
 
 def digest_bytes(value):return hashlib.sha256(value).hexdigest()
