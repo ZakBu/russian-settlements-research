@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-29T08:54:51+03:00",
+  "updated_moscow": "2026-10-29T09:52:17+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -903,8 +903,6 @@
           "accepted_trajectory_changes": 25,
           "retained_as_reproducible_auxiliary_tables": true
         },
-        "public_download_all_assets_verified": true,
-        "portable_catalog_all_files_materialized_verified": 911,
         "previous_v1_published": {
           "publication": {
             "release": "sgrt-saratov-fields-20261029-v1",
@@ -922,7 +920,7 @@
             "common_territorial_hierarchy_established": false,
             "verification": "research_context/analysis_snapshots/saratov_fields_public_verification_20261029.json",
             "public_download_verification": "research_context/analysis_snapshots/saratov_fields_public_download_20261029.json",
-            "status": "public_release_all_bytes_verified_atlas_publication_pending",
+            "status": "published_data_and_atlas",
             "atlas_result": "https://zakbu.github.io/russian-settlements-research/materials/saratov-functional-systems/"
           },
           "three_two_one": [
@@ -948,7 +946,9 @@
             "numeric_tolerances_changed": false,
             "historical_eight_origin_probe_separated_from_current_output": true,
             "historical_values_preserved": "research_context/analysis_snapshots/saratov_early_eight_origin_probe_20261028.json"
-          }
+          },
+          "public_download_all_assets_verified": true,
+          "portable_catalog_all_files_materialized_verified": 911
         },
         "calculated_revision": "v2",
         "published_revision": "v1",
@@ -983,8 +983,16 @@
         "published_catalog": "data/saratov_fields_catalog_20261029.json",
         "published_release_tag": "sgrt-saratov-fields-20261029-v1",
         "v2_fresh_calculation_comparison": {
-          "status": "pending",
-          "control": "research_context/analysis_snapshots/regional_fields_control_20261029_v2.json"
+          "status": "running_full_fresh_rebuild",
+          "control": "research_context/analysis_snapshots/regional_fields_control_20261029_v2.json",
+          "source_commit": "3a8c35339d2719a8c433c669ea98bc99a3685f5e"
+        },
+        "descriptive_centre_population_2021": {
+          "regional_centres": 511,
+          "centres_below_1000_people": 392,
+          "median_people": 477,
+          "threshold_used_for_selection_or_rank": false,
+          "snapshot": "research_context/analysis_snapshots/saratov_v2_centre_scale_20261029.json"
         }
       }
     },
