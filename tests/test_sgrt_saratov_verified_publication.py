@@ -101,6 +101,29 @@ class IndependentPublication(unittest.TestCase):
             self.assertTrue(any('PATCH' in args for args in calls))
             self.assertFalse(registration.exists())
 
+    def test_failed_numeric_replay_blocks_publication_and_receives_the_reference(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); _, release, payload, _ = fixture(root)
+            downloads = root/'downloads'; registration = root/'registration'
+            reference = root/'pinned-v1-reference.zip'; calls = []
+            def gh(*arguments):
+                calls.append(arguments)
+                if arguments[0] == 'release':
+                    for name, raw in payload.items(): (downloads/name).write_bytes(raw)
+                    return ''
+                return json.dumps(release)
+            with patch.dict('os.environ', {'GH_TOKEN': 'workflow-test-token'}), \
+                    patch.object(publisher.subprocess, 'check_output', side_effect=[PRODUCER+'\n', '']), \
+                    patch.object(publisher, '_gh', side_effect=gh), \
+                    patch.object(publisher, 'register', side_effect=ValueError('numeric replay differs')) as register, \
+                    patch.object(publisher, 'verify_public') as public:
+                with self.assertRaisesRegex(ValueError, 'numeric replay differs'):
+                    publisher.publish(7, PRODUCER, downloads, registration, reference)
+                self.assertEqual(register.call_args.args[-1], reference)
+                public.assert_not_called()
+            self.assertFalse(any('PATCH' in args for args in calls))
+            self.assertFalse(registration.exists())
+
     def test_existing_public_release_retry_never_changes_it(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory); _, release, payload, _ = fixture(root)
