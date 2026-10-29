@@ -334,6 +334,7 @@ def package(work,commit):
             PROFILE_FOLDER+'road_profile.py',PROFILE_FOLDER+'finite_access_policy_proposal.json',
             PROFILE_FOLDER+'assemble_graph2021.py','web/src/components/custom-map-layers.ts','web/src/components/MapWorkspace.tsx','research_context/current_state.json','research_context/diary/2026-10-29.md',
             'requirements-saratov-fields.txt','.github/workflows/publish-saratov-fields.yml',
+            '.github/workflows/finalize-saratov-fields.yml',
             'research_context/analysis_snapshots/saratov_early_eight_origin_probe_20261028.json',
             str(EXPECTED.relative_to(REPO)),str(FROZEN.relative_to(REPO)),str(MAGNIT_SOURCE.relative_to(REPO)),*inputs().keys()],cwd=REPO,text=True).splitlines()
         for name in sorted(set(names)):add(REPO/name,'reproduction/'+name)
