@@ -23,7 +23,31 @@ def safe_member(name):
  return p
 
 
-def register(manifest_path,archive,standalone_dir,producer,prefix):
+def verify_scientific_controls(archive, numeric_reference_archive=None):
+ """Keep original hash controls and independently replay any numeric witness.
+
+ Rounded hashes are diagnostics, not a replacement for the already specified
+ arithmetic tolerances. A non-exact archive needs both its original witness and
+ a new all-cell comparison against the pinned immutable reference bytes.
+ """
+ with zipfile.ZipFile(archive) as z:
+  expected=json.loads(z.read('controls/expected_control.json'))
+  actual=json.loads(z.read('controls/actual_control.json'))
+  if expected==actual:
+   return {'strict_control_equal':True,
+    'scientific_results_reproduce_with_existing_arithmetic_tolerance':True}
+  certificate='checks/preserved_numeric_comparison.json'
+  if numeric_reference_archive is None or certificate not in z.namelist():
+   raise ValueError('Scientific controls differ; an independently replayable numeric comparison is required')
+  saved=json.loads(z.read(certificate))
+ from scripts.sgrt_saratov.preserved_numeric_comparison import compare_preserved
+ observed=compare_preserved(archive,numeric_reference_archive,expected,actual)
+ if saved!=observed or observed.get('strict_control_equal') is not False or observed.get('scientific_results_reproduce_with_existing_arithmetic_tolerance') is not True:
+  raise ValueError('Archived numeric certificate differs from independent all-cell replay')
+ return observed
+
+
+def register(manifest_path,archive,standalone_dir,producer,prefix,numeric_reference_archive=None):
  m=json.loads(Path(manifest_path).read_text());archive=Path(archive)
  if not re.fullmatch('[0-9a-f]{40}',producer) or m['source_commit']!=producer:
   raise ValueError('Exact committed scientific producer is required')
@@ -51,8 +75,7 @@ def register(manifest_path,archive,standalone_dir,producer,prefix):
    files.append({'path':prefix+name,'blob':blob,'bytes':len(data),'profiles':['core','all'],'asset':a['asset']})
   if 'controls/expected_control.json' not in expected or 'controls/actual_control.json' not in expected:
    raise ValueError('Both completed local and independent fresh controls are required')
-  if json.loads(z.read('controls/expected_control.json'))!=json.loads(z.read('controls/actual_control.json')):
-   raise ValueError('Scientific controls differ')
+ comparison=verify_scientific_controls(archive,numeric_reference_archive)
  standalone={}
  for name,spec in m.get('standalone_assets',{}).items():
   safe_member(name)
@@ -65,10 +88,13 @@ def register(manifest_path,archive,standalone_dir,producer,prefix):
  proof={'schema':'sgrt.saratov.downloaded_release_verification.v1','release_tag':tag,'source_commit':producer,
   'downloaded_archive_bytes':a['bytes'],'downloaded_archive_sha256':a['sha256'],
   'zip_members_verified':len(files),'producer_git_sources_verified':source_count,
-  'downloaded_standalone_assets':standalone,'fresh_and_local_scientific_controls_equal':True}
+  'downloaded_standalone_assets':standalone,
+  'fresh_and_local_scientific_controls_equal':comparison['strict_control_equal'],
+  'fresh_and_local_scientific_results_numeric_equal':comparison['scientific_results_reproduce_with_existing_arithmetic_tolerance'],
+  'scientific_comparison':comparison}
  catalogue={'schema':'sgrt.portable_data.v1','status':'verified_complete','source_commit':producer,
   'release_tag':tag,'repository':REPOSITORY,
-  'scientific_scope':m['scope'],'verification_scope':'Downloaded archive, every member, every packaged producer Git source, standalone assets and complete scientific controls verified.',
+  'scientific_scope':m['scope'],'verification_scope':'Downloaded archive, every member, every packaged producer Git source and standalone assets verified. Original scientific controls retained; any rounded-hash difference independently compared cell by cell using the pre-existing arithmetic tolerances.',
   'population_default_catalog_unchanged':True,
   'profiles':{'core':'Complete Saratov pilot results, contexts, primary-source evidence and reproduction code; national inputs remain in pinned previous releases.','all':'Same complete companion'},
   'assets':[{'asset':a['asset'],'url':base+a['asset'],'bytes':a['bytes'],'sha256':a['sha256'],'status':'verified','objects':sorted(objects)}],
@@ -80,8 +106,10 @@ def register(manifest_path,archive,standalone_dir,producer,prefix):
 def main():
  p=argparse.ArgumentParser(description=__doc__)
  for name in ('manifest','archive','standalone-dir','catalog-output','proof-output'):p.add_argument('--'+name,type=Path,required=True)
- p.add_argument('--producer',required=True);p.add_argument('--logical-prefix',default='sgrt/saratov-fields20261029/');a=p.parse_args()
- c,v=register(a.manifest,a.archive,a.standalone_dir,a.producer,a.logical_prefix)
+ p.add_argument('--producer',required=True);p.add_argument('--logical-prefix',default='sgrt/saratov-fields20261029/')
+ p.add_argument('--numeric-reference-archive',type=Path,help='Pinned immutable reference required to replay an explicitly recorded floating arithmetic comparison')
+ a=p.parse_args()
+ c,v=register(a.manifest,a.archive,a.standalone_dir,a.producer,a.logical_prefix,a.numeric_reference_archive)
  for path,value in [(a.catalog_output,c),(a.proof_output,v)]:
   path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
  print(json.dumps({'members':v['zip_members_verified'],'producer_sources':v['producer_git_sources_verified'],'standalone_assets':len(v['downloaded_standalone_assets'])}))

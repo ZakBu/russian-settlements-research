@@ -1,0 +1,74 @@
+name: Extract six immutable Saratov v2 diagnostic tables
+on:
+  push:
+    branches:
+      - diagnostic/saratov-v2-40827228874-extract-trigger
+permissions:
+  contents: write # GitHub requires writer access to read an unpublished draft.
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      DIAGNOSTIC_TAG: diagnostic-saratov-fields-v2-40827228874
+    steps:
+      - name: Download immutable diagnostic draft without editing or publishing
+        run: |
+          set -euo pipefail
+          TASK_EXTRACT="$RUNNER_TEMP/saratov-v2-six-tables"
+          mkdir -p "$TASK_EXTRACT/download" "$TASK_EXTRACT/extracted"
+          echo "TASK_EXTRACT=$TASK_EXTRACT" >> "$GITHUB_ENV"
+          gh api "repos/$GITHUB_REPOSITORY/releases/427566999" > "$TASK_EXTRACT/release.json"
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          r=json.loads((Path(os.environ['RUNNER_TEMP'])/'saratov-v2-six-tables/release.json').read_text())
+          assert r['id']==427566999 and r['draft'] is True
+          assert r['tag_name']==os.environ['DIAGNOSTIC_TAG']
+          assert r['target_commitish']=='3a8c35339d2719a8c433c669ea98bc99a3685f5e'
+          PY
+          if ! gh release download "$DIAGNOSTIC_TAG" --repo "$GITHUB_REPOSITORY" --dir "$TASK_EXTRACT/download" --pattern 'unpublished_mismatch_results.zip' --pattern 'transfer_manifest.json' --pattern 'independent_checks.zip' > "$TASK_EXTRACT/download.log" 2>&1; then
+            python - <<'PY'
+          import os,re
+          from pathlib import Path
+          print(re.sub(r'https?://[^\s\"]+','[download URL redacted]',(Path(os.environ['TASK_EXTRACT'])/'download.log').read_text())[-2000:])
+          PY
+            exit 1
+          fi
+      - name: Authenticate original bytes and extract exactly six tables, controls and checks
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,zipfile
+          from pathlib import Path
+          root=Path(os.environ['TASK_EXTRACT']);d=root/'download';out=root/'extracted'
+          def sha(p):
+              with p.open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
+          assert sha(d/'transfer_manifest.json')=='5f572de900f81ea309024fd28aa87ea91e46a3f1cede6b38eeb76fa8313c0ee4'
+          m=json.loads((d/'transfer_manifest.json').read_text())
+          assert m['source_run_id']==40827228874 and m['scientific_producer_commit']=='3a8c35339d2719a8c433c669ea98bc99a3685f5e'
+          for name in ['unpublished_mismatch_results.zip','independent_checks.zip']:
+              p=d/name;spec=m['assets'][name]
+              assert p.stat().st_size==spec['bytes'] and sha(p)==spec['sha256']
+          names=['results/context/known_partial_worker_fields.parquet','results/field_sensitivity/ordinary_horizon480_reference/fields.parquet','results/field_sensitivity/ordinary_horizon480_reference/halo_fields.parquet','results/fields/fields.parquet','results/fields/halo_fields.parquet','results/organisation/point_maxima.parquet','controls/actual_control.json','controls/expected_control.json']
+          records={}
+          with zipfile.ZipFile(d/'unpublished_mismatch_results.zip') as z:
+              for name in names:
+                  data=z.read(name);p=out/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)
+                  records[name]={'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}
+          with zipfile.ZipFile(d/'independent_checks.zip') as z:
+              for name in z.namelist():
+                  assert Path(name).name==name and name.endswith('.json')
+                  p=out/'checks'/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(z.read(name))
+          (out/'transfer_manifest.json').write_bytes((d/'transfer_manifest.json').read_bytes())
+          (out/'extraction_proof.json').write_text(json.dumps({'diagnostic_only':True,'draft_release_id':427566999,'source_run_id':40827228874,'original_zip_sha256':m['assets']['unpublished_mismatch_results.zip']['sha256'],'extracted':records},ensure_ascii=False,indent=2)+'\n')
+          assert sum(p.stat().st_size for p in out.rglob('*') if p.is_file())<500000000
+          print(json.dumps({'tables':6,'checks':len(list((out/'checks').glob('*.json'))),'extracted_bytes':sum(p.stat().st_size for p in out.rglob('*') if p.is_file())}))
+          PY
+      - name: Export small read-only diagnostic artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: saratov-v2-six-diagnostic-tables
+          retention-days: 14
+          if-no-files-found: error
+          path: ${{ runner.temp }}/saratov-v2-six-tables/extracted/

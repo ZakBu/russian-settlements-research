@@ -1,0 +1,145 @@
+name: Preserve unpublished Saratov v2 comparison diagnostics
+on:
+  push:
+    branches:
+      - diagnostic/saratov-v2-40827228874-trigger
+permissions:
+  actions: read
+  contents: write
+concurrency:
+  group: saratov-diagnostics-40827228874
+  cancel-in-progress: false
+jobs:
+  transfer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_RUN: '40827228874'
+      SOURCE_PRODUCER: '3a8c35339d2719a8c433c669ea98bc99a3685f5e'
+      DIAGNOSTIC_TAG: diagnostic-saratov-fields-v2-40827228874
+      METADATA_BRANCH: diagnostic/saratov-v2-40827228874-controls
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 1
+      - name: Verify immutable failed run and download its preserved artifact
+        run: |
+          set -euo pipefail
+          TASK_TRANSFER="$RUNNER_TEMP/saratov-v2-diagnostic-transfer"
+          mkdir -p "$TASK_TRANSFER/artifact"
+          echo "TASK_TRANSFER=$TASK_TRANSFER" >> "$GITHUB_ENV"
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$SOURCE_RUN" > "$TASK_TRANSFER/source_run.json"
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$SOURCE_RUN/artifacts" > "$TASK_TRANSFER/source_artifacts.json"
+          gh api "repos/$GITHUB_REPOSITORY/releases?per_page=100" > "$TASK_TRANSFER/existing_releases.json"
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          root=Path(os.environ['RUNNER_TEMP'])/'saratov-v2-diagnostic-transfer'
+          run=json.loads((root/'source_run.json').read_text())
+          assert run['id']==40827228874 and run['head_sha']==os.environ['SOURCE_PRODUCER']
+          assert run['path']=='.github/workflows/publish-saratov-fields.yml'
+          assert run['status']=='completed' and run['conclusion']=='failure'
+          chosen=[a for a in json.loads((root/'source_artifacts.json').read_text())['artifacts'] if a['name']=='saratov-fields-controls']
+          assert len(chosen)==1 and not chosen[0]['expired']
+          a=chosen[0]
+          assert a['id']==12879634919 and a['size_in_bytes']==636248850
+          assert a['digest']=='sha256:496b6101fa7d3f5613b95ef9981b47fb94c09df18ccba49bc3737484382fed25'
+          assert not any(r['tag_name']==os.environ['DIAGNOSTIC_TAG'] for r in json.loads((root/'existing_releases.json').read_text()))
+          PY
+          if ! gh run download "$SOURCE_RUN" --repo "$GITHUB_REPOSITORY" --name saratov-fields-controls --dir "$TASK_TRANSFER/artifact" > "$TASK_TRANSFER/download.log" 2>&1; then
+            python - <<'PY'
+          import os,re
+          from pathlib import Path
+          s=(Path(os.environ['TASK_TRANSFER'])/'download.log').read_text()
+          print(re.sub(r'https?://[^\s\"]+','[download URL redacted]',s)[-2000:])
+          PY
+            exit 1
+          fi
+          git fetch --no-tags --depth=1 origin "$SOURCE_PRODUCER"
+      - name: Compare exact expected Git control and preserve small diagnostic files
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json,os,subprocess,zipfile
+          from pathlib import Path
+          root=Path(os.environ['TASK_TRANSFER']);artifact=root/'artifact'
+          expected=subprocess.check_output(['git','show',os.environ['SOURCE_PRODUCER']+':research_context/analysis_snapshots/regional_fields_control_20261029_v2.json'])
+          actual=(artifact/'actual_control.json').read_bytes()
+          archive=artifact/'unpublished_mismatch_results.zip'
+          with zipfile.ZipFile(archive) as z:
+              assert z.read('controls/expected_control.json')==expected
+              assert z.read('controls/actual_control.json')==actual
+          (root/'expected_control.json').write_bytes(expected)
+          changes=[]
+          def walk(a,b,path=''):
+              if type(a)!=type(b):changes.append({'path':path,'expected':a,'actual':b});return
+              if isinstance(a,dict):
+                  for k in sorted(set(a)|set(b)):
+                      p=path+'/'+k
+                      if k not in a:changes.append({'path':p,'status':'extra','actual':b[k]})
+                      elif k not in b:changes.append({'path':p,'status':'missing','expected':a[k]})
+                      else:walk(a[k],b[k],p)
+              elif a!=b:changes.append({'path':path,'expected':a,'actual':b})
+          walk(json.loads(expected),json.loads(actual))
+          diff={'schema':'sgrt.saratov.failed_control_diff.v1','diagnostic_only':True,'source_run_id':40827228874,'scientific_producer_commit':os.environ['SOURCE_PRODUCER'],'expected_sha256':hashlib.sha256(expected).hexdigest(),'actual_sha256':hashlib.sha256(actual).hexdigest(),'difference_count':len(changes),'differences':changes}
+          (root/'control_diff.json').write_text(json.dumps(diff,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({k:v for k,v in diff.items() if k!='differences'},ensure_ascii=False))
+          for row in changes[:100]:print(json.dumps(row,ensure_ascii=False))
+          with zipfile.ZipFile(root/'independent_checks.zip','w',compression=zipfile.ZIP_DEFLATED) as z:
+              for p in sorted((artifact/'checks').glob('*.json')):z.write(p,p.name)
+          records={}
+          for p in [artifact/'actual_control.json',root/'expected_control.json',root/'control_diff.json',root/'independent_checks.zip',archive]:
+              with p.open('rb') as stream:sha=hashlib.file_digest(stream,'sha256').hexdigest()
+              records[p.name]={'bytes':p.stat().st_size,'sha256':sha}
+          manifest={'source_run_id':40827228874,'scientific_producer_commit':os.environ['SOURCE_PRODUCER'],'transfer_workflow_commit':os.environ['GITHUB_SHA'],'source_artifact':json.loads((root/'source_artifacts.json').read_text())['artifacts'][0],'assets':records,'diagnostic_only':True,'scientific_comparison_passed':False,'publication_authorized_by_this_workflow':False}
+          (root/'transfer_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+          (root/'notes.md').write_text('Unpublished diagnostic values of failed Saratov v2 control comparison. No scientific result publication or parameter changes. Original computation source '+os.environ['SOURCE_PRODUCER']+'.\n')
+          PY
+          gh release create "$DIAGNOSTIC_TAG" --repo "$GITHUB_REPOSITORY" --target "$SOURCE_PRODUCER" --draft --title 'Unpublished Saratov v2 diagnostics: run 40827228874' --notes-file "$TASK_TRANSFER/notes.md" "$TASK_TRANSFER/artifact/actual_control.json" "$TASK_TRANSFER/expected_control.json" "$TASK_TRANSFER/control_diff.json" "$TASK_TRANSFER/independent_checks.zip" "$TASK_TRANSFER/transfer_manifest.json"
+      - name: Push only actual control and structured diff on a new diagnostic branch
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os,subprocess
+          ref='refs/heads/'+os.environ['METADATA_BRANCH']
+          r=subprocess.run(['git','ls-remote','--exit-code','--heads','origin',ref],capture_output=True,text=True)
+          assert r.returncode==2 and not r.stdout.strip(),'Existing diagnostic branch or lookup failure; no overwrite'
+          PY
+          git switch --create "$METADATA_BRANCH" "$SOURCE_PRODUCER"
+          python - <<'PY'
+          import os,shutil,subprocess
+          from pathlib import Path
+          root=Path(os.environ['TASK_TRANSFER']);base=Path('research_context/analysis_snapshots')
+          pairs=[(root/'artifact/actual_control.json',base/'saratov_v2_failed_fresh_40827228874_actual.json'),(root/'control_diff.json',base/'saratov_v2_failed_fresh_40827228874_diff.json')]
+          for src,dst in pairs:shutil.copyfile(src,dst)
+          files=[str(dst) for _,dst in pairs]
+          subprocess.run(['git','add','--',*files],check=True)
+          staged=subprocess.check_output(['git','diff','--cached','--name-only'],text=True).splitlines()
+          assert set(staged)==set(files)
+          PY
+          TASK_DIAGNOSTIC_TREE=$(git write-tree)
+          python scripts/check_repository_policy.py --ref "$TASK_DIAGNOSTIC_TREE"
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Preserve failed v2 actual control and exact diagnostic diff'
+          git push origin "HEAD:refs/heads/$METADATA_BRANCH"
+      - name: Preserve full fresh outputs in the diagnostic draft and verify immutable bytes
+        run: |
+          set -euo pipefail
+          gh release upload "$DIAGNOSTIC_TAG" "$TASK_TRANSFER/artifact/unpublished_mismatch_results.zip" --repo "$GITHUB_REPOSITORY"
+          gh api "repos/$GITHUB_REPOSITORY/releases?per_page=100" > "$TASK_TRANSFER/releases_after.json"
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          root=Path(os.environ['TASK_TRANSFER'])
+          matches=[r for r in json.loads((root/'releases_after.json').read_text()) if r['tag_name']==os.environ['DIAGNOSTIC_TAG']]
+          assert len(matches)==1
+          r=matches[0]
+          assert r['draft'] is True and r['target_commitish']==os.environ['SOURCE_PRODUCER']
+          expected=json.loads((root/'transfer_manifest.json').read_text())['assets']
+          actual={a['name']:a for a in r['assets']}
+          assert set(actual)==set(expected)|{'transfer_manifest.json'}
+          for name,spec in expected.items():
+              assert actual[name]['size']==spec['bytes']
+              assert actual[name]['digest']=='sha256:'+spec['sha256']
+          print(json.dumps({'diagnostic_draft_id':r['id'],'draft':r['draft'],'assets':len(actual),'source':r['target_commitish'],'metadata_branch':os.environ['METADATA_BRANCH']}))
+          PY

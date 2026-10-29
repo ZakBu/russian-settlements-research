@@ -69,7 +69,7 @@ def _write(root, name, value):
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2)+'\n')
 
 
-def publish(release_id, producer, download_dir, registration_dir):
+def publish(release_id, producer, download_dir, registration_dir, numeric_reference_archive=None):
     if not re.fullmatch(r'[0-9a-f]{40}', producer) or release_id <= 0:
         raise ValueError('Exact producer SHA and positive release ID required')
     if not os.environ.get('GH_TOKEN'):
@@ -90,7 +90,7 @@ def publish(release_id, producer, download_dir, registration_dir):
     manifest_path = download_dir/'manifest.json'
     manifest = check_manifest(release, manifest_path, producer)
     catalogue, proof = register(manifest_path, download_dir/manifest['archive']['asset'],
-        download_dir, producer, PREFIX)
+        download_dir, producer, PREFIX, numeric_reference_archive)
     current = json.loads(_gh('api', endpoint))
     if snapshot(current, release_id, producer) != original:
         raise ValueError('Release assets changed during independent byte verification')
@@ -121,8 +121,11 @@ def main():
     parser.add_argument('--producer', required=True)
     parser.add_argument('--download-dir', required=True, type=Path)
     parser.add_argument('--registration-dir', required=True, type=Path)
+    parser.add_argument('--numeric-reference-archive', type=Path,
+                        help='Immutable reference ZIP for independent all-cell numeric replay when rounded controls differ')
     args = parser.parse_args()
-    print(json.dumps(publish(args.release_id, args.producer, args.download_dir, args.registration_dir)))
+    print(json.dumps(publish(args.release_id, args.producer, args.download_dir, args.registration_dir,
+                             args.numeric_reference_archive)))
 
 
 if __name__ == '__main__':
