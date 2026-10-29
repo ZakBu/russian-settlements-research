@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-29T11:16:30+03:00",
+  "updated_moscow": "2026-10-29T12:01:11+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,8 +9,8 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "saratov_v2_published_data_atlas_update_pending",
-      "summary": "Полный предварительный Саратовский пилот версии 2 рассчитан и опубликован: все 1 821 текущих записей сохранены, для 1 814 есть дорожная привязка; 16 функций, поля населения, альтернативы, демография и частичный хозяйственный контекст. Получены 511 модельных местных центров, у 66 известны три базовые функции, у 392 меньше тысячи жителей. Для 154 составов доступны первичные численные значения обеих частей во всех трёх переписях. Все 926 файлов, 571 включённый исходник Git и 19 публичных файлов проверены. Исходное различие шести округлённых отпечатков сохранено; все значения воспроизводятся с прежней арифметической точностью. Обновление атласа подготовлено. Фактические поездки и общая иерархия не доказаны.",
+      "status": "saratov_v2_published_data_and_real_public_browser_verified",
+      "summary": "Полный предварительный Саратовский пилот версии 2 рассчитан и опубликован: все 1 821 текущих записей сохранены, для 1 814 есть дорожная привязка; 16 функций, поля населения, альтернативы, демография и частичный хозяйственный контекст. Получены 511 модельных местных центров, у 66 известны три базовые функции, у 392 меньше тысячи жителей. Для 154 составов доступны первичные численные значения обеих частей во всех трёх переписях. Все 926 файлов, 571 включённый исходник Git и 19 публичных файлов проверены. Исходное различие шести округлённых отпечатков сохранено; все значения воспроизводятся с прежней арифметической точностью. Публичные статьи и все 13 слоёв проверены на широком и мобильном экране. Фактические поездки и общая иерархия не доказаны.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
       "main_blocker": "Неполное предложение сельских магазинов и школ, неизвестная вместимость и доступ отдельных профилей; мало независимых направленных поездок. Первичные числа 2010 года найдены, но сопоставимость контингентов и границ остаётся отдельным ограничением.",
@@ -34,11 +34,12 @@
         "common_territorial_hierarchy_established": false,
         "verification": "research_context/analysis_snapshots/saratov_fields_public_verification_20261029_v2.json",
         "public_download_verification": "research_context/analysis_snapshots/saratov_fields_public_download_20261029_v2.json",
-        "status": "public_data_independently_verified_atlas_update_pending",
+        "status": "public_data_and_atlas_real_browser_verified",
         "atlas_result": "https://zakbu.github.io/russian-settlements-research/materials/saratov-functional-systems/",
         "original_control_hashes_equal": false,
         "all_scientific_values_reproduce_with_existing_arithmetic_tolerance": true,
-        "numeric_comparison": "research_context/analysis_snapshots/saratov_v2_numeric_reproduction_20261029.json"
+        "numeric_comparison": "research_context/analysis_snapshots/saratov_v2_numeric_reproduction_20261029.json",
+        "browser_verification": "research_context/analysis_snapshots/saratov_v2_public_browser_20261029.json"
       },
       "local_systems": {
         "doc": "sgrt/local_systems/README.md",
@@ -145,7 +146,7 @@
         "method": "sgrt/saratov/REGIONAL_METHOD_20261029.md",
         "scope": "Весь текущий переписной состав области, 1821 запись; 1814 имеют принятую дорожную привязку.",
         "preferred_inventory": "physical_official_enrichment",
-        "status": "v2_calculated_and_public_data_verified_atlas_update_pending",
+        "status": "complete_preliminary_saratov_pilot_published_and_publicly_checked",
         "higher_levels": "Прямые направления редких функций рассчитаны для самих базовых центров. Число уровней и единственная вложенная иерархия не назначены и наблюдениями не установлены."
       },
       "previous_national_publication": {
@@ -399,7 +400,8 @@
         "urban_function_coverage": "research_context/analysis_snapshots/identity_final_urban_coverage_20261026.json",
         "public_release": "https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-zero-centres-20261026-v2",
         "data_catalog": "data/identity_catalog_20261026.json",
-        "public_download_check": "research_context/analysis_snapshots/identity_public_release_verification_20261026.json"
+        "public_download_check": "research_context/analysis_snapshots/identity_public_release_verification_20261026.json",
+        "status": "historical_national_stage_20261026"
       },
       "demographic_readout": {
         "status": "previous_overlapping_star_readout_preserved_not_new_primary_composition",
@@ -787,7 +789,7 @@
         "latest_user_goal": "Выделить нулевые центры, оформить статью и слой карты, затем продолжать проверяемое исследование более высоких уровней без подгонки верхней Москвы."
       },
       "saratov_regional_research_20261029": {
-        "status": "v2_public_data_verified_atlas_update_pending",
+        "status": "published_and_real_public_browser_verified_preliminary_regional_pilot",
         "decision_id": "D58",
         "concept_id": "D54",
         "current_records": 1821,
@@ -1032,16 +1034,40 @@
           "common_territorial_hierarchy_established": false,
           "verification": "research_context/analysis_snapshots/saratov_fields_public_verification_20261029_v2.json",
           "public_download_verification": "research_context/analysis_snapshots/saratov_fields_public_download_20261029_v2.json",
-          "status": "public_data_independently_verified_atlas_update_pending",
+          "status": "public_data_and_atlas_real_browser_verified",
           "atlas_result": "https://zakbu.github.io/russian-settlements-research/materials/saratov-functional-systems/",
           "original_control_hashes_equal": false,
           "all_scientific_values_reproduce_with_existing_arithmetic_tolerance": true,
-          "numeric_comparison": "research_context/analysis_snapshots/saratov_v2_numeric_reproduction_20261029.json"
+          "numeric_comparison": "research_context/analysis_snapshots/saratov_v2_numeric_reproduction_20261029.json",
+          "browser_verification": "research_context/analysis_snapshots/saratov_v2_public_browser_20261029.json"
         },
         "public_download_all_assets_verified": true,
         "portable_catalog_all_files_materialized_verified": 926,
         "public_assets_rechecked_from_second_client": 19,
-        "replayed_numeric_comparison_equal_to_independent_worker": true
+        "replayed_numeric_comparison_equal_to_independent_worker": true,
+        "public_browser_verification": {
+          "proof": "research_context/analysis_snapshots/saratov_v2_public_browser_20261029.json",
+          "editorial_proof": "research_context/analysis_snapshots/saratov_v2_public_editorial_20261029.json",
+          "article_page_visits": 8,
+          "map_page_visits": 26,
+          "map_layers": 13,
+          "viewports_px": [
+            1366,
+            390
+          ],
+          "deployed_source_commit": "15982305f3a6f62994cab30ffb97dc6acf4ae135",
+          "route_interception": false,
+          "local_data_substitution": false,
+          "network_failures": 0,
+          "manual_visual_review": {
+            "actual_public_screenshots_inspected": 3,
+            "scope": "Desktop and mobile Piterka isochrones; desktop school service zones",
+            "observed_interface_limitations": [
+              "An open evidence popup can overlap the legend on a narrow screen or the search field on a desktop."
+            ],
+            "scientific_data_or_colours_changed_by_review": false
+          }
+        }
       }
     },
     "portal": {
@@ -1074,7 +1100,7 @@
     }
   },
   "next_steps": [
-    "Проверить обновлённые публичные статьи и 13 слоёв на компьютере и мобильном экране; затем проверять модель по независимым школьным, медицинским и трудовым направлениям.",
+    "Проверять модель по независимым школьным, медицинским и трудовым направлениям, фактической работе и вместимости объектов; не подменять наблюдённые поездки модельными.",
     "Проверять конкретные школьные и медицинские направления, сельские магазины и действующие профили учреждений. Отсутствие объекта в OSM не считать отсутствием функции.",
     "Сопоставлять прямые связи редких функций и труда с независимыми наблюдениями; эмпирически проверять более широкие системы без заранее заданных рангов и единственной вершины.",
     "Продолжать поиск сопоставимых первичных численностей и границ, сохраняя неизменную связанную основу и отдельные варианты наблюдений.",
