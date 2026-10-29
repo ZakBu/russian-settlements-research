@@ -1,0 +1,110 @@
+name: Transfer unpublished Saratov comparison diagnostics
+on:
+  workflow_dispatch:
+permissions:
+  actions: read
+  contents: write
+concurrency:
+  group: saratov-diagnostics-40806711713
+  cancel-in-progress: false
+jobs:
+  transfer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_RUN: '40806711713'
+      SOURCE_PRODUCER: '51052edc968a3eb4ac31f88bf81f59ed9481ab9b'
+      DIAGNOSTIC_TAG: diagnostic-saratov-fields-40806711713
+    steps:
+      - name: Verify source and download preserved failed comparison
+        shell: bash
+        run: |
+          set -euo pipefail
+          TASK_TRANSFER="$RUNNER_TEMP/saratov-diagnostic-transfer"
+          mkdir -p "$TASK_TRANSFER/artifact"
+          echo "TASK_TRANSFER=$TASK_TRANSFER" >> "$GITHUB_ENV"
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$SOURCE_RUN" > "$TASK_TRANSFER/source_run.json"
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$SOURCE_RUN/artifacts" > "$TASK_TRANSFER/source_artifacts.json"
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          root=Path(os.environ['RUNNER_TEMP'])/'saratov-diagnostic-transfer'
+          run=json.loads((root/'source_run.json').read_text())
+          assert str(run['id'])==os.environ['SOURCE_RUN']
+          assert run['head_sha']==os.environ['SOURCE_PRODUCER']
+          assert run['path']=='.github/workflows/publish-saratov-fields.yml'
+          assert run['status']=='completed' and run['conclusion']=='failure'
+          artifacts=json.loads((root/'source_artifacts.json').read_text())
+          chosen=[a for a in artifacts['artifacts'] if a['name']=='saratov-fields-controls']
+          assert len(chosen)==1 and not chosen[0]['expired']
+          assert chosen[0]['id']==12870811362 and chosen[0]['size_in_bytes']==636254657
+          PY
+          if ! gh run download "$SOURCE_RUN" --repo "$GITHUB_REPOSITORY" --name saratov-fields-controls --dir "$TASK_TRANSFER/artifact" > "$TASK_TRANSFER/download.log" 2>&1; then
+            python - <<'PY'
+          import os, re
+          from pathlib import Path
+          text=(Path(os.environ['RUNNER_TEMP'])/'saratov-diagnostic-transfer/download.log').read_text()
+          print(re.sub(r'https?://[^\s\"]+', '[download URL redacted]', text)[-4000:])
+          PY
+            exit 1
+          fi
+      - name: Upload small controls first to a new diagnostic draft
+        shell: bash
+        run: |
+          set -euo pipefail
+          if gh release view "$DIAGNOSTIC_TAG" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            echo 'Refusing to overwrite an existing diagnostic release.'
+            exit 1
+          fi
+          python - <<'PY'
+          import hashlib, json, os, zipfile
+          from pathlib import Path
+          root=Path(os.environ['TASK_TRANSFER']); artifact=root/'artifact'
+          archive=artifact/'unpublished_mismatch_results.zip'
+          control=artifact/'actual_control.json'
+          assert archive.is_file() and control.is_file()
+          with zipfile.ZipFile(archive) as z:
+              assert z.read('controls/actual_control.json')==control.read_bytes()
+              (root/'expected_control.json').write_bytes(z.read('controls/expected_control.json'))
+          with zipfile.ZipFile(root/'independent_checks.zip','w',compression=zipfile.ZIP_DEFLATED) as z:
+              for path in sorted((artifact/'checks').glob('*.json')):
+                  z.write(path,path.name)
+          records={}
+          for path in [control,root/'expected_control.json',root/'independent_checks.zip',archive]:
+              with path.open('rb') as stream: digest=hashlib.file_digest(stream,'sha256').hexdigest()
+              records[path.name]={'bytes':path.stat().st_size,'sha256':digest}
+          (root/'transfer_manifest.json').write_text(json.dumps({
+              'source_run_id':int(os.environ['SOURCE_RUN']),
+              'scientific_producer_commit':os.environ['SOURCE_PRODUCER'],
+              'transfer_workflow_commit':os.environ['GITHUB_SHA'],
+              'source_artifact':json.loads((root/'source_artifacts.json').read_text())['artifacts'][0],
+              'assets':records,'diagnostic_only':True,
+              'scientific_comparison_passed':False,'publication_authorized_by_this_workflow':False},
+              ensure_ascii=False,indent=2)+'\n')
+          (root/'notes.md').write_text('Непубликованные диагностические данные неудачного сравнения Саратовского пилота. '
+              'Это не выпуск результатов исследования и не подтверждение воспроизводимости. '
+              'Сохранён исходный научный производитель '+os.environ['SOURCE_PRODUCER']+'.\n')
+          PY
+          gh release create "$DIAGNOSTIC_TAG" --repo "$GITHUB_REPOSITORY" --target "$SOURCE_PRODUCER" --draft --title 'Диагностика сравнения Саратовского пилота: запуск 40806711713' --notes-file "$TASK_TRANSFER/notes.md" "$TASK_TRANSFER/artifact/actual_control.json" "$TASK_TRANSFER/expected_control.json" "$TASK_TRANSFER/independent_checks.zip" "$TASK_TRANSFER/transfer_manifest.json"
+      - name: Transfer full unpublished values without publishing the draft
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release upload "$DIAGNOSTIC_TAG" "$TASK_TRANSFER/artifact/unpublished_mismatch_results.zip" --repo "$GITHUB_REPOSITORY"
+          gh api "repos/$GITHUB_REPOSITORY/releases/tags/$DIAGNOSTIC_TAG" > "$TASK_TRANSFER/draft_release.json"
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          root=Path(os.environ['TASK_TRANSFER'])
+          release=json.loads((root/'draft_release.json').read_text())
+          assert release['draft'] is True
+          assert release['target_commitish']==os.environ['SOURCE_PRODUCER']
+          expected=json.loads((root/'transfer_manifest.json').read_text())['assets']
+          actual={a['name']:a for a in release['assets']}
+          assert set(actual)==set(expected)|{'transfer_manifest.json'}
+          for name,spec in expected.items():
+              assert actual[name]['size']==spec['bytes']
+              assert actual[name]['digest']=='sha256:'+spec['sha256']
+          print('Diagnostic draft contains the exact preserved source values; it remains unpublished.')
+          PY
