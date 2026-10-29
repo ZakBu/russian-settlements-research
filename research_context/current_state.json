@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-29T10:42:28+03:00",
+  "updated_moscow": "2026-10-29T11:16:30+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,32 +9,36 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "saratov_v2_fresh_complete_rounding_difference_measured_publication_pending",
-      "summary": "По всей Саратовской области рассчитаны поле населения, 16 функциональных направлений и динамика окружений. Вторая версия добавляет официальную школу Хвалынска: 511 местных модельных центров, у 66 известны три базовые функции; школьное предложение известно во всех 18 городах. Чистый повторный расчёт завершён. У шести таблиц различаются последние машинные разряды, максимум 1,49×10⁻⁸; центры, составы, типы и пропуски совпали. Исходные контрольные суммы сохранены. Готовится отдельная публикация после повторной проверки всех значений по уже установленной арифметической точности. Реальные поездки и общая иерархия не доказаны.",
+      "status": "saratov_v2_published_data_atlas_update_pending",
+      "summary": "Полный предварительный Саратовский пилот версии 2 рассчитан и опубликован: все 1 821 текущих записей сохранены, для 1 814 есть дорожная привязка; 16 функций, поля населения, альтернативы, демография и частичный хозяйственный контекст. Получены 511 модельных местных центров, у 66 известны три базовые функции, у 392 меньше тысячи жителей. Для 154 составов доступны первичные численные значения обеих частей во всех трёх переписях. Все 926 файлов, 571 включённый исходник Git и 19 публичных файлов проверены. Исходное различие шести округлённых отпечатков сохранено; все значения воспроизводятся с прежней арифметической точностью. Обновление атласа подготовлено. Фактические поездки и общая иерархия не доказаны.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
       "main_blocker": "Неполное предложение сельских магазинов и школ, неизвестная вместимость и доступ отдельных профилей; мало независимых направленных поездок. Первичные числа 2010 года найдены, но сопоставимость контингентов и границ остаётся отдельным ограничением.",
       "workplan": "sgrt/workplan/README.md",
       "results": "sgrt/saratov/REGIONAL_RESULTS_20261029.md",
-      "data_release": "sgrt-saratov-fields-20261029-v1",
+      "data_release": "sgrt-saratov-fields-20261029-v2",
       "publication": {
-        "release": "sgrt-saratov-fields-20261029-v1",
-        "catalog": "data/saratov_fields_catalog_20261029.json",
-        "source_commit": "b36836da074a7902ede26f315c04d6ee95df5367",
-        "computation_source_commit": "51052edc968a3eb4ac31f88bf81f59ed9481ab9b",
-        "files_verified": 911,
-        "producer_git_sources_verified": 557,
+        "release": "sgrt-saratov-fields-20261029-v2",
+        "catalog": "data/saratov_fields_catalog_20261029_v2.json",
+        "source_commit": "a8981758c50be7c3494f3e18dee75d37cc1e87c1",
+        "computation_source_commit": "3a8c35339d2719a8c433c669ea98bc99a3685f5e",
+        "files_verified": 926,
+        "producer_git_sources_verified": 571,
         "standalone_assets_verified": 17,
         "all_public_assets_downloaded_and_hashed": 19,
-        "archive_bytes": 645292645,
-        "archive_sha256": "2328cf7a6b2572c84e8cdf6450c5563feb956e32c1ccfc8d72ba174e05d6a9b2",
+        "archive_bytes": 645366632,
+        "archive_sha256": "5460792b71ed5d2b95aeed3687572f4c3f17c99b0c4733690ca194cc4dd5fef7",
         "regional_model_basic_centres": 511,
         "external_basic_centres": 25,
+        "known_three_basic_functions": 66,
         "common_territorial_hierarchy_established": false,
-        "verification": "research_context/analysis_snapshots/saratov_fields_public_verification_20261029.json",
-        "public_download_verification": "research_context/analysis_snapshots/saratov_fields_public_download_20261029.json",
-        "status": "public_release_all_bytes_verified_atlas_publication_pending",
-        "atlas_result": "https://zakbu.github.io/russian-settlements-research/materials/saratov-functional-systems/"
+        "verification": "research_context/analysis_snapshots/saratov_fields_public_verification_20261029_v2.json",
+        "public_download_verification": "research_context/analysis_snapshots/saratov_fields_public_download_20261029_v2.json",
+        "status": "public_data_independently_verified_atlas_update_pending",
+        "atlas_result": "https://zakbu.github.io/russian-settlements-research/materials/saratov-functional-systems/",
+        "original_control_hashes_equal": false,
+        "all_scientific_values_reproduce_with_existing_arithmetic_tolerance": true,
+        "numeric_comparison": "research_context/analysis_snapshots/saratov_v2_numeric_reproduction_20261029.json"
       },
       "local_systems": {
         "doc": "sgrt/local_systems/README.md",
@@ -141,7 +145,7 @@
         "method": "sgrt/saratov/REGIONAL_METHOD_20261029.md",
         "scope": "Весь текущий переписной состав области, 1821 запись; 1814 имеют принятую дорожную привязку.",
         "preferred_inventory": "physical_official_enrichment",
-        "status": "v2_fresh_complete_numeric_comparison_and_publication_in_progress",
+        "status": "v2_calculated_and_public_data_verified_atlas_update_pending",
         "higher_levels": "Прямые направления редких функций рассчитаны для самих базовых центров. Число уровней и единственная вложенная иерархия не назначены и наблюдениями не установлены."
       },
       "previous_national_publication": {
@@ -783,7 +787,7 @@
         "latest_user_goal": "Выделить нулевые центры, оформить статью и слой карты, затем продолжать проверяемое исследование более высоких уровней без подгонки верхней Москвы."
       },
       "saratov_regional_research_20261029": {
-        "status": "v2_fresh_complete_original_hash_differences_retained_numeric_comparison_pending_registration",
+        "status": "v2_public_data_verified_atlas_update_pending",
         "decision_id": "D58",
         "concept_id": "D54",
         "current_records": 1821,
@@ -848,7 +852,6 @@
         "method": "sgrt/saratov/REGIONAL_METHOD_20261029.md",
         "report": "sgrt/saratov/REGIONAL_RESULTS_20261029.md",
         "source_catalog": "data/saratov_regional_inputs_20261029.json",
-        "planned_release_tag": "sgrt-saratov-fields-20261029-v2",
         "accepted_population_mass_2021": 144329319,
         "ordinary_accepted_mass_2021": 125717296,
         "federal_territory_mass_once_2021": 18612023,
@@ -951,7 +954,7 @@
           "portable_catalog_all_files_materialized_verified": 911
         },
         "calculated_revision": "v2",
-        "published_revision": "v1",
+        "published_revision": "v2",
         "khvalynsk_v2_correction": {
           "source_id": "KHVALYNSK_SCHOOL1_PHYSICAL_ADDRESS_WEB_20261029",
           "np_id_suffix": "118265",
@@ -978,12 +981,12 @@
           "geojson": 19,
           "scientific_summaries": 26
         },
-        "published_source_commit": "b36836da074a7902ede26f315c04d6ee95df5367",
-        "published_computation_source_commit": "51052edc968a3eb4ac31f88bf81f59ed9481ab9b",
-        "published_catalog": "data/saratov_fields_catalog_20261029.json",
-        "published_release_tag": "sgrt-saratov-fields-20261029-v1",
+        "published_source_commit": "a8981758c50be7c3494f3e18dee75d37cc1e87c1",
+        "published_computation_source_commit": "3a8c35339d2719a8c433c669ea98bc99a3685f5e",
+        "published_catalog": "data/saratov_fields_catalog_20261029_v2.json",
+        "published_release_tag": "sgrt-saratov-fields-20261029-v2",
         "v2_fresh_calculation_comparison": {
-          "status": "computed_original_hash_difference_measured_all_values_compared",
+          "status": "reproduced_with_preexisting_arithmetic_criterion_original_hash_difference_preserved",
           "control": "research_context/analysis_snapshots/regional_fields_control_20261029_v2.json",
           "source_commit": "3a8c35339d2719a8c433c669ea98bc99a3685f5e",
           "all_control_hashes_equal": false,
@@ -997,7 +1000,11 @@
           "population_field_max_absolute_difference": 1.4901161193847656e-08,
           "partial_worker_field_max_absolute_difference": 5.238689482212067e-10,
           "identities_dtypes_missingness_nonfloat_and_maximum_statuses_exact": true,
-          "numerical_precision_or_existing_arithmetic_tolerances_changed": false
+          "numerical_precision_or_existing_arithmetic_tolerances_changed": false,
+          "all_scientific_values_within_existing_arithmetic_criterion": true,
+          "numeric_comparison": "research_context/analysis_snapshots/saratov_v2_numeric_reproduction_20261029.json",
+          "finite_float_cells_independently_compared": 2669676,
+          "assembly_source_commit": "a8981758c50be7c3494f3e18dee75d37cc1e87c1"
         },
         "descriptive_centre_population_2021": {
           "regional_centres": 511,
@@ -1005,7 +1012,36 @@
           "median_people": 477,
           "threshold_used_for_selection_or_rank": false,
           "snapshot": "research_context/analysis_snapshots/saratov_v2_centre_scale_20261029.json"
-        }
+        },
+        "release_tag": "sgrt-saratov-fields-20261029-v2",
+        "catalog": "data/saratov_fields_catalog_20261029_v2.json",
+        "publication": {
+          "release": "sgrt-saratov-fields-20261029-v2",
+          "catalog": "data/saratov_fields_catalog_20261029_v2.json",
+          "source_commit": "a8981758c50be7c3494f3e18dee75d37cc1e87c1",
+          "computation_source_commit": "3a8c35339d2719a8c433c669ea98bc99a3685f5e",
+          "files_verified": 926,
+          "producer_git_sources_verified": 571,
+          "standalone_assets_verified": 17,
+          "all_public_assets_downloaded_and_hashed": 19,
+          "archive_bytes": 645366632,
+          "archive_sha256": "5460792b71ed5d2b95aeed3687572f4c3f17c99b0c4733690ca194cc4dd5fef7",
+          "regional_model_basic_centres": 511,
+          "external_basic_centres": 25,
+          "known_three_basic_functions": 66,
+          "common_territorial_hierarchy_established": false,
+          "verification": "research_context/analysis_snapshots/saratov_fields_public_verification_20261029_v2.json",
+          "public_download_verification": "research_context/analysis_snapshots/saratov_fields_public_download_20261029_v2.json",
+          "status": "public_data_independently_verified_atlas_update_pending",
+          "atlas_result": "https://zakbu.github.io/russian-settlements-research/materials/saratov-functional-systems/",
+          "original_control_hashes_equal": false,
+          "all_scientific_values_reproduce_with_existing_arithmetic_tolerance": true,
+          "numeric_comparison": "research_context/analysis_snapshots/saratov_v2_numeric_reproduction_20261029.json"
+        },
+        "public_download_all_assets_verified": true,
+        "portable_catalog_all_files_materialized_verified": 926,
+        "public_assets_rechecked_from_second_client": 19,
+        "replayed_numeric_comparison_equal_to_independent_worker": true
       }
     },
     "portal": {
@@ -1038,7 +1074,7 @@
     }
   },
   "next_steps": [
-    "Независимо пересверить все исходные результаты версии 2, сохранив исходное различие шести округлённых отпечатков и прежнюю арифметическую точность; опубликовать новый выпуск и обновить статьи и 13 слоёв. Версию 1 не изменять.",
+    "Проверить обновлённые публичные статьи и 13 слоёв на компьютере и мобильном экране; затем проверять модель по независимым школьным, медицинским и трудовым направлениям.",
     "Проверять конкретные школьные и медицинские направления, сельские магазины и действующие профили учреждений. Отсутствие объекта в OSM не считать отсутствием функции.",
     "Сопоставлять прямые связи редких функций и труда с независимыми наблюдениями; эмпирически проверять более широкие системы без заранее заданных рангов и единственной вершины.",
     "Продолжать поиск сопоставимых первичных численностей и границ, сохраняя неизменную связанную основу и отдельные варианты наблюдений.",

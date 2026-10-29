@@ -2,13 +2,13 @@
 
 **29 октября: рассчитан полный предварительный пилот Саратовской области.** В расчёт включены все 1 821 текущих переписных записей; 1 814 имеют принятую дорожную привязку. Рассчитаны поле населения, 16 функциональных направлений, альтернативы и демография центра с окружением. Основной вариант выделяет 511 модельных местных центров с внешними жилыми участниками; у 154 составов доступны первичные численные наблюдения обеих частей во всех трёх переписях. Координаты Горного и Кировского исправлены отдельным слоем; основная база населения сохранена. [Статья с картами и примерами](https://zakbu.github.io/russian-settlements-research/materials/saratov-functional-systems/) · [Методика](https://zakbu.github.io/russian-settlements-research/materials/saratov-functional-method/) · [Простые изохроны](https://zakbu.github.io/russian-settlements-research/materials/saratov-isochrones/) · [Расчёты и источники в Git](sgrt/saratov/REGIONAL_RESULTS_20261029.md).
 
-**Исправленная версия 2 рассчитана локально.** Официальное школьное место Хвалынска добавлено в исходники: центров осталось 511, три базовые функции известны у 66. Изменились школьные направления шести НП, а не вся областная сеть. Свежий пересчёт завершён; различия последних машинных разрядов отдельно проверены без изменения численных допусков. Готовится публикация v2; ниже сохранена ссылка на неизменный первый выпуск.
+**Вторая версия опубликована и независимо проверена.** В исходники добавлено официальное школьное место Хвалынска: центров осталось 511, три базовые функции известны у 66. Изменились школьные направления шести НП. Свежий пересчёт подтвердил содержательные результаты; различие последних машинных разрядов отдельно проверено без изменения арифметических допусков.
 
-Саратовский комплект содержит 911 файлов результатов, первичных свидетельств и кода. [Выпуск данных, 645 МБ](https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-saratov-fields-20261029-v1) · [Машиночитаемый каталог](data/saratov_fields_catalog_20261029.json). Он дополняет основную связанную базу населения, не заменяя её. Все файлы скачиваются и проверяются без повторного моделирования:
+Саратовский комплект содержит 926 файлов результатов, первичных свидетельств и кода. [Выпуск данных, 645 МБ](https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-saratov-fields-20261029-v2) · [Машиночитаемый каталог](data/saratov_fields_catalog_20261029_v2.json). Он дополняет основную связанную базу населения, не заменяя её. [Первый выпуск](https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-saratov-fields-20261029-v1) сохранён без изменений. Все файлы скачиваются и проверяются без повторного моделирования:
 
 ```bash
-python scripts/research_data.py fetch --catalog data/saratov_fields_catalog_20261029.json --profile core --dest .cache/saratov-data
-python scripts/research_data.py verify --catalog data/saratov_fields_catalog_20261029.json --profile core --dest .cache/saratov-data
+python scripts/research_data.py fetch --catalog data/saratov_fields_catalog_20261029_v2.json --profile core --dest .cache/saratov-data
+python scripts/research_data.py verify --catalog data/saratov_fields_catalog_20261029_v2.json --profile core --dest .cache/saratov-data
 ```
 
 
