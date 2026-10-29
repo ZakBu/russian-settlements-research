@@ -1,0 +1,28 @@
+name: Correct Saratov map country scope
+on:
+  push:
+    branches: [research/centre-evidence-russia-20261029]
+    paths: [.github/workflows/saratov-country-display.yml]
+permissions:
+  contents: write
+jobs:
+  country_display:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - run: pip install numpy==2.3.5 pandas==2.2.3 pyarrow==26.0.0 shapely==2.1.2 pyproj==3.7.2
+      - name: Clip thirteen existing maps, publish small release and check public bytes once
+        run: python -m scripts.sgrt_saratov.publish_country_display --output "$RUNNER_TEMP/country-display" --publish
+      - name: Save actual published map references
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add web/content research_context/analysis_snapshots/saratov_russia_display_20261029.json
+          git commit -m 'Publish country-clipped Saratov layers with exact asset sources'
+          git push origin HEAD:research/centre-evidence-russia-20261029
