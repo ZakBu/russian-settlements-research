@@ -4,7 +4,7 @@ on:
     branches:
       - diagnostic/saratov-v2-40827228874-extract-trigger
 permissions:
-  contents: read
+  contents: write # GitHub requires writer access to read an unpublished draft.
 jobs:
   extract:
     runs-on: ubuntu-latest
