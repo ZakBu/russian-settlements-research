@@ -1,0 +1,130 @@
+{
+  "schema": "sgrt.saratov.official_magnit_source.v1",
+  "publisher": "Магнит — официальный локатор физических магазинов",
+  "source_page": "https://magnit.ru/shops/",
+  "public_read_only_search": {
+    "url": "https://magnit.ru/webgate/v1/stores-facade/search/detail",
+    "method": "POST",
+    "body": {
+      "filters": {
+        "geo": {
+          "typeName": "box",
+          "leftTopPoint": {
+            "latitude": 53.0,
+            "longitude": 42.0
+          },
+          "rightBottomPoint": {
+            "latitude": 49.6,
+            "longitude": 51.0
+          }
+        },
+        "storeTypeListV2": [
+          "MM",
+          "MM_MINI",
+          "GM",
+          "ME",
+          "MC"
+        ]
+      },
+      "pagination": {
+        "offset": 0,
+        "size": 1000
+      },
+      "sorting": {
+        "sortBy": "SORT_BY_CITY",
+        "sortType": "SORT_TYPE_ASC"
+      }
+    },
+    "headers": {
+      "User-Agent": "Mozilla/5.0",
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "X-New-Magnit": "true",
+      "X-Device-Platform": "Web",
+      "X-Client-Name": "magnit",
+      "X-App-Version": "2026.10.28-14.0"
+    },
+    "frozen_query_file": "references/primary/saratov_magnit_20261028/locator_query.json"
+  },
+  "raw_response": {
+    "file": "magnit_stores_bbox_0.json",
+    "bytes": 2471996,
+    "sha256": "423b90cc8336e0e7723def683290e0cc2f358a326569503abaa24288fd5341cd",
+    "retrieved_utc": "2026-10-28T22:24:29.666091+00:00",
+    "contains_complete_requested_bbox": true,
+    "all_retail_or_all_chains_inventory_complete": false,
+    "lossless_primary_snapshot": {
+      "path": "references/primary/saratov_magnit_20261028/locator_raw.json.gz",
+      "bytes": 64920,
+      "sha256": "7071d9479a9d343ecbb19798f0ff8c24b52dc970956efede8d8096255522c112",
+      "decompressed_bytes": 2471996,
+      "decompressed_sha256": "423b90cc8336e0e7723def683290e0cc2f358a326569503abaa24288fd5341cd",
+      "gzip_mtime": 0,
+      "purpose": "Exact public primary-source snapshot; small lossless archive prevents API response drift and preserves original evidence."
+    }
+  },
+  "curated_model_source": {
+    "path": "data/saratov_magnit_stores_20261028.json",
+    "bytes": 956063,
+    "sha256": "0b6affb02d24fb38c88c315f90a0bceb61c021e7fa1862dd4cae7deb5337e058",
+    "all_bbox_rows_including_neighbouring_regions_and_not_yet_opening": true,
+    "model_uses_frozen_curated_source_not_fresh_api": true
+  },
+  "format_semantics": {
+    "source_url": "https://magnit.ru/_nuxt/Da75p-8i.js",
+    "sha256": "94950f60e2a982335d6f29dfee9ed51e505e6e7c757b2cd6163ba723b8e1ed5a",
+    "publisher_release": "2026.10.28-14.0",
+    "literal_store_filter_labels": {
+      "MM": "Магнит",
+      "MM_MINI": "Мини",
+      "DARKSTORE": "Мигом",
+      "DG": "М.Косметик",
+      "GM": "Семейный",
+      "ME": "Экстра",
+      "MO": "Опт",
+      "MC": "Моя цена",
+      "ZARYAD": "Заряд"
+    },
+    "MC_is_not_cosmetics": true,
+    "frozen_source_file": "references/primary/saratov_magnit_20261028/locator_shops_route_Da75p-8i.js"
+  },
+  "counts": {
+    "schema": "sgrt.saratov.official_magnit.v1",
+    "raw_sha256": "423b90cc8336e0e7723def683290e0cc2f358a326569503abaa24288fd5341cd",
+    "query_sha256": "750007d3b16bc5199aa206691a8f68041b7c7c5d414fe14989e0970b158d5585",
+    "source_page": "https://magnit.ru/shops/",
+    "source_api": "https://magnit.ru/webgate/v1/stores-facade/search/detail",
+    "source_year": 2026,
+    "bbox_returned_records": 779,
+    "bbox_total_count": 779,
+    "saratov_explicit_address_records": 545,
+    "saratov_admitted_active_offline_grocery_records": 544,
+    "admitted_active_offline_grocery_records": 778,
+    "unique_literal_np_identities": 121,
+    "stores_with_accepted_literal_np_identity": 586,
+    "stores_withheld_np_identity": 193,
+    "store_formats": {
+      "GM": 12,
+      "MC": 139,
+      "ME": 9,
+      "MM": 619
+    },
+    "identity_statuses": {
+      "held_literal_coordinate_conflict": 155,
+      "held_no_unique_literal_physical_address": 38,
+      "official_locator_physical_address_unique_literal_type_region_district": 586
+    },
+    "MC_is_Moya_Tsena_not_cosmetics_DG": true,
+    "actual_operation_independently_verified": false,
+    "all_retail_inventory_complete": false,
+    "baseline_population_and_provider_catalog_unchanged": true
+  },
+  "identity_method": {
+    "basis": "Official store-locator physical address: explicit whole NP component, type, literal region, explicit district where available; unique candidate required before coordinate validation. Coordinates reject conflicts above 5 km; never choose among homonyms. Street components excluded.",
+    "physical_building_coordinates": "publisher supplied; not NP proxies",
+    "unresolved_identities": "retained as physical provider sites; no guessed nearest NP ownership",
+    "publisher_active_is_verified_current_operation": false,
+    "baseline_provider_and_population_catalogues_changed": false
+  },
+  "raw_archive_policy": "The exact original response is retained in Git as a 64920-byte lossless primary-source gzip exception. Cloud rebuild decompresses it into the research Release source_documents. No fresh API response silently replaces the frozen model offers."
+}

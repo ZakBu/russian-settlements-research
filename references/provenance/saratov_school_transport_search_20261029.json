@@ -1,0 +1,62 @@
+{
+  "schema": "sgrt.saratov.school_transport_evidence_search.v1",
+  "date_utc": "2026-10-28",
+  "date_moscow": "2026-10-29",
+  "purpose": "Seek independent schoolbus routes/travel times for rural school counterexamples; keep numerical road-profile verification distinct from real-world validation.",
+  "records": [
+    {
+      "source_url": "https://piterka-r64.gosweb.gosuslugi.ru/spravochnik/shkoly/",
+      "retrieval_url": "https://r.jina.ai/https://piterka-r64.gosweb.gosuslugi.ru/spravochnik/shkoly/",
+      "reader_sha256": "ce738bdb428a06021dcdba259b27bc958ed65a62c90b2b0820973f89472e109d",
+      "reader_bytes": 21693,
+      "read_scope": "Official school directory/contact links, then selected transport-related keyword contexts and visible document listing; not full school annual report reading."
+    },
+    {
+      "source_url": "https://shkolapiterskaya-r64.gosweb.gosuslugi.ru/",
+      "retrieval_url": "https://r.jina.ai/https://shkolapiterskaya-r64.gosweb.gosuslugi.ru/",
+      "reader_sha256": "27554dcd19f820c10833d1a5bbdd2026f60aede9893a81d2326009b7bca923ab",
+      "reader_bytes": 52484,
+      "read_scope": "Official school directory/contact links, then selected transport-related keyword contexts and visible document listing; not full school annual report reading."
+    },
+    {
+      "source_url": "https://shkolapiterskaya-r64.gosweb.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/materialno-tehnicheskoe-obespechenie-dostupnaya-sreda/",
+      "retrieval_url": "https://r.jina.ai/https://shkolapiterskaya-r64.gosweb.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/materialno-tehnicheskoe-obespechenie-dostupnaya-sreda/",
+      "reader_sha256": "0656fcdebc6bd2b7a810eef67b8200229e029ce0182cd1c3ac844eefd0499418",
+      "reader_bytes": 83172,
+      "read_scope": "Official school directory/contact links, then selected transport-related keyword contexts and visible document listing; not full school annual report reading."
+    },
+    {
+      "source_url": "https://shkolapiterskaya-r64.gosweb.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/filialy/",
+      "retrieval_url": "https://r.jina.ai/https://shkolapiterskaya-r64.gosweb.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/filialy/",
+      "reader_sha256": "4764c5aaedee9f34915aeff6e6038e3afb47e485df8cc227c177b7e24325e760",
+      "reader_bytes": 31913,
+      "read_scope": "Official school directory/contact links, then selected transport-related keyword contexts and visible document listing; not full school annual report reading."
+    },
+    {
+      "source_url": "https://shkolapiterskaya-r64.gosweb.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/dokumenty/",
+      "retrieval_url": "https://r.jina.ai/https://shkolapiterskaya-r64.gosweb.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/dokumenty/",
+      "reader_sha256": "96e200b5ee128ea2600a35035ed3f0770125473f620549723175d4ed9dd641b8",
+      "reader_bytes": 61208,
+      "read_scope": "Official school directory/contact links, then selected transport-related keyword contexts and visible document listing; not full school annual report reading."
+    },
+    {
+      "source_url": "https://shkolapiterskaya-r64.gosweb.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/dokumenty/dokumenty-all_26.html",
+      "retrieval_url": "https://r.jina.ai/https://shkolapiterskaya-r64.gosweb.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/dokumenty/dokumenty-all_26.html",
+      "reader_sha256": "a956535f8e940ec64d63acf6e7c70d0f580cca14b00259c1f232ee444a717119",
+      "reader_bytes": 32783,
+      "read_scope": "Official school directory/contact links, then selected transport-related keyword contexts and visible document listing; not full school annual report reading."
+    },
+    {
+      "source_url": "https://shkolapiterskaya-r64.gosweb.gosuslugi.ru/netcat_files/30/69/Otchyot_MOU_SOSH_s._Piterka_o_samoobsledovanii_za_2021_god_0.pdf",
+      "retrieval_url": "https://r.jina.ai/https://shkolapiterskaya-r64.gosweb.gosuslugi.ru/netcat_files/30/69/Otchyot_MOU_SOSH_s._Piterka_o_samoobsledovanii_za_2021_god_0.pdf",
+      "reader_sha256": "d302e8721c55fb811fe328682261ef3295ab27fc56ad28089c2eb8d15220a5ba",
+      "reader_bytes": 326451,
+      "read_scope": "Machine-extracted annual2021selfreport: keyword scan автобус,подвоз,маршрут,Доронкин,транспорт; visible road-safetycontexts read. Does not establish schoolbusabsence; no original PDF visual/page-by-page reading claimed."
+    }
+  ],
+  "result": "No independently verified bus route, timetable or actual travel duration found in inspected materials. This is not proof of absence of school transport.",
+  "numerical_inputs_changed": false,
+  "frozen_input_bundle_changed": false,
+  "related_numeric_evidence": "checks/rural_roads/native_sources (original2021OSMways and staticprofile traced by independentcheck module); arithmetic consistency is not observed transport validation.",
+  "full_reader_cache_distributed": false
+}

@@ -1,0 +1,85 @@
+{
+  "schema": "sgrt.source_extract.v1",
+  "purpose": "Идентичность трёх поселений после выявления больших координатных конфликтов. Не автоматическое принятие полигона OSM.",
+  "sources": [
+    {
+      "file": "kirovskoe_school_reader.txt",
+      "url": "https://shkolakirovskya-r64.gosweb.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/osnovnye-svedeniya/",
+      "reader_url": "https://r.jina.ai/https://shkolakirovskya-r64.gosweb.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/osnovnye-svedeniya/",
+      "kind": "official_school_page_machine_extraction",
+      "read_scope": "Прочитан раздел основных сведений, включая места образовательной деятельности: с. Кировское Марксовского района, ул. Кировская, 1. Четыре филиала перечислены отдельно. Физический адрес подтверждён словами источника; координаты здания не получены.",
+      "bytes": 47793,
+      "sha256": "a70806f40ba9c614a6bb0080b775088f633366915ce4c29a19b294f3d9f221eb",
+      "retrieved_date_utc": "2026-10-29"
+    },
+    {
+      "file": "kirovskoe_kindergarten_reader.txt",
+      "url": "https://ds-kirovskoe-r64.gosweb.gosuslugi.ru/kontakty/",
+      "reader_url": "https://r.jina.ai/https://ds-kirovskoe-r64.gosweb.gosuslugi.ru/kontakty/",
+      "kind": "official_kindergarten_page_machine_extraction",
+      "read_scope": "Прочитан полный раздел контактов: с. Кировское Марксовского района, ул. Почтовая, 17. Не источник координат здания.",
+      "bytes": 2112,
+      "sha256": "797811afdc641c4e5858278ccedd810b00542d51e9ebb3cbf97279335f027b9c",
+      "retrieved_date_utc": "2026-10-29"
+    },
+    {
+      "file": "krasny_oktyabr_school_reader.txt",
+      "url": "https://krok-sar.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/osnovnye-svedeniya/",
+      "reader_url": "https://r.jina.ai/https://krok-sar.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/osnovnye-svedeniya/",
+      "kind": "official_school_page_machine_extraction",
+      "read_scope": "Прочитан раздел основных сведений. Названо р.п. Красный Октябрь МО «Город Саратов», юридический адрес: ул. Лесная, 32. Раздел мест образовательной деятельности заполнен словом «нет», поэтому юридический адрес не выдан за подтверждённое физическое предложение. Не разрешает конфликт между записями 118016 и 118379.",
+      "bytes": 34980,
+      "sha256": "1d66de5af337bf0afcf49d80895d733bd65fcc9a961c97b73513010b495bc2bc",
+      "retrieved_date_utc": "2026-10-29"
+    },
+    {
+      "file": "zhdanov_secondary_wikipedia_reader.txt",
+      "url": "https://ru.wikipedia.org/wiki/%D0%96%D0%B4%D0%B0%D0%BD%D0%BE%D0%B2_%28%D0%A1%D0%B0%D1%80%D0%B0%D1%82%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F_%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C%29",
+      "reader_url": "https://r.jina.ai/https://ru.wikipedia.org/wiki/%D0%96%D0%B4%D0%B0%D0%BD%D0%BE%D0%B2_%28%D0%A1%D0%B0%D1%80%D0%B0%D1%82%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F_%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C%29",
+      "kind": "secondary_encyclopedia_machine_extraction",
+      "read_scope": "Прочитана географическая карточка и библиографические ссылки. Карточка даёт 50.286253, 48.629480 рядом с принятой точкой и противоречит предложенному полигону OSM. Это вторичный контрпример автоматической поправке; не независимое первичное доказательство точных координат.",
+      "bytes": 26315,
+      "sha256": "16483728a036afbd96b2d96eee02a7c1f9e06a8e35b75fc5ee2c4a12901d0032",
+      "retrieved_date_utc": "2026-10-29"
+    },
+    {
+      "file": "aleksandrov_gay_planning_index_reader.txt",
+      "url": "http://algay.sarmo.ru/territorialnoe-planirovanie/",
+      "reader_url": "https://r.jina.ai/http://algay.sarmo.ru/territorialnoe-planirovanie/",
+      "kind": "official_municipal_planning_index_machine_extraction",
+      "read_scope": "Прочитана страница перечня документов и ссылки на генеральные планы. Сам архив генплана, карта Жданова и документы в нём не получены и не прочитаны; координаты этой ссылкой не подтверждены.",
+      "bytes": 38072,
+      "sha256": "33b09d9c7f67a9ae0ac8e98a6c0f4c588e25a4d08051e93e173bdf5163b869a0",
+      "retrieved_date_utc": "2026-10-29"
+    }
+  ],
+  "localities": [
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:117322",
+      "name": "Кировское",
+      "reference_district": "Марксовский муниципальный район",
+      "finding": "Два официальных физических адреса подтверждают село и район. Геометрия OSM проверяется отдельно; эти страницы не измеряют её координаты.",
+      "sources": [
+        "kirovskoe_school_reader.txt",
+        "kirovskoe_kindergarten_reader.txt"
+      ]
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:116262",
+      "name": "Жданов",
+      "finding": "НЕТ первичного основания переносить точку на 33 км к кандидату OSM. Вторичная справка согласуется с исходным положением; конфликт удержан, базовая точка не изменена.",
+      "sources": [
+        "zhdanov_secondary_wikipedia_reader.txt",
+        "aleksandrov_gay_planning_index_reader.txt"
+      ]
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118379",
+      "name": "Красный Октябрь",
+      "finding": "Официальная школа относится к рабочему посёлку и юридическому адресу: ул. Лесная, 32. Она не доказывает, что кандидат OSM относится именно к сельской записи 118379, а не городской 118016. Географическая поправка по этой странице не допускается.",
+      "sources": [
+        "krasny_oktyabr_school_reader.txt"
+      ]
+    }
+  ]
+}

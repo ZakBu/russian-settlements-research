@@ -28,7 +28,7 @@ TEMPLATES = {"census-trend", "bars", "comparison", "scatter", "table", "settleme
 PALETTES = {"population-change", "categorical", "service-type", "blue"}
 MATERIAL_FIELDS = {"id", "researchId", "title", "summary", "kind", "topic", "territory", "period", "publishedAt", "updatedAt", "visibility", "evidence", "currency", "sourceCommit", "sources", "datasetIds", "visualIds", "body", "supersedes", "featured", "tags", "parentId", "order"}
 VISUAL_FIELDS = {"id", "template", "title", "caption", "datasetId", "palette", "unit", "series", "categories", "data", "mapState", "limitations"}
-LAYER_FIELDS = {"id", "researchId", "title", "description", "datasetId", "adapter", "geometry", "fields", "palette", "unit", "period", "evidence", "visibility"}
+LAYER_FIELDS = {"id", "researchId", "title", "description", "datasetId", "adapter", "geometry", "fields", "palette", "unit", "period", "evidence", "visibility", "valueLabels"}
 BUILTIN_LAYERS = {"population", "schools", "medical", "services", "links", "centres", "districts", "regions"}
 
 
@@ -39,7 +39,7 @@ def layer_errors(row, datasets, research):
         errors.append((field, message))
     if not isinstance(row, dict):
         return [("$", "Expected a layer object")]
-    for field in LAYER_FIELDS - {"fields"}:
+    for field in LAYER_FIELDS - {"fields", "valueLabels"}:
         if not isinstance(row.get(field), str) or (field != "description" and not row[field].strip()):
             error(field, "Required nonempty string")
     for field in row.keys() - LAYER_FIELDS:
@@ -86,6 +86,26 @@ def layer_errors(row, datasets, research):
         for field, value in fields.items():
             if not isinstance(value, str) or not value.strip() or not safe_markdown(value):
                 error("fields." + field, "Expected a nonempty source field name, never code")
+    if "valueLabels" in row:
+        labels = row["valueLabels"]
+        if not isinstance(labels, dict) or not labels or len(labels) > 100:
+            error("valueLabels", "Expected 1–100 numeric class labels")
+        else:
+            values = set()
+            for key, label in labels.items():
+                try:
+                    number = float(key)
+                    if not math.isfinite(number) or number in values:
+                        raise ValueError()
+                    values.add(number)
+                except (ValueError, TypeError):
+                    error("valueLabels", "Keys must identify distinct finite numeric classes")
+                if not isinstance(label, str) or not label.strip() or not safe_markdown(label):
+                    error("valueLabels", "Each class needs a nonempty plain-text label")
+        if row.get("palette") not in {"categorical", "service-type"}:
+            error("valueLabels", "Named classes require a categorical palette")
+        if not isinstance(fields, dict) or not fields.get("value"):
+            error("valueLabels", "Named classes require fields.value")
     return errors
 
 

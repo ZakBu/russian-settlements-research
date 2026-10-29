@@ -1,0 +1,54 @@
+name: Rebuild complete Saratov functional pilot
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: saratov-fields-20261029-v1
+  cancel-in-progress: false
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      GH_TOKEN: ${{ github.token }}
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Install pinned figure-export browser
+        run: |
+          export NODE_PATH="$RUNNER_TEMP/saratov-figure-runtime/node_modules"
+          export PLAYWRIGHT_BROWSERS_PATH="$RUNNER_TEMP/saratov-figure-browsers"
+          echo "NODE_PATH=$NODE_PATH" >> "$GITHUB_ENV"
+          echo "PLAYWRIGHT_BROWSERS_PATH=$PLAYWRIGHT_BROWSERS_PATH" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/saratov-figure-runtime"
+          cp scripts/sgrt_saratov/figures.package.json "$RUNNER_TEMP/saratov-figure-runtime/package.json"
+          npm install --prefix "$RUNNER_TEMP/saratov-figure-runtime" --ignore-scripts --no-audit --no-fund
+          "$RUNNER_TEMP/saratov-figure-runtime/node_modules/.bin/playwright" install --with-deps chromium
+      - run: python -m pip install -r requirements-saratov-fields.txt
+      - name: Directed transport, unknown-data and functional counterexamples
+        run: python -m unittest discover -s tests -p 'test_sgrt_saratov*.py'
+      - name: Rebuild immutable inputs, compare complete results and create draft only
+        run: python scripts/sgrt_saratov/cloud_regional_research.py --source-commit "$GITHUB_SHA" --workdir "$RUNNER_TEMP/saratov-fields"
+      - name: Preserve complete comparison and independent numerical checks
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: saratov-fields-controls
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/saratov-fields/actual_control.json
+            ${{ runner.temp }}/saratov-fields/checks/*.json
+            ${{ runner.temp }}/saratov-fields/draft.json
+            ${{ runner.temp }}/saratov-fields/built/manifest.json
+            ${{ runner.temp }}/saratov-fields/results/figures/render_proof.json
+            ${{ runner.temp }}/saratov-fields/unpublished_mismatch_results.zip

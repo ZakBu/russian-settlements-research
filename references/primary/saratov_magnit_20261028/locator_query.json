@@ -1,0 +1,45 @@
+{
+  "url": "https://magnit.ru/webgate/v1/stores-facade/search/detail",
+  "method": "POST",
+  "body": {
+    "filters": {
+      "geo": {
+        "typeName": "box",
+        "leftTopPoint": {
+          "latitude": 53.0,
+          "longitude": 42.0
+        },
+        "rightBottomPoint": {
+          "latitude": 49.6,
+          "longitude": 51.0
+        }
+      },
+      "storeTypeListV2": [
+        "MM",
+        "MM_MINI",
+        "GM",
+        "ME",
+        "MC"
+      ]
+    },
+    "pagination": {
+      "offset": 0,
+      "size": 1000
+    },
+    "sorting": {
+      "sortBy": "SORT_BY_CITY",
+      "sortType": "SORT_TYPE_ASC"
+    }
+  },
+  "headers": {
+    "User-Agent": "Mozilla/5.0",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "X-New-Magnit": "true",
+    "X-Device-Platform": "Web",
+    "X-Client-Name": "magnit",
+    "X-App-Version": "2026.10.28-14.0"
+  },
+  "bytes": 2471996,
+  "sha256": "423b90cc8336e0e7723def683290e0cc2f358a326569503abaa24288fd5341cd"
+}

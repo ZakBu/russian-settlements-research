@@ -1,0 +1,57 @@
+{
+  "schema": "sgrt.source_extract.v1",
+  "retrieved_date_utc": "2026-10-29",
+  "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:117219",
+  "subject": "Горный Краснопартизанского района Саратовской области",
+  "scope": "Дополнительные независимые свидетельства географического конфликта; исходная переписная база и модельные координаты этим извлечением не изменяются.",
+  "sources": [
+    {
+      "file": "school_reader.txt",
+      "bytes": 33268,
+      "sha256": "8f90668cb1b7202d1a507a5358e041434edf7c39525c7ca809eff46c18f869de",
+      "url": "https://shkolagornyj-r64.gosweb.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/osnovnye-svedeniya/",
+      "read_url": "https://r.jina.ai/https://shkolagornyj-r64.gosweb.gosuslugi.ru/svedeniya-ob-obrazovatelnoy-organizatsii/osnovnye-svedeniya/",
+      "source_kind": "official_school_page_machine_extraction",
+      "read_scope": "Прочитана страница основных сведений. В разделе мест образовательной деятельности по основным программам прямо указан Горный, Стадионная площадь,29; отдельно перечислены Савельевка и Большая Сакма. Получены адреса, не геодезические координаты зданий.",
+      "explicit_physical_address": "413540 Саратовская область, Краснопартизанский район, п.Горный, Стадионная площадь,29",
+      "original_html_retrieved": false,
+      "original_html_status": 403
+    },
+    {
+      "file": "nominatim_place.json",
+      "bytes": 1975,
+      "sha256": "ec7b3c1505c55e09d500e04c15cc551f1e26becf88ffccfe09fa9e53ead0cc55",
+      "url": "https://nominatim.openstreetmap.org/search?q=%D0%93%D0%BE%D1%80%D0%BD%D1%8B%D0%B9%2C%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D0%BE%D0%BF%D0%B0%D1%80%D1%82%D0%B8%D0%B7%D0%B0%D0%BD%D1%81%D0%BA%D0%B8%D0%B9%2C%D0%A1%D0%B0%D1%80%D0%B0%D1%82%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F&format=jsonv2",
+      "source_kind": "OSM_Nominatim_current_search_result",
+      "read_scope": "Полный ответ: town relation21714114 и два иных объекта. Для проверки взят только объект place=town, не одноимённая промышленная территория или улица.",
+      "osm_type": "relation",
+      "osm_id": 21714114,
+      "lat": 51.756121,
+      "lon": 48.5385335,
+      "bbox": [
+        51.7404568,
+        51.787545,
+        48.4918499,
+        48.5985052
+      ],
+      "limitations": "Текущий геокодер не является замороженной геометрией2021. Центр геокодера не является точным зданием и не заменяет принятую детерминированную поправку по закреплённому полигону."
+    }
+  ],
+  "conflict": {
+    "reference_lat": 51.75,
+    "reference_lon": 48.85,
+    "reference_point_outside_current_osm_town_longitude_bounds": true,
+    "interpretation": "Долгота принятой точки находится далеко восточнее текущей территории рабочего посёлка. Физические магазины около48.536 и независимый OSMplace около48.539 согласуются между собой; совпадение не требует подменять адрес филиала юридическим адресом школы."
+  },
+  "held_searches": [
+    {
+      "query": "школа,Горный,Краснопартизанский район",
+      "result": "Nominatim[]"
+    },
+    {
+      "query": "Стадионная площадь,29,Горный,Саратовская область",
+      "result": "Nominatim[]"
+    }
+  ],
+  "not_used": "Википедия и поисковые выдачи использованы только для навигации; их текст не стал новым доказательством координат или учреждения."
+}

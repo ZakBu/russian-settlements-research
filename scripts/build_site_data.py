@@ -730,10 +730,17 @@ def export_layers(content, output, cache, population_lookup, offline=False):
             raise ValueError('Unknown layer dataset: ' + str(layer.get('datasetId')))
         raw = layer_source(dataset, cache, offline=offline)
         features = adapt_layer(layer, raw, population_lookup)
+        if 'valueLabels' in layer:
+            represented = {float(key) for key in layer['valueLabels']}
+            actual = {f['properties']['value'] for f in features['features'] if f['properties']['value'] is not None}
+            if not actual <= represented:
+                raise ValueError('Layer valueLabels omit observed classes: '+str(sorted(actual-represented)))
         relative = 'custom-layers/' + uid + '.geojson'
         write_json(output / relative, features)
         registry.append({key: layer[key] for key in ('id', 'researchId', 'title', 'description', 'geometry', 'palette', 'unit', 'period', 'evidence', 'fields')})
         registry[-1].update(path=relative, source={key: dataset.get(key) for key in ('title', 'url', 'sha256', 'sourceCommit')})
+        if 'valueLabels' in layer:
+            registry[-1]['valueLabels'] = layer['valueLabels']
     active = {entry['id'] for entry in registry}
     for path in (output / 'custom-layers').glob('*.geojson'):
         if path.stem not in active:
