@@ -1,0 +1,77 @@
+{
+  "schema": "sgrt.saratov.school_addition_links.v1",
+  "functional_link_rows": 58272,
+  "school_rows": 3642,
+  "known_before_and_after_rows": 3626,
+  "unavailable_cost_rows_before": 16,
+  "unavailable_cost_rows_after": 16,
+  "newly_known_cost_rows": 0,
+  "newly_unknown_cost_rows": 0,
+  "NA_masks_identical": true,
+  "school_population_values_identical": true,
+  "increased_rows": 0,
+  "strictly_decreased_rows": 12,
+  "exactly_unchanged_known_rows": 3614,
+  "largest_decrease_minutes": -23.010788282943917,
+  "other_function_families": [
+    "comparison_retail",
+    "food_specialist",
+    "grocery",
+    "higher_education",
+    "marketplace_unspecified_assortment",
+    "medical_basic",
+    "medical_hightech",
+    "medical_hospital",
+    "medical_physician",
+    "medical_specialized",
+    "parcel_pickup",
+    "postal_service",
+    "preschool",
+    "shopping_centre",
+    "vocational_education"
+  ],
+  "other_function_rows": 54630,
+  "other_functions_all_columns_exact": true,
+  "missing_values_replaced_with_zero": false,
+  "population_weights_used": false,
+  "fixed_positive_2021_known_cost_cohort": {
+    "all_dated_known": {
+      "origin_records_before": 1659,
+      "origin_records_after": 1659,
+      "same_origin_id_set": true,
+      "own_local_zeroes_included": true,
+      "NP_unweighted_median_minutes_before": 20.393065079679342,
+      "NP_unweighted_median_minutes_after": 20.27584936333126,
+      "NP_unweighted_p90_minutes_before": 46.530545898112806,
+      "NP_unweighted_p90_minutes_after": 46.530545898112806
+    },
+    "nonhistorical_evidence_only": {
+      "origin_records_before": 1659,
+      "origin_records_after": 1659,
+      "same_origin_id_set": true,
+      "own_local_zeroes_included": true,
+      "NP_unweighted_median_minutes_before": 20.393065079679342,
+      "NP_unweighted_median_minutes_after": 20.27584936333126,
+      "NP_unweighted_p90_minutes_before": 46.530545898112806,
+      "NP_unweighted_p90_minutes_after": 46.530545898112806
+    }
+  },
+  "errors": [],
+  "violations": 0,
+  "inputs": [
+    {
+      "role": "baseline",
+      "member": "physical_official/functional_links.parquet",
+      "bytes": 1462092,
+      "sha256": "f43768de553e606edc89b232650b1a9745d849d972e5f1c71b36ca76a2b94ea9"
+    },
+    {
+      "role": "updated",
+      "member": "physical_official/functional_links.parquet",
+      "bytes": 1462114,
+      "sha256": "8ee31eaf926e85f119bbeeb657a211aa8983d7bf2c7bd433bf6598491e722c4e"
+    }
+  ],
+  "reproduction_script": "scripts/sgrt_saratov/compare_school_addition.py",
+  "scope": "All matched preferred-inventory origins, functions and evidence scenarios; no sampling, no conditioning on external-only membership."
+}

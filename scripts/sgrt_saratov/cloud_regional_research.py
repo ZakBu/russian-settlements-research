@@ -29,8 +29,8 @@ from scripts.sgrt_saratov.cloud_isochrones import geometry_digest, table_control
 from scripts.sgrt_saratov.regional_context import MEMBERS as CONTEXT_MEMBERS
 from scripts.sgrt_saratov.source_inventory import TRANSPORT, REFERENCE, ENDPOINTS
 
-TAG = 'sgrt-saratov-fields-20261029-v1'
-EXPECTED = REPO/'research_context/analysis_snapshots/regional_fields_control_20261029.json'
+TAG = 'sgrt-saratov-fields-20261029-v2'
+EXPECTED = REPO/'research_context/analysis_snapshots/regional_fields_control_20261029_v2.json'
 FROZEN = REPO/'data/saratov_regional_inputs_20261029.json'
 HISTORICAL_SCHOOL = REPO/'sgrt/saratov/historical_school_inventory_metadata_2013_2014.csv'
 MAGNIT_SOURCE = REPO/'data/saratov_magnit_stores_20261028.json'
