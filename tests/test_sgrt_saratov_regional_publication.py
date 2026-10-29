@@ -23,6 +23,16 @@ class PublicationTransportSemantics(unittest.TestCase):
             self.assertNotEqual(matrix_control(root/'a.npz'),matrix_control(root/'b.npz'))
             self.assertEqual(matrix_control(root/'a.npz')['explicit_zero_entries'],1)
 
+    def test_selected_full_cost_npz_distinguishes_far_reachable_and_unreachable(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            np.savez_compressed(root/'full.npz',costs=np.array([[0.,1510.,np.inf,np.nan]]),full_row_indices=np.array([17]))
+            np.savez_compressed(root/'clipped.npz',costs=np.array([[0.,np.inf,np.inf,np.nan]]),full_row_indices=np.array([17]))
+            full=matrix_control(root/'full.npz')
+            self.assertEqual(full['kind'],'named_npz_arrays')
+            self.assertEqual(full['arrays']['costs']['shape'],[1,4])
+            self.assertNotEqual(full,matrix_control(root/'clipped.npz'))
+
     def test_input_archive_cannot_write_outside_its_directory(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d)

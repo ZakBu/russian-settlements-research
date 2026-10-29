@@ -1,10 +1,23 @@
 import unittest
 import numpy as np
+import pandas as pd
 from scipy.sparse import csr_matrix
-from scripts.sgrt_saratov.school_competition import edge_intervals,fraction_geometry,omit_empty_display_features
+from scripts.sgrt_saratov.school_competition import edge_intervals,fraction_geometry,omit_empty_display_features,prepare_seeds
 from scripts.sgrt_mass.routes import weighted_multisource
 
 class SchoolCompetitionTests(unittest.TestCase):
+    def test_kindergarten_and_unadmitted_presence_do_not_seed_a_school(self):
+        catalog=pd.DataFrame(columns=['family','routable_provider','catalog_id','correctsource_record_id','location_precision'])
+        roster=pd.DataFrame({'source_record_id':['kindergarten','school','held'],
+            'road_endpoint_accepted':[True]*3,'road_node_index':[0,1,2],'snap_km':[0.]*3})
+        presence=pd.DataFrame(columns=['family','source_record_id'])
+        official=pd.DataFrame({'source_record_id':['kindergarten','school','held'],
+            'service_code':['preschool','school_general','school_general'],
+            'eligible_np_presence_proxy':[True,True,False],
+            'provider_id':['a','b','c'],'name':['A','B','C'],'source_id':['source']*3})
+        _,_,extra=prepare_seeds(catalog,roster,presence,official)
+        self.assertEqual(extra.source_record_id.tolist(),['school'])
+
     def test_bidirectional_boundary_is_internal(self):
         r=edge_intervals(0.,0.,20.,0)
         self.assertEqual([(x[0],x[1],x[2]) for x in r],[(0.,.5,'u'),(.5,1.,'v')])

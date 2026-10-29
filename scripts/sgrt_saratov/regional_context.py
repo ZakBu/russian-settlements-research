@@ -664,8 +664,13 @@ def aggregate_basic_centres(profiles,members,context,reference):
     classes['one_record_per_np_centre']=True
     classes['basic_families_deduplicated_before_population_sum']=True
     classes['centre_population_does_not_assign_hierarchical_rank']=True
-    if len(classes)!=len(profiles) or not (classes.regional_external_origins==classes.external_positive_origin_count).all():
-        raise ValueError('Basic centre demographic member count changed')
+    if 'external_demographic_origin_count' not in classes:
+        raise ValueError('Basic demographic profiles must explicitly include zero-population geographic records')
+    if (len(classes)!=len(profiles)
+            or not classes.regional_external_origins.eq(classes.external_demographic_origin_count).all()
+            or not classes.regional_external_published_positive_origins.eq(classes.external_positive_origin_count).all()):
+        raise ValueError('Basic centre geographic/inhabited member counts differ')
+    classes['zero_population_geographic_records_are_not_current_consumers']=True
     components=components.drop(columns=['family']).merge(
         profiles[['centre_id','evidence_scenario','inventory_scenario']],on='centre_id',how='left',validate='many_to_one')
     ref=unique_current(reference,'basic centre demographic reference').set_index('source_record_id')
@@ -680,6 +685,9 @@ def aggregate_basic_centres(profiles,members,context,reference):
             'centre_in_regional_roster':profile['centre_in_regional_roster'],
             'known_own_basic_function_count':profile['known_own_basic_function_count'],
             'external_unique_origin_records':len(external),'external_rural_unique_origin_records':len(rural),
+            'external_zero_population_origin_records':sum(sid in lookup and pd.notna(lookup[sid].get('population_2021')) and lookup[sid]['population_2021']==0 for sid in external),
+            'external_published_positive_origin_records':sum(sid in lookup and pd.notna(lookup[sid].get('population_2021')) and lookup[sid]['population_2021']>0 for sid in external),
+            'zero_population_geographic_records_are_not_current_consumers':True,
             'ambiguous_candidate_origin_records':int(part.any_ambiguous_primary.eq(True).sum()),
             'unique_population_sum_between_centres_available':False,
             'underlying_np_boundaries_harmonised':False,'population_scope_comparability_unverified':True,'actual_journeys_established':False}
@@ -695,179 +703,327 @@ def aggregate_basic_centres(profiles,members,context,reference):
     return components,classes,pd.DataFrame(quality),links
 
 
-def worker_potential(costs, origins, destinations, workforce, horizon=480., half_times=(10.,20.,40.,80.)):
-    """Known part of the partial-worker field, not all job opportunities.
+def basic_demographic_scope_counts(members,reference,types,current_roster=None):
+    """Unique current zero sites, never a sum over overlapping centre unions."""
+    links=members[members.evidence_scenario.eq('all_dated_known')].copy()
+    ref=unique_current(reference,'basic zero-site population reference').set_index('source_record_id')
+    zero_ids=sorted({sid for sid in links.origin_id if sid in ref.index and pd.notna(ref.loc[sid,'population_2021']) and ref.loc[sid,'population_2021']==0})
+    zero=ref.loc[zero_ids]
+    selected=links[links.origin_id.isin(zero_ids)]
+    regional=set(types.loc[types.centre_in_regional_roster.eq(True),'centre_id'])
+    result={'unique_current_zero_population_records':len(zero_ids),
+        'zero_record_centre_memberships':len(selected),
+        'unique_zero_population_records_linked_to_regional_centres':int(selected.loc[selected.centre_id.isin(regional),'origin_id'].nunique()),
+        'zero_record_regional_centre_memberships':int(selected.centre_id.isin(regional).sum()),
+        'affected_centres_all':int(selected.centre_id.nunique()),
+        'affected_regional_centres':int(selected.loc[selected.centre_id.isin(regional),'centre_id'].nunique()),
+        'zero2021_records_with_accepted_population_credit':sum(eligible_record(row,2021,'accepted') for row in zero.to_dict('records')),
+        'zero_records_are_observed_current_consumers':False,
+        'historical_catchment_reconstructed':False,
+        'current_roster_scope':'2021 records only; abolished settlements without a2021record are outside this calculation',
+        'historical_numeric_counts_are_source_records_not_harmonised_territorial_population':True}
+    regional_zero_ids=sorted(set(selected.loc[selected.centre_id.isin(regional),'origin_id']))
+    regional_zero=ref.loc[regional_zero_ids]
+    for year in [2002,2010]:
+        regional_values=pd.to_numeric(regional_zero['population_'+str(year)],errors='coerce')
+        result['regional_centre_zero2021_records_with_numeric_positive_'+str(year)]=int((regional_values.gt(0)&np.isfinite(regional_values)).sum())
+    roster=unique_current(current_roster if current_roster is not None else reference,'zero-site current roster').set_index('source_record_id')
+    all_zero=roster[roster.population_2021.eq(0)]
+    unlinked=all_zero.loc[~all_zero.index.isin(zero_ids)]
+    missing_point=(~np.isfinite(pd.to_numeric(unlinked.lat,errors='coerce'))|~np.isfinite(pd.to_numeric(unlinked.lon,errors='coerce'))) if {'lat','lon'}<=set(unlinked) else pd.Series(False,index=unlinked.index)
+    accepted=unlinked.get('accepted_route_endpoint',pd.Series(False,index=unlinked.index)).eq(True)
+    result.update(current_roster_published_zero_records=len(all_zero),
+        zero_records_linked_to_regional_centres=len(regional_zero_ids),
+        zero_records_linked_only_to_centres_outside_region=len(set(zero_ids)-set(regional_zero_ids)),
+        zero_records_not_linked_to_eligible_centres=len(unlinked),
+        unlinked_zero_records_without_published_point=int(missing_point.sum()),
+        unlinked_zero_records_with_pinned_accepted_route_endpoint=int((~missing_point&accepted).sum()),
+        unlinked_zero_records_with_other_or_unknown_endpoint_status=int((~missing_point&~accepted).sum()))
+    if len(all_zero)!=len(zero_ids)+len(unlinked):raise ValueError('Zero-site cohort partition does not cover the current roster')
+    for year in [2002,2010]:
+        values=pd.to_numeric(zero['population_'+str(year)],errors='coerce')
+        result['zero2021_records_with_numeric_positive_'+str(year)]=int((values.gt(0)&np.isfinite(values)).sum())
+        result['zero2021_records_with_missing_numeric_'+str(year)]=int((values.isna()|~np.isfinite(values)).sum())
+        result['zero2021_'+str(year)+'_observation_class_counts']=dict(Counter(observation_class(row.get('population_'+str(year)),row.get('population_value_quality_'+str(year)),row.get('source_record_id_'+str(year))) for row in zero.to_dict('records')))
+        eligible=zero.loc[[eligible_record(row,year,'accepted') for row in zero.to_dict('records')]].copy()
+        source='source_record_id_'+str(year);population='population_'+str(year)
+        # Credit flags are authoritative; deduplicate a historic source shared
+        # by multiple current identity chains before reporting a population sum.
+        if len(eligible) and eligible.groupby(source)[population].nunique().gt(1).any():
+            raise ValueError('Zero-site historical source has conflicting accepted populations')
+        unique=eligible.drop_duplicates(source)
+        result['zero2021_accepted_unique_historic_sources_'+str(year)]=len(unique)
+        result['zero2021_accepted_known_population_'+str(year)]=math.fsum(float(x) for x in unique[population])
+    result['zero2021_records_with_unaccepted_population_credit']=len(zero_ids)-result['zero2021_records_with_accepted_population_credit']
+    return result
 
-    Sparse absent values mean censored/unavailable routes, never zero cost.
-    Unknown worker values are retained in the source inventory and excluded
-    from the explicitly named known subset, rather than zero-imputed.
+
+def compare_basic_demographic_scopes(all_components,all_types,inhabited_components,inhabited_types):
+    """Matched centre/component/interval comparison, never overlapping sums."""
+    keys=['system_id','centre_id','component','start_year','end_year','evidence_mode']
+    values=['records','paired_eligible_records','complete_component','paired_known_population_start',
+            'paired_known_population_end','direction']
+    for frame in [all_components,inhabited_components]:
+        if frame.duplicated(keys).any():raise ValueError('Duplicate basic demographic scope component')
+    out=all_components[keys+values].merge(inhabited_components[keys+values],on=keys,how='outer',
+        suffixes=('_all_current','_inhabited_only'),indicator=True,validate='one_to_one')
+    if not out._merge.eq('both').all():raise ValueError('Scope sensitivity changed centre/component axes')
+    out=out.drop(columns='_merge')
+    regional=all_types[['centre_id','centre_in_regional_roster']].drop_duplicates()
+    if regional.centre_id.duplicated().any() or set(all_types.centre_id)!=set(inhabited_types.centre_id):
+        raise ValueError('Scope sensitivity changed centre identities')
+    out=out.merge(regional,on='centre_id',validate='many_to_one')
+    out['additional_zero_or_unknown_geographic_records']=out.records_all_current-out.records_inhabited_only
+    out['additional_paired_known_population_start']=out.paired_known_population_start_all_current-out.paired_known_population_start_inhabited_only
+    out['additional_paired_known_population_end']=out.paired_known_population_end_all_current-out.paired_known_population_end_inhabited_only
+    out['same_complete_comparison']=out.complete_component_all_current&out.complete_component_inhabited_only
+    out['direction_changed_in_same_complete_comparison']=out.same_complete_comparison&out.direction_all_current.ne(out.direction_inhabited_only)
+    out['overlapping_centre_population_deltas_must_not_be_summed']=True
+    out['zero_population_records_are_current_geographic_sites_not_observed_consumers']=True
+    selected=out[out.centre_in_regional_roster&out.component.eq('rural_external')&out.start_year.eq(2002)&out.end_year.eq(2021)&out.evidence_mode.eq('strict')]
+    summary={'matched_centres':len(regional),'regional_matched_centres':int(regional.centre_in_regional_roster.sum()),
+        'matched_components':len(out),'regional_rural_2002_2021_same_complete_comparisons':int(selected.same_complete_comparison.sum()),
+        'regional_rural_2002_2021_direction_changes_same_complete':int(selected.direction_changed_in_same_complete_comparison.sum()),
+        'all_current_scope':'all_current_linked_records','sensitivity_scope':'inhabited_only',
+        'population_must_not_be_summed_across_overlapping_centres':True,
+        'scope':'Fixed present-day potential service geography; zero2021 sites preserve historical population; neither scope reconstructs historical service flows.'}
+    return out,summary
+
+
+def worker_potential(costs, origins, destinations, workforce, horizon=480., half_times=(10.,20.,40.,80.),full_costs=None):
+    """Known partial-worker scenarios from full costs or an explicit bounded CSR.
+
+    Full vectors use every finite car-graph cost, including costs above480min.
+    Positive infinity has zero kernel contribution in that graph, not proof of
+    physical isolation. An unknown origin is all-NaN and never a zero field.
     """
-    workers = unique_current(workforce, 'partial workforce')
-    workers = workers[workers.ordinary_spatial_2021.eq(True)].copy()
-    numeric = workers.partial_organisation_workforce_2025.notna()
-    known = workers.loc[numeric].copy()
+    unbounded=full_costs is not None
+    workers=unique_current(workforce,'partial workforce')
+    workers=workers[workers.ordinary_spatial_2021.eq(True)].copy()
+    known=workers[workers.partial_organisation_workforce_2025.notna()].copy()
     if (known.partial_organisation_workforce_2025.lt(0).any()
             or not np.isfinite(known.partial_organisation_workforce_2025).all()
             or not known.partial_workforce_status.eq('observed_partial_organisation_workforce').all()):
         raise ValueError('Invalid or conflicting numeric partial-worker observation')
-    if list(origins.row_index) != list(range(len(origins))) or list(destinations.destination_index) != list(range(len(destinations))):
+    if list(origins.row_index)!=list(range(len(origins))) or list(destinations.destination_index)!=list(range(len(destinations))):
         raise ValueError('Cost axes are not explicit consecutive indices')
-    if costs.shape != (len(origins),len(destinations)) or not costs.has_sorted_indices:
-        raise ValueError('Sparse cost shape or canonical index order differs')
-    if not np.isfinite(costs.data).all() or (costs.data<0).any() or (costs.data>horizon+1e-8).any():
-        raise ValueError('Invalid finite route cost or wrong censoring horizon')
-    axis = destinations[['destination_index','source_record_id','ordinary_spatial_2021']].merge(
+    expected=(len(origins),len(destinations))
+    if unbounded:
+        if full_costs.shape!=expected:raise ValueError('Full cost shape differs from explicit regional/destination axes')
+    else:
+        if costs.shape!=expected or not costs.has_sorted_indices:raise ValueError('Sparse cost shape or canonical index order differs')
+        if not np.isfinite(costs.data).all() or (costs.data<0).any() or (costs.data>horizon+1e-8).any():
+            raise ValueError('Invalid finite route cost or wrong censoring horizon')
+    axis=destinations[['destination_index','source_record_id','ordinary_spatial_2021']].merge(
         workers[['source_record_id','partial_organisation_workforce_2025','partial_workforce_status']],
         how='left',on='source_record_id',validate='one_to_one').sort_values('destination_index')
-    axis['worker_observation_known'] = axis.partial_organisation_workforce_2025.notna() & axis.ordinary_spatial_2021.eq(True)
-    axis['worker_source_is_not_fns'] = True
-    values = axis.partial_organisation_workforce_2025.to_numpy(dtype=float)
-    known_mask = axis.worker_observation_known.to_numpy(dtype=bool)
-    ordinary = axis.ordinary_spatial_2021.eq(True).to_numpy(dtype=bool)
-    known_sum_on_axis = float(values[known_mask].sum())
-    unmatched = known[~known.source_record_id.isin(axis.source_record_id)]
-    unmatched_sum = float(unmatched.partial_organisation_workforce_2025.sum())
-    known_lookup = known.set_index('source_record_id').partial_organisation_workforce_2025.to_dict()
-    destination_lookup = dict(zip(axis.source_record_id, axis.destination_index))
-    rows = []
+    axis['worker_observation_known']=axis.partial_organisation_workforce_2025.notna()&axis.ordinary_spatial_2021.eq(True)
+    axis['worker_source_is_not_fns']=True
+    values=axis.partial_organisation_workforce_2025.to_numpy(dtype=float)
+    known_mask=axis.worker_observation_known.to_numpy(dtype=bool)
+    ordinary=axis.ordinary_spatial_2021.eq(True).to_numpy(dtype=bool)
+    known_sum_on_axis=float(values[known_mask].sum())
+    unmatched=known[~known.source_record_id.isin(axis.source_record_id)]
+    unmatched_sum=float(unmatched.partial_organisation_workforce_2025.sum())
+    own_lookup=known.set_index('source_record_id').partial_organisation_workforce_2025.to_dict()
+    destination_lookup=dict(zip(axis.source_record_id,axis.destination_index))
+    rows=[]
     for origin in origins.itertuples(index=False):
-        i = int(origin.row_index);begin,end = costs.indptr[i:i+2]
-        indices = costs.indices[begin:end];time = costs.data[begin:end]
-        route_known = getattr(origin,'route_row_status',None) != 'origin_endpoint_unavailable'
-        # A valid origin must have its own explicit zero entry. Empty sparse
-        # rows cannot masquerade as zero potential in the missing-endpoint case.
-        self_col = destination_lookup.get(origin.source_record_id)
-        self_pos = np.flatnonzero(indices==self_col) if self_col is not None else np.asarray([],dtype=int)
+        i=int(origin.row_index)
+        route_known=getattr(origin,'route_row_status',None)!='origin_endpoint_unavailable'
+        if unbounded:
+            vector=np.asarray(full_costs[i])
+            if route_known:
+                if np.isnan(vector).any() or (vector<0).any():raise ValueError('Full costs contain an incomplete/invalid accepted-origin row')
+            elif not np.isnan(vector).all():raise ValueError('Unknown-origin full costs must be all-NaN, not zeros or infinity')
+            indices=np.flatnonzero(np.isfinite(vector));time=vector[indices]
+        else:
+            begin,end=costs.indptr[i:i+2];indices=costs.indices[begin:end];time=costs.data[begin:end]
+        self_col=destination_lookup.get(origin.source_record_id)
+        self_pos=np.flatnonzero(indices==self_col) if self_col is not None else np.asarray([],dtype=int)
         if route_known and (len(self_pos)!=1 or abs(float(time[self_pos[0]]))>1e-9):
             raise ValueError('Valid origin has no unique explicit self-zero cost')
-        mask = known_mask[indices]
-        reached_values = values[indices[mask]];reached_cost = time[mask]
-        outside_sum = max(0.,known_sum_on_axis-float(reached_values.sum()))
-        own_known = origin.source_record_id in known_lookup
-        own_value = float(known_lookup[origin.source_record_id]) if own_known else np.nan
+        mask=known_mask[indices];reached_values=values[indices[mask]];reached_cost=time[mask]
+        outside_sum=max(0.,known_sum_on_axis-float(reached_values.sum()))
+        own_known=origin.source_record_id in own_lookup
+        own_value=float(own_lookup[origin.source_record_id]) if own_known else np.nan
+        far=reached_cost>480.
         for family in ('exponential','gaussian'):
             for h in half_times:
-                exponent = reached_cost/h if family=='exponential' else (reached_cost/h)**2
-                k = np.exp2(-exponent)
-                field = float(np.dot(reached_values,k)) if route_known else np.nan
-                self_contribution = own_value if route_known and own_known else 0. if route_known else np.nan
-                tail = outside_sum * 2**(-(horizon/h if family=='exponential' else (horizon/h)**2)) + unmatched_sum
+                if not np.isfinite(h) or h<=0:raise ValueError('Worker half-times must be finite positive scenarios')
+                exponent=reached_cost/h if family=='exponential' else (reached_cost/h)**2
+                weight=np.exp2(-exponent)
+                field=float(np.dot(reached_values,weight)) if route_known else np.nan
+                self_value=own_value if route_known and own_known else 0. if route_known else np.nan
+                computational_tail=0. if unbounded else outside_sum*2**(-(horizon/h if family=='exponential' else (horizon/h)**2))
+                omission=computational_tail+unmatched_sum
                 rows.append({'source_record_id':origin.source_record_id,'row_index':i,
-                    'kernel':family,'half_time_minutes':float(h),'route_cost_horizon_minutes':horizon,
+                    'kernel':family,'half_time_minutes':float(h),
+                    'field_cost_scope':'full_unbounded_directed_car_graph' if unbounded else 'bounded_sparse_destination_costs',
+                    'route_cost_horizon_minutes':None if unbounded else float(horizon),
                     'known_partial_worker_potential_with_self':field,
-                    'known_partial_worker_potential_external':field-self_contribution,
-                    'known_subset_self_contribution':self_contribution,
-                    'own_partial_worker_observation':own_value,
-                    'own_worker_observation_known':own_known,
+                    'known_partial_worker_potential_external':field-self_value,
+                    'known_subset_self_contribution':self_value,
+                    'own_partial_worker_observation':own_value,'own_worker_observation_known':own_known,
                     'known_worker_source_np_within_horizon':int(mask.sum()) if route_known else None,
                     'np_with_unknown_worker_observation_within_horizon':int((ordinary[indices]&~known_mask[indices]).sum()) if route_known else None,
+                    'known_worker_source_np_reachable_in_car_graph':int(mask.sum()) if route_known and unbounded else None,
+                    'known_worker_source_np_unreachable_in_accepted_car_graph':int(known_mask.sum()-mask.sum()) if route_known and unbounded else None,
+                    'known_worker_sources_beyond_previous_480_minute_cutoff':int(far.sum()) if route_known and unbounded else None,
+                    'known_partial_worker_potential_beyond_previous_480_minute_cutoff':float(np.dot(reached_values[far],weight[far])) if route_known and unbounded else None,
                     'known_worker_source_population_is_not_used_as_capacity':True,
-                    'known_worker_subset_route_tail_upper':tail if route_known else np.nan,
-                    'known_worker_subset_potential_upper':field+tail if route_known else np.nan,
-                    'all_workplaces_or_all_workers_potential_upper':None,
-                    'complete_workplace_capacity_known':False,
+                    'known_worker_subset_route_tail_upper':computational_tail if route_known else np.nan,
+                    'known_worker_subset_computational_tail_upper':computational_tail if route_known else np.nan,
+                    'known_worker_subset_unmapped_source_upper':unmatched_sum if route_known else np.nan,
+                    'known_worker_subset_total_omission_upper':omission if route_known else np.nan,
+                    'known_worker_subset_potential_upper':field+omission if route_known else np.nan,
+                    'all_workplaces_or_all_workers_potential_upper':None,'complete_workplace_capacity_known':False,
                     'field_status':'known_source_subset_scenario' if route_known else 'unknown_origin_endpoint',
+                    'unreachable_in_car_graph_is_not_physical_isolation':True,
                     'worker_source_year':2025,'road_source_year':2021,
                     'source_scope':'Rosstat_partial_organisation_workers_not_FNS_not_complete_jobs',
                     'kernel_is_empirically_calibrated_to_work_trips':False})
-    facts = {'national_current_np_numeric_worker_observations':len(known),
+    facts={'national_current_np_numeric_worker_observations':len(known),
         'national_observed_partial_workers_sum':float(known.partial_organisation_workforce_2025.sum()),
         'known_worker_np_on_routable_destination_axis':int(known_mask.sum()),
         'known_worker_np_without_routable_destination':len(unmatched),
         'known_partial_workers_without_routable_destination':unmatched_sum,
+        'worker_field_uses_unbounded_accepted_car_graph':unbounded,
+        'computational_field_cost_limit_minutes':None if unbounded else float(horizon),
+        'computational_tail_zero_for_all_known_origins':unbounded,
+        'infinite_car_graph_cost_has_zero_kernel_not_physical_isolation':True,
         'overall_jobs_or_workers_field_upper_is_unknown':True,
         'municipal_values_allocated_to_np':False,'fns_legal_entities_used_as_np_capacity':False}
     return pd.DataFrame(rows),axis,unmatched,facts
 
 
-def audit_worker_potential(fields, costs, origins, axis, unmatched, samples=20):
-    """Independent scalar fsum check, with actual directed cost vectors."""
-    lookup = fields.set_index(['row_index','kernel','half_time_minutes'])
-    valid = origins[~origins.route_row_status.eq('origin_endpoint_unavailable')].row_index.to_numpy(dtype=int)
-    selected = sorted(set(valid[np.linspace(0,len(valid)-1,min(samples,len(valid)),dtype=int)])) if len(valid) else []
-    worker = axis.partial_organisation_workforce_2025.to_numpy(dtype=float)
-    eligible = axis.worker_observation_known.to_numpy(dtype=bool)
-    own = dict(zip(axis.source_record_id,axis.partial_organisation_workforce_2025))
-    axis_sum = math.fsum(float(v) for v in worker[eligible])
-    unmatched_sum = math.fsum(float(v) for v in unmatched.partial_organisation_workforce_2025)
-    maximum=0.;checked=0
+def audit_worker_potential(fields,costs,origins,axis,unmatched,samples=20,full_costs=None):
+    """Independent scalar fsum, including finite costs above the former cutoff."""
+    unbounded=full_costs is not None
+    lookup=fields.set_index(['row_index','kernel','half_time_minutes'])
+    valid=origins[~origins.route_row_status.eq('origin_endpoint_unavailable')].row_index.to_numpy(dtype=int)
+    selected=sorted(set(valid[np.linspace(0,len(valid)-1,min(samples,len(valid)),dtype=int)])) if len(valid) else []
+    worker=axis.partial_organisation_workforce_2025.to_numpy(dtype=float)
+    eligible=axis.worker_observation_known.to_numpy(dtype=bool)
+    known_indices=np.flatnonzero(eligible)
+    own=dict(zip(axis.source_record_id,axis.partial_organisation_workforce_2025))
+    axis_sum=math.fsum(float(v) for v in worker[eligible])
+    unmapped=math.fsum(float(v) for v in unmatched.partial_organisation_workforce_2025)
+    maximum=0.;checked=0;far_pairs=0
     for i in selected:
-        b,e=costs.indptr[i:i+2];indices=costs.indices[b:e];times=costs.data[b:e]
-        pairs=[(float(t),float(worker[j])) for j,t in zip(indices,times) if eligible[j]]
+        if unbounded:
+            vector=full_costs[i]
+            pairs=[(float(vector[j]),float(worker[j])) for j in known_indices if math.isfinite(float(vector[j]))]
+        else:
+            begin,end=costs.indptr[i:i+2]
+            pairs=[(float(t),float(worker[j])) for j,t in zip(costs.indices[begin:end],costs.data[begin:end]) if eligible[j]]
         reached_sum=math.fsum(v for _,v in pairs)
+        far_pairs+=sum(t>480 for t,_ in pairs)
         sid=origins.iloc[i].source_record_id;self_value=own.get(sid,np.nan)
         self_value=float(self_value) if pd.notna(self_value) else 0.
         for family in fields.kernel.drop_duplicates():
             for h in fields.half_time_minutes.drop_duplicates():
                 row=lookup.loc[(i,family,h)]
                 value=math.fsum(v*math.pow(2.,-(t/h if family=='exponential' else (t/h)**2)) for t,v in pairs)
-                horizon=float(row.route_cost_horizon_minutes)
-                tail=(axis_sum-reached_sum)*math.pow(2.,-(horizon/h if family=='exponential' else (horizon/h)**2))+unmatched_sum
-                for actual,expected in [(row.known_partial_worker_potential_with_self,value),
+                if unbounded:tail=0.
+                else:
+                    horizon=float(row.route_cost_horizon_minutes)
+                    tail=(axis_sum-reached_sum)*math.pow(2.,-(horizon/h if family=='exponential' else (horizon/h)**2))
+                comparisons=[(row.known_partial_worker_potential_with_self,value),
                     (row.known_partial_worker_potential_external,value-self_value),
-                    (row.known_worker_subset_route_tail_upper,tail)]:
+                    (row.known_worker_subset_route_tail_upper,tail),
+                    (row.known_worker_subset_unmapped_source_upper,unmapped),
+                    (row.known_worker_subset_total_omission_upper,tail+unmapped),
+                    (row.known_worker_subset_potential_upper,value+tail+unmapped)]
+                if unbounded:
+                    far_value=math.fsum(v*math.pow(2.,-(t/h if family=='exponential' else (t/h)**2)) for t,v in pairs if t>480.)
+                    comparisons.append((row.known_partial_worker_potential_beyond_previous_480_minute_cutoff,far_value))
+                for actual,expected in comparisons:
                     error=abs(float(actual)-float(expected));maximum=max(maximum,error)
-                    if not math.isclose(float(actual),float(expected),rel_tol=1e-12,abs_tol=1e-7):
-                        raise ValueError('Independent worker-potential mismatch')
+                    if not math.isclose(float(actual),float(expected),rel_tol=1e-12,abs_tol=1e-7):raise ValueError('Independent worker-potential mismatch')
                 checked+=1
     observed=fields[fields.field_status.eq('known_source_subset_scenario')]
-    for col in ['known_partial_worker_potential_with_self','known_partial_worker_potential_external','known_worker_subset_route_tail_upper']:
+    for col in ['known_partial_worker_potential_with_self','known_partial_worker_potential_external',
+            'known_worker_subset_route_tail_upper','known_worker_subset_unmapped_source_upper','known_worker_subset_total_omission_upper']:
         if observed[col].isna().any() or (observed[col]<-1e-7).any():raise ValueError('Invalid known worker-field bound or value')
     if not np.allclose(observed.known_partial_worker_potential_with_self,
-            observed.known_partial_worker_potential_external+observed.known_subset_self_contribution,
-            rtol=1e-12,atol=1e-7):raise ValueError('Worker self contribution does not reconcile')
+            observed.known_partial_worker_potential_external+observed.known_subset_self_contribution,rtol=1e-12,atol=1e-7):
+        raise ValueError('Worker self contribution does not reconcile')
     if (observed.known_worker_subset_potential_upper+1e-7<observed.known_partial_worker_potential_with_self).any():
         raise ValueError('Worker subset upper bound is below known field')
+    if unbounded and not observed.known_worker_subset_computational_tail_upper.eq(0).all():
+        raise ValueError('Unbounded full-graph worker field retains a computational tail')
     monotonic_groups=0
     for _,group in observed.groupby(['row_index','kernel'],sort=False):
-        values=group.sort_values('half_time_minutes').known_partial_worker_potential_with_self.to_numpy()
-        if (np.diff(values)<-1e-7).any():raise ValueError('Wider worker kernel reduced a nonnegative field')
+        if (np.diff(group.sort_values('half_time_minutes').known_partial_worker_potential_with_self.to_numpy())<-1e-7).any():
+            raise ValueError('Wider worker kernel reduced a nonnegative field')
         monotonic_groups+=1
     if fields.all_workplaces_or_all_workers_potential_upper.notna().any() or fields.complete_workplace_capacity_known.any():
         raise ValueError('Incomplete worker source became complete workplace capacity')
     missing=fields[fields.field_status.eq('unknown_origin_endpoint')]
-    if missing.known_partial_worker_potential_with_self.notna().any():
-        raise ValueError('Missing endpoints were zero-filled')
-    return {'schema':'sgrt.saratov.partial_worker_field_scalar_comparison.v1',
-        'origin_rows_sampled':len(selected),'scenario_rows_checked':checked,
-        'maximum_absolute_difference':maximum,'missing_endpoint_scenario_rows_checked':len(missing),
-        'independent_math_fsum_used':True,'violations':0,
-        'all_known_scenario_rows_invariant_checked':len(observed),
-        'monotone_half_time_groups_checked':monotonic_groups,
-        'scope':'Arithmetic sample of known partial-worker scenario; not a validation of actual job locations or work trips.'}
+    if missing.known_partial_worker_potential_with_self.notna().any():raise ValueError('Missing endpoints were zero-filled')
+    return {'schema':'sgrt.saratov.partial_worker_field_scalar_comparison.v2',
+        'origin_rows_sampled':len(selected),'scenario_rows_checked':checked,'maximum_absolute_difference':maximum,
+        'missing_endpoint_scenario_rows_checked':len(missing),'independent_math_fsum_used':True,'violations':0,
+        'all_known_scenario_rows_invariant_checked':len(observed),'monotone_half_time_groups_checked':monotonic_groups,
+        'full_unbounded_cost_vectors_used':unbounded,'known_worker_source_pairs_beyond_previous_480_minutes_in_sample':far_pairs,
+        'scope':'Arithmetic sample of the accepted known partial-worker source scenario; not proof of complete jobs, geographic matching, worker residence or observed work journeys.'}
 
 
-def run_worker_field(field_input, workforce_path, output):
+def full_worker_cost_view(cache,origin_axis,destination_axis,origins,destinations):
+    """Check cache axes and return a regional prefix view, never a dense copy."""
+    if origin_axis.full_row_index.tolist()!=list(range(len(origin_axis))) or origin_axis.source_record_id.duplicated().any():
+        raise ValueError('Full origin axis is not explicitly unique and consecutive')
+    if destination_axis.destination_index.tolist()!=list(range(len(destination_axis))) or destination_axis.source_record_id.duplicated().any():
+        raise ValueError('Full destination axis is not explicitly unique and consecutive')
+    if cache.shape!=(len(origin_axis),len(destination_axis)):raise ValueError('Full cost cache shape differs from its explicit axes')
+    if origin_axis.source_record_id.iloc[:len(origins)].tolist()!=origins.source_record_id.tolist():
+        raise ValueError('Full regional prefix does not match the ordered worker origin axis')
+    if destination_axis.source_record_id.tolist()!=destinations.source_record_id.tolist():
+        raise ValueError('Full destination identity order differs from worker source axis')
+    return cache[:len(origins)]
+
+
+def run_worker_field(field_input,workforce_path,output,full_field_costs=None,full_field_origin_axis=None,full_field_destination_axis=None):
     from scipy.sparse import load_npz
     field_input,output=Path(field_input),Path(output)
     proof=verify_source('partial_workers',workforce_path)
-    paths={name:field_input/name for name in ('destination_costs.npz','regional_roster.parquet','destinations.parquet')}
+    paths={name:field_input/name for name in ('regional_roster.parquet','destinations.parquet')}
+    if full_field_costs is not None:
+        full_field_costs=Path(full_field_costs)
+        paths.update({'full_field_costs.npy':full_field_costs,
+            'full_field_origin_axis.parquet':Path(full_field_origin_axis) if full_field_origin_axis else full_field_costs.parent/'origin_axis.parquet',
+            'full_field_destination_axis.parquet':Path(full_field_destination_axis) if full_field_destination_axis else full_field_costs.parent/'destination_axis.parquet'})
+    else:paths['destination_costs.npz']=field_input/'destination_costs.npz'
     digests={name:sha(path) for name,path in paths.items()}
-    origins=pd.read_parquet(paths['regional_roster.parquet'])
-    destinations=pd.read_parquet(paths['destinations.parquet'])
-    costs=load_npz(paths['destination_costs.npz'])
-    fields,axis,unmatched,facts=worker_potential(costs,origins,destinations,pd.read_parquet(workforce_path))
-    audit=audit_worker_potential(fields,costs,origins,axis,unmatched)
+    origins=pd.read_parquet(paths['regional_roster.parquet']);destinations=pd.read_parquet(paths['destinations.parquet'])
+    if full_field_costs is not None:
+        full=full_worker_cost_view(np.load(full_field_costs,mmap_mode='r'),
+            pd.read_parquet(paths['full_field_origin_axis.parquet']),pd.read_parquet(paths['full_field_destination_axis.parquet']),origins,destinations)
+        costs=None
+    else:full=None;costs=load_npz(paths['destination_costs.npz'])
+    fields,axis,unmatched,facts=worker_potential(costs,origins,destinations,pd.read_parquet(workforce_path),full_costs=full)
+    audit=audit_worker_potential(fields,costs,origins,axis,unmatched,full_costs=full)
+    # Verify the full temporary cache before writing any durable output. Other
+    # origins/halo rows must have finished, even if the regional prefix is ready.
+    if digests!={name:sha(path) for name,path in paths.items()}:raise ValueError('Regional field inputs changed during worker-potential calculation')
     output.mkdir(parents=True,exist_ok=True)
-    tables={'known_partial_worker_fields.parquet':fields,
-        'worker_source_np_axis.parquet':axis,'known_worker_sources_without_route_axis.parquet':unmatched}
+    tables={'known_partial_worker_fields.parquet':fields,'worker_source_np_axis.parquet':axis,
+        'known_worker_sources_without_route_axis.parquet':unmatched}
     for name,frame in tables.items():frame.to_parquet(output/name,index=False,compression='zstd')
     (output/'worker_field_independent_numeric.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2)+'\n')
-    facts.update(schema='sgrt.saratov.known_partial_worker_potential.v1',
-        records=len(origins),scenario_rows=len(fields),source=proof,input_sha256=digests,
-        direction='origin_settlement_to_worker_source_settlement',
-        travel_cost_scope='2021 static car graph plus two 15kmh endpoint connectors; self exactID cost zero',
-        numerical_check=audit,tables={name:{'rows':len(frame),'sha256':sha(output/name)} for name,frame in tables.items()},
-        source_np_matching_is_accepted_not_independently_validated=True,
-        bounds_conditional_on_accepted_source_np_matching=True,
-        main_qualification='This is a scenario conditional on accepted source-to-NP matching: the weighted concentration of the known subset of partial organisation workers, not all workplaces, resident employment or observed work journeys.')
+    facts.update(schema='sgrt.saratov.known_partial_worker_potential.v2',records=len(origins),scenario_rows=len(fields),
+        source=proof,input_sha256=digests,direction='origin_settlement_to_worker_source_settlement',
+        travel_cost_scope='Unbounded2021 directed static car graph plus two15kmh endpoint connectors; self exactID cost zero' if full is not None else 'Bounded2021 static car graph plus two15kmh endpoint connectors; self exactID cost zero',
+        temporary_full_vectors_in_published_payload=False,numerical_check=audit,
+        tables={name:{'rows':len(frame),'sha256':sha(output/name)} for name,frame in tables.items()},
+        source_np_matching_is_accepted_not_independently_validated=True,bounds_conditional_on_accepted_source_np_matching=True,
+        main_qualification='Conditional on accepted source-to-NP matching: weighted concentration of the known subset of partial organisation workers, not all workplaces, resident employment or observed work journeys.')
     (output/'worker_field_summary.json').write_text(json.dumps(facts,ensure_ascii=False,indent=2)+'\n')
-    if digests!={name:sha(path) for name,path in paths.items()}:
-        raise ValueError('Regional cost axes changed during worker-potential calculation')
     return facts
 
 
-def run(paths, output, links=None, system_reference=None,configurations=None,basic_families=('school','medical_basic','grocery'),basic_profiles=None,basic_members=None,primary2010_evidence=None):
+def run(paths, output, links=None, system_reference=None,configurations=None,basic_families=('school','medical_basic','grocery'),basic_profiles=None,basic_members=None,primary2010_evidence=None,inhabited_only_basic_profiles=None,inhabited_only_basic_members=None):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
     proofs = [verify_source(kind, path) for kind, path in paths.items()]
@@ -900,6 +1056,7 @@ def run(paths, output, links=None, system_reference=None,configurations=None,bas
                 pd.read_parquet(links),ctx,reference,basic_families)
             tables.update({'basic_configuration_demographic_components.parquet':cfg_components,
                 'basic_configuration_dynamic_types.parquet':cfg_classes})
+    basic_scope_counts=None
     if (basic_profiles is None)!=(basic_members is None):raise ValueError('Basic centre profiles and memberships must be supplied together')
     if basic_profiles is not None:
         reference=pd.read_parquet(system_reference) if system_reference else ctx
@@ -908,10 +1065,26 @@ def run(paths, output, links=None, system_reference=None,configurations=None,bas
             proofs.append(verify_source('system_reference',system_reference))
         bc_components,bc_types,bc_quality,bc_links=aggregate_basic_centres(
             pd.read_parquet(basic_profiles),pd.read_parquet(basic_members),ctx,reference)
+        basic_scope_counts=basic_demographic_scope_counts(pd.read_parquet(basic_members),reference,bc_types,ctx)
         tables.update({'basic_centre_demographic_components.parquet':bc_components,
             'basic_centre_dynamic_types.parquet':bc_types,'basic_centre_quality.parquet':bc_quality,
             'basic_centre_economic_context.parquet':aggregate_unit_economic_context(
                 bc_links,None,ctx,inputs['partial_workers'],inputs['agriculture']).assign(unit_kind='basic_centre_union')})
+    if (inhabited_only_basic_profiles is None)!=(inhabited_only_basic_members is None):
+        raise ValueError('Inhabited-only sensitivity requires both explicit profiles and members')
+    scope_comparison_summary=None
+    if inhabited_only_basic_profiles is not None:
+        if basic_profiles is None:raise ValueError('Inhabited-only sensitivity requires the main all-current basic composition')
+        aux_components,aux_types,aux_quality,aux_links=aggregate_basic_centres(
+            pd.read_parquet(inhabited_only_basic_profiles),pd.read_parquet(inhabited_only_basic_members),ctx,reference)
+        if set(aux_types.centre_id)!=set(bc_types.centre_id):raise ValueError('Basic scope sensitivity changed eligible centres')
+        tables.update({'basic_centre_inhabited_only_demographic_components.parquet':aux_components,
+            'basic_centre_inhabited_only_dynamic_types.parquet':aux_types,
+            'basic_centre_inhabited_only_quality.parquet':aux_quality,
+            'basic_centre_inhabited_only_economic_context.parquet':aggregate_unit_economic_context(
+                aux_links,None,ctx,inputs['partial_workers'],inputs['agriculture']).assign(unit_kind='basic_centre_inhabited_only_sensitivity')})
+        scope_comparison,scope_comparison_summary=compare_basic_demographic_scopes(bc_components,bc_types,aux_components,aux_types)
+        tables['basic_centre_demographic_scope_comparison.parquet']=scope_comparison
     for name, frame in tables.items():
         frame.to_parquet(output/name, index=False, compression='zstd')
     agri_comparison=tables['municipal_agriculture_demography.parquet']
@@ -943,6 +1116,13 @@ def run(paths, output, links=None, system_reference=None,configurations=None,bas
         'primary2010_separate_derived_variant':primary_evidence is not None,
         'primary2010_evidence_sha256':primary_evidence_sha,
         'primary2010_changes_2021_population_or_functional_membership':False,
+        'np_context_coordinates_are_original_pinned_population_source':True,
+        'pilot_transport_coordinate_axis':'../fields/regional_roster.parquet',
+        'basic_demographic_geography_retains_current_zero_population_records':True,
+        'inhabited_only_basic_sensitivity_included':inhabited_only_basic_profiles is not None,
+        'basic_demographic_scope_comparison':scope_comparison_summary,
+        'basic_demographic_scope_counts':basic_scope_counts,
+        'zero_population_geographic_records_are_not_current_consumers':True,
         'primary2010_scenario_scope':'primary reported resident totals; institutional population follows census publication rules; cross-source scope and boundaries remain unverified' if primary_evidence is not None else None,
         'regional_current_records_with_primary2010_derived_evidence':int(ctx.primary2010_derived_evidence_applied.sum()) if primary_evidence is not None else 0,
         'regional_current_records_with_changed_primary2010_values':int((ctx.primary2010_derived_evidence_applied&ctx.primary2010_value_difference_from_foundation.ne(0)).sum()) if primary_evidence is not None else 0,
@@ -968,7 +1148,14 @@ def run(paths, output, links=None, system_reference=None,configurations=None,bas
         'Защищённые вторичные значения 2010 года имеют собственный класс и не называются автоматически импутацией. '
         'Строгая динамика использует первично опубликованные числа с правом учёта, расширенная — принятые значения с сохранённым происхождением. '
         'Первичность числа не доказывает неизменность границ населённого пункта; направления описывают связанные опубликованные записи. '
-        'Неполные компоненты не получают направление по одной доступной части суммы.\n')
+        'Неполные компоненты не получают направление по одной доступной части суммы.\n\n'
+        'Координаты lat/lon в np_context.parquet сохранены из опубликованного источника населения. '
+        'Транспортная модель использует отдельные проверенные поправки местоположения: её действующие координаты находятся в ../fields/regional_roster.parquet. '
+        'Исходные координаты не следует повторно использовать для маршрутов вместо этой расчётной оси.\n\n'
+        'В демографический состав окружения включены и связанные записи с нулём жителей в 2021 году: '
+        'иначе исчезает население этих мест в прежних переписях. Нулевые записи не считаются сегодняшними потребителями услуг. '
+        'Это сравнение населения в географии нынешнего модельного обслуживания, а не восстановление исторических поездок. '
+        'Отсутствие права учёта или исторического числа остаётся пропуском; ноль не заменяет неизвестное.\n')
     for proof in proofs:
         verify_source(proof['kind'], system_reference if proof['kind']=='system_reference' else paths[proof['kind']])
     if primary_evidence is not None and sha(primary2010_evidence)!=primary_evidence_sha:
@@ -979,7 +1166,7 @@ def run(paths, output, links=None, system_reference=None,configurations=None,bas
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in MEMBERS:
-        parser.add_argument('--'+name.replace('_','-'), type=Path, required=True)
+        parser.add_argument('--'+name.replace('_','-'), type=Path)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--links', type=Path)
     parser.add_argument('--system-reference', type=Path)
@@ -987,12 +1174,25 @@ def main():
     parser.add_argument('--basic-profiles',type=Path)
     parser.add_argument('--basic-members',type=Path)
     parser.add_argument('--primary2010-evidence',type=Path)
+    parser.add_argument('--inhabited-only-basic-profiles',type=Path)
+    parser.add_argument('--inhabited-only-basic-members',type=Path)
     parser.add_argument('--basic-families', nargs='+', default=['school','medical_basic','grocery'])
     parser.add_argument('--field-input', type=Path, help='Completed national-destination cost CSR and explicit axes')
+    parser.add_argument('--worker-fields-only',action='store_true',help='Update only worker-field tables/proof; leave every demographic/source/member table unchanged')
+    parser.add_argument('--full-field-costs',type=Path,help='Temporary unbounded full-destination NumPy cost cache; never included in the data payload')
+    parser.add_argument('--full-field-origin-axis',type=Path)
+    parser.add_argument('--full-field-destination-axis',type=Path)
     args = parser.parse_args()
-    result = run({k:getattr(args,k) for k in MEMBERS}, args.output, args.links, args.system_reference,args.configurations,args.basic_families,args.basic_profiles,args.basic_members,args.primary2010_evidence)
+    if args.worker_fields_only:
+        if args.field_input is None or args.partial_workers is None:parser.error('--worker-fields-only requires --field-input and --partial-workers')
+        result=run_worker_field(args.field_input,args.partial_workers,args.output,args.full_field_costs,args.full_field_origin_axis,args.full_field_destination_axis)
+        print(json.dumps(result,ensure_ascii=False,indent=2))
+        return
+    missing=[name for name in MEMBERS if getattr(args,name) is None]
+    if missing:parser.error('Required context sources: '+', '.join('--'+name.replace('_','-') for name in missing))
+    result = run({k:getattr(args,k) for k in MEMBERS}, args.output, args.links, args.system_reference,args.configurations,args.basic_families,args.basic_profiles,args.basic_members,args.primary2010_evidence,args.inhabited_only_basic_profiles,args.inhabited_only_basic_members)
     if args.field_input:
-        run_worker_field(args.field_input,args.partial_workers,args.output)
+        run_worker_field(args.field_input,args.partial_workers,args.output,args.full_field_costs,args.full_field_origin_axis,args.full_field_destination_axis)
     print(json.dumps({k:v for k,v in result.items() if k not in {'sources','demographic_direction_counts','population_qualities'}}, ensure_ascii=False, indent=2))
 
 

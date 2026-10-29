@@ -9,11 +9,12 @@ concurrency:
 jobs:
   rebuild:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 180
     env:
       GH_TOKEN: ${{ github.token }}
       OPENBLAS_NUM_THREADS: '1'
       OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
       NODE_PATH: ${{ runner.temp }}/saratov-figure-runtime/node_modules
       PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/saratov-figure-browsers
     steps:

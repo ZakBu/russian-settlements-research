@@ -4,7 +4,7 @@ import unittest
 from scripts.sgrt_saratov.regional_independent_checks import (
     actual_field_checks, all_pairs_relaxation, connected_cost, counterexamples, direct_members, ellipsoid_area_upper,
     forward_union_fixture, heap_nearest_terminal, heap_shortest, kernel_scalar, nearest_compatible,
-    scalar_fields, sparse_known_cost,
+    scalar_fields, sparse_known_cost, frozen_magnit_response, provider_geometry_checks,
 )
 
 
@@ -151,6 +151,59 @@ class ActualOutputContracts(unittest.TestCase):
             report=actual_field_checks(folder)
             self.assertGreaterEqual(report['violations'],1)
             self.assertTrue(any('Unknown field appears numeric' in x for x in report['errors']))
+
+
+class FrozenMagnitResponseTests(unittest.TestCase):
+    def test_plain_original_and_lossless_gzip_authenticate_identical_bytes(self):
+        import gzip
+        import hashlib
+        import tempfile
+        from pathlib import Path
+        payload=b'{"data": [{"id": 1}], "totalCount": 1}\n'
+        expected=hashlib.sha256(payload).hexdigest()
+        with tempfile.TemporaryDirectory() as temp:
+            original=Path(temp)/'locator_raw.json';original.write_bytes(payload)
+            compressed=Path(temp)/'locator_raw.json.gz';compressed.write_bytes(gzip.compress(payload,mtime=0))
+            plain=frozen_magnit_response(original,expected)
+            self.assertEqual(plain,frozen_magnit_response(compressed,expected))
+            self.assertEqual(plain['records'],[{'id':1}])
+            self.assertEqual(plain['totalCount'],1)
+            # Reformatting is semantically harmless but changes the frozen source.
+            original.write_bytes(payload.replace(b' ',b''))
+            with self.assertRaises(ValueError):frozen_magnit_response(original,expected)
+
+    def test_legacy_excerpt_remains_explicit_and_cannot_override_digest(self):
+        import json
+        import tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as temp:
+            path=Path(temp)/'excerpt.json'
+            path.write_text(json.dumps({'records':[{'id':1}],'totalCount':1,'full_response_sha256':'known'}))
+            self.assertEqual(frozen_magnit_response(path,'known')['records'],[{'id':1}])
+            with self.assertRaises(ValueError):frozen_magnit_response(path,'other')
+
+
+class ProviderGeometryOracleTests(unittest.TestCase):
+    def test_only_documented_np_proxy_may_move_while_physical_source_stays_fixed(self):
+        import pandas as pd
+        original=pd.DataFrame({'catalog_id':['health:np:n','health:sites:s'],'input_kind':['np','sites'],
+            'site_lat':[51.,51.],'site_lon':[48.,48.],'road_node_index':[10.,10.],
+            'destination_connector_minutes':[1.,1.],'accepted_snap':[True,True]})
+        actual=original.copy();actual['correctsource_record_id']='np1';actual['routable_provider']=True
+        actual['pilot_coordinate_overlay_applied']=[True,False]
+        for c in ['site_lat','site_lon','road_node_index','destination_connector_minutes','accepted_snap','routable_provider']:actual['pilot_original_'+c]=actual[c]
+        actual.loc[0,['site_lat','site_lon','road_node_index','destination_connector_minutes']]=[52.,49.,20.,2.]
+        reference=pd.DataFrame({'source_record_id':['np1'],'pilot_geography_correction_applied':[True],
+            'lat':[52.],'lon':[49.],'pilot_original_lat':[51.],'pilot_original_lon':[48.],
+            'pilot_coordinate_source_id':['primary-source'],'pilot_coordinate_evidence_sha256':['frozen-evidence']})
+        endpoints=pd.DataFrame({'source_record_id':['np1'],'road_node_index':[20.],'snap_km':[.5],'road_endpoint_accepted':[True]})
+        self.assertEqual(provider_geometry_checks(actual,original,reference,endpoints),[])
+        # A physical site in the same NP must retain its own physical point.
+        actual.loc[1,'site_lat']=52.
+        self.assertTrue(any('physical provider moved' in x for x in provider_geometry_checks(actual,original,reference,endpoints)))
+        actual.loc[1,'site_lat']=51.;actual.loc[0,'pilot_original_site_lon']=49.
+        self.assertTrue(any('original source geometry changed' in x for x in provider_geometry_checks(actual,original,reference,endpoints)))
+        self.assertTrue(provider_geometry_checks(actual,original))
 
 
 if __name__ == "__main__":

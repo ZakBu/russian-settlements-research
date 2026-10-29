@@ -1,0 +1,91 @@
+{
+  "region_boundary_filter": "Frozen published Saratov region polygon, candidate centroid must be inside; not used to relocate reference",
+  "reference_records": 1821,
+  "reference_bounds_plus_margin": [
+    42.2552414,
+    49.5841234,
+    51.1483006,
+    53.068610199999995
+  ],
+  "osm_named_polygons_in_window": 1397,
+  "statuses": {
+    "within_5km_of_named_polygon": 920,
+    "name_ambiguous_or_absent": 899,
+    "large_conflict_over_5km": 2
+  },
+  "rule": "literal normalized names unique on both sides within region; OSM classes not census types; threshold5kmoutsidepolygon flags for review not correction; confirmed Gorny separately",
+  "district_available_in_osm_extract": false,
+  "no_reference_coordinates_modified": true,
+  "large_flags": [
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:116262",
+      "name": "Жданов",
+      "district": "Александрово-Гайский муниципальный район",
+      "settlement_type": "хутор",
+      "reference_lat": "50.2855235",
+      "reference_lon": "48.6286085",
+      "reference_name_occurrences": "1",
+      "osm_name_occurrences": "1",
+      "status": "large_conflict_over_5km",
+      "osm_id": "878099029",
+      "osm_fclass": "hamlet",
+      "osm_centroid_lon": "48.643210729201776",
+      "osm_centroid_lat": "49.983881625905795",
+      "distance_to_polygon_km": "33.26378771103368",
+      "distance_to_centroid_km": "33.58276977693749",
+      "reference_in_polygon": "False",
+      "osm_source_feature_index": "29395.0"
+    },
+    {
+      "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:117322",
+      "name": "Кировское",
+      "district": "Марксовский муниципальный район",
+      "settlement_type": "село",
+      "reference_lat": "50.806807",
+      "reference_lon": "46.699103",
+      "reference_name_occurrences": "1",
+      "osm_name_occurrences": "1",
+      "status": "large_conflict_over_5km",
+      "osm_id": "277941945",
+      "osm_fclass": "village",
+      "osm_centroid_lon": "47.22372566432639",
+      "osm_centroid_lat": "51.55991759566737",
+      "distance_to_polygon_km": "90.70996462796137",
+      "distance_to_centroid_km": "91.44691966533642",
+      "reference_in_polygon": "False",
+      "osm_source_feature_index": "16419.0"
+    }
+  ],
+  "additional_manual_case": {
+    "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:117219",
+    "name": "Горный",
+    "reason": "Multiple same-name settlements; independently confirmed town polygon and two official physical retail sites",
+    "evidence": "references/primary/saratov_geography_20261029/provenance.json"
+  },
+  "resolved_false_type_match": {
+    "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118379",
+    "name": "Красный Октябрь",
+    "reason": "OSM village polygon belongs to same-name pgt118016 with3656residents, not rural118379with16residents; OSM place class cannot establish census settlement type",
+    "coordinate_correction": false
+  },
+  "held_zhdanov": {
+    "source_record_id": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:116262",
+    "reason": "Competing place coordinates and unconfirmed physical locality identity; no automatic correction",
+    "coordinate_correction": false
+  },
+  "near_polygon_is_identity_accuracy_validation": false,
+  "all_records_checked_against_independent_place_geometry": false,
+  "frozen_place_parquet_sha256": "40a5af25ef4f51e0c482b690380fa8c1d033c87a766c8ccbc86d0485dd83335d",
+  "frozen_region_boundary_sha256": "e51bbf9dac2d3b33eb2f29745e40187e48c727ab2b2c91233557dbdf58f0a50e",
+  "osm_named_polygons_in_region": 1397,
+  "identical_cross_shard_extract_rows_deduplicated": 16,
+  "threshold_km_outside_named_polygon": 5.0,
+  "normalised_name_must_be_unique_across_all_census_types": true,
+  "automatic_coordinate_corrections": false,
+  "input_sha256": {
+    "reference": "26a2e1fec8e5f69a640040c8fd5eb3e279b07d4a703929578a604ed5ac4a1fd3",
+    "places": "40a5af25ef4f51e0c482b690380fa8c1d033c87a766c8ccbc86d0485dd83335d",
+    "boundary": "e51bbf9dac2d3b33eb2f29745e40187e48c727ab2b2c91233557dbdf58f0a50e"
+  },
+  "reproduction_script": "scripts/sgrt_saratov/coordinate_screening.py"
+}

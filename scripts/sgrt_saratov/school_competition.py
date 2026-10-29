@@ -84,6 +84,9 @@ def prepare_seeds(catalog,roster,presence,official):
     known=set(presence.loc[presence.family.eq('school'),'source_record_id'].dropna().astype(str))
     axis=roster.set_index('source_record_id');extra=[]
     for r in official.itertuples(index=False):
+        # Mixed official education registries also contain kindergartens.
+        # A settlement-level preschool witness cannot seed a school field.
+        if r.service_code!='school_general' or r.eligible_np_presence_proxy not in (True,1,'true','True'):continue
         sid=str(r.source_record_id)
         if sid in known or sid not in axis.index:continue
         known.add(sid);a=axis.loc[sid]

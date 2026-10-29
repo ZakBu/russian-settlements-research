@@ -1655,7 +1655,9 @@
       "source_id": "KUZMIN2023_FIELD_GRID",
       "used_in": [
         "web/content/materials/literature-multiscale-centrality.json",
-        "web/content/materials/multiscale-field-pilot.json"
+        "web/content/materials/multiscale-field-pilot.json",
+        "sgrt/saratov/REGIONAL_LITERATURE_20261028.md",
+        "sgrt/saratov/REGIONAL_METHOD_20261029.md"
       ],
       "purpose": "Реальные дороги и регулярная сетка вместо прямой интерполяции: положительный методический пример; условные 50/300 км и 422 крупных НП не оценены по российским поездкам и не описывают функции центров.",
       "implementation_status": "conceptual_method_and_literature_basis; no transferred empirical coefficients or established hierarchy",
@@ -1665,9 +1667,11 @@
     {
       "source_id": "KUZMIN2023_ROAD_NETWORK",
       "used_in": [
-        "sgrt/MODEL_DESIGN.md"
+        "sgrt/MODEL_DESIGN.md",
+        "sgrt/saratov/REGIONAL_LITERATURE_20261028.md",
+        "sgrt/saratov/REGIONAL_METHOD_20261029.md"
       ],
-      "purpose": "Новый кандидат для обзора методологии: гравитационный потенциал поля расселения с использованием расстояний по дорожной сети (Valhalla, ArcGIS) на российско-казахстанском приграничье. Не источник многомасштабного обнаружения максимумов или функционально-специфических функций затухания, предложенных в нашем обсуждении 27 октября; они остаются гипотезами для проверки.",
+      "purpose": "Дорожное расстояние вместо прямой, различение собственного и внешнего вклада, неполнота OSM и ограничения присоединения к дороге; ранняя стадия той же работы авторов, а не независимая репликация. Не источник наших коэффициентов затухания, полей услуг или уровней центров.",
       "implementation_status": "conceptual_method_and_literature_basis; no transferred empirical coefficients or established hierarchy",
       "implementation_paths": [],
       "reading_scope_field": "references/sources.json records[id=KUZMIN2023_ROAD_NETWORK].read_scope"
@@ -1676,7 +1680,9 @@
       "source_id": "LINDEBERG1990_DISCRETE_SCALE_SPACE",
       "used_in": [
         "sgrt/field_pilot/LITERATURE_20261028.md",
-        "web/content/materials/multiscale-field-pilot.json"
+        "web/content/materials/multiscale-field-pilot.json",
+        "sgrt/saratov/REGIONAL_LITERATURE_20261028.md",
+        "sgrt/saratov/REGIONAL_METHOD_20261029.md"
       ],
       "purpose": "sgrt/field_pilot/LITERATURE_20261028.md: не приписывать сглаживанию монотонное уменьшение числа пиков; различать неусиление значений экстремумов и число экстремумов. Не переносить одномерные или решёточные теоремы автоматически на дорожный граф.",
       "implementation_status": "methodological_comparison_not_empirical_calibration",
@@ -1687,7 +1693,9 @@
       "source_id": "SHUMAN2013_GRAPH_SIGNAL_PROCESSING",
       "used_in": [
         "sgrt/field_pilot/LITERATURE_20261028.md",
-        "web/content/materials/multiscale-field-pilot.json"
+        "web/content/materials/multiscale-field-pilot.json",
+        "sgrt/saratov/REGIONAL_LITERATURE_20261028.md",
+        "sgrt/saratov/REGIONAL_METHOD_20261029.md"
       ],
       "purpose": "sgrt/field_pilot/LITERATURE_20261028.md: различение матричной диффузии exp(−τL) и нашего суммарного потенциала по кратчайшим путям; параметр диффузии не равен дорожным минутам; выбор оператора и графа явно фиксируется.",
       "implementation_status": "methodological_comparison_not_empirical_calibration",
@@ -1819,6 +1827,75 @@
         "scripts/sgrt_saratov/primary_census2010.py",
         "scripts/sgrt_saratov/regional_context.py"
       ]
+    },
+    {
+      "source_id": "GORNY_SCHOOL_PHYSICAL_ADDRESS_WEB_20261029",
+      "used_in": [
+        "sgrt/saratov/documented_school_sites_20261029.csv",
+        "sgrt/saratov/REGIONAL_METHOD_20261029.md",
+        "sgrt/saratov/REGIONAL_RESULTS_20261029.md"
+      ],
+      "purpose": "Документированное физическое место школы; неизвестные классы, координаты здания и текущая работа сохранены отдельно.",
+      "implementation_status": "implemented_documented_np_presence_with_unknown_operation",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/functional_fields.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=GORNY_SCHOOL_PHYSICAL_ADDRESS_WEB_20261029].read_scope"
+    },
+    {
+      "source_id": "KIROVSKOYE_SCHOOL_PHYSICAL_ADDRESS_WEB_20261029",
+      "used_in": [
+        "sgrt/saratov/documented_school_sites_20261029.csv",
+        "sgrt/saratov/REGIONAL_METHOD_20261029.md",
+        "sgrt/saratov/REGIONAL_RESULTS_20261029.md"
+      ],
+      "purpose": "Документированное физическое место школы; неизвестные классы, координаты здания и текущая работа сохранены отдельно.",
+      "implementation_status": "implemented_documented_np_presence_with_unknown_operation",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/functional_fields.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=KIROVSKOYE_SCHOOL_PHYSICAL_ADDRESS_WEB_20261029].read_scope"
+    },
+    {
+      "source_id": "OSM_GORNY_POLYGON_21714114_20261026",
+      "used_in": [
+        "sgrt/saratov/documented_coordinate_overlay_20261029.csv",
+        "sgrt/saratov/REGIONAL_METHOD_20261029.md",
+        "sgrt/saratov/REGIONAL_RESULTS_20261029.md"
+      ],
+      "purpose": "Современная геометрия для отдельной поправки двух опорных точек; не границы переписи 2021 года и не новые ранги центров.",
+      "implementation_status": "implemented_separate_regional_coordinate_overlay_foundation_preserved",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/geography_overlay.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=OSM_GORNY_POLYGON_21714114_20261026].read_scope"
+    },
+    {
+      "source_id": "OSM_KIROVSKOYE_POLYGON_277941945_20261026",
+      "used_in": [
+        "sgrt/saratov/documented_coordinate_overlay_20261029.csv",
+        "sgrt/saratov/REGIONAL_METHOD_20261029.md",
+        "sgrt/saratov/REGIONAL_RESULTS_20261029.md"
+      ],
+      "purpose": "Современная геометрия для отдельной поправки двух опорных точек; не границы переписи 2021 года и не новые ранги центров.",
+      "implementation_status": "implemented_separate_regional_coordinate_overlay_foundation_preserved",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/geography_overlay.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=OSM_KIROVSKOYE_POLYGON_277941945_20261026].read_scope"
+    },
+    {
+      "source_id": "KIROVSKOYE_KINDERGARTEN_PHYSICAL_ADDRESS_WEB_20261029",
+      "used_in": [
+        "sgrt/saratov/documented_school_sites_20261029.csv",
+        "sgrt/saratov/REGIONAL_METHOD_20261029.md"
+      ],
+      "purpose": "Официальный контактный адрес дошкольного учреждения добавляет известное предложение на уровне НП Кировское; геокод здания, вместимость и фактические обращения неизвестны.",
+      "implementation_status": "implemented_explicit_documented_np_presence_proxy",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/functional_fields.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=KIROVSKOYE_KINDERGARTEN_PHYSICAL_ADDRESS_WEB_20261029].read_scope"
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"

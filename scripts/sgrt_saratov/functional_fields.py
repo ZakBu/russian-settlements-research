@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -16,6 +17,7 @@ import pandas as pd
 import pyarrow.parquet as pq
 
 REPO = Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(REPO))
 SERVICE_FAMILIES = {
     'school_general': 'school', 'preschool': 'preschool',
     'vocational_education': 'vocational_education', 'higher_education': 'higher_education',
@@ -109,7 +111,7 @@ def normalize_offers(frame, kind, group):
     return x
 
 
-def prepare_catalog(source_root, output, catalog_path=REPO/'data/identity_catalog_20261026.json'):
+def prepare_catalog(source_root, output, catalog_path=REPO/'data/identity_catalog_20261026.json', *, geography_inputs=None):
     """Build a pinned physical-provider catalogue and distinct NP presence table."""
     source_root, output = Path(source_root), Path(output)
     output.mkdir(parents=True, exist_ok=True)
@@ -169,6 +171,12 @@ def prepare_catalog(source_root, output, catalog_path=REPO/'data/identity_catalo
     inv = pd.concat(inventories, ignore_index=True)
     providers = pd.concat(candidates, ignore_index=True).sort_values(['family', 'catalog_id']).reset_index(drop=True)
     providers['source_record_id'] = providers.correctsource_record_id
+    geography_proof=None
+    if geography_inputs is not None:
+        from scripts.sgrt_saratov.geography_overlay import apply_provider_proxies
+        geo=Path(geography_inputs)
+        providers,geography_proof=apply_provider_proxies(providers,
+            pd.read_parquet(geo/'analysis_reference.parquet'),pd.read_parquet(geo/'endpoint_network_quality.parquet'))
     all_presence = pd.concat(presence, ignore_index=True)
     rows = []
     for (family, sid), g in all_presence.groupby(['family', 'correctsource_record_id'], sort=True):
@@ -190,6 +198,7 @@ def prepare_catalog(source_root, output, catalog_path=REPO/'data/identity_catalo
         'families': list(FAMILIES), 'known_np_function_pairs': len(np_presence),
         'provider_rows_by_family': providers.groupby('family').size().to_dict(),
         'source_files': proofs, 'source_catalog': 'data/identity_catalog_20261026.json',
+        'pilot_geography_proxy_correction':geography_proof,
         'current_np_identity_comes_from_source_not_geometry_cache': True,
         'capacity_or_facility_count_used_as_attraction_weight': False,
         'observed_trips_established': False}
@@ -470,7 +479,43 @@ def configuration_groups(links):
     return pd.DataFrame(rows)
 
 
-def functional_potentials(roster, destinations, costs, presence, links, *, horizon=480., half_times=(10., 20., 40., 80.)):
+def load_full_field_costs(path, roster, destinations, origin_axis=None, destination_axis=None):
+    """Map a temporary unbounded road-time array by verified identities, not size."""
+    path = Path(path)
+    origin_axis = Path(origin_axis) if origin_axis is not None else path.parent/'origin_axis.parquet'
+    destination_axis = Path(destination_axis) if destination_axis is not None else path.parent/'destination_axis.parquet'
+    matrix = np.load(path,mmap_mode='r',allow_pickle=False)
+    origins = pd.read_parquet(origin_axis)
+    target = pd.read_parquet(destination_axis)
+    if matrix.ndim != 2 or not np.issubdtype(matrix.dtype,np.floating):
+        raise ValueError('Full field costs must be a two-dimensional floating array')
+    if not {'source_record_id','full_row_index'} <= set(origins):
+        raise ValueError('Full field origin axis lacks explicit source identities')
+    if origins.source_record_id.isna().any() or origins.source_record_id.duplicated().any():
+        raise ValueError('Full field origin identities must be non-null and unique')
+    if sorted(origins.full_row_index.tolist()) != list(range(matrix.shape[0])):
+        raise ValueError('Full field origin indices do not cover the matrix row axis')
+    if not {'source_record_id','destination_index'} <= set(target):
+        raise ValueError('Full field destination axis lacks explicit source identities')
+    expected = destinations.sort_values('destination_index')
+    target = target.sort_values('destination_index')
+    if matrix.shape[1] != len(expected) or target.destination_index.tolist() != list(range(len(expected))):
+        raise ValueError('Full field destination indices do not match matrix columns')
+    if target.source_record_id.astype(str).tolist() != expected.source_record_id.astype(str).tolist():
+        raise ValueError('Full field destination identity order differs from functional destinations')
+    lookup = dict(zip(origins.source_record_id.astype(str),origins.full_row_index.astype(int)))
+    if not set(roster.source_record_id.astype(str)) <= set(lookup):
+        raise ValueError('Full field array is missing a regional origin identity')
+    proof = {'matrix_filename':path.name,'matrix_bytes':path.stat().st_size,
+        'matrix_shape':list(matrix.shape),'matrix_dtype':str(matrix.dtype),
+        'origin_axis_sha256':digest(origin_axis),'destination_axis_sha256':digest(destination_axis),
+        'regional_origins':len(roster),'matrix_is_temporary_not_payload':True,
+        'unreachable_infinity_is_conditional_on_frozen_road_network':True}
+    return matrix,lookup,proof
+
+
+def functional_potentials(roster, destinations, costs, presence, links, *, horizon=480., half_times=(10., 20., 40., 80.),
+                          full_costs=None, full_row_lookup=None):
     """Inventory-presence fields, not a Huff/SFCA capacity or flow model."""
     from scipy.sparse import coo_matrix
     dest_index = dict(zip(destinations.source_record_id.astype(str), destinations.destination_index.astype(int)))
@@ -489,21 +534,35 @@ def functional_potentials(roster, destinations, costs, presence, links, *, horiz
         located = np.asarray(incidence.sum(axis=0)).ravel()
         for r in roster.itertuples(index=False):
             ri = int(r.row_index); sid = str(r.source_record_id)
-            begin, end = costs.indptr[ri:ri+2]
-            cols, minutes = costs.indices[begin:end], costs.data[begin:end]
-            if len(minutes) and (np.any(~np.isfinite(minutes)) or np.any(minutes < 0) or np.any(minutes > horizon+1e-8)):
-                raise ValueError('Functional costs violate the explicit computational horizon')
+            known_origin = bool(getattr(r, 'accepted_source_endpoint', False))
+            if full_costs is not None:
+                firow = int(full_row_lookup[sid]) if full_row_lookup is not None else ri
+                row = full_costs[firow]
+                if len(row) != len(destinations):raise ValueError('Full field row differs from destination axis')
+                if known_origin:
+                    if np.isnan(row).any() or np.isneginf(row).any() or (row < 0).any():
+                        raise ValueError('Accepted origin has incomplete or invalid full field costs: '+sid)
+                    if sid not in dest_index or not np.isclose(row[dest_index[sid]],0.,atol=1e-10,rtol=0):
+                        raise ValueError('Accepted own-origin full road time must be explicitly zero: '+sid)
+                elif not np.isnan(row).all():
+                    raise ValueError('Unavailable origin must remain an all-NaN full field row: '+sid)
+                cols = np.flatnonzero(np.isfinite(row))
+                minutes = np.asarray(row[cols],dtype=float)
+            else:
+                begin, end = costs.indptr[ri:ri+2]
+                cols, minutes = costs.indices[begin:end], costs.data[begin:end]
+                if len(minutes) and (np.any(~np.isfinite(minutes)) or np.any(minutes < 0) or np.any(minutes > horizon+1e-8)):
+                    raise ValueError('Functional costs violate the explicit computational horizon')
             part = incidence[cols]
             reached = np.asarray(part.sum(axis=0)).ravel()
-            known_origin = bool(getattr(r, 'accepted_source_endpoint', False))
             local = np.array([bool(link_index[(scenario, sid, f)].known_local_supply) for f in FAMILIES])
             for shape in ['exponential', 'gaussian']:
                 for half in half_times:
                     if half <= 0 or not np.isfinite(half): raise ValueError('Invalid half-time scenario')
                     weight = np.exp2(-minutes/half if shape == 'exponential' else -(minutes/half)**2)
                     lower = np.asarray(part.T.dot(weight)).ravel()
-                    tail_factor = float(np.exp2(-horizon/half if shape == 'exponential' else -(horizon/half)**2))
-                    tail = np.maximum(0, located-reached)*tail_factor
+                    tail_factor = 0. if full_costs is not None else float(np.exp2(-horizon/half if shape == 'exponential' else -(horizon/half)**2))
+                    tail = np.zeros(len(FAMILIES)) if full_costs is not None else np.maximum(0, located-reached)*tail_factor
                     unlocated = total-located
                     if not known_origin:
                         lower = local.astype(float)
@@ -523,6 +582,12 @@ def functional_potentials(roster, destinations, costs, presence, links, *, horiz
                             'external_known_np_offer_potential_upper': max(0., float(upper[fi])-int(local[fi])),
                             'known_np_function_offer_count': int(total[fi]),
                             'routed_np_offer_count_within_horizon': int(reached[fi]),
+                            'routed_np_offer_count':int(reached[fi]),
+                            'field_costs_unbounded':full_costs is not None,
+                            'field_integration_horizon_minutes':None if full_costs is not None else float(horizon),
+                            'computational_tail_upper':float(tail[fi]),
+                            'known_np_offers_unreachable_in_road_model':int(max(0,located[fi]-reached[fi])) if full_costs is not None and known_origin else None,
+                            'field_cost_status':'origin_endpoint_unavailable' if not known_origin else 'all_finite_directed_road_times' if full_costs is not None else 'finite_horizon_with_known_catalogue_tail_bound',
                             'known_np_offers_without_destination_endpoint': int(unlocated[fi]),
                             'nearest_known_offer_access_score': access,
                             'nearest_known_offer_minutes': nearest,
@@ -700,8 +765,11 @@ def loss_counterfactual(roster, links, candidates):
     return detail,pd.DataFrame(summaries)
 
 
-def basic_centre_profiles(roster, members, presence, reference=None):
+def basic_centre_profiles(roster, members, presence, reference=None, *, demographic_scope='all_current_linked_records'):
     """One NP-centre and one origin per centre across the three basic families."""
+    if demographic_scope=='current_inhabited_only':demographic_scope='inhabited_only'
+    if demographic_scope not in {'all_current_linked_records','inhabited_only'}:
+        raise ValueError('Unknown demographic membership scope')
     population = {str(r.source_record_id):r._asdict() for r in roster.itertuples(index=False)}
     context = population.copy()
     if reference is not None:
@@ -710,11 +778,18 @@ def basic_centre_profiles(roster, members, presence, reference=None):
     rural_types = {'село','посёлок','деревня','хутор','станция','железнодорожный объект',
         'железнодорожный разъезд','железнодорожная станция'}
     m = members[members.family.isin(BASIC_FAMILIES) & members.centre_id.notna()
-        & members.origin_id.ne(members.centre_id) & members.population_2021.gt(0)].copy()
+        & members.origin_id.ne(members.centre_id)].copy()
+    # A living external population is required to establish a service centre.
+    # Once established, retain its entire linked spatial cohort for demographic
+    # comparison: filtering on final-year survivors would erase depopulation.
+    eligible=set(zip(m.loc[m.population_2021.gt(0),'evidence_scenario'],
+                     m.loc[m.population_2021.gt(0),'centre_id']))
+    m=m.loc[[key in eligible for key in zip(m.evidence_scenario,m.centre_id)]].copy()
+    if demographic_scope=='inhabited_only':m=m[m.population_2021.gt(0)].copy()
     union = []
     for (scenario,centre,origin),g in m.groupby(['evidence_scenario','centre_id','origin_id'],sort=True):
         r = population[str(origin)];pop = r['population_2021']
-        credited = r.get('budget_population_credit') == 1 and r.get('credit_2021') == 1 and pd.notna(pop) and pop > 0
+        credited = r.get('budget_population_credit') == 1 and r.get('credit_2021') == 1 and pd.notna(pop) and pop >= 0
         rural = r.get('settlement_type_2021') in rural_types
         urban = r.get('settlement_type_2021') in {'город','пгт','посёлок городского типа','рабочий посёлок'}
         union.append({'evidence_scenario':scenario,'centre_id':centre,'origin_id':origin,
@@ -729,18 +804,28 @@ def basic_centre_profiles(roster, members, presence, reference=None):
             'rural_population_status':'rural' if rural else 'urban' if urban else 'settlement_kind_unknown',
             'credited_rural_population_2021':float(pop) if credited and rural else np.nan,
             'source_population_missing':pd.isna(pop),'observed_external_user_flow':False,
+            'published_positive_population_2021':bool(pd.notna(pop) and pop>0),
+            'published_zero_population_2021':bool(pd.notna(pop) and pop==0),
+            'zero_final_population_kept_for_historical_demography':bool(pd.notna(pop) and pop==0),
+            'zero_population_location_is_current_service_demand':False,
+            'demographic_membership_scope':demographic_scope,
+            'demographic_membership_role':'zero_reference_no_current_user_flow' if pd.notna(pop) and pop==0 else 'inhabited_origin_modelled_service_direction' if pd.notna(pop) and pop>0 else 'population_unknown_reference_location',
             'one_origin_can_belong_to_multiple_centres':True})
     if not union:
         return (pd.DataFrame(columns=['evidence_scenario','centre_id','centre_in_regional_roster',
                     'known_own_basic_function_count','external_positive_origin_count',
                     'external_credited_rural_population_2021']),
                 pd.DataFrame(columns=['evidence_scenario','centre_id','origin_id',
-                    'contributing_families_json','population_credit_eligible']))
+                    'contributing_families_json','population_credit_eligible','published_zero_population_2021',
+                    'demographic_membership_scope']))
     unique = pd.DataFrame(union)
     presence = presence[presence.family.isin(BASIC_FAMILIES) & presence.source_record_id.isin(unique.centre_id)]
     profiles = []
     for (scenario,centre),g in unique.groupby(['evidence_scenario','centre_id'],sort=True):
         if g.origin_id.duplicated().any():raise ValueError('Duplicate external origin in basic centre union')
+        spatial_cohort=g
+        g=g[g.population_2021_published.gt(0)]
+        if g.empty:raise ValueError('A basic centre needs at least one inhabited external origin')
         p = presence if scenario == 'all_dated_known' else presence[~presence.historical_only]
         local_families = set(p.loc[p.source_record_id.eq(centre)&p.family.isin(BASIC_FAMILIES),'family'])
         info = context.get(str(centre),{})
@@ -751,6 +836,16 @@ def basic_centre_profiles(roster, members, presence, reference=None):
             'known_own_basic_function_count':len(local_families),
             'known_own_basic_functions_json':json.dumps(sorted(local_families)),
             'external_positive_origin_count':len(g),
+            'external_demographic_origin_count':len(spatial_cohort),
+            'external_modelled_record_count':len(spatial_cohort),
+            'published_zero_record_count':int(spatial_cohort.population_2021_published.eq(0).sum()),
+            'demographic_membership_scope':demographic_scope,
+            'external_zero_population_origin_count':int(spatial_cohort.population_2021_published.eq(0).sum()),
+            'external_unknown_population_origin_count':int(spatial_cohort.population_2021_published.isna().sum()),
+            'demographic_cohort_includes_zero_final_population_locations':demographic_scope=='all_current_linked_records',
+            'centre_eligibility_requires_positive_external_population':True,
+            'zero_population_locations_do_not_establish_current_service_demand':True,
+            'external_rural_population_summary_scope':'published_positive_2021_origins',
             'external_credited_positive_origin_count':int(g.population_credit_eligible.sum()),
             'external_uncredited_positive_origin_count':int((~g.population_credit_eligible).sum()),
             'external_published_population_unknown_origin_count':int(g.source_population_missing.sum()),
@@ -769,7 +864,7 @@ def basic_centre_profiles(roster, members, presence, reference=None):
             'missing_own_functions_mean_unknown_not_absent':True,
             'centre_order_assigned_from_population':False}
         for family in BASIC_FAMILIES:
-            f = m[m.evidence_scenario.eq(scenario)&m.centre_id.eq(centre)&m.family.eq(family)]
+            f = m[m.evidence_scenario.eq(scenario)&m.centre_id.eq(centre)&m.family.eq(family)&m.population_2021.gt(0)]
             profile[family+'_external_positive_origin_count'] = f.origin_id.nunique()
             profile[family+'_median_external_minutes'] = float(f.cost_minutes.median()) if len(f) else np.nan
             profile[family+'_maximum_external_minutes'] = float(f.cost_minutes.max()) if len(f) else np.nan
@@ -781,16 +876,96 @@ def basic_centre_profiles(roster, members, presence, reference=None):
     return pd.DataFrame(profiles),unique
 
 
+def refresh_basic_cohorts(fields_root,provider_root,output):
+    """Update only centre profiles/cohorts from already calculated memberships."""
+    fields_root,provider_root,output=map(Path,[fields_root,provider_root,output])
+    roster=pd.read_parquet(fields_root/'regional_roster.parquet')
+    reference=pd.read_parquet(fields_root/'destinations.parquet')
+    refreshed=[]
+    for prefix,presence_path in [('baseline_',provider_root/'np_function_presence.parquet'),
+                                 ('',output/'np_function_presence_enriched.parquet')]:
+        source=output/(prefix+'functional_system_members.parquet')
+        if not source.is_file():continue
+        members=pd.read_parquet(source)
+        labels=members.inventory_scenario.unique()
+        if len(labels)!=1:raise ValueError('One inventory label required for basic cohort refresh')
+        profiles,cohort=basic_centre_profiles(roster,members,pd.read_parquet(presence_path),reference)
+        positive_profiles,positive_cohort=basic_centre_profiles(roster,members,pd.read_parquet(presence_path),reference,
+            demographic_scope='inhabited_only')
+        for name,table in [('basic_centre_profiles',profiles),('basic_centre_members',cohort),
+            ('basic_centre_profiles_current_inhabited_only',positive_profiles),
+            ('basic_centre_members_current_inhabited_only',positive_cohort)]:
+            table['inventory_scenario']=str(labels[0])
+            path=output/(prefix+name+'.parquet');temporary=path.with_name('.'+path.name+'.refresh.tmp')
+            table.to_parquet(temporary,index=False,compression='zstd');temporary.replace(path)
+        refreshed.append({'inventory_scenario':str(labels[0]),'centre_scenario_records':len(profiles),
+            'demographic_membership_records':len(cohort),
+            'zero_final_population_membership_records':int(cohort.published_zero_population_2021.sum())})
+    if not refreshed:raise ValueError('No existing functional memberships found')
+    return {'refreshed':refreshed,'routing_potentials_links_and_other_outputs_modified':False}
+
+
+def functional_field_scope(proof=None):
+    return {'field_costs_unbounded':proof is not None,
+        'field_integration_horizon_minutes':None if proof is not None else 480.,
+        'computational_truncation_applied':proof is None,
+        'cost_scope':'all_finite_directed_road_times' if proof is not None else 'finite_480_minute_integration_with_catalogue_tail_bound',
+        'missing_destination_endpoint_offers_retained_as_bounds':True,
+        'model_unreachable_does_not_mean_physically_isolated':True,
+        'full_cost_source':proof}
+
+
+def refresh_functional_potentials(fields_root, provider_root, output, full_field_costs,
+                                 full_origin_axis=None, full_destination_axis=None):
+    """Replace only potential tables after a complete, unbounded field-cost pass."""
+    fields_root,provider_root,output=Path(fields_root),Path(provider_root),Path(output)
+    roster=pd.read_parquet(fields_root/'regional_roster.parquet')
+    destinations=pd.read_parquet(fields_root/'destinations.parquet')
+    matrix,lookup,proof=load_full_field_costs(full_field_costs,roster,destinations,
+        full_origin_axis,full_destination_axis)
+    summary_path=output/'functional_summary.json'
+    summary=json.loads(summary_path.read_text())
+    records=[]
+    for prefix,presence_path in [('baseline_',provider_root/'np_function_presence.parquet'),
+                                 ('',output/'np_function_presence_enriched.parquet')]:
+        link_path=output/(prefix+'functional_links.parquet')
+        if not link_path.is_file():continue
+        links=pd.read_parquet(link_path)
+        inventories=links.inventory_scenario.unique()
+        if len(inventories)!=1:raise ValueError('Potential refresh needs one inventory label per table')
+        presence=pd.read_parquet(presence_path)
+        potentials=functional_potentials(roster,destinations,None,presence,links,
+            full_costs=matrix,full_row_lookup=lookup)
+        potentials['inventory_scenario']=str(inventories[0])
+        path=output/(prefix+'functional_potentials.parquet')
+        temporary=path.with_name('.'+path.name+'.refresh.tmp')
+        potentials.to_parquet(temporary,index=False,compression='zstd');temporary.replace(path)
+        for item in summary['inventory_scenarios']:
+            if item['inventory_scenario']==str(inventories[0]):item['potential_scenarios']=len(potentials)
+        records.append({'table':path.name,'inventory_scenario':str(inventories[0]),'rows':len(potentials)})
+        print(json.dumps({'event':'functional_unbounded_potential_refreshed',**records[-1]}),flush=True)
+    if not records:raise ValueError('No existing functional outcome tables to refresh')
+    summary['functional_field_integration']=functional_field_scope(proof)
+    summary_path.write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
+    return {'potential_tables_refreshed':records,'functional_field_integration':functional_field_scope(proof),
+        'nearest_outcomes_memberships_losses_and_demography_recomputed':False}
+
+
 def build_functional_results(fields_root, provider_root, output, *, documented_presence=None,
                              documented_assignments=None, current_candidates=None,
                              supplementary_presence=None, supplementary_provider_catalog=None,
-                             supplementary_candidates=None, single_inventory=None):
+                             supplementary_candidates=None, single_inventory=None,
+                             full_field_costs=None,full_origin_axis=None,full_destination_axis=None):
     from scipy.sparse import load_npz
     fields_root, provider_root, output = Path(fields_root), Path(provider_root), Path(output)
     output.mkdir(parents=True, exist_ok=True)
     roster = pd.read_parquet(fields_root/'regional_roster.parquet')
     destinations = pd.read_parquet(fields_root/'destinations.parquet')
     costs = load_npz(fields_root/'destination_costs.npz')
+    full_matrix=full_lookup=full_proof=None
+    if full_field_costs is not None:
+        full_matrix,full_lookup,full_proof=load_full_field_costs(full_field_costs,roster,destinations,
+            full_origin_axis,full_destination_axis)
     base_providers = pd.read_parquet(provider_root/'provider_catalog.parquet')
     base_presence = pd.read_parquet(provider_root/'np_function_presence.parquet')
     base_candidates = pd.read_parquet(fields_root/'physical_provider_candidates.parquet')
@@ -876,10 +1051,12 @@ def build_functional_results(fields_root, provider_root, output, *, documented_p
         links = attach_anchor_quality(links,providers)
         configurations = configuration_groups(links)
         print(json.dumps({'event':'functional_links_computed','inventory_scenario':inventory_scenario,'rows':len(links)}),flush=True)
-        potentials = functional_potentials(roster, destinations, costs, presence, links)
+        potentials = functional_potentials(roster, destinations, costs, presence, links,
+            full_costs=full_matrix,full_row_lookup=full_lookup)
         print(json.dumps({'event':'functional_potentials_computed','inventory_scenario':inventory_scenario,'rows':len(potentials)}),flush=True)
         units = summarize_units(members, roster)
         basic_profiles,basic_members = basic_centre_profiles(roster,members,presence,destinations)
+        inhabited_profiles,inhabited_members = basic_centre_profiles(roster,members,presence,destinations,demographic_scope='inhabited_only')
         roles = settlement_roles(roster, links, members, configurations)
         distance_summary = family_distance_summary(links, units)
         losses = [];loss_summaries = []
@@ -891,6 +1068,8 @@ def build_functional_results(fields_root, provider_root, output, *, documented_p
             'basic_configuration_groups': configurations, 'functional_potentials': potentials,
             'functional_systems': units, 'np_functional_roles': roles,
             'basic_centre_profiles':basic_profiles,'basic_centre_members':basic_members,
+            'basic_centre_profiles_current_inhabited_only':inhabited_profiles,
+            'basic_centre_members_current_inhabited_only':inhabited_members,
             'loss_counterfactual':pd.concat(losses,ignore_index=True),
             'loss_counterfactual_centres':pd.concat(loss_summaries,ignore_index=True)}
         prefix = 'baseline_' if len(variants) > 1 and vi == 0 else ''
@@ -924,7 +1103,8 @@ def build_functional_results(fields_root, provider_root, output, *, documented_p
         'grade_coverage_of_generic_school_family_established': False,
         'additional_physical_provider_rows':len(additional_physical),
         'additional_physical_catalog_sha256':digest(supplementary_provider_catalog) if supplementary_provider_catalog is not None else None,
-        'new_coarse_np_offer_proxy_destinations':len(proxies)}
+        'new_coarse_np_offer_proxy_destinations':len(proxies),
+        'functional_field_integration':functional_field_scope(full_proof)}
     (output/'functional_summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2)+'\n')
     return summary
 
@@ -932,6 +1112,12 @@ def build_functional_results(fields_root, provider_root, output, *, documented_p
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--prepare-catalog', action='store_true')
+    p.add_argument('--geography-inputs',type=Path)
+    p.add_argument('--refresh-potentials',action='store_true')
+    p.add_argument('--refresh-basic-cohorts',action='store_true')
+    p.add_argument('--full-field-costs','--full-costs',dest='full_field_costs',type=Path)
+    p.add_argument('--full-origin-axis',type=Path)
+    p.add_argument('--full-destination-axis',type=Path)
     p.add_argument('--source-root', type=Path)
     p.add_argument('--fields-root', type=Path)
     p.add_argument('--provider-root', type=Path)
@@ -944,15 +1130,26 @@ def main():
     p.add_argument('--current-candidates', type=Path)
     p.add_argument('--output', type=Path, required=True)
     a = p.parse_args()
-    if a.prepare_catalog:
+    if a.refresh_basic_cohorts:
+        if not a.fields_root or not a.provider_root:
+            p.error('--fields-root and --provider-root required for basic cohort refresh')
+        print(json.dumps(refresh_basic_cohorts(a.fields_root,a.provider_root,a.output),ensure_ascii=False,indent=2))
+    elif a.refresh_potentials:
+        if not a.fields_root or not a.provider_root or not a.full_field_costs:
+            p.error('--fields-root, --provider-root and --full-field-costs required for refresh')
+        print(json.dumps(refresh_functional_potentials(a.fields_root,a.provider_root,a.output,
+            a.full_field_costs,a.full_origin_axis,a.full_destination_axis),ensure_ascii=False,indent=2))
+    elif a.prepare_catalog:
         if not a.source_root: p.error('--source-root is required')
-        print(json.dumps(prepare_catalog(a.source_root, a.output), ensure_ascii=False, indent=2))
+        print(json.dumps(prepare_catalog(a.source_root, a.output,geography_inputs=a.geography_inputs), ensure_ascii=False, indent=2))
     else:
         if not a.fields_root or not a.provider_root: p.error('--fields-root and --provider-root required')
         print(json.dumps(build_functional_results(a.fields_root, a.provider_root, a.output,
             documented_presence=a.documented_presence, documented_assignments=a.documented_assignments, current_candidates=a.current_candidates,
             supplementary_presence=a.supplementary_presence,supplementary_provider_catalog=a.supplementary_provider_catalog,
-            supplementary_candidates=a.supplementary_candidates,single_inventory=a.single_inventory), ensure_ascii=False, indent=2))
+            supplementary_candidates=a.supplementary_candidates,single_inventory=a.single_inventory,
+            full_field_costs=a.full_field_costs,full_origin_axis=a.full_origin_axis,
+            full_destination_axis=a.full_destination_axis), ensure_ascii=False, indent=2))
 
 
 if __name__ == '__main__': main()

@@ -6,7 +6,7 @@ from scipy.sparse import csr_matrix
 
 from scripts.sgrt_saratov.regional_context import (
     PROTECTED, PRIMARY2010_QUALITY, annualized_change_percent, apply_primary2010_evidence, aggregate_systems, aggregate_configurations, aggregate_unit_economic_context, aggregate_basic_centres, agriculture_demographic_context, audit_worker_potential, attach_worker_source_identity, build_np_context,
-    observation_class, territory_agriculture, territory_workforce, worker_potential,
+    observation_class, territory_agriculture, territory_workforce, worker_potential, full_worker_cost_view, compare_basic_demographic_scopes, basic_demographic_scope_counts,
 )
 
 
@@ -46,6 +46,19 @@ def worker_fixture():
             'observed_partial_organisation_workforce']})
     costs=csr_matrix((np.asarray([0.,10.,10.,0.]),([0,0,1,1],[0,1,0,1])),shape=(3,2))
     return costs,origins,destinations,workforce
+
+
+def full_worker_fixture():
+    _,origins,destinations,workforce=worker_fixture()
+    destinations=pd.concat([destinations,pd.DataFrame({'destination_index':[2],
+        'source_record_id':['far'],'ordinary_spatial_2021':[True]})],ignore_index=True)
+    workforce=pd.concat([workforce,pd.DataFrame({'source_record_id':['far'],
+        'ordinary_spatial_2021':[True],'partial_organisation_workforce_2025':[64.],
+        'partial_workforce_status':['observed_partial_organisation_workforce']})],ignore_index=True)
+    # q is an unknown origin; far is car-graph unreachable from p, but is a
+    # finite640min opportunity from o. Neither infinity nor NaN means zero cost.
+    full=np.asarray([[0.,10.,640.],[10.,0.,np.inf],[np.nan,np.nan,np.nan]])
+    return full,origins,destinations,workforce
 
 
 class PopulationEvidence(unittest.TestCase):
@@ -138,7 +151,7 @@ class PopulationEvidence(unittest.TestCase):
         context=build_np_context(*fixture())
         profiles=pd.DataFrame([{'centre_id':'c','evidence_scenario':'all_dated_known',
             'inventory_scenario':'test','centre_in_regional_roster':True,
-            'known_own_basic_function_count':3,'external_positive_origin_count':1}])
+            'known_own_basic_function_count':3,'external_positive_origin_count':1,'external_demographic_origin_count':1}])
         members=pd.DataFrame([{'centre_id':'c','origin_id':'r','evidence_scenario':'all_dated_known',
             'any_ambiguous_primary':True,'contributing_families_json':'["school","medical_basic"]'}])
         comp,types,quality,_=aggregate_basic_centres(profiles,members,context,context)
@@ -150,6 +163,43 @@ class PopulationEvidence(unittest.TestCase):
         self.assertEqual(quality.iloc[0].external_rural_unique_origin_records,1)
         self.assertTrue(types.iloc[0].population_may_not_be_summed_across_centres)
         with self.assertRaises(ValueError):aggregate_basic_centres(profiles,pd.concat([members,members]),context,context)
+
+    def test_zero_population_site_keeps_earlier_residents_in_basic_surrounding(self):
+        context=build_np_context(*fixture())
+        context.loc[context.source_record_id.eq('r'),'population_2002']=4.
+        extinct=context.loc[context.source_record_id.eq('r')].copy()
+        extinct['source_record_id']='z';extinct['root']='chain:z'
+        for year,value in [(2002,20.),(2010,9.),(2021,0.)]:
+            extinct['population_'+str(year)]=value;extinct['source_record_id_'+str(year)]=str(year)+':z'
+        context=pd.concat([context,extinct],ignore_index=True)
+        profiles=pd.DataFrame([{'centre_id':'c','evidence_scenario':'all_dated_known',
+            'inventory_scenario':'test','centre_in_regional_roster':True,
+            'known_own_basic_function_count':3,'external_positive_origin_count':1,'external_demographic_origin_count':2}])
+        members=pd.DataFrame([{'centre_id':'c','origin_id':sid,'evidence_scenario':'all_dated_known','any_ambiguous_primary':False} for sid in ['r','z']])
+        comp,types,quality,_=aggregate_basic_centres(profiles,members,context,context)
+        row=comp[(comp.component=='rural_external')&(comp.start_year==2002)&(comp.end_year==2021)&(comp.evidence_mode=='strict')].iloc[0]
+        self.assertEqual((row.records,row.paired_known_population_start,row.paired_known_population_end),(2,24.,5.))
+        self.assertEqual(types.iloc[0].rural_external_direction_2002_2021_strict,'decline')
+        self.assertEqual(quality.iloc[0].external_zero_population_origin_records,1)
+        self.assertTrue(types.iloc[0].zero_population_geographic_records_are_not_current_consumers)
+        # Dropping the extinct site reverses the sign: survivors alone grew4→5.
+        positive_profiles=profiles.copy();positive_profiles['external_demographic_origin_count']=1
+        survivor_components,survivors,_,_=aggregate_basic_centres(positive_profiles,members.iloc[:1],context,context)
+        self.assertEqual(survivors.iloc[0].rural_external_direction_2002_2021_strict,'growth')
+        comparison,summary=compare_basic_demographic_scopes(comp,types,survivor_components,survivors)
+        selected=comparison[comparison.component.eq('rural_external')&comparison.start_year.eq(2002)&comparison.end_year.eq(2021)&comparison.evidence_mode.eq('strict')].iloc[0]
+        self.assertEqual(selected.additional_paired_known_population_start,20.)
+        self.assertEqual(selected.additional_paired_known_population_end,0.)
+        self.assertTrue(selected.direction_changed_in_same_complete_comparison)
+        self.assertEqual(summary['regional_rural_2002_2021_direction_changes_same_complete'],1)
+        counts=basic_demographic_scope_counts(members,context,types)
+        self.assertEqual(counts['unique_current_zero_population_records'],1)
+        self.assertEqual(counts['zero2021_records_with_numeric_positive_2002'],1)
+        self.assertEqual(counts['zero2021_accepted_known_population_2002'],20.)
+        # An uncredited zero is not silently accepted as a published count.
+        context.loc[context.source_record_id.eq('z'),'credit_2021']=False
+        _,incomplete,_,_=aggregate_basic_centres(profiles,members,context,context)
+        self.assertEqual(incomplete.iloc[0].rural_external_direction_2002_2021_strict,'unknown')
 
     def test_annualization_compares_eight_and_eleven_years_fairly(self):
         a,status=annualized_change_percent(100.,100.*1.02**8,8)
@@ -267,6 +317,52 @@ class PartialWorkerField(unittest.TestCase):
         self.assertTrue(fields[fields.row_index==0].known_partial_worker_potential_external.eq(0.).all())
         costs.eliminate_zeros()
         with self.assertRaises(ValueError):worker_potential(costs,origins,destinations,workforce)
+
+    def test_unbounded_worker_field_retains_finite_opportunities_beyond480(self):
+        full,origins,destinations,workforce=full_worker_fixture()
+        fields,axis,unmatched,facts=worker_potential(None,origins,destinations,workforce,full_costs=full)
+        row=fields[(fields.row_index==0)&fields.kernel.eq('exponential')&fields.half_time_minutes.eq(80.)].iloc[0]
+        self.assertEqual(row.known_partial_worker_potential_with_self,10.25)
+        self.assertEqual(row.known_partial_worker_potential_external,.25)
+        self.assertEqual(row.known_partial_worker_potential_beyond_previous_480_minute_cutoff,.25)
+        self.assertEqual(row.known_worker_sources_beyond_previous_480_minute_cutoff,1)
+        self.assertEqual(row.known_worker_subset_computational_tail_upper,0.)
+        self.assertEqual(row.known_worker_subset_route_tail_upper,0.)
+        self.assertEqual(row.known_worker_subset_unmapped_source_upper,60.)
+        self.assertEqual(row.known_worker_subset_potential_upper,70.25)
+        self.assertTrue(pd.isna(row.route_cost_horizon_minutes))
+        self.assertTrue(facts['worker_field_uses_unbounded_accepted_car_graph'])
+        audit=audit_worker_potential(fields,None,origins,axis,unmatched,full_costs=full)
+        self.assertEqual(audit['scenario_rows_checked'],16)
+        self.assertEqual(audit['known_worker_source_pairs_beyond_previous_480_minutes_in_sample'],1)
+
+    def test_full_infinite_car_cost_and_unknown_origin_are_different(self):
+        full,origins,destinations,workforce=full_worker_fixture()
+        fields,_,_,_=worker_potential(None,origins,destinations,workforce,full_costs=full)
+        row=fields[(fields.row_index==1)&fields.kernel.eq('exponential')&fields.half_time_minutes.eq(10.)].iloc[0]
+        self.assertEqual(row.known_partial_worker_potential_with_self,5.)
+        self.assertEqual(row.known_worker_source_np_unreachable_in_accepted_car_graph,1)
+        self.assertTrue(row.unreachable_in_car_graph_is_not_physical_isolation)
+        unknown=fields[fields.row_index.eq(2)]
+        self.assertTrue(unknown.known_partial_worker_potential_with_self.isna().all())
+        self.assertTrue(unknown.own_partial_worker_observation.eq(20.).all())
+        full[2]=np.inf
+        with self.assertRaises(ValueError):worker_potential(None,origins,destinations,workforce,full_costs=full)
+
+    def test_full_cache_incomplete_accepted_row_is_rejected(self):
+        full,origins,destinations,workforce=full_worker_fixture();full[0,2]=np.nan
+        with self.assertRaises(ValueError):worker_potential(None,origins,destinations,workforce,full_costs=full)
+        full[0,2]=-np.inf
+        with self.assertRaises(ValueError):worker_potential(None,origins,destinations,workforce,full_costs=full)
+
+    def test_full_worker_axes_are_checked_and_prefix_is_a_view(self):
+        _,origins,destinations,_=worker_fixture()
+        origin_axis=pd.DataFrame({'full_row_index':[0,1,2,3],'source_record_id':['o','p','q','halo']})
+        destination_axis=destinations[['destination_index','source_record_id']].copy()
+        cache=np.empty((4,2));view=full_worker_cost_view(cache,origin_axis,destination_axis,origins,destinations)
+        self.assertEqual(view.shape,(3,2));self.assertTrue(np.shares_memory(cache,view))
+        destination_axis['source_record_id']=['p','o']
+        with self.assertRaises(ValueError):full_worker_cost_view(cache,origin_axis,destination_axis,origins,destinations)
 
     def test_suppressed_numeric_contradiction_rejected(self):
         costs,origins,destinations,workforce=worker_fixture()

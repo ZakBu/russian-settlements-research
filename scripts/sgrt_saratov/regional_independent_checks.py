@@ -246,8 +246,50 @@ def route_oracles(regional_roster, graph_dir, previous_isochrones=None):
             "scope": "Arithmetic/direction controls, not measured real travel times"}
 
 
-def catalog_checks(functions_root, source_root, catalog_path):
+def provider_geometry_checks(actual,original,reference=None,endpoints=None):
+    """Check every cached provider point; only evidenced NP proxies may move."""
+    import numpy as np
+    import pandas as pd
+    errors=[]
+    actual=actual.set_index('catalog_id');original=original.set_index('catalog_id').reindex(actual.index)
+    columns=['site_lat','site_lon','road_node_index','destination_connector_minutes','accepted_snap','routable_provider']
+    original=original.copy()
+    original['accepted_snap']=original.accepted_snap.map(lambda v:False if pd.isna(v) else v in (True,1,'true','True'))
+    original['routable_provider']=(original.accepted_snap & original.road_node_index.ge(0)&np.isfinite(original.road_node_index)&original.destination_connector_minutes.ge(0)&np.isfinite(original.destination_connector_minutes))
+    declared=actual.get('pilot_coordinate_overlay_applied',pd.Series(False,index=actual.index)).eq(True)
+    corrected=reference.loc[reference.pilot_geography_correction_applied.eq(True)].set_index('source_record_id') if reference is not None else pd.DataFrame()
+    expected_mask=actual.input_kind.eq('np')&actual.correctsource_record_id.isin(corrected.index)
+    if not declared.equals(expected_mask):errors.append('Provider overlay flags differ from the exact corrected NP-proxy set')
+    def equal(a,b):
+        return ((a.isna()&b.isna())|a.eq(b)).fillna(False)
+    for c in columns:
+        saved='pilot_original_'+c
+        baseline=actual[saved] if saved in actual else actual[c]
+        if not equal(baseline,original[c]).all():errors.append('A provider original source geometry changed: '+c)
+        if not equal(actual.loc[~declared,c],original.loc[~declared,c]).all():errors.append('An uncorrected/physical provider moved: '+c)
+    if declared.any() and (reference is None or endpoints is None):
+        errors.append('Provider overlay has no explicit derived reference/endpoints');return errors
+    if not declared.any():return errors
+    ep=endpoints.set_index('source_record_id')
+    for row in actual.loc[declared].itertuples():
+        sid=row.correctsource_record_id
+        if row.input_kind!='np' or sid not in corrected.index or sid not in ep.index:
+            errors.append('Provider overlay is not a documented NP-point proxy: '+row.Index);continue
+        r=corrected.loc[sid];e=ep.loc[sid]
+        if (not bool(row.pilot_original_site_lat==r.pilot_original_lat) or not bool(row.pilot_original_site_lon==r.pilot_original_lon)):
+            errors.append('Provider original NP point differs from preserved foundation point: '+row.Index)
+        accepted=bool(e.road_endpoint_accepted) and np.isfinite(e.road_node_index) and 0<=e.snap_km<=10
+        values={'site_lat':r.lat,'site_lon':r.lon,'road_node_index':e.road_node_index,
+                'destination_connector_minutes':4.*float(e.snap_km),'accepted_snap':accepted,'routable_provider':accepted}
+        if any(getattr(row,c)!=wanted for c,wanted in values.items()):errors.append('Provider corrected point/road differs from the explicit derived NP: '+row.Index)
+        if not r.pilot_coordinate_source_id or not r.pilot_coordinate_evidence_sha256:
+            errors.append('Corrected NP proxy lacks coordinate evidence: '+row.Index)
+    return errors
+
+
+def catalog_checks(functions_root, source_root, catalog_path, geography_inputs=None):
     """Reconcile every provider/presence identity against pinned raw sources."""
+    import numpy as np
     import pandas as pd
     import pyarrow.parquet as pq
     functions_root, source_root = Path(functions_root), Path(source_root)
@@ -262,7 +304,7 @@ def catalog_checks(functions_root, source_root, catalog_path):
         errors.append("Duplicate NP/function presence")
     if providers.capacity_used_as_attraction_weight.eq(True).any():
         errors.append("Facility counts/capacity used as attraction without a capacity model")
-    expected_providers, expected_presence = [], set()
+    expected_providers, expected_presence, seed_frames = [], set(), []
 
     def flag(frame, column, default=False):
         if column not in frame:
@@ -273,6 +315,15 @@ def catalog_checks(functions_root, source_root, catalog_path):
                                    ("health", "physical_sites.parquet", ["sites", "np"]),
                                    ("commerce", "sites.parquet", ["sites"]),
                                    ("food_host", "sites.parquet", ["sites"])]:
+        seedrelative=f"sgrt/identity20261026/routes/geometry_cache/{group}/provider_road_seeds.parquet"
+        seedpath=source_root/'geometry_cache'/group/'provider_road_seeds.parquet'
+        seedspec=specifications[seedrelative]
+        if seedpath.stat().st_size!=seedspec['bytes'] or hashlib.sha256(seedpath.read_bytes()).hexdigest()!=seedspec['blob']:
+            raise ValueError('A pinned raw geometry seed differs: '+seedrelative)
+        seeds=pd.read_parquet(seedpath,columns=['provider_id','input_kind','road_node_index','destination_connector_minutes','accepted_snap'])
+        seeds['catalog_id']=group+':'+seeds.input_kind.astype(str)+':'+seeds.provider_id.astype(str)
+        if seeds.catalog_id.duplicated().any():raise ValueError('Duplicate original geometry seed identity')
+        seed_frames.append(seeds)
         for kind in kinds:
             name = "np_supply.parquet" if kind == "np" else filename
             path = source_root / "sources" / group / name
@@ -286,7 +337,8 @@ def catalog_checks(functions_root, source_root, catalog_path):
             wanted = [c for c in ["provider_id", "source_record_id", "service_code", "supply_status",
                 "eligible", "eligible_site_supply", "route_eligible", "local_supply_eligible",
                 "default_external_seed_eligible", "named_child_only_contingent",
-                "actual_operational_status_verified", "actual_operational_status_checked", "current_operation_verified"] if c in names]
+                "actual_operational_status_verified", "actual_operational_status_checked", "current_operation_verified",
+                "site_lat","site_lon","lat","lon"] if c in names]
             raw = pd.read_parquet(path, columns=wanted)
             family = raw.service_code.map(SERVICE_FAMILIES)
             admitted = raw.supply_status.isin(["observed", "proxy"]) & family.notna()
@@ -305,7 +357,10 @@ def catalog_checks(functions_root, source_root, catalog_path):
             use["family"] = family.loc[external]
             use["catalog_id"] = group + ":" + kind + ":" + use.provider_id.astype(str)
             use["operation_verified_expected"] = flag(use, "actual_operational_status_verified") | flag(use, "current_operation_verified")
-            expected_providers.append(use[["catalog_id", "source_record_id", "family", "operation_verified_expected"]])
+            use['input_kind']=kind
+            for coord,alias in [('site_lat','lat'),('site_lon','lon')]:
+                use[coord]=pd.to_numeric(use[coord] if coord in use else use[alias] if alias in use else pd.Series(np.nan,index=use.index),errors='coerce')
+            expected_providers.append(use[["catalog_id", "source_record_id", "family", "operation_verified_expected",'input_kind','site_lat','site_lon']])
             source_facts.append({"source": relative, "raw_records": len(raw), "known_general_offers": int(admitted.sum()),
                                  "external_provider_records": int(external.sum()), "sha256": fingerprint,
                                  "checked_but_not_explicitly_verified": int((flag(raw, "actual_operational_status_checked")
@@ -330,12 +385,19 @@ def catalog_checks(functions_root, source_root, catalog_path):
     if actual_presence != expected_presence:
         errors.append({"presence_set_difference": {"missing": len(expected_presence - actual_presence),
                                                    "extra": len(actual_presence - expected_presence)}})
+    geometry_expected=expected.loc[common].reset_index().merge(pd.concat(seed_frames,ignore_index=True).drop(columns=['provider_id','input_kind']),on='catalog_id',how='left',validate='one_to_one')
+    geometry_reference=pd.read_parquet(Path(geography_inputs)/'analysis_reference.parquet') if geography_inputs else None
+    geometry_endpoints=pd.read_parquet(Path(geography_inputs)/'endpoint_network_quality.parquet') if geography_inputs else None
+    geometry_errors=provider_geometry_checks(actual.loc[common].reset_index(),geometry_expected,geometry_reference,geometry_endpoints)
+    errors.extend(geometry_errors)
     unresolved = actual.correctsource_record_id.isna()
     if not actual.loc[unresolved, "provider_destination_key"].str.startswith("site:").all():
         errors.append("A physical provider with unresolved NP identity was assigned an NP destination")
     return {"schema": "sgrt.saratov.provider_reconciliation.v1", "source_files": source_facts,
             "prepared_provider_records_compared": len(providers), "distinct_known_np_function_pairs": len(presence),
             "unresolved_np_identity_physical_providers": int(unresolved.sum()),
+            "original_geometry_provider_rows_compared":len(common),
+            "explicit_np_proxy_coordinate_overlays":int(providers.get("pilot_coordinate_overlay_applied",pd.Series(False,index=providers.index)).eq(True).sum()),
             "provider_counts_by_family": providers.groupby("family").size().to_dict(),
             "errors": errors, "violations": len(errors),
             "scope": "All-row reconciliation of admission, identities and provenance against published raw sources; actual service operation/trips are not independently established"}
@@ -424,7 +486,60 @@ def close_numeric(actual, expected, *, absolute=1e-7, relative=1e-11):
     return math.isfinite(actual) and math.isfinite(expected) and abs(actual-expected) <= absolute+relative*max(abs(actual),abs(expected))
 
 
-def actual_field_checks(fields_root, route_controls=None, organisation_root=None, sample_origins=20):
+def independent_full_cost_rows(fields_root, cache_root=None, controls_root=None):
+    """Read full directed costs by explicit axes; infinity is known unreachable.
+
+    A selected-origin lossless control extract is sufficient after the temporary
+    national matrix has been discarded. Neither path accepts censored CSR costs
+    as substitutes for unbounded potential arithmetic.
+    """
+    import numpy as np
+    import pandas as pd
+    root=Path(fields_root)
+    dest=pd.read_parquet(root/'destinations.parquet').sort_values('destination_index')
+    if cache_root is not None:
+        cache=Path(cache_root)
+        complete=json.loads((cache/'complete.json').read_text())
+        if not complete.get('complete'):raise ValueError('Unbounded cost cache incomplete')
+        contract=json.loads((cache/'contract.json').read_text())
+        if contract['graph_sha256']!=GRAPH_SHA256:raise ValueError('Unbounded source graph contract mismatch')
+        for key,name in [('reference_sha256','national_reference_with_endpoints.parquet'),('regional_roster_sha256','regional_roster.parquet'),('halo_roster_sha256','halo_roster.parquet'),('destinations_sha256','destinations.parquet')]:
+            if hashlib.sha256((root/name).read_bytes()).hexdigest()!=contract[key]:raise ValueError('Unbounded cached source contract differs: '+name)
+        axis=pd.read_parquet(cache/'origin_axis.parquet').sort_values('full_row_index')
+        daxis=pd.read_parquet(cache/'destination_axis.parquet').sort_values('destination_index')
+        if list(daxis.source_record_id)!=list(dest.source_record_id):raise ValueError('Unbounded destination axis mismatch')
+        costs=np.load(cache/'full_destination_costs.npy',mmap_mode='r')
+        if costs.shape!=(len(axis),len(dest)):raise ValueError('Unbounded full cost shape mismatch')
+        if list(axis.full_row_index)!=list(range(len(axis))) or not axis.source_record_id.is_unique:raise ValueError('Unbounded origin axis mismatch')
+        rows={str(r.source_record_id):costs[int(r.full_row_index)] for r in axis.itertuples(index=False)}
+        for r in axis.itertuples(index=False):
+            row=rows[str(r.source_record_id)]
+            if r.accepted_source_endpoint:
+                if np.isnan(row).any() or (row<0).any():raise ValueError('Accepted full-cost row has unknown or negative costs')
+            elif not np.isnan(row).all():raise ValueError('Unknown endpoint full-cost row is not all NaN')
+        return rows
+    if controls_root is None:raise ValueError('Unbounded potential audit requires full cache or explicit selected-origin controls')
+    control=Path(controls_root)
+    metadata_path=control/'selected_unbounded_cost_control.json'
+    if not metadata_path.exists():raise ValueError('Selected unbounded controls lack explicit source/destination contract')
+    metadata=json.loads(metadata_path.read_text())
+    axis_hash=hashlib.sha256(json.dumps(dest.source_record_id.astype(str).tolist(),ensure_ascii=False,separators=(',',':')).encode('utf-8')).hexdigest()
+    file_hash=hashlib.sha256((root/'destinations.parquet').read_bytes()).hexdigest()
+    if (metadata['destination_count']!=len(dest) or metadata['destination_source_record_ids_sha256']!=axis_hash
+        or metadata['destinations_parquet_sha256']!=file_hash):raise ValueError('Selected full-cost destination identity/provenance mismatch')
+    axis=pd.read_parquet(control/'selected_unbounded_origin_axis.parquet').sort_values('full_row_index')
+    wanted={str(r.full_row_index):str(r.source_record_id) for r in axis.itertuples(index=False)}
+    if metadata['selected_origin_id_by_full_row_index']!=wanted:raise ValueError('Selected full-cost origin identity metadata mismatch')
+    with np.load(control/'selected_unbounded_full_costs.npz') as archive:
+        indices=archive['full_row_indices'];costs=archive['costs']
+    if list(axis.full_row_index)!=list(indices) or costs.shape!=(len(axis),len(dest)) or not axis.source_record_id.is_unique:
+        raise ValueError('Selected unbounded control axes mismatch')
+    if np.isnan(costs).any() or (costs<0).any():raise ValueError('Selected accepted origins contain unknown or negative costs')
+    return dict(zip(axis.source_record_id.astype(str),costs))
+
+
+def actual_field_checks(fields_root, route_controls=None, organisation_root=None, sample_origins=20,
+                        full_cost_cache=None, unbounded_controls_root=None):
     """Audit completed output using raw CSR rows and scalar fsum kernels.
 
     All origin rows, self costs, missing-origin contracts, scenario axes and
@@ -439,6 +554,9 @@ def actual_field_checks(fields_root, route_controls=None, organisation_root=None
     dest=pd.read_parquet(root/'destinations.parquet').sort_values('destination_index')
     fields=pd.read_parquet(root/'fields.parquet')
     costs=load_npz(root/'destination_costs.npz')
+    summary=json.loads((root/'summary.json').read_text()) if (root/'summary.json').exists() else {}
+    unbounded=bool(summary.get('whole_population_field_unbounded'))
+    full_rows=independent_full_cost_rows(root,full_cost_cache,unbounded_controls_root) if unbounded else None
     regional=np.load(root/'regional_costs.npy',mmap_mode='r')
     neighbours=pd.read_parquet(root/'national_neighbors.parquet')
     errors=[]; facts={}; max_delta=0.; numeric_checks=0
@@ -470,6 +588,9 @@ def actual_field_checks(fields_root, route_controls=None, organisation_root=None
     ordinary=dest.ordinary_spatial_2021.eq(True).to_numpy()
     dest_ids=dest.source_record_id.astype(str).to_numpy()
     mass=np.where(dest.positive_source_mass.to_numpy(bool),dest.source_mass_2021.to_numpy(float),0.)
+    if unbounded:
+        ledger=pd.read_parquet(root/'population_mass_sources.parquet').set_index('source_record_id')
+        mass=ledger.field_mass_2021.reindex(dest.source_record_id).fillna(0.).to_numpy(float)
     by_origin={sid:g for sid,g in neighbours.groupby('origin_id',sort=False)}
     checked_knn=checked_region_pairs=unknown=0
     for r in roster.itertuples(index=False):
@@ -513,19 +634,25 @@ def actual_field_checks(fields_root, route_controls=None, organisation_root=None
             actual=sparse_known_cost(costs.indices[a:b],costs.data[a:b],j)
             problem(actual is None or not close_numeric(float(actual),float(control['total_minutes']),absolute=1e-7,relative=1e-11),'Original full graph heap route mismatch: '+control['origin_name']+' -> '+control['destination_name'])
             samples.add(i);route_count+=1
+    if unbounded:
+        problem(not bool(full_rows),'No unbounded scalar control origins available')
+        samples={origin_index[sid] for sid in full_rows if sid in origin_index and bool(roster.iloc[origin_index[sid]].accepted_source_endpoint)}
+        if full_cost_cache is not None:samples=set(sorted(samples)[::max(1,len(samples)//sample_origins)])
     for i in sorted(samples):
         r=roster.iloc[i];sid=str(r.source_record_id)
         a,b=costs.indptr[i:i+2];cols=costs.indices[a:b];minutes=costs.data[a:b]
+        if unbounded:
+            minutes=full_rows[sid];cols=np.arange(len(dest))
         selected=mass[cols]>0
         p=mass[cols[selected]];t=minutes[selected]
-        own=float(r.source_mass_2021) if bool(r.positive_source_mass) else 0.
+        own=float(ledger.loc[sid].field_mass_2021) if unbounded and bool(ledger.loc[sid].positive_field_mass) else (0. if unbounded else float(r.source_mass_2021) if bool(r.positive_source_mass) else 0.)
         for row in fields[fields.source_record_id.eq(sid)].itertuples(index=False):
             expected=math.fsum(float(m)*kernel_scalar(float(cost),float(row.half_time),row.kernel) for m,cost in zip(p,t))-(0. if row.include_self else own)
             max_delta=max(max_delta,abs(float(row.value)-expected));numeric_checks+=1
             problem(not close_numeric(float(row.value),expected),f'Scalar field fsum differs: {sid}/{row.kernel}/{row.half_time}/{row.include_self}')
             problem(not close_numeric(float(row.accepted_mass_field_upper),float(row.value)+float(row.tail_upper)+float(row.unmapped_mass_upper)),f'Known-source bound arithmetic differs: {sid}')
             problem(float(row.tail_upper)<0 or float(row.unmapped_mass_upper)<0 or float(row.unmapped_mass_upper)>float(row.unmapped_mass_upper_without_distance_assumption)+1e-7,f'Invalid uncertainty bounds: {sid}')
-    facts.update(regional_origins=len(roster),published_positive_population_records=int(roster.population_2021.gt(0).sum()) if 'population_2021' in roster else None,published_zero_population_records=int(roster.population_2021.eq(0).sum()) if 'population_2021' in roster else None,published_unknown_population_records=int(roster.population_2021.isna().sum()) if 'population_2021' in roster else None,missing_endpoint_origins=unknown,stored_directed_costs=int(costs.nnz),regional_matrix_entries_compared=checked_region_pairs,
+    facts.update(potential_costs_unbounded=unbounded,nearest_candidate_computation_horizon_minutes=480.,regional_origins=len(roster),published_positive_population_records=int(roster.population_2021.gt(0).sum()) if 'population_2021' in roster else None,published_zero_population_records=int(roster.population_2021.eq(0).sum()) if 'population_2021' in roster else None,published_unknown_population_records=int(roster.population_2021.isna().sum()) if 'population_2021' in roster else None,missing_endpoint_origins=unknown,stored_directed_costs=int(costs.nnz),regional_matrix_entries_compared=checked_region_pairs,
                  national_neighbour_records_compared=checked_knn,independent_original_graph_route_controls=route_count,
                  scalar_fsum_origins=len(samples),scalar_fsum_scenario_checks=numeric_checks,maximum_scalar_absolute_difference=max_delta)
     if organisation_root:
@@ -579,7 +706,7 @@ def actual_field_checks(fields_root, route_controls=None, organisation_root=None
 
 
 
-def actual_function_checks(fields_root, functions_root, sample_origins=20, baseline_provider_root=None):
+def actual_function_checks(fields_root, functions_root, sample_origins=20, baseline_provider_root=None, full_cost_cache=None, unbounded_controls_root=None):
     """Independent completed nearest-known-provider and field arithmetic audit."""
     import numpy as np
     import pandas as pd
@@ -588,6 +715,9 @@ def actual_function_checks(fields_root, functions_root, sample_origins=20, basel
     roster=pd.read_parquet(fr/'regional_roster.parquet').sort_values('row_index')
     dest=pd.read_parquet(fr/'destinations.parquet').sort_values('destination_index')
     costs=load_npz(fr/'destination_costs.npz')
+    summary=json.loads((fr/'summary.json').read_text()) if (fr/'summary.json').exists() else {}
+    unbounded=bool(summary.get('whole_population_field_unbounded'))
+    full_rows=independent_full_cost_rows(fr,full_cost_cache,unbounded_controls_root) if unbounded else None
     regional=np.load(fr/'regional_costs.npy',mmap_mode='r')
     provider_root=Path(baseline_provider_root) if baseline_provider_root is not None else fu
     baseline=pd.read_parquet(provider_root/'np_function_presence.parquet')
@@ -600,6 +730,9 @@ def actual_function_checks(fields_root, functions_root, sample_origins=20, basel
     dest_axis=dict(zip(dest.source_record_id.astype(str),dest.destination_index.astype(int)))
     valid=roster[roster.accepted_source_endpoint].row_index.to_numpy(int)
     samples=valid[np.linspace(0,len(valid)-1,min(sample_origins,len(valid)),dtype=int)]
+    if unbounded:
+        samples=np.array([i for i in samples if str(roster.iloc[i].source_record_id) in full_rows]) if full_cost_cache is not None else np.array([origin_axis[sid] for sid in full_rows if sid in origin_axis],dtype=int)
+        if len(samples)==0:raise ValueError('No unbounded functional potential scalar controls')
     variants=[('baseline_',baseline)] if (fu/'baseline_functional_links.parquet').exists() else []
     enriched_path=fu/'np_function_presence_enriched.parquet'
     variants.append(('',pd.read_parquet(enriched_path) if enriched_path.exists() else baseline))
@@ -608,6 +741,9 @@ def actual_function_checks(fields_root, functions_root, sample_origins=20, basel
         members=pd.read_parquet(fu/(prefix+'functional_system_members.parquet'))
         units=pd.read_parquet(fu/(prefix+'functional_systems.parquet'))
         potentials=pd.read_parquet(fu/(prefix+'functional_potentials.parquet'))
+        if unbounded:
+            unknown_potentials=potentials[potentials.origin_id.isin(roster.loc[~roster.accepted_source_endpoint,'source_record_id'])]
+            if unknown_potentials.known_np_offer_potential.notna().any():errors.append(prefix+'Unknown endpoint functional potential converted to numeric value')
         candidates=physical[['origin_id','family','destination_group_key','cost_minutes']].copy()
         if len(additional):candidates=pd.concat([candidates,additional[['origin_id','family','destination_group_key','cost_minutes']]],ignore_index=True)
         if not prefix and len(proxies):
@@ -675,7 +811,7 @@ def actual_function_checks(fields_root, functions_root, sample_origins=20, basel
             rows_by_origin={sid:g for sid,g in selected.groupby('origin_id')}
             for sid,g in rows_by_origin.items():
                 i=origin_axis[str(sid)];a,b=costs.indptr[i:i+2]
-                by_family={family:[float(t) for j,t in zip(costs.indices[a:b],costs.data[a:b]) if int(j) in ids]
+                by_family={family:[float(full_rows[str(sid)][j]) for j in ids] if unbounded else [float(t) for j,t in zip(costs.indices[a:b],costs.data[a:b]) if int(j) in ids]
                            for family,ids in offer_sets.items()}
                 for row in g.itertuples(index=False):
                     expected=math.fsum(kernel_scalar(t,float(row.half_time_minutes),row.kernel) for t in by_family.get(row.family,[]))
@@ -684,12 +820,12 @@ def actual_function_checks(fields_root, functions_root, sample_origins=20, basel
                     if bool(row.observed_flow) or bool(row.source_inventory_complete):errors.append(prefix+'Potential mislabelled as observed or complete')
         facts.append({'variant_prefix':prefix,'outcomes':len(links),'direct_memberships':len(members),
             'functional_systems':len(units),'scalar_np_offer_field_checks':numeric,'maximum_scalar_absolute_difference':max_delta})
-    return {'schema':'sgrt.saratov.functional_independent.v1','variants':facts,'errors':errors,'violations':len(errors),
+    return {'schema':'sgrt.saratov.functional_independent.v1','potential_costs_unbounded':unbounded,'variants':facts,'errors':errors,'violations':len(errors),
         'scope':'All origin/function axes, nearest retained physical/proxy alternatives, direct memberships and sampled scalar functional fields. Original raw inventories checked separately; no observed-flow or profile-compatibility assertion.'}
 
 
 
-def actual_worker_checks(fields_root, context_root, samples=20):
+def actual_worker_checks(fields_root, context_root, samples=20, full_cost_cache=None, unbounded_controls_root=None):
     """Check the partial-worker field independently of its producer module."""
     import numpy as np
     import pandas as pd
@@ -701,6 +837,9 @@ def actual_worker_checks(fields_root, context_root, samples=20):
     missing=pd.read_parquet(cr/'known_worker_sources_without_route_axis.parquet')
     fields=pd.read_parquet(cr/'known_partial_worker_fields.parquet')
     costs=load_npz(fr/'destination_costs.npz');errors=[];checked=0;maximum=0.
+    summary=json.loads((fr/'summary.json').read_text()) if (fr/'summary.json').exists() else {}
+    unbounded=bool(summary.get('whole_population_field_unbounded'))
+    full_rows=independent_full_cost_rows(fr,full_cost_cache,unbounded_controls_root) if unbounded else None
     if list(source.source_record_id)!=list(dest.source_record_id):errors.append('Worker source destination axis differs')
     if fields.duplicated(['source_record_id','kernel','half_time_minutes']).any() or len(fields)!=len(roster)*8:errors.append('Worker field scenario axis differs')
     if fields.all_workplaces_or_all_workers_potential_upper.notna().any() or fields.complete_workplace_capacity_known.any():errors.append('Incomplete worker subset presented as total jobs')
@@ -714,24 +853,35 @@ def actual_worker_checks(fields_root, context_root, samples=20):
     own=dict(zip(source.source_record_id,source.partial_organisation_workforce_2025))
     valid=roster[roster.accepted_source_endpoint].row_index.to_numpy(int)
     sample=set(map(int,valid[np.linspace(0,len(valid)-1,min(samples,len(valid)),dtype=int)]))
+    if unbounded:
+        sample={i for i in sample if str(roster.iloc[i].source_record_id) in full_rows} if full_cost_cache is not None else {int(roster.iloc[i].row_index) for i in valid if str(roster.iloc[i].source_record_id) in full_rows}
+        if len(sample)==0:raise ValueError('No unbounded worker scalar controls')
     absent=set(roster.loc[~roster.accepted_source_endpoint,'source_record_id'])
     unknown=fields[fields.source_record_id.isin(absent)]
     if unknown.known_partial_worker_potential_with_self.notna().any() or not unknown.field_status.eq('unknown_origin_endpoint').all():errors.append('Unknown endpoint worker fields were filled')
     for i in sorted(sample):
         sid=roster.iloc[i].source_record_id;a,b=costs.indptr[i:i+2]
-        pairs=[(float(t),float(values[j])) for j,t in zip(costs.indices[a:b],costs.data[a:b]) if numeric[j]]
+        pairs=[(float(full_rows[str(sid)][j]),float(values[j])) for j in np.flatnonzero(numeric)] if unbounded else [(float(t),float(values[j])) for j,t in zip(costs.indices[a:b],costs.data[a:b]) if numeric[j]]
         own_value=own.get(sid,np.nan);own_value=float(own_value) if pd.notna(own_value) else 0.
         routed_sum=math.fsum(v for _,v in pairs)
         for row in fields[fields.row_index.eq(i)].itertuples(index=False):
             expected=math.fsum(v*kernel_scalar(t,float(row.half_time_minutes),row.kernel) for t,v in pairs)
-            tail=(total-routed_sum)*kernel_scalar(480.,float(row.half_time_minutes),row.kernel)+unlocated
+            tail=0. if unbounded else (total-routed_sum)*kernel_scalar(480.,float(row.half_time_minutes),row.kernel)
+            if unbounded:
+                components=[(row.known_worker_subset_computational_tail_upper,0.),
+                    (row.known_worker_subset_unmapped_source_upper,unlocated),
+                    (row.known_worker_subset_total_omission_upper,unlocated),
+                    (row.known_worker_subset_potential_upper,expected+unlocated)]
+                for actual,wanted in components:
+                    maximum=max(maximum,abs(float(actual)-wanted))
+                    if not close_numeric(float(actual),wanted):errors.append('Unbounded worker omitted-source component mismatch: '+str(sid))
             for actual,wanted in [(row.known_partial_worker_potential_with_self,expected),
                 (row.known_partial_worker_potential_external,expected-own_value),
                 (row.known_worker_subset_route_tail_upper,tail)]:
                 maximum=max(maximum,abs(float(actual)-wanted))
                 if not close_numeric(float(actual),wanted):errors.append('Worker scalar fsum or subset bound mismatch: '+str(sid))
             checked+=1
-    return {'schema':'sgrt.saratov.worker_independent.v1','scenario_rows':len(fields),'sampled_origins':len(sample),
+    return {'schema':'sgrt.saratov.worker_independent.v1','potential_costs_unbounded':unbounded,'scenario_rows':len(fields),'sampled_origins':len(sample),
         'scalar_scenarios_compared':checked,'unknown_endpoint_scenarios':len(unknown),'maximum_absolute_difference':maximum,
         'known_source_np_without_route_endpoint':len(missing),'known_partial_workers_without_route_endpoint':unlocated,
         'errors':errors,'violations':len(errors),'scope':'Known partial Rosstat organisation-worker subset only; not total jobs or observed commuting'}
@@ -772,6 +922,7 @@ def actual_unit_context_checks(fields_root,functions_root,context_root,primary20
             if not np_context[col].astype('string').fillna('__NA__').equals(expected[col].astype('string').fillna('__NA__')):errors.append(prefix+'NP foundation identity/credit changed '+col)
         variants.append((prefix,folder,'functional_system'))
         if (folder/'basic_centre_demographic_components.parquet').exists():variants.append((prefix,folder,'NP_basic_centre'))
+        if (folder/'basic_centre_inhabited_only_demographic_components.parquet').exists():variants.append((prefix,folder,'NP_basic_centre_inhabited_only'))
     for prefix,folder,unit_kind in variants:
         if unit_kind=='functional_system':
             members=pd.read_parquet(fu/(prefix+'functional_system_members.parquet'))
@@ -779,12 +930,14 @@ def actual_unit_context_checks(fields_root,functions_root,context_root,primary20
             types=pd.read_parquet(folder/'functional_system_dynamic_types.parquet')
             components=pd.read_parquet(folder/'functional_system_demographic_components.parquet')
         else:
-            members=pd.read_parquet(fu/(prefix+'basic_centre_members.parquet'))
-            units=pd.read_parquet(fu/(prefix+'basic_centre_profiles.parquet'))
+            suffix='_current_inhabited_only' if unit_kind=='NP_basic_centre_inhabited_only' else ''
+            stem='basic_centre_inhabited_only' if unit_kind=='NP_basic_centre_inhabited_only' else 'basic_centre'
+            members=pd.read_parquet(fu/(prefix+'basic_centre_members'+suffix+'.parquet'))
+            units=pd.read_parquet(fu/(prefix+'basic_centre_profiles'+suffix+'.parquet'))
             members['system_id']='basic-centre:'+members.centre_id.astype(str)
             units['system_id']='basic-centre:'+units.centre_id.astype(str)
-            types=pd.read_parquet(folder/'basic_centre_dynamic_types.parquet')
-            components=pd.read_parquet(folder/'basic_centre_demographic_components.parquet')
+            types=pd.read_parquet(folder/(stem+'_dynamic_types.parquet'))
+            components=pd.read_parquet(folder/(stem+'_demographic_components.parquet'))
         if 'evidence_scenario' in members:members=members[members.evidence_scenario.eq('all_dated_known')]
         if 'evidence_scenario' in units:units=units[units.evidence_scenario.eq('all_dated_known')]
         if not types.system_id.is_unique or set(types.system_id)!=set(units.system_id):errors.append(prefix+'Unit context identity inventory differs')
@@ -835,7 +988,7 @@ def actual_unit_context_checks(fields_root,functions_root,context_root,primary20
                     wanted=a+'__'+b if a!='unknown' and b!='unknown' else 'unknown'
                     if data[f'{scope}_trajectory_2002_2010_2021_{mode}']!=wanted:errors.append(prefix+'Three-point trajectory differs '+str(identity))
         detail={'variant_prefix':prefix,'unit_kind':unit_kind,'functional_units':len(types),'demographic_component_rows_compared':checked,'all_units_have_explicit_functional_role_and_evidence_classes':True}
-        if unit_kind=='NP_basic_centre':
+        if unit_kind.startswith('NP_basic_centre'):
             regional=types.centre_in_regional_roster.eq(True)
             detail['regional_NP_basic_centres']=int(regional.sum())
             for mode in ['accepted','strict']:
@@ -860,7 +1013,10 @@ def actual_basic_centre_checks(fields_root,functions_root):
         profiles=pd.read_parquet(profile_path);union=pd.read_parquet(fu/(prefix+'basic_centre_members.parquet'))
         members=pd.read_parquet(fu/(prefix+'functional_system_members.parquet'))
         basic=members[members.family.isin(['school','medical_basic','grocery']) & members.centre_id.notna()
-                      & members.origin_id.ne(members.centre_id) & members.population_2021.gt(0)]
+                      & members.origin_id.ne(members.centre_id)]
+        positive=basic[basic.population_2021.gt(0)]
+        eligible=set(zip(positive.evidence_scenario,positive.centre_id))
+        basic=basic[[pair in eligible for pair in zip(basic.evidence_scenario,basic.centre_id)]]
         expected=set(zip(basic.evidence_scenario,basic.centre_id,basic.origin_id))
         actual=set(zip(union.evidence_scenario,union.centre_id,union.origin_id))
         if expected!=actual or union.duplicated(['evidence_scenario','centre_id','origin_id']).any():errors.append(prefix+'Basic centre origin-union inventory differs')
@@ -868,17 +1024,25 @@ def actual_basic_centre_checks(fields_root,functions_root):
         if set(zip(profiles.evidence_scenario,profiles.centre_id))!=set(grouped):errors.append(prefix+'Basic centre profile inventory differs')
         for row in profiles.itertuples(index=False):
             group=grouped[row.evidence_scenario,row.centre_id];ids=list(group.origin_id)
-            credited=[sid for sid in ids if roster[sid]['credit_2021']==True and roster[sid]['budget_population_credit']==True]
+            positive_ids=[sid for sid in ids if pd.notna(roster[sid]['population_2021']) and roster[sid]['population_2021']>0]
+            zero_ids=[sid for sid in ids if pd.notna(roster[sid]['population_2021']) and roster[sid]['population_2021']==0]
+            credited=[sid for sid in positive_ids if roster[sid]['credit_2021']==True and roster[sid]['budget_population_credit']==True]
             expected_population=math.fsum(float(roster[sid]['population_2021']) for sid in credited)
-            if int(row.external_positive_origin_count)!=len(ids) or int(row.external_credited_positive_origin_count)!=len(credited) or not close_numeric(float(row.external_credited_population_2021),expected_population):errors.append(prefix+'Basic centre duplicates or miscredits external population '+str(row.centre_id))
+            if (int(row.external_demographic_origin_count)!=len(ids) or int(row.external_positive_origin_count)!=len(positive_ids)
+                    or int(row.external_zero_population_origin_count)!=len(zero_ids)
+                    or int(row.external_credited_positive_origin_count)!=len(credited)
+                    or not close_numeric(float(row.external_credited_population_2021),expected_population)):
+                errors.append(prefix+'Basic centre duplicates or miscredits geographic/inhabited external population '+str(row.centre_id))
             if bool(row.exclusive_regional_partition_established) or bool(row.observed_service_catchment_established) or bool(row.centre_order_assigned_from_population):errors.append(prefix+'Basic centre given unsupported partition/order/observed status')
             for family in ['school','medical_basic','grocery']:
-                selected=basic[basic.evidence_scenario.eq(row.evidence_scenario)&basic.centre_id.eq(row.centre_id)&basic.family.eq(family)]
+                selected=positive[positive.evidence_scenario.eq(row.evidence_scenario)&positive.centre_id.eq(row.centre_id)&positive.family.eq(family)]
                 if int(getattr(row,family+'_external_positive_origin_count'))!=selected.origin_id.nunique():errors.append(prefix+'Per-function external member count differs '+str(row.centre_id))
         for row in union.itertuples(index=False):
-            source=roster[row.origin_id];valid=source['credit_2021']==True and source['budget_population_credit']==True
+            source=roster[row.origin_id];value=source['population_2021']
+            valid=source['credit_2021']==True and source['budget_population_credit']==True and pd.notna(value) and math.isfinite(float(value)) and value>=0
             if bool(row.population_credit_eligible)!=valid or (valid and not close_numeric(float(row.credited_population_2021),float(source['population_2021']))) or (not valid and pd.notna(row.credited_population_2021)):errors.append(prefix+'Origin credit/value differs '+str(row.origin_id))
         facts.append({'variant_prefix':prefix,'centre_scenario_rows':len(profiles),'deduplicated_external_origin_centre_rows':len(union),
+            'current_zero_population_geographic_member_rows':int(union.population_2021_published.eq(0).sum()),
             'all_known_centres':int(profiles.evidence_scenario.eq('all_dated_known').sum()),
             'nonhistorical_centres':int(profiles.evidence_scenario.eq('nonhistorical_evidence_only').sum())})
     return {'schema':'sgrt.saratov.basic_centre_independent.v1','variants':facts,'errors':errors,'violations':len(errors),
@@ -937,17 +1101,37 @@ def actual_medical_competition_checks(folder,graph_dir,samples=12):
 
 
 
+def frozen_magnit_response(path, expected_sha256='423b90cc8336e0e7723def683290e0cc2f358a326569503abaa24288fd5341cd'):
+    """Accept the original response, its lossless gzip, or the legacy excerpt.
+
+    Original JSON is authenticated from its exact bytes, before parsing. The
+    excerpt carries its historical full-response digest separately; it is not
+    misrepresented as a lossless copy of the original response.
+    """
+    path=Path(path)
+    source_bytes=path.read_bytes()
+    if path.suffix=='.gz':
+        import gzip
+        source_bytes=gzip.decompress(source_bytes)
+    payload=json.loads(source_bytes)
+    if 'data' in payload:
+        raw={'records':payload['data'],'totalCount':payload['totalCount'],
+             'full_response_sha256':hashlib.sha256(source_bytes).hexdigest()}
+    else:
+        raw=payload
+    if raw.get('full_response_sha256')!=expected_sha256:
+        raise ValueError('Original locator response differs from the frozen source')
+    if not isinstance(raw.get('records'),list) or 'totalCount' not in raw:
+        raise ValueError('Original locator response lacks an explicit record inventory')
+    return raw
+
+
 def actual_magnit_source_checks(source_excerpt,curated_path,fields_root,provider_root=None,road_nodes=None,graph_dir=None):
     """Reconcile all locator records against frozen original used API fields."""
     import numpy as np
     import pandas as pd
     import re
-    if Path(source_excerpt).suffix=='.gz':
-        import gzip
-        source_bytes=gzip.decompress(Path(source_excerpt).read_bytes());payload=json.loads(source_bytes)
-        raw={'records':payload['data'],'totalCount':payload['totalCount'],'full_response_sha256':hashlib.sha256(source_bytes).hexdigest()}
-    else:raw=json.loads(Path(source_excerpt).read_text())
-    if raw['full_response_sha256']!='423b90cc8336e0e7723def683290e0cc2f358a326569503abaa24288fd5341cd':raise ValueError('Original locator response differs from the frozen source')
+    raw=frozen_magnit_response(source_excerpt)
     curated=json.loads(Path(curated_path).read_text())
     source={str(r['externalId']['storeCode']):r for r in raw['records']}
     actual={str(r['provider_id']).split(':',1)[1]:r for r in curated}
@@ -1122,6 +1306,7 @@ def main():
     parser.add_argument("--graph-dir", type=Path)
     parser.add_argument("--previous-isochrones", type=Path)
     parser.add_argument("--catalog-only", action="store_true")
+    parser.add_argument("--geography-inputs",type=Path)
     parser.add_argument("--functions-root", type=Path)
     parser.add_argument("--provider-source-root", type=Path)
     parser.add_argument("--provider-catalog", type=Path)
@@ -1142,6 +1327,8 @@ def main():
     parser.add_argument("--actual-fields-root", type=Path)
     parser.add_argument("--route-controls", type=Path)
     parser.add_argument("--organisation-root", type=Path)
+    parser.add_argument("--full-cost-cache",type=Path)
+    parser.add_argument("--unbounded-controls-root",type=Path)
     args = parser.parse_args()
     if args.intercentre_root:
         if not args.functions_results_root: parser.error("Intercentre audit requires original functional results")
@@ -1181,13 +1368,13 @@ def main():
         return
     if args.context_root:
         if not args.actual_fields_root: parser.error("Worker audit requires --actual-fields-root")
-        report=actual_worker_checks(args.actual_fields_root,args.context_root)
+        report=actual_worker_checks(args.actual_fields_root,args.context_root,full_cost_cache=args.full_cost_cache,unbounded_controls_root=args.unbounded_controls_root)
         write_json(args.output,report)
         if report["violations"]: raise SystemExit("Worker audit failed")
         return
     if args.functions_results_root:
         if not args.actual_fields_root: parser.error("Functional audit requires --actual-fields-root")
-        report=actual_function_checks(args.actual_fields_root,args.functions_results_root,baseline_provider_root=args.baseline_provider_root)
+        report=actual_function_checks(args.actual_fields_root,args.functions_results_root,baseline_provider_root=args.baseline_provider_root,full_cost_cache=args.full_cost_cache,unbounded_controls_root=args.unbounded_controls_root)
         write_json(args.output,report)
         if report["violations"]: raise SystemExit("Functional audit failed")
         return
@@ -1197,14 +1384,14 @@ def main():
         if report["violations"]: raise SystemExit("Cartographic audit failed")
         return
     if args.actual_fields_root:
-        report=actual_field_checks(args.actual_fields_root,args.route_controls,args.organisation_root)
+        report=actual_field_checks(args.actual_fields_root,args.route_controls,args.organisation_root,full_cost_cache=args.full_cost_cache,unbounded_controls_root=args.unbounded_controls_root)
         write_json(args.output,report)
         if report["violations"]: raise SystemExit("Actual-output audit failed: "+str(report["violations"]))
         return
     if args.catalog_only:
         if not args.functions_root or not args.provider_source_root or not args.provider_catalog:
             parser.error("Provider reconciliation requires all three provider paths")
-        write_json(args.output, catalog_checks(args.functions_root, args.provider_source_root, args.provider_catalog))
+        write_json(args.output, catalog_checks(args.functions_root, args.provider_source_root, args.provider_catalog,args.geography_inputs))
         return
     if args.precompute_routes:
         if not args.regional_roster or not args.graph_dir:

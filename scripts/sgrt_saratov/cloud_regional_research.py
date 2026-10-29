@@ -37,6 +37,8 @@ MAGNIT_SOURCE = REPO/'data/saratov_magnit_stores_20261028.json'
 MAGNIT_PROVENANCE = REPO/'references/provenance/saratov_magnit_public_locator_20261028.json'
 PRIMARY2010_TEXT = REPO/'references/primary/saratov_census2010/reader_extract.txt'
 POPULATION_LONG = 'data/population/settlements_census_long.parquet'
+FEDERAL_CSV = 'data/population/federal_territories.csv'
+GEOGRAPHY_CORRECTIONS = REPO/'sgrt/saratov/documented_coordinate_overlay_20261029.csv'
 OLD = 'sgrt/saratov-isochrones20261028/results/'
 PROVIDER_PREFIX = 'sgrt/identity20261026/routes/'
 PROVIDER_MEMBERS = ['sources/'+group+'/'+name for group,name in (
@@ -47,13 +49,14 @@ PROVIDER_MEMBERS += ['geometry_cache/'+group+'/provider_road_seeds.parquet' for 
 SLUGS = ('saratov','engels','balakovo','balashov','novouzensk','piterka')
 ISO_STANDALONE = tuple('isochrones_generalized_'+slug+'.geojson' for slug in SLUGS)
 ASSET_PATHS = {name:'maps/'+name for name in ISO_STANDALONE}
+ASSET_PATHS['saratov-basic-centres.geojson'] = 'maps/saratov-basic-centres.geojson'
 ASSET_PATHS.update({scenario+'_'+kind+'.geojson':'school_competition/'+scenario+'_'+kind+'.geojson'
     for scenario in ('baseline','documented_campus_enriched') for kind in ('zones','nearest_timebands')})
 ASSET_PATHS.update({family+'_zones.geojson':'medical_competition/'+family+'_zones.geojson' for family in ('medical_basic','medical_physician')})
 ASSET_PATHS.update({name:'figures/'+name for name in ('saratov-school-baseline.png','saratov-school-enriched.png',
     'saratov-medical-basic.png','saratov-medical-physician.png')})
 STANDALONE = tuple(ASSET_PATHS)
-FOLDERS = ('functions','fields','organisation','context','context_baseline','regional_supplement','context_regional_supplement','physical_official','intercentre','context_physical_official','context_physical_official_primary2010','primary2010','context_primary2010','magnit','maps','school_competition','medical_competition','figures','rural_routes','source_documents')
+FOLDERS = ('functions','fields','field_sensitivity','geography_overlay','organisation','context','context_baseline','regional_supplement','context_regional_supplement','physical_official','intercentre','context_physical_official','context_physical_official_primary2010','primary2010','context_primary2010','magnit','maps','school_competition','medical_competition','figures','rural_routes','source_documents')
 SKIP_PARTS = {'cost_chunks','preview','__pycache__'}
 SKIP_NAMES = {'fields_in_progress.parquet','input_invocation.json','graph_prepare_in_progress.json'}
 REQUIRED = ('fields/summary.json','fields/regional_roster.parquet','fields/destination_costs.npz',
@@ -69,6 +72,7 @@ REQUIRED = ('fields/summary.json','fields/regional_roster.parquet','fields/desti
 def inputs():
     selected=defaultdict(set)
     selected['data/catalog.json'].update(TRANSPORT+f'graph_npz_parts/part_{n:03d}.bin' for n in range(3))
+    selected['data/catalog.json'].add(FEDERAL_CSV)
     if PRIMARY2010_TEXT.is_file():selected['data/catalog.json'].add(POPULATION_LONG)
     if MAGNIT_SOURCE.is_file():
         selected['data/catalog.json'].update(TRANSPORT+f'road_nodes/part_{n:03d}.parquet' for n in range(24))
@@ -107,6 +111,9 @@ def array_control(array):
 
 def matrix_control(path):
     if path.suffix=='.npy':return {'kind':'dense_npy',**array_control(np.load(path,allow_pickle=False))}
+    with np.load(path,allow_pickle=False) as data:
+        if 'format' not in data.files:
+            return {'kind':'named_npz_arrays','arrays':{name:array_control(data[name]) for name in sorted(data.files)}}
     m=load_npz(path).tocsr(copy=True)
     if not m.has_canonical_format:raise ValueError('Sparse matrix must have unique explicit column entries')
     m.sort_indices()
@@ -145,7 +152,11 @@ def geojson_control(path):
 
 def control(results):
     results=Path(results)
-    required=list(REQUIRED)
+    required=list(REQUIRED)+['fields/population_mass_sources.parquet','fields/external_city_costs.parquet',
+        'field_sensitivity/mass_scope_summary.json','field_sensitivity/selected_unbounded_full_costs.npz']
+    if GEOGRAPHY_CORRECTIONS.is_file():
+        required.extend('geography_overlay/'+name for name in ('analysis_reference.parquet',
+            'endpoint_network_quality.parquet','coordinate_corrections.parquet','geography_overlay_summary.json'))
     if HISTORICAL_SCHOOL.is_file() or MAGNIT_SOURCE.is_file():
         required.extend(['regional_supplement/functional_links.parquet','regional_supplement/np_functional_roles.parquet',
             'context_regional_supplement/functional_system_dynamic_types.parquet'])
@@ -155,9 +166,34 @@ def control(results):
             'physical_official/functional_links.parquet','context_physical_official/functional_system_dynamic_types.parquet',
             'intercentre/centre_function_outcomes.parquet','intercentre/direct_centre_function_edges.parquet',
             'intercentre/functional_relation_summary.parquet','intercentre/cross_function_complementarity_pairs.parquet'])
+        required.extend('physical_official/basic_centre_'+name+'_current_inhabited_only.parquet'
+            for name in ('profiles','members'))
+        scope_contexts=['context_physical_official']
+        if PRIMARY2010_TEXT.is_file():scope_contexts.append('context_physical_official_primary2010')
+        for folder in scope_contexts:
+            required.extend(folder+'/basic_centre_inhabited_only_'+name+'.parquet'
+                for name in ('demographic_components','dynamic_types','quality','economic_context'))
+            required.append(folder+'/basic_centre_demographic_scope_comparison.parquet')
         if PRIMARY2010_TEXT.is_file():required.append('context_physical_official_primary2010/functional_system_dynamic_types.parquet')
     for name in required:
         if not (results/name).is_file():raise ValueError('Completed regional result missing: '+name)
+    population_summary=json.loads((results/'fields/summary.json').read_text())
+    if population_summary.get('whole_population_field_unbounded') is not True:
+        raise ValueError('Unbounded accepted-population field must finish before control generation')
+    for folder in ('functions','regional_supplement','physical_official'):
+        path=results/folder/'functional_summary.json'
+        if not path.is_file():continue
+        scope=json.loads(path.read_text()).get('functional_field_integration',{})
+        if scope.get('field_costs_unbounded') is not True:
+            raise ValueError('Functional potential refresh is incomplete: '+folder)
+    worker_summary=json.loads((results/'context/worker_field_summary.json').read_text())
+    if worker_summary.get('worker_field_uses_unbounded_accepted_car_graph') is not True:
+        raise ValueError('Unbounded known-worker potential must finish before control generation')
+    if MAGNIT_SOURCE.is_file():
+        for folder in scope_contexts:
+            scope_summary=json.loads((results/folder/'summary.json').read_text())
+            if scope_summary.get('inhabited_only_basic_sensitivity_included') is not True:
+                raise ValueError('Zero-inclusive versus inhabited-only demographic comparison is incomplete: '+folder)
     tables={};matrices={};geometries={};summaries={}
     for path in scientific_files(results):
         key=path.relative_to(results).as_posix()
@@ -172,7 +208,7 @@ def control(results):
                 tables[key]={'rows':0,'columns':[],'empty_file_sha256':sha(path)}
         elif path.suffix in {'.npy','.npz'}:matrices[key]=matrix_control(path)
         elif path.suffix=='.geojson':geometries[key]=geojson_control(path)
-        elif path.name in {'summary.json','graph_summary.json','functional_summary.json','worker_field_summary.json','current_provider_summary.json'}:
+        elif path.name in {'summary.json','graph_summary.json','functional_summary.json','worker_field_summary.json','current_provider_summary.json','mass_scope_summary.json','basic_centres_summary.json','geography_overlay_summary.json'}:
             summaries[key]=summary_control(json.loads(path.read_text()))
     for name,relative in ASSET_PATHS.items():
         if not name.endswith('.geojson'):continue
@@ -305,7 +341,12 @@ def package(work,commit):
         'preferred_demographic_variant':'context_physical_official_primary2010' if (results/'context_physical_official_primary2010').is_dir() else 'context'}
     write(built/'manifest.json',manifest)
     (built/'release_notes.md').write_text('Саратовская область: многомасштабные поля населения, отдельные функциональные связи, местные центры и их демографический и хозяйственный контекст.\n\n'
+        'Потенциалы населения, отдельных функций и известной части работников рассчитаны по полному ориентированному дорожному графу без отсечения дальних вкладов. '
+        'Масса федеральных территорий Москвы и Петербурга учтена однократно; неподтверждённые и отсутствующие сведения не заменены нулями. '
+        'Документированные исправления координат выделены в отдельный производный слой; опубликованная база населения и её признаки зачёта не изменены.\n\n'
         'Основной дополнительный вариант использует документированные места школьных площадок и координаты магазинов из официального локатора. Старый школьный перечень сохранён отдельным историческим сценарием. Первичные данные переписи 2010 года проверяются отдельным вариантом на тех же составах систем; исходная сшитая база не изменена.\n\n'
+        'В демографическом составе сохранены связанные пункты с нулевой опубликованной численностью 2021 года, чтобы их прежнее население не исчезало из сравнения. '
+        'Состав только из жилых пунктов оставлен отдельной проверкой чувствительности; пустые пункты не создают новые центры и не считаются наблюдаемыми потребителями услуг.\n\n'
         'Сохранены все текущие населённые пункты, альтернативные направления обслуживания, неопределённость исходных данных и сравнение школьных назначений до и после уточнения физических филиалов. '
         'Карты времени поездки обобщены для обзора. Модельные потенциалы и связи не объявляются наблюдёнными потоками; число уровней не назначается заранее.\n\n'
         'Архив содержит результаты, закреплённые источники новых школьных свидетельств и водной маски, весь воспроизводящий код, каталоги национальных исходников и независимые численные проверки. '
@@ -344,59 +385,88 @@ def build(work,commit):
         if not set(paths)<=available:raise ValueError('Missing pinned catalogue member: '+catalog)
         proofs.extend(acquire(REPO/catalog,lambda p,chosen=set(paths):p in chosen,source,work/'cache'))
     frozen=source/'frozen';frozen_proof=acquire_frozen(frozen);proofs.append({'frozen_manifest_sha256':sha(FROZEN),'assets':frozen_proof})
-    shutil.copytree(frozen,results/'source_documents');write(results/'source_manifest.json',proofs)
+    shutil.copytree(frozen,results/'source_documents')
+    if MAGNIT_SOURCE.is_file():
+        proofs.append(archive_frozen_magnit_response(results/'source_documents'))
+    write(results/'source_manifest.json',proofs)
     provider=source/PROVIDER_PREFIX;fields=results/'fields';functions=results/'functions';graph=source/TRANSPORT
-    run('scripts/sgrt_saratov/functional_fields.py','--prepare-catalog','--source-root',provider,'--output',functions)
-    run('scripts/sgrt_saratov/regional_fields.py','--reference',source/REFERENCE,'--endpoints',source/ENDPOINTS,
+    reference_path,endpoints_path=source/REFERENCE,source/ENDPOINTS
+    if GEOGRAPHY_CORRECTIONS.is_file():
+        geography=results/'geography_overlay'
+        run('scripts/sgrt_saratov/geography_overlay.py','--reference',reference_path,'--endpoints',endpoints_path,
+            '--corrections',GEOGRAPHY_CORRECTIONS,'--road-nodes',source/TRANSPORT/'road_nodes',
+            '--road-catalog','data/catalog.json','--output',geography)
+        reference_path,endpoints_path=geography/'analysis_reference.parquet',geography/'endpoint_network_quality.parquet'
+        proofs.append({'kind':'explicit_derived_pilot_coordinate_overlay','path':GEOGRAPHY_CORRECTIONS.relative_to(REPO).as_posix(),
+            'sha256':sha(GEOGRAPHY_CORRECTIONS),'bytes':GEOGRAPHY_CORRECTIONS.stat().st_size,
+            'original_population_foundation_changed':False})
+        write(results/'source_manifest.json',proofs)
+    run('scripts/sgrt_saratov/functional_fields.py','--prepare-catalog','--source-root',provider,'--output',functions,
+        *(['--geography-inputs',results/'geography_overlay'] if GEOGRAPHY_CORRECTIONS.is_file() else []))
+    run('scripts/sgrt_saratov/regional_fields.py','--reference',reference_path,'--endpoints',endpoints_path,
         '--regional-roster',source/OLD/'inputs/all_current_settlements.parquet','--graph-dir',graph,
         '--provider-catalog',functions/'provider_catalog.parquet','--output',fields,'--workers','4','--horizon','480')
-    run('scripts/sgrt_saratov/regional_fields.py','--reference',source/REFERENCE,'--endpoints',source/ENDPOINTS,
+    run('scripts/sgrt_saratov/regional_fields.py','--reference',reference_path,'--endpoints',endpoints_path,
         '--regional-roster',source/OLD/'inputs/all_current_settlements.parquet','--graph-dir',graph,'--output',fields,'--finalize-existing')
-    run('scripts/sgrt_saratov/regional_fields.py','--reference',source/REFERENCE,'--endpoints',source/ENDPOINTS,
+    full_cache=work/'full-field-costs'
+    run('scripts/sgrt_saratov/population_mass_scope.py','--fields',fields,'--federal-csv',source/FEDERAL_CSV,
+        '--graph-dir',graph,'--catalog','data/catalog.json','--output',results/'field_sensitivity',
+        '--cost-cache-dir',full_cache,'--workers','4')
+    full_arguments=['--full-field-costs',full_cache/'full_destination_costs.npy',
+        '--full-origin-axis',full_cache/'origin_axis.parquet','--full-destination-axis',full_cache/'destination_axis.parquet']
+    run('scripts/sgrt_saratov/regional_fields.py','--reference',reference_path,'--endpoints',endpoints_path,
         '--regional-roster',source/OLD/'inputs/all_current_settlements.parquet','--graph-dir',graph,
         '--provider-catalog',functions/'provider_catalog.parquet','--output',fields,'--workers','4','--current-provider-only')
     run('scripts/sgrt_saratov/spatial_organisation.py','--fields',fields,'--output',results/'organisation')
     run('scripts/sgrt_saratov/functional_fields.py','--fields-root',fields,'--provider-root',functions,'--output',functions,
         '--documented-presence','sgrt/saratov/documented_school_campuses_2025.csv',
         '--documented-presence','sgrt/saratov/documented_school_branch_sites.csv',
+        '--documented-presence','sgrt/saratov/documented_school_sites_20261029.csv',
         '--documented-assignments','sgrt/saratov/documented_school_catchments_2025.csv',
-        '--current-candidates',fields/'physical_provider_candidates_current.parquet')
+        '--current-candidates',fields/'physical_provider_candidates_current.parquet',*full_arguments)
     supplemental_args=[];physical_args=[]
     if HISTORICAL_SCHOOL.is_file():supplemental_args.extend(['--supplementary-presence',HISTORICAL_SCHOOL])
     if MAGNIT_SOURCE.is_file():
-        run('scripts/sgrt_saratov/official_magnit.py','--route-only','--curated',MAGNIT_SOURCE,
+        # Re-evaluate literal physical-address ownership against the explicit
+        # pilot coordinate overlay, without querying or changing the source.
+        run('scripts/sgrt_saratov/official_magnit.py','--raw',results/'source_documents/commerce/locator_raw.json',
+            '--reference',fields/'national_reference_with_endpoints.parquet',
+            '--query',results/'source_documents/commerce/locator_query.json','--output',results/'magnit')
+        run('scripts/sgrt_saratov/official_magnit.py','--route-only','--curated',results/'magnit/physical_stores.json',
             '--road-nodes',source/TRANSPORT/'road_nodes','--road-catalog','data/catalog.json',
             '--fields',fields,'--output',results/'magnit','--workers','4')
         physical_args.extend(['--supplementary-provider-catalog',results/'magnit/provider_catalog.parquet',
             '--supplementary-candidates',results/'magnit/physical_provider_candidates.parquet'])
         supplemental_args.extend(physical_args)
-        proofs.append(archive_frozen_magnit_response(results/'source_documents'))
-        write(results/'source_manifest.json',proofs)
     if supplemental_args:
         run('scripts/sgrt_saratov/functional_fields.py','--fields-root',fields,'--provider-root',functions,
             '--output',results/'regional_supplement',
             '--documented-presence','sgrt/saratov/documented_school_campuses_2025.csv',
             '--documented-presence','sgrt/saratov/documented_school_branch_sites.csv',
+            '--documented-presence','sgrt/saratov/documented_school_sites_20261029.csv',
             '--documented-assignments','sgrt/saratov/documented_school_catchments_2025.csv',
-            '--current-candidates',fields/'physical_provider_candidates_current.parquet',*supplemental_args)
+            '--current-candidates',fields/'physical_provider_candidates_current.parquet',*supplemental_args,*full_arguments)
     if physical_args:
         run('scripts/sgrt_saratov/functional_fields.py','--fields-root',fields,'--provider-root',functions,
             '--output',results/'physical_official','--single-inventory','physical_official_enrichment',
             '--documented-presence','sgrt/saratov/documented_school_campuses_2025.csv',
             '--documented-presence','sgrt/saratov/documented_school_branch_sites.csv',
+            '--documented-presence','sgrt/saratov/documented_school_sites_20261029.csv',
             '--documented-assignments','sgrt/saratov/documented_school_catchments_2025.csv',
-            '--current-candidates',fields/'physical_provider_candidates_current.parquet',*physical_args)
+            '--current-candidates',fields/'physical_provider_candidates_current.parquet',*physical_args,*full_arguments)
         run('scripts/sgrt_saratov/intercentre_profiles.py','--functions',results/'physical_official','--output',results/'intercentre')
     args=[]
     for name,(_,member) in CONTEXT_MEMBERS.items():args.extend(['--'+name.replace('_','-'),source/member])
+    # Demographic aggregation consumes immutable population observations and
+    # classifications by identity, never the corrected model coordinates.
+    # Keep its independent source-SHA verification against the original base.
     for baseline in (False,True):
         prefix='baseline_' if baseline else ''
         run('scripts/sgrt_saratov/regional_context.py',*args,'--output',results/('context_baseline' if baseline else 'context'),
             '--links',functions/(prefix+'functional_links.parquet'),'--configurations',functions/(prefix+'basic_configuration_groups.parquet'),
             '--system-reference',source/REFERENCE,
             '--basic-profiles',functions/(prefix+'basic_centre_profiles.parquet'),
-            '--basic-members',functions/(prefix+'basic_centre_members.parquet'),
-            *([] if baseline else ['--field-input',fields]))
+            '--basic-members',functions/(prefix+'basic_centre_members.parquet'))
     if supplemental_args:
         supplement=results/'regional_supplement'
         run('scripts/sgrt_saratov/regional_context.py',*args,'--output',results/'context_regional_supplement',
@@ -426,19 +496,28 @@ def build(work,commit):
                 '--links',preferred/'functional_links.parquet','--configurations',preferred/'basic_configuration_groups.parquet',
                 '--system-reference',source/REFERENCE,'--basic-profiles',preferred/'basic_centre_profiles.parquet',
                 '--basic-members',preferred/'basic_centre_members.parquet',
+                '--inhabited-only-basic-profiles',preferred/'basic_centre_profiles_current_inhabited_only.parquet',
+                '--inhabited-only-basic-members',preferred/'basic_centre_members_current_inhabited_only.parquet',
                 *(['--primary2010-evidence',results/'primary2010/population_2010_evidence.parquet'] if primary else []))
         if PRIMARY2010_TEXT.is_file():
             run('scripts/sgrt_saratov/primary_census2010.py','--compare-baseline',results/'context_physical_official',
                 '--compare-primary',results/'context_physical_official_primary2010',
                 '--output',results/'primary2010/physical_official_comparison')
+    run('scripts/sgrt_saratov/regional_context.py','--worker-fields-only','--field-input',fields,
+        '--partial-workers',source/CONTEXT_MEMBERS['partial_workers'][1],
+        '--full-field-costs',full_cache/'full_destination_costs.npy','--output',results/'context')
     run('scripts/sgrt_saratov/generalized_maps.py','--source',source/OLD/'model/isochrones_cumulative.geojson',
         '--water-mask',frozen_water(frozen),'--output',results/'maps')
+    if physical_args:
+        run('scripts/sgrt_saratov/regional_centres_map.py','--functions',results/'physical_official',
+            '--reference',fields/'regional_roster.parquet','--output',results/'maps')
     run('scripts/sgrt_saratov/school_competition.py','--graph-dir',graph,
         '--native-path',source/OLD/'model/native_edges.parquet',
         '--reachable-path',source/OLD/'model/reachable_roads_wkb.parquet',
         '--provider-path',functions/'provider_catalog.parquet','--roster-path',fields/'regional_roster.parquet',
         '--presence-path',functions/'np_function_presence.parquet',
         '--official-paths','sgrt/saratov/documented_school_campuses_2025.csv','sgrt/saratov/documented_school_branch_sites.csv',
+        'sgrt/saratov/documented_school_sites_20261029.csv',
         '--water-path',frozen_water(frozen),'--output',results/'school_competition')
     run('scripts/sgrt_saratov/medical_competition.py','--graph-dir',graph,
         '--native-path',source/OLD/'model/native_edges.parquet','--reachable-path',source/OLD/'model/reachable_roads_wkb.parquet',
@@ -448,17 +527,23 @@ def build(work,commit):
         '--road-nodes','references/primary/saratov_rural_roads_2021/graph_vertex_subset.json',
         '--native-sources','references/primary/saratov_rural_roads_2021','--output',results/'rural_routes')
     audit='scripts/sgrt_saratov/regional_independent_checks.py'
+    run('scripts/sgrt_saratov/unbounded_independent_checks.py','--fields',fields,
+        '--federal-csv',source/FEDERAL_CSV,'--catalog','data/catalog.json',
+        '--scope-root',results/'field_sensitivity','--cost-cache',full_cache,
+        '--graph-dir',graph,'--output',checks/'unbounded_population_independent.json')
     run(audit,'--precompute-routes','--regional-roster',fields/'regional_roster.parquet','--graph-dir',graph,
         '--previous-isochrones',source/OLD/'model/settlement_travel_times.parquet','--output',checks/'original_graph_route_controls.json')
     run(audit,'--catalog-only','--functions-root',functions,'--provider-source-root',provider,
-        '--provider-catalog','data/identity_catalog_20261026.json','--output',checks/'provider_raw_source_reconciliation.json')
+        '--provider-catalog','data/identity_catalog_20261026.json',
+        *(['--geography-inputs',results/'geography_overlay'] if GEOGRAPHY_CORRECTIONS.is_file() else []),
+        '--output',checks/'provider_raw_source_reconciliation.json')
     run(audit,'--maps-root',results/'maps','--output',checks/'cartography_independent.json')
     run(audit,'--actual-fields-root',fields,'--route-controls',checks/'original_graph_route_controls.json',
-        '--organisation-root',results/'organisation','--output',checks/'actual_regional_output_audit.json')
+        '--organisation-root',results/'organisation','--full-cost-cache',full_cache,'--output',checks/'actual_regional_output_audit.json')
     run(audit,'--actual-fields-root',fields,'--functions-results-root',functions,
-        '--output',checks/'actual_functional_output_audit.json')
+        '--full-cost-cache',full_cache,'--output',checks/'actual_functional_output_audit.json')
     run(audit,'--actual-fields-root',fields,'--context-root',results/'context',
-        '--output',checks/'actual_worker_output_audit.json')
+        '--full-cost-cache',full_cache,'--output',checks/'actual_worker_output_audit.json')
     run(audit,'--actual-fields-root',fields,'--functions-results-root',functions,
         '--unit-context-root',results/'context','--output',checks/'actual_unit_demography_audit.json')
     run(audit,'--actual-fields-root',fields,'--basic-centres-root',functions,
@@ -469,7 +554,7 @@ def build(work,commit):
         '--actual-fields-root',fields,'--output',checks/'medical_source_scope_names.json')
     if MAGNIT_SOURCE.is_file():
         run(audit,'--magnit-raw-source',results/'source_documents/commerce/locator_raw.json',
-            '--magnit-curated',MAGNIT_SOURCE,'--magnit-provider-root',results/'magnit',
+            '--magnit-curated',results/'magnit/physical_stores.json','--magnit-provider-root',results/'magnit',
             '--road-nodes-dir',source/TRANSPORT/'road_nodes','--graph-dir',graph,
             '--actual-fields-root',fields,'--output',checks/'magnit_source_routes_independent.json')
     if MAGNIT_SOURCE.is_file():
@@ -492,7 +577,7 @@ def build(work,commit):
     for variant in ('regional_supplement','physical_official'):
         if not (results/variant).is_dir():continue
         run(audit,'--actual-fields-root',fields,'--functions-results-root',results/variant,
-            '--baseline-provider-root',functions,'--output',checks/(variant+'_functional_output_audit.json'))
+            '--baseline-provider-root',functions,'--full-cost-cache',full_cache,'--output',checks/(variant+'_functional_output_audit.json'))
         run(audit,'--actual-fields-root',fields,'--basic-centres-root',results/variant,
             '--output',checks/(variant+'_basic_centres_audit.json'))
         context_folder='context_'+variant
