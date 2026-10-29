@@ -18,17 +18,21 @@ def request(url):
                                 'Accept-Encoding': 'identity'})
 
 
-def verify_public(manifest_path, workers=4):
+def verify_public(manifest_path, workers=4, release_metadata=None):
     path = Path(manifest_path)
     raw = path.read_bytes()
     manifest = json.loads(raw)
     tag = manifest['release_tag']
     if not re.fullmatch(r'[A-Za-z0-9._-]+', tag):
         raise ValueError('Expected a single release-tag component')
-    api = 'https://api.github.com/repos/'+REPOSITORY+'/releases/tags/'+quote(tag)
-    with urlopen(request(api), timeout=60) as response:
-        release = json.load(response)
-    if release['draft'] or release['target_commitish'] != manifest['source_commit']:
+    supplied_metadata = release_metadata is not None
+    if supplied_metadata:
+        release = release_metadata
+    else:
+        api = 'https://api.github.com/repos/'+REPOSITORY+'/releases/tags/'+quote(tag)
+        with urlopen(request(api), timeout=60) as response:
+            release = json.load(response)
+    if release['draft'] or release['tag_name'] != tag or release['target_commitish'] != manifest['source_commit']:
         raise ValueError('Public release or committed source differs')
     expected = {manifest['archive']['asset']: manifest['archive'],
                 **manifest['standalone_assets'],
@@ -65,6 +69,8 @@ def verify_public(manifest_path, workers=4):
     return {'schema': 'sgrt.saratov.public_download_verification.v1',
             'release_tag': tag, 'source_commit': manifest['source_commit'],
             'computation_source_commit': manifest.get('computation_source_commit', manifest['source_commit']),
+            'release_metadata_source': 'supplied_github_api_record' if supplied_metadata else 'unsigned_github_api_request',
+            'release_metadata_request_authorization_header_sent': None if supplied_metadata else False,
             'release_is_public': True, 'every_public_asset_downloaded_and_hashed': True,
             'downloads': downloads}
 
@@ -73,8 +79,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--manifest', required=True, type=Path)
     parser.add_argument('--output', required=True, type=Path)
+    parser.add_argument('--release-metadata', type=Path,
+                        help='Optional canonical GitHub API release JSON; asset HTTP requests still send no Authorization header')
     args = parser.parse_args()
-    proof = verify_public(args.manifest)
+    metadata = json.loads(args.release_metadata.read_text()) if args.release_metadata else None
+    proof = verify_public(args.manifest, release_metadata=metadata)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(proof, ensure_ascii=False, indent=2)+'\n')
     print(json.dumps({'public_assets_downloaded_and_hashed': len(proof['downloads']),

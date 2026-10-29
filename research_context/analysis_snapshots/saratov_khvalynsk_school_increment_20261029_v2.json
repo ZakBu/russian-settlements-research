@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "source_record_id_added": "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118265",
+  "origins": 1821,
+  "school_field_rows": 29136,
+  "known_origin_field_rows": 29024,
+  "unknown_origin_field_rows": 112,
+  "own_school_field_rows": 16,
+  "other_families": 15,
+  "other_function_rows_exactly_unchanged": 437040,
+  "independent_kernel": "exp(-log(2)*t/h) or exp(-log(2)*(t/h)^2)",
+  "cache_sha256": "e572042d66a56966d746ad9cde60e975d61edf9cf3dd311e5a024ca31808159c",
+  "before_potentials_sha256": "8405e2c8edec76046168ae86f8daa311617a783a1fe63ccc7c9bc0dcef4635dc",
+  "after_potentials_sha256": "805e412d6e7b0d4d9d3abb1f0e7be29d5f5717c4e192e37c195dff00674c8e6c",
+  "frozen_field_inputs": {
+    "regional_roster.parquet": "86614ad4484137f04d2b2fee40246778c36d258d0812ce437cce083b2afdc4b5",
+    "halo_roster.parquet": "18496212e906117f0ef7d313648d506b9f7ee4fd5f185c6e79647f2b1d1dc091",
+    "destinations.parquet": "e81245f21f5b9f5ffaa3a535657a2e5bee692e3517595f5a524b57a37286e0b9",
+    "national_reference_with_endpoints.parquet": "d856bd480633a115fd3ae0516046479940b0b5640b8c4e72b4fadc6ef6b08616"
+  },
+  "presence_change_by_evidence": {
+    "all_dated_known": {
+      "added": [
+        [
+          "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118265",
+          "school"
+        ]
+      ],
+      "removed": []
+    },
+    "nonhistorical_evidence_only": {
+      "added": [
+        [
+          "2021:data_allsettlements_anon_156_v20251217.parquet:parquet:118265",
+          "school"
+        ]
+      ],
+      "removed": []
+    }
+  },
+  "increment_checks": {
+    "known_np_offer_potential": {
+      "checked_rows": 29024,
+      "max_absolute_increment_error": 8.402167850363185e-13
+    },
+    "known_np_offer_potential_lower": {
+      "checked_rows": 29136,
+      "max_absolute_increment_error": 8.402167850363185e-13
+    },
+    "known_np_offer_potential_upper": {
+      "checked_rows": 29136,
+      "max_absolute_increment_error": 8.402167850363185e-13
+    },
+    "external_known_np_offer_potential_lower": {
+      "checked_rows": 29136,
+      "max_absolute_increment_error": 8.402167850363185e-13
+    },
+    "external_known_np_offer_potential_upper": {
+      "checked_rows": 29136,
+      "max_absolute_increment_error": 8.402167850363185e-13
+    },
+    "own_known_np_function_presence": {
+      "checked_rows": 29136,
+      "max_absolute_increment_error": 0.0
+    },
+    "known_np_function_offer_count": {
+      "checked_rows": 29136,
+      "max_absolute_increment_error": 0.0
+    },
+    "routed_np_offer_count_within_horizon": {
+      "checked_rows": 29136,
+      "max_absolute_increment_error": 0.0
+    },
+    "routed_np_offer_count": {
+      "checked_rows": 29136,
+      "max_absolute_increment_error": 0.0
+    },
+    "known_np_offers_unreachable_in_road_model": {
+      "checked_rows": 29024,
+      "max_absolute_increment_error": 0.0
+    }
+  },
+  "other_function_missing_masks_and_known_float_bits_exact": true,
+  "transport_or_population_recalculated": false
+}

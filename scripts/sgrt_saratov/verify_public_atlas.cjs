@@ -6,7 +6,7 @@ const fs=require('fs'); const path=require('path'); const crypto=require('crypto
 const args=process.argv.slice(2);
 const take=k=>args.includes(k)?args[args.indexOf(k)+1]:null;
 if(args.includes('--help')){
- console.log('Usage: node scripts/sgrt_saratov/verify_public_atlas.cjs --go --producer <40hex> --output <directory> [--base-url <URL>]\nRequires playwright (or SGRT_BROWSER_MODULE) and its Chromium installation. No data interception or substitution.');
+ console.log('Usage: node scripts/sgrt_saratov/verify_public_atlas.cjs --go --producer <40hex> --output <directory> [--base-url <URL>] [--articles <comma-separated IDs>] [--skip-maps]\nDefault: four articles and 13 map layers at two viewports. Targeted runs report their exact limited scope.\nRequires playwright (or SGRT_BROWSER_MODULE) and its Chromium installation. No data interception or substitution.');
  process.exit(0);
 }
 if(!args.includes('--go')){console.error('Not run: explicit --go after the selected site deployment is required.');process.exit(2);}
@@ -34,7 +34,15 @@ const configs=scopeIds.map(id=>read(path.join(registered,'layers',id+'.json')));
 const datasets=read(path.join(registered,'datasets.json'));
 const main=read(path.join(registered,'materials/saratov-functional-systems.json'));
 const expectedVisuals=main.visualIds;
-const proof={schema:'sgrt.real_public_browser_qa.v1',started_utc:new Date().toISOString(),base,expected_producer:producer,registered_metadata_root:registered,scoped_layer_ids:scopeIds,route_interception:false,local_data_substitution:false,articles:[],maps:[],failures:[],requests_failed:[]};
+const defaultArticles=['saratov-functional-systems','saratov-functional-method','saratov-isochrones','literature-bibliography'];
+const articleArg=take('--articles');
+check(!args.includes('--articles')||!!articleArg,'Expected --articles <comma-separated IDs>');
+const articleIds=articleArg?articleArg.split(',').map(x=>x.trim()).filter(Boolean):defaultArticles;
+check(articleIds.length>0&&new Set(articleIds).size===articleIds.length&&articleIds.every(id=>defaultArticles.includes(id)),'--articles must list unique IDs from the four supported publication pages');
+const skipMaps=args.includes('--skip-maps');
+const scopedMaps=skipMaps?[]:configs;
+const viewports=[{width:1366,height:900},{width:390,height:844}];
+const proof={schema:'sgrt.real_public_browser_qa.v1',started_utc:new Date().toISOString(),base,expected_producer:producer,registered_metadata_root:registered,scoped_layer_ids:scopedMaps.map(x=>x.id),scope:{article_ids:articleIds,map_layer_ids:scopedMaps.map(x=>x.id),viewports,full_default_scope:!articleArg&&!skipMaps},route_interception:false,local_data_substitution:false,articles:[],maps:[],failures:[],requests_failed:[]};
 const errors=[];let browser;
 function check(condition,message){if(!condition)throw Error(message);}
 function flush(){fs.writeFileSync(out+'/browser-verification.json',JSON.stringify(proof,null,2)+'\n');}
@@ -134,10 +142,10 @@ async function map(context,meta,width){
  }catch(e){entry.ok=false;entry.error=e.message;proof.failures.push({kind:'map',id:meta.id,width,error:e.message});await shot(page,meta.id+'-'+width+'-failure').catch(()=>{});}finally{page.removeListener('response',capture);flush();await page.close();}
 }
 (async()=>{fs.mkdirSync(out,{recursive:true});browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--enable-unsafe-swiftshader']});try{
- for(const viewport of [{width:1366,height:900},{width:390,height:844}]){
+ for(const viewport of viewports){
   const context=await browser.newContext({viewport,ignoreHTTPSErrors:true,proxy:environmentProxy()});context.on('requestfailed',request=>proof.requests_failed.push({url:new URL(request.url()).origin+new URL(request.url()).pathname,error:request.failure()?.errorText,width:viewport.width}));
-  for(const id of ['saratov-functional-systems','saratov-functional-method','saratov-isochrones','literature-bibliography'])await article(context,id,viewport.width);
-  for(const meta of configs)await map(context,meta,viewport.width);
+  for(const id of articleIds)await article(context,id,viewport.width);
+  for(const meta of scopedMaps)await map(context,meta,viewport.width);
   await context.close();
  }
 }finally{proof.finished_utc=new Date().toISOString();proof.ok=proof.failures.length===0;flush();await browser.close();}
