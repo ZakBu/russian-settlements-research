@@ -37,3 +37,19 @@ test('territorial figures follow the chosen region and period with explicit cove
  await search.fill('Татарстан');await page.locator('.map-search-results button').filter({hasText:'Регион'}).first().click();
  await expect(page.locator('.map-infographic h2')).toContainText('Татарстан');expect(await page.locator('.map-summary-answer').innerText()).not.toBe(first);
 });
+
+test('region fit uses the viewport after the summary opens',async({page})=>{
+ await page.goto('map/');const search=page.getByRole('textbox',{name:'Поиск места или территории'});await search.fill('Крым');
+ await page.locator('.map-search-results button').filter({hasText:'Регион'}).filter({has:page.locator('strong',{hasText:/^Крым$/})}).first().click();
+ await expect(page.locator('.map-infographic h2')).toHaveText('Крым');
+ // Inspect the existing map ref without adding a test-only production API.
+ await expect.poll(async()=>page.evaluate(async()=>{
+  const canvas=document.querySelector('.map-canvas') as any;
+  let fiber=canvas[Object.keys(canvas).find(k=>k.startsWith('__reactFiber'))!], map:any;
+  while(fiber&&!map){for(let hook=fiber.memoizedState;hook;hook=hook.next)if(hook.memoizedState?.current?.getStyle){map=hook.memoizedState.current;break}fiber=fiber.return}
+  if(!map||map.isMoving())return false;
+  const feature=(await map.getSource('selected').getData()).features[0];if(!feature)return false;
+  const points:any[]=[];const walk=(a:any)=>{if(typeof a?.[0]==='number')points.push(map.project(a));else if(Array.isArray(a))a.forEach(walk)};walk(feature.geometry.coordinates);
+  return points.length>0&&points.every(p=>p.x>=0&&p.x<=map.getCanvas().clientWidth&&p.y>=0&&p.y<=map.getCanvas().clientHeight);
+ }),{timeout:15000}).toBe(true);
+});

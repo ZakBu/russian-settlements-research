@@ -153,6 +153,7 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
   const [detailError, setDetailError] = useState(false);
   const polygonCache=useRef<Record<string,Promise<Record<string,Feature>>>>({});
   const polygonFit=useRef(false);
+  const pendingFit=useRef<Feature | null>(null);
   const [placeBoundary,setPlaceBoundary]=useState<{id:string;feature:Feature}|null>(null);
   const [boundaryStatus,setBoundaryStatus]=useState<'loading'|'available'|'missing'|'error'>('loading');
   const [query, setQuery] = useState('');
@@ -186,16 +187,25 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
     const mobile = window.innerWidth < 760;
     map.current.fitBounds(box, { padding: { top: 75, left: !mobile && panel ? 325 : 35, right: 45, bottom: 40 }, maxZoom: feature.geometry.type === 'Point' ? (detail?15.5:settlementMagnitude(feature.properties)<20000?14:11) : feature.properties.settlementBoundary?14:9, duration: 650 });
   }
-  const cancelPendingSelection=()=>{deferredSelection.current=null;if(initialLocation.current)initialLocation.current.selected=''};
+  const cancelPendingSelection=()=>{pendingFit.current=null;deferredSelection.current=null;if(initialLocation.current)initialLocation.current.selected=''};
   const select = (s: Selection, fit = false, history = true) => {
     cancelPendingSelection();
     polygonFit.current=history;setPlaceBoundary(null);setBoundaryStatus('loading');
     setSelection(s); setMode(s.mode); setCollapsed(false); setDetails(null); setDetailError(false);
     if (window.innerWidth < 760) setPanel(false);
-    if (fit) zoomTo(s.feature);
+    if (fit) pendingFit.current=s.feature;
     updateUrl(s, history);
   };
   selectRef.current = select;
+
+  useEffect(() => {
+    const feature=pendingFit.current;
+    if (!feature || !map.current) return;
+    pendingFit.current=null;
+    // React has committed the summary: measure the remaining map viewport first.
+    map.current.resize();
+    zoomTo(feature);
+  }, [selection]);
 
   useEffect(() => {
     const state = readLocation(); initialLocation.current = state; setLayers(state.layers); setPeriod(state.period); setMode(state.mode); activeMode.current = state.mode;
