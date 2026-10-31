@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-31T18:14:47+03:00",
+  "updated_moscow": "2026-10-31T18:31:21+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -1126,8 +1126,8 @@
       "settlement_geometry": "Выбранные города и пгт получают картографический контур из закреплённого инвентаря OpenStreetMap/Geofabrik с принятой привязкой к переписной записи. Небольшой фрагмент геометрии загружается только после выбора НП; первая загрузка остаётся обзорной. Переписная точка, численности, услуги и членство в системах не меняются. Нет контура или источник недоступен — явно показана точка. Контур современный картографический, не юридическая или восстановленная историческая граница."
     },
     "krasnodar_agglomeration": {
-      "status": "regional_car_access_reproduced_release_published_atlas_integration_ready",
-      "summary": "Рассчитан направленный въезд по дорогам 29 октября 2026 года к центральной точке и принятому контуру НП Краснодар. В 60-минутном сценарии до контура — 262 переписные записи и 2047173 человека 2021 года, включая Краснодар; при времени +30% — 175 записей и 1810758 человек. Подготовлены изохроны 30/60/90 минут, пять сравнительных слоёв исследований, контекст транспорта, таблицы и карта с материалом для выступления. Это автомобильная модель, не наблюдаемые поездки и не функциональная делимитация.",
+      "status": "regional_car_access_russia_clipped_v2_release_published",
+      "summary": "Рассчитан направленный въезд по дорогам 29 октября 2026 года к центральной точке и принятому контуру НП Краснодар. В 60-минутном сценарии до контура — 262 переписные записи и 2047173 человека 2021 года, включая Краснодар; при времени +30% — 175 записей и 1810758 человек. Подготовлены изохроны 30/60/90 минут, пять сравнительных слоёв исследований, контекст транспорта, таблицы и карта с материалом для выступления. Это автомобильная модель, не наблюдаемые поездки и не функциональная делимитация. Версия 2 обрезает обобщённые научные полигоны по закреплённому контуру России; времена и состав не менялись.",
       "doc": "research_context/krasnodar_agglomeration/access/README.md",
       "next_step": "Завершить проверку интерактивного раздела и материала для выступления в атласе; затем получить существующие матрицы поездок края и Адыгеи, проверить спорные дорожные привязки и общественный транспорт. Трудовой критерий рассчитывается после получения направлений.",
       "calculation": {
@@ -1143,18 +1143,22 @@
         "includes_krasnodar": true,
         "functional_criterion_computed": false,
         "publication_status": "actions_reproduced_release_published_loader_online_offline_verified",
-        "data_release": "krasnodar-access-maps-20261031-v1"
+        "data_release": "krasnodar-access-maps-20261031-v2"
       },
       "publication": {
-        "release": "krasnodar-access-maps-20261031-v1",
-        "source_commit": "0cb25a1cd5f891fca4f4da806964ce9282253a6c",
+        "release": "krasnodar-access-maps-20261031-v2",
+        "source_commit": "a00623d66a688bc68376e2fb3ac74a64535a53e1",
         "catalog": "data/krasnodar_maps_catalog_20261031.json",
-        "app_sha256": "d086ff40a54f5eb3acfb27637b861be97e8c35257f8b3e0475948170ef15499a",
-        "app_bytes": 3986565,
-        "app_files_verified": 27,
+        "app_sha256": "bb13ca09dec66b82d53831d916c773c5d17e7d421a612436928d7fe892126d25",
+        "app_bytes": 3993507,
+        "app_files_verified": 28,
         "release_assets": 8,
-        "actions_run": "https://github.com/ZakBu/russian-settlements-research/actions/runs/41213498804",
-        "atlas_loader_online_offline_verified": true
+        "actions_run": "https://github.com/ZakBu/russian-settlements-research/actions/runs/41215045727",
+        "atlas_loader_online_offline_verified": true,
+        "country_clip_report": "country_clip.json",
+        "country_mask_sha256": "f8cd605958b61598265c12647d43279ad5ca2605c05509df281f769c330c82f4",
+        "scientific_polygon_features_checked": 51,
+        "protected_result_files_byte_identical": 9
       }
     }
   },
