@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-10-29T15:45:20+03:00",
+  "updated_moscow": "2026-10-31T14:16:24+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -1124,6 +1124,12 @@
       "hierarchy": "Необязательный parentId и порядок среди соседей; раскрываемое дерево страниц любой глубины, путь предков и прямые дочерние статьи, отбор целой ветви ?within=ID. URL статей постоянны. Валидация запрещает циклы, разные исследования и скрытых родителей опубликованных страниц. CLI new --parent ID --order N; сборники Word идут в порядке дерева.",
       "map_context": "Русская векторная подложка OpenFreeMap/OpenMapTiles/OSM; дороги по масштабу, здания с z14, ограниченный кеш видимых тайлов. Крым и Севастополь дополнены реальными контурами Terrae того же среза; страна/ISO исходника сохранены. Рабочие численности не заменяются сырыми или нулевыми значениями. Национальный обзор НП облегчен; полная база загружается при поиске или приближении. Анонимные круги кластеров заменены прореживанием по масштабу.",
       "settlement_geometry": "Выбранные города и пгт получают картографический контур из закреплённого инвентаря OpenStreetMap/Geofabrik с принятой привязкой к переписной записи. Небольшой фрагмент геометрии загружается только после выбора НП; первая загрузка остаётся обзорной. Переписная точка, численности, услуги и членство в системах не меняются. Нет контура или источник недоступен — явно показана точка. Контур современный картографический, не юридическая или восстановленная историческая граница."
+    },
+    "krasnodar_agglomeration": {
+      "status": "method_proposal_sources_reviewed_no_boundary_calculated",
+      "summary": "Подготовлена методика транспортной делимитации Краснодарской агломерации: сравнены международные определения и российские примеры координации, определены показатели связей, сценарии и обследования. Фактическая граница и бюджетный оптимум не рассчитаны.",
+      "doc": "research_context/krasnodar_agglomeration/METHOD_PROPOSAL.md",
+      "next_step": "Получить актуальные первичные контуры, совместимую матрицу поездок Краснодарского края и Адыгеи, доступные обследования и затраты; выполнить сценарную делимитацию и независимую проверку."
     }
   },
   "next_steps": [
@@ -1196,6 +1202,7 @@
     "current_common_systems": "sgrt/zero/RESEARCH_RESULTS_20261027.md",
     "current_common_catalog": "data/common_systems_catalog_20261027.json",
     "current_upper_research_catalog": "data/upper_research_catalog_20261027.json",
-    "current_upper_research": "https://zakbu.github.io/russian-settlements-research/materials/currenteconomic-cooperation-evidence/"
+    "current_upper_research": "https://zakbu.github.io/russian-settlements-research/materials/currenteconomic-cooperation-evidence/",
+    "krasnodar_agglomeration": "research_context/krasnodar_agglomeration/README.md"
   }
 }
