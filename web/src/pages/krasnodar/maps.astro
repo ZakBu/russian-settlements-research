@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import KrasnodarExplorer from '../../components/KrasnodarExplorer';
+import '../../styles/krasnodar.css';
+import {basePath} from '../../lib/content';
+---
+<Layout title="Границы Краснодарской агломерации" active="map" researchId="krasnodar-agglomeration">
+<div class="kr-shell"><nav class="kr-breadcrumb" aria-label="Хлебные крошки"><a href={basePath('materials/krasnodar-agglomeration/')}>Краснодарская агломерация</a><span>/</span><span>Границы и источники</span></nav><header class="kr-heading"><div><span class="eyebrow">Сравнительный исследовательский атлас</span><h1>Краснодар.<br/>Границы и основания.</h1></div><p>Один источник — одна география. Сравните варианты, откройте первоисточник и отделите расчётную доступность от наблюдаемых связей.</p></header><KrasnodarExplorer client:only="react" base={basePath()}/></div>
+</Layout>

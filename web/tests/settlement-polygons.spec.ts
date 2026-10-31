@@ -23,6 +23,16 @@ test('manual map movement cancels a delayed automatic city fit',async({page})=>{
  let release!:()=>void;const gate=new Promise<void>(resolve=>release=resolve);let started=false;
  await page.route('**/settlement-polygons/51.json',async route=>{started=true;await gate;await route.continue()});
  await page.goto('map/');const search=page.getByRole('textbox',{name:'Поиск места или территории'});await search.fill('Казань');await page.locator('.map-search-results button').filter({hasText:'Казань'}).filter({hasText:'Татарстан'}).first().click();await expect.poll(()=>started).toBe(true);
- await page.mouse.move(900,350);await page.mouse.wheel(0,500);await page.waitForTimeout(1000);const before=Number(new URL(page.url()).searchParams.get('zoom'));
+ // A visible canvas must fill the resized stage; a clipped zero-height MapLibre
+ // container can otherwise make this wheel gesture hit the background instead.
+ const canvas=page.locator('.map-canvas');
+ await expect.poll(async()=>{const box=await canvas.boundingBox(),stage=await page.locator('.map-stage').boundingBox();return box&&stage?Math.abs(box.height-stage.height):Infinity;}).toBeLessThan(1);
+ await expect.poll(()=>Number(new URL(page.url()).searchParams.get('zoom'))).toBe(11);
+ const box=(await canvas.boundingBox())!,x=box.x+box.width*.6,y=box.y+box.height*.45;
+ expect(await page.evaluate(({x,y})=>Boolean(document.elementFromPoint(x,y)?.closest('.maplibregl-canvas-container')),{x,y})).toBe(true);
+ const initial=Number(new URL(page.url()).searchParams.get('zoom'));
+ await page.mouse.move(x,y);await page.mouse.wheel(0,500);
+ await expect.poll(()=>Number(new URL(page.url()).searchParams.get('zoom'))).toBeLessThan(initial);
+ await page.waitForTimeout(1000);const before=Number(new URL(page.url()).searchParams.get('zoom'));
  release();await expect(page.locator('[data-settlement-boundary]')).toHaveAttribute('data-settlement-boundary','available');await page.waitForTimeout(800);expect(Number(new URL(page.url()).searchParams.get('zoom'))).toBeCloseTo(before,1);
 });
