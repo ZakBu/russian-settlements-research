@@ -16,13 +16,15 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       RELEASE_TAG: krasnodar-access-maps-20261031-v1
-      WORK: ${{ runner.temp }}/krasnodar-access
-      RAW: ${{ runner.temp }}/krasnodar-raw
-      STUDIES: ${{ runner.temp }}/krasnodar-studies
-      APP: ${{ runner.temp }}/krasnodar-app
-      PUBLICATION: ${{ runner.temp }}/krasnodar-publication
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Set runner-local output directories
+        run: |
+          echo "WORK=$RUNNER_TEMP/krasnodar-access" >> "$GITHUB_ENV"
+          echo "RAW=$RUNNER_TEMP/krasnodar-raw" >> "$GITHUB_ENV"
+          echo "STUDIES=$RUNNER_TEMP/krasnodar-studies" >> "$GITHUB_ENV"
+          echo "APP=$RUNNER_TEMP/krasnodar-app" >> "$GITHUB_ENV"
+          echo "PUBLICATION=$RUNNER_TEMP/krasnodar-publication" >> "$GITHUB_ENV"
       - name: Refuse to replace a published scientific release
         run: |
           set -euo pipefail
