@@ -16,6 +16,8 @@ def dump(path, value):
 
 
 def build(access, studies_dir, output, source_commit):
+    if not (access / "country_clip.json").is_file():
+        raise ValueError("Version 2 requires country-clipped results and country_clip.json; run scripts/krasnodar_access/clip.py first")
     output.mkdir(parents=True, exist_ok=True)
     studies = json.loads((studies_dir / "studies.json").read_text())
     access_manifest = json.loads((access / "manifest.json").read_text())
@@ -27,7 +29,7 @@ def build(access, studies_dir, output, source_commit):
                  "statistics.json", "summary.json", "settlement_access.csv", "candidate_roster.csv"]
     for name in inventory:
         shutil.copyfile(access / name, output / name)
-    for name in ["input_provenance.json", "sample_routes.json", "sample_routes.geojson"]:
+    for name in ["input_provenance.json", "sample_routes.json", "sample_routes.geojson", "country_clip.json"]:
         if (access / name).is_file():
             shutil.copyfile(access / name, output / name)
     for study in studies:
@@ -47,7 +49,7 @@ def build(access, studies_dir, output, source_commit):
         "authors": "Авторский транспортный сценарий", "sourceUrl": report,
         "sourceDate": "2026-10-31", "geometryDate": "2026-10-29", "geometryKind": "polygon",
         "geometryUrl": "candidate_60.geojson", "robustGeometryUrl": "candidate_60_slow.geojson",
-        "sourceVersion": "krasnodar-access-maps-20261031-v1", "evidence": "model",
+        "sourceVersion": "krasnodar-access-maps-20261031-v2", "evidence": "model",
         "summary": f"60 минут до принятого контура города: {fmt(base['settlementRecords'])} переписные записи НП, {fmt(base['population2021'])} жителей по переписи 2021 года. При времени +30% остаются {fmt(interval['minSettlements'])} записей и {fmt(interval['minPopulation2021'])} жителей.",
         "whatBoundaryMeans": "Предварительная автомобильная доступность для проверки транспортной задачи, не установленная граница функциональной агломерации.",
         "limitations": ["Трудовой критерий 15% пока не рассчитан: направления поездок неизвестны.",
@@ -61,7 +63,7 @@ def build(access, studies_dir, output, source_commit):
     }
     iso_note = "Автомобильный сценарий без измеренных пробок. Полигон обобщён; точные модельные минуты для НП показаны в точках."
     manifest = {
-        "version": "krasnodar-access-maps-20261031-v1", "sourceCommit": source_commit,
+        "version": "krasnodar-access-maps-20261031-v2", "sourceCommit": source_commit,
         "title": "Краснодар: границы, доступность и предварительный транспортный сценарий",
         "studies": studies, "candidate": candidate,
         "isochrones": {"url": "isochrone_bands.geojson", "thresholds": [30, 60, 90], "sourceUrl": report,
@@ -90,6 +92,8 @@ def build(access, studies_dir, output, source_commit):
     }
     if not (access / "input_provenance.json").is_file():
         manifest["provenance"].pop("inputUrl", None)
+    if (access / "country_clip.json").is_file():
+        manifest["provenance"]["geographyUrl"] = "country_clip.json"
     from krasnodar_figures import build_figures
     figures = build_figures(access, output)
     manifest["figures"] = [{"url": name, "evidence": "road_network_model", "populationYear": 2021, "roadSnapshot": "2026-10-29"} for name in figures]

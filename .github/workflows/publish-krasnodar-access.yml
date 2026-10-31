@@ -7,7 +7,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: krasnodar-access-maps-20261031-v1
+  group: krasnodar-access-maps-20261031-v2
   cancel-in-progress: false
 jobs:
   publish:
@@ -15,7 +15,7 @@ jobs:
     timeout-minutes: 30
     env:
       GH_TOKEN: ${{ github.token }}
-      RELEASE_TAG: krasnodar-access-maps-20261031-v1
+      RELEASE_TAG: krasnodar-access-maps-20261031-v2
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Set runner-local output directories
@@ -39,23 +39,20 @@ jobs:
         run: |
           python -m pip install -r scripts/krasnodar_access/requirements.txt
           python -m pip install matplotlib==3.10.3
-      - name: Reproduce road access from pinned source data
+      - name: Reuse immutable v1 results and fetch the pinned clipping mask
         run: |
           set -euo pipefail
-          python scripts/krasnodar_access/run.py --work "$WORK"
-      - name: Retrieve pinned reference geography and five exact study relations
+          python scripts/krasnodar_publish.py prepare-v2 --work "$WORK" --raw "$RAW" --studies "$STUDIES"
+      - name: Clip generalized polygons without rerouting or changing membership
         run: |
           set -euo pipefail
-          mkdir -p "$RAW"
-          gh release download atlas-boundaries-20261026-v1 --repo "$GITHUB_REPOSITORY" --pattern RUS-adm2.geojson --dir "$RAW"
-          echo '3c8dd7b7d6977c506c0cfb2c1b3a328df6abd585a709a468648a5e3566ff1bad  '"$RAW/RUS-adm2.geojson" | sha256sum --check --strict
-          python scripts/krasnodar_publish.py nominatim --output "$RAW"
+          python scripts/krasnodar_access/clip.py --results "$WORK/results-v1" --output "$WORK/results-v2" --adm1 "$WORK/input/RUS-adm1.geojson"
+          python scripts/krasnodar_access/validate.py --results "$WORK/results-v2"
       - name: Build source-backed study comparisons and atlas payload
         run: |
           set -euo pipefail
-          python scripts/krasnodar_studies/build_catalog.py --adm2 "$RAW/RUS-adm2.geojson" --census "$WORK/population/data/population/settlements_census_wide.parquet" --raw-dir "$RAW" --output "$STUDIES"
-          python scripts/krasnodar_assets.py --access "$WORK/results" --studies "$STUDIES" --output "$APP" --source-commit "$GITHUB_SHA"
-          python scripts/krasnodar_publish.py package --app "$APP" --results "$WORK/results" --input "$WORK/input" --raw "$RAW" --output "$PUBLICATION" --source-commit "$GITHUB_SHA" --repository "$GITHUB_REPOSITORY"
+          python scripts/krasnodar_assets.py --access "$WORK/results-v2" --studies "$STUDIES" --output "$APP" --source-commit "$GITHUB_SHA"
+          python scripts/krasnodar_publish.py package --app "$APP" --results "$WORK/results-v2" --input "$WORK/input" --raw "$RAW" --output "$PUBLICATION" --source-commit "$GITHUB_SHA" --repository "$GITHUB_REPOSITORY"
       - name: Publish immutable release including the preserved road snapshot
         run: |
           set -euo pipefail

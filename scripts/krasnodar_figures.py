@@ -71,7 +71,7 @@ def build_figures(access,output):
   ax.text(0,-.18,text,transform=ax.transAxes,ha='left',va='top',fontsize=9,linespacing=1.65,color=INK)
  fig.legend(handles=[Patch(facecolor=COLORS[t],edgecolor='#668f91',label=f'до {t} минут') for t in [30,60,90]]+[Patch(facecolor='#e7e2d2',edgecolor=INK,label='Контур НП Краснодар')],loc='upper left',bbox_to_anchor=(.06,.89),frameon=False,ncol=4,fontsize=9)
  fig.text(.065,.063,'Источники: OSM / Geofabrik, дороги 29.10.2026; принятая база переписи 2021 года. Население включает Краснодар.',fontsize=8.1,color='#667b7d')
- fig.text(.065,.036,'Зоны обобщают достижимые дороги. Это модель доступности без измеренных пробок, а не граница трудовых связей.',fontsize=8.1,color='#667b7d')
+ fig.text(.065,.036,'Зоны обобщают достижимые дороги; автомобильная модель без измеренных пробок. Маска России: Terrae / OSM, 2026.10.',fontsize=8.1,color='#667b7d')
  comparison=output/'access-destinations.png';fig.savefig(comparison,dpi=220);plt.close(fig)
  base=shape(load(access/'candidate_60.geojson')['features'][0]['geometry']);slow=shape(load(access/'candidate_60_slow.geojson')['features'][0]['geometry']);bounds2=base.bounds;interval=stats['core60Range']
  fig,ax=plt.subplots(figsize=(12,9));fig.subplots_adjust(top=.79,bottom=.18,left=.075,right=.94)
@@ -81,7 +81,7 @@ def build_figures(access,output):
  labels(ax,places,{'Краснодар','Яблоновский','Динская','Горячий Ключ','Марьянская','Тимашевск','Усть-Лабинск','Северская'})
  fig.legend(handles=[Patch(facecolor='#e4c9a9',edgecolor='#ad7543',label=f"Базовое время: {fmt(interval['maxSettlements'])} записей НП"),Patch(facecolor='#80b2ac',edgecolor='#317b78',label=f"Время ×1,3: {fmt(interval['minSettlements'])} записей НП")],loc='upper left',bbox_to_anchor=(.07,.89),frameon=False,ncol=2,fontsize=10)
  fig.text(.075,.112,f"Население 2021 года: {fmt(interval['maxPopulation2021'])} → {fmt(interval['minPopulation2021'])} человек; Краснодар включён.",fontsize=10,fontweight='bold')
- fig.text(.075,.075,'Источники: OSM / Geofabrik, 29.10.2026; принятая переписная база 2021 года. Контуры картографически обобщены.',fontsize=8.2,color='#667b7d')
+ fig.text(.075,.075,'Источники: OSM / Geofabrik, 29.10.2026; принятая переписная база 2021 года. Маска России: Terrae / OSM, 2026.10.',fontsize=8.2,color='#667b7d')
  fig.text(.075,.048,'×1,3 — заданный сценарий времени, не наблюдённая пробка и не доверительный интервал. Доля занятых, работающих в ядре, неизвестна.',fontsize=8.2,color='#667b7d')
  candidate=output/'candidate-sensitivity.png';fig.savefig(candidate,dpi=220);plt.close(fig)
  return [comparison.name,candidate.name]
