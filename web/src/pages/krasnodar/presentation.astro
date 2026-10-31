@@ -1,0 +1,7 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import KrasnodarPresentation from '../../components/KrasnodarPresentation';
+import '../../styles/krasnodar.css';
+import {basePath} from '../../lib/content';
+---
+<Layout title="Краснодарская агломерация — 10 слайдов" researchId="krasnodar-agglomeration" map={true}><KrasnodarPresentation client:only="react" base={basePath()}/></Layout>

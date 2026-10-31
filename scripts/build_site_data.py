@@ -855,6 +855,13 @@ def main(argv=None):
     registry = export_layers(ROOT / 'web/content', args.output, args.cache, lookup, offline=args.offline)
     context_transport = export_context_transport(assets['contextTransport'], args.output, args.cache, offline=args.offline)
     polygon_info = export_settlement_polygons(assets['settlementPolygons'], args.output, args.cache, lookup, offline=args.offline)
+    krasnodar_info = None
+    krasnodar_catalog = ROOT / 'data/krasnodar_maps_catalog_20261031.json'
+    if krasnodar_catalog.is_file():
+        from krasnodar_site_data import build as build_krasnodar_data
+        krasnodar_info = build_krasnodar_data(
+            krasnodar_catalog, args.output / 'krasnodar', args.cache / 'krasnodar-maps',
+            offline=args.offline)
     git = subprocess.check_output(['git', 'show', '-s', '--format=%H%n%cI', 'HEAD'], cwd=ROOT, text=True).splitlines()
     manifest = {'version': 1, 'generatedAt': git[1], 'sourceCommit': git[0],
                 'sources': [{'id': 'census-population', 'release': 'sgrt-census-population-20261022-v1', 'catalog': assets['populationCatalog']},
@@ -874,6 +881,7 @@ def main(argv=None):
                 'customLayers': 'layers.json',
                 'settlementPolygons': polygon_info,
                 'contextTransport': context_transport,
+                'krasnodar': krasnodar_info,
                 'preview': {'path': 'settlements-preview.json', 'outlinePath': 'country-preview.geojson', 'outlineUse': 'decorative_reference_land_only', 'count': len(preview), 'method': 'one_real_highest_population_point_per_0.15_degree_cell_for_thumbnail_only'},
                 'limitations': [assets.get('boundaryNote', 'Справочная сетка границ не подменяет принятую переписную основу.'),
                                 'Сводки внутри контуров рассчитаны по фиксированному сопоставимому набору точек; это не официальные муниципальные итоги.',

@@ -531,7 +531,8 @@ export default function MapWorkspace({ base = '/', research }: { base?: string; 
 
   return <section className={`map-workspace ${selection ? 'has-selection' : ''}`} aria-label="Интерактивная карта исследования">
     <div className="map-stage">
-    <div ref={mapElement} className="map-canvas" aria-label="Карта населённых пунктов, регионов и районов" />
+    {/* MapLibre CSS may be extracted after this component’s stylesheet. Keep the viewport positioned inside the stage regardless of bundle order. */}
+    <div ref={mapElement} className="map-canvas" style={{position:'absolute',inset:0}} aria-label="Карта населённых пунктов, регионов и районов" />
     {mapError && <div className="map-failure" role="alert"><strong>Карта недоступна</strong><p>{mapError}</p><a href={`${root}materials/?view=cards`}>Перейти к материалам →</a></div>}
     <div className="map-toolbar">
       <button className={`map-control map-layers-toggle ${panel ? 'active' : ''}`} onClick={() => setPanel(!panel)} aria-expanded={panel}>▦ <span>Слои</span></button>
