@@ -23,6 +23,28 @@ def domestic_mask(geometries,mask):
     return shapely.covered_by(geometries,mask)
 
 
+
+def inside_directed_arcs(native,mask):
+    """Rebuild minimum costs from surviving native ways, preserving identities.
+
+    This only builds arcs for the supplied source window. It must never be
+    passed off as the full national graph. Parallel costs are minimized only
+    AFTER the full-geometry filter, not inherited from the old compressed CSR.
+    """
+    if native.edge_minutes.isna().any() or not np.isfinite(native.edge_minutes).all() or native.edge_minutes.lt(0).any():
+        raise ValueError('Invalid original edge time')
+    if not native.oneway.isin([-1,0,1]).all():
+        raise ValueError('Unknown one-way profile')
+    geometries=shapely.from_wkb(native.native_geometry_wkb.to_numpy())
+    kept=native.loc[domestic_mask(geometries,mask)]
+    forward=kept[kept.oneway.ge(0)][['u','v','edge_minutes']]
+    reverse=kept[kept.oneway.le(0)][['v','u','edge_minutes']].copy()
+    reverse.columns=['u','v','edge_minutes']
+    arcs=pd.concat([forward,reverse],ignore_index=True)
+    if arcs.empty:return arcs
+    return arcs.groupby(['u','v'],as_index=False,sort=True).edge_minutes.min()
+
+
 def run(work):
     work=Path(work);work.mkdir(parents=True,exist_ok=True)
     name='sgrt/saratov-isochrones20261028/results/model/native_edges.parquet'
