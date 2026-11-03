@@ -107,7 +107,7 @@ def build(work):
     for folder,prefix in FOLDERS.values():
         for name in ['functional_system_members','basic_centre_profiles','functional_links']:
             required.add(PREFIX+folder+'/'+prefix+name+'.parquet')
-    provenance=acquire(Path('data/saratov_fields_catalog_20261029_v2.json'),lambda p:p in required,source,work/'cache')
+    provenance=acquire(Path('data/saratov_fields_catalog_20261029_v2.json').resolve(),lambda p:p in required,source,work/'cache')
     def table(name):return pd.read_parquet(source/PREFIX/name)
     roster=table('fields/regional_roster.parquet')
     members={k:table(folder+'/'+prefix+'functional_system_members.parquet') for k,(folder,prefix) in FOLDERS.items()}
@@ -166,7 +166,7 @@ def build(work):
     assignments=pd.read_csv('sgrt/saratov/documented_school_catchments_2025.csv')
     school,school_summary,school_geo=compare_schools(links,assignments,roster,mask)
     road_path='sgrt/saratov-isochrones20261028/results/model/native_edges.parquet'
-    road_provenance=acquire(Path('data/saratov_isochrones_catalog_20261028.json'),lambda p:p==road_path,source,work/'cache')
+    road_provenance=acquire(Path('data/saratov_isochrones_catalog_20261028.json').resolve(),lambda p:p==road_path,source,work/'cache')
     native=pd.read_parquet(source/road_path)
     geometries=shapely.from_wkb(native.native_geometry_wkb.to_numpy())
     bounds=shapely.total_bounds(geometries)
