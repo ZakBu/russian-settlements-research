@@ -67,8 +67,14 @@ test('graph exposes real directed references and an accessible local neighbourho
 
 test('unread material versions persist in materials and scientific changes reappear',async({page})=>{
  await page.goto('materials/?view=list');const count=page.locator('[data-unread-count]');await expect.poll(async()=>Number(await count.textContent())).toBeGreaterThan(2);
- const initial=Number(await count.textContent());const item=page.locator('[data-material-list]:visible').first(),id=await item.getAttribute('data-material-id');
- await expect(item.locator('[data-unread-dot]')).toBeVisible();await item.locator('h2 a').click();await page.goto('materials/?view=list');await expect(count).toHaveText(String(initial-1));
+ const initial=Number(await count.textContent());const item=page.locator('[data-material-list]:visible').first(),id=await item.getAttribute('data-material-id'),version=await item.getAttribute('data-version');
+ await expect(item.locator('[data-unread-dot]')).toBeVisible();expect(version).toBeTruthy();
+ await item.locator('h2 a').click();
+ // A long article may still be parsing when click's navigation wait ends.
+ // Complete the reading action before navigating away and cancelling its module.
+ await expect(page.locator('body')).toHaveAttribute('data-reading-material',id!);
+ await expect.poll(()=>page.evaluate(id=>JSON.parse(localStorage.getItem('atlas-read-versions')||'{}')[id!],id)).toBe(version);
+ await page.goto('materials/?view=list');await expect(count).toHaveText(String(initial-1));
  await expect(page.locator(`[data-material-list="${id}"] [data-unread-dot]`)).toBeHidden();
  await page.evaluate(id=>{const value=JSON.parse(localStorage.getItem('atlas-read-versions')||'{}');value[id!]='older-scientific-version';localStorage.setItem('atlas-read-versions',JSON.stringify(value))},id);
  await page.reload();await expect(count).toHaveText(String(initial));await page.getByRole('button',{name:'Отметить найденные просмотренными'}).click();await expect(count).toHaveText('0');
