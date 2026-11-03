@@ -1,0 +1,32 @@
+name: Publish Saratov service evidence content
+on:
+  push:
+    branches: [research/saratov-service-evidence-20261103]
+    paths: [.github/workflows/publish-saratov-service-evidence.yml]
+permissions:
+  contents: write
+jobs:
+  author:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Publish inspected scientific results in existing atlas format
+        run: |
+          python -m scripts.sgrt_saratov.publish_service_evidence_content
+          python scripts/site_content.py validate --json
+          python scripts/check_repository_policy.py
+      - name: Preserve scientific context and sync atlas status
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add web/content references research_context README.md AI_START_HERE.md sgrt/saratov
+          git commit -m 'Publish service evidence article, two comparisons, documented relations map and source use'
+          python scripts/site_content.py sync-state --json
+          python scripts/site_content.py validate --json
+          git add web/content
+          git commit -m 'Sync the new service evidence and unresolved domestic routes to atlas'
+          git push origin HEAD:research/saratov-service-evidence-20261103
