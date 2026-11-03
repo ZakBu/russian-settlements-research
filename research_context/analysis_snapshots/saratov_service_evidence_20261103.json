@@ -1,0 +1,146 @@
+{
+  "schema": "sgrt.saratov.service_evidence.20261103.v1",
+  "candidate_count": 511,
+  "inventory_sensitivity": {
+    "baseline": {
+      "regional_candidates": 510,
+      "preferred_candidates_retained": 507,
+      "preferred_direct_basic_edges": 3518,
+      "common_direct_basic_edges": 3407,
+      "symmetric_edge_difference": 273,
+      "preferred_edge_retention_fraction": 0.9684479818078454
+    },
+    "documented": {
+      "regional_candidates": 514,
+      "preferred_candidates_retained": 511,
+      "preferred_direct_basic_edges": 3518,
+      "common_direct_basic_edges": 3453,
+      "symmetric_edge_difference": 173,
+      "preferred_edge_retention_fraction": 0.98152359295054
+    },
+    "preferred": {
+      "regional_candidates": 511,
+      "preferred_candidates_retained": 511,
+      "preferred_direct_basic_edges": 3518,
+      "common_direct_basic_edges": 3518,
+      "symmetric_edge_difference": 0,
+      "preferred_edge_retention_fraction": 1.0
+    },
+    "historical": {
+      "regional_candidates": 581,
+      "preferred_candidates_retained": 483,
+      "preferred_direct_basic_edges": 3518,
+      "common_direct_basic_edges": 2468,
+      "symmetric_edge_difference": 1707,
+      "preferred_edge_retention_fraction": 0.7015349630471859
+    },
+    "preferred_nonhistorical": {
+      "regional_candidates": 492,
+      "preferred_candidates_retained": 430,
+      "preferred_direct_basic_edges": 3518,
+      "common_direct_basic_edges": 3328,
+      "symmetric_edge_difference": 648,
+      "preferred_edge_retention_fraction": 0.9459920409323479
+    }
+  },
+  "all_preferred_edges_retained_without_historical_only": 397,
+  "at_least_one_external_origin_two_functions": 133,
+  "at_least_one_external_origin_three_functions": 28,
+  "school_assignment_comparison": {
+    "external_positive": {
+      "document_mentions": 20,
+      "baseline_campus_matches": 2,
+      "baseline_legal_parent_matches": 16,
+      "documented_campus_matches": 17,
+      "documented_legal_parent_matches": 1,
+      "preferred_campus_matches": 17,
+      "preferred_legal_parent_matches": 1,
+      "historical_campus_matches": 17,
+      "historical_legal_parent_matches": 1
+    },
+    "self_positive": {
+      "document_mentions": 12,
+      "baseline_campus_matches": 4,
+      "baseline_legal_parent_matches": 6,
+      "documented_campus_matches": 12,
+      "documented_legal_parent_matches": 2,
+      "preferred_campus_matches": 12,
+      "preferred_legal_parent_matches": 2,
+      "historical_campus_matches": 12,
+      "historical_legal_parent_matches": 2
+    },
+    "zero_or_unknown_population": {
+      "document_mentions": 7,
+      "baseline_campus_matches": 1,
+      "baseline_legal_parent_matches": 5,
+      "documented_campus_matches": 5,
+      "documented_legal_parent_matches": 0,
+      "preferred_campus_matches": 5,
+      "preferred_legal_parent_matches": 0,
+      "historical_campus_matches": 5,
+      "historical_legal_parent_matches": 0
+    },
+    "identity_held": {
+      "document_mentions": 1
+    },
+    "supply_locations_from_same_document_used_for_enrichment": true,
+    "target_assignment_not_used_to_force_destinations": true,
+    "is_new_independent_holdout_validation": false,
+    "all_documented_records": 40
+  },
+  "native_road_window_country_screen": {
+    "native_road_segments": 124333,
+    "entirely_in_pinned_russian_outline": 124310,
+    "segments_not_entirely_in_outline": 23,
+    "schema": [
+      "u",
+      "v",
+      "u_osm",
+      "v_osm",
+      "way_id",
+      "oneway",
+      "native_length_km",
+      "edge_minutes",
+      "speed_kmh",
+      "geometry_crs",
+      "source_polyline_vertices",
+      "native_geometry_wkb"
+    ],
+    "scope": "Only saved native road segments within the old six-centre 60-minute display/search window; not all national or 480-minute paths.",
+    "foreign_transit_of_all_v2_routes_certified": false
+  },
+  "economic_context_schema": [
+    "unit_kind",
+    "unit_id",
+    "component",
+    "records",
+    "numeric_partial_worker_records",
+    "source_suppressed_worker_records",
+    "unknown_worker_records",
+    "known_subset_partial_organisation_workers_2025",
+    "all_partial_source_cells_numeric",
+    "complete_jobs_or_resident_employment_known",
+    "worker_source",
+    "municipal_agriculture_context_codes_json",
+    "distinct_agriculture_context_territories",
+    "records_without_agriculture_parent_key",
+    "municipal_values_allocated_or_summed",
+    "unit_membership_is_current_model_not_historical_reconstruction"
+  ],
+  "limitations": [
+    "No candidate count becomes a confirmed-centre count.",
+    "Past cost tables are retained; this calculation does not certify no foreign transit.",
+    "All-resident population is not pupils, patients, employed residents or trip counts.",
+    "Counterfactuals remove all known offers of one function in a destination NP; they do not predict actual closures.",
+    "Absence from or sensitivity to an inventory does not prove absence of local supply."
+  ],
+  "economic_numeric_known_rows": {
+    "records": 1608,
+    "numeric_partial_worker_records": 1608,
+    "source_suppressed_worker_records": 1608,
+    "unknown_worker_records": 1608,
+    "known_subset_partial_organisation_workers_2025": 398,
+    "distinct_agriculture_context_territories": 1608,
+    "records_without_agriculture_parent_key": 1608
+  }
+}

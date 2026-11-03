@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.literature_usage.v1",
-  "updated": "2026-10-29",
+  "updated": "2026-11-04",
   "rules": [
     "Each new substantive methodological claim must cite a source ID or be marked as our own proposal.",
     "Code implementation claims require a concrete file/function and validation; empty implementation_paths means no implementation is certified by this map.",
@@ -1753,7 +1753,9 @@
     {
       "source_id": "PITERSKY_SCHOOL_TERRITORIES_2025_34R",
       "used_in": [
-        "sgrt/saratov/REGIONAL_LITERATURE_20261028.md"
+        "sgrt/saratov/REGIONAL_LITERATURE_20261028.md",
+        "scripts/sgrt_saratov/service_evidence.py",
+        "web/content/materials/saratov-service-evidence.json"
       ],
       "purpose": "Physical-campus supply audit and documented admission-territory comparison; not actual journeys or calibrated decay.",
       "implementation_status": "implemented_saratov_regional_source_control",
@@ -1909,6 +1911,16 @@
         "scripts/sgrt_saratov/school_competition.py"
       ],
       "reading_scope_field": "references/sources.json records[id=KHVALYNSK_SCHOOL1_PHYSICAL_ADDRESS_WEB_20261029].read_scope"
+    },
+    {
+      "source_id": "NOVOUZENSK_SCHOOL_ASSIGNMENT2026_33",
+      "used_in": [
+        "web/content/materials/saratov-service-evidence.json",
+        "references/provenance/saratov_school_legal_scope_20261103.json"
+      ],
+      "purpose": "Методическое ограничение: административное закрепление за организацией не принимается за доказанное место физического обучения или поездку к головной школе. В поставщиков и матрицу назначения данные этого приказа не добавлены.",
+      "implementation_status": "methodological_scope_warning_not_route_or_supply_input",
+      "implementation_paths": []
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"
