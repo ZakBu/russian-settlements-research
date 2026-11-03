@@ -1,0 +1,32 @@
+name: Saratov domestic route calculation
+on:
+  push:
+    branches: [research/saratov-domestic-routes-20261104]
+    paths: [.github/workflows/saratov-domestic-routes.yml]
+permissions:
+  contents: write
+jobs:
+  calculate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - run: pip install numpy==2.3.5 pandas==2.2.3 pyarrow==26.0.0 shapely==2.1.2 pyproj==3.7.2 scipy==1.17.0
+      - name: Check directed geometry and the limits of incomplete route windows
+        run: python -m unittest tests.test_sgrt_saratov_domestic_routes tests.test_sgrt_saratov_domestic_native_edges tests.test_sgrt_saratov_country_scope -v
+      - name: Recalculate only the focused route study, publish and check public bytes
+        run: python -m scripts.sgrt_saratov.cloud_domestic_routes --work "$RUNNER_TEMP/saratov-domestic-routes"
+      - name: Save the actual published science and source manifest
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research_context/analysis_snapshots/saratov_domestic_routes_20261104.json research_context/analysis_snapshots/saratov_domestic_manifest_20261104.json
+          git commit -m 'Save published domestic route study and exact small-release manifest'
+          git push origin HEAD:research/saratov-domestic-routes-20261104
