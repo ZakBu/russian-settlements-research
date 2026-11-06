@@ -1,0 +1,102 @@
+{
+  "raw_rows": 303126,
+  "raw_columns": [
+    "date",
+    "territory_id",
+    "category",
+    "value"
+  ],
+  "raw_date_min": "2023-01",
+  "raw_date_max": "2024-12",
+  "observed_territories_n": 2190,
+  "territory_months_n": 50521,
+  "balanced_territories_n": 2016,
+  "incomplete_observed_territories_n": 174,
+  "balanced_rows": 290304,
+  "balanced_expected_rows": 290304,
+  "raw_duplicate_keys_n": 0,
+  "missing_values_n": 0,
+  "monthly_all_nonpositive_n": 0,
+  "marketplace_exceeds_all_n": 0,
+  "known_category_sum_exceeds_all_n": 0,
+  "current_dictionary_rows": 2594,
+  "balanced_dictionary_orphans_n": 0,
+  "regions_with_no_observed_rows": [
+    {
+      "region_code": 23,
+      "region_name": "Краснодарский край",
+      "reference_dictionary_2024_n": 45,
+      "any_month_observed_n": 0,
+      "balanced_24months_n": 0,
+      "fraction_balanced_of_dictionary": 0.0
+    },
+    {
+      "region_code": 31,
+      "region_name": "Белгородская область",
+      "reference_dictionary_2024_n": 22,
+      "any_month_observed_n": 0,
+      "balanced_24months_n": 0,
+      "fraction_balanced_of_dictionary": 0.0
+    },
+    {
+      "region_code": 32,
+      "region_name": "Брянская область",
+      "reference_dictionary_2024_n": 31,
+      "any_month_observed_n": 0,
+      "balanced_24months_n": 0,
+      "fraction_balanced_of_dictionary": 0.0
+    },
+    {
+      "region_code": 36,
+      "region_name": "Воронежская область",
+      "reference_dictionary_2024_n": 34,
+      "any_month_observed_n": 0,
+      "balanced_24months_n": 0,
+      "fraction_balanced_of_dictionary": 0.0
+    },
+    {
+      "region_code": 46,
+      "region_name": "Курская область",
+      "reference_dictionary_2024_n": 33,
+      "any_month_observed_n": 0,
+      "balanced_24months_n": 0,
+      "fraction_balanced_of_dictionary": 0.0
+    },
+    {
+      "region_code": 61,
+      "region_name": "Ростовская область",
+      "reference_dictionary_2024_n": 55,
+      "any_month_observed_n": 0,
+      "balanced_24months_n": 0,
+      "fraction_balanced_of_dictionary": 0.0
+    },
+    {
+      "region_code": 91,
+      "region_name": "Республика Крым",
+      "reference_dictionary_2024_n": 25,
+      "any_month_observed_n": 0,
+      "balanced_24months_n": 0,
+      "fraction_balanced_of_dictionary": 0.0
+    },
+    {
+      "region_code": 92,
+      "region_name": "Севастополь",
+      "reference_dictionary_2024_n": 10,
+      "any_month_observed_n": 0,
+      "balanced_24months_n": 0,
+      "fraction_balanced_of_dictionary": 0.0
+    }
+  ],
+  "schema_note": "Description calls the measure consumption; actual Parquet column is value.",
+  "unit": "modelled mean cashless monthly spending of residents, rubles; summing means does not yield total municipal spending",
+  "period": "monthly observations; annual ratio is SUM monthly marketplace model means / SUM monthly all-category model means",
+  "limitations": [
+    "not WB/Ozon-specific",
+    "cashless model, not all household expenditure",
+    "no national population or spending weights applied",
+    "unknown source quality thresholds and missingness mechanism",
+    "no merchant locations or OD flows",
+    "no shape-based centre/periphery classification",
+    "nominal residual all-minus-marketplace is not physical consumption or local shops turnover"
+  ]
+}

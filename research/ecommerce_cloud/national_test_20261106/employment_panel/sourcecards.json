@@ -1,0 +1,116 @@
+{
+  "retrieved": "2026-11-06",
+  "sources": [
+    {
+      "id": "tambovstat_cities_2022_employment_wages",
+      "url": "https://68.rosstat.gov.ru/storage/mediabank/RG2022.pdf",
+      "edition": 2022,
+      "observation_years": [
+        2017,
+        2021
+      ],
+      "table_pages": [
+        25,
+        29
+      ],
+      "scope": "tables extracted from official PDF indexed text; footnotes observed; PDF not downloaded"
+    },
+    {
+      "id": "tambovstat_cities_2023_crosscheck",
+      "url": "https://68.rosstat.gov.ru/storage/mediabank/Rg_2023.pdf",
+      "edition": 2023,
+      "observation_years": [
+        2018,
+        2022
+      ],
+      "table_pages": [
+        25,
+        30
+      ],
+      "scope": "indexed explicit tables and footnotes; PDF not downloaded"
+    },
+    {
+      "id": "tambovstat_cities_2024_crosscheck",
+      "url": "https://68.rosstat.gov.ru/storage/mediabank/RG_2024.pdf",
+      "edition": 2024,
+      "observation_years": [
+        2019,
+        2023
+      ],
+      "scope": "indexed explicit table fragments; PDF503/timeout"
+    },
+    {
+      "id": "tambovstat_municipal_yearbook_2025",
+      "url": "https://68.rosstat.gov.ru/storage/mediabank/%D0%A1%D0%91%D0%9E%D0%A0%D0%9D%D0%98%D0%9A%20%D0%9C%D0%9E_2025.pdf",
+      "edition": 2025,
+      "observation_years": [
+        2020,
+        2024
+      ],
+      "table_pages": [
+        27,
+        30
+      ],
+      "scope": "indexed explicit complete employment and wage tables incl footnotes; PDF503/timeout"
+    },
+    {
+      "id": "sberindex_salary_hackathon_github_mirror_2688b801",
+      "url": "https://raw.githubusercontent.com/TrueSpearmint/sberindex_hackathon/2688b801792b7d43e4f460d7004bccac374960d2/data_in/sberindex/4_bdmo_salary.parquet",
+      "commit": "2688b801792b7d43e4f460d7004bccac374960d2",
+      "sha256": "f9a8956ad68c7ec81fac7b2e61ac2494b02b489887ce06204621b5dff29e62f2",
+      "bytes": 1972259,
+      "source_chain": "Росстат БДПМО (атрибуция в описании)→набор хакатона СберИндекса→стороннее GitHub-зеркало; не прямой Rosstat-download",
+      "grain": "территория в постоянных границах × год2023/2024 × накопленный период с начала года × ОКВЭД",
+      "scope": "Полный Parquet загружен и проверен;72 строкиG/H/всеотрасли по3МО извлечены",
+      "not_available": "Численность работников и фонд зарплаты отсутствуют: нельзя получать отдельные квартальные зарплаты из накопленных средних или веса отраслей."
+    }
+  ],
+  "units": {
+    "employees_excl_sme": "Среднесписочная численность работников предприятий и организаций, без субъектов малого предпринимательства, человек; годовое среднее, не запас на конец года, не все занятые жители",
+    "nominal_monthly_wage_rub": "Среднемесячная номинальная начисленная зарплата работников предприятий и организаций, без субъектов малого предпринимательства, рублей в месяц; не реальная зарплата и не доход каждого жителя"
+  },
+  "raw": [
+    {
+      "path": "work/ecommerce_national_20261106/employment_panel/raw/employment_search_extracts.json",
+      "sha256": "4ccb9712ee195706768e0a7ce264332ca01a0d846496ccb799ee1bde8507b1ed",
+      "access": "search index of primary PDF; not full PDF"
+    },
+    {
+      "path": "work/ecommerce_national_20261106/employment_panel/raw/employment_scope_extract.json",
+      "sha256": "79d51e6ba65a3e2f3c69c2c952f2519676ab813b5c322ea4bd9d38a99842a2b0",
+      "access": "search index of primary PDF; not full PDF"
+    },
+    {
+      "path": "work/ecommerce_national_20261106/employment_panel/raw/wage_search_extracts.json",
+      "sha256": "e37cadc9f15f3c4db67f8f3458379162b2faf8b44caffb515e0b1d77fc1b0ec7",
+      "access": "search index of primary PDF; not full PDF"
+    },
+    {
+      "path": "work/ecommerce_national_20261106/employment_panel/raw/scope_search_extracts.json",
+      "sha256": "3f23577e49faf41e8b33e8624594c24e8c199c4fc34c1f5f0b4c9f6920168ffc",
+      "access": "search index of primary PDF; not full PDF"
+    }
+  ],
+  "limitations": [
+    "По среднесписочной численности последний извлечённый год2024; отраслевой численностиG/H нет. По отраслевым зарплатам есть2023–2024, сохранив накопленные периоды.",
+    "No observation of where workers reside or intersettlement travel; workplace aggregate cannot identify dependence of surroundings.",
+    "Official municipal names are geographical units; current one-settlement composition is checked against five existing registry vintages, but continuous boundary stability2017–2024 is not independently established.",
+    "Comparison cities selected for same region, city-district level, fixed cohort and available consistent source; absence of platform logistics and common pretrends not established.",
+    "Search-index extraction is inspectable but lower confidence than direct PDF extraction; repeat when primary host available.",
+    "shape_linked_oktmo сохраняет связь административных центров с соседними муниципалитетами; это не команда объединять городской округ с районом. Извлечены отдельные строки по точным ОКТМО."
+  ],
+  "companion_acquisition": [
+    {
+      "name": "dictionary.xlsx",
+      "url": "https://raw.githubusercontent.com/TrueSpearmint/sberindex_hackathon/2688b801792b7d43e4f460d7004bccac374960d2/data_in/sberindex/6_t_dict_municipal/t_dict_municipal_districts.xlsx",
+      "bytes": 322024,
+      "sha256": "4150658c3298fbc87ed79838f503f3a5b9a28da33257ff803c7d9231ddb775d6"
+    },
+    {
+      "name": "description.docx",
+      "url": "https://raw.githubusercontent.com/TrueSpearmint/sberindex_hackathon/2688b801792b7d43e4f460d7004bccac374960d2/data_in/sberindex/%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20%D0%B4%D0%BB%D1%8F%20%D0%A5%D0%B0%D0%BA%D0%B0%D1%82%D0%BE%D0%BD%D0%B0%20%282025-6-6%29.docx",
+      "bytes": 33812,
+      "sha256": "d2e462f22a2af8b0168eafef04d2fb554c902bea037a2d7ad92190201cb436d9"
+    }
+  ]
+}

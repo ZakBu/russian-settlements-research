@@ -1,0 +1,60 @@
+{
+  "retrieved": "2026-11-06",
+  "mirror_commit": "2688b801792b7d43e4f460d7004bccac374960d2",
+  "primary_archive_url_reported_in_mirror_fetch_code": "https://www.sberbank.com/common/img/uploaded/files/pdf/sberindex/hackathonlicence.zip",
+  "primary_access": "Root reports503; this agent did not fetch original archive. A pinned third-party mirror is used, not a directly verified primary download.",
+  "source_chain": "Транзакционные данные→модели СберИндекса→набор хакатона2025→стороннее GitHub-зеркало. Это модельные муниципальные средние расходов жителей, не микротранзакции.",
+  "pins": [
+    {
+      "name": "consumption.parquet",
+      "url": "https://raw.githubusercontent.com/TrueSpearmint/sberindex_hackathon/2688b801792b7d43e4f460d7004bccac374960d2/data_in/sberindex/8_consumption.parquet",
+      "bytes": 2373939,
+      "sha256": "9833ddaaee7b2a182ed4cceeed16469031700ea87d508bd976150c6770ef8a61"
+    },
+    {
+      "name": "dictionary.xlsx",
+      "url": "https://raw.githubusercontent.com/TrueSpearmint/sberindex_hackathon/2688b801792b7d43e4f460d7004bccac374960d2/data_in/sberindex/6_t_dict_municipal/t_dict_municipal_districts.xlsx",
+      "bytes": 322024,
+      "sha256": "4150658c3298fbc87ed79838f503f3a5b9a28da33257ff803c7d9231ddb775d6"
+    },
+    {
+      "name": "description.docx",
+      "url": "https://raw.githubusercontent.com/TrueSpearmint/sberindex_hackathon/2688b801792b7d43e4f460d7004bccac374960d2/data_in/sberindex/%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20%D0%B4%D0%BB%D1%8F%20%D0%A5%D0%B0%D0%BA%D0%B0%D1%82%D0%BE%D0%BD%D0%B0%20%282025-6-6%29.docx",
+      "bytes": 33812,
+      "sha256": "d2e462f22a2af8b0168eafef04d2fb554c902bea037a2d7ad92190201cb436d9"
+    },
+    {
+      "name": "description.txt",
+      "bytes": 10872,
+      "sha256": "89e0bca0ab0b241d5c08e971422adc76e57a704be97658439c045efe8e4be101",
+      "url": null,
+      "source_note": "existing shared local companion; see root acquisition for retrieval provenance"
+    },
+    {
+      "name": "dictionary_metadata.pdf",
+      "bytes": 325733,
+      "sha256": "7cbdc53c75444ef7d66bfda0ac21cd6b02c4618c84a2bd28ca900edd099ad1b3",
+      "url": null,
+      "source_note": "existing shared local companion; see root acquisition for retrieval provenance"
+    },
+    {
+      "name": "dictionary_metadata.txt",
+      "bytes": 8891,
+      "sha256": "66297d200864f689a93ff260e26d1187b451abbe31132e32a49bec2efd69bed9",
+      "url": null,
+      "source_note": "existing shared local companion; see root acquisition for retrieval provenance"
+    }
+  ],
+  "read_scope": "Full consumption.parquet and dictionary.xlsx loaded; description consumption definition/category scope read; dictionary metadata date/version limits read; no original transaction data available.",
+  "unit": "Модельная оценка средних безналичных расходов жителей МО за месяц, рублей. Сумма двенадцати месячных средних не является общей денежной суммой расходов населения МО.",
+  "scope": "Все маркетплейсы в определении источника; не отдельные Wildberries/Ozon.",
+  "annual_metric": "SUM12(monthly model mean marketplace rubles) / SUM12(monthly model mean all-category rubles)",
+  "aggregation": "Распределение отношений по МО; каждое МО имеет один вес. Медианы и квантили не являются долей расходов всех жителей России.",
+  "methodology_limits": [
+    "Unknown model quality thresholds and missingness mechanism; absent observations are not zero.",
+    "Cross-year comparability of the source model is assumed for descriptive calculation, not independently validated on microdata.",
+    "No local merchant geography, physical goods quantities, real-price deflator, employment, OD or dependency on a named centre measured.",
+    "shape2/3 not interpreted; no centre/periphery or fixed-centre cohort classification made.",
+    "Version dictionaryvalid2024 used only to attach stable territory names/codes/regions. Historical2018centre attribute not used."
+  ]
+}

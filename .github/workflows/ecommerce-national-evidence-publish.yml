@@ -1,0 +1,49 @@
+name: Publish national ordering and expenditure evidence
+on:
+  push:
+    branches: [codex/ecommerce-settlement-cloud-20261025]
+    paths:
+      - '.github/workflows/ecommerce-national-evidence-publish.yml'
+permissions:
+  contents: read
+jobs:
+  reproduce-available-inputs-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Install scientific environment
+        run: python -m pip install -r research/ecommerce_cloud/national_test_20261106/requirements.txt
+      - name: Restore pinned KOUZh and public statistical mirrors
+        run: |
+          python research/ecommerce_cloud/flows_20261026/fetch_kouzh_inputs.py
+          python research/ecommerce_cloud/national_test_20261106/fetch_sber_inputs.py
+      - name: Execute raw KOUZh and Sber calculations, and explicit ICT aggregate audit
+        run: python research/ecommerce_cloud/national_test_20261106/build_deliverables.py --public-ict-aggregates
+      - name: Package scientific results and source definitions
+        run: python research/ecommerce_cloud/national_test_20261106/package_results.py
+      - name: Publish new version without overwriting files
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TASK_RELEASE_TAG: ecommerce-national-evidence-20261106-v1
+        run: |
+          if gh release view "$TASK_RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Versioned release exists; nothing will be replaced."
+            exit 1
+          fi
+          gh release create "$TASK_RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Интернет-заказы, муниципальные расходы и функции центров" --notes-file research/ecommerce_cloud/national_test_20261106/RELEASE_NOTES.md work/ecommerce_national_test_20261106/release/*
+      - name: Preserve generated research artifacts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: national-orders-and-centre-functions
+          path: work/ecommerce_national_test_20261106/release/
+          if-no-files-found: warn
+          retention-days: 30

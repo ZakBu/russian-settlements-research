@@ -1,0 +1,30 @@
+[
+  {
+    "service": "Rosstat original HTTPS",
+    "urls": [
+      "https://rosstat.gov.ru/free_doc/new_site/business/it/ikt24/index.html",
+      "https://rosstat.gov.ru/free_doc/new_site/business/it/ikt24/files/IKT-2022.sav",
+      "https://rosstat.gov.ru/opendata/7708234640-IKT-twenty-twenty-four"
+    ],
+    "status": 503,
+    "diagnosis": "Proxy body reported remote TLS CERTIFICATE_VERIFY_FAILED; TLS verification not disabled."
+  },
+  {
+    "service": "Rosstat original HTTP2022",
+    "url": "http://rosstat.gov.ru/free_doc/new_site/business/it/ikt24/files/IKT-2022.sav",
+    "status": 503,
+    "diagnosis": "Redirected by original server to /DDoS01/...; no successful body, no challenge bypass."
+  },
+  {
+    "service": "Internet Archive exact2022 body",
+    "url": "https://web.archive.org/web/20250604091940id_/https://rosstat.gov.ru/free_doc/new_site/business/it/ikt24/files/IKT-2022.sav",
+    "status": 429,
+    "diagnosis": "Response explicitly says suspected abusive bot traffic. Further Wayback body requests stopped; no workaround, identity change, or CAPTCHA bypass."
+  },
+  {
+    "service": "CommonCrawl independent public index",
+    "url": "https://index.commoncrawl.org/CC-MAIN-2025-30-index?url=rosstat.gov.ru%2Ffree_doc%2Fnew_site%2Fbusiness%2Fit%2Fikt24%2Ffiles%2FIKT-2022.sav&output=json",
+    "status": 504,
+    "diagnosis": "No independent archived2022 body obtained."
+  }
+]
