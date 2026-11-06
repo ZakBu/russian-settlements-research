@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-11-06T18:27:28+03:00",
+  "updated_moscow": "2026-11-06T19:52:09+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,13 +9,13 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "documented_school_and_medical_systems_structured_and_independently_compared",
-      "summary": "Получены девять школьных и десять медицинских окружений с внешними жилыми НП по документам 2025 года. Внутри рассчитаны 16 функций, локальные подцентры и внешние направления; независимая медицинская проверка совпала в 23 из 28 отношений при неизменённом каталоге. Географически и переписно полные пары 2002–2021 доступны для пяти школьных и шести медицинских составов: убыль ядра и окружения. Общая иерархия и поездки не установлены. Отдельная уже доступная первичная выписка 2010 даёт трёхточечные ряды с первичными числами пяти школьным и трём медицинским составам; у окружения Кожевино меняется описание динамики. Историческая сопоставимость охвата не доказана.",
+      "status": "regional_population_structure_tested_functional_systems_not_yet_established",
+      "summary": "Проверены все 1821 переписные записи Саратовской области. Поиск максимумов среди шести соседей давал ложные ядра; сравнение со всеми соседями в пределах масштаба исправлено. Однако области демографического поля не воспроизводят автоматически системы обслуживания. Документные школьные и медицинские составы сохранены как независимые функциональные проверки, а не готовые территориальные системы. Население, функции, работники организаций и муниципальное сельское хозяйство рассматриваются раздельно.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
       "main_blocker": "Неполное предложение сельских магазинов и школ, неизвестная вместимость и доступ отдельных профилей; мало независимых направленных поездок. Первичные числа 2010 года найдены, но сопоставимость контингентов и границ остаётся отдельным ограничением.",
       "workplan": "sgrt/workplan/README.md",
-      "results": "sgrt/saratov/REGIONAL_RESULTS_20261029.md",
+      "results": "sgrt/saratov/REGIONAL_STRUCTURE_20261106.md",
       "data_release": "sgrt-saratov-fields-20261029-v2",
       "publication": {
         "release": "sgrt-saratov-fields-20261029-v2",
@@ -144,11 +144,11 @@
           "D60",
           "D61"
         ],
-        "primary_report": "sgrt/saratov/REGIONAL_RESULTS_20261029.md",
+        "primary_report": "sgrt/saratov/REGIONAL_STRUCTURE_20261106.md",
         "method": "sgrt/saratov/REGIONAL_METHOD_20261029.md",
         "scope": "Весь текущий переписной состав области, 1821 запись; 1814 имеют принятую дорожную привязку.",
         "preferred_inventory": "physical_official_enrichment",
-        "status": "documented_functional_compositions_and_internal_structure_available_common_hierarchy_pending",
+        "status": "whole_oblast_field_structure_and_functional_controls_calculated",
         "higher_levels": "Прямые направления редких функций рассчитаны для самих базовых центров. Число уровней и единственная вложенная иерархия не назначены и наблюдениями не установлены."
       },
       "previous_national_publication": {
@@ -1183,6 +1183,33 @@
           "original_population_foundation_modified": false,
           "historical_scope_or_boundary_equivalence_established": false
         }
+      },
+      "regional_structure_20261106": {
+        "scope_settlements": 1821,
+        "population_2021": 2442575,
+        "documented_control_unique_settlements": 77,
+        "documented_control_population_2021": 26417,
+        "documented_control_urban_settlements": 0,
+        "full_radius_scenarios": 18,
+        "stress_scenarios": 72,
+        "knn_false_peaks_corrected": true,
+        "sampled_singletons_are_supported_centres": false,
+        "field_basins_are_functional_systems": false,
+        "workers_numeric_settlements": 236,
+        "population_in_numeric_worker_host_settlements": 1996200,
+        "host_population_coverage_is_employment_coverage": false,
+        "paired_h15_document_cohorts": {
+          "school": 25,
+          "medical_basic": 15,
+          "physician": 20
+        },
+        "report": "sgrt/saratov/REGIONAL_STRUCTURE_20261106.md",
+        "atlas": "https://zakbu.github.io/russian-settlements-research/materials/saratov-regional-structure/",
+        "release": "sgrt-saratov-regional-structure-20261106-v1",
+        "publication_status": "published_reproduced_and_public_assets_sha256_verified",
+        "producer_commit": "74dd0edc0bfa1aa66fab4937cd6b68fd25c2c333",
+        "manifest": "research_context/analysis_snapshots/saratov_regional_structure_manifest_20261106.json",
+        "archive_bytes": 7609970
       }
     },
     "portal": {
@@ -1251,6 +1278,7 @@
     }
   },
   "next_steps": [
+    "Отделять демографические концентрации от функциональных систем. Проверять независимые направления и пригодность альтернатив в контрастных городских, пригородных, аграрных и промышленных территориях области; простое ближайшее предложение сохранять как обязательный сравнительный метод. Не превращать цепочки роста потенциала в районы обслуживания.",
     "Объяснить пять медицинских расхождений при уже известном нужном предложении документных ядер; проверить расписания и пригодность услуг. Восполнять сельскую торговлю и изучать пересечения школьных и медицинских составов, не расширяя их транзитивно за редкими услугами.",
     "Проверять модель по независимым школьным, медицинским и трудовым направлениям, фактической работе и вместимости объектов; не подменять наблюдённые поездки модельными.",
     "Проверять конкретные школьные и медицинские направления, сельские магазины и действующие профили учреждений. Отсутствие объекта в OSM не считать отсутствием функции.",
@@ -1286,7 +1314,8 @@
     "Классы объёма работников, населения и медицинских адресов не измеряют разнообразие функций, вместимость учреждений или пространственный уровень. Полная многоуровневая система пока не установлена.",
     "Краснодарские изохроны — автомобильная модель по дорогам 29.10.2026, не наблюдаемые поездки. Пробки, поворотные ограничения и общественный транспорт не измерены; критерий 15% занятых и бюджетный оптимум не рассчитаны.",
     "Внутренние пути подтверждены для 29 803 пар точек НП в сохранённом дорожном окне; 73 521 пара не разрешена и 416 имеют только верхнюю оценку. Это не изоляция; все физические поставщики и национальная сеть не пересчитаны.",
-    "Документированные школьные и медицинские составы 2025 относятся к разным функциям. Новотулка, Барнуковка, Пригородный и Озерки географически неполны. В основном варианте 2010 полностью первичных трёхпереписных рядов нет; отдельная первичная выписка даёт пять школьных и три медицинских численных ряда без доказательства равных исторических территорий; универсальные СГРТ и наблюдённые поездки не установлены."
+    "Документированные школьные и медицинские составы 2025 относятся к разным функциям. Новотулка, Барнуковка, Пригородный и Озерки географически неполны. В основном варианте 2010 полностью первичных трёхпереписных рядов нет; отдельная первичная выписка даёт пять школьных и три медицинских численных ряда без доказательства равных исторических территорий; универсальные СГРТ и наблюдённые поездки не установлены.",
+    "Документные 77 НП содержат 1,08% населения области и не содержат городов; они не репрезентируют область. Бассейны поля населения чувствительны к масштабу и не доказывают обслуживание. Сумма времени по цепочке сравнений не является кратчайшей поездкой до ядра; неизвестные граничные сравнения и одиночные точки без соседей сохранены отдельно."
   ],
   "entrypoints": {
     "rules": "AGENTS.md",
@@ -1326,6 +1355,7 @@
     "current_upper_research": "https://zakbu.github.io/russian-settlements-research/materials/currenteconomic-cooperation-evidence/",
     "krasnodar_agglomeration": "research_context/krasnodar_agglomeration/README.md",
     "krasnodar_access": "research_context/krasnodar_agglomeration/access/README.md",
-    "current_documented_local_systems": "https://zakbu.github.io/russian-settlements-research/materials/saratov-local-service-systems/"
+    "current_documented_local_systems": "https://zakbu.github.io/russian-settlements-research/materials/saratov-local-service-systems/",
+    "current_regional_structure": "https://zakbu.github.io/russian-settlements-research/materials/saratov-regional-structure/"
   }
 }

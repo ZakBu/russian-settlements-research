@@ -280,7 +280,8 @@
         "sgrt/zero/METHOD.md",
         "web/content/materials/literature-foundations.json",
         "web/content/materials/literature-russian-geography.json",
-        "web/content/materials/literature-bibliography.json"
+        "web/content/materials/literature-bibliography.json",
+        "web/content/materials/saratov-regional-structure.json"
       ],
       "purpose": "Различение центрометрического и социально-экономического центра; масштабная специфика каркаса; ограничения потенциалов; различие общесетевой и монографической делимитации.",
       "implementation_status": "conceptual_method_and_literature_basis; not proof of new calibrated nationwide implementation",
@@ -308,7 +309,8 @@
         "README.md#вложенность-и-полицентричность",
         "sgrt/literature/classics/READOUT_RU.md",
         "web/content/materials/literature-russian-geography.json",
-        "web/content/materials/literature-bibliography.json"
+        "web/content/materials/literature-bibliography.json",
+        "web/content/materials/saratov-regional-structure.json"
       ],
       "purpose": "Связь формы ареала и сети транспорта; автор открыто обозначает идеальную модель и её постулаты; функциональные зоны имеют разный смысл.",
       "implementation_status": "conceptual_method_and_literature_basis; not proof of new calibrated nationwide implementation",
@@ -1587,7 +1589,8 @@
     {
       "source_id": "ZUBAREVICH2011_FOUR_RUSSIAS",
       "used_in": [
-        "web/content/materials/literature-bibliography.json"
+        "web/content/materials/literature-bibliography.json",
+        "web/content/materials/saratov-regional-structure.json"
       ],
       "purpose": "docs/WRITING_GUIDE.md: редакционный разбор (различия территорий, экономический механизм и числовые сравнения); датированные оценки и политические прогнозы не используются как данные исследования",
       "implementation_status": "literature_review_only; no implementation or transferred coefficients asserted",
@@ -1994,6 +1997,52 @@
       "implementation_status": "dated_context_not_numeric_flow_or_current_capacity_input",
       "implementation_paths": [],
       "reading_scope_field": "references/sources.json records[id=ROSSETI_MIRONOVKA_FAP20240827].read_scope"
+    },
+    {
+      "source_id": "LI_RAY_LINDSAY2007_MODAL_CLUSTERING",
+      "used_in": [
+        "web/content/materials/saratov-regional-structure.json",
+        "web/content/materials/literature-bibliography.json"
+      ],
+      "purpose": "Методическая аналогия группировки вокруг мод и зависимость групп от сглаживания. Дорожный подъём нашего пилота не является MEM/REM и не наследует доказательства для гауссовой плотности.",
+      "implementation_status": "selected_scope_conceptual_and_validation_support_not_empirical_system_validation",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=LI_RAY_LINDSAY2007_MODAL_CLUSTERING].read_scope"
+    },
+    {
+      "source_id": "HUBERT_ARABIE1985_PARTITIONS_ABSTRACT",
+      "used_in": [
+        "web/content/materials/saratov-regional-structure.json",
+        "web/content/materials/literature-bibliography.json"
+      ],
+      "purpose": "Историческая первичная ссылка на сравнение разбиений с поправкой на случайность. Определение и поведение применённого ARI проверены отдельно по документации scikit-learn.",
+      "implementation_status": "selected_scope_conceptual_and_validation_support_not_empirical_system_validation",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=HUBERT_ARABIE1985_PARTITIONS_ABSTRACT].read_scope"
+    },
+    {
+      "source_id": "SKLEARN_ADJUSTED_RAND_DOCUMENTATION",
+      "used_in": [
+        "web/content/materials/saratov-regional-structure.json",
+        "web/content/materials/literature-bibliography.json"
+      ],
+      "purpose": "Интерпретация 0 и 1, симметрия и проверка согласованности разбиений на одинаковой документной когорте. Документные метки не объявляются истиной территориальных систем расселения.",
+      "implementation_status": "selected_scope_conceptual_and_validation_support_not_empirical_system_validation",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/regional_validation.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=SKLEARN_ADJUSTED_RAND_DOCUMENTATION].read_scope"
+    },
+    {
+      "source_id": "PHOSAGRO_ANNUAL2022_GEOGRAPHY",
+      "used_in": [
+        "web/content/materials/saratov-regional-structure.json",
+        "web/content/materials/literature-bibliography.json"
+      ],
+      "purpose": "Независимое подтверждение промышленной функции сельского поселения. Не приписывает предприятию все 6768 частичных работников организаций 2025 года; не измеряет маятниковые поездки.",
+      "implementation_status": "selected_scope_conceptual_and_validation_support_not_empirical_system_validation",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=PHOSAGRO_ANNUAL2022_GEOGRAPHY].read_scope"
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"
