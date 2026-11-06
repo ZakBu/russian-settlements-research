@@ -67,7 +67,9 @@ def notebook(public):
              +( "print('ИКТ: первичный SAV здесь не прочитан; используются закреплённые агрегаты.')\n" if public else
                 "execute(HERE/'ict_survey/analyze_ict_survey.py',['--years','2024'])\nprint('ИКТ: первичный SAV пересчитан.')\n")+
              "check_args="+repr(['--skip-ict-raw']if public else [])+"\n"
-             "saved=sys.argv[:]\ntry:\n    sys.argv=[str(HERE/'review/independent_national_check.py'),*check_args]\n    runpy.run_path(str(HERE/'review/independent_national_check.py'),run_name='__main__')\nfinally:\n    sys.argv=saved"),
+             "saved=sys.argv[:]\ntry:\n    sys.argv=[str(HERE/'review/independent_national_check.py'),*check_args]\n    runpy.run_path(str(HERE/'review/independent_national_check.py'),run_name='__main__')\nfinally:\n    sys.argv=saved\n"
+             "plotter=runpy.run_path(str(HERE/'build_deliverables.py'),run_name='plot_functions')\n"
+             "plotter['figures']()"),
         md('## Заказы и способ получения\n\nОсновной возраст — 15+; стандартный 15–74 хранится отдельно. '
            'Вещевые группы и самовывоз пересекаются на уровне человека, не заказа. '
            'Адрес выдачи и прежний центр отсутствуют.'),
@@ -114,6 +116,7 @@ def pdf():
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--public-ict-aggregates',action='store_true');p.add_argument('--pdf-only',action='store_true');a=p.parse_args()
-    OUT.mkdir(parents=True,exist_ok=True);figures()
-    if not a.pdf_only:notebook(a.public_ict_aggregates)
+    OUT.mkdir(parents=True,exist_ok=True)
+    if a.pdf_only:figures()
+    else:notebook(a.public_ict_aggregates)
     pdf();print(OUT)

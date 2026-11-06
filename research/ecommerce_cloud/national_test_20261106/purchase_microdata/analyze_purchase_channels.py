@@ -1,6 +1,7 @@
 """Independent descriptive KOUZh channel/geography audit. No causal effect."""
 from pathlib import Path
 import hashlib,json,re
+import pymupdf
 import numpy as np
 import pandas as pd
 
@@ -90,7 +91,8 @@ def main():
             proxy.append({'year':year,'general_internet':general,'any_goods_channel':any_goods,'purpose_search_order_sale_flag':bool(purpose),'n':len(g),'weight':float(g.KVZV.sum()),'share_informed_rural_pct':100*float(g.KVZV.sum())/float(r.KVZV.sum()),'purpose_interpretation':'composite search_goods_services_order_goods_services_sale_personal_items;not_unique_purchase'})
         # All pages searched; relevant sections read in full. Substrings such as
         # предоставляют are not mistaken for delivery questions.
-        txt=(RAW/f'{year}_questionnaire.txt').read_text();pages=txt.split('\f')
+        with pymupdf.open(RAW/f'{year}_questionnaire.pdf') as doc:
+            pages=[page.get_text(sort=True) for page in doc]
         for i,page in enumerate(pages,1):
             norm=re.sub(r'\s+',' ',page)
             if 'Где Вы в основном' in norm:
@@ -117,7 +119,10 @@ def main():
                     checks.append({'year':year,'goods':GOODS[good],'group':label,'new_field':x,'old_field':y,'difference':delta,'novel_result':False})
     pd.DataFrame(checks).to_csv(HERE/'comparison_with_previous.csv',index=False)
     instruction=ROOT/'work/ecommerce_national_test_20261106/purchase_microdata/rosstat_order149_garant.html'
-    metadata={'source_id':'ECOM_KOUZH_PUBLIC_MICRODATA_2018_2022_2024','source_page':'https://tochno.st/datasets/surveys','members_manifest':str(MANIFEST.relative_to(ROOT)),'inputs':proof,'unit':'rural persons15plus with available individual information,proxy answers retained;KVZV supplied household weight repeated on individual records','no_information':'H01_12=99 excluded;this is not internetuse','new_fields_found':False,'known_direct_field':'I04_04_01..03','official_2024_interpretation':{'order':'Росстат11.04.2024№149,указанияп146','url':'https://www.garant.ru/products/ipo/prime/doc/408788959/','excerpt':'приобретения товаров посредством заказа через интернет-магазины','interpretation':'Self-reported Internet-shop ordering,not merely browsing;not independently verified completed delivery','raw_path':str(instruction.relative_to(ROOT)),'sha256':sha(instruction)},'new_calculation':'regular/occasional/no-aware/no-unaware geography;any-goods vs same-goods grouping;general-internet/composite-purpose crosswalk;composition;independent earlier binary replication','standardisation':'32same-wave age/sex/rural-size strata to all informed rural15plus;not old pooled-binary target;missing support returnedNA','limits':['2024questionnaireinternetonlywhilecodebookretainsoldpostwording','2018/22postalORinternetcannotseparate','currentcalendarperioddiffersacrosswaves','frequencyqualitativeconstant/occasional,notnumberoforders','noWB/Ozonbrand,noexpenditure,noorderreceiptdestination,nodeliverymode,nopurchase-linkedtripcount','geographyquestionmainoverallacquisition,notgeographyofInternetorders','nosettlementnames,noactualmedium-centreOD,nocausalestimate,nodesign-basedSE']}
+    official=json.loads((HERE/'official_interpretation.json').read_text())
+    if instruction.exists():assert sha(instruction)==official['sha256']
+    official['raw_body_checked_in_this_run']=instruction.exists()
+    metadata={'source_id':'ECOM_KOUZH_PUBLIC_MICRODATA_2018_2022_2024','source_page':'https://tochno.st/datasets/surveys','members_manifest':str(MANIFEST.relative_to(ROOT)),'inputs':proof,'unit':'rural persons15plus with available individual information,proxy answers retained;KVZV supplied household weight repeated on individual records','no_information':'H01_12=99 excluded;this is not internetuse','new_fields_found':False,'known_direct_field':'I04_04_01..03','official_2024_interpretation':{'order':'Росстат11.04.2024№149,указанияп146','url':'https://www.garant.ru/products/ipo/prime/doc/408788959/','excerpt':'приобретения товаров посредством заказа через интернет-магазины','interpretation':'Self-reported Internet-shop ordering,not merely browsing;not independently verified completed delivery','raw_path':str(instruction.relative_to(ROOT)),'sha256':official['sha256'],'read_scope':official['read_scope'],'raw_body_checked_in_this_run':official['raw_body_checked_in_this_run']},'new_calculation':'regular/occasional/no-aware/no-unaware geography;any-goods vs same-goods grouping;general-internet/composite-purpose crosswalk;composition;independent earlier binary replication','standardisation':'32same-wave age/sex/rural-size strata to all informed rural15plus;not old pooled-binary target;missing support returnedNA','limits':['2024questionnaireinternetonlywhilecodebookretainsoldpostwording','2018/22postalORinternetcannotseparate','currentcalendarperioddiffersacrosswaves','frequencyqualitativeconstant/occasional,notnumberoforders','noWB/Ozonbrand,noexpenditure,noorderreceiptdestination,nodeliverymode,nopurchase-linkedtripcount','geographyquestionmainoverallacquisition,notgeographyofInternetorders','nosettlementnames,noactualmedium-centreOD,nocausalestimate,nodesign-basedSE']}
     metadata['age_sensitivity']={'age_range':'15..74 inclusive','tables':['purchase_geography_age15_74.csv','denominators_age15_74.csv'],'purpose':'align age range only with IKT;not harmonised goods list,reference period,design or completed delivery'}
     (HERE/'sources_and_methods.json').write_text(json.dumps(metadata,ensure_ascii=False,indent=2)+'\n')
     print(pd.DataFrame(denom).to_string(index=False))
