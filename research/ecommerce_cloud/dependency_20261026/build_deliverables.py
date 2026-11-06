@@ -156,7 +156,7 @@ def notebook():
 
 def pdf(documents=None, filename='Dependency_and_Russian_Centres_20261026.pdf',
         footer_text='Посредничество центра и маркетплейсы · 26 октября 2026',
-        title='Посредническая роль средних центров и маркетплейсы'):
+        title='Посредническая роль средних центров и маркетплейсы', link_base_url=None):
     from markdown_it import MarkdownIt
     from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
     from reportlab.lib.styles import ParagraphStyle
@@ -183,7 +183,7 @@ def pdf(documents=None, filename='Dependency_and_Russian_Centres_20261026.pdf',
             elif t.type=='link_open':
                 url=t.attrGet('href')
                 if not url.startswith(('http://','https://')):
-                    url='https://github.com/ZakBu/russian-settlements-research/blob/codex/ecommerce-settlement-cloud-20261025/research/ecommerce_cloud/dependency_20261026/'+url
+                    url=(link_base_url or 'https://github.com/ZakBu/russian-settlements-research/blob/codex/ecommerce-settlement-cloud-20261025/research/ecommerce_cloud/dependency_20261026/')+url
                 chunks.append('<a href="'+escape(url,quote=True)+'" color="#245c82">')
             elif t.type=='link_close':chunks.append('</a>')
         return ''.join(chunks)
