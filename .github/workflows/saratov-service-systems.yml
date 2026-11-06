@@ -1,0 +1,32 @@
+name: Saratov documented service systems
+on:
+  push:
+    branches: [research/saratov-service-systems-20261106]
+    paths: [.github/workflows/saratov-service-systems.yml]
+permissions:
+  contents: write
+jobs:
+  calculate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - run: pip install numpy==2.3.5 pandas==2.2.3 pyarrow==26.0.0 shapely==2.1.2 pyproj==3.7.2 scipy==1.17.0
+      - name: Check fixed memberships, unknown functions and geographic completeness
+        run: python -m unittest tests.test_sgrt_saratov_system_structure tests.test_sgrt_saratov_system_economy -v
+      - name: Recompute the focused systems and publish immutable data
+        run: python -m scripts.sgrt_saratov.cloud_service_systems --work "$RUNNER_TEMP/saratov-service-systems"
+      - name: Save actual published science and public file checksums
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research_context/analysis_snapshots/saratov_service_systems_20261106.json research_context/analysis_snapshots/saratov_service_systems_manifest_20261106.json
+          git commit -m 'Save published documented service-system calculation and immutable manifest'
+          git push origin HEAD:research/saratov-service-systems-20261106

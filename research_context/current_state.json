@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.research_state.v2",
-  "updated_moscow": "2026-11-04T01:16:57+03:00",
+  "updated_moscow": "2026-11-06T18:27:28+03:00",
   "parts": {
     "population_base": {
       "status": "ready",
@@ -9,8 +9,8 @@
       "data_release": "sgrt-census-population-20261022-v1"
     },
     "sgrt": {
-      "status": "saratov_domestic_route_subset_verified_service_choice_margins_assessed",
-      "summary": "После исключения исходных дорог вне контура России подтверждены прежние стоимости 29 803 из 103 740 рассмотренных пар НП; 570 исходных пунктов (536 жилых), 180 кандидатов-направлений хотя бы с одним точным путём. Все шесть путей трёх школьных расхождений сохранили время. Разница между первыми двумя физическими поставщиками мала для части пунктов. Это не новое число центров и не установленная иерархия.",
+      "status": "documented_school_and_medical_systems_structured_and_independently_compared",
+      "summary": "Получены девять школьных и десять медицинских окружений с внешними жилыми НП по документам 2025 года. Внутри рассчитаны 16 функций, локальные подцентры и внешние направления; независимая медицинская проверка совпала в 23 из 28 отношений при неизменённом каталоге. Географически и переписно полные пары 2002–2021 доступны для пяти школьных и шести медицинских составов: убыль ядра и окружения. Общая иерархия и поездки не установлены. Отдельная уже доступная первичная выписка 2010 даёт трёхточечные ряды с первичными числами пяти школьным и трём медицинским составам; у окружения Кожевино меняется описание динамики. Историческая сопоставимость охвата не доказана.",
       "doc": "sgrt/README.md",
       "design": "sgrt/MODEL_DESIGN.md",
       "main_blocker": "Неполное предложение сельских магазинов и школ, неизвестная вместимость и доступ отдельных профилей; мало независимых направленных поездок. Первичные числа 2010 года найдены, но сопоставимость контингентов и границ остаётся отдельным ограничением.",
@@ -148,7 +148,7 @@
         "method": "sgrt/saratov/REGIONAL_METHOD_20261029.md",
         "scope": "Весь текущий переписной состав области, 1821 запись; 1814 имеют принятую дорожную привязку.",
         "preferred_inventory": "physical_official_enrichment",
-        "status": "partial_domestic_paths_verified_physical_provider_eligibility_and_independent_links_pending",
+        "status": "documented_functional_compositions_and_internal_structure_available_common_hierarchy_pending",
         "higher_levels": "Прямые направления редких функций рассчитаны для самих базовых центров. Число уровней и единственная вложенная иерархия не назначены и наблюдениями не установлены."
       },
       "previous_national_publication": {
@@ -1131,6 +1131,58 @@
           "grocery": 9.7496798644
         },
         "scope": "NP-point costs, not physical school entrances or observed journeys; matching unrestricted lower bound and domestic feasible upper bound proves optimality."
+      },
+      "documented_service_systems_20261106": {
+        "release": "sgrt-saratov-service-systems-20261106-v1",
+        "source_commit": "f2afb242230e4f240893a6e6ac3e0e632a527c26",
+        "report": "web/content/materials/saratov-local-service-systems.json",
+        "method": "sgrt/saratov/SERVICE_SYSTEMS_20261106.md",
+        "actual_summary": "research_context/analysis_snapshots/saratov_service_systems_20261106.json",
+        "school_sites": 12,
+        "school_frameworks_with_external_inhabited_np": 9,
+        "school_accepted_np": 39,
+        "school_inhabited_np": 32,
+        "school_zero_population_np": 7,
+        "medical_frameworks": 10,
+        "medical_external_inhabited_relations": 28,
+        "medical_v2_matches": 23,
+        "medical_v2_mismatches": 5,
+        "medical_basic_matches": 9,
+        "medical_basic_compared": 10,
+        "medical_physician_matches": 14,
+        "medical_physician_compared": 18,
+        "new_medical_document_injected_into_v2_catalogue_before_validation": false,
+        "full_documented_strict_demography_2002_2021": {
+          "school": 5,
+          "medical": 6,
+          "joint_type": "decline__decline"
+        },
+        "geographically_incomplete_documented_core_names": [
+          "Новотулка",
+          "Барнуковка",
+          "Пригородный",
+          "Озерки"
+        ],
+        "overlapping_memberships_allowed": true,
+        "universal_zero_level_hierarchy_established": false,
+        "foundation_2010_primary_three_census_complete_series": 0,
+        "primary2010_companion": {
+          "release": "sgrt-saratov-service-systems-primary2010-20261106-v1",
+          "actual_summary": "research_context/analysis_snapshots/saratov_service_systems_primary2010_20261106.json",
+          "full_document_geography_with_three_primary_numeric_observations": {
+            "school": 5,
+            "medical": 3
+          },
+          "accepted_trajectory_changes_on_comparable_full_documents": {
+            "school_changed": 0,
+            "school_compared": 5,
+            "medical_changed": 1,
+            "medical_compared": 6
+          },
+          "changed_case": "Кожевино — Якобьевка: 44/44/16 becomes 44/42/16 in the separate 2010 evidence scenario",
+          "original_population_foundation_modified": false,
+          "historical_scope_or_boundary_equivalence_established": false
+        }
       }
     },
     "portal": {
@@ -1199,7 +1251,7 @@
     }
   },
   "next_steps": [
-    "Расширить проверку путей внутри России до физических поставщиков, сохраняя точные стоимости, верхние оценки и неизвестное раздельно. Для трёх школьных расхождений проверить ступени, приём и подвоз; малые различия между альтернативами не превращать в жёсткие границы или новый порог центров.",
+    "Объяснить пять медицинских расхождений при уже известном нужном предложении документных ядер; проверить расписания и пригодность услуг. Восполнять сельскую торговлю и изучать пересечения школьных и медицинских составов, не расширяя их транзитивно за редкими услугами.",
     "Проверять модель по независимым школьным, медицинским и трудовым направлениям, фактической работе и вместимости объектов; не подменять наблюдённые поездки модельными.",
     "Проверять конкретные школьные и медицинские направления, сельские магазины и действующие профили учреждений. Отсутствие объекта в OSM не считать отсутствием функции.",
     "Сопоставлять прямые связи редких функций и труда с независимыми наблюдениями; эмпирически проверять более широкие системы без заранее заданных рангов и единственной вершины.",
@@ -1233,7 +1285,8 @@
     "Переписные субъектовые доли, в том числе по Москве и Петербургу, не дают НП—НП матрицу. Работники организаций без малого бизнеса и все занятые жители являются разными статистическими совокупностями.",
     "Классы объёма работников, населения и медицинских адресов не измеряют разнообразие функций, вместимость учреждений или пространственный уровень. Полная многоуровневая система пока не установлена.",
     "Краснодарские изохроны — автомобильная модель по дорогам 29.10.2026, не наблюдаемые поездки. Пробки, поворотные ограничения и общественный транспорт не измерены; критерий 15% занятых и бюджетный оптимум не рассчитаны.",
-    "Внутренние пути подтверждены для 29 803 пар точек НП в сохранённом дорожном окне; 73 521 пара не разрешена и 416 имеют только верхнюю оценку. Это не изоляция; все физические поставщики и национальная сеть не пересчитаны."
+    "Внутренние пути подтверждены для 29 803 пар точек НП в сохранённом дорожном окне; 73 521 пара не разрешена и 416 имеют только верхнюю оценку. Это не изоляция; все физические поставщики и национальная сеть не пересчитаны.",
+    "Документированные школьные и медицинские составы 2025 относятся к разным функциям. Новотулка, Барнуковка, Пригородный и Озерки географически неполны. В основном варианте 2010 полностью первичных трёхпереписных рядов нет; отдельная первичная выписка даёт пять школьных и три медицинских численных ряда без доказательства равных исторических территорий; универсальные СГРТ и наблюдённые поездки не установлены."
   ],
   "entrypoints": {
     "rules": "AGENTS.md",
@@ -1272,6 +1325,7 @@
     "current_upper_research_catalog": "data/upper_research_catalog_20261027.json",
     "current_upper_research": "https://zakbu.github.io/russian-settlements-research/materials/currenteconomic-cooperation-evidence/",
     "krasnodar_agglomeration": "research_context/krasnodar_agglomeration/README.md",
-    "krasnodar_access": "research_context/krasnodar_agglomeration/access/README.md"
+    "krasnodar_access": "research_context/krasnodar_agglomeration/access/README.md",
+    "current_documented_local_systems": "https://zakbu.github.io/russian-settlements-research/materials/saratov-local-service-systems/"
   }
 }

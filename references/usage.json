@@ -1,6 +1,6 @@
 {
   "schema": "sgrt.literature_usage.v1",
-  "updated": "2026-11-04",
+  "updated": "2026-11-06",
   "rules": [
     "Each new substantive methodological claim must cite a source ID or be marked as our own proposal.",
     "Code implementation claims require a concrete file/function and validation; empty implementation_paths means no implementation is certified by this map.",
@@ -201,9 +201,10 @@
         "sgrt/zero/CENTRE_SYSTEMS_20261025.md",
         "web/content/materials/literature-foundations.json",
         "web/content/materials/literature-accessibility-models.json",
-        "web/content/materials/literature-bibliography.json"
+        "web/content/materials/literature-bibliography.json",
+        "sgrt/saratov/SERVICE_SYSTEMS_20261106.md"
       ],
-      "purpose": "Separate hierarchy of functions from hierarchy of cities; sector results differ.",
+      "purpose": "Separate hierarchy of functions from hierarchy of cities; sector results differ. Продолжение: разные функциональные составы не склеиваются транзитивно; ближайший поставщик не приравнивается наблюдённому выбору. Порог трудовых поездок не перенесён на услуги.",
       "implementation_status": "conceptual_method_and_literature_basis; not proof of new calibrated nationwide implementation",
       "implementation_paths": [],
       "reading_scope_field": "references/sources.json records[id=MEIJERS2007_NETWORK].read_scope",
@@ -792,9 +793,10 @@
       "used_in": [
         "sgrt/zero/LITERATURE_AND_LIMITS.md",
         "web/content/materials/literature-accessibility-models.json",
-        "web/content/materials/literature-bibliography.json"
+        "web/content/materials/literature-bibliography.json",
+        "sgrt/saratov/SERVICE_SYSTEMS_20261106.md"
       ],
-      "purpose": "15% denominator employed residents; one-time polycentric-city merging; contiguity and exclaves; service accessibility not observed commuter flow.",
+      "purpose": "15% denominator employed residents; one-time polycentric-city merging; contiguity and exclaves; service accessibility not observed commuter flow. Продолжение: разные функциональные составы не склеиваются транзитивно; ближайший поставщик не приравнивается наблюдённому выбору. Порог трудовых поездок не перенесён на услуги.",
       "implementation_paths": [
         "scripts/sgrt_zero/logic_checks.py",
         "sgrt/zero/LITERATURE_AND_LIMITS.md"
@@ -1574,9 +1576,10 @@
       "source_id": "REVIEW_PMC3112377",
       "used_in": [
         "web/content/materials/literature-service-evidence.json",
-        "web/content/materials/literature-bibliography.json"
+        "web/content/materials/literature-bibliography.json",
+        "sgrt/saratov/SERVICE_SYSTEMS_20261106.md"
       ],
-      "purpose": "Оставлять альтернативных торговых поставщиков и проверять приграничные объекты; ближайший продовольственный магазин — базовый сценарий доступности, а не доказанный поток покупателей.",
+      "purpose": "Оставлять альтернативных торговых поставщиков и проверять приграничные объекты; ближайший продовольственный магазин — базовый сценарий доступности, а не доказанный поток покупателей. Продолжение: разные функциональные составы не склеиваются транзитивно; ближайший поставщик не приравнивается наблюдённому выбору. Порог трудовых поездок не перенесён на услуги.",
       "implementation_status": "literature_review_only; no implementation or transferred coefficients asserted",
       "implementation_paths": [],
       "reading_scope_field": "references/sources.json records[id=REVIEW_PMC3112377].read_scope"
@@ -1824,13 +1827,16 @@
       "source_id": "SARATOVSTAT2012_CENSUS2010_NP_POPULATION",
       "used_in": [
         "sgrt/saratov/REGIONAL_RESULTS_20261029.md",
-        "sgrt/saratov/REGIONAL_CONTEXT_20261028.md"
+        "sgrt/saratov/REGIONAL_CONTEXT_20261028.md",
+        "scripts/sgrt_saratov/system_primary2010.py",
+        "web/content/materials/saratov-local-service-systems.json"
       ],
-      "purpose": "Первичные численные наблюдения 2010 года и чувствительность динамической типологии при неизменном составе центров и окружений. Сопоставимость контингентов и границ остаётся отдельным ограничением.",
+      "purpose": "Первичные численные наблюдения 2010 года и чувствительность динамической типологии при неизменном составе центров и окружений. Сопоставимость контингентов и границ остаётся отдельным ограничением. Новое применение к 22 неизменным документированным составам: различаются доступность первичных чисел, смена сравнимой траектории и недоказанная сопоставимость исторического охвата. База и первый выпуск местных систем не переписаны.",
       "implementation_status": "implemented_separate_derived_primary2010_scenario_foundation_not_rewritten",
       "implementation_paths": [
         "scripts/sgrt_saratov/primary_census2010.py",
-        "scripts/sgrt_saratov/regional_context.py"
+        "scripts/sgrt_saratov/regional_context.py",
+        "scripts/sgrt_saratov/system_primary2010.py"
       ]
     },
     {
@@ -1924,6 +1930,70 @@
       "purpose": "Методическое ограничение: административное закрепление за организацией не принимается за доказанное место физического обучения или поездку к головной школе. В поставщиков и матрицу назначения данные этого приказа не добавлены.",
       "implementation_status": "methodological_scope_warning_not_route_or_supply_input",
       "implementation_paths": []
+    },
+    {
+      "source_id": "SARATOV_PRIMARY_CARE_PROGRAMME2025_353P",
+      "used_in": [
+        "sgrt/saratov/SERVICE_SYSTEMS_20261106.md",
+        "web/content/materials/saratov-local-service-systems.json"
+      ],
+      "purpose": "Новые поимённые территории врача и ФАПа, отдельная проверка неизменённого v2; планы, закрытия и противоречия сохранены отдельно.",
+      "implementation_status": "documented_composition_and_heldout_relation_validation",
+      "implementation_paths": [
+        "scripts/sgrt_saratov/system_structure.py"
+      ],
+      "reading_scope_field": "references/sources.json records[id=SARATOV_PRIMARY_CARE_PROGRAMME2025_353P].read_scope"
+    },
+    {
+      "source_id": "PITERSKAYA_RB_OUTREACH_INTERVIEW2022",
+      "used_in": [
+        "sgrt/saratov/SERVICE_SYSTEMS_20261106.md",
+        "web/content/materials/saratov-local-service-systems.json"
+      ],
+      "purpose": "Объясняющий механизм выездной помощи; не нынешнее расписание или матрица поездок.",
+      "implementation_status": "dated_context_not_numeric_flow_or_current_capacity_input",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=PITERSKAYA_RB_OUTREACH_INTERVIEW2022].read_scope"
+    },
+    {
+      "source_id": "NIVA_SENIOR_GRADES_NEWS20240129",
+      "used_in": [
+        "sgrt/saratov/SERVICE_SYSTEMS_20261106.md"
+      ],
+      "purpose": "Датированное свидетельство старших классов Нивы; не подтверждение программ 2025/26, поездок или совместимости каждого ребёнка.",
+      "implementation_status": "dated_context_not_numeric_flow_or_current_capacity_input",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=NIVA_SENIOR_GRADES_NEWS20240129].read_scope"
+    },
+    {
+      "source_id": "NIVA_COURT_20170720",
+      "used_in": [
+        "sgrt/saratov/SERVICE_SYSTEMS_20261106.md"
+      ],
+      "purpose": "Исторический контрпример догадке об исключительно младших классах; не современная программа.",
+      "implementation_status": "dated_context_not_numeric_flow_or_current_capacity_input",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=NIVA_COURT_20170720].read_scope"
+    },
+    {
+      "source_id": "NOVOTULKA_SCHOOL_PROGRAMMES2021",
+      "used_in": [
+        "sgrt/saratov/SERVICE_SYSTEMS_20261106.md"
+      ],
+      "purpose": "Подтверждение доступности исторических учебных планов трёх ступеней; таблица учеников не назначена текущей или автоматически относящейся к 2021 году.",
+      "implementation_status": "dated_context_not_numeric_flow_or_current_capacity_input",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=NOVOTULKA_SCHOOL_PROGRAMMES2021].read_scope"
+    },
+    {
+      "source_id": "ROSSETI_MIRONOVKA_FAP20240827",
+      "used_in": [
+        "sgrt/saratov/SERVICE_SYSTEMS_20261106.md"
+      ],
+      "purpose": "Факт инфраструктурного подключения; не доказательство врача, действующего штата или территории обслуживания.",
+      "implementation_status": "dated_context_not_numeric_flow_or_current_capacity_input",
+      "implementation_paths": [],
+      "reading_scope_field": "references/sources.json records[id=ROSSETI_MIRONOVKA_FAP20240827].read_scope"
     }
   ],
   "historical_comparative_claims": "references/comparative_claims.json"
