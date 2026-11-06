@@ -67,10 +67,10 @@
 
 Код: `scripts/sgrt_saratov/regional_structure.py`, `regional_controls.py`, `regional_validation.py`, `regional_explanation.py`. Последний модуль содержит отдельную функцию `run_basin_only`: она обновляет описания исправленных бассейнов без повторного расчёта прежних 72 сценариев.
 
-В рабочей среде результаты находятся в `/dev/shm/saratov-regional-20261106/results/`; временные пути ниже не являются обещанием постоянного хранения и должны сопровождаться версионированной публикацией данных:
+Результаты опубликованы в неизменяемом [выпуске данных](https://github.com/ZakBu/russian-settlements-research/releases/tag/sgrt-saratov-regional-structure-20261106-v1). ZIP 7,61 МБ содержит каталог `saratov-regional-structure/results/`; ниже приведены относительные пути внутри него. Версии и SHA-256 сохранены в `research_context/analysis_snapshots/saratov_regional_structure_manifest_20261106.json`. Повторение выполняет `python -m scripts.sgrt_saratov.cloud_regional_structure --work /путь/к/новому/каталогу --calculate-only`; оно получает только закреплённые входы и не публикует данные.
 
 - `full_radius/basin_membership.parquet`, `summary.json` — 18 основных сценариев и статусы всех поселений;
-- `full_radius_controls/paired_method_comparison.parquet`, `paired_document_summary.parquet` — сопоставление методов на совпадающем составе;
+- `full_radius_validation/paired_method_comparison.parquet`, `full_radius_validation/paired_document_summary.parquet` — сопоставление методов на совпадающем составе;
 - `explanation/np_explanation.parquet`, `regional_group_comparisons.parquet`, `municipal_context_comparison.parquet` — областной и хозяйственный анализ;
 - `explanation/population_worker_field_comparison.parquet` — сравнение полей населения и известной части работников;
 - `explanation_full_radius/population_basin_assignment_coverage.parquet` — охват всех 1 821 точек каждого сценария;
