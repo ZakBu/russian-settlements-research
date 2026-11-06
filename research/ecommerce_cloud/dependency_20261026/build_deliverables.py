@@ -183,7 +183,9 @@ def pdf(documents=None, filename='Dependency_and_Russian_Centres_20261026.pdf',
             elif t.type=='link_open':
                 url=t.attrGet('href')
                 if not url.startswith(('http://','https://')):
-                    url=(link_base_url or 'https://github.com/ZakBu/russian-settlements-research/blob/codex/ecommerce-settlement-cloud-20261025/research/ecommerce_cloud/dependency_20261026/')+url
+                    parent=Path(file).parent
+                    document_prefix='' if parent==Path('.') else parent.as_posix()+'/'
+                    url=(link_base_url or 'https://github.com/ZakBu/russian-settlements-research/blob/codex/ecommerce-settlement-cloud-20261025/research/ecommerce_cloud/dependency_20261026/')+document_prefix+url
                 chunks.append('<a href="'+escape(url,quote=True)+'" color="#245c82">')
             elif t.type=='link_close':chunks.append('</a>')
         return ''.join(chunks)
